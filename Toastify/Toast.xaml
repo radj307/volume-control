@@ -1,0 +1,39 @@
+﻿<Window x:Class="Toastify.Toast"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window1" Height="75" Width="300" WindowStyle="None" AllowsTransparency="True" Background="#00000000" ShowInTaskbar="False" Loaded="Window_Loaded" Opacity="0" Topmost="True">
+    <Border BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4" x:Name="border" >
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FFCFCFCF" Offset="0"/>
+                <GradientStop Color="#FFA4A4A4" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.BitmapEffect>
+            <DropShadowBitmapEffect Color="Black" Direction="320"
+                  ShadowDepth="10"
+                  Softness="0.5"
+                  Opacity="0.7"/>
+        </Border.BitmapEffect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="45" Height="45" Margin="15,0,0,0" Source="SpotifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" />
+                </Image.BitmapEffect>
+            </Image>
+            <Grid Grid.Column="2" Margin="0,15,0,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Name="Title1" Grid.Row="0" Foreground="White" FontSize="14"><TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="2" Softness="0.1" /></TextBlock.BitmapEffect>Body (feat. DJ Rush)</TextBlock>
+                <TextBlock Name="Title2" Grid.Row="1" Foreground="White"><TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" /></TextBlock.BitmapEffect>Si Begg</TextBlock>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
