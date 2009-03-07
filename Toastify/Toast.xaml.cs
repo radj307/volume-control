@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using System.Timers;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Toastify
 {
@@ -40,17 +41,10 @@ namespace Toastify
                 settings.Save(fullPathSettingsFile);
             }
             else
-                settings = SettingsXml.Open(fullPathSettingsFile);            
+                settings = SettingsXml.Open(fullPathSettingsFile);
 
-            //Init hotkeys
-            this.HotKeys = new List<Hotkey>();
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.Up, Action = SpotifyAction.PlayPause });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.Right, Action = SpotifyAction.NextTrack });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.Left, Action = SpotifyAction.PreviousTrack });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.Down, Action = SpotifyAction.Stop });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.PageUp, Action = SpotifyAction.VolumeUp });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.PageDown, Action = SpotifyAction.VolumeDown });
-            this.HotKeys.Add(new Hotkey { Ctrl = true, Alt = true, Key = Key.M, Action = SpotifyAction.Mute });
+            //Init toast(color settings)
+            InitToast();
 
             //Init tray icon
             trayIcon = new System.Windows.Forms.NotifyIcon();
@@ -71,6 +65,59 @@ namespace Toastify
             {
                 CheckTitle();
             };
+        }
+
+        private void InitToast()
+        {
+            const double MIN_WIDTH = 200.0;
+            const double MIN_HEIGHT = 65.0;
+
+            //If we find any invalid settings in the xml we skip it and use default.
+            //User notification of bad settings will be implemented with the settings dialog.
+
+            //This method is UGLY but we'll keep it until the settings dialog is implemented.
+
+
+            ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
+
+            ColorConverter cc = new ColorConverter();
+            if (!string.IsNullOrEmpty(settings.ToastBorderColor) && cc.IsValid(settings.ToastBorderColor))
+                ToastBorder.BorderBrush = new SolidColorBrush((Color)cc.ConvertFrom(settings.ToastBorderColor));
+
+            if (!string.IsNullOrEmpty(settings.ToastColorTop) && !string.IsNullOrEmpty(settings.ToastColorBottom) && cc.IsValid(settings.ToastColorTop) && cc.IsValid(settings.ToastColorBottom))
+            {
+                Color top = (Color)cc.ConvertFrom(settings.ToastColorTop);
+                Color botton = (Color)cc.ConvertFrom(settings.ToastColorBottom);
+
+                ToastBorder.Background = new LinearGradientBrush(top, botton, 90.0);
+            }
+
+            if (settings.ToastWidth >= MIN_WIDTH)
+                this.Width = settings.ToastWidth;
+            if (settings.ToastHeight >= MIN_HEIGHT)
+                this.Height = settings.ToastHeight;
+
+
+            if (!string.IsNullOrEmpty(settings.ToastBorderCornerRadious))
+            {
+                var culture = CultureInfo.CreateSpecificCulture("en-US");
+                string[] parts = settings.ToastBorderCornerRadious.Split(',');
+                if (parts.Length != 4)
+                    return;
+
+                double topleft, topright, bottomright, bottomleft;
+                if (!double.TryParse(parts[0], NumberStyles.Float, culture, out topleft))
+                    return;
+                if (!double.TryParse(parts[1], NumberStyles.Float, culture, out topright))
+                    return;
+                if (!double.TryParse(parts[2], NumberStyles.Float, culture, out bottomright))
+                    return;
+                if (!double.TryParse(parts[3], NumberStyles.Float, culture, out bottomleft))
+                    return;
+
+                //If we made it this far we have all the values needed.
+                ToastBorder.CornerRadius = new CornerRadius(topleft, topright, bottomright, bottomleft);
+            }
         }
 
         string previousTitle = string.Empty;
@@ -95,6 +142,9 @@ namespace Toastify
 
         private void FadeIn()
         {
+            if (settings.DisableToast)
+                return;
+
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
             this.Top = SystemParameters.PrimaryScreenHeight - this.Height - 70.0;
 
@@ -113,10 +163,14 @@ namespace Toastify
         KeyboardHook hook;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            watchTimer.Enabled = true;
+            if (!settings.DisableToast)
+                watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
 
-            hook = new KeyboardHook();
-            hook.KeyUp += new KeyboardHook.HookEventHandler(hook_KeyUp);
+            if (settings.GlobalHotKeys)
+            {
+                hook = new KeyboardHook();
+                hook.KeyUp += new KeyboardHook.HookEventHandler(hook_KeyUp);
+            }
         }
 
         private System.Windows.Input.Key ConvertKey(System.Windows.Forms.Keys key)
@@ -129,9 +183,6 @@ namespace Toastify
 
         void hook_KeyUp(object sender, HookEventArgs e)
         {
-            if (!settings.GlobalHotKeys)
-                return;
-
             string currentTrack = string.Empty;
             var key = ConvertKey(e.Key);
 
@@ -196,6 +247,11 @@ namespace Toastify
                     Title1.Text = "Mute On/Off";
                     Title2.Text = currentTrack;
                     FadeIn();
+                    break;
+                case SpotifyAction.ShowToast:
+                    FadeIn();
+                    break;
+                case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
             }
         }

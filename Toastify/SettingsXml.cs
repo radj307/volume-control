@@ -10,8 +10,16 @@ namespace Toastify
     public class SettingsXml
     {
         public bool GlobalHotKeys { get; set; }
-        public List<Hotkey> HotKeys { get; set; }
+        public bool DisableToast { get; set; }
         public int FadeOutTime { get; set; }
+        public string ToastColorTop { get; set; }
+        public string ToastColorBottom { get; set; }
+        public string ToastBorderColor { get; set; }
+        public double ToastBorderThickness { get; set; }
+        public string ToastBorderCornerRadious { get; set; }
+        public double ToastWidth { get; set; }
+        public double ToastHeight { get; set; }
+        public List<Hotkey> HotKeys { get; set; }
 
         internal static SettingsXml Defaul
         {
@@ -21,6 +29,14 @@ namespace Toastify
                 {
                     FadeOutTime = 2000,
                     GlobalHotKeys = true,
+                    DisableToast = false,
+                    ToastColorTop = "#FFCFCFCF",
+                    ToastColorBottom = "#FFA4A4A4",
+                    ToastBorderColor = "#FF292929",
+                    ToastBorderThickness = 1.0,
+                    ToastWidth = 300,
+                    ToastHeight = 75,
+                    ToastBorderCornerRadious = "4.0,4.0,4.0,4.0",
                     HotKeys = new List<Hotkey> 
                     {
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Up , Action= SpotifyAction.PlayPause },
@@ -30,6 +46,8 @@ namespace Toastify
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.M , Action= SpotifyAction.Mute },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageDown , Action= SpotifyAction.VolumeDown },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageUp , Action= SpotifyAction.VolumeUp },
+                        new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Space , Action= SpotifyAction.ShowToast },
+                        new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.S , Action= SpotifyAction.ShowSpotify }
                     }
                 };
             }

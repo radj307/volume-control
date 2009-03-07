@@ -37,7 +37,6 @@ namespace Toastify
                 return;
 
             var hotkey = new Hotkey();
-            hotkey.Win = ((Keyboard.Modifiers & ModifierKeys.Windows) == ModifierKeys.Windows);
             hotkey.Ctrl = ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control);
             hotkey.Alt = ((Keyboard.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt);
             hotkey.Shift = ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift);

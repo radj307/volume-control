@@ -151,14 +151,12 @@ namespace Toastify
         public bool Ctrl { get; set; }
         public bool Alt { get; set; }
         public bool Shift { get; set; }
-        public bool Win { get; set; }
         public Key Key { get; set; }
         public SpotifyAction Action { get; set; }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (this.Win) sb.Append("Win+");
             if (this.Ctrl) sb.Append("Ctrl+");
             if (this.Alt) sb.Append("Alt+");
             if (this.Shift) sb.Append("Shift+");
