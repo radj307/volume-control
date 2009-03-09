@@ -131,12 +131,12 @@ namespace Toastify
                     return;
 
                 if (parts.Length == 2)
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[1].Trim(); Title2.Text = parts[0].Trim(); });
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[1].Trim(); Title2.Text = parts[0].Trim(); }, System.Windows.Threading.DispatcherPriority.Normal);
                 else
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[0].Trim(); Title2.Text = ""; });
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[0].Trim(); Title2.Text = ""; }, System.Windows.Threading.DispatcherPriority.Normal);
 
                 previousTitle = currentTitle;
-                this.Dispatcher.Invoke((Action)delegate { FadeIn(); });
+                this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
             }
         }
 
