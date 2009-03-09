@@ -7,6 +7,7 @@ using System.IO;
 
 namespace Toastify
 {
+    [Serializable]
     public class SettingsXml
     {
         public bool GlobalHotKeys { get; set; }

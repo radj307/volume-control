@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
-using System.Timers;
-using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace Toastify
 {
@@ -38,10 +30,32 @@ namespace Toastify
             if (!System.IO.File.Exists(fullPathSettingsFile))
             {
                 settings = SettingsXml.Defaul;
-                settings.Save(fullPathSettingsFile);
+                try
+                {
+                    settings.Save(fullPathSettingsFile);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(@"Toastify was unable to create the settings file." + Environment.NewLine +
+                                     "Make sure the application is executed from a folder with write access." + Environment.NewLine +
+                                     Environment.NewLine + 
+                                     "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             else
-                settings = SettingsXml.Open(fullPathSettingsFile);
+            {
+                try
+                {
+                    settings = SettingsXml.Open(fullPathSettingsFile);
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
+                                     "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
+                                    Environment.NewLine + 
+                                    "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
 
             //Init toast(color settings)
             InitToast();
