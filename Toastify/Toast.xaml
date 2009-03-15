@@ -9,12 +9,6 @@
                 <GradientStop Color="#FFA4A4A4" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        <Border.BitmapEffect>
-            <DropShadowBitmapEffect Color="Black" Direction="320"
-                  ShadowDepth="10"
-                  Softness="0.5"
-                  Opacity="0.7"/>
-        </Border.BitmapEffect>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>

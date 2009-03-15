@@ -20,6 +20,9 @@ namespace Toastify
         public string ToastBorderCornerRadious { get; set; }
         public double ToastWidth { get; set; }
         public double ToastHeight { get; set; }
+        public double OffsetRight { get; set; }
+        public double OffsetBottom { get; set; }
+        public string ClipboardTemplate { get; set; }
         public List<Hotkey> HotKeys { get; set; }
 
         internal static SettingsXml Defaul
@@ -38,6 +41,9 @@ namespace Toastify
                     ToastWidth = 300,
                     ToastHeight = 75,
                     ToastBorderCornerRadious = "4.0,4.0,4.0,4.0",
+                    OffsetRight = 5.0,
+                    OffsetBottom = 5.0,
+                    ClipboardTemplate = "I'm currently listening to {0}",
                     HotKeys = new List<Hotkey> 
                     {
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Up , Action= SpotifyAction.PlayPause },
@@ -48,7 +54,8 @@ namespace Toastify
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageDown , Action= SpotifyAction.VolumeDown },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageUp , Action= SpotifyAction.VolumeUp },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Space , Action= SpotifyAction.ShowToast },
-                        new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.S , Action= SpotifyAction.ShowSpotify }
+                        new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.S , Action= SpotifyAction.ShowSpotify },
+                        new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.C , Action= SpotifyAction.CopyTrackInfo }
                     }
                 };
             }

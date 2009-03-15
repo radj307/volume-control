@@ -16,10 +16,10 @@ namespace Toastify
 
         Timer watchTimer;
         System.Windows.Forms.NotifyIcon trayIcon;
+        SettingsXml settings;
 
         internal List<Hotkey> HotKeys { get; set; }
 
-        SettingsXml settings;
         public Toast()
         {
             InitializeComponent();
@@ -140,18 +140,35 @@ namespace Toastify
             string currentTitle = Spotify.GetCurrentTrack();
             if (!string.IsNullOrEmpty(currentTitle) && currentTitle != previousTitle)
             {
-                string[] parts = currentTitle.Split('\u2013'); //Spotify uses an en dash to separate Artist and Title
-                if (parts.Length == 0)
-                    return;
-
-                if (parts.Length == 2)
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[1].Trim(); Title2.Text = parts[0].Trim(); }, System.Windows.Threading.DispatcherPriority.Normal);
-                else
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = parts[0].Trim(); Title2.Text = ""; }, System.Windows.Threading.DispatcherPriority.Normal);
+                string part1, part2;
+                if (SplitTitle(currentTitle, out part1, out part2))
+                {
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = part2; Title2.Text = part1; }, System.Windows.Threading.DispatcherPriority.Normal);
+                }
 
                 previousTitle = currentTitle;
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
             }
+        }
+
+        private bool SplitTitle(string title, out string part1, out string part2)
+        {
+            part1 = string.Empty;
+            part2 = string.Empty;
+
+            string[] parts = title.Split('\u2013'); //Spotify uses an en dash to separate Artist and Title
+            if (parts.Length < 1 || parts.Length > 2)
+                return false; //Invalid title
+
+            if (parts.Length == 1)
+                part2 = parts[0].Trim();
+            else if (parts.Length == 2)
+            {
+                part1 = parts[0].Trim();
+                part2 = parts[1].Trim();
+            }
+
+            return true;
         }
 
         private void FadeIn()
@@ -159,8 +176,11 @@ namespace Toastify
             if (settings.DisableToast)
                 return;
 
-            this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
-            this.Top = SystemParameters.PrimaryScreenHeight - this.Height - 70.0;
+            System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
+            workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
+
+            this.Left = workingArea.Right - this.ActualWidth - settings.OffsetRight;
+            this.Top = workingArea.Bottom - this.ActualHeight - settings.OffsetBottom;
 
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
             anim.Completed += (s, e) => { FadeOut(); };
@@ -204,9 +224,22 @@ namespace Toastify
             {
                 if (hotkey.Alt == e.Alt && hotkey.Ctrl == e.Control && hotkey.Shift == e.Shift && hotkey.Key == key)
                 {
-                    string trackBeforeAction = Spotify.GetCurrentTrack();
-                    Spotify.SendAction(hotkey.Action);
-                    DisplayAction(hotkey.Action, trackBeforeAction);
+                    try
+                    {
+                        string trackBeforeAction = Spotify.GetCurrentTrack();
+                        if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
+                            Clipboard.SetText(string.Format(settings.ClipboardTemplate, trackBeforeAction));
+                        else
+                            Spotify.SendAction(hotkey.Action);
+
+                        DisplayAction(hotkey.Action, trackBeforeAction);
+                    }
+                    catch (Exception)
+                    {
+                        Title1.Text = "Unable to communicate with Spotify";
+                        Title2.Text = "";
+                        FadeIn();
+                    }
                 }
             }
         }
@@ -215,6 +248,13 @@ namespace Toastify
         {
             //Anything that changes track doesn't need to be handled since
             //that will be handled in the timer event.
+
+            const string VOLUME_UP_TEXT = "Volume ++";
+            const string VOLUME_DOWN_TEXT = "Volume --";
+            const string MUTE_ON_OFF_TEXT = "Mute On/Off";
+            const string NOTHINGS_PLAYING = "Nothings playing";
+            const string PAUSED_TEXT = "Paused";
+            const string STOPPED_TEXT = "Stopped";
 
             if (!Spotify.IsAvailable())
             {
@@ -225,6 +265,10 @@ namespace Toastify
             }
 
             string currentTrack = Spotify.GetCurrentTrack();
+
+            string prevTitle1 = Title1.Text;
+            string prevTitle2 = Title2.Text;
+
             switch (action)
             {
                 case SpotifyAction.PlayPause:
@@ -248,21 +292,35 @@ namespace Toastify
                 case SpotifyAction.PreviousTrack:  //No need to handle
                     break;
                 case SpotifyAction.VolumeUp:
-                    Title1.Text = "Volume ++";
+                    Title1.Text = VOLUME_UP_TEXT;
                     Title2.Text = currentTrack;
                     FadeIn();
                     break;
                 case SpotifyAction.VolumeDown:
-                    Title1.Text = "Volume --";
+                    Title1.Text = VOLUME_DOWN_TEXT;
                     Title2.Text = currentTrack;
                     FadeIn();
                     break;
                 case SpotifyAction.Mute:
-                    Title1.Text = "Mute On/Off";
+                    Title1.Text = MUTE_ON_OFF_TEXT;
                     Title2.Text = currentTrack;
                     FadeIn();
                     break;
                 case SpotifyAction.ShowToast:
+                    if (string.IsNullOrEmpty(currentTrack) && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
+                    {
+                        Title1.Text = NOTHINGS_PLAYING;
+                        Title2.Text = string.Empty;
+                    }
+                    else if (Title1.Text == VOLUME_UP_TEXT || Title1.Text == VOLUME_DOWN_TEXT || Title1.Text == MUTE_ON_OFF_TEXT)
+                    {
+                        string part1, part2;
+                        if (SplitTitle(currentTrack, out part1, out part2))
+                        {
+                            Title1.Text = part2;
+                            Title2.Text = part1;
+                        }
+                    }
                     FadeIn();
                     break;
                 case SpotifyAction.ShowSpotify:  //No need to handle

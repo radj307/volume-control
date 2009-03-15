@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Toastify
 {
@@ -40,6 +41,7 @@ namespace Toastify
         None = 0,
         ShowToast = 1,
         ShowSpotify = 2,
+        CopyTrackInfo = 3,
         PlayPause = 917504,
         Mute = 524288,
         VolumeDown = 589824,
@@ -90,6 +92,7 @@ namespace Toastify
 
             switch (a)
             {
+                case SpotifyAction.CopyTrackInfo:
                 case SpotifyAction.ShowToast:
                     //Nothing
                     break;
