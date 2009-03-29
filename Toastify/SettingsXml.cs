@@ -24,6 +24,7 @@ namespace Toastify
         public double OffsetBottom { get; set; }
         public string ClipboardTemplate { get; set; }
         public List<Hotkey> HotKeys { get; set; }
+        public List<PluginDetails> Plugins { get; set; }
 
         internal static SettingsXml Defaul
         {
@@ -34,8 +35,8 @@ namespace Toastify
                     FadeOutTime = 2000,
                     GlobalHotKeys = true,
                     DisableToast = false,
-                    ToastColorTop = "#FFCFCFCF",
-                    ToastColorBottom = "#FFA4A4A4",
+                    ToastColorTop = "#FF999999",
+                    ToastColorBottom = "#FF353535",
                     ToastBorderColor = "#FF292929",
                     ToastBorderThickness = 1.0,
                     ToastWidth = 300,
@@ -56,7 +57,8 @@ namespace Toastify
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Space , Action= SpotifyAction.ShowToast },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.S , Action= SpotifyAction.ShowSpotify },
                         new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.C , Action= SpotifyAction.CopyTrackInfo }
-                    }
+                    },
+                    Plugins = new List<PluginDetails>()
                 };
             }
         }
@@ -82,5 +84,13 @@ namespace Toastify
                 return xml;
             }
         }
+    }
+
+    [Serializable]
+    public class PluginDetails
+    {
+        public string FileName { get; set; }
+        public string TypeName { get; set; }
+        public string Settings { get; set; }
     }
 }

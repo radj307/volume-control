@@ -19,6 +19,7 @@ namespace Toastify
         SettingsXml settings;
 
         internal List<Hotkey> HotKeys { get; set; }
+        internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
 
         public Toast()
         {
@@ -67,12 +68,16 @@ namespace Toastify
             trayIcon.Visible = true;
 
             //Init tray icon menu
+            System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
+            menuAbout.Text = "About Toastify...";
+            menuAbout.Click += (s, e) => { new About().ShowDialog(); };
             System.Windows.Forms.MenuItem menuExit = new System.Windows.Forms.MenuItem();
             menuExit.Text = "Exit";
             menuExit.Click += (s, e) => { this.Close(); };
             trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
+            trayIcon.ContextMenu.MenuItems.Add(menuAbout);
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
-            
+
             //Init watch timer
             watchTimer = new Timer(500);
             watchTimer.Elapsed += (s, e) =>
@@ -144,6 +149,18 @@ namespace Toastify
                 if (SplitTitle(currentTitle, out part1, out part2))
                 {
                     this.Dispatcher.Invoke((Action)delegate { Title1.Text = part2; Title2.Text = part1; }, System.Windows.Threading.DispatcherPriority.Normal);
+
+                    foreach (var p in this.Plugins)
+                    {
+                        try
+                        {
+                            p.TrackChanged(part1, part2);
+                        }
+                        catch (Exception)
+                        {
+                            //For now we swallow any plugin errors.
+                        }
+                    }
                 }
 
                 previousTitle = currentTitle;
@@ -197,6 +214,11 @@ namespace Toastify
         KeyboardHook hook;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Check if Spotify is running.
+            EnsureSpotify();
+
+            LoadPlugins();
+
             if (!settings.DisableToast)
                 watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
 
@@ -205,6 +227,95 @@ namespace Toastify
                 hook = new KeyboardHook();
                 hook.KeyUp += new KeyboardHook.HookEventHandler(hook_KeyUp);
             }
+
+            //Let the plugins now we're started.
+            foreach (var p in this.Plugins)
+            {
+                try
+                {
+                    p.Started();
+                }
+                catch (Exception)
+                {
+                    //For now we swallow any plugin errors.
+                }
+            }
+        }
+
+        private void LoadPlugins()
+        {
+            //Load plugins
+            this.Plugins = new List<Toastify.Plugin.PluginBase>();
+            string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
+
+            foreach (var p in settings.Plugins)
+            {
+                try
+                {
+                    var plugin = Activator.CreateInstanceFrom(System.IO.Path.Combine(applicationPath, p.FileName), p.TypeName).Unwrap() as Toastify.Plugin.PluginBase;
+                    plugin.Init(p.Settings);
+                    this.Plugins.Add(plugin);
+                }
+                catch (Exception)
+                {
+                    //For now we swallow any plugin errors.
+                }
+                Console.WriteLine("Loaded " + p.TypeName);
+            }
+        }
+
+        private void EnsureSpotify()
+        {
+            //Make sure Spotify is running when starting Toastify.
+            //If not ask the user and try to start it.
+
+            if (!Spotify.IsAvailable())
+            {
+                if (MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty).ToString();  //string.Empty = (Default) value
+
+                    if (string.IsNullOrEmpty(spotifyPath))
+                    {
+                        MessageBox.Show("Unable to find Spotify. Make sure it is installed and/or start it manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(System.IO.Path.Combine(spotifyPath, "Spotify.exe"));
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("An unknown error occurd when trying to start Spotify.\nPlease start Spotify manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            //Let the plugins now we're closing up.
+            foreach (var p in this.Plugins)
+            {
+                try
+                {
+                    p.Closing();
+                    p.Dispose();
+                }
+                catch (Exception)
+                {
+                    //For now we swallow any plugin errors.
+                }
+            }
+            this.Plugins.Clear();
+
+            //Ensure trayicon is removed on exit. (Thx Linus)
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
+            trayIcon = null;
+            base.OnClosing(e);
         }
 
         private System.Windows.Input.Key ConvertKey(System.Windows.Forms.Keys key)

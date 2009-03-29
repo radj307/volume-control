@@ -5,8 +5,8 @@
     <Border Name="ToastBorder" BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4" >
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#FFCFCFCF" Offset="0"/>
-                <GradientStop Color="#FFA4A4A4" Offset="1"/>
+                <GradientStop Color="#FF999999" Offset="0"/>
+                <GradientStop Color="#FF353535" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Width="45" Height="45" Margin="15,0,0,0" Source="SpotifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" />
                 </Image.BitmapEffect>
