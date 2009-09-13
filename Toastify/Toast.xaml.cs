@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Interop;
 
 namespace Toastify
 {
@@ -17,6 +18,7 @@ namespace Toastify
         Timer watchTimer;
         System.Windows.Forms.NotifyIcon trayIcon;
         SettingsXml settings;
+        string fullPathSettingsFile = "";
 
         internal List<Hotkey> HotKeys { get; set; }
         internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
@@ -26,7 +28,7 @@ namespace Toastify
             InitializeComponent();
 
             string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
-            string fullPathSettingsFile = System.IO.Path.Combine(applicationPath, SETTINGS_FILE);
+            fullPathSettingsFile = System.IO.Path.Combine(applicationPath, SETTINGS_FILE);
 
             if (!System.IO.File.Exists(fullPathSettingsFile))
             {
@@ -214,9 +216,11 @@ namespace Toastify
         KeyboardHook hook;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Remove from ALT+TAB
+            WinHelper.AddToolWindowStyle(this);
+
             //Check if Spotify is running.
             EnsureSpotify();
-
             LoadPlugins();
 
             if (!settings.DisableToast)
@@ -271,7 +275,7 @@ namespace Toastify
 
             if (!Spotify.IsAvailable())
             {
-                if (MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if ((settings.AlwaysStartSpotify.HasValue && settings.AlwaysStartSpotify.Value) || (MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 {
                     string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty).ToString();  //string.Empty = (Default) value
 
@@ -284,6 +288,13 @@ namespace Toastify
                         try
                         {
                             System.Diagnostics.Process.Start(System.IO.Path.Combine(spotifyPath, "Spotify.exe"));
+
+                            if (!settings.AlwaysStartSpotify.HasValue)
+                            {
+                                var ret = MessageBox.Show("Do you always want to start Spotify if it's not already running?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                settings.AlwaysStartSpotify = (ret == MessageBoxResult.Yes);
+                                settings.Save(fullPathSettingsFile);
+                            }
                         }
                         catch (Exception)
                         {

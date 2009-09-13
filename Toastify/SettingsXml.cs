@@ -12,6 +12,7 @@ namespace Toastify
     {
         public bool GlobalHotKeys { get; set; }
         public bool DisableToast { get; set; }
+        public bool? AlwaysStartSpotify { get; set; }
         public int FadeOutTime { get; set; }
         public string ToastColorTop { get; set; }
         public string ToastColorBottom { get; set; }
@@ -35,6 +36,7 @@ namespace Toastify
                     FadeOutTime = 2000,
                     GlobalHotKeys = true,
                     DisableToast = false,
+                    AlwaysStartSpotify = null,
                     ToastColorTop = "#FF999999",
                     ToastColorBottom = "#FF353535",
                     ToastBorderColor = "#FF292929",
