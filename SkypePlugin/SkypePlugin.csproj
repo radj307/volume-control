@@ -55,6 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Readme.txt" />
     <Content Include="Skype4COM.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
