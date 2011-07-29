@@ -102,7 +102,7 @@ namespace Toastify
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
             //Init watch timer
-            watchTimer = new Timer(500);
+            watchTimer = new Timer(1000);
             watchTimer.Elapsed += (s, e) =>
             {
                 CheckTitle();
@@ -151,6 +151,11 @@ namespace Toastify
             if (!string.IsNullOrEmpty(currentTitle) && currentTitle != previousTitle)
             {
                 string part1, part2;
+
+                // set the previous title asap so that the next timer call to this function will
+                // fail fast (setting it at the end may cause multiple web requests)
+                previousTitle = currentTitle;
+
                 if (SplitTitle(currentTitle, out part1, out part2))
                 {
                     this.Dispatcher.Invoke((Action)delegate { Title1.Text = part2; Title2.Text = part1; }, System.Windows.Threading.DispatcherPriority.Normal);
@@ -189,7 +194,6 @@ namespace Toastify
                     coverUrl = "SpotifyToastifyLogo.png";
                 }
 
-                previousTitle = currentTitle;
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
             }
         }
