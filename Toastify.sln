@@ -1,21 +1,21 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify", "Toastify\Toastify.csproj", "{CCC4A761-56D2-4188-807F-F7A547DFB031}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginBase", "PluginBase\PluginBase.csproj", "{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{64E51A59-02A2-4423-8DE1-F337D479E3B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkypePlugin", "SkypePlugin\SkypePlugin.csproj", "{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installation", "{FCD4BE87-8354-47A1-85DE-709E35559000}"
 	ProjectSection(SolutionItems) = preProject
 		InstallationScript\DotNET.nsh = InstallationScript\DotNET.nsh
 		InstallationScript\Install.nsi = InstallationScript\Install.nsi
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify", "Toastify\Toastify.csproj", "{CCC4A761-56D2-4188-807F-F7A547DFB031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginBase", "PluginBase\PluginBase.csproj", "{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkypePlugin", "SkypePlugin\SkypePlugin.csproj", "{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
