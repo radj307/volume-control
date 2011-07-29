@@ -84,21 +84,27 @@ namespace Toastify
             trayIcon.Text = "Toastify";
             trayIcon.Visible = true;
 
-            //Init tray icon menu
-            System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
-            menuAbout.Text = "About Toastify...";
-            menuAbout.Click += (s, e) => { new About().ShowDialog(); };
+            trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
 
+            //Init tray icon menu
             System.Windows.Forms.MenuItem menuSettings = new System.Windows.Forms.MenuItem();
             menuSettings.Text = "Settings";
             menuSettings.Click += (s, e) => { new Settings(settings, this).ShowDialog(); };
 
+            trayIcon.ContextMenu.MenuItems.Add(menuSettings);
+            
+            System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
+            menuAbout.Text = "About Toastify...";
+            menuAbout.Click += (s, e) => { new About().ShowDialog(); };
+
+            trayIcon.ContextMenu.MenuItems.Add(menuAbout);
+
+            trayIcon.ContextMenu.MenuItems.Add("-");
+
             System.Windows.Forms.MenuItem menuExit = new System.Windows.Forms.MenuItem();
             menuExit.Text = "Exit";
-            menuExit.Click += (s, e) => { this.Close(); };
-            trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
-            trayIcon.ContextMenu.MenuItems.Add(menuAbout);
-            trayIcon.ContextMenu.MenuItems.Add(menuSettings);
+            menuExit.Click += (s, e) => { Application.Current.Shutdown(); }; //this.Close(); };
+
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
             //Init watch timer
