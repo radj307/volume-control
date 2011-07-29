@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="LogoToast" Stretch="Fill" Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" />
                 </Image.BitmapEffect>

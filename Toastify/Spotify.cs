@@ -42,6 +42,7 @@ namespace Toastify
         ShowToast = 1,
         ShowSpotify = 2,
         CopyTrackInfo = 3,
+        SettingsSaved = 4,
         PlayPause = 917504,
         Mute = 524288,
         VolumeDown = 589824,
@@ -49,6 +50,19 @@ namespace Toastify
         Stop = 851968,
         PreviousTrack = 786432,
         NextTrack = 720896
+    }
+
+    class Song
+    {
+        public string Artist { get; set; }
+        public string Title { get; set; }
+
+        public override string ToString()
+        {
+            if (Artist == null)
+                return Title;
+            return string.Format("{0} - {1}", Artist, Title);
+        }
     }
 
     class Spotify
@@ -74,6 +88,28 @@ namespace Toastify
             Win32.GetWindowText(hWnd, sb, sb.Capacity);
             return sb.ToString().Replace("Spotify", "").TrimStart(' ', '-').Trim();
         }
+
+        public static Song GetCurrentSong()
+        {
+            string title = GetCurrentTrack();
+
+            string[] parts = title.Split('\u2013'); //Spotify uses an en dash to separate Artist and Title
+            if (parts.Length < 1 || parts.Length > 2)
+                return null;
+
+            if (parts.Length == 1)
+                return new Song { Title = parts[0].Trim() };
+            else
+            {
+                return new Song
+                {
+                    Artist = parts[0].Trim(),
+                    Title = parts[1].Trim()
+                };
+            }
+        }
+
+        public static string CurrentCoverImageUrl { get; set; }
 
         private static void ShowSpotify()
         {

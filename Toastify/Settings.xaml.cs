@@ -9,41 +9,255 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Windows.Forms;
+using System.Globalization;
 
 namespace Toastify
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Logique d'interaction pour Window1.xaml
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings()
+        public SettingsXml settings;
+        private Toast toast;
+        private string ToastifyConfigFile = "Toastify.xml";
+
+        private List<System.Windows.Input.Key> modifierKeys = new List<System.Windows.Input.Key> { System.Windows.Input.Key.LeftCtrl, System.Windows.Input.Key.RightCtrl, System.Windows.Input.Key.LeftAlt, System.Windows.Input.Key.Right, System.Windows.Input.Key.LeftShift, System.Windows.Input.Key.RightShift, System.Windows.Input.Key.LWin, System.Windows.Input.Key.RWin, System.Windows.Input.Key.System };
+
+        public Settings(SettingsXml sets, Toast toas)
         {
+            settings = sets;
+            this.toast = toas;
+
             InitializeComponent();
+
+            //Data context initialisation
+            GeneralGrid.DataContext = settings;
+
+            //Slider initialisation
+            slTopColor.Value = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+            slBottomColor.Value = byte.Parse(settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+            slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
         }
 
-        List<Key> modifierKeys = new List<Key> { Key.LeftCtrl, Key.RightCtrl, Key.LeftAlt, Key.Right, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin, Key.System };
-        private void TextHotKey_KeyDown(object sender, KeyEventArgs e)
+        //Change Color button click events
+        private void bChangeColorTop_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            var tb = sender as TextBox;
-            tb.Text = string.Empty;
-            tb.Tag = null;
+            ColorDialog MyDialog = new ColorDialog();
+            string alpha = settings.ToastColorTop.Substring(1, 2);
+            MyDialog.Color = HexToColor(settings.ToastColorTop);
+            MyDialog.ShowDialog();
+            settings.ToastColorTop = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
+        }
 
-            if (modifierKeys.Contains(e.Key))
-                return;
-            if (Keyboard.Modifiers == ModifierKeys.None)
-                return;
+        private void bChangeColorBottom_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            string alpha = settings.ToastColorBottom.Substring(1, 2);
+            MyDialog.Color = HexToColor(settings.ToastColorBottom);
+            MyDialog.ShowDialog();
+            settings.ToastColorBottom = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
+        }
 
-            var hotkey = new Hotkey();
-            hotkey.Ctrl = ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control);
-            hotkey.Alt = ((Keyboard.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt);
-            hotkey.Shift = ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift);
-            hotkey.Key = e.Key;
+        private void bChangeBorderColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            string alpha = settings.ToastBorderColor.Substring(1, 2);
+            MyDialog.Color = HexToColor(settings.ToastBorderColor);
+            MyDialog.ShowDialog();
+            settings.ToastBorderColor = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
+        }
 
-            tb.Text = hotkey.ToString();
-            tb.Tag = hotkey;
+        //Default and Save blick events
+        private void bDefault_Click(object sender, RoutedEventArgs e)
+        {
+            settings.Defaul();
+            settings.Save(ToastifyConfigFile);
+
+            toast.ReadXml();
+            toast.InitToast();
+            toast.DisplayAction(SpotifyAction.SettingsSaved, "");
+        }
+
+        private void bSave_Click(object sender, RoutedEventArgs e)
+        {
+            settings.Save(ToastifyConfigFile);
+            toast.ReadXml();
+            toast.InitToast();
+            toast.DisplayAction(SpotifyAction.SettingsSaved, "");
+        }
+
+        //Text box Mouse Wheel events 
+        private void tbCornerTopLeft_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                settings.ToastBorderCornerRadiousTopLeft += 0.1;
+            }
+            else if (settings.ToastBorderCornerRadiousTopLeft >= 0.1)
+                settings.ToastBorderCornerRadiousTopLeft -= 0.1;
+        }
+
+        private void tbCornerTopRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastBorderCornerRadiousTopRight += 0.1;
+            else if (settings.ToastBorderCornerRadiousTopLeft >= 0.1)
+                settings.ToastBorderCornerRadiousTopRight -= 0.1;
+        }
+
+        private void tbCornerBottomRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastBorderCornerRadiousBottomRight += 0.1;
+            else if (settings.ToastBorderCornerRadiousBottomRight >= 0.1)
+                settings.ToastBorderCornerRadiousBottomRight -= 0.1;
+        }
+
+        private void tbCornerBottomLeft_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastBorderCornerRadiousBottomLeft += 0.1;
+            else if (settings.ToastBorderCornerRadiousBottomLeft >= 0.1)
+                settings.ToastBorderCornerRadiousBottomLeft -= 0.1;
+        }
+
+        private void tbFadeOutTime_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.FadeOutTime += 10;
+            else if (settings.FadeOutTime >= 10)
+                settings.FadeOutTime -= 10;
+        }
+
+        private void tbBorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastBorderThickness++;
+            else if (settings.ToastBorderThickness >= 1)
+                settings.ToastBorderThickness--;
+        }
+
+        private void tbToastWidth_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastWidth += 5;
+            else if (settings.ToastWidth >= 205)
+                settings.ToastWidth -= 5;
+        }
+
+        private void tbToastHeight_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.ToastHeight += 5;
+            else if (settings.ToastHeight >= 70)
+                settings.ToastHeight -= 5;
+        }
+
+        private void tbOffsetRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.OffsetRight++;
+            else if (settings.OffsetRight > 0)
+                settings.OffsetRight--;
+        }
+
+        private void tbOffsetBottom_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                settings.OffsetBottom++;
+            else if (settings.OffsetBottom > 0)
+                settings.OffsetBottom--;
+        }
+
+        private void cbDisableToast_Checked(object sender, RoutedEventArgs e)
+        {
+            toggleToastSettings(false);
+        }
+
+        private void cbDisableToast_Unchecked(object sender, RoutedEventArgs e)
+        {
+            toggleToastSettings(true);
+        }
+
+        //Slider value changed events
+        private void slTopColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string transparency = Convert.ToByte(slTopColor.Value).ToString("X2");
+            settings.ToastColorTop = "#" + transparency + settings.ToastColorTop.Substring(3);
+        }
+
+        private void slBottomColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string transparency = Convert.ToByte(slBottomColor.Value).ToString("X2");
+            settings.ToastColorBottom = "#" + transparency + settings.ToastColorBottom.Substring(3);
+        }
+
+        private void slBorderColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string transparency = Convert.ToByte(slBorderColor.Value).ToString("X2");
+            settings.ToastBorderColor = "#" + transparency + settings.ToastBorderColor.Substring(3);
+        }
+
+        // Toggle Hotkeys datagrid
+        private void cbHotkeys_Checked(object sender, RoutedEventArgs e)
+        {
+            dgHotKeys.Visibility = Visibility.Visible;
+        }
+
+        private void cbHotkeys_Unchecked(object sender, RoutedEventArgs e)
+        {
+            dgHotKeys.Visibility = Visibility.Hidden;
+        }
+
+        // Toggle toast settings modification
+        private void toggleToastSettings(bool enable)
+        {
+            tbBorderThickness.IsEnabled = enable;
+            tbColorBottom.IsEnabled = enable;
+            tbColorTop.IsEnabled = enable;
+            tbBorderColor.IsEnabled = enable;
+            tbCornerBottomLeft.IsEnabled = enable;
+            tbCornerBottomRight.IsEnabled = enable;
+            tbCornerTopLeft.IsEnabled = enable;
+            tbCornerTopRight.IsEnabled = enable;
+            tbFadeOutTime.IsEnabled = enable;
+            tbOffsetBottom.IsEnabled = enable;
+            tbOffsetRight.IsEnabled = enable;
+            tbToastHeight.IsEnabled = enable;
+            tbToastWidth.IsEnabled = enable;
+
+            bChangeBorderColor.IsEnabled = enable;
+            bChangeColorBottom.IsEnabled = enable;
+            bChangeColorTop.IsEnabled = enable;
+        }
+
+        // Hexadecimal to Color converter
+        public static System.Drawing.Color HexToColor(string hexColor)
+        {
+            //Remove # if present
+            if (hexColor.IndexOf('#') != -1)
+                hexColor = hexColor.Replace("#", "");
+
+            byte alpha = 0;
+            byte red = 0;
+            byte green = 0;
+            byte blue = 0;
+
+            if (hexColor.Length == 8)
+            {
+                //#RRGGBB
+                alpha = byte.Parse(hexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier);
+                red = byte.Parse(hexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier);
+                green = byte.Parse(hexColor.Substring(4, 2), NumberStyles.AllowHexSpecifier);
+                blue = byte.Parse(hexColor.Substring(6, 2), NumberStyles.AllowHexSpecifier);
+            }
+
+            return System.Drawing.Color.FromArgb(alpha, red, green, blue);
         }
     }
 }

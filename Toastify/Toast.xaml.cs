@@ -8,6 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using System.Net;
+using System.IO;
+using System.Xml.XPath;
+using System.Xml;
 
 namespace Toastify
 {
@@ -20,19 +25,21 @@ namespace Toastify
         SettingsXml settings;
         string fullPathSettingsFile = "";
 
+        string coverUrl = "";
+        BitmapImage cover;
+
         internal List<Hotkey> HotKeys { get; set; }
         internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
 
-        public Toast()
+        public void ReadXml()
         {
-            InitializeComponent();
-
             string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
             fullPathSettingsFile = System.IO.Path.Combine(applicationPath, SETTINGS_FILE);
 
             if (!System.IO.File.Exists(fullPathSettingsFile))
             {
-                settings = SettingsXml.Defaul;
+                settings = new SettingsXml();
+                settings.Defaul();
                 try
                 {
                     settings.Save(fullPathSettingsFile);
@@ -41,7 +48,7 @@ namespace Toastify
                 {
                     MessageBox.Show(@"Toastify was unable to create the settings file." + Environment.NewLine +
                                      "Make sure the application is executed from a folder with write access." + Environment.NewLine +
-                                     Environment.NewLine + 
+                                     Environment.NewLine +
                                      "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -51,14 +58,22 @@ namespace Toastify
                 {
                     settings = SettingsXml.Open(fullPathSettingsFile);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
                                      "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
-                                    Environment.NewLine + 
+                                    Environment.NewLine +
                                     "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+        }
+
+        public Toast()
+        {
+            InitializeComponent();
+
+            //Load settings from XML
+            ReadXml();
 
             //Init toast(color settings)
             InitToast();
@@ -73,11 +88,17 @@ namespace Toastify
             System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
             menuAbout.Text = "About Toastify...";
             menuAbout.Click += (s, e) => { new About().ShowDialog(); };
+
+            System.Windows.Forms.MenuItem menuSettings = new System.Windows.Forms.MenuItem();
+            menuSettings.Text = "Settings";
+            menuSettings.Click += (s, e) => { new Settings(settings, this).ShowDialog(); };
+
             System.Windows.Forms.MenuItem menuExit = new System.Windows.Forms.MenuItem();
             menuExit.Text = "Exit";
             menuExit.Click += (s, e) => { this.Close(); };
             trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
             trayIcon.ContextMenu.MenuItems.Add(menuAbout);
+            trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
             //Init watch timer
@@ -88,7 +109,7 @@ namespace Toastify
             };
         }
 
-        private void InitToast()
+        public void InitToast()
         {
             const double MIN_WIDTH = 200.0;
             const double MIN_HEIGHT = 65.0;
@@ -118,27 +139,9 @@ namespace Toastify
             if (settings.ToastHeight >= MIN_HEIGHT)
                 this.Height = settings.ToastHeight;
 
+            //If we made it this far we have all the values needed.
+            ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiousTopLeft, settings.ToastBorderCornerRadiousTopRight, settings.ToastBorderCornerRadiousBottomRight, settings.ToastBorderCornerRadiousBottomLeft);
 
-            if (!string.IsNullOrEmpty(settings.ToastBorderCornerRadious))
-            {
-                var culture = CultureInfo.CreateSpecificCulture("en-US");
-                string[] parts = settings.ToastBorderCornerRadious.Split(',');
-                if (parts.Length != 4)
-                    return;
-
-                double topleft, topright, bottomright, bottomleft;
-                if (!double.TryParse(parts[0], NumberStyles.Float, culture, out topleft))
-                    return;
-                if (!double.TryParse(parts[1], NumberStyles.Float, culture, out topright))
-                    return;
-                if (!double.TryParse(parts[2], NumberStyles.Float, culture, out bottomright))
-                    return;
-                if (!double.TryParse(parts[3], NumberStyles.Float, culture, out bottomleft))
-                    return;
-
-                //If we made it this far we have all the values needed.
-                ToastBorder.CornerRadius = new CornerRadius(topleft, topright, bottomright, bottomleft);
-            }
         }
 
         string previousTitle = string.Empty;
@@ -163,6 +166,27 @@ namespace Toastify
                             //For now we swallow any plugin errors.
                         }
                     }
+                }
+
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine("http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=" + part1 + "&track=" + part2);
+                    XPathDocument doc = new XPathDocument("http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=" + part1 + "&track=" + part2);
+
+                    XPathNavigator navigator = doc.CreateNavigator();
+                    XPathNodeIterator nodeImage = navigator.Select("/lfm/track/album/image[@size='medium']");
+
+                    if (nodeImage.MoveNext())
+                    {
+                        XPathNavigator node = nodeImage.Current;
+                        coverUrl = node.InnerXml;
+                    }
+                    else
+                        coverUrl = "SpotifyToastifyLogo.png";
+                }
+                catch (Exception)
+                {
+                    coverUrl = "SpotifyToastifyLogo.png";
                 }
 
                 previousTitle = currentTitle;
@@ -194,6 +218,15 @@ namespace Toastify
         {
             if (settings.DisableToast)
                 return;
+
+            if (coverUrl != "")
+            {
+                cover = new BitmapImage();
+                cover.BeginInit();
+                cover.UriSource = new Uri(coverUrl, UriKind.RelativeOrAbsolute);
+                cover.EndInit();
+                LogoToast.Source = cover;
+            }
 
             System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
             workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
@@ -322,6 +355,9 @@ namespace Toastify
             }
             this.Plugins.Clear();
 
+            if (System.Diagnostics.Process.GetProcessesByName("Spotify").Count() > 0)
+                System.Diagnostics.Process.GetProcessesByName("Spotify")[0].Kill();
+
             //Ensure trayicon is removed on exit. (Thx Linus)
             trayIcon.Visible = false;
             trayIcon.Dispose();
@@ -335,7 +371,7 @@ namespace Toastify
                 return (System.Windows.Input.Key)Enum.Parse(typeof(System.Windows.Input.Key), key.ToString());
             else
                 return Key.None;
-        } 
+        }
 
         void hook_KeyUp(object sender, HookEventArgs e)
         {
@@ -366,7 +402,7 @@ namespace Toastify
             }
         }
 
-        private void DisplayAction(SpotifyAction action, string trackBeforeAction)
+        public void DisplayAction(SpotifyAction action, string trackBeforeAction)
         {
             //Anything that changes track doesn't need to be handled since
             //that will be handled in the timer event.
@@ -377,9 +413,11 @@ namespace Toastify
             const string NOTHINGS_PLAYING = "Nothings playing";
             const string PAUSED_TEXT = "Paused";
             const string STOPPED_TEXT = "Stopped";
+            const string SETTINGS_TEXT = "Settings saved";
 
             if (!Spotify.IsAvailable())
             {
+                coverUrl = "SpotifyToastifyLogo.png";
                 Title1.Text = "Spotify not available!";
                 Title2.Text = string.Empty;
                 FadeIn();
@@ -409,6 +447,11 @@ namespace Toastify
                     Title2.Text = trackBeforeAction;
                     FadeIn();
                     break;
+                case SpotifyAction.SettingsSaved:
+                    Title1.Text = SETTINGS_TEXT;
+                    Title2.Text = "Here is a preview of your settings!";
+                    FadeIn();
+                    break;
                 case SpotifyAction.NextTrack:      //No need to handle
                     break;
                 case SpotifyAction.PreviousTrack:  //No need to handle
@@ -431,10 +474,11 @@ namespace Toastify
                 case SpotifyAction.ShowToast:
                     if (string.IsNullOrEmpty(currentTrack) && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
                     {
+                        coverUrl = "SpotifyToastifyLogo.png";
                         Title1.Text = NOTHINGS_PLAYING;
                         Title2.Text = string.Empty;
                     }
-                    else if (Title1.Text == VOLUME_UP_TEXT || Title1.Text == VOLUME_DOWN_TEXT || Title1.Text == MUTE_ON_OFF_TEXT)
+                    else if (Title1.Text == SETTINGS_TEXT || Title1.Text == VOLUME_UP_TEXT || Title1.Text == VOLUME_DOWN_TEXT || Title1.Text == MUTE_ON_OFF_TEXT)
                     {
                         string part1, part2;
                         if (SplitTitle(currentTrack, out part1, out part2))
