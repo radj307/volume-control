@@ -28,7 +28,8 @@ namespace Toastify
 
             if (e.Cancelled == false && e.Error == null)
             {
-                var match = Regex.Match(e.Result, "<div><span id=\"ctl00_ctl00_MasterContent_RightSideBar_CurrentRelease_Sidebar_releaseTitleLabel\">(?<ver>.*?)</span></div>", RegexOptions.IgnoreCase);
+                var match = Regex.Match(e.Result,
+                    "<td class=\"ActivityLabelCell\"><div class=\"ActivityLabel\">Current</div></td>.*?<td id=\"ReleaseName\" class=\"ActivityData\">(?<ver>.*?)</td>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
                 if (match.Success)
                     version = match.Groups["ver"].Value.Trim();
 
