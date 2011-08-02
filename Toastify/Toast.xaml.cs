@@ -414,7 +414,7 @@ namespace Toastify
             const string VOLUME_UP_TEXT = "Volume ++";
             const string VOLUME_DOWN_TEXT = "Volume --";
             const string MUTE_ON_OFF_TEXT = "Mute On/Off";
-            const string NOTHINGS_PLAYING = "Nothings playing";
+            const string NOTHINGS_PLAYING = "Nothing's playing";
             const string PAUSED_TEXT = "Paused";
             const string STOPPED_TEXT = "Stopped";
             const string SETTINGS_TEXT = "Settings saved";
