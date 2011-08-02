@@ -28,18 +28,18 @@ namespace Toastify
 
         private List<System.Windows.Input.Key> modifierKeys = new List<System.Windows.Input.Key> { System.Windows.Input.Key.LeftCtrl, System.Windows.Input.Key.RightCtrl, System.Windows.Input.Key.LeftAlt, System.Windows.Input.Key.Right, System.Windows.Input.Key.LeftShift, System.Windows.Input.Key.RightShift, System.Windows.Input.Key.LWin, System.Windows.Input.Key.RWin, System.Windows.Input.Key.System };
 
-        public Settings(SettingsXml sets, Toast toas)
+        public Settings(Toast toast)
         {
-            settings = sets;
-            this.toast = toas;
+            this.settings = SettingsXml.Current.Clone();
+            this.toast = toast;
 
             InitializeComponent();
 
             //Data context initialisation
-            GeneralGrid.DataContext = settings;
+            GeneralGrid.DataContext = this.settings;
 
             //Slider initialisation
-            slTopColor.Value = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+            slTopColor.Value    = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
             slBottomColor.Value = byte.Parse(settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
             slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
         }
@@ -75,18 +75,19 @@ namespace Toastify
         //Default and Save blick events
         private void bDefault_Click(object sender, RoutedEventArgs e)
         {
-            settings.Defaul();
-            settings.Save(ToastifyConfigFile);
-
-            toast.ReadXml();
-            toast.InitToast();
-            toast.DisplayAction(SpotifyAction.SettingsSaved, "");
+            settings.Default();
+            SaveAndApplySettings();
         }
 
         private void bSave_Click(object sender, RoutedEventArgs e)
         {
-            settings.Save(ToastifyConfigFile);
-            toast.ReadXml();
+            SaveAndApplySettings();
+        }
+
+        private void SaveAndApplySettings()
+        {
+            settings.Save(ToastifyConfigFile, replaceCurrent: true);
+
             toast.InitToast();
             toast.DisplayAction(SpotifyAction.SettingsSaved, "");
         }

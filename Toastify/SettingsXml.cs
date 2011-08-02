@@ -12,8 +12,38 @@ namespace Toastify
     [Serializable]
     public class SettingsXml : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        #region Singleton
+
+        private static SettingsXml _theOne;
+
+        public static SettingsXml Current
+        {
+            get
+            {
+                if (_theOne == null)
+                {
+                    _theOne = new SettingsXml();
+                }
+
+                return _theOne;
+            }
+
+            private set {
+                if (_theOne != null && _theOne != value)
+                {
+                    _theOne.UnloadSettings();
+
+                    _theOne = value;
+
+                    _theOne.ApplySettings();
+                }
+            }
+        }
+
+        #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _GlobalHotKeys;
         private bool _DisableToast;
@@ -288,7 +318,7 @@ namespace Toastify
             }
         }
 
-        public void Defaul()
+        public void Default()
         {
             FadeOutTime = 2000;
             GlobalHotKeys = true;
@@ -307,6 +337,9 @@ namespace Toastify
             OffsetRight = 5.0;
             OffsetBottom = 5.0;
             ClipboardTemplate = "I'm currently listening to {0}";
+            
+            Hotkey.ClearAll();
+
             HotKeys = new List<Hotkey> 
             {
                 new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Up , Action= SpotifyAction.PlayPause },
@@ -323,12 +356,17 @@ namespace Toastify
             Plugins = new List<PluginDetails>();
         }
 
-        public void Save(string filename)
+        public void Save(string filename, bool replaceCurrent = false)
         {
             using (StreamWriter sw = new StreamWriter(filename, false))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
                 xmlSerializer.Serialize(sw, this);
+            }
+
+            if (replaceCurrent)
+            {
+                Current = this;
             }
         }
 
@@ -338,7 +376,9 @@ namespace Toastify
                 PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
         }
 
-        public static SettingsXml Open(string filename)
+        private SettingsXml() { }
+
+        public SettingsXml Load(string filename)
         {
             if (!System.IO.File.Exists(filename))
                 throw new FileNotFoundException();
@@ -347,8 +387,53 @@ namespace Toastify
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
                 SettingsXml xml = xmlSerializer.Deserialize(sr) as SettingsXml;
-                return xml;
+                
+                Current = xml;
+
+                return Current;
             }
+        }
+
+        /// <summary>
+        /// Any active settings (such as hotkeys) should be triggered here
+        /// </summary>
+        private void ApplySettings()
+        {
+            if (GlobalHotKeys)
+            {
+                foreach (Hotkey hotkey in HotKeys)
+                {
+                    hotkey.Enable();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Any active settings (such as hotkeys) should be unloaded here
+        /// </summary>
+        private void UnloadSettings()
+        {
+            if (HotKeys != null)
+            {
+                foreach (Hotkey hotkey in HotKeys)
+                {
+                    hotkey.Disable();
+                }
+            }
+        }
+
+        public SettingsXml Clone()
+        {
+            SettingsXml clone = MemberwiseClone() as SettingsXml;
+            
+            clone.HotKeys = new List<Hotkey>();
+
+            foreach (Hotkey key in HotKeys)
+            {
+                clone.HotKeys.Add(key.Clone());
+            }
+
+            return clone;
         }
     }
 

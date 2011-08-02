@@ -22,7 +22,6 @@ namespace Toastify
 
         Timer watchTimer;
         System.Windows.Forms.NotifyIcon trayIcon;
-        SettingsXml settings;
         string fullPathSettingsFile = "";
 
         string coverUrl = "";
@@ -31,6 +30,8 @@ namespace Toastify
         internal List<Hotkey> HotKeys { get; set; }
         internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
 
+        internal static Toast Current { get; private set; }
+
         public void ReadXml()
         {
             string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
@@ -38,11 +39,10 @@ namespace Toastify
 
             if (!System.IO.File.Exists(fullPathSettingsFile))
             {
-                settings = new SettingsXml();
-                settings.Defaul();
+                SettingsXml.Current.Default();
                 try
                 {
-                    settings.Save(fullPathSettingsFile);
+                    SettingsXml.Current.Save(fullPathSettingsFile);
                 }
                 catch (Exception)
                 {
@@ -56,7 +56,7 @@ namespace Toastify
             {
                 try
                 {
-                    settings = SettingsXml.Open(fullPathSettingsFile);
+                    SettingsXml.Current.Load(fullPathSettingsFile);
                 }
                 catch (Exception)
                 {
@@ -71,6 +71,9 @@ namespace Toastify
         public Toast()
         {
             InitializeComponent();
+
+            // set a static reference back to ourselves, useful for callbacks
+            Current = this;
 
             //Load settings from XML
             ReadXml();
@@ -89,7 +92,7 @@ namespace Toastify
             //Init tray icon menu
             System.Windows.Forms.MenuItem menuSettings = new System.Windows.Forms.MenuItem();
             menuSettings.Text = "Settings";
-            menuSettings.Click += (s, e) => { new Settings(settings, this).ShowDialog(); };
+            menuSettings.Click += (s, e) => { new Settings(this).ShowDialog(); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             
@@ -124,7 +127,7 @@ namespace Toastify
             //User notification of bad settings will be implemented with the settings dialog.
 
             //This method is UGLY but we'll keep it until the settings dialog is implemented.
-
+            SettingsXml settings = SettingsXml.Current;
 
             ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
 
@@ -226,6 +229,8 @@ namespace Toastify
 
         private void FadeIn()
         {
+            SettingsXml settings = SettingsXml.Current;
+
             if (settings.DisableToast)
                 return;
 
@@ -252,11 +257,10 @@ namespace Toastify
         private void FadeOut()
         {
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-            anim.BeginTime = TimeSpan.FromMilliseconds(settings.FadeOutTime);
+            anim.BeginTime = TimeSpan.FromMilliseconds(SettingsXml.Current.FadeOutTime);
             this.BeginAnimation(Window.OpacityProperty, anim);
         }
 
-        KeyboardHook hook;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Remove from ALT+TAB
@@ -266,14 +270,8 @@ namespace Toastify
             EnsureSpotify();
             LoadPlugins();
 
-            if (!settings.DisableToast)
+            if (!SettingsXml.Current.DisableToast)
                 watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
-
-            if (settings.GlobalHotKeys)
-            {
-                hook = new KeyboardHook();
-                hook.KeyUp += new KeyboardHook.HookEventHandler(hook_KeyUp);
-            }
 
             //Let the plugins now we're started.
             foreach (var p in this.Plugins)
@@ -295,7 +293,7 @@ namespace Toastify
             this.Plugins = new List<Toastify.Plugin.PluginBase>();
             string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
 
-            foreach (var p in settings.Plugins)
+            foreach (var p in SettingsXml.Current.Plugins)
             {
                 try
                 {
@@ -313,6 +311,8 @@ namespace Toastify
 
         private void EnsureSpotify()
         {
+            SettingsXml settings = SettingsXml.Current;
+
             //Make sure Spotify is running when starting Toastify.
             //If not ask the user and try to start it.
 
@@ -383,32 +383,26 @@ namespace Toastify
                 return Key.None;
         }
 
-        void hook_KeyUp(object sender, HookEventArgs e)
+        internal static void ActionHookCallback(Hotkey hotkey)
         {
             string currentTrack = string.Empty;
-            var key = ConvertKey(e.Key);
-
-            foreach (var hotkey in settings.HotKeys)
+            
+            try
             {
-                if (hotkey.Alt == e.Alt && hotkey.Ctrl == e.Control && hotkey.Shift == e.Shift && hotkey.Key == key)
-                {
-                    try
-                    {
-                        string trackBeforeAction = Spotify.GetCurrentTrack();
-                        if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
-                            Clipboard.SetText(string.Format(settings.ClipboardTemplate, trackBeforeAction));
-                        else
-                            Spotify.SendAction(hotkey.Action);
+                string trackBeforeAction = Spotify.GetCurrentTrack();
+                if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
+                    Clipboard.SetText(string.Format(SettingsXml.Current.ClipboardTemplate, trackBeforeAction));
+                else
+                    Spotify.SendAction(hotkey.Action);
 
-                        DisplayAction(hotkey.Action, trackBeforeAction);
-                    }
-                    catch (Exception)
-                    {
-                        Title1.Text = "Unable to communicate with Spotify";
-                        Title2.Text = "";
-                        FadeIn();
-                    }
-                }
+                Toast.Current.DisplayAction(hotkey.Action, trackBeforeAction);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception with hooked key! " + ex);
+                Toast.Current.Title1.Text = "Unable to communicate with Spotify";
+                Toast.Current.Title2.Text = "";
+                Toast.Current.FadeIn();
             }
         }
 
@@ -488,7 +482,7 @@ namespace Toastify
                         Title1.Text = NOTHINGS_PLAYING;
                         Title2.Text = string.Empty;
                     }
-                    else if (Title1.Text == SETTINGS_TEXT || Title1.Text == VOLUME_UP_TEXT || Title1.Text == VOLUME_DOWN_TEXT || Title1.Text == MUTE_ON_OFF_TEXT)
+                    else
                     {
                         string part1, part2;
                         if (SplitTitle(currentTrack, out part1, out part2))

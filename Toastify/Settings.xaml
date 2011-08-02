@@ -6,6 +6,14 @@
         <TabControl Name="tabControl1">
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <CheckBox Height="16" IsChecked="{Binding Path=AlwaysStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,8,0,0" Name="cbStartSpotify" VerticalAlignment="Top" Width="232">Launch Spotify if not already running</CheckBox>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="12,30,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
+                    <TextBox Height="23" Margin="189,34,127,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" />
+                    <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Toast" Name="tabToast">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Height="16" IsChecked="{Binding Path=DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,68,0,0" Name="cbDisableToast" VerticalAlignment="Top" Width="145" Checked="cbDisableToast_Checked" Unchecked="cbDisableToast_Unchecked">Disable Toast</CheckBox>
                     <Label Height="28" HorizontalAlignment="Left" Margin="12,88,0,0" Name="label1" VerticalAlignment="Top" Width="99">FadeOut Time :</Label>
                     <Label Height="28" HorizontalAlignment="Left" Margin="12,122,0,0" Name="label2" VerticalAlignment="Top" Width="99">Toast Color Top :</Label>
@@ -19,10 +27,8 @@
                     <Label Height="28" HorizontalAlignment="Left" Margin="12,0,0,16" Name="label10" VerticalAlignment="Bottom" Width="99">Offset Bottom :</Label>
                     <TextBox Height="23" Text="{Binding Path=ToastColorTop, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="189,125,264,0" Name="tbColorTop" VerticalAlignment="Top"/>
                     <Button Height="23" Margin="0,125,202,0" Name="bChangeColorTop" VerticalAlignment="Top" Click="bChangeColorTop_Click" HorizontalAlignment="Right" Width="50">Change</Button>
-                    <Button Height="23" HorizontalAlignment="Right" Margin="0,8,6,0" Name="bDefault" VerticalAlignment="Top" Width="55" Click="bDefault_Click">Default</Button>
                     <TextBox Height="23" Text="{Binding Path=ToastColorBottom, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="189,158,264,0" Name="tbColorBottom" VerticalAlignment="Top" />
                     <Button Height="23" HorizontalAlignment="Right" Margin="0,158,202,0" Name="bChangeColorBottom" VerticalAlignment="Top" Width="50" Click="bChangeColorBottom_Click">Change</Button>
-                    <CheckBox Height="16" IsChecked="{Binding Path=AlwaysStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,8,0,0" Name="cbStartSpotify" VerticalAlignment="Top" Width="145">AlwaysStart Spotify</CheckBox>
                     <Label Height="28.04" HorizontalAlignment="Left" Margin="12,189,0,0" Name="label11" VerticalAlignment="Top" Width="122">Toast Border Color :</Label>
                     <TextBox Height="23" Text="{Binding Path=ToastBorderColor, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="189,191,264,0" Name="tbBorderColor" VerticalAlignment="Top"/>
                     <Button Height="23" HorizontalAlignment="Right" Margin="0,194,202,0" Name="bChangeBorderColor" VerticalAlignment="Top" Width="50" Click="bChangeBorderColor_Click">Change</Button>
@@ -46,10 +52,7 @@
                     <Label Height="28" HorizontalAlignment="Right" Margin="0,157,110,0" Name="label17" VerticalAlignment="Top" Width="85">Transparency :</Label>
                     <Slider Height="22" HorizontalAlignment="Right" Margin="0,195,2,0" Name="slBorderColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" />
                     <Label Height="28" HorizontalAlignment="Right" Margin="0,192,110,0" Name="label18" VerticalAlignment="Top" Width="85">Transparency :</Label>
-                    <Button Height="23" HorizontalAlignment="Right" Margin="0,8,65,0" Name="bSave" VerticalAlignment="Top" Width="47" Click="bSave_Click">Save</Button>
-                    <Label Height="28" HorizontalAlignment="Left" Margin="12,30,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
-                    <TextBox Height="23" Margin="189,34,127,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" />
-                    <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" />
+
                 </Grid>
             </TabItem>
             <TabItem Header="Hotkeys" Name="Hotkeys">
@@ -64,11 +67,12 @@
                     <my:DataGrid ItemsSource="{Binding Path=HotKeys, Mode=TwoWay}" AutoGenerateColumns="true" CanUserAddRows="False" KeyboardNavigation.DirectionalNavigation="None"  Margin="14,32,0,6" Name="dgHotKeys" xmlns:my="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit" Grid.Column="2">
 
                     </my:DataGrid>
-                    
-                    <Button Grid.Column="2" Height="23" HorizontalAlignment="Right" Margin="0,8,6,0" Name="bDefault2" VerticalAlignment="Top" Width="55" Click="bDefault_Click">Default</Button>
-                    <Button Grid.Column="2" Height="23" HorizontalAlignment="Right" Margin="0,8,65,0" Name="bSave2" VerticalAlignment="Top" Width="47" Click="bSave_Click">Save</Button>
                 </Grid>
             </TabItem>
         </TabControl>
+        
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,35,11,0" Name="bDefault2" VerticalAlignment="Top" Width="55" Click="bDefault_Click">Default</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,35,70,0" Name="bSave2" VerticalAlignment="Top" Width="47" Click="bSave_Click">Save</Button>
+
     </Grid>
 </Window>
