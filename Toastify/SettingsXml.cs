@@ -29,7 +29,8 @@ namespace Toastify
                 return _theOne;
             }
 
-            private set {
+            private set 
+            {
                 if (_theOne != null && _theOne != value)
                 {
                     _theOne.UnloadSettings();
@@ -42,8 +43,6 @@ namespace Toastify
         }
 
         #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _GlobalHotKeys;
         private bool _DisableToast;
@@ -68,253 +67,252 @@ namespace Toastify
 
         public bool GlobalHotKeys
         {
-            get
-            {
-                return _GlobalHotKeys;
-            }
+            get { return _GlobalHotKeys; }
             set
             {
-                _GlobalHotKeys = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GlobalHotKeys"));
+                if (_GlobalHotKeys != value)
+                {
+                    _GlobalHotKeys = value;
+                    NotifyPropertyChanged("GlobalHotKeys");
+                }                
             }
         }
 
         public bool DisableToast
         {
-            get
-            {
-                return _DisableToast;
-            }
+            get { return _DisableToast; }
             set
             {
-                _DisableToast = value;
-                if (PropertyChanged != null)
+                if (_DisableToast != value)
+                {
+                    _DisableToast = value;
+
                     PropertyChanged(this, new PropertyChangedEventArgs("DisableToast"));
+                }
             }
         }
 
         public bool? AlwaysStartSpotify
         {
-            get
-            {
-                return _AlwaysStartSpotify;
-            }
+            get { return _AlwaysStartSpotify; }
             set
             {
-                _AlwaysStartSpotify = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AlwaysStartSpotify"));
+                if (_AlwaysStartSpotify != value)
+                {
+                    _AlwaysStartSpotify = value;
+
+                    NotifyPropertyChanged("AlwaysStartSpotify");
+                }
             }
         }
 
         public int FadeOutTime
         {
-            get
-            {
-                return _FadeOutTime;
-            }
+            get { return _FadeOutTime; }
             set
             {
-                _FadeOutTime = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FadeOutTime"));
+                if (_FadeOutTime != value)
+                {
+                    _FadeOutTime = value;
+
+                    NotifyPropertyChanged("FadeOutTime");
+                }
             }
         }
 
         public string ToastColorTop
         {
-            get
-            {
-                return _ToastColorTop;
-            }
+            get { return _ToastColorTop; }
             set
             {
-                _ToastColorTop = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastColorTop"));
+                if (_ToastColorTop != value)
+                {
+                    _ToastColorTop = value;
+
+                    NotifyPropertyChanged("ToastColorTop");
+                }
             }
         }
 
         public string ToastColorBottom
         {
-            get
-            {
-                return _ToastColorBottom;
-            }
+            get { return _ToastColorBottom; }
             set
             {
-                _ToastColorBottom = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastColorBottom"));
+                if (_ToastColorBottom != value)
+                {
+                    _ToastColorBottom = value;
+
+                    NotifyPropertyChanged("ToastColorBottom");
+                }
             }
         }
 
         public string ToastBorderColor
         {
-            get
-            {
-                return _ToastBorderColor;
-            }
+            get { return _ToastBorderColor; }
             set
             {
-                _ToastBorderColor = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderColor"));
+                if (_ToastBorderColor != value)
+                {
+                    _ToastBorderColor = value;
+
+                    NotifyPropertyChanged("ToastBorderColor");
+                }
             }
         }
 
         public double ToastBorderThickness
         {
-            get
-            {
-                return _ToastBorderThickness;
-            }
+            get { return _ToastBorderThickness; }
             set
             {
-                _ToastBorderThickness = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderThickness"));
+                if (_ToastBorderThickness != value)
+                {
+                    _ToastBorderThickness = value;
+
+                    NotifyPropertyChanged("ToastBorderThickness");
+                }
             }
         }
 
         public double ToastBorderCornerRadiousTopLeft
         {
-            get
-            {
-                return _ToastBorderCornerRadiousTopLeft;
-            }
+            get { return _ToastBorderCornerRadiousTopLeft; }
             set
             {
-                _ToastBorderCornerRadiousTopLeft = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderCornerRadiousTopLeft"));
+                if (_ToastBorderCornerRadiousTopLeft != value)
+                {
+                    _ToastBorderCornerRadiousTopLeft = value;
+
+                    NotifyPropertyChanged("ToastBorderCornerRadiousTopLeft");
+                }
             }
         }
 
         public double ToastBorderCornerRadiousTopRight
         {
-            get
-            {
-                return _ToastBorderCornerRadiousTopRight;
-            }
+            get { return _ToastBorderCornerRadiousTopRight; }
             set
             {
-                _ToastBorderCornerRadiousTopRight = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderCornerRadiousTopRight"));
+                if (_ToastBorderCornerRadiousTopRight != value)
+                {
+                    _ToastBorderCornerRadiousTopRight = value;
+
+                    NotifyPropertyChanged("ToastBorderCornerRadiousTopRight");
+                }
             }
         }
 
         public double ToastBorderCornerRadiousBottomRight
         {
-            get
-            {
-                return _ToastBorderCornerRadiousBottomRight;
-            }
+            get { return _ToastBorderCornerRadiousBottomRight; }
             set
             {
-                _ToastBorderCornerRadiousBottomRight = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderCornerRadiousBottomRight"));
+                if (_ToastBorderCornerRadiousBottomRight != value)
+                {
+                    _ToastBorderCornerRadiousBottomRight = value;
+
+                    NotifyPropertyChanged("ToastBorderCornerRadiousBottomRight");
+                }
             }
         }
 
         public double ToastBorderCornerRadiousBottomLeft
         {
-            get
-            {
-                return _ToastBorderCornerRadiousBottomLeft;
-            }
+            get { return _ToastBorderCornerRadiousBottomLeft; }
             set
             {
-                _ToastBorderCornerRadiousBottomLeft = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastBorderCornerRadiousBottomLeft"));
+                if (_ToastBorderCornerRadiousBottomLeft != value)
+                {
+                    _ToastBorderCornerRadiousBottomLeft = value;
+
+                    NotifyPropertyChanged("ToastBorderCornerRadiousBottomLeft");
+                }
             }
         }
 
         public double ToastWidth
         {
-            get
-            {
-                return _ToastWidth;
-            }
+            get { return _ToastWidth; }
             set
             {
-                _ToastWidth = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastWidth"));
+                if (_ToastWidth != value)
+                {
+                    _ToastWidth = value;
+
+                    NotifyPropertyChanged("ToastWidth");
+                }
             }
         }
 
         public double ToastHeight
         {
-            get
-            {
-                return _ToastHeight;
-            }
+            get { return _ToastHeight; }
             set
             {
-                _ToastHeight = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToastHeight"));
+                if (_ToastHeight != value)
+                {
+                    _ToastHeight = value;
+
+                    NotifyPropertyChanged("ToastHeight");
+                }
             }
         }
 
         public double OffsetRight
         {
-            get
-            {
-                return _OffsetRight;
-            }
+            get { return _OffsetRight; }
             set
             {
-                _OffsetRight = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OffsetRight"));
+                if (_OffsetRight != value)
+                {
+                    _OffsetRight = value;
+
+                    NotifyPropertyChanged("OffsetRight");
+                }
             }
         }
 
         public double OffsetBottom
         {
-            get
-            {
-                return _OffsetBottom;
-            }
+            get { return _OffsetBottom; }
             set
             {
-                _OffsetBottom = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OffsetBottom"));
+                if (_OffsetBottom != value)
+                {
+                    _OffsetBottom = value;
+
+                    NotifyPropertyChanged("OffsetBottom");
+                }
             }
         }
 
         public string ClipboardTemplate
         {
-            get
-            {
-                return _ClipboardTemplate;
-            }
+            get { return _ClipboardTemplate; }
             set
             {
-                _ClipboardTemplate = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClipboardTemplate"));
+                if (_ClipboardTemplate != value)
+                {
+                    _ClipboardTemplate = value;
+
+                    NotifyPropertyChanged("ClipboardTemplate");
+                }
             }
         }
 
         public List<Hotkey> HotKeys
         {
-            get
-            {
-                return _HotKeys;
-            }
+            get { return _HotKeys; }
             set
             {
-                _HotKeys = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("HotKeys"));
+                if (_HotKeys != value)
+                {
+                    _HotKeys = value;
+
+                    NotifyPropertyChanged("HotKeys");
+                }
             }
         }
 
@@ -435,6 +433,20 @@ namespace Toastify
 
             return clone;
         }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        #endregion
     }
 
     [Serializable]
