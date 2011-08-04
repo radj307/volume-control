@@ -37,16 +37,19 @@ Section "Toastify (required)"
   
   ; Put file there
   File "Toastify.exe"	
-  File "Toastify.xml"
   File "ToastifyApi.dll"
+  File "ManagedWinapi.dll"
+  File "ManagedWinapiNativeHelper.dll"
+  File "WPFToolkit.dll"
+  File "LICENSE"
   
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Publisher" "Jesper Palm"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Version" "1.1"  
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayVersion" "1.1"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Version" "1.5"  
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayVersion" "1.5"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoRepair" 1
   WriteUninstaller "uninstall.exe"
@@ -71,9 +74,16 @@ Section "Uninstall"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify"
 
   ; Remove files and uninstaller
-  Delete $INSTDIR\Toastify.exe
-  Delete $INSTDIR\Toastify.xml
-  Delete $INSTDIR\ToastifyApi.dll
+  Delete "$INSTDIR\Toastify.exe"
+  Delete "$INSTDIR\ToastifyApi.dll"
+  Delete "$INSTDIR\ManagedWinapi.dll"
+  Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
+  Delete "$INSTDIR\WPFToolkit.dll"
+  Delete "$INSTDIR\LICENSE"
+  
+  ; remove the settings directory
+  Delete "$APPDATA\Toastify.xml"
+  RMDir "$APPDATA\Toastify"
 
   ; Remove shortcuts, if any
   Delete "$DESKTOP\Toastify.lnk"
