@@ -261,6 +261,7 @@ namespace Toastify
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
             anim.BeginTime = TimeSpan.FromMilliseconds(SettingsXml.Current.FadeOutTime);
             this.BeginAnimation(Window.OpacityProperty, anim);
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -498,6 +499,29 @@ namespace Toastify
                 case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
             }
+        }
+
+        /// <summary>
+        /// Mouse is over the window, halt any fade out animations and keep
+        /// the toast active.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.BeginAnimation(Window.OpacityProperty, null);
+            this.Opacity = 1.0;
+        }
+
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            FadeOut();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FadeOut();
+            Spotify.SendAction(SpotifyAction.ShowSpotify);
         }
     }
 }
