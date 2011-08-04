@@ -45,7 +45,9 @@ namespace Toastify
 
         #endregion
 
-        private bool _LaunchOnStartup;
+        private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private const string SETTINGS_FILE   =  "Toastify.xml";
+
         private bool _GlobalHotKeys;
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;
@@ -55,7 +57,6 @@ namespace Toastify
         private string _ToastColorBottom;
         private string _ToastBorderColor;
         private double _ToastBorderThickness;
-        //private string _ToastBorderCornerRadius;
         private double _ToastBorderCornerRadiusTopLeft;
         private double _ToastBorderCornerRadiusTopRight;
         private double _ToastBorderCornerRadiusBottomRight;
@@ -68,18 +69,51 @@ namespace Toastify
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
+        private string _settingsFile;
+
+        [XmlIgnore]
+        public string SettingsFile
+        {
+            get
+            {
+                if (_settingsFile == null)
+                {
+                    string settingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+
+                    if (!Directory.Exists(settingsPath))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(settingsPath);
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Exception creating user settings directory (" + settingsPath + "). Exception: " + ex);
+
+                            // No messagebox as this should not happen (and there will be a MessageBox later on when 
+                            // settings fail to load)
+                        }
+                    }
+
+                    _settingsFile = Path.Combine(settingsPath, SETTINGS_FILE);
+                }
+
+                return _settingsFile;
+            }
+        }
+
+        // this is a dynamic setting depending on the existing registry key
+        // (which allows for it to be set reliably from the installer)
+        // so make sure to not include it in the XML file
+        [XmlIgnore]
         public bool LaunchOnStartup
         {
-            get { return _LaunchOnStartup; }
+            get { return IsSetToLaunchOnStartup(); }
             set
             {
-                if (_LaunchOnStartup != value)
-                {
-                    _LaunchOnStartup = value;
-                    NotifyPropertyChanged("LaunchOnStartup");
+                NotifyPropertyChanged("LaunchOnStartup");
 
-                    SetLaunchOnStartup(value);
-                }
+                SetLaunchOnStartup(value);
             }
         }
 
@@ -350,6 +384,7 @@ namespace Toastify
 
         public void Default()
         {
+            LaunchOnStartup = false;
             FadeOutTime = 2000;
             GlobalHotKeys = true;
             DisableToast = false;
@@ -386,9 +421,9 @@ namespace Toastify
             Plugins = new List<PluginDetails>();
         }
 
-        public void Save(string filename, bool replaceCurrent = false)
+        public void Save(bool replaceCurrent = false)
         {
-            using (StreamWriter sw = new StreamWriter(filename, false))
+            using (StreamWriter sw = new StreamWriter(SettingsFile, false))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
                 xmlSerializer.Serialize(sw, this);
@@ -408,20 +443,26 @@ namespace Toastify
 
         private SettingsXml() { }
 
-        public SettingsXml Load(string filename)
+        public SettingsXml Load()
         {
-            if (!System.IO.File.Exists(filename))
-                throw new FileNotFoundException();
-
-            using (StreamReader sr = new StreamReader(filename))
+            if (!System.IO.File.Exists(SettingsFile))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
-                SettingsXml xml = xmlSerializer.Deserialize(sr) as SettingsXml;
-                
-                Current = xml;
-
-                return Current;
+                SettingsXml.Current.Default();
+                SettingsXml.Current.Save();
             }
+            else
+            {
+
+                using (StreamReader sr = new StreamReader(SettingsFile))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
+                    SettingsXml xml = xmlSerializer.Deserialize(sr) as SettingsXml;
+
+                    Current = xml;
+                }
+            }
+
+            return Current;
         }
 
         /// <summary>
@@ -439,9 +480,16 @@ namespace Toastify
             }
         }
 
+        private bool IsSetToLaunchOnStartup()
+        {
+            RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false);
+
+            return (key.GetValue("Toastify", null) != null);
+        }
+
         private void SetLaunchOnStartup(bool enabled)
         {
-            RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true);
 
             if (enabled)
             {

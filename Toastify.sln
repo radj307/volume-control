@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installatio
 	ProjectSection(SolutionItems) = preProject
 		InstallationScript\DotNET.nsh = InstallationScript\DotNET.nsh
 		InstallationScript\Install.nsi = InstallationScript\Install.nsi
+		LICENSE = LICENSE
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify", "Toastify\Toastify.csproj", "{CCC4A761-56D2-4188-807F-F7A547DFB031}"

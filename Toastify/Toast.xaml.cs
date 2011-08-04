@@ -18,11 +18,8 @@ namespace Toastify
 {
     public partial class Toast : Window
     {
-        private readonly string SETTINGS_FILE = "Toastify.xml";
-
         Timer watchTimer;
         System.Windows.Forms.NotifyIcon trayIcon;
-        string fullPathSettingsFile = "";
 
         string coverUrl = "";
         BitmapImage cover;
@@ -32,41 +29,21 @@ namespace Toastify
 
         internal static Toast Current { get; private set; }
 
-        public void ReadXml()
+        public void LoadSettings()
         {
-            string applicationPath = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
-            fullPathSettingsFile = System.IO.Path.Combine(applicationPath, SETTINGS_FILE);
 
-            if (!System.IO.File.Exists(fullPathSettingsFile))
+            try
             {
-                SettingsXml.Current.Default();
-                try
-                {
-                    SettingsXml.Current.Save(fullPathSettingsFile);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(@"Toastify was unable to create the settings file." + Environment.NewLine +
-                                     "Make sure the application is executed from a folder with write access." + Environment.NewLine +
-                                     Environment.NewLine +
-                                     "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                SettingsXml.Current.Load();
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    SettingsXml.Current.Load(fullPathSettingsFile);
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception loading settings:\n" + ex);
+                System.Diagnostics.Debug.WriteLine("Exception loading settings:\n" + ex);
 
-                    MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
-                                     "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
-                                    Environment.NewLine +
-                                    "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
+                                    "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
+                                Environment.NewLine +
+                                "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -78,7 +55,7 @@ namespace Toastify
             Current = this;
 
             //Load settings from XML
-            ReadXml();
+            LoadSettings();
 
             //Init toast(color settings)
             InitToast();
@@ -339,7 +316,7 @@ namespace Toastify
                             {
                                 var ret = MessageBox.Show("Do you always want to start Spotify if it's not already running?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question);
                                 settings.AlwaysStartSpotify = (ret == MessageBoxResult.Yes);
-                                settings.Save(fullPathSettingsFile);
+                                settings.Save();
                             }
                         }
                         catch (Exception)

@@ -24,7 +24,6 @@ namespace Toastify
     {
         public SettingsXml settings;
         private Toast toast;
-        private string ToastifyConfigFile = "Toastify.xml";
 
         private List<System.Windows.Input.Key> modifierKeys = new List<System.Windows.Input.Key> { System.Windows.Input.Key.LeftCtrl, System.Windows.Input.Key.RightCtrl, System.Windows.Input.Key.LeftAlt, System.Windows.Input.Key.Right, System.Windows.Input.Key.LeftShift, System.Windows.Input.Key.RightShift, System.Windows.Input.Key.LWin, System.Windows.Input.Key.RWin, System.Windows.Input.Key.System };
 
@@ -86,7 +85,7 @@ namespace Toastify
 
         private void SaveAndApplySettings()
         {
-            settings.Save(ToastifyConfigFile, replaceCurrent: true);
+            settings.Save(replaceCurrent: true);
 
             toast.InitToast();
             toast.DisplayAction(SpotifyAction.SettingsSaved, "");
