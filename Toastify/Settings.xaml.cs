@@ -97,34 +97,34 @@ namespace Toastify
         {
             if (e.Delta > 0)
             {
-                settings.ToastBorderCornerRadiousTopLeft += 0.1;
+                settings.ToastBorderCornerRadiusTopLeft += 0.1;
             }
-            else if (settings.ToastBorderCornerRadiousTopLeft >= 0.1)
-                settings.ToastBorderCornerRadiousTopLeft -= 0.1;
+            else if (settings.ToastBorderCornerRadiusTopLeft >= 0.1)
+                settings.ToastBorderCornerRadiusTopLeft -= 0.1;
         }
 
         private void tbCornerTopRight_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                settings.ToastBorderCornerRadiousTopRight += 0.1;
-            else if (settings.ToastBorderCornerRadiousTopLeft >= 0.1)
-                settings.ToastBorderCornerRadiousTopRight -= 0.1;
+                settings.ToastBorderCornerRadiusTopRight += 0.1;
+            else if (settings.ToastBorderCornerRadiusTopLeft >= 0.1)
+                settings.ToastBorderCornerRadiusTopRight -= 0.1;
         }
 
         private void tbCornerBottomRight_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                settings.ToastBorderCornerRadiousBottomRight += 0.1;
-            else if (settings.ToastBorderCornerRadiousBottomRight >= 0.1)
-                settings.ToastBorderCornerRadiousBottomRight -= 0.1;
+                settings.ToastBorderCornerRadiusBottomRight += 0.1;
+            else if (settings.ToastBorderCornerRadiusBottomRight >= 0.1)
+                settings.ToastBorderCornerRadiusBottomRight -= 0.1;
         }
 
         private void tbCornerBottomLeft_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                settings.ToastBorderCornerRadiousBottomLeft += 0.1;
-            else if (settings.ToastBorderCornerRadiousBottomLeft >= 0.1)
-                settings.ToastBorderCornerRadiousBottomLeft -= 0.1;
+                settings.ToastBorderCornerRadiusBottomLeft += 0.1;
+            else if (settings.ToastBorderCornerRadiusBottomLeft >= 0.1)
+                settings.ToastBorderCornerRadiusBottomLeft -= 0.1;
         }
 
         private void tbFadeOutTime_MouseWheel(object sender, MouseWheelEventArgs e)

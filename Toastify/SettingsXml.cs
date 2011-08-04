@@ -52,11 +52,11 @@ namespace Toastify
         private string _ToastColorBottom;
         private string _ToastBorderColor;
         private double _ToastBorderThickness;
-        //private string _ToastBorderCornerRadious;
-        private double _ToastBorderCornerRadiousTopLeft;
-        private double _ToastBorderCornerRadiousTopRight;
-        private double _ToastBorderCornerRadiousBottomRight;
-        private double _ToastBorderCornerRadiousBottomLeft;
+        //private string _ToastBorderCornerRadius;
+        private double _ToastBorderCornerRadiusTopLeft;
+        private double _ToastBorderCornerRadiusTopRight;
+        private double _ToastBorderCornerRadiusBottomRight;
+        private double _ToastBorderCornerRadiusBottomLeft;
         private double _ToastWidth;
         private double _ToastHeight;
         private double _OffsetRight;
@@ -176,58 +176,58 @@ namespace Toastify
             }
         }
 
-        public double ToastBorderCornerRadiousTopLeft
+        public double ToastBorderCornerRadiusTopLeft
         {
-            get { return _ToastBorderCornerRadiousTopLeft; }
+            get { return _ToastBorderCornerRadiusTopLeft; }
             set
             {
-                if (_ToastBorderCornerRadiousTopLeft != value)
+                if (_ToastBorderCornerRadiusTopLeft != value)
                 {
-                    _ToastBorderCornerRadiousTopLeft = value;
+                    _ToastBorderCornerRadiusTopLeft = value;
 
-                    NotifyPropertyChanged("ToastBorderCornerRadiousTopLeft");
+                    NotifyPropertyChanged("ToastBorderCornerRadiusTopLeft");
                 }
             }
         }
 
-        public double ToastBorderCornerRadiousTopRight
+        public double ToastBorderCornerRadiusTopRight
         {
-            get { return _ToastBorderCornerRadiousTopRight; }
+            get { return _ToastBorderCornerRadiusTopRight; }
             set
             {
-                if (_ToastBorderCornerRadiousTopRight != value)
+                if (_ToastBorderCornerRadiusTopRight != value)
                 {
-                    _ToastBorderCornerRadiousTopRight = value;
+                    _ToastBorderCornerRadiusTopRight = value;
 
-                    NotifyPropertyChanged("ToastBorderCornerRadiousTopRight");
+                    NotifyPropertyChanged("ToastBorderCornerRadiusTopRight");
                 }
             }
         }
 
-        public double ToastBorderCornerRadiousBottomRight
+        public double ToastBorderCornerRadiusBottomRight
         {
-            get { return _ToastBorderCornerRadiousBottomRight; }
+            get { return _ToastBorderCornerRadiusBottomRight; }
             set
             {
-                if (_ToastBorderCornerRadiousBottomRight != value)
+                if (_ToastBorderCornerRadiusBottomRight != value)
                 {
-                    _ToastBorderCornerRadiousBottomRight = value;
+                    _ToastBorderCornerRadiusBottomRight = value;
 
-                    NotifyPropertyChanged("ToastBorderCornerRadiousBottomRight");
+                    NotifyPropertyChanged("ToastBorderCornerRadiusBottomRight");
                 }
             }
         }
 
-        public double ToastBorderCornerRadiousBottomLeft
+        public double ToastBorderCornerRadiusBottomLeft
         {
-            get { return _ToastBorderCornerRadiousBottomLeft; }
+            get { return _ToastBorderCornerRadiusBottomLeft; }
             set
             {
-                if (_ToastBorderCornerRadiousBottomLeft != value)
+                if (_ToastBorderCornerRadiusBottomLeft != value)
                 {
-                    _ToastBorderCornerRadiousBottomLeft = value;
+                    _ToastBorderCornerRadiusBottomLeft = value;
 
-                    NotifyPropertyChanged("ToastBorderCornerRadiousBottomLeft");
+                    NotifyPropertyChanged("ToastBorderCornerRadiusBottomLeft");
                 }
             }
         }
@@ -328,10 +328,10 @@ namespace Toastify
             ToastBorderThickness = 1.0;
             ToastWidth = 300;
             ToastHeight = 75;
-            ToastBorderCornerRadiousTopLeft = 4.0;
-            ToastBorderCornerRadiousTopRight = 4.0;
-            ToastBorderCornerRadiousBottomRight = 4.0;
-            ToastBorderCornerRadiousBottomLeft = 4.0;
+            ToastBorderCornerRadiusTopLeft = 4.0;
+            ToastBorderCornerRadiusTopRight = 4.0;
+            ToastBorderCornerRadiusBottomRight = 4.0;
+            ToastBorderCornerRadiusBottomLeft = 4.0;
             OffsetRight = 5.0;
             OffsetBottom = 5.0;
             ClipboardTemplate = "I'm currently listening to {0}";

@@ -149,7 +149,7 @@ namespace Toastify
                 this.Height = settings.ToastHeight;
 
             //If we made it this far we have all the values needed.
-            ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiousTopLeft, settings.ToastBorderCornerRadiousTopRight, settings.ToastBorderCornerRadiousBottomRight, settings.ToastBorderCornerRadiousBottomLeft);
+            ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiusTopLeft, settings.ToastBorderCornerRadiusTopRight, settings.ToastBorderCornerRadiusBottomRight, settings.ToastBorderCornerRadiusBottomLeft);
 
         }
 
