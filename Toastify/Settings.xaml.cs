@@ -175,16 +175,6 @@ namespace Toastify
                 settings.OffsetBottom--;
         }
 
-        private void cbDisableToast_Checked(object sender, RoutedEventArgs e)
-        {
-            toggleToastSettings(false);
-        }
-
-        private void cbDisableToast_Unchecked(object sender, RoutedEventArgs e)
-        {
-            toggleToastSettings(true);
-        }
-
         //Slider value changed events
         private void slTopColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -213,28 +203,6 @@ namespace Toastify
         private void cbHotkeys_Unchecked(object sender, RoutedEventArgs e)
         {
             dgHotKeys.Visibility = Visibility.Hidden;
-        }
-
-        // Toggle toast settings modification
-        private void toggleToastSettings(bool enable)
-        {
-            tbBorderThickness.IsEnabled = enable;
-            tbColorBottom.IsEnabled = enable;
-            tbColorTop.IsEnabled = enable;
-            tbBorderColor.IsEnabled = enable;
-            tbCornerBottomLeft.IsEnabled = enable;
-            tbCornerBottomRight.IsEnabled = enable;
-            tbCornerTopLeft.IsEnabled = enable;
-            tbCornerTopRight.IsEnabled = enable;
-            tbFadeOutTime.IsEnabled = enable;
-            tbOffsetBottom.IsEnabled = enable;
-            tbOffsetRight.IsEnabled = enable;
-            tbToastHeight.IsEnabled = enable;
-            tbToastWidth.IsEnabled = enable;
-
-            bChangeBorderColor.IsEnabled = enable;
-            bChangeColorBottom.IsEnabled = enable;
-            bChangeColorTop.IsEnabled = enable;
         }
 
         // Hexadecimal to Color converter

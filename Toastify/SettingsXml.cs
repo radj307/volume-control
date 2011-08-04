@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
 using System.Globalization;
+using Microsoft.Win32;
 
 namespace Toastify
 {
@@ -44,8 +45,10 @@ namespace Toastify
 
         #endregion
 
+        private bool _LaunchOnStartup;
         private bool _GlobalHotKeys;
         private bool _DisableToast;
+        private bool _OnlyShowToastOnHotkey;
         private bool? _AlwaysStartSpotify;
         private int _FadeOutTime;
         private string _ToastColorTop;
@@ -65,6 +68,21 @@ namespace Toastify
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
+        public bool LaunchOnStartup
+        {
+            get { return _LaunchOnStartup; }
+            set
+            {
+                if (_LaunchOnStartup != value)
+                {
+                    _LaunchOnStartup = value;
+                    NotifyPropertyChanged("LaunchOnStartup");
+
+                    SetLaunchOnStartup(value);
+                }
+            }
+        }
+
         public bool GlobalHotKeys
         {
             get { return _GlobalHotKeys; }
@@ -78,6 +96,20 @@ namespace Toastify
             }
         }
 
+        public bool OnlyShowToastOnHotkey
+        {
+            get { return _OnlyShowToastOnHotkey; }
+            set
+            {
+                if (_OnlyShowToastOnHotkey != value)
+                {
+                    _OnlyShowToastOnHotkey = value;
+
+                    NotifyPropertyChanged("OnlyShowToastOnHotkey");
+                }
+            }
+        }
+
         public bool DisableToast
         {
             get { return _DisableToast; }
@@ -87,7 +119,7 @@ namespace Toastify
                 {
                     _DisableToast = value;
 
-                    PropertyChanged(this, new PropertyChangedEventArgs("DisableToast"));
+                    NotifyPropertyChanged("DisableToast");
                 }
             }
         }
@@ -397,6 +429,7 @@ namespace Toastify
         /// </summary>
         private void ApplySettings()
         {
+
             if (GlobalHotKeys)
             {
                 foreach (Hotkey hotkey in HotKeys)
@@ -404,6 +437,22 @@ namespace Toastify
                     hotkey.Enable();
                 }
             }
+        }
+
+        private void SetLaunchOnStartup(bool enabled)
+        {
+            RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+
+            if (enabled)
+            {
+                key.SetValue("Toastify", "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
+            }
+            else
+            {
+                key.DeleteValue("Toastify", false);
+            }
+
+            key.Close();
         }
 
         /// <summary>

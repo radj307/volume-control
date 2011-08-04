@@ -58,8 +58,10 @@ namespace Toastify
                 {
                     SettingsXml.Current.Load(fullPathSettingsFile);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine("Exception loading settings:\n" + ex);
+
                     MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
                                      "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
                                     Environment.NewLine +
@@ -227,11 +229,11 @@ namespace Toastify
             return true;
         }
 
-        private void FadeIn()
+        private void FadeIn(bool force = false)
         {
             SettingsXml settings = SettingsXml.Current;
 
-            if (settings.DisableToast)
+            if ((settings.DisableToast || settings.OnlyShowToastOnHotkey) && !force)
                 return;
 
             if (coverUrl != "")
@@ -491,7 +493,7 @@ namespace Toastify
                             Title2.Text = part1;
                         }
                     }
-                    FadeIn();
+                    FadeIn(force:true);
                     break;
                 case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
