@@ -16,12 +16,18 @@ namespace Toastify
         {
             string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";    
             bool exclusive;
-            Mutex m = new Mutex(true, appSpecificGuid, out exclusive);
-            if (exclusive) 
+            using (Mutex m = new Mutex(true, appSpecificGuid, out exclusive))
             {
-                App app = new App();
-                app.InitializeComponent();
-                app.Run();
+                if (exclusive)
+                {
+                    App app = new App();
+                    app.InitializeComponent();
+                    app.Run();
+                }
+                else
+                {
+                    MessageBox.Show("Toastify is already running!\n\nLook for the blue icon in your system tray.", "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
     }
