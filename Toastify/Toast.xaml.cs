@@ -345,13 +345,17 @@ namespace Toastify
             }
             this.Plugins.Clear();
 
-            if (System.Diagnostics.Process.GetProcessesByName("Spotify").Count() > 0)
-                System.Diagnostics.Process.GetProcessesByName("Spotify")[0].Kill();
+            if (SettingsXml.Current.CloseSpotifyWithToastify)
+            {
+                if (System.Diagnostics.Process.GetProcessesByName("Spotify").Count() > 0)
+                    System.Diagnostics.Process.GetProcessesByName("Spotify")[0].Kill();
+            }
 
             //Ensure trayicon is removed on exit. (Thx Linus)
             trayIcon.Visible = false;
             trayIcon.Dispose();
             trayIcon = null;
+
             base.OnClosing(e);
         }
 

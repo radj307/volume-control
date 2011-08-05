@@ -48,6 +48,7 @@ namespace Toastify
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILE   =  "Toastify.xml";
 
+        private bool _CloseSpotifyWithToastify;
         private bool _GlobalHotKeys;
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;
@@ -71,6 +72,9 @@ namespace Toastify
 
         private string _settingsFile;
 
+        /// <summary>
+        /// Returns the location of the settings file
+        /// </summary>
         [XmlIgnore]
         public string SettingsFile
         {
@@ -114,6 +118,19 @@ namespace Toastify
                 NotifyPropertyChanged("LaunchOnStartup");
 
                 SetLaunchOnStartup(value);
+            }
+        }
+
+        public bool CloseSpotifyWithToastify
+        {
+            get { return _CloseSpotifyWithToastify; }
+            set
+            {
+                if (_CloseSpotifyWithToastify != value)
+                {
+                    _CloseSpotifyWithToastify = value;
+                    NotifyPropertyChanged("CloseSpotifyWithToastify");
+                }
             }
         }
 
@@ -384,40 +401,48 @@ namespace Toastify
 
         public void Default()
         {
-            LaunchOnStartup = false;
-            FadeOutTime = 2000;
+            AlwaysStartSpotify       = null;
+            CloseSpotifyWithToastify = true;
+
+            FadeOutTime   = 2000;
             GlobalHotKeys = true;
-            DisableToast = false;
-            AlwaysStartSpotify = null;
-            ToastColorTop = "#FF999999";
+            DisableToast  = false;
+
+            ToastColorTop    = "#FF999999";
             ToastColorBottom = "#FF353535";
             ToastBorderColor = "#FF292929";
+
             ToastBorderThickness = 1.0;
-            ToastWidth = 300;
+
+            ToastWidth  = 300;
             ToastHeight = 75;
-            ToastBorderCornerRadiusTopLeft = 4.0;
-            ToastBorderCornerRadiusTopRight = 4.0;
+
+            ToastBorderCornerRadiusTopLeft     = 4.0;
+            ToastBorderCornerRadiusTopRight    = 4.0;
             ToastBorderCornerRadiusBottomRight = 4.0;
-            ToastBorderCornerRadiusBottomLeft = 4.0;
-            OffsetRight = 5.0;
+            ToastBorderCornerRadiusBottomLeft  = 4.0;
+
+            OffsetRight  = 5.0;
             OffsetBottom = 5.0;
+
             ClipboardTemplate = "I'm currently listening to {0}";
             
             Hotkey.ClearAll();
 
             HotKeys = new List<Hotkey> 
             {
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Up , Action= SpotifyAction.PlayPause },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Down , Action= SpotifyAction.Stop },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Left , Action= SpotifyAction.PreviousTrack },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Right , Action= SpotifyAction.NextTrack },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.M , Action= SpotifyAction.Mute },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageDown , Action= SpotifyAction.VolumeDown },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.PageUp , Action= SpotifyAction.VolumeUp },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.Space , Action= SpotifyAction.ShowToast },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.S , Action= SpotifyAction.ShowSpotify },
-                new Hotkey { Ctrl=true, Alt=true, Key= System.Windows.Input.Key.C , Action= SpotifyAction.CopyTrackInfo }
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause     },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Down    , Action = SpotifyAction.Stop          },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack     },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute          },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown    },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp      },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast     },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify   },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo }
             };
+
             Plugins = new List<PluginDetails>();
         }
 
