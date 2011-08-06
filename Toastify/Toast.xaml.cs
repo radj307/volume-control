@@ -13,6 +13,7 @@ using System.Net;
 using System.IO;
 using System.Xml.XPath;
 using System.Xml;
+using System.Diagnostics;
 
 namespace Toastify
 {
@@ -330,7 +331,39 @@ namespace Toastify
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            //Let the plugins now we're closing up.
+            // close Spotify first
+            if (SettingsXml.Current.CloseSpotifyWithToastify)
+            {
+                Process[] possibleSpotifys = Process.GetProcessesByName("Spotify");
+                if (possibleSpotifys.Count() > 0)
+                {
+                    using (Process spotify = possibleSpotifys[0])
+                    {
+
+                        try
+                        {
+                            // try to close spotify gracefully
+                            if (spotify.CloseMainWindow())
+                            {
+                                spotify.WaitForExit(1000);
+                            }
+
+                            // didn't work (Spotify often treats window close as hide main window) :( Kill them!
+                            if (!spotify.HasExited)
+                                Process.GetProcessesByName("Spotify")[0].Kill();
+                        }
+                        catch { } // ignore all process exceptions
+                    }
+                }
+            }
+
+            // Ensure trayicon is removed on exit. (Thx Linus)
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
+            trayIcon = null;
+
+            // Let the plugins now we're closing up.
+            // we do this last since it's transparent to the user
             foreach (var p in this.Plugins)
             {
                 try
@@ -343,18 +376,8 @@ namespace Toastify
                     //For now we swallow any plugin errors.
                 }
             }
+
             this.Plugins.Clear();
-
-            if (SettingsXml.Current.CloseSpotifyWithToastify)
-            {
-                if (System.Diagnostics.Process.GetProcessesByName("Spotify").Count() > 0)
-                    System.Diagnostics.Process.GetProcessesByName("Spotify")[0].Kill();
-            }
-
-            //Ensure trayicon is removed on exit. (Thx Linus)
-            trayIcon.Visible = false;
-            trayIcon.Dispose();
-            trayIcon = null;
 
             base.OnClosing(e);
         }
