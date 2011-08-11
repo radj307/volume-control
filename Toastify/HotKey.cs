@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Windows.Input;
 using ManagedWinapi;
+using System.Xml.Serialization;
 
 namespace Toastify
 {
@@ -21,9 +22,11 @@ namespace Toastify
             {
                 if (_ctrl != value)
                 {
-                    _ctrl    = value;
+                    _ctrl = value;
 
                     NotifyPropertyChanged("Notify");
+
+                    CheckIfValid();
                 }
             }
         }
@@ -36,10 +39,11 @@ namespace Toastify
             {
                 if (_alt != value)
                 {
-                    _alt    = value;
+                    _alt = value;
 
                     NotifyPropertyChanged("Alt");
 
+                    CheckIfValid();
                 }
             }
         }
@@ -52,9 +56,11 @@ namespace Toastify
             {
                 if (_shift != value)
                 {
-                    _shift    = value;
+                    _shift = value;
 
                     NotifyPropertyChanged("Shift");
+
+                    CheckIfValid();
                 }
             }
         }
@@ -71,6 +77,8 @@ namespace Toastify
                     _key = value;
 
                     NotifyPropertyChanged("Key");
+
+                    CheckIfValid();
                 }
             }
         }
@@ -86,6 +94,87 @@ namespace Toastify
                     _action = value;
 
                     NotifyPropertyChanged("Action");
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public string HumanReadableAction
+        {
+            get
+            {
+                switch (Action)
+                {
+                    case SpotifyAction.CopyTrackInfo:
+                        return "Copy Track Information";
+                        
+                    case SpotifyAction.Mute:
+                        return "Mute";
+
+                    case SpotifyAction.NextTrack:
+                        return "Next Track";
+
+                    case SpotifyAction.None:
+                        return "None";
+
+                    case SpotifyAction.PlayPause:
+                        return "Play / Pause";
+
+                    case SpotifyAction.PreviousTrack:
+                        return "Previous Track";
+
+                    case SpotifyAction.SettingsSaved:
+                        return "Settings Saved";
+
+                    case SpotifyAction.ShowSpotify:
+                        return "Show Spotify";
+
+                    case SpotifyAction.ShowToast:
+                        return "Show Toast";
+
+                    case SpotifyAction.Stop:
+                        return "Stop";
+
+                    case SpotifyAction.VolumeDown:
+                        return "Volume Down";
+
+                    case SpotifyAction.VolumeUp:
+                        return "Volume Up";
+                }
+
+                return "No Action";
+            }
+        }
+
+        private bool _isValid;
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get { return _isValid; }
+            set
+            {
+                if (_isValid != value)
+                {
+                    _isValid = value;
+
+                    NotifyPropertyChanged("IsValid");
+                }
+            }
+
+        }
+
+        private string _invalidReason;
+        [XmlIgnore]
+        public string InvalidReason
+        {
+            get { return _invalidReason; }
+            set
+            {
+                if (_invalidReason != value)
+                {
+                    _invalidReason = value;
+
+                    NotifyPropertyChanged("InvalidReason");
                 }
             }
         }
@@ -136,7 +225,44 @@ namespace Toastify
             
             _globalKey.HotkeyPressed += (s, e) => { Toast.ActionHookCallback(this); };
 
-            _globalKey.Enabled = _enabled;
+            try
+            {
+                _globalKey.Enabled = _enabled;
+            }
+            catch (HotkeyAlreadyInUseException)
+            {
+                IsValid = false;
+                InvalidReason = "Hotkey is already in use by a different program";
+            }
+        }
+
+        /// <summary>
+        /// Validity rules are:
+        /// 
+        /// 1. Ctrl or Alt must be selected
+        /// 2. a key must be specified
+        /// </summary>
+        private void CheckIfValid()
+        {
+            
+            if (!Ctrl && !Alt)
+            {
+                IsValid = false;
+                InvalidReason = "You must select either Ctrl, Alt or both for your hotkey";
+
+                return;
+            }
+
+            if (Key == Key.None)
+            {
+                IsValid = false;
+                InvalidReason = "You must select a valid key for your hotkey combination";
+
+                return;
+            }
+
+            IsValid = true;
+            InvalidReason = "";
         }
 
         #region Static Functions
@@ -182,14 +308,18 @@ namespace Toastify
                 key.Enabled = false;
         }
 
-        public override string ToString()
+        [XmlIgnore]
+        public string HumanReadableKey
         {
-            StringBuilder sb = new StringBuilder();
-            if (this.Ctrl) sb.Append("Ctrl+");
-            if (this.Alt) sb.Append("Alt+");
-            if (this.Shift) sb.Append("Shift+");
-            sb.Append(this.Key.ToString());
-            return sb.ToString();
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                if (this.Ctrl) sb.Append("Ctrl+");
+                if (this.Alt) sb.Append("Alt+");
+                if (this.Shift) sb.Append("Shift+");
+                sb.Append(this.Key.ToString());
+                return sb.ToString();
+            }
         }
 
         #region INotifyPropertyChanged

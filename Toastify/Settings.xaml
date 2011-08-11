@@ -6,6 +6,7 @@
     
     <Window.Resources>
         <toastify:OppositeBoolConverter x:Key="OppositeBoolConverter"></toastify:OppositeBoolConverter>
+        <toastify:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></toastify:OppositeBoolToVisibleConverter>
     </Window.Resources>
     
     <Grid x:Name="GeneralGrid">
@@ -73,11 +74,40 @@
                         <ColumnDefinition Width="0*" />
                         <ColumnDefinition Width="534*" />
                     </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="8,10,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2" Checked="cbHotkeys_Checked" Unchecked="cbHotkeys_Unchecked">Enable Global Hotkeys</CheckBox>
-                    
-                    <my:DataGrid ItemsSource="{Binding Path=HotKeys, Mode=TwoWay}" AutoGenerateColumns="true" CanUserAddRows="False" KeyboardNavigation.DirectionalNavigation="None"  Margin="14,32,0,6" Name="dgHotKeys" xmlns:my="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit" Grid.Column="2">
+                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="8,10,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2">Enable Global Hotkeys</CheckBox>
 
-                    </my:DataGrid>
+                    <Canvas IsEnabled="{Binding GlobalHotKeys}">
+                        <Canvas DataContext="{Binding HotKeys}">
+
+                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="176" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                            <TextBlock Grid.Column="1" Text="{Binding HumanReadableAction}"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <CheckBox Content="Ctrl" IsChecked="{Binding Ctrl}" Height="17" Canvas.Top="50" Width="52" Canvas.Left="199"></CheckBox>
+                            <CheckBox Content="Alt" IsChecked="{Binding Alt}" Height="17" Canvas.Top="50" Width="50" Canvas.Left="257"></CheckBox>
+                            <CheckBox Content="Shift" IsChecked="{Binding Shift}" Height="17" Canvas.Top="50" Width="53" Canvas.Left="313"></CheckBox>
+
+                            <TextBlock Text="Press a Key:" Width="70" Canvas.Left="199" Height="22" Canvas.Top="77"></TextBlock>
+                            <TextBox x:Name="txtSingleKey" PreviewKeyDown="txtSingleKey_PreviewKeyDown" Width="90" Canvas.Left="265" Height="22" Canvas.Top="75"></TextBox>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Canvas.Left="199" Canvas.Top="110">
+                                <Image Source="Resources/WarningLarge.png" Height="32" Width="32"></Image>
+                                <TextBlock Text="{Binding InvalidReason}"></TextBlock>
+                            </StackPanel>
+                            
+                        </Canvas>
+                    </Canvas>
                 </Grid>
             </TabItem>
         </TabControl>

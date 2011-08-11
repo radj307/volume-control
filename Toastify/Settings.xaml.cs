@@ -193,17 +193,6 @@ namespace Toastify
             settings.ToastBorderColor = "#" + transparency + settings.ToastBorderColor.Substring(3);
         }
 
-        // Toggle Hotkeys datagrid
-        private void cbHotkeys_Checked(object sender, RoutedEventArgs e)
-        {
-            dgHotKeys.Visibility = Visibility.Visible;
-        }
-
-        private void cbHotkeys_Unchecked(object sender, RoutedEventArgs e)
-        {
-            dgHotKeys.Visibility = Visibility.Hidden;
-        }
-
         // Hexadecimal to Color converter
         public static System.Drawing.Color HexToColor(string hexColor)
         {
@@ -227,5 +216,29 @@ namespace Toastify
 
             return System.Drawing.Color.FromArgb(alpha, red, green, blue);
         }
+
+        private void txtSingleKey_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            e.Handled = true;
+            txtSingleKey.Text = e.Key.ToString();
+
+            Hotkey hotkey = lstHotKeys.SelectedItem as Hotkey;
+
+            if (hotkey != null)
+            {
+                hotkey.Key = e.Key;
+            }
+        }
+
+        private void lstHotKeys_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Hotkey hotkey = lstHotKeys.SelectedItem as Hotkey;
+
+            if (hotkey != null)
+            {
+                txtSingleKey.Text = hotkey.Key.ToString();
+            }
+        }
+
     }
 }
