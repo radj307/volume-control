@@ -74,7 +74,7 @@
                         <ColumnDefinition Width="0*" />
                         <ColumnDefinition Width="534*" />
                     </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="8,10,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2">Enable Global Hotkeys</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="6,15,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2">Enable Global Hotkeys</CheckBox>
 
                     <Canvas IsEnabled="{Binding GlobalHotKeys}">
                         <Canvas DataContext="{Binding HotKeys}">
