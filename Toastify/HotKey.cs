@@ -218,6 +218,11 @@ namespace Toastify
             if (_globalKey == null)
                 _globalKey = new ManagedWinapi.Hotkey();
 
+            // make sure that we don't try to reregister the key midway updating 
+            // the combination
+            if (_globalKey.Enabled)
+                _globalKey.Enabled = false;
+
             _globalKey.Alt     = this.Alt;
             _globalKey.Ctrl    = this.Ctrl;
             _globalKey.Shift   = this.Shift;
