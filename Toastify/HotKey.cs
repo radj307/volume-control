@@ -277,14 +277,11 @@ namespace Toastify
         public static void ClearAll()
         {
 
-            if (!SettingsXml.Current.GlobalHotKeys)
+            // disable will be called by the destructors, but we want to force a disable
+            // now so that we don't wait for the GC to clean up the objectss
+            foreach (Hotkey hotkey in _hotkeys)
             {
-                // disable will be called by the destructors, but we want to force a disable
-                // now so that we don't wait for the GC to clean up the objectss
-                foreach (Hotkey hotkey in _hotkeys)
-                {
-                    hotkey.Disable();
-                }
+                hotkey.Disable();
             }
 
             _hotkeys.Clear();

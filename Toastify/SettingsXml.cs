@@ -32,7 +32,7 @@ namespace Toastify
 
             private set 
             {
-                if (_theOne != null && _theOne != value)
+                if (_theOne != null)
                 {
                     _theOne.UnloadSettings();
 
