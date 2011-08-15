@@ -39,7 +39,7 @@ Section "Toastify (required)"
   File "Toastify.exe"	
   File "ToastifyApi.dll"
   File "ManagedWinapi.dll"
-  File "ManagedWinapiNativeHelper.dll"
+  File "Resources\ManagedWinapiNativeHelper.dll"
   File "WPFToolkit.dll"
   File "LICENSE"
   
