@@ -10,7 +10,7 @@ namespace Toastify
 {
     class VersionChecker
     {
-        private const string CURRENT_VERSION_STRING = "Toastify 1.1";
+        private const string CURRENT_VERSION_STRING = "Toastify 1.5";
         WebClient wc;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
@@ -29,7 +29,8 @@ namespace Toastify
             if (e.Cancelled == false && e.Error == null)
             {
                 var match = Regex.Match(e.Result,
-                    "<td class=\"ActivityLabelCell\"><div class=\"ActivityLabel\">Current</div></td>.*?<td id=\"ReleaseName\" class=\"ActivityData\">(?<ver>.*?)</td>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                    "<td class=\"ActivityLabelCell\"><div class=\"ActivityLabel\">Current</div></td>.*?<td id=\"ReleaseName\" class=\"ActivityData\">(?<ver>.*?)</td>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
                 if (match.Success)
                     version = match.Groups["ver"].Value.Trim();
 
