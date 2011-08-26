@@ -389,9 +389,33 @@ namespace Toastify
             else
                 return Key.None;
         }
+        
+        #region ActionHookCallback
+
+        private static Hotkey _lastHotkey = null;
+        private static DateTime _lastHotkeyPressTime = DateTime.Now;
+
+        /// <summary>
+        /// If the same hotkey press happens within this buffer time, it will be ignored.
+        /// 
+        /// I came to 150 by pressing keys as quickly as possibly. The minimum time was less than 150
+        /// but most values fell in the 150 to 200 range for quick presses, so 150 seemed the most reasonable
+        /// </summary>
+        private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
 
         internal static void ActionHookCallback(Hotkey hotkey)
         {
+            // Bug 9421: ignore this keypress if it is the same as the previous one and it's been less than
+            //           WAIT_BETWEEN_HOTKEY_PRESS since the last press. Note that we do not update 
+            //           _lastHotkeyPressTime in this case to avoid being trapped in a never ending cycle of
+            //           ignoring keypresses if the user (for some reason) decides to press really quickly, 
+            //           really often on the hotkey
+            if (hotkey == _lastHotkey && DateTime.Now.Subtract(_lastHotkeyPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
+                return;
+
+            _lastHotkey          = hotkey;
+            _lastHotkeyPressTime = DateTime.Now;
+
             string currentTrack = string.Empty;
             
             try
@@ -412,6 +436,8 @@ namespace Toastify
                 Toast.Current.FadeIn();
             }
         }
+
+        #endregion
 
         public void DisplayAction(SpotifyAction action, string trackBeforeAction)
         {
