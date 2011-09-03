@@ -500,7 +500,7 @@ namespace Toastify
             {
                 foreach (Hotkey hotkey in HotKeys)
                 {
-                    hotkey.Enable();
+                    hotkey.Activate();
                 }
             }
         }
@@ -537,7 +537,7 @@ namespace Toastify
             {
                 foreach (Hotkey hotkey in HotKeys)
                 {
-                    hotkey.Disable();
+                    hotkey.Deactivate();
                 }
             }
         }

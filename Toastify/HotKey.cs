@@ -14,6 +14,30 @@ namespace Toastify
 {
     public class Hotkey : INotifyPropertyChanged
     {
+        private bool _enabled;
+        /// <summary>
+        /// Specifies whether or not the hotkey is enabled or disabled from a user's
+        /// perspective. Does not actually enable or disable the hotkey, use Activate()
+        /// and Deactivate().
+        /// 
+        /// Why do we have these two schemes? We need a way to be able to deactivate a
+        /// Hotkey (for example when unloading settings) without changing the Enabled
+        /// property (which only indicates the user's preference)
+        /// </summary>
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+
+                    NotifyPropertyChanged("Enabled");
+                }
+            }
+        }
+
         private bool _ctrl;
         public bool Ctrl
         {
@@ -179,35 +203,41 @@ namespace Toastify
             }
         }
 
-        private bool _enabled = false;
+        private bool _active = false;
         private ManagedWinapi.Hotkey _globalKey;
 
         public Hotkey Clone()
         {
             Hotkey clone = MemberwiseClone() as Hotkey;
             
-            // regardless of whether or not the original hotkey was enabled
-            // the cloned one should not be enabled
-            clone._enabled = false;
+            // regardless of whether or not the original hotkey was active
+            // the cloned one should not start in an active state
+            clone._active = false;
 
             return clone;
         }
 
-        public void Disable()
+        /// <summary>
+        /// Turn this HotKey off
+        /// </summary>
+        public void Deactivate()
         {
-            SetEnabled(false);
+            SetActive(false);
         }
 
-        public void Enable()
+        /// <summary>
+        /// Turn this hotkey on. Does nothing if this Hotkey is not enabled
+        /// </summary>
+        public void Activate()
         {
-            SetEnabled(true);
+            SetActive(true);
         }
 
-        private void SetEnabled(bool value)
+        private void SetActive(bool value)
         {
-            if (_enabled != value)
+            if (_active != value)
             {
-                _enabled = value;
+                _active = value;
 
                 InitGlobalKey();
             }
@@ -215,6 +245,21 @@ namespace Toastify
         
         private void InitGlobalKey()
         {
+            // If we're not enabled shut everything done asap
+            if (!Enabled || !_active)
+            {
+                if (_globalKey != null)
+                {
+                    _globalKey.Enabled = false;
+                    _globalKey = null; // may as well collect the memory
+                }
+
+                // may not be false if !Enabled
+                _active = false;
+
+                return;
+            }
+
             if (_globalKey == null)
                 _globalKey = new ManagedWinapi.Hotkey();
 
@@ -232,7 +277,7 @@ namespace Toastify
 
             try
             {
-                _globalKey.Enabled = _enabled;
+                _globalKey.Enabled = true;
             }
             catch (HotkeyAlreadyInUseException)
             {
@@ -281,7 +326,7 @@ namespace Toastify
             // now so that we don't wait for the GC to clean up the objectss
             foreach (Hotkey hotkey in _hotkeys)
             {
-                hotkey.Disable();
+                hotkey.Deactivate();
             }
 
             _hotkeys.Clear();

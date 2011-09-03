@@ -79,7 +79,7 @@
                     <Canvas IsEnabled="{Binding GlobalHotKeys}">
                         <Canvas DataContext="{Binding HotKeys}">
 
-                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="176" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
+                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="240" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -88,6 +88,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <Image Source="Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                            <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,0,4,05"></CheckBox>
                                             <TextBlock Grid.Column="1" Text="{Binding HumanReadableAction}"></TextBlock>
                                         </Grid>
                                     </DataTemplate>
