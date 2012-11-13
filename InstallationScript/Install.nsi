@@ -59,6 +59,12 @@ Section "Desktop icon"
   CreateShortCut "$DESKTOP\Toastify.lnk" "$INSTDIR\Toastify.exe" "" "$INSTDIR\Toastify.exe" 0
 SectionEnd
 
+Section "Start Menu icon"
+  # Start Menu
+  CreateShortCut "$SMPROGRAMS\Toastify.lnk" "$INSTDIR\Toastify.exe" "" "$INSTDIR\Toastify.exe" 0
+  
+SectionEnd
+
 Section "Autostart"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify" '"$INSTDIR\Toastify.exe"'
 SectionEnd
@@ -68,6 +74,9 @@ SectionEnd
 ; Uninstaller
 
 Section "Uninstall"
+  
+  # Remove Start Menu launcher
+  Delete "$SMPROGRAMS\Toastify.lnk"
   
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify"
