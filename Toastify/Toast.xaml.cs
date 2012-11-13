@@ -301,9 +301,15 @@ namespace Toastify
             {
                 if ((settings.AlwaysStartSpotify.HasValue && settings.AlwaysStartSpotify.Value) || (MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 {
-                    string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty).ToString();  //string.Empty = (Default) value
+                    string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;  //string.Empty = (Default) value
 
+                    // try in the secondary location
                     if (string.IsNullOrEmpty(spotifyPath))
+                    {
+                        spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;  //string.Empty = (Default) value
+                    }
+
+                    if (string.IsNullOrEmpty(spotifyPath)) 
                     {
                         MessageBox.Show("Unable to find Spotify. Make sure it is installed and/or start it manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
