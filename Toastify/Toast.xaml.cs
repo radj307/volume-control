@@ -231,9 +231,9 @@ namespace Toastify
             this.Left = workingArea.Right - this.ActualWidth - settings.OffsetRight;
             this.Top = workingArea.Bottom - this.ActualHeight - settings.OffsetBottom;
 
-            // force the toast to be topmost
+            // force the toast to be topmost (we set this in code since for some reason the setting seems to
+            // get lost after a while, this seems to refresh it)
             this.Topmost = true;
-            this.Activate();
 
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
             anim.Completed += (s, e) => { FadeOut(); };
