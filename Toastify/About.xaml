@@ -34,7 +34,7 @@
                 <TextBlock Grid.Row="0" FontSize="24" FontWeight="Bold">
                 	<TextBlock.BitmapEffect>
                 		<DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>
-                	</TextBlock.BitmapEffect>Toastify 1.5</TextBlock>
+                	</TextBlock.BitmapEffect>Toastify 1.6</TextBlock>
                 <TextBlock Grid.Row="1" FontWeight="Bold" Foreground="#FF0000DB" Cursor="Hand" Name="CodeplexLink" MouseLeftButtonUp="CodeplexLink_MouseLeftButtonUp" HorizontalAlignment="Left">
                 	<TextBlock.BitmapEffect>
                 		<DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>

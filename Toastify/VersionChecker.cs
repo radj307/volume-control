@@ -10,7 +10,7 @@ namespace Toastify
 {
     class VersionChecker
     {
-        private const string CURRENT_VERSION_STRING = "Toastify 1.5";
+        private const string CURRENT_VERSION_STRING = "Toastify 1.6";
         WebClient wc;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
