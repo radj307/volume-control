@@ -231,6 +231,7 @@ namespace Toastify
             this.Left = workingArea.Right - this.ActualWidth - settings.OffsetRight;
             this.Top = workingArea.Bottom - this.ActualHeight - settings.OffsetBottom;
 
+            // force the toast to be topmost
             this.Topmost = true;
             this.Activate();
 
