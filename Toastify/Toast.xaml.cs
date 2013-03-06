@@ -231,6 +231,9 @@ namespace Toastify
             this.Left = workingArea.Right - this.ActualWidth - settings.OffsetRight;
             this.Top = workingArea.Bottom - this.ActualHeight - settings.OffsetBottom;
 
+            this.Topmost = true;
+            this.Activate();
+
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
             anim.Completed += (s, e) => { FadeOut(); };
             this.BeginAnimation(Window.OpacityProperty, anim);
