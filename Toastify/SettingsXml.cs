@@ -250,6 +250,9 @@ namespace Toastify
             get { return _ToastBorderThickness; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastBorderThickness != value)
                 {
                     _ToastBorderThickness = value;
@@ -264,6 +267,9 @@ namespace Toastify
             get { return _ToastBorderCornerRadiusTopLeft; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastBorderCornerRadiusTopLeft != value)
                 {
                     _ToastBorderCornerRadiusTopLeft = value;
@@ -278,6 +284,9 @@ namespace Toastify
             get { return _ToastBorderCornerRadiusTopRight; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastBorderCornerRadiusTopRight != value)
                 {
                     _ToastBorderCornerRadiusTopRight = value;
@@ -292,6 +301,9 @@ namespace Toastify
             get { return _ToastBorderCornerRadiusBottomRight; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastBorderCornerRadiusBottomRight != value)
                 {
                     _ToastBorderCornerRadiusBottomRight = value;
@@ -306,6 +318,9 @@ namespace Toastify
             get { return _ToastBorderCornerRadiusBottomLeft; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastBorderCornerRadiusBottomLeft != value)
                 {
                     _ToastBorderCornerRadiusBottomLeft = value;
@@ -320,6 +335,9 @@ namespace Toastify
             get { return _ToastWidth; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastWidth != value)
                 {
                     _ToastWidth = value;
@@ -334,6 +352,9 @@ namespace Toastify
             get { return _ToastHeight; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
                 if (_ToastHeight != value)
                 {
                     _ToastHeight = value;
