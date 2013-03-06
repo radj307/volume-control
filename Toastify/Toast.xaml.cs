@@ -45,6 +45,8 @@ namespace Toastify
                                     "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
                                 Environment.NewLine +
                                 "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                SettingsXml.Current.Default();
             }
         }
 
