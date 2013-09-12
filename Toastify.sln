@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 12
+VisualStudioVersion = 12.0.20501.1 DP
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{64E51A59-02A2-4423-8DE1-F337D479E3B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installation", "{FCD4BE87-8354-47A1-85DE-709E35559000}"
@@ -18,6 +20,27 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Toastify\\Toastify.csproj
+		SccProjectName1 = Toastify
+		SccLocalPath1 = Toastify
+		SccProjectUniqueName2 = PluginBase\\PluginBase.csproj
+		SccProjectTopLevelParentUniqueName2 = Toastify.sln
+		SccProjectName2 = PluginBase
+		SccLocalPath2 = PluginBase
+		SccProjectUniqueName3 = SkypePlugin\\SkypePlugin.csproj
+		SccProjectTopLevelParentUniqueName3 = Toastify.sln
+		SccProjectName3 = SkypePlugin
+		SccLocalPath3 = SkypePlugin
+		SccProjectUniqueName4 = ExamplePlugin\\ExamplePlugin.csproj
+		SccProjectTopLevelParentUniqueName4 = Toastify.sln
+		SccProjectName4 = ExamplePlugin
+		SccLocalPath4 = ExamplePlugin
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
