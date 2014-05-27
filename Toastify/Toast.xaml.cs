@@ -74,7 +74,7 @@ namespace Toastify
             //Init tray icon menu
             System.Windows.Forms.MenuItem menuSettings = new System.Windows.Forms.MenuItem();
             menuSettings.Text = "Settings";
-            menuSettings.Click += (s, e) => { new Settings(this).ShowDialog(); };
+            menuSettings.Click += (s, e) => { Settings.Launch(this); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             
@@ -91,6 +91,8 @@ namespace Toastify
             menuExit.Click += (s, e) => { Application.Current.Shutdown(); }; //this.Close(); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
+
+            trayIcon.DoubleClick += (s, e) => { Settings.Launch(this); };
 
             //Init watch timer
             watchTimer = new Timer(1000);

@@ -27,6 +27,20 @@ namespace Toastify
 
         private List<System.Windows.Input.Key> modifierKeys = new List<System.Windows.Input.Key> { System.Windows.Input.Key.LeftCtrl, System.Windows.Input.Key.RightCtrl, System.Windows.Input.Key.LeftAlt, System.Windows.Input.Key.Right, System.Windows.Input.Key.LeftShift, System.Windows.Input.Key.RightShift, System.Windows.Input.Key.LWin, System.Windows.Input.Key.RWin, System.Windows.Input.Key.System };
 
+        private static Settings _current;
+
+        public static void Launch(Toast toast)
+        {
+            if (_current != null)
+            {
+                _current.Activate();
+            }
+            else 
+            {
+                new Settings(toast).ShowDialog();
+            }
+        }
+
         public Settings(Toast toast)
         {
             this.settings = SettingsXml.Current.Clone();
@@ -41,6 +55,15 @@ namespace Toastify
             slTopColor.Value    = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
             slBottomColor.Value = byte.Parse(settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
             slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+
+            if (_current == null)
+                _current = this;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (_current == this)
+                _current = null;
         }
 
         //Change Color button click events
