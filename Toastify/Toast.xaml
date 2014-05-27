@@ -3,6 +3,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Toastify" Height="75" Width="300" WindowStyle="None" AllowsTransparency="True" Background="#00000000" ShowInTaskbar="False" Loaded="Window_Loaded" Opacity="0" 
     MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseDown="Window_MouseDown" Cursor="Hand" Topmost="True">
+
+    <!-- maintain TopMost="True" as per http://www.programmingtidbits.com/post/2013/01/05/Setting-WPF-Window-to-be-Always-on-Top.aspx -->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.LostFocus">
+            <BeginStoryboard>
+                <Storyboard>
+                    <BooleanAnimationUsingKeyFrames>
+                        <DiscreteBooleanKeyFrame KeyTime="0"
+                                                 Value="True"
+                                                 Storyboard.Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                                                 Storyboard.TargetProperty="Topmost"/>
+                    </BooleanAnimationUsingKeyFrames>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Border Name="ToastBorder" BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
