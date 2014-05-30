@@ -3,12 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:toastify="clr-namespace:Toastify"
     Title="Toastify - Settings" Height="542" Width="568" ResizeMode="NoResize" Icon="spotify.ico" Closed="Window_Closed">
-    
+
     <Window.Resources>
         <toastify:OppositeBoolConverter x:Key="OppositeBoolConverter"></toastify:OppositeBoolConverter>
         <toastify:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></toastify:OppositeBoolToVisibleConverter>
     </Window.Resources>
-    
+
     <Grid x:Name="GeneralGrid">
         <TabControl Name="tabControl1">
             <TabItem Header="General" Name="General">
@@ -16,9 +16,12 @@
                     <CheckBox Height="16" IsChecked="{Binding Path=LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,37,0,0" VerticalAlignment="Top" Width="232">Launch Toastify with Windows</CheckBox>
                     <CheckBox Height="16" IsChecked="{Binding Path=AlwaysStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,59,0,0" VerticalAlignment="Top" Width="232">Launch Spotify if not already running</CheckBox>
                     <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,81,0,0" VerticalAlignment="Top" Width="232">Close Spotify when you close Toastify</CheckBox>
-                    <Label Height="28" HorizontalAlignment="Left" Margin="6,112,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
-                    <TextBox Height="23" Margin="134,116,6,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" />
-                    <TextBlock Margin="134,145,6,272" Width="396" TextWrapping="Wrap" Height="54">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="3,131,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
+                    <TextBox Height="23" Margin="141,135,19,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" />
+                    <TextBlock Margin="141,171,19,260" Width="396" TextWrapping="Wrap" Height="54">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+
+                    <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,102,0,0" VerticalAlignment="Top" Width="232">Close Spotify when you close Toastify</CheckBox>
+
                     <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" />
                 </Grid>
             </TabItem>
@@ -106,13 +109,13 @@
                                 <Image Source="Resources/WarningLarge.png" Height="32" Width="32"></Image>
                                 <TextBlock Text="{Binding InvalidReason}"></TextBlock>
                             </StackPanel>
-                            
+
                         </Canvas>
                     </Canvas>
                 </Grid>
             </TabItem>
         </TabControl>
-        
+
         <Button Height="23" HorizontalAlignment="Right" Margin="0,35,11,0" Name="bDefault2" VerticalAlignment="Top" Width="55" Click="bDefault_Click">Default</Button>
         <Button Height="23" HorizontalAlignment="Right" Margin="0,35,70,0" Name="bSave2" VerticalAlignment="Top" Width="47" Click="bSave_Click">Save</Button>
 

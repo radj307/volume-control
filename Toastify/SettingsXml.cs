@@ -49,6 +49,7 @@ namespace Toastify
         private const string SETTINGS_FILE   =  "Toastify.xml";
 
         private bool _CloseSpotifyWithToastify;
+        //private bool _UseAudioScrobbler
         private bool _GlobalHotKeys;
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;
