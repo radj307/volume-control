@@ -40,7 +40,6 @@ Section "Toastify (required)"
   File "ToastifyApi.dll"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
-  File "WPFToolkit.dll"
   File "LICENSE"
   
   ; Write the uninstall keys for Windows
@@ -87,7 +86,6 @@ Section "Uninstall"
   Delete "$INSTDIR\ToastifyApi.dll"
   Delete "$INSTDIR\ManagedWinapi.dll"
   Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
-  Delete "$INSTDIR\WPFToolkit.dll"
   Delete "$INSTDIR\LICENSE"
   
   ; remove the settings directory
