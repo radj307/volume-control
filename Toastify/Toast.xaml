@@ -44,7 +44,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Name="Title1" Grid.Row="0" Foreground="White" FontSize="14"><TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="2" Softness="0.1" /></TextBlock.BitmapEffect>Body (feat. DJ Rush)</TextBlock>
-                <TextBlock Name="Title2" Grid.Row="1" Foreground="White"><TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" /></TextBlock.BitmapEffect>Si Begg</TextBlock>
+                <TextBlock Name="Title2" Grid.Row="1" Foreground="White">Si Begg</TextBlock>
             </Grid>
         </Grid>
     </Border>

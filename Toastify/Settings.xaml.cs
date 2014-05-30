@@ -52,10 +52,13 @@ namespace Toastify
             GeneralGrid.DataContext = this.settings;
 
             //Slider initialisation
-            slTopColor.Value    = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-            slBottomColor.Value = byte.Parse(settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-            slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-
+            try
+            {
+                slTopColor.Value = byte.Parse(settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+                slBottomColor.Value = byte.Parse(settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+                slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
+            }
+            catch { }
             if (_current == null)
                 _current = this;
         }

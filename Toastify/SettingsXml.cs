@@ -430,19 +430,19 @@ namespace Toastify
             GlobalHotKeys = true;
             DisableToast  = false;
 
-            ToastColorTop    = "#FF999999";
-            ToastColorBottom = "#FF353535";
-            ToastBorderColor = "#FF292929";
+            ToastColorTop    = "#FF000000";
+            ToastColorBottom = "#FF000000";
+            ToastBorderColor = "#FF000000";
 
             ToastBorderThickness = 1.0;
 
             ToastWidth  = 300;
             ToastHeight = 75;
 
-            ToastBorderCornerRadiusTopLeft     = 4.0;
-            ToastBorderCornerRadiusTopRight    = 4.0;
-            ToastBorderCornerRadiusBottomRight = 4.0;
-            ToastBorderCornerRadiusBottomLeft  = 4.0;
+            ToastBorderCornerRadiusTopLeft     = 0;
+            ToastBorderCornerRadiusTopRight    = 0;
+            ToastBorderCornerRadiusBottomRight = 0;
+            ToastBorderCornerRadiusBottomLeft  = 0;
 
             OffsetRight  = 5.0;
             OffsetBottom = 5.0;
