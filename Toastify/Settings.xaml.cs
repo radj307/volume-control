@@ -246,13 +246,21 @@ namespace Toastify
         private void txtSingleKey_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             e.Handled = true;
-            txtSingleKey.Text = e.Key.ToString();
+
+            var key = e.Key;
+
+            if (key == Key.System)
+            {
+                key = e.SystemKey;
+            }
+
+            txtSingleKey.Text = key.ToString();
 
             Hotkey hotkey = lstHotKeys.SelectedItem as Hotkey;
 
             if (hotkey != null)
             {
-                hotkey.Key = e.Key;
+                hotkey.Key = key;
             }
         }
 
