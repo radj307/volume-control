@@ -433,7 +433,7 @@ namespace Toastify
             ToastColorTop    = "#FF000000";
             ToastColorBottom = "#FF000000";
             ToastBorderColor = "#FF000000";
-
+            
             ToastBorderThickness = 1.0;
 
             ToastWidth  = 300;
