@@ -1,6 +1,7 @@
 !include "DotNET.nsh"
 !include LogicLib.nsh
 !define DOTNET_VERSION "3.5"
+!include "MUI.nsh"
 
 ; The name of the installer
 Name "Toastify Installer"
@@ -21,6 +22,22 @@ RequestExecutionLevel admin
 Page components
 Page directory
 Page instfiles
+ 
+    # These indented statements modify settings for MUI_PAGE_FINISH
+    !define MUI_FINISHPAGE_AUTOCLOSE
+    !define MUI_FINISHPAGE_RUN
+    !define MUI_FINISHPAGE_RUN_CHECKED
+    !define MUI_FINISHPAGE_RUN_TEXT "Launch Toastify Now"
+    !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+  !insertmacro MUI_PAGE_FINISH
+  
+  ;Languages
+!insertmacro MUI_LANGUAGE "English"
+
+;--------------------------------
+Function LaunchLink
+  ExecShell "" "$INSTDIR\Toastify.exe"
+FunctionEnd
 
 UninstPage uninstConfirm
 UninstPage instfiles
