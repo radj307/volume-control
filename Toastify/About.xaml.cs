@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Toastify
 {
@@ -27,6 +28,8 @@ namespace Toastify
 
             versionChecker = new VersionChecker();
             versionChecker.CheckVersionComplete += new EventHandler<CheckVersionCompleteEventArgs>(versionChecker_CheckVersionComplete);
+
+            this.DataContext = versionChecker;
         }
 
         void versionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -40,7 +43,12 @@ namespace Toastify
             else
                 latestVersionText = "You have the latest version.";
 
-            this.Dispatcher.Invoke(new Action(() => { LatestVersion.Text = latestVersionText; }), System.Windows.Threading.DispatcherPriority.Normal);
+            this.Dispatcher.Invoke(new Action(() => 
+            {
+                Run run = new Run(latestVersionText);
+                LatestVersion.Inlines.Clear();
+                LatestVersion.Inlines.Add(run);
+            }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         private void CodeplexLink_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -56,6 +64,14 @@ namespace Toastify
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             versionChecker.BeginCheckVersion();
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+
+            this.Close();
         }
     }
 }

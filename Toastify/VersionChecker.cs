@@ -10,6 +10,9 @@ namespace Toastify
 {
     class VersionChecker
     {
+
+        public string Version { get { return "1.6.1"; } }
+
         private const string CURRENT_VERSION_STRING = "Toastify 1.6";
         WebClient wc;
 
@@ -28,8 +31,7 @@ namespace Toastify
 
             if (e.Cancelled == false && e.Error == null)
             {
-                var match = Regex.Match(e.Result,
-                    "<td class=\"ActivityLabelCell\"><div class=\"ActivityLabel\">Current</div></td>.*?<td id=\"ReleaseName\" class=\"ActivityData\">(?<ver>.*?)</td>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                var match = Regex.Match(e.Result, "Version: (?<ver>[\\d+\\.]+)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
                 if (match.Success)
                     version = match.Groups["ver"].Value.Trim();
@@ -52,7 +54,7 @@ namespace Toastify
         private void ThreadedBeginCheckVersion()
         {
             //WebClients XXXAsync isn't as async as I wanted...
-            wc.DownloadStringAsync(new Uri("http://toastify.codeplex.com"));
+            wc.DownloadStringAsync(new Uri("http://toastify.codeplex.com/wikipage?title=Version"));
         }
     }
 

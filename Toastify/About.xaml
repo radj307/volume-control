@@ -31,16 +31,25 @@
 					<RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontSize="24" FontWeight="Bold">
-                	<TextBlock.BitmapEffect>
-                		<DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>
-                	</TextBlock.BitmapEffect>Toastify 1.6.1</TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <TextBlock FontSize="24" FontWeight="Bold" Margin="0,0,5,0">
+                        <TextBlock.BitmapEffect>
+                            <DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>
+                        </TextBlock.BitmapEffect>Toastify
+                    </TextBlock>
+                    <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding Version}">
+                        <TextBlock.BitmapEffect>
+                            <DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>
+                        </TextBlock.BitmapEffect>
+                    </TextBlock>
+                </StackPanel>
                 <TextBlock Grid.Row="1" FontWeight="Bold" Foreground="#FF0000DB" Cursor="Hand" Name="CodeplexLink" MouseLeftButtonUp="CodeplexLink_MouseLeftButtonUp" HorizontalAlignment="Left">
                 	<TextBlock.BitmapEffect>
                 		<DropShadowBitmapEffect ShadowDepth="2" Softness="0.655"/>
                 	</TextBlock.BitmapEffect>	
 				toastify.codeplex.com</TextBlock>
-                <TextBlock Name="LatestVersion" Grid.Row="3" FontSize="10" Foreground="#FFE2E2E2">Checking for updates...</TextBlock>
+
+                <TextBlock Grid.Row="3" FontSize="10" Foreground="#FFE2E2E2"><Hyperlink Name="LatestVersion" Foreground="#FFE2E2E2" NavigateUri="https://toastify.codeplex.com/releases/view/24273" RequestNavigate="Hyperlink_RequestNavigate">Checking for updates...</Hyperlink></TextBlock>
                 <TextBlock Grid.Row="4" FontSize="10" Foreground="#FFBDBDBD" TextWrapping="Wrap">Credits to: Linus, Maaaackan, Aqualize, ncahmore...</TextBlock>
             </Grid>
 			<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFD6D6D6">Created by Jesper Palm 2009, licensed under GPLv2.</TextBlock>
