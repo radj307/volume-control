@@ -20,9 +20,51 @@
                     <TextBox Height="23" Margin="141,135,19,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" />
                     <TextBlock Margin="141,171,19,260" Width="396" TextWrapping="Wrap" Height="54">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
 
-                    <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,102,0,0" VerticalAlignment="Top" Width="232">Close Spotify when you close Toastify</CheckBox>
-
                     <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Hotkeys" Name="Hotkeys">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="0*" />
+                        <ColumnDefinition Width="534*" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="6,15,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2">Enable Global Hotkeys</CheckBox>
+
+                    <Canvas IsEnabled="{Binding GlobalHotKeys}">
+                        <Canvas DataContext="{Binding HotKeys}">
+
+                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="197" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                            <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,2,4,2"></CheckBox>
+                                            <TextBlock Grid.Column="1" Text="{Binding HumanReadableAction}"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <CheckBox Content="Ctrl" IsChecked="{Binding Ctrl}" Height="17" Canvas.Top="50" Width="52" Canvas.Left="199"></CheckBox>
+                            <CheckBox Content="Alt" IsChecked="{Binding Alt}" Height="17" Canvas.Top="50" Width="50" Canvas.Left="257"></CheckBox>
+                            <CheckBox Content="Shift" IsChecked="{Binding Shift}" Height="17" Canvas.Top="50" Width="53" Canvas.Left="313"></CheckBox>
+
+                            <TextBlock Text="Press a Key:" Width="70" Canvas.Left="199" Height="22" Canvas.Top="77"></TextBlock>
+                            <TextBox x:Name="txtSingleKey" PreviewKeyDown="txtSingleKey_PreviewKeyDown" Width="90" Canvas.Left="265" Height="22" Canvas.Top="75"></TextBox>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Canvas.Left="199" Canvas.Top="110">
+                                <Image Source="Resources/WarningLarge.png" Height="32" Width="32"></Image>
+                                <TextBlock Text="{Binding InvalidReason}"></TextBlock>
+                            </StackPanel>
+
+                        </Canvas>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="Toast" Name="tabToast">
@@ -68,50 +110,6 @@
                         <Slider Height="22" HorizontalAlignment="Right" Margin="0,182,2,0" Name="slBorderColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" />
                         <Label Height="28" HorizontalAlignment="Right" Margin="0,179,110,0" Name="label18" VerticalAlignment="Top" Width="85">Transparency :</Label>
                     </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Hotkeys" Name="Hotkeys">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="0*" />
-                        <ColumnDefinition Width="534*" />
-                    </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding Path=GlobalHotKeys, Mode=TwoWay}" Height="16" HorizontalAlignment="Left" Margin="6,15,0,0" Name="cbHotkeys" VerticalAlignment="Top" Width="145" Grid.Column="2">Enable Global Hotkeys</CheckBox>
-
-                    <Canvas IsEnabled="{Binding GlobalHotKeys}">
-                        <Canvas DataContext="{Binding HotKeys}">
-
-                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="197" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="20" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
-                                            <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,2,4,2"></CheckBox>
-                                            <TextBlock Grid.Column="1" Text="{Binding HumanReadableAction}"></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-
-                            <CheckBox Content="Ctrl" IsChecked="{Binding Ctrl}" Height="17" Canvas.Top="50" Width="52" Canvas.Left="199"></CheckBox>
-                            <CheckBox Content="Alt" IsChecked="{Binding Alt}" Height="17" Canvas.Top="50" Width="50" Canvas.Left="257"></CheckBox>
-                            <CheckBox Content="Shift" IsChecked="{Binding Shift}" Height="17" Canvas.Top="50" Width="53" Canvas.Left="313"></CheckBox>
-
-                            <TextBlock Text="Press a Key:" Width="70" Canvas.Left="199" Height="22" Canvas.Top="77"></TextBlock>
-                            <TextBox x:Name="txtSingleKey" PreviewKeyDown="txtSingleKey_PreviewKeyDown" Width="90" Canvas.Left="265" Height="22" Canvas.Top="75"></TextBox>
-
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Canvas.Left="199" Canvas.Top="110">
-                                <Image Source="Resources/WarningLarge.png" Height="32" Width="32"></Image>
-                                <TextBlock Text="{Binding InvalidReason}"></TextBlock>
-                            </StackPanel>
-
-                        </Canvas>
-                    </Canvas>
                 </Grid>
             </TabItem>
         </TabControl>

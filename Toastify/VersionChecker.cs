@@ -10,10 +10,10 @@ namespace Toastify
 {
     class VersionChecker
     {
+        public string Version { get { return "1.6.2"; } }
 
-        public string Version { get { return "1.6.1"; } }
+        public string UpdateUrl { get { return "https://toastify.codeplex.com/releases/view/24273"; } }
 
-        private const string CURRENT_VERSION_STRING = "Toastify 1.6";
         WebClient wc;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
@@ -34,10 +34,10 @@ namespace Toastify
                 var match = Regex.Match(e.Result, "Version: (?<ver>[\\d+\\.]+)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
                 if (match.Success)
+                {
                     version = match.Groups["ver"].Value.Trim();
-
-                //Error prone but hey!
-                newVersion = CURRENT_VERSION_STRING != version;
+                    newVersion = Version != version;
+                }
             }
 
             if (this.CheckVersionComplete != null)

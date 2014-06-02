@@ -26,13 +26,16 @@ namespace Toastify
         string coverUrl = "";
         BitmapImage cover;
 
+        private VersionChecker versionChecker;
+        private bool isUpdateToast = false;
+
         internal List<Hotkey> HotKeys { get; set; }
         internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
 
         internal static Toast Current { get; private set; }
 
         string previousTitle = string.Empty;
-        
+
         public void LoadSettings()
         {
 
@@ -241,12 +244,14 @@ namespace Toastify
             return true;
         }
 
-        private void FadeIn(bool force = false)
+        private void FadeIn(bool force = false, bool isUpdate = false)
         {
             SettingsXml settings = SettingsXml.Current;
 
             if ((settings.DisableToast || settings.OnlyShowToastOnHotkey) && !force)
                 return;
+
+            isUpdateToast = isUpdate;
 
             if (coverUrl != "")
             {
@@ -268,12 +273,11 @@ namespace Toastify
             this.BeginAnimation(Window.OpacityProperty, anim);
         }
 
-        private void FadeOut()
+        private void FadeOut(bool now = false)
         {
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-            anim.BeginTime = TimeSpan.FromMilliseconds(SettingsXml.Current.FadeOutTime);
+            anim.BeginTime = TimeSpan.FromMilliseconds((now ? 0 : SettingsXml.Current.FadeOutTime));
             this.BeginAnimation(Window.OpacityProperty, anim);
-            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -285,10 +289,7 @@ namespace Toastify
             EnsureSpotify();
             LoadPlugins();
 
-            if (!SettingsXml.Current.DisableToast)
-                watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
-
-            //Let the plugins now we're started.
+            //Let the plugins know we're started.
             foreach (var p in this.Plugins)
             {
                 try
@@ -300,6 +301,42 @@ namespace Toastify
                     //For now we swallow any plugin errors.
                 }
             }
+
+            if (!SettingsXml.Current.DisableToast)
+                watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
+
+            versionChecker = new VersionChecker();
+            versionChecker.CheckVersionComplete += new EventHandler<CheckVersionCompleteEventArgs>(versionChecker_CheckVersionComplete);
+            versionChecker.BeginCheckVersion();
+
+            // TODO: right now this is pretty dumb - kick off update notifications every X hours, this might get annoying
+            //       and really we should just pop a notification once per version and probably immediately after a song toast
+            var updateTimer = new System.Windows.Threading.DispatcherTimer();
+            updateTimer.Tick += (timerSender, timerE) => { versionChecker.BeginCheckVersion(); };
+            updateTimer.Interval = new TimeSpan(6, 0, 0);
+            updateTimer.Start();
+        }
+
+        void versionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
+        {
+            if (!e.New)
+                return;
+
+            string title = "Update Toastify!";
+            string caption = "Version " + e.Version + " available now.";
+
+            // this is a background thread, so sleep it a bit so that it doesn't clash with the startup toast
+            System.Threading.Thread.Sleep(20000);
+
+            this.Dispatcher.Invoke((Action)delegate 
+            { 
+                Title1.Text = title;
+                Title2.Text = caption;
+
+                coverUrl = "SpotifyToastifyUpdateLogo.png";
+
+                FadeIn(force: true, isUpdate: true);
+            }, System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         private void LoadPlugins()
@@ -590,8 +627,16 @@ namespace Toastify
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            FadeOut();
-            Spotify.SendAction(SpotifyAction.ShowSpotify);
+            FadeOut(now: true);
+
+            if (isUpdateToast)
+            {
+                Process.Start(new ProcessStartInfo(versionChecker.UpdateUrl));
+            }
+            else
+            {
+                Spotify.SendAction(SpotifyAction.ShowSpotify);
+            }
         }
     }
 }

@@ -423,10 +423,10 @@ namespace Toastify
 
         public void Default()
         {
-            AlwaysStartSpotify       = null;
+            AlwaysStartSpotify       = true;
             CloseSpotifyWithToastify = true;
 
-            FadeOutTime   = 2000;
+            FadeOutTime   = 4000;
             GlobalHotKeys = true;
             DisableToast  = false;
 
