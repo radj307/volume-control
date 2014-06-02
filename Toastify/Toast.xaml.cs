@@ -31,6 +31,8 @@ namespace Toastify
 
         internal static Toast Current { get; private set; }
 
+        string previousTitle = string.Empty;
+        
         public void LoadSettings()
         {
 
@@ -138,7 +140,6 @@ namespace Toastify
 
         }
 
-        string previousTitle = string.Empty;
         private void CheckTitle()
         {
             string currentTitle = Spotify.GetCurrentTrack();
