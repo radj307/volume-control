@@ -104,7 +104,9 @@ namespace Toastify
             watchTimer = new Timer(1000);
             watchTimer.Elapsed += (s, e) =>
             {
+                watchTimer.Stop();
                 CheckTitle();
+                watchTimer.Start();
             };
         }
 
@@ -146,23 +148,24 @@ namespace Toastify
         private void CheckTitle()
         {
             string currentTitle = Spotify.GetCurrentTrack();
+
             if (!string.IsNullOrEmpty(currentTitle) && currentTitle != previousTitle)
             {
-                string part1, part2;
+                string artist, title;
 
                 // set the previous title asap so that the next timer call to this function will
                 // fail fast (setting it at the end may cause multiple web requests)
                 previousTitle = currentTitle;
 
-                if (SplitTitle(currentTitle, out part1, out part2))
+                if (SplitTitle(currentTitle, out artist, out title))
                 {
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = part2; Title2.Text = part1; }, System.Windows.Threading.DispatcherPriority.Normal);
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = title; Title2.Text = artist; }, System.Windows.Threading.DispatcherPriority.Normal);
 
                     foreach (var p in this.Plugins)
                     {
                         try
                         {
-                            p.TrackChanged(part1, part2);
+                            p.TrackChanged(artist, title);
                         }
                         catch (Exception)
                         {
@@ -176,7 +179,7 @@ namespace Toastify
                     // Spotify now has a supported metadata web service that is open to all (https://developer.spotify.com/technologies/web-api/) with
                     // a workaround to grab album art. See file history for the audio scrobbler method (which stopped working due to the dev key expiring)
                     
-                    String URLString = System.Net.WebUtility.HtmlEncode("http://ws.spotify.com/search/1/track?q=" + System.Uri.EscapeDataString(part2) + " - " + System.Uri.EscapeDataString(part1));
+                    String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(artist + "\" title:\"" + title + "\"");
 
                     string xmlStr = String.Empty;
                     using (var wc = new WebClient())
