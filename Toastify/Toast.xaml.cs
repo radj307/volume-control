@@ -212,9 +212,13 @@ namespace Toastify
                         catch (Exception) { }
                     }
 
-                    // Spotify has a bug that embeds &eacute; in their XML which is not valid when not explicitly defined (it's an HTML construct)
+                    // Spotify has a bug that embeds various html codes and other undefined characters in their XML which is not valid when we try to parse them
                     // for example: https://embed.spotify.com/oembed/?url=spotify:track:6ktNcdXhsQBqkXuacCAybC&format=xml
-                    exmlStr = exmlStr.Replace("&eacute", "");
+
+                    var invalidEmbeds = new List<string> { "&eacute;", "&Ouml;" };
+
+                    foreach (var invalidEmbed in invalidEmbeds)
+                        exmlStr = exmlStr.Replace(invalidEmbed, "");
 
                     var exmlDoc = new XmlDocument();
                     exmlDoc.LoadXml(exmlStr);
