@@ -83,7 +83,7 @@ namespace Toastify
             menuSettings.Click += (s, e) => { Settings.Launch(this); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuSettings);
-            
+
             System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
             menuAbout.Text = "About Toastify...";
             menuAbout.Click += (s, e) => { new About().ShowDialog(); };
@@ -174,64 +174,85 @@ namespace Toastify
                     }
                 }
 
-                try
+                CheckTitle(artist, title);
+            }
+
+            this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
+
+        }
+
+        private void CheckTitle(string artist, string title)
+        {
+
+            try
+            {
+                // Spotify now has a supported metadata web service that is open to all (https://developer.spotify.com/technologies/web-api/) with
+                // a workaround to grab album art. See file history for the audio scrobbler method (which stopped working due to the dev key expiring)
+
+                String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(artist + "\" title:\"" + title + "\"");
+
+                string xmlStr = String.Empty;
+                using (var wc = new WebClient())
                 {
-                    // Spotify now has a supported metadata web service that is open to all (https://developer.spotify.com/technologies/web-api/) with
-                    // a workaround to grab album art. See file history for the audio scrobbler method (which stopped working due to the dev key expiring)
-                    
-                    String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(artist + "\" title:\"" + title + "\"");
-
-                    string xmlStr = String.Empty;
-                    using (var wc = new WebClient())
+                    try
                     {
-                        try
-                        {
-                            xmlStr += wc.DownloadString(URLString);
-                        }
-                        catch (Exception) { } 
+                        xmlStr += wc.DownloadString(URLString);
                     }
-
-                    var xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(xmlStr);
-
-                    var nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
-                    nsmgr.AddNamespace("spotify", "http://www.spotify.com/ns/music/1");
-
-                    string spotifyurl = xmlDoc.SelectSingleNode("//spotify:track/@href", nsmgr).Value;
-
-                    String embedString = "https://embed.spotify.com/oembed/?url=" + spotifyurl + "&format=xml";
-
-                    string exmlStr = String.Empty;
-                    using (var wc = new WebClient())
-                    {
-                        wc.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                        try
-                        {
-                            exmlStr = wc.DownloadString(embedString);
-                        }
-                        catch (Exception) { }
-                    }
-
-                    // Spotify has a bug that embeds various html codes and other undefined characters in their XML which is not valid when we try to parse them
-                    // for example: https://embed.spotify.com/oembed/?url=spotify:track:6ktNcdXhsQBqkXuacCAybC&format=xml
-
-                    var invalidEmbeds = new List<string> { "&eacute;", "&Ouml;" };
-
-                    foreach (var invalidEmbed in invalidEmbeds)
-                        exmlStr = exmlStr.Replace(invalidEmbed, "");
-
-                    var exmlDoc = new XmlDocument();
-                    exmlDoc.LoadXml(exmlStr);
-
-                    coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml;
-
-                }
-                catch (Exception)
-                {
-                    coverUrl = "SpotifyToastifyLogo.png";
+                    catch (Exception) { }
                 }
 
-                this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xmlStr);
+
+                var nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
+                nsmgr.AddNamespace("spotify", "http://www.spotify.com/ns/music/1");
+
+                var trackNode = xmlDoc.SelectSingleNode("//spotify:track/@href", nsmgr);
+
+                // we're protected from infinite recursion by stripping out "(" from title (and by the stack :) )
+                if (trackNode == null && title.Contains("(")) 
+                {
+                    // when Spotify has () in the brackets the search results often need this to be translated into "From". For example:
+                    // Title: Cantina Band (Star Wars I)
+                    // is actually displayed in search as (searching with () will result in 0 results):
+                    // Title: Cantina Band - From "Star Wars I"
+
+                    CheckTitle(artist, title.Replace("(", "from ").Replace(")",""));
+                    return;
+                }
+
+                string spotifyurl = trackNode.Value;
+
+                String embedString = "https://embed.spotify.com/oembed/?url=" + spotifyurl + "&format=xml";
+
+                string exmlStr = String.Empty;
+                using (var wc = new WebClient())
+                {
+                    wc.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                    try
+                    {
+                        exmlStr = wc.DownloadString(embedString);
+                    }
+                    catch (Exception) { }
+                }
+
+                // Spotify has a bug that embeds various html codes and other undefined characters in their XML which is not valid when we try to parse them
+                // for example: https://embed.spotify.com/oembed/?url=spotify:track:6ktNcdXhsQBqkXuacCAybC&format=xml
+
+                var invalidEmbeds = new List<string> { "&eacute;", "&Ouml;" };
+
+                foreach (var invalidEmbed in invalidEmbeds)
+                    exmlStr = exmlStr.Replace(invalidEmbed, "");
+
+                var exmlDoc = new XmlDocument();
+                exmlDoc.LoadXml(exmlStr);
+
+                coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml;
+
+            }
+            catch (Exception)
+            {
+                coverUrl = "SpotifyToastifyLogo.png";
             }
         }
 
@@ -339,8 +360,8 @@ namespace Toastify
             // this is a background thread, so sleep it a bit so that it doesn't clash with the startup toast
             System.Threading.Thread.Sleep(20000);
 
-            this.Dispatcher.Invoke((Action)delegate 
-            { 
+            this.Dispatcher.Invoke((Action)delegate
+            {
                 Title1.Text = title;
                 Title2.Text = caption;
 
@@ -391,7 +412,7 @@ namespace Toastify
                         spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;  //string.Empty = (Default) value
                     }
 
-                    if (string.IsNullOrEmpty(spotifyPath)) 
+                    if (string.IsNullOrEmpty(spotifyPath))
                     {
                         MessageBox.Show("Unable to find Spotify. Make sure it is installed and/or start it manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -477,7 +498,7 @@ namespace Toastify
             else
                 return Key.None;
         }
-        
+
         #region ActionHookCallback
 
         private static Hotkey _lastHotkey = null;
@@ -501,11 +522,11 @@ namespace Toastify
             if (hotkey == _lastHotkey && DateTime.Now.Subtract(_lastHotkeyPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
                 return;
 
-            _lastHotkey          = hotkey;
+            _lastHotkey = hotkey;
             _lastHotkeyPressTime = DateTime.Now;
 
             string currentTrack = string.Empty;
-            
+
             try
             {
                 string trackBeforeAction = Spotify.GetCurrentTrack();
@@ -612,7 +633,7 @@ namespace Toastify
                             Title2.Text = part1;
                         }
                     }
-                    FadeIn(force:true);
+                    FadeIn(force: true);
                     break;
                 case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
