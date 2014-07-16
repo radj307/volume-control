@@ -16,9 +16,11 @@
                     <CheckBox Height="16" IsChecked="{Binding Path=LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,37,0,0" VerticalAlignment="Top" Width="232">Launch Toastify with Windows</CheckBox>
                     <CheckBox Height="16" IsChecked="{Binding Path=AlwaysStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,59,0,0" VerticalAlignment="Top" Width="232">Launch Spotify if not already running</CheckBox>
                     <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,81,0,0" VerticalAlignment="Top" Width="232">Close Spotify when you close Toastify</CheckBox>
-                    <Label Height="28" HorizontalAlignment="Left" Margin="3,131,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
-                    <TextBox Height="23" Margin="141,135,19,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" />
-                    <TextBlock Margin="141,171,19,260" Width="396" TextWrapping="Wrap" Height="54">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                    <CheckBox Height="16" IsChecked="{Binding Path=ChangeSpotifyVolumeOnly, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,103,0,0" VerticalAlignment="Top" Width="319">When changing volume, change volume only for Spotify</CheckBox>
+                    <Label Margin="23,113,-23,348">(note: this will not be reflected in the client, but rather in the Windows Volume mixer)</Label>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="3,168,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
+                    <TextBox Height="23" Margin="141,172,19,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" />
+                    <TextBlock Margin="141,208,19,223" Width="396" TextWrapping="Wrap" Height="54">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
 
                     <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" />
                 </Grid>

@@ -126,6 +126,25 @@ namespace Toastify
             if (!Spotify.IsAvailable())
                 return;
 
+            // bah. Because control cannot fall through cases we need to special case volume
+            if (SettingsXml.Current.ChangeSpotifyVolumeOnly)
+            {
+                if (a == SpotifyAction.VolumeUp)
+                {
+                    VolumeHelper.IncrementVolume("Spotify");
+                    return;
+                }
+                else if (a == SpotifyAction.VolumeDown)
+                {
+                    VolumeHelper.DecrementVolume("Spotify");
+                    return;
+                } else if (a == SpotifyAction.Mute)
+                {
+                    VolumeHelper.ToggleApplicationMute("Spotify");
+                    return;
+                }
+            }
+
             switch (a)
             {
                 case SpotifyAction.CopyTrackInfo:

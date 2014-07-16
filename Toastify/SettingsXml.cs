@@ -54,6 +54,7 @@ namespace Toastify
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;
         private bool? _AlwaysStartSpotify;
+        private bool _ChangeSpotifyVolumeOnly;
         private int _FadeOutTime;
         private string _ToastColorTop;
         private string _ToastColorBottom;
@@ -186,6 +187,20 @@ namespace Toastify
                     _AlwaysStartSpotify = value;
 
                     NotifyPropertyChanged("AlwaysStartSpotify");
+                }
+            }
+        }
+
+        public bool ChangeSpotifyVolumeOnly
+        {
+            get { return _ChangeSpotifyVolumeOnly; }
+            set
+            {
+                if (_ChangeSpotifyVolumeOnly != value)
+                {
+                    _ChangeSpotifyVolumeOnly = value;
+
+                    NotifyPropertyChanged("ChangeSpotifyVolumeOnly");
                 }
             }
         }
@@ -425,6 +440,7 @@ namespace Toastify
         {
             AlwaysStartSpotify       = true;
             CloseSpotifyWithToastify = true;
+            ChangeSpotifyVolumeOnly  = false;
 
             FadeOutTime   = 4000;
             GlobalHotKeys = true;
