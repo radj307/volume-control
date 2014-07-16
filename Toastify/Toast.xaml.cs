@@ -175,10 +175,9 @@ namespace Toastify
                 }
 
                 CheckTitle(artist, title);
+            
+                this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
             }
-
-            this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
-
         }
 
         private void CheckTitle(string artist, string title)
