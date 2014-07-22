@@ -401,7 +401,9 @@ namespace Toastify
 
             if (!Spotify.IsAvailable())
             {
-                if ((settings.AlwaysStartSpotify.HasValue && settings.AlwaysStartSpotify.Value) || (MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+                if ((settings.AlwaysStartSpotify.HasValue && settings.AlwaysStartSpotify.Value) || 
+                    (!settings.DontPromptToStartSpotify && 
+                        MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 {
                     string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;  //string.Empty = (Default) value
 
