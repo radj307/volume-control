@@ -100,7 +100,7 @@ namespace Toastify
 
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
-            trayIcon.Click += (s, e) => { DisplayAction(SpotifyAction.ShowToast, null);  };
+            trayIcon.MouseClick += (s, e) => { if (e.Button == System.Windows.Forms.MouseButtons.Left) DisplayAction(SpotifyAction.ShowToast, null);  };
 
             trayIcon.DoubleClick += (s, e) => { Settings.Launch(this); };
 
