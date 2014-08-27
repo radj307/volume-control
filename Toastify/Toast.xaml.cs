@@ -98,6 +98,8 @@ namespace Toastify
 
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
+            trayIcon.Click += (s, e) => { DisplayAction(SpotifyAction.ShowToast, null);  };
+
             trayIcon.DoubleClick += (s, e) => { Settings.Launch(this); };
 
             //Init watch timer
