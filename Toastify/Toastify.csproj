@@ -227,6 +227,7 @@
     <Resource Include="Resources\WarningLarge.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\InfoLarge.png" />
     <Content Include="Resources\ManagedWinapiNativeHelper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
