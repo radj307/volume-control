@@ -48,8 +48,10 @@ namespace Toastify
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILE   =  "Toastify.xml";
 
+        public const double DEFAULT_OFFSET_RIGHT = 5.0;
+        public const double DEFAULT_OFFSET_BOTTOM = 5.0;
+
         private bool _CloseSpotifyWithToastify;
-        //private bool _UseAudioScrobbler
         private bool _GlobalHotKeys;
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;

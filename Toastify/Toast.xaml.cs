@@ -36,6 +36,8 @@ namespace Toastify
 
         string previousTitle = string.Empty;
 
+        private bool dragging = false;
+
         public void LoadSettings()
         {
 
@@ -279,6 +281,9 @@ namespace Toastify
 
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
+            if (dragging)
+                return;
+
             SettingsXml settings = SettingsXml.Current;
 
             if ((settings.DisableToast || settings.OnlyShowToastOnHotkey) && !force)
@@ -301,9 +306,24 @@ namespace Toastify
             this.Left = workingArea.Right - this.ActualWidth - settings.OffsetRight;
             this.Top = workingArea.Bottom - this.ActualHeight - settings.OffsetBottom;
 
+            ResetPositionIfOffScreen(workingArea);
+
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
             anim.Completed += (s, e) => { FadeOut(); };
             this.BeginAnimation(Window.OpacityProperty, anim);
+        }
+
+        private void ResetPositionIfOffScreen(System.Drawing.Rectangle workingArea)
+        {
+            var rect = new System.Drawing.Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
+
+            if (!System.Windows.Forms.Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
+            {
+                // control is off screen, reset it to the default position
+                this.Left = workingArea.Right - this.ActualWidth - SettingsXml.DEFAULT_OFFSET_RIGHT;
+                this.Top = workingArea.Bottom - this.ActualHeight - SettingsXml.DEFAULT_OFFSET_BOTTOM;
+            }
+
         }
 
         private void FadeOut(bool now = false)
@@ -662,6 +682,13 @@ namespace Toastify
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                dragging = true;
+                DragMove();
+                return;
+            }
+
             FadeOut(now: true);
 
             if (isUpdateToast)
@@ -671,6 +698,26 @@ namespace Toastify
             else
             {
                 Spotify.SendAction(SpotifyAction.ShowSpotify);
+            }
+        }
+
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (dragging)
+            {
+                dragging = false;
+
+                // save the new window position
+                SettingsXml settings = SettingsXml.Current;
+
+                System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
+                workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
+
+                settings.OffsetRight = workingArea.Right - this.ActualWidth - this.Left;
+                settings.OffsetBottom = workingArea.Bottom - this.ActualHeight - this.Top;
+
+                settings.Save();
+
             }
         }
     }
