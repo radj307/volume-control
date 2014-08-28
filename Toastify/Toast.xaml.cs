@@ -554,9 +554,19 @@ namespace Toastify
             {
                 string trackBeforeAction = Spotify.GetCurrentTrack();
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
-                    Clipboard.SetText(string.Format(SettingsXml.Current.ClipboardTemplate, trackBeforeAction));
+                {
+                    var template = SettingsXml.Current.ClipboardTemplate;
+
+                    // if the string is empty we set it to {0}
+                    if (string.IsNullOrWhiteSpace(template))
+                        template = "{0}";
+
+                    Clipboard.SetText(string.Format(template, trackBeforeAction));
+                }
                 else
+                {
                     Spotify.SendAction(hotkey.Action);
+                }
 
                 Toast.Current.DisplayAction(hotkey.Action, trackBeforeAction);
             }
