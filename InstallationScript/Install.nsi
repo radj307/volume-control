@@ -47,7 +47,12 @@ UninstPage instfiles
 Section "Toastify (required)"
   SectionIn RO
   
-  ;!insertmacro CheckDotNET ${DOTNET_VERSION}
+  ; Since process termination is non-destructive for Toastify, just kill it
+  DetailPrint "Shutting down Toastify..."
+  KillProcWMI::KillProc "Toastify.exe"
+  
+  ; Let the process shutdown
+  Sleep 1000
   
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
