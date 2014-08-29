@@ -25,7 +25,7 @@
                     <Label Margin="23,131,-23,330" Grid.ColumnSpan="2">(note: this will not be reflected in the client, but rather in the Windows Volume mixer)</Label>
                     <Label Height="28" HorizontalAlignment="Left" Margin="3,168,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
                     <TextBox Height="23" Margin="13,172,19,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" Grid.Column="1" />
-                    <TextBlock Margin="13,208,19,223" Width="396" TextWrapping="Wrap" Height="54" Grid.Column="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                    <TextBlock Margin="13,208,19,212" Width="396" TextWrapping="Wrap" Grid.Column="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
 
                     <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" Grid.Column="1" />
                 </Grid>

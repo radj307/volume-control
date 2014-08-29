@@ -561,6 +561,11 @@ namespace Toastify
                     if (string.IsNullOrWhiteSpace(template))
                         template = "{0}";
 
+                    // add the song name to the end of the template if the user forgot to put in the
+                    // replacement marker
+                    if (!template.Contains("{0}"))
+                        template += " {0}";
+
                     Clipboard.SetText(string.Format(template, trackBeforeAction));
                 }
                 else
