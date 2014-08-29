@@ -43,6 +43,7 @@ namespace Toastify
         ShowSpotify = 2,
         CopyTrackInfo = 3,
         SettingsSaved = 4,
+        PasteTrackInfo = 5,
         PlayPause = 917504,
         Mute = 524288,
         VolumeDown = 589824,

@@ -77,6 +77,24 @@ namespace Toastify
 
         private string _settingsFile;
 
+        // used for both defaults and to synchronize the list of hotkeys when upgrading versions
+        // so that any newly added hotkeys are magically visible to the user (without them having to
+        // reset their settings)
+        private List<Hotkey> _defaultHotKeys = new List<Hotkey> 
+            {
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause      },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Down    , Action = SpotifyAction.Stop           },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack  },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack      },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute           },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown     },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp       },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast      },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify    },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo  },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo }
+            };
+
         /// <summary>
         /// Returns the location of the settings file
         /// </summary>
@@ -485,19 +503,7 @@ namespace Toastify
             
             Hotkey.ClearAll();
 
-            HotKeys = new List<Hotkey> 
-            {
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause     },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Down    , Action = SpotifyAction.Stop          },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack     },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute          },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown    },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp      },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast     },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify   },
-                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo }
-            };
+            HotKeys = _defaultHotKeys;
 
             Plugins = new List<PluginDetails>();
         }
@@ -539,11 +545,36 @@ namespace Toastify
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
                     SettingsXml xml = xmlSerializer.Deserialize(sr) as SettingsXml;
 
+                    xml.CheckForNewSettings();
+
                     Current = xml;
                 }
             }
 
             return Current;
+        }
+
+        /// <summary>
+        /// Called when loading a settings file to iterate through new dynamic properties (such as Hotkeys)
+        /// which may have changed and would otherwise be hidden from the user
+        /// </summary>
+        private void CheckForNewSettings()
+        {
+            foreach (var defaultHotkey in _defaultHotKeys)
+            {
+                bool found = false;
+                foreach (var hotkey in HotKeys)
+                {
+                    if (hotkey.Action == defaultHotkey.Action)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                    HotKeys.Add(defaultHotkey.Clone());
+            }
         }
 
         /// <summary>

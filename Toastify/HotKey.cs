@@ -130,8 +130,11 @@ namespace Toastify
                 switch (Action)
                 {
                     case SpotifyAction.CopyTrackInfo:
-                        return "Copy Track Information";
-                        
+                        return "Copy Track Name";
+                 
+                    case SpotifyAction.PasteTrackInfo:
+                        return "Paste Track Name";
+       
                     case SpotifyAction.Mute:
                         return "Mute";
 
@@ -262,7 +265,7 @@ namespace Toastify
 
             if (_globalKey == null)
                 _globalKey = new ManagedWinapi.Hotkey();
-
+            
             // make sure that we don't try to reregister the key midway updating 
             // the combination
             if (_globalKey.Enabled)

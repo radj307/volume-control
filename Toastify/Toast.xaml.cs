@@ -15,6 +15,7 @@ using System.Xml.XPath;
 using System.Xml;
 using System.Diagnostics;
 using System.Web;
+using System.Runtime.InteropServices;
 
 namespace Toastify
 {
@@ -555,18 +556,13 @@ namespace Toastify
                 string trackBeforeAction = Spotify.GetCurrentTrack();
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
                 {
-                    var template = SettingsXml.Current.ClipboardTemplate;
+                    CopySongToClipboard(trackBeforeAction);
+                }
+                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
+                {
+                    CopySongToClipboard(trackBeforeAction);
 
-                    // if the string is empty we set it to {0}
-                    if (string.IsNullOrWhiteSpace(template))
-                        template = "{0}";
-
-                    // add the song name to the end of the template if the user forgot to put in the
-                    // replacement marker
-                    if (!template.Contains("{0}"))
-                        template += " {0}";
-
-                    Clipboard.SetText(string.Format(template, trackBeforeAction));
+                    SendPasteKey(hotkey);
                 }
                 else
                 {
@@ -582,6 +578,47 @@ namespace Toastify
                 Toast.Current.Title2.Text = "";
                 Toast.Current.FadeIn();
             }
+        }
+
+        private static void SendPasteKey(Hotkey hotkey)
+        {
+            var shiftKey = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.ShiftKey);
+            var altKey   = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.Alt);
+            var ctrlKey  = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.ControlKey);
+            var vKey     = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.V);
+
+            // Before injecting a paste command, first make sure that no modifiers are already
+            // being pressed (which will throw off the Ctrl+v).
+            // Since key state is notoriously unreliable, set a max sleep so that we don't get stuck
+            var maxSleep = 250;
+
+            while (maxSleep > 0 && (shiftKey.State != 0 || altKey.State != 0 || ctrlKey.State != 0))
+                System.Threading.Thread.Sleep(maxSleep -= 50);
+
+            // press keys in sequence. Don't use PressAndRelease since that seems to be too fast
+            // for most applications and the sequence gets lost.
+            ctrlKey.Press();
+            vKey.Press();
+            System.Threading.Thread.Sleep(50);
+            vKey.Release();
+            System.Threading.Thread.Sleep(25);
+            ctrlKey.Release();
+        }
+
+        private static void CopySongToClipboard(string trackBeforeAction)
+        {
+            var template = SettingsXml.Current.ClipboardTemplate;
+
+            // if the string is empty we set it to {0}
+            if (string.IsNullOrWhiteSpace(template))
+                template = "{0}";
+
+            // add the song name to the end of the template if the user forgot to put in the
+            // replacement marker
+            if (!template.Contains("{0}"))
+                template += " {0}";
+
+            Clipboard.SetText(string.Format(template, trackBeforeAction));
         }
 
         #endregion
