@@ -332,7 +332,6 @@ namespace Toastify
                 this.Left = workingArea.Right - this.ActualWidth - SettingsXml.DEFAULT_OFFSET_RIGHT;
                 this.Top = workingArea.Bottom - this.ActualHeight - SettingsXml.DEFAULT_OFFSET_BOTTOM;
             }
-
         }
 
         private void FadeOut(bool now = false)
