@@ -592,14 +592,21 @@ namespace Toastify
             // Since key state is notoriously unreliable, set a max sleep so that we don't get stuck
             var maxSleep = 250;
 
+            // minimum sleep time
+            System.Threading.Thread.Sleep(150);
+
+            //System.Diagnostics.Debug.WriteLine("shift: " + shiftKey.State + " alt: " + altKey.State + " ctrl: " + ctrlKey.State);
+
             while (maxSleep > 0 && (shiftKey.State != 0 || altKey.State != 0 || ctrlKey.State != 0))
                 System.Threading.Thread.Sleep(maxSleep -= 50);
+
+            //System.Diagnostics.Debug.WriteLine("maxSleep: " + maxSleep);
 
             // press keys in sequence. Don't use PressAndRelease since that seems to be too fast
             // for most applications and the sequence gets lost.
             ctrlKey.Press();
             vKey.Press();
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(25);
             vKey.Release();
             System.Threading.Thread.Sleep(25);
             ctrlKey.Release();
