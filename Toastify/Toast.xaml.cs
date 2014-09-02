@@ -113,6 +113,13 @@ namespace Toastify
                 CheckTitle();
                 watchTimer.Start();
             };
+
+            this.Deactivated += Toast_Deactivated;
+        }
+
+        void Toast_Deactivated(object sender, EventArgs e)
+        {
+            this.Topmost = true;
         }
 
         public void InitToast()
@@ -147,7 +154,6 @@ namespace Toastify
 
             //If we made it this far we have all the values needed.
             ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiusTopLeft, settings.ToastBorderCornerRadiusTopRight, settings.ToastBorderCornerRadiusBottomRight, settings.ToastBorderCornerRadiusBottomLeft);
-
         }
 
         private void CheckTitle()
@@ -312,6 +318,8 @@ namespace Toastify
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
             anim.Completed += (s, e) => { FadeOut(); };
             this.BeginAnimation(Window.OpacityProperty, anim);
+
+            this.Topmost = true;
         }
 
         private void ResetPositionIfOffScreen(System.Drawing.Rectangle workingArea)
@@ -779,5 +787,7 @@ namespace Toastify
 
             }
         }
+
+        
     }
 }
