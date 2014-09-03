@@ -257,7 +257,8 @@ namespace Toastify
                 var exmlDoc = new XmlDocument();
                 exmlDoc.LoadXml(exmlStr);
 
-                coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml;
+                // thumbnail_url can be modified for 60,300 or 640px with a replace. See: https://toastify.codeplex.com/workitem/13235
+                coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml.Replace("/cover/", "/60/");
 
             }
             catch (Exception)
