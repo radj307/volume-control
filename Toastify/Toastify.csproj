@@ -198,6 +198,10 @@
     <Resource Include="SpotifyToastifyLogo.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoHotkey.Interop\AutoHotkey.Interop.csproj">
+      <Project>{2869dbfe-7762-4930-95ea-2b0c111cf353}</Project>
+      <Name>AutoHotkey.Interop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PluginBase\PluginBase.csproj">
       <Project>{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}</Project>
       <Name>PluginBase</Name>

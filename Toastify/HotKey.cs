@@ -167,6 +167,12 @@ namespace Toastify
 
                     case SpotifyAction.VolumeUp:
                         return "Volume Up";
+
+                    case SpotifyAction.FastForward:
+                        return "Fast Forward";
+
+                    case SpotifyAction.Rewind:
+                        return "Rewind";
                 }
 
                 return "No Action";

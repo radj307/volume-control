@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 12
-VisualStudioVersion = 12.0.20501.1 DP
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{64E51A59-02A2-4423-8DE1-F337D479E3B7}"
 EndProject
@@ -19,9 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkypePlugin", "SkypePlugin\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoHotkey.Interop", "AutoHotkey.Interop\AutoHotkey.Interop.csproj", "{2869DBFE-7762-4930-95EA-2B0C111CF353}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
 		SccLocalPath0 = .
@@ -40,28 +42,49 @@ Global
 		SccProjectTopLevelParentUniqueName4 = Toastify.sln
 		SccProjectName4 = ExamplePlugin
 		SccLocalPath4 = ExamplePlugin
+		SccProjectUniqueName5 = AutoHotkey.Interop\\AutoHotkey.Interop.csproj
+		SccProjectName5 = AutoHotkey.Interop
+		SccLocalPath5 = AutoHotkey.Interop
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC4A761-56D2-4188-807F-F7A547DFB031}.Release|x64.ActiveCfg = Release|Any CPU
 		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}.Release|x64.ActiveCfg = Release|Any CPU
 		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D1A038-6FB3-4975-B1E6-D500B6E7B1C1}.Release|x64.ActiveCfg = Release|Any CPU
 		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}.Release|x64.ActiveCfg = Release|Any CPU
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Debug|x64.ActiveCfg = Debug|x64
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Debug|x64.Build.0 = Debug|x64
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Release|x64.ActiveCfg = Release|x64
+		{2869DBFE-7762-4930-95EA-2B0C111CF353}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

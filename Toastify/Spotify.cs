@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Toastify
 {
@@ -50,7 +51,9 @@ namespace Toastify
         VolumeUp = 655360,
         Stop = 851968,
         PreviousTrack = 786432,
-        NextTrack = 720896
+        NextTrack = 720896,
+        FastForward = 49 << 16,
+        Rewind = 50 << 16,
     }
 
     class Song
@@ -68,6 +71,8 @@ namespace Toastify
 
     class Spotify
     {
+        private static AutoHotkey.Interop.AutoHotkeyEngine _ahk;
+
         private static IntPtr GetSpotify()
         {
             return Win32.FindWindow("SpotifyMainWindow", null);
@@ -139,7 +144,8 @@ namespace Toastify
                 {
                     VolumeHelper.DecrementVolume("Spotify");
                     return;
-                } else if (a == SpotifyAction.Mute)
+                }
+                else if (a == SpotifyAction.Mute)
                 {
                     VolumeHelper.ToggleApplicationMute("Spotify");
                     return;
@@ -155,10 +161,47 @@ namespace Toastify
                 case SpotifyAction.ShowSpotify:
                     ShowSpotify();
                     break;
+                case SpotifyAction.FastForward:
+
+                    SendComplexKeys("+{Right}");
+                    break;
+
+                case SpotifyAction.Rewind:
+
+                    SendComplexKeys("+{Left}");
+                    break;
+
                 default:
                     Win32.SendMessage(GetSpotify(), Win32.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)a));
                     break;
             }
+        }
+
+        /// <summary>
+        /// Some commands require sending keys directly to Spotify (for example, Fast Forward and Rewind which
+        /// are not handled by Spotify). We can't inject keys directly with WM_KEYDOWN/UP since we need a keyboard
+        /// hook to actually change the state of various modifier keys (for example, Shift + Right for Fast Forward).
+        /// 
+        /// AutoHotKey has that hook and can modify the state for us, so let's take advantge of it.
+        /// </summary>
+        /// <param name="keys"></param>
+        private static void SendComplexKeys(string keys)
+        {
+            // Is this nicer? 
+            // _ahk = _ahk ?? new AutoHotkey.Interop.AutoHotkeyEngine();
+
+            // only initialize AHK when needed as it can be expensive (dll copy etc) if not actually needed
+            if (_ahk == null)
+            {
+                _ahk = new AutoHotkey.Interop.AutoHotkeyEngine();
+            }
+
+            _ahk.ExecRaw("SetTitleMatchMode 2");
+
+            _ahk.ExecRaw("DetectHiddenWindows, On");
+            _ahk.ExecRaw("ControlSend, ahk_parent, " + keys + ", ahk_class SpotifyMainWindow");
+
+            _ahk.ExecRaw("DetectHiddenWindows, Off");
         }
     }
 }
