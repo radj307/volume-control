@@ -48,9 +48,6 @@ namespace Toastify
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILE   =  "Toastify.xml";
 
-        public const double DEFAULT_OFFSET_RIGHT = 5.0;
-        public const double DEFAULT_OFFSET_BOTTOM = 5.0;
-
         private bool _CloseSpotifyWithToastify;
         private bool _GlobalHotKeys;
         private bool _DisableToast;
@@ -67,10 +64,10 @@ namespace Toastify
         private double _ToastBorderCornerRadiusTopRight;
         private double _ToastBorderCornerRadiusBottomRight;
         private double _ToastBorderCornerRadiusBottomLeft;
+        private double _PositionLeft;
+        private double _PositionTop;
         private double _ToastWidth;
         private double _ToastHeight;
-        private double _OffsetRight;
-        private double _OffsetBottom;
         private string _ClipboardTemplate;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
@@ -417,30 +414,30 @@ namespace Toastify
             }
         }
 
-        public double OffsetRight
+        public double PositionLeft
         {
-            get { return _OffsetRight; }
+            get { return _PositionLeft; }
             set
             {
-                if (_OffsetRight != value)
+                if (_PositionLeft != value)
                 {
-                    _OffsetRight = value;
+                    _PositionLeft = value;
 
-                    NotifyPropertyChanged("OffsetRight");
+                    NotifyPropertyChanged("PositionLeft");
                 }
             }
         }
 
-        public double OffsetBottom
+        public double PositionTop
         {
-            get { return _OffsetBottom; }
+            get { return _PositionTop; }
             set
             {
-                if (_OffsetBottom != value)
+                if (_PositionTop != value)
                 {
-                    _OffsetBottom = value;
+                    _PositionTop = value;
 
-                    NotifyPropertyChanged("OffsetBottom");
+                    NotifyPropertyChanged("PositionTop");
                 }
             }
         }
@@ -498,8 +495,10 @@ namespace Toastify
             ToastBorderCornerRadiusBottomRight = 0;
             ToastBorderCornerRadiusBottomLeft  = 0;
 
-            OffsetRight  = 5.0;
-            OffsetBottom = 5.0;
+            var position = ScreenHelper.GetDefaultToastPosition(ToastWidth, ToastHeight);
+
+            PositionLeft = position.X;
+            PositionTop  = position.Y;
 
             ClipboardTemplate = "I'm currently listening to {0}";
             

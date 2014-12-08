@@ -87,8 +87,8 @@
                         <Label Margin="12,0,0,203" Name="label6" HorizontalAlignment="Left" Width="175" Height="29.04" VerticalAlignment="Bottom">Toast Border Corner Radius :</Label>
                         <Label Height="28" HorizontalAlignment="Left" Margin="12,0,0,58" Name="label7" VerticalAlignment="Bottom" Width="87">Toast Width :</Label>
                         <Label Height="28" HorizontalAlignment="Left" Margin="12,0,0,24" Name="label8" VerticalAlignment="Bottom" Width="87">Toast Height :</Label>
-                        <Label Height="28" HorizontalAlignment="Left" Margin="304,0,0,58" Name="label9" VerticalAlignment="Bottom" Width="87">Offset Right :</Label>
-                        <Label Height="28" HorizontalAlignment="Left" Margin="304,0,0,24" Name="label10" VerticalAlignment="Bottom" Width="99">Offset Bottom :</Label>
+                        <Label Height="28" HorizontalAlignment="Left" Margin="304,0,0,58" Name="label9" VerticalAlignment="Bottom" Width="87">Left Position :</Label>
+                        <Label Height="28" HorizontalAlignment="Left" Margin="304,0,0,24" Name="label10" VerticalAlignment="Bottom" Width="99">Top Position :</Label>
                         <TextBox Height="23" Text="{Binding Path=ToastColorTop, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="189,112,264,0" Name="tbColorTop" VerticalAlignment="Top"/>
                         <Button Height="23" Margin="0,112,202,0" Name="bChangeColorTop" VerticalAlignment="Top" Click="bChangeColorTop_Click" HorizontalAlignment="Right" Width="50">Change</Button>
                         <TextBox Height="23" Text="{Binding Path=ToastColorBottom, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="189,145,264,0" Name="tbColorBottom" VerticalAlignment="Top" />
@@ -108,8 +108,8 @@
                         <TextBox Height="23" Text="{Binding Path=FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="189,79,264,0" Name="tbFadeOutTime" VerticalAlignment="Top" MouseWheel="tbFadeOutTime_MouseWheel" />
                         <TextBox Height="23" Text="{Binding Path=ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="136,0,320,64" Name="tbToastWidth" VerticalAlignment="Bottom" MouseWheel="tbToastWidth_MouseWheel" />
                         <TextBox Height="23" Text="{Binding Path=ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="136,0,320,29" Name="tbToastHeight" VerticalAlignment="Bottom" MouseWheel="tbToastHeight_MouseWheel" />
-                        <TextBox Height="23" Text="{Binding Path=OffsetRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="446,0,10,64" Name="tbOffsetRight" VerticalAlignment="Bottom" MouseWheel="tbOffsetRight_MouseWheel" />
-                        <TextBox Height="23" Text="{Binding Path=OffsetBottom, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="446,0,10,29" Name="tbOffsetBottom" VerticalAlignment="Bottom" MouseWheel="tbOffsetBottom_MouseWheel" />
+                        <TextBox Height="23" Text="{Binding Path=PositionLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="446,0,10,64" Name="tbPositionLeft" VerticalAlignment="Bottom" MouseWheel="tbPositionLeft_MouseWheel" />
+                        <TextBox Height="23" Text="{Binding Path=PositionTop, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="446,0,10,29" Name="tbPositionTop" VerticalAlignment="Bottom" MouseWheel="tbPositionTop_MouseWheel" />
                         <Slider Height="22" HorizontalAlignment="Right" Margin="0,114,2,0" Name="slTopColor" VerticalAlignment="Top" Width="100" Maximum="255" ValueChanged="slTopColor_ValueChanged" SmallChange="1" />
                         <Label Height="28" HorizontalAlignment="Right" Margin="0,111,110,0" Name="label16" VerticalAlignment="Top" Width="85">Transparency :</Label>
                         <Slider Height="22" HorizontalAlignment="Right" Margin="0,147,2,0" Name="slBottomColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" ValueChanged="slBottomColor_ValueChanged" />

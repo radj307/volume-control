@@ -139,6 +139,7 @@
     <Compile Include="BoolToVisibleConverter.cs" />
     <Compile Include="OppositeBoolToVisibleConverter.cs" />
     <Compile Include="OppositeBoolConverter.cs" />
+    <Compile Include="ScreenHelper.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

@@ -184,20 +184,20 @@ namespace Toastify
                 settings.ToastHeight -= 5;
         }
 
-        private void tbOffsetRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void tbPositionLeft_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                settings.OffsetRight++;
-            else if (settings.OffsetRight > 0)
-                settings.OffsetRight--;
+                settings.PositionLeft++;
+            else if (settings.PositionLeft > 0)
+                settings.PositionLeft--;
         }
 
-        private void tbOffsetBottom_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void tbPositionTop_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                settings.OffsetBottom++;
-            else if (settings.OffsetBottom > 0)
-                settings.OffsetBottom--;
+                settings.PositionTop++;
+            else if (settings.PositionTop > 0)
+                settings.PositionTop--;
         }
 
         //Slider value changed events

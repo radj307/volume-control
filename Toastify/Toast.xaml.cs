@@ -65,7 +65,10 @@ namespace Toastify
 
             // set a static reference back to ourselves, useful for callbacks
             Current = this;
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             //Load settings from XML
             LoadSettings();
 
@@ -83,13 +86,13 @@ namespace Toastify
             //Init tray icon menu
             System.Windows.Forms.MenuItem menuSettings = new System.Windows.Forms.MenuItem();
             menuSettings.Text = "Settings";
-            menuSettings.Click += (s, e) => { Settings.Launch(this); };
+            menuSettings.Click += (s, ev) => { Settings.Launch(this); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuSettings);
 
             System.Windows.Forms.MenuItem menuAbout = new System.Windows.Forms.MenuItem();
             menuAbout.Text = "About Toastify...";
-            menuAbout.Click += (s, e) => { new About().ShowDialog(); };
+            menuAbout.Click += (s, ev) => { new About().ShowDialog(); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuAbout);
 
@@ -97,17 +100,17 @@ namespace Toastify
 
             System.Windows.Forms.MenuItem menuExit = new System.Windows.Forms.MenuItem();
             menuExit.Text = "Exit";
-            menuExit.Click += (s, e) => { Application.Current.Shutdown(); }; //this.Close(); };
+            menuExit.Click += (s, ev) => { Application.Current.Shutdown(); }; //this.Close(); };
 
             trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
-            trayIcon.MouseClick += (s, e) => { if (e.Button == System.Windows.Forms.MouseButtons.Left) DisplayAction(SpotifyAction.ShowToast, null);  };
+            trayIcon.MouseClick += (s, ev) => { if (ev.Button == System.Windows.Forms.MouseButtons.Left) DisplayAction(SpotifyAction.ShowToast, null); };
 
-            trayIcon.DoubleClick += (s, e) => { Settings.Launch(this); };
+            trayIcon.DoubleClick += (s, ev) => { Settings.Launch(this); };
 
             //Init watch timer
             watchTimer = new Timer(1000);
-            watchTimer.Elapsed += (s, e) =>
+            watchTimer.Elapsed += (s, ev) =>
             {
                 watchTimer.Stop();
                 CheckTitle();
@@ -115,6 +118,40 @@ namespace Toastify
             };
 
             this.Deactivated += Toast_Deactivated;
+
+            //Remove from ALT+TAB
+            WinHelper.AddToolWindowStyle(this);
+
+            //Check if Spotify is running.
+            EnsureSpotify();
+            LoadPlugins();
+
+            //Let the plugins know we're started.
+            foreach (var p in this.Plugins)
+            {
+                try
+                {
+                    p.Started();
+                }
+                catch (Exception)
+                {
+                    //For now we swallow any plugin errors.
+                }
+            }
+
+            if (!SettingsXml.Current.DisableToast)
+                watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
+
+            versionChecker = new VersionChecker();
+            versionChecker.CheckVersionComplete += new EventHandler<CheckVersionCompleteEventArgs>(versionChecker_CheckVersionComplete);
+            versionChecker.BeginCheckVersion();
+
+            // TODO: right now this is pretty dumb - kick off update notifications every X hours, this might get annoying
+            //       and really we should just pop a notification once per version and probably immediately after a song toast
+            var updateTimer = new System.Windows.Threading.DispatcherTimer();
+            updateTimer.Tick += (timerSender, timerE) => { versionChecker.BeginCheckVersion(); };
+            updateTimer.Interval = new TimeSpan(6, 0, 0);
+            updateTimer.Start();
         }
 
         void Toast_Deactivated(object sender, EventArgs e)
@@ -320,9 +357,9 @@ namespace Toastify
             double dpiRatioX = presentationSource.CompositionTarget.TransformToDevice.M11;
             double dpiRatioY = presentationSource.CompositionTarget.TransformToDevice.M22;
 
-            this.Left = (workingArea.Right / dpiRatioX) - this.ActualWidth - (settings.OffsetRight * dpiRatioX);
-            this.Top = (workingArea.Bottom / dpiRatioY) - this.ActualHeight- (settings.OffsetBottom * dpiRatioY);
-
+            this.Left = settings.PositionLeft;
+            this.Top = settings.PositionTop;
+            
             ResetPositionIfOffScreen(workingArea);
 
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
@@ -338,9 +375,12 @@ namespace Toastify
 
             if (!System.Windows.Forms.Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
             {
-                // control is off screen, reset it to the default position
-                this.Left = workingArea.Right - this.ActualWidth - SettingsXml.DEFAULT_OFFSET_RIGHT;
-                this.Top = workingArea.Bottom - this.ActualHeight - SettingsXml.DEFAULT_OFFSET_BOTTOM;
+                // get the defaults, but don't save them (this allows the user to reconnect their screen and get their 
+                // desired settings back)
+                var position = ScreenHelper.GetDefaultToastPosition(this.Width, this.Height);
+
+                this.Left = position.X;
+                this.Top = position.Y;
             }
         }
 
@@ -349,43 +389,6 @@ namespace Toastify
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
             anim.BeginTime = TimeSpan.FromMilliseconds((now ? 0 : SettingsXml.Current.FadeOutTime));
             this.BeginAnimation(Window.OpacityProperty, anim);
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //Remove from ALT+TAB
-            WinHelper.AddToolWindowStyle(this);
-
-            //Check if Spotify is running.
-            EnsureSpotify();
-            LoadPlugins();
-
-            //Let the plugins know we're started.
-            foreach (var p in this.Plugins)
-            {
-                try
-                {
-                    p.Started();
-                }
-                catch (Exception)
-                {
-                    //For now we swallow any plugin errors.
-                }
-            }
-
-            if (!SettingsXml.Current.DisableToast)
-                watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
-
-            versionChecker = new VersionChecker();
-            versionChecker.CheckVersionComplete += new EventHandler<CheckVersionCompleteEventArgs>(versionChecker_CheckVersionComplete);
-            versionChecker.BeginCheckVersion();
-
-            // TODO: right now this is pretty dumb - kick off update notifications every X hours, this might get annoying
-            //       and really we should just pop a notification once per version and probably immediately after a song toast
-            var updateTimer = new System.Windows.Threading.DispatcherTimer();
-            updateTimer.Tick += (timerSender, timerE) => { versionChecker.BeginCheckVersion(); };
-            updateTimer.Interval = new TimeSpan(6, 0, 0);
-            updateTimer.Start();
         }
 
         void versionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -786,14 +789,10 @@ namespace Toastify
                 // save the new window position
                 SettingsXml settings = SettingsXml.Current;
 
-                System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
-                workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
-
-                settings.OffsetRight = workingArea.Right - this.ActualWidth - this.Left;
-                settings.OffsetBottom = workingArea.Bottom - this.ActualHeight - this.Top;
+                settings.PositionLeft = this.Left;
+                settings.PositionTop  = this.Top;
 
                 settings.Save();
-
             }
         }
 
