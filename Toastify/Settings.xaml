@@ -117,7 +117,7 @@
                         <Slider Height="22" HorizontalAlignment="Right" Margin="0,182,2,0" Name="slBorderColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" />
                         <Label Height="28" HorizontalAlignment="Right" Margin="0,179,110,0" Name="label18" VerticalAlignment="Top" Width="85">Transparency :</Label>
                         <TextBlock Height="57" HorizontalAlignment="Left" Margin="49,0,0,100" x:Name="label7_Copy" VerticalAlignment="Bottom" Width="497" TextWrapping="Wrap">The best way to tweak the position of the toast is to hold down Control and then drag the toast around. The raw numbers are still accessible below. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.</TextBlock>
-                        <Image Source="Resources/InfoLarge.png" Height="32" Width="32" Margin="10,338,514,115"></Image>
+                        <Image Source="Resources/InfoLarge.png" Height="32" Width="32" Stretch="Fill" Margin="10,338,514,115"></Image>
                     </Grid>
                 </Grid>
             </TabItem>
