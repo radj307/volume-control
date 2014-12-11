@@ -69,6 +69,7 @@ namespace Toastify
         private double _ToastWidth;
         private double _ToastHeight;
         private string _ClipboardTemplate;
+        public bool _UseSpotifyBeta;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -470,6 +471,20 @@ namespace Toastify
             }
         }
 
+        public bool UseSpotifyBeta
+        {
+            get { return _UseSpotifyBeta; }
+            set
+            {
+                if (_UseSpotifyBeta != value)
+                {
+                    _UseSpotifyBeta = value;
+
+                    NotifyPropertyChanged("UseSpotifyBeta");
+                }
+            }
+        }
+
         public void Default()
         {
             AlwaysStartSpotify       = true;
@@ -501,7 +516,9 @@ namespace Toastify
             PositionTop  = position.Y;
 
             ClipboardTemplate = "I'm currently listening to {0}";
-            
+
+            UseSpotifyBeta = false;
+
             Hotkey.ClearAll();
 
             HotKeys = _defaultHotKeys;
@@ -657,7 +674,6 @@ namespace Toastify
         }
 
         #endregion
-
     }
 
     [Serializable]

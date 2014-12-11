@@ -75,7 +75,9 @@ namespace Toastify
 
         private static IntPtr GetSpotify()
         {
-            return Win32.FindWindow("SpotifyMainWindow", null);
+            var windowClassName = (SettingsXml.Current.UseSpotifyBeta ? "SpotifyMainWindow" : "SpotifyBetaMainWindow");
+
+            return Win32.FindWindow(windowClassName, null);
         }
 
         public static bool IsAvailable()
