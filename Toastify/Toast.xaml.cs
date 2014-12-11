@@ -714,8 +714,17 @@ namespace Toastify
                     if (string.IsNullOrEmpty(currentTrack) && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
                     {
                         coverUrl = "SpotifyToastifyLogo.png";
-                        Title1.Text = NOTHINGS_PLAYING;
-                        Title2.Text = string.Empty;
+
+                        if (SettingsXml.Current.UseSpotifyBeta)
+                        {
+                            Title1.Text = "No Spotify Beta Support :(";
+                            Title2.Text = "Hotkeys will still work";
+                        }
+                        else
+                        {
+                            Title1.Text = NOTHINGS_PLAYING;
+                            Title2.Text = string.Empty;
+                        }
                     }
                     else
                     {
