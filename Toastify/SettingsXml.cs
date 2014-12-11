@@ -546,7 +546,10 @@ namespace Toastify
                 PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
         }
 
-        private SettingsXml() { }
+        private SettingsXml() 
+        {
+            Default();
+        }
 
         public SettingsXml Load()
         {
