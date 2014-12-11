@@ -348,15 +348,6 @@ namespace Toastify
             System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
             workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
 
-            // We need to take into account the DPI of the screen that we're on, otherwise WPF's 
-            // positioning system will position the window off-screen. This is the source of the multiple
-            // "no toast" bugs (13156, 13141 and other older ones)
-            // We can get get the DPI from the transform matrix (the actual DPI is the ratio value * 96) 
-            var presentationSource = PresentationSource.FromVisual(this);
-
-            double dpiRatioX = presentationSource.CompositionTarget.TransformToDevice.M11;
-            double dpiRatioY = presentationSource.CompositionTarget.TransformToDevice.M22;
-
             this.Left = settings.PositionLeft;
             this.Top = settings.PositionTop;
             
