@@ -31,9 +31,25 @@ namespace Toastify
         [DllImport("user32.dll")]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        internal static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+        internal struct WINDOWPLACEMENT
+        {
+            public int length;
+            public int flags;
+            public int showCmd;
+            public System.Drawing.Point ptMinPosition;
+            public System.Drawing.Point ptMaxPosition;
+            public System.Drawing.Rectangle rcNormalPosition;
+        }
+
         internal class Constants
         {
             internal const uint WM_APPCOMMAND = 0x0319;
+
+            internal const int SW_SHOWMINIMIZED = 2;
+            internal const int SW_SHOW = 5;
+            internal const int SW_RESTORE = 9;
         }
     }
 
@@ -123,9 +139,27 @@ namespace Toastify
         {
             if (Spotify.IsAvailable())
             {
-                Win32.ShowWindow(Spotify.GetSpotify(), 1);
-                Win32.SetForegroundWindow(Spotify.GetSpotify());
-                Win32.SetFocus(Spotify.GetSpotify());
+                var hWnd = Spotify.GetSpotify();
+
+                // check Spotify's current window state
+                var placement = new Win32.WINDOWPLACEMENT();
+                Win32.GetWindowPlacement(hWnd, ref placement);
+
+                int showCommand = Win32.Constants.SW_SHOW;
+
+                // if Spotify is minimzed we need to send a restore so that the window
+                // will come back exactly like it was before being minimized (i.e. maximized
+                // or otherwise) otherwise if we call SW_RESTORE on a currently maximized window
+                // then instead of staying maximized it will return to normal size.
+                if (placement.showCmd == Win32.Constants.SW_SHOWMINIMIZED)
+                {
+                    showCommand = Win32.Constants.SW_RESTORE;
+                }
+
+                Win32.ShowWindow(hWnd, showCommand);
+                
+                Win32.SetForegroundWindow(hWnd);
+                Win32.SetFocus(hWnd);
             }
         }
 
