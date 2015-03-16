@@ -715,16 +715,8 @@ namespace Toastify
                     {
                         coverUrl = "SpotifyToastifyLogo.png";
 
-                        if (SettingsXml.Current.UseSpotifyBeta)
-                        {
-                            Title1.Text = "No Spotify Beta Support :(";
-                            Title2.Text = "Hotkeys will still work";
-                        }
-                        else
-                        {
-                            Title1.Text = NOTHINGS_PLAYING;
-                            Title2.Text = string.Empty;
-                        }
+                        Title1.Text = NOTHINGS_PLAYING;
+                        Title2.Text = string.Empty;
                     }
                     else
                     {
