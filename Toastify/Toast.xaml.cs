@@ -123,7 +123,7 @@ namespace Toastify
             WinHelper.AddToolWindowStyle(this);
 
             //Check if Spotify is running.
-            EnsureSpotify();
+            AskUserToStartSpotify();
             LoadPlugins();
 
             //Let the plugins know we're started.
@@ -223,7 +223,7 @@ namespace Toastify
                 }
 
                 CheckTitle(artist, title);
-            
+
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
             }
         }
@@ -257,14 +257,14 @@ namespace Toastify
                 var trackNode = xmlDoc.SelectSingleNode("//spotify:track/@href", nsmgr);
 
                 // we're protected from infinite recursion by stripping out "(" from title (and by the stack :) )
-                if (trackNode == null && title.Contains("(")) 
+                if (trackNode == null && title.Contains("("))
                 {
                     // when Spotify has () in the brackets the search results often need this to be translated into "From". For example:
                     // Title: Cantina Band (Star Wars I)
                     // is actually displayed in search as (searching with () will result in 0 results):
                     // Title: Cantina Band - From "Star Wars I"
 
-                    CheckTitle(artist, title.Replace("(", "from ").Replace(")",""));
+                    CheckTitle(artist, title.Replace("(", "from ").Replace(")", ""));
                     return;
                 }
 
@@ -350,7 +350,7 @@ namespace Toastify
 
             this.Left = settings.PositionLeft;
             this.Top = settings.PositionTop;
-            
+
             ResetPositionIfOffScreen(workingArea);
 
             DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
@@ -426,50 +426,19 @@ namespace Toastify
             }
         }
 
-        private void EnsureSpotify()
+        private void AskUserToStartSpotify()
         {
             SettingsXml settings = SettingsXml.Current;
 
-            //Make sure Spotify is running when starting Toastify.
-            //If not ask the user and try to start it.
-
-            if (!Spotify.IsAvailable())
+            // Thanks to recent changes in Spotify that removed the song Artist + Title from the titlebar
+            // we are forced to launch Spotify ourselves (under WebDriver), so we no longer ask the user
+            try
             {
-                if ((settings.AlwaysStartSpotify.HasValue && settings.AlwaysStartSpotify.Value) || 
-                    (!settings.DontPromptToStartSpotify && 
-                        MessageBox.Show("Spotify doesn't seem to be running.\n\nDo you want Toastify to try and start it for you?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
-                {
-                    string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;  //string.Empty = (Default) value
-
-                    // try in the secondary location
-                    if (string.IsNullOrEmpty(spotifyPath))
-                    {
-                        spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;  //string.Empty = (Default) value
-                    }
-
-                    if (string.IsNullOrEmpty(spotifyPath))
-                    {
-                        MessageBox.Show("Unable to find Spotify. Make sure it is installed and/or start it manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start(System.IO.Path.Combine(spotifyPath, "Spotify.exe"));
-
-                            if (!settings.AlwaysStartSpotify.HasValue)
-                            {
-                                var ret = MessageBox.Show("Do you always want to start Spotify if it's not already running?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                                settings.AlwaysStartSpotify = (ret == MessageBoxResult.Yes);
-                                settings.Save();
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            MessageBox.Show("An unknown error occurd when trying to start Spotify.\nPlease start Spotify manually.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                    }
-                }
+                Spotify.StartSpotify();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("An unknown error occurred when trying to start Spotify.\nPlease start Spotify manually.\n\nTechnical Details: " + e.Message, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -594,9 +563,9 @@ namespace Toastify
         private static void SendPasteKey(Hotkey hotkey)
         {
             var shiftKey = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.ShiftKey);
-            var altKey   = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.Alt);
-            var ctrlKey  = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.ControlKey);
-            var vKey     = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.V);
+            var altKey = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.Alt);
+            var ctrlKey = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.ControlKey);
+            var vKey = new ManagedWinapi.KeyboardKey(System.Windows.Forms.Keys.V);
 
             // Before injecting a paste command, first make sure that no modifiers are already
             // being pressed (which will throw off the Ctrl+v).
@@ -782,12 +751,12 @@ namespace Toastify
                 SettingsXml settings = SettingsXml.Current;
 
                 settings.PositionLeft = this.Left;
-                settings.PositionTop  = this.Top;
+                settings.PositionTop = this.Top;
 
                 settings.Save();
             }
         }
 
-        
+
     }
 }

@@ -59,6 +59,7 @@ namespace Toastify
                 slBorderColor.Value = byte.Parse(settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
             }
             catch { }
+
             if (_current == null)
                 _current = this;
         }

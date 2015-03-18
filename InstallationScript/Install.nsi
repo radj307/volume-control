@@ -63,6 +63,8 @@ Section "Toastify (required)"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
   File "AutoHotkey.Interop.dll"
+  File "chromedriver.exe"
+  File "WebDriver.dll"
   File "LICENSE"
   
   ; Write the uninstall keys for Windows

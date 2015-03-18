@@ -5,6 +5,9 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Threading;
+using OpenQA.Selenium.Chrome;
+using System.IO;
+using System.Reflection;
 
 namespace Toastify
 {
@@ -85,9 +88,75 @@ namespace Toastify
         }
     }
 
-    class Spotify
+    static class Spotify
     {
         private static AutoHotkey.Interop.AutoHotkeyEngine _ahk;
+        private static ChromeDriver _spotifyDriver;
+
+        public static void StartSpotify()
+        {
+            string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;  //string.Empty = (Default) value
+
+            // try in the secondary location
+            if (string.IsNullOrEmpty(spotifyPath))
+            {
+                spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;  //string.Empty = (Default) value
+            }
+
+            if (string.IsNullOrEmpty(spotifyPath))
+            {
+                throw new ArgumentException("Could not find spotify path in registry");
+            }
+
+            if (_spotifyDriver != null)
+            {
+                _spotifyDriver.Close();
+
+                // wait for Spotify to close
+                Thread.Sleep(1000);
+            }
+
+            KillSpotify();
+            KillChromeDriver();
+
+            // connect to the window
+            var options = new ChromeOptions();
+            options.BinaryLocation = Path.Combine(spotifyPath, "spotify.exe");
+            
+            // create the ChromeDriver service manually so that we can hide the debug window
+            var chromeDriverService = ChromeDriverService.CreateDefaultService();
+            chromeDriverService.HideCommandPromptWindow = true;
+
+            _spotifyDriver = new ChromeDriver(chromeDriverService, options);
+
+            // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively 
+            // safe amount of time to wait, even if the pattern is gross.
+            Thread.Sleep(2000);
+        }
+
+        private static void KillProc(string name)
+        {
+            var procs = System.Diagnostics.Process.GetProcessesByName(name);
+
+            foreach (var proc in procs)
+            {
+                try
+                {
+                    if (!proc.HasExited)
+                        proc.Kill();
+                } catch { } // ignore exceptions when attempting to close other apps
+            }
+        }
+
+        private static void KillChromeDriver()
+        {
+            KillProc("chromedriver");
+        }
+
+        private static void KillSpotify()
+        {
+            KillProc("spotify");
+        }
 
         private static IntPtr GetSpotify()
         {
@@ -106,11 +175,43 @@ namespace Toastify
             if (!Spotify.IsAvailable())
                 return string.Empty;
 
-            IntPtr hWnd = GetSpotify();
-            int length = Win32.GetWindowTextLength(hWnd);
-            StringBuilder sb = new StringBuilder(length + 1);
-            Win32.GetWindowText(hWnd, sb, sb.Capacity);
-            return sb.ToString().Replace("Spotify", "").TrimStart(' ', '-').Trim();
+            string song = "";
+            string artist = "";
+
+            try
+            {
+                var links = _spotifyDriver.FindElementsByTagName("a");
+
+                foreach (var link in links)
+                {
+                    if (string.IsNullOrEmpty(link.Text))
+                        continue;
+
+                    // could use CSS selectors?
+                    var databind = link.GetAttribute("data-bind");
+
+                    if (databind == null) continue;
+
+                    System.Diagnostics.Debug.WriteLine(databind);
+
+                    if (databind.Contains("href: trackURI"))
+                    {
+                        song = link.Text;
+                    }
+                    else if (databind.Contains("trackURI") && link.GetAttribute("href").Contains("artist"))
+                    {
+                        artist = link.Text;
+                    }
+                }
+
+                return artist + " \u2013 " + song;
+            }
+            catch
+            {
+                // exceptions will occur if the Spotify content changes while it's being enumerated
+                // for example, if the song occurs while we're looking for the song title
+                return "";
+            }
         }
 
         public static Song GetCurrentSong()
