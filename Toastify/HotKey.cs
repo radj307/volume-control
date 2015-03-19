@@ -38,6 +38,24 @@ namespace Toastify
             }
         }
 
+        private bool _windowsKey;
+        public bool WindowsKey
+        {
+            get { return _windowsKey; }
+            set
+            {
+                if (_windowsKey != value)
+                {
+                    _windowsKey = value;
+
+                    NotifyPropertyChanged("WindowsKey");
+
+                    CheckIfValid();
+                }
+            }
+        }
+
+
         private bool _ctrl;
         public bool Ctrl
         {
@@ -277,10 +295,11 @@ namespace Toastify
             if (_globalKey.Enabled)
                 _globalKey.Enabled = false;
 
-            _globalKey.Alt     = this.Alt;
-            _globalKey.Ctrl    = this.Ctrl;
-            _globalKey.Shift   = this.Shift;
-            _globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
+            _globalKey.WindowsKey = this.WindowsKey;
+            _globalKey.Alt        = this.Alt;
+            _globalKey.Ctrl       = this.Ctrl;
+            _globalKey.Shift      = this.Shift;
+            _globalKey.KeyCode    = ConvertInputKeyToFormsKeys(this.Key);
             
             _globalKey.HotkeyPressed += (s, e) => { Toast.ActionHookCallback(this); };
 
@@ -304,10 +323,10 @@ namespace Toastify
         private void CheckIfValid()
         {
             
-            if (!Ctrl && !Alt)
+            if (!Ctrl && !Alt && !WindowsKey)
             {
                 IsValid = false;
-                InvalidReason = "You must select either Ctrl, Alt or both for your hotkey";
+                InvalidReason = "At least one of Ctrl, Alt or the Windows key key is required for your hotkey";
 
                 return;
             }
@@ -370,6 +389,7 @@ namespace Toastify
             get
             {
                 StringBuilder sb = new StringBuilder();
+                if (this.WindowsKey) sb.Append("Win+");
                 if (this.Ctrl) sb.Append("Ctrl+");
                 if (this.Alt) sb.Append("Alt+");
                 if (this.Shift) sb.Append("Shift+");
