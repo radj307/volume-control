@@ -142,8 +142,7 @@ namespace Toastify
             {
                 try
                 {
-                    if (!proc.HasExited)
-                        proc.Kill();
+                    proc.Kill();
                 } catch { } // ignore exceptions when attempting to close other apps
             }
         }
@@ -187,7 +186,7 @@ namespace Toastify
                     if (string.IsNullOrEmpty(link.Text))
                         continue;
 
-                    // could use CSS selectors?
+                    // TODO: could use CSS selectors?
                     var databind = link.GetAttribute("data-bind");
 
                     if (databind == null) continue;
