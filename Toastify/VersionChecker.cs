@@ -10,7 +10,7 @@ namespace Toastify
 {
     class VersionChecker
     {
-        public string Version { get { return "1.7.0"; } }
+        public string Version { get { return "1.7.2"; } }
 
         public string UpdateUrl { get { return "https://toastify.codeplex.com/releases/view/24273"; } }
 
