@@ -245,7 +245,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)\Resources\chromedriver.exe" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>taskkill /im chromedriver.exe /f &gt; nul 2&gt;&amp;1 || exit /B 0
+copy "$(ProjectDir)\Resources\chromedriver.exe" "$(TargetDir)"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
