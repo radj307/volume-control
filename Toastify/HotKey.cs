@@ -322,15 +322,6 @@ namespace Toastify
         /// </summary>
         private void CheckIfValid()
         {
-            
-            if (!Ctrl && !Alt && !WindowsKey)
-            {
-                IsValid = false;
-                InvalidReason = "At least one of Ctrl, Alt or the Windows key key is required for your hotkey";
-
-                return;
-            }
-
             if (Key == Key.None)
             {
                 IsValid = false;
