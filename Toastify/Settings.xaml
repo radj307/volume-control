@@ -42,7 +42,7 @@
                     <Canvas IsEnabled="{Binding GlobalHotKeys}">
                         <Canvas DataContext="{Binding HotKeys}">
 
-                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Margin="8,50,356,245" Height="197" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged">
+                            <ListBox x:Name="lstHotKeys" Grid.Column="2" Height="418" Width="170" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="lstHotKeys_SelectionChanged" Canvas.Left="8" Canvas.Top="50">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -62,7 +62,7 @@
                             <CheckBox Content="Alt" IsChecked="{Binding Alt}" Height="17" Canvas.Top="50" Width="50" Canvas.Left="257"></CheckBox>
                             <CheckBox Content="Shift" IsChecked="{Binding Shift}" Height="17" Canvas.Top="50" Width="53" Canvas.Left="313"></CheckBox>
                             <CheckBox Content="Windows Key" IsChecked="{Binding WindowsKey}" Height="17" Canvas.Top="50" Width="100" Canvas.Left="370"></CheckBox>
-                            
+
                             <TextBlock Text="Press a Key:" Width="70" Canvas.Left="199" Height="22" Canvas.Top="77"></TextBlock>
                             <TextBox x:Name="txtSingleKey" PreviewKeyDown="txtSingleKey_PreviewKeyDown" Width="90" Canvas.Left="265" Height="22" Canvas.Top="75"></TextBox>
 

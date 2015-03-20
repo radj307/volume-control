@@ -470,7 +470,7 @@ namespace Toastify
             }
         }
 
-        public void Default()
+        public void Default(bool setHotKeys = false)
         {
             AlwaysStartSpotify       = true;
             DontPromptToStartSpotify = false;
@@ -504,7 +504,10 @@ namespace Toastify
 
             Hotkey.ClearAll();
 
-            HotKeys = _defaultHotKeys;
+            // only set hotkeys when it's requested (we don't set hotkeys when
+            // loading from XML since it will create duplicates)
+            if (setHotKeys)
+                HotKeys = _defaultHotKeys;
 
             Plugins = new List<PluginDetails>();
         }
@@ -538,7 +541,7 @@ namespace Toastify
         {
             if (!System.IO.File.Exists(SettingsFile))
             {
-                SettingsXml.Current.Default();
+                SettingsXml.Current.Default(setHotKeys: true);
                 SettingsXml.Current.Save();
             }
             else

@@ -349,9 +349,8 @@ namespace Toastify
 
         public static void ClearAll()
         {
-
             // disable will be called by the destructors, but we want to force a disable
-            // now so that we don't wait for the GC to clean up the objectss
+            // now so that we don't wait for the GC to clean up the objects
             foreach (Hotkey hotkey in _hotkeys)
             {
                 hotkey.Deactivate();
