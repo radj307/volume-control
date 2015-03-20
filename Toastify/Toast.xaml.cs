@@ -447,27 +447,7 @@ namespace Toastify
             // close Spotify first
             if (SettingsXml.Current.CloseSpotifyWithToastify)
             {
-                Process[] possibleSpotifys = Process.GetProcessesByName("Spotify");
-                if (possibleSpotifys.Count() > 0)
-                {
-                    using (Process spotify = possibleSpotifys[0])
-                    {
-
-                        try
-                        {
-                            // try to close spotify gracefully
-                            if (spotify.CloseMainWindow())
-                            {
-                                spotify.WaitForExit(1000);
-                            }
-
-                            // didn't work (Spotify often treats window close as hide main window) :( Kill them!
-                            if (!spotify.HasExited)
-                                Process.GetProcessesByName("Spotify")[0].Kill();
-                        }
-                        catch { } // ignore all process exceptions
-                    }
-                }
+                Spotify.KillSpotify();
             }
 
             // Ensure trayicon is removed on exit. (Thx Linus)

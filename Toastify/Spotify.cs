@@ -194,7 +194,7 @@ namespace Toastify
             KillProc("chromedriver");
         }
 
-        private static void KillSpotify()
+        public static void KillSpotify()
         {
             KillProc("spotify");
         }
