@@ -16,6 +16,17 @@ namespace Toastify
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        internal static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+        
+        [DllImport("user32.dll")]
+        internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
@@ -53,6 +64,9 @@ namespace Toastify
             internal const int SW_SHOWMINIMIZED = 2;
             internal const int SW_SHOW = 5;
             internal const int SW_RESTORE = 9;
+
+            internal const int WM_CLOSE = 0x10;
+            internal const int WM_QUIT = 0x12;
         }
     }
 
@@ -136,14 +150,42 @@ namespace Toastify
 
         private static void KillProc(string name)
         {
+            // let's play nice and try to gracefully clear out all Sync processes
             var procs = System.Diagnostics.Process.GetProcessesByName(name);
 
+            foreach (var proc in procs)
+            {
+                // lParam == Band Process Id, passed in below
+                Win32.EnumWindows(delegate(IntPtr hWnd, IntPtr lParam)
+                {
+                    uint processId = 0;
+                    Win32.GetWindowThreadProcessId(hWnd, out processId);
+
+                    // Essentially: Find every hWnd associated with this process and ask it to go away
+                    if (processId == (uint)lParam)
+                    {
+                        Win32.SendMessage(hWnd, Win32.Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                        Win32.SendMessage(hWnd, Win32.Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
+                    }
+
+                    return true;
+                },
+                (IntPtr)proc.Id);
+            }
+
+            // let everything calm down
+            Thread.Sleep(1000);
+
+            procs = System.Diagnostics.Process.GetProcessesByName(name);
+
+            // ok, no more mister nice guy. Sadly.
             foreach (var proc in procs)
             {
                 try
                 {
                     proc.Kill();
-                } catch { } // ignore exceptions when attempting to close other apps
+                }
+                catch { } // ignore exceptions (usually due to trying to kill non-existant child processes
             }
         }
 
