@@ -275,5 +275,24 @@ namespace Toastify
             }
         }
 
+        private void btnSaveTrackToFilePath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            if (SettingsXml.Current.SaveTrackToFilePath != null)
+            {
+                dialog.FileName = SettingsXml.Current.SaveTrackToFilePath;
+            }
+
+            dialog.CheckPathExists = true;
+            dialog.CheckFileExists = false;
+            dialog.ShowReadOnly = false;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                settings.SaveTrackToFilePath = dialog.FileName;
+            }
+        }
+
     }
 }

@@ -55,7 +55,7 @@ namespace Toastify
                                 Environment.NewLine +
                                 "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                SettingsXml.Current.Default();
+                SettingsXml.Current.Default(setHotKeys: true);
             }
         }
 
@@ -225,6 +225,20 @@ namespace Toastify
                 CheckTitle(artist, title);
 
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
+
+                if (SettingsXml.Current.SaveTrackToFile)
+                {
+                    if (!string.IsNullOrEmpty(SettingsXml.Current.SaveTrackToFilePath))
+                    {
+                        try
+                        {
+                            string trackText = GetClipboardText(currentTitle);
+
+                            File.WriteAllText(SettingsXml.Current.SaveTrackToFilePath, trackText);
+                        }
+                        catch { } // ignore errors writing out the album
+                    }
+                }
             }
         }
 
@@ -572,7 +586,7 @@ namespace Toastify
             ctrlKey.Release();
         }
 
-        private static void CopySongToClipboard(string trackBeforeAction)
+        private static string GetClipboardText(string trackBeforeAction)
         {
             var template = SettingsXml.Current.ClipboardTemplate;
 
@@ -585,7 +599,12 @@ namespace Toastify
             if (!template.Contains("{0}"))
                 template += " {0}";
 
-            Clipboard.SetText(string.Format(template, trackBeforeAction));
+            return string.Format(template, trackBeforeAction);
+        }
+
+        private static void CopySongToClipboard(string trackBeforeAction)
+        {
+            Clipboard.SetText(GetClipboardText(trackBeforeAction));
         }
 
         #endregion

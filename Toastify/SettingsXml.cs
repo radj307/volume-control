@@ -70,6 +70,8 @@ namespace Toastify
         private double _ToastWidth;
         private double _ToastHeight;
         private string _ClipboardTemplate;
+        private bool _SaveTrackToFile;
+        private string _SaveTrackToFilePath;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -470,6 +472,34 @@ namespace Toastify
             }
         }
 
+        public bool SaveTrackToFile
+        {
+            get { return _SaveTrackToFile; }
+            set
+            {
+                if (_SaveTrackToFile != value)
+                {
+                    _SaveTrackToFile = value;
+
+                    NotifyPropertyChanged("SaveTrackToFile");
+                }
+            }
+        }
+
+        public string SaveTrackToFilePath
+        {
+            get { return _SaveTrackToFilePath; }
+            set
+            {
+                if (_SaveTrackToFilePath != value)
+                {
+                    _SaveTrackToFilePath = value;
+
+                    NotifyPropertyChanged("SaveTrackToFilePath");
+                }
+            }
+        }
+
         public List<Hotkey> HotKeys
         {
             get { return _HotKeys; }
@@ -516,6 +546,8 @@ namespace Toastify
 
             ClipboardTemplate = "I'm currently listening to {0}";
 
+            SaveTrackToFile = false;
+
             Hotkey.ClearAll();
 
             // only set hotkeys when it's requested (we don't set hotkeys when
@@ -560,7 +592,6 @@ namespace Toastify
             }
             else
             {
-
                 using (StreamReader sr = new StreamReader(SettingsFile))
                 {
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
