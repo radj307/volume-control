@@ -18,11 +18,10 @@
                         <ColumnDefinition Width="107*"/>
                     </Grid.ColumnDefinitions>
                     <CheckBox Height="16" IsChecked="{Binding Path=LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,37,0,0" VerticalAlignment="Top" Width="232" Grid.ColumnSpan="2">Launch Toastify with Windows</CheckBox>
-                    <CheckBox Height="16" IsChecked="{Binding Path=AlwaysStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,59,0,0" VerticalAlignment="Top" Width="232" Grid.ColumnSpan="2">Launch Spotify if not already running</CheckBox>
-                    <CheckBox Height="16" IsChecked="{Binding Path=DontPromptToStartSpotify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,79,0,0" VerticalAlignment="Top" Width="301" Grid.ColumnSpan="2">Don't prompt to launch Spotify when Toastify starts</CheckBox>
-                    <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,99,0,0" VerticalAlignment="Top" Width="232" Grid.ColumnSpan="2">Close Spotify when you close Toastify</CheckBox>
-                    <CheckBox Height="16" IsChecked="{Binding Path=ChangeSpotifyVolumeOnly, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,121,0,0" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2">When changing volume, change volume only for Spotify</CheckBox>
-                    <Label Margin="23,131,-23,330" Grid.ColumnSpan="2">(note: this will not be reflected in the client, but rather in the Windows Volume mixer)</Label>
+                    <CheckBox Height="16" IsChecked="{Binding Path=MinimizeSpotifyOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,59,0,0" VerticalAlignment="Top" Width="232" Grid.ColumnSpan="2">Minimize Spotify on launch</CheckBox>
+                    <CheckBox Height="16" IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,81,0,0" VerticalAlignment="Top" Width="232" Grid.ColumnSpan="2">Close Spotify when you close Toastify</CheckBox>
+                    <CheckBox Height="16" IsChecked="{Binding Path=ChangeSpotifyVolumeOnly, Mode=TwoWay}" HorizontalAlignment="Left" Margin="6,103,0,0" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2">When changing volume, change volume only for Spotify</CheckBox>
+                    <Label Margin="23,113,-23,348" Grid.ColumnSpan="2">(note: this will not be reflected in the client, but rather in the Windows Volume mixer)</Label>
                     <Label Height="28" HorizontalAlignment="Left" Margin="6,190,0,0" Name="label19" VerticalAlignment="Top" Width="122">Clipboard Template :</Label>
                     <TextBox Height="23" Margin="16,194,16,0" Name="tbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Width="396" Grid.Column="1" />
                     <TextBlock Margin="16,230,16,190" Width="396" TextWrapping="Wrap" Grid.Column="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>

@@ -143,6 +143,13 @@ namespace Toastify
 
             _spotifyDriver = new ChromeDriver(chromeDriverService, options);
 
+            if (SettingsXml.Current.MinimizeSpotifyOnStartup)
+            {
+                var hWnd = Spotify.GetSpotify();
+
+                Win32.ShowWindow(hWnd, Win32.Constants.SW_SHOWMINIMIZED);
+            }
+
             // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively 
             // safe amount of time to wait, even if the pattern is gross.
             Thread.Sleep(2000);

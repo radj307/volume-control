@@ -49,6 +49,7 @@ namespace Toastify
         private const string SETTINGS_FILE   =  "Toastify.xml";
 
         private bool _CloseSpotifyWithToastify;
+        private bool _MinimizeSpotifyOnStartup;
         private bool _GlobalHotKeys;
         private bool _DisableToast;
         private bool _OnlyShowToastOnHotkey;
@@ -140,6 +141,19 @@ namespace Toastify
                 NotifyPropertyChanged("LaunchOnStartup");
 
                 SetLaunchOnStartup(value);
+            }
+        }
+
+        public bool MinimizeSpotifyOnStartup
+        {
+            get { return _MinimizeSpotifyOnStartup; }
+            set
+            {
+                if (_MinimizeSpotifyOnStartup != value)
+                {
+                    _MinimizeSpotifyOnStartup = value;
+                    NotifyPropertyChanged("MinimizeSpotifyOnStartup");
+                }
             }
         }
 
