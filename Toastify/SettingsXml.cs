@@ -95,6 +95,8 @@ namespace Toastify
                 new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo },
                 new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward    },
                 new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind         },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Add     , Action = SpotifyAction.ThumbsUp       },
+                new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Subtract, Action = SpotifyAction.ThumbsDown     },
             };
 
         /// <summary>

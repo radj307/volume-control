@@ -8,6 +8,7 @@ using System.Threading;
 using OpenQA.Selenium.Chrome;
 using System.IO;
 using System.Reflection;
+using OpenQA.Selenium;
 
 namespace Toastify
 {
@@ -47,6 +48,71 @@ namespace Toastify
 
         [DllImport("user32.dll")]
         internal static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);
+
+        [Flags()]
+        internal enum SetWindowPosFlags : uint
+        {
+            /// <summary>If the calling thread and the thread that owns the window are attached to different input queues, 
+            /// the system posts the request to the thread that owns the window. This prevents the calling thread from 
+            /// blocking its execution while other threads process the request.</summary>
+            /// <remarks>SWP_ASYNCWINDOWPOS</remarks>
+            AsynchronousWindowPosition = 0x4000,
+            /// <summary>Prevents generation of the WM_SYNCPAINT message.</summary>
+            /// <remarks>SWP_DEFERERASE</remarks>
+            DeferErase = 0x2000,
+            /// <summary>Draws a frame (defined in the window's class description) around the window.</summary>
+            /// <remarks>SWP_DRAWFRAME</remarks>
+            DrawFrame = 0x0020,
+            /// <summary>Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to 
+            /// the window, even if the window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE 
+            /// is sent only when the window's size is being changed.</summary>
+            /// <remarks>SWP_FRAMECHANGED</remarks>
+            FrameChanged = 0x0020,
+            /// <summary>Hides the window.</summary>
+            /// <remarks>SWP_HIDEWINDOW</remarks>
+            HideWindow = 0x0080,
+            /// <summary>Does not activate the window. If this flag is not set, the window is activated and moved to the 
+            /// top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter 
+            /// parameter).</summary>
+            /// <remarks>SWP_NOACTIVATE</remarks>
+            DoNotActivate = 0x0010,
+            /// <summary>Discards the entire contents of the client area. If this flag is not specified, the valid 
+            /// contents of the client area are saved and copied back into the client area after the window is sized or 
+            /// repositioned.</summary>
+            /// <remarks>SWP_NOCOPYBITS</remarks>
+            DoNotCopyBits = 0x0100,
+            /// <summary>Retains the current position (ignores X and Y parameters).</summary>
+            /// <remarks>SWP_NOMOVE</remarks>
+            IgnoreMove = 0x0002,
+            /// <summary>Does not change the owner window's position in the Z order.</summary>
+            /// <remarks>SWP_NOOWNERZORDER</remarks>
+            DoNotChangeOwnerZOrder = 0x0200,
+            /// <summary>Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to 
+            /// the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent 
+            /// window uncovered as a result of the window being moved. When this flag is set, the application must 
+            /// explicitly invalidate or redraw any parts of the window and parent window that need redrawing.</summary>
+            /// <remarks>SWP_NOREDRAW</remarks>
+            DoNotRedraw = 0x0008,
+            /// <summary>Same as the SWP_NOOWNERZORDER flag.</summary>
+            /// <remarks>SWP_NOREPOSITION</remarks>
+            DoNotReposition = 0x0200,
+            /// <summary>Prevents the window from receiving the WM_WINDOWPOSCHANGING message.</summary>
+            /// <remarks>SWP_NOSENDCHANGING</remarks>
+            DoNotSendChangingEvent = 0x0400,
+            /// <summary>Retains the current size (ignores the cx and cy parameters).</summary>
+            /// <remarks>SWP_NOSIZE</remarks>
+            IgnoreResize = 0x0001,
+            /// <summary>Retains the current Z order (ignores the hWndInsertAfter parameter).</summary>
+            /// <remarks>SWP_NOZORDER</remarks>
+            IgnoreZOrder = 0x0004,
+            /// <summary>Displays the window.</summary>
+            /// <remarks>SWP_SHOWWINDOW</remarks>
+            ShowWindow = 0x0040,
+        }
+
         internal struct WINDOWPLACEMENT
         {
             public int length;
@@ -62,6 +128,7 @@ namespace Toastify
             internal const uint WM_APPCOMMAND = 0x0319;
 
             internal const int SW_SHOWMINIMIZED = 2;
+            internal const int SW_SHOWNOACTIVATE = 4;
             internal const int SW_SHOW = 5;
             internal const int SW_RESTORE = 9;
 
@@ -78,6 +145,8 @@ namespace Toastify
         CopyTrackInfo = 3,
         SettingsSaved = 4,
         PasteTrackInfo = 5,
+        ThumbsUp = 6,
+        ThumbsDown = 7,
         PlayPause = 917504,
         Mute = 524288,
         VolumeDown = 589824,
@@ -145,14 +214,19 @@ namespace Toastify
 
             if (SettingsXml.Current.MinimizeSpotifyOnStartup)
             {
-                var hWnd = Spotify.GetSpotify();
-
-                Win32.ShowWindow(hWnd, Win32.Constants.SW_SHOWMINIMIZED);
+                Minimize();
             }
 
             // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively 
             // safe amount of time to wait, even if the pattern is gross.
             Thread.Sleep(2000);
+        }
+
+        private static void Minimize()
+        {
+            var hWnd = Spotify.GetSpotify();
+
+            Win32.ShowWindow(hWnd, Win32.Constants.SW_SHOWMINIMIZED);
         }
 
         private static void KillProc(string name)
@@ -284,6 +358,33 @@ namespace Toastify
 
         public static string CurrentCoverImageUrl { get; set; }
 
+        private static bool IsMinimized()
+        {
+            if (!Spotify.IsAvailable())
+                return false;
+
+            var hWnd = Spotify.GetSpotify();
+
+            // check Spotify's current window state
+            var placement = new Win32.WINDOWPLACEMENT();
+            Win32.GetWindowPlacement(hWnd, ref placement);
+
+            return (placement.showCmd == Win32.Constants.SW_SHOWMINIMIZED);
+        }
+
+        private static void ShowSpotifyWithNoActivate()
+        {
+            var hWnd = Spotify.GetSpotify();
+
+            // check Spotify's current window state
+            var placement = new Win32.WINDOWPLACEMENT();
+            Win32.GetWindowPlacement(hWnd, ref placement);
+
+            var flags = Win32.SetWindowPosFlags.DoNotActivate | Win32.SetWindowPosFlags.DoNotChangeOwnerZOrder | Win32.SetWindowPosFlags.ShowWindow;
+
+            Win32.SetWindowPos(hWnd, (IntPtr)0, placement.rcNormalPosition.Left, placement.rcNormalPosition.Top, 0, 0, flags);
+        }
+
         private static void ShowSpotify()
         {
             if (Spotify.IsAvailable())
@@ -306,10 +407,106 @@ namespace Toastify
                 }
 
                 Win32.ShowWindow(hWnd, showCommand);
-                
+
                 Win32.SetForegroundWindow(hWnd);
                 Win32.SetFocus(hWnd);
             }
+        }
+
+        private static void ThumbsUp()
+        {
+            ClickThumb("spoticon-thumbs-up-32");
+        }
+
+        private static void ThumbsDown()
+        {
+            ClickThumb("spoticon-thumbs-down-32");
+        }
+
+        private static void ClickThumb(string thumbClass)
+        {
+            var needToMinimizeSpotify = false;
+
+            if (IsMinimized())
+            {
+                ShowSpotifyWithNoActivate();
+                needToMinimizeSpotify = true;
+            }
+
+            // check if we're already in the radio page
+            try
+            {
+                IWebElement iframeRadio;
+
+                var navigatedToRadio = false;
+
+                // this convuluted piece of code allows you to thumb up songs even if you haven't
+                // ever launched the radio window which can happen if you start Toastify -> the last thing
+                // you were doing in Spotify was playing radio -> press play. It will also catch the state 
+                // where app-radio is not the active frame.
+                try
+                {
+                    iframeRadio = _spotifyDriver.FindElementById("app-radio");
+
+                    if (!iframeRadio.GetAttribute("class").Contains("active"))
+                        navigatedToRadio = true;
+                }
+                catch (NoSuchElementException)
+                {
+                    navigatedToRadio = true;
+                }
+
+                if (navigatedToRadio)
+                {
+                    _spotifyDriver.FindElementById("menu-item-radio").Click();
+
+                    // initiate the navigation
+                    Thread.Sleep(500);
+
+                    iframeRadio = _spotifyDriver.FindElementById("app-radio");
+                }
+
+                _spotifyDriver.SwitchTo().Frame("app-radio");
+
+                // wait max 2 seconds for the element to appear
+                var waitRemaining = 2000;
+                IWebElement thumb = null;
+
+                while (thumb == null)
+                {
+                    Thread.Sleep(200);
+                    waitRemaining -= 200;
+
+                    try
+                    {
+                        thumb = _spotifyDriver.FindElementByClassName(thumbClass);
+                    }
+                    catch (NoSuchElementException) { }
+
+                    if (waitRemaining < 0)
+                        break;
+                }
+
+                if (thumb != null && thumb.Enabled && !thumb.GetAttribute("class").Contains("disabled"))
+                    thumb.Click();
+
+                // reset frame state
+                _spotifyDriver.SwitchTo().ParentFrame();
+
+                // if we navigated, then restore state by going back one in the backstack
+                if (navigatedToRadio)
+                    _spotifyDriver.FindElementByClassName("spoticon-chevron-left-16").Click();
+            }
+            catch (NoSuchElementException)
+            {
+                // radio isn't playing... move on
+                
+                // reset frame state in the case of an exception
+                _spotifyDriver.SwitchTo().ParentFrame();
+            }
+
+            if (needToMinimizeSpotify)
+                Minimize();
         }
 
         public static void SendAction(SpotifyAction a)
@@ -345,6 +542,12 @@ namespace Toastify
                     break;
                 case SpotifyAction.ShowSpotify:
                     ShowSpotify();
+                    break;
+                case SpotifyAction.ThumbsUp:
+                    ThumbsUp();
+                    break;
+                case SpotifyAction.ThumbsDown:
+                    ThumbsDown();
                     break;
                 case SpotifyAction.FastForward:
 

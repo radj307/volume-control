@@ -547,6 +547,7 @@ namespace Toastify
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debugger.Break();
                 System.Diagnostics.Debug.WriteLine("Exception with hooked key! " + ex);
                 Toast.Current.Title1.Text = "Unable to communicate with Spotify";
                 Toast.Current.Title2.Text = "";
@@ -698,6 +699,16 @@ namespace Toastify
                     FadeIn(force: true);
                     break;
                 case SpotifyAction.ShowSpotify:  //No need to handle
+                    break;
+                case SpotifyAction.ThumbsUp:
+                    Title1.Text = "Thumbs Up!";
+                    Title2.Text = currentTrack;
+                    FadeIn();
+                    break;
+                case SpotifyAction.ThumbsDown:
+                    Title1.Text = "Thumbs Down :(";
+                    Title2.Text = currentTrack;
+                    FadeIn();
                     break;
             }
         }

@@ -191,6 +191,12 @@ namespace Toastify
 
                     case SpotifyAction.Rewind:
                         return "Rewind";
+
+                    case SpotifyAction.ThumbsUp:
+                        return "Thumbs Up";
+
+                    case SpotifyAction.ThumbsDown:
+                        return "Thunbs Down";
                 }
 
                 return "No Action";
