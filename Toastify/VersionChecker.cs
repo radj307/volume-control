@@ -5,12 +5,34 @@ using System.Text;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Toastify
 {
     class VersionChecker
     {
-        public string Version { get { return "1.7.3"; } }
+        string _version;
+
+        public string Version 
+        { 
+            get 
+            {
+                if (_version == null)
+                {
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+                    _version = fileVersionInfo.FileVersion;
+
+                    var thirdDot = _version.LastIndexOf('.');
+
+                    _version = _version.Substring(0, thirdDot);
+                }
+
+                return _version;
+            } 
+        }
 
         public string UpdateUrl { get { return "https://toastify.codeplex.com/releases/view/24273"; } }
 
