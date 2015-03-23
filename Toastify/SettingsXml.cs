@@ -603,7 +603,50 @@ namespace Toastify
                 }
             }
 
+            Current.SanitizeSettingsFile();
+
             return Current;
+        }
+
+        /// <summary>
+        /// Helpful place to fix common issues with settings files
+        /// </summary>
+        private void SanitizeSettingsFile()
+        {
+            if (this._HotKeys == null)
+                return;
+
+            // let's collapse duplicate hotkeys
+            var toKeep = new List<Hotkey>();
+
+            for (int i = 0; i < _defaultHotKeys.Count; i++)
+            {
+                var current = _defaultHotKeys[i];
+                var keep = current;
+
+                for (int j = 0; j < _HotKeys.Count; j++)
+                {
+                    var compare = _HotKeys[j];
+
+                    if (current.Action == compare.Action && compare.Enabled)
+                    {
+                        keep = compare;
+                    }
+                }
+
+                toKeep.Add(keep);
+            }
+
+            // deactivate all of the old hotkeys, especially duplicate ones that are active
+            foreach (var hotkey in _HotKeys)
+            {
+                if (!toKeep.Contains(hotkey))
+                    hotkey.Deactivate();
+            }
+
+            _HotKeys = toKeep;
+
+            Save();
         }
 
         /// <summary>
