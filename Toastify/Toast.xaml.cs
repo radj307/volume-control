@@ -323,7 +323,7 @@ namespace Toastify
             part1 = string.Empty;
             part2 = string.Empty;
 
-            string[] parts = title.Split('\u2013'); //Spotify uses an en dash to separate Artist and Title
+            string[] parts = title.Split('-');
             if (parts.Length < 1 || parts.Length > 2)
                 return false; //Invalid title
 

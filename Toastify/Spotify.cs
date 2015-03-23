@@ -252,7 +252,7 @@ namespace Toastify
                     }
                 }
 
-                return artist + " \u2013 " + song;
+                return artist + " - " + song;
             }
             catch
             {
@@ -266,7 +266,7 @@ namespace Toastify
         {
             string title = GetCurrentTrack();
 
-            string[] parts = title.Split('\u2013'); //Spotify uses an en dash to separate Artist and Title
+            string[] parts = title.Split('-');
             if (parts.Length < 1 || parts.Length > 2)
                 return null;
 
