@@ -236,6 +236,8 @@
     <Resource Include="Resources\WarningLarge.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\thumbs_down.png" />
+    <Resource Include="Resources\thumbs_up.png" />
     <Resource Include="Resources\InfoLarge.png" />
     <Content Include="Resources\chromedriver.exe" />
     <Content Include="Resources\ManagedWinapiNativeHelper.dll">

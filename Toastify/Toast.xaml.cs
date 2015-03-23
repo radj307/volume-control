@@ -701,11 +701,15 @@ namespace Toastify
                 case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
                 case SpotifyAction.ThumbsUp:
+                    coverUrl = "Resources/thumbs_up.png";
+
                     Title1.Text = "Thumbs Up!";
                     Title2.Text = currentTrack;
                     FadeIn();
                     break;
                 case SpotifyAction.ThumbsDown:
+                    coverUrl = "Resources/thumbs_down.png";
+
                     Title1.Text = "Thumbs Down :(";
                     Title2.Text = currentTrack;
                     FadeIn();
