@@ -541,7 +541,16 @@ namespace Toastify
                     //Nothing
                     break;
                 case SpotifyAction.ShowSpotify:
-                    ShowSpotify();
+
+                    if (Spotify.IsMinimized())
+                    {
+                        ShowSpotify();
+                    }
+                    else
+                    {
+                        Minimize();
+                    }
+
                     break;
                 case SpotifyAction.ThumbsUp:
                     ThumbsUp();

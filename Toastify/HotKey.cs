@@ -172,7 +172,7 @@ namespace Toastify
                         return "Settings Saved";
 
                     case SpotifyAction.ShowSpotify:
-                        return "Show Spotify";
+                        return "Show / Hide Spotify";
 
                     case SpotifyAction.ShowToast:
                         return "Show Toast";
