@@ -547,7 +547,9 @@ namespace Toastify
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached)
+                    System.Diagnostics.Debugger.Break();
+
                 System.Diagnostics.Debug.WriteLine("Exception with hooked key! " + ex);
                 Toast.Current.Title1.Text = "Unable to communicate with Spotify";
                 Toast.Current.Title2.Text = "";
