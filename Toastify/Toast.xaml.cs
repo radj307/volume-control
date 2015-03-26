@@ -24,7 +24,9 @@ namespace Toastify
         Timer watchTimer;
         System.Windows.Forms.NotifyIcon trayIcon;
 
+        string toastIcon = "";
         string coverUrl = "";
+
         BitmapImage cover;
 
         private VersionChecker versionChecker;
@@ -309,12 +311,12 @@ namespace Toastify
                 exmlDoc.LoadXml(exmlStr);
 
                 // thumbnail_url can be modified for 60,300 or 640px with a replace. See: https://toastify.codeplex.com/workitem/13235
-                coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml.Replace("/cover/", "/60/");
+                toastIcon = coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml.Replace("/cover/", "/60/");
 
             }
             catch (Exception)
             {
-                coverUrl = "SpotifyToastifyLogo.png";
+                toastIcon = "SpotifyToastifyLogo.png";
             }
         }
 
@@ -350,11 +352,11 @@ namespace Toastify
 
             isUpdateToast = isUpdate;
 
-            if (coverUrl != "")
+            if (toastIcon != "")
             {
                 cover = new BitmapImage();
                 cover.BeginInit();
-                cover.UriSource = new Uri(coverUrl, UriKind.RelativeOrAbsolute);
+                cover.UriSource = new Uri(toastIcon, UriKind.RelativeOrAbsolute);
                 cover.EndInit();
                 LogoToast.Source = cover;
             }
@@ -412,7 +414,7 @@ namespace Toastify
                 Title1.Text = title;
                 Title2.Text = caption;
 
-                coverUrl = "SpotifyToastifyUpdateLogo.png";
+                toastIcon = "SpotifyToastifyUpdateLogo.png";
 
                 FadeIn(force: true, isUpdate: true);
             }, System.Windows.Threading.DispatcherPriority.Normal);
@@ -627,7 +629,7 @@ namespace Toastify
 
             if (!Spotify.IsAvailable() && action != SpotifyAction.SettingsSaved)
             {
-                coverUrl = "SpotifyToastifyLogo.png";
+                toastIcon = "SpotifyToastifyLogo.png";
                 Title1.Text = "Spotify not available!";
                 Title2.Text = string.Empty;
                 FadeIn();
@@ -684,7 +686,7 @@ namespace Toastify
                 case SpotifyAction.ShowToast:
                     if (string.IsNullOrEmpty(currentTrack) && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
                     {
-                        coverUrl = "SpotifyToastifyLogo.png";
+                        toastIcon = "SpotifyToastifyLogo.png";
 
                         Title1.Text = NOTHINGS_PLAYING;
                         Title2.Text = string.Empty;
@@ -694,6 +696,8 @@ namespace Toastify
                         string part1, part2;
                         if (SplitTitle(currentTrack, out part1, out part2))
                         {
+                            toastIcon = coverUrl;
+
                             Title1.Text = part2;
                             Title2.Text = part1;
                         }
@@ -703,14 +707,14 @@ namespace Toastify
                 case SpotifyAction.ShowSpotify:  //No need to handle
                     break;
                 case SpotifyAction.ThumbsUp:
-                    coverUrl = "Resources/thumbs_up.png";
+                    toastIcon = "Resources/thumbs_up.png";
 
                     Title1.Text = "Thumbs Up!";
                     Title2.Text = currentTrack;
                     FadeIn();
                     break;
                 case SpotifyAction.ThumbsDown:
-                    coverUrl = "Resources/thumbs_down.png";
+                    toastIcon = "Resources/thumbs_down.png";
 
                     Title1.Text = "Thumbs Down :(";
                     Title2.Text = currentTrack;
