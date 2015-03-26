@@ -247,7 +247,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>taskkill /im chromedriver.exe /f &gt; nul 2&gt;&amp;1 || exit /B 0
+    <PostBuildEvent>taskkill /im chromedriver.exe /f &gt; nul 2&gt;&amp;1
 copy "$(ProjectDir)\Resources\chromedriver.exe" "$(TargetDir)"
 </PostBuildEvent>
   </PropertyGroup>
