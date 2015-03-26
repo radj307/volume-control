@@ -314,8 +314,6 @@ namespace Toastify
 
                     if (databind == null) continue;
 
-                    System.Diagnostics.Debug.WriteLine(databind);
-
                     if (databind.Contains("href: trackURI"))
                     {
                         song = link.Text;
@@ -456,15 +454,15 @@ namespace Toastify
                     navigatedToRadio = true;
                 }
 
-                if (navigatedToRadio)
-                {
-                    _spotifyDriver.FindElementById("menu-item-radio").Click();
+                // force a navigate to radio to avoid a bug in Spotify where the current album
+                // doesn't always come into focus which prevents clicking on the the thumbs
+                // since we can see the thumb but they are occluded, causing WebDriver to choke.
+                _spotifyDriver.FindElementById("menu-item-radio").Click();
 
-                    // initiate the navigation
-                    Thread.Sleep(500);
+                // initiate the navigation
+                Thread.Sleep(500);
 
-                    iframeRadio = _spotifyDriver.FindElementById("app-radio");
-                }
+                iframeRadio = _spotifyDriver.FindElementById("app-radio");
 
                 _spotifyDriver.SwitchTo().Frame("app-radio");
 
