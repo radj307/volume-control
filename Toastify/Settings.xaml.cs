@@ -115,7 +115,7 @@ namespace Toastify
             settings.Save(replaceCurrent: true);
 
             toast.InitToast();
-            toast.DisplayAction(SpotifyAction.SettingsSaved, "");
+            toast.DisplayAction(SpotifyAction.SettingsSaved, null);
         }
 
         //Text box Mouse Wheel events 

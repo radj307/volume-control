@@ -158,16 +158,28 @@ namespace Toastify
         Rewind = 50 << 16,
     }
 
-    class Song
+    public class Song
     {
         public string Artist { get; set; }
         public string Title { get; set; }
+
+        public Song(string artist, string title)
+        {
+            Artist = artist;
+            Title = title;
+        }
 
         public override string ToString()
         {
             if (Artist == null)
                 return Title;
+
             return string.Format("{0} - {1}", Artist, Title);
+        }
+
+        internal bool IsValid()
+        {
+            return (!string.IsNullOrEmpty(Artist) || !string.IsNullOrEmpty(Title));
         }
     }
 
@@ -292,10 +304,10 @@ namespace Toastify
             return (GetSpotify() != IntPtr.Zero);
         }
 
-        public static string GetCurrentTrack()
+        public static Song GetCurrentSong()
         {
             if (!Spotify.IsAvailable())
-                return string.Empty;
+                return null;
 
             string song = "";
             string artist = "";
@@ -305,33 +317,13 @@ namespace Toastify
                 song = _spotifyDriver.FindElementByCssSelector("a[href^='spotify:track']").Text;
                 artist = _spotifyDriver.FindElementByCssSelector("span[data-bind='foreach: artists']").Text;
 
-                return artist + " - " + song;
+                return new Song(artist, song);
             }
             catch
             {
                 // exceptions will occur if the Spotify content changes while it's being enumerated
                 // for example, if the song occurs while we're looking for the song title
-                return "";
-            }
-        }
-
-        public static Song GetCurrentSong()
-        {
-            string title = GetCurrentTrack();
-
-            string[] parts = title.Split('-');
-            if (parts.Length < 1 || parts.Length > 2)
                 return null;
-
-            if (parts.Length == 1)
-                return new Song { Title = parts[0].Trim() };
-            else
-            {
-                return new Song
-                {
-                    Artist = parts[0].Trim(),
-                    Title = parts[1].Trim()
-                };
             }
         }
 

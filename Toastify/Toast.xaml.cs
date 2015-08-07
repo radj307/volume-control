@@ -37,7 +37,7 @@ namespace Toastify
 
         internal static Toast Current { get; private set; }
 
-        string previousTitle = string.Empty;
+        Song previousTitle = null;
 
         private bool dragging = false;
 
@@ -197,25 +197,23 @@ namespace Toastify
 
         private void CheckTitle()
         {
-            string currentTitle = Spotify.GetCurrentTrack();
+            Song currentSong = Spotify.GetCurrentSong();
 
-            if (!string.IsNullOrEmpty(currentTitle) && currentTitle != previousTitle)
+            if (currentSong != null && currentSong != previousTitle)
             {
-                string artist, title;
-
                 // set the previous title asap so that the next timer call to this function will
                 // fail fast (setting it at the end may cause multiple web requests)
-                previousTitle = currentTitle;
-
-                if (SplitTitle(currentTitle, out artist, out title))
+                previousTitle = currentSong;
+                
+                if (currentSong.IsValid())
                 {
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = title; Title2.Text = artist; }, System.Windows.Threading.DispatcherPriority.Normal);
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = currentSong.Title; Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
 
                     foreach (var p in this.Plugins)
                     {
                         try
                         {
-                            p.TrackChanged(artist, title);
+                            p.TrackChanged(currentSong.Artist, currentSong.Title);
                         }
                         catch (Exception)
                         {
@@ -224,7 +222,7 @@ namespace Toastify
                     }
                 }
 
-                CheckTitle(artist, title);
+                CheckTitle(currentSong);
 
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
 
@@ -234,7 +232,7 @@ namespace Toastify
                     {
                         try
                         {
-                            string trackText = GetClipboardText(currentTitle);
+                            string trackText = GetClipboardText(currentSong);
 
                             File.WriteAllText(SettingsXml.Current.SaveTrackToFilePath, trackText);
                         }
@@ -244,7 +242,7 @@ namespace Toastify
             }
         }
 
-        private void CheckTitle(string artist, string title)
+        private void CheckTitle(Song currentSong)
         {
 
             try
@@ -252,7 +250,7 @@ namespace Toastify
                 // Spotify now has a supported metadata web service that is open to all (https://developer.spotify.com/technologies/web-api/) with
                 // a workaround to grab album art. See file history for the audio scrobbler method (which stopped working due to the dev key expiring)
 
-                String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(artist + "\" title:\"" + title + "\"");
+                String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(currentSong.Artist + "\" title:\"" + currentSong.Title + "\"");
 
                 string xmlStr = String.Empty;
                 using (var wc = new WebClient())
@@ -273,14 +271,14 @@ namespace Toastify
                 var trackNode = xmlDoc.SelectSingleNode("//spotify:track/@href", nsmgr);
 
                 // we're protected from infinite recursion by stripping out "(" from title (and by the stack :) )
-                if (trackNode == null && title.Contains("("))
+                if (trackNode == null && currentSong.Title.Contains("("))
                 {
                     // when Spotify has () in the brackets the search results often need this to be translated into "From". For example:
                     // Title: Cantina Band (Star Wars I)
                     // is actually displayed in search as (searching with () will result in 0 results):
                     // Title: Cantina Band - From "Star Wars I"
 
-                    CheckTitle(artist, title.Replace("(", "from ").Replace(")", ""));
+                    CheckTitle(new Song(currentSong.Artist, currentSong.Title.Replace("(", "from ").Replace(")", "")));
                     return;
                 }
 
@@ -318,26 +316,6 @@ namespace Toastify
             {
                 toastIcon = "SpotifyToastifyLogo.png";
             }
-        }
-
-        private bool SplitTitle(string title, out string part1, out string part2)
-        {
-            part1 = string.Empty;
-            part2 = string.Empty;
-
-            string[] parts = title.Split('-');
-            if (parts.Length < 1 || parts.Length > 2)
-                return false; //Invalid title
-
-            if (parts.Length == 1)
-                part2 = parts[0].Trim();
-            else if (parts.Length == 2)
-            {
-                part1 = parts[0].Trim();
-                part2 = parts[1].Trim();
-            }
-
-            return true;
         }
 
         private void FadeIn(bool force = false, bool isUpdate = false)
@@ -529,14 +507,15 @@ namespace Toastify
 
             try
             {
-                string trackBeforeAction = Spotify.GetCurrentTrack();
-                if (hotkey.Action == SpotifyAction.CopyTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
+                Song songBeforeAction = Spotify.GetCurrentSong();
+
+                if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
                 {
-                    CopySongToClipboard(trackBeforeAction);
+                    CopySongToClipboard(songBeforeAction);
                 }
-                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && !string.IsNullOrEmpty(trackBeforeAction))
+                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && songBeforeAction != null)
                 {
-                    CopySongToClipboard(trackBeforeAction);
+                    CopySongToClipboard(songBeforeAction);
 
                     SendPasteKey(hotkey);
                 }
@@ -545,7 +524,7 @@ namespace Toastify
                     Spotify.SendAction(hotkey.Action);
                 }
 
-                Toast.Current.DisplayAction(hotkey.Action, trackBeforeAction);
+                Toast.Current.DisplayAction(hotkey.Action, songBeforeAction);
             }
             catch (Exception ex)
             {
@@ -591,8 +570,9 @@ namespace Toastify
             ctrlKey.Release();
         }
 
-        private static string GetClipboardText(string trackBeforeAction)
+        private static string GetClipboardText(Song currentSong)
         {
+            string trackBeforeAction = currentSong.ToString();
             var template = SettingsXml.Current.ClipboardTemplate;
 
             // if the string is empty we set it to {0}
@@ -607,14 +587,14 @@ namespace Toastify
             return string.Format(template, trackBeforeAction);
         }
 
-        private static void CopySongToClipboard(string trackBeforeAction)
+        private static void CopySongToClipboard(Song trackBeforeAction)
         {
             Clipboard.SetText(GetClipboardText(trackBeforeAction));
         }
 
         #endregion
 
-        public void DisplayAction(SpotifyAction action, string trackBeforeAction)
+        public void DisplayAction(SpotifyAction action, Song trackBeforeAction)
         {
             //Anything that changes track doesn't need to be handled since
             //that will be handled in the timer event.
@@ -636,7 +616,7 @@ namespace Toastify
                 return;
             }
 
-            string currentTrack = Spotify.GetCurrentTrack();
+            Song currentTrack = Spotify.GetCurrentSong();
 
             string prevTitle1 = Title1.Text;
             string prevTitle2 = Title2.Text;
@@ -644,19 +624,19 @@ namespace Toastify
             switch (action)
             {
                 case SpotifyAction.PlayPause:
-                    if (!string.IsNullOrEmpty(trackBeforeAction))
+                    if (trackBeforeAction != null)
                     {
                         //We pressed pause
                         Title1.Text = "Paused";
-                        Title2.Text = trackBeforeAction;
+                        Title2.Text = trackBeforeAction.ToString();
                         FadeIn();
                     }
-                    previousTitle = string.Empty;  //If we presses play this will force a toast to display in next timer event.
+                    previousTitle = null;  //If we presses play this will force a toast to display in next timer event.
                     break;
                 case SpotifyAction.Stop:
-                    previousTitle = string.Empty;
+                    previousTitle = null;
                     Title1.Text = "Stopped";
-                    Title2.Text = trackBeforeAction;
+                    Title2.Text = trackBeforeAction.ToString();
                     FadeIn();
                     break;
                 case SpotifyAction.SettingsSaved:
@@ -670,21 +650,21 @@ namespace Toastify
                     break;
                 case SpotifyAction.VolumeUp:
                     Title1.Text = VOLUME_UP_TEXT;
-                    Title2.Text = currentTrack;
+                    Title2.Text = currentTrack.ToString();
                     FadeIn();
                     break;
                 case SpotifyAction.VolumeDown:
                     Title1.Text = VOLUME_DOWN_TEXT;
-                    Title2.Text = currentTrack;
+                    Title2.Text = currentTrack.ToString();
                     FadeIn();
                     break;
                 case SpotifyAction.Mute:
                     Title1.Text = MUTE_ON_OFF_TEXT;
-                    Title2.Text = currentTrack;
+                    Title2.Text = currentTrack.ToString();
                     FadeIn();
                     break;
                 case SpotifyAction.ShowToast:
-                    if (string.IsNullOrEmpty(currentTrack) && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
+                    if (currentTrack != null && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
                     {
                         toastIcon = "SpotifyToastifyLogo.png";
 
@@ -693,13 +673,12 @@ namespace Toastify
                     }
                     else
                     {
-                        string part1, part2;
-                        if (SplitTitle(currentTrack, out part1, out part2))
+                        if (currentTrack != null && currentTrack.IsValid())
                         {
                             toastIcon = coverUrl;
 
-                            Title1.Text = part2;
-                            Title2.Text = part1;
+                            Title1.Text = currentTrack.Artist;
+                            Title2.Text = currentTrack.Title;
                         }
                     }
                     FadeIn(force: true);
@@ -710,14 +689,14 @@ namespace Toastify
                     toastIcon = "Resources/thumbs_up.png";
 
                     Title1.Text = "Thumbs Up!";
-                    Title2.Text = currentTrack;
+                    Title2.Text = currentTrack.ToString();
                     FadeIn();
                     break;
                 case SpotifyAction.ThumbsDown:
                     toastIcon = "Resources/thumbs_down.png";
 
                     Title1.Text = "Thumbs Down :(";
-                    Title2.Text = currentTrack;
+                    Title2.Text = currentTrack.ToString();
                     FadeIn();
                     break;
             }
