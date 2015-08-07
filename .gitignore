@@ -179,3 +179,4 @@ UpgradeLog*.htm
 *.bim.layout
 *.bim_*.settings
 
+*.user
