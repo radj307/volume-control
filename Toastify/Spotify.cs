@@ -302,27 +302,8 @@ namespace Toastify
 
             try
             {
-                var links = _spotifyDriver.FindElementsByTagName("a");
-
-                foreach (var link in links)
-                {
-                    if (string.IsNullOrEmpty(link.Text))
-                        continue;
-
-                    // TODO: could use CSS selectors?
-                    var databind = link.GetAttribute("data-bind");
-
-                    if (databind == null) continue;
-
-                    if (databind.Contains("href: trackURI"))
-                    {
-                        song = link.Text;
-                    }
-                    else if (databind.Contains("trackURI") && link.GetAttribute("href").Contains("artist"))
-                    {
-                        artist = link.Text;
-                    }
-                }
+                song = _spotifyDriver.FindElementByCssSelector("a[href^='spotify:track']").Text;
+                artist = _spotifyDriver.FindElementByCssSelector("span[data-bind='foreach: artists']").Text;
 
                 return artist + " - " + song;
             }
