@@ -22,6 +22,8 @@ namespace Toastify
     public partial class Toast : Window
     {
         Timer watchTimer;
+        Timer minimizeTimer;
+
         System.Windows.Forms.NotifyIcon trayIcon;
 
         string toastIcon = "";
@@ -40,6 +42,15 @@ namespace Toastify
         Song previousTitle = null;
 
         private bool dragging = false;
+
+        public new Visibility Visibility
+        {
+            get { return base.Visibility; }
+            set
+            {
+                base.Visibility = value;
+            }
+        }
 
         public void LoadSettings()
         {
@@ -199,7 +210,7 @@ namespace Toastify
         {
             Song currentSong = Spotify.GetCurrentSong();
 
-            if (currentSong != null && currentSong != previousTitle)
+            if (currentSong != null && !currentSong.Equals(previousTitle))
             {
                 // set the previous title asap so that the next timer call to this function will
                 // fail fast (setting it at the end may cause multiple web requests)
@@ -320,6 +331,9 @@ namespace Toastify
 
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
+            if (minimizeTimer != null)
+                minimizeTimer.Stop();
+
             if (dragging)
                 return;
 
@@ -338,6 +352,8 @@ namespace Toastify
                 cover.EndInit();
                 LogoToast.Source = cover;
             }
+
+            this.WindowState = WindowState.Normal;
 
             System.Drawing.Rectangle workingArea = new System.Drawing.Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
             workingArea = System.Windows.Forms.Screen.GetWorkingArea(workingArea);
@@ -368,12 +384,36 @@ namespace Toastify
                 this.Top = position.Y;
             }
         }
-
+        
         private void FadeOut(bool now = false)
         {
+            var interval = (now ? 0 : SettingsXml.Current.FadeOutTime);
+
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-            anim.BeginTime = TimeSpan.FromMilliseconds((now ? 0 : SettingsXml.Current.FadeOutTime));
+            anim.BeginTime = TimeSpan.FromMilliseconds(interval);
             this.BeginAnimation(Window.OpacityProperty, anim);
+
+            if (minimizeTimer == null)
+            {
+                minimizeTimer = new Timer();
+                minimizeTimer.AutoReset = false;
+
+                minimizeTimer.Elapsed += (s, ev) =>
+                {
+                    Dispatcher.Invoke((Action)delegate 
+                    {
+                        this.WindowState = WindowState.Minimized;
+
+                        System.Diagnostics.Debug.WriteLine("Minimized");
+                    });
+                };
+            }
+
+            // extra buffer to avoid graphics corruption at the tail end of the fade
+            minimizeTimer.Interval = interval * 2;
+
+            minimizeTimer.Stop();
+            minimizeTimer.Start();
         }
 
         void versionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)

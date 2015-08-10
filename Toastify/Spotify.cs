@@ -181,6 +181,22 @@ namespace Toastify
         {
             return (!string.IsNullOrEmpty(Artist) || !string.IsNullOrEmpty(Title));
         }
+
+        public override bool Equals(object obj)
+        {
+            var target = obj as Song;
+
+            if (target == null)
+                return false;
+
+            return (target.Artist == this.Artist && target.Title == this.Title);
+        }
+
+        // overriding GetHashCode is "required" when overriding Equals
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     static class Spotify
