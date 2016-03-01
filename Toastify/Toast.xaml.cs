@@ -647,7 +647,7 @@ namespace Toastify
             const string STOPPED_TEXT = "Stopped";
             const string SETTINGS_TEXT = "Settings saved";
 
-            if (!Spotify.IsAvailable() && action != SpotifyAction.SettingsSaved)
+            if (!Spotify.IsRunning() && action != SpotifyAction.SettingsSaved)
             {
                 toastIcon = "SpotifyToastifyLogo.png";
                 Title1.Text = "Spotify not available!";

@@ -180,3 +180,5 @@ UpgradeLog*.htm
 *.bim_*.settings
 
 *.user
+InstallationScript/Toastify.exe.config
+InstallationScript/Toastify.vshost.exe.config

@@ -50,10 +50,6 @@ Section "Toastify (required)"
   ; Since process termination is non-destructive for Toastify, just kill it
   DetailPrint "Shutting down Toastify..."
   KillProcWMI::KillProc "Toastify.exe"
-
-  ; Likewise for ChromeDriver
-  DetailPrint "Shutting down ChromeDriver..."
-  KillProcWMI::KillProc "chromedriver.exe"
   
   ; Let the process shutdown
   Sleep 1000
@@ -67,7 +63,6 @@ Section "Toastify (required)"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
   File "AutoHotkey.Interop.dll"
-  File "chromedriver.exe"
   File "WebDriver.dll"
   File "LICENSE"
   

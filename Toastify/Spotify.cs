@@ -5,10 +5,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Threading;
-using OpenQA.Selenium.Chrome;
 using System.IO;
 using System.Reflection;
-using OpenQA.Selenium;
 
 namespace Toastify
 {
@@ -145,8 +143,8 @@ namespace Toastify
         CopyTrackInfo = 3,
         SettingsSaved = 4,
         PasteTrackInfo = 5,
-        ThumbsUp = 6,
-        ThumbsDown = 7,
+        ThumbsUp = 6,   // not usable, left in for future (hopefully!)
+        ThumbsDown = 7, // not usable, left in for future (hopefully!)
         PlayPause = 917504,
         Mute = 524288,
         VolumeDown = 589824,
@@ -202,10 +200,12 @@ namespace Toastify
     static class Spotify
     {
         private static AutoHotkey.Interop.AutoHotkeyEngine _ahk;
-        private static ChromeDriver _spotifyDriver;
 
         public static void StartSpotify()
         {
+            if (IsRunning())
+                return;
+
             string spotifyPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;  //string.Empty = (Default) value
 
             // try in the secondary location
@@ -219,26 +219,10 @@ namespace Toastify
                 throw new ArgumentException("Could not find spotify path in registry");
             }
 
-            if (_spotifyDriver != null)
-            {
-                _spotifyDriver.Close();
+            // launch Spotify
+            var spotifyExe = Path.Combine(spotifyPath, "spotify.exe");
 
-                // wait for Spotify to close
-                Thread.Sleep(1000);
-            }
-
-            KillSpotify();
-            KillChromeDriver();
-
-            // connect to the window
-            var options = new ChromeOptions();
-            options.BinaryLocation = Path.Combine(spotifyPath, "spotify.exe");
-            
-            // create the ChromeDriver service manually so that we can hide the debug window
-            var chromeDriverService = ChromeDriverService.CreateDefaultService();
-            chromeDriverService.HideCommandPromptWindow = true;
-
-            _spotifyDriver = new ChromeDriver(chromeDriverService, options);
+            System.Diagnostics.Process.Start(spotifyExe);
 
             if (SettingsXml.Current.MinimizeSpotifyOnStartup)
             {
@@ -298,11 +282,6 @@ namespace Toastify
             }
         }
 
-        private static void KillChromeDriver()
-        {
-            KillProc("chromedriver");
-        }
-
         public static void KillSpotify()
         {
             KillProc("spotify");
@@ -315,14 +294,14 @@ namespace Toastify
             return Win32.FindWindow(windowClassName, null);
         }
 
-        public static bool IsAvailable()
+        public static bool IsRunning()
         {
             return (GetSpotify() != IntPtr.Zero);
         }
 
         public static Song GetCurrentSong()
         {
-            if (!Spotify.IsAvailable())
+            if (!Spotify.IsRunning())
                 return null;
 
             string song = "";
@@ -330,8 +309,9 @@ namespace Toastify
 
             try
             {
-                song = _spotifyDriver.FindElementByCssSelector("a[href^='spotify:track']").Text;
-                artist = _spotifyDriver.FindElementByCssSelector("span[data-bind='foreach: artists']").Text;
+                // ** TODO ** Get Window Title, split out to song and artist
+                song = "TODO";
+                artist = "TODO";
 
                 return new Song(artist, song);
             }
@@ -347,7 +327,7 @@ namespace Toastify
 
         private static bool IsMinimized()
         {
-            if (!Spotify.IsAvailable())
+            if (!Spotify.IsRunning())
                 return false;
 
             var hWnd = Spotify.GetSpotify();
@@ -374,7 +354,7 @@ namespace Toastify
 
         private static void ShowSpotify()
         {
-            if (Spotify.IsAvailable())
+            if (Spotify.IsRunning())
             {
                 var hWnd = Spotify.GetSpotify();
 
@@ -400,105 +380,9 @@ namespace Toastify
             }
         }
 
-        private static void ThumbsUp()
-        {
-            ClickThumb("spoticon-thumbs-up-32");
-        }
-
-        private static void ThumbsDown()
-        {
-            ClickThumb("spoticon-thumbs-down-32");
-        }
-
-        private static void ClickThumb(string thumbClass)
-        {
-            var needToMinimizeSpotify = false;
-
-            if (IsMinimized())
-            {
-                ShowSpotifyWithNoActivate();
-                needToMinimizeSpotify = true;
-            }
-
-            // check if we're already in the radio page
-            try
-            {
-                IWebElement iframeRadio;
-
-                var navigatedToRadio = false;
-
-                // this convuluted piece of code allows you to thumb up songs even if you haven't
-                // ever launched the radio window which can happen if you start Toastify -> the last thing
-                // you were doing in Spotify was playing radio -> press play. It will also catch the state 
-                // where app-radio is not the active frame.
-                try
-                {
-                    iframeRadio = _spotifyDriver.FindElementById("app-radio");
-
-                    if (!iframeRadio.GetAttribute("class").Contains("active"))
-                        navigatedToRadio = true;
-                }
-                catch (NoSuchElementException)
-                {
-                    navigatedToRadio = true;
-                }
-
-                // force a navigate to radio to avoid a bug in Spotify where the current album
-                // doesn't always come into focus which prevents clicking on the the thumbs
-                // since we can see the thumb but they are occluded, causing WebDriver to choke.
-                _spotifyDriver.FindElementById("menu-item-radio").Click();
-
-                // initiate the navigation
-                Thread.Sleep(500);
-
-                iframeRadio = _spotifyDriver.FindElementById("app-radio");
-
-                _spotifyDriver.SwitchTo().Frame("app-radio");
-
-                // wait max 2 seconds for the element to appear
-                var waitRemaining = 2000;
-                IWebElement thumb = null;
-
-                while (thumb == null)
-                {
-                    Thread.Sleep(200);
-                    waitRemaining -= 200;
-
-                    try
-                    {
-                        thumb = _spotifyDriver.FindElementByClassName(thumbClass);
-                    }
-                    catch (NoSuchElementException) { }
-
-                    if (waitRemaining < 0)
-                        break;
-                }
-
-                if (thumb != null && thumb.Enabled && !thumb.GetAttribute("class").Contains("disabled"))
-                    thumb.Click();
-
-                // reset frame state
-                _spotifyDriver.SwitchTo().ParentFrame();
-
-                // if we navigated, then restore state by going back one in the backstack
-                if (navigatedToRadio)
-                    _spotifyDriver.FindElementByClassName("spoticon-chevron-left-16").Click();
-            }
-            catch (NoSuchElementException)
-            {
-                // radio isn't playing... move on
-                
-                // reset frame state in the case of an exception
-                _spotifyDriver.SwitchTo().ParentFrame();
-            }
-
-            if (needToMinimizeSpotify)
-                Minimize();
-        }
-
         public static void SendAction(SpotifyAction a)
         {
-            if (!Spotify.IsAvailable())
+            if (!Spotify.IsRunning())
                 return;
 
             // bah. Because control cannot fall through cases we need to special case volume
@@ -538,12 +422,6 @@ namespace Toastify
                         Minimize();
                     }
 
-                    break;
-                case SpotifyAction.ThumbsUp:
-                    ThumbsUp();
-                    break;
-                case SpotifyAction.ThumbsDown:
-                    ThumbsDown();
                     break;
                 case SpotifyAction.FastForward:
 

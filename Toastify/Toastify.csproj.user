@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
-    <PublishUrlHistory />
-    <InstallUrlHistory />
+    <PublishUrlHistory>publish\</PublishUrlHistory>
+    <InstallUrlHistory>http://toastify.codeplex.com/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
