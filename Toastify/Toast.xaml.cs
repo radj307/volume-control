@@ -703,7 +703,7 @@ namespace Toastify
                     FadeIn();
                     break;
                 case SpotifyAction.ShowToast:
-                    if (currentTrack != null && Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT)
+                    if (currentTrack == null || (Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT))
                     {
                         toastIcon = "SpotifyToastifyLogo.png";
 

@@ -160,11 +160,13 @@ namespace Toastify
     {
         public string Artist { get; set; }
         public string Title { get; set; }
+        public string Album { get; set; }
 
-        public Song(string artist, string title)
+        public Song(string artist, string title, string album = null)
         {
             Artist = artist;
             Title = title;
+            Album = album;
         }
 
         public override string ToString()
@@ -306,21 +308,33 @@ namespace Toastify
 
             string song = "";
             string artist = "";
+            string album = "";
 
-            try
-            {
-                // ** TODO ** Get Window Title, split out to song and artist
-                song = "TODO";
-                artist = "TODO";
+            IntPtr hWnd = GetSpotify();
+            int length = Win32.GetWindowTextLength(hWnd);
+            StringBuilder sb = new StringBuilder(length + 1);
+            Win32.GetWindowText(hWnd, sb, sb.Capacity);
 
-                return new Song(artist, song);
-            }
-            catch
+            string title = sb.ToString();
+
+            if (!string.IsNullOrWhiteSpace(title) && title != "Spotify")
             {
-                // exceptions will occur if the Spotify content changes while it's being enumerated
-                // for example, if the song occurs while we're looking for the song title
-                return null;
+                // Unfortunately we don't have a great way to get the title from Spotify
+                // so we need to do some gymnastics. 
+                // Music played from an artist's page is usually in the format "artist - song" 
+                // while music played from a playlist is often in the format "artist - song - album"
+                // unfortunately this means that some songs that actually have a " - " in either the artist name
+                // or in the song name will potentially display incorrectly
+                var portions = title.Split(new string[] { " - " }, StringSplitOptions.None);
+
+                song = (portions.Length > 1 ? portions[1] : null);
+                artist = portions[0];
+                album = (portions.Length > 2 ? string.Join(" ", portions.Skip(2).ToArray()) : null); // take everything else that's left
+
+                return new Song(artist, song, album);
             }
+
+            return null;
         }
 
         public static string CurrentCoverImageUrl { get; set; }
