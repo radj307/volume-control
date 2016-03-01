@@ -34,7 +34,6 @@ namespace Toastify
         private VersionChecker versionChecker;
         private bool isUpdateToast = false;
 
-        internal List<Hotkey> HotKeys { get; set; }
         internal List<Toastify.Plugin.PluginBase> Plugins { get; set; }
 
         internal static Toast Current { get; private set; }
