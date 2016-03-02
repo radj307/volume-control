@@ -159,27 +159,27 @@ namespace Toastify
     public class Song
     {
         public string Artist { get; set; }
-        public string Title { get; set; }
+        public string Track { get; set; }
         public string Album { get; set; }
 
         public Song(string artist, string title, string album = null)
         {
             Artist = artist;
-            Title = title;
+            Track = title;
             Album = album;
         }
 
         public override string ToString()
         {
             if (Artist == null)
-                return Title;
+                return Track;
 
-            return string.Format("{0} - {1}", Artist, Title);
+            return string.Format("{0} - {1}", Artist, Track);
         }
 
         internal bool IsValid()
         {
-            return (!string.IsNullOrEmpty(Artist) || !string.IsNullOrEmpty(Title));
+            return (!string.IsNullOrEmpty(Artist) || !string.IsNullOrEmpty(Track));
         }
 
         public override bool Equals(object obj)
@@ -189,7 +189,7 @@ namespace Toastify
             if (target == null)
                 return false;
 
-            return (target.Artist == this.Artist && target.Title == this.Title);
+            return (target.Artist == this.Artist && target.Track == this.Track);
         }
 
         // overriding GetHashCode is "required" when overriding Equals

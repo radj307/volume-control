@@ -16,17 +16,28 @@ using System.Xml;
 using System.Diagnostics;
 using System.Web;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 namespace Toastify
 {
     public partial class Toast : Window
     {
+        private const string DEFAULT_ICON = "SpotifyToastifyLogo.png";
+
         Timer watchTimer;
         Timer minimizeTimer;
 
         System.Windows.Forms.NotifyIcon trayIcon;
 
+        /// <summary>
+        /// Holds the actual icon shown on the toast
+        /// </summary>
         string toastIcon = "";
+
+        /// <summary>
+        /// Holds the current URL for the current playing track
+        /// (can be different to the current ToastIcon when paused / saving Settings etc.)
+        /// </summary>
         string coverUrl = "";
 
         BitmapImage cover;
@@ -217,13 +228,13 @@ namespace Toastify
                 
                 if (currentSong.IsValid())
                 {
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = currentSong.Title; Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
+                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = currentSong.Track; Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
 
                     foreach (var p in this.Plugins)
                     {
                         try
                         {
-                            p.TrackChanged(currentSong.Artist, currentSong.Title);
+                            p.TrackChanged(currentSong.Artist, currentSong.Track);
                         }
                         catch (Exception)
                         {
@@ -232,7 +243,7 @@ namespace Toastify
                     }
                 }
 
-                CheckTitle(currentSong);
+                GetCoverArt(currentSong);
 
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
 
@@ -252,79 +263,55 @@ namespace Toastify
             }
         }
 
-        private void CheckTitle(Song currentSong)
+        private void GetCoverArt(Song currentSong)
         {
 
             try
             {
-                // Spotify now has a supported metadata web service that is open to all (https://developer.spotify.com/technologies/web-api/) with
-                // a workaround to grab album art. See file history for the audio scrobbler method (which stopped working due to the dev key expiring)
+                // Spotify now have a full supported JSON-based web API that we can use to grab album art from tracks. Example URL:
+                // https://api.spotify.com/v1/search?query=track%3A%22Eagle%22+artist%3Aabba&offset=0&type=track
+                //
+                // Documentation: https://developer.spotify.com/web-api/migration-guide/ (great overview of functionality, even though it's a comparison guide)
 
-                String URLString = "http://ws.spotify.com/search/1/track?q=artist:\"" + System.Uri.EscapeDataString(currentSong.Artist + "\" title:\"" + currentSong.Title + "\"");
+                var spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" + 
+                                            Uri.EscapeDataString(currentSong.Track) + 
+                                            "%22+artist%3A%22" + 
+                                            Uri.EscapeDataString(currentSong.Artist) + 
+                                            "%22&type=track";
 
-                string xmlStr = String.Empty;
+                var jsonResponse = String.Empty;
                 using (var wc = new WebClient())
                 {
-                    try
-                    {
-                        xmlStr += wc.DownloadString(URLString);
-                    }
-                    catch (Exception) { }
+                    jsonResponse += wc.DownloadString(spotifyTrackSearchURL);
                 }
 
-                var xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(xmlStr);
+                dynamic spotifyTracks = JsonConvert.DeserializeObject(jsonResponse);
+                //spotifyTracks.tracks.items.First.album.images.First.url.Value
+                //spotifyTracks.tracks.items.First
 
-                var nsmgr = new XmlNamespaceManager(xmlDoc.NameTable);
-                nsmgr.AddNamespace("spotify", "http://www.spotify.com/ns/music/1");
+                // iterate through all of the images, finding the smallest ones. This is usually the last
+                // one, but there is no guarantee in the docs.
 
-                var trackNode = xmlDoc.SelectSingleNode("//spotify:track/@href", nsmgr);
+                string imageUrl = DEFAULT_ICON;
+                int smallestWidth = int.MaxValue;
 
-                // we're protected from infinite recursion by stripping out "(" from title (and by the stack :) )
-                if (trackNode == null && currentSong.Title.Contains("("))
+                foreach (dynamic image in spotifyTracks.tracks.items.First.album.images)
                 {
-                    // when Spotify has () in the brackets the search results often need this to be translated into "From". For example:
-                    // Title: Cantina Band (Star Wars I)
-                    // is actually displayed in search as (searching with () will result in 0 results):
-                    // Title: Cantina Band - From "Star Wars I"
-
-                    CheckTitle(new Song(currentSong.Artist, currentSong.Title.Replace("(", "from ").Replace(")", "")));
-                    return;
-                }
-
-                string spotifyurl = trackNode.Value;
-
-                String embedString = "https://embed.spotify.com/oembed/?url=" + spotifyurl + "&format=xml";
-
-                string exmlStr = String.Empty;
-                using (var wc = new WebClient())
-                {
-                    wc.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                    try
+                    if (image.width < smallestWidth)
                     {
-                        exmlStr = wc.DownloadString(embedString);
+                        imageUrl = image.url;
+                        smallestWidth = image.width;
                     }
-                    catch (Exception) { }
                 }
 
-                // Spotify has a bug that embeds various html codes and other undefined characters in their XML which is not valid when we try to parse them
-                // for example: https://embed.spotify.com/oembed/?url=spotify:track:6ktNcdXhsQBqkXuacCAybC&format=xml
-
-                var invalidEmbeds = new List<string> { "&eacute;", "&Ouml;" };
-
-                foreach (var invalidEmbed in invalidEmbeds)
-                    exmlStr = exmlStr.Replace(invalidEmbed, "");
-
-                var exmlDoc = new XmlDocument();
-                exmlDoc.LoadXml(exmlStr);
-
-                // thumbnail_url can be modified for 60,300 or 640px with a replace. See: https://toastify.codeplex.com/workitem/13235
-                toastIcon = coverUrl = exmlDoc.SelectSingleNode("//thumbnail_url").InnerXml.Replace("/cover/", "/60/");
+                toastIcon = coverUrl = imageUrl;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                toastIcon = "SpotifyToastifyLogo.png";
+                System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
+
+                toastIcon = DEFAULT_ICON;
             }
         }
 
@@ -648,7 +635,7 @@ namespace Toastify
 
             if (!Spotify.IsRunning() && action != SpotifyAction.SettingsSaved)
             {
-                toastIcon = "SpotifyToastifyLogo.png";
+                toastIcon = DEFAULT_ICON;
                 Title1.Text = "Spotify not available!";
                 Title2.Text = string.Empty;
                 FadeIn();
@@ -703,12 +690,19 @@ namespace Toastify
                     FadeIn();
                     break;
                 case SpotifyAction.ShowToast:
-                    if (currentTrack == null || (Title1.Text != PAUSED_TEXT && Title1.Text != STOPPED_TEXT))
+                    if (currentTrack == null || !currentTrack.IsValid())
                     {
-                        toastIcon = "SpotifyToastifyLogo.png";
+                        toastIcon = DEFAULT_ICON;
 
                         Title1.Text = NOTHINGS_PLAYING;
                         Title2.Text = string.Empty;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(currentTrack.Artist) && string.IsNullOrWhiteSpace(currentTrack.Track))
+                    {
+                        toastIcon = "SpotifyAdPlaying.png";
+
+                        Title1.Text = currentTrack.Artist;
+                        Title2.Text = "Spotify Ad";
                     }
                     else
                     {
@@ -717,7 +711,7 @@ namespace Toastify
                             toastIcon = coverUrl;
 
                             Title1.Text = currentTrack.Artist;
-                            Title2.Text = currentTrack.Title;
+                            Title2.Text = currentTrack.Track;
                         }
                     }
                     FadeIn(force: true);
