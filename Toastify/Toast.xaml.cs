@@ -23,6 +23,7 @@ namespace Toastify
     public partial class Toast : Window
     {
         private const string DEFAULT_ICON = "SpotifyToastifyLogo.png";
+        private const string AD_PLAYING_ICON = "SpotifyAdPlaying.png";
 
         Timer watchTimer;
         Timer minimizeTimer;
@@ -33,12 +34,6 @@ namespace Toastify
         /// Holds the actual icon shown on the toast
         /// </summary>
         string toastIcon = "";
-
-        /// <summary>
-        /// Holds the current URL for the current playing track
-        /// (can be different to the current ToastIcon when paused / saving Settings etc.)
-        /// </summary>
-        string coverUrl = "";
 
         BitmapImage cover;
 
@@ -220,30 +215,32 @@ namespace Toastify
         {
             Song currentSong = Spotify.GetCurrentSong();
 
-            if (currentSong != null && !currentSong.Equals(previousTitle))
+            if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(previousTitle))
             {
                 // set the previous title asap so that the next timer call to this function will
                 // fail fast (setting it at the end may cause multiple web requests)
                 previousTitle = currentSong;
-                
-                if (currentSong.IsValid())
-                {
-                    this.Dispatcher.Invoke((Action)delegate { Title1.Text = currentSong.Track; Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
 
-                    foreach (var p in this.Plugins)
+                Spotify.SetCoverArt(currentSong);
+
+                // Toastify-specific custom logic around album art (if it's missing, or an ad)
+                UpdateSongForToastify(currentSong);
+
+                toastIcon = currentSong.CoverArtUrl;
+
+                this.Dispatcher.Invoke((Action)delegate { Title1.Text = currentSong.Track; Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
+
+                foreach (var p in this.Plugins)
+                {
+                    try
                     {
-                        try
-                        {
-                            p.TrackChanged(currentSong.Artist, currentSong.Track);
-                        }
-                        catch (Exception)
-                        {
-                            //For now we swallow any plugin errors.
-                        }
+                        p.TrackChanged(currentSong.Artist, currentSong.Track);
+                    }
+                    catch (Exception)
+                    {
+                        //For now we swallow any plugin errors.
                     }
                 }
-
-                GetCoverArt(currentSong);
 
                 this.Dispatcher.Invoke((Action)delegate { FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
 
@@ -263,55 +260,17 @@ namespace Toastify
             }
         }
 
-        private void GetCoverArt(Song currentSong)
+        private void UpdateSongForToastify(Song currentSong)
         {
-
-            try
+            if (string.IsNullOrWhiteSpace(currentSong.Track))
             {
-                // Spotify now have a full supported JSON-based web API that we can use to grab album art from tracks. Example URL:
-                // https://api.spotify.com/v1/search?query=track%3A%22Eagle%22+artist%3Aabba&offset=0&type=track
-                //
-                // Documentation: https://developer.spotify.com/web-api/migration-guide/ (great overview of functionality, even though it's a comparison guide)
+                currentSong.CoverArtUrl = AD_PLAYING_ICON;
 
-                var spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" + 
-                                            Uri.EscapeDataString(currentSong.Track) + 
-                                            "%22+artist%3A%22" + 
-                                            Uri.EscapeDataString(currentSong.Artist) + 
-                                            "%22&type=track";
-
-                var jsonResponse = String.Empty;
-                using (var wc = new WebClient())
-                {
-                    jsonResponse += wc.DownloadString(spotifyTrackSearchURL);
-                }
-
-                dynamic spotifyTracks = JsonConvert.DeserializeObject(jsonResponse);
-                //spotifyTracks.tracks.items.First.album.images.First.url.Value
-                //spotifyTracks.tracks.items.First
-
-                // iterate through all of the images, finding the smallest ones. This is usually the last
-                // one, but there is no guarantee in the docs.
-
-                string imageUrl = DEFAULT_ICON;
-                int smallestWidth = int.MaxValue;
-
-                foreach (dynamic image in spotifyTracks.tracks.items.First.album.images)
-                {
-                    if (image.width < smallestWidth)
-                    {
-                        imageUrl = image.url;
-                        smallestWidth = image.width;
-                    }
-                }
-
-                toastIcon = coverUrl = imageUrl;
-
+                currentSong.Track = "Spotify Ad";
             }
-            catch (Exception e)
+            else if (string.IsNullOrWhiteSpace(currentSong.CoverArtUrl))
             {
-                System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
-
-                toastIcon = DEFAULT_ICON;
+                currentSong.CoverArtUrl = DEFAULT_ICON;
             }
         }
 
@@ -697,23 +656,17 @@ namespace Toastify
                         Title1.Text = NOTHINGS_PLAYING;
                         Title2.Text = string.Empty;
                     }
-                    else if (!string.IsNullOrWhiteSpace(currentTrack.Artist) && string.IsNullOrWhiteSpace(currentTrack.Track))
-                    {
-                        toastIcon = "SpotifyAdPlaying.png";
-
-                        Title1.Text = currentTrack.Artist;
-                        Title2.Text = "Spotify Ad";
-                    }
                     else
                     {
                         if (currentTrack != null && currentTrack.IsValid())
                         {
-                            toastIcon = coverUrl;
+                            toastIcon = currentTrack.CoverArtUrl;
 
                             Title1.Text = currentTrack.Artist;
                             Title2.Text = currentTrack.Track;
                         }
                     }
+
                     FadeIn(force: true);
                     break;
                 case SpotifyAction.ShowSpotify:  //No need to handle

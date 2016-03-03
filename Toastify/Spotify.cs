@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using System.Reflection;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace Toastify
 {
@@ -161,6 +163,8 @@ namespace Toastify
         public string Artist { get; set; }
         public string Track { get; set; }
         public string Album { get; set; }
+
+        public string CoverArtUrl { get; set; }
 
         public Song(string artist, string title, string album = null)
         {
@@ -335,6 +339,56 @@ namespace Toastify
             }
 
             return null;
+        }
+
+        public static void SetCoverArt(Song song)
+        {
+            string imageUrl = null;
+
+            try
+            {
+                // Spotify now have a full supported JSON-based web API that we can use to grab album art from tracks. Example URL:
+                // https://api.spotify.com/v1/search?query=track%3A%22Eagle%22+artist%3Aabba&offset=0&type=track
+                //
+                // Documentation: https://developer.spotify.com/web-api/migration-guide/ (great overview of functionality, even though it's a comparison guide)
+
+                var spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" +
+                                            Uri.EscapeDataString(song.Track) +
+                                            "%22+artist%3A%22" +
+                                            Uri.EscapeDataString(song.Artist) +
+                                            "%22&type=track";
+
+                var jsonResponse = String.Empty;
+                using (var wc = new WebClient())
+                {
+                    jsonResponse += wc.DownloadString(spotifyTrackSearchURL);
+                }
+
+                dynamic spotifyTracks = JsonConvert.DeserializeObject(jsonResponse);
+                //spotifyTracks.tracks.items.First.album.images.First.url.Value
+                //spotifyTracks.tracks.items.First
+
+                // iterate through all of the images, finding the smallest ones. This is usually the last
+                // one, but there is no guarantee in the docs.
+
+                int smallestWidth = int.MaxValue;
+
+                foreach (dynamic image in spotifyTracks.tracks.items.First.album.images)
+                {
+                    if (image.width < smallestWidth)
+                    {
+                        imageUrl = image.url;
+                        smallestWidth = image.width;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
+            }
+
+            song.CoverArtUrl = imageUrl;
         }
 
         public static string CurrentCoverImageUrl { get; set; }
