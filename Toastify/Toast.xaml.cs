@@ -44,7 +44,10 @@ namespace Toastify
 
         internal static Toast Current { get; private set; }
 
-        Song previousTitle = null;
+        /// <summary>
+        /// To the best of our knowledge this is our current playing song
+        /// </summary>
+        Song currentSong = null;
 
         private bool dragging = false;
 
@@ -215,11 +218,11 @@ namespace Toastify
         {
             Song currentSong = Spotify.GetCurrentSong();
 
-            if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(previousTitle))
+            if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(this.currentSong))
             {
                 // set the previous title asap so that the next timer call to this function will
                 // fail fast (setting it at the end may cause multiple web requests)
-                previousTitle = currentSong;
+                this.currentSong = currentSong;
 
                 Spotify.SetCoverArt(currentSong);
 
@@ -289,7 +292,7 @@ namespace Toastify
 
             isUpdateToast = isUpdate;
 
-            if (toastIcon != "")
+            if (!string.IsNullOrEmpty(toastIcon))
             {
                 cover = new BitmapImage();
                 cover.BeginInit();
@@ -492,7 +495,7 @@ namespace Toastify
 
             try
             {
-                Song songBeforeAction = Spotify.GetCurrentSong();
+                Song songBeforeAction = Toast.Current.currentSong;
 
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
                 {
@@ -601,7 +604,7 @@ namespace Toastify
                 return;
             }
 
-            Song currentTrack = Spotify.GetCurrentSong();
+            Song currentTrack = trackBeforeAction;
 
             string prevTitle1 = Title1.Text;
             string prevTitle2 = Title2.Text;
@@ -616,10 +619,10 @@ namespace Toastify
                         Title2.Text = trackBeforeAction.ToString();
                         FadeIn();
                     }
-                    previousTitle = null;  //If we presses play this will force a toast to display in next timer event.
+                    currentSong = null;  //If we presses play this will force a toast to display in next timer event.
                     break;
                 case SpotifyAction.Stop:
-                    previousTitle = null;
+                    currentSong = null;
                     Title1.Text = "Stopped";
                     Title2.Text = trackBeforeAction.ToString();
                     FadeIn();
