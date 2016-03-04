@@ -182,3 +182,4 @@ UpgradeLog*.htm
 *.user
 InstallationScript/Toastify.exe.config
 InstallationScript/Toastify.vshost.exe.config
+InstallationScript/Toastify.vshost.exe
