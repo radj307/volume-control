@@ -386,6 +386,8 @@ namespace Toastify
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
+
+                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + imageUrl + " " + e.ToString());
             }
 
             song.CoverArtUrl = imageUrl;
@@ -458,16 +460,22 @@ namespace Toastify
             {
                 if (a == SpotifyAction.VolumeUp)
                 {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
+
                     VolumeHelper.IncrementVolume("Spotify");
                     return;
                 }
                 else if (a == SpotifyAction.VolumeDown)
                 {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
+
                     VolumeHelper.DecrementVolume("Spotify");
                     return;
                 }
                 else if (a == SpotifyAction.Mute)
                 {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
+
                     VolumeHelper.ToggleApplicationMute("Spotify");
                     return;
                 }
@@ -480,6 +488,8 @@ namespace Toastify
                     //Nothing
                     break;
                 case SpotifyAction.ShowSpotify:
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.ShowSpotify);
+
 
                     if (Spotify.IsMinimized())
                     {
@@ -493,15 +503,22 @@ namespace Toastify
                     break;
                 case SpotifyAction.FastForward:
 
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.FastForward);
+
                     SendComplexKeys("+{Right}");
                     break;
 
                 case SpotifyAction.Rewind:
 
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Rewind);
+
                     SendComplexKeys("+{Left}");
                     break;
 
                 default:
+
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Default + a.ToString());
+
                     Win32.SendMessage(GetSpotify(), Win32.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)a));
                     break;
             }

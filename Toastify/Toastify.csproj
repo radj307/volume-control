@@ -78,6 +78,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Garlic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Garlic.2.1.0.0\lib\net35\Garlic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ManagedWinapi">
       <HintPath>.\ManagedWinapi.dll</HintPath>
     </Reference>
@@ -91,6 +95,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
@@ -148,6 +153,7 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Telemetry.cs" />
     <Compile Include="Toast.xaml.cs">
       <DependentUpon>Toast.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -12,9 +12,9 @@ namespace Toastify
 {
     class VersionChecker
     {
-        string _version;
+        private static string _version;
 
-        public string Version 
+        public static string Version 
         { 
             get 
             {

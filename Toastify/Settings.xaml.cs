@@ -41,8 +41,10 @@ namespace Toastify
             }
         }
 
-        public Settings(Toast toast)
+        private Settings(Toast toast)
         {
+            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.SettingsLaunched);
+
             this.settings = SettingsXml.Current.Clone();
             this.toast = toast;
 

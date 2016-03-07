@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Web;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using Garlic;
 
 namespace Toastify
 {
@@ -92,6 +93,17 @@ namespace Toastify
         {
             //Load settings from XML
             LoadSettings();
+
+            string version = VersionChecker.Version;
+
+            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
+
+            if (SettingsXml.Current.PreviousOS != version)
+            {
+                Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
+
+                SettingsXml.Current.PreviousOS = version;
+            }
 
             //Init toast(color settings)
             InitToast();
@@ -499,10 +511,14 @@ namespace Toastify
 
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
                 {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
+
                     CopySongToClipboard(songBeforeAction);
                 }
                 else if (hotkey.Action == SpotifyAction.PasteTrackInfo && songBeforeAction != null)
                 {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
+
                     CopySongToClipboard(songBeforeAction);
 
                     SendPasteKey(hotkey);

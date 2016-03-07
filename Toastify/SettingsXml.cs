@@ -72,6 +72,10 @@ namespace Toastify
         private string _ClipboardTemplate;
         private bool _SaveTrackToFile;
         private string _SaveTrackToFilePath;
+        private bool _PreventAnalytics;
+        private bool _FirstRun;
+        private string _PreviousOS;
+        private string _PreviousVersion;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -500,6 +504,34 @@ namespace Toastify
             }
         }
 
+        public bool PreventAnalytics
+        {
+            get { return _PreventAnalytics; }
+            set
+            {
+                if (_PreventAnalytics != value)
+                {
+                    _PreventAnalytics = value;
+
+                    NotifyPropertyChanged("PreventAnalytics");
+                }
+            }
+        }
+
+        public bool FirstRun
+        {
+            get { return _FirstRun; }
+            set
+            {
+                if (_FirstRun != value)
+                {
+                    _FirstRun = value;
+
+                    NotifyPropertyChanged("FirstRun");
+                }
+            }
+        }
+
         public List<Hotkey> HotKeys
         {
             get { return _HotKeys; }
@@ -510,6 +542,34 @@ namespace Toastify
                     _HotKeys = value;
 
                     NotifyPropertyChanged("HotKeys");
+                }
+            }
+        }
+
+        public string PreviousOS
+        {
+            get { return _PreviousOS; }
+            set
+            {
+                if (_PreviousOS != value)
+                {
+                    _PreviousOS = value;
+
+                    NotifyPropertyChanged("PreviousOS");
+                }
+            }
+        }
+
+        public string PreviousVersion
+        {
+            get { return _PreviousVersion; }
+            set
+            {
+                if (_PreviousVersion != value)
+                {
+                    _PreviousVersion = value;
+
+                    NotifyPropertyChanged("PreviousVersion");
                 }
             }
         }
@@ -547,6 +607,7 @@ namespace Toastify
             ClipboardTemplate = "I'm currently listening to {0}";
 
             SaveTrackToFile = false;
+            PreventAnalytics = false;
 
             Hotkey.ClearAll();
 
@@ -556,6 +617,17 @@ namespace Toastify
                 HotKeys = _defaultHotKeys;
 
             Plugins = new List<PluginDetails>();
+
+            // there are a few settings that we don't really want to override when
+            // clearing settings (in fact these are more properties that we store
+            // alongside settings for convenience), so don't reset them if they have
+            // values
+            if (_theOne != null)
+            {
+                FirstRun = _theOne.FirstRun;
+                PreviousVersion = _theOne.PreviousVersion;
+                PreviousOS = _theOne.PreviousOS;
+            }
         }
 
         public void Save(bool replaceCurrent = false)

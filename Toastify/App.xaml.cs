@@ -14,7 +14,7 @@ namespace Toastify
         [STAThread]
         public static void Main(string[] args)
         {
-            string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";    
+            string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
             bool exclusive;
             using (Mutex m = new Mutex(true, appSpecificGuid, out exclusive))
             {
@@ -37,5 +37,9 @@ namespace Toastify
     /// </summary>
     public partial class App : Application
     {
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            Telemetry.TrackException(e.Exception);
+        }
     }
 }
