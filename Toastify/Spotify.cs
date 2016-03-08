@@ -348,6 +348,7 @@ namespace Toastify
                 return;
 
             string imageUrl = null;
+            string spotifyTrackSearchURL = null;
 
             try
             {
@@ -356,7 +357,7 @@ namespace Toastify
                 //
                 // Documentation: https://developer.spotify.com/web-api/migration-guide/ (great overview of functionality, even though it's a comparison guide)
 
-                var spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" +
+                spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" +
                                             Uri.EscapeDataString(song.Track) +
                                             "%22+artist%3A%22" +
                                             Uri.EscapeDataString(song.Artist) +
@@ -398,7 +399,7 @@ namespace Toastify
             {
                 System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
 
-                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + imageUrl + " " + e.ToString());
+                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + spotifyTrackSearchURL + " \n" + e.ToString());
             }
 
             song.CoverArtUrl = imageUrl;
