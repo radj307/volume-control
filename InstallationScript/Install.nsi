@@ -63,7 +63,7 @@ Section "Toastify (required)"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
   File "AutoHotkey.Interop.dll"
-  File "WebDriver.dll"
+  File "Garlic.dll"
   File "LICENSE"
   
   ; Write the uninstall keys for Windows
@@ -111,6 +111,7 @@ Section "Uninstall"
   Delete "$INSTDIR\ManagedWinapi.dll"
   Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
   Delete "$INSTDIR\AutoHotkey.Interop.dll"
+  Delete "$INSTDIR\Garlic.dll"
   Delete "$INSTDIR\LICENSE"
   
   ; remove the settings directory

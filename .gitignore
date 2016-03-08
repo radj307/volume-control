@@ -183,3 +183,11 @@ UpgradeLog*.htm
 InstallationScript/Toastify.exe.config
 InstallationScript/Toastify.vshost.exe.config
 InstallationScript/Toastify.vshost.exe
+InstallationScript/app.publish/Toastify.exe
+InstallationScript/Garlic.dll
+InstallationScript/ManagedWinapi.dll
+InstallationScript/Newtonsoft.Json.xml
+InstallationScript/Resources/ManagedWinapiNativeHelper.dll
+InstallationScript/Toastify.exe
+InstallationScript/Toastify.vshost.application
+InstallationScript/ToastifyInstaller.exe
