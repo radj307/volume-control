@@ -188,6 +188,5 @@ InstallationScript/Garlic.dll
 InstallationScript/ManagedWinapi.dll
 InstallationScript/Newtonsoft.Json.xml
 InstallationScript/Resources/ManagedWinapiNativeHelper.dll
-InstallationScript/Toastify.exe
+InstallationScript/*.exe
 InstallationScript/Toastify.vshost.application
-InstallationScript/ToastifyInstaller.exe

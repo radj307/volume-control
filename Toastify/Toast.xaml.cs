@@ -362,7 +362,8 @@ namespace Toastify
         
         private void FadeOut(bool now = false)
         {
-            var interval = (now ? 0 : SettingsXml.Current.FadeOutTime);
+            // 16 == one frame (0 is not a valid interval)
+            var interval = (now ? 16 : SettingsXml.Current.FadeOutTime);
 
             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
             anim.BeginTime = TimeSpan.FromMilliseconds(interval);
