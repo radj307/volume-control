@@ -29,11 +29,12 @@
                     <Image Height="144" HorizontalAlignment="Right" Margin="0,0,0,-5" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" Width="145" Source="/Toastify;component/SpotifyToastifyLogo.png" Grid.Column="1" />
                     <CheckBox Height="16" IsChecked="{Binding SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="444" Grid.ColumnSpan="2" Content="Save Artist and Album to file when song changes (uses the clipboard template)"/>
                     <Button Margin="31,278,20,175" Click="btnSaveTrackToFilePath_Click">Select File</Button>
-                    <CheckBox Height="31" IsChecked="{Binding PreventAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Width="524" Grid.ColumnSpan="2">
+                    <CheckBox Height="31" IsChecked="{Binding PreventAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="524" Grid.ColumnSpan="2">
                         <TextBlock TextWrapping="Wrap">Do not collect anonymous usage data
                             <LineBreak/>
                             Data is never shared, is anonymous, and is used to inform future features</TextBlock>
                     </CheckBox>
+                    <CheckBox Height="16" IsChecked="{Binding PreventSleepWhilePlaying, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Width="444" Grid.ColumnSpan="2" Content="Prevent the computer from sleeping while Spotify is playing"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Hotkeys" Name="Hotkeys">

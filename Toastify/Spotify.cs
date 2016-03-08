@@ -343,6 +343,10 @@ namespace Toastify
 
         public static void SetCoverArt(Song song)
         {
+            // probably an ad, don't bother looking for an image
+            if (song.Track == null)
+                return;
+
             string imageUrl = null;
 
             try
@@ -370,18 +374,25 @@ namespace Toastify
 
                 // iterate through all of the images, finding the smallest ones. This is usually the last
                 // one, but there is no guarantee in the docs.
-
                 int smallestWidth = int.MaxValue;
 
-                foreach (dynamic image in spotifyTracks.tracks.items.First.album.images)
+                // TryGetValue doesn't seem to work, so we're doing this old school
+                if (spotifyTracks != null &&
+                    spotifyTracks.tracks != null &&
+                    spotifyTracks.tracks.items != null &&
+                    spotifyTracks.tracks.items.First != null &&
+                    spotifyTracks.tracks.items.First.album != null &&
+                    spotifyTracks.tracks.items.First.album.images != null)
                 {
-                    if (image.width < smallestWidth)
+                    foreach (dynamic image in spotifyTracks.tracks.items.First.album.images)
                     {
-                        imageUrl = image.url;
-                        smallestWidth = image.width;
+                        if (image.width < smallestWidth)
+                        {
+                            imageUrl = image.url;
+                            smallestWidth = image.width;
+                        }
                     }
                 }
-
             }
             catch (Exception e)
             {

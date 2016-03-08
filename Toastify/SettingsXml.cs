@@ -76,6 +76,7 @@ namespace Toastify
         private bool _FirstRun;
         private string _PreviousOS;
         private string _PreviousVersion;
+        private bool _PreventSleepWhilePlaying;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -574,6 +575,20 @@ namespace Toastify
             }
         }
 
+        public bool PreventSleepWhilePlaying
+        {
+            get { return _PreventSleepWhilePlaying; }
+            set
+            {
+                if (_PreventSleepWhilePlaying != value)
+                {
+                    _PreventSleepWhilePlaying = value;
+
+                    NotifyPropertyChanged("PreventSleepWhilePlaying");
+                }
+            }
+        }
+
         public void Default(bool setHotKeys = false)
         {
             AlwaysStartSpotify       = true;
@@ -608,6 +623,7 @@ namespace Toastify
 
             SaveTrackToFile = false;
             PreventAnalytics = false;
+            PreventSleepWhilePlaying = false;
 
             Hotkey.ClearAll();
 

@@ -299,6 +299,21 @@ namespace Toastify
 
             SettingsXml settings = SettingsXml.Current;
 
+            // this is a convenient place to reset the idle timer (if so asked)
+            // as this will be triggered when a song is played. The primary problem is if there is a
+            // particularly long song then this will not work. That said, this is the safest (in terms of 
+            // not causing a user's computer from never sleeping).
+            if (settings.PreventSleepWhilePlaying)
+            {
+#if DEBUG
+                var rv =
+#endif
+                    WinHelper.SetThreadExecutionState(WinHelper.EXECUTION_STATE.ES_SYSTEM_REQUIRED);
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
+#endif
+            }
+
             if ((settings.DisableToast || settings.OnlyShowToastOnHotkey) && !force)
                 return;
 

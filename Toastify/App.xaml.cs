@@ -22,6 +22,9 @@ namespace Toastify
                 {
                     App app = new App();
                     app.InitializeComponent();
+
+                    LastInputDebug.Start();
+
                     app.Run();
                 }
                 else
