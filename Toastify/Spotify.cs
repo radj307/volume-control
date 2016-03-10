@@ -349,6 +349,7 @@ namespace Toastify
 
             string imageUrl = null;
             string spotifyTrackSearchURL = null;
+            var jsonResponse = string.Empty;
 
             try
             {
@@ -363,15 +364,12 @@ namespace Toastify
                                             Uri.EscapeDataString(song.Artist) +
                                             "%22&type=track";
 
-                var jsonResponse = String.Empty;
                 using (var wc = new WebClient())
                 {
                     jsonResponse += wc.DownloadString(spotifyTrackSearchURL);
                 }
 
                 dynamic spotifyTracks = JsonConvert.DeserializeObject(jsonResponse);
-                //spotifyTracks.tracks.items.First.album.images.First.url.Value
-                //spotifyTracks.tracks.items.First
 
                 // iterate through all of the images, finding the smallest ones. This is usually the last
                 // one, but there is no guarantee in the docs.
@@ -395,11 +393,33 @@ namespace Toastify
                     }
                 }
             }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.WriteLine("Web Exception grabbing Spotify track art:\n" + e);
+
+                var response = e.Response as HttpWebResponse;
+
+                if (response != null)
+                {
+                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, 
+                        "URL: " + spotifyTrackSearchURL + " \nError Code: " + response.StatusCode + " Dump: " + e.ToString());
+                }
+                else
+                {
+                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error,
+                        "URL: " + spotifyTrackSearchURL + " \n[No Response] Dump: " + e.ToString());
+                }
+
+            }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Exception grabbing Spotify track art:\n" + e);
 
-                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + spotifyTrackSearchURL + " \n" + e.ToString());
+                var jsonSubstring = (jsonResponse == null ? null :
+                                        jsonResponse.Substring(0,
+                                            jsonResponse.Length > 100 ? 100 : jsonResponse.Length));
+
+                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + spotifyTrackSearchURL + " \nType: " + e.GetType().Name + " JSON excerpt: " + jsonSubstring +" dump: " + e.ToString());
             }
 
             song.CoverArtUrl = imageUrl;
