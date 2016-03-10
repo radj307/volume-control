@@ -344,7 +344,7 @@ namespace Toastify
         public static void SetCoverArt(Song song)
         {
             // probably an ad, don't bother looking for an image
-            if (song.Track == null)
+            if (string.IsNullOrWhiteSpace(song.Track) || string.IsNullOrWhiteSpace(song.Artist))
                 return;
 
             string imageUrl = null;
