@@ -129,6 +129,7 @@ namespace Toastify
 
             internal const int SW_SHOWMINIMIZED = 2;
             internal const int SW_SHOWNOACTIVATE = 4;
+            internal const int SW_SHOWMINNOACTIVE = 7;
             internal const int SW_SHOW = 5;
             internal const int SW_RESTORE = 9;
 
@@ -234,17 +235,39 @@ namespace Toastify
             {
                 Minimize();
             }
+            else
+            {
 
-            // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively 
-            // safe amount of time to wait, even if the pattern is gross.
-            Thread.Sleep(2000);
+                // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively 
+                // safe amount of time to wait, even if the pattern is gross. (Minimize() doesn't need it since
+                // it waits for the Window to appear before minimizing)
+                Thread.Sleep(2000);
+            }
         }
 
         private static void Minimize()
         {
-            var hWnd = Spotify.GetSpotify();
+            var remainingSleep = 2000;
 
-            Win32.ShowWindow(hWnd, Win32.Constants.SW_SHOWMINIMIZED);
+            IntPtr hWnd;
+
+            // Since Minimize is often called during startup, the hWnd is often not created yet
+            // wait a maximum of remainingSleep for it to appear and then minimize it if it did.
+            while ((hWnd = Spotify.GetSpotify()) == IntPtr.Zero && remainingSleep > 0)
+            {
+                Thread.Sleep(100);
+                remainingSleep -= 100;
+            }
+
+            if (hWnd != IntPtr.Zero)
+            {
+                // disgusting but sadly neccessary. Let Spotify initialize a bit before minimizing it
+                // otherwise the window hides itself and doesn't respond to taskbar clicks.
+                // I tried to work around this by waiting for the window size to initialize (via GetWindowRect)
+                // but that didn't work, there is some internal initialization that needs to occur.
+                Thread.Sleep(500);
+                Win32.ShowWindow(hWnd, Win32.Constants.SW_SHOWMINIMIZED);
+            }
         }
 
         private static void KillProc(string name)
