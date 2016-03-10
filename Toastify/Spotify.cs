@@ -424,12 +424,12 @@ namespace Toastify
 
                 if (response != null)
                 {
-                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, 
+                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.NetworkError, 
                         "URL: " + spotifyTrackSearchURL + " \nError Code: " + response.StatusCode + " Dump: " + e.ToString());
                 }
                 else
                 {
-                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error,
+                    Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.NetworkError,
                         "URL: " + spotifyTrackSearchURL + " \n[No Response] Dump: " + e.ToString());
                 }
 
@@ -442,7 +442,7 @@ namespace Toastify
                                         jsonResponse.Substring(0,
                                             jsonResponse.Length > 100 ? 100 : jsonResponse.Length));
 
-                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.Error, "URL: " + spotifyTrackSearchURL + " \nType: " + e.GetType().Name + " JSON excerpt: " + jsonSubstring +" dump: " + e.ToString());
+                Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.ResponseError, "URL: " + spotifyTrackSearchURL + " \nType: " + e.GetType().Name + " JSON excerpt: " + jsonSubstring +" dump: " + e.ToString());
             }
 
             song.CoverArtUrl = imageUrl;
