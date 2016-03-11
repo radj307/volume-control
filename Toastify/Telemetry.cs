@@ -90,7 +90,7 @@ namespace Toastify
 
             public static class SpotifyWebService
             {
-                public const string NetworkError = "Toastify.SpotifyWebService.Error";
+                public const string NetworkError = "Toastify.SpotifyWebService.NetworkError";
                 public const string ResponseError = "Toastify.SpotifyWebService.ResponseError";
             }
 
