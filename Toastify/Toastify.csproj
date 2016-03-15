@@ -245,6 +245,7 @@
     <Resource Include="Resources\WarningLarge.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="ToastifyAccessDenied.png" />
     <Resource Include="SpotifyAdPlaying.png" />
     <Resource Include="Resources\thumbs_down.png" />
     <Resource Include="Resources\thumbs_up.png" />

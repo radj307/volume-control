@@ -25,6 +25,7 @@ namespace Toastify
     {
         private const string DEFAULT_ICON = "SpotifyToastifyLogo.png";
         private const string AD_PLAYING_ICON = "SpotifyAdPlaying.png";
+        private const string ALBUM_ACCESS_DENIED_ICON = "ToastifyAccessDenied.png";
 
         Timer watchTimer;
         Timer minimizeTimer;
@@ -236,7 +237,16 @@ namespace Toastify
                 // fail fast (setting it at the end may cause multiple web requests)
                 this.currentSong = currentSong;
 
-                Spotify.SetCoverArt(currentSong);
+                try
+                {
+                    Spotify.SetCoverArt(currentSong);
+                }
+                catch
+                {
+                    // Exceptions will be handled (for telemetry etc.) within SetCoverArt, but they will be rethrown
+                    // so that we can set custom artwork here
+                    currentSong.CoverArtUrl = ALBUM_ACCESS_DENIED_ICON;
+                }
 
                 // Toastify-specific custom logic around album art (if it's missing, or an ad)
                 UpdateSongForToastify(currentSong);

@@ -433,6 +433,7 @@ namespace Toastify
                         "URL: " + spotifyTrackSearchURL + " \n[No Response] Dump: " + e.ToString());
                 }
 
+                throw;
             }
             catch (Exception e)
             {
@@ -443,6 +444,8 @@ namespace Toastify
                                             jsonResponse.Length > 100 ? 100 : jsonResponse.Length));
 
                 Telemetry.TrackEvent(TelemetryCategory.SpotifyWebService, Telemetry.TelemetryEvent.SpotifyWebService.ResponseError, "URL: " + spotifyTrackSearchURL + " \nType: " + e.GetType().Name + " JSON excerpt: " + jsonSubstring +" dump: " + e.ToString());
+
+                throw;
             }
 
             song.CoverArtUrl = imageUrl;
