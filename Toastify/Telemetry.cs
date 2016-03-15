@@ -32,6 +32,8 @@ namespace Toastify
             if (settings.PreventAnalytics)
                 return;
 
+            _session.SetCustomVariable(1, "OS Version", GetOS());
+
             _client = _session.CreatePageViewRequest("/", "Global");
 
             if (SettingsXml.Current.FirstRun)
