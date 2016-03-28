@@ -381,10 +381,15 @@ namespace Toastify
                 //
                 // Documentation: https://developer.spotify.com/web-api/migration-guide/ (great overview of functionality, even though it's a comparison guide)
 
+                // temporary workaround for https://github.com/spotify/web-api/issues/191
+                // essentially '/' is considered illegal, so we replace it with ' ' which generally returns the correct result
+                var artist = song.Artist.Replace('/', ' ');
+                var track = song.Track.Replace('/', ' ');
+
                 spotifyTrackSearchURL = "https://api.spotify.com/v1/search?q=track%3A%22" +
-                                            Uri.EscapeDataString(song.Track) +
+                                            Uri.EscapeDataString(track) +
                                             "%22+artist%3A%22" +
-                                            Uri.EscapeDataString(song.Artist) +
+                                            Uri.EscapeDataString(artist) +
                                             "%22&type=track";
 
                 using (var wc = new WebClient())
