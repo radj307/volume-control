@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <ApplicationIcon>spotify.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\spotify.ico</ApplicationIcon>
     <StartupObject>Toastify.EntryPoint</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -86,9 +86,8 @@
       <HintPath>.\ManagedWinapi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -120,52 +119,57 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="src\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="About.xaml">
+    <Compile Include="src\Core\Song.cs" />
+    <Compile Include="src\Core\SpotifyAction.cs" />
+    <Compile Include="src\Services\TelemetryCategory.cs" />
+    <Compile Include="src\Win32API.cs" />
+    <Page Include="src\UI\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Settings.xaml">
+    <Page Include="src\UI\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Toast.xaml">
+    <Page Include="src\UI\Toast.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="src\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BoolToVisibleConverter.cs" />
-    <Compile Include="LastInputDebug.cs" />
-    <Compile Include="OppositeBoolToVisibleConverter.cs" />
-    <Compile Include="OppositeBoolConverter.cs" />
-    <Compile Include="ScreenHelper.cs" />
-    <Compile Include="Settings.xaml.cs">
+    <Compile Include="src\Events\CheckVersionCompleteEventArgs.cs" />
+    <Compile Include="src\Helpers\BoolToVisibleConverter.cs" />
+    <Compile Include="src\LastInputDebug.cs" />
+    <Compile Include="src\Helpers\OppositeBoolToVisibleConverter.cs" />
+    <Compile Include="src\Helpers\OppositeBoolConverter.cs" />
+    <Compile Include="src\Helpers\ScreenHelper.cs" />
+    <Compile Include="src\UI\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Telemetry.cs" />
-    <Compile Include="Toast.xaml.cs">
+    <Compile Include="src\Services\Telemetry.cs" />
+    <Compile Include="src\UI\Toast.xaml.cs">
       <DependentUpon>Toast.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.xaml.cs">
+    <Compile Include="src\UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VolumeHelper.cs" />
-    <Compile Include="WinHelper.cs" />
+    <Compile Include="src\Helpers\VolumeHelper.cs" />
+    <Compile Include="src\Helpers\WinHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -179,11 +183,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingsXml.cs" />
-    <Compile Include="Spotify.cs" />
-    <Compile Include="HotKey.cs">
+    <Compile Include="src\Core\SettingsXml.cs" />
+    <Compile Include="src\Core\Spotify.cs" />
+    <Compile Include="src\Core\HotKey.cs">
     </Compile>
-    <Compile Include="VersionChecker.cs" />
+    <Compile Include="src\Services\VersionChecker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -200,16 +204,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="spotify.ico" />
+    <Resource Include="Resources\spotify.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\spotify.ico" />
+    <Resource Include="Resources\SpotifyLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SpotifyLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SpotifyToastifyLogo.png" />
+    <Resource Include="Resources\SpotifyToastifyLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoHotkey.Interop\AutoHotkey.Interop.csproj">
@@ -245,15 +246,15 @@
     <Resource Include="Resources\WarningLarge.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ToastifyAccessDenied.png" />
-    <Resource Include="SpotifyAdPlaying.png" />
+    <Resource Include="Resources\ToastifyAccessDenied.png" />
+    <Resource Include="Resources\SpotifyAdPlaying.png" />
     <Resource Include="Resources\thumbs_down.png" />
     <Resource Include="Resources\thumbs_up.png" />
     <Resource Include="Resources\InfoLarge.png" />
     <Content Include="Resources\ManagedWinapiNativeHelper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="SpotifyToastifyUpdateLogo.png" />
+    <Resource Include="Resources\SpotifyToastifyUpdateLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

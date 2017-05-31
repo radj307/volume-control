@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoHotkey.Interop
 {
@@ -18,7 +13,7 @@ namespace AutoHotkey.Interop
             Util.EnsureAutoHotkeyLoaded();
 
             //ensure that a thread is started
-            AutoHotkeyDll.ahktextdll("", "", ""); 
+            AutoHotkeyAPI.AhkTextDll("", "", "");
         }
 
         /// <summary>
@@ -28,7 +23,7 @@ namespace AutoHotkey.Interop
         /// <returns>Returns the value of the variable, or an empty string if the variable does not exist.</returns>
         public string GetVar(string variableName)
         {
-            var p = AutoHotkeyDll.ahkgetvar(variableName, 0);
+            var p = AutoHotkeyAPI.AhkGetVar(variableName, 0);
             return Marshal.PtrToStringUni(p);
         }
 
@@ -42,7 +37,7 @@ namespace AutoHotkey.Interop
             if (value == null)
                 value = "";
 
-            AutoHotkeyDll.ahkassign(variableName, value);
+            AutoHotkeyAPI.AhkAssign(variableName, value);
         }
 
         /// <summary>
@@ -53,8 +48,8 @@ namespace AutoHotkey.Interop
         public string Eval(string code)
         {
             var codeToRun = "A__EVAL:=" + code;
-            AutoHotkeyDll.ahkExec(codeToRun);
-            return GetVar("A__EVAL");
+            AutoHotkeyAPI.AhkExec(codeToRun);
+            return this.GetVar("A__EVAL");
         }
 
         /// <summary>
@@ -63,7 +58,7 @@ namespace AutoHotkey.Interop
         /// <param name="filePath">The filepath of the script</param>
         public void Load(string filePath)
         {
-            AutoHotkeyDll.addFile(filePath, 1, 1);
+            AutoHotkeyAPI.AddFile(filePath, 1, 1);
         }
 
         /// <summary>
@@ -72,7 +67,7 @@ namespace AutoHotkey.Interop
         /// <param name="code">The code to execute</param>
         public void ExecRaw(string code)
         {
-            AutoHotkeyDll.ahkExec(code);
+            AutoHotkeyAPI.AhkExec(code);
         }
 
         /// <summary>
@@ -80,7 +75,7 @@ namespace AutoHotkey.Interop
         /// </summary>
         public void Terminate()
         {
-            AutoHotkeyDll.ahkTerminate(1000);
+            AutoHotkeyAPI.AhkTerminate(1000);
         }
 
         /// <summary>
@@ -88,7 +83,7 @@ namespace AutoHotkey.Interop
         /// </summary>
         public void Suspend()
         {
-            ExecRaw("Suspend, On");
+            this.ExecRaw("Suspend, On");
         }
 
         /// <summary>
@@ -96,7 +91,7 @@ namespace AutoHotkey.Interop
         /// </summary>
         public void UnSuspend()
         {
-            ExecRaw("Suspend, Off");
+            this.ExecRaw("Suspend, Off");
         }
 
         /// <summary>
@@ -125,12 +120,9 @@ namespace AutoHotkey.Interop
             string param9 = null,
             string param10 = null)
         {
-            IntPtr ret = AutoHotkeyDll.ahkFunction(functionName, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+            IntPtr ret = AutoHotkeyAPI.AhkFunction(functionName, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
 
-            if (ret == IntPtr.Zero)
-                return null;
-            else
-                return Marshal.PtrToStringUni(ret);
+            return ret == IntPtr.Zero ? null : Marshal.PtrToStringUni(ret);
         }
 
 
@@ -141,7 +133,7 @@ namespace AutoHotkey.Interop
         /// <returns>Returns true if the function exists, otherwise false.</returns>
         public bool FunctionExists(string functionName)
         {
-            IntPtr funcptr = AutoHotkeyDll.ahkFindFunc(functionName);
+            IntPtr funcptr = AutoHotkeyAPI.AhkFindFunc(functionName);
             return funcptr != IntPtr.Zero;
         }
 
@@ -151,7 +143,7 @@ namespace AutoHotkey.Interop
         /// <param name="labelName">Name of the label.</param>
         public void ExecLabel(string labelName)
         {
-            AutoHotkeyDll.ahkLabel(labelName, false);
+            AutoHotkeyAPI.AhkLabel(labelName, false);
         }
 
         /// <summary>
@@ -161,7 +153,7 @@ namespace AutoHotkey.Interop
         /// <returns>Returns true if the label exists, otherwise false</returns>
         public bool LabelExists(string labelName)
         {
-            IntPtr labelptr = AutoHotkeyDll.ahkFindLabel(labelName);
+            IntPtr labelptr = AutoHotkeyAPI.AhkFindLabel(labelName);
             return labelptr != IntPtr.Zero;
         }
     }

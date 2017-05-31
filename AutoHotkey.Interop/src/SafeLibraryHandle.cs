@@ -1,13 +1,9 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoHotkey.Interop
 {
@@ -24,18 +20,15 @@ namespace AutoHotkey.Interop
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool FreeLibrary(IntPtr hModule);
 
-        #endregion
+        #endregion Native Calls
 
-        private SafeLibraryHandle() : base(true) { }
-
-        protected override bool ReleaseHandle() 
-        { 
-            return FreeLibrary(handle); 
-        }
-        
-        protected override void Dispose(bool disposing)
+        private SafeLibraryHandle() : base(true)
         {
-            base.Dispose(disposing);
+        }
+
+        protected override bool ReleaseHandle()
+        {
+            return FreeLibrary(this.handle);
         }
     }
 }

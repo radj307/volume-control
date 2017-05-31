@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoHotkey.Interop
 {
@@ -12,7 +8,7 @@ namespace AutoHotkey.Interop
     /// They assume AutoHotkey.dll is in the same directory as your
     /// executable.
     /// </summary>
-    internal class AutoHotkeyDll
+    internal class AutoHotkeyAPI
     {
         private const string DLLPATH = "AutoHotkey.dll";
 
@@ -21,87 +17,87 @@ namespace AutoHotkey.Interop
         /// <summary>
         /// Start new thread from ahk file.
         /// </summary>
-        /// <param name="Path">This parameter must be a path to existing ahk file.</param>
-        /// <param name="Options">Additional parameter passed to AutoHotkey.dll (not available in Version 2 alpha).</param>
-        /// <param name="Parameters">Parameters passed to dll.</param>
-        /// <returns>	ahkdll returns a thread handle.</returns>
-        /// <remarks>ahktextdll is available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
+        /// <param name="path">This parameter must be a path to existing ahk file.</param>
+        /// <param name="options">Additional parameter passed to AutoHotkey.dll (not available in Version 2 alpha).</param>
+        /// <param name="parameters">Parameters passed to dll.</param>
+        /// <returns>ahkdll returns a thread handle.</returns>
+        /// <remarks>AhkTextDll is available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint ahkdll(
-            [MarshalAs(UnmanagedType.LPWStr)] string Path,
-            [MarshalAs(UnmanagedType.LPWStr)] string Options,
-            [MarshalAs(UnmanagedType.LPWStr)] string Parameters);
+        public static extern uint AhkDll(
+            [MarshalAs(UnmanagedType.LPWStr)] string path,
+            [MarshalAs(UnmanagedType.LPWStr)] string options,
+            [MarshalAs(UnmanagedType.LPWStr)] string parameters);
 
         /// <summary>
-        /// ahktextdll is used to launch a script in a separate thread from text/variable.
+        /// AhkTextDll is used to launch a script in a separate thread from text/variable.
         /// </summary>
-        /// <param name="Code">This parameter must be a string with ahk script.</param>
-        /// <param name="Options">Additional parameter passed to AutoHotkey.dll (not available in Version 2 alpha).</param>
-        /// <param name="Parameters">Parameters passed to dll.</param>
+        /// <param name="code">This parameter must be a string with ahk script.</param>
+        /// <param name="options">Additional parameter passed to AutoHotkey.dll (not available in Version 2 alpha).</param>
+        /// <param name="parameters">Parameters passed to dll.</param>
         /// <returns>ahkdll returns a thread handle.</returns>
-        /// <remarks>ahktextdll is available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
+        /// <remarks>AhkTextDll is available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint ahktextdll(
-            [MarshalAs(UnmanagedType.LPWStr)] string Code,
-            [MarshalAs(UnmanagedType.LPWStr)] string Options,
-            [MarshalAs(UnmanagedType.LPWStr)] string Parameters);
+        public static extern uint AhkTextDll(
+            [MarshalAs(UnmanagedType.LPWStr)] string code,
+            [MarshalAs(UnmanagedType.LPWStr)] string options,
+            [MarshalAs(UnmanagedType.LPWStr)] string parameters);
 
-        #endregion
+        #endregion Create Thread
 
         #region Determine Thread's State
 
         /// <summary>
-        /// ahkReady is used to check if a dll script is running or not.
+        /// AhkReady is used to check if a dll script is running or not.
         /// </summary>
         /// <returns>1 if a thread is running or 0 otherwise.</returns>
         /// <remarks>Available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ahkReady();
+        public static extern bool AhkReady();
 
-        #endregion
+        #endregion Determine Thread's State
 
         #region Control Thread
 
         /// <summary>
-        /// ahkTerminate is used to stop and exit a running script.
+        /// AhkTerminate is used to stop and exit a running script.
         /// </summary>
         /// <param name="timeout">Time in milliseconds to wait until thread exits.</param>
         /// <returns>Returns always 0.</returns>
         /// <remarks>Available in AutoHotkey[Mini].dll only, not in AutoHotkey.exe.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ahkTerminate(uint timeout);
+        public static extern void AhkTerminate(uint timeout);
 
         /// <summary>
-        /// ahkReload is used to terminate and start a running script again.
+        /// AhkReload is used to terminate and start a running script again.
         /// </summary>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ahkReload();
+        public static extern void AhkReload();
 
         /// <summary>
-        /// ahkPause will pause/un-pause a thread and run traditional AutoHotkey Sleep internally.
+        /// AhkPause will pause/un-pause a thread and run traditional AutoHotkey Sleep internally.
         /// </summary>
         /// <param name="strState">Should be "On" or "Off" as a string</param>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ahkPause(
+        public static extern void AhkPause(
             [MarshalAs(UnmanagedType.LPWStr)] string strState);
 
-        #endregion
+        #endregion Control Thread
 
         #region Add New Code
 
         /// <summary>
         /// addFile includes additional script from a file to the running script.
         /// </summary>
-        /// <param name="FilePath">Path to a file that will be added to a running script.</param>
-        /// <param name="AllowDuplicateInclude">Allow duplicate includes.</param>
-        /// <param name="IgnoreLoadFailure">Ignore if loading a file failed.</param>
+        /// <param name="filePath">Path to a file that will be added to a running script.</param>
+        /// <param name="allowDuplicateInclude">Allow duplicate includes.</param>
+        /// <param name="ignoreLoadFailure">Ignore if loading a file failed.</param>
         /// <returns>addFile returns a pointer to the first line of new created code.</returns>
         /// <remarks>pointerLine can be used in ahkExecuteLine to execute one line only or until a return is encountered.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint addFile(
-            [MarshalAs(UnmanagedType.LPWStr)]string FilePath,
-            byte AllowDuplicateInclude,
-            byte IgnoreLoadFailure);
+        public static extern uint AddFile(
+            [MarshalAs(UnmanagedType.LPWStr)] string filePath,
+            byte allowDuplicateInclude,
+            byte ignoreLoadFailure);
 
         // Constant values for the execute parameter of addScript
         public struct Execute
@@ -117,11 +113,11 @@ namespace AutoHotkey.Interop
         /// <returns>addScript returns a pointer to the first line of new created code.</returns>
         /// <remarks>pointerLine can be used in ahkExecuteLine to execute one line only or until a return is encountered.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint addScript(
-            [MarshalAs(UnmanagedType.LPWStr)]string code,
+        public static extern uint AddScript(
+            [MarshalAs(UnmanagedType.LPWStr)] string code,
             byte execute);
 
-        #endregion
+        #endregion Add New Code
 
         #region Execute Some Code
 
@@ -132,7 +128,7 @@ namespace AutoHotkey.Interop
         /// <returns>Returns true if script was executed and false if there was an error.</returns>
         /// <remarks>ahkExec will execute the code and delete it before it returns.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ahkExec(
+        public static extern bool AhkExec(
             [MarshalAs(UnmanagedType.LPWStr)] string code);
 
         //TODO: ahkExecuteLine
@@ -145,7 +141,7 @@ namespace AutoHotkey.Interop
         /// <returns>	1 if label exists 0 otherwise.</returns>
         /// <remarks>Default is 0 = wait for code to finish execution.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ahkLabel(
+        public static extern bool AhkLabel(
             [MarshalAs(UnmanagedType.LPWStr)] string labelName,
             bool noWait);
 
@@ -166,7 +162,7 @@ namespace AutoHotkey.Interop
         /// <param name="parameter10">The 10th parameter, or null</param>
         /// <returns>	Return value is always a string/text, add 0 to make sure it resolves to digit if necessary.</returns>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ahkFunction(
+        public static extern IntPtr AhkFunction(
             [MarshalAs(UnmanagedType.LPWStr)] string functionName,
             [MarshalAs(UnmanagedType.LPWStr)] string parameter1,
             [MarshalAs(UnmanagedType.LPWStr)] string parameter2,
@@ -184,73 +180,72 @@ namespace AutoHotkey.Interop
         /// ahkFunction is used to launch a function in script.
         /// </summary>
         /// <param name="functionName">Name of function to call.</param>
-        /// <param name="Parameters">Parameters to pass to function.</param>
+        /// <param name="parameters">Parameters to pass to function.</param>
         /// <returns>0 if function exists else -1.</returns>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ahkPostFunction(
+        public static extern bool AhkPostFunction(
             [MarshalAs(UnmanagedType.LPWStr)] string functionName,
-            [MarshalAs(UnmanagedType.LPWStr)] string Parameters);
+            [MarshalAs(UnmanagedType.LPWStr)] string parameters);
 
-        #endregion
+        #endregion Execute Some Code
 
         #region Working With Variables
 
         /// <summary>
-        /// ahkassign is used to assign a string to a variable in script.
+        /// AhkAssign is used to assign a string to a variable in script.
         /// </summary>
-        /// <param name="VariableName">Name of a variable.</param>
-        /// <param name="NewValue">Value to assign to variable.</param>
+        /// <param name="variableName">Name of a variable.</param>
+        /// <param name="newValue">Value to assign to variable.</param>
         /// <returns>Returns value is 0 on success and -1 on failure.</returns>
-        /// <remarks>ahkassign will create the variable if it does not exist.</remarks>
+        /// <remarks>AhkAssign will create the variable if it does not exist.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ahkassign(
-            [MarshalAs(UnmanagedType.LPWStr)] string VariableName,
-            [MarshalAs(UnmanagedType.LPWStr)] string NewValue);
+        public static extern bool AhkAssign(
+            [MarshalAs(UnmanagedType.LPWStr)] string variableName,
+            [MarshalAs(UnmanagedType.LPWStr)] string newValue);
 
         /// <summary>
-        /// ahkgetvar is used to get a value from a variable in script. 
+        /// AhkGetVar is used to get a value from a variable in script.
         /// </summary>
-        /// <param name="VariableName">Name of variable to get value from.</param>
-        /// <param name="GetPointer">Get value or pointer.</param>
+        /// <param name="variableName">Name of variable to get value from.</param>
+        /// <param name="getPointer">Get value or pointer.</param>
         /// <returns>Returned value is always a string, add 0 to convert to integer if necessary, especially when using getPointer.</returns>
-        /// <remarks>ahkgetvar returns empty string if variable does not exist or is empty.</remarks>
+        /// <remarks>AhkGetVar returns empty string if variable does not exist or is empty.</remarks>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ahkgetvar(
-            [MarshalAs(UnmanagedType.LPWStr)] string VariableName,
-            [MarshalAs(UnmanagedType.I4)] int GetPointer);
+        public static extern IntPtr AhkGetVar(
+            [MarshalAs(UnmanagedType.LPWStr)] string variableName,
+            [MarshalAs(UnmanagedType.I4)] int getPointer);
 
-        #endregion
+        #endregion Working With Variables
 
         #region Advanced
 
         /// <summary>
         /// ahkFundFunc is used to get function its pointer
         /// </summary>
-        /// <param name="FuncName">Name of function to call.</param>
+        /// <param name="funcName">Name of function to call.</param>
         /// <returns>Function pointer.</returns>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ahkFindFunc(
-            [MarshalAs(UnmanagedType.LPWStr)] string FuncName);
+        public static extern IntPtr AhkFindFunc(
+            [MarshalAs(UnmanagedType.LPWStr)] string funcName);
 
         /// <summary>
         /// ahkFindLabel is used to get a pointer to the label.
         /// </summary>
-        /// <param name="LabelName">Name of label.</param>
+        /// <param name="labelName">Name of label.</param>
         /// <returns>ahkFindLabel returns a pointer to a line where label points to.</returns>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ahkFindLabel(
-            [MarshalAs(UnmanagedType.LPWStr)] string LabelName);
+        public static extern IntPtr AhkFindLabel(
+            [MarshalAs(UnmanagedType.LPWStr)] string labelName);
 
         /// <summary>
-        /// Build in function to get a pointer to the structure of a user-defined variable. 
+        /// Build in function to get a pointer to the structure of a user-defined variable.
         /// </summary>
-        /// <param name="Variable">the name of the variable</param>
+        /// <param name="variable">the name of the variable</param>
         /// <returns>The pointer to the variable.</returns>
         [DllImport(DLLPATH, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "getVar")]
         public static extern IntPtr GetVar(
-            [MarshalAs(UnmanagedType.LPWStr)] string Variable);
+            [MarshalAs(UnmanagedType.LPWStr)] string variable);
 
-        #endregion
+        #endregion Advanced
     }
-
 }

@@ -2,16 +2,10 @@
 using System;
 using System.Linq;
 using System.Management;
+using Toastify.Core;
 
-namespace Toastify
+namespace Toastify.Services
 {
-    public enum TelemetryCategory
-    {
-        General,
-        Action,
-        SpotifyWebService,
-    }
-
     public static class Telemetry
     {
         private static AnalyticsSession _session;
@@ -26,7 +20,7 @@ namespace Toastify
         {
             _session = new AnalyticsSession("http://toastify.nachmore.com/app", "UA-61123985-2");
 
-            var settings = SettingsXml.Current;
+            var settings = SettingsXml.Instance;
 
             // abort asap if we are surpressing analytics
             if (settings.PreventAnalytics)
@@ -36,18 +30,17 @@ namespace Toastify
 
             _client = _session.CreatePageViewRequest("/", "Global");
 
-            if (SettingsXml.Current.FirstRun)
+            if (SettingsXml.Instance.FirstRun)
             {
                 TrackEvent(TelemetryCategory.General, "Install", GetOS());
 
-                SettingsXml.Current.FirstRun = false;
+                SettingsXml.Instance.FirstRun = false;
             }
         }
 
         public static void TrackEvent(TelemetryCategory category, string action, object label = null, int value = 0)
         {
-            if (_client != null)
-                _client.SendEvent(category.ToString(), action, (label != null ? label.ToString() : null), value.ToString());
+            _client?.SendEvent(category.ToString(), action, label?.ToString(), value.ToString());
         }
 
         internal static void TrackException(Exception exception)
@@ -72,13 +65,13 @@ namespace Toastify
         {
             var name = (from x in new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
                         select x.GetPropertyValue("Caption")).FirstOrDefault();
-            return name != null ? name.ToString() : "Unknown";
+            return name?.ToString() ?? "Unknown";
         }
 
         /// <summary>
         /// Poor mans enum -> expanded string.
-        /// 
-        /// Once I've been using this for a while I may change this to a pure enum if 
+        ///
+        /// Once I've been using this for a while I may change this to a pure enum if
         /// spaces in names prove to be annoying for querying / sorting the data
         /// </summary>
         public static class TelemetryEvent
