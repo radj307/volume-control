@@ -1,3 +1,4 @@
+using AutoHotkey.Interop;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -7,39 +8,82 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using Toastify.Core;
 using Toastify.Helpers;
 using Toastify.Services;
 
-namespace Toastify
+namespace Toastify.Core
 {
-    internal static class Spotify
+    internal class Spotify
     {
-        private static AutoHotkey.Interop.AutoHotkeyEngine _ahk;
+        #region Singleton
 
-        public static string CurrentCoverImageUrl { get; set; }
+        private static Spotify _instance;
 
-        public static void StartSpotify()
+        public static Spotify Instance
         {
-            if (IsRunning())
+            get { return _instance ?? (_instance = new Spotify()); }
+        }
+
+        #endregion Singleton
+
+        #region Private fields
+
+        private AutoHotkeyEngine ahk;
+
+        private readonly string spotifyPath;
+
+        private Process spotifyProcess;
+
+        #endregion Private fields
+
+        #region Public properties
+
+        public string CurrentCoverArtUrl { get; set; }
+
+        public bool IsRunning { get { return this.GetMainWindowHandle() != IntPtr.Zero; } }
+
+        public bool IsMinimized
+        {
+            get
+            {
+                if (!this.IsRunning)
+                    return false;
+
+                var hWnd = this.GetMainWindowHandle();
+
+                // check Spotify's current window state
+                var placement = new Win32API.WindowPlacement();
+                Win32API.GetWindowPlacement(hWnd, ref placement);
+
+                return placement.showCmd == Win32API.Constants.SW_SHOWMINIMIZED;
+            }
+        }
+
+        #endregion Public properties
+
+        protected Spotify()
+        {
+            this.spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
+
+            // Try in the secondary location.
+            if (string.IsNullOrEmpty(this.spotifyPath))
+                this.spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+
+            if (string.IsNullOrEmpty(this.spotifyPath))
+                throw new ArgumentException("Could not find spotify path in registry");
+        }
+
+        public void StartSpotify()
+        {
+            if (this.IsRunning)
                 return;
 
-            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
-
-            // try in the secondary location
-            if (string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
-
-            if (string.IsNullOrEmpty(spotifyPath))
-                throw new ArgumentException("Could not find spotify path in registry");
-
-            // launch Spotify
-            var spotifyExe = Path.Combine(spotifyPath, "spotify.exe");
-
-            Process.Start(spotifyExe);
+            // Launch Spotify.
+            var spotifyFilePath = Path.Combine(this.spotifyPath, "spotify.exe");
+            this.spotifyProcess = Process.Start(spotifyFilePath);
 
             if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
-                Minimize();
+                this.Minimize();
             else
             {
                 // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively
@@ -49,15 +93,15 @@ namespace Toastify
             }
         }
 
-        private static void Minimize()
+        private void Minimize()
         {
-            var remainingSleep = 2000;
+            int remainingSleep = 2000;
 
             IntPtr hWnd;
 
             // Since Minimize is often called during startup, the hWnd is often not created yet
             // wait a maximum of remainingSleep for it to appear and then minimize it if it did.
-            while ((hWnd = GetSpotify()) == IntPtr.Zero && remainingSleep > 0)
+            while ((hWnd = this.GetMainWindowHandle()) == IntPtr.Zero && remainingSleep > 0)
             {
                 Thread.Sleep(100);
                 remainingSleep -= 100;
@@ -74,75 +118,35 @@ namespace Toastify
             }
         }
 
-        private static void KillProc(string name)
+        public void Kill()
         {
-            // let's play nice and try to gracefully clear out all Sync processes
-            var procs = Process.GetProcessesByName(name);
-
-            foreach (var proc in procs)
+            if (this.spotifyProcess != null)
             {
-                // lParam == Band Process Id, passed in below
-                Win32API.EnumWindows(delegate (IntPtr hWnd, IntPtr lParam)
-                {
-                    Win32API.GetWindowThreadProcessId(hWnd, out uint processId);
-
-                    // Essentially: Find every hWnd associated with this process and ask it to go away
-                    if (processId == (uint)lParam)
-                    {
-                        Win32API.SendMessage(hWnd, Win32API.Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                        Win32API.SendMessage(hWnd, Win32API.Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
-                    }
-
-                    return true;
-                },
-                (IntPtr)proc.Id);
+                this.spotifyProcess.Close();
+                Thread.Sleep(1000);
             }
-
-            // let everything calm down
-            Thread.Sleep(1000);
-
-            procs = Process.GetProcessesByName(name);
-
-            // ok, no more mister nice guy. Sadly.
-            foreach (var proc in procs)
-            {
-                try
-                {
-                    proc.Kill();
-                }
-                catch
-                {
-                    // ignore exceptions (usually due to trying to kill non-existant child processes
-                }
-            }
+            Win32API.KillProc("spotify");
         }
 
-        public static void KillSpotify()
+        private IntPtr GetMainWindowHandle()
         {
-            KillProc("spotify");
+            return this.spotifyProcess?.MainWindowHandle ?? Win32API.FindWindow("SpotifyMainWindow", null);
         }
 
-        private static IntPtr GetSpotify()
+        public Song GetCurrentSong()
         {
-            return Win32API.FindWindow("SpotifyMainWindow", null);
-        }
-
-        public static bool IsRunning()
-        {
-            return GetSpotify() != IntPtr.Zero;
-        }
-
-        public static Song GetCurrentSong()
-        {
-            if (!IsRunning())
+            if (!this.IsRunning)
                 return null;
 
-            IntPtr hWnd = GetSpotify();
-            int length = Win32API.GetWindowTextLength(hWnd);
-            StringBuilder sb = new StringBuilder(length + 1);
-            Win32API.GetWindowText(hWnd, sb, sb.Capacity);
+            string title = this.spotifyProcess?.MainWindowTitle;
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                IntPtr hWnd = this.GetMainWindowHandle();
+                StringBuilder sb = new StringBuilder(Win32API.GetWindowTextLength(hWnd) + 1);
+                Win32API.GetWindowText(hWnd, sb, sb.Capacity);
 
-            string title = sb.ToString();
+                title = sb.ToString();
+            }
 
             if (!string.IsNullOrWhiteSpace(title) && title != "Spotify")
             {
@@ -164,7 +168,7 @@ namespace Toastify
             return null;
         }
 
-        public static void SetCoverArt(Song song)
+        public void SetCoverArt(Song song)
         {
             // probably an ad, don't bother looking for an image
             if (string.IsNullOrWhiteSpace(song.Track) || string.IsNullOrWhiteSpace(song.Artist))
@@ -242,40 +246,14 @@ namespace Toastify
             }
 
             song.CoverArtUrl = imageUrl;
+            this.CurrentCoverArtUrl = imageUrl;
         }
 
-        private static bool IsMinimized()
+        private void ShowSpotify()
         {
-            if (!IsRunning())
-                return false;
-
-            var hWnd = GetSpotify();
-
-            // check Spotify's current window state
-            var placement = new Win32API.WindowPlacement();
-            Win32API.GetWindowPlacement(hWnd, ref placement);
-
-            return placement.showCmd == Win32API.Constants.SW_SHOWMINIMIZED;
-        }
-
-        private static void ShowSpotifyWithNoActivate()
-        {
-            var hWnd = GetSpotify();
-
-            // check Spotify's current window state
-            var placement = new Win32API.WindowPlacement();
-            Win32API.GetWindowPlacement(hWnd, ref placement);
-
-            const Win32API.SetWindowPosFlags flags = Win32API.SetWindowPosFlags.DoNotActivate | Win32API.SetWindowPosFlags.DoNotChangeOwnerZOrder | Win32API.SetWindowPosFlags.ShowWindow;
-
-            Win32API.SetWindowPos(hWnd, (IntPtr)0, placement.rcNormalPosition.Left, placement.rcNormalPosition.Top, 0, 0, flags);
-        }
-
-        private static void ShowSpotify()
-        {
-            if (IsRunning())
+            if (this.IsRunning)
             {
-                var hWnd = GetSpotify();
+                var hWnd = this.GetMainWindowHandle();
 
                 // check Spotify's current window state
                 var placement = new Win32API.WindowPlacement();
@@ -297,35 +275,34 @@ namespace Toastify
             }
         }
 
-        public static void SendAction(SpotifyAction a)
+        public void SendAction(SpotifyAction action)
         {
-            if (!IsRunning())
+            if (!this.IsRunning)
                 return;
 
             // bah. Because control cannot fall through cases we need to special case volume
             if (SettingsXml.Instance.ChangeSpotifyVolumeOnly)
             {
-                switch (a)
+                switch (action)
                 {
                     case SpotifyAction.VolumeUp:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
-
                         VolumeHelper.IncrementVolume("Spotify");
                         return;
+
                     case SpotifyAction.VolumeDown:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
-
                         VolumeHelper.DecrementVolume("Spotify");
                         return;
+
                     case SpotifyAction.Mute:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-
                         VolumeHelper.ToggleApplicationMute("Spotify");
                         return;
                 }
             }
 
-            switch (a)
+            switch (action)
             {
                 case SpotifyAction.CopyTrackInfo:
                 case SpotifyAction.ShowToast:
@@ -334,25 +311,25 @@ namespace Toastify
 
                 case SpotifyAction.ShowSpotify:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.ShowSpotify);
-                    if (IsMinimized())
-                        ShowSpotify();
+                    if (this.IsMinimized)
+                        this.ShowSpotify();
                     else
-                        Minimize();
+                        this.Minimize();
                     break;
 
                 case SpotifyAction.FastForward:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.FastForward);
-                    SendComplexKeys("+{Right}");
+                    this.SendComplexKeys("+{Right}");
                     break;
 
                 case SpotifyAction.Rewind:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Rewind);
-                    SendComplexKeys("+{Left}");
+                    this.SendComplexKeys("+{Left}");
                     break;
 
                 default:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Default + a);
-                    Win32API.SendMessage(GetSpotify(), Win32API.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)a));
+                    Telemetry.TrackEvent(TelemetryCategory.Action, $"{Telemetry.TelemetryEvent.Action.Default}{action}");
+                    Win32API.SendMessage(this.GetMainWindowHandle(), Win32API.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)action));
                     break;
             }
         }
@@ -365,21 +342,18 @@ namespace Toastify
         /// AutoHotKey has that hook and can modify the state for us, so let's take advantge of it.
         /// </summary>
         /// <param name="keys"></param>
-        private static void SendComplexKeys(string keys)
+        private void SendComplexKeys(string keys)
         {
-            // Is this nicer?
-            // _ahk = _ahk ?? new AutoHotkey.Interop.AutoHotkeyEngine();
-
             // only initialize AHK when needed as it can be expensive (dll copy etc) if not actually needed
-            if (_ahk == null)
-                _ahk = new AutoHotkey.Interop.AutoHotkeyEngine();
+            if (this.ahk == null)
+                this.ahk = new AutoHotkeyEngine();
 
-            _ahk.ExecRaw("SetTitleMatchMode 2");
+            this.ahk.ExecRaw("SetTitleMatchMode 2");
 
-            _ahk.ExecRaw("DetectHiddenWindows, On");
-            _ahk.ExecRaw("ControlSend, ahk_parent, " + keys + ", ahk_class SpotifyMainWindow");
+            this.ahk.ExecRaw("DetectHiddenWindows, On");
+            this.ahk.ExecRaw($"ControlSend, ahk_parent, {keys}, ahk_class SpotifyMainWindow");
 
-            _ahk.ExecRaw("DetectHiddenWindows, Off");
+            this.ahk.ExecRaw("DetectHiddenWindows, Off");
         }
     }
 }

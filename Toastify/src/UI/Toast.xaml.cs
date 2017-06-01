@@ -235,7 +235,7 @@ namespace Toastify.UI
 
         private void CheckTitle()
         {
-            Song currentSong = Spotify.GetCurrentSong();
+            Song currentSong = Spotify.Instance.GetCurrentSong();
 
             if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(this.currentSong))
             {
@@ -245,7 +245,7 @@ namespace Toastify.UI
 
                 try
                 {
-                    Spotify.SetCoverArt(currentSong);
+                    Spotify.Instance.SetCoverArt(currentSong);
                 }
                 catch
                 {
@@ -466,7 +466,7 @@ namespace Toastify.UI
             // we are forced to launch Spotify ourselves (under WebDriver), so we no longer ask the user
             try
             {
-                Spotify.StartSpotify();
+                Spotify.Instance.StartSpotify();
             }
             catch (Exception e)
             {
@@ -478,7 +478,7 @@ namespace Toastify.UI
         {
             // close Spotify first
             if (SettingsXml.Instance.CloseSpotifyWithToastify)
-                Spotify.KillSpotify();
+                Spotify.Instance.Kill();
 
             // Ensure trayicon is removed on exit. (Thx Linus)
             this.trayIcon.Visible = false;
@@ -561,7 +561,7 @@ namespace Toastify.UI
                 }
                 else
                 {
-                    Spotify.SendAction(hotkey.Action);
+                    Spotify.Instance.SendAction(hotkey.Action);
                 }
 
                 Current.DisplayAction(hotkey.Action, songBeforeAction);
@@ -647,7 +647,7 @@ namespace Toastify.UI
             const string stoppedText = "Stopped";
             const string settingsText = "Settings saved";
 
-            if (!Spotify.IsRunning() && action != SpotifyAction.SettingsSaved)
+            if (!Spotify.Instance.IsRunning && action != SpotifyAction.SettingsSaved)
             {
                 this.toastIcon = DEFAULT_ICON;
                 this.Title1.Text = "Spotify not available!";
@@ -788,7 +788,7 @@ namespace Toastify.UI
             }
             else
             {
-                Spotify.SendAction(SpotifyAction.ShowSpotify);
+                Spotify.Instance.SendAction(SpotifyAction.ShowSpotify);
             }
         }
 

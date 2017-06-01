@@ -1,11 +1,16 @@
 using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace Toastify
 {
     internal class Win32API
     {
+        #region DLL imports
+
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -44,7 +49,52 @@ namespace Toastify
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosFlags uFlags);
 
-        [Flags()]
+        #endregion DLL imports
+
+        public static void KillProc(string name)
+        {
+            // let's play nice and try to gracefully clear out all Sync processes
+            var procs = Process.GetProcessesByName(name);
+
+            foreach (var proc in procs)
+            {
+                // lParam == Band Process Id, passed in below
+                EnumWindows(delegate (IntPtr hWnd, IntPtr lParam)
+                    {
+                        GetWindowThreadProcessId(hWnd, out uint processId);
+
+                        // Essentially: Find every hWnd associated with this process and ask it to go away
+                        if (processId == (uint)lParam)
+                        {
+                            SendMessage(hWnd, Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                            SendMessage(hWnd, Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
+                        }
+
+                        return true;
+                    },
+                    (IntPtr)proc.Id);
+            }
+
+            // let everything calm down
+            Thread.Sleep(1000);
+
+            procs = Process.GetProcessesByName(name);
+
+            // ok, no more mister nice guy. Sadly.
+            foreach (var proc in procs)
+            {
+                try
+                {
+                    proc.Kill();
+                }
+                catch
+                {
+                    // ignore exceptions (usually due to trying to kill non-existant child processes
+                }
+            }
+        }
+
+        [Flags]
         internal enum SetWindowPosFlags : uint
         {
             /// <summary>If the calling thread and the thread that owns the window are attached to different input queues,
@@ -124,9 +174,9 @@ namespace Toastify
             public int length;
             public int flags;
             public int showCmd;
-            public System.Drawing.Point ptMinPosition;
-            public System.Drawing.Point ptMaxPosition;
-            public System.Drawing.Rectangle rcNormalPosition;
+            public Point ptMinPosition;
+            public Point ptMaxPosition;
+            public Rectangle rcNormalPosition;
         }
 
         internal class Constants
