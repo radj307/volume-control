@@ -1,8 +1,8 @@
 ﻿<Window x:Class="Toastify.UI.Toast"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Toastify" Height="75" Width="300" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="#00000000" ShowInTaskbar="False" Loaded="Window_Loaded" Opacity="0" 
-    MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" Cursor="Hand" Topmost="True" WindowState="Minimized" ShowActivated="False">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Toastify" Height="75" Width="300" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="#00000000" ShowInTaskbar="False" Loaded="Window_Loaded" Opacity="0" 
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" Cursor="Hand" Topmost="True" WindowState="Minimized" ShowActivated="False">
 
     <!-- maintain TopMost="True" as per http://www.programmingtidbits.com/post/2013/01/05/Setting-WPF-Window-to-be-Always-on-Top.aspx -->
     <Window.Triggers>
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Name="LogoToast" Stretch="Fill" Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="LogoToast" Stretch="Fill" Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="../../Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="1" Softness="0.1" />
                 </Image.BitmapEffect>
@@ -43,7 +43,9 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Name="Title1" Grid.Row="0" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis"><TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="2" Softness="0.1" /></TextBlock.BitmapEffect>Body (feat. DJ Rush)</TextBlock>
+                <TextBlock Name="Title1" Grid.Row="0" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis">
+                    <!-- <TextBlock.BitmapEffect><DropShadowBitmapEffect ShadowDepth="2" Softness="0.1" /></TextBlock.BitmapEffect>Body (feat. DJ Rush) -->
+                </TextBlock>
                 <TextBlock Name="Title2" Grid.Row="1" Foreground="White" FontSize="12" TextTrimming="CharacterEllipsis">Si Begg</TextBlock>
             </Grid>
         </Grid>

@@ -59,8 +59,10 @@ namespace Toastify.UI
 
         public new Visibility Visibility
         {
+#pragma warning disable IDE0009 // Member access should be qualified.
             get { return base.Visibility; }
             set { base.Visibility = value; }
+#pragma warning restore IDE0009 // Member access should be qualified.
         }
 
         public void LoadSettings()

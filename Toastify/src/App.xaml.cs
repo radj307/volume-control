@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using System.Windows;
 using Toastify.Services;
 
 namespace Toastify
@@ -15,9 +12,8 @@ namespace Toastify
         [STAThread]
         public static void Main(string[] args)
         {
-            string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-            bool exclusive;
-            using (Mutex m = new Mutex(true, appSpecificGuid, out exclusive))
+            const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
+            using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
             {
                 if (exclusive)
                 {
@@ -29,9 +25,7 @@ namespace Toastify
                     app.Run();
                 }
                 else
-                {
                     MessageBox.Show("Toastify is already running!\n\nLook for the blue icon in your system tray.", "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
             }
         }
     }
@@ -39,6 +33,7 @@ namespace Toastify
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
