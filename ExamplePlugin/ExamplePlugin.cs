@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Toastify.Plugin;
 
 namespace ExamplePlugin
 {
     //Sample Plugin. Simply logs the songs being played to a text file.
     //A reference is added to the ToastifyApi.dll(PluginBase)
     //The plugin class below implements the PluginBase interface
-
     
     //Toastify.xml
     //<Plugins>
@@ -19,13 +16,10 @@ namespace ExamplePlugin
     //  </PluginDetails>
     //</Plugins>
 
-    public class ExamplePlugin : Toastify.Plugin.PluginBase
+    public class ExamplePlugin : IPluginBase
     {
-        public ExamplePlugin()
-        {
-        }
+        private string logFilename;
 
-        string logFilename;
         public void Init(string settings)
         {
             //Init is called direcly after the constructor.
@@ -47,7 +41,7 @@ namespace ExamplePlugin
 
         public void TrackChanged(string artist, string title)
         {
-            System.IO.File.AppendAllText(logFilename, string.Format("{0} - {1}{2}", artist, title, Environment.NewLine));
+            System.IO.File.AppendAllText(logFilename, $"{artist} - {title}{Environment.NewLine}");
         }
 
         public void Dispose()

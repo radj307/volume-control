@@ -46,7 +46,7 @@ namespace Toastify.UI
         private VersionChecker versionChecker;
         private bool isUpdateToast;
 
-        internal List<Plugin.PluginBase> Plugins { get; set; }
+        internal List<Plugin.IPluginBase> Plugins { get; set; }
 
         internal static Toast Current { get; private set; }
 
@@ -432,7 +432,7 @@ namespace Toastify.UI
         private void LoadPlugins()
         {
             //Load plugins
-            this.Plugins = new List<Plugin.PluginBase>();
+            this.Plugins = new List<Plugin.IPluginBase>();
             Assembly assembly = Assembly.GetExecutingAssembly();
             if (assembly.Location != null)
             {
@@ -444,7 +444,7 @@ namespace Toastify.UI
                     {
                         if (applicationPath != null)
                         {
-                            var plugin = Activator.CreateInstanceFrom(Path.Combine(applicationPath, p.FileName), p.TypeName).Unwrap() as Plugin.PluginBase;
+                            var plugin = Activator.CreateInstanceFrom(Path.Combine(applicationPath, p.FileName), p.TypeName).Unwrap() as Plugin.IPluginBase;
                             plugin?.Init(p.Settings);
                             this.Plugins.Add(plugin);
                         }
