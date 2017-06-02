@@ -155,7 +155,7 @@ namespace Toastify.UI
             this.Deactivated += this.Toast_Deactivated;
 
             //Remove from ALT+TAB
-            WinHelper.AddToolWindowStyle(this);
+            Win32API.AddToolWindowStyle(this);
 
             //Check if Spotify is running.
             this.AskUserToStartSpotify();
@@ -235,7 +235,7 @@ namespace Toastify.UI
 
         private void CheckTitle()
         {
-            Song currentSong = Spotify.Instance.GetCurrentSong();
+            Song currentSong = Spotify.Instance.CurrentSong;
 
             if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(this.currentSong))
             {
@@ -323,7 +323,7 @@ namespace Toastify.UI
 #if DEBUG
                 var rv =
 #endif
-                    WinHelper.SetThreadExecutionState(WinHelper.ExecutionState.EsSystemRequired);
+                    Win32API.SetThreadExecutionState(Win32API.ExecutionState.EsSystemRequired);
 #if DEBUG
                 Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
 #endif

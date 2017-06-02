@@ -1,19 +1,18 @@
 using AutoHotkey.Interop;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SpotifyAPI.Local;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using Toastify.Helpers;
 using Toastify.Services;
 
 namespace Toastify.Core
 {
-    internal class Spotify
+    internal class Spotify : IDisposable
     {
         #region Singleton
 
@@ -30,15 +29,17 @@ namespace Toastify.Core
 
         private AutoHotkeyEngine ahk;
 
+        private SpotifyLocalAPI localAPI;
+
         private readonly string spotifyPath;
 
         private Process spotifyProcess;
 
+        private Song _currentSong;
+
         #endregion Private fields
 
         #region Public properties
-
-        public string CurrentCoverArtUrl { get; set; }
 
         public bool IsRunning { get { return this.GetMainWindowHandle() != IntPtr.Zero; } }
 
@@ -59,113 +60,40 @@ namespace Toastify.Core
             }
         }
 
+        public Song CurrentSong
+        {
+            get { return this._currentSong ?? (this._currentSong = this.localAPI?.GetStatus()?.Track); }
+            private set { this._currentSong = value; }
+        }
+
         #endregion Public properties
+
+        #region Events
+
+        public event EventHandler<SpotifyTrackChangedEventArgs> SongChanged;
+
+        public event EventHandler<SpotifyPlayStateChangedEventArgs> PlayStateChanged;
+
+        public event EventHandler<SpotifyTrackTimeChangedEventArgs> TrackTimeChanged;
+
+        public event EventHandler<SpotifyVolumeChangedEventArgs> VolumeChanged;
+
+        #endregion Events
 
         protected Spotify()
         {
-            this.spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
+            this.spotifyPath = this.GetSpotifyPath();
 
-            // Try in the secondary location.
-            if (string.IsNullOrEmpty(this.spotifyPath))
-                this.spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+            // Connect with Spotify to use the local API.
+            this.localAPI = new SpotifyLocalAPI();
+            this.localAPI.Connect();
 
-            if (string.IsNullOrEmpty(this.spotifyPath))
-                throw new ArgumentException("Could not find spotify path in registry");
-        }
-
-        public void StartSpotify()
-        {
-            if (this.IsRunning)
-                return;
-
-            // Launch Spotify.
-            var spotifyFilePath = Path.Combine(this.spotifyPath, "spotify.exe");
-            this.spotifyProcess = Process.Start(spotifyFilePath);
-
-            if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
-                this.Minimize();
-            else
-            {
-                // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively
-                // safe amount of time to wait, even if the pattern is gross. (Minimize() doesn't need it since
-                // it waits for the Window to appear before minimizing)
-                Thread.Sleep(2000);
-            }
-        }
-
-        private void Minimize()
-        {
-            int remainingSleep = 2000;
-
-            IntPtr hWnd;
-
-            // Since Minimize is often called during startup, the hWnd is often not created yet
-            // wait a maximum of remainingSleep for it to appear and then minimize it if it did.
-            while ((hWnd = this.GetMainWindowHandle()) == IntPtr.Zero && remainingSleep > 0)
-            {
-                Thread.Sleep(100);
-                remainingSleep -= 100;
-            }
-
-            if (hWnd != IntPtr.Zero)
-            {
-                // disgusting but sadly neccessary. Let Spotify initialize a bit before minimizing it
-                // otherwise the window hides itself and doesn't respond to taskbar clicks.
-                // I tried to work around this by waiting for the window size to initialize (via GetWindowRect)
-                // but that didn't work, there is some internal initialization that needs to occur.
-                Thread.Sleep(500);
-                Win32API.ShowWindow(hWnd, Win32API.Constants.SW_SHOWMINIMIZED);
-            }
-        }
-
-        public void Kill()
-        {
-            if (this.spotifyProcess != null)
-            {
-                this.spotifyProcess.Close();
-                Thread.Sleep(1000);
-            }
-            Win32API.KillProc("spotify");
-        }
-
-        private IntPtr GetMainWindowHandle()
-        {
-            return this.spotifyProcess?.MainWindowHandle ?? Win32API.FindWindow("SpotifyMainWindow", null);
-        }
-
-        public Song GetCurrentSong()
-        {
-            if (!this.IsRunning)
-                return null;
-
-            string title = this.spotifyProcess?.MainWindowTitle;
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                IntPtr hWnd = this.GetMainWindowHandle();
-                StringBuilder sb = new StringBuilder(Win32API.GetWindowTextLength(hWnd) + 1);
-                Win32API.GetWindowText(hWnd, sb, sb.Capacity);
-
-                title = sb.ToString();
-            }
-
-            if (!string.IsNullOrWhiteSpace(title) && title != "Spotify")
-            {
-                // Unfortunately we don't have a great way to get the title from Spotify
-                // so we need to do some gymnastics.
-                // Music played from an artist's page is usually in the format "artist - song"
-                // while music played from a playlist is often in the format "artist - song - album"
-                // unfortunately this means that some songs that actually have a " - " in either the artist name
-                // or in the song name will potentially display incorrectly
-                var portions = title.Split(new[] { " - " }, StringSplitOptions.None);
-
-                string song = portions.Length > 1 ? portions[1] : null;
-                string artist = portions[0];
-                string album = portions.Length > 2 ? string.Join(" ", portions.Skip(2).ToArray()) : null;
-
-                return new Song(artist, song, album);
-            }
-
-            return null;
+            // Subscribe to SpotifyLocalAPI events.
+            this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
+            this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
+            this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
+            this.localAPI.OnVolumeChange += this.SpotifyLocalAPI_OnVolumeChange;
+            this.localAPI.ListenForEvents = true;
         }
 
         public void SetCoverArt(Song song)
@@ -246,7 +174,66 @@ namespace Toastify.Core
             }
 
             song.CoverArtUrl = imageUrl;
-            this.CurrentCoverArtUrl = imageUrl;
+        }
+
+        public void StartSpotify()
+        {
+            if (this.IsRunning)
+                return;
+
+            if (this.localAPI == null)
+                this.localAPI = new SpotifyLocalAPI();
+
+            // Launch Spotify.
+            var spotifyFilePath = Path.Combine(this.spotifyPath, "spotify.exe");
+            this.spotifyProcess = Process.Start(spotifyFilePath);
+
+            if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
+                this.Minimize();
+            else
+            {
+                // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively
+                // safe amount of time to wait, even if the pattern is gross. (Minimize() doesn't need it since
+                // it waits for the Window to appear before minimizing)
+                Thread.Sleep(2000);
+            }
+        }
+
+        private void Minimize()
+        {
+            int remainingSleep = 2000;
+
+            IntPtr hWnd;
+
+            // Since Minimize is often called during startup, the hWnd is often not created yet
+            // wait a maximum of remainingSleep for it to appear and then minimize it if it did.
+            while ((hWnd = this.GetMainWindowHandle()) == IntPtr.Zero && remainingSleep > 0)
+            {
+                Thread.Sleep(100);
+                remainingSleep -= 100;
+            }
+
+            if (hWnd != IntPtr.Zero)
+            {
+                // disgusting but sadly neccessary. Let Spotify initialize a bit before minimizing it
+                // otherwise the window hides itself and doesn't respond to taskbar clicks.
+                // I tried to work around this by waiting for the window size to initialize (via GetWindowRect)
+                // but that didn't work, there is some internal initialization that needs to occur.
+                Thread.Sleep(500);
+                Win32API.ShowWindow(hWnd, Win32API.Constants.SW_SHOWMINIMIZED);
+            }
+        }
+
+        public void Kill()
+        {
+            if (this.spotifyProcess != null)
+            {
+                this.spotifyProcess.Close();
+                Thread.Sleep(1000);
+            }
+            Win32API.KillProc("spotify");
+
+            this.localAPI.Dispose();
         }
 
         private void ShowSpotify()
@@ -273,6 +260,11 @@ namespace Toastify.Core
                 Win32API.SetForegroundWindow(hWnd);
                 Win32API.SetFocus(hWnd);
             }
+        }
+
+        private IntPtr GetMainWindowHandle()
+        {
+            return this.spotifyProcess?.MainWindowHandle ?? Win32API.FindWindow("SpotifyMainWindow", null);
         }
 
         public void SendAction(SpotifyAction action)
@@ -355,5 +347,49 @@ namespace Toastify.Core
 
             this.ahk.ExecRaw("DetectHiddenWindows, Off");
         }
+
+        private string GetSpotifyPath()
+        {
+            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
+
+            // Try in the secondary location.
+            if (string.IsNullOrEmpty(spotifyPath))
+                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+
+            if (string.IsNullOrEmpty(spotifyPath))
+                throw new ArgumentException("Could not find spotify path in registry");
+
+            return spotifyPath;
+        }
+
+        public void Dispose()
+        {
+            this.localAPI?.Dispose();
+        }
+
+        #region Event handlers
+
+        private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
+        {
+            this.CurrentSong = e.NewTrack;
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong));
+        }
+
+        private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
+        {
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing));
+        }
+
+        private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
+        {
+            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime));
+        }
+
+        private void SpotifyLocalAPI_OnVolumeChange(object sender, VolumeChangeEventArgs e)
+        {
+            this.VolumeChanged?.Invoke(this, new SpotifyVolumeChangedEventArgs(e.OldVolume, e.NewVolume));
+        }
+
+        #endregion Event handlers
     }
 }

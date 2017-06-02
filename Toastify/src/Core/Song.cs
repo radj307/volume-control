@@ -1,10 +1,16 @@
+using SpotifyAPI.Local.Enums;
+using SpotifyAPI.Local.Models;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Toastify.Core
 {
     public class Song
     {
-        public string Artist { get; set; }
+        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size640, AlbumArtSize.Size320, AlbumArtSize.Size160 };
+
+        public string Artist { get; }
         public string Track { get; set; }
-        public string Album { get; set; }
+        public string Album { get; }
 
         public string CoverArtUrl { get; set; }
 
@@ -34,10 +40,27 @@ namespace Toastify.Core
             return target.Artist == this.Artist && target.Track == this.Track;
         }
 
-        // overriding GetHashCode is "required" when overriding Equals
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.Artist.GetHashCode() ^ this.Track.GetHashCode();
+        }
+
+        public static implicit operator Song(Track spotifyTrack)
+        {
+            string artist = spotifyTrack.ArtistResource.Name;
+            string title = spotifyTrack.TrackResource.Name;
+            string album = spotifyTrack.AlbumResource.Name;
+            string coverArtUrl = "";
+
+            foreach (var size in albumArtSizes)
+            {
+                coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                if (!string.IsNullOrWhiteSpace(coverArtUrl))
+                    break;
+            }
+
+            return new Song(artist, title, album) { CoverArtUrl = coverArtUrl };
         }
     }
 }

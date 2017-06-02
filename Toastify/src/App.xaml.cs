@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
+using Toastify.Core;
 using Toastify.Services;
 
 namespace Toastify
@@ -39,6 +40,11 @@ namespace Toastify
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Telemetry.TrackException(e.Exception);
+        }
+
+        private void App_OnExit(object sender, ExitEventArgs e)
+        {
+            Spotify.Instance?.Dispose();
         }
     }
 }

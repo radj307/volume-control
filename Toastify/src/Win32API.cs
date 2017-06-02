@@ -1,20 +1,24 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Interop;
 
 namespace Toastify
 {
+    [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Local")]
+    [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
     internal class Win32API
     {
+        internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
         #region DLL imports
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         [DllImport("user32.dll")]
         internal static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
@@ -48,6 +52,21 @@ namespace Toastify
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosFlags uFlags);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
+        private static extern IntPtr IntSetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
+        private static extern Int32 IntSetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
+        public static extern void SetLastError(int dwErrorCode);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 
         #endregion DLL imports
 
@@ -93,6 +112,48 @@ namespace Toastify
                 }
             }
         }
+
+        private static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        {
+            int error;
+            IntPtr result;
+            // Win32API SetWindowLong doesn't clear error on success
+            SetLastError(0);
+
+            if (IntPtr.Size == 4)
+            {
+                // use SetWindowLong
+                Int32 tempResult = IntSetWindowLong(hWnd, nIndex, IntPtrToInt32(dwNewLong));
+                error = Marshal.GetLastWin32Error();
+                result = new IntPtr(tempResult);
+            }
+            else
+            {
+                // use SetWindowLongPtr
+                result = IntSetWindowLongPtr(hWnd, nIndex, dwNewLong);
+                error = Marshal.GetLastWin32Error();
+            }
+
+            if (result == IntPtr.Zero && error != 0)
+                throw new System.ComponentModel.Win32Exception(error);
+
+            return result;
+        }
+
+        private static int IntPtrToInt32(IntPtr intPtr)
+        {
+            return unchecked((int)intPtr.ToInt64());
+        }
+
+        public static void AddToolWindowStyle(System.Windows.Window window)
+        {
+            WindowInteropHelper wndHelper = new WindowInteropHelper(window);
+            int exStyle = (int)GetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle);
+            exStyle |= (int)ExtendedWindowStyles.WsExToolwindow;
+            SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle, (IntPtr)exStyle);
+        }
+
+        #region Enums
 
         [Flags]
         internal enum SetWindowPosFlags : uint
@@ -169,6 +230,32 @@ namespace Toastify
             ShowWindow = 0x0040,
         }
 
+        [Flags]
+        public enum ExtendedWindowStyles
+        {
+            WsExToolwindow = 0x00000080,
+        }
+
+        public enum GetWindowLongFields
+        {
+            GwlExstyle = -20,
+        }
+
+        [Flags]
+        public enum ExecutionState : uint
+        {
+            EsAwaymodeRequired = 0x00000040,
+            EsContinuous = 0x80000000,
+            EsDisplayRequired = 0x00000002,
+            EsSystemRequired = 0x00000001
+            // Legacy flag, should not be used.
+            // ES_USER_PRESENT = 0x00000004
+        }
+
+        #endregion Enums
+
+        #region Internal classes and structs
+
         internal struct WindowPlacement
         {
             public int length;
@@ -192,5 +279,7 @@ namespace Toastify
             internal const int WM_CLOSE = 0x10;
             internal const int WM_QUIT = 0x12;
         }
+
+        #endregion Internal classes and structs
     }
 }
