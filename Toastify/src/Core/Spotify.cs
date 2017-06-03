@@ -285,17 +285,17 @@ namespace Toastify.Core
                 {
                     case SpotifyAction.VolumeUp:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
-                        VolumeHelper.IncrementVolume("Spotify");
+                        this.localAPI.IncrementVolume();
                         return;
 
                     case SpotifyAction.VolumeDown:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
-                        VolumeHelper.DecrementVolume("Spotify");
+                        this.localAPI.DecrementVolume();
                         return;
 
                     case SpotifyAction.Mute:
                         Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-                        VolumeHelper.ToggleApplicationMute("Spotify");
+                        this.localAPI.ToggleMute();
                         return;
                 }
             }

@@ -152,6 +152,7 @@
     <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
     <Compile Include="src\Core\SpotifyAction.cs" />
+    <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
     <Compile Include="src\Services\TelemetryCategory.cs" />
     <Compile Include="src\Win32API.cs" />
     <Page Include="src\UI\About.xaml">
@@ -193,7 +194,6 @@
     <Compile Include="src\UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\Helpers\VolumeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
