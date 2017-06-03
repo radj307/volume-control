@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Toastify.Core
+namespace Toastify.Events
 {
     public class SpotifyPlayStateChangedEventArgs : EventArgs
     {
