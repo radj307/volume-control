@@ -195,10 +195,8 @@ namespace Toastify.Core
                 this.Minimize();
             else
             {
-                // we need to let Spotify start up before interacting with it fully. 2 seconds is a relatively
-                // safe amount of time to wait, even if the pattern is gross. (Minimize() doesn't need it since
-                // it waits for the Window to appear before minimizing)
-                Thread.Sleep(2000);
+                // We need to let Spotify start up before interacting with it fully.
+                Thread.Sleep(3000);
             }
 
             this.localAPI.Connect();
@@ -304,7 +302,6 @@ namespace Toastify.Core
             {
                 case SpotifyAction.CopyTrackInfo:
                 case SpotifyAction.ShowToast:
-                    //Nothing
                     break;
 
                 case SpotifyAction.ShowSpotify:
