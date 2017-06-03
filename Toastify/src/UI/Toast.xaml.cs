@@ -53,19 +53,12 @@ namespace Toastify.UI
         private bool isUpdateToast;
 
         private bool dragging;
+        private bool visible;
         private bool paused;
 
         #endregion Private fields
 
         internal List<IPluginBase> Plugins { get; set; }
-
-        public new Visibility Visibility
-        {
-#pragma warning disable IDE0009 // Member access should be qualified.
-            get { return base.Visibility; }
-            set { base.Visibility = value; }
-#pragma warning restore IDE0009 // Member access should be qualified.
-        }
 
         #region Events
 
@@ -328,6 +321,22 @@ namespace Toastify.UI
             this.toastIconURI = this.currentSong.CoverArtUrl;
         }
 
+        private void UpdateCoverArt()
+        {
+            if (!string.IsNullOrEmpty(this.toastIconURI))
+            {
+                this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                    new Action(() =>
+                    {
+                        this.cover = new BitmapImage();
+                        this.cover.BeginInit();
+                        this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
+                        this.cover.EndInit();
+                        this.LogoToast.Source = this.cover;
+                    }));
+            }
+        }
+
         /// <summary>
         /// Update the toast's text using the songs' information.
         /// </summary>
@@ -399,35 +408,36 @@ namespace Toastify.UI
 #endif
             }
 
-            if ((settings.DisableToast || settings.OnlyShowToastOnHotkey) && !force)
+            if (settings.DisableToast || (settings.OnlyShowToastOnHotkey && !force && !this.visible))
                 return;
 
             this.isUpdateToast = isUpdate;
-
-            if (!string.IsNullOrEmpty(this.toastIconURI))
-            {
-                this.cover = new BitmapImage();
-                this.cover.BeginInit();
-                this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
-                this.cover.EndInit();
-                this.LogoToast.Source = this.cover;
-            }
-
             this.WindowState = WindowState.Normal;
+            this.Topmost = true;
 
-            Rectangle workingArea = new Rectangle((int)this.Left, (int)this.Height, (int)this.ActualWidth, (int)this.ActualHeight);
-            workingArea = Screen.GetWorkingArea(workingArea);
-
+            this.UpdateCoverArt();
             this.Left = settings.PositionLeft;
             this.Top = settings.PositionTop;
+            this.ResetPositionIfOffScreen();
 
-            this.ResetPositionIfOffScreen(workingArea);
-
-            DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
-            anim.Completed += (s, e) => { this.FadeOut(); };
-            this.BeginAnimation(OpacityProperty, anim);
-
-            this.Topmost = true;
+            if (!this.visible)
+            {
+                DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
+                anim.Completed += (s, e) =>
+                {
+                    this.visible = true;
+                    this.FadeOut();
+                };
+                this.BeginAnimation(OpacityProperty, anim);
+            }
+            else if (this.minimizeTimer != null)
+            {
+                // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
+                this.Opacity = 1.0;
+                this.minimizeTimer.Interval = SettingsXml.Instance.FadeOutTime;
+                this.minimizeTimer.Start();
+                Debug.WriteLine($"Timer Interval reset to {this.minimizeTimer.Interval}.");
+            }
         }
 
         private void FadeOut(bool now = false)
@@ -435,41 +445,38 @@ namespace Toastify.UI
             // 16 == one frame (0 is not a valid interval)
             var interval = now ? 16 : SettingsXml.Instance.FadeOutTime;
 
-            DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500))
-            {
-                BeginTime = TimeSpan.FromMilliseconds(interval)
-            };
-            this.BeginAnimation(OpacityProperty, anim);
-
             if (this.minimizeTimer == null)
             {
                 this.minimizeTimer = new Timer { AutoReset = false };
-
-                this.minimizeTimer.Elapsed += (s, ev) =>
+                this.minimizeTimer.Elapsed += (s, e) =>
                 {
                     this.Dispatcher.Invoke(() =>
                     {
-                        this.WindowState = WindowState.Minimized;
-                        Debug.WriteLine("Minimized");
+                        DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
+                        anim.Completed += (ss, ee) =>
+                        {
+                            this.visible = false;
+                            this.WindowState = WindowState.Minimized;
+                            Debug.WriteLine("Minimized");
+                        };
+                        this.BeginAnimation(OpacityProperty, anim);
                     });
                 };
             }
 
-            // extra buffer to avoid graphics corruption at the tail end of the fade
-            this.minimizeTimer.Interval = interval * 2;
+            this.minimizeTimer.Interval = interval;
 
             this.minimizeTimer.Stop();
             this.minimizeTimer.Start();
         }
 
-        private void ResetPositionIfOffScreen(Rectangle workingArea)
+        private void ResetPositionIfOffScreen()
         {
             var rect = new Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
 
             if (!Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
             {
-                // get the defaults, but don't save them (this allows the user to reconnect their screen and get their
-                // desired settings back)
+                // Get the defaults, but don't save them (this allows the user to reconnect their screen and get their desired settings back)
                 var position = ScreenHelper.GetDefaultToastPosition(this.Width, this.Height);
 
                 this.Left = position.X;
@@ -544,9 +551,13 @@ namespace Toastify.UI
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            // close Spotify first
+            // Close Spotify first.
             if (SettingsXml.Instance.CloseSpotifyWithToastify)
                 Spotify.Instance.Kill();
+
+            // Dispose the timer.
+            this.minimizeTimer?.Stop();
+            this.minimizeTimer?.Dispose();
 
             // Ensure trayicon is removed on exit. (Thx Linus)
             this.trayIcon.Visible = false;

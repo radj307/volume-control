@@ -191,6 +191,9 @@ namespace Toastify.Core
             }
         }
 
+        /// <summary>
+        /// Only show the toast when the `<see cref="SpotifyAction.ShowToast"/>` hotkey is pressed.
+        /// </summary>
         public bool OnlyShowToastOnHotkey
         {
             get
