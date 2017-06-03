@@ -13,18 +13,20 @@ namespace Toastify.Plugin
         /// <summary>
         /// Called when Toastify is first started. After Init().
         /// </summary>
-        void Started();
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Started(object sender, EventArgs e);
 
         /// <summary>
         /// Called when Toastify is closing.
         /// </summary>
-        void Closing();
+        void Closing(object sender, EventArgs e);
 
         /// <summary>
         /// Called on track change.
         /// </summary>
-        /// <param name="artist"></param>
-        /// <param name="title"></param>
-        void TrackChanged(string artist, string title);
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void TrackChanged(object sender, SpotifyTrackChangedEventArgs e);
     }
 }

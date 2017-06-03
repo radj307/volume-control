@@ -21,14 +21,30 @@ namespace Toastify.Core
             this.Album = album;
         }
 
-        public override string ToString()
-        {
-            return this.Artist == null ? this.Track : $"{this.Artist} – {this.Track}";
-        }
-
         internal bool IsValid()
         {
             return !string.IsNullOrEmpty(this.Artist) || !string.IsNullOrEmpty(this.Track);
+        }
+
+        public string GetClipboardText(string template)
+        {
+            string trackBeforeAction = this.ToString();
+
+            // if the string is empty we set it to {0}
+            if (string.IsNullOrWhiteSpace(template))
+                template = "{0}";
+
+            // add the song name to the end of the template if the user forgot to put in the
+            // replacement marker
+            if (!template.Contains("{0}"))
+                template += " {0}";
+
+            return string.Format(template, trackBeforeAction);
+        }
+
+        public override string ToString()
+        {
+            return this.Artist == null ? this.Track : $"{this.Artist} – {this.Track}";
         }
 
         public override bool Equals(object obj)

@@ -12,5 +12,10 @@ namespace Toastify.Core
             this.PreviousSong = previousSong;
             this.NewSong = newSong;
         }
+
+        public static implicit operator Plugin.SpotifyTrackChangedEventArgs(SpotifyTrackChangedEventArgs e)
+        {
+            return new Plugin.SpotifyTrackChangedEventArgs(e.NewSong.Artist, e.NewSong.Album, e.NewSong.Track);
+        }
     }
 }

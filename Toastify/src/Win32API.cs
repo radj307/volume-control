@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using System.Windows.Interop;
 
 namespace Toastify
@@ -151,6 +152,37 @@ namespace Toastify
             int exStyle = (int)GetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle);
             exStyle |= (int)ExtendedWindowStyles.WsExToolwindow;
             SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle, (IntPtr)exStyle);
+        }
+
+        public static void SendPasteKey()
+        {
+            var shiftKey = new ManagedWinapi.KeyboardKey(Keys.ShiftKey);
+            var altKey = new ManagedWinapi.KeyboardKey(Keys.Alt);
+            var ctrlKey = new ManagedWinapi.KeyboardKey(Keys.ControlKey);
+            var vKey = new ManagedWinapi.KeyboardKey(Keys.V);
+
+            // Before injecting a paste command, first make sure that no modifiers are already
+            // being pressed (which will throw off the Ctrl+v).
+            // Since key state is notoriously unreliable, set a max sleep so that we don't get stuck
+            var maxSleep = 250;
+
+            // minimum sleep time
+            Thread.Sleep(150);
+
+            //System.Diagnostics.Debug.WriteLine("shift: " + shiftKey.State + " alt: " + altKey.State + " ctrl: " + ctrlKey.State);
+
+            while (maxSleep > 0 && (shiftKey.State != 0 || altKey.State != 0 || ctrlKey.State != 0))
+                Thread.Sleep(maxSleep -= 50);
+
+            //System.Diagnostics.Debug.WriteLine("maxSleep: " + maxSleep);
+
+            // Press keys in sequence. Don't use PressAndRelease since that seems to be too fast for most applications and the sequence gets lost.
+            ctrlKey.Press();
+            vKey.Press();
+            Thread.Sleep(25);
+            vKey.Release();
+            Thread.Sleep(25);
+            ctrlKey.Release();
         }
 
         #region Enums

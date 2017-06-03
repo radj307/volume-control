@@ -332,7 +332,7 @@ namespace Toastify.Core
             this._globalKey.Shift = this.Shift;
             this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
 
-            this._globalKey.HotkeyPressed += (s, e) => { Toast.ActionHookCallback(this); };
+            this._globalKey.HotkeyPressed += (s, e) => { Toast.HotkeyActionCallback(this); };
 
             try
             {

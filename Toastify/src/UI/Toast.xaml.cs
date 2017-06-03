@@ -6,18 +6,23 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
+using Toastify.Plugin;
 using Toastify.Services;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Timer = System.Timers.Timer;
@@ -27,35 +32,31 @@ namespace Toastify.UI
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class Toast : Window
     {
-        private const string DEFAULT_ICON = "SpotifyToastifyLogo.png";
-        private const string AD_PLAYING_ICON = "SpotifyAdPlaying.png";
-        private const string ALBUM_ACCESS_DENIED_ICON = "ToastifyAccessDenied.png";
+        private const string DEFAULT_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyLogo.png";
+        private const string AD_PLAYING_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyAdPlaying.png";
+        private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
+        private const string UPDATE_LOGO_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyUpdateLogo.png";
 
-        private Timer watchTimer;
+        internal static Toast Current { get; private set; }
+
+        #region Private fields
+
         private Timer minimizeTimer;
 
         private NotifyIcon trayIcon;
 
-        /// <summary>
-        /// Holds the actual icon shown on the toast
-        /// </summary>
-        private string toastIcon = "";
-
+        private Song currentSong;
         private BitmapImage cover;
+        private string toastIconURI = "";
 
         private VersionChecker versionChecker;
         private bool isUpdateToast;
 
-        internal List<Plugin.IPluginBase> Plugins { get; set; }
-
-        internal static Toast Current { get; private set; }
-
-        /// <summary>
-        /// To the best of our knowledge this is our current playing song
-        /// </summary>
-        private Song currentSong;
-
         private bool dragging;
+
+        #endregion Private fields
+
+        internal List<IPluginBase> Plugins { get; set; }
 
         public new Visibility Visibility
         {
@@ -65,7 +66,45 @@ namespace Toastify.UI
 #pragma warning restore IDE0009 // Member access should be qualified.
         }
 
-        public void LoadSettings()
+        #region Events
+
+        public event EventHandler Started;
+
+        public event EventHandler ToastClosing;
+
+        #endregion Events
+
+        public Toast()
+        {
+            this.InitializeComponent();
+
+            // Set a static reference back to ourselves, useful for callbacks.
+            Current = this;
+        }
+
+        #region Initialization
+
+        private void Init()
+        {
+            this.LoadSettings();
+            this.InitToast();
+            this.InitTrayIcon();
+            this.StartSpotifyOrAskUser();
+
+            // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
+            Spotify.Instance.SongChanged += this.Spotify_SongChanged;
+            Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
+            Spotify.Instance.TrackTimeChanged += this.Spotify_TrackTimeChanged;
+
+            this.Deactivated += this.Toast_Deactivated;
+
+            this.LoadPlugins();
+            this.Started?.Invoke(this, EventArgs.Empty);
+
+            this.InitVersionChecker();
+        }
+
+        private void LoadSettings()
         {
             try
             {
@@ -75,27 +114,14 @@ namespace Toastify.UI
             {
                 Debug.WriteLine("Exception loading settings:\n" + ex);
 
-                MessageBox.Show(@"Toastify was unable to load the settings file." + Environment.NewLine +
-                                    "Delete the Toastify.xml file and restart the application to recreate the settings file." + Environment.NewLine +
-                                Environment.NewLine +
-                                "The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    $@"Toastify was unable to load the settings file.{Environment.NewLine
+                        }Delete the Toastify.xml file and restart the application to recreate the settings file.{Environment.NewLine
+                        }{Environment.NewLine
+                        }The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                SettingsXml.Instance.Default(setHotKeys: true);
+                SettingsXml.Instance.Default(true);
             }
-        }
-
-        public Toast()
-        {
-            this.InitializeComponent();
-
-            // set a static reference back to ourselves, useful for callbacks
-            Current = this;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //Load settings from XML
-            this.LoadSettings();
 
             string version = VersionChecker.Version;
 
@@ -104,14 +130,52 @@ namespace Toastify.UI
             if (SettingsXml.Instance.PreviousOS != version)
             {
                 Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
-
                 SettingsXml.Instance.PreviousOS = version;
             }
+        }
 
-            //Init toast(color settings)
-            this.InitToast();
+        public void InitToast()
+        {
+            //If we find any invalid settings in the xml we skip it and use default.
+            //User notification of bad settings will be implemented with the settings dialog.
 
-            //Init tray icon
+            // TODO: Refactor InitToast method.
+            //This method is UGLY but we'll keep it until the settings dialog is implemented.
+            SettingsXml settings = SettingsXml.Instance;
+
+            double minWidth = this.MinWidth > 0.0 ? this.MinWidth : 200.0;
+            double minHeight = this.MinHeight > 0.0 ? this.MinHeight : 65.0;
+
+            this.Width = settings.ToastWidth >= minWidth ? settings.ToastWidth : minWidth;
+            this.Height = settings.ToastHeight >= minHeight ? settings.ToastHeight : minHeight;
+            this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
+
+            ColorConverter cc = new ColorConverter();
+
+            // Borders
+            if (!string.IsNullOrEmpty(settings.ToastBorderColor) && cc.IsValid(settings.ToastBorderColor))
+            {
+                object borderBrush = cc.ConvertFrom(settings.ToastBorderColor);
+                if (borderBrush != null)
+                    this.ToastBorder.BorderBrush = new SolidColorBrush((Color)borderBrush);
+            }
+
+            // Top & Bottom
+            if (!string.IsNullOrEmpty(settings.ToastColorTop) && cc.IsValid(settings.ToastColorTop) &&
+                !string.IsNullOrEmpty(settings.ToastColorBottom) && cc.IsValid(settings.ToastColorBottom))
+            {
+                object top = cc.ConvertFrom(settings.ToastColorTop);
+                object bottom = cc.ConvertFrom(settings.ToastColorBottom);
+
+                if (top != null && bottom != null)
+                    this.ToastBorder.Background = new LinearGradientBrush((Color)top, (Color)bottom, 90.0);
+            }
+
+            this.ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiusTopLeft, settings.ToastBorderCornerRadiusTopRight, settings.ToastBorderCornerRadiusBottomRight, settings.ToastBorderCornerRadiusBottomLeft);
+        }
+
+        private void InitTrayIcon()
+        {
             this.trayIcon = new NotifyIcon
             {
                 Icon = Properties.Resources.spotifyicon,
@@ -120,189 +184,141 @@ namespace Toastify.UI
                 ContextMenu = new ContextMenu()
             };
 
-
             //Init tray icon menu
             MenuItem menuSettings = new MenuItem { Text = @"Settings" };
             menuSettings.Click += (s, ev) => { Settings.Launch(this); };
 
-            this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
-
             MenuItem menuAbout = new MenuItem { Text = @"About Toastify..." };
             menuAbout.Click += (s, ev) => { new About().ShowDialog(); };
-
-            this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
-
-            this.trayIcon.ContextMenu.MenuItems.Add("-");
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
             menuExit.Click += (s, ev) => { Application.Current.Shutdown(); }; //this.Close(); };
 
+            this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
+            this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
+            this.trayIcon.ContextMenu.MenuItems.Add("-");
             this.trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
             this.trayIcon.MouseClick += (s, ev) => { if (ev.Button == MouseButtons.Left) this.DisplayAction(SpotifyAction.ShowToast, null); };
-
             this.trayIcon.DoubleClick += (s, ev) => { Settings.Launch(this); };
+        }
 
-            //Init watch timer
-            this.watchTimer = new Timer(1000);
-            this.watchTimer.Elapsed += (s, ev) =>
+        private void StartSpotifyOrAskUser()
+        {
+            try
             {
-                this.watchTimer.Stop();
-                this.CheckTitle();
-                this.watchTimer.Start();
-            };
-
-            this.Deactivated += this.Toast_Deactivated;
-
-            //Remove from ALT+TAB
-            Win32API.AddToolWindowStyle(this);
-
-            //Check if Spotify is running.
-            this.AskUserToStartSpotify();
-            this.LoadPlugins();
-
-            //Let the plugins know we're started.
-            foreach (var p in this.Plugins)
+                Spotify.Instance.StartSpotify();
+            }
+            catch (Exception e)
             {
-                try
+                MessageBox.Show("An unknown error occurred when trying to start Spotify.\nPlease start Spotify manually.\n\nTechnical Details: " + e.Message, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void LoadPlugins()
+        {
+            this.Plugins = new List<IPluginBase>();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            if (assembly.Location != null)
+            {
+                string applicationPath = new FileInfo(assembly.Location).DirectoryName;
+
+                foreach (var p in SettingsXml.Instance.Plugins)
                 {
-                    p.Started();
-                }
-                catch (Exception)
-                {
-                    //For now we swallow any plugin errors.
+                    try
+                    {
+                        if (applicationPath != null)
+                        {
+                            string pluginFilePath = Path.Combine(applicationPath, p.FileName);
+                            if (Activator.CreateInstanceFrom(pluginFilePath, p.TypeName).Unwrap() is IPluginBase plugin)
+                            {
+                                plugin.Init(p.Settings);
+                                this.Plugins.Add(plugin);
+
+                                this.Started += plugin.Started;
+                                this.ToastClosing += plugin.Closing;
+                                Spotify.Instance.SongChanged += (sender, e) => plugin.TrackChanged(sender, e);
+                            }
+                            else
+                                Debug.WriteLine("'plugin' is not of type IPluginBase (?)");
+                        }
+                        else
+                            Debug.WriteLine("'applicationPath' is null");
+                    }
+                    catch (Exception)
+                    {
+                        // TODO: Handle plugins' errors.
+                    }
+                    Console.WriteLine(@"Loaded " + p.TypeName);
                 }
             }
+        }
 
-            if (!SettingsXml.Instance.DisableToast)
-                this.watchTimer.Enabled = true; //Only need to be enabled if we are going to show the toast.
-
+        private void InitVersionChecker()
+        {
             this.versionChecker = new VersionChecker();
             this.versionChecker.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
             this.versionChecker.BeginCheckVersion();
 
             // TODO: right now this is pretty dumb - kick off update notifications every X hours, this might get annoying
             //       and really we should just pop a notification once per version and probably immediately after a song toast
-            var updateTimer = new System.Windows.Threading.DispatcherTimer();
+            var updateTimer = new DispatcherTimer();
             updateTimer.Tick += (timerSender, timerE) => { this.versionChecker.BeginCheckVersion(); };
             updateTimer.Interval = new TimeSpan(6, 0, 0);
             updateTimer.Start();
         }
 
-        private void Toast_Deactivated(object sender, EventArgs e)
+        #endregion Initialization
+
+        private void UpdateCurrentSong(Song song)
         {
-            this.Topmost = true;
-        }
+            this.currentSong = song;
 
-        public void InitToast()
-        {
-            const double minWidth = 200.0;
-            const double minHeight = 65.0;
+            this.UpdateCoverArtUrl();
 
-            //If we find any invalid settings in the xml we skip it and use default.
-            //User notification of bad settings will be implemented with the settings dialog.
+            this.Dispatcher.Invoke(() => { this.Title1.Text = this.currentSong.Track; this.Title2.Text = this.currentSong.Artist; }, DispatcherPriority.Normal);
+            this.Dispatcher.Invoke(() => { this.FadeIn(); }, DispatcherPriority.Normal);
 
-            //This method is UGLY but we'll keep it until the settings dialog is implemented.
-            SettingsXml settings = SettingsXml.Instance;
-
-            this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
-
-            System.Windows.Media.ColorConverter cc = new System.Windows.Media.ColorConverter();
-            if (!string.IsNullOrEmpty(settings.ToastBorderColor) && cc.IsValid(settings.ToastBorderColor))
+            // Save track info to file.
+            if (SettingsXml.Instance.SaveTrackToFile)
             {
-                object borderBrush = cc.ConvertFrom(settings.ToastBorderColor);
-                if (borderBrush != null)
-                    this.ToastBorder.BorderBrush = new SolidColorBrush((System.Windows.Media.Color)borderBrush);
-            }
-
-            if (!string.IsNullOrEmpty(settings.ToastColorTop) && !string.IsNullOrEmpty(settings.ToastColorBottom) && cc.IsValid(settings.ToastColorTop) && cc.IsValid(settings.ToastColorBottom))
-            {
-                object top = cc.ConvertFrom(settings.ToastColorTop);
-                object bottom = cc.ConvertFrom(settings.ToastColorBottom);
-
-                if (top != null && bottom != null)
-                    this.ToastBorder.Background = new LinearGradientBrush((System.Windows.Media.Color)top, (System.Windows.Media.Color)bottom, 90.0);
-            }
-
-            if (settings.ToastWidth >= minWidth)
-                this.Width = settings.ToastWidth;
-            if (settings.ToastHeight >= minHeight)
-                this.Height = settings.ToastHeight;
-
-            //If we made it this far we have all the values needed.
-            this.ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiusTopLeft, settings.ToastBorderCornerRadiusTopRight, settings.ToastBorderCornerRadiusBottomRight, settings.ToastBorderCornerRadiusBottomLeft);
-        }
-
-        private void CheckTitle()
-        {
-            Song currentSong = Spotify.Instance.CurrentSong;
-
-            if (currentSong != null && currentSong.IsValid() && !currentSong.Equals(this.currentSong))
-            {
-                // set the previous title asap so that the next timer call to this function will
-                // fail fast (setting it at the end may cause multiple web requests)
-                this.currentSong = currentSong;
-
-                try
-                {
-                    Spotify.Instance.SetCoverArt(currentSong);
-                }
-                catch
-                {
-                    // Exceptions will be handled (for telemetry etc.) within SetCoverArt, but they will be rethrown
-                    // so that we can set custom artwork here
-                    currentSong.CoverArtUrl = ALBUM_ACCESS_DENIED_ICON;
-                }
-
-                // Toastify-specific custom logic around album art (if it's missing, or an ad)
-                this.UpdateSongForToastify(currentSong);
-
-                this.toastIcon = currentSong.CoverArtUrl;
-
-                this.Dispatcher.Invoke((Action)delegate { this.Title1.Text = currentSong.Track; this.Title2.Text = currentSong.Artist; }, System.Windows.Threading.DispatcherPriority.Normal);
-
-                foreach (var p in this.Plugins)
+                if (!string.IsNullOrEmpty(SettingsXml.Instance.SaveTrackToFilePath))
                 {
                     try
                     {
-                        p.TrackChanged(currentSong.Artist, currentSong.Track);
+                        string trackText = this.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate);
+                        File.WriteAllText(SettingsXml.Instance.SaveTrackToFilePath, trackText);
                     }
-                    catch (Exception)
+                    catch
                     {
-                        //For now we swallow any plugin errors.
-                    }
-                }
-
-                this.Dispatcher.Invoke((Action)delegate { this.FadeIn(); }, System.Windows.Threading.DispatcherPriority.Normal);
-
-                if (SettingsXml.Instance.SaveTrackToFile)
-                {
-                    if (!string.IsNullOrEmpty(SettingsXml.Instance.SaveTrackToFilePath))
-                    {
-                        try
-                        {
-                            string trackText = GetClipboardText(currentSong);
-
-                            File.WriteAllText(SettingsXml.Instance.SaveTrackToFilePath, trackText);
-                        }
-                        catch
-                        {
-                            // ignore errors writing out the album
-                        }
+                        // Ignore errors writing out the album.
                     }
                 }
             }
         }
 
-        private void UpdateSongForToastify(Song currentSong)
+        private void UpdateCoverArtUrl()
         {
-            if (string.IsNullOrWhiteSpace(currentSong.Track))
+            try
             {
-                currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                currentSong.Track = "Spotify Ad";
+                Spotify.Instance.SetCoverArt(this.currentSong);
             }
-            else if (string.IsNullOrWhiteSpace(currentSong.CoverArtUrl))
-                currentSong.CoverArtUrl = DEFAULT_ICON;
+            catch
+            {
+                // Exceptions will be handled (for telemetry etc.) within SetCoverArt, but they will be rethrown
+                // so that we can set custom artwork here
+                this.currentSong.CoverArtUrl = ALBUM_ACCESS_DENIED_ICON;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.currentSong.Track))
+            {
+                this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
+                this.currentSong.Track = "Spotify Ad";
+            }
+            else if (string.IsNullOrWhiteSpace(this.currentSong.CoverArtUrl))
+                this.currentSong.CoverArtUrl = DEFAULT_ICON;
+
+            this.toastIconURI = this.currentSong.CoverArtUrl;
         }
 
         private void FadeIn(bool force = false, bool isUpdate = false)
@@ -334,11 +350,11 @@ namespace Toastify.UI
 
             this.isUpdateToast = isUpdate;
 
-            if (!string.IsNullOrEmpty(this.toastIcon))
+            if (!string.IsNullOrEmpty(this.toastIconURI))
             {
                 this.cover = new BitmapImage();
                 this.cover.BeginInit();
-                this.cover.UriSource = new Uri(this.toastIcon, UriKind.RelativeOrAbsolute);
+                this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
                 this.cover.EndInit();
                 this.LogoToast.Source = this.cover;
             }
@@ -360,21 +376,6 @@ namespace Toastify.UI
             this.Topmost = true;
         }
 
-        private void ResetPositionIfOffScreen(Rectangle workingArea)
-        {
-            var rect = new Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
-
-            if (!Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
-            {
-                // get the defaults, but don't save them (this allows the user to reconnect their screen and get their
-                // desired settings back)
-                var position = ScreenHelper.GetDefaultToastPosition(this.Width, this.Height);
-
-                this.Left = position.X;
-                this.Top = position.Y;
-            }
-        }
-
         private void FadeOut(bool now = false)
         {
             // 16 == one frame (0 is not a valid interval)
@@ -392,7 +393,7 @@ namespace Toastify.UI
 
                 this.minimizeTimer.Elapsed += (s, ev) =>
                 {
-                    this.Dispatcher.Invoke((Action)delegate
+                    this.Dispatcher.Invoke(() =>
                     {
                         this.WindowState = WindowState.Minimized;
                         Debug.WriteLine("Minimized");
@@ -407,232 +408,20 @@ namespace Toastify.UI
             this.minimizeTimer.Start();
         }
 
-        private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
+        private void ResetPositionIfOffScreen(Rectangle workingArea)
         {
-            if (!e.New)
-                return;
+            var rect = new Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
 
-            const string title = "Update Toastify!";
-            string caption = "Version " + e.Version + " available now.";
-
-            // this is a background thread, so sleep it a bit so that it doesn't clash with the startup toast
-            System.Threading.Thread.Sleep(20000);
-
-            this.Dispatcher.Invoke((Action)delegate
+            if (!Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
             {
-                this.Title1.Text = title;
-                this.Title2.Text = caption;
+                // get the defaults, but don't save them (this allows the user to reconnect their screen and get their
+                // desired settings back)
+                var position = ScreenHelper.GetDefaultToastPosition(this.Width, this.Height);
 
-                this.toastIcon = "SpotifyToastifyUpdateLogo.png";
-
-                this.FadeIn(true, true);
-            }, System.Windows.Threading.DispatcherPriority.Normal);
-        }
-
-        private void LoadPlugins()
-        {
-            //Load plugins
-            this.Plugins = new List<Plugin.IPluginBase>();
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            if (assembly.Location != null)
-            {
-                string applicationPath = new FileInfo(assembly.Location).DirectoryName;
-
-                foreach (var p in SettingsXml.Instance.Plugins)
-                {
-                    try
-                    {
-                        if (applicationPath != null)
-                        {
-                            var plugin = Activator.CreateInstanceFrom(Path.Combine(applicationPath, p.FileName), p.TypeName).Unwrap() as Plugin.IPluginBase;
-                            plugin?.Init(p.Settings);
-                            this.Plugins.Add(plugin);
-                        }
-                        else
-                            Debug.WriteLine("applicationPath is null");
-                    }
-                    catch (Exception)
-                    {
-                        //For now we swallow any plugin errors.
-                    }
-                    Console.WriteLine(@"Loaded " + p.TypeName);
-                }
+                this.Left = position.X;
+                this.Top = position.Y;
             }
         }
-
-        private void AskUserToStartSpotify()
-        {
-            // Thanks to recent changes in Spotify that removed the song Artist + Title from the titlebar
-            // we are forced to launch Spotify ourselves (under WebDriver), so we no longer ask the user
-            try
-            {
-                Spotify.Instance.StartSpotify();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("An unknown error occurred when trying to start Spotify.\nPlease start Spotify manually.\n\nTechnical Details: " + e.Message, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            // close Spotify first
-            if (SettingsXml.Instance.CloseSpotifyWithToastify)
-                Spotify.Instance.Kill();
-
-            // Ensure trayicon is removed on exit. (Thx Linus)
-            this.trayIcon.Visible = false;
-            this.trayIcon.Dispose();
-            this.trayIcon = null;
-
-            // Let the plugins now we're closing up.
-            // we do this last since it's transparent to the user
-            foreach (var p in this.Plugins)
-            {
-                try
-                {
-                    p.Closing();
-                    p.Dispose();
-                }
-                catch (Exception)
-                {
-                    //For now we swallow any plugin errors.
-                }
-            }
-
-            this.Plugins.Clear();
-
-            base.OnClosing(e);
-        }
-
-        private Key ConvertKey(Keys key)
-        {
-            if (Enum.GetNames(typeof(Key)).Contains(key.ToString()))
-                return (Key)Enum.Parse(typeof(Key), key.ToString());
-
-            return Key.None;
-        }
-
-        #region ActionHookCallback
-
-        private static Hotkey _lastHotkey;
-        private static DateTime _lastHotkeyPressTime = DateTime.Now;
-
-        /// <summary>
-        /// If the same hotkey press happens within this buffer time, it will be ignored.
-        ///
-        /// I came to 150 by pressing keys as quickly as possibly. The minimum time was less than 150
-        /// but most values fell in the 150 to 200 range for quick presses, so 150 seemed the most reasonable
-        /// </summary>
-        private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
-
-        internal static void ActionHookCallback(Hotkey hotkey)
-        {
-            // Bug 9421: ignore this keypress if it is the same as the previous one and it's been less than
-            //           WAIT_BETWEEN_HOTKEY_PRESS since the last press. Note that we do not update
-            //           _lastHotkeyPressTime in this case to avoid being trapped in a never ending cycle of
-            //           ignoring keypresses if the user (for some reason) decides to press really quickly,
-            //           really often on the hotkey
-            if (hotkey == _lastHotkey && DateTime.Now.Subtract(_lastHotkeyPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
-                return;
-
-            _lastHotkey = hotkey;
-            _lastHotkeyPressTime = DateTime.Now;
-
-            string currentTrack = string.Empty;
-
-            try
-            {
-                Song songBeforeAction = Current.currentSong;
-
-                if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
-                {
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
-
-                    CopySongToClipboard(songBeforeAction);
-                }
-                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && songBeforeAction != null)
-                {
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
-
-                    CopySongToClipboard(songBeforeAction);
-
-                    SendPasteKey(hotkey);
-                }
-                else
-                {
-                    Spotify.Instance.SendAction(hotkey.Action);
-                }
-
-                Current.DisplayAction(hotkey.Action, songBeforeAction);
-            }
-            catch (Exception ex)
-            {
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-
-                Debug.WriteLine("Exception with hooked key! " + ex);
-                Current.Title1.Text = "Unable to communicate with Spotify";
-                Current.Title2.Text = "";
-                Current.FadeIn();
-            }
-        }
-
-        private static void SendPasteKey(Hotkey hotkey)
-        {
-            var shiftKey = new ManagedWinapi.KeyboardKey(Keys.ShiftKey);
-            var altKey = new ManagedWinapi.KeyboardKey(Keys.Alt);
-            var ctrlKey = new ManagedWinapi.KeyboardKey(Keys.ControlKey);
-            var vKey = new ManagedWinapi.KeyboardKey(Keys.V);
-
-            // Before injecting a paste command, first make sure that no modifiers are already
-            // being pressed (which will throw off the Ctrl+v).
-            // Since key state is notoriously unreliable, set a max sleep so that we don't get stuck
-            var maxSleep = 250;
-
-            // minimum sleep time
-            System.Threading.Thread.Sleep(150);
-
-            //System.Diagnostics.Debug.WriteLine("shift: " + shiftKey.State + " alt: " + altKey.State + " ctrl: " + ctrlKey.State);
-
-            while (maxSleep > 0 && (shiftKey.State != 0 || altKey.State != 0 || ctrlKey.State != 0))
-                System.Threading.Thread.Sleep(maxSleep -= 50);
-
-            //System.Diagnostics.Debug.WriteLine("maxSleep: " + maxSleep);
-
-            // press keys in sequence. Don't use PressAndRelease since that seems to be too fast
-            // for most applications and the sequence gets lost.
-            ctrlKey.Press();
-            vKey.Press();
-            System.Threading.Thread.Sleep(25);
-            vKey.Release();
-            System.Threading.Thread.Sleep(25);
-            ctrlKey.Release();
-        }
-
-        private static string GetClipboardText(Song currentSong)
-        {
-            string trackBeforeAction = currentSong.ToString();
-            var template = SettingsXml.Instance.ClipboardTemplate;
-
-            // if the string is empty we set it to {0}
-            if (string.IsNullOrWhiteSpace(template))
-                template = "{0}";
-
-            // add the song name to the end of the template if the user forgot to put in the
-            // replacement marker
-            if (!template.Contains("{0}"))
-                template += " {0}";
-
-            return string.Format(template, trackBeforeAction);
-        }
-
-        private static void CopySongToClipboard(Song trackBeforeAction)
-        {
-            Clipboard.SetText(GetClipboardText(trackBeforeAction));
-        }
-
-        #endregion ActionHookCallback
 
         public void DisplayAction(SpotifyAction action, Song trackBeforeAction)
         {
@@ -649,7 +438,7 @@ namespace Toastify.UI
 
             if (!Spotify.Instance.IsRunning && action != SpotifyAction.SettingsSaved)
             {
-                this.toastIcon = DEFAULT_ICON;
+                this.toastIconURI = DEFAULT_ICON;
                 this.Title1.Text = "Spotify not available!";
                 this.Title2.Text = string.Empty;
                 this.FadeIn();
@@ -714,7 +503,7 @@ namespace Toastify.UI
                 case SpotifyAction.ShowToast:
                     if (currentTrack == null || !currentTrack.IsValid())
                     {
-                        this.toastIcon = DEFAULT_ICON;
+                        this.toastIconURI = DEFAULT_ICON;
 
                         this.Title1.Text = nothingsPlaying;
                         this.Title2.Text = string.Empty;
@@ -723,7 +512,7 @@ namespace Toastify.UI
                     {
                         if (currentTrack.IsValid())
                         {
-                            this.toastIcon = currentTrack.CoverArtUrl;
+                            this.toastIconURI = currentTrack.CoverArtUrl;
 
                             this.Title1.Text = currentTrack.Artist;
                             this.Title2.Text = currentTrack.Track;
@@ -737,7 +526,7 @@ namespace Toastify.UI
                     break;
 
                 case SpotifyAction.ThumbsUp:
-                    this.toastIcon = "Resources/thumbs_up.png";
+                    this.toastIconURI = "Resources/thumbs_up.png";
 
                     this.Title1.Text = "Thumbs Up!";
                     this.Title2.Text = currentTrack.ToString();
@@ -745,13 +534,100 @@ namespace Toastify.UI
                     break;
 
                 case SpotifyAction.ThumbsDown:
-                    this.toastIcon = "Resources/thumbs_down.png";
+                    this.toastIconURI = "Resources/thumbs_down.png";
 
                     this.Title1.Text = "Thumbs Down :(";
                     this.Title2.Text = currentTrack.ToString();
                     this.FadeIn();
                     break;
             }
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            // close Spotify first
+            if (SettingsXml.Instance.CloseSpotifyWithToastify)
+                Spotify.Instance.Kill();
+
+            // Ensure trayicon is removed on exit. (Thx Linus)
+            this.trayIcon.Visible = false;
+            this.trayIcon.Dispose();
+            this.trayIcon = null;
+
+            this.ToastClosing?.Invoke(this, EventArgs.Empty);
+            this.Plugins.Clear();
+
+            base.OnClosing(e);
+        }
+
+        #region HotkeyActionCallback
+
+        private static Hotkey _lastHotkey;
+        private static DateTime _lastHotkeyPressTime = DateTime.Now;
+
+        /// <summary>
+        /// If the same hotkey press happens within this buffer time, it will be ignored.
+        ///
+        /// I came to 150 by pressing keys as quickly as possibly. The minimum time was less than 150
+        /// but most values fell in the 150 to 200 range for quick presses, so 150 seemed the most reasonable
+        /// </summary>
+        private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
+
+        internal static void HotkeyActionCallback(Hotkey hotkey)
+        {
+            // Bug 9421: ignore this keypress if it is the same as the previous one and it's been less than
+            //           WAIT_BETWEEN_HOTKEY_PRESS since the last press. Note that we do not update
+            //           _lastHotkeyPressTime in this case to avoid being trapped in a never ending cycle of
+            //           ignoring keypresses if the user (for some reason) decides to press really quickly,
+            //           really often on the hotkey
+            if (hotkey == _lastHotkey && DateTime.Now.Subtract(_lastHotkeyPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
+                return;
+
+            _lastHotkey = hotkey;
+            _lastHotkeyPressTime = DateTime.Now;
+
+            try
+            {
+                Song songBeforeAction = Current.currentSong;
+
+                if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
+                {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
+                    Clipboard.SetText(songBeforeAction.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                }
+                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && songBeforeAction != null)
+                {
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
+                    Clipboard.SetText(songBeforeAction.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                    Win32API.SendPasteKey();
+                }
+                else
+                    Spotify.Instance.SendAction(hotkey.Action);
+
+                Current.DisplayAction(hotkey.Action, songBeforeAction);
+            }
+            catch (Exception ex)
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+
+                Debug.WriteLine("Exception with hooked key! " + ex);
+                Current.Title1.Text = "Unable to communicate with Spotify";
+                Current.Title2.Text = "";
+                Current.FadeIn();
+            }
+        }
+
+        #endregion HotkeyActionCallback
+
+        #region Event handlers [xaml]
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Init();
+
+            // Remove from ALT+TAB.
+            Win32API.AddToolWindowStyle(this);
         }
 
         /// <summary>
@@ -807,5 +683,60 @@ namespace Toastify.UI
                 settings.Save();
             }
         }
+
+        #endregion Event handlers [xaml]
+
+        #region Event handlers [Spotify]
+
+        private void Spotify_SongChanged(object sender, Core.SpotifyTrackChangedEventArgs e)
+        {
+            if (e.NewSong == null || !e.NewSong.IsValid())
+                return;
+
+            this.UpdateCurrentSong(e.NewSong);
+        }
+
+        private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
+        {
+            // TODO: PlayStateChanged
+        }
+
+        private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
+        {
+            // TODO: TrackTimeChanged
+        }
+
+        #endregion Event handlers [Spotify]
+
+        #region Event handlers
+
+        private void Toast_Deactivated(object sender, EventArgs e)
+        {
+            this.Topmost = true;
+        }
+
+        private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
+        {
+            if (!e.New)
+                return;
+
+            const string title = "Update Toastify!";
+            string caption = "Version " + e.Version + " available now.";
+
+            // this is a background thread, so sleep it a bit so that it doesn't clash with the startup toast
+            Thread.Sleep(20000);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                this.Title1.Text = title;
+                this.Title2.Text = caption;
+
+                this.toastIconURI = UPDATE_LOGO_ICON;
+
+                this.FadeIn(true, true);
+            }, DispatcherPriority.Normal);
+        }
+
+        #endregion Event handlers
     }
 }

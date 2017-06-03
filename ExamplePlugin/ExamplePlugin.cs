@@ -6,7 +6,7 @@ namespace ExamplePlugin
     //Sample Plugin. Simply logs the songs being played to a text file.
     //A reference is added to the ToastifyApi.dll(PluginBase)
     //The plugin class below implements the PluginBase interface
-    
+
     //Toastify.xml
     //<Plugins>
     //  <PluginDetails>
@@ -22,32 +22,33 @@ namespace ExamplePlugin
 
         public void Init(string settings)
         {
-            //Init is called direcly after the constructor.
-            //Any data from the <Settings> element in Toastify.xml is passed on.
-            //For multiple values, use a seperated list of some sort. Eg. "value1|value2|value3"... settings.Split('|')...
+            // Init is called direcly after the constructor.
+            // Any data from the <Settings> element in Toastify.xml is passed on.
+            // For multiple values, use a seperated list of some sort. Eg. "value1|value2|value3"... settings.Split('|')...
 
             this.logFilename = settings;
         }
 
-        public void Started()
+        public void Started(object sende, EventArgs e)
         {
-            System.IO.File.AppendAllText(logFilename, "ExamplePlugin Started - " + DateTime.Now.ToLongTimeString() + Environment.NewLine);
+            System.IO.File.AppendAllText(this.logFilename, "ExamplePlugin Started - " + DateTime.Now.ToLongTimeString() + Environment.NewLine);
         }
 
-        public void Closing()
+        public void Closing(object sender, EventArgs e)
         {
-            System.IO.File.AppendAllText(logFilename, "ExamplePlugin Closing - " + DateTime.Now.ToLongTimeString() + Environment.NewLine);
+            System.IO.File.AppendAllText(this.logFilename, "ExamplePlugin Closing - " + DateTime.Now.ToLongTimeString() + Environment.NewLine);
+            this.Dispose();
         }
 
-        public void TrackChanged(string artist, string title)
+        public void TrackChanged(object sender, SpotifyTrackChangedEventArgs e)
         {
-            System.IO.File.AppendAllText(logFilename, $"{artist} - {title}{Environment.NewLine}");
+            System.IO.File.AppendAllText(this.logFilename, $"{e.Artist} - {e.Title}{Environment.NewLine}");
         }
 
         public void Dispose()
         {
-            //Dispose of any resources here.
-            //This is called direcly after Closing()
+            // Dispose of any resources here.
+            // This is called direcly after Closing().
         }
     }
 }

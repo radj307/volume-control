@@ -644,6 +644,11 @@ namespace Toastify.Core
             }
         }
 
+        private SettingsXml()
+        {
+            this.Default();
+        }
+
         public void Default(bool setHotKeys = false)
         {
             this.AlwaysStartSpotify = true;
@@ -710,19 +715,12 @@ namespace Toastify.Core
             }
 
             if (replaceCurrent)
-            {
                 Instance = this;
-            }
         }
 
         public void Update()
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(String.Empty));
-        }
-
-        private SettingsXml()
-        {
-            this.Default();
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
 
         public SettingsXml Load()
@@ -876,10 +874,7 @@ namespace Toastify.Core
 
         #endregion INotifyPropertyChanged
     }
-}
 
-namespace Toastify
-{
     [Serializable]
     public class PluginDetails
     {
