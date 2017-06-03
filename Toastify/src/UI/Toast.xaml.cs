@@ -207,6 +207,7 @@ namespace Toastify.UI
         {
             try
             {
+                Spotify.Instance.Connected += this.Spotify_Connected;
                 Spotify.Instance.StartSpotify();
             }
             catch (Exception e)
@@ -687,6 +688,14 @@ namespace Toastify.UI
         #endregion Event handlers [xaml]
 
         #region Event handlers [Spotify]
+
+        private void Spotify_Connected(object sender, SpotifyStateEventArgs e)
+        {
+            if (e.CurrentSong == null || !e.CurrentSong.IsValid())
+                return;
+
+            this.UpdateCurrentSong(e.CurrentSong);
+        }
 
         private void Spotify_SongChanged(object sender, Core.SpotifyTrackChangedEventArgs e)
         {

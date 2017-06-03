@@ -147,6 +147,7 @@
     </ApplicationDefinition>
     <Compile Include="src\Core\Song.cs" />
     <Compile Include="src\Events\SpotifyPlayStateChangedEventArgs.cs" />
+    <Compile Include="src\Events\SpotifyStateEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackTimeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />

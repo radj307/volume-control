@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
+using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
 
@@ -70,6 +71,8 @@ namespace Toastify.Core
 
         #region Events
 
+        public event EventHandler<SpotifyStateEventArgs> Connected;
+
         public event EventHandler<SpotifyTrackChangedEventArgs> SongChanged;
 
         public event EventHandler<SpotifyPlayStateChangedEventArgs> PlayStateChanged;
@@ -86,9 +89,8 @@ namespace Toastify.Core
 
             // Connect with Spotify to use the local API.
             this.localAPI = new SpotifyLocalAPI();
-            this.localAPI.Connect();
 
-            // Subscribe to SpotifyLocalAPI events.
+            // Subscribe to SpotifyLocalAPI's events.
             this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
             this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
             this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
@@ -179,10 +181,11 @@ namespace Toastify.Core
         public void StartSpotify()
         {
             if (this.IsRunning)
+            {
+                this.localAPI.Connect();
+                this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
                 return;
-
-            if (this.localAPI == null)
-                this.localAPI = new SpotifyLocalAPI();
+            }
 
             // Launch Spotify.
             var spotifyFilePath = Path.Combine(this.spotifyPath, "spotify.exe");
@@ -197,6 +200,9 @@ namespace Toastify.Core
                 // it waits for the Window to appear before minimizing)
                 Thread.Sleep(2000);
             }
+
+            this.localAPI.Connect();
+            this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
         }
 
         private void Minimize()
