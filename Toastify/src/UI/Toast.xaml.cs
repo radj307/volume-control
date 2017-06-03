@@ -534,7 +534,10 @@ namespace Toastify.UI
                         this.toastIconURI = this.currentSong.CoverArtUrl;
                         this.UpdateToastText(this.currentSong, null, false);
                     }
-                    this.FadeIn(true);
+                    if (!this.visible)
+                        this.FadeIn(true);
+                    else
+                        this.FadeOut(true);
                     break;
 
                 case SpotifyAction.ThumbsUp:
