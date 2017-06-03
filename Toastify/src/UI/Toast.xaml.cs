@@ -276,9 +276,7 @@ namespace Toastify.UI
             this.currentSong = song;
 
             this.UpdateCoverArtUrl();
-
-            this.Dispatcher.Invoke(() => { this.Title1.Text = this.currentSong.Track; this.Title2.Text = this.currentSong.Artist; }, DispatcherPriority.Normal);
-            this.Dispatcher.Invoke(() => { this.FadeIn(); }, DispatcherPriority.Normal);
+            this.UpdateToastText(this.currentSong.Artist, this.currentSong.Track);
 
             // Save track info to file.
             if (SettingsXml.Instance.SaveTrackToFile)
@@ -320,6 +318,19 @@ namespace Toastify.UI
                 this.currentSong.CoverArtUrl = DEFAULT_ICON;
 
             this.toastIconURI = this.currentSong.CoverArtUrl;
+        }
+
+        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false, bool isUpdate = false)
+        {
+            this.Dispatcher.Invoke(
+                DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    this.Title1.Text = title1;
+                    this.Title2.Text = title2;
+                    if (fadeIn)
+                        this.FadeIn(force, isUpdate);
+                }));
         }
 
         private void FadeIn(bool force = false, bool isUpdate = false)
@@ -437,106 +448,76 @@ namespace Toastify.UI
             if (!Spotify.Instance.IsRunning && action != SpotifyAction.SettingsSaved)
             {
                 this.toastIconURI = DEFAULT_ICON;
-                this.Title1.Text = "Spotify not available!";
-                this.Title2.Text = string.Empty;
-                this.FadeIn();
+                this.UpdateToastText("Spotify not available!");
                 return;
             }
 
             Song currentTrack = trackBeforeAction;
-
-            string prevTitle1 = this.Title1.Text;
-            string prevTitle2 = this.Title2.Text;
 
             switch (action)
             {
                 case SpotifyAction.PlayPause:
                     if (trackBeforeAction != null)
                     {
-                        //We pressed pause
-                        this.Title1.Text = "Paused";
-                        this.Title2.Text = trackBeforeAction.ToString();
-                        this.FadeIn();
+                        // We pressed pause.
+                        this.UpdateToastText(pausedText, trackBeforeAction.ToString());
                     }
                     this.currentSong = null;  //If we presses play this will force a toast to display in next timer event.
                     break;
 
                 case SpotifyAction.Stop:
                     this.currentSong = null;
-                    this.Title1.Text = "Stopped";
-                    this.Title2.Text = trackBeforeAction.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText(stoppedText, trackBeforeAction.ToString());
                     break;
 
                 case SpotifyAction.SettingsSaved:
-                    this.Title1.Text = settingsText;
-                    this.Title2.Text = "Here is a preview of your settings!";
-                    this.FadeIn();
+                    this.UpdateToastText(settingsText, "Here is a preview of your settings!");
                     break;
 
-                case SpotifyAction.NextTrack:      //No need to handle
-                    break;
-
-                case SpotifyAction.PreviousTrack:  //No need to handle
+                case SpotifyAction.NextTrack:
+                case SpotifyAction.PreviousTrack:
                     break;
 
                 case SpotifyAction.VolumeUp:
-                    this.Title1.Text = volumeUpText;
-                    this.Title2.Text = currentTrack.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText(volumeUpText, currentTrack.ToString());
                     break;
 
                 case SpotifyAction.VolumeDown:
-                    this.Title1.Text = volumeDownText;
-                    this.Title2.Text = currentTrack.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText(volumeDownText, currentTrack.ToString());
                     break;
 
                 case SpotifyAction.Mute:
-                    this.Title1.Text = muteOnOffText;
-                    this.Title2.Text = currentTrack.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText(muteOnOffText, currentTrack.ToString());
                     break;
 
                 case SpotifyAction.ShowToast:
                     if (currentTrack == null || !currentTrack.IsValid())
                     {
                         this.toastIconURI = DEFAULT_ICON;
-
-                        this.Title1.Text = nothingsPlaying;
-                        this.Title2.Text = string.Empty;
+                        this.UpdateToastText(nothingsPlaying, string.Empty, false);
                     }
                     else
                     {
                         if (currentTrack.IsValid())
                         {
                             this.toastIconURI = currentTrack.CoverArtUrl;
-
-                            this.Title1.Text = currentTrack.Artist;
-                            this.Title2.Text = currentTrack.Track;
+                            this.UpdateToastText(currentTrack.Artist, currentTrack.Track, false);
                         }
                     }
-
                     this.FadeIn(true);
                     break;
 
-                case SpotifyAction.ShowSpotify:  //No need to handle
+                case SpotifyAction.ShowSpotify:
                     break;
 
                 case SpotifyAction.ThumbsUp:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_up.png";
-
-                    this.Title1.Text = "Thumbs Up!";
-                    this.Title2.Text = currentTrack.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText("Thumbs Up!", currentTrack.ToString());
                     break;
 
                 case SpotifyAction.ThumbsDown:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
-
-                    this.Title1.Text = "Thumbs Down :(";
-                    this.Title2.Text = currentTrack.ToString();
-                    this.FadeIn();
+                    this.UpdateToastText("Thumbs Down: (", currentTrack.ToString());
                     break;
             }
         }
@@ -610,9 +591,7 @@ namespace Toastify.UI
                     Debugger.Break();
 
                 Debug.WriteLine("Exception with hooked key! " + ex);
-                Current.Title1.Text = "Unable to communicate with Spotify";
-                Current.Title2.Text = "";
-                Current.FadeIn();
+                Current.UpdateToastText("Unable to communicate with Spotify");
             }
         }
 
@@ -726,21 +705,11 @@ namespace Toastify.UI
             if (!e.New)
                 return;
 
-            const string title = "Update Toastify!";
-            string caption = "Version " + e.Version + " available now.";
-
-            // this is a background thread, so sleep it a bit so that it doesn't clash with the startup toast
+            // This is a background thread, so sleep it a bit so that it doesn't clash with the startup toast.
             Thread.Sleep(20000);
 
-            this.Dispatcher.Invoke(() =>
-            {
-                this.Title1.Text = title;
-                this.Title2.Text = caption;
-
-                this.toastIconURI = UPDATE_LOGO_ICON;
-
-                this.FadeIn(true, true);
-            }, DispatcherPriority.Normal);
+            this.toastIconURI = UPDATE_LOGO_ICON;
+            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true, true);
         }
 
         #endregion Event handlers
