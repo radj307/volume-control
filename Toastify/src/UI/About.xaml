@@ -24,7 +24,7 @@
 				<RowDefinition Height="auto"/>
 			</Grid.RowDefinitions>
             <Canvas Margin="0,0,0,0">
-                <Image Source="../../Resources/SpotifyToastifyLogo.png" Canvas.Top="-50" Canvas.Left="-50"></Image>
+                <Image Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" Canvas.Top="-50" Canvas.Left="-50"></Image>
             </Canvas>
             <Grid Name="InfoGrid" Grid.Row="0" Grid.Column="1" Margin="0,5,0,0">
                 <Grid.RowDefinitions>

@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Name="LogoToast" Stretch="Fill" Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="../../Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="LogoToast" Stretch="Fill" Grid.Column="0" Width="55" Height="55" Margin="10,0,0,0" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image.Effect><DropShadowEffect ShadowDepth="1" BlurRadius="2"/></Image.Effect>
             </Image>
             <Grid Grid.Column="2" Margin="0,15,0,15">

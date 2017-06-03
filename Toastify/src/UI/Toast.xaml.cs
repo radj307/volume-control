@@ -426,9 +426,6 @@ namespace Toastify.UI
 
         public void DisplayAction(SpotifyAction action, Song trackBeforeAction)
         {
-            //Anything that changes track doesn't need to be handled since
-            //that will be handled in the timer event.
-
             const string volumeUpText = "Volume ++";
             const string volumeDownText = "Volume --";
             const string muteOnOffText = "Mute On/Off";
@@ -527,7 +524,7 @@ namespace Toastify.UI
                     break;
 
                 case SpotifyAction.ThumbsUp:
-                    this.toastIconURI = "Resources/thumbs_up.png";
+                    this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_up.png";
 
                     this.Title1.Text = "Thumbs Up!";
                     this.Title2.Text = currentTrack.ToString();
@@ -535,7 +532,7 @@ namespace Toastify.UI
                     break;
 
                 case SpotifyAction.ThumbsDown:
-                    this.toastIconURI = "Resources/thumbs_down.png";
+                    this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
 
                     this.Title1.Text = "Thumbs Down :(";
                     this.Title2.Text = currentTrack.ToString();

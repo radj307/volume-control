@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:core="clr-namespace:Toastify.Core"
         mc:Ignorable="d"
-        Title="Toastify - Settings" Height="542" Width="568" ResizeMode="NoResize" Icon="../../Resources/spotify.ico" Closed="Window_Closed">
+        Title="Toastify - Settings" Height="542" Width="568" ResizeMode="NoResize" Icon="/Toastify;component/Resources/spotify.ico" Closed="Window_Closed">
 
     <Window.Resources>
         <helpers:OppositeBoolConverter x:Key="OppositeBoolConverter"></helpers:OppositeBoolConverter>
@@ -33,7 +33,7 @@
                     <TextBox Name="TbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Margin="10,156,22,0" Height="23" Width="396" Grid.Column="1" />
                     <TextBlock Margin="10,192,22,228" Width="396" TextWrapping="Wrap" Grid.Column="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
 
-                    <Image Name="Image1" Source="../../Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-5" Stretch="Fill" Height="144" Width="145" Grid.Column="1" />
+                    <Image Name="Image1" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-5" Stretch="Fill" Height="144" Width="145" Grid.Column="1" />
                     <CheckBox IsChecked="{Binding SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,257,0,0"
                               Height="16" Width="444" Grid.ColumnSpan="2" Grid.Column="0">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
                     <Button Click="BtnSaveTrackToFilePath_Click" Margin="31,278,20,175" Grid.Column="0">Select File</Button>
@@ -66,7 +66,7 @@
                                                 <ColumnDefinition Width="20" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="../../Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                            <Image Source="/Toastify;component/Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
                                             <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0"></CheckBox>
                                             <TextBlock Text="{Binding HumanReadableAction}" Grid.Column="1"></TextBlock>
                                         </Grid>
@@ -83,7 +83,7 @@
                             <TextBox x:Name="TxtSingleKey" PreviewKeyDown="TxtSingleKey_PreviewKeyDown" Width="90" Canvas.Left="265" Height="22" Canvas.Top="75"></TextBox>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Canvas.Left="199" Canvas.Top="110">
-                                <Image Source="../../Resources/WarningLarge.png" Height="32" Width="32"></Image>
+                                <Image Source="/Toastify;component/Resources/WarningLarge.png" Height="32" Width="32"></Image>
                                 <TextBlock Text="{Binding InvalidReason}"></TextBlock>
                             </StackPanel>
 
@@ -132,7 +132,7 @@
                         <Label Height="28" HorizontalAlignment="Right" Margin="0,0,82,169" Name="Label14" VerticalAlignment="Bottom" Width="83">Bottom Right</Label>
 
                         
-                        <Image Source="../../Resources/InfoLarge.png" Height="32" Width="32" Stretch="Fill" Margin="10,338,514,115"></Image>
+                        <Image Source="/Toastify;component/Resources/InfoLarge.png" Height="32" Width="32" Stretch="Fill" Margin="10,338,514,115"></Image>
                         <TextBlock Height="57" HorizontalAlignment="Left" Margin="49,0,0,100" x:Name="Label7Copy" VerticalAlignment="Bottom" Width="497" TextWrapping="Wrap">The best way to tweak the position of the toast is to hold down Control and then drag the toast around. The raw numbers are still accessible below. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.</TextBlock>
                         
                         <Label Height="28" HorizontalAlignment="Left" Margin="12,0,0,58" Name="Label7" VerticalAlignment="Bottom" Width="87">Toast Width :</Label>
