@@ -65,15 +65,16 @@ Section "Toastify (required)"
   File "AutoHotkey.Interop.dll"
   File "Garlic.dll"
   File "Newtonsoft.Json.dll"
+  File "SpotifyAPI.dll"
   File "LICENSE"
   
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Publisher" "Jesper Palm"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Version" "1.8.3"  
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayVersion" "1.8.3"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Publisher" "Jesper Palm, Oren Nachman, Alessandro Attard Barbini"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Version" "1.9.0"  
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayVersion" "1.9.0"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoRepair" 1
   WriteUninstaller "uninstall.exe"
@@ -114,6 +115,7 @@ Section "Uninstall"
   Delete "$INSTDIR\AutoHotkey.Interop.dll"
   Delete "$INSTDIR\Garlic.dll"
   Delete "$INSTDIR\Newtonsoft.Json.dll"
+  Delete "$INSTDIR\SpotifyAPI.dll"
   Delete "$INSTDIR\LICENSE"
   
   ; remove the settings directory

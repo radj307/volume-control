@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Toastify")]
 [assembly: AssemblyDescription("Toast for Spotify")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Jesper Palm")]
+[assembly: AssemblyCompany("Jesper Palm, Oren Nachman, Alessandro Attard Barbini")]
 [assembly: AssemblyProduct("Toastify")]
-[assembly: AssemblyCopyright("Copyright ©  2009")]
+[assembly: AssemblyCopyright("Copyright ©  2009-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,4 +51,4 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.8.3.*")]
+[assembly: AssemblyVersion("1.9.0.*")]
