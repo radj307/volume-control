@@ -180,13 +180,17 @@ UpgradeLog*.htm
 *.bim_*.settings
 
 *.user
-InstallationScript/Toastify.exe.config
-InstallationScript/Toastify.vshost.exe.config
-InstallationScript/Toastify.vshost.exe
-InstallationScript/app.publish/Toastify.exe
+InstallationScript/*.exe*
+InstallationScript/*/*.exe*
+InstallationScript/AutoHotkey.Interop.dll
 InstallationScript/Garlic.dll
 InstallationScript/ManagedWinapi.dll
-InstallationScript/Newtonsoft.Json.xml
+InstallationScript/Newtonsoft.Json.dll
 InstallationScript/Resources/ManagedWinapiNativeHelper.dll
-InstallationScript/*.exe
+InstallationScript/ToastifyApi.dll
+InstallationScript/SpotifyAPI.dll
+InstallationScript/Newtonsoft.Json.xml
+InstallationScript/SpotifyAPI.xml
 InstallationScript/Toastify.vshost.application
+InstallationScript/Toastify.application
+InstallationScript/LICENSE
