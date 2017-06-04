@@ -6,7 +6,7 @@ namespace Toastify.Core
 {
     public class Song
     {
-        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size640, AlbumArtSize.Size320, AlbumArtSize.Size160 };
+        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size640, AlbumArtSize.Size320 };
 
         public string Artist { get; }
         public string Track { get; set; }
@@ -64,11 +64,15 @@ namespace Toastify.Core
 
         public static implicit operator Song(Track spotifyTrack)
         {
-            string artist = spotifyTrack.ArtistResource.Name;
-            string title = spotifyTrack.TrackResource.Name;
-            string album = spotifyTrack.AlbumResource.Name;
+            if (spotifyTrack.IsAd())
+                return new Song("", "");
+
+            string artist = spotifyTrack.ArtistResource?.Name;
+            string title = spotifyTrack.TrackResource?.Name;
+            string album = spotifyTrack.AlbumResource?.Name;
             string coverArtUrl = "";
 
+            // Take the smallest image possible.
             foreach (var size in albumArtSizes)
             {
                 coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);

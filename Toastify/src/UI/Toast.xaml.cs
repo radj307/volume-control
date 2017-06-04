@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -298,18 +299,6 @@ namespace Toastify.UI
 
         private void UpdateCoverArtUrl()
         {
-            // TODO: Get SpotifyLocalAPI Track's cover art url
-            try
-            {
-                Spotify.Instance.SetCoverArt(this.currentSong);
-            }
-            catch
-            {
-                // Exceptions will be handled (for telemetry etc.) within SetCoverArt, but they will be rethrown
-                // so that we can set custom artwork here
-                this.currentSong.CoverArtUrl = ALBUM_ACCESS_DENIED_ICON;
-            }
-
             if (string.IsNullOrWhiteSpace(this.currentSong.Track))
             {
                 this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
@@ -328,11 +317,30 @@ namespace Toastify.UI
                 this.Dispatcher.Invoke(DispatcherPriority.Normal,
                     new Action(() =>
                     {
-                        this.cover = new BitmapImage();
-                        this.cover.BeginInit();
-                        this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
-                        this.cover.EndInit();
-                        this.LogoToast.Source = this.cover;
+                        try
+                        {
+                            this.cover = new BitmapImage();
+                            this.cover.BeginInit();
+                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                            this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
+                            this.cover.EndInit();
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message);
+
+                            this.cover = new BitmapImage();
+                            this.cover.BeginInit();
+                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                            this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                            this.cover.EndInit();
+                        }
+                        finally
+                        {
+                            this.LogoToast.Source = this.cover;
+                        }
                     }));
             }
         }
@@ -433,10 +441,10 @@ namespace Toastify.UI
             else if (this.minimizeTimer != null)
             {
                 // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
+                this.BeginAnimation(OpacityProperty, null);
                 this.Opacity = 1.0;
                 this.minimizeTimer.Interval = SettingsXml.Instance.FadeOutTime;
                 this.minimizeTimer.Start();
-                Debug.WriteLine($"Timer Interval reset to {this.minimizeTimer.Interval}.");
             }
         }
 
@@ -670,13 +678,9 @@ namespace Toastify.UI
             this.FadeOut(true);
 
             if (this.isUpdateToast)
-            {
                 Process.Start(new ProcessStartInfo(this.versionChecker.UpdateUrl));
-            }
             else
-            {
                 Spotify.Instance.SendAction(SpotifyAction.ShowSpotify);
-            }
         }
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
@@ -685,7 +689,7 @@ namespace Toastify.UI
             {
                 this.dragging = false;
 
-                // save the new window position
+                // Save the new window position
                 SettingsXml settings = SettingsXml.Instance;
 
                 settings.PositionLeft = this.Left;
