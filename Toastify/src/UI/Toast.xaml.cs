@@ -194,8 +194,8 @@ namespace Toastify.UI
             this.trayIcon.ContextMenu.MenuItems.Add("-");
             this.trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
-            this.trayIcon.MouseClick += (s, ev) => { if (ev.Button == MouseButtons.Left) this.DisplayAction(SpotifyAction.ShowToast, null); };
-            this.trayIcon.DoubleClick += (s, ev) => { Settings.Launch(this); };
+            this.trayIcon.MouseClick += this.TrayIcon_MouseClick;
+            this.trayIcon.DoubleClick += this.TrayIcon_DoubleClick;
         }
 
         private void StartSpotifyOrAskUser()
@@ -410,7 +410,7 @@ namespace Toastify.UI
 #if DEBUG
                 var rv =
 #endif
-                    Win32API.SetThreadExecutionState(Win32API.ExecutionState.EsSystemRequired);
+                Win32API.SetThreadExecutionState(Win32API.ExecutionState.EsSystemRequired);
 #if DEBUG
                 Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
 #endif
@@ -492,7 +492,7 @@ namespace Toastify.UI
             }
         }
 
-        public void DisplayAction(SpotifyAction action, Song trackBeforeAction)
+        public void DisplayAction(SpotifyAction action)
         {
             if (!Spotify.Instance.IsRunning && action != SpotifyAction.SettingsSaved)
             {
@@ -510,6 +510,7 @@ namespace Toastify.UI
                     break;
 
                 case SpotifyAction.SettingsSaved:
+                    this.toastIconURI = DEFAULT_ICON;
                     this.UpdateToastText("Settings saved", "Here is a preview of your settings!");
                     break;
 
@@ -609,23 +610,21 @@ namespace Toastify.UI
 
             try
             {
-                Song songBeforeAction = Current.currentSong;
-
-                if (hotkey.Action == SpotifyAction.CopyTrackInfo && songBeforeAction != null)
+                if (hotkey.Action == SpotifyAction.CopyTrackInfo && Current.currentSong != null)
                 {
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
-                    Clipboard.SetText(songBeforeAction.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
                 }
-                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && songBeforeAction != null)
+                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Current.currentSong != null)
                 {
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
-                    Clipboard.SetText(songBeforeAction.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
                     Win32API.SendPasteKey();
                 }
                 else
                     Spotify.Instance.SendAction(hotkey.Action);
 
-                Current.DisplayAction(hotkey.Action, songBeforeAction);
+                Current.DisplayAction(hotkey.Action);
             }
             catch (Exception ex)
             {
@@ -746,6 +745,17 @@ namespace Toastify.UI
         private void Toast_Deactivated(object sender, EventArgs e)
         {
             this.Topmost = true;
+        }
+
+        private void TrayIcon_MouseClick(object s, System.Windows.Forms.MouseEventArgs ev)
+        {
+            if (ev.Button == MouseButtons.Left)
+                this.DisplayAction(SpotifyAction.ShowToast);
+        }
+
+        private void TrayIcon_DoubleClick(object s, EventArgs ev)
+        {
+            Settings.Launch(this);
         }
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)

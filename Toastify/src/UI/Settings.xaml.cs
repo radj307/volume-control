@@ -63,7 +63,7 @@ namespace Toastify.UI
             this.settings.Save(true);
 
             this.toast.InitToast();
-            this.toast.DisplayAction(SpotifyAction.SettingsSaved, null);
+            this.toast.DisplayAction(SpotifyAction.SettingsSaved);
         }
 
         /// <summary>
