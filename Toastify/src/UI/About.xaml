@@ -41,22 +41,22 @@
                         </TextBlock.Effect>
                         Toastify
                     </TextBlock>
-                    <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding Version}"
+                    <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding CurrentVersion}"
                                d:DataContext="{d:DesignInstance services:VersionChecker}">
                         <TextBlock.Effect>
                             <DropShadowEffect ShadowDepth="2" BlurRadius="4.5"></DropShadowEffect>
                         </TextBlock.Effect>
                     </TextBlock>
                 </StackPanel>
-                <TextBlock Grid.Row="1" FontWeight="Bold" Foreground="#FF0000DB" Cursor="Hand" Name="CodeplexLink" MouseLeftButtonUp="CodeplexLink_MouseLeftButtonUp" HorizontalAlignment="Left">
+                <TextBlock Grid.Row="1" FontWeight="Bold" Foreground="#FF0000DB" Cursor="Hand" Name="CodeplexLink" MouseLeftButtonUp="Link_MouseLeftButtonUp" HorizontalAlignment="Left">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="6"></DropShadowEffect>
                     </TextBlock.Effect>
-				    toastify.codeplex.com
+                    github.com/aleab/toastify
                 </TextBlock>
 
-                <TextBlock Grid.Row="3" FontSize="10" Foreground="#FFE2E2E2"><Hyperlink Name="LatestVersion" Foreground="#FFE2E2E2" NavigateUri="{Binding UpdateUrl}" RequestNavigate="Hyperlink_RequestNavigate">Checking for updates...</Hyperlink></TextBlock>
-                <TextBlock Grid.Row="4" FontSize="10" Foreground="#FFBDBDBD" TextWrapping="Wrap">Credits to: Linus, Maaaackan, Aqualize, ncahmore...</TextBlock>
+                <TextBlock Grid.Row="3" FontSize="10" Foreground="#FFE2E2E2" d:DataContext="{d:DesignInstance services:VersionChecker}"><Hyperlink Name="LatestVersion" Foreground="#FFE2E2E2" NavigateUri="{Binding UpdateUrl}" RequestNavigate="Hyperlink_RequestNavigate">Checking for updates...</Hyperlink></TextBlock>
+                <TextBlock Grid.Row="4" FontSize="10" Foreground="#FFBDBDBD" TextWrapping="Wrap">Credits to: Linus, Maaaackan, Aqualize, ncahmore, aleab...</TextBlock>
             </Grid>
 			<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFD6D6D6">Created by Jesper Palm 2009, licensed under GPLv2.</TextBlock>
         </Grid>

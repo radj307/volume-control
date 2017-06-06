@@ -12,7 +12,7 @@ namespace Toastify.Services
     {
         private static string _version;
 
-        public static string Version
+        public static string CurrentVersion
         {
             get
             {
@@ -36,9 +36,9 @@ namespace Toastify.Services
             }
         }
 
-        public string UpdateUrl { get { return "https://toastify.codeplex.com/releases/view/24273"; } }
+        public string UpdateUrl { get { return "https://github.com/aleab/toastify/releases"; } }
 
-        public string VersionUrl { get { return "http://toastify.codeplex.com/wikipage?title=Version"; } }
+        public string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
 
         private readonly WebClient wc;
 
@@ -69,12 +69,14 @@ namespace Toastify.Services
 
             if (!e.Cancelled && e.Error == null)
             {
-                var match = Regex.Match(e.Result, "Version: (?<ver>[\\d+\\.]+)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                var match = Regex.Match(e.Result, "(\\d+\\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
                 if (match.Success)
                 {
-                    version = match.Groups["ver"].Value.Trim();
-                    newVersion = Version != version;
+                    version = match.Value;
+                    Version localV = new Version(CurrentVersion);
+                    Version remoteV = new Version(version);
+                    newVersion = localV.CompareTo(remoteV) < 0;
                 }
             }
 

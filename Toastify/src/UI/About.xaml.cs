@@ -38,17 +38,17 @@ namespace Toastify.UI
             else
                 latestVersionText = "You have the latest version.";
 
-            this.Dispatcher.Invoke(new Action(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 Run run = new Run(latestVersionText);
                 this.LatestVersion.Inlines.Clear();
                 this.LatestVersion.Inlines.Add(run);
-            }), System.Windows.Threading.DispatcherPriority.Normal);
+            }, System.Windows.Threading.DispatcherPriority.Normal);
         }
 
-        private void CodeplexLink_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Link_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("http://toastify.codeplex.com");
+            Process.Start("https://github.com/aleab/toastify");
         }
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)

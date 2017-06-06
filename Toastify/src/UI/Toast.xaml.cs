@@ -118,7 +118,7 @@ namespace Toastify.UI
                 SettingsXml.Instance.Default(true);
             }
 
-            string version = VersionChecker.Version;
+            string version = VersionChecker.CurrentVersion;
 
             Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
 

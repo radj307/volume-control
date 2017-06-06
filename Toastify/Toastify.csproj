@@ -270,6 +270,7 @@
     <Resource Include="Resources\WarningLarge.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="version" />
     <Resource Include="Resources\ToastifyAccessDenied.png" />
     <Resource Include="Resources\SpotifyAdPlaying.png" />
     <Resource Include="Resources\thumbs_down.png" />
