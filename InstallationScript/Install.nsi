@@ -1,7 +1,8 @@
 !include "DotNET.nsh"
 !include LogicLib.nsh
-!define DOTNET_VERSION "3.5"
+!define DOTNET_VERSION "4.5.2"
 !include "MUI.nsh"
+!include x64.nsh
 
 ; The name of the installer
 Name "Toastify Installer"
@@ -10,7 +11,7 @@ Name "Toastify Installer"
 OutFile "ToastifyInstaller.exe"
 
 ; The default installation directory
-InstallDir $PROGRAMFILES\Toastify
+InstallDir $PROGRAMFILES64\Toastify
 
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
@@ -59,6 +60,7 @@ Section "Toastify (required)"
   
   ; Put file there
   File "Toastify.exe"	
+  File "Toastify.exe.config"	
   File "ToastifyApi.dll"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
@@ -109,6 +111,7 @@ Section "Uninstall"
 
   ; Remove files and uninstaller
   Delete "$INSTDIR\Toastify.exe"
+  Delete "$INSTDIR\Toastify.config"
   Delete "$INSTDIR\ToastifyApi.dll"
   Delete "$INSTDIR\ManagedWinapi.dll"
   Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
@@ -117,6 +120,7 @@ Section "Uninstall"
   Delete "$INSTDIR\Newtonsoft.Json.dll"
   Delete "$INSTDIR\SpotifyAPI.dll"
   Delete "$INSTDIR\LICENSE"
+  Delete "$INSTDIR\uninstall.exe"
   
   ; remove the settings directory
   Delete "$APPDATA\Toastify.xml"
