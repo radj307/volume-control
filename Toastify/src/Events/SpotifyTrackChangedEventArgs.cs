@@ -6,11 +6,13 @@ namespace Toastify.Core
     {
         public Song PreviousSong { get; }
         public Song NewSong { get; }
+        public bool Playing { get; }
 
-        public SpotifyTrackChangedEventArgs(Song previousSong, Song newSong)
+        public SpotifyTrackChangedEventArgs(Song previousSong, Song newSong, bool playing)
         {
             this.PreviousSong = previousSong;
             this.NewSong = newSong;
+            this.Playing = playing;
         }
 
         public static implicit operator Plugin.SpotifyTrackChangedEventArgs(SpotifyTrackChangedEventArgs e)

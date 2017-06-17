@@ -722,6 +722,7 @@ namespace Toastify.UI
             if (e.NewSong == null || !e.NewSong.IsValid())
                 return;
 
+            this.paused = !e.Playing;
             this.UpdateCurrentSong(e.NewSong);
         }
 

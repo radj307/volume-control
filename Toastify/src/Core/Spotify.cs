@@ -295,7 +295,7 @@ namespace Toastify.Core
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong));
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong, this.localAPI.GetStatus().Playing));
         }
 
         private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
