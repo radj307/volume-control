@@ -14,21 +14,24 @@ namespace Toastify
     [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
     internal class Win32API
     {
+        private static readonly IntPtr desktopHandle = GetDesktopWindow();
+        private static readonly IntPtr shellHandle = GetShellWindow();
+
         internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         #region DLL imports
+
+        [DllImport("user32.dll")]
+        internal static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
-        internal static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
         internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
@@ -36,17 +39,29 @@ namespace Toastify
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         internal static extern int GetWindowTextLength(IntPtr hWnd);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
+        private static extern Int32 IntSetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
+        private static extern IntPtr IntSetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
         [DllImport("user32.dll")]
-        internal static extern IntPtr SetFocus(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        internal static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDesktopWindow();
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetShellWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowRect(IntPtr hwnd, out Rect rc);
 
         [DllImport("user32.dll")]
         internal static extern bool GetWindowPlacement(IntPtr hWnd, ref WindowPlacement lpwndpl);
@@ -55,13 +70,13 @@ namespace Toastify
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosFlags uFlags);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+        internal static extern IntPtr SetFocus(IntPtr hWnd);
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
-        private static extern IntPtr IntSetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
-        private static extern Int32 IntSetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
         public static extern void SetLastError(int dwErrorCode);
@@ -70,6 +85,33 @@ namespace Toastify
         public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 
         #endregion DLL imports
+
+        private static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        {
+            int error;
+            IntPtr result;
+            // Win32API SetWindowLong doesn't clear error on success
+            SetLastError(0);
+
+            if (IntPtr.Size == 4)
+            {
+                // use SetWindowLong
+                Int32 tempResult = IntSetWindowLong(hWnd, nIndex, IntPtrToInt32(dwNewLong));
+                error = Marshal.GetLastWin32Error();
+                result = new IntPtr(tempResult);
+            }
+            else
+            {
+                // use SetWindowLongPtr
+                result = IntSetWindowLongPtr(hWnd, nIndex, dwNewLong);
+                error = Marshal.GetLastWin32Error();
+            }
+
+            if (result == IntPtr.Zero && error != 0)
+                throw new System.ComponentModel.Win32Exception(error);
+
+            return result;
+        }
 
         public static void KillProc(string name)
         {
@@ -114,33 +156,6 @@ namespace Toastify
             }
         }
 
-        private static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
-        {
-            int error;
-            IntPtr result;
-            // Win32API SetWindowLong doesn't clear error on success
-            SetLastError(0);
-
-            if (IntPtr.Size == 4)
-            {
-                // use SetWindowLong
-                Int32 tempResult = IntSetWindowLong(hWnd, nIndex, IntPtrToInt32(dwNewLong));
-                error = Marshal.GetLastWin32Error();
-                result = new IntPtr(tempResult);
-            }
-            else
-            {
-                // use SetWindowLongPtr
-                result = IntSetWindowLongPtr(hWnd, nIndex, dwNewLong);
-                error = Marshal.GetLastWin32Error();
-            }
-
-            if (result == IntPtr.Zero && error != 0)
-                throw new System.ComponentModel.Win32Exception(error);
-
-            return result;
-        }
-
         private static int IntPtrToInt32(IntPtr intPtr)
         {
             return unchecked((int)intPtr.ToInt64());
@@ -152,6 +167,26 @@ namespace Toastify
             int exStyle = (int)GetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle);
             exStyle |= (int)ExtendedWindowStyles.WsExToolwindow;
             SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle, (IntPtr)exStyle);
+        }
+
+        public static bool IsAnyAppRunningInFullscreen()
+        {
+            // Get the dimensions of the active window.
+            IntPtr hWnd = GetForegroundWindow();
+            if (!hWnd.Equals(IntPtr.Zero))
+            {
+                // Check we haven't picked up the desktop or the shell.
+                if (!hWnd.Equals(desktopHandle) && !hWnd.Equals(shellHandle))
+                {
+                    GetWindowRect(hWnd, out Rect appBounds);
+
+                    // Determine if window is fullscreen.
+                    Rectangle screenBounds = Screen.FromHandle(hWnd).Bounds;
+                    if (appBounds.bottom - appBounds.top == screenBounds.Height && appBounds.right - appBounds.left == screenBounds.Width)
+                        return true;
+                }
+            }
+            return false;
         }
 
         public static void SendPasteKey()
@@ -310,6 +345,15 @@ namespace Toastify
 
             internal const int WM_CLOSE = 0x10;
             internal const int WM_QUIT = 0x12;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Rect
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
         }
 
         #endregion Internal classes and structs

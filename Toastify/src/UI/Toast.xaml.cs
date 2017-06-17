@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -394,6 +395,10 @@ namespace Toastify.UI
 
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
+            // If a full screen application is running (e.g. a videogame), do not fade in.
+            if (Win32API.IsAnyAppRunningInFullscreen())
+                return;
+
             this.minimizeTimer?.Stop();
 
             if (this.dragging)
@@ -458,17 +463,21 @@ namespace Toastify.UI
                 this.minimizeTimer = new Timer { AutoReset = false };
                 this.minimizeTimer.Elapsed += (s, e) =>
                 {
-                    this.Dispatcher.Invoke(() =>
+                    try
                     {
-                        DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-                        anim.Completed += (ss, ee) =>
+                        this.Dispatcher.Invoke(() =>
                         {
-                            this.visible = false;
-                            this.WindowState = WindowState.Minimized;
-                            Debug.WriteLine("Minimized");
-                        };
-                        this.BeginAnimation(OpacityProperty, anim);
-                    });
+                            DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
+                            anim.Completed += (ss, ee) =>
+                            {
+                                this.visible = false;
+                                this.WindowState = WindowState.Minimized;
+                                Debug.WriteLine("Minimized");
+                            };
+                            this.BeginAnimation(OpacityProperty, anim);
+                        });
+                    }
+                    catch (TaskCanceledException) { }
                 };
             }
 
@@ -729,7 +738,7 @@ namespace Toastify.UI
         private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
         {
             // Only fade-in if the play state change was triggered by a hotkey.
-            bool fadeIn = _lastHotkey.Action == SpotifyAction.PlayPause;
+            bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
             this.paused = !e.Playing;
             this.UpdateToastText(this.currentSong, null, fadeIn);
         }

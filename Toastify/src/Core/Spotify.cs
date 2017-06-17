@@ -1,11 +1,9 @@
 using AutoHotkey.Interop;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using SpotifyAPI.Local;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Threading;
 using Toastify.Events;
 using Toastify.Helpers;
