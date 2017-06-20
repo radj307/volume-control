@@ -6,7 +6,7 @@ namespace Toastify.Core
 {
     public class Song
     {
-        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size640, AlbumArtSize.Size320 };
+        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
 
         public string Artist { get; }
         public string Track { get; set; }
