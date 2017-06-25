@@ -298,7 +298,7 @@ namespace Toastify.Core
 
         private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing));
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing, this.localAPI.GetStatus().Track));
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)

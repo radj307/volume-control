@@ -737,10 +737,17 @@ namespace Toastify.UI
 
         private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
         {
-            // Only fade-in if the play state change was triggered by a hotkey.
-            bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
             this.paused = !e.Playing;
-            this.UpdateToastText(this.currentSong, null, fadeIn);
+
+            // If toast's and Spotify's current songs do not match, then fix toast's current song.
+            if (!Song.Equal(this.currentSong, e.CurrentSong))
+                this.UpdateCurrentSong(e.CurrentSong);
+            else
+            {
+                // Only fade-in if the play state change was triggered by a hotkey.
+                bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
+                this.UpdateToastText(this.currentSong, null, fadeIn);
+            }
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)

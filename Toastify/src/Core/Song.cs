@@ -82,5 +82,16 @@ namespace Toastify.Core
 
             return new Song(artist, title, album) { CoverArtUrl = coverArtUrl };
         }
+
+        public static bool Equal(Song s1, Song s2)
+        {
+            if (ReferenceEquals(s1, s2))
+                return true;
+
+            if (s1 == null || s2 == null)
+                return false;
+
+            return s1.Equals(s2);
+        }
     }
 }
