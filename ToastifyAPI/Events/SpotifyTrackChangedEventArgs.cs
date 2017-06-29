@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Toastify.Plugin
+namespace ToastifyAPI.Events
 {
     public class SpotifyTrackChangedEventArgs : EventArgs
     {

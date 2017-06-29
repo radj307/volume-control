@@ -1,23 +1,18 @@
-!include "DotNET.nsh"
-!include LogicLib.nsh
 !define DOTNET_VERSION "4.5.2"
-!include "MUI.nsh"
+!include DotNET.nsh
+!include LogicLib.nsh
+!include MUI.nsh
 !include x64.nsh
+!include WinVer.nsh
 
-; The name of the installer
 Name "Toastify Installer"
-
-; The file to write
 OutFile "ToastifyInstaller.exe"
-
-; The default installation directory
 InstallDir $PROGRAMFILES64\Toastify
-
-; Request application privileges for Windows Vista
 RequestExecutionLevel admin
+ManifestSupportedOS "{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"  # Windows 7
+ManifestSupportedOS "{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"  # Windows 10
 
 ;--------------------------------
-
 ; Pages
 
 Page components
@@ -58,10 +53,15 @@ Section "Toastify (required)"
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   
-  ; Put file there
+  ; Bundle the files
+  ${If} ${IsWin10}
+    File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
+  ${Else}
+    File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
+  ${EndIf}
+  
   File "Toastify.exe"	
   File "Toastify.exe.config"	
-  File "ToastifyApi.dll"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
   File "AutoHotkey.Interop.dll"
@@ -87,9 +87,7 @@ Section "Desktop icon"
 SectionEnd
 
 Section "Start Menu icon"
-  # Start Menu
   CreateShortCut "$SMPROGRAMS\Toastify.lnk" "$INSTDIR\Toastify.exe" "" "$INSTDIR\Toastify.exe" 0
-  
 SectionEnd
 
 Section "Autostart"
@@ -97,7 +95,6 @@ Section "Autostart"
 SectionEnd
 
 ;--------------------------------
-
 ; Uninstaller
 
 Section "Uninstall"
@@ -112,7 +109,7 @@ Section "Uninstall"
   ; Remove files and uninstaller
   Delete "$INSTDIR\Toastify.exe"
   Delete "$INSTDIR\Toastify.config"
-  Delete "$INSTDIR\ToastifyApi.dll"
+  Delete "$INSTDIR\ToastifyAPI.dll"
   Delete "$INSTDIR\ManagedWinapi.dll"
   Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
   Delete "$INSTDIR\AutoHotkey.Interop.dll"

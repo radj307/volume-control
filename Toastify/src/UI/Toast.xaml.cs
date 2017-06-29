@@ -19,8 +19,8 @@ using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
-using Toastify.Plugin;
 using Toastify.Services;
+using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using Color = System.Windows.Media.Color;
@@ -726,7 +726,7 @@ namespace Toastify.UI
             this.UpdateCurrentSong(e.CurrentSong);
         }
 
-        private void Spotify_SongChanged(object sender, Core.SpotifyTrackChangedEventArgs e)
+        private void Spotify_SongChanged(object sender, SpotifyTrackChangedEventArgs e)
         {
             if (e.NewSong == null || !e.NewSong.IsValid())
                 return;

@@ -1,12 +1,15 @@
 @ECHO OFF
 
+SetLocal EnableExtensions EnableDelayedExpansion
+
 SET ConfigurationName=%~1
 SET DevEnvDir=%~2
 SET SolutionDir=%~3
 SET TargetDir=%~4
 SET TargetFileName=%~5
 
-IF "%ConfigurationName:~0,7%"=="Windows" (
+IF "%ConfigurationName:~0,7%"=="Windows" IF NOT "x%ConfigurationName:Release=%"=="x%ConfigurationName%" (
+    :: It's a Windows Release configuration
     ECHO - CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
     CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
@@ -18,3 +21,5 @@ IF "%ConfigurationName:~0,7%"=="Windows" (
     COPY /Y "%SolutionDir%InstallationScript\Install.nsi" "%TargetDir%Install.nsi"
     COPY /Y "%SolutionDir%InstallationScript\DotNET.nsh" "%TargetDir%DotNET.nsh"
 )
+
+EndLocal

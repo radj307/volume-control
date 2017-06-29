@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Resources\spotify.ico</ApplicationIcon>
     <StartupObject>Toastify.EntryPoint</StartupObject>
     <FileUpgradeFlags>
@@ -74,7 +75,6 @@
     <OutputPath>bin\Release\Windows\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -87,33 +87,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <Choose>
-    <When Condition="'$(Configuration)' == 'Windows %28Release%29' OR '$(Configuration)' == 'Windows %28Debug%29'">
-      <PropertyGroup>
-        <!--
-        <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-        <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
-        -->
-      </PropertyGroup>
-      <ItemGroup>
-        <Reference Include="Windows">
-          <HintPath>..\packages\Windows\10.0.14393\Windows.winmd</HintPath>
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-      <ItemGroup>
-        <PublishFile Include="Windows">
-          <Visible>False</Visible>
-          <PublishState>Exclude</PublishState>
-          <IncludeHash>True</IncludeHash>
-          <FileType>Assembly</FileType>
-        </PublishFile>
-      </ItemGroup>
-    </When>
-  </Choose>
   <ItemGroup>
     <Reference Include="Garlic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Garlic.2.1.0.0\lib\net35\Garlic.dll</HintPath>
@@ -235,9 +208,9 @@
       <Project>{2869dbfe-7762-4930-95ea-2b0c111cf353}</Project>
       <Name>AutoHotkey.Interop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PluginBase\PluginBase.csproj">
-      <Project>{4F92BE1F-A5CC-4604-9185-1F09DDAFC7B8}</Project>
-      <Name>PluginBase</Name>
+    <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj">
+      <Project>{5d68931f-528f-4d95-89be-3eb26832af8c}</Project>
+      <Name>ToastifyAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -274,19 +247,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="Windows">
-      <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'"
+          SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll;
+                       $(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll"
+          DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll;
+                            $(TargetDir)ToastifyAPI_UWP.dll" />
+  </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)post-build.cmd" "$(ConfigurationName)" "$(DevEnvDir)" "$(SolutionDir)" "$(TargetDir)" "$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>

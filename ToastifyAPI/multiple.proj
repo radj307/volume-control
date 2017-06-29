@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This project file, imported by "ToastifyAPI.csproj", allows to build both the "Windows" and "Windows (UWP)" configurations at once. -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Windows %28Debug%29'">
+      <ItemGroup>
+        <ProjectToBuild Include="$(MSBuildProjectName).csproj">
+          <Properties>Configuration=Windows (UWP) (Debug)</Properties>
+        </ProjectToBuild>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Windows %28Release%29'">
+      <ItemGroup>
+        <ProjectToBuild Include="$(MSBuildProjectName).csproj">
+          <Properties>Configuration=Windows (UWP) (Release)</Properties>
+        </ProjectToBuild>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Target Name="AfterBuild">
+    <MSBuild Projects="@(ProjectToBuild)" />
+  </Target>
+</Project>

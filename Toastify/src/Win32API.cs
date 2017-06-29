@@ -2,14 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Interop;
-using Windows.ApplicationModel;
-using Windows.Management.Deployment;
 
 namespace Toastify
 {
@@ -360,15 +357,5 @@ namespace Toastify
         }
 
         #endregion Internal classes and structs
-
-        internal static class UWP
-        {
-            public static Package FindPackage(string name)
-            {
-                PackageManager packageManager = new PackageManager();
-                var packages = packageManager.FindPackages();
-                return packages.FirstOrDefault(package => package.Id.Name == name);
-            }
-        }
     }
 }

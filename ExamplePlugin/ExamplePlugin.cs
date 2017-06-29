@@ -1,5 +1,7 @@
 ﻿using System;
-using Toastify.Plugin;
+using ToastifyAPI;
+using ToastifyAPI.Events;
+using ToastifyAPI.Plugins;
 
 namespace ExamplePlugin
 {

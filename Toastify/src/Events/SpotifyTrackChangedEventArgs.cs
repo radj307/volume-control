@@ -15,9 +15,9 @@ namespace Toastify.Core
             this.Playing = playing;
         }
 
-        public static implicit operator Plugin.SpotifyTrackChangedEventArgs(SpotifyTrackChangedEventArgs e)
+        public static implicit operator ToastifyAPI.Events.SpotifyTrackChangedEventArgs(SpotifyTrackChangedEventArgs e)
         {
-            return new Plugin.SpotifyTrackChangedEventArgs(e.NewSong.Artist, e.NewSong.Album, e.NewSong.Track);
+            return new ToastifyAPI.Events.SpotifyTrackChangedEventArgs(e.NewSong.Artist, e.NewSong.Album, e.NewSong.Track);
         }
     }
 }

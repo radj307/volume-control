@@ -1,15 +1,12 @@
 using AutoHotkey.Interop;
-using Microsoft.Win32;
 using SpotifyAPI.Local;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using System.Windows;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
-using Windows.ApplicationModel;
 
 namespace Toastify.Core
 {
@@ -272,36 +269,16 @@ namespace Toastify.Core
 
         private string GetSpotifyPath()
         {
-            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
-
-            // Try in the secondary location.
-            if (string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
-
-            // If it's still null, then search for the UWP app (Windows 10 only).
-            if (string.IsNullOrEmpty(spotifyPath) &&
-                Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 10)
+            string spotifyPath = null;
+            try
             {
-                Package spotifyPackage = null;
-                try
-                {
-                    spotifyPackage = Win32API.UWP.FindPackage("SpotifyAB.SpotifyMusic");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("This program must be run as administrator.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Environment.Exit(69);
-                }
-
-                if (spotifyPackage != null)
-                    spotifyPath = $@"shell:AppsFolder\{spotifyPackage.Id.FamilyName}!Spotify";
+                spotifyPath = ToastifyAPI.Spotify.GetSpotifyPath();
             }
-            else if (!string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Path.Combine(spotifyPath, "Spotify.exe");
-
-            if (string.IsNullOrEmpty(spotifyPath))
-                throw new ArgumentException("Could not find spotify path.");
-
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("This program must be run as administrator.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(69);
+            }
             return spotifyPath;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
+using ToastifyAPI.Events;
 
-namespace Toastify.Plugin
+namespace ToastifyAPI.Plugins
 {
     public interface IPluginBase : IDisposable
     {
