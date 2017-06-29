@@ -194,3 +194,6 @@ InstallationScript/SpotifyAPI.xml
 InstallationScript/Toastify.vshost.application
 InstallationScript/Toastify.application
 InstallationScript/LICENSE
+
+# Exclude a few packages
+!**/packages/Windows/*

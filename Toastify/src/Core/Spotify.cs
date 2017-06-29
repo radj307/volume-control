@@ -5,9 +5,11 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Windows;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
+using Windows.ApplicationModel;
 
 namespace Toastify.Core
 {
@@ -106,8 +108,7 @@ namespace Toastify.Core
             }
 
             // Launch Spotify.
-            var spotifyFilePath = Path.Combine(this.spotifyPath, "spotify.exe");
-            this.spotifyProcess = Process.Start(spotifyFilePath);
+            this.spotifyProcess = Process.Start(this.spotifyPath);
 
             if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
                 this.Minimize();
@@ -277,8 +278,29 @@ namespace Toastify.Core
             if (string.IsNullOrEmpty(spotifyPath))
                 spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
 
+            // If it's still null, then search for the UWP app (Windows 10 only).
+            if (string.IsNullOrEmpty(spotifyPath) &&
+                Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 10)
+            {
+                Package spotifyPackage = null;
+                try
+                {
+                    spotifyPackage = Win32API.UWP.FindPackage("SpotifyAB.SpotifyMusic");
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("This program must be run as administrator.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Environment.Exit(69);
+                }
+
+                if (spotifyPackage != null)
+                    spotifyPath = $@"shell:AppsFolder\{spotifyPackage.Id.FamilyName}!Spotify";
+            }
+            else if (!string.IsNullOrEmpty(spotifyPath))
+                spotifyPath = Path.Combine(spotifyPath, "Spotify.exe");
+
             if (string.IsNullOrEmpty(spotifyPath))
-                throw new ArgumentException("Could not find spotify path in registry");
+                throw new ArgumentException("Could not find spotify path.");
 
             return spotifyPath;
         }
