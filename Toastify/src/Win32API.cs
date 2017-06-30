@@ -152,8 +152,15 @@ namespace Toastify
                     GetWindowRect(hWnd, out Rect appBounds);
 
                     // Determine if window is fullscreen.
+                    WindowStyles windowStyles = (WindowStyles)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
                     Rectangle screenBounds = Screen.FromHandle(hWnd).Bounds;
-                    if (appBounds.bottom - appBounds.top == screenBounds.Height && appBounds.right - appBounds.left == screenBounds.Width)
+
+                    // - 'fullscreen' applications have WS_MAXIMIZE style;
+                    // - 'windowed borderless' applications (e.g. videogames) don't (they have WS_POPUP, though).
+                    bool isMaximized = (windowStyles & WindowStyles.WS_MAXIMIZE) > 0L;
+                    bool windowFillsWholeScreen = appBounds.bottom - appBounds.top == screenBounds.Height &&
+                                                  appBounds.right - appBounds.left == screenBounds.Width;
+                    if (windowFillsWholeScreen && isMaximized)
                         return true;
                 }
             }
