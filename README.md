@@ -18,3 +18,9 @@ This application uses [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI
 
 ## Notice
 Toastify is **not** a Spotify **replacement**. You need both running at the same time.
+
+## License
+This software is licensed under the GNU GPL-2.0; the complete license text can be found [here](/LICENSE).  
+See also the [original project](https://github.com/nachmore/toastify) this repository is a fork of, and its old [codeplex page](http://toastify.codeplex.com/).
+
+This project uses third-party libraries; their verbatim licenses can be found [here](/LICENSE-3RD-PARTY).
