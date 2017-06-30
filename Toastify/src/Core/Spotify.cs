@@ -2,6 +2,7 @@ using AutoHotkey.Interop;
 using SpotifyAPI.Local;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using Toastify.Events;
@@ -27,7 +28,7 @@ namespace Toastify.Core
 
         private AutoHotkeyEngine ahk;
 
-        private SpotifyLocalAPI localAPI;
+        private readonly SpotifyLocalAPI localAPI;
 
         private readonly string spotifyPath;
 
@@ -68,6 +69,8 @@ namespace Toastify.Core
 
         #region Events
 
+        public event EventHandler Exited;
+
         public event EventHandler<SpotifyStateEventArgs> Connected;
 
         public event EventHandler<SpotifyTrackChangedEventArgs> SongChanged;
@@ -97,22 +100,29 @@ namespace Toastify.Core
 
         public void StartSpotify()
         {
-            if (this.IsRunning)
+            if (!this.IsRunning)
             {
-                this.localAPI.Connect();
-                this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
-                return;
+                // Launch Spotify.
+                this.spotifyProcess = Process.Start(this.spotifyPath);
+
+                if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
+                    this.Minimize();
+                else
+                {
+                    // We need to let Spotify start up before interacting with it fully.
+                    Thread.Sleep(3000);
+                }
             }
-
-            // Launch Spotify.
-            this.spotifyProcess = Process.Start(this.spotifyPath);
-
-            if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
-                this.Minimize();
             else
             {
-                // We need to let Spotify start up before interacting with it fully.
-                Thread.Sleep(3000);
+                var processes = Process.GetProcessesByName("spotify");
+                this.spotifyProcess = processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
+            }
+
+            if (this.spotifyProcess != null)
+            {
+                this.spotifyProcess.EnableRaisingEvents = true;
+                this.spotifyProcess.Exited += this.Spotify_Exited;
             }
 
             this.localAPI.Connect();
@@ -288,6 +298,11 @@ namespace Toastify.Core
         }
 
         #region Event handlers
+
+        private void Spotify_Exited(object sender, EventArgs e)
+        {
+            this.Exited?.Invoke(sender, e);
+        }
 
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {

@@ -88,6 +88,7 @@ namespace Toastify.UI
             this.StartSpotifyOrAskUser();
 
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
+            Spotify.Instance.Exited += this.Application_Shutdown;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
             Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
             Spotify.Instance.TrackTimeChanged += this.Spotify_TrackTimeChanged;
@@ -188,7 +189,7 @@ namespace Toastify.UI
             menuAbout.Click += (s, ev) => { new About().ShowDialog(); };
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
-            menuExit.Click += (s, ev) => { Application.Current.Shutdown(); }; //this.Close(); };
+            menuExit.Click += this.Application_Shutdown;
 
             this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
@@ -758,6 +759,14 @@ namespace Toastify.UI
         #endregion Event handlers [Spotify]
 
         #region Event handlers
+
+        private void Application_Shutdown(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => Application.Current.Shutdown()));
+            // this.Close();
+        }
 
         private void Toast_Deactivated(object sender, EventArgs e)
         {
