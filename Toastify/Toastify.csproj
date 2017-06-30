@@ -128,6 +128,7 @@
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
     <Compile Include="src\Core\SpotifyAction.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
+    <Compile Include="src\Helpers\WindowExtensions.cs" />
     <Compile Include="src\Services\TelemetryCategory.cs" />
     <Compile Include="src\Win32API.cs" />
     <Page Include="src\UI\About.xaml">
@@ -249,11 +250,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
-    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'"
-          SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll;
-                       $(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll"
-          DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll;
-                            $(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)post-build.cmd" "$(ConfigurationName)" "$(DevEnvDir)" "$(SolutionDir)" "$(TargetDir)" "$(TargetFileName)"</PostBuildEvent>

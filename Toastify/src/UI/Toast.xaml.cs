@@ -397,7 +397,7 @@ namespace Toastify.UI
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
             // If a full screen application is running (e.g. a videogame), do not fade in.
-            if (Win32API.IsAnyAppRunningInFullscreen())
+            if (Win32API.IsForegroundAppRunningInFullscreen())
                 return;
 
             this.minimizeTimer?.Stop();
@@ -416,7 +416,7 @@ namespace Toastify.UI
 #if DEBUG
                 var rv =
 #endif
-                Win32API.SetThreadExecutionState(Win32API.ExecutionState.EsSystemRequired);
+                Win32API.SetThreadExecutionState(Win32API.ExecutionState.ES_SYSTEM_REQUIRED);
 #if DEBUG
                 Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
 #endif

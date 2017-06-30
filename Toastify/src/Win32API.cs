@@ -6,8 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Interop;
+using Toastify.Helpers;
 
+// ReSharper disable InconsistentNaming
 namespace Toastify
 {
     [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Local")]
@@ -40,13 +41,10 @@ namespace Toastify
         internal static extern int GetWindowTextLength(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+        private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex);
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
-        private static extern Int32 IntSetWindowLong(IntPtr hWnd, int nIndex, Int32 dwNewLong);
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
-        private static extern IntPtr IntSetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetForegroundWindow();
@@ -85,33 +83,6 @@ namespace Toastify
         public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 
         #endregion DLL imports
-
-        private static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
-        {
-            int error;
-            IntPtr result;
-            // Win32API SetWindowLong doesn't clear error on success
-            SetLastError(0);
-
-            if (IntPtr.Size == 4)
-            {
-                // use SetWindowLong
-                Int32 tempResult = IntSetWindowLong(hWnd, nIndex, IntPtrToInt32(dwNewLong));
-                error = Marshal.GetLastWin32Error();
-                result = new IntPtr(tempResult);
-            }
-            else
-            {
-                // use SetWindowLongPtr
-                result = IntSetWindowLongPtr(hWnd, nIndex, dwNewLong);
-                error = Marshal.GetLastWin32Error();
-            }
-
-            if (result == IntPtr.Zero && error != 0)
-                throw new System.ComponentModel.Win32Exception(error);
-
-            return result;
-        }
 
         public static void KillProc(string name)
         {
@@ -156,23 +127,23 @@ namespace Toastify
             }
         }
 
-        private static int IntPtrToInt32(IntPtr intPtr)
+        public static void AddWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwLong)
         {
-            return unchecked((int)intPtr.ToInt64());
+            long longPtr = (long)GetWindowLongPtr(hWnd, nIndex);
+            longPtr |= (long)dwLong;
+            SetWindowLongPtr(hWnd, nIndex, (IntPtr)longPtr);
         }
 
         public static void AddToolWindowStyle(System.Windows.Window window)
         {
-            WindowInteropHelper wndHelper = new WindowInteropHelper(window);
-            int exStyle = (int)GetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle);
-            exStyle |= (int)ExtendedWindowStyles.WsExToolwindow;
-            SetWindowLong(wndHelper.Handle, (int)GetWindowLongFields.GwlExstyle, (IntPtr)exStyle);
+            AddWindowLongPtr(window.GetHandle(), GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStyles.WS_EX_TOOLWINDOW);
         }
 
-        public static bool IsAnyAppRunningInFullscreen()
+        public static bool IsForegroundAppRunningInFullscreen()
         {
             // Get the dimensions of the active window.
             IntPtr hWnd = GetForegroundWindow();
+
             if (!hWnd.Equals(IntPtr.Zero))
             {
                 // Check we haven't picked up the desktop or the shell.
@@ -297,26 +268,99 @@ namespace Toastify
             ShowWindow = 0x0040,
         }
 
-        [Flags]
-        public enum ExtendedWindowStyles
+        /// <summary>
+        /// Values to use with <see cref="Win32API.GetWindowLongPtr"/>.
+        /// </summary>
+        internal enum GWL
         {
-            WsExToolwindow = 0x00000080,
+            GWL_EXSTYLE    = -20,
+            GWL_HINSTANCE  = -6,
+            GWL_HWNDPARENT = -8,
+            GWL_ID         = -12,
+            GWL_STYLE      = -16,
+            GWL_USERDATA   = -21,
+            GWL_WNDPROC    = -4
         }
 
-        public enum GetWindowLongFields
+
+        /// <summary>
+        /// Window styles (<see cref="GWL.GWL_STYLE"/>).
+        /// </summary>
+        [Flags]
+        internal enum WindowStyles : long
         {
-            GwlExstyle = -20,
+            WS_BORDER           = 0x00800000L,
+            WS_CAPTION          = 0x00C00000L,
+            WS_CHILD            = 0x40000000L,
+            WS_CHILDWINDOW      = 0x40000000L,
+            WS_CLIPCHILDREN     = 0x02000000L,
+            WS_CLIPSIBLINGS     = 0x04000000L,
+            WS_DISABLED         = 0x08000000L,
+            WS_DLGFRAME         = 0x00400000L,
+            WS_GROUP            = 0x00020000L,
+            WS_HSCROLL          = 0x00100000L,
+            WS_ICONIC           = 0x20000000L,
+            WS_MAXIMIZE         = 0x01000000L,
+            WS_MAXIMIZEBOX      = 0x00010000L,
+            WS_MINIMIZE         = 0x20000000L,
+            WS_MINIMIZEBOX      = 0x00020000L,
+            WS_OVERLAPPED       = 0x00000000L,
+            WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
+            WS_POPUP            = 0x80000000L,
+            WS_POPUPWINDOW      = WS_POPUP | WS_BORDER | WS_SYSMENU,
+            WS_SIZEBOX          = 0x00040000L,
+            WS_SYSMENU          = 0x00080000L,
+            WS_TABSTOP          = 0x00010000L,
+            WS_THICKFRAME       = 0x00040000L,
+            WS_TILED            = 0x00000000L,
+            WS_TILEDWINDOW      = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
+            WS_VISIBLE          = 0x10000000L,
+            WS_VSCROLL          = 0x00200000L
+        }
+
+        /// <summary>
+        /// Extended window styles (<see cref="GWL.GWL_EXSTYLE"/>).
+        /// </summary>
+        [Flags]
+        internal enum ExtendedWindowStyles : long
+        {
+            WS_EX_ACCEPTFILES         = 0x00000010L,
+            WS_EX_APPWINDOW           = 0x00040000L,
+            WS_EX_CLIENTEDGE          = 0x00000200L,
+            WS_EX_COMPOSITED          = 0x02000000L,
+            WS_EX_CONTEXTHELP         = 0x00000400L,
+            WS_EX_CONTROLPARENT       = 0x00010000L,
+            WS_EX_DLGMODALFRAME       = 0x00000001L,
+            WS_EX_LAYERED             = 0x00080000L,
+            WS_EX_LAYOUTRTL           = 0x00400000L,
+            WS_EX_LEFT                = 0x00000000L,
+            WS_EX_LEFTSCROLLBAR       = 0x00004000L,
+            WS_EX_LTRREADING          = 0x00000000L,
+            WS_EX_MDICHILD            = 0x00000040L,
+            WS_EX_NOACTIVATE          = 0x08000000L,
+            WS_EX_NOINHERITLAYOUT     = 0x00100000L,
+            WS_EX_NOPARENTNOTIFY      = 0x00000004L,
+            WS_EX_NOREDIRECTIONBITMAP = 0x00200000L,
+            WS_EX_OVERLAPPEDWINDOW    = WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE,
+            WS_EX_PALETTEWINDOW       = WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW | WS_EX_TOPMOST,
+            WS_EX_RIGHT               = 0x00001000L,
+            WS_EX_RIGHTSCROLLBAR      = 0x00000000L,
+            WS_EX_RTLREADING          = 0x00002000L,
+            WS_EX_STATICEDGE          = 0x00020000L,
+            WS_EX_TOOLWINDOW          = 0x00000080L,
+            WS_EX_TOPMOST             = 0x00000008L,
+            WS_EX_TRANSPARENT         = 0x00000020L,
+            WS_EX_WINDOWEDGE          = 0x00000100L
         }
 
         [Flags]
         public enum ExecutionState : uint
         {
-            EsAwaymodeRequired = 0x00000040,
-            EsContinuous = 0x80000000,
-            EsDisplayRequired = 0x00000002,
-            EsSystemRequired = 0x00000001
-            // Legacy flag, should not be used.
-            // ES_USER_PRESENT = 0x00000004
+            ES_AWAYMODE_REQUIRED = 0x00000040,
+            ES_CONTINUOUS        = 0x80000000,
+            ES_DISPLAY_REQUIRED  = 0x00000002,
+            ES_SYSTEM_REQUIRED   = 0x00000001,
+            ES_USER_PRESENT      = 0x00000004 // Legacy flag, should not be used.
         }
 
         #endregion Enums
