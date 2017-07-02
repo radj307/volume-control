@@ -113,11 +113,8 @@ namespace Toastify.UI
             {
                 Debug.WriteLine("Exception loading settings:\n" + ex);
 
-                MessageBox.Show(
-                    $@"Toastify was unable to load the settings file.{Environment.NewLine
-                        }Delete the Toastify.xml file and restart the application to recreate the settings file.{Environment.NewLine
-                        }{Environment.NewLine
-                        }The application will now be started with default settings.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, SettingsXml.Instance.SettingsFile);
+                MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 SettingsXml.Instance.Default(true);
             }

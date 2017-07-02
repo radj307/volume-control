@@ -61,6 +61,18 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toastify was unable to load the settings file.
+        ///Delete the &quot;{0}&quot; file and restart the application to recreate the settings file.
+        ///
+        ///The application will be started with default settings..
+        /// </summary>
+        internal static string ERROR_SETTINGS_UNABLE_TO_LOAD {
+            get {
+                return ResourceManager.GetString("ERROR_SETTINGS_UNABLE_TO_LOAD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred when trying to start Spotify..
         /// </summary>
         internal static string ERROR_STARTUP {
@@ -95,6 +107,16 @@ namespace Toastify.Properties {
         internal static string ERROR_UNKNOWN {
             get {
                 return ResourceManager.GetString("ERROR_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toastify is already running!
+        ///Look for the blue icon in your system tray..
+        /// </summary>
+        internal static string INFO_TOASTIFY_ALREADY_RUNNING {
+            get {
+                return ResourceManager.GetString("INFO_TOASTIFY_ALREADY_RUNNING", resourceCulture);
             }
         }
         
