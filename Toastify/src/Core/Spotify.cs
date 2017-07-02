@@ -1,13 +1,14 @@
 using AutoHotkey.Interop;
 using SpotifyAPI.Local;
+using SpotifyAPI.Local.Models;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
+using Toastify.src.Core;
 
 namespace Toastify.Core
 {
@@ -65,6 +66,8 @@ namespace Toastify.Core
             private set { this._currentSong = value; }
         }
 
+        public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
+
         #endregion Public properties
 
         #region Events
@@ -100,56 +103,73 @@ namespace Toastify.Core
 
         public void StartSpotify()
         {
-            if (!this.IsRunning)
-            {
-                // Launch Spotify.
-                this.spotifyProcess = Process.Start(this.spotifyPath);
+            int timeout = SettingsXml.Instance.StartupWaitTimeout;
+            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(timeout) : this.FindSpotifyProcess();
 
-                if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
-                    this.Minimize();
-                else
-                {
-                    // We need to let Spotify start up before interacting with it fully.
-                    Thread.Sleep(3000);
-                }
-            }
-            else
-            {
-                var processes = Process.GetProcessesByName("spotify");
-                this.spotifyProcess = processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
-            }
+            if (this.spotifyProcess == null)
+                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_PROCESS);
 
-            if (this.spotifyProcess != null)
-            {
-                this.spotifyProcess.EnableRaisingEvents = true;
-                this.spotifyProcess.Exited += this.Spotify_Exited;
-            }
+            this.spotifyProcess.EnableRaisingEvents = true;
+            this.spotifyProcess.Exited += this.Spotify_Exited;
 
             this.localAPI.Connect();
             this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
         }
 
-        private void Minimize()
+        /// <summary>
+        /// Starts the Spotify process and waits for it to enter an idle state.
+        /// </summary>
+        /// <param name="timeoutMilliseconds"> Specifies the maximum amount of time to wait for the process to enter an idle state. </param>
+        /// <returns> The started process. </returns>
+        private Process LaunchSpotifyAndWaitForInputIdle(int timeoutMilliseconds = 10000)
+        {
+            int maxWait = timeoutMilliseconds;
+
+            // Launch Spotify.
+            Process spotifyProcess = Process.Start(this.spotifyPath);
+
+            // If it is an UWP app, then Process.Start should return null: we need to look for the process.
+            while (spotifyProcess == null && timeoutMilliseconds > 0)
+            {
+                spotifyProcess = this.FindSpotifyProcess();
+                timeoutMilliseconds -= 250;
+                Thread.Sleep(250);
+            }
+
+            // We need to let Spotify start-up before interacting with it.
+            spotifyProcess?.WaitForInputIdle(maxWait);
+
+            if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
+                this.Minimize(1000);
+
+            return spotifyProcess;
+        }
+
+        private Process FindSpotifyProcess()
+        {
+            var processes = Process.GetProcessesByName("spotify");
+            return processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
+        }
+
+        private void Minimize(int delay = 0)
         {
             int remainingSleep = 2000;
 
             IntPtr hWnd;
 
-            // Since Minimize is often called during startup, the hWnd is often not created yet
-            // wait a maximum of remainingSleep for it to appear and then minimize it if it did.
-            while ((hWnd = this.GetMainWindowHandle()) == IntPtr.Zero && remainingSleep > 0)
+            // The window handle should have already been created, but just in case it has not, we wait for it to show up.
+            do
             {
-                Thread.Sleep(100);
                 remainingSleep -= 100;
-            }
+                Thread.Sleep(100);
+                hWnd = this.GetMainWindowHandle();
+            } while (hWnd == IntPtr.Zero && remainingSleep > 0);
 
             if (hWnd != IntPtr.Zero)
             {
-                // disgusting but sadly neccessary. Let Spotify initialize a bit before minimizing it
-                // otherwise the window hides itself and doesn't respond to taskbar clicks.
-                // I tried to work around this by waiting for the window size to initialize (via GetWindowRect)
-                // but that didn't work, there is some internal initialization that needs to occur.
-                Thread.Sleep(500);
+                // We also need to wait a little more before minimizing the window;
+                // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
+                Thread.Sleep(delay);
                 Win32API.ShowWindow(hWnd, Win32API.Constants.SW_SHOWMINIMIZED);
             }
         }

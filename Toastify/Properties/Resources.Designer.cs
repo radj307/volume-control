@@ -61,6 +61,44 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to start Spotify..
+        /// </summary>
+        internal static string ERROR_STARTUP {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find Spotify process!
+        ///If Spotify is running, please open an issue at github.com/aleab/toastify..
+        /// </summary>
+        internal static string ERROR_STARTUP_PROCESS {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_PROCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to start Spotify.
+        ///Please restart the application..
+        /// </summary>
+        internal static string ERROR_STARTUP_RESTART {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_RESTART", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unknown error occurred when trying to start Spotify..
+        /// </summary>
+        internal static string ERROR_UNKNOWN {
+            get {
+                return ResourceManager.GetString("ERROR_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon spotifyicon {

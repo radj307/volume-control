@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
@@ -19,6 +20,7 @@ using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
+using Toastify.src.Core;
 using Toastify.Services;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
@@ -207,10 +209,32 @@ namespace Toastify.UI
                 Spotify.Instance.Connected += this.Spotify_Connected;
                 Spotify.Instance.StartSpotify();
             }
+            catch (ApplicationStartupException e)
+            {
+                Debug.WriteLine(e.StackTrace);
+
+                string errorMsg = Properties.Resources.ERROR_STARTUP;
+                string techDetails = $"Technical details\n{e.Message}";
+                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (WebException e)
+            {
+                Debug.WriteLine(e.StackTrace);
+
+                string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
+                string status = $"{e.Status}";
+                if (e.Status == WebExceptionStatus.ProtocolError)
+                    status += $" ({(e.Response as HttpWebResponse)?.StatusCode}, \"{(e.Response as HttpWebResponse)?.StatusDescription}\")";
+                string techDetails = $"Technical details: {e.Message}\n{e.HResult}, {status}";
+                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception e)
             {
                 Debug.WriteLine(e.StackTrace);
-                MessageBox.Show("An unknown error occurred when trying to start Spotify.\nPlease start Spotify manually.\n\nTechnical Details: " + e.Message, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                string errorMsg = Properties.Resources.ERROR_UNKNOWN;
+                string techDetails = $"Technical Details: {e.Message}\n{e.StackTrace}";
+                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -64,6 +64,9 @@ namespace Toastify.Core
 
         public static implicit operator Song(Track spotifyTrack)
         {
+            if (spotifyTrack == null)
+                return null;
+
             if (spotifyTrack.IsAd())
                 return new Song("", "");
 

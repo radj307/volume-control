@@ -67,6 +67,7 @@ namespace Toastify.Core
         private string _PreviousOS;
         private string _PreviousVersion;
         private bool _PreventSleepWhilePlaying;
+        private int _startupWaitTimeout;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -647,6 +648,22 @@ namespace Toastify.Core
             }
         }
 
+        public int StartupWaitTimeout
+        {
+            get
+            {
+                return this._startupWaitTimeout;
+            }
+            set
+            {
+                if (this._startupWaitTimeout != value)
+                {
+                    this._startupWaitTimeout = value;
+                    this.NotifyPropertyChanged("StartupWaitTimeout");
+                }
+            }
+        }
+
         private SettingsXml()
         {
             this.Default();
@@ -654,6 +671,7 @@ namespace Toastify.Core
 
         public void Default(bool setHotKeys = false)
         {
+            this.StartupWaitTimeout = 20000;
             this.AlwaysStartSpotify = true;
             this.DontPromptToStartSpotify = false;
             this.CloseSpotifyWithToastify = true;
@@ -783,6 +801,9 @@ namespace Toastify.Core
             }
 
             this._HotKeys = toKeep;
+
+            // Validate StartupWaitTimeout: it cannot be negative!
+            this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
 
             this.Save();
         }

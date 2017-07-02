@@ -117,6 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ERROR_STARTUP" xml:space="preserve">
+    <value>An error occurred when trying to start Spotify.</value>
+  </data>
+  <data name="ERROR_STARTUP_PROCESS" xml:space="preserve">
+    <value>Could not find Spotify process!
+If Spotify is running, please open an issue at github.com/aleab/toastify.</value>
+  </data>
+  <data name="ERROR_STARTUP_RESTART" xml:space="preserve">
+    <value>An error occurred when trying to start Spotify.
+Please restart the application.</value>
+  </data>
+  <data name="ERROR_UNKNOWN" xml:space="preserve">
+    <value>An unknown error occurred when trying to start Spotify.</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="spotifyicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spotify.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

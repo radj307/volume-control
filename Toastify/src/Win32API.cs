@@ -384,6 +384,9 @@ namespace Toastify
             public Rectangle rcNormalPosition;
         }
 
+        // TODO: Create an enum out of these constants.
+        //       See: ShowWindow function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms633548(v=vs.85).aspx)
+        //       See: SendMessage function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms644950(v=vs.85).aspx)
         internal class Constants
         {
             internal const uint WM_APPCOMMAND = 0x0319;
