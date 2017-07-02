@@ -10,6 +10,7 @@ OutFile "ToastifyInstaller.exe"
 InstallDir $PROGRAMFILES64\Toastify
 RequestExecutionLevel admin
 ManifestSupportedOS "{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"  # Windows 7
+ManifestSupportedOS "{1f676c76-80e1-4239-95bb-83d0f6d0da78}"  # Windows 8.1
 ManifestSupportedOS "{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"  # Windows 10
 
 ;--------------------------------
