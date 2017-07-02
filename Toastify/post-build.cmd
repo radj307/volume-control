@@ -19,6 +19,7 @@ IF "%ConfigurationName:~0,7%"=="Windows" IF NOT "x%ConfigurationName:Release=%"=
 
     ECHO - Copy install script
     COPY /Y "%SolutionDir%InstallationScript\Install.nsi" "%TargetDir%Install.nsi"
+    COPY /Y "%SolutionDir%InstallationScript\DotNetChecker.nsh" "%TargetDir%DotNetChecker.nsh"
     COPY /Y "%SolutionDir%InstallationScript\DotNET.nsh" "%TargetDir%DotNET.nsh"
 )
 

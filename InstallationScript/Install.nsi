@@ -1,9 +1,8 @@
-!define DOTNET_VERSION "4.5.2"
-!include DotNET.nsh
 !include LogicLib.nsh
 !include MUI.nsh
 !include x64.nsh
 !include WinVer.nsh
+!include DotNetChecker.nsh
 
 Name "Toastify Installer"
 OutFile "ToastifyInstaller.exe"
@@ -20,41 +19,46 @@ Page components
 Page directory
 Page instfiles
  
-    # These indented statements modify settings for MUI_PAGE_FINISH
-    !define MUI_FINISHPAGE_AUTOCLOSE
-    !define MUI_FINISHPAGE_RUN
-    !define MUI_FINISHPAGE_RUN_CHECKED
-    !define MUI_FINISHPAGE_RUN_TEXT "Launch Toastify Now"
-    !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
-  !insertmacro MUI_PAGE_FINISH
-  
-  ;Languages
-!insertmacro MUI_LANGUAGE "English"
+# These statements modify settings for MUI_PAGE_FINISH
+!define MUI_FINISHPAGE_AUTOCLOSE
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_CHECKED
+!define MUI_FINISHPAGE_RUN_TEXT "Launch Toastify Now"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+!insertmacro MUI_PAGE_FINISH
 
-;--------------------------------
-Function LaunchLink
-  ExecShell "" "$INSTDIR\Toastify.exe"
-FunctionEnd
+!insertmacro MUI_LANGUAGE "English"
 
 UninstPage uninstConfirm
 UninstPage instfiles
 
 ;--------------------------------
+; Functions
+
+Function LaunchLink
+  ExecShell "" "$INSTDIR\Toastify.exe"
+FunctionEnd
+
+;--------------------------------
+; Installer
 
 Section "Toastify (required)"
   SectionIn RO
   
-  ; Since process termination is non-destructive for Toastify, just kill it
+  # Since process termination is non-destructive for Toastify, just kill it
   DetailPrint "Shutting down Toastify..."
   KillProcWMI::KillProc "Toastify.exe"
   
-  ; Let the process shutdown
+  # Let the process shutdown
   Sleep 1000
+
+  # Check .NET Framework
+  !insertmacro CheckNetFramework 45
   
-  ; Set output path to the installation directory.
+  # Set output path to the installation directory.
   SetOutPath $INSTDIR
   
-  ; Bundle the files
+  # Bundle the files
   ${If} ${IsWin10}
     File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
   ${Else}
@@ -71,7 +75,7 @@ Section "Toastify (required)"
   File "SpotifyAPI.dll"
   File "LICENSE"
   
-  ; Write the uninstall keys for Windows
+  # Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
@@ -81,6 +85,7 @@ Section "Toastify (required)"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoRepair" 1
   WriteUninstaller "uninstall.exe"
+
 SectionEnd
 
 Section "Desktop icon"
@@ -103,11 +108,11 @@ Section "Uninstall"
   # Remove Start Menu launcher
   Delete "$SMPROGRAMS\Toastify.lnk"
   
-  ; Remove registry keys
+  # Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify"
 
-  ; Remove files and uninstaller
+  # Remove files and uninstaller
   Delete "$INSTDIR\Toastify.exe"
   Delete "$INSTDIR\Toastify.config"
   Delete "$INSTDIR\ToastifyAPI.dll"
@@ -120,15 +125,16 @@ Section "Uninstall"
   Delete "$INSTDIR\LICENSE"
   Delete "$INSTDIR\uninstall.exe"
   
-  ; remove the settings directory
+  # remove the settings directory
   Delete "$APPDATA\Toastify.xml"
   RMDir "$APPDATA\Toastify"
 
-  ; Remove shortcuts, if any
+  # Remove shortcuts, if any
   Delete "$DESKTOP\Toastify.lnk"
 
-  ; Remove directories used
+  # Remove directories used
   RMDir "$INSTDIR"
+
 SectionEnd
 
 Function .onInit

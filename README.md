@@ -13,7 +13,7 @@ This application uses [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI
 
 ## Requirements
 * Windows (7, 8/8.1, 10)
-* .NET Framework 4.5.2
+* .NET Framework 4.5.*
 * Spotify
 
 ## Notice
