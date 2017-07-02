@@ -11,7 +11,7 @@ namespace ToastifyAPI
         internal static Package FindPackage(string name)
         {
             PackageManager packageManager = new PackageManager();
-            var packages = packageManager.FindPackages();
+            var packages = packageManager.FindPackagesForUser(string.Empty);
             return packages.FirstOrDefault(package => package.Id.Name == name);
         }
     }

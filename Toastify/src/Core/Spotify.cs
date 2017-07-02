@@ -279,17 +279,7 @@ namespace Toastify.Core
 
         private string GetSpotifyPath()
         {
-            string spotifyPath = null;
-            try
-            {
-                spotifyPath = ToastifyAPI.Spotify.GetSpotifyPath();
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("This program must be run as administrator.", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-                Environment.Exit(69);
-            }
-            return spotifyPath;
+            return ToastifyAPI.Spotify.GetSpotifyPath();
         }
 
         public void Dispose()
