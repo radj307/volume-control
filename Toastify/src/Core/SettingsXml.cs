@@ -62,7 +62,7 @@ namespace Toastify.Core
         private string _ClipboardTemplate;
         private bool _SaveTrackToFile;
         private string _SaveTrackToFilePath;
-        private bool _PreventAnalytics;
+        private bool _optInToAnalytics;
         private bool _FirstRun;
         private string _PreviousOS;
         private string _PreviousVersion;
@@ -552,18 +552,18 @@ namespace Toastify.Core
             }
         }
 
-        public bool PreventAnalytics
+        public bool OptInToAnalytics
         {
             get
             {
-                return this._PreventAnalytics;
+                return this._optInToAnalytics;
             }
             set
             {
-                if (this._PreventAnalytics != value)
+                if (this._optInToAnalytics != value)
                 {
-                    this._PreventAnalytics = value;
-                    this.NotifyPropertyChanged("PreventAnalytics");
+                    this._optInToAnalytics = value;
+                    this.NotifyPropertyChanged("OptInToAnalytics");
                 }
             }
         }
@@ -703,7 +703,7 @@ namespace Toastify.Core
             this.ClipboardTemplate = "I'm currently listening to {0}";
 
             this.SaveTrackToFile = false;
-            this.PreventAnalytics = false;
+            this.OptInToAnalytics = false;
             this.PreventSleepWhilePlaying = false;
 
             Hotkey.ClearAll();

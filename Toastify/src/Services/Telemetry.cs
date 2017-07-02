@@ -23,7 +23,7 @@ namespace Toastify.Services
             var settings = SettingsXml.Instance;
 
             // abort asap if we are surpressing analytics
-            if (settings.PreventAnalytics)
+            if (settings.OptInToAnalytics)
                 return;
 
             _session.SetCustomVariable(1, "OS Version", GetOS());
