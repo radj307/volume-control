@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Toastify.Core;
 
-namespace Toastify.src.Core
+namespace Toastify.Core
 {
     internal class ApplicationStartupException : ApplicationException
     {

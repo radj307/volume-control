@@ -8,7 +8,6 @@ using System.Threading;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
-using Toastify.src.Core;
 
 namespace Toastify.Core
 {
@@ -351,12 +350,12 @@ namespace Toastify.Core
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong, this.localAPI.GetStatus().Playing));
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong, this.localAPI?.GetStatus()?.Playing ?? false));
         }
 
         private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing, this.localAPI.GetStatus().Track));
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing, this.localAPI?.GetStatus()?.Track));
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)

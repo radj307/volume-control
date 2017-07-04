@@ -20,7 +20,6 @@ using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
-using Toastify.src.Core;
 using Toastify.Services;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
@@ -322,15 +321,20 @@ namespace Toastify.UI
 
         private void UpdateCoverArtUrl()
         {
-            if (string.IsNullOrWhiteSpace(this.currentSong.Track))
+            if (this.currentSong == null)
+                this.toastIconURI = DEFAULT_ICON;
+            else
             {
-                this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                this.currentSong.Track = "Spotify Ad";
-            }
-            else if (string.IsNullOrWhiteSpace(this.currentSong.CoverArtUrl))
-                this.currentSong.CoverArtUrl = DEFAULT_ICON;
+                if (string.IsNullOrWhiteSpace(this.currentSong.Track))
+                {
+                    this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
+                    this.currentSong.Track = "Spotify Ad";
+                }
+                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl))
+                    this.currentSong.CoverArtUrl = DEFAULT_ICON;
 
-            this.toastIconURI = this.currentSong.CoverArtUrl;
+                this.toastIconURI = this.currentSong.CoverArtUrl;
+            }
         }
 
         private void UpdateCoverArt()
@@ -383,13 +387,13 @@ namespace Toastify.UI
             string title1, title2;
             if (altTitle1 == null)
             {
-                title1 = this.paused ? "Paused" : song.Artist;
-                title2 = this.paused ? song.ToString() : song.Track;
+                title1 = (this.paused ? "Paused" : song?.Artist) ?? string.Empty;
+                title2 = (this.paused ? song?.ToString() : song?.Track) ?? string.Empty;
             }
             else
             {
                 title1 = altTitle1;
-                title2 = song.ToString();
+                title2 = song?.ToString() ?? string.Empty;
             }
             this.UpdateToastText(title1, title2, fadeIn, force);
         }
