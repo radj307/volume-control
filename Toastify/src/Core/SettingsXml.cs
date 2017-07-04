@@ -68,6 +68,7 @@ namespace Toastify.Core
         private string _PreviousVersion;
         private bool _PreventSleepWhilePlaying;
         private int _startupWaitTimeout;
+        private int _spotifyConnectionAttempts;
         private List<Hotkey> _HotKeys;
         public List<PluginDetails> Plugins { get; set; }
 
@@ -664,6 +665,22 @@ namespace Toastify.Core
             }
         }
 
+        public int SpotifyConnectionAttempts
+        {
+            get
+            {
+                return this._spotifyConnectionAttempts;
+            }
+            set
+            {
+                if (this._spotifyConnectionAttempts != value)
+                {
+                    this._spotifyConnectionAttempts = value;
+                    this.NotifyPropertyChanged("SpotifyConnectionAttempts");
+                }
+            }
+        }
+
         private SettingsXml()
         {
             this.Default();
@@ -671,7 +688,6 @@ namespace Toastify.Core
 
         public void Default(bool setHotKeys = false)
         {
-            this.StartupWaitTimeout = 20000;
             this.AlwaysStartSpotify = true;
             this.DontPromptToStartSpotify = false;
             this.CloseSpotifyWithToastify = true;
@@ -705,6 +721,9 @@ namespace Toastify.Core
             this.SaveTrackToFile = false;
             this.OptInToAnalytics = false;
             this.PreventSleepWhilePlaying = false;
+
+            this.StartupWaitTimeout = 20000;
+            this.SpotifyConnectionAttempts = 5;
 
             Hotkey.ClearAll();
 
@@ -804,6 +823,10 @@ namespace Toastify.Core
 
             // Validate StartupWaitTimeout: it cannot be negative!
             this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
+
+            // Validate SpotifyConnectionAttempts: it cannot be non-positive!
+            this.SpotifyConnectionAttempts = Math.Abs(this.SpotifyConnectionAttempts);
+            this.SpotifyConnectionAttempts += this.SpotifyConnectionAttempts == 0 ? 1 : 0;
 
             this.Save();
         }

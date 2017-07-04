@@ -112,8 +112,7 @@ namespace Toastify.Core
             this.spotifyProcess.EnableRaisingEvents = true;
             this.spotifyProcess.Exited += this.Spotify_Exited;
 
-            this.localAPI.Connect();
-            this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
+            this.ConnectWithSpotify();
         }
 
         /// <summary>
@@ -143,6 +142,41 @@ namespace Toastify.Core
                 this.Minimize(1000);
 
             return spotifyProcess;
+        }
+
+        /// <summary>
+        /// Connect with Spotify.
+        /// </summary>
+        /// <exception cref="ApplicationStartupException">
+        ///   if Toastify was not able to connect with Spotify or
+        ///   if Spotify returns a null status after connection.
+        /// </exception>
+        private void ConnectWithSpotify()
+        {
+            // Sometimes (specially with a lot of active processes), the WaitForInputIdle method (used in LaunchSpotifyAndWaitForInputIdle)
+            // does not seem to wait long enough to let us connect to Spotify successfully on the first try; so we wait and re-try.
+
+            // Pre-emptive wait, in case some fool set SpotifyConnectionAttempts to 1! ;)
+            Thread.Sleep(500);
+
+            int maxAttempts = SettingsXml.Instance.SpotifyConnectionAttempts;
+            bool connected;
+            int attempts = 1;
+            while (!(connected = this.localAPI.Connect()) && attempts < maxAttempts)
+            {
+                attempts++;
+                Thread.Sleep(1000);
+            }
+
+            if (!connected)
+                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
+            Debug.WriteLine($"Connected with Spotify after {attempts} attempt(s).");
+
+            var status = this.localAPI.GetStatus();
+            if (status == null)
+                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
+
+            this.Connected?.Invoke(this, new SpotifyStateEventArgs(status));
         }
 
         private Process FindSpotifyProcess()

@@ -134,6 +134,13 @@ If Spotify is running, please open an issue at github.com/aleab/toastify.</value
     <value>An error occurred when trying to start Spotify.
 Please restart the application.</value>
   </data>
+  <data name="ERROR_STARTUP_SPOTIFY_API_CONNECT" xml:space="preserve">
+    <value>An error occurred when trying to start Spotify: Toastify was not able to connect with Spotify.</value>
+  </data>
+  <data name="ERROR_STARTUP_SPOTIFY_API_STATUS_NULL" xml:space="preserve">
+    <value>An error occurred when trying to connect with Spotify: SpotifyAPI returned a null status.
+Please open an issue at github.com/aleab/toastify.</value>
+  </data>
   <data name="ERROR_UNKNOWN" xml:space="preserve">
     <value>An unknown error occurred when trying to start Spotify.</value>
   </data>

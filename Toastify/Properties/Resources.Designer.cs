@@ -102,6 +102,25 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to start Spotify: Toastify was not able to connect with Spotify..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_API_CONNECT {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_API_CONNECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to connect with Spotify: SpotifyAPI returned a null status.
+        ///Please open an issue at github.com/aleab/toastify..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_API_STATUS_NULL {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_API_STATUS_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred when trying to start Spotify..
         /// </summary>
         internal static string ERROR_UNKNOWN {
