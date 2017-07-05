@@ -67,7 +67,8 @@ namespace AutoHotkey.Interop
         /// <param name="code">The code to execute</param>
         public void ExecRaw(string code)
         {
-            AutoHotkeyAPI.AhkExec(code);
+            if (!string.IsNullOrWhiteSpace(code))
+                AutoHotkeyAPI.AhkExec(code);
         }
 
         /// <summary>

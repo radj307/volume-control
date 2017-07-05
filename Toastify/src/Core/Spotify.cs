@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Windows.Input;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
@@ -182,6 +183,10 @@ namespace Toastify.Core
         {
             var processes = Process.GetProcessesByName("spotify");
             return processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
+
+            // TODO: Check windows directly with EnumThreadWindows.
+            //       If none of the Spotify processes found has a valid MainWindowHandle,
+            //       then Spotify has probably been minimized to the tray.
         }
 
         private void Minimize(int delay = 0)
@@ -319,18 +324,70 @@ namespace Toastify.Core
         /// <param name="keys"></param>
         private void SendComplexKeys(string keys)
         {
+            // TODO: Currently, SendComplexKeys doesn't work if Spotify is minimized to the tray.
+            //       We should first showw the main window (minimized to the taskbar directly, if possible).
+
             Debug.WriteLine($"Complex keys: {keys}");
 
-            // only initialize AHK when needed as it can be expensive (dll copy etc) if not actually needed
+            // Only initialize AHK when needed as it can be expensive if not actually needed.
             if (this.ahk == null)
                 this.ahk = new AutoHotkeyEngine();
 
-            this.ahk.ExecRaw("SetTitleMatchMode 2");
+            // The ControlSend command releases any modifier key after execution,
+            // even if they are still physically pressed. It's awful, but we need to
+            // send the keystrokes of those modifiers after execution manually.
+            //
+            // Key modifiers:
+            //   Alt    !
+            //   Shift  +
+            //   Ctrl   ^
+            //   Win    #
+            bool altPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
+            bool shiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            bool ctrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+            bool winPressed = Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
+            Debug.WriteLine($"[ComplexKeys] (BEFORE) Alt: {altPressed}, Shift: {shiftPressed}, Ctrl: {ctrlPressed}, Win: {winPressed}");
 
+            string releaseModifiers = string.Empty;
+            string holdModifiers = string.Empty;
+
+            if (altPressed)
+            {
+                releaseModifiers += "{Alt up}";
+                holdModifiers += "{Alt down}";
+            }
+            if (shiftPressed)
+            {
+                releaseModifiers += "{Shift up}";
+                holdModifiers += "{Shift down}";
+            }
+            if (ctrlPressed)
+            {
+                releaseModifiers += "{Ctrl up}";
+                holdModifiers += "{Ctrl down}";
+            }
+            if (winPressed)
+            {
+                releaseModifiers += "{LWin up}";
+                holdModifiers += "{LWin down}";
+            }
+
+            this.ahk.ExecRaw("SetTitleMatchMode 2");
             this.ahk.ExecRaw("DetectHiddenWindows, On");
+
+            this.ahk.ExecRaw(string.IsNullOrWhiteSpace(releaseModifiers) ? string.Empty : $"Send, {releaseModifiers}");
             this.ahk.ExecRaw($"ControlSend, ahk_parent, {keys}, ahk_class SpotifyMainWindow");
+            this.ahk.ExecRaw(string.IsNullOrWhiteSpace(holdModifiers) ? string.Empty : $"Send, {holdModifiers}");
 
             this.ahk.ExecRaw("DetectHiddenWindows, Off");
+
+#if DEBUG
+            altPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
+            shiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            ctrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+            winPressed = Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
+            Debug.WriteLine($"[ComplexKeys] (AFTER)  Alt: {altPressed}, Shift: {shiftPressed}, Ctrl: {ctrlPressed}, Win: {winPressed}");
+#endif
         }
 
         private string GetSpotifyPath()
