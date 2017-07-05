@@ -182,11 +182,25 @@ namespace Toastify.Core
         private Process FindSpotifyProcess()
         {
             var processes = Process.GetProcessesByName("spotify");
-            return processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
+            var process = processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
 
-            // TODO: Check windows directly with EnumThreadWindows.
-            //       If none of the Spotify processes found has a valid MainWindowHandle,
-            //       then Spotify has probably been minimized to the tray.
+            // If none of the Spotify processes found has a valid MainWindowHandle,
+            // then Spotify has probably been minimized to the tray: we need to check every thread's window.
+            if (process == null && processes.Length > 0)
+            {
+                foreach (var p in processes)
+                {
+                    // ReSharper disable once LoopCanBeConvertedToQuery
+                    foreach (ProcessThread t in p.Threads)
+                    {
+                        IntPtr hWnd = Win32API.FindThreadWindowByClassName((uint)t.Id, "SpotifyMainWindow");
+                        if (hWnd != IntPtr.Zero)
+                            return p;
+                    }
+                }
+            }
+
+            return process;
         }
 
         private void Minimize(int delay = 0)
@@ -252,7 +266,8 @@ namespace Toastify.Core
 
         private IntPtr GetMainWindowHandle()
         {
-            return this.spotifyProcess?.MainWindowHandle ?? Win32API.FindWindow("SpotifyMainWindow", null);
+            IntPtr spotifyWindow = this.spotifyProcess?.MainWindowHandle ?? IntPtr.Zero;
+            return spotifyWindow != IntPtr.Zero ? spotifyWindow : Win32API.FindWindow("SpotifyMainWindow", null);
         }
 
         public void SendAction(SpotifyAction action)

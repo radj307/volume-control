@@ -20,10 +20,16 @@ namespace Toastify
 
         internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
+        internal delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
         #region DLL imports
 
         [DllImport("user32.dll")]
         internal static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -39,6 +45,9 @@ namespace Toastify
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         internal static extern int GetWindowTextLength(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex);
@@ -83,6 +92,38 @@ namespace Toastify
         public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 
         #endregion DLL imports
+
+        /// <summary>
+        /// Finds a thread's window by its class name.
+        /// </summary>
+        /// <param name="dwThreadId"> The id of the thread. </param>
+        /// <param name="lpClassName"> The class name. </param>
+        /// <returns> A handle to the window. </returns>
+        public static IntPtr FindThreadWindowByClassName(uint dwThreadId, string lpClassName)
+        {
+            IntPtr searchedHWnd = IntPtr.Zero;
+
+            EnumThreadWindows(
+                dwThreadId,
+                (hWnd, lParam) =>
+                {
+                    if (hWnd == IntPtr.Zero)
+                        return true;
+
+                    StringBuilder sb = new StringBuilder(256);
+                    GetClassName(hWnd, sb, 256);
+                    string className = sb.ToString();
+                    if (className == lpClassName)
+                    {
+                        searchedHWnd = hWnd;
+                        return false;
+                    }
+                    return true;
+                },
+                IntPtr.Zero);
+
+            return searchedHWnd;
+        }
 
         public static void KillProc(string name)
         {
