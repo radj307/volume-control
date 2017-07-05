@@ -255,27 +255,7 @@ namespace Toastify.Core
             if (!this.IsRunning)
                 return;
 
-            // bah. Because control cannot fall through cases we need to special case volume
-            if (SettingsXml.Instance.ChangeSpotifyVolumeOnly)
-            {
-                switch (action)
-                {
-                    case SpotifyAction.VolumeUp:
-                        Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
-                        this.localAPI.IncrementVolume();
-                        return;
-
-                    case SpotifyAction.VolumeDown:
-                        Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
-                        this.localAPI.DecrementVolume();
-                        return;
-
-                    case SpotifyAction.Mute:
-                        Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-                        this.localAPI.ToggleMute();
-                        return;
-                }
-            }
+            Debug.WriteLine($"SendAction: {action}");
 
             switch (action)
             {
@@ -301,6 +281,27 @@ namespace Toastify.Core
                     this.SendComplexKeys("+{Left}");
                     break;
 
+                case SpotifyAction.VolumeUp:
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
+                    if (SettingsXml.Instance.UseSpotifyVolumeControl)
+                        this.SendComplexKeys("^{Up}");
+                    else
+                        this.localAPI.IncrementVolume();
+                    return;
+
+                case SpotifyAction.VolumeDown:
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
+                    if (SettingsXml.Instance.UseSpotifyVolumeControl)
+                        this.SendComplexKeys("^{Down}");
+                    else
+                        this.localAPI.DecrementVolume();
+                    return;
+
+                case SpotifyAction.Mute:
+                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
+                    this.localAPI.ToggleMute();
+                    return;
+
                 default:
                     Telemetry.TrackEvent(TelemetryCategory.Action, $"{Telemetry.TelemetryEvent.Action.Default}{action}");
                     Win32API.SendMessage(this.GetMainWindowHandle(), Win32API.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)action));
@@ -318,6 +319,8 @@ namespace Toastify.Core
         /// <param name="keys"></param>
         private void SendComplexKeys(string keys)
         {
+            Debug.WriteLine($"Complex keys: {keys}");
+
             // only initialize AHK when needed as it can be expensive (dll copy etc) if not actually needed
             if (this.ahk == null)
                 this.ahk = new AutoHotkeyEngine();

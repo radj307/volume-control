@@ -45,7 +45,8 @@ namespace Toastify.Core
         private bool _OnlyShowToastOnHotkey;
         private bool? _AlwaysStartSpotify;
         private bool _DontPromptToStartSpotify;
-        private bool _ChangeSpotifyVolumeOnly;
+        private bool _useSpotifyVolumeControl;
+        private float _windowsVolumeMixerIncrement;
         private int _FadeOutTime;
         private string _ToastColorTop;
         private string _ToastColorBottom;
@@ -260,18 +261,34 @@ namespace Toastify.Core
             }
         }
 
-        public bool ChangeSpotifyVolumeOnly
+        public bool UseSpotifyVolumeControl
         {
             get
             {
-                return this._ChangeSpotifyVolumeOnly;
+                return this._useSpotifyVolumeControl;
             }
             set
             {
-                if (this._ChangeSpotifyVolumeOnly != value)
+                if (this._useSpotifyVolumeControl != value)
                 {
-                    this._ChangeSpotifyVolumeOnly = value;
-                    this.NotifyPropertyChanged("ChangeSpotifyVolumeOnly");
+                    this._useSpotifyVolumeControl = value;
+                    this.NotifyPropertyChanged("UseSpotifyVolumeControl");
+                }
+            }
+        }
+
+        public float WindowsVolumeMixerIncrement
+        {
+            get
+            {
+                return this._windowsVolumeMixerIncrement;
+            }
+            set
+            {
+                if (Math.Abs(this._windowsVolumeMixerIncrement - value) > 0.000001f)
+                {
+                    this._windowsVolumeMixerIncrement = value;
+                    this.NotifyPropertyChanged("WindowsVolumeMixerIncrement");
                 }
             }
         }
@@ -691,7 +708,8 @@ namespace Toastify.Core
             this.AlwaysStartSpotify = true;
             this.DontPromptToStartSpotify = false;
             this.CloseSpotifyWithToastify = true;
-            this.ChangeSpotifyVolumeOnly = false;
+            this.UseSpotifyVolumeControl = false;
+            this.WindowsVolumeMixerIncrement = 2.0f;
 
             this.FadeOutTime = 4000;
             this.GlobalHotKeys = true;
@@ -820,6 +838,9 @@ namespace Toastify.Core
             }
 
             this._HotKeys = toKeep;
+
+            // Validate WindowsVolumeMixerIncrement: must be positive!
+            this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
 
             // Validate StartupWaitTimeout: it cannot be negative!
             this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
