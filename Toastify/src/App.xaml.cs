@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
@@ -37,6 +38,14 @@ namespace Toastify
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {
+        public static string ApplicationData
+        {
+            get
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+            }
+        }
+
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             Telemetry.TrackException(e.Exception);

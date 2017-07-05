@@ -38,62 +38,7 @@ namespace Toastify.Core
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILE = "Toastify.xml";
 
-        private bool _CloseSpotifyWithToastify;
-        private bool _MinimizeSpotifyOnStartup;
-        private bool _GlobalHotKeys;
-        private bool _DisableToast;
-        private bool _OnlyShowToastOnHotkey;
-        private bool? _AlwaysStartSpotify;
-        private bool _DontPromptToStartSpotify;
-        private bool _useSpotifyVolumeControl;
-        private float _windowsVolumeMixerIncrement;
-        private int _FadeOutTime;
-        private string _ToastColorTop;
-        private string _ToastColorBottom;
-        private string _ToastBorderColor;
-        private double _ToastBorderThickness;
-        private double _ToastBorderCornerRadiusTopLeft;
-        private double _ToastBorderCornerRadiusTopRight;
-        private double _ToastBorderCornerRadiusBottomRight;
-        private double _ToastBorderCornerRadiusBottomLeft;
-        private double _PositionLeft;
-        private double _PositionTop;
-        private double _ToastWidth;
-        private double _ToastHeight;
-        private string _ClipboardTemplate;
-        private bool _SaveTrackToFile;
-        private string _SaveTrackToFilePath;
-        private bool _optInToAnalytics;
-        private bool _FirstRun;
-        private string _PreviousOS;
-        private string _PreviousVersion;
-        private bool _PreventSleepWhilePlaying;
-        private int _startupWaitTimeout;
-        private int _spotifyConnectionAttempts;
-        private List<Hotkey> _HotKeys;
-        public List<PluginDetails> Plugins { get; set; }
-
         private string _settingsFile;
-
-        // used for both defaults and to synchronize the list of hotkeys when upgrading versions
-        // so that any newly added hotkeys are magically visible to the user (without them having to
-        // reset their settings)
-        private readonly List<Hotkey> _defaultHotKeys = new List<Hotkey>
-        {
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Down    , Action = SpotifyAction.Stop           },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute           },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown     },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp       },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify    },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward    },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind         },
-        };
 
         /// <summary>
         /// Returns the location of the settings file
@@ -103,9 +48,9 @@ namespace Toastify.Core
         {
             get
             {
-                if (this._settingsFile == null)
+                if (string.IsNullOrWhiteSpace(this._settingsFile))
                 {
-                    string settingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+                    string settingsPath = App.ApplicationData;
 
                     if (!Directory.Exists(settingsPath))
                     {
@@ -129,20 +74,90 @@ namespace Toastify.Core
             }
         }
 
+        #region Settings
+
+        #region Private fields
+
+        private bool _minimizeSpotifyOnStartup;
+        private bool _closeSpotifyWithToastify;
+        private bool _useSpotifyVolumeControl;
+        private float _windowsVolumeMixerIncrement;
+        private string _clipboardTemplate;
+        private bool _saveTrackToFile;
+        private string _saveTrackToFilePath;
+        private bool _preventSleepWhilePlaying;
+        private bool _optInToAnalytics;
+
+        private bool _globalHotKeys;
+        private List<Hotkey> _hotKeys;
+
+        private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
+        {
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause      },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Down    , Action = SpotifyAction.Stop           },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack      },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute           },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown     },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp       },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast      },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify    },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward    },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind         },
+        };
+
+        private bool _disableToast;
+        private bool _onlyShowToastOnHotkey;
+        private int _fadeOutTime;
+        private string _toastColorTop;
+        private string _toastColorBottom;
+        private string _toastBorderColor;
+        private double _toastBorderThickness;
+        private double _toastBorderCornerRadiusTopLeft;
+        private double _toastBorderCornerRadiusTopRight;
+        private double _toastBorderCornerRadiusBottomLeft;
+        private double _toastBorderCornerRadiusBottomRight;
+        private double _toastWidth;
+        private double _toastHeight;
+        private double _positionLeft;
+        private double _positionTop;
+
+        private bool _firstRun;
+        private string _previousVersion;
+        private int _startupWaitTimeout;
+        private int _spotifyConnectionAttempts;
+
+        #endregion Private fields
+
+        #region [General]
+
         // this is a dynamic setting depending on the existing registry key
-        // (which allows for it to be set reliably from the installer)
-        // so make sure to not include it in the XML file
+        // (which allows for it to be set reliably from the installer) so make sure to not include it in the XML file
         [XmlIgnore]
         public bool LaunchOnStartup
         {
             get
             {
-                return this.IsSetToLaunchOnStartup();
+                bool launchOnStartup;
+                using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false))
+                {
+                    launchOnStartup = key?.GetValue("Toastify", null) != null;
+                }
+                return launchOnStartup;
             }
             set
             {
+                using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
+                {
+                    if (value)
+                        key?.SetValue("Toastify", $"\"{System.Windows.Forms.Application.ExecutablePath}\"");
+                    else
+                        key?.DeleteValue("Toastify", false);
+                }
+
                 this.NotifyPropertyChanged("LaunchOnStartup");
-                this.SetLaunchOnStartup(value);
             }
         }
 
@@ -150,13 +165,13 @@ namespace Toastify.Core
         {
             get
             {
-                return this._MinimizeSpotifyOnStartup;
+                return this._minimizeSpotifyOnStartup;
             }
             set
             {
-                if (this._MinimizeSpotifyOnStartup != value)
+                if (this._minimizeSpotifyOnStartup != value)
                 {
-                    this._MinimizeSpotifyOnStartup = value;
+                    this._minimizeSpotifyOnStartup = value;
                     this.NotifyPropertyChanged("MinimizeSpotifyOnStartup");
                 }
             }
@@ -166,97 +181,14 @@ namespace Toastify.Core
         {
             get
             {
-                return this._CloseSpotifyWithToastify;
+                return this._closeSpotifyWithToastify;
             }
             set
             {
-                if (this._CloseSpotifyWithToastify != value)
+                if (this._closeSpotifyWithToastify != value)
                 {
-                    this._CloseSpotifyWithToastify = value;
+                    this._closeSpotifyWithToastify = value;
                     this.NotifyPropertyChanged("CloseSpotifyWithToastify");
-                }
-            }
-        }
-
-        public bool GlobalHotKeys
-        {
-            get
-            {
-                return this._GlobalHotKeys;
-            }
-            set
-            {
-                if (this._GlobalHotKeys != value)
-                {
-                    this._GlobalHotKeys = value;
-                    this.NotifyPropertyChanged("GlobalHotKeys");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Only show the toast when the `<see cref="SpotifyAction.ShowToast"/>` hotkey is pressed.
-        /// </summary>
-        public bool OnlyShowToastOnHotkey
-        {
-            get
-            {
-                return this._OnlyShowToastOnHotkey;
-            }
-            set
-            {
-                if (this._OnlyShowToastOnHotkey != value)
-                {
-                    this._OnlyShowToastOnHotkey = value;
-                    this.NotifyPropertyChanged("OnlyShowToastOnHotkey");
-                }
-            }
-        }
-
-        public bool DisableToast
-        {
-            get
-            {
-                return this._DisableToast;
-            }
-            set
-            {
-                if (this._DisableToast != value)
-                {
-                    this._DisableToast = value;
-                    this.NotifyPropertyChanged("DisableToast");
-                }
-            }
-        }
-
-        public bool? AlwaysStartSpotify
-        {
-            get
-            {
-                return this._AlwaysStartSpotify;
-            }
-            set
-            {
-                if (this._AlwaysStartSpotify != value)
-                {
-                    this._AlwaysStartSpotify = value;
-                    this.NotifyPropertyChanged("AlwaysStartSpotify");
-                }
-            }
-        }
-
-        public bool DontPromptToStartSpotify
-        {
-            get
-            {
-                return this._DontPromptToStartSpotify;
-            }
-            set
-            {
-                if (this._DontPromptToStartSpotify != value)
-                {
-                    this._DontPromptToStartSpotify = value;
-                    this.NotifyPropertyChanged("DontPromptToStartSpotify");
                 }
             }
         }
@@ -293,246 +225,17 @@ namespace Toastify.Core
             }
         }
 
-        public int FadeOutTime
-        {
-            get
-            {
-                return this._FadeOutTime;
-            }
-            set
-            {
-                if (this._FadeOutTime != value)
-                {
-                    this._FadeOutTime = value;
-                    this.NotifyPropertyChanged("FadeOutTime");
-                }
-            }
-        }
-
-        public string ToastColorTop
-        {
-            get
-            {
-                return this._ToastColorTop;
-            }
-            set
-            {
-                if (this._ToastColorTop != value)
-                {
-                    this._ToastColorTop = value;
-                    this.NotifyPropertyChanged("ToastColorTop");
-                }
-            }
-        }
-
-        public string ToastColorBottom
-        {
-            get
-            {
-                return this._ToastColorBottom;
-            }
-            set
-            {
-                if (this._ToastColorBottom != value)
-                {
-                    this._ToastColorBottom = value;
-                    this.NotifyPropertyChanged("ToastColorBottom");
-                }
-            }
-        }
-
-        public string ToastBorderColor
-        {
-            get
-            {
-                return this._ToastBorderColor;
-            }
-            set
-            {
-                if (this._ToastBorderColor != value)
-                {
-                    this._ToastBorderColor = value;
-                    this.NotifyPropertyChanged("ToastBorderColor");
-                }
-            }
-        }
-
-        public double ToastBorderThickness
-        {
-            get
-            {
-                return this._ToastBorderThickness;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastBorderThickness - value) > double.Epsilon)
-                {
-                    this._ToastBorderThickness = value;
-                    this.NotifyPropertyChanged("ToastBorderThickness");
-                }
-            }
-        }
-
-        public double ToastBorderCornerRadiusTopLeft
-        {
-            get
-            {
-                return this._ToastBorderCornerRadiusTopLeft;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastBorderCornerRadiusTopLeft - value) > double.Epsilon)
-                {
-                    this._ToastBorderCornerRadiusTopLeft = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopLeft");
-                }
-            }
-        }
-
-        public double ToastBorderCornerRadiusTopRight
-        {
-            get
-            {
-                return this._ToastBorderCornerRadiusTopRight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastBorderCornerRadiusTopRight - value) > double.Epsilon)
-                {
-                    this._ToastBorderCornerRadiusTopRight = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopRight");
-                }
-            }
-        }
-
-        public double ToastBorderCornerRadiusBottomRight
-        {
-            get
-            {
-                return this._ToastBorderCornerRadiusBottomRight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastBorderCornerRadiusBottomRight - value) > double.Epsilon)
-                {
-                    this._ToastBorderCornerRadiusBottomRight = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomRight");
-                }
-            }
-        }
-
-        public double ToastBorderCornerRadiusBottomLeft
-        {
-            get
-            {
-                return this._ToastBorderCornerRadiusBottomLeft;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastBorderCornerRadiusBottomLeft - value) > double.Epsilon)
-                {
-                    this._ToastBorderCornerRadiusBottomLeft = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomLeft");
-                }
-            }
-        }
-
-        public double ToastWidth
-        {
-            get
-            {
-                return this._ToastWidth;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastWidth - value) > double.Epsilon)
-                {
-                    this._ToastWidth = value;
-                    this.NotifyPropertyChanged("ToastWidth");
-                }
-            }
-        }
-
-        public double ToastHeight
-        {
-            get
-            {
-                return this._ToastHeight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._ToastHeight - value) > double.Epsilon)
-                {
-                    this._ToastHeight = value;
-                    this.NotifyPropertyChanged("ToastHeight");
-                }
-            }
-        }
-
-        public double PositionLeft
-        {
-            get
-            {
-                return this._PositionLeft;
-            }
-            set
-            {
-                if (Math.Abs(this._PositionLeft - value) > double.Epsilon)
-                {
-                    this._PositionLeft = value;
-                    this.NotifyPropertyChanged("PositionLeft");
-                }
-            }
-        }
-
-        public double PositionTop
-        {
-            get
-            {
-                return this._PositionTop;
-            }
-            set
-            {
-                if (Math.Abs(this._PositionTop - value) > double.Epsilon)
-                {
-                    this._PositionTop = value;
-                    this.NotifyPropertyChanged("PositionTop");
-                }
-            }
-        }
-
         public string ClipboardTemplate
         {
             get
             {
-                return this._ClipboardTemplate;
+                return this._clipboardTemplate;
             }
             set
             {
-                if (this._ClipboardTemplate != value)
+                if (this._clipboardTemplate != value)
                 {
-                    this._ClipboardTemplate = value;
+                    this._clipboardTemplate = value;
                     this.NotifyPropertyChanged("ClipboardTemplate");
                 }
             }
@@ -542,13 +245,13 @@ namespace Toastify.Core
         {
             get
             {
-                return this._SaveTrackToFile;
+                return this._saveTrackToFile;
             }
             set
             {
-                if (this._SaveTrackToFile != value)
+                if (this._saveTrackToFile != value)
                 {
-                    this._SaveTrackToFile = value;
+                    this._saveTrackToFile = value;
                     this.NotifyPropertyChanged("SaveTrackToFile");
                 }
             }
@@ -558,14 +261,30 @@ namespace Toastify.Core
         {
             get
             {
-                return this._SaveTrackToFilePath;
+                return this._saveTrackToFilePath;
             }
             set
             {
-                if (this._SaveTrackToFilePath != value)
+                if (this._saveTrackToFilePath != value)
                 {
-                    this._SaveTrackToFilePath = value;
+                    this._saveTrackToFilePath = value;
                     this.NotifyPropertyChanged("SaveTrackToFilePath");
+                }
+            }
+        }
+
+        public bool PreventSleepWhilePlaying
+        {
+            get
+            {
+                return this._preventSleepWhilePlaying;
+            }
+            set
+            {
+                if (this._preventSleepWhilePlaying != value)
+                {
+                    this._preventSleepWhilePlaying = value;
+                    this.NotifyPropertyChanged("PreventSleepWhilePlaying");
                 }
             }
         }
@@ -586,18 +305,22 @@ namespace Toastify.Core
             }
         }
 
-        public bool FirstRun
+        #endregion [General]
+
+        #region [Hotkeys]
+
+        public bool GlobalHotKeys
         {
             get
             {
-                return this._FirstRun;
+                return this._globalHotKeys;
             }
             set
             {
-                if (this._FirstRun != value)
+                if (this._globalHotKeys != value)
                 {
-                    this._FirstRun = value;
-                    this.NotifyPropertyChanged("FirstRun");
+                    this._globalHotKeys = value;
+                    this.NotifyPropertyChanged("GlobalHotKeys");
                 }
             }
         }
@@ -606,30 +329,302 @@ namespace Toastify.Core
         {
             get
             {
-                return this._HotKeys;
+                return this._hotKeys;
             }
             set
             {
-                if (this._HotKeys != value)
+                if (this._hotKeys != value)
                 {
-                    this._HotKeys = value;
+                    this._hotKeys = value;
                     this.NotifyPropertyChanged("HotKeys");
                 }
             }
         }
 
-        public string PreviousOS
+        #endregion [Hotkeys]
+
+        #region [Toast]
+
+        public bool DisableToast
         {
             get
             {
-                return this._PreviousOS;
+                return this._disableToast;
             }
             set
             {
-                if (this._PreviousOS != value)
+                if (this._disableToast != value)
                 {
-                    this._PreviousOS = value;
-                    this.NotifyPropertyChanged("PreviousOS");
+                    this._disableToast = value;
+                    this.NotifyPropertyChanged("DisableToast");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Only show the toast when the `<see cref="SpotifyAction.ShowToast"/>` hotkey is pressed.
+        /// </summary>
+        public bool OnlyShowToastOnHotkey
+        {
+            get
+            {
+                return this._onlyShowToastOnHotkey;
+            }
+            set
+            {
+                if (this._onlyShowToastOnHotkey != value)
+                {
+                    this._onlyShowToastOnHotkey = value;
+                    this.NotifyPropertyChanged("OnlyShowToastOnHotkey");
+                }
+            }
+        }
+
+        public int FadeOutTime
+        {
+            get
+            {
+                return this._fadeOutTime;
+            }
+            set
+            {
+                if (this._fadeOutTime != value)
+                {
+                    this._fadeOutTime = value;
+                    this.NotifyPropertyChanged("FadeOutTime");
+                }
+            }
+        }
+
+        public string ToastColorTop
+        {
+            get
+            {
+                return this._toastColorTop;
+            }
+            set
+            {
+                if (this._toastColorTop != value)
+                {
+                    this._toastColorTop = value;
+                    this.NotifyPropertyChanged("ToastColorTop");
+                }
+            }
+        }
+
+        public string ToastColorBottom
+        {
+            get
+            {
+                return this._toastColorBottom;
+            }
+            set
+            {
+                if (this._toastColorBottom != value)
+                {
+                    this._toastColorBottom = value;
+                    this.NotifyPropertyChanged("ToastColorBottom");
+                }
+            }
+        }
+
+        public string ToastBorderColor
+        {
+            get
+            {
+                return this._toastBorderColor;
+            }
+            set
+            {
+                if (this._toastBorderColor != value)
+                {
+                    this._toastBorderColor = value;
+                    this.NotifyPropertyChanged("ToastBorderColor");
+                }
+            }
+        }
+
+        public double ToastBorderThickness
+        {
+            get
+            {
+                return this._toastBorderThickness;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastBorderThickness - value) > double.Epsilon)
+                {
+                    this._toastBorderThickness = value;
+                    this.NotifyPropertyChanged("ToastBorderThickness");
+                }
+            }
+        }
+
+        public double ToastBorderCornerRadiusTopLeft
+        {
+            get
+            {
+                return this._toastBorderCornerRadiusTopLeft;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastBorderCornerRadiusTopLeft - value) > double.Epsilon)
+                {
+                    this._toastBorderCornerRadiusTopLeft = value;
+                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopLeft");
+                }
+            }
+        }
+
+        public double ToastBorderCornerRadiusTopRight
+        {
+            get
+            {
+                return this._toastBorderCornerRadiusTopRight;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastBorderCornerRadiusTopRight - value) > double.Epsilon)
+                {
+                    this._toastBorderCornerRadiusTopRight = value;
+                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopRight");
+                }
+            }
+        }
+
+        public double ToastBorderCornerRadiusBottomLeft
+        {
+            get
+            {
+                return this._toastBorderCornerRadiusBottomLeft;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastBorderCornerRadiusBottomLeft - value) > double.Epsilon)
+                {
+                    this._toastBorderCornerRadiusBottomLeft = value;
+                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomLeft");
+                }
+            }
+        }
+
+        public double ToastBorderCornerRadiusBottomRight
+        {
+            get
+            {
+                return this._toastBorderCornerRadiusBottomRight;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastBorderCornerRadiusBottomRight - value) > double.Epsilon)
+                {
+                    this._toastBorderCornerRadiusBottomRight = value;
+                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomRight");
+                }
+            }
+        }
+
+        public double ToastWidth
+        {
+            get
+            {
+                return this._toastWidth;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastWidth - value) > double.Epsilon)
+                {
+                    this._toastWidth = value;
+                    this.NotifyPropertyChanged("ToastWidth");
+                }
+            }
+        }
+
+        public double ToastHeight
+        {
+            get
+            {
+                return this._toastHeight;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Value must be a positive number");
+
+                if (Math.Abs(this._toastHeight - value) > double.Epsilon)
+                {
+                    this._toastHeight = value;
+                    this.NotifyPropertyChanged("ToastHeight");
+                }
+            }
+        }
+
+        public double PositionLeft
+        {
+            get
+            {
+                return this._positionLeft;
+            }
+            set
+            {
+                if (Math.Abs(this._positionLeft - value) > double.Epsilon)
+                {
+                    this._positionLeft = value;
+                    this.NotifyPropertyChanged("PositionLeft");
+                }
+            }
+        }
+
+        public double PositionTop
+        {
+            get
+            {
+                return this._positionTop;
+            }
+            set
+            {
+                if (Math.Abs(this._positionTop - value) > double.Epsilon)
+                {
+                    this._positionTop = value;
+                    this.NotifyPropertyChanged("PositionTop");
+                }
+            }
+        }
+
+        #endregion [Toast]
+
+        #region (hidden)
+
+        public bool FirstRun
+        {
+            get
+            {
+                return this._firstRun;
+            }
+            set
+            {
+                if (this._firstRun != value)
+                {
+                    this._firstRun = value;
+                    this.NotifyPropertyChanged("FirstRun");
                 }
             }
         }
@@ -638,30 +633,14 @@ namespace Toastify.Core
         {
             get
             {
-                return this._PreviousVersion;
+                return this._previousVersion;
             }
             set
             {
-                if (this._PreviousVersion != value)
+                if (this._previousVersion != value)
                 {
-                    this._PreviousVersion = value;
+                    this._previousVersion = value;
                     this.NotifyPropertyChanged("PreviousVersion");
-                }
-            }
-        }
-
-        public bool PreventSleepWhilePlaying
-        {
-            get
-            {
-                return this._PreventSleepWhilePlaying;
-            }
-            set
-            {
-                if (this._PreventSleepWhilePlaying != value)
-                {
-                    this._PreventSleepWhilePlaying = value;
-                    this.NotifyPropertyChanged("PreventSleepWhilePlaying");
                 }
             }
         }
@@ -698,6 +677,12 @@ namespace Toastify.Core
             }
         }
 
+        public List<PluginDetails> Plugins { get; set; }
+
+        #endregion (hidden)
+
+        #endregion Settings
+
         private SettingsXml()
         {
             this.Default();
@@ -705,62 +690,62 @@ namespace Toastify.Core
 
         public void Default(bool setHotKeys = false)
         {
-            this.AlwaysStartSpotify = true;
-            this.DontPromptToStartSpotify = false;
+            // [General]
+            this.MinimizeSpotifyOnStartup = false;
             this.CloseSpotifyWithToastify = true;
             this.UseSpotifyVolumeControl = false;
             this.WindowsVolumeMixerIncrement = 2.0f;
 
-            this.FadeOutTime = 4000;
+            this.ClipboardTemplate = "I'm currently listening to {0}";
+            this.SaveTrackToFile = false;
+            this.SaveTrackToFilePath = Path.Combine(App.ApplicationData, "current_song.txt");
+
+            this.PreventSleepWhilePlaying = false;
+            this.OptInToAnalytics = false;
+
+            // [Hotkeys]
+            Hotkey.ClearAll();
             this.GlobalHotKeys = true;
+
+            // Only set hotkeys when it's requested (we don't set hotkeys when loading from XML since it will create duplicates)
+            if (setHotKeys)
+                this.HotKeys = this.defaultHotKeys;
+
+            // [Toast]
             this.DisableToast = false;
+            this.OnlyShowToastOnHotkey = true;
+            this.FadeOutTime = 4000;
 
             this.ToastColorTop = "#FF000000";
             this.ToastColorBottom = "#FF000000";
             this.ToastBorderColor = "#FF000000";
-
             this.ToastBorderThickness = 1.0;
-
-            this.ToastWidth = 300;
-            this.ToastHeight = 75;
 
             this.ToastBorderCornerRadiusTopLeft = 0;
             this.ToastBorderCornerRadiusTopRight = 0;
             this.ToastBorderCornerRadiusBottomRight = 0;
             this.ToastBorderCornerRadiusBottomLeft = 0;
 
+            this.ToastWidth = 300;
+            this.ToastHeight = 75;
+
             var position = ScreenHelper.GetDefaultToastPosition(this.ToastWidth, this.ToastHeight);
 
             this.PositionLeft = position.X;
             this.PositionTop = position.Y;
 
-            this.ClipboardTemplate = "I'm currently listening to {0}";
-
-            this.SaveTrackToFile = false;
-            this.OptInToAnalytics = false;
-            this.PreventSleepWhilePlaying = false;
-
+            // (hidden)
             this.StartupWaitTimeout = 20000;
             this.SpotifyConnectionAttempts = 5;
-
-            Hotkey.ClearAll();
-
-            // only set hotkeys when it's requested (we don't set hotkeys when
-            // loading from XML since it will create duplicates)
-            if (setHotKeys)
-                this.HotKeys = this._defaultHotKeys;
-
             this.Plugins = new List<PluginDetails>();
 
-            // there are a few settings that we don't really want to override when
+            // There are a few settings that we don't really want to override when
             // clearing settings (in fact these are more properties that we store
-            // alongside settings for convenience), so don't reset them if they have
-            // values
+            // alongside settings for convenience), so don't reset them if they have values
             if (_instance != null)
             {
                 this.FirstRun = _instance.FirstRun;
                 this.PreviousVersion = _instance.PreviousVersion;
-                this.PreviousOS = _instance.PreviousOS;
             }
         }
 
@@ -774,11 +759,6 @@ namespace Toastify.Core
 
             if (replaceCurrent)
                 Instance = this;
-        }
-
-        public void Update()
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
 
         public SettingsXml Load()
@@ -811,17 +791,17 @@ namespace Toastify.Core
         /// </summary>
         private void SanitizeSettingsFile()
         {
-            if (this._HotKeys == null)
+            if (this._hotKeys == null)
                 return;
 
-            // let's collapse duplicate hotkeys
+            // Let's collapse duplicate hotkeys
             var toKeep = new List<Hotkey>();
 
-            foreach (Hotkey current in this._defaultHotKeys)
+            foreach (Hotkey current in this.defaultHotKeys)
             {
                 Hotkey keep = current;
 
-                foreach (Hotkey compare in this._HotKeys)
+                foreach (Hotkey compare in this._hotKeys)
                 {
                     if (current.Action == compare.Action && compare.Enabled)
                         keep = compare;
@@ -830,14 +810,14 @@ namespace Toastify.Core
                 toKeep.Add(keep);
             }
 
-            // deactivate all of the old hotkeys, especially duplicate ones that are active
-            foreach (Hotkey hotkey in this._HotKeys)
+            // Deactivate all of the old hotkeys, especially duplicate ones that are active
+            foreach (Hotkey hotkey in this._hotKeys)
             {
                 if (!toKeep.Contains(hotkey))
                     hotkey.Deactivate();
             }
 
-            this._HotKeys = toKeep;
+            this._hotKeys = toKeep;
 
             // Validate WindowsVolumeMixerIncrement: must be positive!
             this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
@@ -858,7 +838,7 @@ namespace Toastify.Core
         /// </summary>
         private void CheckForNewSettings()
         {
-            foreach (Hotkey defaultHotkey in this._defaultHotKeys)
+            foreach (Hotkey defaultHotkey in this.defaultHotKeys)
             {
                 bool found = this.HotKeys.Any(hotkey => hotkey.Action == defaultHotkey.Action);
 
@@ -875,29 +855,8 @@ namespace Toastify.Core
             if (this.GlobalHotKeys)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
-                {
                     hotkey.Activate();
-                }
             }
-        }
-
-        private bool IsSetToLaunchOnStartup()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false);
-
-            return key?.GetValue("Toastify", null) != null;
-        }
-
-        private void SetLaunchOnStartup(bool enabled)
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true);
-
-            if (enabled)
-                key?.SetValue("Toastify", "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
-            else
-                key?.DeleteValue("Toastify", false);
-
-            key?.Close();
         }
 
         /// <summary>
@@ -908,9 +867,7 @@ namespace Toastify.Core
             if (this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
-                {
                     hotkey.Deactivate();
-                }
             }
         }
 
@@ -923,9 +880,7 @@ namespace Toastify.Core
                 clone.HotKeys = new List<Hotkey>();
 
                 foreach (Hotkey key in this.HotKeys)
-                {
                     clone.HotKeys.Add(key.Clone());
-                }
             }
 
             return clone;

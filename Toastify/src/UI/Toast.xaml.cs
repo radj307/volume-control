@@ -122,10 +122,10 @@ namespace Toastify.UI
 
             Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
 
-            if (SettingsXml.Instance.PreviousOS != version)
+            if (SettingsXml.Instance.PreviousVersion != version)
             {
                 Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
-                SettingsXml.Instance.PreviousOS = version;
+                SettingsXml.Instance.PreviousVersion = version;
             }
         }
 
