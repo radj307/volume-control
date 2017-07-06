@@ -196,9 +196,6 @@ namespace Toastify.Core
                     case SpotifyAction.ShowToast:
                         return "Show Toast";
 
-                    case SpotifyAction.Stop:
-                        return "Stop";
-
                     case SpotifyAction.VolumeDown:
                         return "Volume Down";
 

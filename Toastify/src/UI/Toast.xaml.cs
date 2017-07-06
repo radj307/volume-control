@@ -549,12 +549,6 @@ namespace Toastify.UI
                     this.UpdateToastText("Settings saved", "Here is a preview of your settings!");
                     break;
 
-                // TODO: Is Stop really possible on Spotify?
-                case SpotifyAction.Stop:
-                    this.UpdateToastText(this.currentSong, "Stopped");
-                    this.currentSong = null;
-                    break;
-
                 case SpotifyAction.VolumeUp:
                     this.UpdateToastText(this.currentSong, "Volume ++");
                     break;
