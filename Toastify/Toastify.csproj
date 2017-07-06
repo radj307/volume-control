@@ -207,10 +207,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoHotkey.Interop\AutoHotkey.Interop.csproj">
-      <Project>{2869dbfe-7762-4930-95ea-2b0c111cf353}</Project>
-      <Name>AutoHotkey.Interop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj">
       <Project>{5d68931f-528f-4d95-89be-3eb26832af8c}</Project>
       <Name>ToastifyAPI</Name>

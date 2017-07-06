@@ -1,7 +1,7 @@
-using AutoHotkey.Interop;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -27,8 +27,6 @@ namespace Toastify.Core
 
         #region Private fields
 
-        private AutoHotkeyEngine ahk;
-
         private readonly SpotifyLocalAPI localAPI;
 
         private readonly string spotifyPath;
@@ -51,12 +49,7 @@ namespace Toastify.Core
                     return false;
 
                 var hWnd = this.GetMainWindowHandle();
-
-                // check Spotify's current window state
-                var placement = new Win32API.WindowPlacement();
-                Win32API.GetWindowPlacement(hWnd, ref placement);
-
-                return placement.showCmd == Win32API.Constants.SW_SHOWMINIMIZED;
+                return Win32API.IsWindowMinimized(hWnd);
             }
         }
 
@@ -270,6 +263,19 @@ namespace Toastify.Core
             return spotifyWindow != IntPtr.Zero ? spotifyWindow : Win32API.FindWindow("SpotifyMainWindow", null);
         }
 
+        /// <summary>
+        /// Returns the handle to the only visible windows whose class is "Chrome_WidgetWin_0".
+        /// (This window is child of "CefBrowserWindow", who in turn is child of "SpotifyMainWindow")
+        /// </summary>
+        /// <returns></returns>
+        private IntPtr GetCefWidgetWindowHandle()
+        {
+            IntPtr mainHWnd = this.GetMainWindowHandle();
+            IntPtr cefHWnd = Win32API.FindWindowEx(mainHWnd, IntPtr.Zero, "CefBrowserWindow", null);
+            IntPtr wdgtHWnd = Win32API.FindWindowEx(cefHWnd, IntPtr.Zero, "Chrome_WidgetWin_0", null);
+            return wdgtHWnd;
+        }
+
         public void SendAction(SpotifyAction action)
         {
             if (!this.IsRunning)
@@ -293,18 +299,18 @@ namespace Toastify.Core
 
                 case SpotifyAction.FastForward:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.FastForward);
-                    this.SendComplexKeys("+{Right}");
+                    this.SendShortcut(action);
                     break;
 
                 case SpotifyAction.Rewind:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Rewind);
-                    this.SendComplexKeys("+{Left}");
+                    this.SendShortcut(action);
                     break;
 
                 case SpotifyAction.VolumeUp:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
                     if (SettingsXml.Instance.UseSpotifyVolumeControl)
-                        this.SendComplexKeys("^{Up}");
+                        this.SendShortcut(action);
                     else
                         this.localAPI.IncrementVolume();
                     return;
@@ -312,7 +318,7 @@ namespace Toastify.Core
                 case SpotifyAction.VolumeDown:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
                     if (SettingsXml.Instance.UseSpotifyVolumeControl)
-                        this.SendComplexKeys("^{Down}");
+                        this.SendShortcut(action);
                     else
                         this.localAPI.DecrementVolume();
                     return;
@@ -324,85 +330,95 @@ namespace Toastify.Core
 
                 default:
                     Telemetry.TrackEvent(TelemetryCategory.Action, $"{Telemetry.TelemetryEvent.Action.Default}{action}");
-                    Win32API.SendMessage(this.GetMainWindowHandle(), Win32API.Constants.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)action));
+                    Win32API.SendMessage(this.GetMainWindowHandle(), (uint)Win32API.WindowsMessagesFlags.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)action));
                     break;
             }
         }
 
         /// <summary>
-        /// Some commands require sending keys directly to Spotify (for example, Fast Forward and Rewind which
-        /// are not handled by Spotify). We can't inject keys directly with WM_KEYDOWN/UP since we need a keyboard
-        /// hook to actually change the state of various modifier keys (for example, Shift + Right for Fast Forward).
-        ///
-        /// AutoHotKey has that hook and can modify the state for us, so let's take advantge of it.
+        ///   Sends a series of messages to the Spotify process to simulate a keyboard shortcut inside the app itself.
+        ///   Works also if Spotify is minimized (normally or to the tray).
+        ///   <para> See https://gist.github.com/aleab/9efa67e5b1a885c2c72cfbe7cf012249 for details. </para>
         /// </summary>
-        /// <param name="keys"></param>
-        private void SendComplexKeys(string keys)
+        /// <param name="action"> The action to simulate. </param>
+        private void SendShortcut(SpotifyAction action)
         {
-            // TODO: Currently, SendComplexKeys doesn't work if Spotify is minimized to the tray.
-            //       We should first showw the main window (minimized to the taskbar directly, if possible).
+            IntPtr mainWindow = this.GetMainWindowHandle();
+            IntPtr cefWidgetWindow = this.GetCefWidgetWindowHandle();
 
-            Debug.WriteLine($"Complex keys: {keys}");
-
-            // Only initialize AHK when needed as it can be expensive if not actually needed.
-            if (this.ahk == null)
-                this.ahk = new AutoHotkeyEngine();
-
-            // The ControlSend command releases any modifier key after execution,
-            // even if they are still physically pressed. It's awful, but we need to
-            // send the keystrokes of those modifiers after execution manually.
-            //
-            // Key modifiers:
-            //   Alt    !
-            //   Shift  +
-            //   Ctrl   ^
-            //   Win    #
-            bool altPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
-            bool shiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-            bool ctrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
-            bool winPressed = Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
-            Debug.WriteLine($"[ComplexKeys] (BEFORE) Alt: {altPressed}, Shift: {shiftPressed}, Ctrl: {ctrlPressed}, Win: {winPressed}");
-
-            string releaseModifiers = string.Empty;
-            string holdModifiers = string.Empty;
-
-            if (altPressed)
+            if (mainWindow == IntPtr.Zero || cefWidgetWindow == IntPtr.Zero)
+                Debug.WriteLine($"[Spotify.SendShortcut]: {mainWindow}, {cefWidgetWindow}");
+            else
             {
-                releaseModifiers += "{Alt up}";
-                holdModifiers += "{Alt down}";
-            }
-            if (shiftPressed)
-            {
-                releaseModifiers += "{Shift up}";
-                holdModifiers += "{Shift down}";
-            }
-            if (ctrlPressed)
-            {
-                releaseModifiers += "{Ctrl up}";
-                holdModifiers += "{Ctrl down}";
-            }
-            if (winPressed)
-            {
-                releaseModifiers += "{LWin up}";
-                holdModifiers += "{LWin down}";
-            }
+                // The 'Playback' sub-menu
+                const int subMenuPos = 3;
+                // The base accelerator id: each item's id is obtained adding its zero-based position in the drop-down menu.
+                const uint baseAcceleratorId = 0x00000072;
 
-            this.ahk.ExecRaw("SetTitleMatchMode 2");
-            this.ahk.ExecRaw("DetectHiddenWindows, On");
+                List<Key> modifierKeys;
+                Key key;
+                int menuItemPos;
 
-            this.ahk.ExecRaw(string.IsNullOrWhiteSpace(releaseModifiers) ? string.Empty : $"Send, {releaseModifiers}");
-            this.ahk.ExecRaw($"ControlSend, ahk_parent, {keys}, ahk_class SpotifyMainWindow");
-            this.ahk.ExecRaw(string.IsNullOrWhiteSpace(holdModifiers) ? string.Empty : $"Send, {holdModifiers}");
+                switch (action)
+                {
+                    case SpotifyAction.FastForward:
+                        modifierKeys = new List<Key> { Key.LeftShift };
+                        key = Key.Right;
+                        menuItemPos = 3;
+                        break;
 
-            this.ahk.ExecRaw("DetectHiddenWindows, Off");
+                    case SpotifyAction.Rewind:
+                        modifierKeys = new List<Key> { Key.LeftShift };
+                        key = Key.Left;
+                        menuItemPos = 4;
+                        break;
 
-#if DEBUG
-            altPressed = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
-            shiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-            ctrlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
-            winPressed = Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
-            Debug.WriteLine($"[ComplexKeys] (AFTER)  Alt: {altPressed}, Shift: {shiftPressed}, Ctrl: {ctrlPressed}, Win: {winPressed}");
-#endif
+                    case SpotifyAction.VolumeUp:
+                        modifierKeys = new List<Key> { Key.LeftCtrl };
+                        key = Key.Up;
+                        menuItemPos = 7;
+                        break;
+
+                    case SpotifyAction.VolumeDown:
+                        modifierKeys = new List<Key> { Key.LeftCtrl };
+                        key = Key.Down;
+                        menuItemPos = 8;
+                        break;
+
+                    default:
+                        return;
+                }
+
+                // WM_KEYDOWN: hold down the keys
+                foreach (var k in modifierKeys)
+                    Win32API.SendKeyDown(cefWidgetWindow, k, true);
+                Win32API.SendKeyDown(cefWidgetWindow, key, true, true);
+                Thread.Sleep(30);
+
+                // WM_INITMENU: select menu
+                IntPtr hMenu = Win32API.GetMenu(mainWindow);
+                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_INITMENU, hMenu, IntPtr.Zero);
+
+                // WM_INITMENUPOPUP: select sub-menu ('Playback')
+                IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
+                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_INITMENUPOPUP, hSubMenu, (IntPtr)subMenuPos);
+
+                // WM_COMMAND: accelerator keystroke (shortcut)
+                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(0x00010000 | (baseAcceleratorId + menuItemPos)), IntPtr.Zero);
+
+                // WM_UNINITMENUPOPUP: destroy the sub-menu
+                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_UNINITMENUPOPUP, hSubMenu, IntPtr.Zero);
+
+                // The following message is not needed: it will be sent automatically by <something> to the main window to notify the event (to change the UI?).
+                // WM_COMMAND: notification that the keystroke has been translated
+                //Win32API.PostMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)0x00007D01, IntPtr.Zero);
+
+                // WM_KEYUP: release the keys
+                Win32API.SendKeyUp(cefWidgetWindow, key, true, true);
+                Thread.Sleep(30);
+                foreach (var k in modifierKeys)
+                    Win32API.SendKeyDown(cefWidgetWindow, k, true);
+            }
         }
 
         private string GetSpotifyPath()

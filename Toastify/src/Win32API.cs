@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Toastify.Helpers;
 
 // ReSharper disable InconsistentNaming
@@ -34,8 +35,17 @@ namespace Toastify
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
         [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetMenu(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
 
         [DllImport("user32.dll")]
         internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
@@ -79,17 +89,25 @@ namespace Toastify
         [DllImport("user32.dll")]
         internal static extern IntPtr SetFocus(IntPtr hWnd);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        internal static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern bool SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
         public static extern void SetLastError(int dwErrorCode);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
+        public static extern ExecutionStateFlags SetThreadExecutionState(ExecutionStateFlags esFlags);
+
+        [DllImport("user32.dll")]
+        internal static extern uint MapVirtualKey(uint uCode, MapVirtualKeyType uMapType);
+
+        [DllImport("user32.dll")]
+        internal static extern uint MapVirtualKeyEx(uint uCode, MapVirtualKeyType uMapType, IntPtr dwhkl);
 
         #endregion DLL imports
 
@@ -140,8 +158,8 @@ namespace Toastify
                         // Essentially: Find every hWnd associated with this process and ask it to go away
                         if (processId == (uint)lParam)
                         {
-                            SendMessage(hWnd, Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            SendMessage(hWnd, Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
+                            SendMessage(hWnd, (uint)Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                            SendMessage(hWnd, (uint)Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
                         }
 
                         return true;
@@ -177,7 +195,7 @@ namespace Toastify
 
         public static void AddToolWindowStyle(System.Windows.Window window)
         {
-            AddWindowLongPtr(window.GetHandle(), GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStyles.WS_EX_TOOLWINDOW);
+            AddWindowLongPtr(window.GetHandle(), GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStylesFlags.WS_EX_TOOLWINDOW);
         }
 
         public static bool IsForegroundAppRunningInFullscreen()
@@ -193,12 +211,12 @@ namespace Toastify
                     GetWindowRect(hWnd, out Rect appBounds);
 
                     // Determine if window is fullscreen.
-                    WindowStyles windowStyles = (WindowStyles)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
+                    WindowStylesFlags windowStyles = (WindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
                     Rectangle screenBounds = Screen.FromHandle(hWnd).Bounds;
 
                     // - 'fullscreen' applications have WS_MAXIMIZE style;
                     // - 'windowed borderless' applications (e.g. videogames) don't (they have WS_POPUP, though).
-                    bool isMaximized = (windowStyles & WindowStyles.WS_MAXIMIZE) > 0L;
+                    bool isMaximized = (windowStyles & WindowStylesFlags.WS_MAXIMIZE) > 0L;
                     bool windowFillsWholeScreen = appBounds.bottom - appBounds.top == screenBounds.Height &&
                                                   appBounds.right - appBounds.left == screenBounds.Width;
                     if (windowFillsWholeScreen && isMaximized)
@@ -206,6 +224,49 @@ namespace Toastify
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Checks if a window is minimized.
+        /// </summary>
+        /// <param name="hWnd"> The window handle. </param>
+        /// <param name="toTray">
+        /// Whether to check if the window is minimized to the tray or not.
+        /// If this parameter is true and the window is minimized to the taskbar, then it returns false;
+        /// if this parameter is false and the window is minimized to the tray, then it returns true.
+        /// </param>
+        /// <returns> Whether the window is minimized or not. </returns>
+        public static bool IsWindowMinimized(IntPtr hWnd, bool toTray = false)
+        {
+            if (hWnd == IntPtr.Zero)
+                return false;
+
+            WindowStylesFlags windowStyles = (WindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
+            if ((windowStyles & WindowStylesFlags.WS_MINIMIZE) > 0L)
+            {
+                // If a window is minimized to the taskbar, it is still WS_VISIBLE;
+                // if it is minimized to the tray, it is not.
+                return !toTray || (windowStyles & WindowStylesFlags.WS_VISIBLE) == 0L;
+            }
+            return false;
+        }
+
+        public static bool SendKeyDown(IntPtr hWnd, Key key, bool postMessage = false, bool extended = false)
+        {
+            const uint msg = (uint)WindowsMessagesFlags.WM_KEYDOWN;
+            IntPtr wParam = (IntPtr)key.GetVirtualKey();
+            IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0));
+
+            return postMessage ? PostMessage(hWnd, msg, wParam, lParam) : SendMessage(hWnd, msg, wParam, lParam);
+        }
+
+        public static bool SendKeyUp(IntPtr hWnd, Key key, bool postMessage = false, bool extended = false)
+        {
+            const uint msg = (uint)WindowsMessagesFlags.WM_KEYUP;
+            IntPtr wParam = (IntPtr)key.GetVirtualKey();
+            IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0), previousState: 1, transitionState: 1);
+
+            return postMessage ? PostMessage(hWnd, msg, wParam, lParam) : SendMessage(hWnd, msg, wParam, lParam);
         }
 
         public static void SendPasteKey()
@@ -329,13 +390,12 @@ namespace Toastify
             GWL_USERDATA   = -21,
             GWL_WNDPROC    = -4
         }
-
-
+        
         /// <summary>
         /// Window styles (<see cref="GWL.GWL_STYLE"/>).
         /// </summary>
         [Flags]
-        internal enum WindowStyles : long
+        internal enum WindowStylesFlags : long
         {
             WS_BORDER           = 0x00800000L,
             WS_CAPTION          = 0x00C00000L,
@@ -370,7 +430,7 @@ namespace Toastify
         /// Extended window styles (<see cref="GWL.GWL_EXSTYLE"/>).
         /// </summary>
         [Flags]
-        internal enum ExtendedWindowStyles : long
+        internal enum ExtendedWindowStylesFlags : long
         {
             WS_EX_ACCEPTFILES         = 0x00000010L,
             WS_EX_APPWINDOW           = 0x00040000L,
@@ -402,13 +462,44 @@ namespace Toastify
         }
 
         [Flags]
-        public enum ExecutionState : uint
+        internal enum ExecutionStateFlags : uint
         {
             ES_AWAYMODE_REQUIRED = 0x00000040,
             ES_CONTINUOUS        = 0x80000000,
             ES_DISPLAY_REQUIRED  = 0x00000002,
             ES_SYSTEM_REQUIRED   = 0x00000001,
             ES_USER_PRESENT      = 0x00000004 // Legacy flag, should not be used.
+        }
+
+        [Flags]
+        internal enum WindowsMessagesFlags
+        {
+            // Keyboard Input Messages & Notifications
+            WM_KEYDOWN         = 0x0100,
+            WM_KEYUP           = 0x0101,
+            WM_CHAR            = 0x0102,
+            WM_SYSKEYDOWN      = 0x0104,
+            WM_SYSKEYUP        = 0x0105,
+            WM_SYSCHAR         = 0x0106,
+
+            WM_APPCOMMAND      = 0x0319,
+
+            // Menu Messages & Notifications
+            WM_COMMAND         = 0x0111,
+            WM_UNINITMENUPOPUP = 0x0125,
+
+            // Keyboard Accelerator Messages & Notifications
+            WM_INITMENU        = 0x0116,
+            WM_INITMENUPOPUP   = 0x0117,
+        }
+
+        internal enum MapVirtualKeyType : uint
+        {
+            MAPVK_VK_TO_VSC    = 0,
+            MAPVK_VSC_TO_VK    = 1,
+            MAPVK_VK_TO_CHAR   = 2,
+            MAPVK_VSC_TO_VK_EX = 3,
+            MAPVK_VK_TO_VSC_EX = 4
         }
 
         #endregion Enums
@@ -430,8 +521,6 @@ namespace Toastify
         //       See: SendMessage function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms644950(v=vs.85).aspx)
         internal class Constants
         {
-            internal const uint WM_APPCOMMAND = 0x0319;
-
             internal const int SW_SHOWMINIMIZED = 2;
             internal const int SW_SHOWNOACTIVATE = 4;
             internal const int SW_SHOWMINNOACTIVE = 7;

@@ -441,7 +441,7 @@ namespace Toastify.UI
 #if DEBUG
                 var rv =
 #endif
-                Win32API.SetThreadExecutionState(Win32API.ExecutionState.ES_SYSTEM_REQUIRED);
+                Win32API.SetThreadExecutionState(Win32API.ExecutionStateFlags.ES_SYSTEM_REQUIRED);
 #if DEBUG
                 Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
 #endif
