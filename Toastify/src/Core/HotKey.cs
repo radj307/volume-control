@@ -6,14 +6,55 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using Toastify.UI;
 
 namespace Toastify.Core
 {
-    public class Hotkey : INotifyPropertyChanged
+    [Serializable]
+    [XmlRoot("Hotkey")]
+    public class Hotkey : INotifyPropertyChanged, IXmlSerializable
     {
+        private static readonly List<Hotkey> hotkeys = new List<Hotkey>();
+
+        #region Private fields
+
+        private SpotifyAction _action;
         private bool _enabled;
+        private bool _shift;
+        private bool _ctrl;
+        private bool _alt;
+        private bool _windowsKey;
+        private Key _key;
+
+        private bool _isValid;
+        private string _invalidReason;
+
+        private bool _active;
+        private ManagedWinapi.Hotkey _globalKey;
+        private readonly ManagedWinapi.Hotkey key = new ManagedWinapi.Hotkey();
+
+        #endregion Private fields
+
+        #region Public properties
+
+        public SpotifyAction Action
+        {
+            get
+            {
+                return this._action;
+            }
+            set
+            {
+                if (this._action != value)
+                {
+                    this._action = value;
+                    this.NotifyPropertyChanged("Action", false);
+                }
+            }
+        }
 
         /// <summary>
         /// Specifies whether or not the hotkey is enabled or disabled from a user's
@@ -35,74 +76,10 @@ namespace Toastify.Core
                 if (this._enabled != value)
                 {
                     this._enabled = value;
-                    this.NotifyPropertyChanged("Enabled");
+                    this.NotifyPropertyChanged("Enabled", false);
                 }
             }
         }
-
-        private bool _windowsKey;
-
-        public bool WindowsKey
-        {
-            get
-            {
-                return this._windowsKey;
-            }
-            set
-            {
-                if (this._windowsKey != value)
-                {
-                    this._windowsKey = value;
-
-                    this.NotifyPropertyChanged("WindowsKey");
-
-                    this.CheckIfValid();
-                }
-            }
-        }
-
-
-        private bool _ctrl;
-
-        public bool Ctrl
-        {
-            get
-            {
-                return this._ctrl;
-            }
-            set
-            {
-                if (this._ctrl != value)
-                {
-                    this._ctrl = value;
-
-                    this.NotifyPropertyChanged("Notify");
-
-                    this.CheckIfValid();
-                }
-            }
-        }
-
-        private bool _alt;
-
-        public bool Alt
-        {
-            get
-            {
-                return this._alt;
-            }
-            set
-            {
-                if (this._alt != value)
-                {
-                    this._alt = value;
-                    this.NotifyPropertyChanged("Alt");
-                    this.CheckIfValid();
-                }
-            }
-        }
-
-        private bool _shift;
 
         public bool Shift
         {
@@ -116,13 +93,57 @@ namespace Toastify.Core
                 {
                     this._shift = value;
                     this.NotifyPropertyChanged("Shift");
-                    this.CheckIfValid();
                 }
             }
         }
 
+        public bool Ctrl
+        {
+            get
+            {
+                return this._ctrl;
+            }
+            set
+            {
+                if (this._ctrl != value)
+                {
+                    this._ctrl = value;
+                    this.NotifyPropertyChanged("Ctrl");
+                }
+            }
+        }
 
-        private Key _key;
+        public bool Alt
+        {
+            get
+            {
+                return this._alt;
+            }
+            set
+            {
+                if (this._alt != value)
+                {
+                    this._alt = value;
+                    this.NotifyPropertyChanged("Alt");
+                }
+            }
+        }
+
+        public bool WindowsKey
+        {
+            get
+            {
+                return this._windowsKey;
+            }
+            set
+            {
+                if (this._windowsKey != value)
+                {
+                    this._windowsKey = value;
+                    this.NotifyPropertyChanged("WindowsKey");
+                }
+            }
+        }
 
         public Key Key
         {
@@ -136,26 +157,22 @@ namespace Toastify.Core
                 {
                     this._key = value;
                     this.NotifyPropertyChanged("Key");
-                    this.CheckIfValid();
                 }
             }
         }
 
-        private SpotifyAction _action;
-
-        public SpotifyAction Action
+        [XmlIgnore]
+        public string HumanReadableKey
         {
             get
             {
-                return this._action;
-            }
-            set
-            {
-                if (this._action != value)
-                {
-                    this._action = value;
-                    this.NotifyPropertyChanged("Action");
-                }
+                StringBuilder sb = new StringBuilder();
+                if (this.Shift) sb.Append("Shift+");
+                if (this.Ctrl) sb.Append("Ctrl+");
+                if (this.Alt) sb.Append("Alt+");
+                if (this.WindowsKey) sb.Append("Win+");
+                sb.Append(this.Key);
+                return sb.ToString();
             }
         }
 
@@ -219,8 +236,6 @@ namespace Toastify.Core
             }
         }
 
-        private bool _isValid;
-
         [XmlIgnore]
         public bool IsValid
         {
@@ -233,12 +248,10 @@ namespace Toastify.Core
                 if (this._isValid != value)
                 {
                     this._isValid = value;
-                    this.NotifyPropertyChanged("IsValid");
+                    this.NotifyPropertyChanged("IsValid", false);
                 }
             }
         }
-
-        private string _invalidReason;
 
         [XmlIgnore]
         public string InvalidReason
@@ -252,20 +265,49 @@ namespace Toastify.Core
                 if (this._invalidReason != value)
                 {
                     this._invalidReason = value;
-                    this.NotifyPropertyChanged("InvalidReason");
+                    this.NotifyPropertyChanged("InvalidReason", false);
                 }
             }
         }
 
-        private bool _active;
-        private ManagedWinapi.Hotkey _globalKey;
+        [XmlIgnore]
+        public bool Active
+        {
+            get
+            {
+                return this._active;
+            }
+            private set
+            {
+                if (this._active != value)
+                {
+                    this._active = value;
+                    this.InitGlobalKey();
+                }
+            }
+        }
+
+        #endregion Public properties
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Hotkey()
+        {
+            hotkeys.Add(this);
+        }
+
+        ~Hotkey()
+        {
+            if (this.key != null)
+                this.key.Enabled = false;
+        }
 
         public Hotkey Clone()
         {
             Hotkey clone = this.MemberwiseClone() as Hotkey;
 
-            // regardless of whether or not the original hotkey was active
-            // the cloned one should not start in an active state
+            // Regardless of whether or not the original hotkey was active,
+            // the cloned one should not start in an active state.
             if (clone != null)
                 clone._active = false;
 
@@ -273,11 +315,11 @@ namespace Toastify.Core
         }
 
         /// <summary>
-        /// Turn this HotKey off
+        /// Turn this HotKey off.
         /// </summary>
         public void Deactivate()
         {
-            this.SetActive(false);
+            this.Active = false;
         }
 
         /// <summary>
@@ -285,23 +327,13 @@ namespace Toastify.Core
         /// </summary>
         public void Activate()
         {
-            this.SetActive(true);
-        }
-
-        private void SetActive(bool value)
-        {
-            if (this._active != value)
-            {
-                this._active = value;
-
-                this.InitGlobalKey();
-            }
+            this.Active = true;
         }
 
         private void InitGlobalKey()
         {
-            // If we're not enabled shut everything done asap
-            if (!this.Enabled || !this._active)
+            // If we're not enabled shut everything down asap
+            if (!this.Enabled || !this.Active)
             {
                 if (this._globalKey != null)
                 {
@@ -309,7 +341,7 @@ namespace Toastify.Core
                     this._globalKey = null; // may as well collect the memory
                 }
 
-                // may not be false if !Enabled
+                // May not be false if !Enabled
                 this._active = false;
 
                 return;
@@ -318,15 +350,14 @@ namespace Toastify.Core
             if (this._globalKey == null)
                 this._globalKey = new ManagedWinapi.Hotkey();
 
-            // make sure that we don't try to reregister the key midway updating
-            // the combination
+            // Make sure that we don't try to reregister the key midway updating the combination.
             if (this._globalKey.Enabled)
                 this._globalKey.Enabled = false;
 
-            this._globalKey.WindowsKey = this.WindowsKey;
-            this._globalKey.Alt = this.Alt;
-            this._globalKey.Ctrl = this.Ctrl;
             this._globalKey.Shift = this.Shift;
+            this._globalKey.Ctrl = this.Ctrl;
+            this._globalKey.Alt = this.Alt;
+            this._globalKey.WindowsKey = this.WindowsKey;
             this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
 
             this._globalKey.HotkeyPressed += (s, e) => { Toast.HotkeyActionCallback(this); };
@@ -354,27 +385,185 @@ namespace Toastify.Core
             {
                 this.IsValid = false;
                 this.InvalidReason = "You must select a valid key for your hotkey combination";
-
-                return;
             }
-
-            this.IsValid = true;
-            this.InvalidReason = "";
+            else if (this.Shift == false && this.Ctrl == false && this.Alt == false)
+            {
+                this.IsValid = false;
+                this.InvalidReason = "At least one modifier key must be selected";
+            }
+            else
+            {
+                this.IsValid = true;
+                this.InvalidReason = "";
+            }
         }
 
-        #region Static Functions
+        #region INotifyPropertyChanged
 
-        private static readonly List<Hotkey> hotkeys = new List<Hotkey>();
+        private void NotifyPropertyChanged(string info, bool checkIfValid = true)
+        {
+            if (checkIfValid)
+                this.CheckIfValid();
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+
+        #endregion INotifyPropertyChanged
+
+        #region IXmlSerializable
+
+        private enum Attribute
+        {
+            Null = 0,
+            Enabled,
+            Shift,
+            Ctrl,
+            Alt,
+            WindowsKey,
+            Key,
+            Action
+        }
+
+        private static readonly Dictionary<Attribute, List<string>> nodeNames = new Dictionary<Attribute, List<string>>
+        {
+            { Attribute.Enabled,    new List<string> { "Enabled" } },
+            { Attribute.Shift,      new List<string> { "Shift" } },
+            { Attribute.Ctrl,       new List<string> { "Ctrl" } },
+            { Attribute.Alt,        new List<string> { "Alt" } },
+            { Attribute.WindowsKey, new List<string> { "WindowsKey", "Win", "WinKey" } },
+            { Attribute.Key,        new List<string> { "Key" } },
+            { Attribute.Action,     new List<string> { "Action" } }
+        };
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            if (reader.IsEmptyElement && !reader.HasAttributes)
+                return;
+
+            try
+            {
+                Dictionary<Attribute, bool> deserializedFlags = new Dictionary<Attribute, bool>();
+
+                // First, try to read the attributes of the 'Hotkey' node.
+                if (reader.MoveToFirstAttribute())
+                {
+                    do
+                    {
+                        string name = reader.LocalName;
+                        string value = reader.Value;
+                        this.ParseNode(name, value, deserializedFlags);
+                    } while (reader.MoveToNextAttribute());
+
+                    reader.MoveToElement();
+                }
+
+                // Then, try to read the child nodes (for compatibility with the old settings file).
+                if (!reader.IsEmptyElement)
+                {
+                    reader.Read();
+                    while (reader.NodeType != XmlNodeType.EndElement)
+                    {
+                        string name = reader.LocalName;
+                        string value = reader.ReadElementContentAsString();
+                        this.ParseNode(name, value, deserializedFlags);
+                    }
+                }
+            }
+            finally
+            {
+                if (!reader.IsEmptyElement)
+                    reader.ReadEndElement();
+                else
+                    reader.Skip();
+            }
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString(nodeNames[Attribute.Action].First(), this.Action.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Enabled].First(), this.Enabled.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Shift].First(), this.Shift.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Ctrl].First(), this.Ctrl.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Alt].First(), this.Alt.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.WindowsKey].First(), this.WindowsKey.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Key].First(), this.Key.ToString());
+        }
+
+        private void ParseNode(string localName, string value, IDictionary<Attribute, bool> deserializedFlags)
+        {
+            Attribute hotkeyAttribute = nodeNames
+                .FirstOrDefault(kvp => kvp.Value.Contains(localName, StringComparer.InvariantCultureIgnoreCase))
+                .Key;
+
+            // The current node name does not match any of the known names.
+            if (hotkeyAttribute == Attribute.Null)
+                return;
+
+            // The current node is a duplicate.
+            if (deserializedFlags.ContainsKey(hotkeyAttribute) && deserializedFlags[hotkeyAttribute])
+                return;
+
+            // Parse the value.
+            this.ParseNodeValue(hotkeyAttribute, value, deserializedFlags);
+        }
+
+        private void ParseNodeValue(Attribute attribute, string value, IDictionary<Attribute, bool> deserializedFlags)
+        {
+            if (deserializedFlags.ContainsKey(attribute))
+                deserializedFlags[attribute] = true;
+
+            switch (attribute)
+            {
+                case Attribute.Enabled:
+                    this.Enabled = bool.Parse(value);
+                    break;
+
+                case Attribute.Shift:
+                    this.Shift = bool.Parse(value);
+                    break;
+
+                case Attribute.Ctrl:
+                    this.Ctrl = bool.Parse(value);
+                    break;
+
+                case Attribute.Alt:
+                    this.Alt = bool.Parse(value);
+                    break;
+
+                case Attribute.WindowsKey:
+                    this.WindowsKey = bool.Parse(value);
+                    break;
+
+                case Attribute.Key:
+                    this.Key = (Key)Enum.Parse(typeof(Key), value);
+                    break;
+
+                case Attribute.Action:
+                    SpotifyAction action;
+                    if (!Enum.TryParse(value, true, out action))
+                        action = SpotifyAction.None;
+                    this.Action = action;
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
+        #endregion IXmlSerializable
+
+        #region Static functions
 
         public static void ClearAll()
         {
-            // disable will be called by the destructors, but we want to force a disable
+            // Disable will be called by the destructors, but we want to force a disable
             // now so that we don't wait for the GC to clean up the objects
             foreach (Hotkey hotkey in hotkeys)
-            {
                 hotkey.Deactivate();
-            }
-
             hotkeys.Clear();
         }
 
@@ -386,45 +575,6 @@ namespace Toastify.Core
             return Keys.None;
         }
 
-        #endregion Static Functions
-
-        private readonly ManagedWinapi.Hotkey key = new ManagedWinapi.Hotkey();
-
-        public Hotkey()
-        {
-            hotkeys.Add(this);
-        }
-
-        ~Hotkey()
-        {
-            if (this.key != null)
-                this.key.Enabled = false;
-        }
-
-        [XmlIgnore]
-        public string HumanReadableKey
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                if (this.WindowsKey) sb.Append("Win+");
-                if (this.Ctrl) sb.Append("Ctrl+");
-                if (this.Alt) sb.Append("Alt+");
-                if (this.Shift) sb.Append("Shift+");
-                sb.Append(this.Key);
-                return sb.ToString();
-            }
-        }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string info)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-        }
-
-        #endregion INotifyPropertyChanged
+        #endregion Static functions
     }
 }
