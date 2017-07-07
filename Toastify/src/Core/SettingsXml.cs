@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using Toastify.Common;
 using Toastify.Helpers;
 
 namespace Toastify.Core
@@ -675,6 +676,8 @@ namespace Toastify.Core
                 }
             }
         }
+
+        public WindowPosition SettingsWindowLastLocation { get; set; }
 
         public List<PluginDetails> Plugins { get; set; }
 

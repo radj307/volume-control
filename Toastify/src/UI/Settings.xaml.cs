@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Toastify.Common;
 using Toastify.Core;
 using Toastify.Services;
 
@@ -15,19 +16,29 @@ namespace Toastify.UI
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class Settings : Window
     {
+        private static Settings _current;
+
         public SettingsXml settings;
         private readonly Toast toast;
 
         private List<Key> modifierKeys = new List<Key> { Key.LeftCtrl, Key.RightCtrl, Key.LeftAlt, Key.Right, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin, Key.System };
 
-        private static Settings _current;
-
-        public static void Launch(Toast toast)
+        public WindowStartupLocation StartupLocation
         {
-            if (_current != null)
-                _current.Activate();
-            else
-                new Settings(toast).ShowDialog();
+            get
+            {
+                WindowStartupLocation location;
+
+                if (this.settings.FirstRun || this.settings.SettingsWindowLastLocation == WindowPosition.Zero)
+                    location = WindowStartupLocation.CenterScreen;
+                else
+                {
+                    this.Left = this.settings.SettingsWindowLastLocation.Left;
+                    this.Top = this.settings.SettingsWindowLastLocation.Top;
+                    location = WindowStartupLocation.Manual;
+                }
+                return location;
+            }
         }
 
         private Settings(Toast toast)
@@ -39,10 +50,12 @@ namespace Toastify.UI
 
             this.InitializeComponent();
 
-            //Data context initialisation
+            this.WindowStartupLocation = this.StartupLocation;
+
+            // Data context initialisation
             this.GeneralGrid.DataContext = this.settings;
 
-            //Slider initialisation
+            // Slider initialisation
             try
             {
                 this.SlTopColor.Value = byte.Parse(this.settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
@@ -64,6 +77,14 @@ namespace Toastify.UI
 
             this.toast.InitToast();
             this.toast.DisplayAction(SpotifyAction.SettingsSaved);
+        }
+
+        public static void Launch(Toast toast)
+        {
+            if (_current != null)
+                _current.Activate();
+            else
+                new Settings(toast).ShowDialog();
         }
 
         /// <summary>
@@ -98,6 +119,9 @@ namespace Toastify.UI
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            SettingsXml.Instance.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
+            SettingsXml.Instance.Save(true);
+
             if (ReferenceEquals(_current, this))
                 _current = null;
         }

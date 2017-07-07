@@ -121,6 +121,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Common\WindowPosition.cs" />
     <Compile Include="src\Core\ApplicationStartupException.cs" />
     <Compile Include="src\Core\Song.cs" />
     <Compile Include="src\Events\SpotifyPlayStateChangedEventArgs.cs" />
