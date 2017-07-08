@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -79,6 +79,9 @@ namespace Toastify
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetWindowRect(IntPtr hwnd, out Rect rc);
+
+        [DllImport("user32.dll")]
+        private static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
         internal static extern bool GetWindowPlacement(IntPtr hWnd, ref WindowPlacement lpwndpl);
@@ -208,19 +211,55 @@ namespace Toastify
                 // Check we haven't picked up the desktop or the shell.
                 if (!hWnd.Equals(desktopHandle) && !hWnd.Equals(shellHandle))
                 {
-                    GetWindowRect(hWnd, out Rect appBounds);
+                    GetWindowRect(hWnd, out Rect windowRect);
+                    GetClientRect(hWnd, out Rect clientRect);
 
                     // Determine if window is fullscreen.
                     WindowStylesFlags windowStyles = (WindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
+                    ExtendedWindowStylesFlags extendedWindowStyles = (ExtendedWindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_EXSTYLE);
                     Rectangle screenBounds = Screen.FromHandle(hWnd).Bounds;
 
-                    // - 'fullscreen' applications have WS_MAXIMIZE style;
-                    // - 'windowed borderless' applications (e.g. videogames) don't (they have WS_POPUP, though).
-                    bool isMaximized = (windowStyles & WindowStylesFlags.WS_MAXIMIZE) > 0L;
-                    bool windowFillsWholeScreen = appBounds.bottom - appBounds.top == screenBounds.Height &&
-                                                  appBounds.right - appBounds.left == screenBounds.Width;
-                    if (windowFillsWholeScreen && isMaximized)
-                        return true;
+                    // - Fullscreen applications (i.e. applications which have a window that occupies the entire screen size)
+                    //   do not have WS_BORDER or WS_CAPTION; they can have WS_MAXIMIZE, WS_POPUP and WS_EX_TOPMOST.
+                    // - 90% of the times, if an application's window size is the same as the screen size AND it has WS_EX_TOPMOST, then is is fullscreen.
+                    // - Videogames are a special case, because they can either be '[exclusive] fullscreen' or 'windowed borderless';
+                    //   both the modes make the window occupy the entire screen size, but the latter generally allows (because of its 'windowed' nature)
+                    //   other windows to overlap.
+                    //   We might need to use (if it's even possible) D3D or OpenGL specific functions.
+
+                    /* examples of videogames' windows styles (only relevant styles are shown):
+                     *    +———————————————————————+——————————————————————————+———————————————————————————————++————————————————————————————+——————————————————+
+                     *    | NAME                  | FULLSCREEN WS            | FULLSCREEN WS_EX              || BORDERLESS WS              | BORDERLESS WS_EX |
+                     *    +———————————————————————+——————————————————————————+———————————————————————————————++————————————————————————————+——————————————————+
+                     *    | Quake Champions       | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | -                |
+                     *    | Mass Effect Andromeda | WS_OVERLAPPED            | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | WS_EX_TOPMOST    |
+                     *    | Overwatch             | WS_OVERLAPPED            | WS_EX_TOPMOST|WS_EX_APPWINDOW || WS_OVERLAPPED              | WS_EX_APPWINDOW  |
+                     *    | Half-Life 2           | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | -                |
+                     *    | Dishonored            | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST|WS_EX_APPWINDOW || N/A                        | N/A              |
+                     *    | Cities: Skylines      | WS_OVERLAPPED|WS_POPUP   | -                             || WS_OVERLAPPED|WS_POPUP     | -                |
+                     *    | Civilization V        | WS_OVERLAPPED            | WS_EX_TOPMOST|WS_EX_APPWINDOW || N/A                        | N/A              |
+                     */
+                    bool isTopMost = (extendedWindowStyles & ExtendedWindowStylesFlags.WS_EX_TOPMOST) > 0L;
+                    bool windowFillsWholeScreen = clientRect.Height == screenBounds.Height &&
+                                                  clientRect.Width == screenBounds.Width;
+
+                    // TODO: WIP isFullScreen: ATM we just check for WS_EX_TOPMOST
+                    bool isFullScreen = windowFillsWholeScreen && isTopMost;
+
+#if DEBUG
+                    StringBuilder sbText = new StringBuilder(256);
+                    StringBuilder sbClass = new StringBuilder(256);
+                    GetWindowText(hWnd, sbText, 256);
+                    GetClassName(hWnd, sbClass, 256);
+
+                    Debug.WriteLine($"IsForegroundAppRunningInFullscreen: \"{sbText}\", \"{sbClass}\"");
+                    Debug.WriteLine($"   Styles: {windowStyles}");
+                    Debug.WriteLine($"   Extended Styles: {extendedWindowStyles}");
+                    Debug.WriteLine($"   Screen: {screenBounds}  |  Window: {windowRect}  |  Client area: {clientRect}");
+                    Debug.WriteLine($"  => {isFullScreen}");
+#endif
+
+                    return isFullScreen;
                 }
             }
             return false;
@@ -538,6 +577,15 @@ namespace Toastify
             public int top;
             public int right;
             public int bottom;
+
+            public int Width { get { return this.right - this.left; } }
+
+            public int Height { get { return this.bottom - this.top; } }
+            
+            public override string ToString()
+            {
+                return $"{{X={this.left},Y={this.top},Width={this.Width},Height={this.Height}}}";
+            }
         }
 
         #endregion Internal classes and structs
