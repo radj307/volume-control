@@ -360,7 +360,9 @@ namespace Toastify.Core
             this._globalKey.WindowsKey = this.WindowsKey;
             this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
 
-            this._globalKey.HotkeyPressed += (s, e) => { Toast.HotkeyActionCallback(this); };
+            // Un-subscribe from the event first, in case it was already subscribed.
+            this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
+            this._globalKey.HotkeyPressed += this.GlobalKey_HotkeyPressed;
 
             try
             {
@@ -396,6 +398,11 @@ namespace Toastify.Core
                 this.IsValid = true;
                 this.InvalidReason = "";
             }
+        }
+
+        private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
+        {
+            Toast.HotkeyActionCallback(this);
         }
 
         #region INotifyPropertyChanged
