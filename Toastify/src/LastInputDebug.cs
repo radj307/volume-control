@@ -1,6 +1,7 @@
 ﻿#if DEBUG
 
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 // ReSharper disable BuiltInTypeReferenceStyle
@@ -42,7 +43,7 @@ namespace Toastify
 
                 var idleTime = (uint)Environment.TickCount - lastInputInfo.dwTime;
 
-                System.Diagnostics.Debug.WriteLine("Idle Time: " + ((idleTime > 0) ? (idleTime / 1000) : 0) + "secs (dwTime: " + lastInputInfo.dwTime + ")");
+                //Debug.WriteLine($"Idle Time: {(idleTime > 0 ? idleTime / 1000 : 0)} secs (dwTime: {lastInputInfo.dwTime})");
 
                 Thread.Sleep(10000);
             }

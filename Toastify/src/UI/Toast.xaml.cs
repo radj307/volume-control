@@ -498,7 +498,7 @@ namespace Toastify.UI
                             {
                                 this.visible = false;
                                 this.WindowState = WindowState.Minimized;
-                                Debug.WriteLine("Minimized");
+                                //Debug.WriteLine("Minimized");
                             };
                             this.BeginAnimation(OpacityProperty, anim);
                         });
@@ -636,6 +636,8 @@ namespace Toastify.UI
 
             _lastHotkey = hotkey;
             _lastHotkeyPressTime = DateTime.Now;
+
+            Debug.WriteLine($"HotkeyActionCallback: {hotkey.Action}");
 
             try
             {

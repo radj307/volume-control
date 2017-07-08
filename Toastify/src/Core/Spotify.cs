@@ -281,8 +281,6 @@ namespace Toastify.Core
             if (!this.IsRunning)
                 return;
 
-            Debug.WriteLine($"SendAction: {action}");
-
             switch (action)
             {
                 case SpotifyAction.CopyTrackInfo:
