@@ -98,34 +98,36 @@
                     <CheckBox Height="21" IsChecked="{Binding Path=DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" Name="CbDisableToast" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="{Binding DisableToast, Converter={StaticResource OppositeBoolConverter}}">
                         <CheckBox Height="21" IsChecked="{Binding Path=OnlyShowToastOnHotkey, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,34,0,0" Name="CbOnlyShowToastOnHotkey" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
+                        <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
+                                  IsChecked="{Binding Path=DisableToastWithFullscreenVideogames, Mode=TwoWay}" Name="CbDisableToastWithFullscreenVideogames" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,58,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
 
-                        <Label Height="26" HorizontalAlignment="Left" Margin="12,79,0,0" Name="Label1" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center">FadeOut Time :</Label>
-                        <TextBox Height="24" Text="{Binding Path=FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="182,80,271,0" Name="TbFadeOutTime" VerticalAlignment="Top" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" />
-                        <Label Height="26" Margin="0,79,194,0" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Right">(milliseconds)</Label>
+                        <Label Height="26" HorizontalAlignment="Left" Margin="12,96,0,0" Name="Label1" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center">FadeOut Time :</Label>
+                        <TextBox Height="24" Text="{Binding Path=FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="182,97,271,0" Name="TbFadeOutTime" VerticalAlignment="Top" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" />
+                        <Label Height="26" Margin="0,96,194,0" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Right">(milliseconds)</Label>
 
-                        <Label HorizontalAlignment="Left" Margin="12,113,0,0" Name="Label2" VerticalAlignment="Top" Height="26" VerticalContentAlignment="Center">Toast Color Top :</Label>
-                        <TextBox Height="24" Text="{Binding Path=ToastColorTop, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,114,271,0" Name="TbColorTop" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                        <Button Height="24" Margin="0,114,209,0" Name="BChangeColorTop" VerticalAlignment="Top" Click="ChangeColorTop_Click" HorizontalAlignment="Right" Width="50" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,113,117,0" Name="Label16" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,116,9,0" Name="SlTopColor" VerticalAlignment="Top" Width="100" Maximum="255" ValueChanged="TopColor_ValueChanged" SmallChange="1" />
+                        <Label HorizontalAlignment="Left" Margin="12,130,0,0" Name="Label2" VerticalAlignment="Top" Height="26" VerticalContentAlignment="Center">Toast Color Top :</Label>
+                        <TextBox Height="24" Text="{Binding Path=ToastColorTop, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,131,271,0" Name="TbColorTop" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                        <Button Height="24" Margin="0,131,209,0" Name="BChangeColorTop" VerticalAlignment="Top" Click="ChangeColorTop_Click" HorizontalAlignment="Right" Width="50" VerticalContentAlignment="Center">Change</Button>
+                        <Label Height="26" HorizontalAlignment="Right" Margin="0,130,117,0" Name="Label16" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
+                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,133,9,0" Name="SlTopColor" VerticalAlignment="Top" Width="100" Maximum="255" ValueChanged="TopColor_ValueChanged" SmallChange="1" />
 
-                        <Label HorizontalAlignment="Left" Margin="12,147,0,0" Name="Label3" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Color Bottom :</Label>
-                        <TextBox Height="24" Text="{Binding Path=ToastColorBottom, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,148,271,0" Name="TbColorBottom" VerticalAlignment="Top" VerticalContentAlignment="Center" />
-                        <Button Height="24" HorizontalAlignment="Right" Margin="0,148,209,0" Name="BChangeColorBottom" VerticalAlignment="Top" Width="50" Click="ChangeColorBottom_Click" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,147,117,0" Name="Label17" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,150,9,0" Name="SlBottomColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" ValueChanged="BottomColor_ValueChanged" />
+                        <Label HorizontalAlignment="Left" Margin="12,164,0,0" Name="Label3" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Color Bottom :</Label>
+                        <TextBox Height="24" Text="{Binding Path=ToastColorBottom, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,165,271,0" Name="TbColorBottom" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                        <Button Height="24" HorizontalAlignment="Right" Margin="0,165,209,0" Name="BChangeColorBottom" VerticalAlignment="Top" Width="50" Click="ChangeColorBottom_Click" VerticalContentAlignment="Center">Change</Button>
+                        <Label Height="26" HorizontalAlignment="Right" Margin="0,164,117,0" Name="Label17" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
+                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,167,9,0" Name="SlBottomColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" ValueChanged="BottomColor_ValueChanged" />
 
-                        <Label Height="26" HorizontalAlignment="Left" Margin="12,181,0,0" Name="Label11" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Color :</Label>
-                        <TextBox Height="24" Text="{Binding Path=ToastBorderColor, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,182,271,0" Name="TbBorderColor" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                        <Button Height="24" HorizontalAlignment="Right" Margin="0,182,209,0" Name="BChangeBorderColor" VerticalAlignment="Top" Width="50" Click="ChangeBorderColor_Click" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,181,117,0" Name="Label18" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,184,9,0" Name="SlBorderColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" ValueChanged="BorderColor_ValueChanged" />
+                        <Label Height="26" HorizontalAlignment="Left" Margin="12,198,0,0" Name="Label11" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Color :</Label>
+                        <TextBox Height="24" Text="{Binding Path=ToastBorderColor, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,199,271,0" Name="TbBorderColor" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                        <Button Height="24" HorizontalAlignment="Right" Margin="0,199,209,0" Name="BChangeBorderColor" VerticalAlignment="Top" Width="50" Click="ChangeBorderColor_Click" VerticalContentAlignment="Center">Change</Button>
+                        <Label Height="26" HorizontalAlignment="Right" Margin="0,198,117,0" Name="Label18" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
+                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,201,9,0" Name="SlBorderColor" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" ValueChanged="BorderColor_ValueChanged" />
 
-                        <Label Margin="12,215,0,0" Name="Label5" HorizontalAlignment="Left" Height="26" VerticalContentAlignment="Center" VerticalAlignment="Top">Toast Border Thickness :</Label>
-                        <TextBox Text="{Binding Path=ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="182,216,0,0" Name="TbBorderThickness" Width="32" MouseWheel="BorderThickness_MouseWheel" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                        <Label Margin="12,232,0,0" Name="Label5" HorizontalAlignment="Left" Height="26" VerticalContentAlignment="Center" VerticalAlignment="Top">Toast Border Thickness :</Label>
+                        <TextBox Text="{Binding Path=ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="182,233,0,0" Name="TbBorderThickness" Width="32" MouseWheel="BorderThickness_MouseWheel" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-                        <Label Margin="12,259,0,0" Name="Label6" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Corner Radius</Label>
-                        <Grid VerticalAlignment="Top" Margin="199,259,12,0" Height="91">
+                        <Label Margin="12,276,0,0" Name="Label6" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Corner Radius</Label>
+                        <Grid VerticalAlignment="Top" Margin="199,276,12,0" Height="72">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>

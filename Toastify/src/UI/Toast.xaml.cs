@@ -441,7 +441,9 @@ namespace Toastify.UI
         {
             this.minimizeTimer?.Stop();
 
-            bool doNotFadeIn = this.dragging || SettingsXml.Instance.DisableToast || (SettingsXml.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible);
+            bool doNotFadeIn = this.dragging ||
+                               (SettingsXml.Instance.DisableToast || (SettingsXml.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
+                               (SettingsXml.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
             if (doNotFadeIn)
                 return;
 

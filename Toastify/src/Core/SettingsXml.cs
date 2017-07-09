@@ -110,6 +110,7 @@ namespace Toastify.Core
 
         private bool _disableToast;
         private bool _onlyShowToastOnHotkey;
+        private bool _disableToastWithFullscreenVideogames;
         private int _fadeOutTime;
         private string _toastColorTop;
         private string _toastColorBottom;
@@ -376,6 +377,22 @@ namespace Toastify.Core
                 {
                     this._onlyShowToastOnHotkey = value;
                     this.NotifyPropertyChanged("OnlyShowToastOnHotkey");
+                }
+            }
+        }
+
+        public bool DisableToastWithFullscreenVideogames
+        {
+            get
+            {
+                return this._disableToastWithFullscreenVideogames;
+            }
+            set
+            {
+                if (this._disableToastWithFullscreenVideogames != value)
+                {
+                    this._disableToastWithFullscreenVideogames = value;
+                    this.NotifyPropertyChanged("DisableToastWithFullscreenVideogames");
                 }
             }
         }
@@ -716,6 +733,7 @@ namespace Toastify.Core
             // [Toast]
             this.DisableToast = false;
             this.OnlyShowToastOnHotkey = true;
+            this.DisableToastWithFullscreenVideogames = true;
             this.FadeOutTime = 4000;
 
             this.ToastColorTop = "#FF000000";
