@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -39,7 +42,7 @@ namespace Toastify
         internal static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
         [DllImport("user32.dll")]
-        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowCmd nCmdShow);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetMenu(IntPtr hWnd);
@@ -196,12 +199,12 @@ namespace Toastify
             SetWindowLongPtr(hWnd, nIndex, (IntPtr)longPtr);
         }
 
-        public static void AddToolWindowStyle(System.Windows.Window window)
+        public static void AddToolWindowStyle(IntPtr hWnd)
         {
-            AddWindowLongPtr(window.GetHandle(), GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStylesFlags.WS_EX_TOOLWINDOW);
+            AddWindowLongPtr(hWnd, GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStylesFlags.WS_EX_TOOLWINDOW);
         }
 
-        public static bool IsForegroundAppRunningInFullscreen()
+        public static bool IsForegroundAppAFullscreenVideogame()
         {
             // Get the dimensions of the active window.
             IntPtr hWnd = GetForegroundWindow();
@@ -211,58 +214,53 @@ namespace Toastify
                 // Check we haven't picked up the desktop or the shell.
                 if (!hWnd.Equals(desktopHandle) && !hWnd.Equals(shellHandle))
                 {
-                    GetWindowRect(hWnd, out Rect windowRect);
+                    Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
                     GetClientRect(hWnd, out Rect clientRect);
 
-                    // Determine if window is fullscreen.
-                    WindowStylesFlags windowStyles = (WindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
-                    ExtendedWindowStylesFlags extendedWindowStyles = (ExtendedWindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_EXSTYLE);
-                    Rectangle screenBounds = Screen.FromHandle(hWnd).Bounds;
+                    bool isFullScreen = clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width;
+                    bool isAVideogame = false;
 
-                    // - Fullscreen applications (i.e. applications which have a window that occupies the entire screen size)
-                    //   do not have WS_BORDER or WS_CAPTION; they can have WS_MAXIMIZE, WS_POPUP and WS_EX_TOPMOST.
-                    // - 90% of the times, if an application's window size is the same as the screen size AND it has WS_EX_TOPMOST, then is is fullscreen.
-                    // - Videogames are a special case, because they can either be '[exclusive] fullscreen' or 'windowed borderless';
-                    //   both the modes make the window occupy the entire screen size, but the latter generally allows (because of its 'windowed' nature)
-                    //   other windows to overlap.
-                    //   We might need to use (if it's even possible) D3D or OpenGL specific functions.
+                    if (isFullScreen)
+                    {
+                        var processId = GetProcessFromWindowHandle(hWnd);
+                        var modules = GetProcessModules(processId);
+                        if (modules != null)
+                        {
+                            Regex regex_d3d = new Regex(@"(?:(?:d3d[0-9]+)|(?:dxgi))\.dll", RegexOptions.IgnoreCase);
 
-                    /* examples of videogames' windows styles (only relevant styles are shown):
-                     *    +———————————————————————+——————————————————————————+———————————————————————————————++————————————————————————————+——————————————————+
-                     *    | NAME                  | FULLSCREEN WS            | FULLSCREEN WS_EX              || BORDERLESS WS              | BORDERLESS WS_EX |
-                     *    +———————————————————————+——————————————————————————+———————————————————————————————++————————————————————————————+——————————————————+
-                     *    | Quake Champions       | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | -                |
-                     *    | Mass Effect Andromeda | WS_OVERLAPPED            | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | WS_EX_TOPMOST    |
-                     *    | Overwatch             | WS_OVERLAPPED            | WS_EX_TOPMOST|WS_EX_APPWINDOW || WS_OVERLAPPED              | WS_EX_APPWINDOW  |
-                     *    | Half-Life 2           | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST                 || WS_OVERLAPPED|WS_POPUP     | -                |
-                     *    | Dishonored            | WS_OVERLAPPED|WS_POPUP   | WS_EX_TOPMOST|WS_EX_APPWINDOW || N/A                        | N/A              |
-                     *    | Cities: Skylines      | WS_OVERLAPPED|WS_POPUP   | -                             || WS_OVERLAPPED|WS_POPUP     | -                |
-                     *    | Civilization V        | WS_OVERLAPPED            | WS_EX_TOPMOST|WS_EX_APPWINDOW || N/A                        | N/A              |
-                     */
-                    bool isTopMost = (extendedWindowStyles & ExtendedWindowStylesFlags.WS_EX_TOPMOST) > 0L;
-                    bool windowFillsWholeScreen = clientRect.Height == screenBounds.Height &&
-                                                  clientRect.Width == screenBounds.Width;
+                            // ReSharper disable once LoopCanBeConvertedToQuery
+                            foreach (var module in modules)
+                            {
+                                bool isDirectX = regex_d3d.Match(module.ModuleName).Success;
+                                bool isOpenGL = module.ModuleName.Equals("opengl32.dll", StringComparison.InvariantCultureIgnoreCase);
+                                if (isDirectX || isOpenGL)
+                                {
+                                    isAVideogame = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
-                    // TODO: WIP isFullScreen: ATM we just check for WS_EX_TOPMOST
-                    bool isFullScreen = windowFillsWholeScreen && isTopMost;
-
-#if DEBUG
-                    StringBuilder sbText = new StringBuilder(256);
-                    StringBuilder sbClass = new StringBuilder(256);
-                    GetWindowText(hWnd, sbText, 256);
-                    GetClassName(hWnd, sbClass, 256);
-
-                    Debug.WriteLine($"IsForegroundAppRunningInFullscreen: \"{sbText}\", \"{sbClass}\"");
-                    Debug.WriteLine($"   Styles: {windowStyles}");
-                    Debug.WriteLine($"   Extended Styles: {extendedWindowStyles}");
-                    Debug.WriteLine($"   Screen: {screenBounds}  |  Window: {windowRect}  |  Client area: {clientRect}");
-                    Debug.WriteLine($"  => {isFullScreen}");
-#endif
-
-                    return isFullScreen;
+                    return isFullScreen && isAVideogame;
                 }
             }
             return false;
+        }
+
+        private static uint GetProcessFromWindowHandle(IntPtr hWnd)
+        {
+            GetWindowThreadProcessId(hWnd, out uint pid);
+            return pid;
+        }
+
+        private static IEnumerable<ProcessModule> GetProcessModules(uint processId)
+        {
+            if (processId == 0)
+                return null;
+
+            var process = Process.GetProcessById((int)processId);
+            return process.Modules.Cast<ProcessModule>();
         }
 
         /// <summary>
@@ -340,6 +338,82 @@ namespace Toastify
         }
 
         #region Enums
+
+        internal enum ShowWindowCmd
+        {
+            /// <summary>
+            /// Hides the window and activates another window.
+            /// </summary>
+            SW_HIDE            = 0,
+
+            /// <summary>
+            /// Activates and displays a window.
+            /// If the window is minimized or maximized, the system restores it to its original size and position.
+            /// An application should specify this flag when displaying the window for the first time.
+            /// </summary>
+            SW_SHOWNORMAL      = 1,
+
+            /// <summary>
+            /// Activates the window and displays it as a minimized window.
+            /// </summary>
+            SW_SHOWMINIMIZED   = 2,
+
+            /// <summary>
+            /// Maximizes the specified window.
+            /// </summary>
+            SW_MAXIMIZE        = 3,
+
+            /// <summary>
+            /// Activates the window and displays it as a maximized window.
+            /// </summary>
+            SW_SHOWMAXIMIZED   = SW_MAXIMIZE,
+
+            /// <summary>
+            /// Displays a window in its most recent size and position.
+            /// This value is similar to <see cref="SW_SHOWNORMAL"/>, except that the window is not activated.
+            /// </summary>
+            SW_SHOWNOACTIVATE  = 4,
+
+            /// <summary>
+            /// Activates the window and displays it in its current size and position.
+            /// </summary>
+            SW_SHOW            = 5,
+
+            /// <summary>
+            /// Minimizes the specified window and activates the next top-level window in the Z order.
+            /// </summary>
+            SW_MINIMIZE        = 6,
+
+            /// <summary>
+            /// Displays the window as a minimized window.
+            /// This value is similar to <see cref="SW_SHOWMINIMIZED"/>, except the window is not activated.
+            /// </summary>
+            SW_SHOWMINNOACTIVE = 7,
+
+            /// <summary>
+            /// Displays the window in its current size and position.
+            /// This value is similar to <see cref="SW_SHOW"/>, except that the window is not activated.
+            /// </summary>
+            SW_SHOWNA          = 8,
+
+            /// <summary>
+            /// Activates and displays the window.
+            /// If the window is minimized or maximized, the system restores it to its original size and position.
+            /// An application should specify this flag when restoring a minimized window.
+            /// </summary>
+            SW_RESTORE         = 9,
+
+            /// <summary>
+            /// Sets the show state based on the SW_ value specified in the STARTUPINFO structure passed to the CreateProcess function by the program that started the application.
+            /// </summary>
+            SW_SHOWDEFAULT     = 10,
+
+            /// <summary>
+            /// Minimizes a window, even if the thread that owns the window is not responding.
+            /// This flag should only be used when minimizing windows from a different thread.
+            /// </summary>
+            SW_FORCEMINIMIZE   = 11
+        }
 
         [Flags]
         internal enum SetWindowPosFlags : uint
@@ -549,23 +623,16 @@ namespace Toastify
         {
             public int length;
             public int flags;
-            public int showCmd;
+            public ShowWindowCmd showCmd;
             public Point ptMinPosition;
             public Point ptMaxPosition;
             public Rectangle rcNormalPosition;
         }
 
         // TODO: Create an enum out of these constants.
-        //       See: ShowWindow function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms633548(v=vs.85).aspx)
         //       See: SendMessage function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms644950(v=vs.85).aspx)
         internal class Constants
         {
-            internal const int SW_SHOWMINIMIZED = 2;
-            internal const int SW_SHOWNOACTIVATE = 4;
-            internal const int SW_SHOWMINNOACTIVE = 7;
-            internal const int SW_SHOW = 5;
-            internal const int SW_RESTORE = 9;
-
             internal const int WM_CLOSE = 0x10;
             internal const int WM_QUIT = 0x12;
         }
@@ -581,7 +648,7 @@ namespace Toastify
             public int Width { get { return this.right - this.left; } }
 
             public int Height { get { return this.bottom - this.top; } }
-            
+
             public override string ToString()
             {
                 return $"{{X={this.left},Y={this.top},Width={this.Width},Height={this.Height}}}";

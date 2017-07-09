@@ -56,10 +56,11 @@ namespace Toastify.UI
         private bool isUpdateToast;
 
         private bool dragging;
-        private bool visible;
         private bool paused;
 
         #endregion Private fields
+
+        public bool IsToastVisible { get; private set; }
 
         internal List<IPluginBase> Plugins { get; set; }
 
@@ -131,6 +132,8 @@ namespace Toastify.UI
 
         public void InitToast()
         {
+            this.ShowToast(false);
+
             //If we find any invalid settings in the xml we skip it and use default.
             //User notification of bad settings will be implemented with the settings dialog.
 
@@ -419,24 +422,34 @@ namespace Toastify.UI
                 }));
         }
 
+        private void ShowToast(bool shallBeVisible)
+        {
+            this.Topmost = shallBeVisible;
+            this.Visibility = shallBeVisible ? Visibility.Visible : Visibility.Collapsed;
+            Win32API.ShowWindow(this.GetHandle(), shallBeVisible ? Win32API.ShowWindowCmd.SW_RESTORE : Win32API.ShowWindowCmd.SW_SHOWMINNOACTIVE);
+
+            if (shallBeVisible)
+            {
+                this.UpdateCoverArt();
+                this.Left = SettingsXml.Instance.PositionLeft;
+                this.Top = SettingsXml.Instance.PositionTop;
+                this.ResetPositionIfOffScreen();
+            }
+        }
+
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
-            // If a full screen application is running (e.g. a videogame), do not fade in.
-            if (Win32API.IsForegroundAppRunningInFullscreen())
-                return;
-
             this.minimizeTimer?.Stop();
 
-            if (this.dragging)
+            bool doNotFadeIn = this.dragging || SettingsXml.Instance.DisableToast || (SettingsXml.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible);
+            if (doNotFadeIn)
                 return;
-
-            SettingsXml settings = SettingsXml.Instance;
 
             // this is a convenient place to reset the idle timer (if so asked)
             // as this will be triggered when a song is played. The primary problem is if there is a
             // particularly long song then this will not work. That said, this is the safest (in terms of
             // not causing a user's computer from never sleeping).
-            if (settings.PreventSleepWhilePlaying)
+            if (SettingsXml.Instance.PreventSleepWhilePlaying)
             {
 #if DEBUG
                 var rv =
@@ -447,24 +460,16 @@ namespace Toastify.UI
 #endif
             }
 
-            if (settings.DisableToast || (settings.OnlyShowToastOnHotkey && !force && !this.visible))
-                return;
-
             this.isUpdateToast = isUpdate;
-            this.WindowState = WindowState.Normal;
-            this.Topmost = true;
-
-            this.UpdateCoverArt();
-            this.Left = settings.PositionLeft;
-            this.Top = settings.PositionTop;
-            this.ResetPositionIfOffScreen();
-
-            if (!this.visible)
+            
+            if (!this.IsToastVisible)
             {
+                this.ShowToast(true);
+
                 DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
                 anim.Completed += (s, e) =>
                 {
-                    this.visible = true;
+                    this.IsToastVisible = true;
                     this.FadeOut();
                 };
                 this.BeginAnimation(OpacityProperty, anim);
@@ -496,9 +501,8 @@ namespace Toastify.UI
                             DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
                             anim.Completed += (ss, ee) =>
                             {
-                                this.visible = false;
-                                this.WindowState = WindowState.Minimized;
-                                //Debug.WriteLine("Minimized");
+                                this.ShowToast(false);
+                                this.IsToastVisible = false;
                             };
                             this.BeginAnimation(OpacityProperty, anim);
                         });
@@ -572,7 +576,7 @@ namespace Toastify.UI
                         this.toastIconURI = this.currentSong.CoverArtUrl;
                         this.UpdateToastText(this.currentSong, null, false);
                     }
-                    if (!this.visible)
+                    if (!this.IsVisible)
                         this.FadeIn(true);
                     else
                         this.FadeOut(true);
@@ -676,7 +680,7 @@ namespace Toastify.UI
             this.Init();
 
             // Remove from ALT+TAB.
-            Win32API.AddToolWindowStyle(this);
+            Win32API.AddToolWindowStyle(this.GetHandle());
         }
 
         /// <summary>

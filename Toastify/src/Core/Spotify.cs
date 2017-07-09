@@ -215,7 +215,7 @@ namespace Toastify.Core
                 // We also need to wait a little more before minimizing the window;
                 // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
                 Thread.Sleep(delay);
-                Win32API.ShowWindow(hWnd, Win32API.Constants.SW_SHOWMINIMIZED);
+                Win32API.ShowWindow(hWnd, Win32API.ShowWindowCmd.SW_SHOWMINIMIZED);
             }
         }
 
@@ -241,14 +241,14 @@ namespace Toastify.Core
                 var placement = new Win32API.WindowPlacement();
                 Win32API.GetWindowPlacement(hWnd, ref placement);
 
-                int showCommand = Win32API.Constants.SW_SHOW;
+                var showCommand = Win32API.ShowWindowCmd.SW_SHOW;
 
                 // if Spotify is minimzed we need to send a restore so that the window
                 // will come back exactly like it was before being minimized (i.e. maximized
                 // or otherwise) otherwise if we call SW_RESTORE on a currently maximized window
                 // then instead of staying maximized it will return to normal size.
-                if (placement.showCmd == Win32API.Constants.SW_SHOWMINIMIZED)
-                    showCommand = Win32API.Constants.SW_RESTORE;
+                if (placement.showCmd == Win32API.ShowWindowCmd.SW_SHOWMINIMIZED)
+                    showCommand = Win32API.ShowWindowCmd.SW_RESTORE;
 
                 Win32API.ShowWindow(hWnd, showCommand);
 
