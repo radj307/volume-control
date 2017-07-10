@@ -281,6 +281,8 @@ namespace Toastify.Core
             if (!this.IsRunning)
                 return;
 
+            bool sendAppCommandMessage = false;
+
             switch (action)
             {
                 case SpotifyAction.CopyTrackInfo:
@@ -309,28 +311,38 @@ namespace Toastify.Core
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
                     if (SettingsXml.Instance.UseSpotifyVolumeControl)
                         this.SendShortcut(action);
-                    else
+                    else if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
                         this.localAPI.IncrementVolume();
-                    return;
+                    else
+                        sendAppCommandMessage = true;
+                    break;
 
                 case SpotifyAction.VolumeDown:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
                     if (SettingsXml.Instance.UseSpotifyVolumeControl)
                         this.SendShortcut(action);
-                    else
+                    else if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
                         this.localAPI.DecrementVolume();
-                    return;
+                    else
+                        sendAppCommandMessage = true;
+                    break;
 
                 case SpotifyAction.Mute:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-                    this.localAPI.ToggleMute();
-                    return;
+                    if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
+                        this.localAPI.ToggleMute();
+                    else
+                        sendAppCommandMessage = true;
+                    break;
 
                 default:
                     Telemetry.TrackEvent(TelemetryCategory.Action, $"{Telemetry.TelemetryEvent.Action.Default}{action}");
-                    Win32API.SendMessage(this.GetMainWindowHandle(), (uint)Win32API.WindowsMessagesFlags.WM_APPCOMMAND, IntPtr.Zero, new IntPtr((long)action));
+                    sendAppCommandMessage = true;
                     break;
             }
+
+            if (sendAppCommandMessage)
+                Win32API.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action);
         }
 
         /// <summary>

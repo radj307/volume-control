@@ -9,6 +9,7 @@
         Title="Toastify - Settings" Height="560" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/spotify.ico" Closed="Window_Closed">
 
     <Window.Resources>
+        <helpers:BoolAndConverter x:Key="BoolAndConverter"></helpers:BoolAndConverter>
         <helpers:OppositeBoolConverter x:Key="OppositeBoolConverter"></helpers:OppositeBoolConverter>
         <helpers:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></helpers:OppositeBoolToVisibleConverter>
     </Window.Resources>
@@ -26,22 +27,34 @@
                     <CheckBox IsChecked="{Binding Path=MinimizeSpotifyOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,59,0,0"
                               Height="16" Grid.ColumnSpan="2" Grid.Column="0">Minimize Spotify on launch</CheckBox>
                     <CheckBox IsChecked="{Binding Path=CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,81,0,0"
-                              Height="16" Grid.ColumnSpan="2" Grid.Column="0">Close Spotify when you close Toastify</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=UseSpotifyVolumeControl, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,103,0,0"
-                              Height="16" Grid.ColumnSpan="2" Grid.Column="0">Use Spotify volume control instead of the Windows volume mixer</CheckBox>
-                    <Label Name="LabelWindowsMixerIncrement" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,125,0,0" Height="26" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding UseSpotifyVolumeControl, Converter={StaticResource OppositeBoolConverter}}">Windows volume mixer increment :</Label>
-                    <TextBox Name="TbWindowsMixerIncrement" Text="{Binding Path=WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" VerticalAlignment="Top" Margin="79,127,0,0" Height="24" Grid.Column="1" VerticalContentAlignment="Center" Width="30" HorizontalAlignment="Left" IsEnabled="{Binding UseSpotifyVolumeControl, Converter={StaticResource OppositeBoolConverter}}" />
-                    <Label Name="Label19" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,159,0,0" Height="26" Grid.Column="0">Clipboard Template :</Label>
-                    <TextBox Name="TbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Margin="10,160,22,0" Height="23" Grid.Column="1" VerticalContentAlignment="Center" />
-                    <TextBlock Margin="10,192,22,243" TextWrapping="Wrap" Grid.Column="1" Foreground="#FF575757">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                              Height="16" Grid.ColumnSpan="2" Grid.Column="0">Close Spotify when Toastify is closed</CheckBox>
+                    <CheckBox IsChecked="{Binding UseSpotifyVolumeControl, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,103,0,0"
+                              Height="16" Grid.ColumnSpan="2" Grid.Column="0" Content="Use Spotify volume control instead of the Windows Volume Mixer"/>
+                    <CheckBox IsChecked="{Binding Path=OnlyChangeSpotifyVolumeInWindowsMixer, Mode=TwoWay}" Name="CbOnlyChangeSpotifyVolumeInWindowsMixer"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,127,0,0"
+                              Height="16" Grid.ColumnSpan="2" Grid.Column="0" IsEnabled="{Binding UseSpotifyVolumeControl, Converter={StaticResource OppositeBoolConverter}}"
+                              ToolTip="If this is checked, volume changes will not affect&#x0a;the global device volume, but only Spotify's.">Only change volume for Spotify in the Windows Volume Mixer</CheckBox>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="41,147,0,0" Height="26" Grid.Column="0" Grid.ColumnSpan="2">
+                        <StackPanel.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding ElementName="CbOnlyChangeSpotifyVolumeInWindowsMixer" Path="IsEnabled"></Binding>
+                                <Binding ElementName="CbOnlyChangeSpotifyVolumeInWindowsMixer" Path="IsChecked"></Binding>
+                            </MultiBinding>
+                        </StackPanel.IsEnabled>
+                        <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :"/>
+                        <TextBox Name="TbWindowsMixerIncrement" Text="{Binding Path=WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="0" Height="24" Width="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
+                    </StackPanel>
+                    
+                    <Label Name="Label19" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,187,0,0" Height="26" Grid.Column="0">Clipboard Template :</Label>
+                    <TextBox Name="TbClipboardTemplate" Text="{Binding Path=ClipboardTemplate, Mode=TwoWay}" VerticalAlignment="Top" Margin="10,188,22,0" Height="23" Grid.Column="1" VerticalContentAlignment="Center" />
+                    <TextBlock Margin="10,220,22,215" TextWrapping="Wrap" Grid.Column="1" Foreground="#FF575757">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
 
                     <Image Name="Image1" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-2" Stretch="Fill" Height="144" Width="145" Grid.Column="1" />
-                    <CheckBox IsChecked="{Binding SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,257,0,0"
+                    <CheckBox IsChecked="{Binding SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,285,0,0"
                               Height="16" Grid.ColumnSpan="2" Grid.Column="0">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
-                    <Button Click="BtnSaveTrackToFilePath_Click" Margin="31,278,20,3" Grid.Column="0" Height="24" VerticalAlignment="Top">Select File</Button>
-                    <CheckBox IsChecked="{Binding PreventSleepWhilePlaying, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0"
+                    <Button Click="BtnSaveTrackToFilePath_Click" Margin="31,306,20,0" Grid.Column="0" Height="24" VerticalAlignment="Top">Select File</Button>
+                    <CheckBox IsChecked="{Binding PreventSleepWhilePlaying, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,353,0,0"
                               Height="16" Grid.ColumnSpan="2" Grid.Column="0">Prevent the computer from sleeping while Spotify is playing</CheckBox>
-                    <CheckBox IsChecked="{Binding OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,355,0,0" Height="31" Grid.ColumnSpan="2" Grid.Column="0">
+                    <CheckBox IsChecked="{Binding OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,383,0,0" Height="31" Grid.ColumnSpan="2" Grid.Column="0">
                         <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak/>
                             Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
                     </CheckBox>

@@ -288,6 +288,11 @@ namespace Toastify
             return false;
         }
 
+        public static bool SendAppCommandMessage(IntPtr hWnd, IntPtr lParam)
+        {
+            return SendMessage(hWnd, (uint) WindowsMessagesFlags.WM_APPCOMMAND, IntPtr.Zero, lParam);
+        }
+
         public static bool SendKeyDown(IntPtr hWnd, Key key, bool postMessage = false, bool extended = false)
         {
             const uint msg = (uint)WindowsMessagesFlags.WM_KEYDOWN;

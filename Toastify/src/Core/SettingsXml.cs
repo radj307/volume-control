@@ -82,6 +82,7 @@ namespace Toastify.Core
         private bool _minimizeSpotifyOnStartup;
         private bool _closeSpotifyWithToastify;
         private bool _useSpotifyVolumeControl;
+        private bool _onlyChangeSpotifyVolumeInWindowsMixer;
         private float _windowsVolumeMixerIncrement;
         private string _clipboardTemplate;
         private bool _saveTrackToFile;
@@ -206,6 +207,22 @@ namespace Toastify.Core
                 {
                     this._useSpotifyVolumeControl = value;
                     this.NotifyPropertyChanged("UseSpotifyVolumeControl");
+                }
+            }
+        }
+
+        public bool OnlyChangeSpotifyVolumeInWindowsMixer
+        {
+            get
+            {
+                return this._onlyChangeSpotifyVolumeInWindowsMixer;
+            }
+            set
+            {
+                if (this._onlyChangeSpotifyVolumeInWindowsMixer != value)
+                {
+                    this._onlyChangeSpotifyVolumeInWindowsMixer = value;
+                    this.NotifyPropertyChanged("OnlyChangeSpotifyVolumeInWindowsMixer");
                 }
             }
         }
@@ -713,6 +730,7 @@ namespace Toastify.Core
             this.MinimizeSpotifyOnStartup = false;
             this.CloseSpotifyWithToastify = true;
             this.UseSpotifyVolumeControl = false;
+            this.OnlyChangeSpotifyVolumeInWindowsMixer = true;
             this.WindowsVolumeMixerIncrement = 2.0f;
 
             this.ClipboardTemplate = "I'm currently listening to {0}";

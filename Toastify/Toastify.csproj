@@ -130,6 +130,7 @@
     <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
     <Compile Include="src\Core\SpotifyAction.cs" />
+    <Compile Include="src\Helpers\BoolAndConverter.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
     <Compile Include="src\Helpers\WindowExtensions.cs" />
     <Compile Include="src\Services\TelemetryCategory.cs" />
