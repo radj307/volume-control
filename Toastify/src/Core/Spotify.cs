@@ -309,30 +309,52 @@ namespace Toastify.Core
 
                 case SpotifyAction.VolumeUp:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
-                    if (SettingsXml.Instance.UseSpotifyVolumeControl)
-                        this.SendShortcut(action);
-                    else if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
-                        this.localAPI.IncrementVolume();
-                    else
-                        sendAppCommandMessage = true;
+                    switch (SettingsXml.Instance.VolumeControlMode)
+                    {
+                        case ToastifyVolumeControlMode.Spotify:
+                            this.SendShortcut(action);
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.IncrementVolume();
+                            break;
+
+                        default:
+                            sendAppCommandMessage = true;
+                            break;
+                    }
                     break;
 
                 case SpotifyAction.VolumeDown:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
-                    if (SettingsXml.Instance.UseSpotifyVolumeControl)
-                        this.SendShortcut(action);
-                    else if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
-                        this.localAPI.DecrementVolume();
-                    else
-                        sendAppCommandMessage = true;
+                    switch (SettingsXml.Instance.VolumeControlMode)
+                    {
+                        case ToastifyVolumeControlMode.Spotify:
+                            this.SendShortcut(action);
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.DecrementVolume();
+                            break;
+
+                        default:
+                            sendAppCommandMessage = true;
+                            break;
+                    }
                     break;
 
                 case SpotifyAction.Mute:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-                    if (SettingsXml.Instance.OnlyChangeSpotifyVolumeInWindowsMixer)
-                        this.localAPI.ToggleMute();
-                    else
-                        sendAppCommandMessage = true;
+                    switch (SettingsXml.Instance.VolumeControlMode)
+                    {
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.ToggleMute();
+                            break;
+
+                        default:
+                            sendAppCommandMessage = true;
+                            break;
+                    }
                     break;
 
                 default:

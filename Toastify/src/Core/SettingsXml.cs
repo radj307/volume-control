@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 using Toastify.Common;
 using Toastify.Helpers;
@@ -39,7 +41,24 @@ namespace Toastify.Core
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILE = "Toastify.xml";
 
+        private XmlSerializer _xmlSerializer;
         private string _settingsFile;
+
+        [XmlIgnore]
+        public XmlSerializer XmlSerializer
+        {
+            get
+            {
+                if (this._xmlSerializer == null)
+                {
+                    this._xmlSerializer = new XmlSerializer(typeof(SettingsXml));
+                    this._xmlSerializer.UnknownAttribute += this.XmlSerializer_UnknownAttribute;
+                    this._xmlSerializer.UnknownElement += this.XmlSerializer_UnknownElement;
+                    this._xmlSerializer.UnknownNode += this.XmlSerializer_UnknownNode;
+                }
+                return this._xmlSerializer;
+            }
+        }
 
         /// <summary>
         /// Returns the location of the settings file
@@ -61,7 +80,7 @@ namespace Toastify.Core
                         }
                         catch (Exception ex)
                         {
-                            System.Diagnostics.Debug.WriteLine("Exception creating user settings directory (" + settingsPath + "). Exception: " + ex);
+                            Debug.WriteLine("Exception creating user settings directory (" + settingsPath + "). Exception: " + ex);
 
                             // No messagebox as this should not happen (and there will be a MessageBox later on when
                             // settings fail to load)
@@ -81,8 +100,8 @@ namespace Toastify.Core
 
         private bool _minimizeSpotifyOnStartup;
         private bool _closeSpotifyWithToastify;
+        private ToastifyVolumeControlMode _volumeControlMode;
         private bool _useSpotifyVolumeControl;
-        private bool _onlyChangeSpotifyVolumeInWindowsMixer;
         private float _windowsVolumeMixerIncrement;
         private string _clipboardTemplate;
         private bool _saveTrackToFile;
@@ -195,6 +214,23 @@ namespace Toastify.Core
             }
         }
 
+        public ToastifyVolumeControlMode VolumeControlMode
+        {
+            get
+            {
+                return this._volumeControlMode;
+            }
+            set
+            {
+                if (this._volumeControlMode != value)
+                {
+                    this._volumeControlMode = value;
+                    this.NotifyPropertyChanged("VolumeControlMode");
+                }
+            }
+        }
+
+        [Obsolete("UseSpotifyVolumeControl is obsolete and will be removed in the future. Use VolumeControlMode instead.")]
         public bool UseSpotifyVolumeControl
         {
             get
@@ -207,22 +243,6 @@ namespace Toastify.Core
                 {
                     this._useSpotifyVolumeControl = value;
                     this.NotifyPropertyChanged("UseSpotifyVolumeControl");
-                }
-            }
-        }
-
-        public bool OnlyChangeSpotifyVolumeInWindowsMixer
-        {
-            get
-            {
-                return this._onlyChangeSpotifyVolumeInWindowsMixer;
-            }
-            set
-            {
-                if (this._onlyChangeSpotifyVolumeInWindowsMixer != value)
-                {
-                    this._onlyChangeSpotifyVolumeInWindowsMixer = value;
-                    this.NotifyPropertyChanged("OnlyChangeSpotifyVolumeInWindowsMixer");
                 }
             }
         }
@@ -729,8 +749,7 @@ namespace Toastify.Core
             // [General]
             this.MinimizeSpotifyOnStartup = false;
             this.CloseSpotifyWithToastify = true;
-            this.UseSpotifyVolumeControl = false;
-            this.OnlyChangeSpotifyVolumeInWindowsMixer = true;
+            this.VolumeControlMode = ToastifyVolumeControlMode.SystemSpotifyOnly;
             this.WindowsVolumeMixerIncrement = 2.0f;
 
             this.ClipboardTemplate = "I'm currently listening to {0}";
@@ -791,8 +810,7 @@ namespace Toastify.Core
         {
             using (StreamWriter sw = new StreamWriter(this.SettingsFile, false))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
-                xmlSerializer.Serialize(sw, this);
+                this.XmlSerializer.Serialize(sw, this);
             }
 
             if (replaceCurrent)
@@ -810,8 +828,7 @@ namespace Toastify.Core
             {
                 using (StreamReader sr = new StreamReader(this.SettingsFile))
                 {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsXml));
-                    SettingsXml xml = xmlSerializer.Deserialize(sr) as SettingsXml;
+                    SettingsXml xml = this.XmlSerializer.Deserialize(sr) as SettingsXml;
 
                     xml?.CheckForNewSettings();
 
@@ -934,6 +951,35 @@ namespace Toastify.Core
         }
 
         #endregion INotifyPropertyChanged
+
+        #region XmlSerializer event handlers
+
+        private void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
+        {
+            Debug.WriteLine($"XmlSerializer_UnknownAttribute: {e.Attr.LocalName} = \"{e.Attr.Value}\"");
+        }
+
+        private void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
+        {
+            switch (e.Element.LocalName)
+            {
+                case "UseSpotifyVolumeControl":
+                    bool value;
+                    bool.TryParse(e.Element.InnerText, out value);
+                    this.VolumeControlMode = value ? ToastifyVolumeControlMode.Spotify : ToastifyVolumeControlMode.SystemSpotifyOnly;
+                    break;
+            }
+        }
+
+        private void XmlSerializer_UnknownNode(object sender, XmlNodeEventArgs e)
+        {
+            if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
+                return;
+
+            Debug.WriteLine($"XmlSerializer_UnknownNode: {e.LocalName} = \"{e.Text}\"");
+        }
+
+        #endregion XmlSerializer event handlers
     }
 
     [Serializable]
@@ -942,5 +988,27 @@ namespace Toastify.Core
         public string FileName { get; set; }
         public string TypeName { get; set; }
         public string Settings { get; set; }
+    }
+
+    [Flags]
+    public enum ToastifyVolumeControlMode
+    {
+        /// <summary>
+        /// The volume will changed only inside Spotify.
+        /// </summary>
+        [ComboBoxItem("Spotify", "Use Spotify's volume control.")]
+        Spotify           = 1,
+
+        /// <summary>
+        /// The volume will be changed in the WindowsVolumeMixer and will affect system volume.
+        /// </summary>
+        [ComboBoxItem("Windows Volume Mixer (device)", "Use the Windows Volume Mixer.\nThis affects the global system volume.")]
+        SystemGlobal      = 1 << 1,
+
+        /// <summary>
+        /// The volume will be changed in the WindowsVolumeMixer and will affect just Spotify.
+        /// </summary>
+        [ComboBoxItem("Windows Volume Mixer (Spotify)", "Use the Windows Volume Mixer.\nThis only affects Spotify's volume.")]
+        SystemSpotifyOnly = SystemGlobal | Spotify
     }
 }

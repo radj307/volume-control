@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -20,8 +20,6 @@ namespace Toastify.UI
 
         public SettingsXml settings;
         private readonly Toast toast;
-
-        private List<Key> modifierKeys = new List<Key> { Key.LeftCtrl, Key.RightCtrl, Key.LeftAlt, Key.Right, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin, Key.System };
 
         public WindowStartupLocation StartupLocation
         {
@@ -138,6 +136,17 @@ namespace Toastify.UI
         }
 
         #region "General" tab
+
+        private void ComboVolumeControlMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var currentItems = e.AddedItems.Cast<EnumComboBoxItem>()
+                                           .Select(it => (ToastifyVolumeControlMode)it.Value).ToList();
+            if (!currentItems.Any())
+                return;
+
+            var current = currentItems.First();
+            this.PanelWindowsMixerIncrement.IsEnabled = current == ToastifyVolumeControlMode.SystemSpotifyOnly;
+        }
 
         private void BtnSaveTrackToFilePath_Click(object sender, RoutedEventArgs e)
         {
