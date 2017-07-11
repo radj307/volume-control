@@ -141,11 +141,8 @@ namespace Toastify.UI
             //This method is UGLY but we'll keep it until the settings dialog is implemented.
             SettingsXml settings = SettingsXml.Instance;
 
-            double minWidth = this.MinWidth > 0.0 ? this.MinWidth : 200.0;
-            double minHeight = this.MinHeight > 0.0 ? this.MinHeight : 65.0;
-
-            this.Width = settings.ToastWidth >= minWidth ? settings.ToastWidth : minWidth;
-            this.Height = settings.ToastHeight >= minHeight ? settings.ToastHeight : minHeight;
+            this.Width = settings.ToastWidth >= this.MinWidth ? settings.ToastWidth : this.MinWidth;
+            this.Height = settings.ToastHeight >= this.MinHeight ? settings.ToastHeight : this.MinHeight;
             this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
 
             ColorConverter cc = new ColorConverter();
