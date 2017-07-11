@@ -298,7 +298,7 @@ namespace Toastify.UI
         {
             this.currentSong = song;
 
-            this.UpdateCoverArtUrl();
+            this.UpdateCoverArt();
             this.UpdateToastText(this.currentSong);
 
             // Save track info to file.
@@ -319,6 +319,40 @@ namespace Toastify.UI
             }
         }
 
+        private void UpdateCoverArt(bool forceUpdate = false)
+        {
+            // Get new CoverArtUrl.
+            string previousURI = this.toastIconURI;
+            this.UpdateCoverArtUrl();
+
+            // Update the cover art only if the url has changed.
+            if (!string.IsNullOrEmpty(this.toastIconURI) && (forceUpdate || this.toastIconURI != previousURI))
+            {
+                this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                    new Action(() =>
+                    {
+                        this.cover = new BitmapImage();
+                        this.cover.BeginInit();
+                        this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                        this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                        try
+                        {
+                            this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
+                        }
+                        catch (UriFormatException e)
+                        {
+                            Debug.WriteLine(e.Message);
+                            this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                        }
+                        finally
+                        {
+                            this.cover.EndInit();
+                            this.LogoToast.Source = this.cover;
+                        }
+                    }));
+            }
+        }
+
         private void UpdateCoverArtUrl()
         {
             if (this.currentSong == null)
@@ -334,41 +368,6 @@ namespace Toastify.UI
                     this.currentSong.CoverArtUrl = DEFAULT_ICON;
 
                 this.toastIconURI = this.currentSong.CoverArtUrl;
-            }
-        }
-
-        private void UpdateCoverArt()
-        {
-            if (!string.IsNullOrEmpty(this.toastIconURI))
-            {
-                this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    new Action(() =>
-                    {
-                        try
-                        {
-                            this.cover = new BitmapImage();
-                            this.cover.BeginInit();
-                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                            this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
-                            this.cover.EndInit();
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e.Message);
-
-                            this.cover = new BitmapImage();
-                            this.cover.BeginInit();
-                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                            this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-                            this.cover.EndInit();
-                        }
-                        finally
-                        {
-                            this.LogoToast.Source = this.cover;
-                        }
-                    }));
             }
         }
 
@@ -427,7 +426,7 @@ namespace Toastify.UI
 
             if (shallBeVisible)
             {
-                this.UpdateCoverArt();
+                this.UpdateCoverArt(true);
                 this.Left = SettingsXml.Instance.PositionLeft;
                 this.Top = SettingsXml.Instance.PositionTop;
                 this.ResetPositionIfOffScreen();
@@ -460,7 +459,7 @@ namespace Toastify.UI
             }
 
             this.isUpdateToast = isUpdate;
-            
+
             if (!this.IsToastVisible)
             {
                 this.ShowToast(true);
