@@ -178,7 +178,7 @@ namespace Toastify.Core
                         key?.DeleteValue("Toastify", false);
                 }
 
-                this.NotifyPropertyChanged("LaunchOnStartup");
+                this.NotifyPropertyChanged(nameof(this.LaunchOnStartup));
             }
         }
 
@@ -193,7 +193,7 @@ namespace Toastify.Core
                 if (this._minimizeSpotifyOnStartup != value)
                 {
                     this._minimizeSpotifyOnStartup = value;
-                    this.NotifyPropertyChanged("MinimizeSpotifyOnStartup");
+                    this.NotifyPropertyChanged(nameof(this.MinimizeSpotifyOnStartup));
                 }
             }
         }
@@ -209,7 +209,7 @@ namespace Toastify.Core
                 if (this._closeSpotifyWithToastify != value)
                 {
                     this._closeSpotifyWithToastify = value;
-                    this.NotifyPropertyChanged("CloseSpotifyWithToastify");
+                    this.NotifyPropertyChanged(nameof(this.CloseSpotifyWithToastify));
                 }
             }
         }
@@ -225,7 +225,7 @@ namespace Toastify.Core
                 if (this._volumeControlMode != value)
                 {
                     this._volumeControlMode = value;
-                    this.NotifyPropertyChanged("VolumeControlMode");
+                    this.NotifyPropertyChanged(nameof(this.VolumeControlMode));
                 }
             }
         }
@@ -242,7 +242,7 @@ namespace Toastify.Core
                 if (this._useSpotifyVolumeControl != value)
                 {
                     this._useSpotifyVolumeControl = value;
-                    this.NotifyPropertyChanged("UseSpotifyVolumeControl");
+                    this.NotifyPropertyChanged(nameof(this.UseSpotifyVolumeControl));
                 }
             }
         }
@@ -258,7 +258,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._windowsVolumeMixerIncrement - value) > 0.000001f)
                 {
                     this._windowsVolumeMixerIncrement = value;
-                    this.NotifyPropertyChanged("WindowsVolumeMixerIncrement");
+                    this.NotifyPropertyChanged(nameof(this.WindowsVolumeMixerIncrement));
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace Toastify.Core
                 if (this._clipboardTemplate != value)
                 {
                     this._clipboardTemplate = value;
-                    this.NotifyPropertyChanged("ClipboardTemplate");
+                    this.NotifyPropertyChanged(nameof(this.ClipboardTemplate));
                 }
             }
         }
@@ -290,7 +290,7 @@ namespace Toastify.Core
                 if (this._saveTrackToFile != value)
                 {
                     this._saveTrackToFile = value;
-                    this.NotifyPropertyChanged("SaveTrackToFile");
+                    this.NotifyPropertyChanged(nameof(this.SaveTrackToFile));
                 }
             }
         }
@@ -306,7 +306,7 @@ namespace Toastify.Core
                 if (this._saveTrackToFilePath != value)
                 {
                     this._saveTrackToFilePath = value;
-                    this.NotifyPropertyChanged("SaveTrackToFilePath");
+                    this.NotifyPropertyChanged(nameof(this.SaveTrackToFilePath));
                 }
             }
         }
@@ -322,7 +322,7 @@ namespace Toastify.Core
                 if (this._preventSleepWhilePlaying != value)
                 {
                     this._preventSleepWhilePlaying = value;
-                    this.NotifyPropertyChanged("PreventSleepWhilePlaying");
+                    this.NotifyPropertyChanged(nameof(this.PreventSleepWhilePlaying));
                 }
             }
         }
@@ -338,7 +338,7 @@ namespace Toastify.Core
                 if (this._optInToAnalytics != value)
                 {
                     this._optInToAnalytics = value;
-                    this.NotifyPropertyChanged("OptInToAnalytics");
+                    this.NotifyPropertyChanged(nameof(this.OptInToAnalytics));
                 }
             }
         }
@@ -358,7 +358,7 @@ namespace Toastify.Core
                 if (this._globalHotKeys != value)
                 {
                     this._globalHotKeys = value;
-                    this.NotifyPropertyChanged("GlobalHotKeys");
+                    this.NotifyPropertyChanged(nameof(this.GlobalHotKeys));
                 }
             }
         }
@@ -374,7 +374,7 @@ namespace Toastify.Core
                 if (this._hotKeys != value)
                 {
                     this._hotKeys = value;
-                    this.NotifyPropertyChanged("HotKeys");
+                    this.NotifyPropertyChanged(nameof(this.HotKeys));
                 }
             }
         }
@@ -394,7 +394,7 @@ namespace Toastify.Core
                 if (this._disableToast != value)
                 {
                     this._disableToast = value;
-                    this.NotifyPropertyChanged("DisableToast");
+                    this.NotifyPropertyChanged(nameof(this.DisableToast));
                 }
             }
         }
@@ -413,7 +413,7 @@ namespace Toastify.Core
                 if (this._onlyShowToastOnHotkey != value)
                 {
                     this._onlyShowToastOnHotkey = value;
-                    this.NotifyPropertyChanged("OnlyShowToastOnHotkey");
+                    this.NotifyPropertyChanged(nameof(this.OnlyShowToastOnHotkey));
                 }
             }
         }
@@ -429,7 +429,7 @@ namespace Toastify.Core
                 if (this._disableToastWithFullscreenVideogames != value)
                 {
                     this._disableToastWithFullscreenVideogames = value;
-                    this.NotifyPropertyChanged("DisableToastWithFullscreenVideogames");
+                    this.NotifyPropertyChanged(nameof(this.DisableToastWithFullscreenVideogames));
                 }
             }
         }
@@ -445,7 +445,7 @@ namespace Toastify.Core
                 if (this._fadeOutTime != value)
                 {
                     this._fadeOutTime = value;
-                    this.NotifyPropertyChanged("FadeOutTime");
+                    this.NotifyPropertyChanged(nameof(this.FadeOutTime));
                 }
             }
         }
@@ -461,7 +461,7 @@ namespace Toastify.Core
                 if (this._toastColorTop != value)
                 {
                     this._toastColorTop = value;
-                    this.NotifyPropertyChanged("ToastColorTop");
+                    this.NotifyPropertyChanged(nameof(this.ToastColorTop));
                 }
             }
         }
@@ -477,7 +477,7 @@ namespace Toastify.Core
                 if (this._toastColorBottom != value)
                 {
                     this._toastColorBottom = value;
-                    this.NotifyPropertyChanged("ToastColorBottom");
+                    this.NotifyPropertyChanged(nameof(this.ToastColorBottom));
                 }
             }
         }
@@ -493,7 +493,7 @@ namespace Toastify.Core
                 if (this._toastBorderColor != value)
                 {
                     this._toastBorderColor = value;
-                    this.NotifyPropertyChanged("ToastBorderColor");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderColor));
                 }
             }
         }
@@ -512,7 +512,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastBorderThickness - value) > double.Epsilon)
                 {
                     this._toastBorderThickness = value;
-                    this.NotifyPropertyChanged("ToastBorderThickness");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderThickness));
                 }
             }
         }
@@ -531,7 +531,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastBorderCornerRadiusTopLeft - value) > double.Epsilon)
                 {
                     this._toastBorderCornerRadiusTopLeft = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopLeft");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusTopLeft));
                 }
             }
         }
@@ -550,7 +550,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastBorderCornerRadiusTopRight - value) > double.Epsilon)
                 {
                     this._toastBorderCornerRadiusTopRight = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusTopRight");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusTopRight));
                 }
             }
         }
@@ -569,7 +569,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastBorderCornerRadiusBottomLeft - value) > double.Epsilon)
                 {
                     this._toastBorderCornerRadiusBottomLeft = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomLeft");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusBottomLeft));
                 }
             }
         }
@@ -588,7 +588,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastBorderCornerRadiusBottomRight - value) > double.Epsilon)
                 {
                     this._toastBorderCornerRadiusBottomRight = value;
-                    this.NotifyPropertyChanged("ToastBorderCornerRadiusBottomRight");
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusBottomRight));
                 }
             }
         }
@@ -607,7 +607,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastWidth - value) > double.Epsilon)
                 {
                     this._toastWidth = value;
-                    this.NotifyPropertyChanged("ToastWidth");
+                    this.NotifyPropertyChanged(nameof(this.ToastWidth));
                 }
             }
         }
@@ -626,7 +626,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._toastHeight - value) > double.Epsilon)
                 {
                     this._toastHeight = value;
-                    this.NotifyPropertyChanged("ToastHeight");
+                    this.NotifyPropertyChanged(nameof(this.ToastHeight));
                 }
             }
         }
@@ -642,7 +642,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._positionLeft - value) > double.Epsilon)
                 {
                     this._positionLeft = value;
-                    this.NotifyPropertyChanged("PositionLeft");
+                    this.NotifyPropertyChanged(nameof(this.PositionLeft));
                 }
             }
         }
@@ -658,7 +658,7 @@ namespace Toastify.Core
                 if (Math.Abs(this._positionTop - value) > double.Epsilon)
                 {
                     this._positionTop = value;
-                    this.NotifyPropertyChanged("PositionTop");
+                    this.NotifyPropertyChanged(nameof(this.PositionTop));
                 }
             }
         }
@@ -678,7 +678,7 @@ namespace Toastify.Core
                 if (this._firstRun != value)
                 {
                     this._firstRun = value;
-                    this.NotifyPropertyChanged("FirstRun");
+                    this.NotifyPropertyChanged(nameof(this.FirstRun));
                 }
             }
         }
@@ -694,7 +694,7 @@ namespace Toastify.Core
                 if (this._previousVersion != value)
                 {
                     this._previousVersion = value;
-                    this.NotifyPropertyChanged("PreviousVersion");
+                    this.NotifyPropertyChanged(nameof(this.PreviousVersion));
                 }
             }
         }
@@ -710,7 +710,7 @@ namespace Toastify.Core
                 if (this._startupWaitTimeout != value)
                 {
                     this._startupWaitTimeout = value;
-                    this.NotifyPropertyChanged("StartupWaitTimeout");
+                    this.NotifyPropertyChanged(nameof(this.StartupWaitTimeout));
                 }
             }
         }
@@ -726,7 +726,7 @@ namespace Toastify.Core
                 if (this._spotifyConnectionAttempts != value)
                 {
                     this._spotifyConnectionAttempts = value;
-                    this.NotifyPropertyChanged("SpotifyConnectionAttempts");
+                    this.NotifyPropertyChanged(nameof(this.SpotifyConnectionAttempts));
                 }
             }
         }

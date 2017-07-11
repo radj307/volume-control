@@ -51,7 +51,7 @@ namespace Toastify.Core
                 if (this._action != value)
                 {
                     this._action = value;
-                    this.NotifyPropertyChanged("Action", false);
+                    this.NotifyPropertyChanged(nameof(this.Action), false);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Toastify.Core
                 if (this._enabled != value)
                 {
                     this._enabled = value;
-                    this.NotifyPropertyChanged("Enabled", false);
+                    this.NotifyPropertyChanged(nameof(this.Enabled), false);
                 }
             }
         }
@@ -92,7 +92,7 @@ namespace Toastify.Core
                 if (this._shift != value)
                 {
                     this._shift = value;
-                    this.NotifyPropertyChanged("Shift");
+                    this.NotifyPropertyChanged(nameof(this.Shift));
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace Toastify.Core
                 if (this._ctrl != value)
                 {
                     this._ctrl = value;
-                    this.NotifyPropertyChanged("Ctrl");
+                    this.NotifyPropertyChanged(nameof(this.Ctrl));
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace Toastify.Core
                 if (this._alt != value)
                 {
                     this._alt = value;
-                    this.NotifyPropertyChanged("Alt");
+                    this.NotifyPropertyChanged(nameof(this.Alt));
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace Toastify.Core
                 if (this._windowsKey != value)
                 {
                     this._windowsKey = value;
-                    this.NotifyPropertyChanged("WindowsKey");
+                    this.NotifyPropertyChanged(nameof(this.WindowsKey));
                 }
             }
         }
@@ -156,7 +156,7 @@ namespace Toastify.Core
                 if (this._key != value)
                 {
                     this._key = value;
-                    this.NotifyPropertyChanged("Key");
+                    this.NotifyPropertyChanged(nameof(this.Key));
                 }
             }
         }
@@ -248,7 +248,7 @@ namespace Toastify.Core
                 if (this._isValid != value)
                 {
                     this._isValid = value;
-                    this.NotifyPropertyChanged("IsValid", false);
+                    this.NotifyPropertyChanged(nameof(this.IsValid), false);
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace Toastify.Core
                 if (this._invalidReason != value)
                 {
                     this._invalidReason = value;
-                    this.NotifyPropertyChanged("InvalidReason", false);
+                    this.NotifyPropertyChanged(nameof(this.InvalidReason), false);
                 }
             }
         }
