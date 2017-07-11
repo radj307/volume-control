@@ -80,9 +80,6 @@ namespace Toastify
         [DllImport("user32.dll")]
         private static extern IntPtr GetShellWindow();
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowRect(IntPtr hwnd, out Rect rc);
-
         [DllImport("user32.dll")]
         private static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
 
@@ -164,8 +161,8 @@ namespace Toastify
                         // Essentially: Find every hWnd associated with this process and ask it to go away
                         if (processId == (uint)lParam)
                         {
-                            SendMessage(hWnd, (uint)Constants.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            SendMessage(hWnd, (uint)Constants.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
+                            SendWindowMessage(hWnd, WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                            SendWindowMessage(hWnd, WindowsMessagesFlags.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
                         }
 
                         return true;
@@ -288,27 +285,32 @@ namespace Toastify
             return false;
         }
 
-        public static bool SendAppCommandMessage(IntPtr hWnd, IntPtr lParam)
+        public static bool SendWindowMessage(IntPtr hWnd, WindowsMessagesFlags msg, IntPtr wParam, IntPtr lParam, bool postMessage = false)
         {
-            return SendMessage(hWnd, (uint) WindowsMessagesFlags.WM_APPCOMMAND, IntPtr.Zero, lParam);
+            return postMessage ? PostMessage(hWnd, (uint)msg, wParam, lParam) : SendMessage(hWnd, (uint)msg, wParam, lParam);
+        }
+
+        public static bool SendAppCommandMessage(IntPtr hWnd, IntPtr lParam, bool postMessage = false)
+        {
+            return SendWindowMessage(hWnd, WindowsMessagesFlags.WM_APPCOMMAND, IntPtr.Zero, lParam, postMessage);
         }
 
         public static bool SendKeyDown(IntPtr hWnd, Key key, bool postMessage = false, bool extended = false)
         {
-            const uint msg = (uint)WindowsMessagesFlags.WM_KEYDOWN;
+            const WindowsMessagesFlags msg = WindowsMessagesFlags.WM_KEYDOWN;
             IntPtr wParam = (IntPtr)key.GetVirtualKey();
             IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0));
 
-            return postMessage ? PostMessage(hWnd, msg, wParam, lParam) : SendMessage(hWnd, msg, wParam, lParam);
+            return SendWindowMessage(hWnd, msg, wParam, lParam, postMessage);
         }
 
         public static bool SendKeyUp(IntPtr hWnd, Key key, bool postMessage = false, bool extended = false)
         {
-            const uint msg = (uint)WindowsMessagesFlags.WM_KEYUP;
+            const WindowsMessagesFlags msg = WindowsMessagesFlags.WM_KEYUP;
             IntPtr wParam = (IntPtr)key.GetVirtualKey();
             IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0), previousState: 1, transitionState: 1);
 
-            return postMessage ? PostMessage(hWnd, msg, wParam, lParam) : SendMessage(hWnd, msg, wParam, lParam);
+            return SendWindowMessage(hWnd, msg, wParam, lParam, postMessage);
         }
 
         public static void SendPasteKey()
@@ -590,8 +592,12 @@ namespace Toastify
         }
 
         [Flags]
-        internal enum WindowsMessagesFlags
+        internal enum WindowsMessagesFlags : uint
         {
+            // Window Messages & Notifications
+            WM_CLOSE           = 0x0010,
+            WM_QUIT            = 0x0012,
+
             // Keyboard Input Messages & Notifications
             WM_KEYDOWN         = 0x0100,
             WM_KEYUP           = 0x0101,
@@ -632,14 +638,6 @@ namespace Toastify
             public Point ptMinPosition;
             public Point ptMaxPosition;
             public Rectangle rcNormalPosition;
-        }
-
-        // TODO: Create an enum out of these constants.
-        //       See: SendMessage function (https://msdn.microsoft.com/en-us/library/windows/desktop/ms644950(v=vs.85).aspx)
-        internal class Constants
-        {
-            internal const int WM_CLOSE = 0x10;
-            internal const int WM_QUIT = 0x12;
         }
 
         [StructLayout(LayoutKind.Sequential)]

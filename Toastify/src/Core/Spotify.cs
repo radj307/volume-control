@@ -429,17 +429,17 @@ namespace Toastify.Core
 
                 // WM_INITMENU: select menu
                 IntPtr hMenu = Win32API.GetMenu(mainWindow);
-                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_INITMENU, hMenu, IntPtr.Zero);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_INITMENU, hMenu, IntPtr.Zero);
 
                 // WM_INITMENUPOPUP: select sub-menu ('Playback')
                 IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
-                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_INITMENUPOPUP, hSubMenu, (IntPtr)subMenuPos);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_INITMENUPOPUP, hSubMenu, (IntPtr)subMenuPos);
 
                 // WM_COMMAND: accelerator keystroke (shortcut)
-                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(0x00010000 | (baseAcceleratorId + menuItemPos)), IntPtr.Zero);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(0x00010000 | (baseAcceleratorId + menuItemPos)), IntPtr.Zero);
 
                 // WM_UNINITMENUPOPUP: destroy the sub-menu
-                Win32API.SendMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_UNINITMENUPOPUP, hSubMenu, IntPtr.Zero);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_UNINITMENUPOPUP, hSubMenu, IntPtr.Zero);
 
                 // The following message is not needed: it will be sent automatically by <something> to the main window to notify the event (to change the UI?).
                 // WM_COMMAND: notification that the keystroke has been translated
