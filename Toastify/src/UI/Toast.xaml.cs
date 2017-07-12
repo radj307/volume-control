@@ -426,7 +426,6 @@ namespace Toastify.UI
 
             if (shallBeVisible)
             {
-                this.UpdateCoverArt(true);
                 this.Left = SettingsXml.Instance.PositionLeft;
                 this.Top = SettingsXml.Instance.PositionTop;
                 this.ResetPositionIfOffScreen();
