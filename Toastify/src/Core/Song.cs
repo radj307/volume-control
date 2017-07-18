@@ -11,14 +11,20 @@ namespace Toastify.Core
         public string Artist { get; }
         public string Track { get; set; }
         public string Album { get; }
+        public int Length { get; }
 
         public string CoverArtUrl { get; set; }
 
-        public Song(string artist, string title, string album = null)
+        internal Song() : this(string.Empty, string.Empty, -1)
+        {
+        }
+
+        public Song(string artist, string title, int length, string album = null)
         {
             this.Artist = artist;
             this.Track = title;
             this.Album = album;
+            this.Length = length;
         }
 
         internal bool IsValid()
@@ -68,12 +74,13 @@ namespace Toastify.Core
                 return null;
 
             if (spotifyTrack.IsAd())
-                return new Song("", "");
+                return new Song();
 
             string artist = spotifyTrack.ArtistResource?.Name;
             string title = spotifyTrack.TrackResource?.Name;
             string album = spotifyTrack.AlbumResource?.Name;
-            string coverArtUrl = "";
+            int length = spotifyTrack.Length;
+            string coverArtUrl = string.Empty;
 
             // Take the smallest image possible.
             foreach (var size in albumArtSizes)
@@ -83,7 +90,7 @@ namespace Toastify.Core
                     break;
             }
 
-            return new Song(artist, title, album) { CoverArtUrl = coverArtUrl };
+            return new Song(artist, title, length, album) { CoverArtUrl = coverArtUrl };
         }
 
         public static bool Equal(Song s1, Song s2)

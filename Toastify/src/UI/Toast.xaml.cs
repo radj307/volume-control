@@ -35,6 +35,8 @@ namespace Toastify.UI
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class Toast : Window
     {
+        // TODO: Actually implement the MVVM pattern: create ViewModels for every View.
+
         private const string DEFAULT_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyLogo.png";
         private const string AD_PLAYING_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyAdPlaying.png";
         private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
@@ -300,6 +302,7 @@ namespace Toastify.UI
 
             this.UpdateCoverArt();
             this.UpdateToastText(this.currentSong);
+            this.UpdateSongProgressBar(0.0);
 
             // Save track info to file.
             if (SettingsXml.Instance.SaveTrackToFile)
@@ -591,6 +594,17 @@ namespace Toastify.UI
             }
         }
 
+        private void UpdateSongProgressBar(double trackTime)
+        {
+            this.Dispatcher.Invoke(
+                DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
+                    this.SongProgressBar.Width = this.SongProgressBarContainer.ActualWidth * timePercentage;
+                }));
+        }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // Close Spotify first.
@@ -775,7 +789,7 @@ namespace Toastify.UI
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
         {
-            // TODO: TrackTimeChanged
+            this.UpdateSongProgressBar(e.TrackTime);
         }
 
         #endregion Event handlers [Spotify]
