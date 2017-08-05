@@ -1,4 +1,5 @@
 ﻿using System;
+using Toastify.Model;
 
 namespace Toastify.Core
 {

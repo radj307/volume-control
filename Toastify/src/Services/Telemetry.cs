@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Management;
 using Toastify.Core;
+using Toastify.Model;
 
 namespace Toastify.Services
 {
@@ -20,7 +21,7 @@ namespace Toastify.Services
         {
             _session = new AnalyticsSession("http://toastify.nachmore.com/app", "UA-61123985-2");
 
-            var settings = SettingsXml.Instance;
+            var settings = Settings.Instance;
 
             // abort asap if we are surpressing analytics
             if (settings.OptInToAnalytics)
@@ -30,11 +31,11 @@ namespace Toastify.Services
 
             _client = _session.CreatePageViewRequest("/", "Global");
 
-            if (SettingsXml.Instance.FirstRun)
+            if (Settings.Instance.FirstRun)
             {
                 TrackEvent(TelemetryCategory.General, "Install", GetOS());
 
-                SettingsXml.Instance.FirstRun = false;
+                Settings.Instance.FirstRun = false;
             }
         }
 

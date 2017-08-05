@@ -2,7 +2,7 @@ using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Toastify.Core
+namespace Toastify.Model
 {
     public class Song
     {

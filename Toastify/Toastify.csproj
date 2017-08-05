@@ -124,7 +124,10 @@
     <Compile Include="src\Common\ComboBoxItemAttribute.cs" />
     <Compile Include="src\Common\WindowPosition.cs" />
     <Compile Include="src\Core\ApplicationStartupException.cs" />
-    <Compile Include="src\Core\Song.cs" />
+    <Compile Include="src\Core\ToastifyVolumeControlMode.cs" />
+    <Compile Include="src\Helpers\ColorHelper.cs" />
+    <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
+    <Compile Include="src\Model\Song.cs" />
     <Compile Include="src\Events\SpotifyPlayStateChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyStateEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackTimeChangedEventArgs.cs" />
@@ -136,18 +139,21 @@
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
     <Compile Include="src\Helpers\WindowExtensions.cs" />
     <Compile Include="src\Services\TelemetryCategory.cs" />
+    <Compile Include="src\Common\DelegateCommand.cs" />
+    <Compile Include="src\Common\ObservableObject.cs" />
+    <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\Win32API.cs" />
-    <Page Include="src\UI\About.xaml">
+    <Page Include="src\View\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="src\UI\Settings.xaml">
+    <Page Include="src\View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="src\UI\Toast.xaml">
+    <Page Include="src\View\ToastView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,18 +169,18 @@
     <Compile Include="src\Helpers\OppositeBoolToVisibleConverter.cs" />
     <Compile Include="src\Helpers\OppositeBoolConverter.cs" />
     <Compile Include="src\Helpers\ScreenHelper.cs" />
-    <Compile Include="src\UI\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="src\View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Services\Telemetry.cs" />
-    <Compile Include="src\UI\Toast.xaml.cs">
-      <DependentUpon>Toast.xaml</DependentUpon>
+    <Compile Include="src\View\ToastView.xaml.cs">
+      <DependentUpon>ToastView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\UI\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
+    <Compile Include="src\View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -189,9 +195,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="src\Core\SettingsXml.cs" />
+    <Compile Include="src\Model\Settings.cs" />
     <Compile Include="src\Core\Spotify.cs" />
-    <Compile Include="src\Core\HotKey.cs">
+    <Compile Include="src\Model\HotKey.cs">
     </Compile>
     <Compile Include="src\Services\VersionChecker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -251,7 +257,7 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
+  <Target Name="BeforeBuild">
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
   </Target>

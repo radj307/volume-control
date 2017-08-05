@@ -1,5 +1,4 @@
-﻿using ManagedWinapi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,9 +8,11 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Toastify.UI;
+using ManagedWinapi;
+using Toastify.Core;
+using Toastify.View;
 
-namespace Toastify.Core
+namespace Toastify.Model
 {
     [Serializable]
     [XmlRoot("Hotkey")]
@@ -402,7 +403,7 @@ namespace Toastify.Core
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
         {
-            Toast.HotkeyActionCallback(this);
+            ToastView.HotkeyActionCallback(this);
         }
 
         #region INotifyPropertyChanged

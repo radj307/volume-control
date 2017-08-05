@@ -1,29 +1,30 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Toastify.Common;
+using Toastify.Core;
 using Toastify.Helpers;
 
-namespace Toastify.Core
+namespace Toastify.Model
 {
     [Serializable]
-    public class SettingsXml : INotifyPropertyChanged
+    [XmlRoot("SettingsXml")]
+    public class Settings : ObservableObject
     {
         #region Singleton
 
-        private static SettingsXml _instance;
+        private static Settings _instance;
 
-        public static SettingsXml Instance
+        public static Settings Instance
         {
             get
             {
-                return _instance ?? (_instance = new SettingsXml());
+                return _instance ?? (_instance = new Settings());
             }
             private set
             {
@@ -39,7 +40,7 @@ namespace Toastify.Core
         #endregion Singleton
 
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        private const string SETTINGS_FILE = "Toastify.xml";
+        private const string SETTINGS_FILENAME = "Toastify.xml";
 
         private XmlSerializer _xmlSerializer;
         private string _settingsFile;
@@ -51,7 +52,7 @@ namespace Toastify.Core
             {
                 if (this._xmlSerializer == null)
                 {
-                    this._xmlSerializer = new XmlSerializer(typeof(SettingsXml));
+                    this._xmlSerializer = new XmlSerializer(typeof(Settings));
                     this._xmlSerializer.UnknownAttribute += this.XmlSerializer_UnknownAttribute;
                     this._xmlSerializer.UnknownElement += this.XmlSerializer_UnknownElement;
                     this._xmlSerializer.UnknownNode += this.XmlSerializer_UnknownNode;
@@ -64,7 +65,7 @@ namespace Toastify.Core
         /// Returns the location of the settings file
         /// </summary>
         [XmlIgnore]
-        public string SettingsFile
+        public string SettingsFilePath
         {
             get
             {
@@ -87,7 +88,7 @@ namespace Toastify.Core
                         }
                     }
 
-                    this._settingsFile = Path.Combine(settingsPath, SETTINGS_FILE);
+                    this._settingsFile = Path.Combine(settingsPath, SETTINGS_FILENAME);
                 }
 
                 return this._settingsFile;
@@ -145,11 +146,6 @@ namespace Toastify.Core
         private double _positionLeft;
         private double _positionTop;
 
-        private bool _firstRun;
-        private string _previousVersion;
-        private int _startupWaitTimeout;
-        private int _spotifyConnectionAttempts;
-
         #endregion Private fields
 
         #region [General]
@@ -178,169 +174,69 @@ namespace Toastify.Core
                         key?.DeleteValue("Toastify", false);
                 }
 
-                this.NotifyPropertyChanged(nameof(this.LaunchOnStartup));
+                this.NotifyPropertyChanged();
             }
         }
 
         public bool MinimizeSpotifyOnStartup
         {
-            get
-            {
-                return this._minimizeSpotifyOnStartup;
-            }
-            set
-            {
-                if (this._minimizeSpotifyOnStartup != value)
-                {
-                    this._minimizeSpotifyOnStartup = value;
-                    this.NotifyPropertyChanged(nameof(this.MinimizeSpotifyOnStartup));
-                }
-            }
+            get { return this._minimizeSpotifyOnStartup; }
+            set { this.RaiseAndSetIfChanged(ref this._minimizeSpotifyOnStartup, value); }
         }
 
         public bool CloseSpotifyWithToastify
         {
-            get
-            {
-                return this._closeSpotifyWithToastify;
-            }
-            set
-            {
-                if (this._closeSpotifyWithToastify != value)
-                {
-                    this._closeSpotifyWithToastify = value;
-                    this.NotifyPropertyChanged(nameof(this.CloseSpotifyWithToastify));
-                }
-            }
+            get { return this._closeSpotifyWithToastify; }
+            set { this.RaiseAndSetIfChanged(ref this._closeSpotifyWithToastify, value); }
         }
 
         public ToastifyVolumeControlMode VolumeControlMode
         {
-            get
-            {
-                return this._volumeControlMode;
-            }
-            set
-            {
-                if (this._volumeControlMode != value)
-                {
-                    this._volumeControlMode = value;
-                    this.NotifyPropertyChanged(nameof(this.VolumeControlMode));
-                }
-            }
+            get { return this._volumeControlMode; }
+            set { this.RaiseAndSetIfChanged(ref this._volumeControlMode, value); }
         }
 
         [Obsolete("UseSpotifyVolumeControl is obsolete and will be removed in the future. Use VolumeControlMode instead.")]
         public bool UseSpotifyVolumeControl
         {
-            get
-            {
-                return this._useSpotifyVolumeControl;
-            }
-            set
-            {
-                if (this._useSpotifyVolumeControl != value)
-                {
-                    this._useSpotifyVolumeControl = value;
-                    this.NotifyPropertyChanged(nameof(this.UseSpotifyVolumeControl));
-                }
-            }
+            get { return this._useSpotifyVolumeControl; }
+            set { this.RaiseAndSetIfChanged(ref this._useSpotifyVolumeControl, value); }
         }
 
         public float WindowsVolumeMixerIncrement
         {
-            get
-            {
-                return this._windowsVolumeMixerIncrement;
-            }
-            set
-            {
-                if (Math.Abs(this._windowsVolumeMixerIncrement - value) > 0.000001f)
-                {
-                    this._windowsVolumeMixerIncrement = value;
-                    this.NotifyPropertyChanged(nameof(this.WindowsVolumeMixerIncrement));
-                }
-            }
+            get { return this._windowsVolumeMixerIncrement; }
+            set { this.RaiseAndSetIfChanged(ref this._windowsVolumeMixerIncrement, value); }
         }
 
         public string ClipboardTemplate
         {
-            get
-            {
-                return this._clipboardTemplate;
-            }
-            set
-            {
-                if (this._clipboardTemplate != value)
-                {
-                    this._clipboardTemplate = value;
-                    this.NotifyPropertyChanged(nameof(this.ClipboardTemplate));
-                }
-            }
+            get { return this._clipboardTemplate; }
+            set { this.RaiseAndSetIfChanged(ref this._clipboardTemplate, value); }
         }
 
         public bool SaveTrackToFile
         {
-            get
-            {
-                return this._saveTrackToFile;
-            }
-            set
-            {
-                if (this._saveTrackToFile != value)
-                {
-                    this._saveTrackToFile = value;
-                    this.NotifyPropertyChanged(nameof(this.SaveTrackToFile));
-                }
-            }
+            get { return this._saveTrackToFile; }
+            set { this.RaiseAndSetIfChanged(ref this._saveTrackToFile, value); }
         }
 
         public string SaveTrackToFilePath
         {
-            get
-            {
-                return this._saveTrackToFilePath;
-            }
-            set
-            {
-                if (this._saveTrackToFilePath != value)
-                {
-                    this._saveTrackToFilePath = value;
-                    this.NotifyPropertyChanged(nameof(this.SaveTrackToFilePath));
-                }
-            }
+            get { return this._saveTrackToFilePath; }
+            set { this.RaiseAndSetIfChanged(ref this._saveTrackToFilePath, value); }
         }
 
         public bool PreventSleepWhilePlaying
         {
-            get
-            {
-                return this._preventSleepWhilePlaying;
-            }
-            set
-            {
-                if (this._preventSleepWhilePlaying != value)
-                {
-                    this._preventSleepWhilePlaying = value;
-                    this.NotifyPropertyChanged(nameof(this.PreventSleepWhilePlaying));
-                }
-            }
+            get { return this._preventSleepWhilePlaying; }
+            set { this.RaiseAndSetIfChanged(ref this._preventSleepWhilePlaying, value); }
         }
 
         public bool OptInToAnalytics
         {
-            get
-            {
-                return this._optInToAnalytics;
-            }
-            set
-            {
-                if (this._optInToAnalytics != value)
-                {
-                    this._optInToAnalytics = value;
-                    this.NotifyPropertyChanged(nameof(this.OptInToAnalytics));
-                }
-            }
+            get { return this._optInToAnalytics; }
+            set { this.RaiseAndSetIfChanged(ref this._optInToAnalytics, value); }
         }
 
         #endregion [General]
@@ -349,34 +245,14 @@ namespace Toastify.Core
 
         public bool GlobalHotKeys
         {
-            get
-            {
-                return this._globalHotKeys;
-            }
-            set
-            {
-                if (this._globalHotKeys != value)
-                {
-                    this._globalHotKeys = value;
-                    this.NotifyPropertyChanged(nameof(this.GlobalHotKeys));
-                }
-            }
+            get { return this._globalHotKeys; }
+            set { this.RaiseAndSetIfChanged(ref this._globalHotKeys, value); }
         }
 
         public List<Hotkey> HotKeys
         {
-            get
-            {
-                return this._hotKeys;
-            }
-            set
-            {
-                if (this._hotKeys != value)
-                {
-                    this._hotKeys = value;
-                    this.NotifyPropertyChanged(nameof(this.HotKeys));
-                }
-            }
+            get { return this._hotKeys; }
+            set { this.RaiseAndSetIfChanged(ref this._hotKeys, value); }
         }
 
         #endregion [Hotkeys]
@@ -385,18 +261,8 @@ namespace Toastify.Core
 
         public bool DisableToast
         {
-            get
-            {
-                return this._disableToast;
-            }
-            set
-            {
-                if (this._disableToast != value)
-                {
-                    this._disableToast = value;
-                    this.NotifyPropertyChanged(nameof(this.DisableToast));
-                }
-            }
+            get { return this._disableToast; }
+            set { this.RaiseAndSetIfChanged(ref this._disableToast, value); }
         }
 
         /// <summary>
@@ -404,332 +270,105 @@ namespace Toastify.Core
         /// </summary>
         public bool OnlyShowToastOnHotkey
         {
-            get
-            {
-                return this._onlyShowToastOnHotkey;
-            }
-            set
-            {
-                if (this._onlyShowToastOnHotkey != value)
-                {
-                    this._onlyShowToastOnHotkey = value;
-                    this.NotifyPropertyChanged(nameof(this.OnlyShowToastOnHotkey));
-                }
-            }
+            get { return this._onlyShowToastOnHotkey; }
+            set { this.RaiseAndSetIfChanged(ref this._onlyShowToastOnHotkey, value); }
         }
 
         public bool DisableToastWithFullscreenVideogames
         {
-            get
-            {
-                return this._disableToastWithFullscreenVideogames;
-            }
-            set
-            {
-                if (this._disableToastWithFullscreenVideogames != value)
-                {
-                    this._disableToastWithFullscreenVideogames = value;
-                    this.NotifyPropertyChanged(nameof(this.DisableToastWithFullscreenVideogames));
-                }
-            }
+            get { return this._disableToastWithFullscreenVideogames; }
+            set { this.RaiseAndSetIfChanged(ref this._disableToastWithFullscreenVideogames, value); }
         }
 
         public int FadeOutTime
         {
-            get
-            {
-                return this._fadeOutTime;
-            }
-            set
-            {
-                if (this._fadeOutTime != value)
-                {
-                    this._fadeOutTime = value;
-                    this.NotifyPropertyChanged(nameof(this.FadeOutTime));
-                }
-            }
+            get { return this._fadeOutTime; }
+            set { this.RaiseAndSetIfChanged(ref this._fadeOutTime, value); }
         }
 
         public string ToastColorTop
         {
-            get
-            {
-                return this._toastColorTop;
-            }
-            set
-            {
-                if (this._toastColorTop != value)
-                {
-                    this._toastColorTop = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastColorTop));
-                }
-            }
+            get { return this._toastColorTop; }
+            set { this.RaiseAndSetIfChanged(ref this._toastColorTop, value); }
         }
 
         public string ToastColorBottom
         {
-            get
-            {
-                return this._toastColorBottom;
-            }
-            set
-            {
-                if (this._toastColorBottom != value)
-                {
-                    this._toastColorBottom = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastColorBottom));
-                }
-            }
+            get { return this._toastColorBottom; }
+            set { this.RaiseAndSetIfChanged(ref this._toastColorBottom, value); }
         }
 
         public string ToastBorderColor
         {
-            get
-            {
-                return this._toastBorderColor;
-            }
-            set
-            {
-                if (this._toastBorderColor != value)
-                {
-                    this._toastBorderColor = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderColor));
-                }
-            }
+            get { return this._toastBorderColor; }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderColor, value); }
         }
 
         public double ToastBorderThickness
         {
-            get
-            {
-                return this._toastBorderThickness;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastBorderThickness - value) > double.Epsilon)
-                {
-                    this._toastBorderThickness = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderThickness));
-                }
-            }
+            get { return this._toastBorderThickness; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderThickness, value, () => value >= 0.0); }
         }
 
         public double ToastBorderCornerRadiusTopLeft
         {
-            get
-            {
-                return this._toastBorderCornerRadiusTopLeft;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastBorderCornerRadiusTopLeft - value) > double.Epsilon)
-                {
-                    this._toastBorderCornerRadiusTopLeft = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusTopLeft));
-                }
-            }
+            get { return this._toastBorderCornerRadiusTopLeft; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusTopLeft, value, () => value >= 0.0); }
         }
 
         public double ToastBorderCornerRadiusTopRight
         {
-            get
-            {
-                return this._toastBorderCornerRadiusTopRight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastBorderCornerRadiusTopRight - value) > double.Epsilon)
-                {
-                    this._toastBorderCornerRadiusTopRight = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusTopRight));
-                }
-            }
+            get { return this._toastBorderCornerRadiusTopRight; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusTopRight, value, () => value >= 0.0); }
         }
 
         public double ToastBorderCornerRadiusBottomLeft
         {
-            get
-            {
-                return this._toastBorderCornerRadiusBottomLeft;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastBorderCornerRadiusBottomLeft - value) > double.Epsilon)
-                {
-                    this._toastBorderCornerRadiusBottomLeft = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusBottomLeft));
-                }
-            }
+            get { return this._toastBorderCornerRadiusBottomLeft; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusBottomLeft, value, () => value >= 0.0); }
         }
 
         public double ToastBorderCornerRadiusBottomRight
         {
-            get
-            {
-                return this._toastBorderCornerRadiusBottomRight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastBorderCornerRadiusBottomRight - value) > double.Epsilon)
-                {
-                    this._toastBorderCornerRadiusBottomRight = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastBorderCornerRadiusBottomRight));
-                }
-            }
+            get { return this._toastBorderCornerRadiusBottomRight; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusBottomRight, value, () => value >= 0.0); }
         }
 
         public double ToastWidth
         {
-            get
-            {
-                return this._toastWidth;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastWidth - value) > double.Epsilon)
-                {
-                    this._toastWidth = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastWidth));
-                }
-            }
+            get { return this._toastWidth; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastWidth, value, () => value >= 0.0); }
         }
 
         public double ToastHeight
         {
-            get
-            {
-                return this._toastHeight;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("Value must be a positive number");
-
-                if (Math.Abs(this._toastHeight - value) > double.Epsilon)
-                {
-                    this._toastHeight = value;
-                    this.NotifyPropertyChanged(nameof(this.ToastHeight));
-                }
-            }
+            get { return this._toastHeight; }
+            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastHeight, value, () => value >= 0.0); }
         }
 
         public double PositionLeft
         {
-            get
-            {
-                return this._positionLeft;
-            }
-            set
-            {
-                if (Math.Abs(this._positionLeft - value) > double.Epsilon)
-                {
-                    this._positionLeft = value;
-                    this.NotifyPropertyChanged(nameof(this.PositionLeft));
-                }
-            }
+            get { return this._positionLeft; }
+            set { this.RaiseAndSetIfChanged(ref this._positionLeft, value); }
         }
 
         public double PositionTop
         {
-            get
-            {
-                return this._positionTop;
-            }
-            set
-            {
-                if (Math.Abs(this._positionTop - value) > double.Epsilon)
-                {
-                    this._positionTop = value;
-                    this.NotifyPropertyChanged(nameof(this.PositionTop));
-                }
-            }
+            get { return this._positionTop; }
+            set { this.RaiseAndSetIfChanged(ref this._positionTop, value); }
         }
 
         #endregion [Toast]
 
         #region (hidden)
 
-        public bool FirstRun
-        {
-            get
-            {
-                return this._firstRun;
-            }
-            set
-            {
-                if (this._firstRun != value)
-                {
-                    this._firstRun = value;
-                    this.NotifyPropertyChanged(nameof(this.FirstRun));
-                }
-            }
-        }
+        public bool FirstRun { get; set; }
 
-        public string PreviousVersion
-        {
-            get
-            {
-                return this._previousVersion;
-            }
-            set
-            {
-                if (this._previousVersion != value)
-                {
-                    this._previousVersion = value;
-                    this.NotifyPropertyChanged(nameof(this.PreviousVersion));
-                }
-            }
-        }
+        public string PreviousVersion { get; set; }
 
-        public int StartupWaitTimeout
-        {
-            get
-            {
-                return this._startupWaitTimeout;
-            }
-            set
-            {
-                if (this._startupWaitTimeout != value)
-                {
-                    this._startupWaitTimeout = value;
-                    this.NotifyPropertyChanged(nameof(this.StartupWaitTimeout));
-                }
-            }
-        }
+        public int StartupWaitTimeout { get; set; }
 
-        public int SpotifyConnectionAttempts
-        {
-            get
-            {
-                return this._spotifyConnectionAttempts;
-            }
-            set
-            {
-                if (this._spotifyConnectionAttempts != value)
-                {
-                    this._spotifyConnectionAttempts = value;
-                    this.NotifyPropertyChanged(nameof(this.SpotifyConnectionAttempts));
-                }
-            }
-        }
+        public int SpotifyConnectionAttempts { get; set; }
 
         public WindowPosition SettingsWindowLastLocation { get; set; }
 
@@ -739,7 +378,7 @@ namespace Toastify.Core
 
         #endregion Settings
 
-        private SettingsXml()
+        private Settings()
         {
             this.Default();
         }
@@ -808,7 +447,7 @@ namespace Toastify.Core
 
         public void Save(bool replaceCurrent = false)
         {
-            using (StreamWriter sw = new StreamWriter(this.SettingsFile, false))
+            using (StreamWriter sw = new StreamWriter(this.SettingsFilePath, false))
             {
                 this.XmlSerializer.Serialize(sw, this);
             }
@@ -817,22 +456,22 @@ namespace Toastify.Core
                 Instance = this;
         }
 
-        public SettingsXml Load()
+        public Settings Load()
         {
-            if (!File.Exists(this.SettingsFile))
+            if (!File.Exists(this.SettingsFilePath))
             {
                 Instance.Default(true);
                 Instance.Save();
             }
             else
             {
-                using (StreamReader sr = new StreamReader(this.SettingsFile))
+                using (StreamReader sr = new StreamReader(this.SettingsFilePath))
                 {
-                    SettingsXml xml = this.XmlSerializer.Deserialize(sr) as SettingsXml;
+                    Settings file = this.XmlSerializer.Deserialize(sr) as Settings;
 
-                    xml?.CheckForNewSettings();
+                    file?.CheckForNewSettings();
 
-                    Instance = xml;
+                    Instance = file;
                 }
             }
 
@@ -926,9 +565,9 @@ namespace Toastify.Core
             }
         }
 
-        public SettingsXml Clone()
+        public Settings Clone()
         {
-            SettingsXml clone = this.MemberwiseClone() as SettingsXml;
+            Settings clone = this.MemberwiseClone() as Settings;
 
             if (clone != null)
             {
@@ -940,17 +579,6 @@ namespace Toastify.Core
 
             return clone;
         }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string info)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-        }
-
-        #endregion INotifyPropertyChanged
 
         #region XmlSerializer event handlers
 
@@ -988,27 +616,5 @@ namespace Toastify.Core
         public string FileName { get; set; }
         public string TypeName { get; set; }
         public string Settings { get; set; }
-    }
-
-    [Flags]
-    public enum ToastifyVolumeControlMode
-    {
-        /// <summary>
-        /// The volume will changed only inside Spotify.
-        /// </summary>
-        [ComboBoxItem("Spotify", "Use Spotify's volume control.")]
-        Spotify           = 1,
-
-        /// <summary>
-        /// The volume will be changed in the WindowsVolumeMixer and will affect system volume.
-        /// </summary>
-        [ComboBoxItem("Windows Volume Mixer (device)", "Use the Windows Volume Mixer.\nThis affects the global system volume.")]
-        SystemGlobal      = 1 << 1,
-
-        /// <summary>
-        /// The volume will be changed in the WindowsVolumeMixer and will affect just Spotify.
-        /// </summary>
-        [ComboBoxItem("Windows Volume Mixer (Spotify)", "Use the Windows Volume Mixer.\nThis only affects Spotify's volume.")]
-        SystemSpotifyOnly = SystemGlobal | Spotify
     }
 }

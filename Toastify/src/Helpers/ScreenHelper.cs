@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
-using Toastify.UI;
+using Toastify.View;
 
 namespace Toastify.Helpers
 {
@@ -12,7 +13,7 @@ namespace Toastify.Helpers
 
         public static Point GetDPIRatios()
         {
-            var presentationSource = PresentationSource.FromVisual(Toast.Current);
+            var presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
             // if we hit this then Settings were loaded before the Toast window was
             Debug.Assert(presentationSource != null);
@@ -25,7 +26,15 @@ namespace Toastify.Helpers
         {
             var screenRect = Screen.PrimaryScreen.WorkingArea;
 
-            var dpiRatio = GetDPIRatios();
+            Point dpiRatio;
+            try
+            {
+                dpiRatio = GetDPIRatios();
+            }
+            catch (Exception)
+            {
+                dpiRatio = new Point(1.0, 1.0);
+            }
 
             return new Point(screenRect.Width / dpiRatio.X - width - SCREEN_RIGHT_MARGIN,
                              screenRect.Height / dpiRatio.Y - height - SCREEN_TOP_MARGIN);

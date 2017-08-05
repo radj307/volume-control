@@ -7,17 +7,17 @@ using System.Windows.Input;
 using Toastify.Events;
 using Toastify.Services;
 
-namespace Toastify.UI
+namespace Toastify.View
 {
     /// <summary>
-    /// Interaction logic for About.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
-    public partial class About : Window
+    public partial class AboutView : Window
     {
         private readonly VersionChecker versionChecker;
 
-        public About()
+        public AboutView()
         {
             this.InitializeComponent();
 

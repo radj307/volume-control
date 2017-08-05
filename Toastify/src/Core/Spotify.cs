@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Input;
 using Toastify.Events;
 using Toastify.Helpers;
+using Toastify.Model;
 using Toastify.Services;
 
 namespace Toastify.Core
@@ -96,7 +97,7 @@ namespace Toastify.Core
 
         public void StartSpotify()
         {
-            int timeout = SettingsXml.Instance.StartupWaitTimeout;
+            int timeout = Settings.Instance.StartupWaitTimeout;
             this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(timeout) : this.FindSpotifyProcess();
 
             if (this.spotifyProcess == null)
@@ -131,7 +132,7 @@ namespace Toastify.Core
             // We need to let Spotify start-up before interacting with it.
             spotifyProcess?.WaitForInputIdle(maxWait);
 
-            if (SettingsXml.Instance.MinimizeSpotifyOnStartup)
+            if (Settings.Instance.MinimizeSpotifyOnStartup)
                 this.Minimize(1000);
 
             return spotifyProcess;
@@ -152,7 +153,7 @@ namespace Toastify.Core
             // Pre-emptive wait, in case some fool set SpotifyConnectionAttempts to 1! ;)
             Thread.Sleep(500);
 
-            int maxAttempts = SettingsXml.Instance.SpotifyConnectionAttempts;
+            int maxAttempts = Settings.Instance.SpotifyConnectionAttempts;
             bool connected;
             int attempts = 1;
             while (!(connected = this.localAPI.Connect()) && attempts < maxAttempts)
@@ -309,7 +310,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.VolumeUp:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
-                    switch (SettingsXml.Instance.VolumeControlMode)
+                    switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -327,7 +328,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.VolumeDown:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
-                    switch (SettingsXml.Instance.VolumeControlMode)
+                    switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -345,7 +346,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.Mute:
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
-                    switch (SettingsXml.Instance.VolumeControlMode)
+                    switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.ToggleMute();

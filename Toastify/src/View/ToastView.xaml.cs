@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
+using Toastify.Model;
 using Toastify.Services;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
@@ -30,10 +31,10 @@ using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Timer = System.Timers.Timer;
 
-namespace Toastify.UI
+namespace Toastify.View
 {
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
-    public partial class Toast : Window
+    public partial class ToastView : Window
     {
         // TODO: Actually implement the MVVM pattern: create ViewModels for every View.
 
@@ -42,7 +43,7 @@ namespace Toastify.UI
         private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
         private const string UPDATE_LOGO_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyUpdateLogo.png";
 
-        internal static Toast Current { get; private set; }
+        internal static ToastView Current { get; private set; }
 
         #region Private fields
 
@@ -74,7 +75,7 @@ namespace Toastify.UI
 
         #endregion Events
 
-        public Toast()
+        public ToastView()
         {
             this.InitializeComponent();
 
@@ -109,26 +110,26 @@ namespace Toastify.UI
         {
             try
             {
-                SettingsXml.Instance.Load();
+                Settings.Instance.Load();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Exception loading settings:\n" + ex);
 
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, SettingsXml.Instance.SettingsFile);
+                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Instance.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                SettingsXml.Instance.Default(true);
+                Settings.Instance.Default(true);
             }
 
             string version = VersionChecker.CurrentVersion;
 
             Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
 
-            if (SettingsXml.Instance.PreviousVersion != version)
+            if (Settings.Instance.PreviousVersion != version)
             {
                 Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
-                SettingsXml.Instance.PreviousVersion = version;
+                Settings.Instance.PreviousVersion = version;
             }
         }
 
@@ -141,7 +142,7 @@ namespace Toastify.UI
 
             // TODO: Refactor InitToast method.
             //This method is UGLY but we'll keep it until the settings dialog is implemented.
-            SettingsXml settings = SettingsXml.Instance;
+            Settings settings = Settings.Instance;
 
             this.Width = settings.ToastWidth >= this.MinWidth ? settings.ToastWidth : this.MinWidth;
             this.Height = settings.ToastHeight >= this.MinHeight ? settings.ToastHeight : this.MinHeight;
@@ -183,10 +184,10 @@ namespace Toastify.UI
 
             //Init tray icon menu
             MenuItem menuSettings = new MenuItem { Text = @"Settings" };
-            menuSettings.Click += (s, ev) => { Settings.Launch(this); };
+            menuSettings.Click += (s, ev) => { SettingsView.Launch(this); };
 
             MenuItem menuAbout = new MenuItem { Text = @"About Toastify..." };
-            menuAbout.Click += (s, ev) => { new About().ShowDialog(); };
+            menuAbout.Click += (s, ev) => { new AboutView().ShowDialog(); };
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
             menuExit.Click += this.Application_Shutdown;
@@ -244,7 +245,7 @@ namespace Toastify.UI
             {
                 string applicationPath = new FileInfo(assembly.Location).DirectoryName;
 
-                foreach (var p in SettingsXml.Instance.Plugins)
+                foreach (var p in Settings.Instance.Plugins)
                 {
                     try
                     {
@@ -305,14 +306,14 @@ namespace Toastify.UI
             this.UpdateSongProgressBar(0.0);
 
             // Save track info to file.
-            if (SettingsXml.Instance.SaveTrackToFile)
+            if (Settings.Instance.SaveTrackToFile)
             {
-                if (!string.IsNullOrEmpty(SettingsXml.Instance.SaveTrackToFilePath))
+                if (!string.IsNullOrEmpty(Settings.Instance.SaveTrackToFilePath))
                 {
                     try
                     {
-                        string trackText = this.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate);
-                        File.WriteAllText(SettingsXml.Instance.SaveTrackToFilePath, trackText);
+                        string trackText = this.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate);
+                        File.WriteAllText(Settings.Instance.SaveTrackToFilePath, trackText);
                     }
                     catch
                     {
@@ -429,8 +430,8 @@ namespace Toastify.UI
 
             if (shallBeVisible)
             {
-                this.Left = SettingsXml.Instance.PositionLeft;
-                this.Top = SettingsXml.Instance.PositionTop;
+                this.Left = Settings.Instance.PositionLeft;
+                this.Top = Settings.Instance.PositionTop;
                 this.ResetPositionIfOffScreen();
             }
         }
@@ -440,8 +441,8 @@ namespace Toastify.UI
             this.minimizeTimer?.Stop();
 
             bool doNotFadeIn = this.dragging ||
-                               (SettingsXml.Instance.DisableToast || (SettingsXml.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
-                               (SettingsXml.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
+                               (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
+                               (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
             if (doNotFadeIn)
                 return;
 
@@ -449,7 +450,7 @@ namespace Toastify.UI
             // as this will be triggered when a song is played. The primary problem is if there is a
             // particularly long song then this will not work. That said, this is the safest (in terms of
             // not causing a user's computer from never sleeping).
-            if (SettingsXml.Instance.PreventSleepWhilePlaying)
+            if (Settings.Instance.PreventSleepWhilePlaying)
             {
 #if DEBUG
                 var rv =
@@ -479,7 +480,7 @@ namespace Toastify.UI
                 // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
                 this.BeginAnimation(OpacityProperty, null);
                 this.Opacity = 1.0;
-                this.minimizeTimer.Interval = SettingsXml.Instance.FadeOutTime;
+                this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
                 this.minimizeTimer.Start();
             }
         }
@@ -487,7 +488,7 @@ namespace Toastify.UI
         private void FadeOut(bool now = false)
         {
             // 16 == one frame (0 is not a valid interval)
-            var interval = now ? 16 : SettingsXml.Instance.FadeOutTime;
+            var interval = now ? 16 : Settings.Instance.FadeOutTime;
 
             if (this.minimizeTimer == null)
             {
@@ -608,7 +609,7 @@ namespace Toastify.UI
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // Close Spotify first.
-            if (SettingsXml.Instance.CloseSpotifyWithToastify)
+            if (Settings.Instance.CloseSpotifyWithToastify)
                 Spotify.Instance.Kill();
 
             // Dispose the timer.
@@ -659,12 +660,12 @@ namespace Toastify.UI
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && Current.currentSong != null)
                 {
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
                 }
                 else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Current.currentSong != null)
                 {
                     Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(SettingsXml.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
                     Win32API.SendPasteKey();
                 }
                 else
@@ -735,7 +736,7 @@ namespace Toastify.UI
                 this.dragging = false;
 
                 // Save the new window position
-                SettingsXml settings = SettingsXml.Instance;
+                Settings settings = Settings.Instance;
 
                 settings.PositionLeft = this.Left;
                 settings.PositionTop = this.Top;
@@ -817,7 +818,7 @@ namespace Toastify.UI
 
         private void TrayIcon_DoubleClick(object s, EventArgs ev)
         {
-            Settings.Launch(this);
+            SettingsView.Launch(this);
         }
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)

@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Toastify.Common;
 using Toastify.Core;
+using Toastify.Model;
 using Toastify.Services;
+using Toastify.ViewModel;
 
-namespace Toastify.UI
+// ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
+namespace Toastify.View
 {
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
-    public partial class Settings : Window
+    public partial class SettingsView : Window
     {
-        private static Settings _current;
+        private static SettingsView _current;
 
-        public SettingsXml settings;
-        private readonly Toast toast;
+        private readonly ToastView toastView;
+        private readonly SettingsViewModel settingsViewModel;
+        private readonly Settings settings;
 
         public WindowStartupLocation StartupLocation
         {
@@ -39,100 +40,48 @@ namespace Toastify.UI
             }
         }
 
-        private Settings(Toast toast)
+        private SettingsView(ToastView toastView)
         {
             Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.SettingsLaunched);
 
-            this.settings = SettingsXml.Instance.Clone();
-            this.toast = toast;
+            this.settingsViewModel = new SettingsViewModel();
+            this.settingsViewModel.SettingsSaved += this.SettingsViewModel_SettingsSaved;
+
+            this.toastView = toastView;
+            this.settings = this.settingsViewModel.Settings;
 
             this.InitializeComponent();
 
+            this.DataContext = this.settingsViewModel;
             this.WindowStartupLocation = this.StartupLocation;
-
-            // Data context initialisation
-            this.GeneralGrid.DataContext = this.settings;
-
-            // Slider initialisation
-            try
-            {
-                this.SlTopColor.Value = byte.Parse(this.settings.ToastColorTop.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-                this.SlBottomColor.Value = byte.Parse(this.settings.ToastColorBottom.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-                this.SlBorderColor.Value = byte.Parse(this.settings.ToastBorderColor.Substring(1, 2), NumberStyles.AllowHexSpecifier);
-            }
-            catch
-            {
-                // ignored
-            }
 
             if (_current == null)
                 _current = this;
         }
 
-        private void SaveAndApplySettings()
-        {
-            this.settings.Save(true);
-
-            this.toast.InitToast();
-            this.toast.DisplayAction(SpotifyAction.SettingsSaved);
-        }
-
-        public static void Launch(Toast toast)
+        public static void Launch(ToastView toastView)
         {
             if (_current != null)
                 _current.Activate();
             else
-                new Settings(toast).ShowDialog();
-        }
-
-        /// <summary>
-        /// Hexadecimal to <see cref="Color"/> converter.
-        /// </summary>
-        /// <param name="hexColor"> Hex color. </param>
-        /// <returns> A <see cref="Color"/>. </returns>
-        public static Color HexToColor(string hexColor)
-        {
-            //Remove # if present
-            if (hexColor.IndexOf('#') != -1)
-                hexColor = hexColor.Replace("#", "");
-
-            byte alpha = 0;
-            byte red = 0;
-            byte green = 0;
-            byte blue = 0;
-
-            if (hexColor.Length == 8)
-            {
-                //#RRGGBB
-                alpha = byte.Parse(hexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier);
-                red = byte.Parse(hexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier);
-                green = byte.Parse(hexColor.Substring(4, 2), NumberStyles.AllowHexSpecifier);
-                blue = byte.Parse(hexColor.Substring(6, 2), NumberStyles.AllowHexSpecifier);
-            }
-
-            return Color.FromArgb(alpha, red, green, blue);
+                new SettingsView(toastView).ShowDialog();
         }
 
         #region Event handlers
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            SettingsXml.Instance.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
-            SettingsXml.Instance.Save(true);
+            Settings.Instance.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
+            Settings.Instance.Save(true);
 
             if (ReferenceEquals(_current, this))
                 _current = null;
         }
 
-        private void BtnDefault_Click(object sender, RoutedEventArgs e)
+        private void SettingsViewModel_SettingsSaved(object sender, EventArgs e)
         {
-            this.settings.Default();
-            this.SaveAndApplySettings();
-        }
-
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-            this.SaveAndApplySettings();
+            this.toastView.InitToast();
+            this.toastView.DisplayAction(SpotifyAction.SettingsSaved);
         }
 
         #region "General" tab
@@ -148,21 +97,6 @@ namespace Toastify.UI
             this.PanelWindowsMixerIncrement.IsEnabled = current == ToastifyVolumeControlMode.SystemSpotifyOnly;
         }
 
-        private void BtnSaveTrackToFilePath_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog();
-
-            if (SettingsXml.Instance.SaveTrackToFilePath != null)
-                dialog.FileName = SettingsXml.Instance.SaveTrackToFilePath;
-
-            dialog.CheckPathExists = true;
-            dialog.CheckFileExists = false;
-            dialog.ShowReadOnly = false;
-
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                this.settings.SaveTrackToFilePath = dialog.FileName;
-        }
-
         #endregion "General" tab
 
         #region "Hotkeys" tab
@@ -173,7 +107,7 @@ namespace Toastify.UI
                 this.TxtSingleKey.Text = hotkey.Key.ToString();
         }
 
-        private void TxtSingleKey_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TxtSingleKey_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
 
@@ -201,49 +135,22 @@ namespace Toastify.UI
 
         #region Change colors
 
-        private void ChangeColorTop_Click(object sender, RoutedEventArgs e)
+        private void TopColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ColorDialog MyDialog = new ColorDialog();
-            string alpha = this.settings.ToastColorTop.Substring(1, 2);
-            MyDialog.Color = HexToColor(this.settings.ToastColorTop);
-            MyDialog.ShowDialog();
-            this.settings.ToastColorTop = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
+            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
+            this.settings.ToastColorTop = $"#{alpha}{this.settings.ToastColorTop.Substring(3)}";
         }
 
-        private void TopColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void BottomColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            string transparency = Convert.ToByte(this.SlTopColor.Value).ToString("X2");
-            this.settings.ToastColorTop = "#" + transparency + this.settings.ToastColorTop.Substring(3);
+            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
+            this.settings.ToastColorBottom = $"#{alpha}{this.settings.ToastColorBottom.Substring(3)}";
         }
 
-        private void ChangeColorBottom_Click(object sender, RoutedEventArgs e)
+        private void BorderColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ColorDialog MyDialog = new ColorDialog();
-            string alpha = this.settings.ToastColorBottom.Substring(1, 2);
-            MyDialog.Color = HexToColor(this.settings.ToastColorBottom);
-            MyDialog.ShowDialog();
-            this.settings.ToastColorBottom = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
-        }
-
-        private void BottomColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            string transparency = Convert.ToByte(this.SlBottomColor.Value).ToString("X2");
-            this.settings.ToastColorBottom = "#" + transparency + this.settings.ToastColorBottom.Substring(3);
-        }
-
-        private void ChangeBorderColor_Click(object sender, RoutedEventArgs e)
-        {
-            ColorDialog MyDialog = new ColorDialog();
-            string alpha = this.settings.ToastBorderColor.Substring(1, 2);
-            MyDialog.Color = HexToColor(this.settings.ToastBorderColor);
-            MyDialog.ShowDialog();
-            this.settings.ToastBorderColor = "#" + alpha + MyDialog.Color.R.ToString("X2") + MyDialog.Color.G.ToString("X2") + MyDialog.Color.B.ToString("X2");
-        }
-
-        private void BorderColor_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            string transparency = Convert.ToByte(this.SlBorderColor.Value).ToString("X2");
-            this.settings.ToastBorderColor = "#" + transparency + this.settings.ToastBorderColor.Substring(3);
+            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
+            this.settings.ToastBorderColor = $"#{alpha}{this.settings.ToastBorderColor.Substring(3)}";
         }
 
         #endregion Change colors
