@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Documents;
@@ -23,8 +22,6 @@ namespace Toastify.View
 
             this.versionChecker = new VersionChecker();
             this.versionChecker.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-
-            this.DataContext = this.versionChecker;
         }
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -44,11 +41,6 @@ namespace Toastify.View
                 this.LatestVersion.Inlines.Clear();
                 this.LatestVersion.Inlines.Add(run);
             }, System.Windows.Threading.DispatcherPriority.Normal);
-        }
-
-        private void Link_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            Process.Start("https://github.com/aleab/toastify");
         }
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)

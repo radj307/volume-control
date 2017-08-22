@@ -724,7 +724,7 @@ namespace Toastify.View
             this.FadeOut(true);
 
             if (this.isUpdateToast)
-                Process.Start(new ProcessStartInfo(this.versionChecker.UpdateUrl));
+                Process.Start(new ProcessStartInfo(VersionChecker.UpdateUrl));
             else
                 Spotify.Instance.SendAction(SpotifyAction.ShowSpotify);
         }

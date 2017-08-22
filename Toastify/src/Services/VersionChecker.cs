@@ -36,9 +36,9 @@ namespace Toastify.Services
             }
         }
 
-        public string UpdateUrl { get { return "https://github.com/aleab/toastify/releases"; } }
+        public static string UpdateUrl { get { return "https://github.com/aleab/toastify/releases"; } }
 
-        public string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
+        public static string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
 
         private readonly WebClient wc;
 
@@ -59,7 +59,7 @@ namespace Toastify.Services
         private void ThreadedBeginCheckVersion()
         {
             //WebClients XXXAsync isn't as async as I wanted...
-            this.wc.DownloadStringAsync(new Uri(this.VersionUrl));
+            this.wc.DownloadStringAsync(new Uri(VersionUrl));
         }
 
         private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
