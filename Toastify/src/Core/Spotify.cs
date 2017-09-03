@@ -30,6 +30,8 @@ namespace Toastify.Core
 
         private readonly SpotifyLocalAPI localAPI;
 
+        private readonly SpotifyLocalAPIConfig localAPIConfig;
+
         private readonly string spotifyPath;
 
         private Process spotifyProcess;
@@ -84,8 +86,9 @@ namespace Toastify.Core
         {
             this.spotifyPath = this.GetSpotifyPath();
 
-            // Connect with Spotify to use the local API.
-            this.localAPI = new SpotifyLocalAPI();
+            // SpotifyLocalAPI
+            this.localAPIConfig = new SpotifyLocalAPIConfig();
+            this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 
             // Subscribe to SpotifyLocalAPI's events.
             this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
@@ -153,6 +156,19 @@ namespace Toastify.Core
             // Pre-emptive wait, in case some fool set SpotifyConnectionAttempts to 1! ;)
             Thread.Sleep(500);
 
+            // TODO: Remove the following lines once Spotify version > 1.0.62 comes out
+            FileVersionInfo spotifyVersionInfo = this.spotifyProcess.MainModule.FileVersionInfo;
+            Version spotifyVersion = new Version(
+                spotifyVersionInfo.ProductMajorPart,
+                spotifyVersionInfo.ProductMinorPart,
+                spotifyVersionInfo.ProductBuildPart,
+                spotifyVersionInfo.ProductPrivatePart);
+            if (spotifyVersion < new Version(1, 0, 62))
+            {
+                this.localAPIConfig.HostUrl = "https://127.0.0.1";
+                this.localAPIConfig.Port = 4371;
+            }
+
             int maxAttempts = Settings.Instance.SpotifyConnectionAttempts;
             bool connected;
             int attempts = 1;
@@ -164,7 +180,7 @@ namespace Toastify.Core
 
             if (!connected)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
-            Debug.WriteLine($"Connected with Spotify after {attempts} attempt(s).");
+            Debug.WriteLine($"Connected with Spotify after {attempts} attempt(s) on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
 
             var status = this.localAPI.GetStatus();
             if (status == null)
