@@ -19,11 +19,8 @@ namespace Toastify.Services
                 if (_version == null)
                 {
                     var assembly = Assembly.GetExecutingAssembly();
-                    if (assembly.Location != null)
-                    {
-                        var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-                        _version = fileVersionInfo.FileVersion;
-                    }
+                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                    _version = fileVersionInfo.FileVersion;
 
                     if (_version != null)
                     {

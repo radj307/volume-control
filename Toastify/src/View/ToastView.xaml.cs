@@ -247,38 +247,30 @@ namespace Toastify.View
         {
             this.Plugins = new List<IPluginBase>();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            if (assembly.Location != null)
+            string applicationPath = new FileInfo(assembly.Location).DirectoryName;
+
+            foreach (var p in Settings.Instance.Plugins)
             {
-                string applicationPath = new FileInfo(assembly.Location).DirectoryName;
-
-                foreach (var p in Settings.Instance.Plugins)
+                try
                 {
-                    try
+                    string pluginFilePath = Path.Combine(applicationPath, p.FileName);
+                    if (Activator.CreateInstanceFrom(pluginFilePath, p.TypeName).Unwrap() is IPluginBase plugin)
                     {
-                        if (applicationPath != null)
-                        {
-                            string pluginFilePath = Path.Combine(applicationPath, p.FileName);
-                            if (Activator.CreateInstanceFrom(pluginFilePath, p.TypeName).Unwrap() is IPluginBase plugin)
-                            {
-                                plugin.Init(p.Settings);
-                                this.Plugins.Add(plugin);
+                        plugin.Init(p.Settings);
+                        this.Plugins.Add(plugin);
 
-                                this.Started += plugin.Started;
-                                this.ToastClosing += plugin.Closing;
-                                Spotify.Instance.SongChanged += (sender, e) => plugin.TrackChanged(sender, e);
-                            }
-                            else
-                                Debug.WriteLine("'plugin' is not of type IPluginBase (?)");
-                        }
-                        else
-                            Debug.WriteLine("'applicationPath' is null");
+                        this.Started += plugin.Started;
+                        this.ToastClosing += plugin.Closing;
+                        Spotify.Instance.SongChanged += (sender, e) => plugin.TrackChanged(sender, e);
                     }
-                    catch (Exception)
-                    {
-                        // TODO: Handle plugins' errors.
-                    }
-                    Console.WriteLine(@"Loaded " + p.TypeName);
+                    else
+                        Debug.WriteLine("'plugin' is not of type IPluginBase (?)");
                 }
+                catch (Exception)
+                {
+                    // TODO: Handle plugins' errors.
+                }
+                Console.WriteLine(@"Loaded " + p.TypeName);
             }
         }
 
