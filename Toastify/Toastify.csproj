@@ -143,6 +143,7 @@
     <Compile Include="src\Common\ObservableObject.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
+    <Compile Include="src\ViewModel\ToastViewModel.cs" />
     <Compile Include="src\Win32API.cs" />
     <Page Include="src\View\AboutView.xaml">
       <SubType>Designer</SubType>

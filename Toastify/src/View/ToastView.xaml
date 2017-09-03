@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         x:Class="Toastify.View.ToastView"
         Width="250" Height="70" MinWidth="250" MinHeight="70" AllowsTransparency="True" Background="#00000000" Opacity="1"
@@ -23,7 +24,7 @@
     </Window.Triggers>
     -->
 
-    <Border Name="ToastBorder" BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4">
+    <Border Name="ToastBorder" BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4" d:DataContext="{d:DesignInstance viewmodel:ToastViewModel}">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#FF555555" Offset="0"/>
@@ -35,7 +36,7 @@
                 <ColumnDefinition Width="70"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Name="LogoToast" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right"
+            <Image Name="AlbumArt" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right"
                    Margin="0" Height="60" Width="60" Grid.Column="0" VerticalAlignment="Center" Stretch="Fill">
                 <Image.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
@@ -47,20 +48,19 @@
                     <RowDefinition Height="19"></RowDefinition>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Name="Title1" VerticalAlignment="Bottom" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis" Grid.Row="0">
+                <TextBlock Name="Title1" Text="{Binding Path=Title1, Mode=OneWay, FallbackValue='[Title1]'}" VerticalAlignment="Bottom" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis" Grid.Row="0">
                     <TextBlock.Effect>
                         <DropShadowEffect BlurRadius="2" ShadowDepth="3"/>
                     </TextBlock.Effect>
-                    Paramore
                 </TextBlock>
-                <TextBlock Name="Title2" VerticalAlignment="Top" Margin="1,0,0,0" Foreground="#FFF0F0F0" FontSize="12" TextTrimming="CharacterEllipsis" Grid.Row="1">Let The Flames Begin</TextBlock>
-                <Grid Grid.Row="2" Margin="2,0">
+                <TextBlock Name="Title2" Text="{Binding Path=Title2, Mode=OneWay, FallbackValue='[Title2]'}" VerticalAlignment="Top" Margin="1,0,0,0" Foreground="#FFF0F0F0" FontSize="12" TextTrimming="CharacterEllipsis" Grid.Row="1"/>
+                <Grid Grid.Row="2" Margin="2,0" Visibility="{Binding Path=SongProgressBarVisibility, Mode=OneWay, FallbackValue=Visible}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="8"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Separator Name="SongProgressBarContainer" VerticalAlignment="Center" Margin="0" MinWidth="0" MinHeight="1" Grid.Column="0" Background="#FF333333"/>
-                    <Grid Name="SongProgressBar" HorizontalAlignment="Left" Width="100" MinWidth="0" MinHeight="1" Grid.Column="0" VerticalAlignment="Center">
+                    <Grid Name="SongProgressBar" HorizontalAlignment="Left" Width="{Binding Path=SongProgressBarWidth, Mode=OneWay}" MinWidth="0" MinHeight="1" Grid.Column="0" VerticalAlignment="Center">
                         <Separator VerticalAlignment="Center" MinHeight="1" Background="#FFA0A0A0"/>
                         <Ellipse HorizontalAlignment="Right" VerticalAlignment="Center" Width="2" Fill="#FFA0A0A0" Height="3"/>
                     </Grid>

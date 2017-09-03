@@ -22,6 +22,7 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using Toastify.ViewModel;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
@@ -46,6 +47,8 @@ namespace Toastify.View
         internal static ToastView Current { get; private set; }
 
         #region Private fields
+
+        private readonly ToastViewModel toastViewModel;
 
         private Timer minimizeTimer;
 
@@ -78,6 +81,9 @@ namespace Toastify.View
         public ToastView()
         {
             this.InitializeComponent();
+
+            this.toastViewModel = new ToastViewModel();
+            this.DataContext = this.toastViewModel;
 
             // Set a static reference back to ourselves, useful for callbacks.
             Current = this;
@@ -351,7 +357,7 @@ namespace Toastify.View
                         finally
                         {
                             this.cover.EndInit();
-                            this.LogoToast.Source = this.cover;
+                            this.AlbumArt.Source = this.cover;
                         }
                     }));
             }
@@ -411,15 +417,10 @@ namespace Toastify.View
         /// <param name="isUpdate"> Whethere or not this update is caused by <see cref="VersionChecker"/>. </param>
         private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false, bool isUpdate = false)
         {
-            this.Dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new Action(() =>
-                {
-                    this.Title1.Text = title1;
-                    this.Title2.Text = title2;
-                    if (fadeIn)
-                        this.FadeIn(force, isUpdate);
-                }));
+            this.toastViewModel.Title1 = title1;
+            this.toastViewModel.Title2 = title2;
+            if (fadeIn)
+                this.FadeIn(force, isUpdate);
         }
 
         private void ShowToast(bool shallBeVisible)
@@ -438,84 +439,94 @@ namespace Toastify.View
 
         private void FadeIn(bool force = false, bool isUpdate = false)
         {
-            this.minimizeTimer?.Stop();
+            this.Dispatcher.Invoke(
+                DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    this.minimizeTimer?.Stop();
 
-            bool doNotFadeIn = this.dragging ||
-                               (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
-                               (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
-            if (doNotFadeIn)
-                return;
+                    bool doNotFadeIn = this.dragging ||
+                                       (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
+                                       (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
+                    if (doNotFadeIn)
+                        return;
 
-            // this is a convenient place to reset the idle timer (if so asked)
-            // as this will be triggered when a song is played. The primary problem is if there is a
-            // particularly long song then this will not work. That said, this is the safest (in terms of
-            // not causing a user's computer from never sleeping).
-            if (Settings.Instance.PreventSleepWhilePlaying)
-            {
+                    // this is a convenient place to reset the idle timer (if so asked)
+                    // as this will be triggered when a song is played. The primary problem is if there is a
+                    // particularly long song then this will not work. That said, this is the safest (in terms of
+                    // not causing a user's computer from never sleeping).
+                    if (Settings.Instance.PreventSleepWhilePlaying)
+                    {
 #if DEBUG
-                var rv =
+                        var rv =
 #endif
                 Win32API.SetThreadExecutionState(Win32API.ExecutionStateFlags.ES_SYSTEM_REQUIRED);
 #if DEBUG
-                Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
+                        Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
 #endif
-            }
+                    }
 
-            this.isUpdateToast = isUpdate;
+                    this.isUpdateToast = isUpdate;
 
-            if (!this.IsToastVisible)
-            {
-                this.ShowToast(true);
+                    if (!this.IsToastVisible)
+                    {
+                        this.ShowToast(true);
 
-                DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
-                anim.Completed += (s, e) =>
-                {
-                    this.IsToastVisible = true;
-                    this.FadeOut();
-                };
-                this.BeginAnimation(OpacityProperty, anim);
-            }
-            else if (this.minimizeTimer != null)
-            {
-                // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
-                this.BeginAnimation(OpacityProperty, null);
-                this.Opacity = 1.0;
-                this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
-                this.minimizeTimer.Start();
-            }
+                        DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
+                        anim.Completed += (s, e) =>
+                        {
+                            this.IsToastVisible = true;
+                            this.FadeOut();
+                        };
+                        this.BeginAnimation(OpacityProperty, anim);
+                    }
+                    else if (this.minimizeTimer != null)
+                    {
+                        // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
+                        this.BeginAnimation(OpacityProperty, null);
+                        this.Opacity = 1.0;
+                        this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
+                        this.minimizeTimer.Start();
+                    }
+                }));
         }
 
         private void FadeOut(bool now = false)
         {
-            // 16 == one frame (0 is not a valid interval)
-            var interval = now ? 16 : Settings.Instance.FadeOutTime;
-
-            if (this.minimizeTimer == null)
-            {
-                this.minimizeTimer = new Timer { AutoReset = false };
-                this.minimizeTimer.Elapsed += (s, e) =>
+            this.Dispatcher.Invoke(
+                DispatcherPriority.Normal,
+                new Action(() =>
                 {
-                    try
+                    // 16 == one frame (0 is not a valid interval)
+                    var interval = now ? 16 : Settings.Instance.FadeOutTime;
+
+                    if (this.minimizeTimer == null)
                     {
-                        this.Dispatcher.Invoke(() =>
+                        this.minimizeTimer = new Timer { AutoReset = false };
+                        this.minimizeTimer.Elapsed += (s, e) =>
                         {
-                            DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-                            anim.Completed += (ss, ee) =>
+                            try
                             {
-                                this.ShowToast(false);
-                                this.IsToastVisible = false;
-                            };
-                            this.BeginAnimation(OpacityProperty, anim);
-                        });
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
+                                    anim.Completed += (ss, ee) =>
+                                    {
+                                        this.ShowToast(false);
+                                        this.IsToastVisible = false;
+                                    };
+                                    this.BeginAnimation(OpacityProperty, anim);
+                                });
+                            }
+                            catch (TaskCanceledException) { }
+                        };
                     }
-                    catch (TaskCanceledException) { }
-                };
-            }
 
-            this.minimizeTimer.Interval = interval;
+                    this.minimizeTimer.Interval = interval;
 
-            this.minimizeTimer.Stop();
-            this.minimizeTimer.Start();
+                    this.minimizeTimer.Stop();
+                    this.minimizeTimer.Start();
+                }));
         }
 
         private void ResetPositionIfOffScreen()
@@ -597,13 +608,8 @@ namespace Toastify.View
 
         private void UpdateSongProgressBar(double trackTime)
         {
-            this.Dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new Action(() =>
-                {
-                    double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
-                    this.SongProgressBar.Width = this.SongProgressBarContainer.ActualWidth * timePercentage;
-                }));
+            double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
+            this.toastViewModel.SongProgressBarWidth = this.SongProgressBarContainer.ActualWidth * timePercentage;
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
