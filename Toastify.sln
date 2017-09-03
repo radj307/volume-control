@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
-MinimumVisualStudioVersion = 10.0.40219.1
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 15.0.26430.14
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installation", "{FCD4BE87-8354-47A1-85DE-709E35559000}"
 	ProjectSection(SolutionItems) = preProject
 		InstallationScript\DotNetChecker.nsh = InstallationScript\DotNetChecker.nsh
@@ -14,6 +14,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastifyAPI", "ToastifyAPI\ToastifyAPI.csproj", "{5D68931F-528F-4D95-89BE-3EB26832AF8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{39A4F7F1-FC00-4249-832A-47B4AF287F80}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		LICENSE-3RD-PARTY = LICENSE-3RD-PARTY
+		README.md = README.md
+		update-version.cmd = update-version.cmd
+		update-version.ps1 = update-version.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

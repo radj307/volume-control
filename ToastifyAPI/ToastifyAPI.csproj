@@ -4,6 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Windows (Debug)</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <LangVersion>7</LangVersion>
     <ProjectGuid>{5D68931F-528F-4D95-89BE-3EB26832AF8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
