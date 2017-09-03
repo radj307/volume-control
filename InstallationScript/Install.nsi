@@ -73,6 +73,7 @@ Section "Toastify (required)"
   File "Newtonsoft.Json.dll"
   File "SpotifyAPI.dll"
   File "LICENSE"
+  File "LICENSE-3RD-PARTY"
   
   # Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
@@ -121,6 +122,7 @@ Section "Uninstall"
   Delete "$INSTDIR\Newtonsoft.Json.dll"
   Delete "$INSTDIR\SpotifyAPI.dll"
   Delete "$INSTDIR\LICENSE"
+  Delete "$INSTDIR\LICENSE-3RD-PARTY"
   Delete "$INSTDIR\uninstall.exe"
   
   # remove the settings directory
