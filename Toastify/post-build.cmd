@@ -29,10 +29,10 @@ ECHO - CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 :: Manifest
-ECHO;
-ECHO - mt.exe -nologo -manifest "%TargetDir%%TargetFileName%.manifest" -outputresource:"%TargetDir%%TargetFileName%;#1"
-mt.exe -nologo -manifest "%TargetDir%%TargetFileName%.manifest" -outputresource:"%TargetDir%%TargetFileName%;#1"
-DEL "%TargetDir%%TargetFileName%.manifest"
+::ECHO;
+::ECHO - mt.exe -nologo -manifest "%TargetDir%%TargetFileName%.manifest" -outputresource:"%TargetDir%%TargetFileName%;#1"
+::mt.exe -nologo -manifest "%TargetDir%%TargetFileName%.manifest" -outputresource:"%TargetDir%%TargetFileName%;#1"
+::DEL "%TargetDir%%TargetFileName%.manifest"
 
 :: Copy installation scripts 
 ECHO; 
