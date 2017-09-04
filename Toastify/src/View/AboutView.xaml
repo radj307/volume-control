@@ -44,11 +44,10 @@
                         </TextBlock.Effect>
                         Toastify
                     </TextBlock>
-                    <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding Path=ToastifyVersion, Mode=OneWay}">
+                    <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding Path=ToastifyVersion, Mode=OneWay, FallbackValue='\{Version\}'}">
                         <TextBlock.Effect>
                             <DropShadowEffect ShadowDepth="2" BlurRadius="4.5"></DropShadowEffect>
                         </TextBlock.Effect>
-                        {version}
                     </TextBlock>
                 </StackPanel>
 
@@ -57,7 +56,7 @@
                         <DropShadowEffect ShadowDepth="2" BlurRadius="12"></DropShadowEffect>
                     </TextBlock.Effect>
                     <Hyperlink Name="HomepageLink" Foreground="#FF0000DB" NavigateUri="{Binding Path=HomepageUrl, Mode=OneWay}" RequestNavigate="Hyperlink_RequestNavigate">
-                        <TextBlock Text="{Binding Path=HomepageUrlNoScheme, Mode=OneWay, FallbackValue='\{HomepageUrl\}'}" FontWeight="Bold">github.com/aleab/toastify</TextBlock>
+                        <TextBlock Text="{Binding Path=HomepageUrlNoScheme, Mode=OneWay, FallbackValue='\{HomepageUrl\}'}" FontWeight="Bold"/>
                     </Hyperlink>
                 </TextBlock>
 

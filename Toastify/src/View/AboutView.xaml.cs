@@ -5,6 +5,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Toastify.Events;
 using Toastify.Services;
+using Toastify.ViewModel;
 
 namespace Toastify.View
 {
@@ -21,6 +22,8 @@ namespace Toastify.View
             this.InitializeComponent();
 
             this.versionChecker = new VersionChecker();
+            this.DataContext = new AboutViewModel();
+
             this.versionChecker.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
         }
 
