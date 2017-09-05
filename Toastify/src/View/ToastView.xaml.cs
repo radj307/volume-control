@@ -388,8 +388,8 @@ namespace Toastify.View
             string title1, title2;
             if (altTitle1 == null)
             {
-                title1 = (this.paused ? "Paused" : song?.Artist) ?? string.Empty;
-                title2 = (this.paused ? song?.ToString() : song?.Track) ?? string.Empty;
+                title1 = (this.paused ? "Paused" : song?.Track) ?? string.Empty;
+                title2 = (this.paused ? song?.ToString() : $"by {song?.Artist}") ?? string.Empty;
             }
             else
             {
