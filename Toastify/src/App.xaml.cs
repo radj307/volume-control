@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
+using Toastify.Model;
 using Toastify.Services;
 
 namespace Toastify
@@ -19,6 +21,8 @@ namespace Toastify
             {
                 if (exclusive)
                 {
+                    LoadSettings();
+
                     App app = new App();
                     app.InitializeComponent();
 
@@ -28,6 +32,33 @@ namespace Toastify
                 }
                 else
                     MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private static void LoadSettings()
+        {
+            try
+            {
+                Settings.Instance.Load();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception loading settings:\n" + ex);
+
+                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Instance.SettingsFilePath);
+                MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Settings.Instance.Default(true);
+            }
+
+            string version = VersionChecker.CurrentVersion;
+
+            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
+
+            if (Settings.Instance.PreviousVersion != version)
+            {
+                Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
+                Settings.Instance.PreviousVersion = version;
             }
         }
     }

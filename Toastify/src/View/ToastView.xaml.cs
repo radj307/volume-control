@@ -93,7 +93,6 @@ namespace Toastify.View
 
         private void Init()
         {
-            this.LoadSettings();
             this.InitToast();
             this.InitTrayIcon();
             this.StartSpotifyOrAskUser();
@@ -110,33 +109,6 @@ namespace Toastify.View
             this.Started?.Invoke(this, EventArgs.Empty);
 
             this.InitVersionChecker();
-        }
-
-        private void LoadSettings()
-        {
-            try
-            {
-                Settings.Instance.Load();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception loading settings:\n" + ex);
-
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Instance.SettingsFilePath);
-                MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                Settings.Instance.Default(true);
-            }
-
-            string version = VersionChecker.CurrentVersion;
-
-            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
-
-            if (Settings.Instance.PreviousVersion != version)
-            {
-                Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
-                Settings.Instance.PreviousVersion = version;
-            }
         }
 
         public void InitToast()
