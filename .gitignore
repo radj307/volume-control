@@ -179,7 +179,17 @@ UpgradeLog*.htm
 *.bim.layout
 *.bim_*.settings
 
+# =================================
+
+# Auto-generated files
+*.g.cs
+
+# File containing the Google Analytics Tracking id
+ga-code
+
 *.user
+
+# InstallationScript files
 InstallationScript/*.exe*
 InstallationScript/*/*.exe*
 InstallationScript/AutoHotkey.Interop.dll

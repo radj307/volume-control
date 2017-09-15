@@ -291,7 +291,7 @@ namespace Toastify.Core
                     break;
 
                 case SpotifyAction.ShowSpotify:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.ShowSpotify);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.ShowSpotify);
                     if (this.IsMinimized)
                         this.ShowSpotify();
                     else
@@ -299,17 +299,17 @@ namespace Toastify.Core
                     break;
 
                 case SpotifyAction.FastForward:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.FastForward);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.FastForward);
                     this.SendShortcut(action);
                     break;
 
                 case SpotifyAction.Rewind:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Rewind);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Rewind);
                     this.SendShortcut(action);
                     break;
 
                 case SpotifyAction.VolumeUp:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeUp);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
                     switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
@@ -327,7 +327,7 @@ namespace Toastify.Core
                     break;
 
                 case SpotifyAction.VolumeDown:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.VolumeDown);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
                     switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
@@ -345,7 +345,7 @@ namespace Toastify.Core
                     break;
 
                 case SpotifyAction.Mute:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.Mute);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
                     switch (Settings.Instance.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
@@ -359,7 +359,7 @@ namespace Toastify.Core
                     break;
 
                 default:
-                    Telemetry.TrackEvent(TelemetryCategory.Action, $"{Telemetry.TelemetryEvent.Action.Default}{action}");
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, action.ToString());
                     sendAppCommandMessage = true;
                     break;
             }

@@ -89,8 +89,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Garlic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Garlic.2.1.0.0\lib\net35\Garlic.dll</HintPath>
+    <Reference Include="GoogleMeasurementProtocol, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMeasurementProtocol.1.4.0\lib\net45\GoogleMeasurementProtocol.dll</HintPath>
     </Reference>
     <Reference Include="ManagedWinapi">
       <HintPath>.\ManagedWinapi.dll</HintPath>
@@ -138,9 +138,13 @@
     <Compile Include="src\Helpers\Markup\EnumExtension.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
     <Compile Include="src\Helpers\WindowExtensions.cs" />
-    <Compile Include="src\Services\TelemetryCategory.cs" />
     <Compile Include="src\Common\DelegateCommand.cs" />
     <Compile Include="src\Common\ObservableObject.cs" />
+    <Compile Include="src\Services\Analytics.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Analytics.g.tt</DependentUpon>
+    </Compile>
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\Win32API.cs" />
@@ -173,7 +177,7 @@
     <Compile Include="src\View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\Services\Telemetry.cs" />
+    <Compile Include="src\Services\Analytics.cs" />
     <Compile Include="src\View\ToastView.xaml.cs">
       <DependentUpon>ToastView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -210,6 +214,7 @@
     </None>
     <None Include="app.config" />
     <None Include="app.manifest" />
+    <None Include="ga-code" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -241,6 +246,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src\Services\Analytics.g.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Analytics.g.cs</LastGenOutput>
+    </Content>
     <Resource Include="Resources\spotify.ico" />
     <Resource Include="Resources\SpotifyLogo.png" />
     <Resource Include="Resources\SpotifyToastifyLogo.png" />
@@ -256,6 +265,9 @@
     <Content Include="Resources\ManagedWinapiNativeHelper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

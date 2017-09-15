@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             StartupUri="src/View/ToastView.xaml"
             DispatcherUnhandledException="Application_DispatcherUnhandledException"
-            Exit="App_OnExit">
+            Startup="App_OnStartup" Exit="App_OnExit">
     <Application.Resources>
          
     </Application.Resources>
