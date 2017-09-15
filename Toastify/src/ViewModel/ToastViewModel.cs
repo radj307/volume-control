@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Toastify.Common;
+using Toastify.Model;
 
 namespace Toastify.ViewModel
 {
@@ -19,11 +20,6 @@ namespace Toastify.ViewModel
         {
             get { return this._title2; }
             set { this.RaiseAndSetIfChanged(ref this._title2, value); }
-        }
-
-        public Visibility SongProgressBarVisibility
-        {
-            get { return Visibility.Hidden; /*Settings.Instance.ShowSongProgressBar ? SongProgressBarVisibility.Visible : SongProgressBarVisibility.Hidden;*/ }
         }
 
         public double SongProgressBarWidth

@@ -1,5 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
 using System.Globalization;
+using System.Windows.Media;
 
 namespace Toastify.Helpers
 {
@@ -21,16 +22,28 @@ namespace Toastify.Helpers
             byte green = 0;
             byte blue = 0;
 
-            if (hexColor.Length == 8)
+            try
             {
-                //#RRGGBB
-                alpha = byte.Parse(hexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier);
-                red = byte.Parse(hexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier);
-                green = byte.Parse(hexColor.Substring(4, 2), NumberStyles.AllowHexSpecifier);
-                blue = byte.Parse(hexColor.Substring(6, 2), NumberStyles.AllowHexSpecifier);
+                if (hexColor.Length == 8)
+                {
+                    // #AARRGGBB
+                    alpha = byte.Parse(hexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier);
+                    red = byte.Parse(hexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier);
+                    green = byte.Parse(hexColor.Substring(4, 2), NumberStyles.AllowHexSpecifier);
+                    blue = byte.Parse(hexColor.Substring(6, 2), NumberStyles.AllowHexSpecifier);
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
 
             return Color.FromArgb(alpha, red, green, blue);
+        }
+
+        public static string ColorToHex(Color color)
+        {
+            return $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
         }
     }
 }

@@ -133,6 +133,14 @@ namespace Toastify.View
                 this.settings.FadeOutTime -= 10;
         }
 
+        private void BorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                this.settings.ToastBorderThickness++;
+            else if (this.settings.ToastBorderThickness >= 1)
+                this.settings.ToastBorderThickness--;
+        }
+
         #region Change colors
 
         private void TopColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -154,14 +162,6 @@ namespace Toastify.View
         }
 
         #endregion Change colors
-
-        private void BorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (e.Delta > 0)
-                this.settings.ToastBorderThickness++;
-            else if (this.settings.ToastBorderThickness >= 1)
-                this.settings.ToastBorderThickness--;
-        }
 
         #region Corner radius
 

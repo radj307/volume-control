@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +14,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Toastify.Core;
@@ -119,35 +119,63 @@ namespace Toastify.View
             //User notification of bad settings will be implemented with the settings dialog.
 
             // TODO: Refactor InitToast method.
-            //This method is UGLY but we'll keep it until the settings dialog is implemented.
+            // This method is UGLY!
             Settings settings = Settings.Instance;
-
-            this.Width = settings.ToastWidth >= this.MinWidth ? settings.ToastWidth : this.MinWidth;
-            this.Height = settings.ToastHeight >= this.MinHeight ? settings.ToastHeight : this.MinHeight;
-            this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
-
             ColorConverter cc = new ColorConverter();
 
-            // Borders
-            if (!string.IsNullOrEmpty(settings.ToastBorderColor) && cc.IsValid(settings.ToastBorderColor))
+            // [ DIMENSIONS ]
+            this.Width = settings.ToastWidth >= this.MinWidth ? settings.ToastWidth : this.MinWidth;
+            this.Height = settings.ToastHeight >= this.MinHeight ? settings.ToastHeight : this.MinHeight;
+
+            // [ BORDERS ]
+            this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
+            this.ToastBorder.BorderBrush = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastBorderColor));
+            this.ToastBorder.CornerRadius = new CornerRadius(
+                settings.ToastBorderCornerRadiusTopLeft,
+                settings.ToastBorderCornerRadiusTopRight,
+                settings.ToastBorderCornerRadiusBottomRight,
+                settings.ToastBorderCornerRadiusBottomLeft);
+
+            // [ BACKGROUND COLOR ]
+            Color top = ColorHelper.HexToColor(settings.ToastColorTop);
+            Color bottom = ColorHelper.HexToColor(settings.ToastColorBottom);
+
+            GradientStopCollection stops = new GradientStopCollection(2)
             {
-                object borderBrush = cc.ConvertFrom(settings.ToastBorderColor);
-                if (borderBrush != null)
-                    this.ToastBorder.BorderBrush = new SolidColorBrush((Color)borderBrush);
+                new GradientStop(top, settings.ToastColorTopOffset),
+                new GradientStop(bottom, settings.ToastColorBottomOffset)
+            };
+            this.ToastBorder.Background = new LinearGradientBrush(stops, new Point(0, 0), new Point(0, 1));
+
+            // [ TEXT COLOR ]
+            this.Title1.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle1Color));
+            this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle2Color));
+            if (settings.ToastTitle1DropShadow)
+            {
+                this.Title1.Effect = new DropShadowEffect
+                {
+                    ShadowDepth = settings.ToastTitle1ShadowDepth,
+                    BlurRadius = settings.ToastTitle1ShadowBlur
+                };
+            }
+            if (settings.ToastTitle2DropShadow)
+            {
+                this.Title1.Effect = new DropShadowEffect
+                {
+                    ShadowDepth = settings.ToastTitle2ShadowDepth,
+                    BlurRadius = settings.ToastTitle2ShadowBlur
+                };
             }
 
-            // Top & Bottom
-            if (!string.IsNullOrEmpty(settings.ToastColorTop) && cc.IsValid(settings.ToastColorTop) &&
-                !string.IsNullOrEmpty(settings.ToastColorBottom) && cc.IsValid(settings.ToastColorBottom))
-            {
-                object top = cc.ConvertFrom(settings.ToastColorTop);
-                object bottom = cc.ConvertFrom(settings.ToastColorBottom);
+            // [ TEXT FONT SIZE ]
+            this.Title1.FontSize = settings.ToastTitle1FontSize;
+            this.Title2.FontSize = settings.ToastTitle2FontSize;
 
-                if (top != null && bottom != null)
-                    this.ToastBorder.Background = new LinearGradientBrush((Color)top, (Color)bottom, 90.0);
-            }
-
-            this.ToastBorder.CornerRadius = new CornerRadius(settings.ToastBorderCornerRadiusTopLeft, settings.ToastBorderCornerRadiusTopRight, settings.ToastBorderCornerRadiusBottomRight, settings.ToastBorderCornerRadiusBottomLeft);
+            // [ SONG PROGRESS BAR ]
+            this.SongProgressBar.Visibility = Settings.Instance.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarBackgroundColor));
+            this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarForegroundColor));
+            this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarForegroundColor));
         }
 
         private void InitTrayIcon()
@@ -495,7 +523,7 @@ namespace Toastify.View
 
         private void ResetPositionIfOffScreen()
         {
-            var rect = new Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
+            var rect = new System.Drawing.Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
 
             if (!Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
             {

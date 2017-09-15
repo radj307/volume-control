@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Toastify.Common;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -10,6 +11,101 @@ namespace Toastify.ViewModel
     {
         public Settings Settings { get; }
 
+        #region Toast
+
+        public Color ToastColorTop
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.ToastColorTop);
+            }
+            set
+            {
+                this.Settings.ToastColorTop = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color ToastColorBottom
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.ToastColorBottom);
+            }
+            set
+            {
+                this.Settings.ToastColorBottom = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color ToastBorderColor
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.ToastBorderColor);
+            }
+            set
+            {
+                this.Settings.ToastBorderColor = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color ToastTitle1Color
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.ToastTitle1Color);
+            }
+            set
+            {
+                this.Settings.ToastTitle1Color = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color ToastTitle2Color
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.ToastTitle2Color);
+            }
+            set
+            {
+                this.Settings.ToastTitle2Color = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color SongProgressBarBackgroundColor
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.SongProgressBarBackgroundColor);
+            }
+            set
+            {
+                this.Settings.SongProgressBarBackgroundColor = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        public Color SongProgressBarForegroundColor
+        {
+            get
+            {
+                return ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor);
+            }
+            set
+            {
+                this.Settings.SongProgressBarForegroundColor = ColorHelper.ColorToHex(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        #endregion Toast
+
         #region Commands
 
         public DelegateCommand SaveCommand { get; }
@@ -17,12 +113,6 @@ namespace Toastify.ViewModel
         public DelegateCommand DefaultCommand { get; }
 
         public DelegateCommand SelectFileForSavingTrackCommand { get; }
-
-        public DelegateCommand<string> ChangeToastColorTopCommand { get; }
-
-        public DelegateCommand<string> ChangeToastColorBottomCommand { get; }
-
-        public DelegateCommand<string> ChangeToastBorderColorCommand { get; }
 
         #endregion Commands
 
@@ -38,9 +128,6 @@ namespace Toastify.ViewModel
             this.SaveCommand = new DelegateCommand(this.Save);
             this.DefaultCommand = new DelegateCommand(this.Default);
             this.SelectFileForSavingTrackCommand = new DelegateCommand(this.SelectFileForSavingTrack);
-            this.ChangeToastColorTopCommand = new DelegateCommand<string>(hex => this.ChangeToastColor(ColorChangeTarget.ToastTop, hex));
-            this.ChangeToastColorBottomCommand = new DelegateCommand<string>(hex => this.ChangeToastColor(ColorChangeTarget.ToastBottom, hex));
-            this.ChangeToastBorderColorCommand = new DelegateCommand<string>(hex => this.ChangeToastColor(ColorChangeTarget.ToastBorder, hex));
         }
 
         private void Save()
@@ -67,41 +154,6 @@ namespace Toastify.ViewModel
 
             if (dialog.ShowDialog() == DialogResult.OK)
                 this.Settings.SaveTrackToFilePath = dialog.FileName;
-        }
-
-        private void ChangeToastColor(ColorChangeTarget target, string hexColor)
-        {
-            string alpha = hexColor.Substring(1, 2);
-            ColorDialog dialog = new ColorDialog
-            {
-                Color = ColorHelper.HexToColor(hexColor)
-            };
-            dialog.ShowDialog();
-
-            var color = dialog.Color;
-            string newHexColor = $"#{alpha}{color.R:X2}{color.G:X2}{color.B:X2}";
-
-            switch (target)
-            {
-                case ColorChangeTarget.ToastTop:
-                    this.Settings.ToastColorTop = newHexColor;
-                    break;
-
-                case ColorChangeTarget.ToastBottom:
-                    this.Settings.ToastColorBottom = newHexColor;
-                    break;
-
-                case ColorChangeTarget.ToastBorder:
-                    this.Settings.ToastBorderColor = newHexColor;
-                    break;
-            }
-        }
-
-        private enum ColorChangeTarget
-        {
-            ToastTop,
-            ToastBottom,
-            ToastBorder
         }
     }
 }

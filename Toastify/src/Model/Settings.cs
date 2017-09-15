@@ -132,9 +132,12 @@ namespace Toastify.Model
         private bool _disableToast;
         private bool _onlyShowToastOnHotkey;
         private bool _disableToastWithFullscreenVideogames;
+        private bool _showSongProgressBar;
         private int _fadeOutTime;
         private string _toastColorTop;
         private string _toastColorBottom;
+        private double _toastColorTopOffset;
+        private double _toastColorBottomOffset;
         private string _toastBorderColor;
         private double _toastBorderThickness;
         private double _toastBorderCornerRadiusTopLeft;
@@ -145,6 +148,18 @@ namespace Toastify.Model
         private double _toastHeight;
         private double _positionLeft;
         private double _positionTop;
+        private string _toastTitle1Color;
+        private string _toastTitle2Color;
+        private double _toastTitle1FontSize;
+        private double _toastTitle2FontSize;
+        private bool _toastTitle1DropShadow;
+        private double _toastTitle1ShadowDepth;
+        private double _toastTitle1ShadowBlur;
+        private bool _toastTitle2DropShadow;
+        private double _toastTitle2ShadowDepth;
+        private double _toastTitle2ShadowBlur;
+        private string _songProgressBarBackgroundColor;
+        private string _songProgressBarForegroundColor;
 
         #endregion Private fields
 
@@ -280,6 +295,12 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._disableToastWithFullscreenVideogames, value); }
         }
 
+        public bool ShowSongProgressBar
+        {
+            get { return this._showSongProgressBar; }
+            set { this.RaiseAndSetIfChanged(ref this._showSongProgressBar, value); }
+        }
+
         public int FadeOutTime
         {
             get { return this._fadeOutTime; }
@@ -296,6 +317,18 @@ namespace Toastify.Model
         {
             get { return this._toastColorBottom; }
             set { this.RaiseAndSetIfChanged(ref this._toastColorBottom, value); }
+        }
+
+        public double ToastColorTopOffset
+        {
+            get { return this._toastColorTopOffset; }
+            set { this.RaiseAndSetIfChanged(ref this._toastColorTopOffset, value); }
+        }
+
+        public double ToastColorBottomOffset
+        {
+            get { return this._toastColorBottomOffset; }
+            set { this.RaiseAndSetIfChanged(ref this._toastColorBottomOffset, value); }
         }
 
         public string ToastBorderColor
@@ -358,6 +391,78 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._positionTop, value); }
         }
 
+        public string ToastTitle1Color
+        {
+            get { return this._toastTitle1Color; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle1Color, value); }
+        }
+
+        public string ToastTitle2Color
+        {
+            get { return this._toastTitle2Color; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle2Color, value); }
+        }
+
+        public double ToastTitle1FontSize
+        {
+            get { return this._toastTitle1FontSize; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle1FontSize, value); }
+        }
+
+        public double ToastTitle2FontSize
+        {
+            get { return this._toastTitle2FontSize; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle2FontSize, value); }
+        }
+
+        public bool ToastTitle1DropShadow
+        {
+            get { return this._toastTitle1DropShadow; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle1DropShadow, value); }
+        }
+
+        public double ToastTitle1ShadowDepth
+        {
+            get { return this._toastTitle1ShadowDepth; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle1ShadowDepth, value); }
+        }
+
+        public double ToastTitle1ShadowBlur
+        {
+            get { return this._toastTitle1ShadowBlur; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle1ShadowBlur, value); }
+        }
+
+        public bool ToastTitle2DropShadow
+        {
+            get { return this._toastTitle2DropShadow; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle2DropShadow, value); }
+        }
+
+        public double ToastTitle2ShadowDepth
+        {
+            get { return this._toastTitle2ShadowDepth; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle2ShadowDepth, value); }
+        }
+
+        public double ToastTitle2ShadowBlur
+        {
+            get { return this._toastTitle2ShadowBlur; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitle2ShadowBlur, value); }
+        }
+
+        public string SongProgressBarBackgroundColor
+        {
+            get { return this._songProgressBarBackgroundColor; }
+            set { this.RaiseAndSetIfChanged(ref this._songProgressBarBackgroundColor, value); }
+        }
+
+        public string SongProgressBarForegroundColor
+        {
+            get { return this._songProgressBarForegroundColor; }
+            set { this.RaiseAndSetIfChanged(ref this._songProgressBarForegroundColor, value); }
+        }
+
         #endregion [Toast]
 
         #region (hidden)
@@ -410,10 +515,13 @@ namespace Toastify.Model
             this.DisableToast = false;
             this.OnlyShowToastOnHotkey = true;
             this.DisableToastWithFullscreenVideogames = true;
+            this.ShowSongProgressBar = true;
             this.FadeOutTime = 4000;
 
             this.ToastColorTop = "#FF000000";
             this.ToastColorBottom = "#FF000000";
+            this.ToastColorTopOffset = 0.0;
+            this.ToastColorBottomOffset = 1.0;
             this.ToastBorderColor = "#FF000000";
             this.ToastBorderThickness = 1.0;
 
@@ -429,6 +537,20 @@ namespace Toastify.Model
 
             this.PositionLeft = position.X;
             this.PositionTop = position.Y;
+
+            this.ToastTitle1Color = "#FFFFFFFF";
+            this.ToastTitle2Color = "#FFF0F0F0";
+            this.ToastTitle1FontSize = 16;
+            this.ToastTitle2FontSize = 12;
+            this.ToastTitle1DropShadow = true;
+            this.ToastTitle1ShadowDepth = 3;
+            this.ToastTitle1ShadowBlur = 2;
+            this.ToastTitle2DropShadow = false;
+            this.ToastTitle2ShadowDepth = 0;
+            this.ToastTitle2ShadowBlur = 0;
+
+            this.SongProgressBarBackgroundColor = "FF333333";
+            this.SongProgressBarForegroundColor = "FFA0A0A0";
 
             // (hidden)
             this.StartupWaitTimeout = 20000;

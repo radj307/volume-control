@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:core="clr-namespace:Toastify.Core"
         xmlns:common="clr-namespace:Toastify.Common"
         xmlns:helpers="clr-namespace:Toastify.Helpers"
@@ -15,6 +16,10 @@
         <helpers:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></helpers:HexColorToAlphaValueConverter>
         <helpers:OppositeBoolConverter x:Key="OppositeBoolConverter"></helpers:OppositeBoolConverter>
         <helpers:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></helpers:OppositeBoolToVisibleConverter>
+
+        <DataTemplate x:Key="GroupBoxHeaderTemplate">
+            <TextBlock Text="{Binding}" Margin="1,2" Padding="0,2" />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid x:Name="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
@@ -31,27 +36,27 @@
                                   SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay}" SelectedValuePath="Value" Width="210">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195"/>
+                                    <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Name="PanelWindowsMixerIncrement" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="37,116,0,0" Height="26">
-                        <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :"/>
+                        <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :" />
                         <TextBox Name="TbWindowsMixerIncrement" Text="{Binding Path=Settings.WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="8,0,0,0" Height="24" Width="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
                     </StackPanel>
 
                     <Grid VerticalAlignment="Top" Margin="12,168,12,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="26"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="26" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="123*"/>
-                            <ColumnDefinition Width="421*"/>
+                            <ColumnDefinition Width="123*" />
+                            <ColumnDefinition Width="421*" />
                         </Grid.ColumnDefinitions>
                         <Label Name="Label19" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template :</Label>
-                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
                         <TextBlock TextWrapping="Wrap" Foreground="#FF575757" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
                     </Grid>
 
@@ -59,14 +64,14 @@
                     <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,284,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
                     <CheckBox IsChecked="{Binding Path=Settings.PreventSleepWhilePlaying, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,331,0,0" Height="21" VerticalContentAlignment="Center">Prevent the computer from sleeping while Spotify is playing</CheckBox>
                     <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,361,0,0" Height="31">
-                        <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak/>
+                        <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak />
                             Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
                     </CheckBox>
 
                     <Image Name="Image1" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png"
-                           HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="144" Width="145" Stretch="Fill" Opacity="0.8" >
+                           HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="144" Width="145" Stretch="Fill" Opacity="0.8">
                         <Image.Effect>
-                            <DropShadowEffect BlurRadius="12" Opacity="0.5"/>
+                            <DropShadowEffect BlurRadius="12" Opacity="0.5" />
                         </Image.Effect>
                     </Image>
                 </Grid>
@@ -77,8 +82,8 @@
 
                     <Grid IsEnabled="{Binding ElementName=CbHotkeys, Path=IsChecked}" DataContext="{Binding Path=Settings.HotKeys}" Margin="0,38,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
 
                         <ListBox x:Name="LstHotKeys" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="LstHotKeys_SelectionChanged" Margin="12,10,8,10" Grid.Column="0" VerticalContentAlignment="Center">
@@ -98,97 +103,226 @@
                         </ListBox>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="12,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Width="245">
-                            <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center"/>
-                            <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center"/>
-                            <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center"/>
-                            <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center"/>
+                            <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center" />
+                            <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                            <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                            <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,52,0,0" Width="160">
                             <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
-                            <TextBox x:Name="TxtSingleKey" PreviewKeyDown="TxtSingleKey_PreviewKeyDown" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82"/>
+                            <TextBox x:Name="TxtSingleKey" PreviewKeyDown="TxtSingleKey_PreviewKeyDown" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Grid.Column="1" Height="32" Margin="12,96,12,0" VerticalAlignment="Top">
                             <Image Source="/Toastify;component/Resources/WarningLarge.png"></Image>
-                            <TextBlock Text="{Binding Path=InvalidReason}"/>
+                            <TextBlock Text="{Binding Path=InvalidReason}" />
                         </StackPanel>
-
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Toast" Name="TabToast">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" Name="CbDisableToast" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource OppositeBoolConverter}}">
-                        <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,34,0,0" Name="CbOnlyShowToastOnHotkey" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
-                        <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
-                                  IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay}" Name="CbDisableToastWithFullscreenVideogames" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,58,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
+                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
 
-                        <Label Height="26" HorizontalAlignment="Left" Margin="12,96,0,0" Name="Label1" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center">FadeOut Time :</Label>
-                        <TextBox Height="24" Text="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="182,97,271,0" Name="TbFadeOutTime" VerticalAlignment="Top" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" />
-                        <Label Height="26" Margin="0,96,194,0" VerticalAlignment="Top" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Right">(milliseconds)</Label>
+                    <TabControl TabStripPlacement="Left" Margin="4,44,4,6" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource OppositeBoolConverter}}">
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Padding" Value="5,3,8,3" />
+                            </Style>
+                        </TabControl.Resources>
 
-                        <Label HorizontalAlignment="Left" Margin="12,130,0,0" VerticalAlignment="Top" Height="26" VerticalContentAlignment="Center">Toast Color Top :</Label>
-                        <TextBox Name="TbColorTop" Height="24" Text="{Binding Path=Settings.ToastColorTop, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,131,271,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                        <Button Height="24" Margin="0,131,209,0" VerticalAlignment="Top" Command="{Binding ChangeToastColorTopCommand}" CommandParameter="{Binding Path=Settings.ToastColorTop}" HorizontalAlignment="Right" Width="50" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,130,117,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,133,9,0" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" Value="{Binding Settings.ToastColorTop, Converter={StaticResource HexColorToAlphaValueConverter}, Mode=OneWay}" ValueChanged="TopColorAlpha_ValueChanged" />
+                        <!-- GENERAL -->
+                        <TabItem Header="General">
+                            <Grid>
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
+                                <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
+                                              IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Show song progress bar</CheckBox>
 
-                        <Label HorizontalAlignment="Left" Margin="12,164,0,0" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Color Bottom :</Label>
-                        <TextBox Name="TbColorBottom" Height="24" Text="{Binding Path=Settings.ToastColorBottom, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,165,271,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
-                        <Button Height="24" HorizontalAlignment="Right" Margin="0,165,209,0" VerticalAlignment="Top" Width="50"  Command="{Binding ChangeToastColorBottomCommand}" CommandParameter="{Binding Path=Settings.ToastColorBottom}" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,164,117,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,167,9,0" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" Value="{Binding Settings.ToastColorBottom, Converter={StaticResource HexColorToAlphaValueConverter}, Mode=OneWay}" ValueChanged="BottomColorAlpha_ValueChanged" />
+                                <!-- Fade-out time -->
+                                <Grid VerticalAlignment="Top" Margin="12,101,12,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center">FadeOut Time :</Label>
+                                    <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,0" VerticalAlignment="Center" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" Padding="0" />
+                                    <Label Grid.Column="1" Height="26" Margin="-8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left">(milliseconds)</Label>
+                                </Grid>
 
-                        <Label Height="26" HorizontalAlignment="Left" Margin="12,198,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Color :</Label>
-                        <TextBox Name="TbBorderColor" Height="24" Text="{Binding Path=Settings.ToastBorderColor, Mode=TwoWay, StringFormat='{}{0:X2}', ValidatesOnExceptions=True}" Margin="182,199,271,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                        <Button Height="24" HorizontalAlignment="Right" Margin="0,199,209,0" VerticalAlignment="Top" Width="50"  Command="{Binding ChangeToastBorderColorCommand}" CommandParameter="{Binding Path=Settings.ToastBorderColor}" VerticalContentAlignment="Center">Change</Button>
-                        <Label Height="26" HorizontalAlignment="Right" Margin="0,198,117,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Transparency :</Label>
-                        <Slider Height="22" HorizontalAlignment="Right" Margin="0,201,9,0" VerticalAlignment="Top" Width="100" Maximum="255" SmallChange="1" Value="{Binding Settings.ToastBorderColor, Converter={StaticResource HexColorToAlphaValueConverter}, Mode=OneWay}" ValueChanged="BorderColorAlpha_ValueChanged" />
+                                <!-- Toast Size & Position -->
+                                <StackPanel VerticalAlignment="Top" Margin="12,149,12,0">
+                                    <Grid VerticalAlignment="Top" Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Width :</Label>
+                                        <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="ToastWidth_MouseWheel" VerticalContentAlignment="Center" />
+                                        <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Left Position :</Label>
+                                        <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="PositionLeft_MouseWheel" VerticalContentAlignment="Center" />
+                                        <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Height :</Label>
+                                        <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="ToastHeight_MouseWheel" VerticalContentAlignment="Center" />
+                                        <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Top Position :</Label>
+                                        <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="PositionTop_MouseWheel" VerticalContentAlignment="Center" />
+                                    </Grid>
 
-                        <Label Margin="12,232,0,0" Name="Label5" HorizontalAlignment="Left" Height="26" VerticalContentAlignment="Center" VerticalAlignment="Top">Toast Border Thickness :</Label>
-                        <TextBox Text="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="182,233,0,0" Name="TbBorderThickness" Width="32" MouseWheel="BorderThickness_MouseWheel" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                                    <Grid VerticalAlignment="Top" Margin="0,10,0,0">
+                                        <Image Source="/Toastify;component/Resources/InfoLarge.png" Margin="0" HorizontalAlignment="Left" Stretch="None" />
+                                        <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush Color="#FF575757" />
+                                            </TextBlock.Foreground>
+                                            The best way to tweak the position of the toast is to hold down Ctrl and then drag the toast around. The raw numbers are still accessible above. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.
+                                        </TextBlock>
+                                    </Grid>
+                                </StackPanel>
 
-                        <Label Margin="12,276,0,0" Name="Label6" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" VerticalContentAlignment="Center">Toast Border Corner Radius</Label>
-                        <Grid VerticalAlignment="Top" Margin="199,276,12,0" Height="72">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="20,0,0,0" Name="Label12" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Left</Label>
-                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Name="TbCornerTopLeft" VerticalAlignment="Top" MouseWheel="CornerTopLeft_MouseWheel" Margin="77,1,8,0" VerticalContentAlignment="Center" />
-                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,1,81,0" Name="TbCornerTopRight" VerticalAlignment="Top" MouseWheel="CornerTopRight_MouseWheel" VerticalContentAlignment="Center" />
-                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,0,21,0" Name="Label13" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Right</Label>
-                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,34,0,0" Name="Label15" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Left</Label>
-                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="77,35,8,0" Name="TbCornerBottomLeft" VerticalAlignment="Top" MouseWheel="CornerBottomLeft_MouseWheel" VerticalContentAlignment="Center" />
-                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,35,81,0" Name="TbCornerBottomRight" VerticalAlignment="Top" MouseWheel="CornerBottomRight_MouseWheel" VerticalContentAlignment="Center" />
-                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,34,0,0" Name="Label14" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Right</Label>
-                        </Grid>
+                                <!-- Borders -->
+                                <StackPanel VerticalAlignment="Top" Margin="12,305,12,0">
+                                    <WrapPanel>
+                                        <Label Height="26" VerticalContentAlignment="Center">Border Thickness :</Label>
+                                        <TextBox Text="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Width="32" Height="24" VerticalContentAlignment="Center" MouseWheel="BorderThickness_MouseWheel" Margin="6,0,0,0" />
+                                    </WrapPanel>
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="74*" />
+                                            <ColumnDefinition Width="163*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Margin="0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="26">Border Corner Radius</Label>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Left</Label>
+                                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" VerticalAlignment="Top" MouseWheel="CornerTopLeft_MouseWheel" Margin="77,1,8,0" VerticalContentAlignment="Center" />
+                                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,1,81,0" VerticalAlignment="Top" MouseWheel="CornerTopRight_MouseWheel" VerticalContentAlignment="Center" />
+                                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,0,21,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Right</Label>
+                                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Left</Label>
+                                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="77,35,8,0" VerticalAlignment="Top" MouseWheel="CornerBottomLeft_MouseWheel" VerticalContentAlignment="Center" />
+                                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,35,81,0" VerticalAlignment="Top" MouseWheel="CornerBottomRight_MouseWheel" VerticalContentAlignment="Center" />
+                                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Right</Label>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
 
-                        <Grid VerticalAlignment="Bottom" Margin="12,0,12,102">
-                            <Image Source="/Toastify;component/Resources/InfoLarge.png" Margin="0" HorizontalAlignment="Left" Stretch="None"/>
-                            <TextBlock Margin="36,0,0,0" x:Name="Label7Copy" TextWrapping="Wrap" Padding="0">
-                                <TextBlock.Foreground>
-                                    <SolidColorBrush Color="#FF575757"/>
-                                </TextBlock.Foreground>The best way to tweak the position of the toast is to hold down Ctrl and then drag the toast around. The raw numbers are still accessible below. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.</TextBlock>
-                        </Grid>
+                        <!-- COLORS -->
+                        <TabItem Header="Colors &amp; Font">
+                            <StackPanel>
+                                <!-- Foreground & Background -->
+                                <GroupBox Header="Foreground &amp; Background" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top">
+                                    <Grid Margin="4,6,4,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22*" />
+                                            <ColumnDefinition Width="65*" />
+                                        </Grid.ColumnDefinitions>
 
-                        <Grid VerticalAlignment="Bottom" Margin="12,0,12,24">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" Name="Label7" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Width :</Label>
-                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" Name="TbToastWidth" VerticalAlignment="Bottom" MouseWheel="ToastWidth_MouseWheel" VerticalContentAlignment="Center" />
-                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" Name="Label9" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Left Position :</Label>
-                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" Name="TbPositionLeft" VerticalAlignment="Bottom" MouseWheel="PositionLeft_MouseWheel" VerticalContentAlignment="Center" />
-                            <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" Name="Label8" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Height :</Label>
-                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" Name="TbToastHeight" VerticalAlignment="Bottom" MouseWheel="ToastHeight_MouseWheel" VerticalContentAlignment="Center" />
-                            <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0" Name="Label10" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Top Position :</Label>
-                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" Name="TbPositionTop" VerticalAlignment="Bottom" MouseWheel="PositionTop_MouseWheel" VerticalContentAlignment="Center" />
-                        </Grid>
-                    </Grid>
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Width="65">Top color :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=ToastColorTop, Mode=TwoWay}"
+                                                              ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                        <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
+                                        <wpft:DoubleUpDown Name="ColorTopUpDown" Grid.Column="1" Height="24" Margin="218,1,6,0" VerticalAlignment="Top"
+                                                           FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="0.0" Increment="0.01"
+                                                           Minimum="0.0" Maximum="1.0" Value="{Binding Path=Settings.ToastColorTopOffset, Mode=TwoWay}" />
+
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left" Width="85">Bottom color :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=ToastColorBottom, Mode=TwoWay}"
+                                                              ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                        <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,36,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
+                                        <wpft:DoubleUpDown Name="ColorBottomUpDown" Grid.Column="1" Height="24" Margin="218,37,6,0" VerticalAlignment="Top"
+                                                           FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="1.0" Increment="0.01"
+                                                           Minimum="{Binding Path=Value, ElementName=ColorTopUpDown}" Maximum="1.0" Value="{Binding Path=Settings.ToastColorBottomOffset, Mode=TwoWay}" />
+
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,72,0,0" HorizontalAlignment="Left" Width="81">Border color :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,73,0,0" SelectedColor="{Binding Path=ToastBorderColor, Mode=TwoWay}"
+                                                          ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                    </Grid>
+                                </GroupBox>
+
+                                <!-- Texts -->
+                                <GroupBox Header="Text" Padding="0" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top">
+                                    <Grid Margin="4,6,4,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22*" />
+                                            <ColumnDefinition Width="65*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Title1 -->
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Width="59">Top title :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=ToastTitle1Color, Mode=TwoWay}"
+                                                          ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                        <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
+                                        <wpft:DoubleUpDown Name="Title1FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,1,6,0" VerticalAlignment="Top"
+                                                           FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
+                                                           Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle1FontSize, Mode=TwoWay}" />
+                                        <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                        <Grid Grid.Column="1" Height="26" Margin="16,28,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle1DropShadow}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
+                                            <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="3" Increment="0.1"
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle1ShadowDepth, Mode=TwoWay}" />
+                                            <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
+                                            <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="2" Increment="1"
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle1ShadowBlur, Mode=TwoWay}" />
+                                        </Grid>
+
+                                        <!-- Title2 -->
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,60,0,0" HorizontalAlignment="Left" Width="79">Bottom title :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,61,0,0" SelectedColor="{Binding Path=ToastTitle2Color, Mode=TwoWay}"
+                                                          ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                        <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,60,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
+                                        <wpft:DoubleUpDown Name="Title2FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,61,6,0" VerticalAlignment="Top"
+                                                            FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="12" Increment="1"
+                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle2FontSize, Mode=TwoWay}" />
+                                        <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                        <Grid Grid.Column="1" Height="26" Margin="16,88,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle2DropShadow}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
+                                            <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="3" Increment="0.1"
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle2ShadowDepth, Mode=TwoWay}" />
+                                            <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
+                                            <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="2" Increment="1"
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle2ShadowBlur, Mode=TwoWay}" />
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
+
+                                <!-- Song Progress bar -->
+                                <GroupBox Header="Song Progress Bar" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top" IsEnabled="{Binding Path=Settings.ShowSongProgressBar}">
+                                    <Grid Margin="4,6,4,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22*" />
+                                            <ColumnDefinition Width="65*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left">Background color :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=SongProgressBarBackgroundColor, Mode=TwoWay}"
+                                                          ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+
+                                        <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left">Foreground color :</Label>
+                                        <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=SongProgressBarForegroundColor, Mode=TwoWay}"
+                                                          ShowDropDownButton="True" ShowAdvancedButton="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
         </TabControl>
