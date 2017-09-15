@@ -151,8 +151,22 @@
                                     <Label Grid.Column="1" Height="26" Margin="-8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left">(milliseconds)</Label>
                                 </Grid>
 
+                                <!-- ToastTitlesOrder -->
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="12,137,0,0">
+                                    <Label VerticalContentAlignment="Center">Artist and Track name :</Label>
+                                    <ComboBox VerticalContentAlignment="Center" Width="170" Margin="12,0,0,0"
+                                              ItemsSource="{Binding Source={markup:Enum {x:Type core:ToastTitlesOrder}}}"
+                                              SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay}" SelectedValuePath="Value">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+
                                 <!-- Toast Size & Position -->
-                                <StackPanel VerticalAlignment="Top" Margin="12,149,12,0">
+                                <StackPanel VerticalAlignment="Top" Margin="12,185,12,0">
                                     <Grid VerticalAlignment="Top" Margin="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -180,7 +194,7 @@
                                 </StackPanel>
 
                                 <!-- Borders -->
-                                <StackPanel VerticalAlignment="Top" Margin="12,305,12,0">
+                                <StackPanel VerticalAlignment="Top" Margin="12,341,12,0">
                                     <WrapPanel>
                                         <Label Height="26" VerticalContentAlignment="Center">Border Thickness :</Label>
                                         <TextBox Text="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Width="32" Height="24" VerticalContentAlignment="Center" MouseWheel="BorderThickness_MouseWheel" Margin="6,0,0,0" />

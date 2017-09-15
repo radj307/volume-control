@@ -103,6 +103,7 @@
     <Compile Include="src\Common\WindowPosition.cs" />
     <Compile Include="src\Core\ApplicationStartupException.cs" />
     <Compile Include="src\Core\ToastifyVolumeControlMode.cs" />
+    <Compile Include="src\Core\ToastTitlesOrder.cs" />
     <Compile Include="src\Helpers\ColorHelper.cs" />
     <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
     <Compile Include="src\Model\Song.cs" />

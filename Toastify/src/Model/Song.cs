@@ -1,6 +1,7 @@
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System.Diagnostics.CodeAnalysis;
+using Toastify.Core;
 
 namespace Toastify.Model
 {
@@ -50,7 +51,12 @@ namespace Toastify.Model
 
         public override string ToString()
         {
-            return this.Artist == null ? this.Track : $"{this.Artist} – {this.Track}";
+            if (this.Artist == null)
+                return this.Track;
+
+            return Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist ?
+                $"\x201C{this.Track}\x201D by {this.Artist}" :
+                $"{this.Artist}: \x201C{this.Track}\x201D";
         }
 
         public override bool Equals(object obj)

@@ -134,6 +134,7 @@ namespace Toastify.Model
         private bool _disableToastWithFullscreenVideogames;
         private bool _showSongProgressBar;
         private int _fadeOutTime;
+        private ToastTitlesOrder _toastTitlesOrder;
         private string _toastColorTop;
         private string _toastColorBottom;
         private double _toastColorTopOffset;
@@ -305,6 +306,12 @@ namespace Toastify.Model
         {
             get { return this._fadeOutTime; }
             set { this.RaiseAndSetIfChanged(ref this._fadeOutTime, value); }
+        }
+
+        public ToastTitlesOrder ToastTitlesOrder
+        {
+            get { return this._toastTitlesOrder; }
+            set { this.RaiseAndSetIfChanged(ref this._toastTitlesOrder, value); }
         }
 
         public string ToastColorTop
@@ -517,6 +524,7 @@ namespace Toastify.Model
             this.DisableToastWithFullscreenVideogames = true;
             this.ShowSongProgressBar = true;
             this.FadeOutTime = 4000;
+            this.ToastTitlesOrder = ToastTitlesOrder.TrackByArtist;
 
             this.ToastColorTop = "#FF000000";
             this.ToastColorBottom = "#FF000000";

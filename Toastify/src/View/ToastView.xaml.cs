@@ -382,21 +382,20 @@ namespace Toastify.View
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        /// <param name="force"> Whether or no0t to force the toast to show up. </param>
+        /// <param name="force"> Whether or not to force the toast to show up. </param>
         private void UpdateToastText(Song song, string altTitle1 = null, bool fadeIn = true, bool force = false)
         {
-            string title1, title2;
-            if (altTitle1 == null)
-            {
-                title1 = (this.paused ? "Paused" : song?.Track) ?? string.Empty;
-                title2 = (this.paused ? song?.ToString() : $"by {song?.Artist}") ?? string.Empty;
-            }
+            if (altTitle1 != null)
+                this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn, force);
+            else if (this.paused)
+                this.UpdateToastText("Paused", song?.ToString() ?? string.Empty, fadeIn, force);
             else
             {
-                title1 = altTitle1;
-                title2 = song?.ToString() ?? string.Empty;
+                this.toastViewModel.TrackName = song?.Track ?? string.Empty;
+                this.toastViewModel.ArtistName = song?.Artist ?? string.Empty;
+                if (fadeIn)
+                    this.FadeIn(force);
             }
-            this.UpdateToastText(title1, title2, fadeIn, force);
         }
 
         /// <summary>
