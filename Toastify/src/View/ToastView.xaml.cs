@@ -221,6 +221,8 @@ namespace Toastify.View
                 string errorMsg = Properties.Resources.ERROR_STARTUP;
                 string techDetails = $"Technical details\n{e.Message}";
                 MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Analytics.TrackException(e, true);
             }
             catch (WebException e)
             {
@@ -232,6 +234,8 @@ namespace Toastify.View
                     status += $" ({(e.Response as HttpWebResponse)?.StatusCode}, \"{(e.Response as HttpWebResponse)?.StatusDescription}\")";
                 string techDetails = $"Technical details: {e.Message}\n{e.HResult}, {status}";
                 MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Analytics.TrackException(e, true);
             }
             catch (Exception e)
             {
@@ -240,6 +244,8 @@ namespace Toastify.View
                 string errorMsg = Properties.Resources.ERROR_UNKNOWN;
                 string techDetails = $"Technical Details: {e.Message}\n{e.StackTrace}";
                 MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Analytics.TrackException(e, true);
             }
         }
 
@@ -266,9 +272,10 @@ namespace Toastify.View
                     else
                         Debug.WriteLine("'plugin' is not of type IPluginBase (?)");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     // TODO: Handle plugins' errors.
+                    Analytics.TrackException(e);
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
             }
@@ -656,12 +663,12 @@ namespace Toastify.View
             {
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && Current.currentSong != null)
                 {
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.CopyTrackInfo);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);
                     Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
                 }
                 else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Current.currentSong != null)
                 {
-                    Telemetry.TrackEvent(TelemetryCategory.Action, Telemetry.TelemetryEvent.Action.PasteTrackInfo);
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
                     Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
                     Win32API.SendPasteKey();
                 }
@@ -677,6 +684,8 @@ namespace Toastify.View
 
                 Debug.WriteLine("Exception with hooked key! " + ex);
                 Current.UpdateToastText("Unable to communicate with Spotify");
+
+                Analytics.TrackException(ex);
             }
         }
 

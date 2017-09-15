@@ -1,0 +1,39 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+<#
+    /* To use your own Google Analytics Tracking ID, create a file named "ga-code" in the
+     * project directory ($(ProjectDir)) with the tracking id as its content.
+     * Optionally, if you have a separate tracking id you want to use when debugging,
+     * you can add it on a separate line in the file.
+     * NOTE: if no debugging tracking id is provided, then TrackingId will be null when a debugger is attached.
+     */
+    string gaCodeProduction = "null";
+    string gaCodeDebugging = "null";
+    try
+    {
+        string projectPath = this.Host.ResolveAssemblyReference("$(ProjectDir)");
+        string gaCodeFilePath = Path.Combine(projectPath, "ga-code");
+        string[] lines = File.ReadAllLines(gaCodeFilePath);
+        if (lines != null && lines[0] != null)
+        {
+            gaCodeProduction = $"\"{lines[0]}\"";
+            if (lines.Length > 1)
+                gaCodeDebugging = $"\"{lines[1]}\"";
+        }
+    }
+    catch (Exception) {}
+#>
+/*
+ * This is an auto-generated file. DO NOT MODIFY IT MANUALLY!
+ */
+namespace Toastify.Services
+{
+    public static partial class Analytics
+    {
+        static partial void SetTrackingId()
+        {
+            TrackingId = System.Diagnostics.Debugger.IsAttached ? <#= gaCodeDebugging #> : <#= gaCodeProduction #>;
+        }
+    }
+}

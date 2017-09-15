@@ -42,7 +42,7 @@ namespace Toastify.View
 
         private SettingsView(ToastView toastView)
         {
-            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.SettingsLaunched);
+            Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.SettingsLaunched);
 
             this.settingsViewModel = new SettingsViewModel();
             this.settingsViewModel.SettingsSaved += this.SettingsViewModel_SettingsSaved;

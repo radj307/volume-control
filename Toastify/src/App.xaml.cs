@@ -21,8 +21,11 @@ namespace Toastify
             {
                 if (exclusive)
                 {
+                    // Load Settings > Initialize Analytics > Update PreviousVersion
                     LoadSettings();
-
+                    Analytics.Init();
+                    Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
+                    
                     App app = new App();
                     app.InitializeComponent();
 
@@ -34,7 +37,6 @@ namespace Toastify
                     MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
         private static void LoadSettings()
         {
             try
@@ -49,16 +51,6 @@ namespace Toastify
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Settings.Instance.Default(true);
-            }
-
-            string version = VersionChecker.CurrentVersion;
-
-            Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppLaunch, version);
-
-            if (Settings.Instance.PreviousVersion != version)
-            {
-                Telemetry.TrackEvent(TelemetryCategory.General, Telemetry.TelemetryEvent.AppUpgraded, version);
-                Settings.Instance.PreviousVersion = version;
             }
         }
     }
@@ -79,11 +71,17 @@ namespace Toastify
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Telemetry.TrackException(e.Exception);
+            Analytics.TrackException(e.Exception);
+        }
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppLaunch);
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
+            Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppTermination);
             Spotify.Instance?.Dispose();
         }
     }
