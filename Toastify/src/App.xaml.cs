@@ -23,17 +23,8 @@ namespace Toastify
                 {
                     if (exclusive)
                     {
-                        // Load Settings > Initialize Analytics > Update PreviousVersion
-                        LoadSettings();
-                        Analytics.Init();
-                        Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
-
-                        App app = new App();
-                        app.InitializeComponent();
-
-                        LastInputDebug.Start();
-
-                        app.Run();
+                        PrepareToRun();
+                        RunApp();
                     }
                     else
                         MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -43,6 +34,40 @@ namespace Toastify
             {
                 // ReSharper disable once LocalizableElement
                 File.AppendAllText(Path.Combine(App.ApplicationData, "Toastify.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.Message}\n");
+            }
+        }
+
+        private static void PrepareToRun()
+        {
+            // Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
+            LoadSettings();
+            StartupTask();
+            Analytics.Init();
+            Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
+            Settings.Instance.Save();
+        }
+
+        private static void RunApp()
+        {
+            App app = new App();
+            app.InitializeComponent();
+            LastInputDebug.Start();
+            app.Run();
+        }
+
+        private static void StartupTask()
+        {
+            if (!string.IsNullOrWhiteSpace(Settings.Instance.PreviousVersion))
+            {
+                Version previous = new Version(Settings.Instance.PreviousVersion);
+                Version current = new Version(VersionChecker.CurrentVersion);
+
+                if (previous < new Version("1.9.7"))
+                {
+                    // Re-enable Analytics by default
+                    Settings.Instance.OptInToAnalytics = true;
+                    Settings.Instance.Save();
+                }
             }
         }
 
