@@ -166,7 +166,7 @@ namespace Toastify.View
             }
             if (settings.ToastTitle2DropShadow)
             {
-                this.Title1.Effect = new DropShadowEffect
+                this.Title2.Effect = new DropShadowEffect
                 {
                     ShadowDepth = settings.ToastTitle2ShadowDepth,
                     BlurRadius = settings.ToastTitle2ShadowBlur
