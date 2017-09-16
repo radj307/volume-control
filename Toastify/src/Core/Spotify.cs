@@ -375,7 +375,7 @@ namespace Toastify.Core
                     break;
 
                 default:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, action.ToString());
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
                     sendAppCommandMessage = true;
                     break;
             }

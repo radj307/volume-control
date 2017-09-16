@@ -11,6 +11,7 @@ using GoogleMeasurementProtocol.Requests;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Management;
@@ -24,6 +25,8 @@ namespace Toastify.Services
     {
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private static string TrackingId { get; set; }
+
+        public static bool AnalyticsEnabled { get { return Settings.Instance.OptInToAnalytics; } }
 
         private static GoogleAnalyticsRequestFactory requestFactory;
 
@@ -46,12 +49,9 @@ namespace Toastify.Services
                 Settings.Instance.FirstRun = false;
             }
 
-            // Always send the install event; disable analytics afterwards, if the user prefers that way.
-            if (!Settings.Instance.OptInToAnalytics)
-            {
-                requestFactory = null;
+            // NOTE: The install event should always be sent
+            if (!AnalyticsEnabled)
                 return;
-            }
 
             // Collect Preferences every at every update
             if (appHasBeenJustUpdated)
@@ -60,7 +60,7 @@ namespace Toastify.Services
 
         public static void TrackPageHit(string documentPath, string title = null, bool interactive = true)
         {
-            if (requestFactory == null)
+            if (!AnalyticsEnabled)
                 return;
 
             var request = requestFactory.CreateRequest(HitTypes.PageView);
@@ -71,6 +71,10 @@ namespace Toastify.Services
             if (title != null)
                 request.Parameters.Add(new DocumentTitle(title));
             request.Parameters.Add(new NonInteractionHit(!interactive));
+
+            PostRequest(request);
+
+            Debug.WriteLine($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
         }
 
         public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
@@ -80,7 +84,7 @@ namespace Toastify.Services
 
         private static void TrackEvent(IEnumerable<Parameter> extraParameters, ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
         {
-            if (requestFactory == null)
+            if (!AnalyticsEnabled)
                 return;
 
             var request = requestFactory.CreateRequest(HitTypes.Event);
@@ -96,11 +100,13 @@ namespace Toastify.Services
                 request.Parameters.AddRange(extraParameters);
 
             PostRequest(request);
+
+            Debug.WriteLine($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
         }
 
         public static void TrackException(Exception exception, bool fatal = false)
         {
-            if (requestFactory == null)
+            if (!AnalyticsEnabled)
                 return;
 
             // The exception will be truncated to 150 bytes; at some point it may be better to extract more pertinant information.
@@ -145,6 +151,8 @@ namespace Toastify.Services
 
         private static void CollectPreferences()
         {
+            Debug.WriteLine($"[Analytics] CollectPreferences");
+
             // General
             TrackSettingBinaryHit(nameof(Settings.Instance.LaunchOnStartup), Settings.Instance.LaunchOnStartup);
             TrackSettingBinaryHit(nameof(Settings.Instance.MinimizeSpotifyOnStartup), Settings.Instance.MinimizeSpotifyOnStartup);
@@ -166,6 +174,10 @@ namespace Toastify.Services
             TrackSettingBinaryHit(nameof(Settings.Instance.DisableToast), Settings.Instance.DisableToast);
             TrackSettingBinaryHit(nameof(Settings.Instance.OnlyShowToastOnHotkey), Settings.Instance.OnlyShowToastOnHotkey);
             TrackSettingBinaryHit(nameof(Settings.Instance.DisableToastWithFullscreenVideogames), Settings.Instance.DisableToastWithFullscreenVideogames);
+            TrackSettingBinaryHit(nameof(Settings.Instance.ShowSongProgressBar), Settings.Instance.ShowSongProgressBar);
+
+            TrackSettingBinaryHit($"{nameof(Settings.Instance.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
+            TrackSettingBinaryHit($"{nameof(Settings.Instance.ToastTitlesOrder)}/{ToastTitlesOrder.TrackByArtist}", Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist);
         }
 
         private static string GetOS()
