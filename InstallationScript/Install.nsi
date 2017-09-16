@@ -64,12 +64,15 @@ Section "Toastify (required)"
   ${Else}
     File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
   ${EndIf}
+
+  # Remove files belonging to old versions
+  Delete "$INSTDIR\Garlic.dll"
   
-  File "Toastify.exe"	
-  File "Toastify.exe.config"	
+  File "GoogleMeasurementProtocol.dll"
+  File "Toastify.exe"
+  File "Toastify.exe.config"
   File "ManagedWinapi.dll"
   File "Resources\ManagedWinapiNativeHelper.dll"
-  File "Garlic.dll"
   File "Newtonsoft.Json.dll"
   File "SpotifyAPI.dll"
   File "Xceed.Wpf.Toolkit.dll"
@@ -114,12 +117,12 @@ Section "Uninstall"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify"
 
   # Remove files and uninstaller
+  Delete "$INSTDIR\GoogleMeasurementProtocol.dll"
   Delete "$INSTDIR\Toastify.exe"
   Delete "$INSTDIR\Toastify.config"
   Delete "$INSTDIR\ToastifyAPI.dll"
   Delete "$INSTDIR\ManagedWinapi.dll"
   Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
-  Delete "$INSTDIR\Garlic.dll"
   Delete "$INSTDIR\Newtonsoft.Json.dll"
   Delete "$INSTDIR\SpotifyAPI.dll"
   Delete "$INSTDIR\Xceed.Wpf.Toolkit.dll"
