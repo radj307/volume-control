@@ -40,6 +40,10 @@ namespace Toastify.View
             }
         }
 
+        public static event EventHandler SettingsLaunched;
+
+        public static event EventHandler SettingsClosed;
+
         private SettingsView(ToastView toastView)
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.SettingsLaunched);
@@ -64,13 +68,19 @@ namespace Toastify.View
             if (_current != null)
                 _current.Activate();
             else
-                new SettingsView(toastView).ShowDialog();
+            {
+                SettingsView settingsView = new SettingsView(toastView);
+                SettingsLaunched?.Invoke(_current, EventArgs.Empty);
+                settingsView.ShowDialog();
+            }
         }
 
         #region Event handlers
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            SettingsClosed?.Invoke(_current, EventArgs.Empty);
+
             Settings.Instance.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
             Settings.Instance.Save(true);
 

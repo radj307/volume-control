@@ -60,6 +60,7 @@ namespace Toastify.View
 
         private VersionChecker versionChecker;
         private bool isUpdateToast;
+        private bool isPreviewForSettingsToast;
 
         private bool dragging;
         private bool paused;
@@ -103,6 +104,10 @@ namespace Toastify.View
             Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
             Spotify.Instance.TrackTimeChanged += this.Spotify_TrackTimeChanged;
 
+            // Subscribe to the Settings view events
+            SettingsView.SettingsLaunched += this.SettingsView_Launched;
+            SettingsView.SettingsClosed += this.SettingsView_Closed;
+
             this.Deactivated += this.Toast_Deactivated;
 
             this.LoadPlugins();
@@ -113,7 +118,8 @@ namespace Toastify.View
 
         public void InitToast()
         {
-            this.ShowToast(false);
+            if (!this.isPreviewForSettingsToast)
+                this.ShowToast(false);
 
             //If we find any invalid settings in the xml we skip it and use default.
             //User notification of bad settings will be implemented with the settings dialog.
@@ -203,7 +209,6 @@ namespace Toastify.View
             this.trayIcon.ContextMenu.MenuItems.Add("-");
             this.trayIcon.ContextMenu.MenuItems.Add(menuExit);
 
-            this.trayIcon.MouseClick += this.TrayIcon_MouseClick;
             this.trayIcon.DoubleClick += this.TrayIcon_DoubleClick;
         }
 
@@ -435,7 +440,7 @@ namespace Toastify.View
             }
         }
 
-        private void FadeIn(bool force = false, bool isUpdate = false)
+        private void FadeIn(bool force = false, bool isUpdate = false, bool permanent = false)
         {
             this.Dispatcher.Invoke(
                 DispatcherPriority.Normal,
@@ -444,6 +449,7 @@ namespace Toastify.View
                     this.minimizeTimer?.Stop();
 
                     bool doNotFadeIn = this.dragging ||
+                                       this.isPreviewForSettingsToast ||
                                        (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
                                        (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
                     if (doNotFadeIn)
@@ -465,7 +471,7 @@ namespace Toastify.View
                     }
 
                     this.isUpdateToast = isUpdate;
-
+                    
                     if (!this.IsToastVisible)
                     {
                         this.ShowToast(true);
@@ -474,17 +480,21 @@ namespace Toastify.View
                         anim.Completed += (s, e) =>
                         {
                             this.IsToastVisible = true;
-                            this.FadeOut();
+                            if (!permanent)
+                                this.FadeOut();
                         };
                         this.BeginAnimation(OpacityProperty, anim);
                     }
                     else if (this.minimizeTimer != null)
                     {
-                        // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
-                        this.BeginAnimation(OpacityProperty, null);
-                        this.Opacity = 1.0;
-                        this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
-                        this.minimizeTimer.Start();
+                        if (!permanent)
+                        {
+                            // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
+                            this.BeginAnimation(OpacityProperty, null);
+                            this.Opacity = 1.0;
+                            this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
+                            this.minimizeTimer.Start();
+                        }
                     }
                 }));
         }
@@ -556,11 +566,7 @@ namespace Toastify.View
                 case SpotifyAction.NextTrack:
                 case SpotifyAction.PreviousTrack:
                 case SpotifyAction.ShowSpotify:
-                    break;
-
                 case SpotifyAction.SettingsSaved:
-                    this.toastIconURI = DEFAULT_ICON;
-                    this.UpdateToastText("Settings saved", "Here is a preview of your settings!");
                     break;
 
                 case SpotifyAction.VolumeUp:
@@ -588,7 +594,7 @@ namespace Toastify.View
                     }
                     if (!this.IsVisible)
                         this.FadeIn(true);
-                    else
+                    else if (!this.isPreviewForSettingsToast)
                         this.FadeOut(true);
                     break;
 
@@ -803,6 +809,20 @@ namespace Toastify.View
 
         #region Event handlers
 
+        private void SettingsView_Launched(object sender, EventArgs e)
+        {
+            this.isPreviewForSettingsToast = false;
+            this.FadeIn(true, false, true);
+            this.isPreviewForSettingsToast = true;
+        }
+
+        private void SettingsView_Closed(object sender, EventArgs e)
+        {
+            this.isPreviewForSettingsToast = true;
+            this.FadeOut(true);
+            this.isPreviewForSettingsToast = false;
+        }
+
         private void Application_Shutdown(object sender, EventArgs e)
         {
             Application.Current.Dispatcher.BeginInvoke(
@@ -814,12 +834,6 @@ namespace Toastify.View
         private void Toast_Deactivated(object sender, EventArgs e)
         {
             this.Topmost = true;
-        }
-
-        private void TrayIcon_MouseClick(object s, System.Windows.Forms.MouseEventArgs ev)
-        {
-            if (ev.Button == MouseButtons.Left)
-                this.DisplayAction(SpotifyAction.ShowToast);
         }
 
         private void TrayIcon_DoubleClick(object s, EventArgs ev)
