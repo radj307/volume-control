@@ -554,8 +554,8 @@ namespace Toastify.Model
             this.ToastTitle1ShadowDepth = 3;
             this.ToastTitle1ShadowBlur = 2;
             this.ToastTitle2DropShadow = false;
-            this.ToastTitle2ShadowDepth = 0;
-            this.ToastTitle2ShadowBlur = 0;
+            this.ToastTitle2ShadowDepth = 2;
+            this.ToastTitle2ShadowBlur = 2;
 
             this.SongProgressBarBackgroundColor = "FF333333";
             this.SongProgressBarForegroundColor = "FFA0A0A0";

@@ -156,22 +156,16 @@ namespace Toastify.View
             // [ TEXT COLOR ]
             this.Title1.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle1Color));
             this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle2Color));
-            if (settings.ToastTitle1DropShadow)
+            this.Title1.Effect = new DropShadowEffect
             {
-                this.Title1.Effect = new DropShadowEffect
-                {
-                    ShadowDepth = settings.ToastTitle1ShadowDepth,
-                    BlurRadius = settings.ToastTitle1ShadowBlur
-                };
-            }
-            if (settings.ToastTitle2DropShadow)
+                ShadowDepth = settings.ToastTitle1DropShadow ? settings.ToastTitle1ShadowDepth : 0.0,
+                BlurRadius = settings.ToastTitle1DropShadow ? settings.ToastTitle1ShadowBlur : 0.0
+            };
+            this.Title2.Effect = new DropShadowEffect
             {
-                this.Title2.Effect = new DropShadowEffect
-                {
-                    ShadowDepth = settings.ToastTitle2ShadowDepth,
-                    BlurRadius = settings.ToastTitle2ShadowBlur
-                };
-            }
+                ShadowDepth = settings.ToastTitle2DropShadow ? settings.ToastTitle2ShadowDepth : 0.0,
+                BlurRadius = settings.ToastTitle2DropShadow ? settings.ToastTitle2ShadowBlur : 0.0
+            };
 
             // [ TEXT FONT SIZE ]
             this.Title1.FontSize = settings.ToastTitle1FontSize;
@@ -471,7 +465,7 @@ namespace Toastify.View
                     }
 
                     this.isUpdateToast = isUpdate;
-                    
+
                     if (!this.IsToastVisible)
                     {
                         this.ShowToast(true);
