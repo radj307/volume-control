@@ -16,27 +16,36 @@ namespace Toastify
         [STAThread]
         public static void Main(string[] args)
         {
-            const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-            using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
+            try
             {
-                if (exclusive)
+                const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
+                using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
                 {
-                    // Load Settings > Initialize Analytics > Update PreviousVersion
-                    LoadSettings();
-                    Analytics.Init();
-                    Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
-                    
-                    App app = new App();
-                    app.InitializeComponent();
+                    if (exclusive)
+                    {
+                        // Load Settings > Initialize Analytics > Update PreviousVersion
+                        LoadSettings();
+                        Analytics.Init();
+                        Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
 
-                    LastInputDebug.Start();
+                        App app = new App();
+                        app.InitializeComponent();
 
-                    app.Run();
+                        LastInputDebug.Start();
+
+                        app.Run();
+                    }
+                    else
+                        MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
-                    MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception e)
+            {
+                // ReSharper disable once LocalizableElement
+                File.AppendAllText(Path.Combine(App.ApplicationData, "Toastify.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.Message}\n");
             }
         }
+
         private static void LoadSettings()
         {
             try
@@ -63,10 +72,7 @@ namespace Toastify
     {
         public static string ApplicationData
         {
-            get
-            {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
-            }
+            get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify"); }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
