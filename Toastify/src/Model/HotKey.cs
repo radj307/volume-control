@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagedWinapi;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,6 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using ManagedWinapi;
 using Toastify.Core;
 using Toastify.View;
 
@@ -16,7 +16,7 @@ namespace Toastify.Model
 {
     [Serializable]
     [XmlRoot("Hotkey")]
-    public class Hotkey : INotifyPropertyChanged, IXmlSerializable
+    public class Hotkey : INotifyPropertyChanged, IXmlSerializable, ICloneable
     {
         private static readonly List<Hotkey> hotkeys = new List<Hotkey>();
 
@@ -303,7 +303,7 @@ namespace Toastify.Model
                 this.key.Enabled = false;
         }
 
-        public Hotkey Clone()
+        public object Clone()
         {
             Hotkey clone = this.MemberwiseClone() as Hotkey;
 

@@ -100,7 +100,7 @@ Section "Start Menu icon"
   CreateShortCut "$SMPROGRAMS\Toastify.lnk" "$INSTDIR\Toastify.exe" "" "$INSTDIR\Toastify.exe" 0
 SectionEnd
 
-Section "Autostart"
+Section /o "Autostart"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify" '"$INSTDIR\Toastify.exe"'
 SectionEnd
 

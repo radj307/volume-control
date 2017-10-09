@@ -106,6 +106,7 @@
     <Compile Include="src\Core\ToastTitlesOrder.cs" />
     <Compile Include="src\Helpers\ColorHelper.cs" />
     <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
+    <Compile Include="src\Helpers\Extensions.cs" />
     <Compile Include="src\Model\Song.cs" />
     <Compile Include="src\Events\SpotifyPlayStateChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyStateEventArgs.cs" />

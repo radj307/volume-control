@@ -11,6 +11,10 @@ namespace Toastify.ViewModel
     {
         public Settings Settings { get; }
 
+        public int CurrentTabIndex { get; set; }
+
+        public int CurrentToastTabIndex { get; set; }
+
         #region Toast
 
         public Color ToastColorTop
@@ -112,6 +116,8 @@ namespace Toastify.ViewModel
 
         public DelegateCommand DefaultCommand { get; }
 
+        public DelegateCommand DefaultAllCommand { get; }
+
         public DelegateCommand SelectFileForSavingTrackCommand { get; }
 
         #endregion Commands
@@ -127,7 +133,44 @@ namespace Toastify.ViewModel
 
             this.SaveCommand = new DelegateCommand(this.Save);
             this.DefaultCommand = new DelegateCommand(this.Default);
+            this.DefaultAllCommand = new DelegateCommand(this.DefaultAll);
             this.SelectFileForSavingTrackCommand = new DelegateCommand(this.SelectFileForSavingTrack);
+
+            this.Settings.PropertyChanged += this.Settings_PropertyChanged;
+        }
+
+        private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(this.Settings.ToastColorTop):
+                    this.NotifyPropertyChanged(nameof(this.ToastColorTop));
+                    break;
+
+                case nameof(this.Settings.ToastColorBottom):
+                    this.NotifyPropertyChanged(nameof(this.ToastColorBottom));
+                    break;
+
+                case nameof(this.Settings.ToastBorderColor):
+                    this.NotifyPropertyChanged(nameof(this.ToastBorderColor));
+                    break;
+
+                case nameof(this.Settings.ToastTitle1Color):
+                    this.NotifyPropertyChanged(nameof(this.ToastTitle1Color));
+                    break;
+
+                case nameof(this.Settings.ToastTitle2Color):
+                    this.NotifyPropertyChanged(nameof(this.ToastTitle2Color));
+                    break;
+
+                case nameof(this.Settings.SongProgressBarBackgroundColor):
+                    this.NotifyPropertyChanged(nameof(this.SongProgressBarBackgroundColor));
+                    break;
+
+                case nameof(this.Settings.SongProgressBarForegroundColor):
+                    this.NotifyPropertyChanged(nameof(this.SongProgressBarForegroundColor));
+                    break;
+            }
         }
 
         private void Save()
@@ -137,6 +180,34 @@ namespace Toastify.ViewModel
         }
 
         private void Default()
+        {
+            switch (this.CurrentTabIndex)
+            {
+                case 0:
+                    this.Settings.SetDefaultGeneral();
+                    break;
+
+                case 1:
+                    this.Settings.SetDefaultHotkeys(true);
+                    break;
+
+                case 2:
+                    switch (this.CurrentToastTabIndex)
+                    {
+                        case 0:
+                            this.Settings.SetDefaultToastGeneral();
+                            break;
+
+                        case 1:
+                            this.Settings.SetDefaultToastColors();
+                            break;
+                    }
+                    break;
+            }
+            this.Save();
+        }
+
+        private void DefaultAll()
         {
             this.Settings.Default();
             this.Save();

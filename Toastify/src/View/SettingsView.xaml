@@ -23,7 +23,7 @@
     </Window.Resources>
 
     <Grid x:Name="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
-        <TabControl Name="TabControl1">
+        <TabControl Name="TabControl1" SelectedIndex="{Binding Path=CurrentTabIndex, Mode=TwoWay}">
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox IsChecked="{Binding Path=Settings.LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Launch Toastify with Windows</CheckBox>
@@ -125,7 +125,7 @@
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
 
-                    <TabControl TabStripPlacement="Left" Margin="4,44,4,10" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource OppositeBoolConverter}}">
+                    <TabControl TabStripPlacement="Left" Margin="4,44,4,10" SelectedIndex="{Binding Path=CurrentToastTabIndex, Mode=TwoWay}" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource OppositeBoolConverter}}">
                         <TabControl.Resources>
                             <Style TargetType="TabItem">
                                 <Setter Property="Padding" Value="5,3,8,3" />
@@ -228,7 +228,7 @@
                         <TabItem Header="Colors &amp; Font">
                             <StackPanel>
                                 <!-- Foreground & Background -->
-                                <GroupBox Header="Foreground &amp; Background" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top">
+                                <GroupBox Header="Background &amp; Border" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top">
                                     <Grid Margin="4,6,4,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="22*" />
@@ -341,7 +341,26 @@
             </TabItem>
         </TabControl>
 
-        <Button Name="BtnSave" Height="23" HorizontalAlignment="Right" Margin="0,32,72,0" VerticalAlignment="Top" Width="47" Command="{Binding Path=SaveCommand}">Save</Button>
-        <Button Name="BtnDefault" Height="23" HorizontalAlignment="Right" Margin="0,32,12,0" VerticalAlignment="Top" Width="55" Command="{Binding Path=DefaultCommand}">Default</Button>
+        <Button Name="BtnSave" Height="23" HorizontalAlignment="Right" Margin="0,32,90,0" VerticalAlignment="Top" Width="47" Command="{Binding Path=SaveCommand}">Save</Button>
+        <wpft:SplitButton Name="BtnDefault" Height="23" HorizontalAlignment="Right" Margin="0,32,10,0" VerticalAlignment="Top" Width="73"
+                          Content="Default" Command="{Binding Path=DefaultCommand}" ToolTip="Reset the current tab's settings to their default values">
+            <wpft:SplitButton.DropDownContent>
+                <Menu>
+                    <MenuItem Header="Default" Command="{Binding Path=DefaultCommand}" ToolTip="Reset the current tab's settings to their default values" />
+                    <MenuItem Header="Default All" Command="{Binding Path=DefaultAllCommand}" ToolTip="Reset all settings to their default values" />
+                    <Menu.Style>
+                        <Style TargetType="Menu">
+                            <Setter Property="ItemsPanel">
+                                <Setter.Value>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" IsItemsHost="True" />
+                                    </ItemsPanelTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Menu.Style>
+                </Menu>
+            </wpft:SplitButton.DropDownContent>
+        </wpft:SplitButton>
     </Grid>
 </Window>

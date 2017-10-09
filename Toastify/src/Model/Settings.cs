@@ -497,68 +497,10 @@ namespace Toastify.Model
 
         public void Default(bool setHotKeys = false)
         {
-            // [General]
-            this.MinimizeSpotifyOnStartup = false;
-            this.CloseSpotifyWithToastify = true;
-            this.VolumeControlMode = ToastifyVolumeControlMode.SystemSpotifyOnly;
-            this.WindowsVolumeMixerIncrement = 2.0f;
-
-            this.ClipboardTemplate = "I'm currently listening to {0}";
-            this.SaveTrackToFile = false;
-            this.SaveTrackToFilePath = Path.Combine(App.ApplicationData, "current_song.txt");
-
-            this.PreventSleepWhilePlaying = false;
-            this.OptInToAnalytics = false;
-
-            // [Hotkeys]
-            Hotkey.ClearAll();
-            this.GlobalHotKeys = true;
-
-            // Only set hotkeys when it's requested (we don't set hotkeys when loading from XML since it will create duplicates)
-            if (setHotKeys)
-                this.HotKeys = this.defaultHotKeys;
-
-            // [Toast]
-            this.DisableToast = false;
-            this.OnlyShowToastOnHotkey = true;
-            this.DisableToastWithFullscreenVideogames = true;
-            this.ShowSongProgressBar = true;
-            this.FadeOutTime = 4000;
-            this.ToastTitlesOrder = ToastTitlesOrder.TrackByArtist;
-
-            this.ToastColorTop = "#FF000000";
-            this.ToastColorBottom = "#FF000000";
-            this.ToastColorTopOffset = 0.0;
-            this.ToastColorBottomOffset = 1.0;
-            this.ToastBorderColor = "#FF000000";
-            this.ToastBorderThickness = 1.0;
-
-            this.ToastBorderCornerRadiusTopLeft = 0;
-            this.ToastBorderCornerRadiusTopRight = 0;
-            this.ToastBorderCornerRadiusBottomRight = 0;
-            this.ToastBorderCornerRadiusBottomLeft = 0;
-
-            this.ToastWidth = 300;
-            this.ToastHeight = 75;
-
-            var position = ScreenHelper.GetDefaultToastPosition(this.ToastWidth, this.ToastHeight);
-
-            this.PositionLeft = position.X;
-            this.PositionTop = position.Y;
-
-            this.ToastTitle1Color = "#FFFFFFFF";
-            this.ToastTitle2Color = "#FFF0F0F0";
-            this.ToastTitle1FontSize = 16;
-            this.ToastTitle2FontSize = 12;
-            this.ToastTitle1DropShadow = true;
-            this.ToastTitle1ShadowDepth = 3;
-            this.ToastTitle1ShadowBlur = 2;
-            this.ToastTitle2DropShadow = false;
-            this.ToastTitle2ShadowDepth = 2;
-            this.ToastTitle2ShadowBlur = 2;
-
-            this.SongProgressBarBackgroundColor = "FF333333";
-            this.SongProgressBarForegroundColor = "FFA0A0A0";
+            this.SetDefaultGeneral();
+            this.SetDefaultHotkeys(setHotKeys);
+            this.SetDefaultToastGeneral();
+            this.SetDefaultToastColors();
 
             // (hidden)
             this.StartupWaitTimeout = 20000;
@@ -573,6 +515,81 @@ namespace Toastify.Model
                 this.FirstRun = _instance.FirstRun;
                 this.PreviousVersion = _instance.PreviousVersion;
             }
+        }
+
+        public void SetDefaultGeneral()
+        {
+            this.LaunchOnStartup = false;
+            this.MinimizeSpotifyOnStartup = false;
+            this.CloseSpotifyWithToastify = true;
+            this.VolumeControlMode = ToastifyVolumeControlMode.SystemSpotifyOnly;
+            this.WindowsVolumeMixerIncrement = 2.0f;
+
+            this.ClipboardTemplate = "I'm currently listening to {0}";
+            this.SaveTrackToFile = false;
+            this.SaveTrackToFilePath = Path.Combine(App.ApplicationData, "current_song.txt");
+
+            this.PreventSleepWhilePlaying = false;
+            this.OptInToAnalytics = true;
+        }
+
+        public void SetDefaultHotkeys(bool setHotKeys = false)
+        {
+            Hotkey.ClearAll();
+            this.GlobalHotKeys = true;
+
+            // Only set hotkeys when it's requested (we don't set hotkeys when loading from XML since it will create duplicates)
+            if (setHotKeys)
+                this.HotKeys = (List<Hotkey>)this.defaultHotKeys.Clone();
+        }
+
+        public void SetDefaultToastGeneral()
+        {
+            this.DisableToast = false;
+
+            this.OnlyShowToastOnHotkey = true;
+            this.DisableToastWithFullscreenVideogames = true;
+            this.ShowSongProgressBar = true;
+            this.FadeOutTime = 4000;
+            this.ToastTitlesOrder = ToastTitlesOrder.TrackByArtist;
+
+            this.ToastWidth = 300;
+            this.ToastHeight = 75;
+
+            var position = ScreenHelper.GetDefaultToastPosition(this.ToastWidth, this.ToastHeight);
+            this.PositionLeft = position.X;
+            this.PositionTop = position.Y;
+
+            this.ToastBorderThickness = 1.0;
+            this.ToastBorderCornerRadiusTopLeft = 0;
+            this.ToastBorderCornerRadiusTopRight = 0;
+            this.ToastBorderCornerRadiusBottomRight = 0;
+            this.ToastBorderCornerRadiusBottomLeft = 0;
+        }
+
+        public void SetDefaultToastColors()
+        {
+            this.DisableToast = false;
+
+            this.ToastColorTop = "#FF000000";
+            this.ToastColorBottom = "#FF000000";
+            this.ToastColorTopOffset = 0.0;
+            this.ToastColorBottomOffset = 1.0;
+            this.ToastBorderColor = "#FF000000";
+
+            this.ToastTitle1Color = "#FFFFFFFF";
+            this.ToastTitle2Color = "#FFF0F0F0";
+            this.ToastTitle1FontSize = 16;
+            this.ToastTitle2FontSize = 12;
+            this.ToastTitle1DropShadow = true;
+            this.ToastTitle1ShadowDepth = 3;
+            this.ToastTitle1ShadowBlur = 2;
+            this.ToastTitle2DropShadow = false;
+            this.ToastTitle2ShadowDepth = 2;
+            this.ToastTitle2ShadowBlur = 2;
+
+            this.SongProgressBarBackgroundColor = "FF333333";
+            this.SongProgressBarForegroundColor = "FFA0A0A0";
         }
 
         public void Save(bool replaceCurrent = false)
@@ -667,7 +684,7 @@ namespace Toastify.Model
                 bool found = this.HotKeys.Any(hotkey => hotkey.Action == defaultHotkey.Action);
 
                 if (!found)
-                    this.HotKeys.Add(defaultHotkey.Clone());
+                    this.HotKeys.Add((Hotkey)defaultHotkey.Clone());
             }
         }
 
@@ -704,7 +721,7 @@ namespace Toastify.Model
                 clone.HotKeys = new List<Hotkey>();
 
                 foreach (Hotkey key in this.HotKeys)
-                    clone.HotKeys.Add(key.Clone());
+                    clone.HotKeys.Add((Hotkey)key.Clone());
             }
 
             return clone;
