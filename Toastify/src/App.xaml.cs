@@ -55,22 +55,6 @@ namespace Toastify
             app.Run();
         }
 
-        private static void StartupTask()
-        {
-            if (!string.IsNullOrWhiteSpace(Settings.Instance.PreviousVersion))
-            {
-                Version previous = new Version(Settings.Instance.PreviousVersion);
-                Version current = new Version(VersionChecker.CurrentVersion);
-
-                if (previous < new Version("1.9.7"))
-                {
-                    // Re-enable Analytics by default
-                    Settings.Instance.OptInToAnalytics = true;
-                    Settings.Instance.Save();
-                }
-            }
-        }
-
         private static void LoadSettings()
         {
             try
@@ -85,6 +69,22 @@ namespace Toastify
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Settings.Instance.Default(true);
+            }
+        }
+
+        private static void StartupTask()
+        {
+            if (!string.IsNullOrWhiteSpace(Settings.Instance.PreviousVersion))
+            {
+                Version previous = new Version(Settings.Instance.PreviousVersion);
+                Version current = new Version(VersionChecker.CurrentVersion);
+
+                if (previous < new Version("1.9.7"))
+                {
+                    // Re-enable Analytics by default
+                    Settings.Instance.OptInToAnalytics = true;
+                    Settings.Instance.Save();
+                }
             }
         }
     }

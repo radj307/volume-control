@@ -39,8 +39,8 @@ namespace Toastify.Services
                 return;
 
             requestFactory = new GoogleAnalyticsRequestFactory(TrackingId);
-            bool wasOnNoAnalyticsVersion = new Version(Settings.Instance.PreviousVersion) < new Version("1.9.7");
-            bool appHasBeenJustUpdated = new Version(Settings.Instance.PreviousVersion) < new Version(VersionChecker.CurrentVersion);
+            bool wasOnNoAnalyticsVersion = new Version(Settings.Instance.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
+            bool appHasBeenJustUpdated = new Version(Settings.Instance.PreviousVersion ?? "0.0.0") < new Version(VersionChecker.CurrentVersion);
 
             // Install Event
             if (Settings.Instance.FirstRun || wasOnNoAnalyticsVersion)
