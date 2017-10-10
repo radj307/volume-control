@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
+using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 
@@ -33,7 +34,7 @@ namespace Toastify
             catch (Exception e)
             {
                 // ReSharper disable once LocalizableElement
-                File.AppendAllText(Path.Combine(App.ApplicationData, "Toastify.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.Message}\n");
+                File.AppendAllText(Path.Combine(App.ApplicationData, "Toastify.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
             }
         }
 
