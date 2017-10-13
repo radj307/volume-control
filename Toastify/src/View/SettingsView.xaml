@@ -10,7 +10,7 @@
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         x:Class="Toastify.View.SettingsView"
-        Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/spotify.ico" Closed="Window_Closed">
+        Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
 
     <Window.Resources>
         <helpers:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></helpers:HexColorToAlphaValueConverter>

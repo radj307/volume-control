@@ -123,8 +123,9 @@ Delete the "{0}" file and restart the application to recreate the settings file.
 
 The application will be started with default settings.</value>
   </data>
-  <data name="ERROR_STARTUP" xml:space="preserve">
-    <value>An error occurred when trying to start Spotify.</value>
+  <data name="ERROR_STARTUP_SPOTIFY" xml:space="preserve">
+    <value>An error occurred when trying to start Spotify.
+Please, start it manually and then restart the application.</value>
   </data>
   <data name="ERROR_STARTUP_PROCESS" xml:space="preserve">
     <value>Could not find Spotify process!
@@ -149,7 +150,79 @@ Please open an issue at github.com/aleab/toastify.</value>
 Look for the blue icon in your system tray.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="spotifyicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spotify.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ToastifyIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ToastifyIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_0.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_10.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_11.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_12.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_13.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_14.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_15.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_17.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_18.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_19.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_20.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_21.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_22.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_23.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_4.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_5.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_6.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_7.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_8.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toastify_loading_spotify_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_9.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

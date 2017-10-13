@@ -2,14 +2,19 @@ using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using Timer = System.Timers.Timer;
 
 namespace Toastify.Core
 {
@@ -27,6 +32,10 @@ namespace Toastify.Core
         #endregion Singleton
 
         #region Private fields
+
+        private readonly BackgroundWorker spotifyLauncher = new BackgroundWorker { WorkerSupportsCancellation = true };
+
+        private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
 
         private readonly SpotifyLocalAPI localAPI;
 
@@ -100,45 +109,124 @@ namespace Toastify.Core
 
         public void StartSpotify()
         {
-            int timeout = Settings.Instance.StartupWaitTimeout;
-            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(timeout) : this.FindSpotifyProcess();
+            this.spotifyLauncher.DoWork += this.StartSpotify_WorkerTask;
+            this.spotifyLauncher.RunWorkerCompleted += this.StartSpotify_WorkerTaskCompleted;
 
+            if (Settings.Instance.StartupWaitTimeout < 60000)
+                Settings.Instance.StartupWaitTimeout = 60000;
+            Timer timeoutTimer = new Timer(Settings.Instance.StartupWaitTimeout) { AutoReset = false };
+            timeoutTimer.Elapsed += (sender, e) => this.spotifyLauncher.CancelAsync();
+
+            this.spotifyLauncher.RunWorkerAsync();
+            timeoutTimer.Start();
+        }
+
+        #region StartSpotify background worker
+
+        private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
+        {
+            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : this.FindSpotifyProcess();
+            if (e.Cancel)
+                return;
             if (this.spotifyProcess == null)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_PROCESS);
 
             this.spotifyProcess.EnableRaisingEvents = true;
             this.spotifyProcess.Exited += this.Spotify_Exited;
 
-            this.ConnectWithSpotify();
+            this.ConnectWithSpotify(e);
+        }
+
+        private void StartSpotify_WorkerTaskCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null || e.Cancelled)
+            {
+                if (e.Error != null)
+                {
+                    if (e.Error is ApplicationStartupException applicationStartupException)
+                    {
+                        Debug.WriteLine(applicationStartupException.StackTrace);
+
+                        string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
+                        string techDetails = $"Technical details\n{applicationStartupException.Message}";
+                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                        Analytics.TrackException(applicationStartupException, true);
+                    }
+                    else if (e.Error is WebException webException)
+                    {
+                        Debug.WriteLine(webException.StackTrace);
+
+                        string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
+                        string status = $"{webException.Status}";
+                        if (webException.Status == WebExceptionStatus.ProtocolError)
+                            status +=
+                                $" ({(webException.Response as HttpWebResponse)?.StatusCode}, \"{(webException.Response as HttpWebResponse)?.StatusDescription}\")";
+                        string techDetails =
+                            $"Technical details: {webException.Message}\n{webException.HResult}, {status}";
+                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                        Analytics.TrackException(webException, true);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(e.Error.StackTrace);
+
+                        string errorMsg = Properties.Resources.ERROR_UNKNOWN;
+                        string techDetails = $"Technical Details: {e.Error.Message}\n{e.Error.StackTrace}";
+                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                        Analytics.TrackException(e.Error, true);
+                    }
+                }
+                else // e.Cancelled
+                {
+                    Debug.WriteLine("ERROR: Toastify was not able to find Spotify within the timeout interval.");
+
+                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
+                    const string techDetails = "Technical Details: timeout";
+                    MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                // Terminate Toastify
+                Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Normal,
+                    new Action(() => Application.Current.Shutdown()));
+            }
+            else
+                this.Connected?.Invoke(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
+
+            this.spotifyLauncherWaitHandle.Close();
         }
 
         /// <summary>
         /// Starts the Spotify process and waits for it to enter an idle state.
         /// </summary>
-        /// <param name="timeoutMilliseconds"> Specifies the maximum amount of time to wait for the process to enter an idle state. </param>
         /// <returns> The started process. </returns>
-        private Process LaunchSpotifyAndWaitForInputIdle(int timeoutMilliseconds = 10000)
+        private Process LaunchSpotifyAndWaitForInputIdle(DoWorkEventArgs e)
         {
-            int maxWait = timeoutMilliseconds;
-
             // Launch Spotify.
-            Process spotifyProcess = Process.Start(this.spotifyPath);
+            this.spotifyProcess = Process.Start(this.spotifyPath);
 
             // If it is an UWP app, then Process.Start should return null: we need to look for the process.
-            while (spotifyProcess == null && timeoutMilliseconds > 0)
+            bool signaled = false;
+            while ((this.spotifyProcess = this.FindSpotifyProcess()) == null && !signaled)
             {
-                spotifyProcess = this.FindSpotifyProcess();
-                timeoutMilliseconds -= 250;
-                Thread.Sleep(250);
+                signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
+                if (this.spotifyLauncher.CheckCancellation(e))
+                    return this.spotifyProcess;
             }
 
             // We need to let Spotify start-up before interacting with it.
-            spotifyProcess?.WaitForInputIdle(maxWait);
+            this.spotifyProcess?.WaitForInputIdle();
 
             if (Settings.Instance.MinimizeSpotifyOnStartup)
                 this.Minimize(1000);
 
-            return spotifyProcess;
+            return this.spotifyProcess;
         }
 
         /// <summary>
@@ -148,13 +236,10 @@ namespace Toastify.Core
         ///   if Toastify was not able to connect with Spotify or
         ///   if Spotify returns a null status after connection.
         /// </exception>
-        private void ConnectWithSpotify()
+        private void ConnectWithSpotify(DoWorkEventArgs e)
         {
             // Sometimes (specially with a lot of active processes), the WaitForInputIdle method (used in LaunchSpotifyAndWaitForInputIdle)
             // does not seem to wait long enough to let us connect to Spotify successfully on the first try; so we wait and re-try.
-
-            // Pre-emptive wait, in case some fool set SpotifyConnectionAttempts to 1! ;)
-            Thread.Sleep(500);
 
             // TODO: Remove the following lines once Spotify version > 1.0.62 comes out
             FileVersionInfo spotifyVersionInfo = this.spotifyProcess.MainModule.FileVersionInfo;
@@ -169,25 +254,37 @@ namespace Toastify.Core
                 this.localAPIConfig.Port = 4371;
             }
 
-            int maxAttempts = Settings.Instance.SpotifyConnectionAttempts;
-            bool connected;
-            int attempts = 1;
-            while (!(connected = this.localAPI.Connect()) && attempts < maxAttempts)
+            this.spotifyLauncherWaitHandle.Reset();
+            bool signaled;
+
+            bool connected = false;
+            do
             {
-                attempts++;
-                Thread.Sleep(1000);
-            }
+                signaled = this.spotifyLauncherWaitHandle.WaitOne(500);
+                if (this.spotifyLauncher.CheckCancellation(e))
+                    return;
+
+                try
+                {
+                    connected = this.localAPI.Connect();
+                }
+                catch (WebException)
+                {
+                    // ignored
+                }
+            } while (!connected && !signaled);
 
             if (!connected)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
-            Debug.WriteLine($"Connected with Spotify after {attempts} attempt(s) on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
+            Debug.WriteLine($"Connected with Spotify on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
 
+            // Try to get a status report from Spotify
             var status = this.localAPI.GetStatus();
             if (status == null)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
-
-            this.Connected?.Invoke(this, new SpotifyStateEventArgs(status));
         }
+
+        #endregion StartSpotify background worker
 
         private Process FindSpotifyProcess()
         {

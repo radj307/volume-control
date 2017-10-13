@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
@@ -17,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
@@ -28,8 +28,8 @@ using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
-using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Point = System.Windows.Point;
 using Timer = System.Timers.Timer;
 
 namespace Toastify.View
@@ -52,7 +52,7 @@ namespace Toastify.View
 
         private Timer minimizeTimer;
 
-        private NotifyIcon trayIcon;
+        private SystemTray trayIcon;
 
         private Song currentSong;
         private BitmapImage cover;
@@ -62,6 +62,7 @@ namespace Toastify.View
         private bool isUpdateToast;
         private bool isPreviewForSettings;
 
+        private bool initialized;
         private bool dragging;
         private bool paused;
 
@@ -96,15 +97,18 @@ namespace Toastify.View
         {
             this.InitToast();
             this.InitTrayIcon();
-            this.StartSpotifyOrAskUser();
+            this.StartSpotify();
+        }
 
+        private void FinalizeInit()
+        {
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
             Spotify.Instance.Exited += this.Application_Shutdown;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
             Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
             Spotify.Instance.TrackTimeChanged += this.Spotify_TrackTimeChanged;
 
-            // Subscribe to the Settings view events
+            // Subscribe to SettingsView's events
             SettingsView.SettingsLaunched += this.SettingsView_Launched;
             SettingsView.SettingsClosed += this.SettingsView_Closed;
 
@@ -114,6 +118,8 @@ namespace Toastify.View
             this.Started?.Invoke(this, EventArgs.Empty);
 
             this.InitVersionChecker();
+
+            this.initialized = true;
         }
 
         public void InitToast()
@@ -180,19 +186,52 @@ namespace Toastify.View
 
         private void InitTrayIcon()
         {
-            this.trayIcon = new NotifyIcon
+            this.trayIcon = new SystemTray(@"Toastify – Waiting for Spotify...", null, true)
             {
-                Icon = Properties.Resources.spotifyicon,
-                Text = @"Toastify",
+                AnimationStepMilliseconds = 75,
                 Visible = true,
                 ContextMenu = new ContextMenu()
             };
 
-            //Init tray icon menu
-            MenuItem menuSettings = new MenuItem { Text = @"Settings" };
+            object[] animationIcons = {
+                Properties.Resources.toastify_loading_spotify_0,
+                Properties.Resources.toastify_loading_spotify_0,
+                Properties.Resources.toastify_loading_spotify_0,
+                Properties.Resources.toastify_loading_spotify_1,
+                Properties.Resources.toastify_loading_spotify_2,
+                Properties.Resources.toastify_loading_spotify_3,
+                Properties.Resources.toastify_loading_spotify_4,
+                Properties.Resources.toastify_loading_spotify_5,
+                Properties.Resources.toastify_loading_spotify_6,
+                Properties.Resources.toastify_loading_spotify_7,
+                Properties.Resources.toastify_loading_spotify_8,
+                Properties.Resources.toastify_loading_spotify_9,
+                Properties.Resources.toastify_loading_spotify_10,
+                Properties.Resources.toastify_loading_spotify_11,
+                Properties.Resources.toastify_loading_spotify_12,
+                Properties.Resources.toastify_loading_spotify_13,
+                Properties.Resources.toastify_loading_spotify_14,
+                Properties.Resources.toastify_loading_spotify_15,
+                Properties.Resources.toastify_loading_spotify_16,
+                Properties.Resources.toastify_loading_spotify_17,
+                Properties.Resources.toastify_loading_spotify_18,
+                Properties.Resources.toastify_loading_spotify_19,
+                Properties.Resources.toastify_loading_spotify_20,
+                Properties.Resources.toastify_loading_spotify_21,
+                Properties.Resources.toastify_loading_spotify_22,
+                Properties.Resources.toastify_loading_spotify_23,
+                Properties.Resources.toastify_loading_spotify_0,
+                Properties.Resources.toastify_loading_spotify_0,
+                Properties.Resources.toastify_loading_spotify_0
+            };
+            this.trayIcon.SetIconRange(animationIcons);
+            this.trayIcon.StartAnimation();
+
+            // Init tray icon menu
+            MenuItem menuSettings = new MenuItem { Text = @"Settings", Enabled = false };
             menuSettings.Click += (s, ev) => { SettingsView.Launch(this); };
 
-            MenuItem menuAbout = new MenuItem { Text = @"About Toastify..." };
+            MenuItem menuAbout = new MenuItem { Text = @"About Toastify" };
             menuAbout.Click += (s, ev) => { new AboutView().ShowDialog(); };
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
@@ -202,50 +241,22 @@ namespace Toastify.View
             this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
             this.trayIcon.ContextMenu.MenuItems.Add("-");
             this.trayIcon.ContextMenu.MenuItems.Add(menuExit);
+        }
 
+        private void FinalizeTrayIconInitialization()
+        {
+            this.trayIcon.StopAnimation();
+            this.trayIcon.Animate = false;
+            this.trayIcon.Text = @"Toastify";
+            this.trayIcon.Icon = Properties.Resources.ToastifyIcon;
+            this.trayIcon.ContextMenu.MenuItems[0].Enabled = true;
             this.trayIcon.DoubleClick += this.TrayIcon_DoubleClick;
         }
 
-        private void StartSpotifyOrAskUser()
+        private void StartSpotify()
         {
-            try
-            {
-                Spotify.Instance.Connected += this.Spotify_Connected;
-                Spotify.Instance.StartSpotify();
-            }
-            catch (ApplicationStartupException e)
-            {
-                Debug.WriteLine(e.StackTrace);
-
-                string errorMsg = Properties.Resources.ERROR_STARTUP;
-                string techDetails = $"Technical details\n{e.Message}";
-                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                Analytics.TrackException(e, true);
-            }
-            catch (WebException e)
-            {
-                Debug.WriteLine(e.StackTrace);
-
-                string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
-                string status = $"{e.Status}";
-                if (e.Status == WebExceptionStatus.ProtocolError)
-                    status += $" ({(e.Response as HttpWebResponse)?.StatusCode}, \"{(e.Response as HttpWebResponse)?.StatusDescription}\")";
-                string techDetails = $"Technical details: {e.Message}\n{e.HResult}, {status}";
-                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                Analytics.TrackException(e, true);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.StackTrace);
-
-                string errorMsg = Properties.Resources.ERROR_UNKNOWN;
-                string techDetails = $"Technical Details: {e.Message}\n{e.StackTrace}";
-                MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                Analytics.TrackException(e, true);
-            }
+            Spotify.Instance.Connected += this.Spotify_Connected;
+            Spotify.Instance.StartSpotify();
         }
 
         private void LoadPlugins()
@@ -627,13 +638,16 @@ namespace Toastify.View
             this.minimizeTimer?.Stop();
             this.minimizeTimer?.Dispose();
 
-            // Ensure trayicon is removed on exit. (Thx Linus)
-            this.trayIcon.Visible = false;
-            this.trayIcon.Dispose();
-            this.trayIcon = null;
+            // Ensure trayicon is removed on exit.
+            if (this.trayIcon != null)
+            {
+                this.trayIcon.Visible = false;
+                this.trayIcon.Dispose();
+                this.trayIcon = null;
+            }
 
             this.ToastClosing?.Invoke(this, EventArgs.Empty);
-            this.Plugins.Clear();
+            this.Plugins?.Clear();
 
             base.OnClosing(e);
         }
@@ -653,6 +667,9 @@ namespace Toastify.View
 
         internal static void HotkeyActionCallback(Hotkey hotkey)
         {
+            if (!Current.initialized)
+                return;
+
             // Bug 9421: ignore this keypress if it is the same as the previous one and it's been less than
             //           WAIT_BETWEEN_HOTKEY_PRESS since the last press. Note that we do not update
             //           _lastHotkeyPressTime in this case to avoid being trapped in a never ending cycle of
@@ -764,12 +781,17 @@ namespace Toastify.View
 
         /// <summary>
         /// This event is received only once, at the start of the application.
-        /// Here, we set up the initial state of the toast based on the current state of Spotify.
+        /// Here, we finalize the initialization of Toastify and set up the initial state of the toast based on the current state of Spotify.
         /// </summary>
         /// <param name="sender"> <see cref="Spotify"/>. </param>
         /// <param name="e"></param>
         private void Spotify_Connected(object sender, SpotifyStateEventArgs e)
         {
+            // Finalize initialization
+            this.FinalizeTrayIconInitialization();
+            this.FinalizeInit();
+
+            // Update current song
             if (e.CurrentSong == null || !e.CurrentSong.IsValid())
                 return;
 

@@ -19,7 +19,7 @@ namespace Toastify.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -73,15 +73,6 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred when trying to start Spotify..
-        /// </summary>
-        internal static string ERROR_STARTUP {
-            get {
-                return ResourceManager.GetString("ERROR_STARTUP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Could not find Spotify process!
         ///If Spotify is running, please open an issue at github.com/aleab/toastify..
         /// </summary>
@@ -98,6 +89,16 @@ namespace Toastify.Properties {
         internal static string ERROR_STARTUP_RESTART {
             get {
                 return ResourceManager.GetString("ERROR_STARTUP_RESTART", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to start Spotify.
+        ///Please, start it manually and then restart the application..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY", resourceCulture);
             }
         }
         
@@ -142,9 +143,249 @@ namespace Toastify.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon spotifyicon {
+        internal static System.Drawing.Icon toastify_loading_spotify_0 {
             get {
-                object obj = ResourceManager.GetObject("spotifyicon", resourceCulture);
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_0", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_1 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_10 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_10", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_11 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_11", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_12 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_12", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_13 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_13", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_14 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_14", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_15 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_15", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_16 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_16", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_17 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_17", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_18 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_18", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_19 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_19", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_2 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_2", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_20 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_20", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_21 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_21", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_22 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_22", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_23 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_23", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_3 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_3", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_4 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_4", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_5 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_5", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_6 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_6", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_7 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_7", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_8 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_8", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon toastify_loading_spotify_9 {
+            get {
+                object obj = ResourceManager.GetObject("toastify_loading_spotify_9", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ToastifyIcon {
+            get {
+                object obj = ResourceManager.GetObject("ToastifyIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Resources\spotify.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ToastifyIcon.ico</ApplicationIcon>
     <StartupObject>Toastify.EntryPoint</StartupObject>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
@@ -99,6 +99,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="src\Common\SystemTray.cs" />
     <Compile Include="src\Common\ComboBoxItemAttribute.cs" />
     <Compile Include="src\Common\WindowPosition.cs" />
     <Compile Include="src\Core\ApplicationStartupException.cs" />
@@ -120,6 +126,10 @@
     <Compile Include="src\Helpers\WindowExtensions.cs" />
     <Compile Include="src\Common\DelegateCommand.cs" />
     <Compile Include="src\Common\ObservableObject.cs" />
+    <Content Include="src\Services\Analytics.g.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Analytics.g.cs</LastGenOutput>
+    </Content>
     <Compile Include="src\Services\Analytics.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,11 +181,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -189,6 +194,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="..\LICENSE">
       <Link>LICENSE</Link>
@@ -216,11 +222,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\Services\Analytics.g.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Analytics.g.cs</LastGenOutput>
-    </Content>
-    <Resource Include="Resources\spotify.ico" />
+    <Resource Include="Resources\ToastifyIcon.ico" />
     <Resource Include="Resources\SpotifyLogo.png" />
     <Resource Include="Resources\SpotifyToastifyLogo.png" />
     <Resource Include="Resources\WarningSmall.png" />
@@ -231,6 +233,30 @@
     <Resource Include="Resources\thumbs_up.png" />
     <Resource Include="Resources\InfoLarge.png" />
     <Resource Include="Resources\SpotifyToastifyUpdateLogo.png" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_0.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_1.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_2.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_3.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_4.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_5.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_6.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_7.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_8.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_9.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_10.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_11.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_12.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_13.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_14.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_15.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_16.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_17.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_18.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_19.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_20.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_21.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_22.ico" />
+    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_23.ico" />
     <None Include="version" />
     <Content Include="Resources\ManagedWinapiNativeHelper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -239,6 +265,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />

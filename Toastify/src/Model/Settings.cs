@@ -480,8 +480,6 @@ namespace Toastify.Model
 
         public int StartupWaitTimeout { get; set; }
 
-        public int SpotifyConnectionAttempts { get; set; }
-
         public WindowPosition SettingsWindowLastLocation { get; set; }
 
         public List<PluginDetails> Plugins { get; set; }
@@ -503,8 +501,7 @@ namespace Toastify.Model
             this.SetDefaultToastColors();
 
             // (hidden)
-            this.StartupWaitTimeout = 20000;
-            this.SpotifyConnectionAttempts = 5;
+            this.StartupWaitTimeout = 60000;
             this.Plugins = new List<PluginDetails>();
 
             // There are a few settings that we don't really want to override when
@@ -665,10 +662,6 @@ namespace Toastify.Model
 
             // Validate StartupWaitTimeout: it cannot be negative!
             this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
-
-            // Validate SpotifyConnectionAttempts: it cannot be non-positive!
-            this.SpotifyConnectionAttempts = Math.Abs(this.SpotifyConnectionAttempts);
-            this.SpotifyConnectionAttempts += this.SpotifyConnectionAttempts == 0 ? 1 : 0;
 
             this.Save();
         }
