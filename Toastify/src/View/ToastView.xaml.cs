@@ -37,8 +37,6 @@ namespace Toastify.View
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class ToastView : Window
     {
-        // TODO: Actually implement the MVVM pattern: create ViewModels for every View.
-
         private const string DEFAULT_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyLogo.png";
         private const string AD_PLAYING_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyAdPlaying.png";
         private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
@@ -127,11 +125,6 @@ namespace Toastify.View
             if (!this.isPreviewForSettings)
                 this.SetToastVisibility(false);
 
-            //If we find any invalid settings in the xml we skip it and use default.
-            //User notification of bad settings will be implemented with the settings dialog.
-
-            // TODO: Refactor InitToast method.
-            // This method is UGLY!
             Settings settings = Settings.Instance;
             ColorConverter cc = new ColorConverter();
 
