@@ -1,5 +1,6 @@
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Toastify.Core;
 
@@ -91,7 +92,14 @@ namespace Toastify.Model
             // Take the smallest image possible.
             foreach (var size in albumArtSizes)
             {
-                coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                try
+                {
+                    coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                }
+                catch (Exception)
+                {
+                    // TODO: Log
+                }
                 if (!string.IsNullOrWhiteSpace(coverArtUrl))
                     break;
             }

@@ -60,7 +60,7 @@ namespace Toastify.View
 
         private VersionChecker versionChecker;
         private bool isUpdateToast;
-        private bool isPreviewForSettingsToast;
+        private bool isPreviewForSettings;
 
         private bool dragging;
         private bool paused;
@@ -118,8 +118,8 @@ namespace Toastify.View
 
         public void InitToast()
         {
-            if (!this.isPreviewForSettingsToast)
-                this.ShowToast(false);
+            if (!this.isPreviewForSettings)
+                this.SetToastVisibility(false);
 
             //If we find any invalid settings in the xml we skip it and use default.
             //User notification of bad settings will be implemented with the settings dialog.
@@ -420,7 +420,7 @@ namespace Toastify.View
                 this.FadeIn(force, isUpdate);
         }
 
-        private void ShowToast(bool shallBeVisible)
+        private void SetToastVisibility(bool shallBeVisible)
         {
             this.Topmost = shallBeVisible;
             this.Visibility = shallBeVisible ? Visibility.Visible : Visibility.Collapsed;
@@ -434,6 +434,23 @@ namespace Toastify.View
             }
         }
 
+        private void ShowToast(bool force = false, bool isUpdate = false, bool permanent = false)
+        {
+            // Update the toast's text and image with the current, most recent song information.
+            if (this.currentSong == null || !this.currentSong.IsValid())
+            {
+                this.toastIconURI = DEFAULT_ICON;
+                this.UpdateToastText("Nothing's playing", string.Empty, false);
+            }
+            else if (this.currentSong.IsValid())
+            {
+                this.toastIconURI = this.currentSong.CoverArtUrl;
+                this.UpdateToastText(this.currentSong, null, false);
+            }
+
+            this.FadeIn(force, isUpdate, permanent);
+        }
+
         private void FadeIn(bool force = false, bool isUpdate = false, bool permanent = false)
         {
             this.Dispatcher.Invoke(
@@ -443,7 +460,7 @@ namespace Toastify.View
                     this.minimizeTimer?.Stop();
 
                     bool doNotFadeIn = this.dragging ||
-                                       this.isPreviewForSettingsToast ||
+                                       this.isPreviewForSettings ||
                                        (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
                                        (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
                     if (doNotFadeIn)
@@ -468,7 +485,7 @@ namespace Toastify.View
 
                     if (!this.IsToastVisible)
                     {
-                        this.ShowToast(true);
+                        this.SetToastVisibility(true);
 
                         DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
                         anim.Completed += (s, e) =>
@@ -514,7 +531,7 @@ namespace Toastify.View
                                     DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
                                     anim.Completed += (ss, ee) =>
                                     {
-                                        this.ShowToast(false);
+                                        this.SetToastVisibility(false);
                                         this.IsToastVisible = false;
                                     };
                                     this.BeginAnimation(OpacityProperty, anim);
@@ -576,19 +593,9 @@ namespace Toastify.View
                     break;
 
                 case SpotifyAction.ShowToast:
-                    if (this.currentSong == null || !this.currentSong.IsValid())
-                    {
-                        this.toastIconURI = DEFAULT_ICON;
-                        this.UpdateToastText("Nothing's playing", string.Empty, false);
-                    }
-                    else if (this.currentSong.IsValid())
-                    {
-                        this.toastIconURI = this.currentSong.CoverArtUrl;
-                        this.UpdateToastText(this.currentSong, null, false);
-                    }
                     if (!this.IsVisible)
-                        this.FadeIn(true);
-                    else if (!this.isPreviewForSettingsToast)
+                        this.ShowToast(true);
+                    else if (!this.isPreviewForSettings)
                         this.FadeOut(true);
                     break;
 
@@ -805,16 +812,16 @@ namespace Toastify.View
 
         private void SettingsView_Launched(object sender, EventArgs e)
         {
-            this.isPreviewForSettingsToast = false;
-            this.FadeIn(true, false, true);
-            this.isPreviewForSettingsToast = true;
+            this.isPreviewForSettings = false;
+            this.ShowToast(true, false, true);
+            this.isPreviewForSettings = true;
         }
 
         private void SettingsView_Closed(object sender, EventArgs e)
         {
-            this.isPreviewForSettingsToast = true;
+            this.isPreviewForSettings = true;
             this.FadeOut(true);
-            this.isPreviewForSettingsToast = false;
+            this.isPreviewForSettings = false;
         }
 
         private void Application_Shutdown(object sender, EventArgs e)
