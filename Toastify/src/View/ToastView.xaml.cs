@@ -790,6 +790,7 @@ namespace Toastify.View
 
             this.paused = !e.Playing;
             this.UpdateCurrentSong(e.CurrentSong);
+            this.UpdateSongProgressBar(e.TrackTime);
         }
 
         private void Spotify_SongChanged(object sender, SpotifyTrackChangedEventArgs e)
