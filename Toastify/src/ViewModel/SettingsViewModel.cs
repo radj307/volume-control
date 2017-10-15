@@ -209,7 +209,7 @@ namespace Toastify.ViewModel
 
         private void DefaultAll()
         {
-            this.Settings.Default();
+            this.Settings.Default(true);
             this.Save();
         }
 
