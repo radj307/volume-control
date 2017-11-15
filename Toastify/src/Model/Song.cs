@@ -14,24 +14,49 @@ namespace Toastify.Model
         public string Track { get; set; }
         public string Album { get; }
         public int Length { get; }
+        public string Type { get; }
 
         public string CoverArtUrl { get; set; }
 
-        internal Song() : this(string.Empty, string.Empty, -1)
+        internal Song() : this(string.Empty, string.Empty, -1, null)
         {
         }
 
-        public Song(string artist, string title, int length, string album = null)
+        public Song(string artist, string title, int length, string type, string album = null)
         {
             this.Artist = artist;
             this.Track = title;
             this.Album = album;
             this.Length = length;
+            this.Type = type;
+        }
+
+        public bool IsAd()
+        {
+            return this.Type == SpotifyTrackType.AD || this.Length == 0;
+        }
+
+        public bool IsOtherTrackType()
+        {
+            return this.Type == SpotifyTrackType.OTHER;
         }
 
         internal bool IsValid()
         {
-            return !string.IsNullOrEmpty(this.Artist) || !string.IsNullOrEmpty(this.Track);
+            if (string.IsNullOrEmpty(this.Type))
+                return false;
+
+            switch (this.Type)
+            {
+                case SpotifyTrackType.NORMAL:
+                    return !string.IsNullOrEmpty(this.Artist) && !string.IsNullOrEmpty(this.Track);
+
+                case SpotifyTrackType.OTHER:
+                    return this.Length > 0;
+
+                default:
+                    return this.Length >= 0;
+            }
         }
 
         public string GetClipboardText(string template)
@@ -66,13 +91,21 @@ namespace Toastify.Model
             if (target == null)
                 return false;
 
-            return target.Artist == this.Artist && target.Track == this.Track;
+            return target.Type == this.Type &&
+                target.Artist == this.Artist &&
+                target.Track == this.Track &&
+                target.Album == this.Album;
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
         public override int GetHashCode()
         {
-            return this.Artist.GetHashCode() ^ this.Track.GetHashCode();
+            int result = 17;
+            result += result * 31 + this.Type?.GetHashCode() ?? 0;
+            result += result * 31 + this.Artist?.GetHashCode() ?? 0;
+            result += result * 31 + this.Track?.GetHashCode() ?? 0;
+            result += result * 31 + this.Album?.GetHashCode() ?? 0;
+            return result;
         }
 
         public static implicit operator Song(Track spotifyTrack)
@@ -87,24 +120,28 @@ namespace Toastify.Model
             string title = spotifyTrack.TrackResource?.Name;
             string album = spotifyTrack.AlbumResource?.Name;
             int length = spotifyTrack.Length;
+            string type = spotifyTrack.TrackType;
             string coverArtUrl = string.Empty;
 
-            // Take the smallest image possible.
-            foreach (var size in albumArtSizes)
+            if (spotifyTrack.AlbumResource != null)
             {
-                try
+                // Take the smallest image possible.
+                foreach (var size in albumArtSizes)
                 {
-                    coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                    try
+                    {
+                        coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                    }
+                    catch (Exception)
+                    {
+                        // TODO: Log
+                    }
+                    if (!string.IsNullOrWhiteSpace(coverArtUrl))
+                        break;
                 }
-                catch (Exception)
-                {
-                    // TODO: Log
-                }
-                if (!string.IsNullOrWhiteSpace(coverArtUrl))
-                    break;
             }
 
-            return new Song(artist, title, length, album) { CoverArtUrl = coverArtUrl };
+            return new Song(artist, title, length, type, album) { CoverArtUrl = coverArtUrl };
         }
 
         public static bool Equal(Song s1, Song s2)

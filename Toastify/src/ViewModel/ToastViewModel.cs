@@ -35,9 +35,9 @@ namespace Toastify.ViewModel
             {
                 this._trackName = value;
                 if (Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist)
-                    this.Title1 = $"{value}";
+                    this.Title1 = $"{(string.IsNullOrWhiteSpace(value) ? "???": value)}";
                 else
-                    this.Title2 = $"\x201C{value}\x201D";
+                    this.Title2 = string.IsNullOrWhiteSpace(value) ? string.Empty : $"\x201C{value}\x201D";
             }
         }
 
@@ -51,9 +51,9 @@ namespace Toastify.ViewModel
             {
                 this._artistName = value;
                 if (Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack)
-                    this.Title1 = $"{value}:";
+                    this.Title1 = $"{(string.IsNullOrWhiteSpace(value) ? "???" : value)}:";
                 else
-                    this.Title2 = $"by {value}";
+                    this.Title2 = string.IsNullOrWhiteSpace(value) ? string.Empty : $"by {value}";
             }
         }
 

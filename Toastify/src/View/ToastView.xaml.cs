@@ -300,6 +300,8 @@ namespace Toastify.View
 
         #endregion Initialization
 
+        #region Toast update
+
         /// <summary>
         /// Update current song's cover art url and toast's text.
         /// Also, save track info to file, if settings say so.
@@ -308,6 +310,9 @@ namespace Toastify.View
         private void UpdateCurrentSong(Song song)
         {
             this.currentSong = song;
+
+            if (this.currentSong.IsOtherTrackType())
+                this.FetchOtherTrackInfo();
 
             this.UpdateCoverArt();
             this.UpdateToastText(this.currentSong);
@@ -371,7 +376,7 @@ namespace Toastify.View
                 this.toastIconURI = DEFAULT_ICON;
             else
             {
-                if (string.IsNullOrWhiteSpace(this.currentSong.Track))
+                if (this.currentSong.IsAd())
                 {
                     this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
                     this.currentSong.Track = "Spotify Ad";
@@ -423,6 +428,14 @@ namespace Toastify.View
             if (fadeIn)
                 this.FadeIn(force, isUpdate);
         }
+
+        private void FetchOtherTrackInfo()
+        {
+            // TODO: Podcast? Try to fetch track info using Spotify Web API? (Podcast specific APIs are not yet available)
+            this.currentSong.Track = "[Unknown Track Type]";
+        }
+
+        #endregion Toast update
 
         private void SetToastVisibility(bool shallBeVisible)
         {
