@@ -584,7 +584,7 @@ namespace Toastify.Core
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
         {
-            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime));
+            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime, this.Status?.Track, this.Status?.Playing ?? true));
         }
 
         private void SpotifyLocalAPI_OnVolumeChange(object sender, VolumeChangeEventArgs e)

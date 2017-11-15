@@ -832,6 +832,12 @@ namespace Toastify.View
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
         {
+            // TODO: Remove when podcast-specific APIs are implemented and an episode change can be notified by SpotifyAPI
+            // If we are going through a podcast collection and we change episode, the SongChanged event doesn't get triggered;
+            // the only place we can change the episode's total length is here.
+            if (e.CurrentSong.IsOtherTrackType() && this.currentSong.Length != e.CurrentSong.Length)
+                this.Spotify_SongChanged(this, new SpotifyTrackChangedEventArgs(this.currentSong, e.CurrentSong, e.Playing));
+
             this.UpdateSongProgressBar(e.TrackTime);
         }
 
