@@ -732,8 +732,7 @@ namespace Toastify.View
         }
 
         /// <summary>
-        /// Mouse is over the window, halt any fade out animations and keep
-        /// the toast active.
+        /// Mouse is over the window, halt any fade out animations and keep the toast active.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -741,6 +740,11 @@ namespace Toastify.View
         {
             this.BeginAnimation(OpacityProperty, null);
             this.Opacity = 1.0;
+            if (this.minimizeTimer != null)
+            {
+                this.minimizeTimer.Stop();
+                this.minimizeTimer = null;
+            }
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
