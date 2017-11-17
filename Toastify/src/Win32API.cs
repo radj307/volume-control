@@ -19,8 +19,9 @@ namespace Toastify
     [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
     internal static class Win32API
     {
-        private static readonly IntPtr desktopHandle = GetDesktopWindow();
-        private static readonly IntPtr shellHandle = GetShellWindow();
+        private static readonly IntPtr hDesktop = GetDesktopWindow();
+        private static readonly IntPtr hProgman = GetShellWindow();
+        private static readonly IntPtr hShellDll = GetShellDllDefViewWindow();
 
         internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
@@ -34,6 +35,10 @@ namespace Toastify
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -114,6 +119,67 @@ namespace Toastify
 
         #endregion DLL imports
 
+        #region Native methods' wrappers
+
+        public static List<IntPtr> GetChildWindows(IntPtr parent)
+        {
+            List<IntPtr> result = new List<IntPtr>();
+            GCHandle listHandle = GCHandle.Alloc(result);
+            try
+            {
+                EnumChildWindows(
+                    parent,
+                    (hWnd, lParam) =>
+                    {
+                        GCHandle gch = GCHandle.FromIntPtr(lParam);
+                        List<IntPtr> list = gch.Target as List<IntPtr>;
+                        if (list == null)
+                            throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
+                        list.Add(hWnd);
+                        return true;
+                    },
+                    GCHandle.ToIntPtr(listHandle));
+            }
+            finally
+            {
+                if (listHandle.IsAllocated)
+                    listHandle.Free();
+            }
+            return result;
+        }
+
+        public static string GetClassName(IntPtr hWnd)
+        {
+            StringBuilder sb = new StringBuilder(256);
+            GetClassName(hWnd, sb, 256);
+            return sb.ToString();
+        }
+
+        #endregion
+
+        internal static IntPtr GetShellDllDefViewWindow()
+        {
+            IntPtr _SHELLDLL_DefView = FindWindowEx(hProgman, IntPtr.Zero, "SHELLDLL_DefView", null);
+
+            if (_SHELLDLL_DefView.Equals(IntPtr.Zero))
+            {
+                EnumWindows((hWnd, lParam) =>
+                {
+                    if (GetClassName(hWnd) == "WorkerW")
+                    {
+                        IntPtr child = FindWindowEx(hWnd, IntPtr.Zero, "SHELLDLL_DefView", null);
+                        if (child != IntPtr.Zero)
+                        {
+                            _SHELLDLL_DefView = child;
+                            return false;
+                        }
+                    }
+                    return true;
+                }, IntPtr.Zero);
+            }
+            return _SHELLDLL_DefView;
+        }
+
         /// <summary>
         /// Finds a thread's window by its class name.
         /// </summary>
@@ -131,9 +197,7 @@ namespace Toastify
                     if (hWnd == IntPtr.Zero)
                         return true;
 
-                    StringBuilder sb = new StringBuilder(256);
-                    GetClassName(hWnd, sb, 256);
-                    string className = sb.ToString();
+                    string className = GetClassName(hWnd);
                     if (className == lpClassName)
                     {
                         searchedHWnd = hWnd;
@@ -189,7 +253,7 @@ namespace Toastify
             }
         }
 
-        public static void AddWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwLong)
+        private static void AddWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwLong)
         {
             long longPtr = (long)GetWindowLongPtr(hWnd, nIndex);
             longPtr |= (long)dwLong;
@@ -206,18 +270,19 @@ namespace Toastify
             // Get the dimensions of the active window.
             IntPtr hWnd = GetForegroundWindow();
 
+            Debug.WriteLine($"[Win32API::IsForegroundAppAFullscreenVideogame] hWnd=0x{hWnd.ToInt64():X8}, className=\"{GetClassName(hWnd)}\"");
+
             if (!hWnd.Equals(IntPtr.Zero))
             {
-                // Check we haven't picked up the desktop or the shell.
-                if (!hWnd.Equals(desktopHandle) && !hWnd.Equals(shellHandle))
+                // Check we haven't picked up the desktop or the shell or the parent of one of them (Progman, WorkerW)
+                List<IntPtr> childWindows = GetChildWindows(hWnd);
+                if (!hWnd.Equals(hDesktop) && !hWnd.Equals(hProgman) && !hWnd.Equals(hShellDll) &&
+                    !childWindows.Contains(hDesktop) && !childWindows.Contains(hProgman) && !childWindows.Contains(hShellDll))
                 {
                     Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
                     GetClientRect(hWnd, out Rect clientRect);
-
-                    bool isFullScreen = clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width;
-                    bool isAVideogame = false;
-
-                    if (isFullScreen)
+                    
+                    if (clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width)
                     {
                         var processId = GetProcessFromWindowHandle(hWnd);
                         var modules = GetProcessModules(processId);
@@ -232,14 +297,14 @@ namespace Toastify
                                 bool isOpenGL = module.ModuleName.Equals("opengl32.dll", StringComparison.InvariantCultureIgnoreCase);
                                 if (isDirectX || isOpenGL)
                                 {
-                                    isAVideogame = true;
-                                    break;
+                                    Debug.WriteLine($"[Win32API::IsForegroundAppAFullscreenVideogame] Fullscreen videogame: \"{GetProcessName(processId)}\", module found: \"{module.ModuleName}\"");
+                                    return true;
                                 }
                             }
                         }
                     }
 
-                    return isFullScreen && isAVideogame;
+                    return false;
                 }
             }
             return false;
@@ -249,6 +314,15 @@ namespace Toastify
         {
             GetWindowThreadProcessId(hWnd, out uint pid);
             return pid;
+        }
+
+        private static string GetProcessName(uint processId)
+        {
+            if (processId == 0)
+                return null;
+
+            var process = Process.GetProcessById((int)processId);
+            return process.ProcessName;
         }
 
         private static IEnumerable<ProcessModule> GetProcessModules(uint processId)
