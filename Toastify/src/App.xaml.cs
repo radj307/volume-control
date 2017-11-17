@@ -1,7 +1,13 @@
-﻿using System;
+﻿using log4net;
+using log4net.Appender;
+using log4net.Config;
+using log4net.Repository;
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
@@ -14,27 +20,54 @@ namespace Toastify
     //Special entry point to allow for single instance check
     public class EntryPoint
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
+
         [STAThread]
         public static void Main(string[] args)
         {
-            try
+            const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
+            using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
             {
-                const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-                using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
+                if (exclusive)
                 {
-                    if (exclusive)
+                    try
+                    {
+                        SetupLogger();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
+                        File.AppendAllText(Path.Combine(App.ApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
+                    }
+
+                    try
                     {
                         PrepareToRun();
                         RunApp();
                     }
-                    else
-                        MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+                    catch (Exception e)
+                    {
+                        logger.Error("Uncaught top-level exception.", e);
+                    }
                 }
+                else
+                    MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (Exception e)
+        }
+
+        private static void SetupLogger()
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
             {
-                // ReSharper disable once LocalizableElement
-                File.AppendAllText(Path.Combine(App.ApplicationData, "Toastify.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
+                XmlConfigurator.Configure(stream);
+                ILoggerRepository loggerRepository = LogManager.GetRepository();
+
+                // Modify RollingFileAppender's destination
+                var rollingFileAppender = (RollingFileAppender)loggerRepository.GetAppenders().FirstOrDefault(appender => appender.Name == "RollingFileAppender");
+                if (rollingFileAppender == null)
+                    throw new Exception("RollingFileAppender not found");
+                rollingFileAppender.File = Path.Combine(App.ApplicationData, "Toastify.log");
+                rollingFileAppender.ActivateOptions();
             }
         }
 
