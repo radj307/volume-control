@@ -1,41 +1,47 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
+using log4net;
 using Toastify.View;
 
 namespace Toastify.Helpers
 {
     internal static class ScreenHelper
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ScreenHelper));
+
         private const int SCREEN_RIGHT_MARGIN = 0;
         private const int SCREEN_TOP_MARGIN = 5;
 
         public static Point GetDPIRatios()
         {
-            var presentationSource = PresentationSource.FromVisual(ToastView.Current);
+            Point p = new Point(1.0, 1.0);
+            try
+            {
+                var presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
-            // if we hit this then Settings were loaded before the Toast window was
-            Debug.Assert(presentationSource != null);
+                if (presentationSource == null)
+                    throw new ApplicationException("presentationSource is null");
 
-            return new Point(presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0,
-                             presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
+                p = new Point(
+                    presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0,
+                    presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
+            }
+            catch (ArgumentNullException e)
+            {
+                logger.Error("Couldn't get PresentationSource, current ToastView is null.", e);
+            }
+            catch (ApplicationException e)
+            {
+                logger.Error("Couldn't get PresentationSource, current ToastView has been disposed.", e);
+            }
+            return p;
         }
 
         public static Point GetDefaultToastPosition(double width, double height)
         {
             var screenRect = Screen.PrimaryScreen.WorkingArea;
-
-            Point dpiRatio;
-            try
-            {
-                dpiRatio = GetDPIRatios();
-            }
-            catch (Exception)
-            {
-                dpiRatio = new Point(1.0, 1.0);
-            }
-
+            Point dpiRatio = GetDPIRatios();
             return new Point(screenRect.Width / dpiRatio.X - width - SCREEN_RIGHT_MARGIN,
                              screenRect.Height / dpiRatio.Y - height - SCREEN_TOP_MARGIN);
         }

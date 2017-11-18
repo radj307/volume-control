@@ -2,12 +2,15 @@ using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using log4net;
 using Toastify.Core;
 
 namespace Toastify.Model
 {
     public class Song
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Song));
+
         private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
 
         public string Artist { get; }
@@ -132,9 +135,9 @@ namespace Toastify.Model
                     {
                         coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        // TODO: Log
+                        logger.Error("Error while getting album art url (GetAlbumArtUrl).", e);
                     }
                     if (!string.IsNullOrWhiteSpace(coverArtUrl))
                         break;

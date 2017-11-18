@@ -11,10 +11,10 @@ using GoogleMeasurementProtocol.Requests;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Management;
+using log4net;
 using Toastify.Core;
 using Toastify.Model;
 
@@ -23,20 +23,28 @@ namespace Toastify.Services
     // ReSharper disable once PartialTypeWithSinglePart
     public static partial class Analytics
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Analytics));
+
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private static string TrackingId { get; set; }
 
-        public static bool AnalyticsEnabled { get { return Settings.Instance.OptInToAnalytics; } }
+        public static bool AnalyticsEnabled { get { return requestFactory != null && Settings.Instance.OptInToAnalytics; } }
 
         private static GoogleAnalyticsRequestFactory requestFactory;
 
         internal static void Init()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Initializing Analytics class...");
+
             // ReSharper disable once InvocationIsSkipped
             SetTrackingId();
 
             if (string.IsNullOrWhiteSpace(TrackingId))
+            {
+                logger.Error("No TrackingId set.");
                 return;
+            }
 
             requestFactory = new GoogleAnalyticsRequestFactory(TrackingId);
             bool wasOnNoAnalyticsVersion = new Version(Settings.Instance.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
@@ -74,7 +82,8 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            Debug.WriteLine($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
         }
 
         public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
@@ -101,7 +110,8 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            Debug.WriteLine($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
         }
 
         public static void TrackException(Exception exception, bool fatal = false)
@@ -151,7 +161,8 @@ namespace Toastify.Services
 
         private static void CollectPreferences()
         {
-            Debug.WriteLine($"[Analytics] CollectPreferences");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Collecting preferences...");
 
             // General
             TrackSettingBinaryHit(nameof(Settings.Instance.LaunchOnStartup), Settings.Instance.LaunchOnStartup);
@@ -197,9 +208,9 @@ namespace Toastify.Services
                     .OfType<ManagementObject>();
                 name = (from x in managementObjects select x.GetPropertyValue("Caption")).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                logger.Error("Error while getting FriendlyOS.", e);
             }
             return name?.ToString() ?? "Unknown";
         }

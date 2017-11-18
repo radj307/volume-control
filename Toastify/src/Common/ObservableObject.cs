@@ -29,7 +29,7 @@ namespace Toastify.Common
         protected void RaiseAndSetIfChangedWithConstraint<T>(ref T field, T newValue, Expression<Func<bool>> constraint, [CallerMemberName] string propertyName = null)
         {
             if (!constraint.Compile()())
-                throw new ArgumentException($"Constraint failed:\n{constraint}\n");
+                throw new ConstraintFailedException(constraint);
 
             if (!EqualityComparer<T>.Default.Equals(field, newValue))
             {

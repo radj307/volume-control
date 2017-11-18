@@ -1,11 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using log4net;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -16,6 +16,8 @@ namespace Toastify.Model
     [XmlRoot("SettingsXml")]
     public class Settings : ObservableObject
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Settings));
+
         #region Singleton
 
         private static Settings _instance;
@@ -81,7 +83,7 @@ namespace Toastify.Model
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Exception creating user settings directory (" + settingsPath + "). Exception: " + ex);
+                            logger.Error($"Error creating user settings directory (\"{settingsPath}\")", ex);
 
                             // No messagebox as this should not happen (and there will be a MessageBox later on when
                             // settings fail to load)
@@ -724,7 +726,7 @@ namespace Toastify.Model
 
         private void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
         {
-            Debug.WriteLine($"XmlSerializer_UnknownAttribute: {e.Attr.LocalName} = \"{e.Attr.Value}\"");
+            logger.Warn($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
         }
 
         private void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
@@ -744,7 +746,7 @@ namespace Toastify.Model
             if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
                 return;
 
-            Debug.WriteLine($"XmlSerializer_UnknownNode: {e.LocalName} = \"{e.Text}\"");
+            logger.Warn($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
         }
 
         #endregion XmlSerializer event handlers

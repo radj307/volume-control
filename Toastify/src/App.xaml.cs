@@ -47,7 +47,9 @@ namespace Toastify
                     }
                     catch (Exception e)
                     {
-                        logger.Error("Uncaught top-level exception.", e);
+                        logger.Error("Unhandled top-level exception.", e);
+                        Analytics.TrackException(e);
+                        MessageBox.Show($"Unhandled top-level exception.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
@@ -97,7 +99,7 @@ namespace Toastify
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception loading settings:\n" + ex);
+                logger.Warn("Exception loading settings from file. Using defaults.", ex);
 
                 string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Instance.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -129,6 +131,8 @@ namespace Toastify
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(App));
+
         public static string ApplicationData
         {
             get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify"); }
@@ -136,7 +140,9 @@ namespace Toastify
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
+            logger.Error("Unhandled Dispatcher exception.", e.Exception);
             Analytics.TrackException(e.Exception);
+            MessageBox.Show($"Unhandled Dispatcher exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)

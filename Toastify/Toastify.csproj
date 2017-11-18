@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\Common\ConstraintFailedException.cs" />
     <Compile Include="src\Common\SystemTray.cs" />
     <Compile Include="src\Common\ComboBoxItemAttribute.cs" />
     <Compile Include="src\Common\WindowPosition.cs" />

@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using log4net;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -37,6 +38,8 @@ namespace Toastify.View
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class ToastView : Window
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ToastView));
+
         private const string DEFAULT_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyLogo.png";
         private const string AD_PLAYING_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyAdPlaying.png";
         private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
@@ -278,6 +281,7 @@ namespace Toastify.View
                 catch (Exception e)
                 {
                     // TODO: Handle plugins' errors.
+                    logger.Error("Error while loading plugins.", e);
                     Analytics.TrackException(e);
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
@@ -328,9 +332,9 @@ namespace Toastify.View
                         string trackText = this.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate);
                         File.WriteAllText(Settings.Instance.SaveTrackToFilePath, trackText);
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        // Ignore errors writing out the album.
+                        logger.Error("Error while saving track to file.", e);
                     }
                 }
             }
@@ -358,7 +362,7 @@ namespace Toastify.View
                         }
                         catch (UriFormatException e)
                         {
-                            Debug.WriteLine(e.Message);
+                            logger.Error($"UriFormatException with URI=[{this.toastIconURI}]", e);
                             this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
                         }
                         finally
@@ -494,7 +498,8 @@ namespace Toastify.View
 #endif
                 Win32API.SetThreadExecutionState(Win32API.ExecutionStateFlags.ES_SYSTEM_REQUIRED);
 #if DEBUG
-                        Debug.WriteLine("** SetThreadExecutionState returned: " + rv);
+                        if (logger.IsDebugEnabled)
+                            logger.Debug($"SetThreadExecutionState returned: {rv}");
 #endif
                     }
 
@@ -554,7 +559,10 @@ namespace Toastify.View
                                     this.BeginAnimation(OpacityProperty, anim);
                                 });
                             }
-                            catch (TaskCanceledException) { }
+                            catch (TaskCanceledException ex)
+                            {
+                                logger.Warn("FadeOut animation canceled.", ex);
+                            }
                         };
                     }
 
