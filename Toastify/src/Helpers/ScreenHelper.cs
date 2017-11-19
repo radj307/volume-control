@@ -18,6 +18,9 @@ namespace Toastify.Helpers
             Point p = new Point(1.0, 1.0);
             try
             {
+                if (ToastView.Current == null)
+                    return p;
+
                 var presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
                 if (presentationSource == null)
@@ -26,10 +29,6 @@ namespace Toastify.Helpers
                 p = new Point(
                     presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0,
                     presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
-            }
-            catch (ArgumentNullException e)
-            {
-                logger.Error("Couldn't get PresentationSource, current ToastView is null.", e);
             }
             catch (ApplicationException e)
             {

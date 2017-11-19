@@ -98,6 +98,18 @@ namespace Toastify.View
             this.toastView.DisplayAction(SpotifyAction.SettingsSaved);
         }
 
+        private void BtnDefaultMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.settingsViewModel.DefaultCommand?.Execute();
+            this.BtnDefault.IsOpen = false;
+        }
+
+        private void BtnDefaultAllMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.settingsViewModel.DefaultAllCommand?.Execute();
+            this.BtnDefault.IsOpen = false;
+        }
+
         #region "General" tab
 
         private void ComboVolumeControlMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

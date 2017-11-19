@@ -175,7 +175,7 @@ namespace Toastify.ViewModel
 
         private void Save()
         {
-            this.Settings.Save(true);
+            this.Settings.SetAsCurrentAndSave();
             this.SettingsSaved?.Invoke(this, EventArgs.Empty);
         }
 
@@ -188,7 +188,7 @@ namespace Toastify.ViewModel
                     break;
 
                 case 1:
-                    this.Settings.SetDefaultHotkeys(true);
+                    this.Settings.SetDefaultHotkeys();
                     break;
 
                 case 2:
@@ -204,13 +204,11 @@ namespace Toastify.ViewModel
                     }
                     break;
             }
-            this.Save();
         }
 
         private void DefaultAll()
         {
-            this.Settings.Default(true);
-            this.Save();
+            this.Settings.Default();
         }
 
         private void SelectFileForSavingTrack()

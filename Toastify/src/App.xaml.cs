@@ -112,14 +112,18 @@ namespace Toastify
             {
                 Settings.Current.Load();
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 logger.Warn("Exception loading settings from file. Using defaults.", ex);
 
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Current.SettingsFilePath);
+                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                Settings.Current.Default(true);
+                Settings.Current.LoadSafe();
             }
         }
 

@@ -56,7 +56,7 @@ namespace Toastify.Model
         private const string SETTINGS_FILENAME = "Toastify.xml";
 
         private XmlSerializer _xmlSerializer;
-        private string _settingsFile;
+        private static string _settingsFilePath;
 
         [XmlIgnore]
         public XmlSerializer XmlSerializer
@@ -77,12 +77,11 @@ namespace Toastify.Model
         /// <summary>
         /// Returns the location of the settings file
         /// </summary>
-        [XmlIgnore]
-        public string SettingsFilePath
+        public static string SettingsFilePath
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(this._settingsFile))
+                if (string.IsNullOrWhiteSpace(_settingsFilePath))
                 {
                     string settingsPath = App.ApplicationData;
 
@@ -101,10 +100,10 @@ namespace Toastify.Model
                         }
                     }
 
-                    this._settingsFile = Path.Combine(settingsPath, SETTINGS_FILENAME);
+                    _settingsFilePath = Path.Combine(settingsPath, SETTINGS_FILENAME);
                 }
 
-                return this._settingsFile;
+                return _settingsFilePath;
             }
         }
 
@@ -128,18 +127,18 @@ namespace Toastify.Model
 
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
         {
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute           },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown     },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp       },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast      },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify    },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward    },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind         },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute          , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown    , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp      , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo, Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind        , Enabled = false },
         };
 
         private bool _disableToast;
@@ -503,13 +502,22 @@ namespace Toastify.Model
 
         private Settings()
         {
-            this.Default();
         }
 
-        public void Default(bool setHotKeys = false)
+        ~Settings()
         {
+            this.Unload();
+        }
+
+        #region Default
+
+        public void Default()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Default()\n{new System.Diagnostics.StackTrace()}");
+
             this.SetDefaultGeneral();
-            this.SetDefaultHotkeys(setHotKeys);
+            this.SetDefaultHotkeys();
             this.SetDefaultToastGeneral();
             this.SetDefaultToastColors();
 
@@ -520,10 +528,10 @@ namespace Toastify.Model
             // There are a few settings that we don't really want to override when
             // clearing settings (in fact these are more properties that we store
             // alongside settings for convenience), so don't reset them if they have values
-            if (_instance != null)
+            if (_current != null)
             {
-                this.FirstRun = _instance.FirstRun;
-                this.PreviousVersion = _instance.PreviousVersion;
+                this.FirstRun = _current.FirstRun;
+                this.PreviousVersion = _current.PreviousVersion;
             }
         }
 
@@ -543,14 +551,23 @@ namespace Toastify.Model
             this.OptInToAnalytics = true;
         }
 
-        public void SetDefaultHotkeys(bool setHotKeys = false)
+        public void SetDefaultHotkeys()
         {
-            Hotkey.ClearAll();
             this.GlobalHotKeys = true;
 
-            // Only set hotkeys when it's requested (we don't set hotkeys when loading from XML since it will create duplicates)
-            if (setHotKeys)
-                this.HotKeys = (List<Hotkey>)this.defaultHotKeys.Clone();
+            if (this.HotKeys != null)
+            {
+                foreach (Hotkey hotkey in this.HotKeys)
+                    hotkey.Deactivate();
+            }
+
+            this.HotKeys = (List<Hotkey>)this.defaultHotKeys.Clone();
+
+            if (this == _current && this.HotKeys != null)
+            {
+                foreach (Hotkey hotkey in this.HotKeys)
+                    hotkey.Activate();
+            }
         }
 
         public void SetDefaultToastGeneral()
@@ -602,39 +619,71 @@ namespace Toastify.Model
             this.SongProgressBarForegroundColor = "FFA0A0A0";
         }
 
-        public void Save(bool replaceCurrent = false)
+        #endregion Default
+
+        /// <summary>
+        /// Save the current Settings instance to the file system.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>. Call <see cref="SetAsCurrentAndSave"/>, instead.</exception>
+        public void Save()
         {
-            using (StreamWriter sw = new StreamWriter(this.SettingsFilePath, false))
+            if (this != Current)
+                throw new InvalidOperationException("Cannot save non-Current instance of Settings");
+
+            using (StreamWriter sw = new StreamWriter(SettingsFilePath, false))
             {
                 this.XmlSerializer.Serialize(sw, this);
             }
-
-            if (replaceCurrent)
-                Current = this;
         }
 
-        public Settings Load()
+        /// <summary>
+        /// Loads the Settings instance from the file system onto the Current Settings.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>.</exception>
+        /// <exception cref="FileNotFoundException">if the serialized settings file was not found.</exception>
+        public void Load()
         {
-            if (!File.Exists(this.SettingsFilePath))
+            if (this != Current)
+                throw new InvalidOperationException("Cannot load settings onto non-Current instance");
+
+            Settings file;
+            using (StreamReader sr = new StreamReader(SettingsFilePath))
             {
-                Current.Default(true);
+                file = this.XmlSerializer.Deserialize(sr) as Settings;
+            }
+            Current = file;
+            Current?.CheckForNewSettings();
+            Current?.SanitizeSettingsFile();
+        }
+
+        /// <summary>
+        /// Loads the Settings instance from the file system onto the Current Settings or use default settings.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>.</exception>
+        public void LoadSafe()
+        {
+            try
+            {
+                this.Load();
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                Current.Default();
                 Current.Save();
             }
-            else
-            {
-                using (StreamReader sr = new StreamReader(this.SettingsFilePath))
-                {
-                    Settings file = this.XmlSerializer.Deserialize(sr) as Settings;
+        }
 
-                    file?.CheckForNewSettings();
-
-                    Current = file;
-                }
-            }
-
-            Current?.SanitizeSettingsFile();
-
-            return Current;
+        /// <summary>
+        /// Saves this instance of Settings as Current to the file system.
+        /// </summary>
+        public void SetAsCurrentAndSave()
+        {
+            Current = this;
+            this.Save();
         }
 
         /// <summary>
@@ -748,6 +797,10 @@ namespace Toastify.Model
                     bool value;
                     bool.TryParse(e.Element.InnerText, out value);
                     this.VolumeControlMode = value ? ToastifyVolumeControlMode.Spotify : ToastifyVolumeControlMode.SystemSpotifyOnly;
+                    break;
+
+                default:
+                    logger.Warn($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
                     break;
             }
         }

@@ -18,8 +18,6 @@ namespace Toastify.Model
     [XmlRoot("Hotkey")]
     public class Hotkey : INotifyPropertyChanged, IXmlSerializable, ICloneable
     {
-        private static readonly List<Hotkey> hotkeys = new List<Hotkey>();
-
         #region Private fields
 
         private SpotifyAction _action;
@@ -58,14 +56,14 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Specifies whether or not the hotkey is enabled or disabled from a user's
-        /// perspective. Does not actually enable or disable the hotkey, use Activate()
-        /// and Deactivate().
-        ///
-        /// Why do we have these two schemes? We need a way to be able to deactivate a
+        /// Specifies whether or not the hotkey is enabled from a user's perspective.
+        /// Does not actually register the hotkey, use Activate() and Deactivate().
+        /// </summary>
+        /// <remarks>
+        /// Why do we have these two properties? We need a way to be able to deactivate a
         /// Hotkey (for example when unloading settings) without changing the Enabled
         /// property (which only indicates the user's preference)
-        /// </summary>
+        /// </remarks>
         public bool Enabled
         {
             get
@@ -292,11 +290,6 @@ namespace Toastify.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Hotkey()
-        {
-            hotkeys.Add(this);
-        }
-
         ~Hotkey()
         {
             if (this.key != null)
@@ -305,22 +298,13 @@ namespace Toastify.Model
 
         public object Clone()
         {
-            Hotkey clone = this.MemberwiseClone() as Hotkey;
+            Hotkey clone = (Hotkey)this.MemberwiseClone();
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.
-            if (clone != null)
-                clone._active = false;
+            clone._active = false;
 
             return clone;
-        }
-
-        /// <summary>
-        /// Turn this HotKey off.
-        /// </summary>
-        public void Deactivate()
-        {
-            this.Active = false;
         }
 
         /// <summary>
@@ -329,6 +313,14 @@ namespace Toastify.Model
         public void Activate()
         {
             this.Active = true;
+        }
+
+        /// <summary>
+        /// Turn this HotKey off.
+        /// </summary>
+        public void Deactivate()
+        {
+            this.Active = false;
         }
 
         private void InitGlobalKey()
@@ -351,7 +343,7 @@ namespace Toastify.Model
             if (this._globalKey == null)
                 this._globalKey = new ManagedWinapi.Hotkey();
 
-            // Make sure that we don't try to reregister the key midway updating the combination.
+            // Make sure that we don't try to re-register the key midway updating the combination.
             if (this._globalKey.Enabled)
                 this._globalKey.Enabled = false;
 
@@ -399,6 +391,15 @@ namespace Toastify.Model
                 this.IsValid = true;
                 this.InvalidReason = "";
             }
+        }
+
+        public override string ToString()
+        {
+            string prefix = $"{(this.Enabled ? 'E' : ' ')}{(this.Active ? 'A' : ' ')}";
+            string keyCombination = $"{(this.Ctrl ? "Ctrl+" : "")}{(this.Shift ? "Shift+" : "")}{(this.Alt ? "Alt+" : "")}{(this.WindowsKey ? "Win+" : "")}{this.Key}";
+
+            // ReSharper disable once UseStringInterpolation
+            return $"{prefix} {this.Action,-15}: {keyCombination}";
         }
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
@@ -565,15 +566,6 @@ namespace Toastify.Model
         #endregion IXmlSerializable
 
         #region Static functions
-
-        public static void ClearAll()
-        {
-            // Disable will be called by the destructors, but we want to force a disable
-            // now so that we don't wait for the GC to clean up the objects
-            foreach (Hotkey hotkey in hotkeys)
-                hotkey.Deactivate();
-            hotkeys.Clear();
-        }
 
         private static Keys ConvertInputKeyToFormsKeys(Key key)
         {

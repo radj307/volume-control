@@ -237,7 +237,7 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Width="65">Top color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=ToastColorTop, Mode=TwoWay}"
-                                                              ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                              ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorTopUpDown" Grid.Column="1" Height="24" Margin="218,1,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="0.0" Increment="0.01"
@@ -245,7 +245,7 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left" Width="85">Bottom color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=ToastColorBottom, Mode=TwoWay}"
-                                                              ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                              ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,36,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorBottomUpDown" Grid.Column="1" Height="24" Margin="218,37,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="1.0" Increment="0.01"
@@ -253,7 +253,7 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,72,0,0" HorizontalAlignment="Left" Width="81">Border color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,73,0,0" SelectedColor="{Binding Path=ToastBorderColor, Mode=TwoWay}"
-                                                          ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                     </Grid>
                                 </GroupBox>
 
@@ -268,7 +268,7 @@
                                         <!-- Title1 -->
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Width="59">Top title :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=ToastTitle1Color, Mode=TwoWay}"
-                                                          ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title1FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,1,6,0" VerticalAlignment="Top"
                                                            FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
@@ -293,7 +293,7 @@
                                         <!-- Title2 -->
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,60,0,0" HorizontalAlignment="Left" Width="79">Bottom title :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,61,0,0" SelectedColor="{Binding Path=ToastTitle2Color, Mode=TwoWay}"
-                                                          ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,60,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title2FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,61,6,0" VerticalAlignment="Top"
                                                             FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="12" Increment="1"
@@ -327,11 +327,11 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left">Background color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=SongProgressBarBackgroundColor, Mode=TwoWay}"
-                                                          ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left">Foreground color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=SongProgressBarForegroundColor, Mode=TwoWay}"
-                                                          ShowDropDownButton="True" ShowTabHeaders="True" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                     </Grid>
                                 </GroupBox>
                             </StackPanel>
@@ -346,8 +346,8 @@
                           Content="Default" Command="{Binding Path=DefaultCommand}" ToolTip="Reset the current tab's settings to their default values">
             <wpft:SplitButton.DropDownContent>
                 <Menu>
-                    <MenuItem Header="Default" Command="{Binding Path=DefaultCommand}" ToolTip="Reset the current tab's settings to their default values" />
-                    <MenuItem Header="Default All" Command="{Binding Path=DefaultAllCommand}" ToolTip="Reset all settings to their default values" />
+                    <MenuItem Header="Default" ToolTip="Reset the current tab's settings to their default values" Click="BtnDefaultMenuItem_OnClick" />
+                    <MenuItem Header="Default All" ToolTip="Reset all settings to their default values" Click="BtnDefaultAllMenuItem_OnClick" />
                     <Menu.Style>
                         <Style TargetType="Menu">
                             <Setter Property="ItemsPanel">
