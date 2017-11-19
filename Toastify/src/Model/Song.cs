@@ -83,7 +83,7 @@ namespace Toastify.Model
             if (this.Artist == null)
                 return this.Track;
 
-            return Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist ?
+            return Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist ?
                 $"\x201C{this.Track}\x201D by {this.Artist}" :
                 $"{this.Artist}: \x201C{this.Track}\x201D";
         }

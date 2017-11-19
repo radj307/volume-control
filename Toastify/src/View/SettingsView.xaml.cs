@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Toastify.Common;
 using Toastify.Core;
+using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
@@ -20,7 +21,11 @@ namespace Toastify.View
 
         private readonly ToastView toastView;
         private readonly SettingsViewModel settingsViewModel;
-        private readonly Settings settings;
+
+        private Settings Settings
+        {
+            get { return this.settingsViewModel?.Settings; }
+        }
 
         public WindowStartupLocation StartupLocation
         {
@@ -28,19 +33,19 @@ namespace Toastify.View
             {
                 WindowStartupLocation location;
 
-                if (this.settings.FirstRun || this.settings.SettingsWindowLastLocation == WindowPosition.Zero)
+                if (this.Settings.FirstRun || this.Settings.SettingsWindowLastLocation == WindowPosition.Zero)
                     location = WindowStartupLocation.CenterScreen;
                 else
                 {
-                    this.Left = this.settings.SettingsWindowLastLocation.Left;
-                    this.Top = this.settings.SettingsWindowLastLocation.Top;
+                    this.Left = this.Settings.SettingsWindowLastLocation.Left;
+                    this.Top = this.Settings.SettingsWindowLastLocation.Top;
                     location = WindowStartupLocation.Manual;
                 }
                 return location;
             }
         }
 
-        public static event EventHandler SettingsLaunched;
+        public static event EventHandler<SettingsViewLaunchedEventArgs> SettingsLaunched;
 
         public static event EventHandler SettingsClosed;
 
@@ -52,7 +57,6 @@ namespace Toastify.View
             this.settingsViewModel.SettingsSaved += this.SettingsViewModel_SettingsSaved;
 
             this.toastView = toastView;
-            this.settings = this.settingsViewModel.Settings;
 
             this.InitializeComponent();
 
@@ -70,7 +74,7 @@ namespace Toastify.View
             else
             {
                 SettingsView settingsView = new SettingsView(toastView);
-                SettingsLaunched?.Invoke(_current, EventArgs.Empty);
+                SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings));
                 settingsView.ShowDialog();
             }
         }
@@ -81,8 +85,8 @@ namespace Toastify.View
         {
             SettingsClosed?.Invoke(_current, EventArgs.Empty);
 
-            Settings.Instance.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
-            Settings.Instance.Save(true);
+            Settings.Current.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
+            Settings.Current.Save();
 
             if (ReferenceEquals(_current, this))
                 _current = null;
@@ -138,17 +142,17 @@ namespace Toastify.View
         private void FadeOutTime_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.FadeOutTime += 10;
-            else if (this.settings.FadeOutTime >= 10)
-                this.settings.FadeOutTime -= 10;
+                this.Settings.FadeOutTime += 10;
+            else if (this.Settings.FadeOutTime >= 10)
+                this.Settings.FadeOutTime -= 10;
         }
 
         private void BorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastBorderThickness++;
-            else if (this.settings.ToastBorderThickness >= 1)
-                this.settings.ToastBorderThickness--;
+                this.Settings.ToastBorderThickness++;
+            else if (this.Settings.ToastBorderThickness >= 1)
+                this.Settings.ToastBorderThickness--;
         }
 
         #region Change colors
@@ -156,19 +160,19 @@ namespace Toastify.View
         private void TopColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.settings.ToastColorTop = $"#{alpha}{this.settings.ToastColorTop.Substring(3)}";
+            this.Settings.ToastColorTop = $"#{alpha}{this.Settings.ToastColorTop.Substring(3)}";
         }
 
         private void BottomColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.settings.ToastColorBottom = $"#{alpha}{this.settings.ToastColorBottom.Substring(3)}";
+            this.Settings.ToastColorBottom = $"#{alpha}{this.Settings.ToastColorBottom.Substring(3)}";
         }
 
         private void BorderColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.settings.ToastBorderColor = $"#{alpha}{this.settings.ToastBorderColor.Substring(3)}";
+            this.Settings.ToastBorderColor = $"#{alpha}{this.Settings.ToastBorderColor.Substring(3)}";
         }
 
         #endregion Change colors
@@ -179,34 +183,34 @@ namespace Toastify.View
         {
             if (e.Delta > 0)
             {
-                this.settings.ToastBorderCornerRadiusTopLeft += 0.1;
+                this.Settings.ToastBorderCornerRadiusTopLeft += 0.1;
             }
-            else if (this.settings.ToastBorderCornerRadiusTopLeft >= 0.1)
-                this.settings.ToastBorderCornerRadiusTopLeft -= 0.1;
+            else if (this.Settings.ToastBorderCornerRadiusTopLeft >= 0.1)
+                this.Settings.ToastBorderCornerRadiusTopLeft -= 0.1;
         }
 
         private void CornerTopRight_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastBorderCornerRadiusTopRight += 0.1;
-            else if (this.settings.ToastBorderCornerRadiusTopLeft >= 0.1)
-                this.settings.ToastBorderCornerRadiusTopRight -= 0.1;
+                this.Settings.ToastBorderCornerRadiusTopRight += 0.1;
+            else if (this.Settings.ToastBorderCornerRadiusTopLeft >= 0.1)
+                this.Settings.ToastBorderCornerRadiusTopRight -= 0.1;
         }
 
         private void CornerBottomLeft_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastBorderCornerRadiusBottomLeft += 0.1;
-            else if (this.settings.ToastBorderCornerRadiusBottomLeft >= 0.1)
-                this.settings.ToastBorderCornerRadiusBottomLeft -= 0.1;
+                this.Settings.ToastBorderCornerRadiusBottomLeft += 0.1;
+            else if (this.Settings.ToastBorderCornerRadiusBottomLeft >= 0.1)
+                this.Settings.ToastBorderCornerRadiusBottomLeft -= 0.1;
         }
 
         private void CornerBottomRight_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastBorderCornerRadiusBottomRight += 0.1;
-            else if (this.settings.ToastBorderCornerRadiusBottomRight >= 0.1)
-                this.settings.ToastBorderCornerRadiusBottomRight -= 0.1;
+                this.Settings.ToastBorderCornerRadiusBottomRight += 0.1;
+            else if (this.Settings.ToastBorderCornerRadiusBottomRight >= 0.1)
+                this.Settings.ToastBorderCornerRadiusBottomRight -= 0.1;
         }
 
         #endregion Corner radius
@@ -216,33 +220,33 @@ namespace Toastify.View
         private void ToastWidth_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastWidth += 5;
-            else if (this.settings.ToastWidth >= 205)
-                this.settings.ToastWidth -= 5;
+                this.Settings.ToastWidth += 5;
+            else if (this.Settings.ToastWidth >= 205)
+                this.Settings.ToastWidth -= 5;
         }
 
         private void ToastHeight_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.ToastHeight += 5;
-            else if (this.settings.ToastHeight >= 70)
-                this.settings.ToastHeight -= 5;
+                this.Settings.ToastHeight += 5;
+            else if (this.Settings.ToastHeight >= 70)
+                this.Settings.ToastHeight -= 5;
         }
 
         private void PositionLeft_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.PositionLeft++;
-            else if (this.settings.PositionLeft > 0)
-                this.settings.PositionLeft--;
+                this.Settings.PositionLeft++;
+            else if (this.Settings.PositionLeft > 0)
+                this.Settings.PositionLeft--;
         }
 
         private void PositionTop_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-                this.settings.PositionTop++;
-            else if (this.settings.PositionTop > 0)
-                this.settings.PositionTop--;
+                this.Settings.PositionTop++;
+            else if (this.Settings.PositionTop > 0)
+                this.Settings.PositionTop--;
         }
 
         #endregion Toast size & position

@@ -129,7 +129,7 @@ namespace Toastify.ViewModel
 
         public SettingsViewModel()
         {
-            this.Settings = Settings.Instance.Clone();
+            this.Settings = Settings.Temporary;
 
             this.SaveCommand = new DelegateCommand(this.Save);
             this.DefaultCommand = new DelegateCommand(this.Default);
@@ -217,7 +217,7 @@ namespace Toastify.ViewModel
         {
             var dialog = new OpenFileDialog()
             {
-                FileName = Settings.Instance.SaveTrackToFilePath ?? string.Empty,
+                FileName = this.Settings.SaveTrackToFilePath ?? string.Empty,
                 CheckPathExists = true,
                 CheckFileExists = false,
                 ShowReadOnly = false

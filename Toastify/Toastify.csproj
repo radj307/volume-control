@@ -115,6 +115,7 @@
     <Compile Include="src\Core\SpotifyTrackType.cs" />
     <Compile Include="src\Core\ToastifyVolumeControlMode.cs" />
     <Compile Include="src\Core\ToastTitlesOrder.cs" />
+    <Compile Include="src\Events\SettingsViewLaunchedEventArgs.cs" />
     <Compile Include="src\Helpers\ColorHelper.cs" />
     <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
     <Compile Include="src\Helpers\Extensions.cs" />

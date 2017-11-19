@@ -115,9 +115,9 @@ namespace Toastify.Core
             this.spotifyLauncher.DoWork += this.StartSpotify_WorkerTask;
             this.spotifyLauncher.RunWorkerCompleted += this.StartSpotify_WorkerTaskCompleted;
 
-            if (Settings.Instance.StartupWaitTimeout < 60000)
-                Settings.Instance.StartupWaitTimeout = 60000;
-            Timer timeoutTimer = new Timer(Settings.Instance.StartupWaitTimeout) { AutoReset = false };
+            if (Settings.Current.StartupWaitTimeout < 60000)
+                Settings.Current.StartupWaitTimeout = 60000;
+            Timer timeoutTimer = new Timer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
             timeoutTimer.Elapsed += (sender, e) => this.spotifyLauncher.CancelAsync();
 
             this.spotifyLauncher.RunWorkerAsync();
@@ -226,7 +226,7 @@ namespace Toastify.Core
             // We need to let Spotify start-up before interacting with it.
             this.spotifyProcess?.WaitForInputIdle();
 
-            if (Settings.Instance.MinimizeSpotifyOnStartup)
+            if (Settings.Current.MinimizeSpotifyOnStartup)
                 this.Minimize(1000);
 
             return this.spotifyProcess;
@@ -419,7 +419,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
-                    switch (Settings.Instance.VolumeControlMode)
+                    switch (Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -437,7 +437,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.VolumeDown:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
-                    switch (Settings.Instance.VolumeControlMode)
+                    switch (Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -455,7 +455,7 @@ namespace Toastify.Core
 
                 case SpotifyAction.Mute:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
-                    switch (Settings.Instance.VolumeControlMode)
+                    switch (Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.ToggleMute();

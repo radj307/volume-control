@@ -18,28 +18,39 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Settings));
 
-        #region Singleton
+        #region Settings instances
 
-        private static Settings _instance;
+        private static Settings _current;
 
-        public static Settings Instance
+        /// <summary>
+        /// The currently applied settings. Whenever they get modified, the Settings file should be modified too.
+        /// </summary>
+        public static Settings Current
         {
             get
             {
-                return _instance ?? (_instance = new Settings());
+                return _current ?? (_current = new Settings());
             }
             private set
             {
-                if (_instance != null)
+                if (_current != null)
                 {
-                    _instance.UnloadSettings();
-                    _instance = value;
-                    _instance.ApplySettings();
+                    _current.Unload();
+                    _current = value;
+                    _current.Apply();
                 }
             }
         }
 
-        #endregion Singleton
+        /// <summary>
+        /// A temporary copy of the Current settings that can be modified without affecting the applied settings.
+        /// </summary>
+        public static Settings Temporary
+        {
+            get { return _current?.Clone(); }
+        }
+
+        #endregion Settings instances
 
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILENAME = "Toastify.xml";
@@ -599,15 +610,15 @@ namespace Toastify.Model
             }
 
             if (replaceCurrent)
-                Instance = this;
+                Current = this;
         }
 
         public Settings Load()
         {
             if (!File.Exists(this.SettingsFilePath))
             {
-                Instance.Default(true);
-                Instance.Save();
+                Current.Default(true);
+                Current.Save();
             }
             else
             {
@@ -617,13 +628,13 @@ namespace Toastify.Model
 
                     file?.CheckForNewSettings();
 
-                    Instance = file;
+                    Current = file;
                 }
             }
 
-            Instance?.SanitizeSettingsFile();
+            Current?.SanitizeSettingsFile();
 
-            return Instance;
+            return Current;
         }
 
         /// <summary>
@@ -686,7 +697,7 @@ namespace Toastify.Model
         /// <summary>
         /// Any active settings (such as hotkeys) should be triggered here
         /// </summary>
-        private void ApplySettings()
+        private void Apply()
         {
             if (this.GlobalHotKeys)
             {
@@ -698,7 +709,7 @@ namespace Toastify.Model
         /// <summary>
         /// Any active settings (such as hotkeys) should be unloaded here
         /// </summary>
-        private void UnloadSettings()
+        private void Unload()
         {
             if (this.HotKeys != null)
             {

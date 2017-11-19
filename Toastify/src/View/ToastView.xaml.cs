@@ -69,6 +69,16 @@ namespace Toastify.View
 
         #endregion Private fields
 
+        public Settings Settings
+        {
+            get { return this.toastViewModel?.Settings; }
+            private set
+            {
+                if (this.toastViewModel != null)
+                    this.toastViewModel.Settings = value;
+            }
+        }
+
         public bool IsToastVisible { get; private set; }
 
         internal List<IPluginBase> Plugins { get; set; }
@@ -127,57 +137,56 @@ namespace Toastify.View
         {
             if (!this.isPreviewForSettings)
                 this.SetToastVisibility(false);
-
-            Settings settings = Settings.Instance;
+            
             ColorConverter cc = new ColorConverter();
 
             // [ DIMENSIONS ]
-            this.Width = settings.ToastWidth >= this.MinWidth ? settings.ToastWidth : this.MinWidth;
-            this.Height = settings.ToastHeight >= this.MinHeight ? settings.ToastHeight : this.MinHeight;
+            this.Width = this.Settings.ToastWidth >= this.MinWidth ? this.Settings.ToastWidth : this.MinWidth;
+            this.Height = this.Settings.ToastHeight >= this.MinHeight ? this.Settings.ToastHeight : this.MinHeight;
 
             // [ BORDERS ]
-            this.ToastBorder.BorderThickness = new Thickness(settings.ToastBorderThickness);
-            this.ToastBorder.BorderBrush = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastBorderColor));
+            this.ToastBorder.BorderThickness = new Thickness(this.Settings.ToastBorderThickness);
+            this.ToastBorder.BorderBrush = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastBorderColor));
             this.ToastBorder.CornerRadius = new CornerRadius(
-                settings.ToastBorderCornerRadiusTopLeft,
-                settings.ToastBorderCornerRadiusTopRight,
-                settings.ToastBorderCornerRadiusBottomRight,
-                settings.ToastBorderCornerRadiusBottomLeft);
+                this.Settings.ToastBorderCornerRadiusTopLeft,
+                this.Settings.ToastBorderCornerRadiusTopRight,
+                this.Settings.ToastBorderCornerRadiusBottomRight,
+                this.Settings.ToastBorderCornerRadiusBottomLeft);
 
             // [ BACKGROUND COLOR ]
-            Color top = ColorHelper.HexToColor(settings.ToastColorTop);
-            Color bottom = ColorHelper.HexToColor(settings.ToastColorBottom);
+            Color top = ColorHelper.HexToColor(this.Settings.ToastColorTop);
+            Color bottom = ColorHelper.HexToColor(this.Settings.ToastColorBottom);
 
             GradientStopCollection stops = new GradientStopCollection(2)
             {
-                new GradientStop(top, settings.ToastColorTopOffset),
-                new GradientStop(bottom, settings.ToastColorBottomOffset)
+                new GradientStop(top, this.Settings.ToastColorTopOffset),
+                new GradientStop(bottom, this.Settings.ToastColorBottomOffset)
             };
             this.ToastBorder.Background = new LinearGradientBrush(stops, new Point(0, 0), new Point(0, 1));
 
             // [ TEXT COLOR ]
-            this.Title1.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle1Color));
-            this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(settings.ToastTitle2Color));
+            this.Title1.Foreground = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastTitle1Color));
+            this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastTitle2Color));
             this.Title1.Effect = new DropShadowEffect
             {
-                ShadowDepth = settings.ToastTitle1DropShadow ? settings.ToastTitle1ShadowDepth : 0.0,
-                BlurRadius = settings.ToastTitle1DropShadow ? settings.ToastTitle1ShadowBlur : 0.0
+                ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0,
+                BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0
             };
             this.Title2.Effect = new DropShadowEffect
             {
-                ShadowDepth = settings.ToastTitle2DropShadow ? settings.ToastTitle2ShadowDepth : 0.0,
-                BlurRadius = settings.ToastTitle2DropShadow ? settings.ToastTitle2ShadowBlur : 0.0
+                ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0,
+                BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0
             };
 
             // [ TEXT FONT SIZE ]
-            this.Title1.FontSize = settings.ToastTitle1FontSize;
-            this.Title2.FontSize = settings.ToastTitle2FontSize;
+            this.Title1.FontSize = this.Settings.ToastTitle1FontSize;
+            this.Title2.FontSize = this.Settings.ToastTitle2FontSize;
 
             // [ SONG PROGRESS BAR ]
-            this.SongProgressBar.Visibility = Settings.Instance.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
-            this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarBackgroundColor));
-            this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarForegroundColor));
-            this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(settings.SongProgressBarForegroundColor));
+            this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarBackgroundColor));
+            this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
+            this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
         }
 
         private void InitTrayIcon()
@@ -261,7 +270,7 @@ namespace Toastify.View
             Assembly assembly = Assembly.GetExecutingAssembly();
             string applicationPath = new FileInfo(assembly.Location).DirectoryName;
 
-            foreach (var p in Settings.Instance.Plugins)
+            foreach (var p in this.Settings.Plugins)
             {
                 try
                 {
@@ -323,14 +332,14 @@ namespace Toastify.View
             this.UpdateSongProgressBar(0.0);
 
             // Save track info to file.
-            if (Settings.Instance.SaveTrackToFile)
+            if (this.Settings.SaveTrackToFile)
             {
-                if (!string.IsNullOrEmpty(Settings.Instance.SaveTrackToFilePath))
+                if (!string.IsNullOrEmpty(this.Settings.SaveTrackToFilePath))
                 {
                     try
                     {
-                        string trackText = this.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate);
-                        File.WriteAllText(Settings.Instance.SaveTrackToFilePath, trackText);
+                        string trackText = this.currentSong.GetClipboardText(this.Settings.ClipboardTemplate);
+                        File.WriteAllText(this.Settings.SaveTrackToFilePath, trackText);
                     }
                     catch (Exception e)
                     {
@@ -449,10 +458,20 @@ namespace Toastify.View
 
             if (shallBeVisible)
             {
-                this.Left = Settings.Instance.PositionLeft;
-                this.Top = Settings.Instance.PositionTop;
+                this.Left = this.Settings.PositionLeft;
+                this.Top = this.Settings.PositionTop;
                 this.ResetPositionIfOffScreen();
             }
+        }
+
+        private void ShowToastPreview(bool show)
+        {
+            this.isPreviewForSettings = !show;
+            if (show)
+                this.ShowToast(true, false, true);
+            else
+                this.FadeOut(true);
+            this.isPreviewForSettings = show;
         }
 
         private void ShowToast(bool force = false, bool isUpdate = false, bool permanent = false)
@@ -482,8 +501,8 @@ namespace Toastify.View
 
                     bool doNotFadeIn = this.dragging ||
                                        this.isPreviewForSettings ||
-                                       (Settings.Instance.DisableToast || (Settings.Instance.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
-                                       (Settings.Instance.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
+                                       (this.Settings.DisableToast || (this.Settings.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
+                                       (this.Settings.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
                     if (doNotFadeIn)
                         return;
 
@@ -491,7 +510,7 @@ namespace Toastify.View
                     // as this will be triggered when a song is played. The primary problem is if there is a
                     // particularly long song then this will not work. That said, this is the safest (in terms of
                     // not causing a user's computer from never sleeping).
-                    if (Settings.Instance.PreventSleepWhilePlaying)
+                    if (this.Settings.PreventSleepWhilePlaying)
                     {
 #if DEBUG
                         var rv =
@@ -525,7 +544,7 @@ namespace Toastify.View
                             // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
                             this.BeginAnimation(OpacityProperty, null);
                             this.Opacity = 1.0;
-                            this.minimizeTimer.Interval = Settings.Instance.FadeOutTime;
+                            this.minimizeTimer.Interval = this.Settings.FadeOutTime;
                             this.minimizeTimer.Start();
                         }
                     }
@@ -539,7 +558,7 @@ namespace Toastify.View
                 new Action(() =>
                 {
                     // 16 == one frame (0 is not a valid interval)
-                    var interval = now ? 16 : Settings.Instance.FadeOutTime;
+                    var interval = now ? 16 : this.Settings.FadeOutTime;
 
                     if (this.minimizeTimer == null)
                     {
@@ -645,7 +664,7 @@ namespace Toastify.View
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // Close Spotify first.
-            if (Settings.Instance.CloseSpotifyWithToastify)
+            if (this.Settings.CloseSpotifyWithToastify)
                 Spotify.Instance.Kill();
 
             // Dispose the timer.
@@ -702,12 +721,12 @@ namespace Toastify.View
                 if (hotkey.Action == SpotifyAction.CopyTrackInfo && Current.currentSong != null)
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(Current.Settings.ClipboardTemplate));
                 }
                 else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Current.currentSong != null)
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(Settings.Instance.ClipboardTemplate));
+                    Clipboard.SetText(Current.currentSong.GetClipboardText(Current.Settings.ClipboardTemplate));
                     Win32API.SendPasteKey();
                 }
                 else
@@ -784,12 +803,10 @@ namespace Toastify.View
                 this.dragging = false;
 
                 // Save the new window position
-                Settings settings = Settings.Instance;
-
-                settings.PositionLeft = this.Left;
-                settings.PositionTop = this.Top;
-
-                settings.Save();
+                this.Settings.PositionLeft = this.Left;
+                this.Settings.PositionTop = this.Top;
+                if (this.Settings == Settings.Current)
+                    this.Settings.Save();
             }
         }
 
@@ -857,18 +874,16 @@ namespace Toastify.View
 
         #region Event handlers
 
-        private void SettingsView_Launched(object sender, EventArgs e)
+        private void SettingsView_Launched(object sender, SettingsViewLaunchedEventArgs e)
         {
-            this.isPreviewForSettings = false;
-            this.ShowToast(true, false, true);
-            this.isPreviewForSettings = true;
+            this.Settings = e.Settings;
+            this.ShowToastPreview(true);
         }
 
         private void SettingsView_Closed(object sender, EventArgs e)
         {
-            this.isPreviewForSettings = true;
-            this.FadeOut(true);
-            this.isPreviewForSettings = false;
+            this.ShowToastPreview(false);
+            this.Settings = Settings.Current;
         }
 
         private void Application_Shutdown(object sender, EventArgs e)

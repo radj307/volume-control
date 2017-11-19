@@ -28,7 +28,7 @@ namespace Toastify.Services
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private static string TrackingId { get; set; }
 
-        public static bool AnalyticsEnabled { get { return requestFactory != null && Settings.Instance.OptInToAnalytics; } }
+        public static bool AnalyticsEnabled { get { return requestFactory != null && Settings.Current.OptInToAnalytics; } }
 
         private static GoogleAnalyticsRequestFactory requestFactory;
 
@@ -47,14 +47,14 @@ namespace Toastify.Services
             }
 
             requestFactory = new GoogleAnalyticsRequestFactory(TrackingId);
-            bool wasOnNoAnalyticsVersion = new Version(Settings.Instance.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
-            bool appHasBeenJustUpdated = new Version(Settings.Instance.PreviousVersion ?? "0.0.0") < new Version(VersionChecker.CurrentVersion);
+            bool wasOnNoAnalyticsVersion = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
+            bool appHasBeenJustUpdated = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version(VersionChecker.CurrentVersion);
 
             // Install Event
-            if (Settings.Instance.FirstRun || wasOnNoAnalyticsVersion)
+            if (Settings.Current.FirstRun || wasOnNoAnalyticsVersion)
             {
                 TrackInstallEvent();
-                Settings.Instance.FirstRun = false;
+                Settings.Current.FirstRun = false;
             }
 
             // NOTE: The install event should always be sent
@@ -165,30 +165,30 @@ namespace Toastify.Services
                 logger.Debug($"Collecting preferences...");
 
             // General
-            TrackSettingBinaryHit(nameof(Settings.Instance.LaunchOnStartup), Settings.Instance.LaunchOnStartup);
-            TrackSettingBinaryHit(nameof(Settings.Instance.MinimizeSpotifyOnStartup), Settings.Instance.MinimizeSpotifyOnStartup);
-            TrackSettingBinaryHit(nameof(Settings.Instance.CloseSpotifyWithToastify), Settings.Instance.CloseSpotifyWithToastify);
+            TrackSettingBinaryHit(nameof(Settings.Current.LaunchOnStartup), Settings.Current.LaunchOnStartup);
+            TrackSettingBinaryHit(nameof(Settings.Current.MinimizeSpotifyOnStartup), Settings.Current.MinimizeSpotifyOnStartup);
+            TrackSettingBinaryHit(nameof(Settings.Current.CloseSpotifyWithToastify), Settings.Current.CloseSpotifyWithToastify);
 
-            TrackSettingBinaryHit($"{nameof(Settings.Instance.VolumeControlMode)}/{ToastifyVolumeControlMode.Spotify}", Settings.Instance.VolumeControlMode == ToastifyVolumeControlMode.Spotify);
-            TrackSettingBinaryHit($"{nameof(Settings.Instance.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemGlobal}", Settings.Instance.VolumeControlMode == ToastifyVolumeControlMode.SystemGlobal);
-            TrackSettingBinaryHit($"{nameof(Settings.Instance.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemSpotifyOnly}", Settings.Instance.VolumeControlMode == ToastifyVolumeControlMode.SystemSpotifyOnly);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.Spotify}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.Spotify);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemGlobal}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemGlobal);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemSpotifyOnly}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemSpotifyOnly);
 
-            TrackSettingBinaryHit(nameof(Settings.Instance.SaveTrackToFile), Settings.Instance.SaveTrackToFile);
-            TrackSettingBinaryHit(nameof(Settings.Instance.PreventSleepWhilePlaying), Settings.Instance.PreventSleepWhilePlaying);
+            TrackSettingBinaryHit(nameof(Settings.Current.SaveTrackToFile), Settings.Current.SaveTrackToFile);
+            TrackSettingBinaryHit(nameof(Settings.Current.PreventSleepWhilePlaying), Settings.Current.PreventSleepWhilePlaying);
 
             // Hotkeys
-            TrackSettingBinaryHit(nameof(Settings.Instance.GlobalHotKeys), Settings.Instance.GlobalHotKeys);
-            foreach (var hotkey in Settings.Instance.HotKeys)
+            TrackSettingBinaryHit(nameof(Settings.Current.GlobalHotKeys), Settings.Current.GlobalHotKeys);
+            foreach (var hotkey in Settings.Current.HotKeys)
                 TrackSettingBinaryHit($"HotKeys/{hotkey.Action}", hotkey.Enabled);
 
             // Toast
-            TrackSettingBinaryHit(nameof(Settings.Instance.DisableToast), Settings.Instance.DisableToast);
-            TrackSettingBinaryHit(nameof(Settings.Instance.OnlyShowToastOnHotkey), Settings.Instance.OnlyShowToastOnHotkey);
-            TrackSettingBinaryHit(nameof(Settings.Instance.DisableToastWithFullscreenVideogames), Settings.Instance.DisableToastWithFullscreenVideogames);
-            TrackSettingBinaryHit(nameof(Settings.Instance.ShowSongProgressBar), Settings.Instance.ShowSongProgressBar);
+            TrackSettingBinaryHit(nameof(Settings.Current.DisableToast), Settings.Current.DisableToast);
+            TrackSettingBinaryHit(nameof(Settings.Current.OnlyShowToastOnHotkey), Settings.Current.OnlyShowToastOnHotkey);
+            TrackSettingBinaryHit(nameof(Settings.Current.DisableToastWithFullscreenVideogames), Settings.Current.DisableToastWithFullscreenVideogames);
+            TrackSettingBinaryHit(nameof(Settings.Current.ShowSongProgressBar), Settings.Current.ShowSongProgressBar);
 
-            TrackSettingBinaryHit($"{nameof(Settings.Instance.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
-            TrackSettingBinaryHit($"{nameof(Settings.Instance.ToastTitlesOrder)}/{ToastTitlesOrder.TrackByArtist}", Settings.Instance.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.TrackByArtist}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist);
         }
 
         private static string GetOS()

@@ -14,6 +14,7 @@ using Toastify.Core;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using Toastify.View;
 
 namespace Toastify
 {
@@ -79,8 +80,8 @@ namespace Toastify
             LoadSettings();
             StartupTask();
             Analytics.Init();
-            Settings.Instance.PreviousVersion = VersionChecker.CurrentVersion;
-            Settings.Instance.Save();
+            Settings.Current.PreviousVersion = VersionChecker.CurrentVersion;
+            Settings.Current.Save();
         }
 
         private static void RunApp()
@@ -109,31 +110,31 @@ namespace Toastify
         {
             try
             {
-                Settings.Instance.Load();
+                Settings.Current.Load();
             }
             catch (Exception ex)
             {
                 logger.Warn("Exception loading settings from file. Using defaults.", ex);
 
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Instance.SettingsFilePath);
+                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.Current.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                Settings.Instance.Default(true);
+                Settings.Current.Default(true);
             }
         }
 
         private static void StartupTask()
         {
-            if (!string.IsNullOrWhiteSpace(Settings.Instance.PreviousVersion))
+            if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
             {
-                Version previous = new Version(Settings.Instance.PreviousVersion);
+                Version previous = new Version(Settings.Current.PreviousVersion);
                 Version current = new Version(VersionChecker.CurrentVersion);
 
                 if (previous < new Version("1.9.7"))
                 {
                     // Re-enable Analytics by default
-                    Settings.Instance.OptInToAnalytics = true;
-                    Settings.Instance.Save();
+                    Settings.Current.OptInToAnalytics = true;
+                    Settings.Current.Save();
                 }
             }
         }
