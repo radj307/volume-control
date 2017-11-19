@@ -143,12 +143,19 @@
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />
+    <Compile Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml.cs">
+      <DependentUpon>DebugView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Win32API.cs" />
     <Page Include="src\View\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\View\SettingsView.xaml">
       <SubType>Designer</SubType>

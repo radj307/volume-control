@@ -87,7 +87,21 @@ namespace Toastify
         {
             App app = new App();
             app.InitializeComponent();
+
+#if DEBUG
             LastInputDebug.Start();
+
+            Thread th = new Thread(() =>
+            {
+                DebugView debugView = new DebugView();
+                debugView.Show();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            th.SetApartmentState(ApartmentState.STA);
+            th.IsBackground = true;
+            th.Start();
+#endif
+
             app.Run();
         }
 
