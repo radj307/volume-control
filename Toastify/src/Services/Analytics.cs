@@ -15,7 +15,9 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using log4net;
+using log4net.Util;
 using Toastify.Core;
+using Toastify.Helpers;
 using Toastify.Model;
 
 namespace Toastify.Services
@@ -34,15 +36,14 @@ namespace Toastify.Services
 
         internal static void Init()
         {
-            if (logger.IsDebugEnabled)
-                logger.Debug("Initializing Analytics class...");
+            logger.DebugExt("Initializing Analytics class...");
 
             // ReSharper disable once InvocationIsSkipped
             SetTrackingId();
 
             if (string.IsNullOrWhiteSpace(TrackingId))
             {
-                logger.Error("No TrackingId set.");
+                logger.ErrorExt("No TrackingId set.");
                 return;
             }
 
@@ -82,8 +83,7 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            if (logger.IsDebugEnabled)
-                logger.Debug($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
+            logger.DebugExt($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
         }
 
         public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
@@ -110,8 +110,7 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            if (logger.IsDebugEnabled)
-                logger.Debug($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
+            logger.DebugExt($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
         }
 
         public static void TrackException(Exception exception, bool fatal = false)
@@ -119,11 +118,11 @@ namespace Toastify.Services
             if (!AnalyticsEnabled)
                 return;
 
-            // The exception will be truncated to 150 bytes; at some point it may be better to extract more pertinant information.
+            // The exception will be truncated to 150 bytes; at some point it may be better to extract more pertinent information.
             var request = requestFactory.CreateRequest(HitTypes.Exception, GetCommonParameters());
 
             request.Parameters.AddRange(GetCommonParameters());
-            request.Parameters.Add(new ExceptionDescription($"{exception.Message}\n{exception.StackTrace}"));
+            request.Parameters.Add(new ExceptionDescription($"{exception.ToStringInvariantCulture()}"));
             request.Parameters.Add(new IsExceptionFatal(fatal));
 
             PostRequest(request);
@@ -161,8 +160,7 @@ namespace Toastify.Services
 
         private static void CollectPreferences()
         {
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Collecting preferences...");
+            logger.DebugExt($"Collecting preferences...");
 
             // General
             TrackSettingBinaryHit(nameof(Settings.Current.LaunchOnStartup), Settings.Current.LaunchOnStartup);
@@ -210,7 +208,7 @@ namespace Toastify.Services
             }
             catch (Exception e)
             {
-                logger.Error("Error while getting FriendlyOS.", e);
+                logger.ErrorInvariantCulture("Error while getting FriendlyOS.", e);
             }
             return name?.ToString() ?? "Unknown";
         }

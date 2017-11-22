@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using log4net;
+using log4net.Util;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -148,7 +149,7 @@ namespace Toastify.Core
                 {
                     if (e.Error is ApplicationStartupException applicationStartupException)
                     {
-                        logger.Error("Error while starting Spotify.", applicationStartupException);
+                        logger.ErrorInvariantCulture("Error while starting Spotify.", applicationStartupException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
                         string techDetails = $"Technical details\n{applicationStartupException.Message}";
@@ -158,7 +159,7 @@ namespace Toastify.Core
                     }
                     else if (e.Error is WebException webException)
                     {
-                        logger.Error("Web exception while starting Spotify.", webException);
+                        logger.ErrorInvariantCulture("Web exception while starting Spotify.", webException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
                         string status = $"{webException.Status}";
@@ -171,7 +172,7 @@ namespace Toastify.Core
                     }
                     else
                     {
-                        logger.Error("Unknown error while starting Spotify.", e.Error);
+                        logger.ErrorInvariantCulture("Unknown error while starting Spotify.", e.Error);
 
                         string errorMsg = Properties.Resources.ERROR_UNKNOWN;
                         string techDetails = $"Technical Details: {e.Error.Message}\n{e.Error.StackTrace}";
@@ -182,7 +183,7 @@ namespace Toastify.Core
                 }
                 else // e.Cancelled
                 {
-                    logger.Error("Toastify was not able to find Spotify within the timeout interval.");
+                    logger.ErrorExt("Toastify was not able to find Spotify within the timeout interval.");
 
                     string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
                     const string techDetails = "Technical Details: timeout";
@@ -206,7 +207,7 @@ namespace Toastify.Core
         /// <returns> The started process. </returns>
         private Process LaunchSpotifyAndWaitForInputIdle(DoWorkEventArgs e)
         {
-            logger.Info("Launching Spotify...");
+            logger.InfoExt("Launching Spotify...");
 
             // Launch Spotify.
             this.spotifyProcess = Process.Start(this.spotifyPath);
@@ -221,7 +222,7 @@ namespace Toastify.Core
                     return this.spotifyProcess;
             }
 
-            logger.Info($"Spotify process started: {this.spotifyProcess}");
+            logger.InfoExt($"Spotify process started: {this.spotifyProcess}");
 
             // We need to let Spotify start-up before interacting with it.
             this.spotifyProcess?.WaitForInputIdle();
@@ -244,7 +245,7 @@ namespace Toastify.Core
             // Sometimes (specially with a lot of active processes), the WaitForInputIdle method (used in LaunchSpotifyAndWaitForInputIdle)
             // does not seem to wait long enough to let us connect to Spotify successfully on the first try; so we wait and re-try.
 
-            logger.Info("Connecting to Spotify's local APIs endpoint...");
+            logger.InfoExt("Connecting to Spotify's local APIs endpoint...");
 
             this.spotifyLauncherWaitHandle.Reset();
             bool signaled;
@@ -262,14 +263,13 @@ namespace Toastify.Core
                 }
                 catch (WebException ex)
                 {
-                    logger.Warn("WebException while connecting to Spotify.", ex);
+                    logger.WarnInvariantCulture("WebException while connecting to Spotify.", ex);
                 }
             } while (!connected && !signaled);
 
             if (!connected)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Connected with Spotify on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
+            logger.DebugExt($"Connected with Spotify on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
 
             // Try to get a status report from Spotify
             var status = this.localAPI.GetStatus();
@@ -281,8 +281,7 @@ namespace Toastify.Core
 
         private Process FindSpotifyProcess()
         {
-            if (logger.IsDebugEnabled)
-                logger.Debug("Looking for Spotify process...");
+            logger.DebugExt("Looking for Spotify process...");
 
             var processes = Process.GetProcessesByName("spotify");
             var process = processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
@@ -489,9 +488,9 @@ namespace Toastify.Core
             IntPtr cefWidgetWindow = this.GetCefWidgetWindowHandle();
 
             if (mainWindow == IntPtr.Zero)
-                logger.Error("Main window is null.");
+                logger.ErrorExt("Main window is null.");
             else if (cefWidgetWindow == IntPtr.Zero)
-                logger.Error("CefWidget window is null.");
+                logger.ErrorExt("CefWidget window is null.");
             else
             {
                 // The 'Playback' sub-menu
@@ -574,7 +573,7 @@ namespace Toastify.Core
             }
             catch (Exception e)
             {
-                logger.Error("Error while getting Spotify executable path.", e);
+                logger.ErrorInvariantCulture("Error while getting Spotify executable path.", e);
             }
             return spotifyPath;
         }

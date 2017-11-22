@@ -1,6 +1,5 @@
 ﻿using SpotifyAPI.Local.Models;
 using System;
-using Toastify.Core;
 using Toastify.Model;
 
 namespace Toastify.Events

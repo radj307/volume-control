@@ -17,6 +17,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using log4net;
+using log4net.Util;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -290,7 +291,7 @@ namespace Toastify.View
                 catch (Exception e)
                 {
                     // TODO: Handle plugins' errors.
-                    logger.Error("Error while loading plugins.", e);
+                    logger.ErrorInvariantCulture("Error while loading plugins.", e);
                     Analytics.TrackException(e);
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
@@ -343,7 +344,7 @@ namespace Toastify.View
                     }
                     catch (Exception e)
                     {
-                        logger.Error("Error while saving track to file.", e);
+                        logger.ErrorInvariantCulture("Error while saving track to file.", e);
                     }
                 }
             }
@@ -371,7 +372,7 @@ namespace Toastify.View
                         }
                         catch (UriFormatException e)
                         {
-                            logger.Error($"UriFormatException with URI=[{this.toastIconURI}]", e);
+                            logger.ErrorInvariantCulture($"UriFormatException with URI=[{this.toastIconURI}]", e);
                             this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
                         }
                         finally
@@ -517,8 +518,7 @@ namespace Toastify.View
 #endif
                 Win32API.SetThreadExecutionState(Win32API.ExecutionStateFlags.ES_SYSTEM_REQUIRED);
 #if DEBUG
-                        if (logger.IsDebugEnabled)
-                            logger.Debug($"SetThreadExecutionState returned: {rv}");
+                        logger.DebugExt($"SetThreadExecutionState returned: {rv}");
 #endif
                     }
 
@@ -580,7 +580,7 @@ namespace Toastify.View
                             }
                             catch (TaskCanceledException ex)
                             {
-                                logger.Warn("FadeOut animation canceled.", ex);
+                                logger.WarnInvariantCulture("FadeOut animation canceled.", ex);
                             }
                         };
                     }
@@ -714,7 +714,7 @@ namespace Toastify.View
             _lastHotkey = hotkey;
             _lastHotkeyPressTime = DateTime.Now;
 
-            Debug.WriteLine($"HotkeyActionCallback: {hotkey.Action}");
+            logger.DebugExt($"HotkeyActionCallback: {hotkey.Action}");
 
             try
             {
@@ -739,7 +739,7 @@ namespace Toastify.View
                 if (Debugger.IsAttached)
                     Debugger.Break();
 
-                Debug.WriteLine("Exception with hooked key! " + ex);
+                logger.ErrorInvariantCulture("Exception with hooked key.", ex);
                 Current.UpdateToastText("Unable to communicate with Spotify");
 
                 Analytics.TrackException(ex);

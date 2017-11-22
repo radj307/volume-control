@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using log4net;
 using Toastify.Core;
+using Toastify.Helpers;
 
 namespace Toastify.Model
 {
@@ -137,7 +138,7 @@ namespace Toastify.Model
                     }
                     catch (Exception e)
                     {
-                        logger.Error("Error while getting album art url (GetAlbumArtUrl).", e);
+                        logger.ErrorInvariantCulture("Error while getting album art url (GetAlbumArtUrl).", e);
                     }
                     if (!string.IsNullOrWhiteSpace(coverArtUrl))
                         break;

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using log4net;
+using log4net.Util;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -93,7 +94,7 @@ namespace Toastify.Model
                         }
                         catch (Exception ex)
                         {
-                            logger.Error($"Error creating user settings directory (\"{settingsPath}\")", ex);
+                            logger.ErrorInvariantCulture($"Error creating user settings directory (\"{settingsPath}\")", ex);
 
                             // No messagebox as this should not happen (and there will be a MessageBox later on when
                             // settings fail to load)
@@ -513,8 +514,7 @@ namespace Toastify.Model
 
         public void Default()
         {
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Default()\n{new System.Diagnostics.StackTrace()}");
+            logger.DebugExt($"Default()\n{new System.Diagnostics.StackTrace()}");
 
             this.SetDefaultGeneral();
             this.SetDefaultHotkeys();
@@ -786,7 +786,7 @@ namespace Toastify.Model
 
         private void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
         {
-            logger.Warn($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
+            logger.WarnExt($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
         }
 
         private void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
@@ -800,7 +800,7 @@ namespace Toastify.Model
                     break;
 
                 default:
-                    logger.Warn($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
+                    logger.WarnExt($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
                     break;
             }
         }
@@ -810,7 +810,7 @@ namespace Toastify.Model
             if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
                 return;
 
-            logger.Warn($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
+            logger.WarnExt($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
         }
 
         #endregion XmlSerializer event handlers

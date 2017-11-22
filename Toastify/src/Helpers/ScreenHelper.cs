@@ -32,7 +32,7 @@ namespace Toastify.Helpers
             }
             catch (ApplicationException e)
             {
-                logger.Error("Couldn't get PresentationSource, current ToastView has been disposed.", e);
+                logger.ErrorInvariantCulture("Couldn't get PresentationSource, current ToastView has been disposed.", e);
             }
             return p;
         }
