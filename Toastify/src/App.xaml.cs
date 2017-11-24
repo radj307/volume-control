@@ -2,16 +2,17 @@
 using log4net.Appender;
 using log4net.Config;
 using log4net.Repository;
+using log4net.Util;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
-using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
@@ -33,12 +34,13 @@ namespace Toastify
                 {
                     try
                     {
+                        SetupCultureInfo();
                         SetupLogger();
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
-                        File.AppendAllText(Path.Combine(App.ApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.ToStringInvariantCulture()}\n");
+                        Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
+                        File.AppendAllText(Path.Combine(App.ApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
                     }
 
                     try
@@ -48,7 +50,7 @@ namespace Toastify
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorInvariantCulture("Unhandled top-level exception.", e);
+                        logger.ErrorExt("Unhandled top-level exception.", e);
                         Analytics.TrackException(e);
                         MessageBox.Show($"Unhandled top-level exception.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -56,6 +58,16 @@ namespace Toastify
                 else
                     MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private static void SetupCultureInfo()
+        {
+            // Save original cultures
+            App.UserCulture = Thread.CurrentThread.CurrentCulture;
+            App.UserUICulture = Thread.CurrentThread.CurrentUICulture;
+            
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
         }
 
         private static void SetupLogger()
@@ -118,7 +130,7 @@ namespace Toastify
             }
             catch (Exception ex)
             {
-                logger.WarnInvariantCulture("Exception loading settings from file. Using defaults.", ex);
+                logger.WarnExt("Exception loading settings from file. Using defaults.", ex);
 
                 string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -157,9 +169,13 @@ namespace Toastify
             get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify"); }
         }
 
+        public static CultureInfo UserUICulture { get; set; }
+
+        public static CultureInfo UserCulture { get; set; }
+
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            logger.ErrorInvariantCulture("Unhandled Dispatcher exception.", e.Exception);
+            logger.ErrorExt("Unhandled Dispatcher exception.", e.Exception);
             Analytics.TrackException(e.Exception);
             MessageBox.Show($"Unhandled Dispatcher exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
         }

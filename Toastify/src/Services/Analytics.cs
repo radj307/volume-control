@@ -8,16 +8,15 @@ using GoogleMeasurementProtocol.Parameters.Hit;
 using GoogleMeasurementProtocol.Parameters.SystemInfo;
 using GoogleMeasurementProtocol.Parameters.User;
 using GoogleMeasurementProtocol.Requests;
+using log4net;
+using log4net.Util;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Management;
-using log4net;
-using log4net.Util;
 using Toastify.Core;
-using Toastify.Helpers;
 using Toastify.Model;
 
 namespace Toastify.Services
@@ -122,7 +121,7 @@ namespace Toastify.Services
             var request = requestFactory.CreateRequest(HitTypes.Exception, GetCommonParameters());
 
             request.Parameters.AddRange(GetCommonParameters());
-            request.Parameters.Add(new ExceptionDescription($"{exception.ToStringInvariantCulture()}"));
+            request.Parameters.Add(new ExceptionDescription($"{exception}"));
             request.Parameters.Add(new IsExceptionFatal(fatal));
 
             PostRequest(request);
@@ -208,7 +207,7 @@ namespace Toastify.Services
             }
             catch (Exception e)
             {
-                logger.ErrorInvariantCulture("Error while getting FriendlyOS.", e);
+                logger.ErrorExt("Error while getting FriendlyOS.", e);
             }
             return name?.ToString() ?? "Unknown";
         }

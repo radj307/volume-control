@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -16,8 +18,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using log4net;
-using log4net.Util;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -72,7 +72,10 @@ namespace Toastify.View
 
         public Settings Settings
         {
-            get { return this.toastViewModel?.Settings; }
+            get
+            {
+                return this.toastViewModel?.Settings;
+            }
             private set
             {
                 if (this.toastViewModel != null)
@@ -138,7 +141,7 @@ namespace Toastify.View
         {
             if (!this.isPreviewForSettings)
                 this.SetToastVisibility(false);
-            
+
             ColorConverter cc = new ColorConverter();
 
             // [ DIMENSIONS ]
@@ -291,7 +294,7 @@ namespace Toastify.View
                 catch (Exception e)
                 {
                     // TODO: Handle plugins' errors.
-                    logger.ErrorInvariantCulture("Error while loading plugins.", e);
+                    logger.ErrorExt("Error while loading plugins.", e);
                     Analytics.TrackException(e);
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
@@ -344,7 +347,7 @@ namespace Toastify.View
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorInvariantCulture("Error while saving track to file.", e);
+                        logger.ErrorExt("Error while saving track to file.", e);
                     }
                 }
             }
@@ -372,7 +375,7 @@ namespace Toastify.View
                         }
                         catch (UriFormatException e)
                         {
-                            logger.ErrorInvariantCulture($"UriFormatException with URI=[{this.toastIconURI}]", e);
+                            logger.ErrorExt($"UriFormatException with URI=[{this.toastIconURI}]", e);
                             this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
                         }
                         finally
@@ -580,7 +583,7 @@ namespace Toastify.View
                             }
                             catch (TaskCanceledException ex)
                             {
-                                logger.WarnInvariantCulture("FadeOut animation canceled.", ex);
+                                logger.WarnExt("FadeOut animation canceled.", ex);
                             }
                         };
                     }
@@ -739,7 +742,7 @@ namespace Toastify.View
                 if (Debugger.IsAttached)
                     Debugger.Break();
 
-                logger.ErrorInvariantCulture("Exception with hooked key.", ex);
+                logger.ErrorExt("Exception with hooked key.", ex);
                 Current.UpdateToastText("Unable to communicate with Spotify");
 
                 Analytics.TrackException(ex);

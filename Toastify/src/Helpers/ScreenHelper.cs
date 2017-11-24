@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Forms;
 using log4net;
+using log4net.Util;
 using Toastify.View;
 
 namespace Toastify.Helpers
@@ -32,7 +33,7 @@ namespace Toastify.Helpers
             }
             catch (ApplicationException e)
             {
-                logger.ErrorInvariantCulture("Couldn't get PresentationSource, current ToastView has been disposed.", e);
+                logger.ErrorExt("Couldn't get PresentationSource, current ToastView has been disposed.", e);
             }
             return p;
         }

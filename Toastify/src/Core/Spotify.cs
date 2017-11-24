@@ -1,3 +1,5 @@
+using log4net;
+using log4net.Util;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
@@ -10,8 +12,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using log4net;
-using log4net.Util;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -149,7 +149,7 @@ namespace Toastify.Core
                 {
                     if (e.Error is ApplicationStartupException applicationStartupException)
                     {
-                        logger.ErrorInvariantCulture("Error while starting Spotify.", applicationStartupException);
+                        logger.ErrorExt("Error while starting Spotify.", applicationStartupException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
                         string techDetails = $"Technical details\n{applicationStartupException.Message}";
@@ -159,7 +159,7 @@ namespace Toastify.Core
                     }
                     else if (e.Error is WebException webException)
                     {
-                        logger.ErrorInvariantCulture("Web exception while starting Spotify.", webException);
+                        logger.ErrorExt("Web exception while starting Spotify.", webException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
                         string status = $"{webException.Status}";
@@ -172,7 +172,7 @@ namespace Toastify.Core
                     }
                     else
                     {
-                        logger.ErrorInvariantCulture("Unknown error while starting Spotify.", e.Error);
+                        logger.ErrorExt("Unknown error while starting Spotify.", e.Error);
 
                         string errorMsg = Properties.Resources.ERROR_UNKNOWN;
                         string techDetails = $"Technical Details: {e.Error.Message}\n{e.Error.StackTrace}";
@@ -263,7 +263,7 @@ namespace Toastify.Core
                 }
                 catch (WebException ex)
                 {
-                    logger.WarnInvariantCulture("WebException while connecting to Spotify.", ex);
+                    logger.WarnExt("WebException while connecting to Spotify.", ex);
                 }
             } while (!connected && !signaled);
 
@@ -573,7 +573,7 @@ namespace Toastify.Core
             }
             catch (Exception e)
             {
-                logger.ErrorInvariantCulture("Error while getting Spotify executable path.", e);
+                logger.ErrorExt("Error while getting Spotify executable path.", e);
             }
             return spotifyPath;
         }

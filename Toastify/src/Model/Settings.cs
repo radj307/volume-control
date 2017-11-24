@@ -94,7 +94,7 @@ namespace Toastify.Model
                         }
                         catch (Exception ex)
                         {
-                            logger.ErrorInvariantCulture($"Error creating user settings directory (\"{settingsPath}\")", ex);
+                            logger.ErrorExt($"Error creating user settings directory (\"{settingsPath}\")", ex);
 
                             // No messagebox as this should not happen (and there will be a MessageBox later on when
                             // settings fail to load)
