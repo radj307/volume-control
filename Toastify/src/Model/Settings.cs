@@ -545,7 +545,7 @@ namespace Toastify.Model
 
             this.ClipboardTemplate = "I'm currently listening to {0}";
             this.SaveTrackToFile = false;
-            this.SaveTrackToFilePath = Path.Combine(App.ApplicationData, "current_song.txt");
+            this.SaveTrackToFilePath = Path.Combine(App.LocalApplicationData, "current_song.txt");
 
             this.PreventSleepWhilePlaying = false;
             this.OptInToAnalytics = true;

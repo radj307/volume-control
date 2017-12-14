@@ -40,7 +40,7 @@ namespace Toastify
                     catch (Exception e)
                     {
                         Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
-                        File.AppendAllText(Path.Combine(App.ApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
+                        File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
                     }
 
                     try
@@ -81,7 +81,7 @@ namespace Toastify
                 var rollingFileAppender = (RollingFileAppender)loggerRepository.GetAppenders().FirstOrDefault(appender => appender.Name == "RollingFileAppender");
                 if (rollingFileAppender == null)
                     throw new Exception("RollingFileAppender not found");
-                rollingFileAppender.File = Path.Combine(App.ApplicationData, "Toastify.log");
+                rollingFileAppender.File = Path.Combine(App.LocalApplicationData, "Toastify.log");
                 rollingFileAppender.ActivateOptions();
             }
         }
@@ -164,10 +164,9 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
 
-        public static string ApplicationData
-        {
-            get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify"); }
-        }
+        public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+
+        public static string LocalApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
 
         public static CultureInfo UserUICulture { get; set; }
 
