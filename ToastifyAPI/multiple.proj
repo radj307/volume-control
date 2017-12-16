@@ -16,6 +16,13 @@
         </ProjectToBuild>
       </ItemGroup>
     </When>
+    <When Condition="'$(Configuration)' == 'Windows %28Test Release%29'">
+      <ItemGroup>
+        <ProjectToBuild Include="$(MSBuildProjectName).csproj">
+          <Properties>Configuration=Windows (UWP) (Test Release)</Properties>
+        </ProjectToBuild>
+      </ItemGroup>
+    </When>
   </Choose>
   <Target Name="AfterBuild">
     <MSBuild Projects="@(ProjectToBuild)" />

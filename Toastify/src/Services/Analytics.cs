@@ -29,12 +29,20 @@ namespace Toastify.Services
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private static string TrackingId { get; set; }
 
-        public static bool AnalyticsEnabled { get { return requestFactory != null && Settings.Current.OptInToAnalytics; } }
+        public static bool AnalyticsEnabled
+        {
+#if !TEST_RELEASE
+            get { return requestFactory != null && Settings.Current.OptInToAnalytics; }
+#else
+            get { return false; }
+#endif
+        }
 
         private static GoogleAnalyticsRequestFactory requestFactory;
 
         internal static void Init()
         {
+#if !TEST_RELEASE
             logger.DebugExt("Initializing Analytics class...");
 
             // ReSharper disable once InvocationIsSkipped
@@ -64,6 +72,9 @@ namespace Toastify.Services
             // Collect Preferences every at every update
             if (appHasBeenJustUpdated)
                 CollectPreferences();
+#else
+            requestFactory = null;
+#endif
         }
 
         public static void TrackPageHit(string documentPath, string title = null, bool interactive = true)

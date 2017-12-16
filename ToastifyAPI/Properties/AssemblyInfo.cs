@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -10,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alessandro Attard Barbini")]
 [assembly: AssemblyProduct("ToastifyAPI")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017 Alessandro Attard Barbini")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,3 +32,10 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.10.0.*")]
+#pragma warning disable CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
+#if DEBUG
+[assembly: AssemblyFileVersion("1.10.0 [DEBUG BUILD]")]
+#elif TEST_RELEASE
+[assembly: AssemblyFileVersion("1.10.0 [TEST BUILD]")]
+#endif
+#pragma warning restore CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision

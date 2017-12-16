@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Debug%29|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\Windows\</OutputPath>
@@ -32,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|AnyCPU'">
     <OutputPath>bin\Release\Windows\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -48,42 +50,79 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Debug%29|AnyCPU' ">
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|AnyCPU'">
+    <OutputPath>bin\Test Release\Windows\</OutputPath>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
+    <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Debug%29|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\Windows 10\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WIN_10</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Debug%29|x64' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Debug%29|x64' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\Windows 10\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WIN_10</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Release%29|AnyCPU' ">
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Release%29|AnyCPU' ">
     <OutputPath>bin\Release\Windows 10\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WIN_10</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Release%29|x64' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Release%29|x64' ">
     <OutputPath>bin\x64\Release\Windows 10\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WIN_10</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Test Release%29|AnyCPU'">
+    <OutputPath>bin\Test Release\Windows 10\</OutputPath>
+    <DefineConstants>TRACE;WIN_10;TEST_RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28UWP%29 %28Test Release%29|x64'">
+    <OutputPath>bin\x64\Test Release\Windows 10\</OutputPath>
+    <DefineConstants>TRACE;WIN_10;TEST_RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
   <Choose>
-    <When Condition="'$(Configuration)' == 'Windows %28UWP%29 %28Release%29' OR '$(Configuration)' == 'Windows %28UWP%29 %28Debug%29'">
+    <When Condition="'$(Configuration)' == 'Windows %28UWP%29 %28Release%29' OR '$(Configuration)' == 'Windows %28UWP%29 %28Debug%29' OR '$(Configuration)' == 'Windows %28UWP%29 %28Test Release%29'">
       <PropertyGroup>
         <DefineConstants>$(DefineConstants);WIN_10</DefineConstants>
         <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>

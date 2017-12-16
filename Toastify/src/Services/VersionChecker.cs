@@ -66,8 +66,13 @@ namespace Toastify.Services
 
         public void BeginCheckVersion()
         {
+#if DEBUG || TEST_RELEASE
+            this.checkVersionThread = null;
+            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
+#else
             this.checkVersionThread = new Thread(this.ThreadedBeginCheckVersion) { IsBackground = true };
             this.checkVersionThread.Start();
+#endif
         }
 
         private void ThreadedBeginCheckVersion()

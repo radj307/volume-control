@@ -63,6 +63,26 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|AnyCPU'">
+    <OutputPath>bin\Test Release\Windows\</OutputPath>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
+    <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GoogleMeasurementProtocol, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GoogleMeasurementProtocol.1.4.2\lib\net45\GoogleMeasurementProtocol.dll</HintPath>
@@ -284,6 +304,8 @@
   <Target Name="BeforeBuild">
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)post-build.cmd" "$(ConfigurationName)" "$(DevEnvDir)" "$(SolutionDir)" "$(TargetDir)" "$(TargetFileName)"</PostBuildEvent>
