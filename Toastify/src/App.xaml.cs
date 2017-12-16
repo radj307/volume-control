@@ -15,7 +15,12 @@ using System.Windows;
 using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
+
+#if DEBUG
+using log4net.Core;
+using log4net.Repository.Hierarchy;
 using Toastify.View;
+#endif
 
 namespace Toastify
 {
@@ -65,7 +70,7 @@ namespace Toastify
             // Save original cultures
             App.UserCulture = Thread.CurrentThread.CurrentCulture;
             App.UserUICulture = Thread.CurrentThread.CurrentUICulture;
-            
+
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
         }
@@ -76,6 +81,11 @@ namespace Toastify
             {
                 XmlConfigurator.Configure(stream);
                 ILoggerRepository loggerRepository = LogManager.GetRepository();
+
+#if DEBUG
+                var rootLogger = ((Hierarchy)loggerRepository).Root;
+                rootLogger.Level = Level.Debug;
+#endif
 
                 // Modify RollingFileAppender's destination
                 var rollingFileAppender = (RollingFileAppender)loggerRepository.GetAppenders().FirstOrDefault(appender => appender.Name == "RollingFileAppender");
