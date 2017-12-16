@@ -1,7 +1,10 @@
-﻿using ManagedWinapi;
+﻿using log4net;
+using log4net.Util;
+using ManagedWinapi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -10,7 +13,10 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using Toastify.Core;
+using Toastify.Events;
+using Toastify.Services;
 using Toastify.View;
+using Clipboard = System.Windows.Clipboard;
 
 namespace Toastify.Model
 {
@@ -18,6 +24,8 @@ namespace Toastify.Model
     [XmlRoot("Hotkey")]
     public class Hotkey : INotifyPropertyChanged, IXmlSerializable, ICloneable
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
+
         #region Private fields
 
         private SpotifyAction _action;
@@ -404,8 +412,70 @@ namespace Toastify.Model
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
         {
-            ToastView.HotkeyActionCallback(this);
+            HotkeyActionCallback(this);
         }
+
+        #region HotkeyActionCallback
+
+        public static EventHandler<HotkeyActionCallbackFailedEventArgs> ActionCallbackFailed;
+
+        public static Hotkey LastHotkey { get; private set; }
+
+        public DateTime LastPressTime { get; private set; } = DateTime.Now;
+
+        /// <summary>
+        /// If the same hotkey press happens within this buffer time, it will be ignored.
+        ///
+        /// I came to 150 by pressing keys as quickly as possibly. The minimum time was less than 150
+        /// but most values fell in the 150 to 200 range for quick presses, so 150 seemed the most reasonable
+        /// </summary>
+        private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
+
+        private static void HotkeyActionCallback(Hotkey hotkey)
+        {
+            if (!ToastView.Current.IsInitComplete)
+                return;
+
+            // Ignore this keypress if it's been less than WAIT_BETWEEN_HOTKEY_PRESS since the last press
+            if (DateTime.Now.Subtract(hotkey.LastPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
+                return;
+
+            hotkey.LastPressTime = DateTime.Now;
+            LastHotkey = hotkey;
+
+            logger.DebugExt($"HotkeyActionCallback: {hotkey.Action}");
+
+            try
+            {
+                if (hotkey.Action == SpotifyAction.CopyTrackInfo && Spotify.Instance.CurrentSong != null)
+                {
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);
+                    Clipboard.SetText(Spotify.Instance.CurrentSong.GetClipboardText(Settings.Current.ClipboardTemplate));
+                }
+                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Spotify.Instance.CurrentSong != null)
+                {
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
+                    Clipboard.SetText(Spotify.Instance.CurrentSong.GetClipboardText(Settings.Current.ClipboardTemplate));
+                    Win32API.SendPasteKey();
+                }
+                else
+                    Spotify.Instance.SendAction(hotkey.Action);
+
+                ToastView.Current.DisplayAction(hotkey.Action);
+            }
+            catch (Exception ex)
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+
+                logger.ErrorExt("Exception with hooked key.", ex);
+                ActionCallbackFailed?.Invoke(typeof(Hotkey), new HotkeyActionCallbackFailedEventArgs(hotkey, ex));
+
+                Analytics.TrackException(ex);
+            }
+        }
+
+        #endregion HotkeyActionCallback
 
         #region INotifyPropertyChanged
 

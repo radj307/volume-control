@@ -607,6 +607,15 @@ namespace Toastify.Core
 
         #region Dispose
 
+        public static void DisposeInstance()
+        {
+            if (_instance != null)
+            {
+                _instance.Dispose();
+                _instance = null;
+            }
+        }
+
         public void Dispose()
         {
             this.DisposeLocalAPI();

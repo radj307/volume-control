@@ -27,7 +27,6 @@ using Toastify.Services;
 using Toastify.ViewModel;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
-using Clipboard = System.Windows.Clipboard;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
@@ -65,7 +64,6 @@ namespace Toastify.View
         private bool isUpdateToast;
         private bool isPreviewForSettings;
 
-        private bool initialized;
         private bool dragging;
         private bool paused;
 
@@ -80,6 +78,8 @@ namespace Toastify.View
                 return this._windowHandle;
             }
         }
+
+        public bool IsInitComplete { get; private set; }
 
         public Settings Settings
         {
@@ -145,7 +145,7 @@ namespace Toastify.View
 
             this.InitVersionChecker();
 
-            this.initialized = true;
+            this.IsInitComplete = true;
         }
 
         public void InitToast()
@@ -275,6 +275,7 @@ namespace Toastify.View
 
         private void StartSpotify()
         {
+            Spotify.Instance.Connected -= this.Spotify_Connected;
             Spotify.Instance.Connected += this.Spotify_Connected;
             Spotify.Instance.StartSpotify();
         }
@@ -696,69 +697,6 @@ namespace Toastify.View
             base.OnClosing(e);
         }
 
-        #region HotkeyActionCallback
-
-        private static Hotkey _lastHotkey;
-        private static DateTime _lastHotkeyPressTime = DateTime.Now;
-
-        /// <summary>
-        /// If the same hotkey press happens within this buffer time, it will be ignored.
-        ///
-        /// I came to 150 by pressing keys as quickly as possibly. The minimum time was less than 150
-        /// but most values fell in the 150 to 200 range for quick presses, so 150 seemed the most reasonable
-        /// </summary>
-        private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
-
-        internal static void HotkeyActionCallback(Hotkey hotkey)
-        {
-            if (!Current.initialized)
-                return;
-
-            // Bug 9421: ignore this keypress if it is the same as the previous one and it's been less than
-            //           WAIT_BETWEEN_HOTKEY_PRESS since the last press. Note that we do not update
-            //           _lastHotkeyPressTime in this case to avoid being trapped in a never ending cycle of
-            //           ignoring keypresses if the user (for some reason) decides to press really quickly,
-            //           really often on the hotkey
-            if (hotkey == _lastHotkey && DateTime.Now.Subtract(_lastHotkeyPressTime).TotalMilliseconds < WAIT_BETWEEN_HOTKEY_PRESS)
-                return;
-
-            _lastHotkey = hotkey;
-            _lastHotkeyPressTime = DateTime.Now;
-
-            logger.DebugExt($"HotkeyActionCallback: {hotkey.Action}");
-
-            try
-            {
-                if (hotkey.Action == SpotifyAction.CopyTrackInfo && Current.currentSong != null)
-                {
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(Current.Settings.ClipboardTemplate));
-                }
-                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Current.currentSong != null)
-                {
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
-                    Clipboard.SetText(Current.currentSong.GetClipboardText(Current.Settings.ClipboardTemplate));
-                    Win32API.SendPasteKey();
-                }
-                else
-                    Spotify.Instance.SendAction(hotkey.Action);
-
-                Current.DisplayAction(hotkey.Action);
-            }
-            catch (Exception ex)
-            {
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-
-                logger.ErrorExt("Exception with hooked key.", ex);
-                Current.UpdateToastText("Unable to communicate with Spotify");
-
-                Analytics.TrackException(ex);
-            }
-        }
-
-        #endregion HotkeyActionCallback
-
         #region Event handlers [xaml]
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -850,7 +788,7 @@ namespace Toastify.View
         {
             if (e.NewSong == null || !e.NewSong.IsValid())
                 return;
-            
+
             this.UpdateCurrentSong(e.NewSong);
         }
 
@@ -863,7 +801,7 @@ namespace Toastify.View
             this.paused = !e.Playing;
 
             // Only fade-in if the play state change was triggered by a hotkey.
-            bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
+            bool fadeIn = Hotkey.LastHotkey?.Action == SpotifyAction.PlayPause;
             this.UpdateToastText(this.currentSong, null, fadeIn);
         }
 
