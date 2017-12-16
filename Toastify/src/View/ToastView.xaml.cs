@@ -50,12 +50,14 @@ namespace Toastify.View
 
         #region Private fields
 
+        private IntPtr _windowHandle;
+
         private readonly ToastViewModel toastViewModel;
 
         private Timer minimizeTimer;
 
         private SystemTray trayIcon;
-
+        
         private Song currentSong;
         private BitmapImage cover;
         private string toastIconURI = "";
@@ -69,6 +71,16 @@ namespace Toastify.View
         private bool paused;
 
         #endregion Private fields
+
+        private IntPtr WindowHandle
+        {
+            get
+            {
+                if (this._windowHandle == IntPtr.Zero)
+                    this._windowHandle = this.GetHandle();
+                return this._windowHandle;
+            }
+        }
 
         public Settings Settings
         {
@@ -278,6 +290,7 @@ namespace Toastify.View
             {
                 try
                 {
+                    // ReSharper disable once AssignNullToNotNullAttribute
                     string pluginFilePath = Path.Combine(applicationPath, p.FileName);
                     if (Activator.CreateInstanceFrom(pluginFilePath, p.TypeName).Unwrap() is IPluginBase plugin)
                     {
@@ -458,7 +471,7 @@ namespace Toastify.View
         {
             this.Topmost = shallBeVisible;
             this.Visibility = shallBeVisible ? Visibility.Visible : Visibility.Collapsed;
-            Win32API.ShowWindow(this.GetHandle(), shallBeVisible ? Win32API.ShowWindowCmd.SW_RESTORE : Win32API.ShowWindowCmd.SW_SHOWMINNOACTIVE);
+            Win32API.ShowWindow(this.WindowHandle, shallBeVisible ? Win32API.ShowWindowCmd.SW_RESTORE : Win32API.ShowWindowCmd.SW_SHOWMINNOACTIVE);
 
             if (shallBeVisible)
             {
@@ -758,7 +771,7 @@ namespace Toastify.View
             this.Init();
 
             // Remove from ALT+TAB.
-            Win32API.AddToolWindowStyle(this.GetHandle());
+            Win32API.AddToolWindowStyle(this.WindowHandle);
         }
 
         /// <summary>
@@ -842,34 +855,25 @@ namespace Toastify.View
         {
             if (e.NewSong == null || !e.NewSong.IsValid())
                 return;
-
-            this.paused = !e.Playing;
+            
             this.UpdateCurrentSong(e.NewSong);
         }
 
         private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
         {
+            // Check if the toast is actually displaying something
+            if (this.currentSong == null)
+                this.UpdateCurrentSong(Spotify.Instance.CurrentSong);
+
             this.paused = !e.Playing;
 
-            // If toast's and Spotify's current songs do not match, then fix toast's current song.
-            if (!Song.Equal(this.currentSong, e.CurrentSong))
-                this.UpdateCurrentSong(e.CurrentSong);
-            else
-            {
-                // Only fade-in if the play state change was triggered by a hotkey.
-                bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
-                this.UpdateToastText(this.currentSong, null, fadeIn);
-            }
+            // Only fade-in if the play state change was triggered by a hotkey.
+            bool fadeIn = _lastHotkey?.Action == SpotifyAction.PlayPause;
+            this.UpdateToastText(this.currentSong, null, fadeIn);
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
         {
-            // TODO: Remove when podcast-specific APIs are implemented and an episode change can be notified by SpotifyAPI
-            // If we are going through a podcast collection and we change episode, the SongChanged event doesn't get triggered;
-            // the only place we can change the episode's total length is here.
-            if (e.CurrentSong.IsOtherTrackType() && this.currentSong.Length != e.CurrentSong.Length)
-                this.Spotify_SongChanged(this, new SpotifyTrackChangedEventArgs(this.currentSong, e.CurrentSong, e.Playing));
-
             this.UpdateSongProgressBar(e.TrackTime);
         }
 

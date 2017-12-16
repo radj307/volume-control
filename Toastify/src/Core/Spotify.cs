@@ -37,19 +37,27 @@ namespace Toastify.Core
 
         #region Private fields
 
-        private readonly BackgroundWorker spotifyLauncher = new BackgroundWorker { WorkerSupportsCancellation = true };
+        #region Spotify Launcher
+
+        private BackgroundWorker spotifyLauncher;
+
+        private Timer spotifyLauncherTimeoutTimer;
 
         private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
 
-        private readonly SpotifyLocalAPI localAPI;
+        #endregion Spotify Launcher
 
-        private readonly SpotifyLocalAPIConfig localAPIConfig;
+        private SpotifyLocalAPI localAPI;
+
+        private SpotifyLocalAPIConfig localAPIConfig;
 
         private readonly string spotifyPath;
 
         private Process spotifyProcess;
 
         private Song _currentSong;
+
+        private bool? _isPlaying;
 
         #endregion Private fields
 
@@ -69,13 +77,19 @@ namespace Toastify.Core
             }
         }
 
+        public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
+
         public Song CurrentSong
         {
-            get { return this._currentSong ?? (this._currentSong = this.localAPI?.GetStatus()?.Track); }
+            get { return this._currentSong ?? (this._currentSong = this.Status.Track); }
             private set { this._currentSong = value; }
         }
 
-        public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
+        public bool IsPlaying
+        {
+            get { return this._isPlaying ?? (this._isPlaying = this.Status?.Playing ?? false).Value; }
+            private set { this._isPlaying = value; }
+        }
 
         #endregion Public properties
 
@@ -98,12 +112,16 @@ namespace Toastify.Core
         protected Spotify()
         {
             this.spotifyPath = this.GetSpotifyPath();
+            this.InitLocalAPI();
+        }
 
-            // SpotifyLocalAPI
-            this.localAPIConfig = new SpotifyLocalAPIConfig();
+        public void InitLocalAPI()
+        {
+            this.DisposeLocalAPI();
+
+            this.localAPIConfig = new SpotifyLocalAPIConfig { TimerInterval = 250 };
             this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 
-            // Subscribe to SpotifyLocalAPI's events.
             this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
             this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
             this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
@@ -113,19 +131,25 @@ namespace Toastify.Core
 
         public void StartSpotify()
         {
+            this.spotifyLauncher = new BackgroundWorker { WorkerSupportsCancellation = true };
             this.spotifyLauncher.DoWork += this.StartSpotify_WorkerTask;
             this.spotifyLauncher.RunWorkerCompleted += this.StartSpotify_WorkerTaskCompleted;
 
             if (Settings.Current.StartupWaitTimeout < 60000)
                 Settings.Current.StartupWaitTimeout = 60000;
-            Timer timeoutTimer = new Timer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
-            timeoutTimer.Elapsed += (sender, e) => this.spotifyLauncher.CancelAsync();
+            this.spotifyLauncherTimeoutTimer = new Timer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
+            this.spotifyLauncherTimeoutTimer.Elapsed += this.SpotifyLauncherTimeoutTimer_Elapsed;
 
             this.spotifyLauncher.RunWorkerAsync();
-            timeoutTimer.Start();
+            this.spotifyLauncherTimeoutTimer.Start();
         }
 
-        #region StartSpotify background worker
+        #region Spotify Launcher background worker
+
+        private void SpotifyLauncherTimeoutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.spotifyLauncher.CancelAsync();
+        }
 
         private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
         {
@@ -196,7 +220,10 @@ namespace Toastify.Core
                     new Action(() => Application.Current.Shutdown()));
             }
             else
-                this.Spotify_Connected(this, new SpotifyStateEventArgs(this.localAPI.GetStatus()));
+                this.Spotify_Connected(this, new SpotifyStateEventArgs(this.Status));
+
+            this.DisposeSpotifyLauncher();
+            this.DisposeSpotifyLauncherTimeoutTimer();
 
             this.spotifyLauncherWaitHandle.Close();
         }
@@ -277,7 +304,7 @@ namespace Toastify.Core
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
         }
 
-        #endregion StartSpotify background worker
+        #endregion Spotify Launcher background worker
 
         private Process FindSpotifyProcess()
         {
@@ -578,10 +605,57 @@ namespace Toastify.Core
             return spotifyPath;
         }
 
+        #region Dispose
+
         public void Dispose()
         {
-            this.localAPI?.Dispose();
+            this.DisposeLocalAPI();
+            this.DisposeSpotifyLauncher();
+            this.DisposeSpotifyLauncherTimeoutTimer();
         }
+
+        private void DisposeLocalAPI()
+        {
+            if (this.localAPI != null)
+            {
+                this.localAPI.ListenForEvents = false;
+                this.localAPI.OnTrackChange -= this.SpotifyLocalAPI_OnTrackChange;
+                this.localAPI.OnPlayStateChange -= this.SpotifyLocalAPI_OnPlayStateChange;
+                this.localAPI.OnTrackTimeChange -= this.SpotifyLocalAPI_OnTrackTimeChange;
+                this.localAPI.OnVolumeChange -= this.SpotifyLocalAPI_OnVolumeChange;
+
+                this.localAPI.Dispose();
+                this.localAPI = null;
+            }
+
+            this.localAPIConfig = null;
+        }
+
+        private void DisposeSpotifyLauncher()
+        {
+            if (this.spotifyLauncher != null)
+            {
+                this.spotifyLauncher.DoWork -= this.StartSpotify_WorkerTask;
+                this.spotifyLauncher.RunWorkerCompleted -= this.StartSpotify_WorkerTaskCompleted;
+
+                this.spotifyLauncher.Dispose();
+                this.spotifyLauncher = null;
+            }
+        }
+
+        private void DisposeSpotifyLauncherTimeoutTimer()
+        {
+            if (this.spotifyLauncherTimeoutTimer != null)
+            {
+                this.spotifyLauncherTimeoutTimer.Enabled = false;
+                this.spotifyLauncherTimeoutTimer.Elapsed -= this.SpotifyLauncherTimeoutTimer_Elapsed;
+
+                this.spotifyLauncherTimeoutTimer.Close();
+                this.spotifyLauncherTimeoutTimer = null;
+            }
+        }
+
+        #endregion Dispose
 
         #region Event handlers
 
@@ -598,17 +672,18 @@ namespace Toastify.Core
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong, this.localAPI?.GetStatus()?.Playing ?? false));
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong));
         }
 
         private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing, this.localAPI?.GetStatus()?.Track));
+            this.IsPlaying = e.Playing;
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing));
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
         {
-            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime, this.Status?.Track, this.Status?.Playing ?? true));
+            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime));
         }
 
         private void SpotifyLocalAPI_OnVolumeChange(object sender, VolumeChangeEventArgs e)
