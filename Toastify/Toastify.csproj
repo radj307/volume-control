@@ -175,7 +175,6 @@
     </Compile>
     <Compile Include="src\Events\CheckVersionCompleteEventArgs.cs" />
     <Compile Include="src\Helpers\BoolToVisibleConverter.cs" />
-    <Compile Include="src\LastInputDebug.cs" />
     <Compile Include="src\Helpers\OppositeBoolToVisibleConverter.cs" />
     <Compile Include="src\Helpers\OppositeBoolConverter.cs" />
     <Compile Include="src\Helpers\ScreenHelper.cs" />

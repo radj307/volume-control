@@ -256,12 +256,6 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._saveTrackToFilePath, value); }
         }
 
-        public bool PreventSleepWhilePlaying
-        {
-            get { return this._preventSleepWhilePlaying; }
-            set { this.RaiseAndSetIfChanged(ref this._preventSleepWhilePlaying, value); }
-        }
-
         public bool OptInToAnalytics
         {
             get { return this._optInToAnalytics; }
@@ -546,8 +540,7 @@ namespace Toastify.Model
             this.ClipboardTemplate = "I'm currently listening to {0}";
             this.SaveTrackToFile = false;
             this.SaveTrackToFilePath = Path.Combine(App.LocalApplicationData, "current_song.txt");
-
-            this.PreventSleepWhilePlaying = false;
+            
             this.OptInToAnalytics = true;
         }
 

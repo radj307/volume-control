@@ -102,8 +102,6 @@ namespace Toastify
             app.InitializeComponent();
 
 #if DEBUG
-            LastInputDebug.Start();
-
             Thread th = new Thread(() =>
             {
                 DebugView debugView = new DebugView();

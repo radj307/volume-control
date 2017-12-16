@@ -171,7 +171,6 @@ namespace Toastify.Services
             TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemSpotifyOnly}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemSpotifyOnly);
 
             TrackSettingBinaryHit(nameof(Settings.Current.SaveTrackToFile), Settings.Current.SaveTrackToFile);
-            TrackSettingBinaryHit(nameof(Settings.Current.PreventSleepWhilePlaying), Settings.Current.PreventSleepWhilePlaying);
 
             // Hotkeys
             TrackSettingBinaryHit(nameof(Settings.Current.GlobalHotKeys), Settings.Current.GlobalHotKeys);

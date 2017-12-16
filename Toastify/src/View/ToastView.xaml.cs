@@ -519,21 +519,6 @@ namespace Toastify.View
                     if (doNotFadeIn)
                         return;
 
-                    // this is a convenient place to reset the idle timer (if so asked)
-                    // as this will be triggered when a song is played. The primary problem is if there is a
-                    // particularly long song then this will not work. That said, this is the safest (in terms of
-                    // not causing a user's computer from never sleeping).
-                    if (this.Settings.PreventSleepWhilePlaying)
-                    {
-#if DEBUG
-                        var rv =
-#endif
-                Win32API.SetThreadExecutionState(Win32API.ExecutionStateFlags.ES_SYSTEM_REQUIRED);
-#if DEBUG
-                        logger.DebugExt($"SetThreadExecutionState returned: {rv}");
-#endif
-                    }
-
                     this.isUpdateToast = isUpdate;
 
                     if (!this.IsToastVisible)
