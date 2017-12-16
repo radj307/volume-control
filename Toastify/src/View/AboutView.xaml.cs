@@ -15,16 +15,11 @@ namespace Toastify.View
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class AboutView : Window
     {
-        private readonly VersionChecker versionChecker;
-
         public AboutView()
         {
             this.InitializeComponent();
 
-            this.versionChecker = new VersionChecker();
             this.DataContext = new AboutViewModel();
-
-            this.versionChecker.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
         }
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -53,7 +48,13 @@ namespace Toastify.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.versionChecker.BeginCheckVersion();
+            VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
+            VersionChecker.Instance.BeginCheckVersion();
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

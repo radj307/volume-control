@@ -8,8 +8,21 @@ using Toastify.Events;
 
 namespace Toastify.Services
 {
-    internal class VersionChecker
+    internal class VersionChecker : IDisposable
     {
+        #region Singleton
+
+        private static VersionChecker _instance;
+
+        public static VersionChecker Instance
+        {
+            get { return _instance ?? (_instance = new VersionChecker()); }
+        }
+
+        #endregion Singleton
+
+        #region Static properties
+
         private static string _version;
 
         public static string CurrentVersion
@@ -37,26 +50,30 @@ namespace Toastify.Services
 
         public static string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
 
-        private readonly WebClient wc;
+        #endregion Static properties
+
+        private readonly WebClient webClient;
+
+        private Thread checkVersionThread;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
 
-        public VersionChecker()
+        protected VersionChecker()
         {
-            this.wc = new WebClient();
-            this.wc.DownloadStringCompleted += this.WebClient_DownloadStringCompleted;
+            this.webClient = new WebClient();
+            this.webClient.DownloadStringCompleted += this.WebClient_DownloadStringCompleted;
         }
 
         public void BeginCheckVersion()
         {
-            Thread t = new Thread(this.ThreadedBeginCheckVersion) { IsBackground = true };
-            t.Start();
+            this.checkVersionThread = new Thread(this.ThreadedBeginCheckVersion) { IsBackground = true };
+            this.checkVersionThread.Start();
         }
 
         private void ThreadedBeginCheckVersion()
         {
             //WebClients XXXAsync isn't as async as I wanted...
-            this.wc.DownloadStringAsync(new Uri(VersionUrl));
+            this.webClient.DownloadStringAsync(new Uri(VersionUrl));
         }
 
         private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -78,6 +95,27 @@ namespace Toastify.Services
             }
 
             this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = version, New = newVersion });
+        }
+
+        public void Dispose()
+        {
+            if (this.webClient != null)
+            {
+                this.webClient.DownloadStringCompleted -= this.WebClient_DownloadStringCompleted;
+                this.webClient.CancelAsync();
+                this.webClient.Dispose();
+            }
+
+            this.checkVersionThread?.Abort();
+        }
+
+        public static void DisposeInstance()
+        {
+            if (_instance != null)
+            {
+                _instance.Dispose();
+                _instance = null;
+            }
         }
     }
 }

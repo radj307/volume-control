@@ -6,7 +6,8 @@
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         Title="About" Height="180" Width="340" AllowsTransparency="True" Background="Transparent"
-        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" WindowStyle="None" Loaded="Window_Loaded" Topmost="True">
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" WindowStyle="None" Topmost="True"
+        Loaded="Window_Loaded" Unloaded="Window_Unloaded">
 
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5,5,5,5" Margin="60,60,0,0" MouseUp="Border_MouseUp">
         <Border.Background>

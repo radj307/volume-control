@@ -57,12 +57,11 @@ namespace Toastify.View
         private Timer minimizeTimer;
 
         private SystemTray trayIcon;
-        
+
         private Song currentSong;
         private BitmapImage cover;
         private string toastIconURI = "";
 
-        private VersionChecker versionChecker;
         private bool isUpdateToast;
         private bool isPreviewForSettings;
 
@@ -314,18 +313,14 @@ namespace Toastify.View
             }
         }
 
+        /// <summary>
+        /// Initialize VersionChecker. Updates are only checked once.
+        /// </summary>
         private void InitVersionChecker()
         {
-            this.versionChecker = new VersionChecker();
-            this.versionChecker.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-            this.versionChecker.BeginCheckVersion();
-
-            // TODO: right now this is pretty dumb - kick off update notifications every X hours, this might get annoying
-            //       and really we should just pop a notification once per version and probably immediately after a song toast
-            var updateTimer = new DispatcherTimer();
-            updateTimer.Tick += (timerSender, timerE) => { this.versionChecker.BeginCheckVersion(); };
-            updateTimer.Interval = new TimeSpan(6, 0, 0);
-            updateTimer.Start();
+            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
+            VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
+            VersionChecker.Instance.BeginCheckVersion();
         }
 
         #endregion Initialization
@@ -921,6 +916,8 @@ namespace Toastify.View
 
             this.toastIconURI = UPDATE_LOGO_ICON;
             this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true, true);
+
+            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
         }
 
         #endregion Event handlers

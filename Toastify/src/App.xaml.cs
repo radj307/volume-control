@@ -188,6 +188,7 @@ namespace Toastify
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppTermination);
             Spotify.Instance?.Dispose();
+            VersionChecker.DisposeInstance();
         }
     }
 }
