@@ -45,6 +45,9 @@ namespace Toastify.View
         private const string ALBUM_ACCESS_DENIED_ICON = "pack://application:,,,/Toastify;component/Resources/ToastifyAccessDenied.png";
         private const string UPDATE_LOGO_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyUpdateLogo.png";
 
+        private const string STATE_PAUSED = "Paused";
+        private const string STATE_NOTHING_PLAYING = "Nothing's playing";
+
         internal static ToastView Current { get; private set; }
 
         #region Private fields
@@ -94,7 +97,7 @@ namespace Toastify.View
             }
         }
 
-        public bool IsToastVisible { get; private set; }
+        public bool ShownOrFading { get; private set; }
 
         internal List<IPluginBase> Plugins { get; set; }
 
@@ -333,7 +336,7 @@ namespace Toastify.View
         /// Also, save track info to file, if settings say so.
         /// </summary>
         /// <param name="song"> The song to set as current. </param>
-        private void UpdateCurrentSong(Song song)
+        private void ChangeCurrentSong(Song song)
         {
             this.currentSong = song;
 
@@ -364,9 +367,24 @@ namespace Toastify.View
 
         private void UpdateCoverArt(bool forceUpdate = false)
         {
-            // Get new CoverArtUrl.
+            // TODO: Cache cover arts
+
+            // Update cover art URL.
             string previousURI = this.toastIconURI;
-            this.UpdateCoverArtUrl();
+            if (this.currentSong == null)
+                this.toastIconURI = DEFAULT_ICON;
+            else
+            {
+                if (this.currentSong.IsAd())
+                {
+                    this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
+                    this.currentSong.Track = "Spotify Ad";
+                }
+                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl))
+                    this.currentSong.CoverArtUrl = DEFAULT_ICON;
+
+                this.toastIconURI = this.currentSong.CoverArtUrl;
+            }
 
             // Update the cover art only if the url has changed.
             if (!string.IsNullOrEmpty(this.toastIconURI) && (forceUpdate || this.toastIconURI != previousURI))
@@ -396,24 +414,6 @@ namespace Toastify.View
             }
         }
 
-        private void UpdateCoverArtUrl()
-        {
-            if (this.currentSong == null)
-                this.toastIconURI = DEFAULT_ICON;
-            else
-            {
-                if (this.currentSong.IsAd())
-                {
-                    this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                    this.currentSong.Track = "Spotify Ad";
-                }
-                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl))
-                    this.currentSong.CoverArtUrl = DEFAULT_ICON;
-
-                this.toastIconURI = this.currentSong.CoverArtUrl;
-            }
-        }
-
         /// <summary>
         /// Update the toast's text using the songs' information.
         /// </summary>
@@ -423,19 +423,18 @@ namespace Toastify.View
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        /// <param name="force"> Whether or not to force the toast to show up. </param>
-        private void UpdateToastText(Song song, string altTitle1 = null, bool fadeIn = true, bool force = false)
+        private void UpdateToastText(Song song, string altTitle1 = null, bool fadeIn = true)
         {
             if (altTitle1 != null)
-                this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn, force);
+                this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn);
             else if (this.paused)
-                this.UpdateToastText("Paused", song?.ToString() ?? string.Empty, fadeIn, force);
+                this.UpdateToastText(STATE_PAUSED, song?.ToString() ?? string.Empty, fadeIn);
             else
             {
                 this.toastViewModel.TrackName = song?.Track ?? string.Empty;
                 this.toastViewModel.ArtistName = song?.Artist ?? string.Empty;
                 if (fadeIn)
-                    this.FadeIn(force);
+                    this.ShowOrHideToast(keepUp: true);
             }
         }
 
@@ -446,13 +445,12 @@ namespace Toastify.View
         /// <param name="title2">  Second title. </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
         /// <param name="force"> Whether or no0t to force the toast to show up. </param>
-        /// <param name="isUpdate"> Whethere or not this update is caused by <see cref="VersionChecker"/>. </param>
-        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false, bool isUpdate = false)
+        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false)
         {
             this.toastViewModel.Title1 = title1;
             this.toastViewModel.Title2 = title2;
             if (fadeIn)
-                this.FadeIn(force, isUpdate);
+                this.ShowOrHideToast(force, keepUp: true);
         }
 
         private void FetchOtherTrackInfo()
@@ -465,6 +463,7 @@ namespace Toastify.View
 
         private void SetToastVisibility(bool shallBeVisible)
         {
+            this.ShownOrFading = shallBeVisible;
             this.Topmost = shallBeVisible;
             this.Visibility = shallBeVisible ? Visibility.Visible : Visibility.Collapsed;
             Win32API.ShowWindow(this.WindowHandle, shallBeVisible ? Win32API.ShowWindowCmd.SW_RESTORE : Win32API.ShowWindowCmd.SW_SHOWMINNOACTIVE);
@@ -479,114 +478,103 @@ namespace Toastify.View
 
         private void ShowToastPreview(bool show)
         {
-            this.isPreviewForSettings = !show;
             if (show)
-                this.ShowToast(true, false, true);
-            else
-                this.FadeOut(true);
+                this.minimizeTimer?.Stop();
+
+            this.isPreviewForSettings = !show;
+            this.ShowOrHideToast(true, previewForSettings: true);
             this.isPreviewForSettings = show;
+
+            if (!show)
+                this.FadeOut();
         }
 
-        private void ShowToast(bool force = false, bool isUpdate = false, bool permanent = false)
+        /// <summary>
+        /// Toggles the show state of the toast.
+        /// </summary>
+        /// <param name="force"> Whether to force the toast to fade-in or fade-out. </param>
+        /// <param name="keepUp"> Whether to reset the fade-out timer or not. </param>
+        /// <param name="previewForSettings"></param>
+        private void ShowOrHideToast(bool force = false, bool keepUp = false, bool previewForSettings = false)
         {
-            // Update the toast's text and image with the current, most recent song information.
-            if (this.currentSong == null || !this.currentSong.IsValid())
+            this.Dispatcher.Invoke(() =>
             {
-                this.toastIconURI = DEFAULT_ICON;
-                this.UpdateToastText("Nothing's playing", string.Empty, false);
-            }
-            else if (this.currentSong.IsValid())
-            {
-                this.toastIconURI = this.currentSong.CoverArtUrl;
-                this.UpdateToastText(this.currentSong, null, false);
-            }
-
-            this.FadeIn(force, isUpdate, permanent);
-        }
-
-        private void FadeIn(bool force = false, bool isUpdate = false, bool permanent = false)
-        {
-            this.Dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new Action(() =>
+                if (this.ShownOrFading && keepUp && this.minimizeTimer != null && !previewForSettings)
                 {
-                    this.minimizeTimer?.Stop();
+                    // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
+                    this.BeginAnimation(OpacityProperty, null);
+                    this.Opacity = 1.0;
+                    this.minimizeTimer.Interval = this.Settings.FadeOutTime;
+                    this.minimizeTimer.Start();
+                }
+                else if (this.ShownOrFading && !this.isPreviewForSettings)
+                    this.FadeOut(force);
+                else
+                    this.FadeIn(force, previewForSettings);
+            });
+        }
 
-                    bool doNotFadeIn = this.dragging ||
-                                       this.isPreviewForSettings ||
-                                       (this.Settings.DisableToast || (this.Settings.OnlyShowToastOnHotkey && !force && !this.IsToastVisible)) ||
-                                       (this.Settings.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
-                    if (doNotFadeIn)
-                        return;
+        private void FadeIn(bool force = false, bool permanent = false)
+        {
+            bool doNotFadeIn = this.ShownOrFading ||
+                               this.dragging ||
+                               this.isPreviewForSettings ||
+                               (this.Settings.DisableToast || (this.Settings.OnlyShowToastOnHotkey && !force)) ||
+                               (this.Settings.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
+            if (doNotFadeIn)
+                return;
 
-                    this.isUpdateToast = isUpdate;
+            // Stop FadeOut
+            this.minimizeTimer?.Stop();
 
-                    if (!this.IsToastVisible)
-                    {
-                        this.SetToastVisibility(true);
+            this.SetToastVisibility(true);
 
-                        DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
-                        anim.Completed += (s, e) =>
-                        {
-                            this.IsToastVisible = true;
-                            if (!permanent)
-                                this.FadeOut();
-                        };
-                        this.BeginAnimation(OpacityProperty, anim);
-                    }
-                    else if (this.minimizeTimer != null)
-                    {
-                        if (!permanent)
-                        {
-                            // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
-                            this.BeginAnimation(OpacityProperty, null);
-                            this.Opacity = 1.0;
-                            this.minimizeTimer.Interval = this.Settings.FadeOutTime;
-                            this.minimizeTimer.Start();
-                        }
-                    }
-                }));
+            DoubleAnimation anim = new DoubleAnimation(1.0, TimeSpan.FromMilliseconds(250));
+            anim.Completed += (s, e) =>
+            {
+                if (!permanent)
+                    this.FadeOut();
+            };
+            this.BeginAnimation(OpacityProperty, anim);
         }
 
         private void FadeOut(bool now = false)
         {
-            this.Dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new Action(() =>
+            if (!this.ShownOrFading || this.isPreviewForSettings)
+                return;
+
+            // 16 == one frame (0 is not a valid interval)
+            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 16);
+
+            if (this.minimizeTimer == null)
+            {
+                this.minimizeTimer = new Timer { AutoReset = false };
+                this.minimizeTimer.Elapsed += (s, e) =>
                 {
-                    // 16 == one frame (0 is not a valid interval)
-                    var interval = now ? 16 : this.Settings.FadeOutTime;
-
-                    if (this.minimizeTimer == null)
+                    try
                     {
-                        this.minimizeTimer = new Timer { AutoReset = false };
-                        this.minimizeTimer.Elapsed += (s, e) =>
+                        this.Dispatcher.Invoke(() =>
                         {
-                            try
+                            DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
+                            anim.Completed += (ss, ee) =>
                             {
-                                this.Dispatcher.Invoke(() =>
-                                {
-                                    DoubleAnimation anim = new DoubleAnimation(0.0, TimeSpan.FromMilliseconds(500));
-                                    anim.Completed += (ss, ee) =>
-                                    {
-                                        this.SetToastVisibility(false);
-                                        this.IsToastVisible = false;
-                                    };
-                                    this.BeginAnimation(OpacityProperty, anim);
-                                });
-                            }
-                            catch (TaskCanceledException ex)
-                            {
-                                logger.WarnExt("FadeOut animation canceled.", ex);
-                            }
-                        };
+                                this.SetToastVisibility(false);
+                                this.isUpdateToast = false;
+                            };
+                            this.BeginAnimation(OpacityProperty, anim);
+                        });
                     }
+                    catch (TaskCanceledException ex)
+                    {
+                        logger.WarnExt("FadeOut animation canceled.", ex);
+                    }
+                };
+            }
 
-                    this.minimizeTimer.Interval = interval;
+            this.minimizeTimer.Interval = interval;
 
-                    this.minimizeTimer.Stop();
-                    this.minimizeTimer.Start();
-                }));
+            this.minimizeTimer.Stop();
+            this.minimizeTimer.Start();
         }
 
         private void ResetPositionIfOffScreen()
@@ -634,10 +622,7 @@ namespace Toastify.View
                     break;
 
                 case SpotifyAction.ShowToast:
-                    if (!this.IsVisible)
-                        this.ShowToast(true);
-                    else if (!this.isPreviewForSettings)
-                        this.FadeOut(true);
+                    this.ShowOrHideToast(true);
                     break;
 
                 case SpotifyAction.ThumbsUp:
@@ -762,11 +747,16 @@ namespace Toastify.View
 
             // Update current song
             if (e.CurrentSong == null || !e.CurrentSong.IsValid())
-                return;
-
-            this.paused = !e.Playing;
-            this.UpdateCurrentSong(e.CurrentSong);
-            this.UpdateSongProgressBar(e.TrackTime);
+            {
+                this.toastIconURI = DEFAULT_ICON;
+                this.UpdateToastText(STATE_NOTHING_PLAYING, string.Empty, false);
+            }
+            else
+            {
+                this.paused = !e.Playing;
+                this.ChangeCurrentSong(e.CurrentSong);
+                this.UpdateSongProgressBar(e.TrackTime);
+            }
         }
 
         private void Spotify_SongChanged(object sender, SpotifyTrackChangedEventArgs e)
@@ -774,14 +764,14 @@ namespace Toastify.View
             if (e.NewSong == null || !e.NewSong.IsValid())
                 return;
 
-            this.UpdateCurrentSong(e.NewSong);
+            this.ChangeCurrentSong(e.NewSong);
         }
 
         private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
         {
             // Check if the toast is actually displaying something
             if (this.currentSong == null)
-                this.UpdateCurrentSong(Spotify.Instance.CurrentSong);
+                this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
 
             this.paused = !e.Playing;
 
@@ -838,7 +828,8 @@ namespace Toastify.View
             Thread.Sleep(20000);
 
             this.toastIconURI = UPDATE_LOGO_ICON;
-            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true, true);
+            this.isUpdateToast = true;
+            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true);
 
             VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
         }
