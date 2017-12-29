@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:core="clr-namespace:Toastify.Core"
         xmlns:common="clr-namespace:Toastify.Common"
         xmlns:helpers="clr-namespace:Toastify.Helpers"
@@ -43,7 +44,8 @@
                     </StackPanel>
                     <StackPanel Name="PanelWindowsMixerIncrement" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="37,116,0,0" Height="26">
                         <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :" />
-                        <TextBox Name="TbWindowsMixerIncrement" Text="{Binding Path=Settings.WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Margin="8,0,0,0" Height="24" Width="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
+                        <wpft:DoubleUpDown Margin="8,0,0,0" Height="24" Width="50" VerticalContentAlignment="Center" HorizontalAlignment="Left" Value="{Binding Path=Settings.WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}"
+                                           AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" FormatString="F1" Minimum="0.0" Maximum="20.0" Increment="0.1" ClipValueToMinMax="True" DefaultValue="0.0" />
                     </StackPanel>
 
                     <Grid VerticalAlignment="Top" Margin="12,168,12,0">
@@ -62,8 +64,7 @@
 
                     <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,263,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
                     <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,288,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
-                    <CheckBox IsChecked="{Binding Path=Settings.PreventSleepWhilePlaying, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,331,0,0" Height="21" VerticalContentAlignment="Center">Prevent the computer from sleeping while Spotify is playing</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,361,0,0" Height="31">
+                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,333,0,0" Height="31">
                         <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak />
                             Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
                     </CheckBox>
@@ -147,7 +148,8 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center">FadeOut Time :</Label>
-                                    <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,0" VerticalAlignment="Center" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" Padding="0" />
+                                    <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,0" VerticalAlignment="Center" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" Padding="0"
+                                                            Value="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=N0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Int32}" MinValue="1000" MaxValue="10000" />
                                     <Label Grid.Column="1" Height="26" Margin="-8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left">(milliseconds)</Label>
                                 </Grid>
 
@@ -173,13 +175,17 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Width :</Label>
-                                        <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="ToastWidth_MouseWheel" VerticalContentAlignment="Center" />
+                                        <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="ToastWidth_MouseWheel" VerticalContentAlignment="Center"
+                                                                Value="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Left Position :</Label>
-                                        <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="PositionLeft_MouseWheel" VerticalContentAlignment="Center" />
+                                        <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="PositionLeft_MouseWheel" VerticalContentAlignment="Center"
+                                                                Value="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                         <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Height :</Label>
-                                        <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="ToastHeight_MouseWheel" VerticalContentAlignment="Center" />
+                                        <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="ToastHeight_MouseWheel" VerticalContentAlignment="Center"
+                                                                Value="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Top Position :</Label>
-                                        <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="PositionTop_MouseWheel" VerticalContentAlignment="Center" />
+                                        <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="PositionTop_MouseWheel" VerticalContentAlignment="Center"
+                                                                Value="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                     </Grid>
 
                                     <Grid VerticalAlignment="Top" Margin="0,10,0,0">
@@ -197,7 +203,9 @@
                                 <StackPanel VerticalAlignment="Top" Margin="12,341,12,0">
                                     <StackPanel Orientation="Horizontal">
                                         <Label Height="26" VerticalContentAlignment="Center">Border Thickness :</Label>
-                                        <TextBox Text="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" Width="32" Height="24" VerticalContentAlignment="Center" MouseWheel="BorderThickness_MouseWheel" Margin="6,0,0,0" />
+                                        <wpft:DoubleUpDown Width="54" Height="24" VerticalContentAlignment="Center" MouseWheel="BorderThickness_MouseWheel" Margin="6,0,0,0" FormatString="F1"
+                                                           AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Minimum="0.0" Maximum="100.0" Increment="0.1"
+                                                           Value="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" DefaultValue="0.0" />
                                     </StackPanel>
                                     <Grid Margin="0,10,0,0">
                                         <Grid.ColumnDefinitions>
@@ -211,12 +219,16 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Left</Label>
-                                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" VerticalAlignment="Top" MouseWheel="CornerTopLeft_MouseWheel" Margin="77,1,8,0" VerticalContentAlignment="Center" />
-                                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,1,81,0" VerticalAlignment="Top" MouseWheel="CornerTopRight_MouseWheel" VerticalContentAlignment="Center" />
+                                            <wpft:ValueRangeTextBox Grid.Column="0" Height="24" VerticalAlignment="Top" MouseWheel="CornerTopLeft_MouseWheel" Margin="77,1,8,0" VerticalContentAlignment="Center"
+                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                            <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="8,1,81,0" VerticalAlignment="Top" MouseWheel="CornerTopRight_MouseWheel" VerticalContentAlignment="Center"
+                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,0,21,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Right</Label>
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Left</Label>
-                                            <TextBox Grid.Column="0" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="77,35,8,0" VerticalAlignment="Top" MouseWheel="CornerBottomLeft_MouseWheel" VerticalContentAlignment="Center" />
-                                            <TextBox Grid.Column="1" Height="24" Text="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" Margin="8,35,81,0" VerticalAlignment="Top" MouseWheel="CornerBottomRight_MouseWheel" VerticalContentAlignment="Center" />
+                                            <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="77,35,8,0" VerticalAlignment="Top" MouseWheel="CornerBottomLeft_MouseWheel" VerticalContentAlignment="Center"
+                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                            <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="8,35,81,0" VerticalAlignment="Top" MouseWheel="CornerBottomRight_MouseWheel" VerticalContentAlignment="Center"
+                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Right</Label>
                                         </Grid>
                                     </Grid>
@@ -240,16 +252,16 @@
                                                               ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorTopUpDown" Grid.Column="1" Height="24" Margin="218,1,6,0" VerticalAlignment="Top"
-                                                           FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="0.0" Increment="0.01"
-                                                           Minimum="0.0" Maximum="1.0" Value="{Binding Path=Settings.ToastColorTopOffset, Mode=TwoWay}" />
+                                                           FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"
+                                                           Minimum="0.0" Maximum="1.0" Value="{Binding Path=Settings.ToastColorTopOffset, Mode=TwoWay}" DefaultValue="0.0" />
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left" Width="85">Bottom color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=ToastColorBottom, Mode=TwoWay}"
                                                               ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,36,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorBottomUpDown" Grid.Column="1" Height="24" Margin="218,37,6,0" VerticalAlignment="Top"
-                                                           FormatString="P0" Watermark="Offset" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="1.0" Increment="0.01"
-                                                           Minimum="{Binding Path=Value, ElementName=ColorTopUpDown}" Maximum="1.0" Value="{Binding Path=Settings.ToastColorBottomOffset, Mode=TwoWay}" />
+                                                           FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"
+                                                           Minimum="{Binding Path=Value, ElementName=ColorTopUpDown}" Maximum="1.0" Value="{Binding Path=Settings.ToastColorBottomOffset, Mode=TwoWay}" DefaultValue="1.0" />
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,72,0,0" HorizontalAlignment="Left" Width="81">Border color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,73,0,0" SelectedColor="{Binding Path=ToastBorderColor, Mode=TwoWay}"
@@ -271,7 +283,7 @@
                                                           ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title1FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,1,6,0" VerticalAlignment="Top"
-                                                           FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
+                                                           FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle1FontSize, Mode=TwoWay}" />
                                         <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
                                         <Grid Grid.Column="1" Height="26" Margin="16,28,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle1DropShadow}">
@@ -282,12 +294,12 @@
 
                                             <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
                                             <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
-                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="3" Increment="0.1"
-                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle1ShadowDepth, Mode=TwoWay}" />
+                                                               FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1"
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle1ShadowDepth, Mode=TwoWay}" DefaultValue="3" />
                                             <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
                                             <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
-                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="2" Increment="1"
-                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle1ShadowBlur, Mode=TwoWay}" />
+                                                               FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle1ShadowBlur, Mode=TwoWay}" DefaultValue="2" />
                                         </Grid>
 
                                         <!-- Title2 -->
@@ -296,8 +308,8 @@
                                                           ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,60,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title2FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,61,6,0" VerticalAlignment="Top"
-                                                            FormatString="N0" Watermark="Font size" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="12" Increment="1"
-                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle2FontSize, Mode=TwoWay}" />
+                                                            FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
+                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle2FontSize, Mode=TwoWay}" DefaultValue="12" />
                                         <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
                                         <Grid Grid.Column="1" Height="26" Margin="16,88,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle2DropShadow}">
                                             <Grid.ColumnDefinitions>
@@ -307,12 +319,12 @@
 
                                             <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
                                             <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
-                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="3" Increment="0.1"
-                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle2ShadowDepth, Mode=TwoWay}" />
+                                                               FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1"
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle2ShadowDepth, Mode=TwoWay}" DefaultValue="3" />
                                             <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
                                             <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
-                                                               FormatString="N1" Watermark="Shadow depth" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="2" Increment="1"
-                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle2ShadowBlur, Mode=TwoWay}" />
+                                                               FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle2ShadowBlur, Mode=TwoWay}" DefaultValue="2" />
                                         </Grid>
                                     </Grid>
                                 </GroupBox>
