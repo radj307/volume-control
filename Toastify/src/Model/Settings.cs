@@ -128,18 +128,18 @@ namespace Toastify.Model
 
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
         {
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = SpotifyAction.PlayPause     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = SpotifyAction.PreviousTrack , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = SpotifyAction.NextTrack     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = SpotifyAction.Mute          , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = SpotifyAction.VolumeDown    , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = SpotifyAction.VolumeUp      , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = SpotifyAction.ShowToast     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = SpotifyAction.ShowSpotify   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = SpotifyAction.CopyTrackInfo , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = SpotifyAction.PasteTrackInfo, Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = SpotifyAction.FastForward   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = SpotifyAction.Rewind        , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = ToastifyAction.VolumeDown    , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = ToastifyAction.VolumeUp      , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = ToastifyAction.FastForward   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = ToastifyAction.Rewind        , Enabled = false },
         };
 
         private bool _disableToast;
@@ -289,7 +289,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Only show the toast when the `<see cref="SpotifyAction.ShowToast"/>` hotkey is pressed.
+        /// Only show the toast when the `<see cref="ToastifyAction.ShowToast"/>` hotkey is pressed.
         /// </summary>
         public bool OnlyShowToastOnHotkey
         {

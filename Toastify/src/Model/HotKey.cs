@@ -14,6 +14,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using Toastify.Core;
 using Toastify.Events;
+using Toastify.Helpers;
 using Toastify.Services;
 using Toastify.View;
 using Clipboard = System.Windows.Clipboard;
@@ -28,7 +29,7 @@ namespace Toastify.Model
 
         #region Private fields
 
-        private SpotifyAction _action;
+        private ToastifyAction _action;
         private bool _enabled;
         private bool _shift;
         private bool _ctrl;
@@ -47,7 +48,7 @@ namespace Toastify.Model
 
         #region Public properties
 
-        public SpotifyAction Action
+        public ToastifyAction Action
         {
             get
             {
@@ -186,61 +187,7 @@ namespace Toastify.Model
         [XmlIgnore]
         public string HumanReadableAction
         {
-            get
-            {
-                switch (this.Action)
-                {
-                    case SpotifyAction.CopyTrackInfo:
-                        return "Copy Track Name";
-
-                    case SpotifyAction.PasteTrackInfo:
-                        return "Paste Track Name";
-
-                    case SpotifyAction.Mute:
-                        return "Mute";
-
-                    case SpotifyAction.NextTrack:
-                        return "Next Track";
-
-                    case SpotifyAction.None:
-                        return "None";
-
-                    case SpotifyAction.PlayPause:
-                        return "Play / Pause";
-
-                    case SpotifyAction.PreviousTrack:
-                        return "Previous Track";
-
-                    case SpotifyAction.SettingsSaved:
-                        return "Settings Saved";
-
-                    case SpotifyAction.ShowSpotify:
-                        return "Show / Hide Spotify";
-
-                    case SpotifyAction.ShowToast:
-                        return "Show Toast";
-
-                    case SpotifyAction.VolumeDown:
-                        return "Volume Down";
-
-                    case SpotifyAction.VolumeUp:
-                        return "Volume Up";
-
-                    case SpotifyAction.FastForward:
-                        return "Fast Forward";
-
-                    case SpotifyAction.Rewind:
-                        return "Rewind";
-
-                    case SpotifyAction.ThumbsUp:
-                        return "Thumbs Up";
-
-                    case SpotifyAction.ThumbsDown:
-                        return "Thunbs Down";
-                }
-
-                return "No Action";
-            }
+            get { return this.Action.GetReadableName(); }
         }
 
         [XmlIgnore]
@@ -447,12 +394,12 @@ namespace Toastify.Model
 
             try
             {
-                if (hotkey.Action == SpotifyAction.CopyTrackInfo && Spotify.Instance.CurrentSong != null)
+                if (hotkey.Action == ToastifyAction.CopyTrackInfo && Spotify.Instance.CurrentSong != null)
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);
                     Clipboard.SetText(Spotify.Instance.CurrentSong.GetClipboardText(Settings.Current.ClipboardTemplate));
                 }
-                else if (hotkey.Action == SpotifyAction.PasteTrackInfo && Spotify.Instance.CurrentSong != null)
+                else if (hotkey.Action == ToastifyAction.PasteTrackInfo && Spotify.Instance.CurrentSong != null)
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
                     Clipboard.SetText(Spotify.Instance.CurrentSong.GetClipboardText(Settings.Current.ClipboardTemplate));
@@ -622,9 +569,9 @@ namespace Toastify.Model
                     break;
 
                 case Attribute.Action:
-                    SpotifyAction action;
+                    ToastifyAction action;
                     if (!Enum.TryParse(value, true, out action))
-                        action = SpotifyAction.None;
+                        action = ToastifyAction.None;
                     this.Action = action;
                     break;
 

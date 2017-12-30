@@ -95,7 +95,7 @@ namespace Toastify.View
         private void SettingsViewModel_SettingsSaved(object sender, EventArgs e)
         {
             this.toastView.InitToast();
-            this.toastView.DisplayAction(SpotifyAction.SettingsSaved);
+            this.toastView.DisplayAction(ToastifyAction.SettingsSaved);
         }
 
         private void BtnDefaultMenuItem_OnClick(object sender, RoutedEventArgs e)

@@ -591,9 +591,9 @@ namespace Toastify.View
             }
         }
 
-        public void DisplayAction(SpotifyAction action)
+        public void DisplayAction(ToastifyAction action)
         {
-            if (!Spotify.Instance.IsRunning && action != SpotifyAction.SettingsSaved)
+            if (!Spotify.Instance.IsRunning && action != ToastifyAction.SettingsSaved)
             {
                 this.toastIconURI = DEFAULT_ICON;
                 this.UpdateToastText("Spotify not available!");
@@ -602,35 +602,35 @@ namespace Toastify.View
 
             switch (action)
             {
-                case SpotifyAction.PlayPause:
-                case SpotifyAction.NextTrack:
-                case SpotifyAction.PreviousTrack:
-                case SpotifyAction.ShowSpotify:
-                case SpotifyAction.SettingsSaved:
+                case ToastifyAction.PlayPause:
+                case ToastifyAction.NextTrack:
+                case ToastifyAction.PreviousTrack:
+                case ToastifyAction.ShowSpotify:
+                case ToastifyAction.SettingsSaved:
                     break;
 
-                case SpotifyAction.VolumeUp:
+                case ToastifyAction.VolumeUp:
                     this.UpdateToastText(this.currentSong, "Volume ++");
                     break;
 
-                case SpotifyAction.VolumeDown:
+                case ToastifyAction.VolumeDown:
                     this.UpdateToastText(this.currentSong, "Volume --");
                     break;
 
-                case SpotifyAction.Mute:
+                case ToastifyAction.Mute:
                     this.UpdateToastText(this.currentSong, "Mute On/Off");
                     break;
 
-                case SpotifyAction.ShowToast:
+                case ToastifyAction.ShowToast:
                     this.ShowOrHideToast(true);
                     break;
 
-                case SpotifyAction.ThumbsUp:
+                case ToastifyAction.ThumbsUp:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_up.png";
                     this.UpdateToastText(this.currentSong, "Thumbs Up!");
                     break;
 
-                case SpotifyAction.ThumbsDown:
+                case ToastifyAction.ThumbsDown:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
                     this.UpdateToastText(this.currentSong, "Thumbs Down!");
                     break;
@@ -712,7 +712,7 @@ namespace Toastify.View
             if (this.isUpdateToast)
                 Process.Start(new ProcessStartInfo(VersionChecker.UpdateUrl));
             else
-                Spotify.Instance.SendAction(SpotifyAction.ShowSpotify);
+                Spotify.Instance.SendAction(ToastifyAction.ShowSpotify);
         }
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
@@ -776,7 +776,7 @@ namespace Toastify.View
             this.paused = !e.Playing;
 
             // Only fade-in if the play state change was triggered by a hotkey.
-            bool fadeIn = Hotkey.LastHotkey?.Action == SpotifyAction.PlayPause;
+            bool fadeIn = Hotkey.LastHotkey?.Action == ToastifyAction.PlayPause;
             this.UpdateToastText(this.currentSong, null, fadeIn);
         }
 

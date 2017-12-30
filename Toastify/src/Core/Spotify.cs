@@ -412,7 +412,7 @@ namespace Toastify.Core
             return wdgtHWnd;
         }
 
-        public void SendAction(SpotifyAction action)
+        public void SendAction(ToastifyAction action)
         {
             if (!this.IsRunning)
                 return;
@@ -421,11 +421,11 @@ namespace Toastify.Core
 
             switch (action)
             {
-                case SpotifyAction.CopyTrackInfo:
-                case SpotifyAction.ShowToast:
+                case ToastifyAction.CopyTrackInfo:
+                case ToastifyAction.ShowToast:
                     break;
 
-                case SpotifyAction.ShowSpotify:
+                case ToastifyAction.ShowSpotify:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.ShowSpotify);
                     if (this.IsMinimized)
                         this.ShowSpotify();
@@ -433,17 +433,17 @@ namespace Toastify.Core
                         this.Minimize();
                     break;
 
-                case SpotifyAction.FastForward:
+                case ToastifyAction.FastForward:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.FastForward);
                     this.SendShortcut(action);
                     break;
 
-                case SpotifyAction.Rewind:
+                case ToastifyAction.Rewind:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Rewind);
                     this.SendShortcut(action);
                     break;
 
-                case SpotifyAction.VolumeUp:
+                case ToastifyAction.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
                     switch (Settings.Current.VolumeControlMode)
                     {
@@ -461,7 +461,7 @@ namespace Toastify.Core
                     }
                     break;
 
-                case SpotifyAction.VolumeDown:
+                case ToastifyAction.VolumeDown:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
                     switch (Settings.Current.VolumeControlMode)
                     {
@@ -479,7 +479,7 @@ namespace Toastify.Core
                     }
                     break;
 
-                case SpotifyAction.Mute:
+                case ToastifyAction.Mute:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
                     switch (Settings.Current.VolumeControlMode)
                     {
@@ -509,7 +509,7 @@ namespace Toastify.Core
         ///   <para> See https://gist.github.com/aleab/9efa67e5b1a885c2c72cfbe7cf012249 for details. </para>
         /// </summary>
         /// <param name="action"> The action to simulate. </param>
-        private void SendShortcut(SpotifyAction action)
+        private void SendShortcut(ToastifyAction action)
         {
             IntPtr mainWindow = this.GetMainWindowHandle();
             IntPtr cefWidgetWindow = this.GetCefWidgetWindowHandle();
@@ -531,25 +531,25 @@ namespace Toastify.Core
 
                 switch (action)
                 {
-                    case SpotifyAction.FastForward:
+                    case ToastifyAction.FastForward:
                         modifierKeys = new List<Key> { Key.LeftShift };
                         key = Key.Right;
                         menuItemPos = 3;
                         break;
 
-                    case SpotifyAction.Rewind:
+                    case ToastifyAction.Rewind:
                         modifierKeys = new List<Key> { Key.LeftShift };
                         key = Key.Left;
                         menuItemPos = 4;
                         break;
 
-                    case SpotifyAction.VolumeUp:
+                    case ToastifyAction.VolumeUp:
                         modifierKeys = new List<Key> { Key.LeftCtrl };
                         key = Key.Up;
                         menuItemPos = 7;
                         break;
 
-                    case SpotifyAction.VolumeDown:
+                    case ToastifyAction.VolumeDown:
                         modifierKeys = new List<Key> { Key.LeftCtrl };
                         key = Key.Down;
                         menuItemPos = 8;

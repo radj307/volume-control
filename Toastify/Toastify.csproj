@@ -128,6 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Common\ConstraintFailedException.cs" />
+    <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
     <Compile Include="src\Common\SystemTray.cs" />
     <Compile Include="src\Common\ComboBoxItemAttribute.cs" />
     <Compile Include="src\Common\WindowPosition.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="src\Events\SpotifyTrackTimeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
-    <Compile Include="src\Core\SpotifyAction.cs" />
+    <Compile Include="src\Core\ToastifyAction.cs" />
     <Compile Include="src\Common\EnumComboBoxItem.cs" />
     <Compile Include="src\Helpers\Markup\EnumExtension.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
