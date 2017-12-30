@@ -257,7 +257,7 @@ namespace Toastify.Model
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.
-            clone._active = false;
+            clone.Deactivate();
 
             return clone;
         }
@@ -280,6 +280,9 @@ namespace Toastify.Model
 
         private void InitGlobalKey()
         {
+            if (this._globalKey != null)
+                this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
+
             // If we're not enabled shut everything down asap
             if (!this.Enabled || !this.Active)
             {
@@ -308,8 +311,6 @@ namespace Toastify.Model
             this._globalKey.WindowsKey = this.WindowsKey;
             this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
 
-            // Un-subscribe from the event first, in case it was already subscribed.
-            this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
             this._globalKey.HotkeyPressed += this.GlobalKey_HotkeyPressed;
 
             try
