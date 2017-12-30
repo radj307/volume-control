@@ -42,7 +42,6 @@ namespace Toastify.Model
 
         private bool _active;
         private ManagedWinapi.Hotkey _globalKey;
-        private readonly ManagedWinapi.Hotkey key = new ManagedWinapi.Hotkey();
 
         #endregion Private fields
 
@@ -245,19 +244,13 @@ namespace Toastify.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        ~Hotkey()
-        {
-            if (this.key != null)
-                this.key.Enabled = false;
-        }
-
         public object Clone()
         {
             Hotkey clone = (Hotkey)this.MemberwiseClone();
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.
-            clone.Deactivate();
+            clone._active = false;
 
             return clone;
         }
