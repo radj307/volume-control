@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using Toastify.Model;
 
 namespace Toastify.View
 {
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class DebugView : Window
     {
+        internal static DebugView Current { get; private set; }
+
         private Settings CurrentSettings { get { return Settings.Current; } }
         private Settings PreviewSettings { get; set; }
 
@@ -14,8 +18,27 @@ namespace Toastify.View
         {
             this.InitializeComponent();
 
+            this.DataContext = this;
+            Current = this;
+
             SettingsView.SettingsLaunched += this.SettingsView_SettingsLaunched;
             SettingsView.SettingsClosed += this.SettingsView_SettingsClosed;
+        }
+
+        internal static void Launch()
+        {
+            if (Current != null)
+                return;
+
+            Thread th = new Thread(() =>
+            {
+                DebugView debugView = new DebugView();
+                debugView.Show();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            th.SetApartmentState(ApartmentState.STA);
+            th.IsBackground = true;
+            th.Start();
         }
 
         private void ButtonPrintCurrentHotkeys_OnClick(object sender, RoutedEventArgs e)
@@ -44,6 +67,8 @@ namespace Toastify.View
         {
             e.Cancel = false;
             SettingsView.SettingsLaunched -= this.SettingsView_SettingsLaunched;
+
+            Current = null;
         }
 
         private void SettingsView_SettingsLaunched(object sender, Events.SettingsViewLaunchedEventArgs e)

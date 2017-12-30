@@ -1,12 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using log4net.Util;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using log4net;
-using log4net.Util;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -120,7 +120,6 @@ namespace Toastify.Model
         private string _clipboardTemplate;
         private bool _saveTrackToFile;
         private string _saveTrackToFilePath;
-        private bool _preventSleepWhilePlaying;
         private bool _optInToAnalytics;
 
         private bool _globalHotKeys;
@@ -140,6 +139,10 @@ namespace Toastify.Model
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = ToastifyAction.FastForward   , Enabled = false },
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = ToastifyAction.Rewind        , Enabled = false },
+
+#if DEBUG
+            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
+#endif
         };
 
         private bool _disableToast;
@@ -540,7 +543,7 @@ namespace Toastify.Model
             this.ClipboardTemplate = "I'm currently listening to {0}";
             this.SaveTrackToFile = false;
             this.SaveTrackToFilePath = Path.Combine(App.LocalApplicationData, "current_song.txt");
-            
+
             this.OptInToAnalytics = true;
         }
 

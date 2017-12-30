@@ -58,5 +58,12 @@ namespace Toastify.Core
 
         [EnumReadableName("Rewind")]
         Rewind = 0x00320000L,
+
+#if DEBUG
+
+        [EnumReadableName("Show DebugView")]
+        ShowDebugView = -8,
+
+#endif
     }
 }

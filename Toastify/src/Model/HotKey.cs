@@ -394,6 +394,11 @@ namespace Toastify.Model
 
             try
             {
+#if DEBUG
+                if (hotkey.Action == ToastifyAction.ShowDebugView && DebugView.Current == null)
+                    DebugView.Launch();
+#endif
+
                 if (hotkey.Action == ToastifyAction.CopyTrackInfo && Spotify.Instance.CurrentSong != null)
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.CopyTrackInfo);

@@ -421,6 +421,9 @@ namespace Toastify.Core
 
             switch (action)
             {
+#if DEBUG
+                case ToastifyAction.ShowDebugView:
+#endif
                 case ToastifyAction.CopyTrackInfo:
                 case ToastifyAction.ShowToast:
                     break;

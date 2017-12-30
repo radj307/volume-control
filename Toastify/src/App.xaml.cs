@@ -112,15 +112,7 @@ namespace Toastify
             app.InitializeComponent();
 
 #if DEBUG
-            Thread th = new Thread(() =>
-            {
-                DebugView debugView = new DebugView();
-                debugView.Show();
-                System.Windows.Threading.Dispatcher.Run();
-            });
-            th.SetApartmentState(ApartmentState.STA);
-            th.IsBackground = true;
-            th.Start();
+            DebugView.Launch();
 #endif
 
             app.Run();
