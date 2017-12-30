@@ -80,5 +80,23 @@ namespace Toastify.View
         {
             this.PreviewSettings = null;
         }
+
+        private void LogShowToastAction_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (ToastView.Current != null)
+            {
+                ToastView.Current.LogShowToastAction = true;
+                this.cbLogShowToastAction.IsChecked = true;
+            }
+        }
+
+        private void LogShowToastAction_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            if (ToastView.Current != null)
+            {
+                ToastView.Current.LogShowToastAction = false;
+                this.cbLogShowToastAction.IsChecked = false;
+            }
+        }
     }
 }

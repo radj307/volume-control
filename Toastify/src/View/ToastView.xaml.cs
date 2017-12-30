@@ -511,7 +511,7 @@ namespace Toastify.View
                     this.FadeOut(force);
                 else
                     this.FadeIn(force, previewForSettings);
-            });
+            }, DispatcherPriority.Render);
         }
 
         private void FadeIn(bool force = false, bool permanent = false)
@@ -544,7 +544,7 @@ namespace Toastify.View
                 return;
 
             // 16 == one frame (0 is not a valid interval)
-            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 16);
+            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 1000);
 
             if (this.minimizeTimer == null)
             {
@@ -562,11 +562,13 @@ namespace Toastify.View
                                 this.isUpdateToast = false;
                             };
                             this.BeginAnimation(OpacityProperty, anim);
-                        });
+                        }, DispatcherPriority.Render);
                     }
                     catch (TaskCanceledException ex)
                     {
                         logger.WarnExt("FadeOut animation canceled.", ex);
+                        this.SetToastVisibility(false);
+                        this.isUpdateToast = false;
                     }
                 };
             }
@@ -590,6 +592,12 @@ namespace Toastify.View
                 this.Top = position.Y;
             }
         }
+
+        #region DisplayAction
+
+#if DEBUG
+        public bool LogShowToastAction { get; set; }
+#endif
 
         public void DisplayAction(ToastifyAction action)
         {
@@ -622,6 +630,22 @@ namespace Toastify.View
                     break;
 
                 case ToastifyAction.ShowToast:
+#if DEBUG
+                    if (this.LogShowToastAction)
+                    {
+                        Win32API.WindowPlacement wPlacement = new Win32API.WindowPlacement();
+                        Win32API.GetWindowPlacement(this.WindowHandle, ref wPlacement);
+
+                        string hWnd = $"hWnd[{this.WindowHandle}]";
+                        string timer = $"timer[{(this.minimizeTimer == null ? "null" : $"{(this.minimizeTimer.Enabled ? '1' : '0')}, {this.minimizeTimer.Interval}")}]";
+                        string song = $"track[{(this.currentSong == null ? "null" : $"{(this.currentSong.IsValid() ? '1' : '0')}")}]";
+                        string state = $"state[{(this.isUpdateToast ? '1' : '0')}{(this.isPreviewForSettings ? '1' : '0')}{(this.dragging ? '1' : '0')}{(this.paused ? '1' : '0')}]";
+                        string visibility = $"visibility[{(this.ShownOrFading ? '1' : '0')}{(this.IsVisible ? '1' : '0')}{this.Visibility.ToString().Substring(0, 1)}{(this.Topmost ? '1' : '0')}, {{{wPlacement}}}]";
+                        string dispatcher = $"dispatcher[{(this.Dispatcher == null ? "null" : $"{(this.Dispatcher.HasShutdownStarted ? '1' : '0')}")}]";
+                        string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.FadeOutTime}]";
+                        logger.InfoExt($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
+                    }
+#endif
                     this.ShowOrHideToast(true);
                     break;
 
@@ -636,6 +660,8 @@ namespace Toastify.View
                     break;
             }
         }
+
+        #endregion
 
         private void UpdateSongProgressBar(double trackTime)
         {

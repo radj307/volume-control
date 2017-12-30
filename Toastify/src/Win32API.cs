@@ -712,6 +712,11 @@ namespace Toastify
             public Point ptMinPosition;
             public Point ptMaxPosition;
             public Rectangle rcNormalPosition;
+            
+            public override string ToString()
+            {
+                return $"{this.length},{this.flags},{this.showCmd},{this.ptMinPosition},{this.ptMaxPosition},{this.rcNormalPosition}";
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]

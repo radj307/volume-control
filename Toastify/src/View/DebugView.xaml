@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Toastify.View"
         mc:Ignorable="d"
-        Title="DebugView" Height="74.773" Width="149.544" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
-        Closing="DebugView_OnClosing">
-    <Grid>
-        <Button Content="Print Current Hotkeys" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintCurrentHotkeys_OnClick" />
-
+        Title="DebugView" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
+        Closing="DebugView_OnClosing" Width="180" Height="112">
+    <Grid d:DataContext="{d:DesignInstance local:DebugView}">
+        <Button Content="Print Current Hotkeys" HorizontalAlignment="Left" Margin="8,12,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintCurrentHotkeys_OnClick" />
+        <CheckBox Name="cbLogShowToastAction" Margin="8,40,0,0" Content="Log ShowToast action" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="LogShowToastAction_OnChecked" Unchecked="LogShowToastAction_OnUnchecked" />
     </Grid>
 </Window>
