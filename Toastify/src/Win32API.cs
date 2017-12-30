@@ -155,7 +155,7 @@ namespace Toastify
             return sb.ToString();
         }
 
-        #endregion
+        #endregion Native methods' wrappers
 
         internal static IntPtr GetShellDllDefViewWindow()
         {
@@ -208,49 +208,6 @@ namespace Toastify
                 IntPtr.Zero);
 
             return searchedHWnd;
-        }
-
-        public static void KillProc(string name)
-        {
-            // let's play nice and try to gracefully clear out all Sync processes
-            var procs = Process.GetProcessesByName(name);
-
-            foreach (var proc in procs)
-            {
-                // lParam == Band Process Id, passed in below
-                EnumWindows(delegate (IntPtr hWnd, IntPtr lParam)
-                    {
-                        GetWindowThreadProcessId(hWnd, out uint processId);
-
-                        // Essentially: Find every hWnd associated with this process and ask it to go away
-                        if (processId == (uint)lParam)
-                        {
-                            SendWindowMessage(hWnd, WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            SendWindowMessage(hWnd, WindowsMessagesFlags.WM_QUIT, IntPtr.Zero, IntPtr.Zero);
-                        }
-
-                        return true;
-                    },
-                    (IntPtr)proc.Id);
-            }
-
-            // let everything calm down
-            Thread.Sleep(1000);
-
-            procs = Process.GetProcessesByName(name);
-
-            // ok, no more mister nice guy. Sadly.
-            foreach (var proc in procs)
-            {
-                try
-                {
-                    proc.Kill();
-                }
-                catch
-                {
-                    // ignore exceptions (usually due to trying to kill non-existant child processes
-                }
-            }
         }
 
         private static void AddWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwLong)
@@ -689,6 +646,7 @@ namespace Toastify
             // Keyboard Accelerator Messages & Notifications
             WM_INITMENU        = 0x0116,
             WM_INITMENUPOPUP   = 0x0117,
+            WM_MENUSELECT      = 0x011F,
         }
 
         internal enum MapVirtualKeyType : uint

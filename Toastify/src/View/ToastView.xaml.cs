@@ -661,7 +661,7 @@ namespace Toastify.View
             }
         }
 
-        #endregion
+        #endregion DisplayAction
 
         private void UpdateSongProgressBar(double trackTime)
         {
@@ -672,7 +672,7 @@ namespace Toastify.View
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // Close Spotify first.
-            if (this.Settings.CloseSpotifyWithToastify)
+            if (this.Settings.CloseSpotifyWithToastify && Spotify.Instance.IsRunning)
                 Spotify.Instance.Kill();
 
             // Dispose the timer.

@@ -357,13 +357,7 @@ namespace Toastify.Core
 
         public void Kill()
         {
-            if (this.spotifyProcess != null)
-            {
-                this.spotifyProcess.Close();
-                Thread.Sleep(1000);
-            }
-            Win32API.KillProc("spotify");
-
+            this.SendExitCommand();
             this.localAPI.Dispose();
         }
 
@@ -591,6 +585,31 @@ namespace Toastify.Core
                 Thread.Sleep(30);
                 foreach (var k in modifierKeys)
                     Win32API.SendKeyDown(cefWidgetWindow, k, true);
+            }
+        }
+
+        private void SendExitCommand()
+        {
+            IntPtr mainWindow = this.GetMainWindowHandle();
+
+            if (mainWindow == IntPtr.Zero)
+                logger.ErrorExt("Main window is null.");
+            else
+            {
+                const int subMenuPos = 0;  // The 'File' sub-menu
+                const int acceleratorId = 0x00000068;  // The 'Exit' item
+
+                IntPtr hMenu = Win32API.GetMenu(mainWindow);
+                IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
+
+                // WM_MENUSELECT: open the sub-menu
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, (IntPtr)(0x80800000 | acceleratorId), hSubMenu);
+
+                // WM_COMMAND: accelerator keystroke
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)acceleratorId, IntPtr.Zero, true);
+
+                // WM_CLOSE
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero, true);
             }
         }
 
