@@ -619,6 +619,7 @@ namespace Toastify.Core
             try
             {
                 spotifyPath = ToastifyAPI.Spotify.GetSpotifyPath();
+                logger.InfoExt($"Spotify executable found: \"{spotifyPath}\"");
             }
             catch (Exception e)
             {
