@@ -61,34 +61,14 @@ namespace Toastify.ViewModel
 
         public string TrackName
         {
-            get
-            {
-                return this._trackName;
-            }
-            set
-            {
-                this._trackName = value;
-                if (this.Settings.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist)
-                    this.Title1 = $"{(string.IsNullOrWhiteSpace(value) ? "???" : value)}";
-                else
-                    this.Title2 = string.IsNullOrWhiteSpace(value) ? string.Empty : $"\x201C{value}\x201D";
-            }
+            get { return this._trackName; }
+            set { this.SetTrackName(value); }
         }
 
         public string ArtistName
         {
-            get
-            {
-                return this._artistName;
-            }
-            set
-            {
-                this._artistName = value;
-                if (this.Settings.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack)
-                    this.Title1 = $"{(string.IsNullOrWhiteSpace(value) ? "???" : value)}:";
-                else
-                    this.Title2 = string.IsNullOrWhiteSpace(value) ? string.Empty : $"by {value}";
-            }
+            get { return this._artistName; }
+            set { this.SetArtistName(value); }
         }
 
         public double SongProgressBarWidth
@@ -102,6 +82,24 @@ namespace Toastify.ViewModel
         public ToastViewModel()
         {
             this.Settings = Settings.Current;
+        }
+
+        public void SetTrackName(string trackName)
+        {
+            this._trackName = trackName;
+            if (this.Settings.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist)
+                this.Title1 = $"{(string.IsNullOrWhiteSpace(trackName) ? "???" : trackName)}";
+            else
+                this.Title2 = string.IsNullOrWhiteSpace(trackName) ? string.Empty : $"\x201C{trackName}\x201D";
+        }
+
+        public void SetArtistName(string artistName)
+        {
+            this._artistName = artistName;
+            if (this.Settings.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack)
+                this.Title1 = $"{(string.IsNullOrWhiteSpace(artistName) ? "???" : artistName)}:";
+            else
+                this.Title2 = string.IsNullOrWhiteSpace(artistName) ? string.Empty : $"by {artistName}";
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)

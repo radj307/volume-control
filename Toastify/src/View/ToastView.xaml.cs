@@ -890,8 +890,8 @@ namespace Toastify.View
                     break;
 
                 case nameof(this.Settings.ToastTitlesOrder):
-                    this.toastViewModel.TrackName = this.toastViewModel.TrackName;
-                    this.toastViewModel.ArtistName = this.toastViewModel.ArtistName;
+                    this.toastViewModel.SetTrackName(this.toastViewModel.TrackName);
+                    this.toastViewModel.SetArtistName(this.toastViewModel.ArtistName =;
                     break;
 
                 case nameof(this.Settings.ToastColorTop):
