@@ -358,7 +358,7 @@ namespace Toastify.Model
 
         #region HotkeyActionCallback
 
-        public static EventHandler<HotkeyActionCallbackFailedEventArgs> ActionCallbackFailed;
+        public static event EventHandler<HotkeyActionCallbackFailedEventArgs> ActionCallbackFailed;
 
         public static Hotkey LastHotkey { get; private set; }
 
