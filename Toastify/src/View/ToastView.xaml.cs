@@ -114,6 +114,7 @@ namespace Toastify.View
             this.InitializeComponent();
 
             this.toastViewModel = new ToastViewModel();
+            this.toastViewModel.PropertyChanged += this.ToastViewModel_PropertyChanged;
             this.DataContext = this.toastViewModel;
 
             // Set a static reference back to ourselves, useful for callbacks.
@@ -486,7 +487,7 @@ namespace Toastify.View
             this.isPreviewForSettings = show;
 
             if (!show)
-                this.FadeOut();
+                this.InitToast();
         }
 
         /// <summary>
@@ -499,7 +500,7 @@ namespace Toastify.View
         {
             this.Dispatcher.Invoke(() =>
             {
-                if (this.ShownOrFading && keepUp && this.minimizeTimer != null && !previewForSettings)
+                if (this.ShownOrFading && keepUp && this.minimizeTimer != null && !previewForSettings && !this.isPreviewForSettings)
                 {
                     // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
                     this.BeginAnimation(OpacityProperty, null);
@@ -823,8 +824,8 @@ namespace Toastify.View
 
         private void SettingsView_Closed(object sender, EventArgs e)
         {
-            this.ShowToastPreview(false);
             this.Settings = Settings.Current;
+            this.ShowToastPreview(false);
         }
 
         private void Application_Shutdown(object sender, EventArgs e)
@@ -858,6 +859,135 @@ namespace Toastify.View
             this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true);
 
             VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
+        }
+
+        private void ToastViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(this.Settings.ShowSongProgressBar):
+                    this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+                    break;
+
+                case nameof(this.Settings.ToastTitlesOrder):
+                    this.toastViewModel.TrackName = this.toastViewModel.TrackName;
+                    this.toastViewModel.ArtistName = this.toastViewModel.ArtistName;
+                    break;
+
+                case nameof(this.Settings.ToastColorTop):
+                case nameof(this.Settings.ToastColorBottom):
+                case nameof(this.Settings.ToastColorTopOffset):
+                case nameof(this.Settings.ToastColorBottomOffset):
+                    Color top = ColorHelper.HexToColor(this.Settings.ToastColorTop);
+                    Color bottom = ColorHelper.HexToColor(this.Settings.ToastColorBottom);
+
+                    GradientStopCollection stops = new GradientStopCollection(2)
+                    {
+                        new GradientStop(top, this.Settings.ToastColorTopOffset),
+                        new GradientStop(bottom, this.Settings.ToastColorBottomOffset)
+                    };
+                    this.ToastBorder.Background = new LinearGradientBrush(stops, new Point(0, 0), new Point(0, 1));
+                    break;
+
+                case nameof(this.Settings.ToastBorderColor):
+                    this.ToastBorder.BorderBrush = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastBorderColor));
+                    break;
+
+                case nameof(this.Settings.ToastBorderThickness):
+                    this.ToastBorder.BorderThickness = new Thickness(this.Settings.ToastBorderThickness);
+                    break;
+
+                case nameof(this.Settings.ToastBorderCornerRadiusTopLeft):
+                case nameof(this.Settings.ToastBorderCornerRadiusTopRight):
+                case nameof(this.Settings.ToastBorderCornerRadiusBottomLeft):
+                case nameof(this.Settings.ToastBorderCornerRadiusBottomRight):
+                    this.ToastBorder.CornerRadius = new CornerRadius(
+                        this.Settings.ToastBorderCornerRadiusTopLeft,
+                        this.Settings.ToastBorderCornerRadiusTopRight,
+                        this.Settings.ToastBorderCornerRadiusBottomRight,
+                        this.Settings.ToastBorderCornerRadiusBottomLeft);
+                    break;
+
+                case nameof(this.Settings.ToastWidth):
+                case nameof(this.Settings.ToastHeight):
+                case nameof(this.Settings.PositionLeft):
+                case nameof(this.Settings.PositionTop):
+                    this.Width = this.Settings.ToastWidth >= this.MinWidth ? this.Settings.ToastWidth : this.MinWidth;
+                    this.Height = this.Settings.ToastHeight >= this.MinHeight ? this.Settings.ToastHeight : this.MinHeight;
+                    this.Left = this.Settings.PositionLeft;
+                    this.Top = this.Settings.PositionTop;
+                    this.ResetPositionIfOffScreen();
+                    break;
+
+                #region Title1
+
+                case nameof(this.Settings.ToastTitle1Color):
+                    this.Title1.Foreground = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastTitle1Color));
+                    break;
+
+                case nameof(this.Settings.ToastTitle1FontSize):
+                    this.Title1.FontSize = this.Settings.ToastTitle1FontSize;
+                    break;
+
+                case nameof(this.Settings.ToastTitle1DropShadow):
+                    this.Title1.Effect = new DropShadowEffect
+                    {
+                        ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0,
+                        BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0
+                    };
+                    break;
+
+                case nameof(this.Settings.ToastTitle1ShadowDepth):
+                    if (this.Title1.Effect is DropShadowEffect t1_effect_sd)
+                        t1_effect_sd.ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0;
+                    break;
+
+                case nameof(this.Settings.ToastTitle1ShadowBlur):
+                    if (this.Title1.Effect is DropShadowEffect t1_effect_sb)
+                        t1_effect_sb.BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0;
+                    break;
+
+                #endregion Title1
+
+                #region Title2
+
+                case nameof(this.Settings.ToastTitle2Color):
+                    this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastTitle2Color));
+                    break;
+
+                case nameof(this.Settings.ToastTitle2FontSize):
+                    this.Title2.FontSize = this.Settings.ToastTitle2FontSize;
+                    break;
+
+                case nameof(this.Settings.ToastTitle2DropShadow):
+                    this.Title2.Effect = new DropShadowEffect
+                    {
+                        ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0,
+                        BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0
+                    };
+                    break;
+
+                case nameof(this.Settings.ToastTitle2ShadowDepth):
+                    if (this.Title2.Effect is DropShadowEffect t2_effect_sd)
+                        t2_effect_sd.ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0;
+                    break;
+
+                case nameof(this.Settings.ToastTitle2ShadowBlur):
+                    if (this.Title2.Effect is DropShadowEffect t2_effect_sb)
+                        t2_effect_sb.BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0;
+                    break;
+
+                #endregion Title2
+
+                case nameof(this.Settings.SongProgressBarBackgroundColor):
+                    this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarBackgroundColor));
+                    break;
+
+                case nameof(this.Settings.SongProgressBarForegroundColor):
+                    this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
+                    this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
+                    break;
+            }
         }
 
         #endregion Event handlers
