@@ -28,7 +28,6 @@ using Toastify.ViewModel;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
-using ColorConverter = System.Windows.Media.ColorConverter;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Windows.Point;
 using Timer = System.Timers.Timer;
@@ -822,7 +821,7 @@ namespace Toastify.View
 
             // Only fade-in if the play state change was triggered by a hotkey.
             bool fadeIn = Hotkey.LastHotkey?.Action == ToastifyAction.PlayPause;
-            this.UpdateToastText(this.currentSong, null, fadeIn);
+            this.UpdateToastText(this.currentSong, fadeIn: fadeIn);
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
@@ -874,7 +873,7 @@ namespace Toastify.View
 
             this.toastIconURI = UPDATE_LOGO_ICON;
             this.isUpdateToast = true;
-            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", true, true);
+            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", force: true);
 
             VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
         }
