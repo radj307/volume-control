@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Toastify.Common
 {
-    internal class SystemTray
+    internal class SystemTray : IDisposable
     {
         private readonly NotifyIcon sysTrayIcon;
 
