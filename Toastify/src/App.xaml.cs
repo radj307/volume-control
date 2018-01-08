@@ -17,15 +17,17 @@ using Toastify.Model;
 using Toastify.Services;
 
 #if DEBUG
+
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 using Toastify.View;
+
 #endif
 
 namespace Toastify
 {
     //Special entry point to allow for single instance check
-    public class EntryPoint
+    public static class EntryPoint
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
 
