@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Toastify.Common
 {
     [Serializable]
-    public struct WindowPosition
+    public struct WindowPosition : IEquatable<WindowPosition>
     {
         [XmlAttribute]
         public int Left { get; set; }
