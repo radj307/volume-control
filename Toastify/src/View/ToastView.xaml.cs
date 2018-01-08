@@ -389,30 +389,34 @@ namespace Toastify.View
 
             // Update the cover art only if the url has changed.
             if (!string.IsNullOrEmpty(this.toastIconURI) && (forceUpdate || this.toastIconURI != previousURI))
-            {
-                this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    new Action(() =>
+                this.UpdateCoverArt(this.toastIconURI);
+        }
+
+        private void UpdateCoverArt(string coverArtUri)
+        {
+            this.toastIconURI = coverArtUri;
+            this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    this.cover = new BitmapImage();
+                    this.cover.BeginInit();
+                    this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                    this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                    try
                     {
-                        this.cover = new BitmapImage();
-                        this.cover.BeginInit();
-                        this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                        this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                        try
-                        {
-                            this.cover.UriSource = new Uri(this.toastIconURI, UriKind.RelativeOrAbsolute);
-                        }
-                        catch (UriFormatException e)
-                        {
-                            logger.ErrorExt($"UriFormatException with URI=[{this.toastIconURI}]", e);
-                            this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-                        }
-                        finally
-                        {
-                            this.cover.EndInit();
-                            this.AlbumArt.Source = this.cover;
-                        }
-                    }));
-            }
+                        this.cover.UriSource = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
+                    }
+                    catch (UriFormatException e)
+                    {
+                        logger.ErrorExt($"UriFormatException with URI=[{coverArtUri}]", e);
+                        this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                    }
+                    finally
+                    {
+                        this.cover.EndInit();
+                        this.AlbumArt.Source = this.cover;
+                    }
+                }));
         }
 
         /// <summary>
@@ -461,6 +465,23 @@ namespace Toastify.View
         }
 
         #endregion Toast update
+
+        /// <summary>
+        /// Display a temporary content (title and image) on the toast.
+        /// </summary>
+        /// <param name="title1"> The string on the first line. </param>
+        /// <param name="title2"> The text on the second line. </param>
+        /// <param name="artUri"> The URI of the image to display. </param>
+        /// <param name="displayTime"> The display time in milliseconds. </param>
+        public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime)
+        {
+            this.UpdateToastText(title1, title2, false);
+            this.UpdateCoverArt(artUri);
+
+            Timer timer = new Timer(displayTime) { AutoReset = false };
+            timer.Elapsed += (sender, args) => this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+            timer.Start();
+        }
 
         private void SetToastVisibility(bool shallBeVisible)
         {
@@ -615,7 +636,10 @@ namespace Toastify.View
                 case ToastifyAction.NextTrack:
                 case ToastifyAction.PreviousTrack:
                 case ToastifyAction.ShowSpotify:
+                    break;
+
                 case ToastifyAction.SettingsSaved:
+                    this.DisplayFlashContent("Settings Saved", string.Empty, DEFAULT_ICON, 1500.0);
                     break;
 
                 case ToastifyAction.VolumeUp:
