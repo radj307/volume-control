@@ -377,10 +377,7 @@ namespace Toastify.View
             else
             {
                 if (this.currentSong.IsAd())
-                {
                     this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                    this.currentSong.Track = "Spotify Ad";
-                }
                 else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl))
                     this.currentSong.CoverArtUrl = DEFAULT_ICON;
 
@@ -461,7 +458,6 @@ namespace Toastify.View
         private void FetchOtherTrackInfo()
         {
             // TODO: Podcast? Try to fetch track info using Spotify Web API? (Podcast specific APIs are not yet available)
-            this.currentSong.Track = "[Unknown Track Type]";
         }
 
         #endregion Toast update

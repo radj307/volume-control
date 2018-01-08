@@ -13,19 +13,18 @@ namespace Toastify.Model
 
         private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
 
+        private const string TITLE_SPOTIFY_AD = "Spotify Ad";
+        private const string TITLE_UNKNOWN = "[Unknown Track Type]";
+
         public string Artist { get; }
-        public string Track { get; set; }
+        public string Track { get; }
         public string Album { get; }
         public int Length { get; }
         public string Type { get; }
 
         public string CoverArtUrl { get; set; }
 
-        internal Song() : this(string.Empty, string.Empty, -1, null)
-        {
-        }
-
-        internal Song(string artist, string title, int length, string type) : this(artist, title, length, type, null)
+        private Song(string title) : this(string.Empty, title, -1, null, null)
         {
         }
 
@@ -46,6 +45,11 @@ namespace Toastify.Model
         public bool IsOtherTrackType()
         {
             return this.Type == SpotifyTrackType.OTHER;
+        }
+
+        public static bool IsOtherTrackType(Track spotifyTrack)
+        {
+            return spotifyTrack.TrackType == SpotifyTrackType.OTHER;
         }
 
         internal bool IsValid()
@@ -142,7 +146,10 @@ namespace Toastify.Model
                 return null;
 
             if (spotifyTrack.IsAd())
-                return new Song();
+                return new Song(TITLE_SPOTIFY_AD);
+
+            if (IsOtherTrackType(spotifyTrack))
+                return new Song(TITLE_UNKNOWN);
 
             string artist = spotifyTrack.ArtistResource?.Name;
             string title = spotifyTrack.TrackResource?.Name;
