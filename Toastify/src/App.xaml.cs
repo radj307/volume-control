@@ -146,7 +146,6 @@ namespace Toastify
             if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
             {
                 Version previous = new Version(Settings.Current.PreviousVersion);
-                Version current = new Version(VersionChecker.CurrentVersion);
 
                 if (previous < new Version("1.9.7"))
                 {

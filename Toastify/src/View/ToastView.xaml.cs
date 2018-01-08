@@ -157,8 +157,6 @@ namespace Toastify.View
             if (!this.isPreviewForSettings)
                 this.SetToastVisibility(false);
 
-            ColorConverter cc = new ColorConverter();
-
             // [ DIMENSIONS ]
             this.Width = this.Settings.ToastWidth >= this.MinWidth ? this.Settings.ToastWidth : this.MinWidth;
             this.Height = this.Settings.ToastHeight >= this.MinHeight ? this.Settings.ToastHeight : this.MinHeight;
