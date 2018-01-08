@@ -92,7 +92,7 @@ namespace Toastify
                 // Modify RollingFileAppender's destination
                 var rollingFileAppender = (RollingFileAppender)loggerRepository.GetAppenders().FirstOrDefault(appender => appender.Name == "RollingFileAppender");
                 if (rollingFileAppender == null)
-                    throw new Exception("RollingFileAppender not found");
+                    throw new ApplicationStartupException("RollingFileAppender not found", false);
                 rollingFileAppender.File = Path.Combine(App.LocalApplicationData, "Toastify.log");
                 rollingFileAppender.ActivateOptions();
             }

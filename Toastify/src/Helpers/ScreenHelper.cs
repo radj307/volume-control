@@ -1,8 +1,7 @@
-﻿using System;
+﻿using log4net;
+using log4net.Util;
 using System.Windows;
 using System.Windows.Forms;
-using log4net;
-using log4net.Util;
 using Toastify.View;
 
 namespace Toastify.Helpers
@@ -17,24 +16,15 @@ namespace Toastify.Helpers
         public static Point GetDPIRatios()
         {
             Point p = new Point(1.0, 1.0);
-            try
-            {
-                if (ToastView.Current == null)
-                    return p;
+            if (ToastView.Current == null)
+                return p;
 
-                var presentationSource = PresentationSource.FromVisual(ToastView.Current);
+            var presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
-                if (presentationSource == null)
-                    throw new ApplicationException("presentationSource is null");
-
-                p = new Point(
-                    presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0,
-                    presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
-            }
-            catch (ApplicationException e)
-            {
-                logger.ErrorExt("Couldn't get PresentationSource, current ToastView has been disposed.", e);
-            }
+            if (presentationSource == null)
+                logger.ErrorExt("Couldn't get PresentationSource, current ToastView has been disposed.");
+            else
+                p = new Point(presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0, presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
             return p;
         }
 
