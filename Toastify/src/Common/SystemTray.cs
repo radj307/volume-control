@@ -111,7 +111,7 @@ namespace Toastify.Common
         {
             this.sysTrayIcon = new NotifyIcon();
 
-            this.animationTimer = new Timer()
+            this.animationTimer = new Timer
             {
                 Interval = this.AnimationStepMilliseconds
             };

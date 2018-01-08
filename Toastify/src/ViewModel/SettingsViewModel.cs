@@ -213,7 +213,7 @@ namespace Toastify.ViewModel
 
         private void SelectFileForSavingTrack()
         {
-            var dialog = new OpenFileDialog()
+            var dialog = new OpenFileDialog
             {
                 FileName = this.Settings.SaveTrackToFilePath ?? string.Empty,
                 CheckPathExists = true,
