@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Toastify.Core
 {
-    internal class ApplicationStartupException : ApplicationException
+    public class ApplicationStartupException : ApplicationException
     {
         public ApplicationStartupException() : base(CreateMessage())
         {
