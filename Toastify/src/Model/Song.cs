@@ -26,7 +26,11 @@ namespace Toastify.Model
         {
         }
 
-        public Song(string artist, string title, int length, string type, string album = null)
+        internal Song(string artist, string title, int length, string type) : this(artist, title, length, type, null)
+        {
+        }
+
+        public Song(string artist, string title, int length, string type, string album)
         {
             this.Artist = artist;
             this.Track = title;

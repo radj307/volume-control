@@ -77,7 +77,24 @@ namespace Toastify.Services
 #endif
         }
 
-        public static void TrackPageHit(string documentPath, string title = null, bool interactive = true)
+        #region TrackPageHit
+
+        public static void TrackPageHit(string documentPath)
+        {
+            TrackPageHit(documentPath, null, true);
+        }
+
+        public static void TrackPageHit(string documentPath, string title)
+        {
+            TrackPageHit(documentPath, title, true);
+        }
+
+        public static void TrackPageHit(string documentPath, bool interactive)
+        {
+            TrackPageHit(documentPath, null, interactive);
+        }
+
+        public static void TrackPageHit(string documentPath, string title, bool interactive)
         {
             if (!AnalyticsEnabled)
                 return;
@@ -96,12 +113,31 @@ namespace Toastify.Services
             logger.DebugExt($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
         }
 
-        public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
+        #endregion TrackPageHit
+
+        #region TrackEvent
+
+        public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction)
         {
-            TrackEvent(null, eventCategory, eventAction, eventLabel, eventValue);
+            TrackEvent(eventCategory, eventAction, null, -1);
         }
 
-        private static void TrackEvent(IEnumerable<Parameter> extraParameters, ToastifyEventCategory eventCategory, string eventAction, string eventLabel = null, int eventValue = -1)
+        public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel)
+        {
+            TrackEvent(eventCategory, eventAction, eventLabel, -1);
+        }
+
+        public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, int eventValue)
+        {
+            TrackEvent(eventCategory, eventAction, null, eventValue);
+        }
+
+        public static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel, int eventValue)
+        {
+            TrackEvent(eventCategory, eventAction, eventLabel, eventValue, null);
+        }
+
+        private static void TrackEvent(ToastifyEventCategory eventCategory, string eventAction, string eventLabel, int eventValue, IEnumerable<Parameter> extraParameters)
         {
             if (!AnalyticsEnabled)
                 return;
@@ -123,7 +159,16 @@ namespace Toastify.Services
             logger.DebugExt($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
         }
 
-        public static void TrackException(Exception exception, bool fatal = false)
+        #endregion TrackEvent
+
+        #region TrackException
+
+        public static void TrackException(Exception exception)
+        {
+            TrackException(exception, false);
+        }
+
+        public static void TrackException(Exception exception, bool fatal)
         {
             if (!AnalyticsEnabled)
                 return;
@@ -137,6 +182,8 @@ namespace Toastify.Services
 
             PostRequest(request);
         }
+
+        #endregion TrackException
 
         private static void PostRequest(IGoogleAnalyticsRequest request)
         {
@@ -159,7 +206,7 @@ namespace Toastify.Services
             {
                 new UserLanguage(CultureInfo.CurrentUICulture.Name)
             };
-            TrackEvent(extraParameters, ToastifyEventCategory.General, "Install", GetOS());
+            TrackEvent(ToastifyEventCategory.General, "Install", GetOS(), -1, extraParameters);
         }
 
         private static void TrackSettingBinaryHit(string settingName, bool track)

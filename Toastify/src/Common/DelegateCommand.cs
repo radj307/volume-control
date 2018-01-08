@@ -27,9 +27,18 @@ namespace Toastify.Common
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
         /// </summary>
+        /// <returns> true if this command can be executed; otherwise, false. </returns>
+        public bool CanExecute()
+        {
+            return this.CanExecute(null);
+        }
+
+        /// <summary>
+        /// Defines the method that determines whether the command can execute in its current state.
+        /// </summary>
         /// <param name="parameter"> Data used by the command. If the command does not require data to be passed, this object can be set to null. </param>
         /// <returns> true if this command can be executed; otherwise, false. </returns>
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object parameter)
         {
             return this.canExecuteMethod == null || this.canExecuteMethod();
         }
@@ -37,8 +46,16 @@ namespace Toastify.Common
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
+        public void Execute()
+        {
+            this.Execute(null);
+        }
+
+        /// <summary>
+        /// Defines the method to be called when the command is invoked.
+        /// </summary>
         /// <param name="parameter"> Data used by the command. If the command does not require data to be passed, this object can be set to null. </param>
-        public void Execute(object parameter = null)
+        public void Execute(object parameter)
         {
             this.action();
         }
@@ -79,9 +96,18 @@ namespace Toastify.Common
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
         /// </summary>
+        /// <returns> true if this command can be executed; otherwise, false. </returns>
+        public bool CanExecute()
+        {
+            return this.CanExecute(null);
+        }
+
+        /// <summary>
+        /// Defines the method that determines whether the command can execute in its current state.
+        /// </summary>
         /// <param name="parameter"> Data used by the command. If the command does not require data to be passed, this object can be set to null. </param>
         /// <returns> true if this command can be executed; otherwise, false. </returns>
-        public bool CanExecute(object parameter = null)
+        public bool CanExecute(object parameter)
         {
             T p = (parameter?.GetType().IsAssignableFrom(typeof(T)) ?? false) ? (T)parameter : default(T);
             return this.canExecuteMethod == null || this.canExecuteMethod(p);
@@ -100,8 +126,16 @@ namespace Toastify.Common
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
+        public void Execute()
+        {
+            this.Execute(null);
+        }
+
+        /// <summary>
+        /// Defines the method to be called when the command is invoked.
+        /// </summary>
         /// <param name="parameter"> Data used by the command. If the command does not require data to be passed, this object can be set to null. </param>
-        public void Execute(object parameter = null)
+        public void Execute(object parameter)
         {
             T p = (parameter?.GetType().IsAssignableFrom(typeof(T)) ?? false) ? (T)parameter : default(T);
             this.action(p);

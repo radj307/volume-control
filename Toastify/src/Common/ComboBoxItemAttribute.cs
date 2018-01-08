@@ -15,7 +15,11 @@ namespace Toastify.Common
         {
         }
 
-        public ComboBoxItemAttribute(string content, string tooltip = null)
+        public ComboBoxItemAttribute(string content) : this(content, null)
+        {
+        }
+
+        public ComboBoxItemAttribute(string content, string tooltip)
         {
             this.Content = content;
             this.Tooltip = tooltip;
