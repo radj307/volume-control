@@ -111,7 +111,7 @@ namespace Toastify.Core
 
         protected Spotify()
         {
-            this.spotifyPath = this.GetSpotifyPath();
+            this.spotifyPath = GetSpotifyPath();
             this.InitLocalAPI();
         }
 
@@ -613,7 +613,7 @@ namespace Toastify.Core
             }
         }
 
-        private string GetSpotifyPath()
+        private static string GetSpotifyPath()
         {
             string spotifyPath = null;
             try
