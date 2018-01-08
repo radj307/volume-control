@@ -3,7 +3,6 @@ using log4net.Util;
 using ManagedWinapi;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Helpers;
@@ -23,7 +23,7 @@ namespace Toastify.Model
 {
     [Serializable]
     [XmlRoot("Hotkey")]
-    public class Hotkey : INotifyPropertyChanged, IXmlSerializable, ICloneable
+    public class Hotkey : ObservableObject, IXmlSerializable, ICloneable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
 
@@ -242,8 +242,6 @@ namespace Toastify.Model
 
         #endregion Public properties
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public object Clone()
         {
             Hotkey clone = (Hotkey)this.MemberwiseClone();
@@ -429,7 +427,7 @@ namespace Toastify.Model
         {
             if (checkIfValid)
                 this.CheckIfValid();
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+            base.NotifyPropertyChanged(info);
         }
 
         #endregion INotifyPropertyChanged
