@@ -1,10 +1,15 @@
-# Toastify
+Toastify
+[![Codacy grade](https://img.shields.io/codacy/grade/dcbbd6b1f6cf45658a0f9232a5f35706.svg)][aleab/toastify@codacy]
+[![GitHub last commit (master)](https://img.shields.io/github/last-commit/aleab/toastify/master.svg)][commits]
+[![GitHub release](https://img.shields.io/github/release/aleab/toastify.svg)][release-latest]
+[![Github license](https://img.shields.io/badge/license-GPL%20v2-blue.svg)][license]
+========
 
 ![toastify-showcase][toastify-showcase]
 
 Toastify adds global hotkeys and toast notifications to Spotify.
 
-This application uses [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI-NET).
+This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 
 ## Features
 * Display the current playing track in a customizable toast-style popup
@@ -20,19 +25,32 @@ This application uses [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI
 * Toastify is **not** a Spotify **replacement**. You need both running at the same time.
 * **Windows 10**: In the latest versions of Windows, SmartScreen will probably prevent the installer from starting, because it is not signed.  
   You have two options: either *Don't run* the installer and forget about Toastify, or click on *More info* and *Run anyway*.  
-  Whatever is your choice, I strongly advise you to **not** disable Windows SmartScreen — its warnings are meaningful.  
+  Whatever is your choice, I strongly advise you to **not** disable Windows SmartScreen â€” its warnings are meaningful.  
 
-  If you have any concerns, feel free to take a look at the code (it's free :wink:) and ask questions in the [issues](https://github.com/aleab/toastify/issues) section.
+  If you have any concerns, feel free to take a look at the code (it's free :wink:) and ask questions in the [issues][issues] section.
 
 ## Information for contributors
-* The language version used to build the projects is C# 7
+* The language version used to build the project is C# 7
 * The solution requires Visual Studio 2017 (or Visual Studio Code, alternatively)
+* Dependencies are not included. Use of NuGet is highly recommended.
 
 ## License
-This software is licensed under the GNU GPL-2.0; the complete license text can be found [here](/LICENSE).  
-See also the [original project](https://github.com/nachmore/toastify) this repository is a fork of, and its old [codeplex page](http://toastify.codeplex.com/).
+This software is licensed under the GNU GPL-2.0; the complete license text can be found [here][license].  
+See also the [original project](https://github.com/nachmore/toastify) this repository is a fork of, and its old [codeplex page][toastify@codeplex].
 
-This project uses third-party libraries; their verbatim licenses can be found [here](/LICENSE-3RD-PARTY).
+This project uses third-party libraries; their verbatim licenses can be found [here][license-3rdparty].
 
 
-[toastify-showcase]: https://raw.githubusercontent.com/aleab/toastify/gh-pages/images/toastify-showcase.png "Toastify"
+[//]: # (Links)
+
+[toastify-showcase]: <https://raw.githubusercontent.com/aleab/toastify/gh-pages/images/toastify-showcase.png>
+[license]: </LICENSE>
+[license-3rdparty]: </LICENSE-3RD-PARTY>
+
+[release-latest]: <https://github.com/aleab/toastify/releases/latest>
+[commits]: <https://github.com/aleab/toastify/commits/master>
+[issues]: <https://github.com/aleab/toastify/issues>
+
+[aleab/toastify@codacy]: <https://www.codacy.com/app/aleab/toastify>
+[SpotifyAPI-NET]: <https://github.com/JohnnyCrazy/SpotifyAPI-NET>
+[toastify@codeplex]: <http://toastify.codeplex.com/>
