@@ -3,12 +3,11 @@ using log4net.Util;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using Toastify.Core;
 
 namespace Toastify.Model
 {
-    public class Song
+    public sealed class Song : IEquatable<Song>
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Song));
 
@@ -83,37 +82,58 @@ namespace Toastify.Model
             return string.Format(template, trackBeforeAction);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             if (this.Artist == null)
                 return this.Track;
 
-            return Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist ?
-                $"\x201C{this.Track}\x201D by {this.Artist}" :
-                $"{this.Artist}: \x201C{this.Track}\x201D";
+            return Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist
+                ? $"\x201C{this.Track}\x201D by {this.Artist}"
+                : $"{this.Artist}: \x201C{this.Track}\x201D";
         }
 
-        public override bool Equals(object obj)
-        {
-            var target = obj as Song;
-            if (target == null)
-                return false;
-
-            return target.Type == this.Type &&
-                target.Artist == this.Artist &&
-                target.Track == this.Track &&
-                target.Album == this.Album;
-        }
-
-        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+        /// <inheritdoc />
         public override int GetHashCode()
         {
-            int result = 17;
-            result += result * 31 + this.Type?.GetHashCode() ?? 0;
-            result += result * 31 + this.Artist?.GetHashCode() ?? 0;
-            result += result * 31 + this.Track?.GetHashCode() ?? 0;
-            result += result * 31 + this.Album?.GetHashCode() ?? 0;
-            return result;
+            unchecked
+            {
+                int hashCode = (this.Artist != null ? this.Artist.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Track != null ? this.Track.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Album != null ? this.Album.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ this.Length;
+                hashCode = (hashCode * 397) ^ (this.Type != null ? this.Type.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            Song that = obj as Song;
+            return this.Equals(that);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Song other)
+        {
+            if (other == null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return string.Equals(this.Artist, other.Artist) &&
+                   string.Equals(this.Track, other.Track) &&
+                   string.Equals(this.Album, other.Album) &&
+                   this.Length == other.Length &&
+                   string.Equals(this.Type, other.Type);
         }
 
         public static implicit operator Song(Track spotifyTrack)
@@ -155,6 +175,9 @@ namespace Toastify.Model
         public static bool Equal(Song s1, Song s2)
         {
             if (ReferenceEquals(s1, s2))
+                return true;
+
+            if (s1 == null && s2 == null)
                 return true;
 
             if (s1 == null || s2 == null)
