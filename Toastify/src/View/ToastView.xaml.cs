@@ -676,6 +676,9 @@ namespace Toastify.View
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
                     this.UpdateToastText(this.currentSong, "Thumbs Down!");
                     break;
+
+                default:
+                    throw new InvalidOperationException($"Unexpected value for action = {action}");
             }
         }
 
@@ -1004,6 +1007,9 @@ namespace Toastify.View
                     this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
                     this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
                     break;
+
+                default:
+                    throw new InvalidOperationException($"Unexpected value for PropertyName = {e.PropertyName}");
             }
         }
 

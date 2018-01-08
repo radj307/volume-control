@@ -42,6 +42,9 @@ namespace Toastify.Helpers
                     case Key.LeftAlt:
                     case Key.RightAlt:
                         return 0x12;
+
+                    default:
+                        break;
                 }
             }
             return (uint)KeyInterop.VirtualKeyFromKey(key);

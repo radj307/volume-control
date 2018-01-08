@@ -170,6 +170,9 @@ namespace Toastify.ViewModel
                 case nameof(this.Settings.SongProgressBarForegroundColor):
                     this.NotifyPropertyChanged(nameof(this.SongProgressBarForegroundColor));
                     break;
+
+                default:
+                    break;
             }
         }
 
@@ -201,8 +204,14 @@ namespace Toastify.ViewModel
                         case 1:
                             this.Settings.SetDefaultToastColors();
                             break;
+
+                        default:
+                            throw new InvalidOperationException($"Unexpected value for CurrentToastTabIndex = {this.CurrentToastTabIndex}");
                     }
                     break;
+
+                default:
+                    throw new InvalidOperationException($"Unexpected value for CurrentTabIndex = {this.CurrentTabIndex}");
             }
         }
 

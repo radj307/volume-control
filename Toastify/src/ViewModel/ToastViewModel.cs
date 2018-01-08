@@ -136,6 +136,9 @@ namespace Toastify.ViewModel
                 case nameof(this.Settings.SongProgressBarForegroundColor):
                     this.NotifyPropertyChanged(e.PropertyName);
                     break;
+
+                default:
+                    break;
             }
         }
     }
