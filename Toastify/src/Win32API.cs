@@ -362,7 +362,10 @@ namespace Toastify
             //System.Diagnostics.Debug.WriteLine("shift: " + shiftKey.State + " alt: " + altKey.State + " ctrl: " + ctrlKey.State);
 
             while (maxSleep > 0 && (shiftKey.State != 0 || altKey.State != 0 || ctrlKey.State != 0))
-                Thread.Sleep(maxSleep -= 50);
+            {
+                Thread.Sleep(maxSleep);
+                maxSleep -= 50;
+            }
 
             //System.Diagnostics.Debug.WriteLine("maxSleep: " + maxSleep);
 
