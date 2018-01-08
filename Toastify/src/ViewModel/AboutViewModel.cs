@@ -6,16 +6,19 @@ namespace Toastify.ViewModel
 {
     public class AboutViewModel : ObservableObject
     {
-        public const string HOMEPAGE_URL = "http://github.com/aleab/toastify";
-
-        private readonly Uri homepageUri = new Uri(HOMEPAGE_URL);
+        private readonly Uri homepageUri;
 
         public string ToastifyVersion { get { return VersionChecker.CurrentVersion; } }
 
-        public string HomepageUrl { get { return HOMEPAGE_URL; } }
+        public string HomepageUrl { get; } = "http://github.com/aleab/toastify";
 
         public string HomepageUrlNoScheme { get { return $"{this.homepageUri.Host}{this.homepageUri.PathAndQuery}"; } }
 
         public string UpdateUrl { get { return VersionChecker.UpdateUrl; } }
+
+        public AboutViewModel()
+        {
+            this.homepageUri = new Uri(this.HomepageUrl);
+        }
     }
 }

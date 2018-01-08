@@ -298,24 +298,24 @@ namespace Toastify.Services
         /// </summary>
         public static class ToastifyEvent
         {
-            public const string Exception = "Exception";
+            public static string Exception { get; } = "Exception";
 
-            public const string AppLaunch = "Toastify.AppLaunched";
-            public const string AppTermination = "Toastify.AppTermination";
-            public const string SettingsLaunched = "Toastify.SettingsLaunched";
+            public static string AppLaunch { get; } = "Toastify.AppLaunched";
+            public static string AppTermination { get; } = "Toastify.AppTermination";
+            public static string SettingsLaunched { get; } = "Toastify.SettingsLaunched";
 
             public static class Action
             {
-                public const string Mute = "Toastify.Action.Mute";
-                public const string VolumeDown = "Toastify.Action.VolumeDown";
-                public const string VolumeUp = "Toasitfy.Action.VolumeUp";
-                public const string ShowToast = "Toastify.Action.ShowToast";
-                public const string ShowSpotify = "Toastify.Action.ShowSpotify";
-                public const string CopyTrackInfo = "Toastify.Action.CopyTrackInfo";
-                public const string PasteTrackInfo = "Toastify.Action.PasteTrackInfo";
-                public const string FastForward = "Toastify.Action.FastForward";
-                public const string Rewind = "Toastify.Action.Rewind";
-                public const string Default = "Toastify.Action.";
+                public static string Mute { get; } = "Toastify.Action.Mute";
+                public static string VolumeDown { get; } = "Toastify.Action.VolumeDown";
+                public static string VolumeUp { get; } = "Toasitfy.Action.VolumeUp";
+                public static string ShowToast { get; } = "Toastify.Action.ShowToast";
+                public static string ShowSpotify { get; } = "Toastify.Action.ShowSpotify";
+                public static string CopyTrackInfo { get; } = "Toastify.Action.CopyTrackInfo";
+                public static string PasteTrackInfo { get; } = "Toastify.Action.PasteTrackInfo";
+                public static string FastForward { get; } = "Toastify.Action.FastForward";
+                public static string Rewind { get; } = "Toastify.Action.Rewind";
+                public static string Default { get; } = "Toastify.Action.";
             }
         }
     }
