@@ -3,14 +3,12 @@ using log4net.Util;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
 using Toastify.Events;
 using Toastify.Helpers;
@@ -357,7 +355,7 @@ namespace Toastify.Core
 
         public void Kill()
         {
-            this.SendExitCommand();
+            this.SendShortcut(ToastifyAction.Exit);
             this.localAPI.Dispose();
         }
 
@@ -517,38 +515,40 @@ namespace Toastify.Core
                 logger.ErrorExt("CefWidget window is null.");
             else
             {
-                // The 'Playback' sub-menu
-                const int subMenuPos = 3;
-                // The base accelerator id: each item's id is obtained adding its zero-based position in the drop-down menu.
-                const uint baseAcceleratorId = 0x00000072;
+                uint baseAcceleratorId;
 
-                List<Key> modifierKeys;
-                Key key;
+                int subMenuPos;
                 int menuItemPos;
 
                 switch (action)
                 {
+                    case ToastifyAction.Exit:
+                        baseAcceleratorId = 0x00000062;
+                        subMenuPos = 0;
+                        menuItemPos = 6;
+                        break;
+
                     case ToastifyAction.FastForward:
-                        modifierKeys = new List<Key> { Key.LeftShift };
-                        key = Key.Right;
+                        baseAcceleratorId = 0x00000072;
+                        subMenuPos = 3;
                         menuItemPos = 3;
                         break;
 
                     case ToastifyAction.Rewind:
-                        modifierKeys = new List<Key> { Key.LeftShift };
-                        key = Key.Left;
+                        baseAcceleratorId = 0x00000072;
+                        subMenuPos = 3;
                         menuItemPos = 4;
                         break;
 
                     case ToastifyAction.VolumeUp:
-                        modifierKeys = new List<Key> { Key.LeftCtrl };
-                        key = Key.Up;
+                        baseAcceleratorId = 0x00000072;
+                        subMenuPos = 3;
                         menuItemPos = 7;
                         break;
 
                     case ToastifyAction.VolumeDown:
-                        modifierKeys = new List<Key> { Key.LeftCtrl };
-                        key = Key.Down;
+                        baseAcceleratorId = 0x00000072;
+                        subMenuPos = 3;
                         menuItemPos = 8;
                         break;
 
@@ -556,60 +556,14 @@ namespace Toastify.Core
                         return;
                 }
 
-                // WM_KEYDOWN: hold down the keys
-                foreach (var k in modifierKeys)
-                    Win32API.SendKeyDown(cefWidgetWindow, k, true);
-                Win32API.SendKeyDown(cefWidgetWindow, key, true, true);
-                Thread.Sleep(30);
-
-                // WM_INITMENU: select menu
-                IntPtr hMenu = Win32API.GetMenu(mainWindow);
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_INITMENU, hMenu, IntPtr.Zero);
-
-                // WM_INITMENUPOPUP: select sub-menu ('Playback')
-                IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_INITMENUPOPUP, hSubMenu, (IntPtr)subMenuPos);
-
-                // WM_COMMAND: accelerator keystroke (shortcut)
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(0x00010000 | (baseAcceleratorId + menuItemPos)), IntPtr.Zero);
-
-                // WM_UNINITMENUPOPUP: destroy the sub-menu
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_UNINITMENUPOPUP, hSubMenu, IntPtr.Zero);
-
-                // The following message is not needed: it will be sent automatically by <something> to the main window to notify the event (to change the UI?).
-                // WM_COMMAND: notification that the keystroke has been translated
-                //Win32API.PostMessage(mainWindow, (uint)Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)0x00007D01, IntPtr.Zero);
-
-                // WM_KEYUP: release the keys
-                Win32API.SendKeyUp(cefWidgetWindow, key, true, true);
-                Thread.Sleep(30);
-                foreach (var k in modifierKeys)
-                    Win32API.SendKeyDown(cefWidgetWindow, k, true);
-            }
-        }
-
-        private void SendExitCommand()
-        {
-            IntPtr mainWindow = this.GetMainWindowHandle();
-
-            if (mainWindow == IntPtr.Zero)
-                logger.ErrorExt("Main window is null.");
-            else
-            {
-                const int subMenuPos = 0;  // The 'File' sub-menu
-                const int acceleratorId = 0x00000068;  // The 'Exit' item
-
                 IntPtr hMenu = Win32API.GetMenu(mainWindow);
                 IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
 
-                // WM_MENUSELECT: open the sub-menu
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, (IntPtr)(0x80800000 | acceleratorId), hSubMenu);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, (IntPtr)(0x80800000 | (baseAcceleratorId + menuItemPos)), hSubMenu);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(baseAcceleratorId + menuItemPos), IntPtr.Zero, true);
 
-                // WM_COMMAND: accelerator keystroke
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)acceleratorId, IntPtr.Zero, true);
-
-                // WM_CLOSE
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero, true);
+                if (action == ToastifyAction.Exit)
+                    Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero, true);
             }
         }
 

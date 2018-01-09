@@ -630,11 +630,8 @@ namespace Toastify.View
                     break;
 
                 case ToastifyAction.VolumeUp:
-                    this.UpdateToastText(this.currentSong, "Volume ++");
-                    break;
-
                 case ToastifyAction.VolumeDown:
-                    this.UpdateToastText(this.currentSong, "Volume --");
+                    this.UpdateToastText(this.currentSong, $"Volume {(action == ToastifyAction.VolumeUp ? "++" : "--")}");
                     break;
 
                 case ToastifyAction.Mute:

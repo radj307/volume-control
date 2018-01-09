@@ -30,10 +30,10 @@ namespace Toastify.Core
         PasteTrackInfo = 5,
 
         [EnumReadableName("Thumbs Up")]
-        ThumbsUp = 6,           // not usable, left in for future (hopefully!)
+        ThumbsUp = 6,
 
         [EnumReadableName("Thumbs Down")]
-        ThumbsDown = 7,           // not usable, left in for future (hopefully!)
+        ThumbsDown = 7,
 
         [EnumReadableName("Play / Pause")]
         PlayPause = 0x000E0000L,
@@ -58,6 +58,9 @@ namespace Toastify.Core
 
         [EnumReadableName("Rewind")]
         Rewind = 0x00320000L,
+
+        [EnumReadableName("Exit")]
+        Exit = 0xFFFFFFFFL,
 
 #if DEBUG
 
