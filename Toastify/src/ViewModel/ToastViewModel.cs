@@ -138,6 +138,7 @@ namespace Toastify.ViewModel
                     break;
 
                 default:
+                    // Ignore any other property
                     break;
             }
         }

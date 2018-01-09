@@ -625,12 +625,6 @@ namespace Toastify.View
 
             switch (action)
             {
-                case ToastifyAction.PlayPause:
-                case ToastifyAction.NextTrack:
-                case ToastifyAction.PreviousTrack:
-                case ToastifyAction.ShowSpotify:
-                    break;
-
                 case ToastifyAction.SettingsSaved:
                     this.DisplayFlashContent("Settings Saved", string.Empty, DEFAULT_ICON, 1500.0);
                     break;
@@ -678,7 +672,8 @@ namespace Toastify.View
                     break;
 
                 default:
-                    throw new InvalidOperationException($"Unexpected value for action = {action}");
+                    // Ignore any other action
+                    break;
             }
         }
 
@@ -1009,7 +1004,8 @@ namespace Toastify.View
                     break;
 
                 default:
-                    throw new InvalidOperationException($"Unexpected value for PropertyName = {e.PropertyName}");
+                    // Ignore any other property
+                    break;
             }
         }
 
