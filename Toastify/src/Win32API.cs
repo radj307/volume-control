@@ -61,17 +61,23 @@ namespace Toastify
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetWindowTextLength(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex);
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        private static extern IntPtr GetWindowLongPtr32(IntPtr hWnd, GWL nIndex);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong);
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
+        private static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, GWL nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
+        private static extern int SetWindowLongPtr32(IntPtr hWnd, GWL nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
+        private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetForegroundWindow();
@@ -98,14 +104,14 @@ namespace Toastify
         internal static extern IntPtr SetFocus(IntPtr hWnd);
 
         [return: MarshalAs(UnmanagedType.Bool)]
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern bool SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("kernel32.dll", EntryPoint = "SetLastError")]
+        [DllImport("kernel32.dll")]
         public static extern void SetLastError(int dwErrorCode);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -119,7 +125,15 @@ namespace Toastify
 
         #endregion DLL imports
 
-        #region Native methods' wrappers
+        private static IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex)
+        {
+            return IntPtr.Size == 4 ? GetWindowLongPtr32(hWnd, nIndex) : GetWindowLongPtr64(hWnd, nIndex);
+        }
+
+        private static IntPtr SetWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong)
+        {
+            return IntPtr.Size == 4 ? new IntPtr(SetWindowLongPtr32(hWnd, nIndex, dwNewLong.ToInt32())) : SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+        }
 
         public static List<IntPtr> GetChildWindows(IntPtr parent)
         {
@@ -154,8 +168,6 @@ namespace Toastify
             GetClassName(hWnd, sb, 256);
             return sb.ToString();
         }
-
-        #endregion Native methods' wrappers
 
         internal static IntPtr GetShellDllDefViewWindow()
         {
@@ -238,7 +250,7 @@ namespace Toastify
                 {
                     Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
                     GetClientRect(hWnd, out Rect clientRect);
-                    
+
                     if (clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width)
                     {
                         var processId = GetProcessFromWindowHandle(hWnd);
@@ -544,7 +556,7 @@ namespace Toastify
             GWL_USERDATA   = -21,
             GWL_WNDPROC    = -4
         }
-        
+
         /// <summary>
         /// Window styles (<see cref="GWL.GWL_STYLE"/>).
         /// </summary>
@@ -673,7 +685,7 @@ namespace Toastify
             public Point ptMinPosition;
             public Point ptMaxPosition;
             public Rectangle rcNormalPosition;
-            
+
             public override string ToString()
             {
                 return $"{this.length},{this.flags},{this.showCmd},{this.ptMinPosition},{this.ptMaxPosition},{this.rcNormalPosition}";
