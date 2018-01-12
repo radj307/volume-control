@@ -110,6 +110,9 @@ namespace Toastify
 
         private static void RunApp()
         {
+            logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
+            logger.Info($"Toastify version = {App.CurrentVersion}");
+
             App app = new App();
             app.InitializeComponent();
 
@@ -172,6 +175,16 @@ namespace Toastify
         public static CultureInfo UserUICulture { get; set; }
 
         public static CultureInfo UserCulture { get; set; }
+
+        public static string CurrentVersion
+        {
+            get
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                return fileVersionInfo.FileVersion;
+            }
+        }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
