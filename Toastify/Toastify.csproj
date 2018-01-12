@@ -166,6 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Analytics.g.tt</DependentUpon>
     </Compile>
+    <Compile Include="src\Common\Union32.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />

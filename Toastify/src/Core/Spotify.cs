@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -515,39 +516,39 @@ namespace Toastify.Core
                 logger.ErrorExt("CefWidget window is null.");
             else
             {
-                uint baseAcceleratorId;
+                ushort baseAcceleratorId;
 
-                int subMenuPos;
-                int menuItemPos;
+                ushort subMenuPos;
+                ushort menuItemPos;
 
                 switch (action)
                 {
                     case ToastifyAction.Exit:
-                        baseAcceleratorId = 0x00000062;
+                        baseAcceleratorId = 0x0062;
                         subMenuPos = 0;
                         menuItemPos = 6;
                         break;
 
                     case ToastifyAction.FastForward:
-                        baseAcceleratorId = 0x00000072;
+                        baseAcceleratorId = 0x0072;
                         subMenuPos = 3;
                         menuItemPos = 3;
                         break;
 
                     case ToastifyAction.Rewind:
-                        baseAcceleratorId = 0x00000072;
+                        baseAcceleratorId = 0x0072;
                         subMenuPos = 3;
                         menuItemPos = 4;
                         break;
 
                     case ToastifyAction.VolumeUp:
-                        baseAcceleratorId = 0x00000072;
+                        baseAcceleratorId = 0x0072;
                         subMenuPos = 3;
                         menuItemPos = 7;
                         break;
 
                     case ToastifyAction.VolumeDown:
-                        baseAcceleratorId = 0x00000072;
+                        baseAcceleratorId = 0x0072;
                         subMenuPos = 3;
                         menuItemPos = 8;
                         break;
@@ -556,11 +557,13 @@ namespace Toastify.Core
                         return;
                 }
 
+                ushort acceleratorId = (ushort)(baseAcceleratorId + menuItemPos);
+
                 IntPtr hMenu = Win32API.GetMenu(mainWindow);
                 IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
 
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, (IntPtr)(0x80800000 | (baseAcceleratorId + menuItemPos)), hSubMenu);
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)(baseAcceleratorId + menuItemPos), IntPtr.Zero, true);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, Union32.IntPtr(0x8080, acceleratorId), hSubMenu);
+                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)acceleratorId, IntPtr.Zero, true);
 
                 if (action == ToastifyAction.Exit)
                     Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero, true);
