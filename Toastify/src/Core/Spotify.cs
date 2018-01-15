@@ -574,17 +574,17 @@ namespace Toastify.Core
 
         private static string GetSpotifyPath()
         {
-            string spotifyPath = null;
+            string path = null;
             try
             {
-                spotifyPath = ToastifyAPI.Spotify.GetSpotifyPath();
-                logger.Info($"Spotify executable found: \"{spotifyPath}\"");
+                path = ToastifyAPI.Spotify.GetSpotifyPath();
+                logger.Info($"Spotify executable found: \"{path}\"");
             }
             catch (Exception e)
             {
                 logger.Error("Error while getting Spotify executable path.", e);
             }
-            return spotifyPath;
+            return path;
         }
 
         #region Dispose
