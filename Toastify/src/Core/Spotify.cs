@@ -1,5 +1,4 @@
 using log4net;
-using log4net.Util;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;

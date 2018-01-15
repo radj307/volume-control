@@ -1,5 +1,4 @@
 ﻿using log4net;
-using log4net.Util;
 using System.Windows;
 using System.Windows.Forms;
 using Toastify.View;
