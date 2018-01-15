@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace Toastify.Common
 {
     [StructLayout(LayoutKind.Explicit, Size = 4)]
-    internal struct Union32
+    internal struct Union32 : IEquatable<Union32>, IComparable<Union32>, IComparable
     {
         public static readonly Union32 Zero;
 
@@ -49,5 +49,85 @@ namespace Toastify.Common
         public static implicit operator IntPtr(Union32 union) => union.ToIntPtr();
 
         public static implicit operator Union32(int @int) => new Union32(@int);
+
+        #region Equals / GetHashCode / operator== / operator!=
+
+        /// <inheritdoc />
+        public bool Equals(Union32 other)
+        {
+            return this.number == other.number;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            return obj is Union32 && this.Equals((Union32)obj);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return this.number.GetHashCode();
+        }
+
+        /// <inheritdoc />
+        public static bool operator ==(Union32 left, Union32 right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <inheritdoc />
+        public static bool operator !=(Union32 left, Union32 right)
+        {
+            return !left.Equals(right);
+        }
+
+        #endregion Equals / GetHashCode / operator== / operator!=
+
+        #region CompareTo / operator< / operator> / operator<= / operator>=
+
+        /// <inheritdoc />
+        public int CompareTo(Union32 other)
+        {
+            return this.number.CompareTo(other.number);
+        }
+
+        /// <inheritdoc />
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+                return 1;
+            if (!(obj is Union32))
+                throw new ArgumentException($"Object must be of type {nameof(Union32)}");
+            return this.CompareTo((Union32)obj);
+        }
+
+        /// <inheritdoc />
+        public static bool operator <(Union32 left, Union32 right)
+        {
+            return left.CompareTo(right) < 0;
+        }
+
+        /// <inheritdoc />
+        public static bool operator >(Union32 left, Union32 right)
+        {
+            return left.CompareTo(right) > 0;
+        }
+
+        /// <inheritdoc />
+        public static bool operator <=(Union32 left, Union32 right)
+        {
+            return left.CompareTo(right) <= 0;
+        }
+
+        /// <inheritdoc />
+        public static bool operator >=(Union32 left, Union32 right)
+        {
+            return left.CompareTo(right) >= 0;
+        }
+
+        #endregion CompareTo / operator< / operator> / operator<= / operator>=
     }
 }

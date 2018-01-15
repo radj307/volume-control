@@ -67,9 +67,9 @@ namespace Toastify.Model
                 if (this._xmlSerializer == null)
                 {
                     this._xmlSerializer = new XmlSerializer(typeof(Settings));
-                    this._xmlSerializer.UnknownAttribute += this.XmlSerializer_UnknownAttribute;
-                    this._xmlSerializer.UnknownElement += this.XmlSerializer_UnknownElement;
-                    this._xmlSerializer.UnknownNode += this.XmlSerializer_UnknownNode;
+                    this._xmlSerializer.UnknownAttribute += XmlSerializer_UnknownAttribute;
+                    this._xmlSerializer.UnknownElement += XmlSerializer_UnknownElement;
+                    this._xmlSerializer.UnknownNode += XmlSerializer_UnknownNode;
                 }
                 return this._xmlSerializer;
             }
@@ -780,19 +780,21 @@ namespace Toastify.Model
 
         #region XmlSerializer event handlers
 
-        private void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
+        private static void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
         {
             logger.WarnExt($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
         }
 
-        private void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
+        private static void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
         {
+            Settings settings = (Settings)e.ObjectBeingDeserialized;
+
             switch (e.Element.LocalName)
             {
                 case "UseSpotifyVolumeControl":
                     bool value;
                     bool.TryParse(e.Element.InnerText, out value);
-                    this.VolumeControlMode = value ? ToastifyVolumeControlMode.Spotify : ToastifyVolumeControlMode.SystemSpotifyOnly;
+                    settings.VolumeControlMode = value ? ToastifyVolumeControlMode.Spotify : ToastifyVolumeControlMode.SystemSpotifyOnly;
                     break;
 
                 default:
@@ -801,7 +803,7 @@ namespace Toastify.Model
             }
         }
 
-        private void XmlSerializer_UnknownNode(object sender, XmlNodeEventArgs e)
+        private static void XmlSerializer_UnknownNode(object sender, XmlNodeEventArgs e)
         {
             if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
                 return;

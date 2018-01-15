@@ -107,7 +107,15 @@ namespace Toastify.Common
 
         #endregion Properties
 
-        public SystemTray(string tooltipText = null, Icon icon = null, bool animate = false)
+        public SystemTray(string tooltipText, Icon icon) : this(tooltipText, icon, false)
+        {
+        }
+
+        public SystemTray(string tooltipText, bool animate) : this(tooltipText, null, animate)
+        {
+        }
+
+        private SystemTray(string tooltipText, Icon icon, bool animate)
         {
             this.sysTrayIcon = new NotifyIcon();
 

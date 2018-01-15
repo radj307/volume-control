@@ -457,11 +457,13 @@ namespace Toastify.Model
             { Attribute.Action,     new List<string> { "Action" } }
         };
 
+        /// <inheritdoc />
         public XmlSchema GetSchema()
         {
             return null;
         }
 
+        /// <inheritdoc />
         public void ReadXml(XmlReader reader)
         {
             if (reader.IsEmptyElement && !reader.HasAttributes)
@@ -505,6 +507,7 @@ namespace Toastify.Model
             }
         }
 
+        /// <inheritdoc />
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString(nodeNames[Attribute.Action].First(), this.Action.ToString());

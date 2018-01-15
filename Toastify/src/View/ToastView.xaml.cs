@@ -207,7 +207,7 @@ namespace Toastify.View
 
         private void InitTrayIcon()
         {
-            this.trayIcon = new SystemTray(@"Toastify – Waiting for Spotify...", null, true)
+            this.trayIcon = new SystemTray(@"Toastify – Waiting for Spotify...", true)
             {
                 AnimationStepMilliseconds = 75,
                 Visible = true,
@@ -845,7 +845,6 @@ namespace Toastify.View
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,
                 new Action(() => Application.Current.Shutdown()));
-            // this.Close();
         }
 
         private void Toast_Deactivated(object sender, EventArgs e)
