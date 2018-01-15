@@ -43,14 +43,15 @@ namespace Toastify.Services
         internal static void Init()
         {
 #if !TEST_RELEASE
-            logger.DebugExt("Initializing Analytics class...");
+            if (logger.IsDebugEnabled)
+                logger.Debug("Initializing Analytics class...");
 
             // ReSharper disable once InvocationIsSkipped
             SetTrackingId();
 
             if (string.IsNullOrWhiteSpace(TrackingId))
             {
-                logger.ErrorExt("No TrackingId set.");
+                logger.Error("No TrackingId set.");
                 return;
             }
 
@@ -110,7 +111,8 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            logger.DebugExt($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[Analytics] PageHit: ni={!interactive}, dp=\"{documentPath}\", dt=\"{title}\"");
         }
 
         #endregion TrackPageHit
@@ -156,7 +158,8 @@ namespace Toastify.Services
 
             PostRequest(request);
 
-            logger.DebugExt($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[Analytics] Event: ec=\"{eventCategory}\", ea=\"{eventAction}\", el=\"{eventLabel}\", ev=\"{eventValue}\"");
         }
 
         #endregion TrackEvent
@@ -217,7 +220,8 @@ namespace Toastify.Services
 
         private static void CollectPreferences()
         {
-            logger.DebugExt($"Collecting preferences...");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Collecting preferences...");
 
             // General
             TrackSettingBinaryHit(nameof(Settings.Current.LaunchOnStartup), Settings.Current.LaunchOnStartup);
@@ -264,7 +268,7 @@ namespace Toastify.Services
             }
             catch (Exception e)
             {
-                logger.ErrorExt("Error while getting FriendlyOS.", e);
+                logger.Error("Error while getting FriendlyOS.", e);
             }
             return name?.ToString() ?? "Unknown";
         }

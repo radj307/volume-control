@@ -57,7 +57,7 @@ namespace Toastify
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorExt("Unhandled top-level exception.", e);
+                        logger.Error("Unhandled top-level exception.", e);
                         Analytics.TrackException(e);
                         MessageBox.Show($"Unhandled top-level exception.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -135,7 +135,7 @@ namespace Toastify
             }
             catch (Exception ex)
             {
-                logger.WarnExt("Exception loading settings from file. Using defaults.", ex);
+                logger.Warn("Exception loading settings from file. Using defaults.", ex);
 
                 string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -188,7 +188,7 @@ namespace Toastify
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            logger.ErrorExt("Unhandled Dispatcher exception.", e.Exception);
+            logger.Error("Unhandled Dispatcher exception.", e.Exception);
             Analytics.TrackException(e.Exception);
             MessageBox.Show($"Unhandled Dispatcher exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
         }

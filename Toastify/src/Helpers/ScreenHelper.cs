@@ -22,7 +22,7 @@ namespace Toastify.Helpers
             var presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
             if (presentationSource == null)
-                logger.ErrorExt("Couldn't get PresentationSource, current ToastView has been disposed.");
+                logger.Error("Couldn't get PresentationSource, current ToastView has been disposed.");
             else
                 p = new Point(presentationSource.CompositionTarget?.TransformToDevice.M11 ?? 1.0, presentationSource.CompositionTarget?.TransformToDevice.M22 ?? 1.0);
             return p;

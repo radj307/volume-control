@@ -382,7 +382,8 @@ namespace Toastify.Model
             hotkey.LastPressTime = DateTime.Now;
             LastHotkey = hotkey;
 
-            logger.DebugExt($"HotkeyActionCallback: {hotkey.Action}");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"HotkeyActionCallback: {hotkey.Action}");
 
             try
             {
@@ -412,7 +413,7 @@ namespace Toastify.Model
                 if (Debugger.IsAttached)
                     Debugger.Break();
 
-                logger.ErrorExt("Exception with hooked key.", ex);
+                logger.Error("Exception with hooked key.", ex);
                 ActionCallbackFailed?.Invoke(typeof(Hotkey), new HotkeyActionCallbackFailedEventArgs(hotkey, ex));
 
                 Analytics.TrackException(ex);

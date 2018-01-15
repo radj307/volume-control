@@ -94,7 +94,7 @@ namespace Toastify.Model
                         }
                         catch (Exception ex)
                         {
-                            logger.ErrorExt($"Error creating user settings directory (\"{settingsPath}\")", ex);
+                            logger.Error($"Error creating user settings directory (\"{settingsPath}\")", ex);
 
                             // No messagebox as this should not happen (and there will be a MessageBox later on when
                             // settings fail to load)
@@ -511,7 +511,8 @@ namespace Toastify.Model
 
         public void Default()
         {
-            logger.DebugExt($"Default()\n{new System.Diagnostics.StackTrace()}");
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Default()\n{new System.Diagnostics.StackTrace()}");
 
             this.SetDefaultGeneral();
             this.SetDefaultHotkeys();
@@ -782,7 +783,7 @@ namespace Toastify.Model
 
         private static void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
         {
-            logger.WarnExt($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
+            logger.Warn($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
         }
 
         private static void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
@@ -798,7 +799,7 @@ namespace Toastify.Model
                     break;
 
                 default:
-                    logger.WarnExt($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
+                    logger.Warn($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
                     break;
             }
         }
@@ -808,7 +809,7 @@ namespace Toastify.Model
             if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
                 return;
 
-            logger.WarnExt($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
+            logger.Warn($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
         }
 
         #endregion XmlSerializer event handlers

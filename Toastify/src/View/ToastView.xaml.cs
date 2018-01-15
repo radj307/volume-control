@@ -308,7 +308,7 @@ namespace Toastify.View
                 catch (Exception e)
                 {
                     // TODO: Handle plugins' errors.
-                    logger.ErrorExt("Error while loading plugins.", e);
+                    logger.Error("Error while loading plugins.", e);
                     Analytics.TrackException(e);
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
@@ -357,7 +357,7 @@ namespace Toastify.View
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorExt("Error while saving track to file.", e);
+                        logger.Error("Error while saving track to file.", e);
                     }
                 }
             }
@@ -402,7 +402,7 @@ namespace Toastify.View
                     }
                     catch (UriFormatException e)
                     {
-                        logger.ErrorExt($"UriFormatException with URI=[{coverArtUri}]", e);
+                        logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
                         this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
                     }
                     finally
@@ -581,7 +581,7 @@ namespace Toastify.View
                     }
                     catch (TaskCanceledException ex)
                     {
-                        logger.WarnExt("FadeOut animation canceled.", ex);
+                        logger.Warn("FadeOut animation canceled.", ex);
                         this.SetToastVisibility(false);
                         this.isUpdateToast = false;
                     }
@@ -652,7 +652,7 @@ namespace Toastify.View
                         string visibility = $"visibility[{(this.ShownOrFading ? '1' : '0')}{(this.IsVisible ? '1' : '0')}{this.Visibility.ToString().Substring(0, 1)}{(this.Topmost ? '1' : '0')}, {{{wPlacement}}}]";
                         string dispatcher = $"dispatcher[{(this.Dispatcher == null ? "null" : $"{(this.Dispatcher.HasShutdownStarted ? '1' : '0')}")}]";
                         string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.FadeOutTime}]";
-                        logger.InfoExt($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
+                        logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
                     }
 #endif
                     this.ShowOrHideToast(true);

@@ -169,7 +169,7 @@ namespace Toastify.Model
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorExt("Error while getting album art url (GetAlbumArtUrl).", e);
+                        logger.Error("Error while getting album art url (GetAlbumArtUrl).", e);
                     }
                     if (!string.IsNullOrWhiteSpace(coverArtUrl))
                         break;
