@@ -1,5 +1,4 @@
 using log4net;
-using log4net.Util;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System;
@@ -24,7 +23,7 @@ namespace Toastify.Model
 
         public string CoverArtUrl { get; set; }
 
-        private Song(string title) : this(string.Empty, title, -1, null, null)
+        private Song(string title, int length, string type) : this(string.Empty, title, length, type, null)
         {
         }
 
@@ -45,11 +44,6 @@ namespace Toastify.Model
         public bool IsOtherTrackType()
         {
             return this.Type == SpotifyTrackType.OTHER;
-        }
-
-        public static bool IsOtherTrackType(Track spotifyTrack)
-        {
-            return spotifyTrack.TrackType == SpotifyTrackType.OTHER;
         }
 
         internal bool IsValid()
@@ -116,7 +110,6 @@ namespace Toastify.Model
         {
             if (obj == null)
                 return false;
-
             if (ReferenceEquals(this, obj))
                 return true;
 
@@ -129,7 +122,6 @@ namespace Toastify.Model
         {
             if (other == null)
                 return false;
-
             if (ReferenceEquals(this, other))
                 return true;
 
@@ -146,17 +138,17 @@ namespace Toastify.Model
                 return null;
 
             if (spotifyTrack.IsAd())
-                return new Song(TITLE_SPOTIFY_AD);
+                return new Song(TITLE_SPOTIFY_AD, spotifyTrack.Length, SpotifyTrackType.AD);
 
-            if (IsOtherTrackType(spotifyTrack))
-                return new Song(TITLE_UNKNOWN);
+            if (spotifyTrack.IsOtherTrackType())
+                return new Song(TITLE_UNKNOWN, spotifyTrack.Length, SpotifyTrackType.OTHER);
 
             string artist = spotifyTrack.ArtistResource?.Name;
             string title = spotifyTrack.TrackResource?.Name;
             string album = spotifyTrack.AlbumResource?.Name;
             int length = spotifyTrack.Length;
             string type = spotifyTrack.TrackType;
-            string coverArtUrl = string.Empty;
+            string coverArtUrl = null;
 
             if (spotifyTrack.AlbumResource != null)
             {
@@ -183,10 +175,6 @@ namespace Toastify.Model
         {
             if (ReferenceEquals(s1, s2))
                 return true;
-
-            if (s1 == null && s2 == null)
-                return true;
-
             if (s1 == null || s2 == null)
                 return false;
 
