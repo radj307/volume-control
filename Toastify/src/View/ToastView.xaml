@@ -5,7 +5,7 @@
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         x:Class="Toastify.View.ToastView"
-        Width="250" Height="70" MinWidth="250" MinHeight="70" AllowsTransparency="True" Background="#00000000" Opacity="1"
+        Width="250" Height="70" AllowsTransparency="True" Background="#00000000" Opacity="1"
         Title="Toastify" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Cursor="Hand" Topmost="True" WindowState="Minimized" ShowActivated="False"
         Loaded="Window_Loaded" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseDown="Window_MouseDown" MouseUp="Window_MouseUp">
 

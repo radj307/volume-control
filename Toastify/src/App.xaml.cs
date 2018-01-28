@@ -40,6 +40,8 @@ namespace Toastify
                 {
                     try
                     {
+                        // TODO: Logger command line parameters (change minimum level, disable, change log file destination, etc.)
+
                         SetupCultureInfo();
                         SetupLogger();
                     }

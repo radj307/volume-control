@@ -15,7 +15,29 @@ namespace Toastify.ViewModel
 
         public int CurrentToastTabIndex { get; set; }
 
+        public string DoubleUpDownAltIncrement10Tooltip { get; } = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by 10 units";
+
         #region Toast
+
+        #region Size & Position
+
+        public double ToastWidthDefault { get { return Settings.Default.ToastWidth; } }
+        public double ToastWidthMin { get { return 200.0; } }
+        public double ToastWidthMax { get { return ScreenHelper.CalculateMaxToastWidth(); } }
+
+        public double ToastHeightDefault { get { return Settings.Default.ToastHeight; } }
+        public double ToastHeightMin { get { return 70.0; } }
+        public double ToastHeightMax { get { return ScreenHelper.CalculateMaxToastHeight(); } }
+
+        public double PositionLeftDefault { get { return Settings.Default.PositionLeft; } }
+        public double PositionLeftMin { get { return ScreenHelper.GetTotalWorkingArea().Left; } }
+        public double PositionLeftMax { get { return ScreenHelper.GetTotalWorkingArea().Right - this.Settings.ToastWidth; } }
+
+        public double PositionTopDefault { get { return Settings.Default.PositionTop; } }
+        public double PositionTopMin { get { return ScreenHelper.GetTotalWorkingArea().Top; } }
+        public double PositionTopMax { get { return ScreenHelper.GetTotalWorkingArea().Bottom - this.Settings.ToastHeight; } }
+
+        #endregion Size & Position
 
         public Color ToastColorTop
         {
@@ -217,7 +239,7 @@ namespace Toastify.ViewModel
 
         private void DefaultAll()
         {
-            this.Settings.Default();
+            this.Settings.SetDefault();
         }
 
         private void SelectFileForSavingTrack()

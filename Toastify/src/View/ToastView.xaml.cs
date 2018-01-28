@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
@@ -79,6 +78,10 @@ namespace Toastify.View
                 return this._windowHandle;
             }
         }
+
+        public Point Position { get { return this.Rect.Location; } }
+
+        public Rect Rect { get { return new Rect(this.Left, this.Top, this.Width, this.Height); } }
 
         public bool IsInitComplete { get; private set; }
 
@@ -155,9 +158,11 @@ namespace Toastify.View
             if (!this.isPreviewForSettings)
                 this.SetToastVisibility(false);
 
-            // [ DIMENSIONS ]
-            this.Width = this.Settings.ToastWidth >= this.MinWidth ? this.Settings.ToastWidth : this.MinWidth;
-            this.Height = this.Settings.ToastHeight >= this.MinHeight ? this.Settings.ToastHeight : this.MinHeight;
+            // [ POSITION & DIMENSIONS ]
+            this.Left = this.Settings.PositionLeft;
+            this.Top = this.Settings.PositionTop;
+            this.Width = this.Settings.ToastWidth;
+            this.Height = this.Settings.ToastHeight;
 
             // [ BORDERS ]
             this.ToastBorder.BorderThickness = new Thickness(this.Settings.ToastBorderThickness);
@@ -595,16 +600,10 @@ namespace Toastify.View
 
         private void ResetPositionIfOffScreen()
         {
-            var rect = new System.Drawing.Rectangle((int)this.Left, (int)this.Top, (int)this.Width, (int)this.Height);
-
-            if (!Screen.AllScreens.Any(s => s.WorkingArea.Contains(rect)))
-            {
-                // Get the defaults, but don't save them (this allows the user to reconnect their screen and get their desired settings back)
-                var position = ScreenHelper.GetDefaultToastPosition(this.Width, this.Height);
-
-                this.Left = position.X;
-                this.Top = position.Y;
-            }
+            // Bring the Toast inside the working area if it is off-screen
+            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(this.Rect);
+            this.Left += offsetVector.X;
+            this.Top += offsetVector.Y;
         }
 
         #region DisplayAction

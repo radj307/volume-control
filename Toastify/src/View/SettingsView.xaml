@@ -175,17 +175,29 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Width :</Label>
-                                        <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="ToastWidth_MouseWheel" VerticalContentAlignment="Center"
-                                                                Value="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                        <wpft:DoubleUpDown Name="ToastWidthUpDown" Grid.Column="0" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
+                                                           Watermark="Width" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
+                                                           Minimum="{Binding Path=ToastWidthMin, Mode=OneTime}" Maximum="{Binding Path=ToastWidthMax, Mode=OneWay}" DefaultValue="{Binding Path=ToastWidthDefault, Mode=OneTime}"
+                                                           Value="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           ValueChanged="ToastWidthUpDown_OnValueChanged" MouseWheel="ToastWidthUpDown_MouseWheel" KeyDown="ToastWidthUpDown_OnKeyDown" KeyUp="ToastWidthUpDown_OnKeyUp" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Left Position :</Label>
-                                        <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" MouseWheel="PositionLeft_MouseWheel" VerticalContentAlignment="Center"
-                                                                Value="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                        <wpft:DoubleUpDown Name="PositionLeftUpDown" Grid.Column="1" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
+                                                           Watermark="Left Position" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
+                                                           Minimum="{Binding Path=PositionLeftMin, Mode=OneWay}" Maximum="{Binding Path=PositionLeftMax, Mode=OneWay}" DefaultValue="{Binding Path=PositionLeftDefault, Mode=OneWay}"
+                                                           Value="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           ValueChanged="PositionLeftUpDown_OnValueChanged" KeyDown="PositionLeftUpDown_OnKeyDown" KeyUp="PositionLeftUpDown_OnKeyUp" />
                                         <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Height :</Label>
-                                        <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="ToastHeight_MouseWheel" VerticalContentAlignment="Center"
-                                                                Value="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                        <wpft:DoubleUpDown Name="ToastHeightUpDown" Grid.Column="0" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
+                                                           Watermark="Height" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
+                                                           Minimum="{Binding Path=ToastHeightMin, Mode=OneTime}" Maximum="{Binding Path=ToastHeightMax, Mode=OneWay}" DefaultValue="{Binding Path=ToastHeightDefault, Mode=OneTime}"
+                                                           Value="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           ValueChanged="ToastHeightUpDown_OnValueChanged" MouseWheel="ToastHeightUpDown_MouseWheel" KeyDown="ToastHeightUpDown_OnKeyDown" KeyUp="ToastHeightUpDown_OnKeyUp" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Top Position :</Label>
-                                        <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" MouseWheel="PositionTop_MouseWheel" VerticalContentAlignment="Center"
-                                                                Value="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                        <wpft:DoubleUpDown Name="PositionTopUpDown" Grid.Column="1" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
+                                                           Watermark="Top Position" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
+                                                           Minimum="{Binding Path=PositionTopMin, Mode=OneWay}" Maximum="{Binding Path=PositionTopMax, Mode=OneWay}" DefaultValue="{Binding Path=PositionTopDefault, Mode=OneWay}"
+                                                           Value="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           ValueChanged="PositionTopUpDown_OnValueChanged" KeyDown="PositionTopUpDown_OnKeyDown" KeyUp="PositionTopUpDown_OnKeyUp" />
                                     </Grid>
 
                                     <Grid VerticalAlignment="Top" Margin="0,10,0,0">
@@ -219,16 +231,24 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Left</Label>
-                                            <wpft:ValueRangeTextBox Grid.Column="0" Height="24" VerticalAlignment="Top" MouseWheel="CornerTopLeft_MouseWheel" Margin="77,1,8,0" VerticalContentAlignment="Center"
-                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
-                                            <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="8,1,81,0" VerticalAlignment="Top" MouseWheel="CornerTopRight_MouseWheel" VerticalContentAlignment="Center"
-                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                            <wpft:DoubleUpDown Name="BorderTopLeftUpDown" Grid.Column="0" Height="24" Margin="77,1,8,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Left" ButtonSpinnerLocation="Right"
+                                                               Watermark="Top Left" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               MouseWheel="BorderTopLeftUpDown_MouseWheel" />
+                                            <wpft:DoubleUpDown Name="BorderTopRightUpDown" Grid.Column="1" Height="24" Margin="8,1,81,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Right" ButtonSpinnerLocation="Left"
+                                                               Watermark="Top Right" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               MouseWheel="BorderTopRightUpDown_MouseWheel" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,0,21,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Right</Label>
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Left</Label>
-                                            <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="77,35,8,0" VerticalAlignment="Top" MouseWheel="CornerBottomLeft_MouseWheel" VerticalContentAlignment="Center"
-                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
-                                            <wpft:ValueRangeTextBox Grid.Column="1" Height="24" Margin="8,35,81,0" VerticalAlignment="Top" MouseWheel="CornerBottomRight_MouseWheel" VerticalContentAlignment="Center"
-                                                                    Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F2, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Double}" MinValue="0" NullValue="0" />
+                                            <wpft:DoubleUpDown Name="BorderBottomLeftUpDown" Grid.Column="0" Height="24" Margin="77,35,8,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Left" ButtonSpinnerLocation="Right"
+                                                               Watermark="Bottom Left" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               MouseWheel="BorderBottomLeftUpDown_MouseWheel" />
+                                            <wpft:DoubleUpDown Name="BorderBottomRightUpDown" Grid.Column="1" Height="24" Margin="8,35,81,1" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Right" ButtonSpinnerLocation="Left"
+                                                               Watermark="Bottom Right" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               MouseWheel="BorderBottomRightUpDown_MouseWheel" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Right</Label>
                                         </Grid>
                                     </Grid>

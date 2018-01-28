@@ -7,9 +7,12 @@ using System.Windows.Input;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
+using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
+using Xceed.Wpf.Toolkit;
+using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 namespace Toastify.View
@@ -191,77 +194,141 @@ namespace Toastify.View
 
         #region Corner radius
 
-        private void CornerTopLeft_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void BorderTopLeftUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-            {
-                this.Settings.ToastBorderCornerRadiusTopLeft += 0.1;
-            }
-            else if (this.Settings.ToastBorderCornerRadiusTopLeft >= 0.1)
-                this.Settings.ToastBorderCornerRadiusTopLeft -= 0.1;
+            this.Settings.ToastBorderCornerRadiusTopLeft += (e.Delta > 0 ? 1 : -1) * (this.BorderTopLeftUpDown.Increment ?? 0.1);
         }
 
-        private void CornerTopRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void BorderTopRightUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-                this.Settings.ToastBorderCornerRadiusTopRight += 0.1;
-            else if (this.Settings.ToastBorderCornerRadiusTopLeft >= 0.1)
-                this.Settings.ToastBorderCornerRadiusTopRight -= 0.1;
+            this.Settings.ToastBorderCornerRadiusTopRight += (e.Delta > 0 ? 1 : -1) * (this.BorderTopRightUpDown.Increment ?? 0.1);
         }
 
-        private void CornerBottomLeft_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void BorderBottomLeftUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-                this.Settings.ToastBorderCornerRadiusBottomLeft += 0.1;
-            else if (this.Settings.ToastBorderCornerRadiusBottomLeft >= 0.1)
-                this.Settings.ToastBorderCornerRadiusBottomLeft -= 0.1;
+            this.Settings.ToastBorderCornerRadiusBottomLeft += (e.Delta > 0 ? 1 : -1) * (this.BorderBottomLeftUpDown.Increment ?? 0.1);
         }
 
-        private void CornerBottomRight_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void BorderBottomRightUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-                this.Settings.ToastBorderCornerRadiusBottomRight += 0.1;
-            else if (this.Settings.ToastBorderCornerRadiusBottomRight >= 0.1)
-                this.Settings.ToastBorderCornerRadiusBottomRight -= 0.1;
+            this.Settings.ToastBorderCornerRadiusBottomRight += (e.Delta > 0 ? 1 : -1) * (this.BorderBottomRightUpDown.Increment ?? 0.1);
         }
 
         #endregion Corner radius
 
-        #region Toast size & position
+        #region Size & Position
 
-        private void ToastWidth_MouseWheel(object sender, MouseWheelEventArgs e)
+        // MouseWheel
+
+        private void ToastWidthUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-                this.Settings.ToastWidth += 5;
-            else if (this.Settings.ToastWidth >= 205)
-                this.Settings.ToastWidth -= 5;
+            bool reachedMaxWidth = Math.Abs(this.toastView.Width - this.settingsViewModel.ToastWidthMax) < 1.0;
+            if (e.Delta > 0 && reachedMaxWidth)
+            {
+                double increment = this.ToastWidthUpDown.Increment ?? 0.0;
+
+                // Move the toast leftwards
+                Rect toastRect = ToastView.Current == null ? new Rect() : this.toastView.Rect;
+                Rect totalRect = ScreenHelper.GetTotalWorkingArea();
+                double availableSpaceToTheLeft = toastRect.Left - totalRect.Left;
+                double deltaX = Math.Min(availableSpaceToTheLeft, increment);
+
+                this.Settings.PositionLeft -= deltaX;
+                this.Settings.ToastWidth += deltaX;
+            }
         }
 
-        private void ToastHeight_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void ToastHeightUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
-                this.Settings.ToastHeight += 5;
-            else if (this.Settings.ToastHeight >= 70)
-                this.Settings.ToastHeight -= 5;
+            bool reachedMaxHeight = Math.Abs(this.toastView.Height - this.settingsViewModel.ToastHeightMax) < 1.0;
+            if (e.Delta > 0 && reachedMaxHeight)
+            {
+                double increment = this.ToastHeightUpDown.Increment ?? 0.0;
+
+                // Move the toast upwards
+                Rect toastRect = ToastView.Current == null ? new Rect() : this.toastView.Rect;
+                Rect totalRect = ScreenHelper.GetTotalWorkingArea();
+                double availableSpaceAbove = toastRect.Top - totalRect.Top;
+                double deltaY = Math.Min(availableSpaceAbove, increment);
+
+                this.Settings.PositionTop -= deltaY;
+                this.Settings.ToastHeight += deltaY;
+            }
         }
 
-        private void PositionLeft_MouseWheel(object sender, MouseWheelEventArgs e)
+        // OnValueChanged
+
+        private void ToastWidthUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.Delta > 0)
-                this.Settings.PositionLeft++;
-            else if (this.Settings.PositionLeft > 0)
-                this.Settings.PositionLeft--;
+            this.PositionLeftUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
         }
 
-        private void PositionTop_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void ToastHeightUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.Delta > 0)
-                this.Settings.PositionTop++;
-            else if (this.Settings.PositionTop > 0)
-                this.Settings.PositionTop--;
+            this.PositionTopUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
         }
 
-        #endregion Toast size & position
+        private void PositionLeftUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            this.ToastWidthUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
+        }
+
+        private void PositionTopUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            this.ToastHeightUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
+        }
+
+        // KeyDown / KeyUp
+
+        private void ToastWidthUpDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.ToastWidthUpDown.Increment = 10.0;
+        }
+
+        private void ToastHeightUpDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.ToastHeightUpDown.Increment = 10.0;
+        }
+
+        private void PositionLeftUpDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.PositionLeftUpDown.Increment = 10.0;
+        }
+
+        private void PositionTopUpDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.PositionTopUpDown.Increment = 10.0;
+        }
+
+        private void ToastWidthUpDown_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.ToastWidthUpDown.Increment = 1.0;
+        }
+
+        private void ToastHeightUpDown_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.ToastHeightUpDown.Increment = 1.0;
+        }
+
+        private void PositionLeftUpDown_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.PositionLeftUpDown.Increment = 1.0;
+        }
+
+        private void PositionTopUpDown_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.PositionTopUpDown.Increment = 1.0;
+        }
+
+        #endregion Size & Position
 
         #endregion "Toast" tab
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 namespace Toastify.Common
@@ -19,29 +18,41 @@ namespace Toastify.Common
         /// <param name="propertyName"> The name of the property; automatically provided through the CallerMemberName attribute. </param>
         protected void RaiseAndSetIfChanged<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
-            if (!EqualityComparer<T>.Default.Equals(field, newValue))
-            {
-                field = newValue;
-                this.NotifyPropertyChanged(propertyName);
-            }
+            this.RaiseAndSetIfChangedInternal(ref field, newValue, propertyName);
         }
 
-        protected void RaiseAndSetIfChangedWithConstraint<T>(ref T field, T newValue, Expression<Func<bool>> constraint, [CallerMemberName] string propertyName = null)
+        protected bool RaiseAndSetIfChanged<T>(ref T field, T newValue, T minValue, T maxValue, [CallerMemberName] string propertyName = null) where T : IComparable<T>
         {
-            if (!constraint.Compile()())
-                throw new ConstraintFailedException(constraint);
-
-            if (!EqualityComparer<T>.Default.Equals(field, newValue))
+            Comparer<T> comparer = Comparer<T>.Default;
+            bool coerced = false;
+            if (comparer.Compare(newValue, minValue) < 0)
             {
-                field = newValue;
-                this.NotifyPropertyChanged(propertyName);
+                newValue = minValue;
+                coerced = true;
             }
+            else if (comparer.Compare(newValue, maxValue) > 0)
+            {
+                newValue = maxValue;
+                coerced = true;
+            }
+
+            this.RaiseAndSetIfChangedInternal(ref field, newValue, propertyName);
+            return coerced;
         }
 
         protected void NotifyPropertyChanged(string propertyName = null, [CallerMemberName] string callerMemberName = null)
         {
             var handler = this.PropertyChanged;
             handler?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? callerMemberName));
+        }
+
+        private void RaiseAndSetIfChangedInternal<T>(ref T field, T newValue, string propertyName = null)
+        {
+            if (!EqualityComparer<T>.Default.Equals(field, newValue))
+            {
+                field = newValue;
+                this.NotifyPropertyChanged(propertyName);
+            }
         }
     }
 }

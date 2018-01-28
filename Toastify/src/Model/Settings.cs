@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using Toastify.Common;
@@ -21,6 +22,7 @@ namespace Toastify.Model
         #region Settings instances
 
         private static Settings _current;
+        private static Settings _default;
 
         /// <summary>
         /// The currently applied settings. Whenever they get modified, the Settings file should be modified too.
@@ -48,6 +50,19 @@ namespace Toastify.Model
         public static Settings Temporary
         {
             get { return _current?.Clone(); }
+        }
+
+        public static Settings Default
+        {
+            get
+            {
+                if (_default == null)
+                {
+                    _default = _current?.Clone();
+                    _default?.SetDefault();
+                }
+                return _default;
+            }
         }
 
         #endregion Settings instances
@@ -356,43 +371,43 @@ namespace Toastify.Model
         public double ToastBorderThickness
         {
             get { return this._toastBorderThickness; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderThickness, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderThickness, value, 0.0, double.MaxValue); }
         }
 
         public double ToastBorderCornerRadiusTopLeft
         {
             get { return this._toastBorderCornerRadiusTopLeft; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusTopLeft, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusTopLeft, value, 0.0, double.MaxValue); }
         }
 
         public double ToastBorderCornerRadiusTopRight
         {
             get { return this._toastBorderCornerRadiusTopRight; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusTopRight, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusTopRight, value, 0.0, double.MaxValue); }
         }
 
         public double ToastBorderCornerRadiusBottomLeft
         {
             get { return this._toastBorderCornerRadiusBottomLeft; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusBottomLeft, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusBottomLeft, value, 0.0, double.MaxValue); }
         }
 
         public double ToastBorderCornerRadiusBottomRight
         {
             get { return this._toastBorderCornerRadiusBottomRight; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastBorderCornerRadiusBottomRight, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusBottomRight, value, 0.0, double.MaxValue); }
         }
 
         public double ToastWidth
         {
             get { return this._toastWidth; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastWidth, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastWidth, value); }
         }
 
         public double ToastHeight
         {
             get { return this._toastHeight; }
-            set { this.RaiseAndSetIfChangedWithConstraint(ref this._toastHeight, value, () => value >= 0.0); }
+            set { this.RaiseAndSetIfChanged(ref this._toastHeight, value); }
         }
 
         public double PositionLeft
@@ -508,7 +523,7 @@ namespace Toastify.Model
 
         #region Default
 
-        public void Default()
+        public void SetDefault()
         {
             if (logger.IsDebugEnabled)
                 logger.Debug($"Default()\n{new System.Diagnostics.StackTrace()}");
@@ -576,12 +591,11 @@ namespace Toastify.Model
             this.FadeOutTime = 4000;
             this.ToastTitlesOrder = ToastTitlesOrder.TrackByArtist;
 
-            this.ToastWidth = 300;
-            this.ToastHeight = 75;
-
-            var position = ScreenHelper.GetDefaultToastPosition(this.ToastWidth, this.ToastHeight);
-            this.PositionLeft = position.X;
-            this.PositionTop = position.Y;
+            this.ToastWidth = 300.0;
+            this.ToastHeight = 80.0;
+            
+            this.PositionLeft = ScreenHelper.GetScreenRect().Right - this.ToastWidth;
+            this.PositionTop = ScreenHelper.GetScreenRect().Bottom - this.ToastHeight;
 
             this.ToastBorderThickness = 1.0;
             this.ToastBorderCornerRadiusTopLeft = 0;
@@ -668,7 +682,7 @@ namespace Toastify.Model
             }
             catch (Exception)
             {
-                Current.Default();
+                Current.SetDefault();
                 Current.Save();
             }
         }
@@ -714,6 +728,12 @@ namespace Toastify.Model
             }
 
             this._hotKeys = toKeep;
+
+            // Bring the Toast inside the working area if it is off-screen
+            Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
+            this.PositionLeft += offsetVector.X;
+            this.PositionTop += offsetVector.Y;
 
             // Validate WindowsVolumeMixerIncrement: must be positive!
             this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
