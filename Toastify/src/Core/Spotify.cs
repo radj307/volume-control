@@ -6,6 +6,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -174,8 +177,7 @@ namespace Toastify.Core
                         logger.Error("Error while starting Spotify.", applicationStartupException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
-                        string techDetails = $"Technical details\n{applicationStartupException.Message}";
-                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{errorMsg}\n{applicationStartupException.Message}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(applicationStartupException, true);
                     }
@@ -188,7 +190,7 @@ namespace Toastify.Core
                         if (webException.Status == WebExceptionStatus.ProtocolError)
                             status += $" ({(webException.Response as HttpWebResponse)?.StatusCode}, \"{(webException.Response as HttpWebResponse)?.StatusDescription}\")";
                         string techDetails = $"Technical details: {webException.Message}\n{webException.HResult}, {status}";
-                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(webException, true);
                     }
@@ -198,7 +200,7 @@ namespace Toastify.Core
 
                         string errorMsg = Properties.Resources.ERROR_UNKNOWN;
                         string techDetails = $"Technical Details: {e.Error.Message}\n{e.Error.StackTrace}";
-                        MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(e.Error, true);
                     }
@@ -209,7 +211,7 @@ namespace Toastify.Core
 
                     string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
                     const string techDetails = "Technical Details: timeout";
-                    MessageBox.Show($"{errorMsg}\n\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 // Terminate Toastify
@@ -288,6 +290,34 @@ namespace Toastify.Core
                 }
                 catch (WebException ex)
                 {
+                    if (ex.InnerException is SocketException socketException && socketException.SocketErrorCode == SocketError.ConnectionRefused)
+                    {
+                        bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+                        // Check if "open.spotify.com" is blocked by the firewall or redirected in the hosts file
+                        using (HttpClient http = new HttpClient())
+                        {
+                            using (HttpRequestMessage request = new HttpRequestMessage())
+                            {
+                                request.Method = HttpMethod.Head;
+                                request.RequestUri = new Uri("http://open.spotify.com");
+                                request.Headers.Add("User-Agent", "Spotify (1.0.50.41368.gbd68dbef)");
+
+                                try
+                                {
+                                    using (http.SendAsync(request).Result) { }
+                                }
+                                catch
+                                {
+                                    logger.Error("Couldn't access \"open.spotify.com\": the client blocked the connection to the host.");
+                                    throw new ApplicationStartupException(hostRedirected
+                                        ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
+                                        : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED, false);
+                                }
+                            }
+                        }
+                    }
+
                     logger.Warn("WebException while connecting to Spotify.", ex);
                 }
             } while (!connected && !signaled);

@@ -124,8 +124,7 @@ Delete the "{0}" file and restart the application to recreate the settings file.
 The application will be started with default settings.</value>
   </data>
   <data name="ERROR_STARTUP_SPOTIFY" xml:space="preserve">
-    <value>An error occurred when trying to start Spotify.
-Please, start it manually and then restart the application.</value>
+    <value>An error occurred when trying to start Spotify.</value>
   </data>
   <data name="ERROR_STARTUP_PROCESS" xml:space="preserve">
     <value>Could not find Spotify process!
@@ -136,7 +135,7 @@ If Spotify is running, please open an issue at github.com/aleab/toastify.</value
 Please restart the application.</value>
   </data>
   <data name="ERROR_STARTUP_SPOTIFY_API_CONNECT" xml:space="preserve">
-    <value>An error occurred when trying to start Spotify: Toastify was not able to connect with Spotify.</value>
+    <value>Toastify was not able to connect with Spotify.</value>
   </data>
   <data name="ERROR_STARTUP_SPOTIFY_API_STATUS_NULL" xml:space="preserve">
     <value>An error occurred when trying to connect with Spotify: SpotifyAPI returned a null status.
@@ -224,5 +223,13 @@ Look for the blue icon in your system tray.</value>
   </data>
   <data name="toastify_loading_spotify_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SystemTrayAnimation\toastify_loading_spotify_9.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED" xml:space="preserve">
+    <value>An error occurred when trying to connect with Spotify.
+The firewall might have blocked the connection to "open.spotify.com".</value>
+  </data>
+  <data name="ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS" xml:space="preserve">
+    <value>An error occurred when trying to connect with Spotify.
+The host address "open.spotify.com" might have been redirected by the client. Check your "hosts" file (%WinDir%\System32\drivers\etc\hosts) and delete any entry containing "open.spotify.com".</value>
   </data>
 </root>

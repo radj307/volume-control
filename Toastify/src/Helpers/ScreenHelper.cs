@@ -44,15 +44,17 @@ namespace Toastify.Helpers
         {
             Vector vector = new Vector();
             Rect totalRect = GetTotalWorkingArea();
-            if (!totalRect.Contains(rect))
-            {
-                vector.X = rect.Right > totalRect.Right
-                    ? totalRect.Right - rect.Right
-                    : rect.Left < totalRect.Left ? totalRect.Left - rect.Left : 0.0;
-                vector.Y = rect.Bottom > totalRect.Bottom
-                    ? totalRect.Bottom - rect.Bottom
-                    : rect.Top < totalRect.Top ? totalRect.Top - rect.Top : 0.0;
-            }
+
+            if (totalRect.Contains(rect))
+                return vector;
+
+            vector.X = rect.Right > totalRect.Right
+                ? totalRect.Right - rect.Right
+                : rect.Left < totalRect.Left ? totalRect.Left - rect.Left : 0.0;
+            vector.Y = rect.Bottom > totalRect.Bottom
+                ? totalRect.Bottom - rect.Bottom
+                : rect.Top < totalRect.Top ? totalRect.Top - rect.Top : 0.0;
+
             return vector;
         }
 

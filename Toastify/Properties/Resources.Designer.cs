@@ -93,8 +93,7 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred when trying to start Spotify.
-        ///Please, start it manually and then restart the application..
+        ///   Looks up a localized string similar to An error occurred when trying to start Spotify..
         /// </summary>
         internal static string ERROR_STARTUP_SPOTIFY {
             get {
@@ -103,11 +102,31 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred when trying to start Spotify: Toastify was not able to connect with Spotify..
+        ///   Looks up a localized string similar to Toastify was not able to connect with Spotify..
         /// </summary>
         internal static string ERROR_STARTUP_SPOTIFY_API_CONNECT {
             get {
                 return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_API_CONNECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to connect with Spotify.
+        ///The firewall might have blocked the connection to &quot;open.spotify.com&quot;..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred when trying to connect with Spotify.
+        ///The host address &quot;open.spotify.com&quot; might have been redirected by the client. Check your &quot;hosts&quot; file (%WinDir%\System32\drivers\etc\hosts) and delete any entry containing &quot;open.spotify.com&quot;..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS", resourceCulture);
             }
         }
         

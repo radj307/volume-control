@@ -17,7 +17,7 @@ namespace Toastify.Core
         {
         }
 
-        public ApplicationStartupException(string message, bool spotifyStatus) : base($"{CreateMessage(spotifyStatus)}\n\nAdditional details\n{message}")
+        public ApplicationStartupException(string message, bool spotifyStatus) : base($"{CreateMessage(spotifyStatus)}\nAdditional details:\n{message}")
         {
         }
 
