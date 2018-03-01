@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -22,6 +24,7 @@ namespace Toastify.Model
 {
     [Serializable]
     [XmlRoot("Hotkey")]
+    [JsonObject(MemberSerialization.OptOut)]
     public class Hotkey : ObservableObject, IXmlSerializable, ICloneable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
@@ -46,6 +49,7 @@ namespace Toastify.Model
 
         #region Public properties
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public ToastifyAction Action
         {
             get
@@ -151,6 +155,7 @@ namespace Toastify.Model
             }
         }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public Key Key
         {
             get
@@ -168,6 +173,7 @@ namespace Toastify.Model
         }
 
         [XmlIgnore]
+        [JsonIgnore]
         public string HumanReadableKey
         {
             get
@@ -183,12 +189,14 @@ namespace Toastify.Model
         }
 
         [XmlIgnore]
+        [JsonIgnore]
         public string HumanReadableAction
         {
             get { return this.Action.GetReadableName(); }
         }
 
         [XmlIgnore]
+        [JsonIgnore]
         public bool IsValid
         {
             get
@@ -206,6 +214,7 @@ namespace Toastify.Model
         }
 
         [XmlIgnore]
+        [JsonIgnore]
         public string InvalidReason
         {
             get
@@ -223,6 +232,7 @@ namespace Toastify.Model
         }
 
         [XmlIgnore]
+        [JsonIgnore]
         public bool Active
         {
             get
@@ -359,6 +369,8 @@ namespace Toastify.Model
 
         public static Hotkey LastHotkey { get; private set; }
 
+        [XmlIgnore]
+        [JsonIgnore]
         public DateTime LastPressTime { get; private set; } = DateTime.Now;
 
         /// <summary>

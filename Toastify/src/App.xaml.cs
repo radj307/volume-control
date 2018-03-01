@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Xml.Serialization;
 using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
@@ -130,9 +131,50 @@ namespace Toastify
             {
                 Settings.Current.Load();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
+                if (ex.InnerException != null)
+                    throw ex.InnerException;
                 throw;
+            }
+            catch (FileNotFoundException ex)
+            {
+                // Check if the old XML settings file is still there.
+
+                const string oldSettingsFileName = "Toastify.xml";
+
+                // ReSharper disable once PossibleNullReferenceException - The parent directory is created by Settings.SettingsFilePath, if needed
+                string dir = new FileInfo(Settings.SettingsFilePath).Directory.FullName;
+                string filePath = Path.Combine(dir, oldSettingsFileName);
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        Settings xmlFile;
+                        using (StreamReader sr = new StreamReader(filePath))
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+                            xmlFile = serializer.Deserialize(sr) as Settings;
+                        }
+
+                        xmlFile?.SetAsCurrentAndSave();
+                        File.Delete(filePath);
+                        LoadSettings();
+                    }
+                    catch (Exception exx)
+                    {
+                        logger.Error(exx.Message, exx);
+                    }
+                }
+                else
+                {
+                    logger.Warn("Exception loading settings from file. Using defaults.", ex);
+
+                    string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
+                    MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Settings.Current.LoadSafe();
+                }
             }
             catch (Exception ex)
             {

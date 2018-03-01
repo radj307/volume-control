@@ -1,20 +1,24 @@
 ﻿using log4net;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json.Converters;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace Toastify.Model
 {
     [Serializable]
     [XmlRoot("SettingsXml")]
+    [JsonObject(MemberSerialization.OptOut)]
     public class Settings : ObservableObject
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Settings));
@@ -68,26 +72,13 @@ namespace Toastify.Model
         #endregion Settings instances
 
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        private const string SETTINGS_FILENAME = "Toastify.xml";
+        private const string SETTINGS_FILENAME = "Toastify.cfg";
 
-        private XmlSerializer _xmlSerializer;
+        public static JsonSerializerSettings JsonSerializerSettings { get; }
+
+        public static JsonSerializer JsonSerializer { get; }
+
         private static string _settingsFilePath;
-
-        [XmlIgnore]
-        public XmlSerializer XmlSerializer
-        {
-            get
-            {
-                if (this._xmlSerializer == null)
-                {
-                    this._xmlSerializer = new XmlSerializer(typeof(Settings));
-                    this._xmlSerializer.UnknownAttribute += XmlSerializer_UnknownAttribute;
-                    this._xmlSerializer.UnknownElement += XmlSerializer_UnknownElement;
-                    this._xmlSerializer.UnknownNode += XmlSerializer_UnknownNode;
-                }
-                return this._xmlSerializer;
-            }
-        }
 
         /// <summary>
         /// Returns the location of the settings file
@@ -199,6 +190,7 @@ namespace Toastify.Model
         // this is a dynamic setting depending on the existing registry key
         // (which allows for it to be set reliably from the installer) so make sure to not include it in the XML file
         [XmlIgnore]
+        [JsonIgnore]
         public bool LaunchOnStartup
         {
             get
@@ -236,6 +228,7 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._closeSpotifyWithToastify, value); }
         }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public ToastifyVolumeControlMode VolumeControlMode
         {
             get { return this._volumeControlMode; }
@@ -332,6 +325,7 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._fadeOutTime, value); }
         }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public ToastTitlesOrder ToastTitlesOrder
         {
             get { return this._toastTitlesOrder; }
@@ -593,7 +587,7 @@ namespace Toastify.Model
 
             this.ToastWidth = 300.0;
             this.ToastHeight = 80.0;
-            
+
             this.PositionLeft = ScreenHelper.GetScreenRect().Right - this.ToastWidth;
             this.PositionTop = ScreenHelper.GetScreenRect().Bottom - this.ToastHeight;
 
@@ -642,7 +636,7 @@ namespace Toastify.Model
 
             using (StreamWriter sw = new StreamWriter(SettingsFilePath, false))
             {
-                this.XmlSerializer.Serialize(sw, this);
+                JsonSerializer.Serialize(sw, this);
             }
         }
 
@@ -656,14 +650,13 @@ namespace Toastify.Model
             if (this != Current)
                 throw new InvalidOperationException("Cannot load settings onto non-Current instance");
 
-            Settings file;
+            this.SetDefault();
             using (StreamReader sr = new StreamReader(SettingsFilePath))
             {
-                file = this.XmlSerializer.Deserialize(sr) as Settings;
+                JsonSerializer.Populate(sr, this);
             }
-            Current = file;
-            Current?.CheckForNewSettings();
-            Current?.SanitizeSettingsFile();
+            this.CheckForNewSettings();
+            this.SanitizeSettingsFile();
         }
 
         /// <summary>
@@ -798,40 +791,39 @@ namespace Toastify.Model
             return clone;
         }
 
-        #region XmlSerializer event handlers
-
-        private static void XmlSerializer_UnknownAttribute(object sender, XmlAttributeEventArgs e)
+        static Settings()
         {
-            logger.Warn($"XmlSerializer: unknown attribute found [{e.Attr.LocalName} = \"{e.Attr.Value}\"]");
-        }
-
-        private static void XmlSerializer_UnknownElement(object sender, XmlElementEventArgs e)
-        {
-            Settings settings = (Settings)e.ObjectBeingDeserialized;
-
-            switch (e.Element.LocalName)
+            JsonSerializerSettings = new JsonSerializerSettings
             {
-                case "UseSpotifyVolumeControl":
-                    bool value;
-                    bool.TryParse(e.Element.InnerText, out value);
-                    settings.VolumeControlMode = value ? ToastifyVolumeControlMode.Spotify : ToastifyVolumeControlMode.SystemSpotifyOnly;
-                    break;
+                StringEscapeHandling = StringEscapeHandling.Default,
+                FloatParseHandling = FloatParseHandling.Decimal,
+                FloatFormatHandling = FloatFormatHandling.String,
+                DateParseHandling = DateParseHandling.DateTime,
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Formatting = Formatting.Indented,
+                MaxDepth = null,
+                Culture = CultureInfo.InvariantCulture,
+                ConstructorHandling = ConstructorHandling.Default,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                TypeNameHandling = TypeNameHandling.None,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                NullValueHandling = NullValueHandling.Ignore,
+                ObjectCreationHandling = ObjectCreationHandling.Auto,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
 
-                default:
-                    logger.Warn($"XmlSerializer: unknown element found [{e.Element.LocalName}]");
-                    break;
-            }
+            JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
+            JsonSerializer.Error += JsonSerializer_Error;
         }
 
-        private static void XmlSerializer_UnknownNode(object sender, XmlNodeEventArgs e)
+        private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
         {
-            if (e.NodeType == XmlNodeType.Attribute || e.NodeType == XmlNodeType.Element)
-                return;
-
-            logger.Warn($"XmlSerializer: unknown node found [{e.LocalName} = \"{e.Text}\"]");
+            logger.Error($"JsonSerializer error: {errorEventArgs.ErrorContext}");
         }
-
-        #endregion XmlSerializer event handlers
     }
 
     [Serializable]
