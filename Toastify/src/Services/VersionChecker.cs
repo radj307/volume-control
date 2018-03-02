@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Toastify.Events;
@@ -31,9 +29,7 @@ namespace Toastify.Services
             {
                 if (_version == null)
                 {
-                    var assembly = Assembly.GetExecutingAssembly();
-                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-                    _version = fileVersionInfo.FileVersion;
+                    _version = App.CurrentVersion;
 
                     if (_version != null)
                     {
