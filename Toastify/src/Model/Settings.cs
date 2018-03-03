@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -812,10 +813,22 @@ namespace Toastify.Model
 
             if (clone != null)
             {
+                // Hotkeys
                 clone.HotKeys = new List<Hotkey>();
 
                 foreach (Hotkey key in this.HotKeys)
                     clone.HotKeys.Add((Hotkey)key.Clone());
+
+                // SettingValue<>'s
+                var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                                 .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+                foreach (var property in properties)
+                {
+                    property.SetValue(clone, null);
+
+                    var value = (ISettingValue)property.GetValue(this);
+                    property.SetValue(clone, value?.Clone());
+                }
             }
 
             return clone;
@@ -852,6 +865,8 @@ namespace Toastify.Model
                 field = newValue;
                 this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
             }
+            else if (newValue == null)
+                field = null;
             else if (field.SetValueIfChanged(newValue))
                 this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
         }

@@ -250,6 +250,13 @@ namespace Toastify.Model
 #endif
         }
 
+        public object Clone()
+        {
+            return new SettingValue<T>(this.Value, this.Default, this.Range, this.Constraints?.ToArray());
+        }
+
+        #region Operators
+
         public static bool operator <(SettingValue<T> left, SettingValue<T> right)
         {
             return Comparer<SettingValue<T>>.Default.Compare(left, right) < 0;
@@ -291,6 +298,7 @@ namespace Toastify.Model
         }
 
         #endregion Operators
+
 #if DEBUG
 
         public int ObjectHashCode
@@ -304,7 +312,7 @@ namespace Toastify.Model
 #pragma warning restore 660, 661
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 
-    public interface ISettingValue
+    public interface ISettingValue : ICloneable
     {
         /// <summary>
         /// Set a value safely, without raising any ConstraintFailedException.
