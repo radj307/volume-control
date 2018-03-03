@@ -472,7 +472,7 @@ namespace Toastify.Core
 
                 case ToastifyAction.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
-                    switch (Settings.Current.VolumeControlMode)
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -480,6 +480,10 @@ namespace Toastify.Core
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.IncrementVolume();
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                            sendAppCommandMessage = true;
                             break;
 
                         default:
@@ -490,7 +494,7 @@ namespace Toastify.Core
 
                 case ToastifyAction.VolumeDown:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
-                    switch (Settings.Current.VolumeControlMode)
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.Spotify:
                             this.SendShortcut(action);
@@ -498,6 +502,10 @@ namespace Toastify.Core
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.DecrementVolume();
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                            sendAppCommandMessage = true;
                             break;
 
                         default:
@@ -508,10 +516,18 @@ namespace Toastify.Core
 
                 case ToastifyAction.Mute:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
-                    switch (Settings.Current.VolumeControlMode)
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.ToggleMute();
+                            break;
+
+                        case ToastifyVolumeControlMode.Spotify:
+                            sendAppCommandMessage = true;
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                            sendAppCommandMessage = true;
                             break;
 
                         default:

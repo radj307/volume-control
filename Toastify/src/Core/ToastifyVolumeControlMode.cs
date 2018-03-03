@@ -1,9 +1,12 @@
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Toastify.Common;
 
 namespace Toastify.Core
 {
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ToastifyVolumeControlMode
     {
         /// <summary>

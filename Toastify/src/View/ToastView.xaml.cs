@@ -189,13 +189,13 @@ namespace Toastify.View
             this.Title2.Foreground = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.ToastTitle2Color));
             this.Title1.Effect = new DropShadowEffect
             {
-                ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0,
-                BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0
+                ShadowDepth = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowDepth : 0.0,
+                BlurRadius = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowBlur : 0.0
             };
             this.Title2.Effect = new DropShadowEffect
             {
-                ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0,
-                BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0
+                ShadowDepth = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowDepth : 0.0,
+                BlurRadius = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowBlur : 0.0
             };
 
             // [ TEXT FONT SIZE ]
@@ -921,8 +921,8 @@ namespace Toastify.View
                 case nameof(this.Settings.ToastHeight):
                 case nameof(this.Settings.PositionLeft):
                 case nameof(this.Settings.PositionTop):
-                    this.Width = this.Settings.ToastWidth >= this.MinWidth ? this.Settings.ToastWidth : this.MinWidth;
-                    this.Height = this.Settings.ToastHeight >= this.MinHeight ? this.Settings.ToastHeight : this.MinHeight;
+                    this.Width = this.Settings.ToastWidth >= this.MinWidth ? (double)this.Settings.ToastWidth : this.MinWidth;
+                    this.Height = this.Settings.ToastHeight >= this.MinHeight ? (double)this.Settings.ToastHeight : this.MinHeight;
                     this.Left = this.Settings.PositionLeft;
                     this.Top = this.Settings.PositionTop;
                     this.ResetPositionIfOffScreen();
@@ -941,19 +941,19 @@ namespace Toastify.View
                 case nameof(this.Settings.ToastTitle1DropShadow):
                     this.Title1.Effect = new DropShadowEffect
                     {
-                        ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0,
-                        BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0
+                        ShadowDepth = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowDepth : 0.0,
+                        BlurRadius = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowBlur : 0.0
                     };
                     break;
 
                 case nameof(this.Settings.ToastTitle1ShadowDepth):
                     if (this.Title1.Effect is DropShadowEffect t1_effect_sd)
-                        t1_effect_sd.ShadowDepth = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowDepth : 0.0;
+                        t1_effect_sd.ShadowDepth = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowDepth : 0.0;
                     break;
 
                 case nameof(this.Settings.ToastTitle1ShadowBlur):
                     if (this.Title1.Effect is DropShadowEffect t1_effect_sb)
-                        t1_effect_sb.BlurRadius = this.Settings.ToastTitle1DropShadow ? this.Settings.ToastTitle1ShadowBlur : 0.0;
+                        t1_effect_sb.BlurRadius = this.Settings.ToastTitle1DropShadow ? (double)this.Settings.ToastTitle1ShadowBlur : 0.0;
                     break;
 
                 #endregion Title1
@@ -971,19 +971,19 @@ namespace Toastify.View
                 case nameof(this.Settings.ToastTitle2DropShadow):
                     this.Title2.Effect = new DropShadowEffect
                     {
-                        ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0,
-                        BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0
+                        ShadowDepth = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowDepth : 0.0,
+                        BlurRadius = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowBlur : 0.0
                     };
                     break;
 
                 case nameof(this.Settings.ToastTitle2ShadowDepth):
                     if (this.Title2.Effect is DropShadowEffect t2_effect_sd)
-                        t2_effect_sd.ShadowDepth = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowDepth : 0.0;
+                        t2_effect_sd.ShadowDepth = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowDepth : 0.0;
                     break;
 
                 case nameof(this.Settings.ToastTitle2ShadowBlur):
                     if (this.Title2.Effect is DropShadowEffect t2_effect_sb)
-                        t2_effect_sb.BlurRadius = this.Settings.ToastTitle2DropShadow ? this.Settings.ToastTitle2ShadowBlur : 0.0;
+                        t2_effect_sb.BlurRadius = this.Settings.ToastTitle2DropShadow ? (double)this.Settings.ToastTitle2ShadowBlur : 0.0;
                     break;
 
                 #endregion Title2

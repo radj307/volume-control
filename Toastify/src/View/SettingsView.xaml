@@ -17,6 +17,8 @@
         <helpers:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></helpers:HexColorToAlphaValueConverter>
         <helpers:OppositeBoolConverter x:Key="OppositeBoolConverter"></helpers:OppositeBoolConverter>
         <helpers:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></helpers:OppositeBoolToVisibleConverter>
+        <helpers:SettingValueToValueConverter x:Key="SettingValueToValueConverter"></helpers:SettingValueToValueConverter>
+        <helpers:SettingValueToOppositeBoolValueConverter x:Key="SettingValueToOppositeBoolValueConverter"></helpers:SettingValueToOppositeBoolValueConverter>
 
         <DataTemplate x:Key="GroupBoxHeaderTemplate">
             <TextBlock Text="{Binding}" Margin="1,2" Padding="0,2" />
@@ -28,13 +30,13 @@
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox IsChecked="{Binding Path=Settings.LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Launch Toastify with Windows</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=Settings.MinimizeSpotifyOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,34,0,0" Height="21" VerticalContentAlignment="Center">Minimize Spotify on launch</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=Settings.CloseSpotifyWithToastify, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,58,0,0" Height="21" VerticalContentAlignment="Center">Close Spotify when Toastify is closed</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=Settings.MinimizeSpotifyOnStartup, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,34,0,0" Height="21" VerticalContentAlignment="Center">Minimize Spotify on launch</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=Settings.CloseSpotifyWithToastify, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,58,0,0" Height="21" VerticalContentAlignment="Center">Close Spotify when Toastify is closed</CheckBox>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,84,0,0" Height="26">
                         <Label VerticalContentAlignment="Center">Volume control mode:</Label>
                         <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Name="ComboVolumeControlMode" SelectionChanged="ComboVolumeControlMode_OnSelectionChanged"
                                   ItemsSource="{Binding Source={markup:Enum {x:Type core:ToastifyVolumeControlMode}}}"
-                                  SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay}" SelectedValuePath="Value" Width="210">
+                                  SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value" Width="210">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
@@ -44,8 +46,9 @@
                     </StackPanel>
                     <StackPanel Name="PanelWindowsMixerIncrement" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="37,116,0,0" Height="26">
                         <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :" />
-                        <wpft:DoubleUpDown Margin="8,0,0,0" Height="24" Width="50" VerticalContentAlignment="Center" HorizontalAlignment="Left" Value="{Binding Path=Settings.WindowsVolumeMixerIncrement, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}"
-                                           AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" FormatString="F1" Minimum="0.0" Maximum="20.0" Increment="0.1" ClipValueToMinMax="True" DefaultValue="0.0" />
+                        <wpft:DoubleUpDown Margin="8,0,0,0" Height="24" Width="50" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                           Value="{Binding Path=Settings.WindowsVolumeMixerIncrement, Converter={StaticResource SettingValueToValueConverter}, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}"
+                                           AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" FormatString="F1" Minimum="0.0" Maximum="20.0" Increment="0.1" ClipValueToMinMax="True" DefaultValue="1.0" />
                     </StackPanel>
 
                     <Grid VerticalAlignment="Top" Margin="12,168,12,0">
@@ -58,13 +61,13 @@
                             <ColumnDefinition Width="421*" />
                         </Grid.ColumnDefinitions>
                         <Label Name="Label19" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template :</Label>
-                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
+                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
                         <TextBlock TextWrapping="Wrap" Foreground="#FF575757" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
                     </Grid>
 
-                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,263,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
+                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,263,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
                     <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,288,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
-                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,333,0,0" Height="31">
+                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,333,0,0" Height="31">
                         <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak />
                             Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
                     </CheckBox>
@@ -79,7 +82,7 @@
             </TabItem>
             <TabItem Header="Hotkeys" Name="Hotkeys">
                 <Grid>
-                    <CheckBox Name="CbHotkeys" IsChecked="{Binding Path=Settings.GlobalHotKeys, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Enable Global Hotkeys</CheckBox>
+                    <CheckBox Name="CbHotkeys" IsChecked="{Binding Path=Settings.GlobalHotKeys, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Enable Global Hotkeys</CheckBox>
 
                     <Grid IsEnabled="{Binding ElementName=CbHotkeys, Path=IsChecked}" DataContext="{Binding Path=Settings.HotKeys}" Margin="0,38,0,0">
                         <Grid.ColumnDefinitions>
@@ -124,9 +127,9 @@
             </TabItem>
             <TabItem Header="Toast" Name="TabToast">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
+                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
 
-                    <TabControl TabStripPlacement="Left" Margin="4,44,4,10" SelectedIndex="{Binding Path=CurrentToastTabIndex, Mode=TwoWay}" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource OppositeBoolConverter}}">
+                    <TabControl TabStripPlacement="Left" Margin="4,44,4,10" SelectedIndex="{Binding Path=CurrentToastTabIndex, Mode=TwoWay}" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource SettingValueToOppositeBoolValueConverter}}">
                         <TabControl.Resources>
                             <Style TargetType="TabItem">
                                 <Setter Property="Padding" Value="5,3,8,3" />
@@ -136,10 +139,10 @@
                         <!-- GENERAL -->
                         <TabItem Header="General">
                             <Grid>
-                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
                                 <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
-                                              IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
-                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Show song progress bar</CheckBox>
+                                              IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Show song progress bar</CheckBox>
 
                                 <!-- Fade-out time -->
                                 <Grid VerticalAlignment="Top" Margin="12,101,12,0">
@@ -149,7 +152,8 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center">FadeOut Time :</Label>
                                     <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,0" VerticalAlignment="Center" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" Padding="0"
-                                                            Value="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=N0, ValidatesOnExceptions=True}" ValueDataType="{x:Type sys:Int32}" MinValue="1000" MaxValue="10000" />
+                                                            Value="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=N0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}"
+                                                            ValueDataType="{x:Type sys:Int32}" MinValue="1000" MaxValue="10000" />
                                     <Label Grid.Column="1" Height="26" Margin="-8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left">(milliseconds)</Label>
                                 </Grid>
 
@@ -158,7 +162,7 @@
                                     <Label VerticalContentAlignment="Center">Artist and Track name :</Label>
                                     <ComboBox VerticalContentAlignment="Center" Width="170" Margin="6,0,0,0"
                                               ItemsSource="{Binding Source={markup:Enum {x:Type core:ToastTitlesOrder}}}"
-                                              SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay}" SelectedValuePath="Value">
+                                              SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
@@ -178,25 +182,25 @@
                                         <wpft:DoubleUpDown Name="ToastWidthUpDown" Grid.Column="0" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
                                                            Watermark="Width" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
                                                            Minimum="{Binding Path=ToastWidthMin, Mode=OneTime}" Maximum="{Binding Path=ToastWidthMax, Mode=OneWay}" DefaultValue="{Binding Path=ToastWidthDefault, Mode=OneTime}"
-                                                           Value="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           Value="{Binding Path=Settings.ToastWidth, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F0"
                                                            ValueChanged="ToastWidthUpDown_OnValueChanged" MouseWheel="ToastWidthUpDown_MouseWheel" KeyDown="ToastWidthUpDown_OnKeyDown" KeyUp="ToastWidthUpDown_OnKeyUp" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0,0,0,34" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Left Position :</Label>
                                         <wpft:DoubleUpDown Name="PositionLeftUpDown" Grid.Column="1" Height="24" Margin="95,0,12,35" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
                                                            Watermark="Left Position" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
                                                            Minimum="{Binding Path=PositionLeftMin, Mode=OneWay}" Maximum="{Binding Path=PositionLeftMax, Mode=OneWay}" DefaultValue="{Binding Path=PositionLeftDefault, Mode=OneWay}"
-                                                           Value="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           Value="{Binding Path=Settings.PositionLeft, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F0"
                                                            ValueChanged="PositionLeftUpDown_OnValueChanged" KeyDown="PositionLeftUpDown_OnKeyDown" KeyUp="PositionLeftUpDown_OnKeyUp" />
                                         <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Toast Height :</Label>
                                         <wpft:DoubleUpDown Name="ToastHeightUpDown" Grid.Column="0" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
                                                            Watermark="Height" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
                                                            Minimum="{Binding Path=ToastHeightMin, Mode=OneTime}" Maximum="{Binding Path=ToastHeightMax, Mode=OneWay}" DefaultValue="{Binding Path=ToastHeightDefault, Mode=OneTime}"
-                                                           Value="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           Value="{Binding Path=Settings.ToastHeight, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F0"
                                                            ValueChanged="ToastHeightUpDown_OnValueChanged" MouseWheel="ToastHeightUpDown_MouseWheel" KeyDown="ToastHeightUpDown_OnKeyDown" KeyUp="ToastHeightUpDown_OnKeyUp" />
                                         <Label Grid.Column="1" Height="26" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Center">Top Position :</Label>
                                         <wpft:DoubleUpDown Name="PositionTopUpDown" Grid.Column="1" Height="24" Margin="95,0,12,1" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement10Tooltip, Mode=OneTime}"
                                                            Watermark="Top Position" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1.0" DisplayDefaultValueOnEmptyText="True"
                                                            Minimum="{Binding Path=PositionTopMin, Mode=OneWay}" Maximum="{Binding Path=PositionTopMax, Mode=OneWay}" DefaultValue="{Binding Path=PositionTopDefault, Mode=OneWay}"
-                                                           Value="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True}" FormatString="F0"
+                                                           Value="{Binding Path=Settings.PositionTop, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F0"
                                                            ValueChanged="PositionTopUpDown_OnValueChanged" KeyDown="PositionTopUpDown_OnKeyDown" KeyUp="PositionTopUpDown_OnKeyUp" />
                                     </Grid>
 
@@ -217,7 +221,7 @@
                                         <Label Height="26" VerticalContentAlignment="Center">Border Thickness :</Label>
                                         <wpft:DoubleUpDown Width="54" Height="24" VerticalContentAlignment="Center" MouseWheel="BorderThickness_MouseWheel" Margin="6,0,0,0" FormatString="F1"
                                                            AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Minimum="0.0" Maximum="100.0" Increment="0.1"
-                                                           Value="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" DefaultValue="0.0" />
+                                                           Value="{Binding Path=Settings.ToastBorderThickness, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="0.0" />
                                     </StackPanel>
                                     <Grid Margin="0,10,0,0">
                                         <Grid.ColumnDefinitions>
@@ -233,21 +237,21 @@
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Left</Label>
                                             <wpft:DoubleUpDown Name="BorderTopLeftUpDown" Grid.Column="0" Height="24" Margin="77,1,8,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Left" ButtonSpinnerLocation="Right"
                                                                Watermark="Top Left" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
-                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F1"
                                                                MouseWheel="BorderTopLeftUpDown_MouseWheel" />
                                             <wpft:DoubleUpDown Name="BorderTopRightUpDown" Grid.Column="1" Height="24" Margin="8,1,81,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Right" ButtonSpinnerLocation="Left"
                                                                Watermark="Top Right" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
-                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusTopRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F1"
                                                                MouseWheel="BorderTopRightUpDown_MouseWheel" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,0,21,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Top Right</Label>
                                             <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Left</Label>
                                             <wpft:DoubleUpDown Name="BorderBottomLeftUpDown" Grid.Column="0" Height="24" Margin="77,35,8,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Left" ButtonSpinnerLocation="Right"
                                                                Watermark="Bottom Left" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
-                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomLeft, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F1"
                                                                MouseWheel="BorderBottomLeftUpDown_MouseWheel" />
                                             <wpft:DoubleUpDown Name="BorderBottomRightUpDown" Grid.Column="1" Height="24" Margin="8,35,81,1" VerticalAlignment="Top" VerticalContentAlignment="Center" TextAlignment="Right" ButtonSpinnerLocation="Left"
                                                                Watermark="Bottom Right" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1" DisplayDefaultValueOnEmptyText="True"
-                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}" FormatString="F1"
+                                                               Minimum="0.0" DefaultValue="0.0" Value="{Binding Path=Settings.ToastBorderCornerRadiusBottomRight, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F1"
                                                                MouseWheel="BorderBottomRightUpDown_MouseWheel" />
                                             <Label Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,34,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FF575757">Bottom Right</Label>
                                         </Grid>
@@ -273,7 +277,7 @@
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorTopUpDown" Grid.Column="1" Height="24" Margin="218,1,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"
-                                                           Minimum="0.0" Maximum="1.0" Value="{Binding Path=Settings.ToastColorTopOffset, Mode=TwoWay}" DefaultValue="0.0" />
+                                                           Minimum="0.0" Maximum="1.0" Value="{Binding Path=Settings.ToastColorTopOffset, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="0.0" />
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left" Width="85">Bottom color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=ToastColorBottom, Mode=TwoWay}"
@@ -281,7 +285,7 @@
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,36,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorBottomUpDown" Grid.Column="1" Height="24" Margin="218,37,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"
-                                                           Minimum="{Binding Path=Value, ElementName=ColorTopUpDown}" Maximum="1.0" Value="{Binding Path=Settings.ToastColorBottomOffset, Mode=TwoWay}" DefaultValue="1.0" />
+                                                           Minimum="{Binding Path=Value, ElementName=ColorTopUpDown}" Maximum="1.0" Value="{Binding Path=Settings.ToastColorBottomOffset, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="1.0" />
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,72,0,0" HorizontalAlignment="Left" Width="81">Border color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,73,0,0" SelectedColor="{Binding Path=ToastBorderColor, Mode=TwoWay}"
@@ -304,8 +308,8 @@
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title1FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,1,6,0" VerticalAlignment="Top"
                                                            FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
-                                                           Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle1FontSize, Mode=TwoWay}" />
-                                        <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                                           Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle1FontSize, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" />
+                                        <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
                                         <Grid Grid.Column="1" Height="26" Margin="16,28,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle1DropShadow}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -315,11 +319,11 @@
                                             <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
                                             <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
                                                                FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1"
-                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle1ShadowDepth, Mode=TwoWay}" DefaultValue="3" />
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle1ShadowDepth, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="3" />
                                             <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
                                             <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
                                                                FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
-                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle1ShadowBlur, Mode=TwoWay}" DefaultValue="2" />
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle1ShadowBlur, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="2" />
                                         </Grid>
 
                                         <!-- Title2 -->
@@ -329,8 +333,8 @@
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,60,0,0" HorizontalAlignment="Left" Width="63">Font size :</Label>
                                         <wpft:DoubleUpDown Name="Title2FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,61,6,0" VerticalAlignment="Top"
                                                             FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
-                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle2FontSize, Mode=TwoWay}" DefaultValue="12" />
-                                        <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                                            Minimum="6" Maximum="22" Value="{Binding Settings.ToastTitle2FontSize, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="12" />
+                                        <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
                                         <Grid Grid.Column="1" Height="26" Margin="16,88,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle2DropShadow}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -340,17 +344,17 @@
                                             <Label Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center">Depth :</Label>
                                             <wpft:DoubleUpDown Grid.Column="0" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
                                                                FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.1"
-                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle2ShadowDepth, Mode=TwoWay}" DefaultValue="3" />
+                                                               Minimum="0" Maximum="8" Value="{Binding Path=Settings.ToastTitle2ShadowDepth, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="3" />
                                             <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center">Blur :</Label>
                                             <wpft:DoubleUpDown Grid.Column="1" Height="24" Width="88" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"
                                                                FormatString="N1" Watermark="Shadow depth" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
-                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle2ShadowBlur, Mode=TwoWay}" DefaultValue="2" />
+                                                               Minimum="0" Maximum="24" Value="{Binding Path=Settings.ToastTitle2ShadowBlur, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="2" />
                                         </Grid>
                                     </Grid>
                                 </GroupBox>
 
                                 <!-- Song Progress bar -->
-                                <GroupBox Header="Song Progress Bar" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top" IsEnabled="{Binding Path=Settings.ShowSongProgressBar}">
+                                <GroupBox Header="Song Progress Bar" HeaderTemplate="{StaticResource GroupBoxHeaderTemplate}" Margin="6,3,4,0" VerticalAlignment="Top" IsEnabled="{Binding Path=Settings.ShowSongProgressBar, Converter={StaticResource SettingValueToValueConverter}}">
                                     <Grid Margin="4,6,4,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="22*" />

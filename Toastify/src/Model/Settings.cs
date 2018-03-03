@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Serialization;
-using Newtonsoft.Json.Converters;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -22,6 +24,8 @@ namespace Toastify.Model
     public class Settings : ObservableObject
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Settings));
+
+        private static readonly Regex regex4ChannelsColor = new Regex("^#[0-9A-F]{8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         #region Settings instances
 
@@ -117,17 +121,17 @@ namespace Toastify.Model
 
         #region Private fields
 
-        private bool _minimizeSpotifyOnStartup;
-        private bool _closeSpotifyWithToastify;
-        private ToastifyVolumeControlMode _volumeControlMode;
-        private bool _useSpotifyVolumeControl;
-        private float _windowsVolumeMixerIncrement;
-        private string _clipboardTemplate;
-        private bool _saveTrackToFile;
-        private string _saveTrackToFilePath;
-        private bool _optInToAnalytics;
+        private SettingValue<bool> _minimizeSpotifyOnStartup;
+        private SettingValue<bool> _closeSpotifyWithToastify;
+        private SettingValue<ToastifyVolumeControlMode> _volumeControlMode;
+        private SettingValue<bool> _useSpotifyVolumeControl;
+        private SettingValue<float> _windowsVolumeMixerIncrement;
+        private SettingValue<string> _clipboardTemplate;
+        private SettingValue<bool> _saveTrackToFile;
+        private SettingValue<string> _saveTrackToFilePath;
+        private SettingValue<bool> _optInToAnalytics;
 
-        private bool _globalHotKeys;
+        private SettingValue<bool> _globalHotKeys;
         private List<Hotkey> _hotKeys;
 
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
@@ -150,38 +154,38 @@ namespace Toastify.Model
 #endif
         };
 
-        private bool _disableToast;
-        private bool _onlyShowToastOnHotkey;
-        private bool _disableToastWithFullscreenVideogames;
-        private bool _showSongProgressBar;
-        private int _fadeOutTime;
-        private ToastTitlesOrder _toastTitlesOrder;
-        private string _toastColorTop;
-        private string _toastColorBottom;
-        private double _toastColorTopOffset;
-        private double _toastColorBottomOffset;
-        private string _toastBorderColor;
-        private double _toastBorderThickness;
-        private double _toastBorderCornerRadiusTopLeft;
-        private double _toastBorderCornerRadiusTopRight;
-        private double _toastBorderCornerRadiusBottomLeft;
-        private double _toastBorderCornerRadiusBottomRight;
-        private double _toastWidth;
-        private double _toastHeight;
-        private double _positionLeft;
-        private double _positionTop;
-        private string _toastTitle1Color;
-        private string _toastTitle2Color;
-        private double _toastTitle1FontSize;
-        private double _toastTitle2FontSize;
-        private bool _toastTitle1DropShadow;
-        private double _toastTitle1ShadowDepth;
-        private double _toastTitle1ShadowBlur;
-        private bool _toastTitle2DropShadow;
-        private double _toastTitle2ShadowDepth;
-        private double _toastTitle2ShadowBlur;
-        private string _songProgressBarBackgroundColor;
-        private string _songProgressBarForegroundColor;
+        private SettingValue<bool> _disableToast;
+        private SettingValue<bool> _onlyShowToastOnHotkey;
+        private SettingValue<bool> _disableToastWithFullscreenVideogames;
+        private SettingValue<bool> _showSongProgressBar;
+        private SettingValue<int> _fadeOutTime;
+        private SettingValue<ToastTitlesOrder> _toastTitlesOrder;
+        private SettingValue<string> _toastColorTop;
+        private SettingValue<string> _toastColorBottom;
+        private SettingValue<double> _toastColorTopOffset;
+        private SettingValue<double> _toastColorBottomOffset;
+        private SettingValue<string> _toastBorderColor;
+        private SettingValue<double> _toastBorderThickness;
+        private SettingValue<double> _toastBorderCornerRadiusTopLeft;
+        private SettingValue<double> _toastBorderCornerRadiusTopRight;
+        private SettingValue<double> _toastBorderCornerRadiusBottomLeft;
+        private SettingValue<double> _toastBorderCornerRadiusBottomRight;
+        private SettingValue<double> _toastWidth;
+        private SettingValue<double> _toastHeight;
+        private SettingValue<double> _positionLeft;
+        private SettingValue<double> _positionTop;
+        private SettingValue<string> _toastTitle1Color;
+        private SettingValue<string> _toastTitle2Color;
+        private SettingValue<double> _toastTitle1FontSize;
+        private SettingValue<double> _toastTitle2FontSize;
+        private SettingValue<bool> _toastTitle1DropShadow;
+        private SettingValue<double> _toastTitle1ShadowDepth;
+        private SettingValue<double> _toastTitle1ShadowBlur;
+        private SettingValue<bool> _toastTitle2DropShadow;
+        private SettingValue<double> _toastTitle2ShadowDepth;
+        private SettingValue<double> _toastTitle2ShadowBlur;
+        private SettingValue<string> _songProgressBarBackgroundColor;
+        private SettingValue<string> _songProgressBarForegroundColor;
 
         #endregion Private fields
 
@@ -216,70 +220,69 @@ namespace Toastify.Model
             }
         }
 
-        public bool MinimizeSpotifyOnStartup
+        public SettingValue<bool> MinimizeSpotifyOnStartup
         {
-            get { return this._minimizeSpotifyOnStartup; }
-            set { this.RaiseAndSetIfChanged(ref this._minimizeSpotifyOnStartup, value); }
+            get { return this.GetSettingValue(ref this._minimizeSpotifyOnStartup); }
+            set { this.SetSettingValue(ref this._minimizeSpotifyOnStartup, value); }
         }
 
-        public bool CloseSpotifyWithToastify
+        public SettingValue<bool> CloseSpotifyWithToastify
         {
-            get { return this._closeSpotifyWithToastify; }
-            set { this.RaiseAndSetIfChanged(ref this._closeSpotifyWithToastify, value); }
+            get { return this.GetSettingValue(ref this._closeSpotifyWithToastify); }
+            set { this.SetSettingValue(ref this._closeSpotifyWithToastify, value); }
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ToastifyVolumeControlMode VolumeControlMode
+        public SettingValue<ToastifyVolumeControlMode> VolumeControlMode
         {
-            get { return this._volumeControlMode; }
-            set { this.RaiseAndSetIfChanged(ref this._volumeControlMode, value); }
+            get { return this.GetSettingValue(ref this._volumeControlMode); }
+            set { this.SetSettingValue(ref this._volumeControlMode, value); }
         }
 
         [Obsolete("UseSpotifyVolumeControl is obsolete and will be removed in the future. Use VolumeControlMode instead.")]
-        public bool UseSpotifyVolumeControl
+        public SettingValue<bool> UseSpotifyVolumeControl
         {
-            get { return this._useSpotifyVolumeControl; }
-            set { this.RaiseAndSetIfChanged(ref this._useSpotifyVolumeControl, value); }
+            get { return this.GetSettingValue(ref this._useSpotifyVolumeControl); }
+            set { this.SetSettingValue(ref this._useSpotifyVolumeControl, value); }
         }
 
-        public float WindowsVolumeMixerIncrement
+        public SettingValue<float> WindowsVolumeMixerIncrement
         {
-            get { return this._windowsVolumeMixerIncrement; }
-            set { this.RaiseAndSetIfChanged(ref this._windowsVolumeMixerIncrement, value); }
+            get { return this.GetSettingValue(ref this._windowsVolumeMixerIncrement); }
+            set { this.SetSettingValue(ref this._windowsVolumeMixerIncrement, value); }
         }
 
-        public string ClipboardTemplate
+        public SettingValue<string> ClipboardTemplate
         {
-            get { return this._clipboardTemplate; }
-            set { this.RaiseAndSetIfChanged(ref this._clipboardTemplate, value); }
+            get { return this.GetSettingValue(ref this._clipboardTemplate); }
+            set { this.SetSettingValue(ref this._clipboardTemplate, value); }
         }
 
-        public bool SaveTrackToFile
+        public SettingValue<bool> SaveTrackToFile
         {
-            get { return this._saveTrackToFile; }
-            set { this.RaiseAndSetIfChanged(ref this._saveTrackToFile, value); }
+            get { return this.GetSettingValue(ref this._saveTrackToFile); }
+            set { this.SetSettingValue(ref this._saveTrackToFile, value); }
         }
 
-        public string SaveTrackToFilePath
+        public SettingValue<string> SaveTrackToFilePath
         {
-            get { return this._saveTrackToFilePath; }
-            set { this.RaiseAndSetIfChanged(ref this._saveTrackToFilePath, value); }
+            get { return this.GetSettingValue(ref this._saveTrackToFilePath); }
+            set { this.SetSettingValue(ref this._saveTrackToFilePath, value); }
         }
 
-        public bool OptInToAnalytics
+        public SettingValue<bool> OptInToAnalytics
         {
-            get { return this._optInToAnalytics; }
-            set { this.RaiseAndSetIfChanged(ref this._optInToAnalytics, value); }
+            get { return this.GetSettingValue(ref this._optInToAnalytics); }
+            set { this.SetSettingValue(ref this._optInToAnalytics, value); }
         }
 
         #endregion [General]
 
         #region [Hotkeys]
 
-        public bool GlobalHotKeys
+        public SettingValue<bool> GlobalHotKeys
         {
-            get { return this._globalHotKeys; }
-            set { this.RaiseAndSetIfChanged(ref this._globalHotKeys, value); }
+            get { return this.GetSettingValue(ref this._globalHotKeys); }
+            set { this.SetSettingValue(ref this._globalHotKeys, value); }
         }
 
         public List<Hotkey> HotKeys
@@ -292,200 +295,199 @@ namespace Toastify.Model
 
         #region [Toast]
 
-        public bool DisableToast
+        public SettingValue<bool> DisableToast
         {
-            get { return this._disableToast; }
-            set { this.RaiseAndSetIfChanged(ref this._disableToast, value); }
+            get { return this.GetSettingValue(ref this._disableToast); }
+            set { this.SetSettingValue(ref this._disableToast, value); }
         }
 
         /// <summary>
         /// Only show the toast when the `<see cref="ToastifyAction.ShowToast"/>` hotkey is pressed.
         /// </summary>
-        public bool OnlyShowToastOnHotkey
+        public SettingValue<bool> OnlyShowToastOnHotkey
         {
-            get { return this._onlyShowToastOnHotkey; }
-            set { this.RaiseAndSetIfChanged(ref this._onlyShowToastOnHotkey, value); }
+            get { return this.GetSettingValue(ref this._onlyShowToastOnHotkey); }
+            set { this.SetSettingValue(ref this._onlyShowToastOnHotkey, value); }
         }
 
-        public bool DisableToastWithFullscreenVideogames
+        public SettingValue<bool> DisableToastWithFullscreenVideogames
         {
-            get { return this._disableToastWithFullscreenVideogames; }
-            set { this.RaiseAndSetIfChanged(ref this._disableToastWithFullscreenVideogames, value); }
+            get { return this.GetSettingValue(ref this._disableToastWithFullscreenVideogames); }
+            set { this.SetSettingValue(ref this._disableToastWithFullscreenVideogames, value); }
         }
 
-        public bool ShowSongProgressBar
+        public SettingValue<bool> ShowSongProgressBar
         {
-            get { return this._showSongProgressBar; }
-            set { this.RaiseAndSetIfChanged(ref this._showSongProgressBar, value); }
+            get { return this.GetSettingValue(ref this._showSongProgressBar); }
+            set { this.SetSettingValue(ref this._showSongProgressBar, value); }
         }
 
-        public int FadeOutTime
+        public SettingValue<int> FadeOutTime
         {
-            get { return this._fadeOutTime; }
-            set { this.RaiseAndSetIfChanged(ref this._fadeOutTime, value); }
+            get { return this.GetSettingValue(ref this._fadeOutTime); }
+            set { this.SetSettingValue(ref this._fadeOutTime, value); }
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ToastTitlesOrder ToastTitlesOrder
+        public SettingValue<ToastTitlesOrder> ToastTitlesOrder
         {
-            get { return this._toastTitlesOrder; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitlesOrder, value); }
+            get { return this.GetSettingValue(ref this._toastTitlesOrder); }
+            set { this.SetSettingValue(ref this._toastTitlesOrder, value); }
         }
 
-        public string ToastColorTop
+        public SettingValue<string> ToastColorTop
         {
-            get { return this._toastColorTop; }
-            set { this.RaiseAndSetIfChanged(ref this._toastColorTop, value); }
+            get { return this.GetSettingValue(ref this._toastColorTop); }
+            set { this.SetSettingValue(ref this._toastColorTop, value); }
         }
 
-        public string ToastColorBottom
+        public SettingValue<string> ToastColorBottom
         {
-            get { return this._toastColorBottom; }
-            set { this.RaiseAndSetIfChanged(ref this._toastColorBottom, value); }
+            get { return this.GetSettingValue(ref this._toastColorBottom); }
+            set { this.SetSettingValue(ref this._toastColorBottom, value); }
         }
 
-        public double ToastColorTopOffset
+        public SettingValue<double> ToastColorTopOffset
         {
-            get { return this._toastColorTopOffset; }
-            set { this.RaiseAndSetIfChanged(ref this._toastColorTopOffset, value); }
+            get { return this.GetSettingValue(ref this._toastColorTopOffset); }
+            set { this.SetSettingValue(ref this._toastColorTopOffset, value); }
         }
 
-        public double ToastColorBottomOffset
+        public SettingValue<double> ToastColorBottomOffset
         {
-            get { return this._toastColorBottomOffset; }
-            set { this.RaiseAndSetIfChanged(ref this._toastColorBottomOffset, value); }
+            get { return this.GetSettingValue(ref this._toastColorBottomOffset); }
+            set { this.SetSettingValue(ref this._toastColorBottomOffset, value); }
         }
 
-        public string ToastBorderColor
+        public SettingValue<string> ToastBorderColor
         {
             get { return this._toastBorderColor; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderColor, value); }
+            set { this.SetSettingValue(ref this._toastBorderColor, value); }
         }
 
-        public double ToastBorderThickness
+        public SettingValue<double> ToastBorderThickness
         {
-            get { return this._toastBorderThickness; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderThickness, value, 0.0, double.MaxValue); }
+            get { return this.GetSettingValue(ref this._toastBorderThickness); }
+            set { this.SetSettingValue(ref this._toastBorderThickness, value); }
         }
 
-        public double ToastBorderCornerRadiusTopLeft
+        public SettingValue<double> ToastBorderCornerRadiusTopLeft
         {
-            get { return this._toastBorderCornerRadiusTopLeft; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusTopLeft, value, 0.0, double.MaxValue); }
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopLeft); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopLeft, value); }
         }
 
-        public double ToastBorderCornerRadiusTopRight
+        public SettingValue<double> ToastBorderCornerRadiusTopRight
         {
-            get { return this._toastBorderCornerRadiusTopRight; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusTopRight, value, 0.0, double.MaxValue); }
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopRight); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopRight, value); }
         }
 
-        public double ToastBorderCornerRadiusBottomLeft
+        public SettingValue<double> ToastBorderCornerRadiusBottomLeft
         {
-            get { return this._toastBorderCornerRadiusBottomLeft; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusBottomLeft, value, 0.0, double.MaxValue); }
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomLeft); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomLeft, value); }
         }
 
-        public double ToastBorderCornerRadiusBottomRight
+        public SettingValue<double> ToastBorderCornerRadiusBottomRight
         {
-            get { return this._toastBorderCornerRadiusBottomRight; }
-            set { this.RaiseAndSetIfChanged(ref this._toastBorderCornerRadiusBottomRight, value, 0.0, double.MaxValue); }
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomRight); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomRight, value); }
         }
 
-        public double ToastWidth
+        public SettingValue<double> ToastWidth
         {
-            get { return this._toastWidth; }
-            set { this.RaiseAndSetIfChanged(ref this._toastWidth, value); }
+            get { return this.GetSettingValue(ref this._toastWidth); }
+            set { this.SetSettingValue(ref this._toastWidth, value); }
         }
 
-        public double ToastHeight
+        public SettingValue<double> ToastHeight
         {
-            get { return this._toastHeight; }
-            set { this.RaiseAndSetIfChanged(ref this._toastHeight, value); }
+            get { return this.GetSettingValue(ref this._toastHeight); }
+            set { this.SetSettingValue(ref this._toastHeight, value); }
         }
 
-        public double PositionLeft
+        public SettingValue<double> PositionLeft
         {
-            get { return this._positionLeft; }
-            set { this.RaiseAndSetIfChanged(ref this._positionLeft, value); }
+            get { return this.GetSettingValue(ref this._positionLeft); }
+            set { this.SetSettingValue(ref this._positionLeft, value); }
         }
 
-        public double PositionTop
+        public SettingValue<double> PositionTop
         {
-            get { return this._positionTop; }
-            set { this.RaiseAndSetIfChanged(ref this._positionTop, value); }
+            get { return this.GetSettingValue(ref this._positionTop); }
+            set { this.SetSettingValue(ref this._positionTop, value); }
         }
 
-        public string ToastTitle1Color
+        public SettingValue<string> ToastTitle1Color
         {
-            get { return this._toastTitle1Color; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle1Color, value); }
+            get { return this.GetSettingValue(ref this._toastTitle1Color); }
+            set { this.SetSettingValue(ref this._toastTitle1Color, value); }
         }
 
-        public string ToastTitle2Color
+        public SettingValue<string> ToastTitle2Color
         {
-            get { return this._toastTitle2Color; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle2Color, value); }
+            get { return this.GetSettingValue(ref this._toastTitle2Color); }
+            set { this.SetSettingValue(ref this._toastTitle2Color, value); }
         }
 
-        public double ToastTitle1FontSize
+        public SettingValue<double> ToastTitle1FontSize
         {
-            get { return this._toastTitle1FontSize; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle1FontSize, value); }
+            get { return this.GetSettingValue(ref this._toastTitle1FontSize); }
+            set { this.SetSettingValue(ref this._toastTitle1FontSize, value); }
         }
 
-        public double ToastTitle2FontSize
+        public SettingValue<double> ToastTitle2FontSize
         {
-            get { return this._toastTitle2FontSize; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle2FontSize, value); }
+            get { return this.GetSettingValue(ref this._toastTitle2FontSize); }
+            set { this.SetSettingValue(ref this._toastTitle2FontSize, value); }
         }
 
-        public bool ToastTitle1DropShadow
+        public SettingValue<bool> ToastTitle1DropShadow
         {
-            get { return this._toastTitle1DropShadow; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle1DropShadow, value); }
+            get { return this.GetSettingValue(ref this._toastTitle1DropShadow); }
+            set { this.SetSettingValue(ref this._toastTitle1DropShadow, value); }
         }
 
-        public double ToastTitle1ShadowDepth
+        public SettingValue<double> ToastTitle1ShadowDepth
         {
-            get { return this._toastTitle1ShadowDepth; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle1ShadowDepth, value); }
+            get { return this.GetSettingValue(ref this._toastTitle1ShadowDepth); }
+            set { this.SetSettingValue(ref this._toastTitle1ShadowDepth, value); }
         }
 
-        public double ToastTitle1ShadowBlur
+        public SettingValue<double> ToastTitle1ShadowBlur
         {
-            get { return this._toastTitle1ShadowBlur; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle1ShadowBlur, value); }
+            get { return this.GetSettingValue(ref this._toastTitle1ShadowBlur); }
+            set { this.SetSettingValue(ref this._toastTitle1ShadowBlur, value); }
         }
 
-        public bool ToastTitle2DropShadow
+        public SettingValue<bool> ToastTitle2DropShadow
         {
-            get { return this._toastTitle2DropShadow; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle2DropShadow, value); }
+            get { return this.GetSettingValue(ref this._toastTitle2DropShadow); }
+            set { this.SetSettingValue(ref this._toastTitle2DropShadow, value); }
         }
 
-        public double ToastTitle2ShadowDepth
+        public SettingValue<double> ToastTitle2ShadowDepth
         {
-            get { return this._toastTitle2ShadowDepth; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle2ShadowDepth, value); }
+            get { return this.GetSettingValue(ref this._toastTitle2ShadowDepth); }
+            set { this.SetSettingValue(ref this._toastTitle2ShadowDepth, value); }
         }
 
-        public double ToastTitle2ShadowBlur
+        public SettingValue<double> ToastTitle2ShadowBlur
         {
-            get { return this._toastTitle2ShadowBlur; }
-            set { this.RaiseAndSetIfChanged(ref this._toastTitle2ShadowBlur, value); }
+            get { return this.GetSettingValue(ref this._toastTitle2ShadowBlur); }
+            set { this.SetSettingValue(ref this._toastTitle2ShadowBlur, value); }
         }
 
-        public string SongProgressBarBackgroundColor
+        public SettingValue<string> SongProgressBarBackgroundColor
         {
-            get { return this._songProgressBarBackgroundColor; }
-            set { this.RaiseAndSetIfChanged(ref this._songProgressBarBackgroundColor, value); }
+            get { return this.GetSettingValue(ref this._songProgressBarBackgroundColor); }
+            set { this.SetSettingValue(ref this._songProgressBarBackgroundColor, value); }
         }
 
-        public string SongProgressBarForegroundColor
+        public SettingValue<string> SongProgressBarForegroundColor
         {
-            get { return this._songProgressBarForegroundColor; }
-            set { this.RaiseAndSetIfChanged(ref this._songProgressBarForegroundColor, value); }
+            get { return this.GetSettingValue(ref this._songProgressBarForegroundColor); }
+            set { this.SetSettingValue(ref this._songProgressBarForegroundColor, value); }
         }
 
         #endregion [Toast]
@@ -505,6 +507,35 @@ namespace Toastify.Model
         #endregion (hidden)
 
         #endregion Settings
+
+        static Settings()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.Default,
+                FloatParseHandling = FloatParseHandling.Decimal,
+                FloatFormatHandling = FloatFormatHandling.String,
+                DateParseHandling = DateParseHandling.DateTime,
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Formatting = Formatting.Indented,
+                MaxDepth = null,
+                Culture = CultureInfo.InvariantCulture,
+                ConstructorHandling = ConstructorHandling.Default,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                TypeNameHandling = TypeNameHandling.None,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                NullValueHandling = NullValueHandling.Ignore,
+                ObjectCreationHandling = ObjectCreationHandling.Auto,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
+            JsonSerializer.Error += JsonSerializer_Error;
+        }
 
         private Settings()
         {
@@ -547,7 +578,7 @@ namespace Toastify.Model
             this.MinimizeSpotifyOnStartup = false;
             this.CloseSpotifyWithToastify = true;
             this.VolumeControlMode = ToastifyVolumeControlMode.SystemSpotifyOnly;
-            this.WindowsVolumeMixerIncrement = 2.0f;
+            this.WindowsVolumeMixerIncrement = new SettingValue<float>(2.0f, new Range<float>(0.1f, 100.0f));
 
             this.ClipboardTemplate = "I'm currently listening to {0}";
             this.SaveTrackToFile = false;
@@ -582,45 +613,45 @@ namespace Toastify.Model
             this.OnlyShowToastOnHotkey = true;
             this.DisableToastWithFullscreenVideogames = true;
             this.ShowSongProgressBar = true;
-            this.FadeOutTime = 4000;
-            this.ToastTitlesOrder = ToastTitlesOrder.TrackByArtist;
+            this.FadeOutTime = new SettingValue<int>(4000, new Range<int>(1000, int.MaxValue));
+            this.ToastTitlesOrder = Core.ToastTitlesOrder.TrackByArtist;
 
-            this.ToastWidth = 300.0;
-            this.ToastHeight = 80.0;
+            this.ToastWidth = new SettingValue<double>(300.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastHeight = new SettingValue<double>(80.0, new Range<double>(0.0, double.MaxValue));
 
             this.PositionLeft = ScreenHelper.GetScreenRect().Right - this.ToastWidth;
-            this.PositionTop = ScreenHelper.GetScreenRect().Bottom - this.ToastHeight;
+            this.PositionTop = ScreenHelper.GetScreenRect().Bottom - this.ToastHeight - 5.0;
 
-            this.ToastBorderThickness = 1.0;
-            this.ToastBorderCornerRadiusTopLeft = 0;
-            this.ToastBorderCornerRadiusTopRight = 0;
-            this.ToastBorderCornerRadiusBottomRight = 0;
-            this.ToastBorderCornerRadiusBottomLeft = 0;
+            this.ToastBorderThickness = new SettingValue<double>(1.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusTopLeft = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusTopRight = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusBottomRight = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusBottomLeft = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
         }
 
         public void SetDefaultToastColors()
         {
             this.DisableToast = false;
 
-            this.ToastColorTop = "#FF000000";
-            this.ToastColorBottom = "#FF000000";
-            this.ToastColorTopOffset = 0.0;
-            this.ToastColorBottomOffset = 1.0;
-            this.ToastBorderColor = "#FF000000";
+            this.ToastColorTop = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
+            this.ToastColorBottom = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
+            this.ToastColorTopOffset = new SettingValue<double>(0.0, new Range<double>(0.0, 1.0));
+            this.ToastColorBottomOffset = new SettingValue<double>(1.0, new Range<double>(0.0, 1.0));
+            this.ToastBorderColor = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
 
-            this.ToastTitle1Color = "#FFFFFFFF";
-            this.ToastTitle2Color = "#FFF0F0F0";
-            this.ToastTitle1FontSize = 16;
-            this.ToastTitle2FontSize = 12;
+            this.ToastTitle1Color = new SettingValue<string>("#FFFFFFFF", s => regex4ChannelsColor.IsMatch(s));
+            this.ToastTitle2Color = new SettingValue<string>("#FFF0F0F0", s => regex4ChannelsColor.IsMatch(s));
+            this.ToastTitle1FontSize = new SettingValue<double>(16.0, new Range<double>(6.0, double.MaxValue));
+            this.ToastTitle2FontSize = new SettingValue<double>(12.0, new Range<double>(6.0, double.MaxValue));
             this.ToastTitle1DropShadow = true;
-            this.ToastTitle1ShadowDepth = 3;
-            this.ToastTitle1ShadowBlur = 2;
+            this.ToastTitle1ShadowDepth = new SettingValue<double>(3.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastTitle1ShadowBlur = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
             this.ToastTitle2DropShadow = false;
-            this.ToastTitle2ShadowDepth = 2;
-            this.ToastTitle2ShadowBlur = 2;
+            this.ToastTitle2ShadowDepth = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastTitle2ShadowBlur = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
 
-            this.SongProgressBarBackgroundColor = "FF333333";
-            this.SongProgressBarForegroundColor = "FFA0A0A0";
+            this.SongProgressBarBackgroundColor = new SettingValue<string>("#FF333333", s => regex4ChannelsColor.IsMatch(s));
+            this.SongProgressBarForegroundColor = new SettingValue<string>("#FFA0A0A0", s => regex4ChannelsColor.IsMatch(s));
         }
 
         #endregion Default
@@ -728,6 +759,16 @@ namespace Toastify.Model
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
 
+            // Check Settings' constraints
+            //var properties = typeof(Settings).GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            //                                 .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+            //foreach (var property in properties)
+            //{
+            //    var settingValue = (ISettingValue)property.GetValue(this);
+            //    if (!settingValue.CheckConstraintsSafe())
+            //        settingValue.SetToDefault();
+            //}
+
             // Validate WindowsVolumeMixerIncrement: must be positive!
             this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
 
@@ -791,33 +832,39 @@ namespace Toastify.Model
             return clone;
         }
 
-        static Settings()
+        /// <summary>
+        /// Get a <see cref="SettingValue{T}"/>. Its value is first checked against its constraints and changed to its default value if necessary.
+        /// </summary>
+        /// <typeparam name="T"> Type of setting. </typeparam>
+        /// <param name="field"> A reference to the property's field. </param>
+        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
+        /// <returns> Returns <paramref name="field"/>. </returns>
+        private SettingValue<T> GetSettingValue<T>(ref SettingValue<T> field, [CallerMemberName] string callerPropertyName = null)
+            where T : IComparable, IConvertible
         {
-            JsonSerializerSettings = new JsonSerializerSettings
-            {
-                StringEscapeHandling = StringEscapeHandling.Default,
-                FloatParseHandling = FloatParseHandling.Decimal,
-                FloatFormatHandling = FloatFormatHandling.String,
-                DateParseHandling = DateParseHandling.DateTime,
-                DateTimeZoneHandling = DateTimeZoneHandling.Local,
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                Formatting = Formatting.Indented,
-                MaxDepth = null,
-                Culture = CultureInfo.InvariantCulture,
-                ConstructorHandling = ConstructorHandling.Default,
-                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
-                MetadataPropertyHandling = MetadataPropertyHandling.Default,
-                TypeNameHandling = TypeNameHandling.None,
-                PreserveReferencesHandling = PreserveReferencesHandling.None,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
-                NullValueHandling = NullValueHandling.Ignore,
-                ObjectCreationHandling = ObjectCreationHandling.Auto,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
+            if (field != null && !field.CheckConstraintsSafe())
+                this.SetSettingValue(ref field, field.Default, callerPropertyName);
+            return field;
+        }
 
-            JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
-            JsonSerializer.Error += JsonSerializer_Error;
+        /// <summary>
+        /// Set the value of a <see cref="SettingValue{T}"/> if it has changed and notifies the change using the <see cref="INotifyPropertyChanged"/> interface.
+        /// </summary>
+        /// <typeparam name="T"> Type of setting. </typeparam>
+        /// <param name="field"> A reference to the property's field. </param>
+        /// <param name="newValue"> The new value. </param>
+        /// <param name="propertyName"> An optional property name to use in place of the automatically provided <paramref name="callerPropertyName"/>. </param>
+        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
+        private void SetSettingValue<T>(ref SettingValue<T> field, SettingValue<T> newValue, string propertyName = null, [CallerMemberName] string callerPropertyName = null)
+            where T : IComparable, IConvertible
+        {
+            if (field == null)
+            {
+                field = newValue;
+                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
+            }
+            else if (field.SetValueIfChanged(newValue))
+                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
         }
 
         private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
