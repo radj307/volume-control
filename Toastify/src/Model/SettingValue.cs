@@ -11,6 +11,7 @@ using Toastify.Common;
 namespace Toastify.Model
 {
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+#pragma warning disable 660,661
 
     [Serializable]
     [JsonObject(MemberSerialization.OptOut), JsonConverter(typeof(SettingValueJsonConverter))]
@@ -284,6 +285,7 @@ namespace Toastify.Model
         #endregion Operators
     }
 
+#pragma warning restore 660, 661
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 
     public interface ISettingValue
