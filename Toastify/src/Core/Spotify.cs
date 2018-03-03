@@ -450,6 +450,7 @@ namespace Toastify.Core
 #endif
                 case ToastifyAction.CopyTrackInfo:
                 case ToastifyAction.ShowToast:
+                case ToastifyAction.None:
                     break;
 
                 case ToastifyAction.ShowSpotify:
@@ -526,7 +527,15 @@ namespace Toastify.Core
                             break;
                     }
                     break;
-
+                    
+                case ToastifyAction.SettingsSaved:
+                case ToastifyAction.PasteTrackInfo:
+                case ToastifyAction.ThumbsUp:
+                case ToastifyAction.ThumbsDown:
+                case ToastifyAction.PlayPause:
+                case ToastifyAction.PreviousTrack:
+                case ToastifyAction.NextTrack:
+                case ToastifyAction.Exit:
                 default:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
                     sendAppCommandMessage = true;
