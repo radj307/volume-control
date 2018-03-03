@@ -273,7 +273,7 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Width="65">Top color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,1,0,0" SelectedColor="{Binding Path=ToastColorTop, Mode=TwoWay}"
-                                                              ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,0,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorTopUpDown" Grid.Column="1" Height="24" Margin="218,1,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"
@@ -281,7 +281,7 @@
 
                                         <Label Grid.Column="0" Height="26" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Left" Width="85">Bottom color :</Label>
                                         <wpft:ColorPicker Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="145" Margin="0,37,0,0" SelectedColor="{Binding Path=ToastColorBottom, Mode=TwoWay}"
-                                                              ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
+                                                          ShowDropDownButton="True" ShowTabHeaders="False" ColorMode="ColorCanvas" AvailableColorsSortingMode="HueSaturationBrightness" UsingAlphaChannel="True" />
                                         <Label Grid.Column="1" Height="26" VerticalAlignment="Top" Margin="160,36,0,0" HorizontalAlignment="Left" Width="48">Offset :</Label>
                                         <wpft:DoubleUpDown Name="ColorBottomUpDown" Grid.Column="1" Height="24" Margin="218,37,6,0" VerticalAlignment="Top"
                                                            FormatString="P0" Watermark="Offset" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="0.01"

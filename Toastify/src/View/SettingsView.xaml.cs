@@ -170,28 +170,6 @@ namespace Toastify.View
                 this.Settings.ToastBorderThickness--;
         }
 
-        #region Change colors
-
-        private void TopColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.Settings.ToastColorTop = $"#{alpha}{((string)this.Settings.ToastColorTop).Substring(3)}";
-        }
-
-        private void BottomColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.Settings.ToastColorBottom = $"#{alpha}{((string)this.Settings.ToastColorBottom).Substring(3)}";
-        }
-
-        private void BorderColorAlpha_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            string alpha = Convert.ToByte(e.NewValue).ToString("X2");
-            this.Settings.ToastBorderColor = $"#{alpha}{((string)this.Settings.ToastBorderColor).Substring(3)}";
-        }
-
-        #endregion Change colors
-
         #region Corner radius
 
         private void BorderTopLeftUpDown_MouseWheel(object sender, MouseWheelEventArgs e)
