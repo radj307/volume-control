@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Toastify.View"
         mc:Ignorable="d"
         Title="DebugView" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
-        Closing="DebugView_OnClosing" Width="180" Height="112">
+        Closing="DebugView_OnClosing" Width="184.5" Height="127.5">
     <Grid d:DataContext="{d:DesignInstance local:DebugView}">
-        <Button Content="Print Current Hotkeys" HorizontalAlignment="Left" Margin="8,12,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintCurrentHotkeys_OnClick" />
-        <CheckBox Name="cbLogShowToastAction" Margin="8,40,0,0" Content="Log ShowToast action" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="LogShowToastAction_OnChecked" Unchecked="LogShowToastAction_OnUnchecked" />
+        <Button Content="Print Current Hotkeys" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintCurrentHotkeys_OnClick" />
+        <CheckBox Name="cbLogShowToastAction" Margin="10,60,0,0" Content="Log ShowToast action" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="LogShowToastAction_OnChecked" Unchecked="LogShowToastAction_OnUnchecked" />
+        <Button Content="Print Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Click="ButtonPrintSettings_OnClick"/>
     </Grid>
 </Window>

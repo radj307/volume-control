@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Toastify.Model;
@@ -39,6 +41,39 @@ namespace Toastify.View
             th.SetApartmentState(ApartmentState.STA);
             th.IsBackground = true;
             th.Start();
+        }
+
+        private void ButtonPrintSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("\n======= DebugView =======");
+            Debug.WriteLine("SETTINGS (CURRENT | (PREVIEW) | DEFAULT):");
+
+            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                             .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+
+            if (this.PreviewSettings != null)
+            {
+                foreach (var property in properties)
+                {
+                    dynamic current = property.GetValue(Settings.Current);
+                    dynamic preview = property.GetValue(this.PreviewSettings);
+                    dynamic @default = property.GetValue(Settings.Default);
+
+                    Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {preview?.ToString(),-25} | {@default?.ToString(),-25}");
+                }
+            }
+            else
+            {
+                foreach (var property in properties)
+                {
+                    dynamic current = property.GetValue(Settings.Current);
+                    dynamic @default = property.GetValue(Settings.Default);
+
+                    Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {@default?.ToString(),-25}");
+                }
+            }
+
+            Debug.WriteLine("=========================\n");
         }
 
         private void ButtonPrintCurrentHotkeys_OnClick(object sender, RoutedEventArgs e)

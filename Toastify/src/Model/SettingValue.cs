@@ -240,7 +240,15 @@ namespace Toastify.Model
 
         #endregion Equals / CompareTo
 
-        #region Operators
+        /// <inheritdoc />
+        public override string ToString()
+        {
+#if DEBUG
+            return $"{this.Value} @ {this.ObjectHashCode}";
+#else
+            return $"{this.Value}";
+#endif
+        }
 
         public static bool operator <(SettingValue<T> left, SettingValue<T> right)
         {
@@ -283,6 +291,14 @@ namespace Toastify.Model
         }
 
         #endregion Operators
+#if DEBUG
+
+        public int ObjectHashCode
+        {
+            get { return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this); }
+        }
+
+#endif
     }
 
 #pragma warning restore 660, 661
