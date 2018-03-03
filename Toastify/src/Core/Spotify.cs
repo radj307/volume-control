@@ -249,7 +249,8 @@ namespace Toastify.Core
                     return this.spotifyProcess;
             }
 
-            logger.Info($"Spotify process started: {this.spotifyProcess}");
+            // ReSharper disable once RedundantToStringCall
+            logger.Info($"Spotify process started: {this.spotifyProcess?.ToString()}");
 
             // We need to let Spotify start-up before interacting with it.
             this.spotifyProcess?.WaitForInputIdle();
