@@ -505,9 +505,6 @@ namespace Toastify.Core
                             break;
 
                         case ToastifyVolumeControlMode.SystemGlobal:
-                            sendAppCommandMessage = true;
-                            break;
-
                         default:
                             sendAppCommandMessage = true;
                             break;
@@ -523,13 +520,7 @@ namespace Toastify.Core
                             break;
 
                         case ToastifyVolumeControlMode.Spotify:
-                            sendAppCommandMessage = true;
-                            break;
-
                         case ToastifyVolumeControlMode.SystemGlobal:
-                            sendAppCommandMessage = true;
-                            break;
-
                         default:
                             sendAppCommandMessage = true;
                             break;

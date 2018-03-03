@@ -214,7 +214,9 @@ namespace Toastify.Model
         /// <inheritdoc />
         public int CompareTo(SettingValue<T> other)
         {
-            return this._value.CompareTo(other._value);
+            if (ReferenceEquals(this, other))
+                return 0;
+            return other is null ? 1 : this._value.CompareTo(other._value);
         }
 
         /// <inheritdoc />
@@ -237,6 +239,38 @@ namespace Toastify.Model
 
         #endregion Equals / CompareTo
 
+        #region Operators
+
+        public static bool operator <(SettingValue<T> left, SettingValue<T> right)
+        {
+            return Comparer<SettingValue<T>>.Default.Compare(left, right) < 0;
+        }
+
+        public static bool operator >(SettingValue<T> left, SettingValue<T> right)
+        {
+            return Comparer<SettingValue<T>>.Default.Compare(left, right) > 0;
+        }
+
+        public static bool operator <=(SettingValue<T> left, SettingValue<T> right)
+        {
+            return Comparer<SettingValue<T>>.Default.Compare(left, right) <= 0;
+        }
+
+        public static bool operator >=(SettingValue<T> left, SettingValue<T> right)
+        {
+            return Comparer<SettingValue<T>>.Default.Compare(left, right) >= 0;
+        }
+
+        public static bool operator ==(SettingValue<T> left, SettingValue<T> right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(SettingValue<T> left, SettingValue<T> right)
+        {
+            return !Equals(left, right);
+        }
+
         public static implicit operator T(SettingValue<T> settingValue)
         {
             return settingValue.Value;
@@ -246,6 +280,8 @@ namespace Toastify.Model
         {
             return new SettingValue<T>(value);
         }
+
+        #endregion Operators
     }
 
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()

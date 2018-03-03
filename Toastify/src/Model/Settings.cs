@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -759,16 +758,6 @@ namespace Toastify.Model
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
 
-            // Check Settings' constraints
-            //var properties = typeof(Settings).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-            //                                 .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
-            //foreach (var property in properties)
-            //{
-            //    var settingValue = (ISettingValue)property.GetValue(this);
-            //    if (!settingValue.CheckConstraintsSafe())
-            //        settingValue.SetToDefault();
-            //}
-
             // Validate WindowsVolumeMixerIncrement: must be positive!
             this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
 
@@ -848,7 +837,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Set the value of a <see cref="SettingValue{T}"/> if it has changed and notifies the change using the <see cref="INotifyPropertyChanged"/> interface.
+        /// Set the value of a <see cref="SettingValue{T}"/> if it has changed and notifies the change using the <see cref="System.ComponentModel.INotifyPropertyChanged"/> interface.
         /// </summary>
         /// <typeparam name="T"> Type of setting. </typeparam>
         /// <param name="field"> A reference to the property's field. </param>
