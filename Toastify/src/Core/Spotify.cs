@@ -2,6 +2,7 @@ using log4net;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -24,6 +25,15 @@ namespace Toastify.Core
     internal class Spotify : IDisposable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Spotify));
+
+        /// <summary>
+        /// List of names the Spotify main window had across different versions of the software.
+        /// </summary>
+        private static readonly List<string> spotifyMainWindowNames = new List<string>
+        {
+            "SpotifyMainWindow",
+            "Chrome_WidgetWin_0"    // Since v1.0.75.483.g7ff4a0dc
+        };
 
         #region Singleton
 
@@ -341,22 +351,27 @@ namespace Toastify.Core
             if (logger.IsDebugEnabled)
                 logger.Debug("Looking for Spotify process...");
 
-            var processes = Process.GetProcessesByName("spotify");
-            var process = processes.FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero && p.MainWindowHandle == this.GetMainWindowHandle());
+            var spotifyProcesses = Process.GetProcessesByName("spotify").ToList();
+            var windowedProcesses = spotifyProcesses.Where(p => p.MainWindowHandle != IntPtr.Zero).ToList();
+
+            if (windowedProcesses.Count > 1)
+            {
+                var classNames = windowedProcesses.Select(p => $"\"{Win32API.GetClassName(p.MainWindowHandle)}\"");
+                logger.Warn($"More than one ({windowedProcesses.Count}) \"spotify\" process has a non-null main window: {string.Join(", ", classNames)}");
+            }
+
+            var process = windowedProcesses.FirstOrDefault();
 
             // If none of the Spotify processes found has a valid MainWindowHandle,
-            // then Spotify has probably been minimized to the tray: we need to check every thread's window.
-            if (process == null && processes.Length > 0)
+            // then Spotify has probably been minimized to the tray: we need to check every window.
+            if (process == null)
             {
-                foreach (var p in processes)
+                foreach (var p in spotifyProcesses)
                 {
-                    // ReSharper disable once LoopCanBeConvertedToQuery
-                    foreach (ProcessThread t in p.Threads)
-                    {
-                        IntPtr hWnd = Win32API.FindThreadWindowByClassName((uint)t.Id, "SpotifyMainWindow");
-                        if (hWnd != IntPtr.Zero)
-                            return p;
-                    }
+                    var processWindows = Win32API.GetProcessWindows((uint)p.Id);
+                    IntPtr hWnd = processWindows.FirstOrDefault(h => spotifyMainWindowNames.Contains(Win32API.GetClassName(h)));
+                    if (hWnd != IntPtr.Zero)
+                        return p;
                 }
             }
 
@@ -420,8 +435,26 @@ namespace Toastify.Core
 
         private IntPtr GetMainWindowHandle()
         {
-            IntPtr spotifyWindow = this.spotifyProcess?.MainWindowHandle ?? IntPtr.Zero;
-            return spotifyWindow != IntPtr.Zero ? spotifyWindow : Win32API.FindWindow("SpotifyMainWindow", null);
+            if (this.spotifyProcess == null)
+                this.spotifyProcess = this.FindSpotifyProcess();
+            if (this.spotifyProcess == null)
+                return IntPtr.Zero;
+
+            var windows = Win32API.GetProcessWindows((uint)this.spotifyProcess.Id);
+            var possibleMainWindows = windows.Where(h =>
+            {
+                string className = Win32API.GetClassName(h);
+                string windowName = Win32API.GetWindowTitle(h);
+                return !string.IsNullOrWhiteSpace(windowName) && spotifyMainWindowNames.Contains(className);
+            }).ToList();
+
+            if (possibleMainWindows.Count > 1)
+            {
+                var classNames = possibleMainWindows.Select(h => $"\"{Win32API.GetClassName(h)}\"");
+                logger.Warn($"More than one ({possibleMainWindows.Count}) possible main windows located for Spotify: {string.Join(", ", classNames)}");
+            }
+
+            return possibleMainWindows.FirstOrDefault();
         }
 
         /// <summary>
@@ -432,8 +465,10 @@ namespace Toastify.Core
         private IntPtr GetCefWidgetWindowHandle()
         {
             IntPtr mainHWnd = this.GetMainWindowHandle();
+
+            // Try with the pre-v1.0.75.483.g7ff4a0dc window class name
             IntPtr cefHWnd = Win32API.FindWindowEx(mainHWnd, IntPtr.Zero, "CefBrowserWindow", null);
-            IntPtr wdgtHWnd = Win32API.FindWindowEx(cefHWnd, IntPtr.Zero, "Chrome_WidgetWin_0", null);
+            IntPtr wdgtHWnd = cefHWnd != IntPtr.Zero ? Win32API.FindWindowEx(cefHWnd, IntPtr.Zero, "Chrome_WidgetWin_0", null) : mainHWnd;
             return wdgtHWnd;
         }
 
@@ -528,7 +563,7 @@ namespace Toastify.Core
                             break;
                     }
                     break;
-                    
+
                 case ToastifyAction.SettingsSaved:
                 case ToastifyAction.PasteTrackInfo:
                 case ToastifyAction.ThumbsUp:

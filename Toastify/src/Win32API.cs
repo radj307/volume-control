@@ -27,6 +27,8 @@ namespace Toastify
 
         internal delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
 
+        internal delegate void SendMessageDelegate(IntPtr hWnd, uint uMsg, UIntPtr dwData, IntPtr lResult);
+
         #region DLL imports
 
         [DllImport("user32.dll")]
@@ -59,7 +61,7 @@ namespace Toastify
         internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern int GetWindowTextLength(IntPtr hWnd);
@@ -111,6 +113,9 @@ namespace Toastify
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern bool SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern bool SendMessageCallback(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, SendMessageDelegate lpCallBack, UIntPtr dwData);
+
         [DllImport("kernel32.dll")]
         public static extern void SetLastError(int dwErrorCode);
 
@@ -146,8 +151,7 @@ namespace Toastify
                     (hWnd, lParam) =>
                     {
                         GCHandle gch = GCHandle.FromIntPtr(lParam);
-                        List<IntPtr> list = gch.Target as List<IntPtr>;
-                        if (list == null)
+                        if (!(gch.Target is List<IntPtr> list))
                             throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
                         list.Add(hWnd);
                         return true;
@@ -159,6 +163,29 @@ namespace Toastify
                 if (listHandle.IsAllocated)
                     listHandle.Free();
             }
+            return result;
+        }
+
+        public static List<IntPtr> GetProcessWindows(uint processId)
+        {
+            return GetProcessWindows(processId, null);
+        }
+
+        public static List<IntPtr> GetProcessWindows(uint processId, string lpClassName)
+        {
+            List<IntPtr> result = new List<IntPtr>();
+            EnumWindows((hWnd, lParam) =>
+            {
+                GetWindowThreadProcessId(hWnd, out uint pid);
+                if (pid == processId)
+                {
+                    if (lpClassName != null && GetClassName(hWnd) == lpClassName)
+                        result.Add(hWnd);
+                    else if (lpClassName == null)
+                        result.Add(hWnd);
+                }
+                return true;
+            }, IntPtr.Zero);
             return result;
         }
 
@@ -301,6 +328,13 @@ namespace Toastify
 
             var process = Process.GetProcessById((int)processId);
             return process.Modules.Cast<ProcessModule>();
+        }
+
+        public static string GetWindowTitle(IntPtr hWnd)
+        {
+            const int nMaxCount = 256;
+            StringBuilder lpString = new StringBuilder(nMaxCount);
+            return GetWindowText(hWnd, lpString, nMaxCount) > 0 ? lpString.ToString() : string.Empty;
         }
 
         /// <summary>
