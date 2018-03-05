@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Toastify.Core;
 using Toastify.Helpers;
 
 // ReSharper disable InconsistentNaming
@@ -28,6 +29,8 @@ namespace Toastify
         internal delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
 
         internal delegate void SendMessageDelegate(IntPtr hWnd, uint uMsg, UIntPtr dwData, IntPtr lResult);
+
+        internal delegate bool EnumResNameProcDelegate(IntPtr hModule, IntPtr lpszType, IntPtr lpszName, IntPtr lParam);
 
         #region DLL imports
 
@@ -127,6 +130,37 @@ namespace Toastify
 
         [DllImport("user32.dll")]
         internal static extern uint MapVirtualKeyEx(uint uCode, MapVirtualKeyType uMapType, IntPtr dwhkl);
+
+        [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
+        internal static extern void KeyboardEvent(VirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+
+        /// <summary>
+        /// Enumerates resources of a specified type within a binary module.
+        /// </summary>
+        /// <param name="hModule">
+        ///   A handle to a module to be searched.
+        ///   If this parameter is NULL, that is equivalent to passing in a handle to the module used to create the current process.
+        /// </param>
+        /// <param name="lpszType"> The type of the resource for which the name is being enumerated. </param>
+        /// <param name="lpEnumFunc"> The callback function to be called for each enumerated resource name. </param>
+        /// <param name="lParam"> An application-defined value passed to the callback function. This parameter can be used in error checking. </param>
+        /// <returns> The return value is TRUE if the function succeeds or FALSE if the function does not find a resource of the type specified, or if the function fails for another reason. </returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern bool EnumResourceNames(IntPtr hModule, string lpszType, EnumResNameProcDelegate lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// Enumerates resources of a specified type within a binary module.
+        /// </summary>
+        /// <param name="hModule">
+        ///   A handle to a module to be searched.
+        ///   If this parameter is NULL, that is equivalent to passing in a handle to the module used to create the current process.
+        /// </param>
+        /// <param name="dwID"> The ID of the resource. </param>
+        /// <param name="lpEnumFunc"> The callback function to be called for each enumerated resource ID. </param>
+        /// <param name="lParam"> An application-defined value passed to the callback function. This parameter can be used in error checking. </param>
+        /// <returns> The return value is TRUE if the function succeeds or FALSE if the function does not find a resource of the type specified, or if the function fails for another reason. </returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern bool EnumResourceNames(IntPtr hModule, ResourceType dwID, EnumResNameProcDelegate lpEnumFunc, IntPtr lParam);
 
         #endregion DLL imports
 
@@ -420,6 +454,57 @@ namespace Toastify
             ctrlKey.Release();
         }
 
+        public static void SendMediaKey(ToastifyAction action)
+        {
+            VirtualKeyCode virtualKey = default(VirtualKeyCode);
+            switch (action)
+            {
+                case ToastifyAction.PlayPause:
+                    virtualKey = VirtualKeyCode.VK_MEDIA_PLAY_PAUSE;
+                    break;
+
+                case ToastifyAction.Mute:
+                    virtualKey = VirtualKeyCode.VK_VOLUME_MUTE;
+                    break;
+
+                case ToastifyAction.VolumeDown:
+                    virtualKey = VirtualKeyCode.VK_VOLUME_DOWN;
+                    break;
+
+                case ToastifyAction.VolumeUp:
+                    virtualKey = VirtualKeyCode.VK_VOLUME_UP;
+                    break;
+
+                case ToastifyAction.PreviousTrack:
+                    virtualKey = VirtualKeyCode.VK_MEDIA_PREV_TRACK;
+                    break;
+
+                case ToastifyAction.NextTrack:
+                    virtualKey = VirtualKeyCode.VK_MEDIA_NEXT_TRACK;
+                    break;
+
+                // The FastForward and Rewind actions have been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                case ToastifyAction.FastForward:
+                case ToastifyAction.Rewind:
+                    break;
+
+                case ToastifyAction.None:
+                case ToastifyAction.ShowToast:
+                case ToastifyAction.ShowSpotify:
+                case ToastifyAction.CopyTrackInfo:
+                case ToastifyAction.SettingsSaved:
+                case ToastifyAction.PasteTrackInfo:
+                case ToastifyAction.ThumbsUp:
+                case ToastifyAction.ThumbsDown:
+                case ToastifyAction.Exit:
+                case ToastifyAction.ShowDebugView:
+                default:
+                    return;
+            }
+
+            KeyboardEvent(virtualKey, 0, 1, IntPtr.Zero);
+        }
+
         #region Enums
 
         internal enum ShowWindowCmd
@@ -701,6 +786,42 @@ namespace Toastify
             MAPVK_VK_TO_CHAR   = 2,
             MAPVK_VSC_TO_VK_EX = 3,
             MAPVK_VK_TO_VSC_EX = 4
+        }
+
+        internal enum VirtualKeyCode : byte
+        {
+            VK_VOLUME_MUTE      = 0xAD,
+            VK_VOLUME_DOWN      = 0xAE,
+            VK_VOLUME_UP        = 0xAF,
+            VK_MEDIA_NEXT_TRACK = 0xB0,
+            VK_MEDIA_PREV_TRACK = 0xB1,
+            VK_MEDIA_STOP       = 0xB2,
+            VK_MEDIA_PLAY_PAUSE = 0xB3,
+    }
+
+        internal enum ResourceType
+        {
+            RT_CURSOR       = 1,
+            RT_BITMAP       = 2,
+            RT_ICON         = 3,
+            RT_MENU         = 4,
+            RT_DIALOG       = 5,
+            RT_STRING       = 6,
+            RT_FONTDIR      = 7,
+            RT_FONT         = 8,
+            RT_ACCELERATOR  = 9,
+            RT_RCDATA       = 10,
+            RT_MESSAGETABLE = 11,
+            RT_GROUP_CURSOR = 12,
+            RT_GROUP_ICON   = 14,
+            RT_VERSION      = 16,
+            RT_DLGINCLUDE   = 17,
+            RT_PLUGPLAY     = 19,
+            RT_VXD          = 20,
+            RT_ANICURSOR    = 21,
+            RT_ANIICON      = 22,
+            RT_HTML         = 23,
+            RT_MANIFEST     = 24
         }
 
         #endregion Enums

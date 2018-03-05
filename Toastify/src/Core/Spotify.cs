@@ -13,7 +13,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -403,8 +402,21 @@ namespace Toastify.Core
 
         public void Kill()
         {
-            this.SendShortcut(ToastifyAction.Exit);
-            this.localAPI.Dispose();
+            //Can't kindly close Spotify this way anymore since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+            //this.SendShortcut(ToastifyAction.Exit);
+
+            try
+            {
+                if (this.spotifyProcess?.Handle != IntPtr.Zero)
+                {
+                    this.spotifyProcess?.CloseMainWindow();
+                    if (this.spotifyProcess?.HasExited == false)
+                        this.spotifyProcess?.Kill();
+                }
+                this.spotifyProcess?.Close();
+                this.localAPI.Dispose();
+            }
+            catch { /* ignore */ }
         }
 
         private void ShowSpotify()
@@ -457,36 +469,27 @@ namespace Toastify.Core
             return possibleMainWindows.FirstOrDefault();
         }
 
-        /// <summary>
-        /// Returns the handle to the only visible windows whose class is "Chrome_WidgetWin_0".
-        /// (This window is child of "CefBrowserWindow", who in turn is child of "SpotifyMainWindow")
-        /// </summary>
-        /// <returns></returns>
-        private IntPtr GetCefWidgetWindowHandle()
-        {
-            IntPtr mainHWnd = this.GetMainWindowHandle();
-
-            // Try with the pre-v1.0.75.483.g7ff4a0dc window class name
-            IntPtr cefHWnd = Win32API.FindWindowEx(mainHWnd, IntPtr.Zero, "CefBrowserWindow", null);
-            IntPtr wdgtHWnd = cefHWnd != IntPtr.Zero ? Win32API.FindWindowEx(cefHWnd, IntPtr.Zero, "Chrome_WidgetWin_0", null) : mainHWnd;
-            return wdgtHWnd;
-        }
-
         public void SendAction(ToastifyAction action)
         {
             if (!this.IsRunning)
                 return;
 
             bool sendAppCommandMessage = false;
+            bool sendMediaKey = false;
 
             switch (action)
             {
 #if DEBUG
                 case ToastifyAction.ShowDebugView:
 #endif
-                case ToastifyAction.CopyTrackInfo:
-                case ToastifyAction.ShowToast:
                 case ToastifyAction.None:
+                case ToastifyAction.CopyTrackInfo:
+                case ToastifyAction.PasteTrackInfo:
+                case ToastifyAction.ThumbsUp:
+                case ToastifyAction.ThumbsDown:
+                case ToastifyAction.ShowToast:
+                case ToastifyAction.SettingsSaved:
+                case ToastifyAction.Exit:
                     break;
 
                 case ToastifyAction.ShowSpotify:
@@ -497,34 +500,27 @@ namespace Toastify.Core
                         this.Minimize();
                     break;
 
+                // The FastForward and Rewind actions have been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
                 case ToastifyAction.FastForward:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.FastForward);
-                    this.SendShortcut(action);
-                    break;
-
                 case ToastifyAction.Rewind:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Rewind);
-                    this.SendShortcut(action);
                     break;
 
                 case ToastifyAction.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
-                        case ToastifyVolumeControlMode.Spotify:
-                            this.SendShortcut(action);
-                            break;
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
+                        //    this.SendShortcut(action);
+                        //    break;
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.IncrementVolume();
                             break;
 
                         case ToastifyVolumeControlMode.SystemGlobal:
-                            sendAppCommandMessage = true;
-                            break;
-
                         default:
-                            sendAppCommandMessage = true;
+                            sendMediaKey = true;
                             break;
                     }
                     break;
@@ -533,9 +529,10 @@ namespace Toastify.Core
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
-                        case ToastifyVolumeControlMode.Spotify:
-                            this.SendShortcut(action);
-                            break;
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
+                        //    this.SendShortcut(action);
+                        //    break;
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
                             this.localAPI.DecrementVolume();
@@ -543,7 +540,7 @@ namespace Toastify.Core
 
                         case ToastifyVolumeControlMode.SystemGlobal:
                         default:
-                            sendAppCommandMessage = true;
+                            sendMediaKey = true;
                             break;
                     }
                     break;
@@ -556,22 +553,18 @@ namespace Toastify.Core
                             this.localAPI.ToggleMute();
                             break;
 
-                        case ToastifyVolumeControlMode.Spotify:
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
                         case ToastifyVolumeControlMode.SystemGlobal:
                         default:
-                            sendAppCommandMessage = true;
+                            sendMediaKey = true;
                             break;
                     }
                     break;
 
-                case ToastifyAction.SettingsSaved:
-                case ToastifyAction.PasteTrackInfo:
-                case ToastifyAction.ThumbsUp:
-                case ToastifyAction.ThumbsDown:
                 case ToastifyAction.PlayPause:
                 case ToastifyAction.PreviousTrack:
                 case ToastifyAction.NextTrack:
-                case ToastifyAction.Exit:
                 default:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
                     sendAppCommandMessage = true;
@@ -579,78 +572,9 @@ namespace Toastify.Core
             }
 
             if (sendAppCommandMessage)
-                Win32API.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action);
-        }
-
-        /// <summary>
-        ///   Sends a series of messages to the Spotify process to simulate a keyboard shortcut inside the app itself.
-        ///   Works also if Spotify is minimized (normally or to the tray).
-        ///   <para> See https://gist.github.com/aleab/9efa67e5b1a885c2c72cfbe7cf012249 for details. </para>
-        /// </summary>
-        /// <param name="action"> The action to simulate. </param>
-        private void SendShortcut(ToastifyAction action)
-        {
-            IntPtr mainWindow = this.GetMainWindowHandle();
-            IntPtr cefWidgetWindow = this.GetCefWidgetWindowHandle();
-
-            if (mainWindow == IntPtr.Zero)
-                logger.Error("Main window is null.");
-            else if (cefWidgetWindow == IntPtr.Zero)
-                logger.Error("CefWidget window is null.");
-            else
-            {
-                ushort baseAcceleratorId;
-
-                ushort subMenuPos;
-                ushort menuItemPos;
-
-                switch (action)
-                {
-                    case ToastifyAction.Exit:
-                        baseAcceleratorId = 0x0062;
-                        subMenuPos = 0;
-                        menuItemPos = 6;
-                        break;
-
-                    case ToastifyAction.FastForward:
-                        baseAcceleratorId = 0x0072;
-                        subMenuPos = 3;
-                        menuItemPos = 3;
-                        break;
-
-                    case ToastifyAction.Rewind:
-                        baseAcceleratorId = 0x0072;
-                        subMenuPos = 3;
-                        menuItemPos = 4;
-                        break;
-
-                    case ToastifyAction.VolumeUp:
-                        baseAcceleratorId = 0x0072;
-                        subMenuPos = 3;
-                        menuItemPos = 7;
-                        break;
-
-                    case ToastifyAction.VolumeDown:
-                        baseAcceleratorId = 0x0072;
-                        subMenuPos = 3;
-                        menuItemPos = 8;
-                        break;
-
-                    default:
-                        return;
-                }
-
-                ushort acceleratorId = (ushort)(baseAcceleratorId + menuItemPos);
-
-                IntPtr hMenu = Win32API.GetMenu(mainWindow);
-                IntPtr hSubMenu = Win32API.GetSubMenu(hMenu, subMenuPos);
-
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_MENUSELECT, Union32.IntPtr(0x8080, acceleratorId), hSubMenu);
-                Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_COMMAND, (IntPtr)acceleratorId, IntPtr.Zero, true);
-
-                if (action == ToastifyAction.Exit)
-                    Win32API.SendWindowMessage(mainWindow, Win32API.WindowsMessagesFlags.WM_CLOSE, IntPtr.Zero, IntPtr.Zero, true);
-            }
+                Win32API.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
+            if (sendMediaKey)
+                Win32API.SendMediaKey(action);
         }
 
         private static string GetSpotifyPath()

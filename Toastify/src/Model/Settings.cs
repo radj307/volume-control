@@ -146,8 +146,8 @@ namespace Toastify.Model
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = ToastifyAction.FastForward   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = ToastifyAction.Rewind        , Enabled = false },
+            //new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = ToastifyAction.FastForward   , Enabled = false },
+            //new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = ToastifyAction.Rewind        , Enabled = false },
 
 #if DEBUG
             new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
