@@ -27,13 +27,14 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            string token = (string)JToken.Load(reader);
             Type genericTypeArgument = objectType.GenericTypeArguments[0];
             object deserializedValue;
 
             // Deserialize token
             if (genericTypeArgument.IsEnum)
             {
+                string token = (string)JToken.Load(reader);
+
                 try
                 {
                     IComparable enumValue = (IComparable)Enum.Parse(genericTypeArgument, token);
@@ -47,7 +48,7 @@ namespace Toastify.Model
                 }
             }
             else
-                deserializedValue = Convert.ChangeType(token, genericTypeArgument);
+                deserializedValue = serializer.Deserialize(reader, genericTypeArgument);
 
             // Get the interface-typed existing SettingValue
             var existingSettingValue = (ISettingValue)existingValue;
