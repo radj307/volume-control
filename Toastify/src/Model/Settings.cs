@@ -550,9 +550,6 @@ namespace Toastify.Model
 
         public void SetDefault()
         {
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Default()\n{new System.Diagnostics.StackTrace()}");
-
             this.SetDefaultGeneral();
             this.SetDefaultHotkeys();
             this.SetDefaultToastGeneral();
