@@ -44,7 +44,7 @@ namespace Toastify
                 {
                     try
                     {
-                        ProcessCommanLineArguments(args.ToList());
+                        ProcessCommandLineArguments(args.ToList());
                         SetupCultureInfo();
                         SetupLogger();
                     }
@@ -71,7 +71,7 @@ namespace Toastify
             }
         }
 
-        private static void ProcessCommanLineArguments(IEnumerable<string> args)
+        private static void ProcessCommandLineArguments(IEnumerable<string> args)
         {
             // TODO: Logger command line parameters (change minimum level, disable, change log file destination, etc.)
 
