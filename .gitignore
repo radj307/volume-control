@@ -189,8 +189,6 @@ UpgradeLog*.htm
 # File containing the Google Analytics Tracking id
 ga-code
 
-*.user
-
 # InstallationScript files
 InstallationScript/*.exe*
 InstallationScript/*/*.exe*

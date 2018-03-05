@@ -3,6 +3,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Repository;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -31,6 +32,8 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
 
+        private static string spotifyArgs = string.Empty;
+
         [STAThread]
         public static void Main(string[] args)
         {
@@ -41,8 +44,7 @@ namespace Toastify
                 {
                     try
                     {
-                        // TODO: Logger command line parameters (change minimum level, disable, change log file destination, etc.)
-
+                        ProcessCommanLineArguments(args.ToList());
                         SetupCultureInfo();
                         SetupLogger();
                     }
@@ -66,6 +68,22 @@ namespace Toastify
                 }
                 else
                     MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private static void ProcessCommanLineArguments(IEnumerable<string> args)
+        {
+            // TODO: Logger command line parameters (change minimum level, disable, change log file destination, etc.)
+
+            foreach (string arg in args)
+            {
+                switch (arg)
+                {
+                    // Argument for Spotify, in case Toastify needs to launch it
+                    default:
+                        spotifyArgs += $"{arg} ";
+                        break;
+                }
             }
         }
 
@@ -115,7 +133,7 @@ namespace Toastify
             logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
             logger.Info($"Toastify version = {App.CurrentVersion}");
 
-            App app = new App();
+            App app = new App(spotifyArgs);
             app.InitializeComponent();
 
 #if DEBUG
@@ -227,6 +245,17 @@ namespace Toastify
                 FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
                 return fileVersionInfo.FileVersion;
             }
+        }
+
+        public static string SpotifyParameters { get; private set; }
+
+        public App() : this("")
+        {
+        }
+
+        public App(string spotifyArgs)
+        {
+            SpotifyParameters = spotifyArgs.Trim();
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

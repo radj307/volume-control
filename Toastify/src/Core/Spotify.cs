@@ -246,7 +246,7 @@ namespace Toastify.Core
             logger.Info("Launching Spotify...");
 
             // Launch Spotify.
-            this.spotifyProcess = Process.Start(this.spotifyPath);
+            this.spotifyProcess = Process.Start(this.spotifyPath, App.SpotifyParameters);
 
             // If it is an UWP app, then Process.Start should return null: we need to look for the process.
             bool signaled = false;
