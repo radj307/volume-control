@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
@@ -7,38 +8,61 @@ namespace Toastify.Model
 {
     internal class SettingValueJsonConverter : JsonConverter
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SettingValueJsonConverter));
+
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var settingValue = (ISettingValue)value;
             if (settingValue != null)
-                writer.WriteValue(settingValue.GetValue());
+            {
+                Type genericTypeArgument = value.GetType().GenericTypeArguments[0];
+                if (genericTypeArgument.IsEnum)
+                    writer.WriteRawValue(JsonConvert.SerializeObject(settingValue.GetValue()));
+                else
+                    writer.WriteValue(settingValue.GetValue());
+            }
         }
 
         /// <inheritdoc />
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var token = JToken.Load(reader);
+            string token = (string)JToken.Load(reader);
             Type genericTypeArgument = objectType.GenericTypeArguments[0];
             object deserializedValue;
 
+            // Deserialize token
             if (genericTypeArgument.IsEnum)
             {
-                int index = genericTypeArgument.GetEnumNames().ToList().IndexOf((string)token);
-                if (index < 0)
-                    index = 0;
-                deserializedValue = genericTypeArgument.GetEnumValues().GetValue(index);
+                try
+                {
+                    IComparable enumValue = (IComparable)Enum.Parse(genericTypeArgument, token);
+                    int index = genericTypeArgument.GetEnumValues().Cast<IComparable>().ToList().IndexOf(enumValue);
+                    deserializedValue = genericTypeArgument.GetEnumValues().GetValue(index);
+                }
+                catch (Exception e)
+                {
+                    logger.Warn($"Invalid enum data found in JSON file: \"{token}\" [type: {genericTypeArgument.Name}]", e);
+                    deserializedValue = null;
+                }
             }
             else
-                deserializedValue = Convert.ChangeType((string)token, genericTypeArgument);
+                deserializedValue = Convert.ChangeType(token, genericTypeArgument);
 
+            // Get the interface-typed existing SettingValue
             var existingSettingValue = (ISettingValue)existingValue;
             if (existingSettingValue == null)
             {
                 var genericType = typeof(SettingValue<>).MakeGenericType(genericTypeArgument);
                 existingSettingValue = (ISettingValue)Activator.CreateInstance(genericType);
             }
-            existingSettingValue.SetValue(deserializedValue);
+
+            // Populate the existing value with the deserialized data
+            if (deserializedValue != null)
+                existingSettingValue.SetValue(deserializedValue);
+            else
+                existingSettingValue.SetToDefault();
+
             return existingSettingValue;
         }
 
