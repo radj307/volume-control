@@ -163,7 +163,7 @@ namespace Toastify.Core
 
         private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
         {
-            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : this.FindSpotifyProcess();
+            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : FindSpotifyProcess();
             if (e.Cancel)
                 return;
             if (this.spotifyProcess == null)
@@ -252,7 +252,7 @@ namespace Toastify.Core
             bool signaled = false;
             while (this.spotifyProcess == null && !signaled)
             {
-                this.spotifyProcess = this.FindSpotifyProcess();
+                this.spotifyProcess = FindSpotifyProcess();
                 signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
                 if (this.spotifyLauncher.CheckCancellation(e))
                     return this.spotifyProcess;
@@ -345,7 +345,7 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher background worker
 
-        private Process FindSpotifyProcess()
+        private static Process FindSpotifyProcess()
         {
             if (logger.IsDebugEnabled)
                 logger.Debug("Looking for Spotify process...");
@@ -448,7 +448,7 @@ namespace Toastify.Core
         private IntPtr GetMainWindowHandle()
         {
             if (this.spotifyProcess == null)
-                this.spotifyProcess = this.FindSpotifyProcess();
+                this.spotifyProcess = FindSpotifyProcess();
             if (this.spotifyProcess == null)
                 return IntPtr.Zero;
 

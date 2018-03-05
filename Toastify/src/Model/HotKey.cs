@@ -581,8 +581,7 @@ namespace Toastify.Model
                     break;
 
                 case Attribute.Action:
-                    ToastifyAction action;
-                    if (!Enum.TryParse(value, true, out action))
+                    if (!Enum.TryParse(value, true, out ToastifyAction action))
                         action = ToastifyAction.None;
                     this.Action = action;
                     break;
