@@ -152,9 +152,16 @@ namespace Toastify.Model
         /// <inheritdoc />
         public void SetValue(object value)
         {
-            T typedValue = (T)value;
-            if (this.CheckConstraintsSafe(typedValue) == null)
-                this.Value = typedValue;
+            try
+            {
+                T typedValue = (T)Convert.ChangeType(value, typeof(T));
+                if (this.CheckConstraintsSafe(typedValue) == null)
+                    this.Value = typedValue;
+            }
+            catch (InvalidCastException e)
+            {
+                logger.Error($"Invalid cast exception: {value} [{value.GetType().Name}] -> [{typeof(T).Name}]", e);
+            }
         }
 
         /// <inheritdoc />

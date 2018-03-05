@@ -231,9 +231,9 @@ namespace Toastify
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            logger.Error("Unhandled Dispatcher exception.", e.Exception);
+            logger.Error("Unhandled exception.", e.Exception);
             Analytics.TrackException(e.Exception);
-            MessageBox.Show($"Unhandled Dispatcher exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Unhandled exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
