@@ -285,6 +285,7 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._globalHotKeys, value); }
         }
 
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public List<Hotkey> HotKeys
         {
             get { return this._hotKeys; }
@@ -550,8 +551,13 @@ namespace Toastify.Model
 
         public void SetDefault()
         {
+            this.SetDefault(true);
+        }
+
+        public void SetDefault(bool activateHotkeys)
+        {
             this.SetDefaultGeneral();
-            this.SetDefaultHotkeys();
+            this.SetDefaultHotkeys(activateHotkeys);
             this.SetDefaultToastGeneral();
             this.SetDefaultToastColors();
 
@@ -586,6 +592,11 @@ namespace Toastify.Model
 
         public void SetDefaultHotkeys()
         {
+            this.SetDefaultHotkeys(true);
+        }
+
+        public void SetDefaultHotkeys(bool activateHotkeys)
+        {
             this.GlobalHotKeys = true;
 
             if (this.HotKeys != null)
@@ -596,7 +607,7 @@ namespace Toastify.Model
 
             this.HotKeys = (List<Hotkey>)this.defaultHotKeys.Clone();
 
-            if (this == _current && this.HotKeys != null)
+            if (activateHotkeys && this == _current && this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
                     hotkey.Activate();
@@ -678,13 +689,14 @@ namespace Toastify.Model
             if (this != Current)
                 throw new InvalidOperationException("Cannot load settings onto non-Current instance");
 
-            this.SetDefault();
+            this.SetDefault(false);
             using (StreamReader sr = new StreamReader(SettingsFilePath))
             {
                 JsonSerializer.Populate(sr, this);
             }
             this.CheckForNewSettings();
             this.SanitizeSettingsFile();
+            this.Apply();
         }
 
         /// <summary>
@@ -728,14 +740,14 @@ namespace Toastify.Model
             // Let's collapse duplicate hotkeys
             var toKeep = new List<Hotkey>();
 
-            foreach (Hotkey current in this.defaultHotKeys)
+            foreach (Hotkey defaultHotkey in this.defaultHotKeys)
             {
-                Hotkey keep = current;
+                Hotkey keep = defaultHotkey;
 
-                foreach (Hotkey compare in this._hotKeys)
+                foreach (Hotkey thisHotkey in this._hotKeys)
                 {
-                    if (current.Action == compare.Action && compare.Enabled)
-                        keep = compare;
+                    if (defaultHotkey.Action == thisHotkey.Action && thisHotkey.Enabled)
+                        keep = thisHotkey;
                 }
 
                 toKeep.Add(keep);
@@ -785,7 +797,7 @@ namespace Toastify.Model
         /// </summary>
         private void Apply()
         {
-            if (this.GlobalHotKeys)
+            if (this.GlobalHotKeys && this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
                     hotkey.Activate();
