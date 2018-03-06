@@ -184,8 +184,8 @@ namespace Toastify.Model
             get
             {
                 StringBuilder sb = new StringBuilder();
-                if (this.Shift) sb.Append("Shift+");
                 if (this.Ctrl) sb.Append("Ctrl+");
+                if (this.Shift) sb.Append("Shift+");
                 if (this.Alt) sb.Append("Alt+");
                 if (this.WindowsKey) sb.Append("Win+");
                 sb.Append(this.KeyOrButton);

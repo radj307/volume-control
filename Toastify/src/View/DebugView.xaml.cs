@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using Toastify.Core;
 using Toastify.Model;
 
 namespace Toastify.View
@@ -46,7 +47,8 @@ namespace Toastify.View
         private void ButtonPrintSettings_OnClick(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("\n======= DebugView =======");
-            Debug.WriteLine("SETTINGS (CURRENT | (PREVIEW) | DEFAULT):");
+            Debug.WriteLine("SETTINGS [Current | (Preview) | Default]");
+            Debug.WriteLine("");
 
             var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                                              .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
@@ -79,22 +81,21 @@ namespace Toastify.View
         private void ButtonPrintCurrentHotkeys_OnClick(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("\n======= DebugView =======");
-            Debug.WriteLine("CURRENT SETTINGS HOTKEYS:");
-            if (this.CurrentSettings?.HotKeys != null)
+            Debug.WriteLine("HOTKEYS [Current | (Preview) | Default]");
+            Debug.WriteLine("");
+
+            foreach (var hotkey in Settings.Default.HotKeys)
             {
-                foreach (var h in this.CurrentSettings.HotKeys)
-                    Debug.WriteLine(h.ToString());
+                var current = Settings.Current.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
+                var preview = this.PreviewSettings?.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
+                var @default = hotkey;
+
+                Debug.Write($"{hotkey.Action,-15}: ");
+                Debug.Write($"[{(current?.Enabled == true ? 'E' : ' ')}{(current?.Active == true ? 'A' : ' ')}] {current?.HumanReadableKey ?? "—",-20} | ");
+                Debug.Write(this.PreviewSettings != null ? $"[{(preview?.Enabled == true ? 'E' : ' ')}{(preview?.Active == true ? 'A' : ' ')}] {preview?.HumanReadableKey ?? "—",-20} | " : "");
+                Debug.Write($"[{(@default?.Enabled == true ? 'E' : ' ')}{(@default?.Active == true ? 'A' : ' ')}] {@default?.HumanReadableKey ?? "—",-20}\n");
             }
 
-            if (this.PreviewSettings != null)
-            {
-                Debug.WriteLine("\nPREVIEW SETTINGS HOTKEYS:");
-                if (this.PreviewSettings.HotKeys != null)
-                {
-                    foreach (var h in this.PreviewSettings.HotKeys)
-                        Debug.WriteLine(h.ToString());
-                }
-            }
             Debug.WriteLine("=========================\n");
         }
 
@@ -102,6 +103,20 @@ namespace Toastify.View
         {
             e.Cancel = false;
             SettingsView.SettingsLaunched -= this.SettingsView_SettingsLaunched;
+
+            if (Settings.Current?.HotKeys != null)
+            {
+                string showDebugViewHotkey = (from Hotkey h in Settings.Current.HotKeys
+                                              where h.Action == ToastifyAction.ShowDebugView && h.Enabled && h.Active
+                                              select h.HumanReadableKey).SingleOrDefault();
+
+                if (!string.IsNullOrEmpty(showDebugViewHotkey))
+                {
+                    Debug.WriteLine("\n======= DebugView =======");
+                    Debug.WriteLine($"{typeof(DebugView).Name} is closing. You can re-open it with \"{showDebugViewHotkey}\".");
+                    Debug.WriteLine("=========================\n");
+                }
+            }
 
             Current = null;
         }

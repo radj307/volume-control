@@ -221,9 +221,7 @@ namespace Toastify
         }
     }
 
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+    /// <inheritdoc />
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {
