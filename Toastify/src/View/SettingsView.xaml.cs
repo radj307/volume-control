@@ -1,6 +1,8 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +14,7 @@ using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
 using Xceed.Wpf.Toolkit;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -20,10 +23,15 @@ namespace Toastify.View
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class SettingsView : Window
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SettingsView));
+
         private static SettingsView _current;
 
         private readonly ToastView toastView;
         private readonly SettingsViewModel settingsViewModel;
+
+        private IntPtr hHook = IntPtr.Zero;
+        private Win32API.LowLevelMouseHookProc mouseHookProc;
 
         private Settings Settings
         {
@@ -70,14 +78,65 @@ namespace Toastify.View
                 _current = this;
         }
 
+        private void SetMouseHook(bool enable)
+        {
+            if (enable && this.hHook == IntPtr.Zero)
+            {
+                this.mouseHookProc = this.MouseHookProc;
+                this.hHook = Win32API.SetLowLevelMouseHook(ref this.mouseHookProc);
+            }
+            else if (!enable && this.hHook != IntPtr.Zero)
+            {
+                bool success = Win32API.UnhookWindowsHookEx(this.hHook);
+                if (success == false)
+                    logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
+
+                this.hHook = IntPtr.Zero;
+                this.mouseHookProc = null;
+            }
+        }
+
+        private IntPtr MouseHookProc(int nCode, Win32API.WindowsMessagesFlags wParam, Win32API.LowLevelMouseHookStruct lParam)
+        {
+            if (nCode >= 0)
+            {
+                if (this.TxtSingleKey.IsFocused)
+                {
+                    if (wParam == Win32API.WindowsMessagesFlags.WM_XBUTTONUP)
+                    {
+                        Union32 union = new Union32(lParam.mouseData);
+
+                        if (union.High == 0x0001)
+                        {
+                            this.TxtSingleKey.Text = MouseButton.XButton1.ToString();
+                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
+                                hotkey.KeyOrButton = MouseButton.XButton1;
+                        }
+                        else if (union.High == 0x0002)
+                        {
+                            this.TxtSingleKey.Text = MouseButton.XButton2.ToString();
+                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
+                                hotkey.KeyOrButton = MouseButton.XButton2;
+                        }
+                    }
+                }
+            }
+
+            return Win32API.CallNextHookEx(this.hHook, nCode, wParam, lParam);
+        }
+
         public static void Launch(ToastView toastView)
         {
             if (_current != null)
+            {
                 _current.Activate();
+                _current.SetMouseHook(true);
+            }
             else
             {
                 SettingsView settingsView = new SettingsView(toastView);
                 SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings));
+                settingsView.SetMouseHook(true);
                 settingsView.ShowDialog();
             }
         }
@@ -93,6 +152,8 @@ namespace Toastify.View
 
             if (ReferenceEquals(_current, this))
                 _current = null;
+
+            this.SetMouseHook(false);
         }
 
         private void SettingsViewModel_SettingsSaved(object sender, EventArgs e)
@@ -133,10 +194,10 @@ namespace Toastify.View
         private void LstHotKeys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                this.TxtSingleKey.Text = hotkey.Key.ToString();
+                this.TxtSingleKey.Text = hotkey.KeyOrButton?.ToString() ?? string.Empty;
         }
 
-        private void TxtSingleKey_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtSingleKey_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
 
@@ -147,7 +208,7 @@ namespace Toastify.View
             this.TxtSingleKey.Text = key.ToString();
 
             if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                hotkey.Key = key;
+                hotkey.KeyOrButton = key;
         }
 
         #endregion "Hotkeys" tab

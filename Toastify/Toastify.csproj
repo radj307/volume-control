@@ -164,6 +164,7 @@
     <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
     <Compile Include="src\Helpers\Extensions.cs" />
     <Compile Include="src\Helpers\SettingValueToValueConverter.cs" />
+    <Compile Include="src\Model\KeyOrButton.cs" />
     <Compile Include="src\Model\SettingValue.cs" />
     <Compile Include="src\Model\SettingValueJsonConverter.cs" />
     <Compile Include="src\Model\Song.cs" />

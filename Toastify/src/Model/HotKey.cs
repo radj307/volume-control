@@ -1,17 +1,18 @@
 ﻿using log4net;
 using ManagedWinapi;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -29,6 +30,8 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
 
+        private static readonly List<Hotkey> registeredMouseHooks = new List<Hotkey>();
+
         #region Private fields
 
         private ToastifyAction _action;
@@ -37,7 +40,10 @@ namespace Toastify.Model
         private bool _ctrl;
         private bool _alt;
         private bool _windowsKey;
-        private Key _key;
+        private KeyOrButton _keyOrButton;
+
+        private IntPtr hMouseHook = IntPtr.Zero;
+        private Win32API.LowLevelMouseHookProc mouseHookProc;
 
         private bool _isValid;
         private string _invalidReason;
@@ -155,19 +161,18 @@ namespace Toastify.Model
             }
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public Key Key
+        public KeyOrButton KeyOrButton
         {
             get
             {
-                return this._key;
+                return this._keyOrButton;
             }
             set
             {
-                if (this._key != value)
+                if (!Equals(this._keyOrButton, value))
                 {
-                    this._key = value;
-                    this.NotifyPropertyChanged(nameof(this.Key));
+                    this._keyOrButton = value;
+                    this.NotifyPropertyChanged(nameof(this.KeyOrButton));
                 }
             }
         }
@@ -183,7 +188,7 @@ namespace Toastify.Model
                 if (this.Ctrl) sb.Append("Ctrl+");
                 if (this.Alt) sb.Append("Alt+");
                 if (this.WindowsKey) sb.Append("Win+");
-                sb.Append(this.Key);
+                sb.Append(this.KeyOrButton);
                 return sb.ToString();
             }
         }
@@ -283,6 +288,8 @@ namespace Toastify.Model
             if (this._globalKey != null)
                 this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
 
+            this.SetMouseHook(false);
+
             // If we're not enabled shut everything down asap
             if (!this.Enabled || !this.Active)
             {
@@ -298,29 +305,56 @@ namespace Toastify.Model
                 return;
             }
 
-            if (this._globalKey == null)
-                this._globalKey = new ManagedWinapi.Hotkey();
+            if (this.KeyOrButton == null)
+                return;
 
-            // Make sure that we don't try to re-register the key midway updating the combination.
-            if (this._globalKey.Enabled)
-                this._globalKey.Enabled = false;
-
-            this._globalKey.Shift = this.Shift;
-            this._globalKey.Ctrl = this.Ctrl;
-            this._globalKey.Alt = this.Alt;
-            this._globalKey.WindowsKey = this.WindowsKey;
-            this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.Key);
-
-            this._globalKey.HotkeyPressed += this.GlobalKey_HotkeyPressed;
-
-            try
+            if (this.KeyOrButton.IsKey)
             {
-                this._globalKey.Enabled = true;
+                // Standard global Hotkey
+
+                if (!this.KeyOrButton.Key.HasValue)
+                    return;
+
+                if (this._globalKey == null)
+                    this._globalKey = new ManagedWinapi.Hotkey();
+
+                // Make sure that we don't try to re-register the key midway updating the combination.
+                if (this._globalKey.Enabled)
+                    this._globalKey.Enabled = false;
+
+                this._globalKey.Shift = this.Shift;
+                this._globalKey.Ctrl = this.Ctrl;
+                this._globalKey.Alt = this.Alt;
+                this._globalKey.WindowsKey = this.WindowsKey;
+                this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.KeyOrButton.Key.Value);
+
+                this._globalKey.HotkeyPressed += this.GlobalKey_HotkeyPressed;
+
+                try
+                {
+                    this._globalKey.Enabled = true;
+                }
+                catch (HotkeyAlreadyInUseException)
+                {
+                    this.IsValid = false;
+                    this.InvalidReason = "Hotkey is already in use by a different program";
+                }
             }
-            catch (HotkeyAlreadyInUseException)
+            else if (this.KeyOrButton.MouseButton.HasValue)
             {
-                this.IsValid = false;
-                this.InvalidReason = "Hotkey is already in use by a different program";
+                // Mouse "hotkey"
+
+                if (this._globalKey != null)
+                    this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
+                this._globalKey?.Dispose();
+
+                if (registeredMouseHooks.Any(h => h.Shift == this.Shift && h.Ctrl == this.Ctrl && h.Alt == this.Alt && h.WindowsKey == this.WindowsKey && h.KeyOrButton?.MouseButton == this.KeyOrButton?.MouseButton))
+                {
+                    this.IsValid = false;
+                    this.InvalidReason = "Hotkey is already in use by a different program";
+                }
+                else
+                    this.SetMouseHook(true);
             }
         }
 
@@ -332,10 +366,15 @@ namespace Toastify.Model
         /// </summary>
         private void CheckIfValid()
         {
-            if (this.Key == Key.None)
+            if (this.KeyOrButton == null || this.KeyOrButton.IsKey && this.KeyOrButton.Key == Key.None)
             {
                 this.IsValid = false;
                 this.InvalidReason = "You must select a valid key for your hotkey combination";
+            }
+            else if (!this.KeyOrButton.IsKey && this.KeyOrButton.MouseButton != MouseButton.XButton1 && this.KeyOrButton.MouseButton != MouseButton.XButton2)
+            {
+                this.IsValid = false;
+                this.InvalidReason = $"You can't use the {this.KeyOrButton.MouseButton} mouse button in a hotkey combination";
             }
             else
             {
@@ -344,18 +383,67 @@ namespace Toastify.Model
             }
         }
 
-        public override string ToString()
+        private bool TestModifiers()
         {
-            string prefix = $"{(this.Enabled ? 'E' : ' ')}{(this.Active ? 'A' : ' ')}";
-            string keyCombination = $"{(this.Ctrl ? "Ctrl+" : "")}{(this.Shift ? "Shift+" : "")}{(this.Alt ? "Alt+" : "")}{(this.WindowsKey ? "Win+" : "")}{this.Key}";
+            return (this.Shift == Keyboard.IsKeyDown(Key.LeftShift) || this.Shift == Keyboard.IsKeyDown(Key.RightShift)) &&
+                   (this.Ctrl == Keyboard.IsKeyDown(Key.LeftCtrl) || this.Ctrl == Keyboard.IsKeyDown(Key.RightCtrl)) &&
+                   (this.Alt == Keyboard.IsKeyDown(Key.LeftAlt) || this.Alt == Keyboard.IsKeyDown(Key.RightAlt)) &&
+                   (this.WindowsKey == Keyboard.IsKeyDown(Key.LWin) || this.WindowsKey == Keyboard.IsKeyDown(Key.RWin));
+        }
 
-            // ReSharper disable once UseStringInterpolation
-            return $"{prefix} {this.Action,-15}: {keyCombination}";
+        private void SetMouseHook(bool enable)
+        {
+            if (enable && this.hMouseHook == IntPtr.Zero)
+            {
+                this.mouseHookProc = this.MouseHookProc;
+                this.hMouseHook = Win32API.SetLowLevelMouseHook(ref this.mouseHookProc);
+
+                registeredMouseHooks.Add(this);
+            }
+            else if (!enable && this.hMouseHook != IntPtr.Zero)
+            {
+                bool success = Win32API.UnhookWindowsHookEx(this.hMouseHook);
+                if (success == false)
+                    logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
+
+                this.hMouseHook = IntPtr.Zero;
+                this.mouseHookProc = null;
+
+                registeredMouseHooks.Remove(this);
+            }
         }
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
         {
             HotkeyActionCallback(this);
+        }
+
+        private IntPtr MouseHookProc(int nCode, Win32API.WindowsMessagesFlags wParam, Win32API.LowLevelMouseHookStruct lParam)
+        {
+            if (nCode >= 0 && this.KeyOrButton.MouseButton.HasValue)
+            {
+                if (wParam == Win32API.WindowsMessagesFlags.WM_XBUTTONUP)
+                {
+                    Union32 union = new Union32(lParam.mouseData);
+
+                    if (this.TestModifiers() && (union.High == 0x0001 && this.KeyOrButton.MouseButton == MouseButton.XButton1 ||
+                                                 union.High == 0x0002 && this.KeyOrButton.MouseButton == MouseButton.XButton2))
+                        HotkeyActionCallback(this);
+                }
+            }
+            else if (!this.KeyOrButton.MouseButton.HasValue)
+                this.SetMouseHook(false);
+
+            return Win32API.CallNextHookEx(this.hMouseHook, nCode, wParam, lParam);
+        }
+
+        public override string ToString()
+        {
+            string prefix = $"{(this.Enabled ? 'E' : ' ')}{(this.Active ? 'A' : ' ')}";
+            string keyCombination = $"{(this.Ctrl ? "Ctrl+" : "")}{(this.Shift ? "Shift+" : "")}{(this.Alt ? "Alt+" : "")}{(this.WindowsKey ? "Win+" : "")}{this.KeyOrButton}";
+
+            // ReSharper disable once UseStringInterpolation
+            return $"{prefix} {this.Action,-15}: {keyCombination}";
         }
 
         #region HotkeyActionCallback
@@ -523,7 +611,7 @@ namespace Toastify.Model
             writer.WriteAttributeString(nodeNames[Attribute.Ctrl].First(), this.Ctrl.ToString());
             writer.WriteAttributeString(nodeNames[Attribute.Alt].First(), this.Alt.ToString());
             writer.WriteAttributeString(nodeNames[Attribute.WindowsKey].First(), this.WindowsKey.ToString());
-            writer.WriteAttributeString(nodeNames[Attribute.Key].First(), this.Key.ToString());
+            writer.WriteAttributeString(nodeNames[Attribute.Key].First(), this.KeyOrButton.ToString());
         }
 
         private void ParseNode(string localName, string value, IDictionary<Attribute, bool> deserializedFlags)
@@ -572,7 +660,7 @@ namespace Toastify.Model
                     break;
 
                 case Attribute.Key:
-                    this.Key = (Key)Enum.Parse(typeof(Key), value);
+                    this.KeyOrButton = (Key)Enum.Parse(typeof(Key), value);
                     break;
 
                 case Attribute.Action:

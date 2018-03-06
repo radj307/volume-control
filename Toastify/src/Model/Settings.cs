@@ -10,10 +10,12 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using System.Xml.Serialization;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
+using Application = System.Windows.Forms.Application;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace Toastify.Model
@@ -136,21 +138,19 @@ namespace Toastify.Model
 
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
         {
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageDown, Action = ToastifyAction.VolumeDown    , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.PageUp  , Action = ToastifyAction.VolumeUp      , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
-            //new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemPlus , Action = ToastifyAction.FastForward   , Enabled = false },
-            //new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.OemMinus, Action = ToastifyAction.Rewind        , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.OemMinus, Action = ToastifyAction.VolumeDown    , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.OemPlus , Action = ToastifyAction.VolumeUp      , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
 
 #if DEBUG
-            new Hotkey { Ctrl = true, Alt = true, Key = System.Windows.Input.Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
 #endif
         };
 
@@ -211,7 +211,7 @@ namespace Toastify.Model
                 using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
                 {
                     if (value)
-                        key?.SetValue("Toastify", $"\"{System.Windows.Forms.Application.ExecutablePath}\"");
+                        key?.SetValue("Toastify", $"\"{Application.ExecutablePath}\"");
                     else
                         key?.DeleteValue("Toastify", false);
                 }

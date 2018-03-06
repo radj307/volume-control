@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
+using log4net;
+using ManagedWinapi;
 using Toastify.Core;
 using Toastify.Helpers;
 
@@ -20,6 +22,8 @@ namespace Toastify
     [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
     internal static class Win32API
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Win32API));
+
         private static readonly IntPtr hDesktop = GetDesktopWindow();
         private static readonly IntPtr hProgman = GetShellWindow();
         private static readonly IntPtr hShellDll = GetShellDllDefViewWindow();
@@ -27,6 +31,10 @@ namespace Toastify
         internal delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         internal delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
+        internal delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
+
+        internal delegate IntPtr LowLevelMouseHookProc(int code, WindowsMessagesFlags wParam, [In] LowLevelMouseHookStruct lParam);
 
         internal delegate void SendMessageDelegate(IntPtr hWnd, uint uMsg, UIntPtr dwData, IntPtr lResult);
 
@@ -104,6 +112,93 @@ namespace Toastify
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosFlags uFlags);
+
+        /// <summary>
+        /// Installs an application-defined hook procedure into a hook chain.
+        /// </summary>
+        /// <param name="hookType"> The type of hook procedure to be installed. </param>
+        /// <param name="lpfn">
+        ///   A pointer to the hook procedure. If the dwThreadId parameter is zero or specifies the identifier of a thread
+        ///   created by a different process, the lpfn parameter must point to a hook procedure in a DLL.
+        ///   Otherwise, lpfn can point to a hook procedure in the code associated with the current process.
+        /// </param>
+        /// <param name="hMod">
+        ///   A handle to the DLL containing the hook procedure pointed to by the lpfn parameter. The hMod parameter must be
+        ///   set to NULL if the dwThreadId parameter specifies a thread created by the current process and if the hook procedure
+        ///   is within the code associated with the current process.
+        /// </param>
+        /// <param name="dwThreadId">
+        ///   The identifier of the thread with which the hook procedure is to be associated. For desktop apps, if this parameter
+        ///   is zero, the hook procedure is associated with all existing threads running in the same desktop as the calling thread.
+        /// </param>
+        /// <returns> If the function succeeds, the return value is the handle to the hook procedure. If the function fails, the return value is NULL. </returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr SetWindowsHookEx(HookType hookType, HookProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        /// <summary>
+        /// Installs an application-defined hook procedure into a hook chain.
+        /// </summary>
+        /// <param name="hookType"> The type of hook procedure to be installed. </param>
+        /// <param name="lpfn">
+        ///   A pointer to the hook procedure. If the dwThreadId parameter is zero or specifies the identifier of a thread
+        ///   created by a different process, the lpfn parameter must point to a hook procedure in a DLL.
+        ///   Otherwise, lpfn can point to a hook procedure in the code associated with the current process.
+        /// </param>
+        /// <param name="hMod">
+        ///   A handle to the DLL containing the hook procedure pointed to by the lpfn parameter. The hMod parameter must be
+        ///   set to NULL if the dwThreadId parameter specifies a thread created by the current process and if the hook procedure
+        ///   is within the code associated with the current process.
+        /// </param>
+        /// <param name="dwThreadId">
+        ///   The identifier of the thread with which the hook procedure is to be associated. For desktop apps, if this parameter
+        ///   is zero, the hook procedure is associated with all existing threads running in the same desktop as the calling thread.
+        /// </param>
+        /// <returns> If the function succeeds, the return value is the handle to the hook procedure. If the function fails, the return value is NULL. </returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr SetWindowsHookEx(HookType hookType, LowLevelMouseHookProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        /// <summary>
+        /// Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
+        /// </summary>
+        /// <param name="hhk"> A handle to the hook to be removed. This parameter is a hook handle obtained by a previous call to <see cref="SetWindowsHookEx(HookType,HookProc,IntPtr,uint)"/>. </param>
+        /// <returns> <c>true</c> or nonzero if the function succeeds, <c>false</c> or zero if the function fails. </returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        /// <summary>
+        /// Passes the hook information to the next hook procedure in the current hook chain.
+        /// A hook procedure can call this function either before or after processing the hook information.
+        /// </summary>
+        /// <param name="hhk"> This parameter is ignored. </param>
+        /// <param name="nCode">
+        ///   The hook code passed to the current hook procedure.
+        ///   The next hook procedure uses this code to determine how to process the hook information.
+        /// </param>
+        /// <param name="wParam"> The wParam value passed to the current hook procedure. </param>
+        /// <param name="lParam"> The lParam value passed to the current hook procedure. </param>
+        /// <returns> The meaning of the return value depends on the hook type. </returns>
+        /// <remarks>
+        /// <para>
+        ///   Hook procedures are installed in chains for particular hook types.
+        ///   <see cref="CallNextHookEx(IntPtr,int,IntPtr,IntPtr)" /> calls the next hook in the chain.
+        /// </para>
+        /// <para>
+        ///   Calling CallNextHookEx is optional, but it is highly recommended; otherwise, other applications that have
+        ///   installed hooks will not receive hook notifications and may behave incorrectly as a result. You should call
+        ///   <see cref="CallNextHookEx(IntPtr,int,IntPtr,IntPtr)" /> unless you absolutely need to prevent the notification
+        ///   from being seen by other applications.
+        /// </para>
+        /// </remarks>
+        [DllImport("user32.dll")]
+        internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        // overload for use with LowLevelMouseProc
+        [DllImport("user32.dll")]
+        internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, WindowsMessagesFlags wParam, [In] LowLevelMouseHookStruct lParam);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        internal static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr SetFocus(IntPtr hWnd);
@@ -426,10 +521,10 @@ namespace Toastify
 
         public static void SendPasteKey()
         {
-            var shiftKey = new ManagedWinapi.KeyboardKey(Keys.ShiftKey);
-            var altKey = new ManagedWinapi.KeyboardKey(Keys.Alt);
-            var ctrlKey = new ManagedWinapi.KeyboardKey(Keys.ControlKey);
-            var vKey = new ManagedWinapi.KeyboardKey(Keys.V);
+            var shiftKey = new KeyboardKey(Keys.ShiftKey);
+            var altKey = new KeyboardKey(Keys.Alt);
+            var ctrlKey = new KeyboardKey(Keys.ControlKey);
+            var vKey = new KeyboardKey(Keys.V);
 
             // Before injecting a paste command, first make sure that no modifiers are already
             // being pressed (which will throw off the Ctrl+v).
@@ -503,6 +598,24 @@ namespace Toastify
             }
 
             KeyboardEvent(virtualKey, 0, 1, IntPtr.Zero);
+        }
+
+        public static IntPtr SetLowLevelMouseHook(ref LowLevelMouseHookProc mouseHookProc)
+        {
+            IntPtr hHook;
+            using (Process process = Process.GetCurrentProcess())
+            {
+                using (ProcessModule module = process.MainModule)
+                {
+                    IntPtr hModule = GetModuleHandle(module.ModuleName);
+
+                    hHook = SetWindowsHookEx(HookType.WH_MOUSE_LL, mouseHookProc, hModule, 0);
+                    if (hHook == IntPtr.Zero)
+                        logger.Error($"Failed to register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
+                }
+            }
+
+            return hHook;
         }
 
         #region Enums
@@ -672,6 +785,25 @@ namespace Toastify
             GWL_WNDPROC    = -4
         }
 
+        internal enum HookType
+        {
+            WH_JOURNALRECORD   = 0,
+            WH_JOURNALPLAYBACK = 1,
+            WH_KEYBOARD        = 2,
+            WH_GETMESSAGE      = 3,
+            WH_CALLWNDPROC     = 4,
+            WH_CBT             = 5,
+            WH_SYSMSGFILTER    = 6,
+            WH_MOUSE           = 7,
+            WH_HARDWARE        = 8,
+            WH_DEBUG           = 9,
+            WH_SHELL           = 10,
+            WH_FOREGROUNDIDLE  = 11,
+            WH_CALLWNDPROCRET  = 12,
+            WH_KEYBOARD_LL     = 13,
+            WH_MOUSE_LL        = 14
+        }
+
         /// <summary>
         /// Window styles (<see cref="GWL.GWL_STYLE"/>).
         /// </summary>
@@ -777,6 +909,25 @@ namespace Toastify
             WM_INITMENU        = 0x0116,
             WM_INITMENUPOPUP   = 0x0117,
             WM_MENUSELECT      = 0x011F,
+
+            // Mouse Input Notifications
+            WM_LBUTTONDOWN     = 0x0201,
+            WM_LBUTTONUP       = 0x0202,
+            WM_LBUTTONDBLCLK   = 0x0203,
+            WM_RBUTTONDOWN     = 0x0204,
+            WM_RBUTTONUP       = 0x0205,
+            WM_RBUTTONDBLCLK   = 0x0206,
+            WM_MBUTTONDOWN     = 0x0207,
+            WM_MBUTTONUP       = 0x0208,
+            WM_MBUTTONDBLCLK   = 0x0209,
+            WM_MOUSEWHEEL      = 0x020A,
+            WM_XBUTTONDOWN     = 0x020B,
+            WM_XBUTTONUP       = 0x020C,
+            WM_XBUTTONDBLCLK   = 0x020D,
+            WM_MOUSEHWHEEL     = 0x020E,
+            WM_NCXBUTTONDOWN   = 0x00AB,
+            WM_NCXBUTTONUP     = 0x00AC,
+            WM_NCXBUTTONDBLCLK = 0x00AD,
         }
 
         internal enum MapVirtualKeyType : uint
@@ -859,6 +1010,62 @@ namespace Toastify
             {
                 return $"{{X={this.left},Y={this.top},Width={this.Width},Height={this.Height}}}";
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct LowLevelMouseHookStruct
+        {
+            /// <summary>
+            /// The x- and y-coordinates of the cursor, in per-monitor-aware screen coordinates.
+            /// </summary>
+            public Point pt;
+
+            /// <summary> Mouse data. </summary>
+            /// <remarks>
+            /// If the message is <see cref="WindowsMessagesFlags.WM_MOUSEWHEEL"/>, the high-order word of this member
+            /// is the wheel delta. The low-order word is reserved.
+            /// A positive value indicates that the wheel was rotated forward, away from the user;
+            /// a negative value indicates that the wheel was rotated backward, toward the user.
+            /// One wheel click is defined as WHEEL_DELTA, which is 120.
+            /// 
+            /// If the message is <see cref="WindowsMessagesFlags.WM_XBUTTONDOWN"/>, <see cref="WindowsMessagesFlags.WM_XBUTTONUP"/>,
+            /// <see cref="WindowsMessagesFlags.WM_XBUTTONDBLCLK"/>, <see cref="WindowsMessagesFlags.WM_NCXBUTTONDOWN"/>, 
+            /// <see cref="WindowsMessagesFlags.WM_NCXBUTTONUP"/>, or <see cref="WindowsMessagesFlags.WM_NCXBUTTONDBLCLK"/>,
+            /// the high-order word specifies which X button was pressed or released, and the low-order word is reserved.
+            /// This value can be one or more of the following values. Otherwise, mouseData is not used.
+            /// 
+            /// <list type="bullet">
+            /// <item>
+            ///   <term> XBUTTON1 </term>
+            ///   <description> 0x0001 </description>
+            /// </item>
+            /// <item>
+            ///   <term> XBUTTON2 </term>
+            ///   <description> 0x0002 </description>
+            /// </item>
+            /// </list>
+            /// </remarks>
+            public int mouseData;
+
+            /// <summary>
+            /// The event-injected flags.
+            /// <para>
+            /// An application can use the following values to test the flags.
+            /// Testing LLMHF_INJECTED (bit 0 set) will tell you whether the event was injected. If it was, then testing LLMHF_LOWER_IL_INJECTED (bit 1 set)
+            /// will tell you whether or not the event was injected from a process running at lower integrity level.
+            /// </para>
+            /// </summary>
+            public int flags;
+
+            /// <summary>
+            /// The time stamp for this message.
+            /// </summary>
+            public int time;
+
+            /// <summary>
+            /// Additional information associated with the message.
+            /// </summary>
+            public UIntPtr dwExtraInfo;
         }
 
         #endregion Internal classes and structs

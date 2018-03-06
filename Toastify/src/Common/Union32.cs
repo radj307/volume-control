@@ -129,5 +129,11 @@ namespace Toastify.Common
         }
 
         #endregion CompareTo / operator< / operator> / operator<= / operator>=
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{this.number} (0x{this.High:X4} | 0x{this.Low:X4})";
+        }
     }
 }
