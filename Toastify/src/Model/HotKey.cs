@@ -328,6 +328,13 @@ namespace Toastify.Model
                 this._globalKey.WindowsKey = this.WindowsKey;
                 this._globalKey.KeyCode = ConvertInputKeyToFormsKeys(this.KeyOrButton.Key.Value);
 
+                if (this._globalKey.KeyCode == Keys.None)
+                {
+                    this._globalKey.Dispose();
+                    this._globalKey = null;
+                    return;
+                }
+
                 this._globalKey.HotkeyPressed += this.GlobalKey_HotkeyPressed;
 
                 try
@@ -415,6 +422,12 @@ namespace Toastify.Model
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
         {
+            if (sender is ManagedWinapi.Hotkey hotkey)
+            {
+                if (hotkey.KeyCode == Keys.None)
+                    return;
+            }
+
             HotkeyActionCallback(this);
         }
 
