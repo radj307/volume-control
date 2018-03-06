@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Toastify.Common;
 using Toastify.Core;
@@ -82,6 +83,10 @@ namespace Toastify.View
         {
             if (enable && this.hHook == IntPtr.Zero)
             {
+                // Ignore if the mouse doesn't have XButton1 and/or XButton2
+                if (SystemInformation.MouseButtons <= 3)
+                    return;
+
                 this.mouseHookProc = this.MouseHookProc;
                 this.hHook = Win32API.SetLowLevelMouseHook(ref this.mouseHookProc);
             }
