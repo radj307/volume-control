@@ -337,11 +337,6 @@ namespace Toastify.Model
                 this.IsValid = false;
                 this.InvalidReason = "You must select a valid key for your hotkey combination";
             }
-            else if (this.Shift == false && this.Ctrl == false && this.Alt == false)
-            {
-                this.IsValid = false;
-                this.InvalidReason = "At least one modifier key must be selected";
-            }
             else
             {
                 this.IsValid = true;
