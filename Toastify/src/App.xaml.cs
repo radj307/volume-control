@@ -176,7 +176,7 @@ namespace Toastify
                         }
 
                         xmlFile?.SetAsCurrentAndSave();
-                        File.Delete(filePath);
+                        File.Move(filePath, $"{filePath}.bak");
                         LoadSettings();
                     }
                     catch (Exception exx)
