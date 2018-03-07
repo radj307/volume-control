@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using ManagedWinapi;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -10,8 +12,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
-using log4net;
-using ManagedWinapi;
 using Toastify.Core;
 using Toastify.Helpers;
 
@@ -63,10 +63,19 @@ namespace Toastify
         internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowCmd nCmdShow);
 
         [DllImport("user32.dll")]
+        internal static extern bool UpdateWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
         internal static extern IntPtr GetMenu(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern IntPtr GetParent(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll")]
         internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
@@ -257,14 +266,20 @@ namespace Toastify
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool EnumResourceNames(IntPtr hModule, ResourceType dwID, EnumResNameProcDelegate lpEnumFunc, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
         #endregion DLL imports
 
-        private static IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex)
+        internal static IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex)
         {
             return IntPtr.Size == 4 ? GetWindowLongPtr32(hWnd, nIndex) : GetWindowLongPtr64(hWnd, nIndex);
         }
 
-        private static IntPtr SetWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong)
+        internal static IntPtr SetWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong)
         {
             return IntPtr.Size == 4 ? new IntPtr(SetWindowLongPtr32(hWnd, nIndex, dwNewLong.ToInt32())) : SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
         }
@@ -390,6 +405,11 @@ namespace Toastify
             AddWindowLongPtr(hWnd, GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStylesFlags.WS_EX_TOOLWINDOW);
         }
 
+        public static void AddVisibleWindowStyle(IntPtr hWnd)
+        {
+            AddWindowLongPtr(hWnd, GWL.GWL_EXSTYLE, (IntPtr)WindowStylesFlags.WS_VISIBLE);
+        }
+
         public static bool IsForegroundAppAFullscreenVideogame()
         {
             // Get the dimensions of the active window.
@@ -464,31 +484,6 @@ namespace Toastify
             const int nMaxCount = 256;
             StringBuilder lpString = new StringBuilder(nMaxCount);
             return GetWindowText(hWnd, lpString, nMaxCount) > 0 ? lpString.ToString() : string.Empty;
-        }
-
-        /// <summary>
-        /// Checks if a window is minimized.
-        /// </summary>
-        /// <param name="hWnd"> The window handle. </param>
-        /// <param name="toTray">
-        /// Whether to check if the window is minimized to the tray or not.
-        /// If this parameter is true and the window is minimized to the taskbar, then it returns false;
-        /// if this parameter is false and the window is minimized to the tray, then it returns true.
-        /// </param>
-        /// <returns> Whether the window is minimized or not. </returns>
-        public static bool IsWindowMinimized(IntPtr hWnd, bool toTray = false)
-        {
-            if (hWnd == IntPtr.Zero)
-                return false;
-
-            WindowStylesFlags windowStyles = (WindowStylesFlags)GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
-            if ((windowStyles & WindowStylesFlags.WS_MINIMIZE) > 0L)
-            {
-                // If a window is minimized to the taskbar, it is still WS_VISIBLE;
-                // if it is minimized to the tray, it is not.
-                return !toTray || (windowStyles & WindowStylesFlags.WS_VISIBLE) == 0L;
-            }
-            return false;
         }
 
         public static bool SendWindowMessage(IntPtr hWnd, WindowsMessagesFlags msg, IntPtr wParam, IntPtr lParam, bool postMessage = false)
@@ -890,6 +885,9 @@ namespace Toastify
             // Window Messages & Notifications
             WM_CLOSE           = 0x0010,
             WM_QUIT            = 0x0012,
+            WM_ERASEBKGND      = 0x0014,
+            WM_CHILDACTIVATE   = 0x0022,
+            WM_GETICON         = 0x007F,
 
             // Keyboard Input Messages & Notifications
             WM_KEYDOWN         = 0x0100,

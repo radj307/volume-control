@@ -83,7 +83,21 @@ namespace Toastify.Core
                     return false;
 
                 var hWnd = this.GetMainWindowHandle();
-                return Win32API.IsWindowMinimized(hWnd);
+                Win32API.WindowStylesFlags windowStyles = (Win32API.WindowStylesFlags)Win32API.GetWindowLongPtr(hWnd, Win32API.GWL.GWL_STYLE);
+                return (windowStyles & Win32API.WindowStylesFlags.WS_MINIMIZE) != 0L || this.IsMinimizedToTray;
+            }
+        }
+
+        public bool IsMinimizedToTray
+        {
+            get
+            {
+                if (!this.IsRunning)
+                    return false;
+
+                var hWnd = this.GetMainWindowHandle();
+                Win32API.WindowStylesFlags windowStyles = (Win32API.WindowStylesFlags)Win32API.GetWindowLongPtr(hWnd, Win32API.GWL.GWL_STYLE);
+                return (windowStyles & Win32API.WindowStylesFlags.WS_MINIMIZE) == 0L && (windowStyles & Win32API.WindowStylesFlags.WS_VISIBLE) == 0L;
             }
         }
 
@@ -431,15 +445,43 @@ namespace Toastify.Core
                 Win32API.GetWindowPlacement(hWnd, ref placement);
 
                 var showCommand = Win32API.ShowWindowCmd.SW_SHOW;
-
-                // if Spotify is minimzed we need to send a restore so that the window
-                // will come back exactly like it was before being minimized (i.e. maximized
-                // or otherwise) otherwise if we call SW_RESTORE on a currently maximized window
-                // then instead of staying maximized it will return to normal size.
-                if (placement.showCmd == Win32API.ShowWindowCmd.SW_SHOWMINIMIZED)
+                if (placement.showCmd == Win32API.ShowWindowCmd.SW_SHOWMINIMIZED || placement.showCmd == Win32API.ShowWindowCmd.SW_HIDE)
                     showCommand = Win32API.ShowWindowCmd.SW_RESTORE;
 
-                Win32API.ShowWindow(hWnd, showCommand);
+                if (this.IsMinimizedToTray)
+                {
+                    // TODO: Restore Spotify if minimized to the tray.
+
+                    return;
+
+                    //IntPtr renderWindowHandle = Win32API.GetProcessWindows((uint)this.spotifyProcess.Id, "Chrome_WidgetWin_0")
+                    //                                    .Select(Win32API.GetChildWindows)
+                    //                                    .SingleOrDefault(children => children != null && children.Any(h => Win32API.GetClassName(h) == "Chrome_RenderWidgetHostHWND"))
+                    //                                   ?.SingleOrDefault() ?? IntPtr.Zero;
+
+                    //Win32API.ShowWindow(hWnd, showCommand);
+                    //if (renderWindowHandle != IntPtr.Zero)
+                    //{
+                    //    IntPtr parent = Win32API.GetParent(renderWindowHandle);
+                    //    if (parent != hWnd)
+                    //    {
+                    //        Win32API.SetParent(renderWindowHandle, hWnd);
+                    //        Win32API.SendWindowMessage(renderWindowHandle, Win32API.WindowsMessagesFlags.WM_CHILDACTIVATE, IntPtr.Zero, IntPtr.Zero);
+                    //        Win32API.ShowWindow(renderWindowHandle, Win32API.ShowWindowCmd.SW_SHOW);
+                    //        Win32API.ShowWindow(renderWindowHandle, Win32API.ShowWindowCmd.SW_RESTORE);
+
+                    //        IntPtr hDC = Win32API.GetDC(renderWindowHandle);
+                    //        Win32API.SendWindowMessage(renderWindowHandle, Win32API.WindowsMessagesFlags.WM_ERASEBKGND, hDC, IntPtr.Zero);
+                    //        Win32API.ReleaseDC(renderWindowHandle, hDC);
+
+                    //        Win32API.UpdateWindow(renderWindowHandle);
+                    //    }
+                    //    else
+                    //        Win32API.AddVisibleWindowStyle(renderWindowHandle);
+                    //}
+                }
+                else
+                    Win32API.ShowWindow(hWnd, showCommand);
 
                 Win32API.SetForegroundWindow(hWnd);
                 Win32API.SetFocus(hWnd);
