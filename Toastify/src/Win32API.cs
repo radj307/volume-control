@@ -587,7 +587,9 @@ namespace Toastify
                 case ToastifyAction.ThumbsUp:
                 case ToastifyAction.ThumbsDown:
                 case ToastifyAction.Exit:
+#if DEBUG
                 case ToastifyAction.ShowDebugView:
+#endif
                 default:
                     return;
             }
