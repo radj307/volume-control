@@ -543,11 +543,6 @@ namespace Toastify.Core
                         this.Minimize();
                     break;
 
-                // The FastForward and Rewind actions have been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-                case ToastifyAction.FastForward:
-                case ToastifyAction.Rewind:
-                    break;
-
                 case ToastifyAction.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
@@ -605,6 +600,8 @@ namespace Toastify.Core
                     }
                     break;
 
+                case ToastifyAction.FastForward:
+                case ToastifyAction.Rewind:
                 case ToastifyAction.PlayPause:
                 case ToastifyAction.PreviousTrack:
                 case ToastifyAction.NextTrack:

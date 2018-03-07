@@ -138,19 +138,21 @@ namespace Toastify.Model
 
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
         {
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Subtract, Action = ToastifyAction.VolumeDown    , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Add     , Action = ToastifyAction.VolumeUp      , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Add     , Action = ToastifyAction.VolumeUp      , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Subtract, Action = ToastifyAction.VolumeDown    , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true , Shift = true, KeyOrButton = Key.Right   , Action = ToastifyAction.FastForward   , Enabled = false },
+            new Hotkey { Ctrl = true, Alt = true , Shift = true, KeyOrButton = Key.Left    , Action = ToastifyAction.Rewind        , Enabled = false },
+            new Hotkey { Ctrl = true,                            KeyOrButton = Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
+            new Hotkey { Ctrl = true,              Shift = true, KeyOrButton = Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
+            new Hotkey { Ctrl = true,              Shift = true, KeyOrButton = Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
 
 #if DEBUG
-            new Hotkey { Ctrl = true, Alt = true, KeyOrButton = Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
+            new Hotkey { Ctrl = true,                            KeyOrButton = Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
 #endif
         };
 

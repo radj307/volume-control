@@ -546,7 +546,7 @@ namespace Toastify
 
         public static void SendMediaKey(ToastifyAction action)
         {
-            VirtualKeyCode virtualKey = default(VirtualKeyCode);
+            VirtualKeyCode virtualKey;
             switch (action)
             {
                 case ToastifyAction.PlayPause:
@@ -572,13 +572,10 @@ namespace Toastify
                 case ToastifyAction.NextTrack:
                     virtualKey = VirtualKeyCode.VK_MEDIA_NEXT_TRACK;
                     break;
-
-                // The FastForward and Rewind actions have been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                    
+                case ToastifyAction.None:
                 case ToastifyAction.FastForward:
                 case ToastifyAction.Rewind:
-                    break;
-
-                case ToastifyAction.None:
                 case ToastifyAction.ShowToast:
                 case ToastifyAction.ShowSpotify:
                 case ToastifyAction.CopyTrackInfo:
