@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -573,7 +574,8 @@ namespace Toastify.Model
                 NullValueHandling = NullValueHandling.Ignore,
                 ObjectCreationHandling = ObjectCreationHandling.Auto,
                 MissingMemberHandling = MissingMemberHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Error = JsonSerializer_Error
             };
 
             JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
@@ -946,9 +948,41 @@ namespace Toastify.Model
             return attribute.Value is T @default ? @default : default(T);
         }
 
+        internal static string PrintSettings(int indentLevel = 0)
+        {
+            string indent = string.Empty;
+            for (int i = 0; i < indentLevel; ++i)
+                indent += "\t";
+
+            StringBuilder sb = new StringBuilder();
+
+            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                             .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+
+            foreach (var property in properties)
+            {
+                object current = property.GetValue(Current);
+                sb.Append($"{indent}{property.Name}: {current}\n");
+            }
+
+            return sb.ToString();
+        }
+
         private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
         {
-            logger.Error($"JsonSerializer error: {errorEventArgs.ErrorContext}");
+            if (errorEventArgs.ErrorContext.Error.InnerException is ArgumentException)
+            {
+                // ReSharper disable once LocalNameCapturedOnly
+                // ReSharper disable once RedundantAssignment
+                if (errorEventArgs.CurrentObject is Hotkey hotkey)
+                {
+                    if (errorEventArgs.ErrorContext.Path.EndsWith(nameof(hotkey.Action)))
+                        errorEventArgs.ErrorContext.Handled = true;
+                }
+            }
+
+            if (!errorEventArgs.ErrorContext.Handled)
+                logger.Error("JsonSerializer error.", errorEventArgs.ErrorContext.Error);
         }
     }
 

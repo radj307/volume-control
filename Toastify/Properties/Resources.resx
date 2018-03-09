@@ -119,9 +119,7 @@
   </resheader>
   <data name="ERROR_SETTINGS_UNABLE_TO_LOAD" xml:space="preserve">
     <value>Toastify was unable to load the settings file.
-Delete the "{0}" file and restart the application to recreate the settings file.
-
-The application will be started with default settings.</value>
+The application will be started with default values.</value>
   </data>
   <data name="ERROR_STARTUP_SPOTIFY" xml:space="preserve">
     <value>An error occurred when trying to start Spotify.</value>

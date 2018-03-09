@@ -16,7 +16,6 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Net;
-using System.Windows;
 using Toastify.Core;
 using Toastify.Model;
 

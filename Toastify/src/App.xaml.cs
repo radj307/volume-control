@@ -1,6 +1,8 @@
 ﻿using log4net;
 using log4net.Appender;
 using log4net.Config;
+using log4net.Core;
+using log4net.Filter;
 using log4net.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,14 @@ using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
 
-#if DEBUG
+#if DEBUG || TEST_RELEASE
 
-using log4net.Core;
 using log4net.Repository.Hierarchy;
+
+#if DEBUG
+using log4net.Core;
 using Toastify.View;
+#endif
 
 #endif
 
@@ -54,17 +59,21 @@ namespace Toastify
                         File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
                     }
 
+                    logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
+                    logger.Info($"Toastify version = {App.CurrentVersion}");
+
                     try
                     {
                         PrepareToRun();
-                        RunApp();
                     }
                     catch (Exception e)
                     {
-                        logger.Error("Unhandled top-level exception.", e);
+                        logger.Error("Unhandled exception while preparing to run.", e);
                         Analytics.TrackException(e);
-                        MessageBox.Show($"Unhandled top-level exception.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Unhandled exception while preparing to run.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+
+                    RunApp();
                 }
                 else
                     MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -104,7 +113,7 @@ namespace Toastify
                 XmlConfigurator.Configure(stream);
                 ILoggerRepository loggerRepository = LogManager.GetRepository();
 
-#if DEBUG
+#if DEBUG || TEST_RELEASE
                 var rootLogger = ((Hierarchy)loggerRepository).Root;
                 rootLogger.Level = Level.Debug;
 #endif
@@ -114,12 +123,27 @@ namespace Toastify
                 if (rollingFileAppender == null)
                     throw new ApplicationStartupException("RollingFileAppender not found", false);
                 rollingFileAppender.File = Path.Combine(App.LocalApplicationData, "Toastify.log");
+
+#if TEST_RELEASE
+                var filter = rollingFileAppender.FilterHead;
+                while (filter != null)
+                {
+                    if (filter is LevelRangeFilter lrFilter)
+                        lrFilter.LevelMin = Level.Debug;
+
+                    filter = filter.Next;
+                }
+#endif
+
                 rollingFileAppender.ActivateOptions();
             }
         }
 
         private static void PrepareToRun()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Preparing to launch Toastify...");
+
             // Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
             LoadSettings();
             StartupTask();
@@ -130,9 +154,6 @@ namespace Toastify
 
         private static void RunApp()
         {
-            logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
-            logger.Info($"Toastify version = {App.CurrentVersion}");
-
             App app = new App(spotifyArgs);
             app.InitializeComponent();
 
@@ -148,6 +169,9 @@ namespace Toastify
             try
             {
                 Settings.Current.Load();
+
+                if (logger.IsDebugEnabled)
+                    logger.Debug("Settings loaded!");
             }
             catch (InvalidOperationException ex)
             {
@@ -166,6 +190,9 @@ namespace Toastify
                 string filePath = Path.Combine(dir, oldSettingsFileName);
                 if (File.Exists(filePath))
                 {
+                    if (logger.IsDebugEnabled)
+                        logger.Debug("Migrating from old XML settings to new JSON config file.");
+
                     try
                     {
                         Settings xmlFile;
@@ -187,21 +214,18 @@ namespace Toastify
                 }
                 else
                 {
-                    logger.Warn("Exception loading settings from file. Using defaults.", ex);
-
-                    string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
-                    MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                    logger.Warn("Neither a JSON config file nor an old XML settings file exist! Toastify will use default values.", ex);
                     Settings.Current.LoadSafe();
                 }
             }
             catch (Exception ex)
             {
-                logger.Warn("Exception loading settings from file. Using defaults.", ex);
+                logger.Warn("Error while loading settings. Toastify will reset to default values.", ex);
 
                 string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                File.Copy(Settings.SettingsFilePath, $"{Settings.SettingsFilePath}.corrupted", true);
                 Settings.Current.LoadSafe();
             }
         }
@@ -274,6 +298,8 @@ namespace Toastify
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppTermination);
             Spotify.DisposeInstance();
             VersionChecker.DisposeInstance();
+
+            logger.Info($"Toastify terminated with exit code {e.ApplicationExitCode}.");
         }
     }
 }

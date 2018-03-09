@@ -12,6 +12,8 @@ namespace Toastify.View
     // ReSharper disable once RedundantExtendsListEntry
     public partial class DebugView : Window
     {
+#if DEBUG
+
         internal static DebugView Current { get; private set; }
 
         private Settings CurrentSettings { get { return Settings.Current; } }
@@ -148,5 +150,7 @@ namespace Toastify.View
                 this.cbLogShowToastAction.IsChecked = false;
             }
         }
+
+#endif
     }
 }

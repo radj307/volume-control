@@ -62,9 +62,7 @@ namespace Toastify.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Toastify was unable to load the settings file.
-        ///Delete the &quot;{0}&quot; file and restart the application to recreate the settings file.
-        ///
-        ///The application will be started with default settings..
+        ///The application will be started with default values..
         /// </summary>
         internal static string ERROR_SETTINGS_UNABLE_TO_LOAD {
             get {

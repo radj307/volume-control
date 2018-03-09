@@ -126,6 +126,9 @@ namespace Toastify.View
 
         private void Init()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Current Settings:\n{Settings.PrintSettings(2)}");
+
             this.InitToast();
             this.InitTrayIcon();
             this.StartSpotify();
