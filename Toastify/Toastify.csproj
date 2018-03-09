@@ -56,7 +56,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>embedded</DebugType>
+    <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|x64'">
@@ -66,11 +66,13 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|AnyCPU'">
     <OutputPath>bin\AnyCPU\Test Release\Windows\</OutputPath>
     <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
     <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
     <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>

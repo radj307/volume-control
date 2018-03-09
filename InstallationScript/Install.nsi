@@ -70,6 +70,7 @@ Section "Toastify (required)"
   
   File "Toastify.exe"
   File "Toastify.exe.config"
+  File "Toastify.pdb"
   File "GoogleMeasurementProtocol.dll"
   File "log4net.dll"
   File "ManagedWinapi.dll"
@@ -119,7 +120,8 @@ Section "Uninstall"
 
   # Remove files and uninstaller
   Delete "$INSTDIR\Toastify.exe"
-  Delete "$INSTDIR\Toastify.config"
+  Delete "$INSTDIR\Toastify.exe.config"
+  Delete "$INSTDIR\Toastify.pdb"
   Delete "$INSTDIR\ToastifyAPI.dll"
   Delete "$INSTDIR\GoogleMeasurementProtocol.dll"
   Delete "$INSTDIR\log4net.dll"
