@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -222,18 +223,21 @@ namespace Toastify.Model
             }
         }
 
+        [DefaultValue(false)]
         public SettingValue<bool> MinimizeSpotifyOnStartup
         {
             get { return this.GetSettingValue(ref this._minimizeSpotifyOnStartup); }
             set { this.SetSettingValue(ref this._minimizeSpotifyOnStartup, value); }
         }
 
+        [DefaultValue(true)]
         public SettingValue<bool> CloseSpotifyWithToastify
         {
             get { return this.GetSettingValue(ref this._closeSpotifyWithToastify); }
             set { this.SetSettingValue(ref this._closeSpotifyWithToastify, value); }
         }
 
+        [DefaultValue(ToastifyVolumeControlMode.SystemSpotifyOnly)]
         public SettingValue<ToastifyVolumeControlMode> VolumeControlMode
         {
             get { return this.GetSettingValue(ref this._volumeControlMode); }
@@ -247,18 +251,21 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._useSpotifyVolumeControl, value); }
         }
 
+        [DefaultValue(2.0f)]
         public SettingValue<float> WindowsVolumeMixerIncrement
         {
             get { return this.GetSettingValue(ref this._windowsVolumeMixerIncrement); }
             set { this.SetSettingValue(ref this._windowsVolumeMixerIncrement, value); }
         }
 
+        [DefaultValue("I'm currently listening to {0}")]
         public SettingValue<string> ClipboardTemplate
         {
             get { return this.GetSettingValue(ref this._clipboardTemplate); }
             set { this.SetSettingValue(ref this._clipboardTemplate, value); }
         }
 
+        [DefaultValue(false)]
         public SettingValue<bool> SaveTrackToFile
         {
             get { return this.GetSettingValue(ref this._saveTrackToFile); }
@@ -271,6 +278,7 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._saveTrackToFilePath, value); }
         }
 
+        [DefaultValue(true)]
         public SettingValue<bool> OptInToAnalytics
         {
             get { return this.GetSettingValue(ref this._optInToAnalytics); }
@@ -281,6 +289,7 @@ namespace Toastify.Model
 
         #region [Hotkeys]
 
+        [DefaultValue(true)]
         public SettingValue<bool> GlobalHotKeys
         {
             get { return this.GetSettingValue(ref this._globalHotKeys); }
@@ -298,6 +307,7 @@ namespace Toastify.Model
 
         #region [Toast]
 
+        [DefaultValue(false)]
         public SettingValue<bool> DisableToast
         {
             get { return this.GetSettingValue(ref this._disableToast); }
@@ -307,102 +317,49 @@ namespace Toastify.Model
         /// <summary>
         /// Only show the toast when the `<see cref="ToastifyAction.ShowToast"/>` hotkey is pressed.
         /// </summary>
+        [DefaultValue(true)]
         public SettingValue<bool> OnlyShowToastOnHotkey
         {
             get { return this.GetSettingValue(ref this._onlyShowToastOnHotkey); }
             set { this.SetSettingValue(ref this._onlyShowToastOnHotkey, value); }
         }
 
+        [DefaultValue(true)]
         public SettingValue<bool> DisableToastWithFullscreenVideogames
         {
             get { return this.GetSettingValue(ref this._disableToastWithFullscreenVideogames); }
             set { this.SetSettingValue(ref this._disableToastWithFullscreenVideogames, value); }
         }
 
+        [DefaultValue(true)]
         public SettingValue<bool> ShowSongProgressBar
         {
             get { return this.GetSettingValue(ref this._showSongProgressBar); }
             set { this.SetSettingValue(ref this._showSongProgressBar, value); }
         }
 
+        [DefaultValue(4000)]
         public SettingValue<int> FadeOutTime
         {
             get { return this.GetSettingValue(ref this._fadeOutTime); }
             set { this.SetSettingValue(ref this._fadeOutTime, value); }
         }
 
+        [DefaultValue(Core.ToastTitlesOrder.TrackByArtist)]
         public SettingValue<ToastTitlesOrder> ToastTitlesOrder
         {
             get { return this.GetSettingValue(ref this._toastTitlesOrder); }
             set { this.SetSettingValue(ref this._toastTitlesOrder, value); }
         }
 
-        public SettingValue<string> ToastColorTop
-        {
-            get { return this.GetSettingValue(ref this._toastColorTop); }
-            set { this.SetSettingValue(ref this._toastColorTop, value); }
-        }
-
-        public SettingValue<string> ToastColorBottom
-        {
-            get { return this.GetSettingValue(ref this._toastColorBottom); }
-            set { this.SetSettingValue(ref this._toastColorBottom, value); }
-        }
-
-        public SettingValue<double> ToastColorTopOffset
-        {
-            get { return this.GetSettingValue(ref this._toastColorTopOffset); }
-            set { this.SetSettingValue(ref this._toastColorTopOffset, value); }
-        }
-
-        public SettingValue<double> ToastColorBottomOffset
-        {
-            get { return this.GetSettingValue(ref this._toastColorBottomOffset); }
-            set { this.SetSettingValue(ref this._toastColorBottomOffset, value); }
-        }
-
-        public SettingValue<string> ToastBorderColor
-        {
-            get { return this._toastBorderColor; }
-            set { this.SetSettingValue(ref this._toastBorderColor, value); }
-        }
-
-        public SettingValue<double> ToastBorderThickness
-        {
-            get { return this.GetSettingValue(ref this._toastBorderThickness); }
-            set { this.SetSettingValue(ref this._toastBorderThickness, value); }
-        }
-
-        public SettingValue<double> ToastBorderCornerRadiusTopLeft
-        {
-            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopLeft); }
-            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopLeft, value); }
-        }
-
-        public SettingValue<double> ToastBorderCornerRadiusTopRight
-        {
-            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopRight); }
-            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopRight, value); }
-        }
-
-        public SettingValue<double> ToastBorderCornerRadiusBottomLeft
-        {
-            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomLeft); }
-            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomLeft, value); }
-        }
-
-        public SettingValue<double> ToastBorderCornerRadiusBottomRight
-        {
-            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomRight); }
-            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomRight, value); }
-        }
-
+        [DefaultValue(300.0)]
         public SettingValue<double> ToastWidth
         {
             get { return this.GetSettingValue(ref this._toastWidth); }
             set { this.SetSettingValue(ref this._toastWidth, value); }
         }
 
+        [DefaultValue(80.0)]
         public SettingValue<double> ToastHeight
         {
             get { return this.GetSettingValue(ref this._toastHeight); }
@@ -421,72 +378,154 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._positionTop, value); }
         }
 
+        [DefaultValue(1.0)]
+        public SettingValue<double> ToastBorderThickness
+        {
+            get { return this.GetSettingValue(ref this._toastBorderThickness); }
+            set { this.SetSettingValue(ref this._toastBorderThickness, value); }
+        }
+
+        [DefaultValue(0.0)]
+        public SettingValue<double> ToastBorderCornerRadiusTopLeft
+        {
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopLeft); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopLeft, value); }
+        }
+
+        [DefaultValue(0.0)]
+        public SettingValue<double> ToastBorderCornerRadiusTopRight
+        {
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusTopRight); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusTopRight, value); }
+        }
+
+        [DefaultValue(0.0)]
+        public SettingValue<double> ToastBorderCornerRadiusBottomLeft
+        {
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomLeft); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomLeft, value); }
+        }
+
+        [DefaultValue(0.0)]
+        public SettingValue<double> ToastBorderCornerRadiusBottomRight
+        {
+            get { return this.GetSettingValue(ref this._toastBorderCornerRadiusBottomRight); }
+            set { this.SetSettingValue(ref this._toastBorderCornerRadiusBottomRight, value); }
+        }
+
+        [DefaultValue("#FF000000")]
+        public SettingValue<string> ToastColorTop
+        {
+            get { return this.GetSettingValue(ref this._toastColorTop); }
+            set { this.SetSettingValue(ref this._toastColorTop, value); }
+        }
+
+        [DefaultValue("#FF000000")]
+        public SettingValue<string> ToastColorBottom
+        {
+            get { return this.GetSettingValue(ref this._toastColorBottom); }
+            set { this.SetSettingValue(ref this._toastColorBottom, value); }
+        }
+
+        [DefaultValue(0.0)]
+        public SettingValue<double> ToastColorTopOffset
+        {
+            get { return this.GetSettingValue(ref this._toastColorTopOffset); }
+            set { this.SetSettingValue(ref this._toastColorTopOffset, value); }
+        }
+
+        [DefaultValue(1.0)]
+        public SettingValue<double> ToastColorBottomOffset
+        {
+            get { return this.GetSettingValue(ref this._toastColorBottomOffset); }
+            set { this.SetSettingValue(ref this._toastColorBottomOffset, value); }
+        }
+
+        [DefaultValue("#FF000000")]
+        public SettingValue<string> ToastBorderColor
+        {
+            get { return this._toastBorderColor; }
+            set { this.SetSettingValue(ref this._toastBorderColor, value); }
+        }
+
+        [DefaultValue("#FFFFFFFF")]
         public SettingValue<string> ToastTitle1Color
         {
             get { return this.GetSettingValue(ref this._toastTitle1Color); }
             set { this.SetSettingValue(ref this._toastTitle1Color, value); }
         }
 
+        [DefaultValue("#FFF0F0F0")]
         public SettingValue<string> ToastTitle2Color
         {
             get { return this.GetSettingValue(ref this._toastTitle2Color); }
             set { this.SetSettingValue(ref this._toastTitle2Color, value); }
         }
 
+        [DefaultValue(16.0)]
         public SettingValue<double> ToastTitle1FontSize
         {
             get { return this.GetSettingValue(ref this._toastTitle1FontSize); }
             set { this.SetSettingValue(ref this._toastTitle1FontSize, value); }
         }
 
+        [DefaultValue(12.0)]
         public SettingValue<double> ToastTitle2FontSize
         {
             get { return this.GetSettingValue(ref this._toastTitle2FontSize); }
             set { this.SetSettingValue(ref this._toastTitle2FontSize, value); }
         }
 
+        [DefaultValue(true)]
         public SettingValue<bool> ToastTitle1DropShadow
         {
             get { return this.GetSettingValue(ref this._toastTitle1DropShadow); }
             set { this.SetSettingValue(ref this._toastTitle1DropShadow, value); }
         }
 
+        [DefaultValue(3.0)]
         public SettingValue<double> ToastTitle1ShadowDepth
         {
             get { return this.GetSettingValue(ref this._toastTitle1ShadowDepth); }
             set { this.SetSettingValue(ref this._toastTitle1ShadowDepth, value); }
         }
 
+        [DefaultValue(2.0)]
         public SettingValue<double> ToastTitle1ShadowBlur
         {
             get { return this.GetSettingValue(ref this._toastTitle1ShadowBlur); }
             set { this.SetSettingValue(ref this._toastTitle1ShadowBlur, value); }
         }
 
+        [DefaultValue(false)]
         public SettingValue<bool> ToastTitle2DropShadow
         {
             get { return this.GetSettingValue(ref this._toastTitle2DropShadow); }
             set { this.SetSettingValue(ref this._toastTitle2DropShadow, value); }
         }
 
+        [DefaultValue(2.0)]
         public SettingValue<double> ToastTitle2ShadowDepth
         {
             get { return this.GetSettingValue(ref this._toastTitle2ShadowDepth); }
             set { this.SetSettingValue(ref this._toastTitle2ShadowDepth, value); }
         }
 
+        [DefaultValue(2.0)]
         public SettingValue<double> ToastTitle2ShadowBlur
         {
             get { return this.GetSettingValue(ref this._toastTitle2ShadowBlur); }
             set { this.SetSettingValue(ref this._toastTitle2ShadowBlur, value); }
         }
 
+        [DefaultValue("#FF333333")]
         public SettingValue<string> SongProgressBarBackgroundColor
         {
             get { return this.GetSettingValue(ref this._songProgressBarBackgroundColor); }
             set { this.SetSettingValue(ref this._songProgressBarBackgroundColor, value); }
         }
 
+        [DefaultValue("#FFA0A0A0")]
         public SettingValue<string> SongProgressBarForegroundColor
         {
             get { return this.GetSettingValue(ref this._songProgressBarForegroundColor); }
@@ -501,6 +540,7 @@ namespace Toastify.Model
 
         public string PreviousVersion { get; set; }
 
+        [DefaultValue(60000)]
         public int StartupWaitTimeout { get; set; }
 
         public WindowPosition SettingsWindowLastLocation { get; set; }
@@ -564,7 +604,7 @@ namespace Toastify.Model
             this.SetDefaultToastColors();
 
             // (hidden)
-            this.StartupWaitTimeout = 60000;
+            this.StartupWaitTimeout = DefaultValueOf(this.StartupWaitTimeout, nameof(this.StartupWaitTimeout));
             this.Plugins = new List<PluginDetails>();
 
             // There are a few settings that we don't really want to override when
@@ -579,17 +619,17 @@ namespace Toastify.Model
 
         public void SetDefaultGeneral()
         {
-            this.LaunchOnStartup = false;
-            this.MinimizeSpotifyOnStartup = false;
-            this.CloseSpotifyWithToastify = true;
-            this.VolumeControlMode = ToastifyVolumeControlMode.SystemSpotifyOnly;
-            this.WindowsVolumeMixerIncrement = new SettingValue<float>(2.0f, new Range<float>(0.1f, 100.0f));
+            this.LaunchOnStartup = DefaultValueOf(this.LaunchOnStartup, nameof(this.LaunchOnStartup));
+            this.MinimizeSpotifyOnStartup = DefaultValueOf(this.MinimizeSpotifyOnStartup, nameof(this.MinimizeSpotifyOnStartup));
+            this.CloseSpotifyWithToastify = DefaultValueOf(this.CloseSpotifyWithToastify, nameof(this.CloseSpotifyWithToastify));
+            this.VolumeControlMode = DefaultValueOf(this.VolumeControlMode, nameof(this.VolumeControlMode));
+            this.WindowsVolumeMixerIncrement = new SettingValue<float>(DefaultValueOf(this.WindowsVolumeMixerIncrement, nameof(this.WindowsVolumeMixerIncrement)), new Range<float>(0.1f, 100.0f));
 
-            this.ClipboardTemplate = "I'm currently listening to {0}";
-            this.SaveTrackToFile = false;
+            this.ClipboardTemplate = DefaultValueOf(this.ClipboardTemplate, nameof(this.ClipboardTemplate));
+            this.SaveTrackToFile = DefaultValueOf(this.SaveTrackToFile, nameof(this.SaveTrackToFile));
             this.SaveTrackToFilePath = Path.Combine(App.LocalApplicationData, "current_song.txt");
 
-            this.OptInToAnalytics = true;
+            this.OptInToAnalytics = DefaultValueOf(this.SaveTrackToFile, nameof(this.SaveTrackToFile));
         }
 
         public void SetDefaultHotkeys()
@@ -599,7 +639,7 @@ namespace Toastify.Model
 
         public void SetDefaultHotkeys(bool activateHotkeys)
         {
-            this.GlobalHotKeys = true;
+            this.GlobalHotKeys = DefaultValueOf(this.GlobalHotKeys, nameof(this.GlobalHotKeys));
 
             if (this.HotKeys != null)
             {
@@ -618,50 +658,48 @@ namespace Toastify.Model
 
         public void SetDefaultToastGeneral()
         {
-            this.DisableToast = false;
+            this.DisableToast = DefaultValueOf(this.DisableToast, nameof(this.DisableToast));
 
-            this.OnlyShowToastOnHotkey = true;
-            this.DisableToastWithFullscreenVideogames = true;
-            this.ShowSongProgressBar = true;
-            this.FadeOutTime = new SettingValue<int>(4000, new Range<int>(1000, int.MaxValue));
-            this.ToastTitlesOrder = Core.ToastTitlesOrder.TrackByArtist;
+            this.OnlyShowToastOnHotkey = DefaultValueOf(this.OnlyShowToastOnHotkey, nameof(this.OnlyShowToastOnHotkey));
+            this.DisableToastWithFullscreenVideogames = DefaultValueOf(this.DisableToastWithFullscreenVideogames, nameof(this.DisableToastWithFullscreenVideogames));
+            this.ShowSongProgressBar = DefaultValueOf(this.ShowSongProgressBar, nameof(this.ShowSongProgressBar));
+            this.FadeOutTime = new SettingValue<int>(DefaultValueOf(this.FadeOutTime, nameof(this.FadeOutTime)), new Range<int>(1000, int.MaxValue));
+            this.ToastTitlesOrder = DefaultValueOf(this.ToastTitlesOrder, nameof(this.ToastTitlesOrder));
 
-            this.ToastWidth = new SettingValue<double>(300.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastHeight = new SettingValue<double>(80.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastWidth = new SettingValue<double>(DefaultValueOf(this.ToastWidth, nameof(this.ToastWidth)), new Range<double>(0.0, double.MaxValue));
+            this.ToastHeight = new SettingValue<double>(DefaultValueOf(this.ToastHeight, nameof(this.ToastHeight)), new Range<double>(0.0, double.MaxValue));
 
             this.PositionLeft = ScreenHelper.GetScreenRect().Right - this.ToastWidth;
             this.PositionTop = ScreenHelper.GetScreenRect().Bottom - this.ToastHeight - 5.0;
 
-            this.ToastBorderThickness = new SettingValue<double>(1.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastBorderCornerRadiusTopLeft = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastBorderCornerRadiusTopRight = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastBorderCornerRadiusBottomRight = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastBorderCornerRadiusBottomLeft = new SettingValue<double>(0.0, new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderThickness = new SettingValue<double>(DefaultValueOf(this.ToastBorderThickness, nameof(this.ToastBorderThickness)), new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusTopLeft = new SettingValue<double>(DefaultValueOf(this.ToastBorderCornerRadiusTopLeft, nameof(this.ToastBorderCornerRadiusTopLeft)), new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusTopRight = new SettingValue<double>(DefaultValueOf(this.ToastBorderCornerRadiusTopRight, nameof(this.ToastBorderCornerRadiusTopRight)), new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusBottomRight = new SettingValue<double>(DefaultValueOf(this.ToastBorderCornerRadiusBottomRight, nameof(this.ToastBorderCornerRadiusBottomRight)), new Range<double>(0.0, double.MaxValue));
+            this.ToastBorderCornerRadiusBottomLeft = new SettingValue<double>(DefaultValueOf(this.ToastBorderCornerRadiusBottomLeft, nameof(this.ToastBorderCornerRadiusBottomLeft)), new Range<double>(0.0, double.MaxValue));
         }
 
         public void SetDefaultToastColors()
         {
-            this.DisableToast = false;
+            this.ToastColorTop = new SettingValue<string>(DefaultValueOf(this.ToastColorTop, nameof(this.ToastColorTop)), s => regex4ChannelsColor.IsMatch(s));
+            this.ToastColorBottom = new SettingValue<string>(DefaultValueOf(this.ToastColorBottom, nameof(this.ToastColorBottom)), s => regex4ChannelsColor.IsMatch(s));
+            this.ToastColorTopOffset = new SettingValue<double>(DefaultValueOf(this.ToastColorTopOffset, nameof(this.ToastColorTopOffset)), new Range<double>(0.0, 1.0));
+            this.ToastColorBottomOffset = new SettingValue<double>(DefaultValueOf(this.ToastColorBottomOffset, nameof(this.ToastColorBottomOffset)), new Range<double>(0.0, 1.0));
+            this.ToastBorderColor = new SettingValue<string>(DefaultValueOf(this.ToastBorderColor, nameof(this.ToastBorderColor)), s => regex4ChannelsColor.IsMatch(s));
 
-            this.ToastColorTop = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
-            this.ToastColorBottom = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
-            this.ToastColorTopOffset = new SettingValue<double>(0.0, new Range<double>(0.0, 1.0));
-            this.ToastColorBottomOffset = new SettingValue<double>(1.0, new Range<double>(0.0, 1.0));
-            this.ToastBorderColor = new SettingValue<string>("#FF000000", s => regex4ChannelsColor.IsMatch(s));
+            this.ToastTitle1Color = new SettingValue<string>(DefaultValueOf(this.ToastTitle1Color, nameof(this.ToastTitle1Color)), s => regex4ChannelsColor.IsMatch(s));
+            this.ToastTitle2Color = new SettingValue<string>(DefaultValueOf(this.ToastTitle2Color, nameof(this.ToastTitle2Color)), s => regex4ChannelsColor.IsMatch(s));
+            this.ToastTitle1FontSize = new SettingValue<double>(DefaultValueOf(this.ToastTitle1FontSize, nameof(this.ToastTitle1FontSize)), new Range<double>(6.0, double.MaxValue));
+            this.ToastTitle2FontSize = new SettingValue<double>(DefaultValueOf(this.ToastTitle2FontSize, nameof(this.ToastTitle2FontSize)), new Range<double>(6.0, double.MaxValue));
+            this.ToastTitle1DropShadow = DefaultValueOf(this.ToastTitle1DropShadow, nameof(this.ToastTitle1DropShadow));
+            this.ToastTitle1ShadowDepth = new SettingValue<double>(DefaultValueOf(this.ToastTitle1ShadowDepth, nameof(this.ToastTitle1ShadowDepth)), new Range<double>(0.0, double.MaxValue));
+            this.ToastTitle1ShadowBlur = new SettingValue<double>(DefaultValueOf(this.ToastTitle1ShadowBlur, nameof(this.ToastTitle1ShadowBlur)), new Range<double>(0.0, double.MaxValue));
+            this.ToastTitle2DropShadow = DefaultValueOf(this.ToastTitle2DropShadow, nameof(this.ToastTitle2DropShadow));
+            this.ToastTitle2ShadowDepth = new SettingValue<double>(DefaultValueOf(this.ToastTitle2ShadowDepth, nameof(this.ToastTitle2ShadowDepth)), new Range<double>(0.0, double.MaxValue));
+            this.ToastTitle2ShadowBlur = new SettingValue<double>(DefaultValueOf(this.ToastTitle2ShadowBlur, nameof(this.ToastTitle2ShadowBlur)), new Range<double>(0.0, double.MaxValue));
 
-            this.ToastTitle1Color = new SettingValue<string>("#FFFFFFFF", s => regex4ChannelsColor.IsMatch(s));
-            this.ToastTitle2Color = new SettingValue<string>("#FFF0F0F0", s => regex4ChannelsColor.IsMatch(s));
-            this.ToastTitle1FontSize = new SettingValue<double>(16.0, new Range<double>(6.0, double.MaxValue));
-            this.ToastTitle2FontSize = new SettingValue<double>(12.0, new Range<double>(6.0, double.MaxValue));
-            this.ToastTitle1DropShadow = true;
-            this.ToastTitle1ShadowDepth = new SettingValue<double>(3.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastTitle1ShadowBlur = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastTitle2DropShadow = false;
-            this.ToastTitle2ShadowDepth = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
-            this.ToastTitle2ShadowBlur = new SettingValue<double>(2.0, new Range<double>(0.0, double.MaxValue));
-
-            this.SongProgressBarBackgroundColor = new SettingValue<string>("#FF333333", s => regex4ChannelsColor.IsMatch(s));
-            this.SongProgressBarForegroundColor = new SettingValue<string>("#FFA0A0A0", s => regex4ChannelsColor.IsMatch(s));
+            this.SongProgressBarBackgroundColor = new SettingValue<string>(DefaultValueOf(this.SongProgressBarBackgroundColor, nameof(this.SongProgressBarBackgroundColor)), s => regex4ChannelsColor.IsMatch(s));
+            this.SongProgressBarForegroundColor = new SettingValue<string>(DefaultValueOf(this.SongProgressBarForegroundColor, nameof(this.SongProgressBarForegroundColor)), s => regex4ChannelsColor.IsMatch(s));
         }
 
         #endregion Default
@@ -880,6 +918,32 @@ namespace Toastify.Model
                 field = null;
             else if (field.SetValueIfChanged(newValue))
                 this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
+        }
+
+        private static T DefaultValueOf<T>(SettingValue<T> _, string propertyName) where T : IComparable, IConvertible
+        {
+            var property = typeof(Settings).GetProperty(propertyName);
+            if (property == null)
+                return default(T);
+
+            var attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
+            if (attribute == null)
+                return default(T);
+
+            return attribute.Value is T @default ? @default : default(T);
+        }
+
+        private static T DefaultValueOf<T>(T _, string propertyName)
+        {
+            var property = typeof(Settings).GetProperty(propertyName);
+            if (property == null)
+                return default(T);
+
+            var attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
+            if (attribute == null)
+                return default(T);
+
+            return attribute.Value is T @default ? @default : default(T);
         }
 
         private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
