@@ -14,7 +14,7 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 ## Features
 * Display the current playing track in a customizable toast-style popup
 * Global hotkeys for media actions (Play/Pause, Next/Previous track, Mute, Fast Forward, Rewind)
-* :heavy_exclamation_mark: Compatible with the Windows Store version of Spotify
+* :heavy_exclamation_mark: Compatible with the Microsoft Store version of Spotify
 
 ## Requirements
 * Windows (7, 8/8.1, 10)
@@ -28,6 +28,9 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
   Whatever is your choice, I strongly advise you to **not** disable Windows SmartScreen — its warnings are meaningful.  
 
   If you have any concerns, feel free to take a look at the code (it's free :wink:) and ask questions in the [issues][issues] section.
+* If you are updating from the original version of Toastify (v1.8.3), be sure to uninstall it completely before installing this version. You should also remove any file from the following directories, if they exist:
+  - *"%LocalAppData%\Toastify"* (for example: *"C:\Users\\{UserName}\AppData\Local\Toastify"*)
+  - *"%AppData%\Toastify"* (for example: *"C:\Users\\{UserName}\AppData\Roaming\Toastify"*)
 
 ## Information for contributors
 * The language version used to build the project is C# 7
