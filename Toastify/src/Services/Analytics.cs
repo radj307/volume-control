@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Management;
+using System.Net;
+using System.Windows;
 using Toastify.Core;
 using Toastify.Model;
 
@@ -189,7 +191,16 @@ namespace Toastify.Services
 
         private static void PostRequest(IGoogleAnalyticsRequest request)
         {
-            request?.Post(new ClientId(GetMachineID()));
+            try
+            {
+                request?.Post(new ClientId(GetMachineID()));
+            }
+            catch (WebException webException)
+            {
+                logger.Info("Couldn't reach google, disabling Analytics", webException);
+                Settings.Current.OptInToAnalytics = false;
+                Settings.Current.Save();
+            }
         }
 
         private static IEnumerable<Parameter> GetCommonParameters()
