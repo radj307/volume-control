@@ -152,6 +152,9 @@ namespace Toastify.Model
         /// <inheritdoc />
         public void SetValue(object value)
         {
+            if (value == null)
+                return;
+
             try
             {
                 T typedValue = (T)Convert.ChangeType(value, typeof(T));

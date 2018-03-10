@@ -220,12 +220,21 @@ namespace Toastify.View
 
         #region "Toast" tab
 
-        private void FadeOutTime_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void FadeOutTimeUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.Delta > 0)
-                this.Settings.FadeOutTime += 10;
-            else if (this.Settings.FadeOutTime >= 10)
-                this.Settings.FadeOutTime -= 10;
+            this.FadeOutTimeUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
+        }
+
+        private void FadeOutTimeUpDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.FadeOutTimeUpDown.Increment = 1000;
+        }
+
+        private void FadeOutTimeUpDown_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                this.FadeOutTimeUpDown.Increment = 100;
         }
 
         private void BorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)

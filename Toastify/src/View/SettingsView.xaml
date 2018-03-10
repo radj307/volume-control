@@ -150,10 +150,12 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center">FadeOut Time :</Label>
-                                    <wpft:ValueRangeTextBox Grid.Column="0" Height="24" Margin="95,0,12,0" VerticalAlignment="Center" MouseWheel="FadeOutTime_MouseWheel" VerticalContentAlignment="Center" Padding="0"
-                                                            Value="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=N0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}"
-                                                            ValueDataType="{x:Type sys:Int32}" MinValue="1000" MaxValue="10000" />
+                                    <Label Grid.Column="0" Height="26" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center">Fade-out Time :</Label>
+                                    <wpft:IntegerUpDown Name="FadeOutTimeUpDown" Grid.Column="0" Height="24" Margin="95,0,12,0" VerticalAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Left" ToolTip="{Binding Path=DoubleUpDownAltIncrement1000Tooltip, Mode=OneTime}"
+                                                        Watermark="Fade-out time" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="100" DisplayDefaultValueOnEmptyText="True"
+                                                        Minimum="{Binding Path=FadeOutTimeMin, Mode=OneTime}" Maximum="{Binding Path=FadeOutTimeMax, Mode=OneWay}" DefaultValue="{Binding Path=FadeOutTimeDefault, Mode=OneTime}"
+                                                        Value="{Binding Path=Settings.FadeOutTime, Mode=TwoWay, StringFormat=F0, ValidatesOnExceptions=True, Converter={StaticResource SettingValueToValueConverter}}" FormatString="F0"
+                                                        ValueChanged="FadeOutTimeUpDown_OnValueChanged" KeyDown="FadeOutTimeUpDown_OnKeyDown" KeyUp="FadeOutTimeUpDown_OnKeyUp" />
                                     <Label Grid.Column="1" Height="26" Margin="-8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.566,1.696" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left">(milliseconds)</Label>
                                 </Grid>
 

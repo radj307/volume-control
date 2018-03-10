@@ -9,15 +9,23 @@ namespace Toastify.ViewModel
 {
     public class SettingsViewModel : ObservableObject
     {
+        private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
+
         public Settings Settings { get; }
 
         public int CurrentTabIndex { get; set; }
 
         public int CurrentToastTabIndex { get; set; }
 
-        public string DoubleUpDownAltIncrement10Tooltip { get; } = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by 10 units";
+        public string DoubleUpDownAltIncrement10Tooltip { get; } = string.Format(templateDoubleUpDownAltIncrement, 10);
+
+        public string DoubleUpDownAltIncrement1000Tooltip { get; } = string.Format(templateDoubleUpDownAltIncrement, 1000);
 
         #region Toast
+
+        public int FadeOutTimeDefault { get { return Settings.Default.FadeOutTime; } }
+        public int FadeOutTimeMin { get { return Settings.Default.FadeOutTime.Range?.Min ?? 0; } }
+        public int FadeOutTimeMax { get { return Settings.Default.FadeOutTime.Range?.Max ?? int.MaxValue; } }
 
         #region Size & Position
 
