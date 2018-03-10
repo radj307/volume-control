@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using Process=System.Diagnostics.Process;
+using Graphics=System.Drawing.Graphics;
+using log4net;
 using System.Windows;
 using System.Windows.Forms;
 using Toastify.View;
@@ -97,6 +99,14 @@ namespace Toastify.Helpers
 
         #region GetScreenSize / GetScreenRect
 
+        private static double GetScaleFactor()
+        {
+            using (var mainWindowHandle = Graphics.FromHwnd(Process.GetCurrentProcess().MainWindowHandle))
+            {
+                return mainWindowHandle.DpiX / 96; // 100% scale factor is 96 dpi
+            }
+        }
+
         /// <summary>
         /// Get the rectangular area of the primary screen.
         /// </summary>
@@ -106,7 +116,7 @@ namespace Toastify.Helpers
             Screen screen = Screen.PrimaryScreen;
             return new Rect(
                 new Point(screen.WorkingArea.X, screen.WorkingArea.Y),
-                new Size(screen.WorkingArea.Width, screen.WorkingArea.Height));
+                new Size(screen.WorkingArea.Width / GetScaleFactor(), screen.WorkingArea.Height / GetScaleFactor()));
         }
 
         /// <summary>
@@ -116,7 +126,7 @@ namespace Toastify.Helpers
         public static Size GetScreenSize()
         {
             Screen screen = Screen.PrimaryScreen;
-            return new Size(screen.WorkingArea.Size.Width, screen.WorkingArea.Size.Height);
+            return new Size(screen.WorkingArea.Size.Width / GetScaleFactor(), screen.WorkingArea.Size.Height / GetScaleFactor());
         }
 
         /// <summary>
@@ -147,7 +157,7 @@ namespace Toastify.Helpers
             Screen screen = Screen.FromPoint(point);
             return new Rect(
                 new Point(screen.WorkingArea.X, screen.WorkingArea.Y),
-                new Size(screen.WorkingArea.Width, screen.WorkingArea.Height));
+                new Size(screen.WorkingArea.Width / GetScaleFactor(), screen.WorkingArea.Height / GetScaleFactor()));
         }
 
         /// <summary>
@@ -159,7 +169,7 @@ namespace Toastify.Helpers
         {
             var point = unchecked(new System.Drawing.Point((int)pointOnScreen.X, (int)pointOnScreen.Y));
             Screen screen = Screen.FromPoint(point);
-            return new Size(screen.WorkingArea.Size.Width, screen.WorkingArea.Size.Height);
+            return new Size(screen.WorkingArea.Size.Width / GetScaleFactor(), screen.WorkingArea.Size.Height / GetScaleFactor());
         }
 
         /// <summary>

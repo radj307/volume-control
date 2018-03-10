@@ -207,3 +207,6 @@ InstallationScript/LICENSE
 
 # Exclude a few packages
 !**/packages/Windows/*
+
+# Visual Studio local files
+/.vs
