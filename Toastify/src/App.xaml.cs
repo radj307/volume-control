@@ -80,7 +80,7 @@ namespace Toastify
         {
             try
             {
-                AppArgs = Args.Parse<MainArgs>(args);
+                AppArgs = args!= null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
             }
             catch (Exception e)
             {
