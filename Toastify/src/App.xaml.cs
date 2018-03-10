@@ -1,11 +1,8 @@
 ﻿using log4net;
 using log4net.Appender;
 using log4net.Config;
-using log4net.Core;
-using log4net.Filter;
 using log4net.Repository;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -15,18 +12,17 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
+using PowerArgs;
 using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
-
-#if DEBUG || TEST_RELEASE
-
+using log4net.Core;
+using log4net.Filter;
 using log4net.Repository.Hierarchy;
 
 #if DEBUG
-using log4net.Core;
+
 using Toastify.View;
-#endif
 
 #endif
 
@@ -37,7 +33,7 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
 
-        private static string spotifyArgs = string.Empty;
+        private static MainArgs AppArgs { get; set; }
 
         [STAThread]
         public static void Main(string[] args)
@@ -49,7 +45,7 @@ namespace Toastify
                 {
                     try
                     {
-                        ProcessCommandLineArguments(args.ToList());
+                        ProcessCommandLineArguments(args);
                         SetupCultureInfo();
                         SetupLogger();
                     }
@@ -80,19 +76,17 @@ namespace Toastify
             }
         }
 
-        private static void ProcessCommandLineArguments(IEnumerable<string> args)
+        private static void ProcessCommandLineArguments(string[] args)
         {
-            // TODO: Logger command line parameters (change minimum level, disable, change log file destination, etc.)
-
-            foreach (string arg in args)
+            try
             {
-                switch (arg)
-                {
-                    // Argument for Spotify, in case Toastify needs to launch it
-                    default:
-                        spotifyArgs += $"{arg} ";
-                        break;
-                }
+                AppArgs = Args.Parse<MainArgs>(args);
+            }
+            catch (Exception e)
+            {
+                logger.Warn("Invalid command-line arguments. Toastify will ignore them all.", e);
+                MessageBox.Show("Invalid command-line arguments. Toastify will ignore them all.", "Invalid arguments", MessageBoxButton.OK, MessageBoxImage.Warning);
+                AppArgs = new MainArgs();
             }
         }
 
@@ -113,27 +107,39 @@ namespace Toastify
                 XmlConfigurator.Configure(stream);
                 ILoggerRepository loggerRepository = LogManager.GetRepository();
 
-#if DEBUG || TEST_RELEASE
+                // Set root logger's log level
                 var rootLogger = ((Hierarchy)loggerRepository).Root;
+#if DEBUG || TEST_RELEASE
                 rootLogger.Level = Level.Debug;
+#else
+                if (AppArgs.IsDebugLogEnabled)
+                    rootLogger.Level = Level.Debug;
+                else if (AppArgs.IsLogDisabled)
+                    rootLogger.Level = Level.Off;
 #endif
 
                 // Modify RollingFileAppender's destination
                 var rollingFileAppender = (RollingFileAppender)loggerRepository.GetAppenders().FirstOrDefault(appender => appender.Name == "RollingFileAppender");
                 if (rollingFileAppender == null)
                     throw new ApplicationStartupException("RollingFileAppender not found", false);
-                rollingFileAppender.File = Path.Combine(App.LocalApplicationData, "Toastify.log");
+                rollingFileAppender.File = Path.Combine(AppArgs.LogDirectory, "Toastify.log");
 
-#if TEST_RELEASE
+                // Set RollingFileAppender's minimum log level
                 var filter = rollingFileAppender.FilterHead;
                 while (filter != null)
                 {
                     if (filter is LevelRangeFilter lrFilter)
+                    {
+#if DEBUG || TEST_RELEASE
                         lrFilter.LevelMin = Level.Debug;
+#else
+                        if (AppArgs.IsDebugLogEnabled)
+                            lrFilter.LevelMin = Level.Debug;
+#endif
+                    }
 
                     filter = filter.Next;
                 }
-#endif
 
                 rollingFileAppender.ActivateOptions();
             }
@@ -154,7 +160,7 @@ namespace Toastify
 
         private static void RunApp()
         {
-            App app = new App(spotifyArgs);
+            App app = new App(AppArgs.SpotifyArgs);
             app.InitializeComponent();
 
 #if DEBUG
@@ -243,6 +249,31 @@ namespace Toastify
                     Settings.Current.Save();
                 }
             }
+        }
+        
+        [TabCompletion]
+        internal class MainArgs
+        {
+            // [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgShortcut("--debug")]
+            [ArgDescription("Enables Debug level logging.")]
+            [ArgCantBeCombinedWith("IsLogDisabled")]
+            public bool IsDebugLogEnabled { get; set; } = false;
+
+            // [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgShortcut("--disable-log")]
+            [ArgDescription("Disables logging entirely.")]
+            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
+            public bool IsLogDisabled { get; set; } = false;
+
+            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Destination directory of log files.")]
+            [ArgExistingDirectory]
+            public string LogDirectory { get; set; } = App.LocalApplicationData;
+
+            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Spotify command-line arguments.")]
+            public string SpotifyArgs { get; set; } = string.Empty;
         }
     }
 
