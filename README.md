@@ -1,4 +1,4 @@
-Toastify
+[Toastify](https://aleab.github.io/toastify/)
 [![Codacy grade](https://img.shields.io/codacy/grade/dcbbd6b1f6cf45658a0f9232a5f35706.svg?label=Code%20Quality&maxAge=60)][aleab/toastify@codacy]
 [![GitHub last commit (master)](https://img.shields.io/github/last-commit/aleab/toastify/master.svg?label=Last%20Commit&maxAge=60)][commits]
 [![GitHub release](https://img.shields.io/github/release/aleab/toastify.svg?label=Release&maxAge=60)][release-latest]
