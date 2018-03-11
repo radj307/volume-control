@@ -46,7 +46,7 @@ This project uses third-party libraries; their verbatim licenses can be found [h
 
 [//]: # (Links)
 
-[toastify-showcase]: <https://raw.githubusercontent.com/aleab/toastify/gh-pages/images/toastify-showcase.png>
+[toastify-showcase]: <https://raw.githubusercontent.com/aleab/toastify/gh-pages/img/toastify-showcase.png>
 [license]: </LICENSE>
 [license-3rdparty]: </LICENSE-3RD-PARTY>
 
