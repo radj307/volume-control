@@ -37,6 +37,9 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 * The solution requires Visual Studio 2017 (or Visual Studio Code, alternatively)
 * Dependencies are not included. Use of NuGet is highly recommended.
 
+## Donations
+I dedicate most of my free time to improving and keeping Toastify alive. Although absolutely not necessary, if you'd like to support me and the project, you can buy me a coffee **[here](https://aleab.github.io/toastify/#donations)**! :coffee:
+
 ## License
 This software is licensed under the GNU GPL-2.0; the complete license text can be found [here][license].  
 See also the [original project](https://github.com/nachmore/toastify) this repository is a fork of, and its old [codeplex page][toastify@codeplex].
