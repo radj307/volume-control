@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Interop;
 using Toastify.Common;
 
 namespace Toastify.Helpers
@@ -30,6 +33,90 @@ namespace Toastify.Helpers
                 : new EnumReadableNameAttribute(value.ToString(CultureInfo.InvariantCulture));
 
             return attribute.Name;
+        }
+
+        public static IntPtr GetHandle(this Window window)
+        {
+            WindowInteropHelper wndHelper = new WindowInteropHelper(window);
+            return wndHelper.Handle;
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount = 1, byte extended = 0, byte contextCode = 0, byte previousState = 0, byte transitionState = 0)
+        {
+            uint lParam = (uint)repeatCount;
+            uint scanCode = key.GetScanCode();
+            lParam += scanCode * 0x00010000;
+            lParam += (uint)(extended * 0x01000000);
+            lParam += (uint)(contextCode * 2 * 0x10000000);
+            lParam += (uint)(previousState * 4 * 0x10000000);
+            lParam += (uint)(transitionState * 8 * 0x10000000);
+            return lParam;
+        }
+
+        public static uint GetVirtualKey(this Key key, bool preferLeftOrRight = false)
+        {
+            if (!preferLeftOrRight)
+            {
+                switch (key)
+                {
+                    case Key.LeftShift:
+                    case Key.RightShift:
+                        return 0x10;
+
+                    case Key.LeftCtrl:
+                    case Key.RightCtrl:
+                        return 0x11;
+
+                    case Key.LeftAlt:
+                    case Key.RightAlt:
+                        return 0x12;
+
+                    default:
+                        break;
+                }
+            }
+            return (uint)KeyInterop.VirtualKeyFromKey(key);
+        }
+
+        public static uint GetScanCode(this Key key)
+        {
+            return Win32API.MapVirtualKey(key.GetVirtualKey(), Win32API.MapVirtualKeyType.MAPVK_VK_TO_VSC);
+        }
+
+        public static bool IsModifierKey(this Key key)
+        {
+            return key.GetModifierKey() != ModifierKeys.None;
+        }
+
+        public static ModifierKeys GetModifierKey(this Key key)
+        {
+            ModifierKeys modifiers = ModifierKeys.None;
+
+            if (key == Key.LeftCtrl || key == Key.RightCtrl)
+                modifiers = ModifierKeys.Control;
+            else if (key == Key.LeftAlt || key == Key.RightAlt)
+                modifiers = ModifierKeys.Alt;
+            else if (key == Key.LeftShift || key == Key.RightShift)
+                modifiers = ModifierKeys.Shift;
+            else if (key == Key.LWin || key == Key.RWin)
+                modifiers = ModifierKeys.Windows;
+            return modifiers;
+        }
+
+        public static string GetReadableName(this ModifierKeys modifierKeys)
+        {
+            var modifiers = new List<string>();
+
+            if ((modifierKeys & ModifierKeys.Control) != ModifierKeys.None)
+                modifiers.Add("Ctrl");
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
+                modifiers.Add("Shift");
+            if ((modifierKeys & ModifierKeys.Alt) != ModifierKeys.None)
+                modifiers.Add("Alt");
+            if ((modifierKeys & ModifierKeys.Windows) != ModifierKeys.None)
+                modifiers.Add("Win");
+
+            return string.Join("+", modifiers);
         }
     }
 }
