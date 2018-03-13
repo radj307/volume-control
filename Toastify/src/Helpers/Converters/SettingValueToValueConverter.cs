@@ -2,13 +2,21 @@
 using System.Windows.Data;
 using Toastify.Model;
 
-namespace Toastify.Helpers
+namespace Toastify.Helpers.Converters
 {
     public class SettingValueToValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return ((ISettingValue)value)?.GetValue();
+            try
+            {
+                return ((ISettingValue)value)?.GetValue();
+            }
+            catch
+            {
+                dynamic dynamicValue = value;
+                return dynamicValue?.Value;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

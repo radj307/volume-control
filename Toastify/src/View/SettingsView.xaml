@@ -9,16 +9,17 @@
         xmlns:helpers="clr-namespace:Toastify.Helpers"
         xmlns:markup="clr-namespace:Toastify.Helpers.Markup"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
+        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
         mc:Ignorable="d"
         x:Class="Toastify.View.SettingsView"
         Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
 
     <Window.Resources>
-        <helpers:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></helpers:HexColorToAlphaValueConverter>
-        <helpers:OppositeBoolConverter x:Key="OppositeBoolConverter"></helpers:OppositeBoolConverter>
-        <helpers:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></helpers:OppositeBoolToVisibleConverter>
-        <helpers:SettingValueToValueConverter x:Key="SettingValueToValueConverter"></helpers:SettingValueToValueConverter>
-        <helpers:SettingValueToOppositeBoolValueConverter x:Key="SettingValueToOppositeBoolValueConverter"></helpers:SettingValueToOppositeBoolValueConverter>
+        <converters:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></converters:HexColorToAlphaValueConverter>
+        <converters:OppositeBoolConverter x:Key="OppositeBoolConverter"></converters:OppositeBoolConverter>
+        <converters:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></converters:OppositeBoolToVisibleConverter>
+        <converters:SettingValueToValueConverter x:Key="SettingValueToValueConverter"></converters:SettingValueToValueConverter>
+        <converters:SettingValueToOppositeBoolValueConverter x:Key="SettingValueToOppositeBoolValueConverter"></converters:SettingValueToOppositeBoolValueConverter>
 
         <DataTemplate x:Key="GroupBoxHeaderTemplate">
             <TextBlock Text="{Binding}" Margin="1,2" Padding="0,2" />

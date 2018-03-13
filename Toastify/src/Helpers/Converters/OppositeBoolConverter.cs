@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace Toastify.Helpers
+namespace Toastify.Helpers.Converters
 {
     public class OppositeBoolConverter : IValueConverter
     {

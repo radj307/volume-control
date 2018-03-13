@@ -154,7 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="src\Helpers\SettingValueToOppositeBoolValueConverter.cs" />
+    <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />
     <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
     <Compile Include="src\Common\Range.cs" />
@@ -168,9 +168,9 @@
     <Compile Include="src\Events\HotkeyActionCallbackFailedEventArgs.cs" />
     <Compile Include="src\Events\SettingsViewLaunchedEventArgs.cs" />
     <Compile Include="src\Helpers\ColorHelper.cs" />
-    <Compile Include="src\Helpers\HexColorToAlphaValueConverter.cs" />
+    <Compile Include="src\Helpers\Converters\HexColorToAlphaValueConverter.cs" />
     <Compile Include="src\Helpers\Extensions.cs" />
-    <Compile Include="src\Helpers\SettingValueToValueConverter.cs" />
+    <Compile Include="src\Helpers\Converters\SettingValueToValueConverter.cs" />
     <Compile Include="src\Model\KeyOrButton.cs" />
     <Compile Include="src\Model\SettingValue.cs" />
     <Compile Include="src\Model\SettingValueJsonConverter.cs" />
@@ -184,7 +184,6 @@
     <Compile Include="src\Common\EnumComboBoxItem.cs" />
     <Compile Include="src\Helpers\Markup\EnumExtension.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
-    <Compile Include="src\Helpers\WindowExtensions.cs" />
     <Compile Include="src\Common\DelegateCommand.cs" />
     <Compile Include="src\Common\ObservableObject.cs" />
     <Content Include="src\Services\Analytics.g.tt">
@@ -229,9 +228,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\Events\CheckVersionCompleteEventArgs.cs" />
-    <Compile Include="src\Helpers\BoolToVisibleConverter.cs" />
-    <Compile Include="src\Helpers\OppositeBoolToVisibleConverter.cs" />
-    <Compile Include="src\Helpers\OppositeBoolConverter.cs" />
+    <Compile Include="src\Helpers\Converters\BoolToVisibleConverter.cs" />
+    <Compile Include="src\Helpers\Converters\OppositeBoolToVisibleConverter.cs" />
+    <Compile Include="src\Helpers\Converters\OppositeBoolConverter.cs" />
     <Compile Include="src\Helpers\ScreenHelper.cs" />
     <Compile Include="src\View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
