@@ -11,7 +11,7 @@ namespace Toastify.ViewModel
     {
         private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
 
-        public Settings Settings { get; }
+        public Settings Settings { get; private set; }
 
         public int CurrentTabIndex { get; set; }
 
@@ -209,6 +209,13 @@ namespace Toastify.ViewModel
         private void Save()
         {
             this.Settings.SetAsCurrentAndSave();
+
+            // Get a new clone of the current settings,
+            // since Current and the original Temporary are now the same instance;
+            this.Settings = Settings.Temporary;
+
+            // TODO: Pass the new Temporary instance to SettingsSaved's subscribers
+            //       i.e. create an appropriate SettingsSavedEventArgs class
             this.SettingsSaved?.Invoke(this, EventArgs.Empty);
         }
 
