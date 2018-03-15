@@ -61,6 +61,8 @@ namespace Toastify.View
 
         public static event EventHandler SettingsClosed;
 
+        public static event EventHandler<SettingsSavedEventArgs> SettingsSaved;
+
         private SettingsView(ToastView toastView)
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.SettingsLaunched);
@@ -161,10 +163,11 @@ namespace Toastify.View
             this.SetMouseHook(false);
         }
 
-        private void SettingsViewModel_SettingsSaved(object sender, EventArgs e)
+        private void SettingsViewModel_SettingsSaved(object sender, SettingsSavedEventArgs e)
         {
             this.toastView.InitToast();
             this.toastView.DisplayAction(ToastifyAction.SettingsSaved);
+            SettingsSaved?.Invoke(sender, e);
         }
 
         private void BtnDefaultMenuItem_OnClick(object sender, RoutedEventArgs e)

@@ -145,6 +145,7 @@ namespace Toastify.View
             // Subscribe to SettingsView's events
             SettingsView.SettingsLaunched += this.SettingsView_Launched;
             SettingsView.SettingsClosed += this.SettingsView_Closed;
+            SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
 
             this.Deactivated += this.Toast_Deactivated;
 
@@ -839,6 +840,11 @@ namespace Toastify.View
         {
             this.Settings = Settings.Current;
             this.ShowToastPreview(false);
+        }
+
+        private void SettingsView_SettingsSaved(object sender, SettingsSavedEventArgs e)
+        {
+            this.Settings = e.Settings;
         }
 
         private void Application_Shutdown(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Windows.Media;
 using Toastify.Common;
+using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 
@@ -155,7 +156,7 @@ namespace Toastify.ViewModel
         /// <summary>
         /// Occurs when after a Save command.
         /// </summary>
-        public event EventHandler SettingsSaved;
+        public event EventHandler<SettingsSavedEventArgs> SettingsSaved;
 
         public SettingsViewModel()
         {
@@ -213,10 +214,8 @@ namespace Toastify.ViewModel
             // Get a new clone of the current settings,
             // since Current and the original Temporary are now the same instance;
             this.Settings = Settings.Temporary;
-
-            // TODO: Pass the new Temporary instance to SettingsSaved's subscribers
-            //       i.e. create an appropriate SettingsSavedEventArgs class
-            this.SettingsSaved?.Invoke(this, EventArgs.Empty);
+            
+            this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings));
         }
 
         private void Default()
