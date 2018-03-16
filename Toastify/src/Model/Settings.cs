@@ -665,7 +665,7 @@ namespace Toastify.Model
             this.OnlyShowToastOnHotkey = DefaultValueOf(this.OnlyShowToastOnHotkey, nameof(this.OnlyShowToastOnHotkey));
             this.DisableToastWithFullscreenVideogames = DefaultValueOf(this.DisableToastWithFullscreenVideogames, nameof(this.DisableToastWithFullscreenVideogames));
             this.ShowSongProgressBar = DefaultValueOf(this.ShowSongProgressBar, nameof(this.ShowSongProgressBar));
-            this.FadeOutTime = new SettingValue<int>(DefaultValueOf(this.FadeOutTime, nameof(this.FadeOutTime)), new Range<int>(1000, int.MaxValue));
+            this.FadeOutTime = new SettingValue<int>(DefaultValueOf(this.FadeOutTime, nameof(this.FadeOutTime)), new Range<int>(100, int.MaxValue));
             this.ToastTitlesOrder = DefaultValueOf(this.ToastTitlesOrder, nameof(this.ToastTitlesOrder));
 
             this.ToastWidth = new SettingValue<double>(DefaultValueOf(this.ToastWidth, nameof(this.ToastWidth)), new Range<double>(0.0, double.MaxValue));

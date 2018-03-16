@@ -527,7 +527,7 @@ namespace Toastify.View
                     // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
                     this.BeginAnimation(OpacityProperty, null);
                     this.Opacity = 1.0;
-                    this.minimizeTimer.Interval = this.Settings.FadeOutTime;
+                    this.minimizeTimer.Interval = Math.Max(this.Settings.FadeOutTime, 16);
                     this.minimizeTimer.Start();
                 }
                 else if (this.ShownOrFading && !this.isPreviewForSettings)
@@ -567,7 +567,7 @@ namespace Toastify.View
                 return;
 
             // 16 == one frame (0 is not a valid interval)
-            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 1000);
+            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 16);
 
             if (this.minimizeTimer == null)
             {
