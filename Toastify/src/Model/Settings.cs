@@ -731,11 +731,17 @@ namespace Toastify.Model
             if (this != Current)
                 throw new InvalidOperationException("Cannot load settings onto non-Current instance");
 
+            // Load default values
+            bool launchOnStartup = this.LaunchOnStartup;
             this.SetDefault(false);
+            this.LaunchOnStartup = launchOnStartup;
+
+            // Populate with saved values
             using (StreamReader sr = new StreamReader(SettingsFilePath))
             {
                 JsonSerializer.Populate(sr, this);
             }
+
             this.CheckForNewSettings();
             this.SanitizeSettingsFile();
             this.Apply();
