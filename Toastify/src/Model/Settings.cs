@@ -779,30 +779,8 @@ namespace Toastify.Model
             if (this._hotKeys == null)
                 return;
 
-            // Let's collapse duplicate hotkeys
-            var toKeep = new List<Hotkey>();
-
-            foreach (Hotkey defaultHotkey in this.defaultHotKeys)
-            {
-                Hotkey keep = defaultHotkey;
-
-                foreach (Hotkey thisHotkey in this._hotKeys)
-                {
-                    if (defaultHotkey.Action == thisHotkey.Action && thisHotkey.Enabled)
-                        keep = thisHotkey;
-                }
-
-                toKeep.Add(keep);
-            }
-
-            // Deactivate all of the old hotkeys, especially duplicate ones that are active
-            foreach (Hotkey hotkey in this._hotKeys)
-            {
-                if (!toKeep.Contains(hotkey))
-                    hotkey.Deactivate();
-            }
-
-            this._hotKeys = toKeep;
+            // Remove duplicate hotkeys
+            this._hotKeys = this._hotKeys.Distinct(Hotkey.EqualityComparerOnAction).ToList();
 
             // Bring the Toast inside the working area if it is off-screen
             Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);

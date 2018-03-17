@@ -689,7 +689,9 @@ namespace Toastify.Model
 
         #endregion IXmlSerializable
 
-        #region Static functions
+        #region Static
+
+        public static readonly ActionEqualityComparer EqualityComparerOnAction = new ActionEqualityComparer();
 
         private static Keys ConvertInputKeyToFormsKeys(Key key)
         {
@@ -699,6 +701,25 @@ namespace Toastify.Model
             return Keys.None;
         }
 
-        #endregion Static functions
+        #endregion Static
+
+        #region Nested classes
+
+        public class ActionEqualityComparer : IEqualityComparer<Hotkey>
+        {
+            /// <inheritdoc />
+            public bool Equals(Hotkey x, Hotkey y)
+            {
+                return x?.Action == y?.Action;
+            }
+
+            /// <inheritdoc />
+            public int GetHashCode(Hotkey obj)
+            {
+                return obj.Action.GetHashCode();
+            }
+        }
+
+        #endregion Nested classes
     }
 }
