@@ -24,7 +24,7 @@ Page instfiles
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_CHECKED
 !define MUI_FINISHPAGE_RUN_TEXT "Launch Toastify Now"
-!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchApplication"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_LANGUAGE "English"
@@ -35,8 +35,8 @@ UninstPage instfiles
 ;--------------------------------
 ; Functions
 
-Function LaunchLink
-  ExecShell "" "$INSTDIR\Toastify.exe"
+Function LaunchApplication
+  ShellExecAsUser::ShellExecAsUser "" "$INSTDIR\Toastify.exe" ""
 FunctionEnd
 
 ;--------------------------------
