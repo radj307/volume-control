@@ -1,9 +1,9 @@
 ﻿using System;
 using Toastify.Model;
 
-namespace Toastify.Core
+namespace Toastify.Events
 {
-    internal class SpotifyTrackChangedEventArgs : EventArgs
+    public class SpotifyTrackChangedEventArgs : EventArgs
     {
         public Song PreviousSong { get; }
         public Song NewSong { get; }

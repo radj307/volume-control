@@ -12,8 +12,8 @@ namespace Toastify.Model
 
         private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
 
-        private const string TITLE_SPOTIFY_AD = "Spotify Ad";
-        private const string TITLE_UNKNOWN = "[Unknown Track Type]";
+        internal const string TITLE_SPOTIFY_AD = "Spotify Ad";
+        internal const string TITLE_UNKNOWN = "[Unknown Track Type]";
 
         public string Artist { get; }
         public string Track { get; }
@@ -23,7 +23,7 @@ namespace Toastify.Model
 
         public string CoverArtUrl { get; set; }
 
-        private Song(string title, int length, string type) : this(string.Empty, title, length, type, null)
+        private Song(string title, int length, string type) : this(string.Empty, title, length, type, string.Empty)
         {
         }
 

@@ -4,7 +4,7 @@ using Toastify.Model;
 
 namespace Toastify.Events
 {
-    internal class SpotifyStateEventArgs : EventArgs
+    public class SpotifyStateEventArgs : EventArgs
     {
         public Song CurrentSong { get; }
         public bool Playing { get; }

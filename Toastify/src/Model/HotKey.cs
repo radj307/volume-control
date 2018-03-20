@@ -211,7 +211,7 @@ namespace Toastify.Model
             {
                 return this._isValid;
             }
-            set
+            private set
             {
                 if (this._isValid != value)
                 {
@@ -229,7 +229,7 @@ namespace Toastify.Model
             {
                 return this._invalidReason;
             }
-            set
+            private set
             {
                 if (this._invalidReason != value)
                 {
@@ -373,13 +373,7 @@ namespace Toastify.Model
                     ToggleMouseHotkeyHook(this, true);
             }
         }
-
-        /// <summary>
-        /// Validity rules are:
-        ///
-        /// 1. Ctrl or Alt must be selected
-        /// 2. a key must be specified
-        /// </summary>
+        
         private void CheckIfValid()
         {
             if (this.KeyOrButton == null || this.KeyOrButton.IsKey && this.KeyOrButton.Key == Key.None)
