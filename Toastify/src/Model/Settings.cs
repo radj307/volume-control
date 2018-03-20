@@ -162,7 +162,7 @@ namespace Toastify.Model
         private SettingValue<bool> _onlyShowToastOnHotkey;
         private SettingValue<bool> _disableToastWithFullscreenVideogames;
         private SettingValue<bool> _showSongProgressBar;
-        private SettingValue<int> _fadeOutTime;
+        private SettingValue<int> _displayTime;
         private SettingValue<ToastTitlesOrder> _toastTitlesOrder;
         private SettingValue<string> _toastColorTop;
         private SettingValue<string> _toastColorBottom;
@@ -339,11 +339,18 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._showSongProgressBar, value); }
         }
 
-        [DefaultValue(4000)]
+        [Obsolete("FadeOutTime is obsolete and will be removed in the future. Use DisplayTime instead.")]
         public SettingValue<int> FadeOutTime
         {
-            get { return this.GetSettingValue(ref this._fadeOutTime); }
-            set { this.SetSettingValue(ref this._fadeOutTime, value); }
+            get { return this.DisplayTime; }
+            set { this.DisplayTime = value; }
+        }
+
+        [DefaultValue(4000)]
+        public SettingValue<int> DisplayTime
+        {
+            get { return this.GetSettingValue(ref this._displayTime); }
+            set { this.SetSettingValue(ref this._displayTime, value); }
         }
 
         [DefaultValue(Core.ToastTitlesOrder.TrackByArtist)]
@@ -665,7 +672,7 @@ namespace Toastify.Model
             this.OnlyShowToastOnHotkey = DefaultValueOf(this.OnlyShowToastOnHotkey, nameof(this.OnlyShowToastOnHotkey));
             this.DisableToastWithFullscreenVideogames = DefaultValueOf(this.DisableToastWithFullscreenVideogames, nameof(this.DisableToastWithFullscreenVideogames));
             this.ShowSongProgressBar = DefaultValueOf(this.ShowSongProgressBar, nameof(this.ShowSongProgressBar));
-            this.FadeOutTime = new SettingValue<int>(DefaultValueOf(this.FadeOutTime, nameof(this.FadeOutTime)), new Range<int>(100, int.MaxValue));
+            this.DisplayTime = new SettingValue<int>(DefaultValueOf(this.DisplayTime, nameof(this.DisplayTime)), new Range<int>(100, int.MaxValue));
             this.ToastTitlesOrder = DefaultValueOf(this.ToastTitlesOrder, nameof(this.ToastTitlesOrder));
 
             this.ToastWidth = new SettingValue<double>(DefaultValueOf(this.ToastWidth, nameof(this.ToastWidth)), new Range<double>(0.0, double.MaxValue));

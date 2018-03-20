@@ -527,7 +527,7 @@ namespace Toastify.View
                     // Reset the timer's Interval so that the toast does not fade out while pressing the hotkeys.
                     this.BeginAnimation(OpacityProperty, null);
                     this.Opacity = 1.0;
-                    this.minimizeTimer.Interval = Math.Max(this.Settings.FadeOutTime, 16);
+                    this.minimizeTimer.Interval = Math.Max(this.Settings.DisplayTime, 16);
                     this.minimizeTimer.Start();
                 }
                 else if (this.ShownOrFading && !this.isPreviewForSettings)
@@ -567,7 +567,7 @@ namespace Toastify.View
                 return;
 
             // 16 == one frame (0 is not a valid interval)
-            var interval = now ? 16 : Math.Max(this.Settings.FadeOutTime, 16);
+            var interval = now ? 16 : Math.Max(this.Settings.DisplayTime, 16);
 
             if (this.minimizeTimer == null)
             {
@@ -653,7 +653,7 @@ namespace Toastify.View
                         string state = $"state[{(this.isUpdateToast ? '1' : '0')}{(this.isPreviewForSettings ? '1' : '0')}{(this.dragging ? '1' : '0')}{(this.paused ? '1' : '0')}]";
                         string visibility = $"visibility[{(this.ShownOrFading ? '1' : '0')}{(this.IsVisible ? '1' : '0')}{this.Visibility.ToString().Substring(0, 1)}{(this.Topmost ? '1' : '0')}, {{{wPlacement}}}]";
                         string dispatcher = $"dispatcher[{(this.Dispatcher == null ? "null" : $"{(this.Dispatcher.HasShutdownStarted ? '1' : '0')}")}]";
-                        string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.FadeOutTime}]";
+                        string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.DisplayTime}]";
                         logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
                     }
 #endif

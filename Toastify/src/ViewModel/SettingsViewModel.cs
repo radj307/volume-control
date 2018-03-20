@@ -24,9 +24,9 @@ namespace Toastify.ViewModel
 
         #region Toast
 
-        public int FadeOutTimeDefault { get { return Settings.Default.FadeOutTime; } }
-        public int FadeOutTimeMin { get { return Settings.Default.FadeOutTime.Range?.Min ?? 0; } }
-        public int FadeOutTimeMax { get { return Settings.Default.FadeOutTime.Range?.Max ?? int.MaxValue; } }
+        public int DisplayTimeDefault { get { return Settings.Default.DisplayTime; } }
+        public int DisplayTimeMin { get { return Settings.Default.DisplayTime.Range?.Min ?? 0; } }
+        public int DisplayTimeMax { get { return Settings.Default.DisplayTime.Range?.Max ?? int.MaxValue; } }
 
         #region Size & Position
 

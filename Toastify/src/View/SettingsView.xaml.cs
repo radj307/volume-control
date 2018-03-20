@@ -225,19 +225,19 @@ namespace Toastify.View
 
         private void FadeOutTimeUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            this.FadeOutTimeUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
+            this.DisplayTimeUpDown.GetBindingExpression(DoubleUpDown.MaximumProperty)?.UpdateTarget();
         }
 
         private void FadeOutTimeUpDown_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-                this.FadeOutTimeUpDown.Increment = 1000;
+                this.DisplayTimeUpDown.Increment = 1000;
         }
 
         private void FadeOutTimeUpDown_OnKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-                this.FadeOutTimeUpDown.Increment = 100;
+                this.DisplayTimeUpDown.Increment = 100;
         }
 
         private void BorderThickness_MouseWheel(object sender, MouseWheelEventArgs e)
