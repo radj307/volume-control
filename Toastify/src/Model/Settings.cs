@@ -245,13 +245,6 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._volumeControlMode, value); }
         }
 
-        [Obsolete("UseSpotifyVolumeControl is obsolete and will be removed in the future. Use VolumeControlMode instead.")]
-        public SettingValue<bool> UseSpotifyVolumeControl
-        {
-            get { return this.GetSettingValue(ref this._useSpotifyVolumeControl); }
-            set { this.SetSettingValue(ref this._useSpotifyVolumeControl, value); }
-        }
-
         [DefaultValue(2.0f)]
         public SettingValue<float> WindowsVolumeMixerIncrement
         {
