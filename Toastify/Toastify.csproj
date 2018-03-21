@@ -154,7 +154,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\Common\PauseableTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
+    <Compile Include="src\Helpers\Converters\IpPortToIntConverter.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />
     <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
@@ -198,8 +202,12 @@
     </Compile>
     <Compile Include="src\Common\Union32.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
+    <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />
+    <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
+      <DependentUpon>ConfigProxyDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
     </Compile>
@@ -209,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\View\ConfigProxyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml">
       <SubType>Designer</SubType>

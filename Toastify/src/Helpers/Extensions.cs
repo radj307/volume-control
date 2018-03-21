@@ -118,5 +118,25 @@ namespace Toastify.Helpers
 
             return string.Join("+", modifiers);
         }
+
+        public static T Clamp<T>(this T value, T min, T max) where T : IComparable
+        {
+            T ret = value;
+            if (value.CompareTo(min) < 0)
+                ret = min;
+            else if (value.CompareTo(max) > 0)
+                ret = max;
+            return ret;
+        }
+
+        public static T Clamp<T>(this T value, Range<T> range) where T : IComparable
+        {
+            return value.Clamp(range.Min, range.Max);
+        }
+
+        public static T Clamp<T>(this T value, Range<T>? range) where T : IComparable
+        {
+            return range.HasValue ? value.Clamp(range.Value) : value;
+        }
     }
 }

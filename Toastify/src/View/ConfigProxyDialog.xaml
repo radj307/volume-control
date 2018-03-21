@@ -1,0 +1,30 @@
+﻿<Window x:Class="Toastify.View.ConfigProxyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
+        xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
+        xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Configure Proxy" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico"
+        ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <converters:IpPortToIntConverter x:Key="IpPortToIntConverter"></converters:IpPortToIntConverter>
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical" Margin="12,10" d:DataContext="{d:DesignInstance viewmodel:ConfigProxyDialogViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Host, Mode=TwoWay}" Watermark="Host" KeepWatermarkOnGotFocus="False" />
+            <wpft:WatermarkTextBox Width="50" Margin="8,0,0,0" Text="{Binding Path=Port, Mode=TwoWay, Converter={StaticResource IpPortToIntConverter}, NotifyOnValidationError=True}" Watermark="Port" KeepWatermarkOnGotFocus="False" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Username" KeepWatermarkOnGotFocus="False" />
+            <wpft:WatermarkPasswordBox Width="160" Text="{Binding Path=Password, Mode=TwoWay}" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
+        </StackPanel>
+    </StackPanel>
+</Window>

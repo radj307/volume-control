@@ -1,7 +1,12 @@
 ﻿using log4net;
 using log4net.Appender;
 using log4net.Config;
+using log4net.Core;
+using log4net.Filter;
 using log4net.Repository;
+using log4net.Repository.Hierarchy;
+using PowerArgs;
+using SpotifyAPI;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -12,13 +17,10 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
-using PowerArgs;
 using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
-using log4net.Core;
-using log4net.Filter;
-using log4net.Repository.Hierarchy;
+using Toastify.View;
 
 #if DEBUG
 
@@ -80,7 +82,7 @@ namespace Toastify
         {
             try
             {
-                AppArgs = args!= null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
+                AppArgs = args != null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
             }
             catch (Exception e)
             {
@@ -250,7 +252,7 @@ namespace Toastify
                 }
             }
         }
-        
+
         [TabCompletion]
         internal class MainArgs
         {
@@ -303,6 +305,8 @@ namespace Toastify
 
         public static string SpotifyParameters { get; private set; }
 
+        public static ProxyConfig ProxyConfig { get; set; } = new ProxyConfig();
+
         public App() : this("")
         {
         }
@@ -310,6 +314,18 @@ namespace Toastify
         public App(string spotifyArgs)
         {
             SpotifyParameters = spotifyArgs.Trim();
+        }
+
+        public static void ShowConfigProxyDialog()
+        {
+            Thread t = new Thread(() =>
+            {
+                ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
+                proxyDialog.ShowDialog();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
