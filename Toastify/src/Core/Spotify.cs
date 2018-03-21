@@ -52,7 +52,7 @@ namespace Toastify.Core
 
         private BackgroundWorker spotifyLauncher;
 
-        private PauseableTimer spotifyLauncherTimeoutTimer;
+        private PausableTimer spotifyLauncherTimeoutTimer;
 
         private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
 
@@ -162,7 +162,7 @@ namespace Toastify.Core
 
             if (Settings.Current.StartupWaitTimeout < 60000)
                 Settings.Current.StartupWaitTimeout = 60000;
-            this.spotifyLauncherTimeoutTimer = new PauseableTimer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
+            this.spotifyLauncherTimeoutTimer = new PausableTimer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
             this.spotifyLauncherTimeoutTimer.Elapsed += this.SpotifyLauncherTimeoutTimer_Elapsed;
 
             this.spotifyLauncher.RunWorkerAsync();

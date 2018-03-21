@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace Toastify.Common
 {
-    public class PauseableTimer : Timer
+    public class PausableTimer : Timer
     {
         private Stopwatch stopwatch;
 
@@ -34,11 +34,11 @@ namespace Toastify.Common
             }
         }
 
-        public PauseableTimer()
+        public PausableTimer()
         {
         }
 
-        public PauseableTimer(double interval) : base(interval)
+        public PausableTimer(double interval) : base(interval)
         {
             this.Interval = interval;
         }

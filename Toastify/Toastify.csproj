@@ -154,7 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="src\Common\PauseableTimer.cs">
+    <Compile Include="src\Common\PausableTimer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
