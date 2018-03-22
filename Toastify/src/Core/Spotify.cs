@@ -327,6 +327,7 @@ namespace Toastify.Core
                      * 2) A proxy is required
                      *    a) ProtocolError; either 305 (UseProxy) or 407 (ProxyAuthenticationRequired)
                      *    b) SocketException
+                     * 3) The proxy is not needed anymore?
                      */
 
                     bool handled = false;
@@ -435,6 +436,13 @@ namespace Toastify.Core
                             this.spotifyLauncherTimeoutTimer.Pause();
                             App.ShowConfigProxyDialog();
                             this.spotifyLauncherTimeoutTimer.Resume();
+                        }
+                        else
+                        {
+                            // Disable the proxy
+                            App.ProxyConfig.Set(null);
+                            Settings.Current.UseProxy = false;
+                            Settings.Current.Save();
                         }
                     }
                 }

@@ -18,7 +18,6 @@ using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
 using Toastify.Core;
-using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
@@ -286,6 +285,11 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
 
+        private static readonly ProxyConfig noProxy = new ProxyConfig();
+
+        // ReSharper disable once InconsistentNaming
+        private static readonly ProxyConfig _proxyConfig = new ProxyConfig();
+
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
         public static string LocalApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
@@ -306,15 +310,17 @@ namespace Toastify
 
         public static string SpotifyParameters { get; private set; }
 
+        /// <summary>
+        /// The currently used proxy settings
+        /// </summary>
         public static ProxyConfig ProxyConfig
         {
-            get { return Settings.Current.ProxyConfig; }
-            set
+            get
             {
-                Settings.Current.ProxyConfig.Set(value);
-                if (Settings.Current.ProxyConfig.IsValid())
-                    Settings.Current.UseProxy = true;
+                _proxyConfig.Set(Settings.Current.UseProxy ? Settings.Current.ProxyConfig : noProxy);
+                return _proxyConfig;
             }
+            set { _proxyConfig.Set(value ?? noProxy); }
         }
 
         public App() : this("")

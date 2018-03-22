@@ -8,7 +8,8 @@
         xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Configure Proxy" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico"
-        ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterOwner">
+        ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterOwner"
+        Closed="ConfigProxyDialog_OnClosed">
 
     <Window.Resources>
         <converters:IpPortToIntConverter x:Key="IpPortToIntConverter"></converters:IpPortToIntConverter>
