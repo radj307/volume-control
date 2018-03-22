@@ -18,6 +18,7 @@ using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
 using Toastify.Core;
+using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
@@ -305,7 +306,16 @@ namespace Toastify
 
         public static string SpotifyParameters { get; private set; }
 
-        public static ProxyConfig ProxyConfig { get; set; } = new ProxyConfig();
+        public static ProxyConfig ProxyConfig
+        {
+            get { return Settings.Current.ProxyConfig; }
+            set
+            {
+                Settings.Current.ProxyConfig.Set(value);
+                if (Settings.Current.ProxyConfig.IsValid())
+                    Settings.Current.UseProxy = true;
+            }
+        }
 
         public App() : this("")
         {

@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SpotifyAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -128,7 +129,6 @@ namespace Toastify.Model
         private SettingValue<bool> _minimizeSpotifyOnStartup;
         private SettingValue<bool> _closeSpotifyWithToastify;
         private SettingValue<ToastifyVolumeControlMode> _volumeControlMode;
-        private SettingValue<bool> _useSpotifyVolumeControl;
         private SettingValue<float> _windowsVolumeMixerIncrement;
         private SettingValue<string> _clipboardTemplate;
         private SettingValue<bool> _saveTrackToFile;
@@ -190,6 +190,9 @@ namespace Toastify.Model
         private SettingValue<double> _toastTitle2ShadowBlur;
         private SettingValue<string> _songProgressBarBackgroundColor;
         private SettingValue<string> _songProgressBarForegroundColor;
+
+        private SettingValue<bool> _useProxy;
+        private ProxyConfig _proxyConfig = new ProxyConfig();
 
         #endregion Private fields
 
@@ -535,6 +538,30 @@ namespace Toastify.Model
 
         #endregion [Toast]
 
+        #region [ Advanced ]
+
+        [DefaultValue(false)]
+        public SettingValue<bool> UseProxy
+        {
+            get { return this.GetSettingValue(ref this._useProxy); }
+            set { this.SetSettingValue(ref this._useProxy, value); }
+        }
+
+        public ProxyConfig ProxyConfig
+        {
+            get { return this._proxyConfig; }
+            set
+            {
+                if (this._proxyConfig == null)
+                    this._proxyConfig = value;
+                else
+                    this._proxyConfig.Set(value);
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        #endregion [ Advanced ]
+
         #region (hidden)
 
         public bool FirstRun { get; set; }
@@ -604,6 +631,7 @@ namespace Toastify.Model
             this.SetDefaultHotkeys(activateHotkeys);
             this.SetDefaultToastGeneral();
             this.SetDefaultToastColors();
+            this.SetDefaultAdvanced();
 
             // (hidden)
             this.StartupWaitTimeout = DefaultValueOf(this.StartupWaitTimeout, nameof(this.StartupWaitTimeout));
@@ -702,6 +730,12 @@ namespace Toastify.Model
 
             this.SongProgressBarBackgroundColor = new SettingValue<string>(DefaultValueOf(this.SongProgressBarBackgroundColor, nameof(this.SongProgressBarBackgroundColor)), s => regex4ChannelsColor.IsMatch(s));
             this.SongProgressBarForegroundColor = new SettingValue<string>(DefaultValueOf(this.SongProgressBarForegroundColor, nameof(this.SongProgressBarForegroundColor)), s => regex4ChannelsColor.IsMatch(s));
+        }
+
+        public void SetDefaultAdvanced()
+        {
+            this.UseProxy = DefaultValueOf(this.UseProxy, nameof(this.UseProxy));
+            this.ProxyConfig = new ProxyConfig();
         }
 
         #endregion Default

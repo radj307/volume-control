@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpotifyAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -137,6 +138,12 @@ namespace Toastify.Helpers
         public static T Clamp<T>(this T value, Range<T>? range) where T : IComparable
         {
             return range.HasValue ? value.Clamp(range.Value) : value;
+        }
+
+        public static bool IsValid(this ProxyConfig proxyConfig)
+        {
+            return !string.IsNullOrWhiteSpace(proxyConfig.Host) &&
+                   proxyConfig.Port > 0 && proxyConfig.Port <= UInt16.MaxValue;
         }
     }
 }
