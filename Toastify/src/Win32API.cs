@@ -10,10 +10,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Toastify.Core;
 using Toastify.Helpers;
+using Point = System.Drawing.Point;
 
 // ReSharper disable InconsistentNaming
 namespace Toastify
@@ -64,6 +69,16 @@ namespace Toastify
 
         [DllImport("user32.dll")]
         internal static extern bool UpdateWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32.dll")]
+        internal static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, MenuFlags uEnable);
+
+        // Overload for system menu items
+        [DllImport("user32.dll")]
+        internal static extern bool EnableMenuItem(IntPtr hMenu, SysCommands uIDEnableItem, MenuFlags uEnable);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetMenu(IntPtr hWnd);
@@ -272,6 +287,12 @@ namespace Toastify
         [DllImport("user32.dll")]
         internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool DestroyIcon(IntPtr hIcon);
+
+        [DllImport("shell32.dll", SetLastError = false)]
+        private static extern Int32 SHGetStockIconInfo(ShStockIconId siid, ShGSI uFlags, ref ShStockIconInfo psii);
+
         #endregion DLL imports
 
         internal static IntPtr GetWindowLongPtr(IntPtr hWnd, GWL nIndex)
@@ -400,6 +421,13 @@ namespace Toastify
             SetWindowLongPtr(hWnd, nIndex, (IntPtr)longPtr);
         }
 
+        private static void RemoveWindowLongPtr(IntPtr hWnd, GWL nIndex, IntPtr dwLong)
+        {
+            long longPtr = (long)GetWindowLongPtr(hWnd, nIndex);
+            longPtr &= ~(long)dwLong;
+            SetWindowLongPtr(hWnd, nIndex, (IntPtr)longPtr);
+        }
+
         public static void AddToolWindowStyle(IntPtr hWnd)
         {
             AddWindowLongPtr(hWnd, GWL.GWL_EXSTYLE, (IntPtr)ExtendedWindowStylesFlags.WS_EX_TOOLWINDOW);
@@ -408,6 +436,11 @@ namespace Toastify
         public static void AddVisibleWindowStyle(IntPtr hWnd)
         {
             AddWindowLongPtr(hWnd, GWL.GWL_EXSTYLE, (IntPtr)WindowStylesFlags.WS_VISIBLE);
+        }
+
+        public static void HideWindowCloseButton(IntPtr hWnd)
+        {
+            RemoveWindowLongPtr(hWnd, GWL.GWL_STYLE, (IntPtr)WindowStylesFlags.WS_SYSMENU);
         }
 
         public static bool IsForegroundAppAFullscreenVideogame()
@@ -610,6 +643,59 @@ namespace Toastify
             }
 
             return hHook;
+        }
+
+        public static ImageSource GetStockIconImage(ShStockIconId iconId, bool large)
+        {
+            BitmapSource imageSource;
+
+            if (Environment.OSVersion.Version.Major >= 6)
+            {
+                ShStockIconInfo sii = new ShStockIconInfo { cbSize = (UInt32)Marshal.SizeOf(typeof(ShStockIconInfo)) };
+
+                int errCode = SHGetStockIconInfo(iconId, ShGSI.SHGSI_ICON | (large ? ShGSI.SHGSI_LARGEICON : ShGSI.SHGSI_SMALLICON), ref sii);
+                Marshal.ThrowExceptionForHR(errCode);
+
+                imageSource = Imaging.CreateBitmapSourceFromHIcon(sii.hIcon, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                DestroyIcon(sii.hIcon);
+            }
+            else
+            {
+                Icon icon;
+                switch (iconId)
+                {
+                    case ShStockIconId.SIID_APPLICATION:
+                        icon = SystemIcons.Application;
+                        break;
+
+                    case ShStockIconId.SIID_HELP:
+                        icon = SystemIcons.Question;
+                        break;
+
+                    case ShStockIconId.SIID_ERROR:
+                        icon = SystemIcons.Error;
+                        break;
+
+                    case ShStockIconId.SIID_INFO:
+                        icon = SystemIcons.Information;
+                        break;
+
+                    case ShStockIconId.SIID_WARNING:
+                        icon = SystemIcons.Warning;
+                        break;
+
+                    case ShStockIconId.SIID_SHIELD:
+                        icon = SystemIcons.Shield;
+                        break;
+
+                    default:
+                        throw new ArgumentException($@"No system icon available for {iconId}", nameof(iconId));
+                }
+
+                imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+
+            return imageSource;
         }
 
         #region Enums
@@ -885,6 +971,7 @@ namespace Toastify
             WM_CLOSE           = 0x0010,
             WM_QUIT            = 0x0012,
             WM_ERASEBKGND      = 0x0014,
+            WM_SHOWWINDOW      = 0x0018,
             WM_CHILDACTIVATE   = 0x0022,
             WM_GETICON         = 0x007F,
 
@@ -970,6 +1057,157 @@ namespace Toastify
             RT_ANIICON      = 22,
             RT_HTML         = 23,
             RT_MANIFEST     = 24
+        }
+
+        internal enum SysCommands : uint
+        {
+            SC_SIZE         = 0xF000,
+            SC_MOVE         = 0xF010,
+            SC_MINIMIZE     = 0xF020,
+            SC_MAXIMIZE     = 0xF030,
+            SC_NEXTWINDOW   = 0xF040,
+            SC_PREVWINDOW   = 0xF050,
+            SC_CLOSE        = 0xF060,
+            SC_VSCROLL      = 0xF070,
+            SC_HSCROLL      = 0xF080,
+            SC_MOUSEMENU    = 0xF090,
+            SC_KEYMENU      = 0xF100,
+            SC_ARRANGE      = 0xF110,
+            SC_RESTORE      = 0xF120,
+            SC_TASKLIST     = 0xF130,
+            SC_SCREENSAVE   = 0xF140,
+            SC_HOTKEY       = 0xF150,
+            SC_DEFAULT      = 0xF160,
+            SC_MONITORPOWER = 0xF170,
+            SC_CONTEXTHELP  = 0xF180,
+            SC_SEPARATOR    = 0xF00F,
+            
+            SCF_ISSECURE = 0x00000001,
+
+            // Obsolete names
+            SC_ICON = SC_MINIMIZE,
+            SC_ZOOM = SC_MAXIMIZE,
+        }
+
+        [Flags]
+        internal enum MenuFlags : long
+        {
+            MF_BYCOMMAND  = 0x0000L,
+            MF_ENABLED    = 0x0000L,
+            MF_GRAYED     = 0x0001L,
+            MF_DISABLED   = 0x0002L,
+            MF_BYPOSITION = 0x0400L
+        }
+
+        internal enum ShStockIconId : uint 
+        { 
+            SIID_DOCNOASSOC        = 0, 
+            SIID_DOCASSOC          = 1, 
+            SIID_APPLICATION       = 2, 
+            SIID_FOLDER            = 3, 
+            SIID_FOLDEROPEN        = 4, 
+            SIID_DRIVE525          = 5, 
+            SIID_DRIVE35           = 6, 
+            SIID_DRIVEREMOVE       = 7, 
+            SIID_DRIVEFIXED        = 8, 
+            SIID_DRIVENET          = 9, 
+            SIID_DRIVENETDISABLED  = 10, 
+            SIID_DRIVECD           = 11, 
+            SIID_DRIVERAM          = 12, 
+            SIID_WORLD             = 13, 
+            SIID_SERVER            = 15, 
+            SIID_PRINTER           = 16, 
+            SIID_MYNETWORK         = 17, 
+            SIID_FIND              = 22, 
+            SIID_HELP              = 23, 
+            SIID_SHARE             = 28, 
+            SIID_LINK              = 29, 
+            SIID_SLOWFILE          = 30, 
+            SIID_RECYCLER          = 31, 
+            SIID_RECYCLERFULL      = 32, 
+            SIID_MEDIACDAUDIO      = 40, 
+            SIID_LOCK              = 47, 
+            SIID_AUTOLIST          = 49, 
+            SIID_PRINTERNET        = 50, 
+            SIID_SERVERSHARE       = 51, 
+            SIID_PRINTERFAX        = 52, 
+            SIID_PRINTERFAXNET     = 53, 
+            SIID_PRINTERFILE       = 54, 
+            SIID_STACK             = 55, 
+            SIID_MEDIASVCD         = 56, 
+            SIID_STUFFEDFOLDER     = 57, 
+            SIID_DRIVEUNKNOWN      = 58, 
+            SIID_DRIVEDVD          = 59, 
+            SIID_MEDIADVD          = 60, 
+            SIID_MEDIADVDRAM       = 61, 
+            SIID_MEDIADVDRW        = 62, 
+            SIID_MEDIADVDR         = 63, 
+            SIID_MEDIADVDROM       = 64, 
+            SIID_MEDIACDAUDIOPLUS  = 65, 
+            SIID_MEDIACDRW         = 66, 
+            SIID_MEDIACDR          = 67, 
+            SIID_MEDIACDBURN       = 68, 
+            SIID_MEDIABLANKCD      = 69, 
+            SIID_MEDIACDROM        = 70, 
+            SIID_AUDIOFILES        = 71, 
+            SIID_IMAGEFILES        = 72, 
+            SIID_VIDEOFILES        = 73, 
+            SIID_MIXEDFILES        = 74, 
+            SIID_FOLDERBACK        = 75, 
+            SIID_FOLDERFRONT       = 76, 
+            SIID_SHIELD            = 77, 
+            SIID_WARNING           = 78, 
+            SIID_INFO              = 79, 
+            SIID_ERROR             = 80, 
+            SIID_KEY               = 81, 
+            SIID_SOFTWARE          = 82, 
+            SIID_RENAME            = 83, 
+            SIID_DELETE            = 84, 
+            SIID_MEDIAAUDIODVD     = 85, 
+            SIID_MEDIAMOVIEDVD     = 86, 
+            SIID_MEDIAENHANCEDCD   = 87, 
+            SIID_MEDIAENHANCEDDVD  = 88, 
+            SIID_MEDIAHDDVD        = 89, 
+            SIID_MEDIABLURAY       = 90, 
+            SIID_MEDIAVCD          = 91, 
+            SIID_MEDIADVDPLUSR     = 92, 
+            SIID_MEDIADVDPLUSRW    = 93, 
+            SIID_DESKTOPPC         = 94, 
+            SIID_MOBILEPC          = 95, 
+            SIID_USERS             = 96, 
+            SIID_MEDIASMARTMEDIA   = 97, 
+            SIID_MEDIACOMPACTFLASH = 98, 
+            SIID_DEVICECELLPHONE   = 99, 
+            SIID_DEVICECAMERA      = 100, 
+            SIID_DEVICEVIDEOCAMERA = 101, 
+            SIID_DEVICEAUDIOPLAYER = 102, 
+            SIID_NETWORKCONNECT    = 103, 
+            SIID_INTERNET          = 104, 
+            SIID_ZIPFILE           = 105, 
+            SIID_SETTINGS          = 106, 
+            SIID_DRIVEHDDVD        = 132, 
+            SIID_DRIVEBD           = 133, 
+            SIID_MEDIAHDDVDROM     = 134, 
+            SIID_MEDIAHDDVDR       = 135, 
+            SIID_MEDIAHDDVDRAM     = 136, 
+            SIID_MEDIABDROM        = 137, 
+            SIID_MEDIABDR          = 138, 
+            SIID_MEDIABDRE         = 139, 
+            SIID_CLUSTEREDDRIVE    = 140, 
+            SIID_MAX_ICONS         = 175 
+        } 
+ 
+        [Flags] 
+        public enum ShGSI : uint 
+        { 
+            SHGSI_ICONLOCATION  = 0, 
+            SHGSI_ICON          = 0x000000100, 
+            SHGSI_SYSICONINDEX  = 0x000004000, 
+            SHGSI_LINKOVERLAY   = 0x000008000, 
+            SHGSI_SELECTED      = 0x000010000, 
+            SHGSI_LARGEICON     = 0x000000000, 
+            SHGSI_SMALLICON     = 0x000000001, 
+            SHGSI_SHELLICONSIZE = 0x000000004 
         }
 
         #endregion Enums
@@ -1063,6 +1301,18 @@ namespace Toastify
             /// Additional information associated with the message.
             /// </summary>
             public UIntPtr dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct ShStockIconInfo
+        {
+            public UInt32 cbSize;
+            public IntPtr hIcon;
+            public Int32 iSysIconIndex;
+            public Int32 iIcon;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szPath;
         }
 
         #endregion Internal classes and structs

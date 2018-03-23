@@ -16,17 +16,12 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Serialization;
 using Toastify.Core;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
-
-#if DEBUG
-
-using Toastify.View;
-
-#endif
 
 namespace Toastify
 {
@@ -288,7 +283,7 @@ namespace Toastify
         private static readonly ProxyConfig noProxy = new ProxyConfig();
 
         // ReSharper disable once InconsistentNaming
-        private static readonly ProxyConfig _proxyConfig = new ProxyConfig();
+        private static ProxyConfig _proxyConfig;
 
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
@@ -311,13 +306,20 @@ namespace Toastify
         public static string SpotifyParameters { get; private set; }
 
         /// <summary>
-        /// The currently used proxy settings
+        /// The currently used proxy settings.
         /// </summary>
         public static ProxyConfig ProxyConfig
         {
             get
             {
-                _proxyConfig.Set(Settings.Current.UseProxy ? Settings.Current.ProxyConfig : noProxy);
+                if (_proxyConfig == null)
+                {
+                    _proxyConfig = new ProxyConfig();
+                    _proxyConfig.Set(Settings.Current.ProxyConfig);
+                }
+
+                if (!Settings.Current.UseProxy)
+                    _proxyConfig.Set(noProxy);
                 return _proxyConfig;
             }
             set { _proxyConfig.Set(value ?? noProxy); }
@@ -334,14 +336,29 @@ namespace Toastify
 
         public static void ShowConfigProxyDialog()
         {
-            Thread t = new Thread(() =>
+            CallInSTAThread(() =>
             {
                 ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
                 proxyDialog.ShowDialog();
             });
+        }
+
+        public static void CallInSTAThread(Action action)
+        {
+            if (action == null)
+                return;
+
+            Thread t = new Thread(() => action());
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             t.Join();
+        }
+
+        public static void Terminate()
+        {
+            Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => Current.Shutdown()));
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

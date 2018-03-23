@@ -116,6 +116,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -157,8 +158,9 @@
     <Compile Include="src\Common\PausableTimer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
+    <Compile Include="src\CustomMessageBox.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
-    <Compile Include="src\Helpers\Converters\IpPortToIntConverter.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />
     <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="src\Helpers\Converters\HexColorToAlphaValueConverter.cs" />
     <Compile Include="src\Helpers\Extensions.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToValueConverter.cs" />
+    <Compile Include="src\Helpers\Validators\IPPortRule.cs" />
+    <Compile Include="src\Helpers\Validators\IPAddressRule.cs" />
     <Compile Include="src\Model\KeyOrButton.cs" />
     <Compile Include="src\Model\SettingValue.cs" />
     <Compile Include="src\Model\SettingValueJsonConverter.cs" />
@@ -195,6 +199,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Analytics.g.cs</LastGenOutput>
     </Content>
+    <Compile Include="src\Security.cs" />
     <Compile Include="src\Services\Analytics.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -208,6 +213,9 @@
     <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
       <DependentUpon>ConfigProxyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\View\CustomMessageBoxWindow.xaml.cs">
+      <DependentUpon>CustomMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +227,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="src\View\ConfigProxyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\View\CustomMessageBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,29 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
+        xmlns:validators="clr-namespace:Toastify.Helpers.Validators"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Configure Proxy" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico"
         ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterOwner"
-        Closed="ConfigProxyDialog_OnClosed">
+        Loaded="ConfigProxyDialog_OnLoaded" Closed="ConfigProxyDialog_OnClosed">
 
     <Window.Resources>
-        <converters:IpPortToIntConverter x:Key="IpPortToIntConverter"></converters:IpPortToIntConverter>
+        <Style x:Key="ErrorInTextBox" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <StackPanel Orientation="Vertical" Margin="12,10" d:DataContext="{d:DesignInstance viewmodel:ConfigProxyDialogViewModel}">
         <StackPanel Orientation="Horizontal">
-            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Host, Mode=TwoWay}" Watermark="Host" KeepWatermarkOnGotFocus="False" />
-            <wpft:WatermarkTextBox Width="50" Margin="8,0,0,0" Text="{Binding Path=Port, Mode=TwoWay, Converter={StaticResource IpPortToIntConverter}, NotifyOnValidationError=True}" Watermark="Port" KeepWatermarkOnGotFocus="False" />
+            <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="TextBox_OnGotKeyboardFocus">
+                <wpft:WatermarkTextBox.Text>
+                    <Binding Path="Host" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validators:IPAddressRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </wpft:WatermarkTextBox.Text>
+            </wpft:WatermarkTextBox>
+            <wpft:WatermarkTextBox Width="50" Margin="8,0,0,0" Watermark="Port" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="TextBox_OnGotKeyboardFocus">
+                <wpft:WatermarkTextBox.Text>
+                    <Binding Path="Port" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validators:IPPortRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </wpft:WatermarkTextBox.Text>
+            </wpft:WatermarkTextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Username" KeepWatermarkOnGotFocus="False" />
-            <wpft:WatermarkPasswordBox Width="160" Text="{Binding Path=Password, Mode=TwoWay}" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" />
+            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Username" KeepWatermarkOnGotFocus="False" GotKeyboardFocus="TextBox_OnGotKeyboardFocus" />
+            <wpft:WatermarkPasswordBox Name="PasswordBox" Width="160" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" GotKeyboardFocus="TextBox_OnGotKeyboardFocus" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
             <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
         </StackPanel>
+        <Grid Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Image Width="18" Height="18" Source="{Binding Path=InfoIcon, Mode=OneTime}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+                <TextBlock Foreground="{StaticResource InfoTextColorBrush}" VerticalAlignment="Center" Margin="4,0,0,0">Entered values are saved automatically!</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Padding="8,3" Click="BtnReset_OnClick">_Reset</Button>
+                <Button Padding="8,3" Margin="10,0,0,0" Click="BtnClose_OnClick">_Close</Button>
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </Window>

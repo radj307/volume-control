@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media;
 using Toastify.Common;
 using Toastify.Helpers;
 
@@ -46,19 +47,6 @@ namespace Toastify.ViewModel
             }
         }
 
-        public string Password
-        {
-            get { return App.ProxyConfig.Password; }
-            set
-            {
-                if (App.ProxyConfig.Password != value)
-                {
-                    App.ProxyConfig.Password = value;
-                    this.NotifyPropertyChanged();
-                }
-            }
-        }
-
         public bool BypassProxyOnLocal
         {
             get { return App.ProxyConfig.BypassProxyOnLocal; }
@@ -70,6 +58,11 @@ namespace Toastify.ViewModel
                     this.NotifyPropertyChanged();
                 }
             }
+        }
+
+        public ImageSource InfoIcon
+        {
+            get { return Win32API.GetStockIconImage(Win32API.ShStockIconId.SIID_INFO, true); }
         }
     }
 }

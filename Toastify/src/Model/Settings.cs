@@ -538,7 +538,7 @@ namespace Toastify.Model
 
         #endregion [Toast]
 
-        #region [ Advanced ]
+        #region [Advanced]
 
         [DefaultValue(false)]
         public SettingValue<bool> UseProxy
@@ -547,9 +547,16 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._useProxy, value); }
         }
 
+        [JsonConverter(typeof(SecureProxyConfigJsonConverter))]
         public ProxyConfig ProxyConfig
         {
-            get { return this._proxyConfig; }
+            get
+            {
+                // Retrieve the encrypted password
+                string plaintext = Security.GetProtectedProxyPassword();
+                this._proxyConfig.Password = plaintext;
+                return this._proxyConfig;
+            }
             set
             {
                 if (this._proxyConfig == null)
@@ -560,7 +567,7 @@ namespace Toastify.Model
             }
         }
 
-        #endregion [ Advanced ]
+        #endregion [Advanced]
 
         #region (hidden)
 

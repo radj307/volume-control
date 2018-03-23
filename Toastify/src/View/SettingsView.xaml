@@ -63,7 +63,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Name="Label19" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template :</Label>
                         <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
-                        <TextBlock TextWrapping="Wrap" Foreground="#FF575757" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InfoTextColorBrush}" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
                     </Grid>
 
                     <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,263,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
@@ -209,10 +209,7 @@
 
                                     <Grid VerticalAlignment="Top" Margin="0,10,0,0">
                                         <Image Source="/Toastify;component/Resources/InfoLarge.png" Margin="0" HorizontalAlignment="Left" Stretch="None" />
-                                        <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="#FF575757" />
-                                            </TextBlock.Foreground>
+                                        <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0" Foreground="{StaticResource InfoTextColorBrush}">
                                             The best way to tweak the position of the toast is to hold down Ctrl and then drag the toast around. The raw numbers are still accessible above. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.
                                         </TextBlock>
                                     </Grid>
