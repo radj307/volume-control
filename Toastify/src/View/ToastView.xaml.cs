@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Net.Cache;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -398,25 +398,51 @@ namespace Toastify.View
         {
             this.toastIconURI = coverArtUri;
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                new Action(() =>
+                new Action(async () =>
                 {
-                    this.cover = new BitmapImage();
-                    this.cover.BeginInit();
-                    this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                    this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                    try
+                    Stream stream;
+
+                    HttpClientHandler handler = App.CreateHttpClientHandler(App.ProxyConfig);
+                    using (HttpClient http = new HttpClient(handler))
                     {
-                        this.cover.UriSource = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
+                        Uri uri = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
+                        stream = await http.GetStreamAsync(uri).ConfigureAwait(false);
                     }
-                    catch (UriFormatException e)
+
+                    using (BinaryReader reader = new BinaryReader(stream))
                     {
-                        logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
-                        this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-                    }
-                    finally
-                    {
-                        this.cover.EndInit();
-                        this.AlbumArt.Source = this.cover;
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            byte[] bytebuffer = new byte[512];
+                            int bytesRead = reader.Read(bytebuffer, 0, 512);
+
+                            while (bytesRead > 0)
+                            {
+                                memoryStream.Write(bytebuffer, 0, bytesRead);
+                                bytesRead = reader.Read(bytebuffer, 0, 512);
+                            }
+
+                            this.cover = new BitmapImage();
+                            this.cover.BeginInit();
+                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                            try
+                            {
+                                memoryStream.Seek(0, SeekOrigin.Begin);
+                                this.cover.StreamSource = memoryStream;
+                            }
+                            catch (UriFormatException e)
+                            {
+                                logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
+                                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                            }
+                            finally
+                            {
+                                this.cover.EndInit();
+                                this.AlbumArt.Source = this.cover;
+
+                                stream.Close();
+                            }
+                        }
                     }
                 }));
         }

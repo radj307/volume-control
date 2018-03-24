@@ -13,7 +13,6 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
 using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
@@ -346,7 +345,7 @@ namespace Toastify.Core
                             bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                             // Double check
-                            HttpClientHandler clientHandler = CreateHttpClientHandler(App.ProxyConfig);
+                            HttpClientHandler clientHandler = App.CreateHttpClientHandler(App.ProxyConfig);
                             using (HttpClient http = new HttpClient(clientHandler))
                             {
                                 using (HttpRequestMessage request = new HttpRequestMessage())
@@ -390,7 +389,7 @@ namespace Toastify.Core
                         var httpResponse = (HttpWebResponse)ex.Response;
 
                         //// 2a) UseProxy or ProxyAuthenticationRequired
-                        if (httpResponse.StatusCode == HttpStatusCode.UseProxy)
+                        if (httpResponse?.StatusCode == HttpStatusCode.UseProxy)
                         {
                             string location = httpResponse.Headers[HttpResponseHeader.Location];
                             Uri uri = new Uri(location);
@@ -408,12 +407,12 @@ namespace Toastify.Core
                             handled = true;
 
                             if (logger.IsDebugEnabled)
-                                logger.Debug($"The server requested the use of a proxy. Using \"{proxy.Host}:{proxy.Host}\" as requested.");
+                                logger.Debug($"The server requested the use of a proxy. Using \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\" as requested.");
                         }
-                        else if (httpResponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
+                        else if (httpResponse?.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
                         {
                             if (logger.IsDebugEnabled)
-                                logger.Debug("The requested proxy server requires authentication.", ex);
+                                logger.Debug("The requested proxy server requires authentication. Prompting the user for proxy details...", ex);
 
                             this.spotifyLauncherTimeoutTimer.Pause();
                             App.ShowConfigProxyDialog();
@@ -430,6 +429,7 @@ namespace Toastify.Core
                         }
                     }
 
+                    // All unhandled socket errors or HTTP status codes should be handled here
                     if (!handled)
                     {
                         string errorCode;
@@ -444,14 +444,16 @@ namespace Toastify.Core
                         else
                         {
                             var httpResponse = (HttpWebResponse)ex.Response;
-                            errorCode = httpResponse.StatusCode.ToString();
+                            errorCode = httpResponse?.StatusCode.ToString();
                             logger.Warn("Unhandled WebException while connecting to Spotify.", ex);
                         }
 
                         // If we failed to handle the exception, ask the user if they need to configure a proxy
                         if (!(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
                         {
-                            proxySettingsChangedManually = true;
+                            if (logger.IsDebugEnabled)
+                                logger.Debug("Asking the user if they are behind a proxy...");
+
                             if (MessageBox.Show("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                                 this.ChangeProxySettings();
                             else
@@ -460,11 +462,18 @@ namespace Toastify.Core
                                 App.ProxyConfig.Set(null);
                                 Settings.Current.UseProxy = false;
                                 Settings.Current.Save();
+
+                                if (logger.IsDebugEnabled)
+                                    logger.Debug("Use of proxy has been disabled.");
                             }
+                            proxySettingsChangedManually = true;
                         }
                         else
                         {
-                            logger.Warn($"Proxy settings had no effect! Returned error code: {errorCode}", ex);
+                            logger.Warn($"Proxy settings had no effect! {(errorCode != null ? $"Returned error code: {errorCode}" : "")}", ex);
+
+                            if (logger.IsDebugEnabled)
+                                logger.Debug("Asking the user if they want to retry, change proxy settings or exit...");
 
                             MessageBoxResult choice = MessageBoxResult.Cancel;
                             App.CallInSTAThread(() =>
@@ -477,6 +486,12 @@ namespace Toastify.Core
                                     "Exit",             // Cancel
                                     MessageBoxImage.Exclamation);
                             });
+
+                            if (logger.IsDebugEnabled)
+                            {
+                                string hrChoice = choice == MessageBoxResult.Yes ? "Retry" : choice == MessageBoxResult.No ? "Change settings" : "Exit";
+                                logger.Debug($"Choice = {hrChoice}");
+                            }
 
                             if (choice == MessageBoxResult.No)
                                 this.ChangeProxySettings();
@@ -785,27 +800,6 @@ namespace Toastify.Core
                 logger.Error("Error while getting Spotify executable path.", e);
             }
             return path;
-        }
-
-        private static HttpClientHandler CreateHttpClientHandler(ProxyConfig proxyConfig = null)
-        {
-            HttpClientHandler clientHandler = new HttpClientHandler
-            {
-                PreAuthenticate = false,
-                UseDefaultCredentials = true,
-                UseProxy = false
-            };
-
-            if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
-            {
-                WebProxy proxy = proxyConfig.CreateWebProxy();
-                clientHandler.UseProxy = true;
-                clientHandler.Proxy = proxy;
-                clientHandler.UseDefaultCredentials = proxy.UseDefaultCredentials;
-                clientHandler.PreAuthenticate = proxy.UseDefaultCredentials;
-            }
-
-            return clientHandler;
         }
 
         #region Dispose

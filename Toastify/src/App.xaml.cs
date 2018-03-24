@@ -13,6 +13,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -361,7 +363,28 @@ namespace Toastify
                 new Action(() => Current.Shutdown()));
         }
 
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public static HttpClientHandler CreateHttpClientHandler(ProxyConfig proxyConfig = null)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler
+            {
+                PreAuthenticate = false,
+                UseDefaultCredentials = true,
+                UseProxy = false
+            };
+
+            if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
+            {
+                WebProxy proxy = proxyConfig.CreateWebProxy();
+                clientHandler.UseProxy = true;
+                clientHandler.Proxy = proxy;
+                clientHandler.UseDefaultCredentials = proxy.UseDefaultCredentials;
+                clientHandler.PreAuthenticate = proxy.UseDefaultCredentials;
+            }
+
+            return clientHandler;
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error("Unhandled exception.", e.Exception);
             Analytics.TrackException(e.Exception);
