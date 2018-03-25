@@ -553,7 +553,7 @@ namespace Toastify.Model
             get
             {
                 // Retrieve the encrypted password
-                string plaintext = Security.GetProtectedProxyPassword();
+                string plaintext = Security.GetProxyPassword();
                 this._proxyConfig.Password = plaintext;
                 return this._proxyConfig;
             }

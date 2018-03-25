@@ -37,6 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Debug%29|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +59,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|x64'">
     <OutputPath>bin\x64\Release\Windows\</OutputPath>
@@ -79,6 +81,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
     <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
@@ -159,6 +162,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
+    <Compile Include="src\Crypt32.cs" />
     <Compile Include="src\CustomMessageBox.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />

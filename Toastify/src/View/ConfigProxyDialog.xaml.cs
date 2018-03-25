@@ -80,7 +80,7 @@ namespace Toastify.View
         private void ConfigProxyDialog_OnClosed(object sender, EventArgs e)
         {
             string pwd = this.PasswordBox.Password;
-            Security.SaveProtectedProxyPassword(Encoding.UTF8.GetBytes(pwd));
+            Security.SaveProxyPassword(Encoding.UTF8.GetBytes(pwd));
             App.ProxyConfig.Password = string.IsNullOrWhiteSpace(pwd) ? null : pwd;
 
             if (App.ProxyConfig.IsValid())

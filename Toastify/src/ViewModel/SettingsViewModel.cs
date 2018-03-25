@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
@@ -8,7 +7,6 @@ using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
-using Xceed.Wpf.Toolkit;
 
 namespace Toastify.ViewModel
 {
@@ -225,14 +223,14 @@ namespace Toastify.ViewModel
                 if (string.IsNullOrEmpty(this.Settings.ProxyConfig.Username))
                 {
                     // If no username has been entered, remove the saved password
-                    Security.SaveProtectedProxyPassword(Encoding.UTF8.GetBytes(string.Empty));
+                    Security.SaveProxyPassword(Encoding.UTF8.GetBytes(string.Empty));
                     this.Settings.ProxyConfig.Password = null;
                 }
                 else if (!string.IsNullOrEmpty(this.ProxyPassword.ToPlainString()))
                 {
                     // Otherwise, if the password box is not empty, save the new password
                     string pwd = this.ProxyPassword.ToPlainString();
-                    Security.SaveProtectedProxyPassword(Encoding.UTF8.GetBytes(pwd));
+                    Security.SaveProxyPassword(Encoding.UTF8.GetBytes(pwd));
                     this.Settings.ProxyConfig.Password = string.IsNullOrWhiteSpace(pwd) ? null : pwd;
                 }
             }
