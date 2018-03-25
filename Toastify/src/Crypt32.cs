@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 // ReSharper disable InconsistentNaming
@@ -79,7 +78,6 @@ namespace Toastify
             /// Protect data with a non-recoverable key
             /// </summary>
             CRYPTPROTECT_NO_RECOVERY = 0x20,
-
 
             /// <summary>
             /// Verify the protection of a protected blob

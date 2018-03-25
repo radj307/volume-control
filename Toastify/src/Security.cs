@@ -56,12 +56,14 @@ namespace Toastify
         internal static SecureString GetProtectedSecureString(string fileName)
         {
             byte[] encryptedData = GetProtectedDataInternal(fileName, out byte[] entropy);
-
-            IntPtr entropyPtr = Marshal.AllocHGlobal(entropy.Length);
-            Marshal.Copy(entropy, 0, entropyPtr, entropy.Length);
+            if (encryptedData == null || encryptedData.Length == 0)
+                return null;
 
             IntPtr dataPtr = Marshal.AllocHGlobal(encryptedData.Length);
             Marshal.Copy(encryptedData, 0, dataPtr, encryptedData.Length);
+
+            IntPtr entropyPtr = Marshal.AllocHGlobal(entropy.Length);
+            Marshal.Copy(entropy, 0, entropyPtr, entropy.Length);
 
             try
             {
@@ -90,12 +92,15 @@ namespace Toastify
                 char[] chars = null;
                 try
                 {
+                    if (outBlob.cbData <= 0)
+                        return null;
+
                     SecureString secureString = new SecureString();
 
                     bytes = new byte[outBlob.cbData];
                     Marshal.Copy(outBlob.pbData, bytes, 0, bytes.Length);
 
-                    chars = Encoding.UTF8.GetChars(bytes, 0, bytes.Length);
+                    chars = Encoding.Unicode.GetChars(bytes);
                     foreach (char c in chars)
                         secureString.AppendChar(c);
 
@@ -105,27 +110,37 @@ namespace Toastify
                 {
                     Marshal.FreeHGlobal(outBlob.pbData);
 
-                    unsafe
+                    try
                     {
-                        // Zero out the byte array
-                        if (bytes != null)
+                        unsafe
                         {
-                            byte[] zeroB = new byte[bytes.Length];
-                            fixed (byte* pb = &bytes[0])
+                            // Zero out the byte array
+                            if (bytes != null)
                             {
-                                Marshal.Copy(zeroB, 0, new IntPtr(pb), zeroB.Length);
+                                byte[] zeroB = new byte[bytes.Length];
+                                fixed (byte* pb = &bytes[0])
+                                {
+                                    Marshal.Copy(zeroB, 0, new IntPtr(pb), zeroB.Length);
+                                }
                             }
-                        }
 
-                        // Zero out the char array
-                        if (chars != null)
-                        {
-                            char[] zeroC = new char[chars.Length];
-                            fixed (char* pc = &chars[0])
+                            // Zero out the char array
+                            if (chars != null)
                             {
-                                Marshal.Copy(zeroC, 0, new IntPtr(pc), zeroC.Length);
+                                char[] zeroC = new char[chars.Length];
+                                fixed (char* pc = &chars[0])
+                                {
+                                    Marshal.Copy(zeroC, 0, new IntPtr(pc), zeroC.Length);
+                                }
                             }
                         }
+                    }
+                    catch
+                    {
+                        if (bytes != null)
+                            Array.Clear(bytes, 0, bytes.Length);
+                        if (chars != null)
+                            Array.Clear(chars, 0, bytes.Length);
                     }
                 }
             }
@@ -162,13 +177,14 @@ namespace Toastify
             Marshal.Copy(entropy, 0, entropyPtr, entropy.Length);
 
             // Get a BSTR from the SecureString
+            // NOTE: A BSTR is a Unicode (UTF-16) string, which could contain multiple NULL characters
             IntPtr unmanagedString = Marshal.SecureStringToBSTR(secureString);
 
             try
             {
                 Crypt32.DataBlob dataBlob = new Crypt32.DataBlob
                 {
-                    cbData = secureString.Length,
+                    cbData = secureString.Length * 2,
                     pbData = unmanagedString
                 };
                 Crypt32.DataBlob entropyBlob = new Crypt32.DataBlob
