@@ -1,9 +1,10 @@
-﻿using SpotifyAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -140,10 +141,18 @@ namespace Toastify.Helpers
             return range.HasValue ? value.Clamp(range.Value) : value;
         }
 
-        public static bool IsValid(this ProxyConfig proxyConfig)
+        public static string ToPlainString(this SecureString secureString)
         {
-            return !string.IsNullOrWhiteSpace(proxyConfig.Host) &&
-                   proxyConfig.Port > 0 && proxyConfig.Port <= UInt16.MaxValue;
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
         }
     }
 }

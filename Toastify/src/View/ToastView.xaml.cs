@@ -406,7 +406,7 @@ namespace Toastify.View
                     using (HttpClient http = new HttpClient(handler))
                     {
                         Uri uri = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
-                        stream = await http.GetStreamAsync(uri).ConfigureAwait(false);
+                        stream = await http.GetStreamAsync(uri);
                     }
 
                     using (BinaryReader reader = new BinaryReader(stream))

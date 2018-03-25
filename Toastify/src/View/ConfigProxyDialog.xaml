@@ -11,16 +11,6 @@
         ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterOwner"
         Loaded="ConfigProxyDialog_OnLoaded" Closed="ConfigProxyDialog_OnClosed">
 
-    <Window.Resources>
-        <Style x:Key="ErrorInTextBox" TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-
     <StackPanel Orientation="Vertical" Margin="12,10" d:DataContext="{d:DesignInstance viewmodel:ConfigProxyDialogViewModel}">
         <StackPanel Orientation="Horizontal">
             <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="TextBox_OnGotKeyboardFocus">

@@ -16,6 +16,7 @@ using Toastify.Services;
 using Toastify.ViewModel;
 using Xceed.Wpf.Toolkit;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using TextBox = System.Windows.Controls.TextBox;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -387,6 +388,22 @@ namespace Toastify.View
         #endregion Size & Position
 
         #endregion "Toast" tab
+
+        #region "Advanced" tab
+
+        private void ProxyPasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.settingsViewModel != null)
+                this.settingsViewModel.ProxyPassword = ((WatermarkPasswordBox)sender).SecurePassword;
+        }
+
+        private void ProxyTextBox_OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (sender is TextBox textBox && !textBox.IsReadOnly && e.KeyboardDevice.IsKeyDown(Key.Tab))
+                textBox.SelectAll();
+        }
+
+        #endregion "Advanced" tab
 
         #endregion Event handlers
     }

@@ -79,6 +79,14 @@ namespace Toastify.Services
 #endif
         }
 
+        public static void Stop()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Analytics service terminated.");
+
+            requestFactory = null;
+        }
+
         #region TrackPageHit
 
         public static void TrackPageHit(string documentPath)

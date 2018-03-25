@@ -4,9 +4,17 @@
              StartupUri="View/ToastView.xaml"
              DispatcherUnhandledException="Application_DispatcherUnhandledException"
              Startup="App_OnStartup" Exit="App_OnExit">
-    
+
     <Application.Resources>
         <Color x:Key="InfoTextColor">#FF575757</Color>
         <SolidColorBrush x:Key="InfoTextColorBrush" Color="{StaticResource InfoTextColor}" />
+
+        <Style x:Key="ErrorInTextBox" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

@@ -6,10 +6,11 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:core="clr-namespace:Toastify.Core"
         xmlns:common="clr-namespace:Toastify.Common"
+        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
         xmlns:helpers="clr-namespace:Toastify.Helpers"
         xmlns:markup="clr-namespace:Toastify.Helpers.Markup"
+        xmlns:validators="clr-namespace:Toastify.Helpers.Validators"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
-        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
         mc:Ignorable="d"
         x:Class="Toastify.View.SettingsView"
         Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
@@ -373,6 +374,40 @@
                             </StackPanel>
                         </TabItem>
                     </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Advanced" Name="TabAdvanced">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <CheckBox Name="CbUseProxy" IsChecked="{Binding Path=Settings.UseProxy, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Use Proxy</CheckBox>
+                    <StackPanel Orientation="Vertical" Margin="12,38,12,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=CbUseProxy, Path=IsChecked}" DataContext="{Binding Path=Settings.ProxyConfig}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
+                                <wpft:WatermarkTextBox.Text>
+                                    <Binding Path="Host" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validators:IPAddressRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </wpft:WatermarkTextBox.Text>
+                            </wpft:WatermarkTextBox>
+                            <wpft:WatermarkTextBox Width="50" Margin="8,0,0,0" Watermark="Port" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
+                                <wpft:WatermarkTextBox.Text>
+                                    <Binding Path="Port" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validators:IPPortRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </wpft:WatermarkTextBox.Text>
+                            </wpft:WatermarkTextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Username" KeepWatermarkOnGotFocus="False" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus" />
+                            <wpft:WatermarkPasswordBox Name="PasswordBox" Width="160" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" PasswordChanged="ProxyPasswordBox_OnPasswordChanged" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

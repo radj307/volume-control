@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Net;
+using System.Security;
+using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
+using Xceed.Wpf.Toolkit;
 
 namespace Toastify.ViewModel
 {
@@ -141,6 +145,8 @@ namespace Toastify.ViewModel
 
         #endregion Toast
 
+        public SecureString ProxyPassword { private get; set; }
+
         #region Commands
 
         public DelegateCommand SaveCommand { get; }
@@ -209,12 +215,34 @@ namespace Toastify.ViewModel
 
         private void Save()
         {
+            if (this.Settings.UseProxy)
+            {
+                // TODO: Use only SecureString
+                // Converting a SecureString to a managed String defeats the purpose of using a SecureString in the first place!
+                // Revise https://github.com/JohnnyCrazy/SpotifyAPI-NET/pull/224 and use SecureString instead
+
+                // Proxy Password
+                if (string.IsNullOrEmpty(this.Settings.ProxyConfig.Username))
+                {
+                    // If no username has been entered, remove the saved password
+                    Security.SaveProtectedProxyPassword(Encoding.UTF8.GetBytes(string.Empty));
+                    this.Settings.ProxyConfig.Password = null;
+                }
+                else if (!string.IsNullOrEmpty(this.ProxyPassword.ToPlainString()))
+                {
+                    // Otherwise, if the password box is not empty, save the new password
+                    string pwd = this.ProxyPassword.ToPlainString();
+                    Security.SaveProtectedProxyPassword(Encoding.UTF8.GetBytes(pwd));
+                    this.Settings.ProxyConfig.Password = string.IsNullOrWhiteSpace(pwd) ? null : pwd;
+                }
+            }
+
             this.Settings.SetAsCurrentAndSave();
 
             // Get a new clone of the current settings,
             // since Current and the original Temporary are now the same instance;
             this.Settings = Settings.Temporary;
-            
+
             this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings));
         }
 
