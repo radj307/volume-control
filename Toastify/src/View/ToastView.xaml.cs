@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net.Cache;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -400,48 +402,74 @@ namespace Toastify.View
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(async () =>
                 {
-                    Stream stream;
+                    Uri uri = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
 
-                    HttpClientHandler handler = App.CreateHttpClientHandler(App.ProxyConfig);
-                    using (HttpClient http = new HttpClient(handler))
+                    // If it's HTTP(S), download the album art using an HttpClient
+                    if (Regex.IsMatch(uri.Scheme, @"https?", RegexOptions.IgnoreCase))
                     {
-                        Uri uri = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
-                        stream = await http.GetStreamAsync(uri);
-                    }
-
-                    using (BinaryReader reader = new BinaryReader(stream))
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream())
+                        Stream stream;
+                        HttpClientHandler handler = App.CreateHttpClientHandler(App.ProxyConfig);
+                        using (HttpClient http = new HttpClient(handler))
                         {
-                            byte[] bytebuffer = new byte[512];
-                            int bytesRead = reader.Read(bytebuffer, 0, 512);
+                            stream = await http.GetStreamAsync(uri);
+                        }
 
-                            while (bytesRead > 0)
+                        using (BinaryReader reader = new BinaryReader(stream))
+                        {
+                            using (MemoryStream memoryStream = new MemoryStream())
                             {
-                                memoryStream.Write(bytebuffer, 0, bytesRead);
-                                bytesRead = reader.Read(bytebuffer, 0, 512);
-                            }
+                                byte[] bytebuffer = new byte[512];
+                                int bytesRead = reader.Read(bytebuffer, 0, 512);
 
-                            this.cover = new BitmapImage();
-                            this.cover.BeginInit();
-                            this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                            try
-                            {
-                                memoryStream.Seek(0, SeekOrigin.Begin);
-                                this.cover.StreamSource = memoryStream;
-                            }
-                            catch (UriFormatException e)
-                            {
-                                logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
-                                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-                            }
-                            finally
-                            {
-                                this.cover.EndInit();
-                                this.AlbumArt.Source = this.cover;
+                                while (bytesRead > 0)
+                                {
+                                    memoryStream.Write(bytebuffer, 0, bytesRead);
+                                    bytesRead = reader.Read(bytebuffer, 0, 512);
+                                }
 
-                                stream.Close();
+                                this.cover = new BitmapImage();
+                                this.cover.BeginInit();
+                                this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                                try
+                                {
+                                    memoryStream.Seek(0, SeekOrigin.Begin);
+                                    this.cover.StreamSource = memoryStream;
+                                }
+                                catch (UriFormatException e)
+                                {
+                                    logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
+                                    this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                                }
+                                finally
+                                {
+                                    this.cover.EndInit();
+                                    this.AlbumArt.Source = this.cover;
+
+                                    stream.Close();
+                                }
                             }
+                        }
+                    }
+                    else
+                    {
+                        // No need to download anything, this is most probably an internal resource
+                        this.cover = new BitmapImage();
+                        this.cover.BeginInit();
+                        this.cover.CacheOption = BitmapCacheOption.OnLoad;
+                        this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                        try
+                        {
+                            this.cover.UriSource = uri;
+                        }
+                        catch (UriFormatException e)
+                        {
+                            logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
+                            this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                        }
+                        finally
+                        {
+                            this.cover.EndInit();
+                            this.AlbumArt.Source = this.cover;
                         }
                     }
                 }));
