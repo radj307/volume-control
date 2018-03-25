@@ -143,8 +143,12 @@ namespace Toastify.Core
         {
             this.DisposeLocalAPI();
 
-            this.localAPIConfig = new SpotifyLocalAPIConfig { TimerInterval = 500 };
-            this.localAPI = new SpotifyLocalAPI(this.localAPIConfig, App.ProxyConfig);
+            this.localAPIConfig = new SpotifyLocalAPIConfig
+            {
+                TimerInterval = 500,
+                ProxyConfig = App.ProxyConfig
+            };
+            this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 
             this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
             this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
