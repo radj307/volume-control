@@ -454,10 +454,13 @@ namespace Toastify.View
         /// <param name="force"> Whether or no0t to force the toast to show up. </param>
         private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false)
         {
-            this.toastViewModel.Title1 = title1;
-            this.toastViewModel.Title2 = title2;
-            if (fadeIn)
-                this.ShowOrHideToast(force, keepUp: true);
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
+            {
+                this.toastViewModel.Title1 = title1;
+                this.toastViewModel.Title2 = title2;
+                if (fadeIn)
+                    this.ShowOrHideToast(force, keepUp: true);
+            }));
         }
 
         private void FetchOtherTrackInfo()
