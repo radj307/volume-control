@@ -229,7 +229,7 @@ namespace Toastify.ViewModel
                 if (string.IsNullOrEmpty(this.Settings.ProxyConfig.Username))
                 {
                     // If no username has been entered, remove the saved password
-                    Security.SaveProxyPassword(Encoding.UTF8.GetBytes(string.Empty));
+                    Security.SaveProxyPassword(new SecureString());
                 }
                 else if (!string.IsNullOrEmpty(this.ProxyPassword.ToPlainString()))
                 {

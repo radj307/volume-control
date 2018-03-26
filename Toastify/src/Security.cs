@@ -23,21 +23,10 @@ namespace Toastify
 
         #region Proxy Password
 
-        internal static string GetProxyPassword()
-        {
-            byte[] data = GetProtectedData("proxy.sec");
-            return data != null ? Encoding.UTF8.GetString(data) : null;
-        }
-
         internal static SecureString GetSecureProxyPassword()
         {
             SecureString secureString = GetProtectedSecureString("proxy.sec");
             return secureString != null && secureString.Length > 0 ? secureString : null;
-        }
-
-        internal static void SaveProxyPassword(byte[] plaintext)
-        {
-            SaveProtectedData(plaintext, "proxy.sec");
         }
 
         internal static void SaveProxyPassword(SecureString secureString)

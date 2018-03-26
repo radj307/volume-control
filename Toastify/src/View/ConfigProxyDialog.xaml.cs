@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,12 +80,27 @@ namespace Toastify.View
 
         private void ConfigProxyDialog_OnClosed(object sender, EventArgs e)
         {
-            string pwd = this.PasswordBox.Password;
-            Security.SaveProxyPassword(Encoding.UTF8.GetBytes(pwd));
-            App.ProxyConfig.Password = string.IsNullOrWhiteSpace(pwd) ? null : pwd;
+            if (string.IsNullOrEmpty(App.ProxyConfig.Username))
+            {
+                // If no username has been entered, remove the saved password
+                Security.SaveProxyPassword(new SecureString());
+            }
+            else if (this.PasswordBox.SecurePassword.Length > 0)
+            {
+                // Otherwise, if the password box is not empty, save the new password
+                Security.SaveProxyPassword(this.PasswordBox.SecurePassword);
+            }
+            else
+            {
+                // If the username field is not empty and the password's is,
+                // then keep the previous password.
+            }
 
             if (App.ProxyConfig.IsValid())
+            {
                 Settings.Current.UseProxy = true;
+                App.ProxyConfig.Password = Security.GetSecureProxyPassword()?.ToPlainString();
+            }
             else
             {
                 Settings.Current.UseProxy = false;
