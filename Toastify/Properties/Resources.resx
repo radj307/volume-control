@@ -230,4 +230,7 @@ The firewall might have blocked the connection to "open.spotify.com".</value>
     <value>An error occurred when trying to connect with Spotify.
 The host address "open.spotify.com" might have been redirected by the client. Check your "hosts" file (%WinDir%\System32\drivers\etc\hosts) and delete any entry containing "open.spotify.com".</value>
   </data>
+  <data name="ERROR_STARTUP_SPOTIFY_TIMEOUT" xml:space="preserve">
+    <value>Toastify timed out while trying to start, find or connect to Spotify.</value>
+  </data>
 </root>

@@ -234,11 +234,22 @@ namespace Toastify.Core
                 }
                 else // e.Cancelled
                 {
-                    logger.Error("Toastify was not able to find Spotify within the timeout interval.");
+                    logger.Error($"Toastify was not able to find or connect to Spotify within the timeout interval ({Settings.Current.StartupWaitTimeout / 1000} seconds).");
 
-                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
-                    const string techDetails = "Technical Details: timeout";
-                    MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY_TIMEOUT;
+                    MessageBoxResult choice = MessageBoxResult.No;
+                    App.CallInSTAThread(() =>
+                    {
+                        choice = CustomMessageBox.ShowYesNo(
+                            $"{errorMsg}\nDo you need to set up or change your proxy details?\n\nToastify will terminate regardless of your choice.",
+                            "Toastify",
+                            "Yes",  // Yes
+                            "No",   // No
+                            MessageBoxImage.Error);
+                    });
+
+                    if (choice == MessageBoxResult.Yes)
+                        this.ChangeProxySettings();
                 }
 
                 // Terminate Toastify
@@ -521,9 +532,11 @@ namespace Toastify.Core
 
         private void ChangeProxySettings()
         {
-            this.spotifyLauncherTimeoutTimer.Pause();
+            if (this.spotifyLauncherTimeoutTimer?.IntervalRemaining > 0.0d)
+                this.spotifyLauncherTimeoutTimer.Pause();
             App.ShowConfigProxyDialog();
-            this.spotifyLauncherTimeoutTimer.Resume();
+            if (this.spotifyLauncherTimeoutTimer?.IntervalRemaining > 0.0d)
+                this.spotifyLauncherTimeoutTimer.Resume();
 
             if (logger.IsDebugEnabled)
             {

@@ -139,6 +139,15 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toastify timed out while trying to start, find or connect to Spotify..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_TIMEOUT {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_TIMEOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred when trying to start Spotify..
         /// </summary>
         internal static string ERROR_UNKNOWN {
