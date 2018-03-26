@@ -21,6 +21,12 @@ namespace Toastify.Core
         /// <inheritdoc />
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            ProxyConfig existing = (ProxyConfig)existingValue;
+            if (existing != null)
+            {
+                serializer.Populate(reader, existing);
+                return existing;
+            }
             return (ProxyConfig)serializer.Deserialize(reader, typeof(ProxyConfig));
         }
 

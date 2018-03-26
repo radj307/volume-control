@@ -24,6 +24,16 @@ namespace Toastify.ViewModel
 
         public string DoubleUpDownAltIncrement1000Tooltip { get; } = string.Format(templateDoubleUpDownAltIncrement, 1000);
 
+        public ImageSource InfoIcon
+        {
+            get { return Win32API.GetStockIconImage(Win32API.ShStockIconId.SIID_INFO, true); }
+        }
+
+        public ImageSource WarningIcon
+        {
+            get { return Win32API.GetStockIconImage(Win32API.ShStockIconId.SIID_WARNING, true); }
+        }
+
         #region Toast
 
         public int DisplayTimeDefault { get { return Settings.Default.DisplayTime; } }
@@ -215,23 +225,21 @@ namespace Toastify.ViewModel
         {
             if (this.Settings.UseProxy)
             {
-                // TODO: Use only SecureString
-                // Converting a SecureString to a managed String defeats the purpose of using a SecureString in the first place!
-                // Revise https://github.com/JohnnyCrazy/SpotifyAPI-NET/pull/224 and use SecureString instead
-
                 // Proxy Password
                 if (string.IsNullOrEmpty(this.Settings.ProxyConfig.Username))
                 {
                     // If no username has been entered, remove the saved password
                     Security.SaveProxyPassword(Encoding.UTF8.GetBytes(string.Empty));
-                    this.Settings.ProxyConfig.Password = null;
                 }
                 else if (!string.IsNullOrEmpty(this.ProxyPassword.ToPlainString()))
                 {
                     // Otherwise, if the password box is not empty, save the new password
-                    string pwd = this.ProxyPassword.ToPlainString();
-                    Security.SaveProxyPassword(Encoding.UTF8.GetBytes(pwd));
-                    this.Settings.ProxyConfig.Password = string.IsNullOrWhiteSpace(pwd) ? null : pwd;
+                    Security.SaveProxyPassword(this.ProxyPassword);
+                }
+                else
+                {
+                    // If the username field is not empty and the password's is,
+                    // then keep the previous password.
                 }
             }
 
@@ -270,6 +278,10 @@ namespace Toastify.ViewModel
                         default:
                             throw new InvalidOperationException($"Unexpected value for CurrentToastTabIndex = {this.CurrentToastTabIndex}");
                     }
+                    break;
+
+                case 3:
+                    this.Settings.SetDefaultAdvanced();
                     break;
 
                 default:

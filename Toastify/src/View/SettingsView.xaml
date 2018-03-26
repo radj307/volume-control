@@ -28,6 +28,7 @@
     </Window.Resources>
 
     <Grid x:Name="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
+
         <TabControl Name="TabControl1" SelectedIndex="{Binding Path=CurrentTabIndex, Mode=TwoWay}">
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -101,7 +102,8 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0"></CheckBox>
-                                        <Image Source="/Toastify;component/Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                        <Image Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
+                                               Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
                                         <TextBlock Text="{Binding Path=HumanReadableAction}" Grid.Column="1"></TextBlock>
                                     </Grid>
                                 </DataTemplate>
@@ -117,12 +119,12 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,52,0,0" Width="160">
                             <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
-                            <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown"/>
+                            <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Grid.Column="1" Height="32" Margin="12,96,12,0" VerticalAlignment="Top">
-                            <Image Source="/Toastify;component/Resources/WarningLarge.png"></Image>
-                            <TextBlock Text="{Binding Path=InvalidReason}" />
+                            <Image Width="24" Height="24" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
+                            <TextBlock Text="{Binding Path=InvalidReason}" Foreground="{StaticResource InfoTextColorBrush}" Margin="4,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -209,7 +211,7 @@
                                     </Grid>
 
                                     <Grid VerticalAlignment="Top" Margin="0,10,0,0">
-                                        <Image Source="/Toastify;component/Resources/InfoLarge.png" Margin="0" HorizontalAlignment="Left" Stretch="None" />
+                                        <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding Path=InfoIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
                                         <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0" Foreground="{StaticResource InfoTextColorBrush}">
                                             The best way to tweak the position of the toast is to hold down Ctrl and then drag the toast around. The raw numbers are still accessible above. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.
                                         </TextBlock>
@@ -379,7 +381,7 @@
             <TabItem Header="Advanced" Name="TabAdvanced">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Name="CbUseProxy" IsChecked="{Binding Path=Settings.UseProxy, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Use Proxy</CheckBox>
-                    <StackPanel Orientation="Vertical" Margin="12,38,12,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=CbUseProxy, Path=IsChecked}" DataContext="{Binding Path=Settings.ProxyConfig}">
+                    <StackPanel Orientation="Vertical" Margin="32,38,12,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=CbUseProxy, Path=IsChecked}" DataContext="{Binding Path=Settings.ProxyConfig}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
                                 <wpft:WatermarkTextBox.Text>
@@ -407,6 +409,11 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                             <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
                         </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="12,135,12,0">
+                        <Image Width="20" Height="20" Source="{Binding Path=WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Foreground="{StaticResource InfoTextColorBrush}" VerticalAlignment="Center" Margin="8,0,0,0">To correctly apply changes to the proxy settings, it's required to restart Toastify.</TextBlock>
                     </StackPanel>
                 </Grid>
             </TabItem>

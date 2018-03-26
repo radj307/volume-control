@@ -317,6 +317,7 @@ namespace Toastify.Core
 
                 try
                 {
+                    var proxy = App.ProxyConfig;
                     connected = this.localAPI.Connect();
                 }
                 catch (WebException ex)
@@ -483,7 +484,7 @@ namespace Toastify.Core
                             App.CallInSTAThread(() =>
                             {
                                 choice = CustomMessageBox.ShowYesNoCancel(
-                                    $"Invalid proxy settings. ${(errorCode != null ? $"Returned error code: {errorCode}" : "")}\nDo you want to retry?",
+                                    $"Invalid proxy settings. {(errorCode != null ? $"Returned error code: {errorCode}" : "")}\nDo you want to retry?",
                                     "Toastify",
                                     "Retry",            // Yes
                                     "Change settings",  // No

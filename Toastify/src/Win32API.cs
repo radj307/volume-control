@@ -647,13 +647,18 @@ namespace Toastify
 
         public static ImageSource GetStockIconImage(ShStockIconId iconId, bool large)
         {
+            return GetStockIconImage(iconId, large, false);
+        }
+
+        public static ImageSource GetStockIconImage(ShStockIconId iconId, bool large, bool getSystemIcon)
+        {
             BitmapSource imageSource;
 
-            if (Environment.OSVersion.Version.Major >= 6)
+            if (Environment.OSVersion.Version.Major >= 6 && !getSystemIcon)
             {
                 ShStockIconInfo sii = new ShStockIconInfo { cbSize = (UInt32)Marshal.SizeOf(typeof(ShStockIconInfo)) };
 
-                int errCode = SHGetStockIconInfo(iconId, ShGSI.SHGSI_ICON | (large ? ShGSI.SHGSI_LARGEICON : ShGSI.SHGSI_SMALLICON), ref sii);
+                int errCode = SHGetStockIconInfo(iconId, ShGSI.SHGSI_ICON | (large ? ShGSI.SHGSI_LARGEICON : ShGSI.SHGSI_SMALLICON) | ShGSI.SHGSI_SHELLICONSIZE, ref sii);
                 Marshal.ThrowExceptionForHR(errCode);
 
                 imageSource = Imaging.CreateBitmapSourceFromHIcon(sii.hIcon, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
