@@ -1,4 +1,6 @@
-﻿using SpotifyAPI.Local;
+﻿using SpotifyAPI;
+using SpotifyAPI.Local;
+using System.Runtime.CompilerServices;
 using Toastify.Core;
 using Toastify.Model;
 
@@ -47,6 +49,22 @@ namespace Toastify.Helpers
             {
                 Win32API.SendMediaKey(ToastifyAction.Mute);
             }
+        }
+
+        public static string ToString(this ProxyConfig proxyConfig, bool objectHash)
+        {
+            string @string = proxyConfig?.IsValid() == true
+                ? $"{(!string.IsNullOrEmpty(proxyConfig.Username) ? $"{proxyConfig.Username}@" : "")}{proxyConfig.Host}:{proxyConfig.Port}"
+                : proxyConfig == null ? "null" : "";
+
+            if (objectHash)
+            {
+                if (proxyConfig != null)
+                    @string += $" @ {RuntimeHelpers.GetHashCode(proxyConfig)}";
+                @string = @string.Trim();
+            }
+
+            return @string;
         }
     }
 }

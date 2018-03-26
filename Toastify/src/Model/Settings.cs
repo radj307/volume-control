@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using SpotifyAPI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -192,7 +193,7 @@ namespace Toastify.Model
         private SettingValue<string> _songProgressBarForegroundColor;
 
         private SettingValue<bool> _useProxy;
-        private ProxyConfig _proxyConfig = new ProxyConfig();
+        private ProxyConfig _proxyConfig;
 
         #endregion Private fields
 
@@ -552,8 +553,11 @@ namespace Toastify.Model
         {
             get
             {
+                if (this._proxyConfig == null)
+                    this._proxyConfig = new ProxyConfig();
+
                 // Retrieve the encrypted password
-                string plaintext = Security.GetProxyPassword();
+                string plaintext = Security.GetSecureProxyPassword()?.ToPlainString();
                 this._proxyConfig.Password = plaintext;
                 return this._proxyConfig;
             }
@@ -905,6 +909,19 @@ namespace Toastify.Model
                     var value = (ISettingValue)property.GetValue(this);
                     property.SetValue(clone, value?.Clone());
                 }
+
+                // ProxyConfig
+                if (this._proxyConfig != null)
+                {
+                    clone._proxyConfig = new ProxyConfig
+                    {
+                        Host = this._proxyConfig.Host,
+                        Port = this._proxyConfig.Port,
+                        Username = this._proxyConfig.Username,
+                        Password = null,
+                        BypassProxyOnLocal = this._proxyConfig.BypassProxyOnLocal
+                    };
+                }
             }
 
             return clone;
@@ -981,13 +998,24 @@ namespace Toastify.Model
 
             StringBuilder sb = new StringBuilder();
 
-            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                             .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var property in properties)
             {
                 object current = property.GetValue(Current);
-                sb.Append($"{indent}{property.Name}: {current}\n");
+                if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
+                    sb.Append($"{indent}{property.Name}: {current}\n");
+                else
+                {
+                    if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
+                        continue;
+
+                    if (property.PropertyType == typeof(ProxyConfig))
+                    {
+                        ProxyConfig proxy = (ProxyConfig)current;
+                        sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}\n");
+                    }
+                }
             }
 
             return sb.ToString();
