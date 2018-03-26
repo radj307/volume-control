@@ -317,7 +317,6 @@ namespace Toastify.Core
 
                 try
                 {
-                    var proxy = App.ProxyConfig;
                     connected = this.localAPI.Connect();
                 }
                 catch (WebException ex)
