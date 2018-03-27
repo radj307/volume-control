@@ -23,11 +23,16 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
+using ToastifyAPI;
+using ToastifyAPI.Native;
+using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Windows.Point;
+using Spotify = Toastify.Core.Spotify;
 using Timer = System.Timers.Timer;
 
 namespace Toastify.View
@@ -81,7 +86,7 @@ namespace Toastify.View
 
         public Point Position { get { return this.Rect.Location; } }
 
-        public Rect Rect { get { return new Rect(this.Left, this.Top, this.Width, this.Height); } }
+        public System.Windows.Rect Rect { get { return new System.Windows.Rect(this.Left, this.Top, this.Width, this.Height); } }
 
         public bool IsInitComplete { get; private set; }
 
@@ -492,7 +497,7 @@ namespace Toastify.View
             this.ShownOrFading = shallBeVisible;
             this.Topmost = shallBeVisible;
             this.Visibility = shallBeVisible ? Visibility.Visible : Visibility.Collapsed;
-            Win32API.ShowWindow(this.WindowHandle, shallBeVisible ? Win32API.ShowWindowCmd.SW_RESTORE : Win32API.ShowWindowCmd.SW_SHOWMINNOACTIVE);
+            User32.ShowWindow(this.WindowHandle, shallBeVisible ? ShowWindowCmd.SW_RESTORE : ShowWindowCmd.SW_SHOWMINNOACTIVE);
 
             if (shallBeVisible)
             {
@@ -647,8 +652,8 @@ namespace Toastify.View
 #if DEBUG
                     if (this.LogShowToastAction)
                     {
-                        Win32API.WindowPlacement wPlacement = new Win32API.WindowPlacement();
-                        Win32API.GetWindowPlacement(this.WindowHandle, ref wPlacement);
+                        WindowPlacement wPlacement = new WindowPlacement();
+                        User32.GetWindowPlacement(this.WindowHandle, ref wPlacement);
 
                         string hWnd = $"hWnd[{this.WindowHandle}]";
                         string timer = $"timer[{(this.minimizeTimer == null ? "null" : $"{(this.minimizeTimer.Enabled ? '1' : '0')}, {this.minimizeTimer.Interval}")}]";
@@ -718,7 +723,7 @@ namespace Toastify.View
             this.Init();
 
             // Remove from ALT+TAB.
-            Win32API.AddToolWindowStyle(this.WindowHandle);
+            Windows.AddToolWindowStyle(this.WindowHandle);
         }
 
         /// <summary>

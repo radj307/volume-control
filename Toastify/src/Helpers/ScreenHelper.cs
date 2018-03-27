@@ -42,10 +42,10 @@ namespace Toastify.Helpers
         /// </summary>
         /// <param name="rect"> The off-screen rect. </param>
         /// <returns> A 2D translation vector. </returns>
-        public static Vector BringRectInsideWorkingArea(Rect rect)
+        public static Vector BringRectInsideWorkingArea(System.Windows.Rect rect)
         {
             Vector vector = new Vector();
-            Rect totalRect = GetTotalWorkingArea();
+            System.Windows.Rect totalRect = GetTotalWorkingArea();
 
             if (totalRect.Contains(rect))
                 return vector;
@@ -62,11 +62,11 @@ namespace Toastify.Helpers
 
         #region GetTotalWorkingArea
 
-        public static Rect GetTotalWorkingArea()
+        public static System.Windows.Rect GetTotalWorkingArea()
         {
             Screen[] screens = Screen.AllScreens;
             if (screens.Length == 0)
-                return new Rect(new Size(-1.0, -1.0));
+                return new System.Windows.Rect(new Size(-1.0, -1.0));
 
             Point minLocation = new Point(double.MaxValue, double.MaxValue);
             Point maxLocation = new Point(double.MinValue, double.MinValue);
@@ -82,7 +82,7 @@ namespace Toastify.Helpers
                 if (screen.WorkingArea.Y + screen.WorkingArea.Height > maxLocation.Y)
                     maxLocation.Y = screen.WorkingArea.Y + screen.WorkingArea.Height;
             }
-            return new Rect(minLocation, maxLocation);
+            return new System.Windows.Rect(minLocation, maxLocation);
         }
 
         public static double GetTotalWorkingAreaWidth()
@@ -111,10 +111,10 @@ namespace Toastify.Helpers
         /// Get the rectangular area of the primary screen.
         /// </summary>
         /// <returns> The rectangular area of the primary screen. </returns>
-        public static Rect GetScreenRect()
+        public static System.Windows.Rect GetScreenRect()
         {
             Screen screen = Screen.PrimaryScreen;
-            return new Rect(
+            return new System.Windows.Rect(
                 new Point(screen.WorkingArea.X, screen.WorkingArea.Y),
                 new Size(screen.WorkingArea.Width / GetScaleFactor(), screen.WorkingArea.Height / GetScaleFactor()));
         }
@@ -151,11 +151,11 @@ namespace Toastify.Helpers
         /// Get the rectangular area of the screen that contains the given point.
         /// </summary>
         /// <returns> The rectangular area of the screen that contains the given point. </returns>
-        public static Rect GetScreenRect(Point pointOnScreen)
+        public static System.Windows.Rect GetScreenRect(Point pointOnScreen)
         {
             var point = unchecked(new System.Drawing.Point((int)pointOnScreen.X, (int)pointOnScreen.Y));
             Screen screen = Screen.FromPoint(point);
-            return new Rect(
+            return new System.Windows.Rect(
                 new Point(screen.WorkingArea.X, screen.WorkingArea.Y),
                 new Size(screen.WorkingArea.Width / GetScaleFactor(), screen.WorkingArea.Height / GetScaleFactor()));
         }
@@ -202,9 +202,9 @@ namespace Toastify.Helpers
         /// <returns> The maximum size. </returns>
         public static Size CalculateMaxToastSize()
         {
-            Rect toastRect = ToastView.Current == null ? new Rect() : ToastView.Current.Rect;
-            Rect totalRect = GetTotalWorkingArea();
-            Rect toastScreenRect = GetScreenRect(toastRect.Location);
+            System.Windows.Rect toastRect = ToastView.Current == null ? new System.Windows.Rect() : ToastView.Current.Rect;
+            System.Windows.Rect totalRect = GetTotalWorkingArea();
+            System.Windows.Rect toastScreenRect = GetScreenRect(toastRect.Location);
 
             double maxPossibleWidth = totalRect.Right - toastRect.Left;
             double maxPossibleHeight = totalRect.Bottom - toastRect.Top;

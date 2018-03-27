@@ -1,6 +1,7 @@
 ﻿using SpotifyAPI.Local;
 using Toastify.Core;
 using Toastify.Model;
+using ToastifyAPI.Native;
 
 namespace Toastify.Helpers
 {

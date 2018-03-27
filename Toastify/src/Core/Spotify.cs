@@ -2,10 +2,8 @@ using log4net;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
@@ -17,6 +15,9 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using ToastifyAPI.Native;
+using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 using Timer = System.Timers.Timer;
 
 namespace Toastify.Core
@@ -24,15 +25,6 @@ namespace Toastify.Core
     internal class Spotify : IDisposable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Spotify));
-
-        /// <summary>
-        /// List of names the Spotify main window had across different versions of the software.
-        /// </summary>
-        private static readonly List<string> spotifyMainWindowNames = new List<string>
-        {
-            "SpotifyMainWindow",
-            "Chrome_WidgetWin_0"    // Since v1.0.75.483.g7ff4a0dc
-        };
 
         #region Singleton
 
@@ -83,8 +75,8 @@ namespace Toastify.Core
                     return false;
 
                 var hWnd = this.GetMainWindowHandle();
-                Win32API.WindowStylesFlags windowStyles = (Win32API.WindowStylesFlags)Win32API.GetWindowLongPtr(hWnd, Win32API.GWL.GWL_STYLE);
-                return (windowStyles & Win32API.WindowStylesFlags.WS_MINIMIZE) != 0L || this.IsMinimizedToTray;
+                WindowStylesFlags windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
+                return (windowStyles & WindowStylesFlags.WS_MINIMIZE) != 0L || this.IsMinimizedToTray;
             }
         }
 
@@ -96,8 +88,8 @@ namespace Toastify.Core
                     return false;
 
                 var hWnd = this.GetMainWindowHandle();
-                Win32API.WindowStylesFlags windowStyles = (Win32API.WindowStylesFlags)Win32API.GetWindowLongPtr(hWnd, Win32API.GWL.GWL_STYLE);
-                return (windowStyles & Win32API.WindowStylesFlags.WS_MINIMIZE) == 0L && (windowStyles & Win32API.WindowStylesFlags.WS_VISIBLE) == 0L;
+                WindowStylesFlags windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
+                return (windowStyles & WindowStylesFlags.WS_MINIMIZE) == 0L && (windowStyles & WindowStylesFlags.WS_VISIBLE) == 0L;
             }
         }
 
@@ -177,7 +169,7 @@ namespace Toastify.Core
 
         private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
         {
-            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : FindSpotifyProcess();
+            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : ToastifyAPI.Spotify.FindSpotifyProcess();
             if (e.Cancel)
                 return;
             if (this.spotifyProcess == null)
@@ -266,7 +258,7 @@ namespace Toastify.Core
             bool signaled = false;
             while (this.spotifyProcess == null && !signaled)
             {
-                this.spotifyProcess = FindSpotifyProcess();
+                this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
                 signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
                 if (this.spotifyLauncher.CheckCancellation(e))
                     return this.spotifyProcess;
@@ -360,38 +352,6 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher background worker
 
-        private static Process FindSpotifyProcess()
-        {
-            if (logger.IsDebugEnabled)
-                logger.Debug("Looking for Spotify process...");
-
-            var spotifyProcesses = Process.GetProcessesByName("spotify").ToList();
-            var windowedProcesses = spotifyProcesses.Where(p => p.MainWindowHandle != IntPtr.Zero).ToList();
-
-            if (windowedProcesses.Count > 1)
-            {
-                var classNames = windowedProcesses.Select(p => $"\"{Win32API.GetClassName(p.MainWindowHandle)}\"");
-                logger.Warn($"More than one ({windowedProcesses.Count}) \"spotify\" process has a non-null main window: {string.Join(", ", classNames)}");
-            }
-
-            var process = windowedProcesses.FirstOrDefault();
-
-            // If none of the Spotify processes found has a valid MainWindowHandle,
-            // then Spotify has probably been minimized to the tray: we need to check every window.
-            if (process == null)
-            {
-                foreach (var p in spotifyProcesses)
-                {
-                    var processWindows = Win32API.GetProcessWindows((uint)p.Id);
-                    IntPtr hWnd = processWindows.FirstOrDefault(h => spotifyMainWindowNames.Contains(Win32API.GetClassName(h)));
-                    if (hWnd != IntPtr.Zero)
-                        return p;
-                }
-            }
-
-            return process;
-        }
-
         private void Minimize(int delay = 0)
         {
             int remainingSleep = 2000;
@@ -411,7 +371,7 @@ namespace Toastify.Core
                 // We also need to wait a little more before minimizing the window;
                 // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
                 Thread.Sleep(delay);
-                Win32API.ShowWindow(hWnd, Win32API.ShowWindowCmd.SW_SHOWMINIMIZED);
+                User32.ShowWindow(hWnd, ShowWindowCmd.SW_SHOWMINIMIZED);
             }
         }
 
@@ -441,12 +401,12 @@ namespace Toastify.Core
                 var hWnd = this.GetMainWindowHandle();
 
                 // check Spotify's current window state
-                var placement = new Win32API.WindowPlacement();
-                Win32API.GetWindowPlacement(hWnd, ref placement);
+                var placement = new WindowPlacement();
+                User32.GetWindowPlacement(hWnd, ref placement);
 
-                var showCommand = Win32API.ShowWindowCmd.SW_SHOW;
-                if (placement.showCmd == Win32API.ShowWindowCmd.SW_SHOWMINIMIZED || placement.showCmd == Win32API.ShowWindowCmd.SW_HIDE)
-                    showCommand = Win32API.ShowWindowCmd.SW_RESTORE;
+                var showCommand = ShowWindowCmd.SW_SHOW;
+                if (placement.showCmd == ShowWindowCmd.SW_SHOWMINIMIZED || placement.showCmd == ShowWindowCmd.SW_HIDE)
+                    showCommand = ShowWindowCmd.SW_RESTORE;
 
                 if (this.IsMinimizedToTray)
                 {
@@ -481,35 +441,19 @@ namespace Toastify.Core
                     //}
                 }
                 else
-                    Win32API.ShowWindow(hWnd, showCommand);
+                    User32.ShowWindow(hWnd, showCommand);
 
-                Win32API.SetForegroundWindow(hWnd);
-                Win32API.SetFocus(hWnd);
+                User32.SetForegroundWindow(hWnd);
+                User32.SetFocus(hWnd);
             }
         }
 
         private IntPtr GetMainWindowHandle()
         {
             if (this.spotifyProcess == null)
-                this.spotifyProcess = FindSpotifyProcess();
-            if (this.spotifyProcess == null)
-                return IntPtr.Zero;
+                this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
 
-            var windows = Win32API.GetProcessWindows((uint)this.spotifyProcess.Id);
-            var possibleMainWindows = windows.Where(h =>
-            {
-                string className = Win32API.GetClassName(h);
-                string windowName = Win32API.GetWindowTitle(h);
-                return !string.IsNullOrWhiteSpace(windowName) && spotifyMainWindowNames.Contains(className);
-            }).ToList();
-
-            if (possibleMainWindows.Count > 1)
-            {
-                var classNames = possibleMainWindows.Select(h => $"\"{Win32API.GetClassName(h)}\"");
-                logger.Warn($"More than one ({possibleMainWindows.Count}) possible main windows located for Spotify: {string.Join(", ", classNames)}");
-            }
-
-            return possibleMainWindows.FirstOrDefault();
+            return this.spotifyProcess == null ? IntPtr.Zero : ToastifyAPI.Spotify.GetMainWindowHandle((uint)this.spotifyProcess.Id);
         }
 
         public void SendAction(ToastifyAction action)
@@ -612,7 +556,7 @@ namespace Toastify.Core
             }
 
             if (sendAppCommandMessage)
-                Win32API.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
+                Windows.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
             if (sendMediaKey)
                 Win32API.SendMediaKey(action);
         }

@@ -19,8 +19,14 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI;
+using ToastifyAPI.Native;
+using ToastifyAPI.Native.Delegates;
+using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 using Clipboard = System.Windows.Clipboard;
 using MouseAction = Toastify.Core.MouseAction;
+using Spotify = Toastify.Core.Spotify;
 
 namespace Toastify.Model
 {
@@ -44,7 +50,7 @@ namespace Toastify.Model
         private KeyOrButton _keyOrButton;
 
         private IntPtr hMouseHook = IntPtr.Zero;
-        private Win32API.LowLevelMouseHookProc mouseHookProc;
+        private LowLevelMouseHookProc mouseHookProc;
 
         private bool _isValid;
         private string _invalidReason;
@@ -413,13 +419,13 @@ namespace Toastify.Model
             if (enable && this.hMouseHook == IntPtr.Zero)
             {
                 this.mouseHookProc = this.MouseHookProc;
-                this.hMouseHook = Win32API.SetLowLevelMouseHook(ref this.mouseHookProc);
+                this.hMouseHook = Processes.SetLowLevelMouseHook(ref this.mouseHookProc);
 
                 registeredMouseHooks.Add(this);
             }
             else if (!enable && this.hMouseHook != IntPtr.Zero)
             {
-                bool success = Win32API.UnhookWindowsHookEx(this.hMouseHook);
+                bool success = User32.UnhookWindowsHookEx(this.hMouseHook);
                 if (success == false)
                     logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
 
@@ -441,11 +447,11 @@ namespace Toastify.Model
             HotkeyActionCallback(this);
         }
 
-        private IntPtr MouseHookProc(int nCode, Win32API.WindowsMessagesFlags wParam, Win32API.LowLevelMouseHookStruct lParam)
+        private IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
         {
             if (nCode >= 0 && this.KeyOrButton.MouseButton.HasValue)
             {
-                if (wParam == Win32API.WindowsMessagesFlags.WM_XBUTTONUP)
+                if (wParam == WindowsMessagesFlags.WM_XBUTTONUP)
                 {
                     Union32 union = new Union32(lParam.mouseData);
 
@@ -453,7 +459,7 @@ namespace Toastify.Model
                                                  union.High == 0x0002 && this.KeyOrButton.MouseButton == MouseAction.XButton2))
                         HotkeyActionCallback(this);
                 }
-                else if (wParam == Win32API.WindowsMessagesFlags.WM_MOUSEWHEEL)
+                else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
                 {
                     Union32 union = new Union32(lParam.mouseData);
                     
@@ -466,7 +472,7 @@ namespace Toastify.Model
             else if (!this.KeyOrButton.MouseButton.HasValue)
                 this.SetMouseHook(false);
 
-            return Win32API.CallNextHookEx(this.hMouseHook, nCode, wParam, lParam);
+            return User32.CallNextHookEx(this.hMouseHook, nCode, wParam, lParam);
         }
 
         public override string ToString()
@@ -527,7 +533,7 @@ namespace Toastify.Model
                 {
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.PasteTrackInfo);
                     Clipboard.SetText(Spotify.Instance.CurrentSong.GetClipboardText(Settings.Current.ClipboardTemplate));
-                    Win32API.SendPasteKey();
+                    Windows.SendPasteKey();
                 }
                 else
                     Spotify.Instance.SendAction(hotkey.Action);

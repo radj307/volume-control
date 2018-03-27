@@ -789,7 +789,7 @@ namespace Toastify.Model
             this._hotKeys = this._hotKeys.Distinct(Hotkey.EqualityComparerOnAction).ToList();
 
             // Bring the Toast inside the working area if it is off-screen
-            Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            System.Windows.Rect toastRect = new System.Windows.Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
             Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
