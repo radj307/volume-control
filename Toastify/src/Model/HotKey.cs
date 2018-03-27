@@ -387,7 +387,7 @@ namespace Toastify.Model
             }
             else if (!this.KeyOrButton.IsKey &&
                      (this.KeyOrButton.MouseButton == MouseAction.MWheelUp || this.KeyOrButton.MouseButton == MouseAction.MWheelDown) &&
-                     !this.Shift & !this.Ctrl && !this.Alt)
+                     !this.Shift && !this.Ctrl && !this.Alt)
             {
                 this.IsValid = false;
                 this.InvalidReason = $"You must use at leat one modifier key with {this.KeyOrButton.MouseButton}";
