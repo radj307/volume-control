@@ -119,10 +119,10 @@
                             <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" Grid.Column="1" Height="32" Margin="12,96,12,0" VerticalAlignment="Top">
-                            <Image Source="/Toastify;component/Resources/WarningLarge.png"></Image>
-                            <TextBlock Text="{Binding Path=InvalidReason}" />
-                        </StackPanel>
+                        <Grid Grid.Column="1" Height="32" Margin="12,96,12,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" VerticalAlignment="Top">
+                            <Image Width="32" Height="32" HorizontalAlignment="Left" Source="/Toastify;component/Resources/WarningLarge.png"></Image>
+                            <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>
