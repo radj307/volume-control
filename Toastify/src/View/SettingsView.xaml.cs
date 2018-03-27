@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Toastify.Common;
 using Toastify.Core;
@@ -16,6 +15,7 @@ using Toastify.Services;
 using Toastify.ViewModel;
 using Xceed.Wpf.Toolkit;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MouseAction = Toastify.Core.MouseAction;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -85,10 +85,6 @@ namespace Toastify.View
         {
             if (enable && this.hHook == IntPtr.Zero)
             {
-                // Ignore if the mouse doesn't have XButton1 and/or XButton2
-                if (SystemInformation.MouseButtons <= 3)
-                    return;
-
                 this.mouseHookProc = this.MouseHookProc;
                 this.hHook = Win32API.SetLowLevelMouseHook(ref this.mouseHookProc);
             }
@@ -115,15 +111,35 @@ namespace Toastify.View
 
                         if (union.High == 0x0001)
                         {
-                            this.TxtSingleKey.Text = MouseButton.XButton1.ToString();
+                            this.TxtSingleKey.Text = MouseAction.XButton1.ToString();
                             if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseButton.XButton1;
+                                hotkey.KeyOrButton = MouseAction.XButton1;
                         }
                         else if (union.High == 0x0002)
                         {
-                            this.TxtSingleKey.Text = MouseButton.XButton2.ToString();
+                            this.TxtSingleKey.Text = MouseAction.XButton2.ToString();
                             if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseButton.XButton2;
+                                hotkey.KeyOrButton = MouseAction.XButton2;
+                        }
+                    }
+                    else if (wParam == Win32API.WindowsMessagesFlags.WM_MOUSEWHEEL)
+                    {
+                        Union32 union = new Union32(lParam.mouseData);
+                        
+                        short delta = unchecked((short)union.High);
+                        if (delta > 0)
+                        {
+                            // MWheelUp
+                            this.TxtSingleKey.Text = MouseAction.MWheelUp.ToString();
+                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
+                                hotkey.KeyOrButton = MouseAction.MWheelUp;
+                        }
+                        else if (delta < 0)
+                        {
+                            // MWheelDown
+                            this.TxtSingleKey.Text = MouseAction.MWheelDown.ToString();
+                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
+                                hotkey.KeyOrButton = MouseAction.MWheelDown;
                         }
                     }
                 }

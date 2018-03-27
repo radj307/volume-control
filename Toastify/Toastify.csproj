@@ -154,6 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\Core\MouseAction.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Windows.Input;
-using Newtonsoft.Json.Converters;
+using MouseAction = Toastify.Core.MouseAction;
 
 namespace Toastify.Model
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Represents either a <see cref="T:System.Windows.Input.Key" /> or a <see cref="T:System.Windows.Input.MouseButton" />.
+    /// Represents either a <see cref="T:System.Windows.Input.Key"/> or a <see cref="MouseAction"/>.
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
@@ -22,20 +22,20 @@ namespace Toastify.Model
         public Key? Key { get; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public MouseButton? MouseButton { get; }
+        public MouseAction? MouseButton { get; }
 
         public KeyOrButton(Key key)
         {
             this.Key = key;
         }
 
-        public KeyOrButton(MouseButton mouseButton)
+        public KeyOrButton(MouseAction mouseAction)
         {
-            this.MouseButton = mouseButton;
+            this.MouseButton = mouseAction;
         }
 
         [JsonConstructor]
-        public KeyOrButton(bool isKey, Key? key, MouseButton? mouseButton)
+        public KeyOrButton(bool isKey, Key? key, MouseAction? mouseButton)
         {
             if (isKey && key.HasValue)
                 this.Key = key;
@@ -100,9 +100,9 @@ namespace Toastify.Model
             return new KeyOrButton(key);
         }
 
-        public static implicit operator KeyOrButton(MouseButton mouseButton)
+        public static implicit operator KeyOrButton(MouseAction mouseAction)
         {
-            return new KeyOrButton(mouseButton);
+            return new KeyOrButton(mouseAction);
         }
     }
 }

@@ -20,6 +20,7 @@ using Toastify.Helpers;
 using Toastify.Services;
 using Toastify.View;
 using Clipboard = System.Windows.Clipboard;
+using MouseAction = Toastify.Core.MouseAction;
 
 namespace Toastify.Model
 {
@@ -378,7 +379,16 @@ namespace Toastify.Model
                 this.IsValid = false;
                 this.InvalidReason = "You must select a valid key for your hotkey combination";
             }
-            else if (!this.KeyOrButton.IsKey && this.KeyOrButton.MouseButton != MouseButton.XButton1 && this.KeyOrButton.MouseButton != MouseButton.XButton2)
+            else if (!this.KeyOrButton.IsKey &&
+                     (this.KeyOrButton.MouseButton == MouseAction.MWheelUp || this.KeyOrButton.MouseButton == MouseAction.MWheelDown) &&
+                     !this.Shift & !this.Ctrl && !this.Alt)
+            {
+                this.IsValid = false;
+                this.InvalidReason = $"You must use at leat one modifier key with {this.KeyOrButton.MouseButton}";
+            }
+            else if (!this.KeyOrButton.IsKey &&
+                     !(this.KeyOrButton.MouseButton == MouseAction.XButton1 || this.KeyOrButton.MouseButton == MouseAction.XButton2 ||
+                       this.KeyOrButton.MouseButton == MouseAction.MWheelUp || this.KeyOrButton.MouseButton == MouseAction.MWheelDown))
             {
                 this.IsValid = false;
                 this.InvalidReason = $"You can't use the {this.KeyOrButton.MouseButton} mouse button in a hotkey combination";
@@ -439,8 +449,17 @@ namespace Toastify.Model
                 {
                     Union32 union = new Union32(lParam.mouseData);
 
-                    if (this.TestModifiers() && (union.High == 0x0001 && this.KeyOrButton.MouseButton == MouseButton.XButton1 ||
-                                                 union.High == 0x0002 && this.KeyOrButton.MouseButton == MouseButton.XButton2))
+                    if (this.TestModifiers() && (union.High == 0x0001 && this.KeyOrButton.MouseButton == MouseAction.XButton1 ||
+                                                 union.High == 0x0002 && this.KeyOrButton.MouseButton == MouseAction.XButton2))
+                        HotkeyActionCallback(this);
+                }
+                else if (wParam == Win32API.WindowsMessagesFlags.WM_MOUSEWHEEL)
+                {
+                    Union32 union = new Union32(lParam.mouseData);
+                    
+                    short delta = unchecked((short)union.High);
+                    if (this.TestModifiers() && (delta > 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelUp ||
+                                                 delta < 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelDown))
                         HotkeyActionCallback(this);
                 }
             }
