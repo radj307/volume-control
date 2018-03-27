@@ -80,7 +80,7 @@ namespace Toastify
         {
             try
             {
-                AppArgs = args!= null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
+                AppArgs = args != null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
             }
             catch (Exception e)
             {
@@ -250,7 +250,7 @@ namespace Toastify
                 }
             }
         }
-        
+
         [TabCompletion]
         internal class MainArgs
         {
@@ -296,8 +296,7 @@ namespace Toastify
             get
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-                return fileVersionInfo.FileVersion;
+                return assembly.GetName().Version.ToString();
             }
         }
 

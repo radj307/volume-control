@@ -33,8 +33,10 @@ namespace Toastify.Services
 
                     if (_version != null)
                     {
-                        var thirdDot = _version.LastIndexOf('.');
-                        _version = _version.Substring(0, thirdDot);
+                        Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
+                        Match match = regex.Match(_version);
+                        if (match.Success)
+                            _version = match.Groups[1].Value;
                     }
                 }
 
