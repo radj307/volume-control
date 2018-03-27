@@ -339,9 +339,13 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
     <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
     <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
     <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)post-build.cmd" "$(ConfigurationName)" "$(DevEnvDir)" "$(SolutionDir)" "$(TargetDir)" "$(TargetFileName)"</PostBuildEvent>

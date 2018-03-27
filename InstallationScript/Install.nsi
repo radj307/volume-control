@@ -61,12 +61,11 @@ Section "Toastify (required)"
   # Bundle the files
   ${If} ${IsWin10}
     File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
+    File /oname=ToastifyAPI.pdb "ToastifyAPI_UWP.pdb"
   ${Else}
     File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
+    File /oname=ToastifyAPI.pdb "ToastifyAPI_Win32.pdb"
   ${EndIf}
-
-  # Remove files belonging to old versions
-  Delete "$INSTDIR\Garlic.dll"
   
   File "Toastify.exe"
   File "Toastify.exe.config"
@@ -81,6 +80,9 @@ Section "Toastify (required)"
   File "Xceed.Wpf.Toolkit.dll"
   File "LICENSE"
   File "LICENSE-3RD-PARTY"
+
+  # Remove files belonging to old versions
+  Delete "$INSTDIR\Garlic.dll"
   
   # Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
@@ -124,6 +126,7 @@ Section "Uninstall"
   Delete "$INSTDIR\Toastify.exe.config"
   Delete "$INSTDIR\Toastify.pdb"
   Delete "$INSTDIR\ToastifyAPI.dll"
+  Delete "$INSTDIR\ToastifyAPI.pdb"
   Delete "$INSTDIR\GoogleMeasurementProtocol.dll"
   Delete "$INSTDIR\log4net.dll"
   Delete "$INSTDIR\ManagedWinapi.dll"
