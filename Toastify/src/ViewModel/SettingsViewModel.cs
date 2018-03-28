@@ -231,7 +231,7 @@ namespace Toastify.ViewModel
                     // If no username has been entered, remove the saved password
                     Security.SaveProxyPassword(new SecureString());
                 }
-                else if (!string.IsNullOrEmpty(this.ProxyPassword.ToPlainString()))
+                else if (!string.IsNullOrEmpty(this.ProxyPassword?.ToPlainString()))
                 {
                     // Otherwise, if the password box is not empty, save the new password
                     Security.SaveProxyPassword(this.ProxyPassword);

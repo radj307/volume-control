@@ -17,6 +17,9 @@ namespace Toastify
 
         public static bool ProtectedDataExists(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
             string secFilePath = Path.Combine(App.LocalApplicationData, fileName);
             return File.Exists(secFilePath);
         }
@@ -38,12 +41,18 @@ namespace Toastify
 
         internal static byte[] GetProtectedData(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
             byte[] encryptedData = GetProtectedDataInternal(fileName, out byte[] entropy);
             return ProtectedData.Unprotect(encryptedData, entropy, DataProtectionScope.CurrentUser);
         }
 
         internal static SecureString GetProtectedSecureString(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
             byte[] encryptedData = GetProtectedDataInternal(fileName, out byte[] entropy);
             if (encryptedData == null || encryptedData.Length == 0)
                 return null;
@@ -142,6 +151,14 @@ namespace Toastify
 
         internal static void SaveProtectedData(byte[] plaintext, string fileName)
         {
+            if (plaintext == null)
+            {
+                logger.Warn($"{nameof(plaintext)} is null");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
             // Generate entropy
             byte[] entropy = new byte[20];
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
@@ -156,6 +173,14 @@ namespace Toastify
 
         internal static void SaveProtectedData(SecureString secureString, string fileName)
         {
+            if (secureString == null)
+            {
+                logger.Warn($"{nameof(secureString)} is null");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
             // Generate entropy
             byte[] entropy = new byte[20];
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -14,6 +15,8 @@ namespace Toastify.Helpers
 {
     public static class Extensions
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Extensions));
+
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
         {
             return listToClone.Select(item => (T)item.Clone()).ToList();
@@ -143,11 +146,21 @@ namespace Toastify.Helpers
 
         public static string ToPlainString(this SecureString secureString)
         {
+            if (secureString == null)
+                return null;
+            if (secureString.Length == 0)
+                return string.Empty;
+
             IntPtr valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
                 return Marshal.PtrToStringUni(valuePtr);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unknown error", ex);
+                return null;
             }
             finally
             {
