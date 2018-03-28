@@ -453,7 +453,7 @@ namespace Toastify.Core
             if (this.spotifyProcess == null)
                 this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
 
-            return this.spotifyProcess == null ? IntPtr.Zero : ToastifyAPI.Spotify.GetMainWindowHandle((uint)this.spotifyProcess.Id);
+            return this.spotifyProcess == null ? IntPtr.Zero : ToastifyAPI.Spotify.GetMainWindowHandle(unchecked((uint)this.spotifyProcess.Id));
         }
 
         public void SendAction(ToastifyAction action)
