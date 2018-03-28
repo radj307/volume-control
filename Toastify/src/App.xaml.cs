@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
@@ -19,6 +20,7 @@ using Toastify.Services;
 using log4net.Core;
 using log4net.Filter;
 using log4net.Repository.Hierarchy;
+using Toastify.Events;
 
 #if DEBUG
 
@@ -32,6 +34,8 @@ namespace Toastify
     public static class EntryPoint
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
+
+        private static string previousVersion = string.Empty;
 
         private static MainArgs AppArgs { get; set; }
 
@@ -154,7 +158,9 @@ namespace Toastify
             LoadSettings();
             StartupTask();
             Analytics.Init();
-            Settings.Current.PreviousVersion = VersionChecker.CurrentVersion;
+
+            previousVersion = Settings.Current.PreviousVersion;
+            Settings.Current.PreviousVersion = App.CurrentVersionNoRevision;
             Settings.Current.Save();
         }
 
@@ -166,6 +172,9 @@ namespace Toastify
 #if DEBUG
             DebugView.Launch();
 #endif
+
+            Spotify.Instance.Connected -= Spotify_Connected;
+            Spotify.Instance.Connected += Spotify_Connected;
 
             app.Run();
         }
@@ -251,6 +260,17 @@ namespace Toastify
             }
         }
 
+        private static void Spotify_Connected(object sender, SpotifyStateEventArgs spotifyStateEventArgs)
+        {
+            // Show the changelog if necessary
+            if (!string.IsNullOrWhiteSpace(previousVersion))
+            {
+                Version previous = new Version(previousVersion);
+                if (previous < new Version(App.CurrentVersionNoRevision))
+                    ChangelogView.Launch();
+            }
+        }
+
         [TabCompletion]
         internal class MainArgs
         {
@@ -297,6 +317,23 @@ namespace Toastify
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 return assembly.GetName().Version.ToString();
+            }
+        }
+
+        public static string CurrentVersionNoRevision
+        {
+            get
+            {
+                string version = CurrentVersion;
+                if (version != null)
+                {
+                    Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
+                    Match match = regex.Match(version);
+                    if (match.Success)
+                        version = match.Groups[1].Value;
+                }
+
+                return version;
             }
         }
 

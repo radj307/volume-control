@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="GitHub\GitHubAPI.cs" />
     <Compile Include="GitHub\Model\BaseModel.cs" />
+    <Compile Include="GitHub\Model\Emoji.cs" />
     <Compile Include="GitHub\Model\Release.cs" />
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="Helpers\Extensions.cs" />
