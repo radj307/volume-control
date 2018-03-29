@@ -10,6 +10,7 @@ namespace ToastifyAPI.Native.Enums
         WM_CLOSE           = 0x0010,
         WM_QUIT            = 0x0012,
         WM_ERASEBKGND      = 0x0014,
+        WM_SHOWWINDOW      = 0x0018,
         WM_CHILDACTIVATE   = 0x0022,
         WM_GETICON         = 0x007F,
 

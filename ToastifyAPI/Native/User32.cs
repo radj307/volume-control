@@ -33,6 +33,16 @@ namespace ToastifyAPI.Native
         internal static extern bool UpdateWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
+        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32.dll")]
+        public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, MenuFlags uEnable);
+
+        // Overload for system menu items
+        [DllImport("user32.dll")]
+        public static extern bool EnableMenuItem(IntPtr hMenu, SysCommands uIDEnableItem, MenuFlags uEnable);
+
+        [DllImport("user32.dll")]
         internal static extern IntPtr GetMenu(IntPtr hWnd);
 
         [DllImport("user32.dll")]
@@ -201,5 +211,8 @@ namespace ToastifyAPI.Native
 
         [DllImport("user32.dll")]
         internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool DestroyIcon(IntPtr hIcon);
     }
 }

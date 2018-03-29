@@ -1,10 +1,13 @@
-﻿using System.ComponentModel;
+﻿using SpotifyAPI;
+using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
+using Toastify.Helpers;
 using Toastify.Model;
 
 namespace Toastify.View
@@ -16,7 +19,6 @@ namespace Toastify.View
 
         internal static DebugView Current { get; private set; }
 
-        private Settings CurrentSettings { get { return Settings.Current; } }
         private Settings PreviewSettings { get; set; }
 
         public DebugView()
@@ -52,8 +54,7 @@ namespace Toastify.View
             Debug.WriteLine("SETTINGS [Current | (Preview) | Default]");
             Debug.WriteLine("");
 
-            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                             .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             if (this.PreviewSettings != null)
             {
@@ -63,7 +64,22 @@ namespace Toastify.View
                     dynamic preview = property.GetValue(this.PreviewSettings);
                     dynamic @default = property.GetValue(Settings.Default);
 
-                    Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {preview?.ToString(),-25} | {@default?.ToString(),-25}");
+                    if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
+                        Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {preview?.ToString(),-25} | {@default?.ToString(),-25}");
+                    else
+                    {
+                        if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
+                            continue;
+
+                        if (property.PropertyType == typeof(ProxyConfig))
+                        {
+                            ProxyConfig cp = (ProxyConfig)current;
+                            ProxyConfig pp = (ProxyConfig)preview;
+                            ProxyConfig dp = (ProxyConfig)@default;
+
+                            Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {pp?.ToString(true),-30} | {dp?.ToString(true),-30}");
+                        }
+                    }
                 }
             }
             else
@@ -73,7 +89,21 @@ namespace Toastify.View
                     dynamic current = property.GetValue(Settings.Current);
                     dynamic @default = property.GetValue(Settings.Default);
 
-                    Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {@default?.ToString(),-25}");
+                    if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
+                        Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-25} | {@default?.ToString(),-25}");
+                    else
+                    {
+                        if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
+                            continue;
+
+                        if (property.PropertyType == typeof(ProxyConfig))
+                        {
+                            ProxyConfig cp = (ProxyConfig)current;
+                            ProxyConfig dp = (ProxyConfig)@default;
+
+                            Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {dp?.ToString(true),-30}");
+                        }
+                    }
                 }
             }
 

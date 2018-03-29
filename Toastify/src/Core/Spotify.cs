@@ -1,4 +1,5 @@
 using log4net;
+using SpotifyAPI;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
@@ -10,7 +11,7 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
+using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -43,7 +44,7 @@ namespace Toastify.Core
 
         private BackgroundWorker spotifyLauncher;
 
-        private Timer spotifyLauncherTimeoutTimer;
+        private PausableTimer spotifyLauncherTimeoutTimer;
 
         private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
 
@@ -135,7 +136,11 @@ namespace Toastify.Core
         {
             this.DisposeLocalAPI();
 
-            this.localAPIConfig = new SpotifyLocalAPIConfig { TimerInterval = 500 };
+            this.localAPIConfig = new SpotifyLocalAPIConfig
+            {
+                TimerInterval = 500,
+                ProxyConfig = App.ProxyConfig
+            };
             this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 
             this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
@@ -153,7 +158,7 @@ namespace Toastify.Core
 
             if (Settings.Current.StartupWaitTimeout < 60000)
                 Settings.Current.StartupWaitTimeout = 60000;
-            this.spotifyLauncherTimeoutTimer = new Timer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
+            this.spotifyLauncherTimeoutTimer = new PausableTimer(Settings.Current.StartupWaitTimeout) { AutoReset = false };
             this.spotifyLauncherTimeoutTimer.Elapsed += this.SpotifyLauncherTimeoutTimer_Elapsed;
 
             this.spotifyLauncher.RunWorkerAsync();
@@ -222,17 +227,26 @@ namespace Toastify.Core
                 }
                 else // e.Cancelled
                 {
-                    logger.Error("Toastify was not able to find Spotify within the timeout interval.");
+                    logger.Error($"Toastify was not able to find or connect to Spotify within the timeout interval ({Settings.Current.StartupWaitTimeout / 1000} seconds).");
 
-                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
-                    const string techDetails = "Technical Details: timeout";
-                    MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY_TIMEOUT;
+                    MessageBoxResult choice = MessageBoxResult.No;
+                    App.CallInSTAThread(() =>
+                    {
+                        choice = CustomMessageBox.ShowYesNo(
+                            $"{errorMsg}\nDo you need to set up or change your proxy details?\n\nToastify will terminate regardless of your choice.",
+                            "Toastify",
+                            "Yes",  // Yes
+                            "No",   // No
+                            MessageBoxImage.Error);
+                    });
+
+                    if (choice == MessageBoxResult.Yes)
+                        this.ChangeProxySettings();
                 }
 
                 // Terminate Toastify
-                Application.Current.Dispatcher.BeginInvoke(
-                    DispatcherPriority.Normal,
-                    new Action(() => Application.Current.Shutdown()));
+                App.Terminate();
             }
             else
                 this.Spotify_Connected(this, new SpotifyStateEventArgs(this.Status));
@@ -295,6 +309,10 @@ namespace Toastify.Core
             bool signaled;
 
             bool connected = false;
+            bool proxySettingsChangedManually = false;
+
+            #region try { this.localAPI.Connect(); }
+
             do
             {
                 signaled = this.spotifyLauncherWaitHandle.WaitOne(500);
@@ -307,37 +325,192 @@ namespace Toastify.Core
                 }
                 catch (WebException ex)
                 {
-                    if (ex.InnerException is SocketException socketException && socketException.SocketErrorCode == SocketError.ConnectionRefused)
+                    /*
+                     * Multiple known things might lead to a WebException:
+                     * 1) "open.spotify.com" is blocked
+                     *    If "open.spotify.com" is blocked or redirected, a few things can happen:
+                     *    a) SocketException; either ConnectionRefused or AccessDenied
+                     *    b) NameResolutionFailure
+                     * 2) A proxy is required
+                     *    a) ProtocolError; either 305 (UseProxy) or 407 (ProxyAuthenticationRequired)
+                     *    b) SocketException
+                     * 3) The proxy is not needed anymore?
+                     */
+
+                    bool handled = false;
+                    bool openSpotifyBlocked = false;
+                    string openSpotifyBlockedMessage = "";
+
+                    // ReSharper disable once MergeCastWithTypeCheck
+                    if (ex.InnerException is SocketException)
                     {
-                        bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                        SocketException socketException = (SocketException)ex.InnerException;
 
-                        // Check if "open.spotify.com" is blocked by the firewall or redirected in the hosts file
-                        using (HttpClient http = new HttpClient())
+                        if (socketException.SocketErrorCode == SocketError.ConnectionRefused || socketException.SocketErrorCode == SocketError.AccessDenied)
                         {
-                            using (HttpRequestMessage request = new HttpRequestMessage())
-                            {
-                                request.Method = HttpMethod.Head;
-                                request.RequestUri = new Uri("http://open.spotify.com");
-                                request.Headers.Add("User-Agent", "Spotify (1.0.50.41368.gbd68dbef)");
+                            //// 1a) "open.spotify.com" redirected to 127.0.0.1 or blocked by the firewall
 
-                                try
+                            bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+                            // Double check
+                            HttpClientHandler clientHandler = App.CreateHttpClientHandler(App.ProxyConfig);
+                            using (HttpClient http = new HttpClient(clientHandler))
+                            {
+                                using (HttpRequestMessage request = new HttpRequestMessage())
                                 {
-                                    using (http.SendAsync(request).Result) { }
-                                }
-                                catch
-                                {
-                                    logger.Error("Couldn't access \"open.spotify.com\": the client blocked the connection to the host.");
-                                    throw new ApplicationStartupException(hostRedirected
-                                        ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
-                                        : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED, false);
+                                    request.Method = HttpMethod.Head;
+                                    request.RequestUri = new Uri("http://open.spotify.com");
+                                    request.Headers.Add("User-Agent", "Spotify (1.0.50.41368.gbd68dbef)");
+
+                                    try
+                                    {
+                                        using (http.SendAsync(request).Result) { /* do nothing */ }
+                                    }
+                                    catch
+                                    {
+                                        openSpotifyBlocked = true;
+                                        openSpotifyBlockedMessage = hostRedirected
+                                            ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
+                                            : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
+                                        handled = true;
+                                    }
                                 }
                             }
                         }
                     }
+                    else if (ex.Status == WebExceptionStatus.NameResolutionFailure && ex.Message.Contains("open.spotify.com"))
+                    {
+                        //// 1b) "open.spotify.com" redirected to 0.0.0.0
+                        openSpotifyBlocked = true;
+                        openSpotifyBlockedMessage = Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS;
+                        handled = true;
+                    }
 
-                    logger.Warn("WebException while connecting to Spotify.", ex);
+                    if (openSpotifyBlocked)
+                    {
+                        logger.Error("Couldn't access \"open.spotify.com\": the client blocked the connection to the host.");
+                        throw new ApplicationStartupException(openSpotifyBlockedMessage, false);
+                    }
+
+                    if (ex.Status == WebExceptionStatus.ProtocolError)
+                    {
+                        var httpResponse = (HttpWebResponse)ex.Response;
+
+                        //// 2a) UseProxy or ProxyAuthenticationRequired
+                        if (httpResponse?.StatusCode == HttpStatusCode.UseProxy)
+                        {
+                            string location = httpResponse.Headers[HttpResponseHeader.Location];
+                            Uri uri = new Uri(location);
+                            string[] userInfo = uri.UserInfo.Split(':');
+                            ProxyConfig proxy = new ProxyConfig
+                            {
+                                Host = uri.Host,
+                                Port = uri.Port,
+                                Username = userInfo.Length > 0 && !string.IsNullOrEmpty(userInfo[0]) ? userInfo[0] : string.Empty,
+                                Password = userInfo.Length > 1 && !string.IsNullOrEmpty(userInfo[1]) ? userInfo[1] : string.Empty,
+                                BypassProxyOnLocal = true
+                            };
+
+                            App.ProxyConfig.Set(proxy);
+                            handled = true;
+
+                            if (logger.IsDebugEnabled)
+                                logger.Debug($"The server requested the use of a proxy. Using \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\" as requested.");
+                        }
+                        else if (httpResponse?.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
+                        {
+                            if (logger.IsDebugEnabled)
+                                logger.Debug("The requested proxy server requires authentication. Prompting the user for proxy details...", ex);
+
+                            this.spotifyLauncherTimeoutTimer.Pause();
+                            App.ShowConfigProxyDialog();
+                            this.spotifyLauncherTimeoutTimer.Resume();
+
+                            handled = true;
+                            proxySettingsChangedManually = true;
+
+                            if (logger.IsDebugEnabled)
+                            {
+                                var proxy = App.ProxyConfig;
+                                logger.Debug($"Proxy has been set to \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\"");
+                            }
+                        }
+                    }
+
+                    // All unhandled socket errors or HTTP status codes should be handled here
+                    if (!handled)
+                    {
+                        string errorCode;
+
+                        // ReSharper disable once MergeCastWithTypeCheck
+                        if (ex.InnerException is SocketException)
+                        {
+                            SocketException socketException = (SocketException)ex.InnerException;
+                            errorCode = socketException.SocketErrorCode.ToString();
+                            logger.Warn($"Unhandled SocketException while connecting to Spotify: {socketException.SocketErrorCode}.", socketException);
+                        }
+                        else
+                        {
+                            var httpResponse = (HttpWebResponse)ex.Response;
+                            errorCode = httpResponse?.StatusCode.ToString();
+                            logger.Warn("Unhandled WebException while connecting to Spotify.", ex);
+                        }
+
+                        // If we failed to handle the exception, ask the user if they need to configure a proxy
+                        if (!(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
+                        {
+                            if (logger.IsDebugEnabled)
+                                logger.Debug("Asking the user if they are behind a proxy...");
+
+                            if (MessageBox.Show("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                this.ChangeProxySettings();
+                            else
+                            {
+                                // Disable the proxy
+                                App.ProxyConfig.Set(null);
+                                Settings.Current.UseProxy = false;
+                                Settings.Current.Save();
+
+                                if (logger.IsDebugEnabled)
+                                    logger.Debug("Use of proxy has been disabled.");
+                            }
+                            proxySettingsChangedManually = true;
+                        }
+                        else
+                        {
+                            logger.Warn($"Proxy settings had no effect! {(errorCode != null ? $"Returned error code: {errorCode}" : "")}", ex);
+
+                            if (logger.IsDebugEnabled)
+                                logger.Debug("Asking the user if they want to retry, change proxy settings or exit...");
+
+                            MessageBoxResult choice = MessageBoxResult.Cancel;
+                            App.CallInSTAThread(() =>
+                            {
+                                choice = CustomMessageBox.ShowYesNoCancel(
+                                    $"Invalid proxy settings. {(errorCode != null ? $"Returned error code: {errorCode}" : "")}\nDo you want to retry?",
+                                    "Toastify",
+                                    "Retry",            // Yes
+                                    "Change settings",  // No
+                                    "Exit",             // Cancel
+                                    MessageBoxImage.Exclamation);
+                            });
+
+                            if (logger.IsDebugEnabled)
+                            {
+                                string hrChoice = choice == MessageBoxResult.Yes ? "Retry" : choice == MessageBoxResult.No ? "Change settings" : "Exit";
+                                logger.Debug($"Choice = {hrChoice}");
+                            }
+
+                            if (choice == MessageBoxResult.No)
+                                this.ChangeProxySettings();
+                            else if (choice == MessageBoxResult.Cancel)
+                                App.Terminate();
+                        }
+                    }
                 }
             } while (!connected && !signaled);
+
+            #endregion try { this.localAPI.Connect(); }
 
             if (!connected)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
@@ -348,6 +521,21 @@ namespace Toastify.Core
             var status = this.localAPI.GetStatus();
             if (status == null)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
+        }
+
+        private void ChangeProxySettings()
+        {
+            if (this.spotifyLauncherTimeoutTimer?.IntervalRemaining > 0.0d)
+                this.spotifyLauncherTimeoutTimer.Pause();
+            App.ShowConfigProxyDialog();
+            if (this.spotifyLauncherTimeoutTimer?.IntervalRemaining > 0.0d)
+                this.spotifyLauncherTimeoutTimer.Resume();
+
+            if (logger.IsDebugEnabled)
+            {
+                var proxy = App.ProxyConfig;
+                logger.Debug($"Proxy has been set to \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\"");
+            }
         }
 
         #endregion Spotify Launcher background worker

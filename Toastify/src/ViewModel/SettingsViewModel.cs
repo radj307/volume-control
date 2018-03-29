@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Security;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Toastify.Common;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
+using ToastifyAPI.Native.Enums;
 
 namespace Toastify.ViewModel
 {
@@ -21,6 +23,16 @@ namespace Toastify.ViewModel
         public string DoubleUpDownAltIncrement10Tooltip { get; } = string.Format(templateDoubleUpDownAltIncrement, 10);
 
         public string DoubleUpDownAltIncrement1000Tooltip { get; } = string.Format(templateDoubleUpDownAltIncrement, 1000);
+
+        public ImageSource InfoIcon
+        {
+            get { return ToastifyAPI.Win32API.GetStockIconImage(ShStockIconId.SIID_INFO, true); }
+        }
+
+        public ImageSource WarningIcon
+        {
+            get { return ToastifyAPI.Win32API.GetStockIconImage(ShStockIconId.SIID_WARNING, true); }
+        }
 
         #region Toast
 
@@ -141,6 +153,8 @@ namespace Toastify.ViewModel
 
         #endregion Toast
 
+        public SecureString ProxyPassword { private get; set; }
+
         #region Commands
 
         public DelegateCommand SaveCommand { get; }
@@ -209,12 +223,32 @@ namespace Toastify.ViewModel
 
         private void Save()
         {
+            if (this.Settings.UseProxy)
+            {
+                // Proxy Password
+                if (string.IsNullOrEmpty(this.Settings.ProxyConfig.Username))
+                {
+                    // If no username has been entered, remove the saved password
+                    Security.SaveProxyPassword(new SecureString());
+                }
+                else if (!string.IsNullOrEmpty(this.ProxyPassword?.ToPlainString()))
+                {
+                    // Otherwise, if the password box is not empty, save the new password
+                    Security.SaveProxyPassword(this.ProxyPassword);
+                }
+                else
+                {
+                    // If the username field is not empty and the password's is,
+                    // then keep the previous password.
+                }
+            }
+
             this.Settings.SetAsCurrentAndSave();
 
             // Get a new clone of the current settings,
             // since Current and the original Temporary are now the same instance;
             this.Settings = Settings.Temporary;
-            
+
             this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings));
         }
 
@@ -244,6 +278,10 @@ namespace Toastify.ViewModel
                         default:
                             throw new InvalidOperationException($"Unexpected value for CurrentToastTabIndex = {this.CurrentToastTabIndex}");
                     }
+                    break;
+
+                case 3:
+                    this.Settings.SetDefaultAdvanced();
                     break;
 
                 default:

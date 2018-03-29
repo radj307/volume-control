@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Toastify.Events;
@@ -50,16 +50,12 @@ namespace Toastify.Services
 
         #endregion Static properties
 
-        private readonly WebClient webClient;
-
         private Thread checkVersionThread;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
 
         protected VersionChecker()
         {
-            this.webClient = new WebClient();
-            this.webClient.DownloadStringCompleted += this.WebClient_DownloadStringCompleted;
         }
 
         public void BeginCheckVersion()
@@ -68,47 +64,49 @@ namespace Toastify.Services
             this.checkVersionThread = null;
             this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
 #else
-            this.checkVersionThread = new Thread(this.ThreadedBeginCheckVersion) { IsBackground = true };
+            this.checkVersionThread = new Thread(this.ThreadedCheckVersion)
+            {
+                Name = "Toastify VersionChecker",
+                IsBackground = true
+            };
             this.checkVersionThread.Start();
 #endif
         }
 
-        private void ThreadedBeginCheckVersion()
+        private async void ThreadedCheckVersion()
         {
-            //WebClients XXXAsync isn't as async as I wanted...
-            this.webClient.DownloadStringAsync(new Uri(VersionUrl));
-        }
-
-        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            string version = string.Empty;
-            bool newVersion = false;
-
-            if (!e.Cancelled && e.Error == null)
+            string downloadedString = null;
+            try
             {
-                var match = Regex.Match(e.Result, "(\\d+\\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-                if (match.Success)
+                HttpClientHandler handler = App.CreateHttpClientHandler(App.ProxyConfig);
+                using (HttpClient http = new HttpClient(handler))
                 {
-                    version = match.Value;
-                    Version localV = new Version(CurrentVersion);
-                    Version remoteV = new Version(version);
-                    newVersion = localV.CompareTo(remoteV) < 0;
+                    downloadedString = await http.GetStringAsync(new Uri(VersionUrl)).ConfigureAwait(false);
                 }
             }
+            finally
+            {
+                string sRemote = string.Empty;
+                bool isNewVersion = false;
 
-            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = version, New = newVersion });
+                if (!string.IsNullOrWhiteSpace(downloadedString))
+                {
+                    var match = Regex.Match(downloadedString, @"(\d+\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                    if (match.Success)
+                    {
+                        sRemote = match.Value;
+                        Version vLocal = new Version(CurrentVersion);
+                        Version vRemote = new Version(sRemote);
+                        isNewVersion = vLocal.CompareTo(vRemote) < 0;
+                    }
+                }
+
+                this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = sRemote, New = isNewVersion });
+            }
         }
 
         public void Dispose()
         {
-            if (this.webClient != null)
-            {
-                this.webClient.DownloadStringCompleted -= this.WebClient_DownloadStringCompleted;
-                this.webClient.CancelAsync();
-                this.webClient.Dispose();
-            }
-
             this.checkVersionThread?.Abort();
         }
 

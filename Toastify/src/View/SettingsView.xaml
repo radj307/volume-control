@@ -6,10 +6,11 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:core="clr-namespace:Toastify.Core"
         xmlns:common="clr-namespace:Toastify.Common"
+        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
         xmlns:helpers="clr-namespace:Toastify.Helpers"
         xmlns:markup="clr-namespace:Toastify.Helpers.Markup"
+        xmlns:validators="clr-namespace:Toastify.Helpers.Validators"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
-        xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
         mc:Ignorable="d"
         x:Class="Toastify.View.SettingsView"
         Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
@@ -27,6 +28,7 @@
     </Window.Resources>
 
     <Grid x:Name="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
+
         <TabControl Name="TabControl1" SelectedIndex="{Binding Path=CurrentTabIndex, Mode=TwoWay}">
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -63,7 +65,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Name="Label19" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template :</Label>
                         <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
-                        <TextBlock TextWrapping="Wrap" Foreground="#FF575757" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InfoTextColorBrush}" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
                     </Grid>
 
                     <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,263,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
@@ -100,7 +102,8 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0"></CheckBox>
-                                        <Image Source="/Toastify;component/Resources/WarningSmall.png" Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" />
+                                        <Image Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
+                                               Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
                                         <TextBlock Text="{Binding Path=HumanReadableAction}" Grid.Column="1"></TextBlock>
                                     </Grid>
                                 </DataTemplate>
@@ -116,7 +119,7 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,52,0,0" Width="160">
                             <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
-                            <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown"/>
+                            <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
                         </StackPanel>
 
                         <Grid Grid.Column="1" Height="32" Margin="12,96,12,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" VerticalAlignment="Top">
@@ -208,11 +211,8 @@
                                     </Grid>
 
                                     <Grid VerticalAlignment="Top" Margin="0,10,0,0">
-                                        <Image Source="/Toastify;component/Resources/InfoLarge.png" Margin="0" HorizontalAlignment="Left" Stretch="None" />
-                                        <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="#FF575757" />
-                                            </TextBlock.Foreground>
+                                        <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding Path=InfoIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+                                        <TextBlock Margin="36,0,0,0" TextWrapping="Wrap" Padding="0" Foreground="{StaticResource InfoTextColorBrush}">
                                             The best way to tweak the position of the toast is to hold down Ctrl and then drag the toast around. The raw numbers are still accessible above. Note that the Toast will display at the default position (lower corner above the system time) if you position the toast off-screen.
                                         </TextBlock>
                                     </Grid>
@@ -376,6 +376,45 @@
                             </StackPanel>
                         </TabItem>
                     </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Advanced" Name="TabAdvanced">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <CheckBox Name="CbUseProxy" IsChecked="{Binding Path=Settings.UseProxy, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Use Proxy</CheckBox>
+                    <StackPanel Orientation="Vertical" Margin="32,38,12,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=CbUseProxy, Path=IsChecked}" DataContext="{Binding Path=Settings.ProxyConfig}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
+                                <wpft:WatermarkTextBox.Text>
+                                    <Binding Path="Host" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validators:IPAddressRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </wpft:WatermarkTextBox.Text>
+                            </wpft:WatermarkTextBox>
+                            <wpft:WatermarkTextBox Width="50" Margin="8,0,0,0" Watermark="Port" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
+                                <wpft:WatermarkTextBox.Text>
+                                    <Binding Path="Port" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <validators:IPPortRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </wpft:WatermarkTextBox.Text>
+                            </wpft:WatermarkTextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <wpft:WatermarkTextBox Width="200" Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Username" KeepWatermarkOnGotFocus="False" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus" />
+                            <wpft:WatermarkPasswordBox Name="PasswordBox" Width="160" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" PasswordChanged="ProxyPasswordBox_OnPasswordChanged" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="12,135,12,0">
+                        <Image Width="20" Height="20" Source="{Binding Path=WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Foreground="{StaticResource InfoTextColorBrush}" VerticalAlignment="Center" Margin="8,0,0,0">To correctly apply changes to the proxy settings, it's required to restart Toastify.</TextBlock>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -15,6 +18,8 @@ namespace Toastify.Helpers
 {
     public static class Extensions
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Extensions));
+
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
         {
             return listToClone.Select(item => (T)item.Clone()).ToList();
@@ -78,6 +83,50 @@ namespace Toastify.Helpers
                 modifiers.Add("Win");
 
             return string.Join("+", modifiers);
+        }
+
+        public static T Clamp<T>(this T value, T min, T max) where T : IComparable
+        {
+            T ret = value;
+            if (value.CompareTo(min) < 0)
+                ret = min;
+            else if (value.CompareTo(max) > 0)
+                ret = max;
+            return ret;
+        }
+
+        public static T Clamp<T>(this T value, Range<T> range) where T : IComparable
+        {
+            return value.Clamp(range.Min, range.Max);
+        }
+
+        public static T Clamp<T>(this T value, Range<T>? range) where T : IComparable
+        {
+            return range.HasValue ? value.Clamp(range.Value) : value;
+        }
+
+        public static string ToPlainString(this SecureString secureString)
+        {
+            if (secureString == null)
+                return null;
+            if (secureString.Length == 0)
+                return string.Empty;
+
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unknown error", ex);
+                return null;
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
         }
     }
 }

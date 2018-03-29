@@ -504,7 +504,7 @@ namespace Toastify.Model
 
         private static void HotkeyActionCallback(Hotkey hotkey)
         {
-            if (!ToastView.Current.IsInitComplete)
+            if (ToastView.Current?.IsInitComplete != true)
                 return;
 
             // Ignore this keypress if it's been less than WAIT_BETWEEN_HOTKEY_PRESS since the last press

@@ -37,6 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Debug%29|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +59,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|x64'">
     <OutputPath>bin\x64\Release\Windows\</OutputPath>
@@ -79,6 +81,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
     <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
@@ -108,7 +111,7 @@
       <HintPath>..\packages\PowerArgs.2.8.1.0\lib\net45\PowerArgs.dll</HintPath>
     </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpotifyAPI-NET.2.17.1\lib\SpotifyAPI.dll</HintPath>
+      <HintPath>..\packages\SpotifyAPI-NET.2.18.0\lib\SpotifyAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -116,6 +119,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -154,7 +158,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\Common\PausableTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\Core\MouseAction.cs" />
+    <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
+    <Compile Include="src\Crypt32.cs" />
+    <Compile Include="src\CustomMessageBox.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />
@@ -175,6 +185,8 @@
     <Compile Include="src\Helpers\Converters\SettingValueToValueConverter.cs" />
     <Compile Include="src\Helpers\Markdown\Markdown.cs" />
     <Compile Include="src\Helpers\Markdown\TextToFlowDocumentConverter.cs" />
+    <Compile Include="src\Helpers\Validators\IPPortRule.cs" />
+    <Compile Include="src\Helpers\Validators\IPAddressRule.cs" />
     <Compile Include="src\Model\KeyOrButton.cs" />
     <Compile Include="src\Model\SettingValue.cs" />
     <Compile Include="src\Model\SettingValueJsonConverter.cs" />
@@ -194,6 +206,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Analytics.g.cs</LastGenOutput>
     </Content>
+    <Compile Include="src\Security.cs" />
     <Compile Include="src\Services\Analytics.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,9 +214,16 @@
     </Compile>
     <Compile Include="src\Common\Union32.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
+    <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
     <Compile Include="src\ViewModel\ChangelogViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />
+    <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
+      <DependentUpon>ConfigProxyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\View\CustomMessageBoxWindow.xaml.cs">
+      <DependentUpon>CustomMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\View\ChangelogView.xaml.cs">
       <DependentUpon>ChangelogView.xaml</DependentUpon>
     </Compile>
@@ -220,6 +240,14 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\View\ConfigProxyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\View\CustomMessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\View\ChangelogView.xaml">
       <SubType>Designer</SubType>

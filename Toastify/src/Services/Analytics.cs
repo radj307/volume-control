@@ -55,7 +55,8 @@ namespace Toastify.Services
                 return;
             }
 
-            requestFactory = new GoogleAnalyticsRequestFactory(TrackingId);
+            IWebProxy proxy = App.ProxyConfig.CreateWebProxy();
+            requestFactory = proxy == null ? new GoogleAnalyticsRequestFactory(TrackingId) : new GoogleAnalyticsRequestFactory(TrackingId, proxy);
             bool wasOnNoAnalyticsVersion = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
             bool appHasBeenJustUpdated = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version(VersionChecker.CurrentVersion);
 
@@ -70,12 +71,20 @@ namespace Toastify.Services
             if (!AnalyticsEnabled)
                 return;
 
-            // Collect Preferences every at every update
+            // Collect Preferences at every update
             if (appHasBeenJustUpdated)
                 CollectPreferences();
 #else
             requestFactory = null;
 #endif
+        }
+
+        public static void Stop()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Analytics service terminated.");
+
+            requestFactory = null;
         }
 
         #region TrackPageHit

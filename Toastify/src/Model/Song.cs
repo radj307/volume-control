@@ -157,11 +157,11 @@ namespace Toastify.Model
                 {
                     try
                     {
-                        coverArtUrl = spotifyTrack.GetAlbumArtUrl(size);
+                        coverArtUrl = spotifyTrack.GetAlbumArtUrl(size, App.ProxyConfig);
                     }
                     catch (Exception e)
                     {
-                        logger.Error("Error while getting album art url (GetAlbumArtUrl).", e);
+                        logger.Error("Error while getting album art url", e);
                     }
                     if (!string.IsNullOrWhiteSpace(coverArtUrl))
                         break;

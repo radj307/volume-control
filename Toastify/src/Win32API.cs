@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using Toastify.Core;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
-using ToastifyAPI.Native.Structs;
 
 // ReSharper disable InconsistentNaming
 namespace Toastify
@@ -56,7 +55,7 @@ namespace Toastify
                     !childWindows.Contains(hDesktop) && !childWindows.Contains(hProgman) && !childWindows.Contains(hShellDll))
                 {
                     Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
-                    User32.GetClientRect(hWnd, out Rect clientRect);
+                    User32.GetClientRect(hWnd, out ToastifyAPI.Native.Structs.Rect clientRect);
 
                     if (clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width)
                     {

@@ -5,11 +5,13 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Cache;
+using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -30,6 +32,8 @@ using ToastifyAPI.Native.Structs;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
+using ContextMenu = System.Windows.Forms.ContextMenu;
+using MenuItem = System.Windows.Forms.MenuItem;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Windows.Point;
 using Spotify = Toastify.Core.Spotify;
@@ -349,14 +353,17 @@ namespace Toastify.View
         /// <param name="song"> The song to set as current. </param>
         private void ChangeCurrentSong(Song song)
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"{nameof(this.ChangeCurrentSong)} has been called");
+
             this.currentSong = song;
 
             if (this.currentSong.IsOtherTrackType())
                 this.FetchOtherTrackInfo();
 
-            this.UpdateCoverArt();
             this.UpdateToastText(this.currentSong);
             this.UpdateSongProgressBar(0.0);
+            this.UpdateAlbumArt();
 
             // Save track info to file.
             if (this.Settings.SaveTrackToFile)
@@ -376,7 +383,9 @@ namespace Toastify.View
             }
         }
 
-        private void UpdateCoverArt(bool forceUpdate = false)
+        #region UpdateAlbumArt
+
+        private void UpdateAlbumArt(bool forceUpdate = false)
         {
             // TODO: Cache cover arts
 
@@ -396,35 +405,148 @@ namespace Toastify.View
 
             // Update the cover art only if the url has changed.
             if (!string.IsNullOrEmpty(this.toastIconURI) && (forceUpdate || this.toastIconURI != previousURI))
-                this.UpdateCoverArt(this.toastIconURI);
+                Task.Factory.StartNew(() => this.UpdateAlbumArt(this.toastIconURI));
         }
 
-        private void UpdateCoverArt(string coverArtUri)
+        private async Task UpdateAlbumArt(string albumArtUri)
         {
-            this.toastIconURI = coverArtUri;
-            this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                new Action(() =>
+            this.toastIconURI = albumArtUri;
+            Uri uri = new Uri(albumArtUri, UriKind.RelativeOrAbsolute);
+
+            // If it's HTTP(S), download the album art using an HttpClient
+            if (Regex.IsMatch(uri.Scheme, @"https?", RegexOptions.IgnoreCase))
+            {
+                HttpClientHandler httpClientHandler = App.CreateHttpClientHandler(App.ProxyConfig);
+                HttpClient http = new HttpClient(httpClientHandler);
+                Stream stream = null;
+                try
                 {
-                    this.cover = new BitmapImage();
-                    this.cover.BeginInit();
-                    this.cover.CacheOption = BitmapCacheOption.OnLoad;
-                    this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                    try
+                    stream = await GetAlbumArtAsStream(http, uri, async () => await this.UpdateAlbumArt(DEFAULT_ICON));
+                    if (logger.IsDebugEnabled)
+                        logger.Debug($"Album art downloaded: {albumArtUri}");
+
+                    using (BinaryReader reader = new BinaryReader(stream))
                     {
-                        this.cover.UriSource = new Uri(coverArtUri, UriKind.RelativeOrAbsolute);
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            byte[] bytebuffer = new byte[512];
+                            int bytesRead = reader.Read(bytebuffer, 0, 512);
+
+                            while (bytesRead > 0)
+                            {
+                                memoryStream.Write(bytebuffer, 0, bytesRead);
+                                bytesRead = reader.Read(bytebuffer, 0, 512);
+                            }
+
+                            this.Dispatcher.Invoke(DispatcherPriority.Render, (Action<MemoryStream>)this.UpdateAlbumArtFromMemoryStream, memoryStream);
+                        }
                     }
-                    catch (UriFormatException e)
-                    {
-                        logger.Error($"UriFormatException with URI=[{coverArtUri}]", e);
-                        this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-                    }
-                    finally
-                    {
-                        this.cover.EndInit();
-                        this.AlbumArt.Source = this.cover;
-                    }
-                }));
+                }
+                finally
+                {
+                    stream?.Close();
+                    http.Dispose();
+                    httpClientHandler.Dispose();
+                }
+            }
+            else
+            {
+                // No need to download anything, this is most probably an internal resource
+                await this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action<Uri>)this.UpdateAlbumArtFromUri, uri);
+            }
         }
+
+        private static async Task<Stream> GetAlbumArtAsStream(HttpClient http, Uri uri, Action ifTooLong = null)
+        {
+            Task<Stream> downloader = http.GetStreamAsync(uri);
+
+            CancellationTokenSource cts = null;
+            Task awaiter = null;
+
+            if (ifTooLong != null)
+            {
+                cts = new CancellationTokenSource();
+                awaiter = Task.Factory.StartNew(() =>
+                {
+                    // ReSharper disable AccessToDisposedClosure
+                    return Task.Delay(2000, cts.Token).ContinueWith(t => ifTooLong, cts.Token);
+                    // ReSharper restore AccessToDisposedClosure
+                }, cts.Token).Unwrap();
+                await Task.WhenAny(awaiter, downloader);
+            }
+
+            if (downloader.IsCompleted)
+                cts?.Cancel();
+            Stream stream = await downloader;
+
+            if (awaiter?.IsCompleted == false)
+                awaiter.Dispose();
+            cts?.Dispose();
+
+            return stream;
+        }
+
+        /// <summary>
+        /// Updates the album art using the specified URI.
+        /// <para />
+        /// NOTE: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(System.Action)"/>).
+        /// </summary>
+        /// <param name="uri"></param>
+        private void UpdateAlbumArtFromUri(Uri uri)
+        {
+            this.cover = new BitmapImage();
+            this.cover.BeginInit();
+            this.cover.CacheOption = BitmapCacheOption.OnLoad;
+            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+            try
+            {
+                this.cover.UriSource = uri;
+            }
+            catch (UriFormatException e)
+            {
+                logger.Error($"UriFormatException with URI=[{uri}]", e);
+                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+            }
+            finally
+            {
+                this.cover.EndInit();
+                this.AlbumArt.Source = this.cover;
+            }
+        }
+
+        /// <summary>
+        /// Updates the album art using the specified memory stream.
+        /// <para />
+        /// NOTE #1: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(System.Action)"/>).
+        /// <para />
+        /// NOTE #2: The specified <see cref="MemoryStream"/> will be closed.
+        /// </summary>
+        /// <param name="memoryStream"></param>
+        private void UpdateAlbumArtFromMemoryStream(MemoryStream memoryStream)
+        {
+            this.cover = new BitmapImage();
+            this.cover.BeginInit();
+            this.cover.CacheOption = BitmapCacheOption.OnLoad;
+            try
+            {
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                this.cover.StreamSource = memoryStream;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Error while setting the stream source of the album art.", e);
+                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+            }
+            finally
+            {
+                this.cover.EndInit();
+                this.AlbumArt.Source = this.cover;
+
+                memoryStream.Close();
+            }
+        }
+
+        #endregion UpdateAlbumArt
 
         /// <summary>
         /// Update the toast's text using the songs' information.
@@ -437,17 +559,27 @@ namespace Toastify.View
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
         private void UpdateToastText(Song song, string altTitle1 = null, bool fadeIn = true)
         {
-            if (altTitle1 != null)
-                this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn);
-            else if (this.paused)
-                this.UpdateToastText(STATE_PAUSED, song?.ToString() ?? string.Empty, fadeIn);
-            else
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
-                this.toastViewModel.TrackName = song?.Track ?? string.Empty;
-                this.toastViewModel.ArtistName = song?.Artist ?? string.Empty;
-                if (fadeIn)
-                    this.ShowOrHideToast(keepUp: true);
-            }
+                if (altTitle1 != null)
+                    this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn);
+                else if (this.paused)
+                    this.UpdateToastText(STATE_PAUSED, song?.ToString() ?? string.Empty, fadeIn);
+                else
+                {
+                    this.toastViewModel.TrackName = song?.Track ?? string.Empty;
+                    this.toastViewModel.ArtistName = song?.Artist ?? string.Empty;
+
+                    this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
+                    this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
+
+                    if (fadeIn)
+                        this.ShowOrHideToast(keepUp: true);
+
+                    if (logger.IsDebugEnabled)
+                        logger.Debug($"Toast text changed. New track: {song}");
+                }
+            }));
         }
 
         /// <summary>
@@ -485,11 +617,13 @@ namespace Toastify.View
         public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime)
         {
             this.UpdateToastText(title1, title2, false);
-            this.UpdateCoverArt(artUri);
-
-            Timer timer = new Timer(displayTime) { AutoReset = false };
-            timer.Elapsed += (sender, args) => this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
-            timer.Start();
+            Task.Factory.StartNew(async () =>
+            {
+                await this.UpdateAlbumArt(artUri);
+                Timer timer = new Timer(displayTime) { AutoReset = false };
+                timer.Elapsed += (sender, args) => this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+                timer.Start();
+            });
         }
 
         private void SetToastVisibility(bool shallBeVisible)
@@ -528,7 +662,7 @@ namespace Toastify.View
         /// <param name="previewForSettings"></param>
         private void ShowOrHideToast(bool force = false, bool keepUp = false, bool previewForSettings = false)
         {
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() =>
             {
                 if (this.ShownOrFading && keepUp && this.minimizeTimer != null && !previewForSettings && !this.isPreviewForSettings)
                 {
@@ -542,7 +676,7 @@ namespace Toastify.View
                     this.FadeOut(force);
                 else
                     this.FadeIn(force, previewForSettings);
-            }, DispatcherPriority.Render);
+            }));
         }
 
         private void FadeIn(bool force = false, bool permanent = false)

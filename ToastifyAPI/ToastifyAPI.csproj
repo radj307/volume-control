@@ -155,6 +155,7 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -179,8 +180,13 @@
     <Compile Include="Native\Delegates\HookProc.cs" />
     <Compile Include="Native\Delegates\LowLevelMouseHookProc.cs" />
     <Compile Include="Native\Delegates\SendMessageDelegate.cs" />
+    <Compile Include="Native\Enums\MenuFlags.cs" />
+    <Compile Include="Native\Enums\ShGSI.cs" />
+    <Compile Include="Native\Enums\ShStockIconId.cs" />
+    <Compile Include="Native\Enums\SysCommands.cs" />
     <Compile Include="Native\Kernel32.cs" />
     <Compile Include="Native\Processes.cs" />
+    <Compile Include="Native\Shell32.cs" />
     <Compile Include="Native\Structs\LowLevelMouseHookStruct.cs" />
     <Compile Include="Native\Enums\MapVirtualKeyType.cs" />
     <Compile Include="Native\Structs\Rect.cs" />
@@ -188,6 +194,7 @@
     <Compile Include="Native\Enums\SetWindowPosFlags.cs" />
     <Compile Include="Native\Enums\ShowWindowCmd.cs" />
     <Compile Include="Native\Enums\VirtualKeyCode.cs" />
+    <Compile Include="Native\Structs\ShStockIconInfo.cs" />
     <Compile Include="Native\Structs\WindowPlacement.cs" />
     <Compile Include="Native\Enums\WindowsMessagesFlags.cs" />
     <Compile Include="Native\Enums\WindowStylesFlags.cs" />

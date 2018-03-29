@@ -1,32 +1,31 @@
 ﻿using log4net;
 using log4net.Appender;
 using log4net.Config;
+using log4net.Core;
+using log4net.Filter;
 using log4net.Repository;
+using log4net.Repository.Hierarchy;
+using PowerArgs;
+using SpotifyAPI;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Serialization;
-using PowerArgs;
 using Toastify.Core;
+using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
-using log4net.Core;
-using log4net.Filter;
-using log4net.Repository.Hierarchy;
-using Toastify.Events;
-
-#if DEBUG
-
 using Toastify.View;
-
-#endif
 
 namespace Toastify
 {
@@ -303,6 +302,11 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
 
+        private static readonly ProxyConfig noProxy = new ProxyConfig();
+
+        // ReSharper disable once InconsistentNaming
+        private static ProxyConfig _proxyConfig;
+
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
         public static string LocalApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
@@ -339,6 +343,26 @@ namespace Toastify
 
         public static string SpotifyParameters { get; private set; }
 
+        /// <summary>
+        /// The currently used proxy settings.
+        /// </summary>
+        public static ProxyConfig ProxyConfig
+        {
+            get
+            {
+                if (_proxyConfig == null)
+                {
+                    _proxyConfig = new ProxyConfig();
+                    _proxyConfig.Set(Settings.Current.ProxyConfig);
+                }
+
+                if (!Settings.Current.UseProxy)
+                    _proxyConfig.Set(noProxy);
+                return _proxyConfig;
+            }
+            set { _proxyConfig.Set(value ?? noProxy); }
+        }
+
         public App() : this("")
         {
         }
@@ -348,7 +372,55 @@ namespace Toastify
             SpotifyParameters = spotifyArgs.Trim();
         }
 
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public static void ShowConfigProxyDialog()
+        {
+            CallInSTAThread(() =>
+            {
+                ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
+                proxyDialog.ShowDialog();
+            });
+        }
+
+        public static void CallInSTAThread(Action action)
+        {
+            if (action == null)
+                return;
+
+            Thread t = new Thread(() => action());
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
+        }
+
+        public static void Terminate()
+        {
+            Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => Current.Shutdown()));
+        }
+
+        public static HttpClientHandler CreateHttpClientHandler(ProxyConfig proxyConfig = null)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler
+            {
+                PreAuthenticate = false,
+                UseDefaultCredentials = true,
+                UseProxy = false
+            };
+
+            if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
+            {
+                WebProxy proxy = proxyConfig.CreateWebProxy();
+                clientHandler.UseProxy = true;
+                clientHandler.Proxy = proxy;
+                clientHandler.UseDefaultCredentials = proxy.UseDefaultCredentials;
+                clientHandler.PreAuthenticate = proxy.UseDefaultCredentials;
+            }
+
+            return clientHandler;
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error("Unhandled exception.", e.Exception);
             Analytics.TrackException(e.Exception);
