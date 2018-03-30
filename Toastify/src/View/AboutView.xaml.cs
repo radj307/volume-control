@@ -49,7 +49,7 @@ namespace Toastify.View
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-            VersionChecker.Instance.BeginCheckVersion();
+            VersionChecker.Instance.CheckNow();
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)

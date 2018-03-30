@@ -331,15 +331,11 @@ namespace Toastify.View
                 Console.WriteLine(@"Loaded " + p.TypeName);
             }
         }
-
-        /// <summary>
-        /// Initialize VersionChecker. Updates are only checked once.
-        /// </summary>
+        
         private void InitVersionChecker()
         {
             VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-            VersionChecker.Instance.BeginCheckVersion();
         }
 
         #endregion Initialization

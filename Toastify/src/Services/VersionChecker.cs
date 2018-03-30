@@ -1,9 +1,19 @@
 ﻿using System;
-using System.Net.Http;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Toastify.Core;
 using Toastify.Events;
+using Toastify.Model;
+using Toastify.View;
+
+#if !DEBUG
+
+using System.Net.Http;
+using System.Threading.Tasks;
 using ToastifyAPI.Helpers;
+
+#endif
 
 namespace Toastify.Services
 {
@@ -49,32 +59,41 @@ namespace Toastify.Services
 
         public static string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
 
+        public static TimeSpan VersionCheckInterval { get { return Settings.Current.VersionCheckFrequency.Value.ToTimeSpan(); } }
+
         #endregion Static properties
 
-        private Thread checkVersionThread;
+        private Settings current;
+
+        private readonly Timer checkVersionTimer;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
 
         protected VersionChecker()
         {
-        }
+            this.current = Settings.Current;
+            this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
+            SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
 
-        public void BeginCheckVersion()
-        {
 #if DEBUG
-            this.checkVersionThread = null;
-            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
+            this.checkVersionTimer = null;
 #else
-            this.checkVersionThread = new Thread(this.ThreadedCheckVersion)
-            {
-                Name = "Toastify VersionChecker",
-                IsBackground = true
-            };
-            this.checkVersionThread.Start();
+            this.checkVersionTimer = new Timer(state => this.CheckNow(), null, CalcCheckVersionDueTime(), VersionCheckInterval);
 #endif
         }
 
-        private async void ThreadedCheckVersion()
+        public void CheckNow()
+        {
+#if DEBUG
+            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
+#else
+            Task.Run(async () => await this.ThreadedCheckVersion());
+#endif
+        }
+
+#if !DEBUG
+
+        private async Task ThreadedCheckVersion()
         {
             string downloadedString = null;
             try
@@ -106,9 +125,29 @@ namespace Toastify.Services
             }
         }
 
+#endif
+
+        private void CurrentSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.VersionCheckFrequency):
+                    this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), VersionCheckInterval);
+                    break;
+            }
+        }
+
+        private void SettingsView_SettingsSaved(object sender, SettingsSavedEventArgs e)
+        {
+            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
+            this.current = e.Settings;
+            this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
+        }
+
         public void Dispose()
         {
-            this.checkVersionThread?.Abort();
+            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
+            SettingsView.SettingsSaved -= this.SettingsView_SettingsSaved;
         }
 
         public static void DisposeInstance()
@@ -118,6 +157,23 @@ namespace Toastify.Services
                 _instance.Dispose();
                 _instance = null;
             }
+        }
+
+        private static TimeSpan CalcCheckVersionDueTime()
+        {
+            DateTime last = Settings.Current.LastVersionCheck;
+            DateTime now = DateTime.Now;
+            TimeSpan freq = VersionCheckInterval;
+
+            if (last.Equals(default(DateTime)))
+            {
+                last = DateTime.Now;
+                Settings.Current.LastVersionCheck = last;
+                Settings.Current.Save();
+            }
+
+            TimeSpan t = now.Subtract(last);
+            return t >= freq ? TimeSpan.Zero : freq.Subtract(t);
         }
     }
 }
