@@ -34,13 +34,7 @@ namespace Toastify.Services
 
         #endregion Singleton
 
-        #region Static properties
-
         public static string GitHubReleasesUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo/releases");
-
-        public static TimeSpan VersionCheckInterval { get { return Settings.Current.VersionCheckFrequency.Value.ToTimeSpan(); } }
-
-        #endregion Static properties
 
         private readonly GitHubAPI gitHubAPI;
 
@@ -60,7 +54,7 @@ namespace Toastify.Services
 #if DEBUG
             this.checkVersionTimer = null;
 #else
-            this.checkVersionTimer = new Timer(state => this.CheckNow(), null, CalcCheckVersionDueTime(), VersionCheckInterval);
+            this.checkVersionTimer = new Timer(state => this.CheckNow(), null, CalcCheckVersionDueTime().Add(TimeSpan.FromMinutes(2.5)), new TimeSpan(-1));
 #endif
         }
 
@@ -105,6 +99,13 @@ namespace Toastify.Services
             {
                 logger.Error("Unknown error while checking for updates.", ex);
             }
+            finally
+            {
+                Settings.Current.LastVersionCheck = DateTime.Now;
+                Settings.Current.Save();
+
+                this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), new TimeSpan(-1));
+            }
         }
 
 #endif
@@ -114,7 +115,7 @@ namespace Toastify.Services
             switch (e.PropertyName)
             {
                 case nameof(Settings.VersionCheckFrequency):
-                    this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), VersionCheckInterval);
+                    this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), new TimeSpan(-1));
                     break;
             }
         }
@@ -145,7 +146,7 @@ namespace Toastify.Services
         {
             DateTime last = Settings.Current.LastVersionCheck;
             DateTime now = DateTime.Now;
-            TimeSpan freq = VersionCheckInterval;
+            TimeSpan freq = Settings.Current.VersionCheckFrequency.Value.ToTimeSpan();
 
             if (last.Equals(default(DateTime)))
             {

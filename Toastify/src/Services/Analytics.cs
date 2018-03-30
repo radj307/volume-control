@@ -58,7 +58,7 @@ namespace Toastify.Services
             IWebProxy proxy = App.ProxyConfig.CreateWebProxy();
             requestFactory = proxy == null ? new GoogleAnalyticsRequestFactory(TrackingId) : new GoogleAnalyticsRequestFactory(TrackingId, proxy);
             bool wasOnNoAnalyticsVersion = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version("1.9.7");
-            bool appHasBeenJustUpdated = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version(VersionChecker.CurrentVersion);
+            bool appHasBeenJustUpdated = new Version(Settings.Current.PreviousVersion ?? "0.0.0") < new Version(App.CurrentVersionNoRevision);
 
             // Install Event
             if (Settings.Current.FirstRun || wasOnNoAnalyticsVersion)
