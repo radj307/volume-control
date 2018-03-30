@@ -16,10 +16,10 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
-using Timer = System.Timers.Timer;
 
 namespace Toastify.Core
 {
@@ -353,7 +353,7 @@ namespace Toastify.Core
                             bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                             // Double check
-                            HttpClientHandler clientHandler = App.CreateHttpClientHandler(App.ProxyConfig);
+                            HttpClientHandler clientHandler = Net.CreateHttpClientHandler(App.ProxyConfig);
                             using (HttpClient http = new HttpClient(clientHandler))
                             {
                                 using (HttpRequestMessage request = new HttpRequestMessage())

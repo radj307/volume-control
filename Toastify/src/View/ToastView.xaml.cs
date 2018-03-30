@@ -25,7 +25,7 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
-using ToastifyAPI;
+using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
@@ -416,7 +416,7 @@ namespace Toastify.View
             // If it's HTTP(S), download the album art using an HttpClient
             if (Regex.IsMatch(uri.Scheme, @"https?", RegexOptions.IgnoreCase))
             {
-                HttpClientHandler httpClientHandler = App.CreateHttpClientHandler(App.ProxyConfig);
+                HttpClientHandler httpClientHandler = Net.CreateHttpClientHandler(App.ProxyConfig);
                 HttpClient http = new HttpClient(httpClientHandler);
                 Stream stream = null;
                 try

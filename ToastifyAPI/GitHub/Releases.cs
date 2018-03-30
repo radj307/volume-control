@@ -7,13 +7,13 @@ namespace ToastifyAPI.GitHub
         public static Release GetReleaseByTagName(this GitHubAPI api, string tag)
         {
             string url = api.GetFullEndpointUrl($"/repos/:owner/:repo/releases/tags/{tag}");
-            return GitHubAPI.DownloadJson<Release>(url);
+            return api.DownloadJson<Release>(url);
         }
 
         public static Release GetLatestRelease(this GitHubAPI api)
         {
             string url = api.GetFullEndpointUrl("/repos/:owner/:repo/releases/latest");
-            return GitHubAPI.DownloadJson<Release>(url);
+            return api.DownloadJson<Release>(url);
         }
 
         public static string GetUrlOfLatestRelease(this GitHubAPI api)

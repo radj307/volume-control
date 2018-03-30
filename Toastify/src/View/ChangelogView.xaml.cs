@@ -55,7 +55,7 @@ namespace Toastify.View
         {
             logger.Info("Downloading latest changelog...");
 
-            GitHubAPI gitHubAPI = new GitHubAPI
+            GitHubAPI gitHubAPI = new GitHubAPI(App.ProxyConfig)
             {
                 Owner = "aleab",
                 Repository = "toastify"

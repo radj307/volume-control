@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using ToastifyAPI.Core;
 using ToastifyAPI.GitHub.Model;
+using ToastifyAPI.Helpers;
 
 namespace ToastifyAPI.GitHub
 {
@@ -21,6 +23,16 @@ namespace ToastifyAPI.GitHub
 
         public string Repository { get; set; }
 
+        private readonly IProxyConfig proxyConfig;
+
+        public GitHubAPI(IProxyConfig proxyConfig)
+        {
+            this.proxyConfig = proxyConfig;
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
+
         public string GetFullEndpointUrl(string endpoint, params object[] args)
         {
             string ep = endpoint.Replace(":owner", this.Owner).Replace("{owner}", this.Owner)
@@ -28,15 +40,10 @@ namespace ToastifyAPI.GitHub
             return args != null ? $"{ApiBase}{string.Format(ep, args)}" : $"{ApiBase}{ep}";
         }
 
-        public GitHubAPI()
+        public T DownloadJson<T>(string url) where T : BaseModel
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-        }
-
-        public static T DownloadJson<T>(string url) where T : BaseModel
-        {
-            using (HttpClient http = new HttpClient())
+            HttpClientHandler httpClientHandler = Net.CreateHttpClientHandler(this.proxyConfig);
+            using (HttpClient http = new HttpClient(httpClientHandler))
             {
                 AddDefaultHeaders(http);
 
@@ -53,9 +60,10 @@ namespace ToastifyAPI.GitHub
             }
         }
 
-        private static T DownloadJsonInternal<T>(string url)
+        private T DownloadJsonInternal<T>(string url)
         {
-            using (HttpClient http = new HttpClient())
+            HttpClientHandler httpClientHandler = Net.CreateHttpClientHandler(this.proxyConfig);
+            using (HttpClient http = new HttpClient(httpClientHandler))
             {
                 AddDefaultHeaders(http);
 
@@ -86,7 +94,7 @@ namespace ToastifyAPI.GitHub
             ghText = mentionRegex.Replace(ghText, match =>
             {
                 string username = match.Groups[1].Value;
-                string pattern = GitHubify_Mention(username);
+                string pattern = this.GitHubify_Mention(username);
                 return match.Result(pattern);
             });
 
@@ -95,7 +103,7 @@ namespace ToastifyAPI.GitHub
             {
                 string sNumber = match.Groups[1].Value;
                 int number = int.Parse(sNumber);
-                string pattern = GitHubify_IssueOrPull(number);
+                string pattern = this.GitHubify_IssueOrPull(number);
                 return match.Result(pattern);
             });
 
@@ -103,7 +111,7 @@ namespace ToastifyAPI.GitHub
             ghText = hashRegex.Replace(ghText, match =>
             {
                 string hash = match.Groups[1].Value;
-                string pattern = GitHubify_Hash(hash);
+                string pattern = this.GitHubify_Hash(hash);
                 return match.Result(pattern);
             });
 
@@ -111,7 +119,7 @@ namespace ToastifyAPI.GitHub
             ghText = emojiRegex.Replace(ghText, match =>
             {
                 string emojiName = match.Groups[1].Value;
-                string pattern = GitHubify_Emoji(emojiName);
+                string pattern = this.GitHubify_Emoji(emojiName);
                 return match.Result(pattern);
             });
 
@@ -123,15 +131,11 @@ namespace ToastifyAPI.GitHub
         /// </summary>
         /// <param name="username">The username</param>
         /// <returns>A regex replace pattern</returns>
-        private static string GitHubify_Mention(string username)
+        private string GitHubify_Mention(string username)
         {
             string url = $"https://github.com/{username}";
 
-            WebRequest webRequest = WebRequest.Create(url);
-            AddDefaultHeaders(webRequest);
-            webRequest.Timeout = 2000;
-            webRequest.Method = HttpMethod.Head.Method;
-
+            WebRequest webRequest = CreateWebRequest(url, this.proxyConfig);
             HttpWebResponse response = null;
             try
             {
@@ -154,16 +158,12 @@ namespace ToastifyAPI.GitHub
         /// <param name="number">The issue or PR number</param>
         /// <param name="pull">Whether it's a pull request or not</param>
         /// <returns>A regex replace pattern</returns>
-        private static string GitHubify_IssueOrPull(int number, bool pull = false)
+        private string GitHubify_IssueOrPull(int number, bool pull = false)
         {
             string s = $"{(pull ? "pull" : "issues")}/{number}";
             string url = $"https://github.com/aleab/toastify/{s}";
 
-            WebRequest webRequest = WebRequest.Create(url);
-            AddDefaultHeaders(webRequest);
-            webRequest.Timeout = 2000;
-            webRequest.Method = HttpMethod.Head.Method;
-
+            WebRequest webRequest = CreateWebRequest(url, this.proxyConfig);
             HttpWebResponse response = null;
             try
             {
@@ -172,7 +172,7 @@ namespace ToastifyAPI.GitHub
             }
             catch
             {
-                return pull ? "#$1" : GitHubify_IssueOrPull(number, true);
+                return pull ? "#$1" : this.GitHubify_IssueOrPull(number, true);
             }
             finally
             {
@@ -185,15 +185,11 @@ namespace ToastifyAPI.GitHub
         /// </summary>
         /// <param name="hash">The commit hash</param>
         /// <returns>A regex replace pattern</returns>
-        private static string GitHubify_Hash(string hash)
+        private string GitHubify_Hash(string hash)
         {
             string url = $"https://github.com/aleab/toastify/commit/{hash}";
 
-            WebRequest webRequest = WebRequest.Create(url);
-            AddDefaultHeaders(webRequest);
-            webRequest.Timeout = 2000;
-            webRequest.Method = HttpMethod.Head.Method;
-
+            WebRequest webRequest = CreateWebRequest(url, this.proxyConfig);
             HttpWebResponse response = null;
             try
             {
@@ -215,13 +211,13 @@ namespace ToastifyAPI.GitHub
         /// </summary>
         /// <param name="emojiName">The emoji name</param>
         /// <returns>A regex replace pattern</returns>
-        private static string GitHubify_Emoji(string emojiName)
+        private string GitHubify_Emoji(string emojiName)
         {
             // TODO: Use inline images instead of unicode characters, which are just rendered in B/W
             if (emojis == null)
             {
                 const string url = "https://api.github.com/emojis";
-                var list = DownloadJsonInternal<Dictionary<string, string>>(url);
+                var list = this.DownloadJsonInternal<Dictionary<string, string>>(url);
                 emojis = list.Count <= 0
                     ? new List<Emoji>(0)
                     : list.Select(kvp => new Emoji { Name = kvp.Key, Url = kvp.Value }).ToList();
@@ -238,6 +234,17 @@ namespace ToastifyAPI.GitHub
         }
 
         #endregion GitHubify
+
+        private static WebRequest CreateWebRequest(string url, IProxyConfig proxyConfig = null)
+        {
+            WebRequest webRequest = WebRequest.Create(url);
+            AddDefaultHeaders(webRequest);
+            webRequest.Method = HttpMethod.Head.Method;
+            webRequest.Proxy = proxyConfig?.CreateWebProxy();
+            webRequest.Timeout = 10000;
+
+            return webRequest;
+        }
 
         private static void AddDefaultHeaders(HttpClient httpClient)
         {

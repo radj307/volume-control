@@ -171,6 +171,7 @@
     <Compile Include="GitHub\Model\Release.cs" />
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\Net.cs" />
     <Compile Include="Native\Delegates\EnumResNameProcDelegate.cs" />
     <Compile Include="Native\Enums\ExecutionStateFlags.cs" />
     <Compile Include="Native\Enums\ExtendedWindowStylesFlags.cs" />

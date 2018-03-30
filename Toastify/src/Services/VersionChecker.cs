@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Toastify.Events;
+using ToastifyAPI.Helpers;
 
 namespace Toastify.Services
 {
@@ -78,7 +79,7 @@ namespace Toastify.Services
             string downloadedString = null;
             try
             {
-                HttpClientHandler handler = App.CreateHttpClientHandler(App.ProxyConfig);
+                HttpClientHandler handler = Net.CreateHttpClientHandler(App.ProxyConfig);
                 using (HttpClient http = new HttpClient(handler))
                 {
                     downloadedString = await http.GetStringAsync(new Uri(VersionUrl)).ConfigureAwait(false);

@@ -13,8 +13,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -26,7 +24,6 @@ using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
-using ToastifyAPI.Core;
 
 namespace Toastify
 {
@@ -395,27 +392,6 @@ namespace Toastify
             Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Normal,
                 new Action(() => Current.Shutdown()));
-        }
-
-        public static HttpClientHandler CreateHttpClientHandler(IProxyConfig proxyConfig = null)
-        {
-            HttpClientHandler clientHandler = new HttpClientHandler
-            {
-                PreAuthenticate = false,
-                UseDefaultCredentials = true,
-                UseProxy = false
-            };
-
-            if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
-            {
-                IWebProxy proxy = proxyConfig.CreateWebProxy();
-                clientHandler.UseProxy = true;
-                clientHandler.Proxy = proxy;
-                clientHandler.UseDefaultCredentials = proxyConfig.UseDefaultCredentials;
-                clientHandler.PreAuthenticate = proxyConfig.UseDefaultCredentials;
-            }
-
-            return clientHandler;
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
