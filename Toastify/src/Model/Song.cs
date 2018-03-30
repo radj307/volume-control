@@ -157,7 +157,7 @@ namespace Toastify.Model
                 {
                     try
                     {
-                        coverArtUrl = spotifyTrack.GetAlbumArtUrl(size, App.ProxyConfig);
+                        coverArtUrl = spotifyTrack.GetAlbumArtUrl(size, App.ProxyConfig.ProxyConfig);
                     }
                     catch (Exception e)
                     {

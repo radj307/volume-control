@@ -193,7 +193,7 @@ namespace Toastify.Model
         private SettingValue<string> _songProgressBarForegroundColor;
 
         private SettingValue<bool> _useProxy;
-        private ProxyConfig _proxyConfig;
+        private ProxyConfigAdapter _proxyConfig;
 
         #endregion Private fields
 
@@ -549,12 +549,12 @@ namespace Toastify.Model
         }
 
         [JsonConverter(typeof(SecureProxyConfigJsonConverter))]
-        public ProxyConfig ProxyConfig
+        public ProxyConfigAdapter ProxyConfig
         {
             get
             {
                 if (this._proxyConfig == null)
-                    this._proxyConfig = new ProxyConfig();
+                    this._proxyConfig = new ProxyConfigAdapter();
 
                 // Retrieve the encrypted password
                 string plaintext = Security.GetSecureProxyPassword()?.ToPlainString();
@@ -566,7 +566,7 @@ namespace Toastify.Model
                 if (this._proxyConfig == null)
                     this._proxyConfig = value;
                 else
-                    this._proxyConfig.Set(value);
+                    this._proxyConfig.Set(value?.ProxyConfig);
                 this.NotifyPropertyChanged();
             }
         }
@@ -746,7 +746,7 @@ namespace Toastify.Model
         public void SetDefaultAdvanced()
         {
             this.UseProxy = DefaultValueOf(this.UseProxy, nameof(this.UseProxy));
-            this.ProxyConfig = new ProxyConfig();
+            this.ProxyConfig = new ProxyConfigAdapter();
         }
 
         #endregion Default
@@ -911,17 +911,7 @@ namespace Toastify.Model
                 }
 
                 // ProxyConfig
-                if (this._proxyConfig != null)
-                {
-                    clone._proxyConfig = new ProxyConfig
-                    {
-                        Host = this._proxyConfig.Host,
-                        Port = this._proxyConfig.Port,
-                        Username = this._proxyConfig.Username,
-                        Password = null,
-                        BypassProxyOnLocal = this._proxyConfig.BypassProxyOnLocal
-                    };
-                }
+                clone._proxyConfig = (ProxyConfigAdapter)this._proxyConfig.Clone();
             }
 
             return clone;
@@ -1010,9 +1000,9 @@ namespace Toastify.Model
                     if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
                         continue;
 
-                    if (property.PropertyType == typeof(ProxyConfig))
+                    if (property.PropertyType == typeof(ProxyConfigAdapter))
                     {
-                        ProxyConfig proxy = (ProxyConfig)current;
+                        ProxyConfigAdapter proxy = (ProxyConfigAdapter)current;
                         sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}\n");
                     }
                 }

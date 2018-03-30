@@ -1,5 +1,4 @@
-﻿using SpotifyAPI;
-using System.Collections;
+﻿using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using Toastify.Core;
-using Toastify.Helpers;
 using Toastify.Model;
 
 namespace Toastify.View
@@ -71,11 +69,11 @@ namespace Toastify.View
                         if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
                             continue;
 
-                        if (property.PropertyType == typeof(ProxyConfig))
+                        if (property.PropertyType == typeof(ProxyConfigAdapter))
                         {
-                            ProxyConfig cp = (ProxyConfig)current;
-                            ProxyConfig pp = (ProxyConfig)preview;
-                            ProxyConfig dp = (ProxyConfig)@default;
+                            ProxyConfigAdapter cp = (ProxyConfigAdapter)current;
+                            ProxyConfigAdapter pp = (ProxyConfigAdapter)preview;
+                            ProxyConfigAdapter dp = (ProxyConfigAdapter)@default;
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {pp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }
@@ -96,10 +94,10 @@ namespace Toastify.View
                         if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
                             continue;
 
-                        if (property.PropertyType == typeof(ProxyConfig))
+                        if (property.PropertyType == typeof(ProxyConfigAdapter))
                         {
-                            ProxyConfig cp = (ProxyConfig)current;
-                            ProxyConfig dp = (ProxyConfig)@default;
+                            ProxyConfigAdapter cp = (ProxyConfigAdapter)current;
+                            ProxyConfigAdapter dp = (ProxyConfigAdapter)@default;
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }

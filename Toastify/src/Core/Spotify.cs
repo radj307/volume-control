@@ -139,7 +139,7 @@ namespace Toastify.Core
             this.localAPIConfig = new SpotifyLocalAPIConfig
             {
                 TimerInterval = 500,
-                ProxyConfig = App.ProxyConfig
+                ProxyConfig = App.ProxyConfig.ProxyConfig
             };
             this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 

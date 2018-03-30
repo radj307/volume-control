@@ -6,7 +6,7 @@ using Windows.Management.Deployment;
 
 namespace ToastifyAPI
 {
-    internal static partial class Win32API
+    public static partial class Win32API
     {
         internal static Package FindPackage(string name)
         {

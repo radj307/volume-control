@@ -108,7 +108,7 @@ namespace Toastify.View
                 App.ProxyConfig = null;
             }
 
-            Settings.Current.ProxyConfig.Set(App.ProxyConfig);
+            Settings.Current.ProxyConfig.Set(App.ProxyConfig?.ProxyConfig);
             Settings.Current.Save();
         }
 

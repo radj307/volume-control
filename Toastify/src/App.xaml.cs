@@ -26,6 +26,7 @@ using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI.Core;
 
 namespace Toastify
 {
@@ -305,7 +306,7 @@ namespace Toastify
         private static readonly ProxyConfig noProxy = new ProxyConfig();
 
         // ReSharper disable once InconsistentNaming
-        private static ProxyConfig _proxyConfig;
+        private static ProxyConfigAdapter _proxyConfig;
 
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
@@ -346,21 +347,18 @@ namespace Toastify
         /// <summary>
         /// The currently used proxy settings.
         /// </summary>
-        public static ProxyConfig ProxyConfig
+        public static ProxyConfigAdapter ProxyConfig
         {
             get
             {
                 if (_proxyConfig == null)
-                {
-                    _proxyConfig = new ProxyConfig();
-                    _proxyConfig.Set(Settings.Current.ProxyConfig);
-                }
+                    _proxyConfig = new ProxyConfigAdapter(Settings.Current.ProxyConfig.ProxyConfig);
 
                 if (!Settings.Current.UseProxy)
                     _proxyConfig.Set(noProxy);
                 return _proxyConfig;
             }
-            set { _proxyConfig.Set(value ?? noProxy); }
+            set { _proxyConfig.Set(value.ProxyConfig ?? noProxy); }
         }
 
         public App() : this("")
@@ -399,7 +397,7 @@ namespace Toastify
                 new Action(() => Current.Shutdown()));
         }
 
-        public static HttpClientHandler CreateHttpClientHandler(ProxyConfig proxyConfig = null)
+        public static HttpClientHandler CreateHttpClientHandler(IProxyConfig proxyConfig = null)
         {
             HttpClientHandler clientHandler = new HttpClientHandler
             {
@@ -410,11 +408,11 @@ namespace Toastify
 
             if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
             {
-                WebProxy proxy = proxyConfig.CreateWebProxy();
+                IWebProxy proxy = proxyConfig.CreateWebProxy();
                 clientHandler.UseProxy = true;
                 clientHandler.Proxy = proxy;
-                clientHandler.UseDefaultCredentials = proxy.UseDefaultCredentials;
-                clientHandler.PreAuthenticate = proxy.UseDefaultCredentials;
+                clientHandler.UseDefaultCredentials = proxyConfig.UseDefaultCredentials;
+                clientHandler.PreAuthenticate = proxyConfig.UseDefaultCredentials;
             }
 
             return clientHandler;

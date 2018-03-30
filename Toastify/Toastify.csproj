@@ -162,6 +162,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\Core\MouseAction.cs" />
+    <Compile Include="src\Core\ProxyConfigAdapter.cs" />
     <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
     <Compile Include="src\Crypt32.cs" />
     <Compile Include="src\CustomMessageBox.cs" />
