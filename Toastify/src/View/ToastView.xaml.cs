@@ -584,15 +584,15 @@ namespace Toastify.View
         /// <param name="title1"> First title. </param>
         /// <param name="title2">  Second title. </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        /// <param name="force"> Whether or no0t to force the toast to show up. </param>
-        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool force = false)
+        /// <param name="forceShow"> Whether or no0t to force the toast to show up. </param>
+        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool forceShow = false, bool showPermanent = false)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
                 this.toastViewModel.Title1 = title1;
                 this.toastViewModel.Title2 = title2;
                 if (fadeIn)
-                    this.ShowOrHideToast(force, keepUp: true);
+                    this.ShowOrHideToast(force: forceShow, keepUp: true, permanent: showPermanent);
             }));
         }
 
@@ -612,12 +612,34 @@ namespace Toastify.View
         /// <param name="displayTime"> The display time in milliseconds. </param>
         public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime)
         {
-            this.UpdateToastText(title1, title2, false);
+            this.DisplayFlashContent(title1, title2, artUri, displayTime, null);
+        }
+
+        /// <summary>
+        /// Display a temporary content (title and image) on the toast and then execute some action.
+        /// </summary>
+        /// <param name="title1"> The string on the first line. </param>
+        /// <param name="title2"> The text on the second line. </param>
+        /// <param name="artUri"> The URI of the image to display. </param>
+        /// <param name="displayTime"> The display time in milliseconds. </param>
+        /// <param name="callback"> A callback. </param>
+        public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime, Action callback)
+        {
+            this.UpdateToastText(title1, title2, fadeIn: true, forceShow: true, showPermanent: true);
             Task.Factory.StartNew(async () =>
             {
                 await this.UpdateAlbumArt(artUri);
                 Timer timer = new Timer(displayTime) { AutoReset = false };
-                timer.Elapsed += (sender, args) => this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+                timer.Elapsed += (sender, args) =>
+                {
+                    if (this.minimizeTimer?.Enabled != true)
+                    {
+                        this.FadeOut(now: true);
+                        Thread.Sleep(750);
+                    }
+                    this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+                    callback?.Invoke();
+                };
                 timer.Start();
             });
         }
@@ -643,7 +665,7 @@ namespace Toastify.View
                 this.minimizeTimer?.Stop();
 
             this.isPreviewForSettings = !show;
-            this.ShowOrHideToast(true, previewForSettings: true);
+            this.ShowOrHideToast(force: true, previewForSettings: true);
             this.isPreviewForSettings = show;
 
             if (!show)
@@ -656,7 +678,8 @@ namespace Toastify.View
         /// <param name="force"> Whether to force the toast to fade-in or fade-out. </param>
         /// <param name="keepUp"> Whether to reset the fade-out timer or not. </param>
         /// <param name="previewForSettings"></param>
-        private void ShowOrHideToast(bool force = false, bool keepUp = false, bool previewForSettings = false)
+        /// <param name="permanent"></param>
+        private void ShowOrHideToast(bool force = false, bool keepUp = false, bool previewForSettings = false, bool permanent = false)
         {
             this.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -666,12 +689,14 @@ namespace Toastify.View
                     this.BeginAnimation(OpacityProperty, null);
                     this.Opacity = 1.0;
                     this.minimizeTimer.Interval = Math.Max(this.Settings.DisplayTime, 16);
-                    this.minimizeTimer.Start();
+
+                    if (!permanent)
+                        this.minimizeTimer.Start();
                 }
                 else if (this.ShownOrFading && !this.isPreviewForSettings)
-                    this.FadeOut(force);
+                    this.FadeOut(now: force);
                 else
-                    this.FadeIn(force, previewForSettings);
+                    this.FadeIn(force: force, permanent: permanent || previewForSettings);
             }));
         }
 
@@ -795,7 +820,7 @@ namespace Toastify.View
                         logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
                     }
 #endif
-                    this.ShowOrHideToast(true);
+                    this.ShowOrHideToast(force: true);
                     break;
 
                 case ToastifyAction.ThumbsUp:
