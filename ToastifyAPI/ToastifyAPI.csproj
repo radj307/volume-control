@@ -170,6 +170,7 @@
     <Compile Include="GitHub\Model\Emoji.cs" />
     <Compile Include="GitHub\Model\Release.cs" />
     <Compile Include="GitHub\Releases.cs" />
+    <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Net.cs" />
     <Compile Include="Native\Delegates\EnumResNameProcDelegate.cs" />

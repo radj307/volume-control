@@ -19,10 +19,6 @@ namespace ToastifyAPI.GitHub
 
         private static string ApiBase { get; } = "https://api.github.com";
 
-        public string Owner { get; set; }
-
-        public string Repository { get; set; }
-
         private readonly IProxyConfig proxyConfig;
 
         public GitHubAPI(IProxyConfig proxyConfig)
@@ -33,11 +29,14 @@ namespace ToastifyAPI.GitHub
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
-        public string GetFullEndpointUrl(string endpoint, params object[] args)
+        public string GetFullEndpointUrl(string endpoint)
         {
-            string ep = endpoint.Replace(":owner", this.Owner).Replace("{owner}", this.Owner)
-                                .Replace(":repo", this.Repository).Replace("{repo}", this.Repository);
-            return args != null ? $"{ApiBase}{string.Format(ep, args)}" : $"{ApiBase}{ep}";
+            return $"{ApiBase}{endpoint}";
+        }
+
+        public string GetFullEndpointUrl(string endpoint, RepoInfo repo)
+        {
+            return this.GetFullEndpointUrl(repo.Format(endpoint));
         }
 
         public T DownloadJson<T>(string url) where T : BaseModel
