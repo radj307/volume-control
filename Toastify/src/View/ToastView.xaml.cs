@@ -889,7 +889,7 @@ namespace Toastify.View
             this.FadeOut(true);
 
             if (this.isUpdateToast)
-                Process.Start(new ProcessStartInfo(VersionChecker.UpdateUrl));
+                Process.Start(new ProcessStartInfo(VersionChecker.GitHubReleasesUrl));
             else
                 Spotify.Instance.SendAction(ToastifyAction.ShowSpotify);
         }

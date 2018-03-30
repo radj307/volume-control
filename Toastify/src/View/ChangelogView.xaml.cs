@@ -56,10 +56,9 @@ namespace Toastify.View
             logger.Info("Downloading latest changelog...");
 
             GitHubAPI gitHubAPI = new GitHubAPI(App.ProxyConfig);
-            RepoInfo repo = new RepoInfo("toastify", "aleab");
-            Release release = gitHubAPI.GetReleaseByTagName(repo, App.CurrentVersion);
+            Release release = gitHubAPI.GetReleaseByTagName(App.RepoInfo, App.CurrentVersion);
             if (release.HttpStatusCode != HttpStatusCode.OK)
-                release = gitHubAPI.GetLatestRelease(repo);
+                release = gitHubAPI.GetLatestRelease(App.RepoInfo);
 
             if (release.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -76,7 +75,7 @@ namespace Toastify.View
             else
             {
                 this.viewModel.ReleaseBodyMarkdown = "### Failed loading the changelog!\n" +
-                                                     $"You can read the latest changes [here]({Releases.GetUrlOfLatestRelease(repo)}).";
+                                                     $"You can read the latest changes [here]({Releases.GetUrlOfLatestRelease(App.RepoInfo)}).";
                 this.PanelPublished.Visibility = Visibility.Collapsed;
 
                 logger.Warn($"Failed to download the latest changelog. StatusCode = {release.HttpStatusCode}");

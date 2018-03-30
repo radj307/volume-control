@@ -59,6 +59,30 @@ namespace ToastifyAPI.GitHub
             }
         }
 
+        public CollectionData<T> DownloadCollectionJson<T>(string url) where T : BaseModel
+        {
+            HttpClientHandler httpClientHandler = Net.CreateHttpClientHandler(this.proxyConfig);
+            using (HttpClient http = new HttpClient(httpClientHandler))
+            {
+                AddDefaultHeaders(http);
+
+                using (HttpResponseMessage response = http.GetAsync(url).Result)
+                {
+                    byte[] raw = response.Content.ReadAsByteArrayAsync().Result;
+                    string json = raw.Length > 0 ? encoding.GetString(raw) : "{}";
+
+                    T[] result = JsonConvert.DeserializeObject<T[]>(json);
+                    CollectionData<T> collection = new CollectionData<T>
+                    {
+                        Collection = result.ToList(),
+                        HttpResponseHeaders = response.Headers,
+                        HttpStatusCode = response.StatusCode
+                    };
+                    return collection;
+                }
+            }
+        }
+
         private T DownloadJsonInternal<T>(string url)
         {
             HttpClientHandler httpClientHandler = Net.CreateHttpClientHandler(this.proxyConfig);

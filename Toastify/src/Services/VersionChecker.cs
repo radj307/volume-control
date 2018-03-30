@@ -1,17 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
+using System.Net;
 using System.Threading;
+using log4net;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.View;
+using ToastifyAPI.GitHub;
+using ToastifyAPI.GitHub.Model;
 
 #if !DEBUG
 
-using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using ToastifyAPI.Helpers;
 
 #endif
 
@@ -19,6 +21,8 @@ namespace Toastify.Services
 {
     internal class VersionChecker : IDisposable
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(VersionChecker));
+
         #region Singleton
 
         private static VersionChecker _instance;
@@ -32,45 +36,23 @@ namespace Toastify.Services
 
         #region Static properties
 
-        private static string _version;
-
-        public static string CurrentVersion
-        {
-            get
-            {
-                if (_version == null)
-                {
-                    _version = App.CurrentVersion;
-
-                    if (_version != null)
-                    {
-                        Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
-                        Match match = regex.Match(_version);
-                        if (match.Success)
-                            _version = match.Groups[1].Value;
-                    }
-                }
-
-                return _version;
-            }
-        }
-
-        public static string UpdateUrl { get { return "https://github.com/aleab/toastify/releases"; } }
-
-        public static string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
+        public static string GitHubReleasesUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo/releases");
 
         public static TimeSpan VersionCheckInterval { get { return Settings.Current.VersionCheckFrequency.Value.ToTimeSpan(); } }
 
         #endregion Static properties
 
-        private Settings current;
+        private readonly GitHubAPI gitHubAPI;
 
+        private Settings current;
         private readonly Timer checkVersionTimer;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
 
         protected VersionChecker()
         {
+            this.gitHubAPI = new GitHubAPI(App.ProxyConfig);
+
             this.current = Settings.Current;
             this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
             SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
@@ -85,43 +67,43 @@ namespace Toastify.Services
         public void CheckNow()
         {
 #if DEBUG
-            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
+            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = App.CurrentVersionNoRevision, New = false });
 #else
-            Task.Run(async () => await this.ThreadedCheckVersion());
+            Task.Run(() => this.CheckVersion());
 #endif
         }
 
 #if !DEBUG
 
-        private async Task ThreadedCheckVersion()
+        private void CheckVersion()
         {
-            string downloadedString = null;
             try
             {
-                HttpClientHandler handler = Net.CreateHttpClientHandler(App.ProxyConfig);
-                using (HttpClient http = new HttpClient(handler))
-                {
-                    downloadedString = await http.GetStringAsync(new Uri(VersionUrl)).ConfigureAwait(false);
-                }
-            }
-            finally
-            {
-                string sRemote = string.Empty;
+                string latestTagName = null;
+                Release latest = this.gitHubAPI.GetLatestRelease(App.RepoInfo);
+                if (latest.HttpStatusCode == HttpStatusCode.OK)
+                    latestTagName = latest.TagName;
+
+                string sRemoteVersion = string.Empty;
                 bool isNewVersion = false;
 
-                if (!string.IsNullOrWhiteSpace(downloadedString))
+                if (!string.IsNullOrWhiteSpace(latestTagName))
                 {
-                    var match = Regex.Match(downloadedString, @"(\d+\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                    var match = Regex.Match(latestTagName, @"(\d+\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
                     if (match.Success)
                     {
-                        sRemote = match.Value;
-                        Version vLocal = new Version(CurrentVersion);
-                        Version vRemote = new Version(sRemote);
-                        isNewVersion = vLocal.CompareTo(vRemote) < 0;
+                        sRemoteVersion = match.Value;
+                        Version localVersion = new Version(App.CurrentVersionNoRevision);
+                        Version remoteVersion = new Version(sRemoteVersion);
+                        isNewVersion = localVersion.CompareTo(remoteVersion) < 0;
                     }
                 }
 
-                this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = sRemote, New = isNewVersion });
+                this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = sRemoteVersion, New = isNewVersion });
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unknown error while checking for updates.", ex);
             }
         }
 

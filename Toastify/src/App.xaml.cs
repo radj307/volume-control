@@ -24,6 +24,7 @@ using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI.GitHub;
 
 namespace Toastify
 {
@@ -357,6 +358,8 @@ namespace Toastify
             }
             set { _proxyConfig.Set(value.ProxyConfig ?? noProxy); }
         }
+
+        public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
 
         public App() : this("")
         {
