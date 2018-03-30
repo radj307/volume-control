@@ -4,21 +4,21 @@ namespace ToastifyAPI.GitHub
 {
     public static class Releases
     {
-        public static Release GetReleaseByTagName(this GitHubAPI api, string tag)
+        public static Release GetReleaseByTagName(this GitHubAPI api, RepoInfo repo, string tag)
         {
-            string url = api.GetFullEndpointUrl($"/repos/:owner/:repo/releases/tags/{tag}");
+            string url = api.GetFullEndpointUrl($"/repos/:owner/:repo/releases/tags/{tag}", repo);
             return api.DownloadJson<Release>(url);
         }
 
-        public static Release GetLatestRelease(this GitHubAPI api)
+        public static Release GetLatestRelease(this GitHubAPI api, RepoInfo repo)
         {
-            string url = api.GetFullEndpointUrl("/repos/:owner/:repo/releases/latest");
+            string url = api.GetFullEndpointUrl("/repos/:owner/:repo/releases/latest", repo);
             return api.DownloadJson<Release>(url);
         }
 
-        public static string GetUrlOfLatestRelease(this GitHubAPI api)
+        public static string GetUrlOfLatestRelease(RepoInfo repo)
         {
-            return api.GetFullEndpointUrl("https://github.com/:owner/:repo/releases/latest");
+            return repo.Format("https://github.com/:owner/:repo/releases/latest");
         }
     }
 }
