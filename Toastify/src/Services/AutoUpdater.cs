@@ -46,7 +46,7 @@ namespace Toastify.Services
             return updateDeliveryMode == UpdateDeliveryMode.AutoDownload;
         }
 
-        private async Task VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
+        private async void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
         {
             if (!ShouldDownload(Settings.Current.UpdateDeliveryMode) || !e.IsNew)
                 return;
