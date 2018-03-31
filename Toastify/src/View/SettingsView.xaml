@@ -148,8 +148,8 @@
                             <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
                         </StackPanel>
 
-                        <Grid Grid.Column="1" Height="32" Margin="12,96,12,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" VerticalAlignment="Top">
-                            <Image Width="32" Height="32" HorizontalAlignment="Left" Source="/Toastify;component/Resources/WarningLarge.png"></Image>
+                        <Grid Grid.Column="1" Margin="12,96,12,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" VerticalAlignment="Top">
+                            <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
                             <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" />
                         </Grid>
                     </Grid>
