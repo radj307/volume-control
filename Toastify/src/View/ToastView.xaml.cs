@@ -1071,12 +1071,18 @@ namespace Toastify.View
                         break;
 
                     case nameof(this.Settings.ToastWidth):
-                    case nameof(this.Settings.ToastHeight):
-                    case nameof(this.Settings.PositionLeft):
-                    case nameof(this.Settings.PositionTop):
                         this.Width = this.Settings.ToastWidth >= this.MinWidth ? (double)this.Settings.ToastWidth : this.MinWidth;
+                        this.ResetPositionIfOffScreen();
+                        break;
+                    case nameof(this.Settings.ToastHeight):
                         this.Height = this.Settings.ToastHeight >= this.MinHeight ? (double)this.Settings.ToastHeight : this.MinHeight;
+                        this.ResetPositionIfOffScreen();
+                        break;
+                    case nameof(this.Settings.PositionLeft):
                         this.Left = this.Settings.PositionLeft;
+                        this.ResetPositionIfOffScreen();
+                        break;
+                    case nameof(this.Settings.PositionTop):
                         this.Top = this.Settings.PositionTop;
                         this.ResetPositionIfOffScreen();
                         break;
