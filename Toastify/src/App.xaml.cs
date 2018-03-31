@@ -320,7 +320,11 @@ namespace Toastify
                 }
                 else
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(e.InstallerPath) { UseShellExecute = true };
+                    ProcessStartInfo psi = new ProcessStartInfo(e.InstallerPath)
+                    {
+                        UseShellExecute = true,
+                        Verb = "runas"
+                    };
                     Process.Start(psi);
                     App.Terminate();
                 }

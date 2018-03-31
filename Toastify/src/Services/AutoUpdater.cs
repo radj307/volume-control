@@ -38,6 +38,14 @@ namespace Toastify.Services
         protected AutoUpdater()
         {
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
+
+            this.VersionChecker_CheckVersionComplete(this, new CheckVersionCompleteEventArgs
+            {
+                GitHubReleaseDownloadUrl = "https://github.com/aleab/toastify/releases/download/v1.10.5/ToastifyInstaller.exe",
+                Version = "v1.10.5",
+                GitHubReleaseUrl = "https://github.com/aleab/toastify/releases/tag/v1.10.5",
+                IsNew = true
+            });
         }
 
         private static bool ShouldDownload(UpdateDeliveryMode updateDeliveryMode)
@@ -60,12 +68,10 @@ namespace Toastify.Services
                     try
                     {
                         if (Directory.Exists(UpdateDownloadPath))
-                        {
-                            Directory.Delete(UpdateDownloadPath);
-                            Directory.CreateDirectory(UpdateDownloadPath);
-                        }
+                            Directory.Delete(UpdateDownloadPath, true);
+                        Directory.CreateDirectory(UpdateDownloadPath);
                         string filePath = Path.Combine(UpdateDownloadPath, "ToastifyInstaller.exe");
-                        await webClient.DownloadFileTaskAsync(UpdateDownloadPath, filePath).ConfigureAwait(false);
+                        await webClient.DownloadFileTaskAsync(e.GitHubReleaseDownloadUrl, filePath).ConfigureAwait(false);
 
                         if (File.Exists(filePath))
                         {
