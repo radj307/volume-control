@@ -1,6 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using Toastify.Common;
 
 namespace Toastify.Core
@@ -44,9 +44,10 @@ namespace Toastify.Core
 
                 case VersionCheckFrequency.EveryMonth:
                     return new TimeSpan(30, 0, 0, 0);
-            }
 
-            return TimeSpan.FromDays(1);
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }

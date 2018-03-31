@@ -478,7 +478,7 @@ namespace Toastify.View
                     return Task.Delay(2000, cts.Token).ContinueWith(t => ifTooLong, cts.Token);
                     // ReSharper restore AccessToDisposedClosure
                 }, cts.Token).Unwrap();
-                await Task.WhenAny(awaiter, downloader);
+                await Task.WhenAny(awaiter, downloader).ConfigureAwait(false);
             }
 
             if (downloader.IsCompleted)

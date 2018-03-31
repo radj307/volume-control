@@ -74,13 +74,5 @@ namespace Toastify.View
                 logger.Warn($"Failed to download the latest changelog. StatusCode = {release.HttpStatusCode}");
             }
         }
-
-        private void ChangelogView_OnLoaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ChangelogView_OnClosed(object sender, EventArgs e)
-        {
-        }
     }
 }

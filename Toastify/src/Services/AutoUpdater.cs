@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -45,7 +46,7 @@ namespace Toastify.Services
             return updateDeliveryMode == UpdateDeliveryMode.AutoDownload;
         }
 
-        private async void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
+        private async Task VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
         {
             if (!ShouldDownload(Settings.Current.UpdateDeliveryMode) || !e.IsNew)
                 return;
@@ -65,7 +66,7 @@ namespace Toastify.Services
                             Directory.CreateDirectory(UpdateDownloadPath);
                         }
                         string filePath = Path.Combine(UpdateDownloadPath, "ToastifyInstaller.exe");
-                        await webClient.DownloadFileTaskAsync(UpdateDownloadPath, filePath);
+                        await webClient.DownloadFileTaskAsync(UpdateDownloadPath, filePath).ConfigureAwait(false);
 
                         if (File.Exists(filePath))
                         {

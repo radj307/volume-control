@@ -689,6 +689,9 @@ namespace Toastify.Core
                             break;
 
                         case ToastifyVolumeControlMode.SystemGlobal:
+                            sendMediaKey = true;
+                            break;
+
                         default:
                             sendMediaKey = true;
                             break;

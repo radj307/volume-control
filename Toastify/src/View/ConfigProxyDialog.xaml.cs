@@ -52,6 +52,10 @@ namespace Toastify.View
                     if (!this.AllowClosing)
                         handled = true;
                     break;
+
+                default:
+                    // Ignore!
+                    break;
             }
             return IntPtr.Zero;
         }
