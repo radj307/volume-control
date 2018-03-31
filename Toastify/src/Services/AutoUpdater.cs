@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;

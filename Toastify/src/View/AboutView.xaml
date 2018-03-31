@@ -12,10 +12,10 @@
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5,5,5,5" Margin="60,60,0,0" MouseUp="Border_MouseUp">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#FFCFCFCF" Offset="0"/>
-                <GradientStop Color="#FF535353" Offset="0.498"/>
-                <GradientStop Color="#FF646464" Offset="1"/>
-                <GradientStop Color="#FF262626" Offset="0.507"/>
+                <GradientStop Color="#FFCFCFCF" Offset="0" />
+                <GradientStop Color="#FF535353" Offset="0.498" />
+                <GradientStop Color="#FF646464" Offset="1" />
+                <GradientStop Color="#FF262626" Offset="0.507" />
             </LinearGradientBrush>
         </Border.Background>
         <Grid d:DataContext="{d:DesignInstance viewmodel:AboutViewModel}">
@@ -24,8 +24,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="auto"/>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="auto" />
 			</Grid.RowDefinitions>
             <Canvas Margin="0,0,0,0">
                 <Image Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" Canvas.Top="-50" Canvas.Left="-50"></Image>
@@ -57,7 +57,7 @@
                         <DropShadowEffect ShadowDepth="2" BlurRadius="12"></DropShadowEffect>
                     </TextBlock.Effect>
                     <Hyperlink Name="HomepageLink" Foreground="#FF0000DB" NavigateUri="{Binding Path=HomepageUrl, Mode=OneWay}" RequestNavigate="Hyperlink_RequestNavigate">
-                        <TextBlock Text="{Binding Path=HomepageUrlNoScheme, Mode=OneWay, FallbackValue='\{HomepageUrl\}'}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Path=HomepageUrlNoScheme, Mode=OneWay, FallbackValue='\{HomepageUrl\}'}" FontWeight="Bold" />
                     </Hyperlink>
                 </TextBlock>
 

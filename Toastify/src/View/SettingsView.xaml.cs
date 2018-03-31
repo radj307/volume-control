@@ -13,7 +13,6 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
-using ToastifyAPI;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
@@ -131,7 +130,7 @@ namespace Toastify.View
                     else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
                     {
                         Union32 union = new Union32(lParam.mouseData);
-                        
+
                         short delta = unchecked((short)union.High);
                         if (delta > 0)
                         {

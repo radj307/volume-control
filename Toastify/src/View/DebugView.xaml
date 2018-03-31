@@ -10,6 +10,6 @@
     <Grid d:DataContext="{d:DesignInstance local:DebugView}">
         <Button Content="Print Hotkeys" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintCurrentHotkeys_OnClick" />
         <CheckBox Name="cbLogShowToastAction" Margin="10,60,0,0" Content="Log ShowToast action" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="LogShowToastAction_OnChecked" Unchecked="LogShowToastAction_OnUnchecked" />
-        <Button Content="Print Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintSettings_OnClick"/>
+        <Button Content="Print Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="126" Click="ButtonPrintSettings_OnClick" />
     </Grid>
 </Window>

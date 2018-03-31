@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Windows.Input;
 
 namespace Toastify.Core
 {

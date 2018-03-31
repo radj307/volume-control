@@ -16,7 +16,7 @@
             <BeginStoryboard>
                 <Storyboard>
                     <BooleanAnimationUsingKeyFrames>
-                        <DiscreteBooleanKeyFrame KeyTime="0" Value="True" Storyboard.Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Storyboard.TargetProperty="Topmost"/>
+                        <DiscreteBooleanKeyFrame KeyTime="0" Value="True" Storyboard.Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Storyboard.TargetProperty="Topmost" />
                     </BooleanAnimationUsingKeyFrames>
                 </Storyboard>
             </BeginStoryboard>
@@ -27,8 +27,8 @@
     <Border Name="ToastBorder" BorderBrush="#FF292929" BorderThickness="1" CornerRadius="4" d:DataContext="{d:DesignInstance viewmodel:ToastViewModel}">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#FF555555" Offset="0"/>
-                <GradientStop Color="#FF151515" Offset="1"/>
+                <GradientStop Color="#FF555555" Offset="0" />
+                <GradientStop Color="#FF151515" Offset="1" />
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
@@ -39,27 +39,27 @@
             <Image Name="AlbumArt" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" HorizontalAlignment="Right"
                    Margin="0" Height="60" Width="60" Grid.Column="0" VerticalAlignment="Center" Stretch="Fill">
                 <Image.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="2" />
                 </Image.Effect>
             </Image>
             <Grid Grid.Column="1" Margin="15,15,0,4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="19"></RowDefinition>
                     <RowDefinition Height="19"></RowDefinition>
-                    <RowDefinition/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Name="Title1" Text="{Binding Path=Title1, Mode=OneWay, FallbackValue='[Title1]'}" VerticalAlignment="Bottom" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis" Grid.Row="0"/>
-                <TextBlock Name="Title2" Text="{Binding Path=Title2, Mode=OneWay, FallbackValue='[Title2]'}" VerticalAlignment="Top" Margin="1,0,0,0" Foreground="#FFF0F0F0" FontSize="12" TextTrimming="CharacterEllipsis" Grid.Row="1"/>
+                <TextBlock Name="Title1" Text="{Binding Path=Title1, Mode=OneWay, FallbackValue='[Title1]'}" VerticalAlignment="Bottom" Foreground="White" FontSize="16" TextTrimming="CharacterEllipsis" Grid.Row="0" />
+                <TextBlock Name="Title2" Text="{Binding Path=Title2, Mode=OneWay, FallbackValue='[Title2]'}" VerticalAlignment="Top" Margin="1,0,0,0" Foreground="#FFF0F0F0" FontSize="12" TextTrimming="CharacterEllipsis" Grid.Row="1" />
                 <Grid Name="SongProgressBar" Grid.Row="2" Margin="2,0" Visibility="Visible">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="8"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Separator Name="SongProgressBarContainer" VerticalAlignment="Center" Margin="0" MinWidth="0" MinHeight="1" Grid.Column="0" Background="#FF333333"/>
+                    <Separator Name="SongProgressBarContainer" VerticalAlignment="Center" Margin="0" MinWidth="0" MinHeight="1" Grid.Column="0" Background="#FF333333" />
                     <Grid HorizontalAlignment="Left" Width="{Binding Path=SongProgressBarWidth, Mode=OneWay}" MinWidth="0" MinHeight="1" Grid.Column="0" VerticalAlignment="Center">
-                        <Separator Name="SongProgressBarLine" VerticalAlignment="Center" MinHeight="1" Background="#FFA0A0A0"/>
-                        <Ellipse Name="SongProgressBarLineEllipse" HorizontalAlignment="Right" VerticalAlignment="Center" Width="2" Fill="#FFA0A0A0" Height="3"/>
+                        <Separator Name="SongProgressBarLine" VerticalAlignment="Center" MinHeight="1" Background="#FFA0A0A0" />
+                        <Ellipse Name="SongProgressBarLineEllipse" HorizontalAlignment="Right" VerticalAlignment="Center" Width="2" Fill="#FFA0A0A0" Height="3" />
                     </Grid>
                 </Grid>
             </Grid>

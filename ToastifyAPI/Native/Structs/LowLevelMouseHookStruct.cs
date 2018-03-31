@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using ToastifyAPI.Native.Enums;
 
 namespace ToastifyAPI.Native.Structs
 {
@@ -20,13 +19,13 @@ namespace ToastifyAPI.Native.Structs
         /// A positive value indicates that the wheel was rotated forward, away from the user;
         /// a negative value indicates that the wheel was rotated backward, toward the user.
         /// One wheel click is defined as WHEEL_DELTA, which is 120.
-        /// 
+        ///
         /// If the message is <see cref="WindowsMessagesFlags.WM_XBUTTONDOWN"/>, <see cref="WindowsMessagesFlags.WM_XBUTTONUP"/>,
-        /// <see cref="WindowsMessagesFlags.WM_XBUTTONDBLCLK"/>, <see cref="WindowsMessagesFlags.WM_NCXBUTTONDOWN"/>, 
+        /// <see cref="WindowsMessagesFlags.WM_XBUTTONDBLCLK"/>, <see cref="WindowsMessagesFlags.WM_NCXBUTTONDOWN"/>,
         /// <see cref="WindowsMessagesFlags.WM_NCXBUTTONUP"/>, or <see cref="WindowsMessagesFlags.WM_NCXBUTTONDBLCLK"/>,
         /// the high-order word specifies which X button was pressed or released, and the low-order word is reserved.
         /// This value can be one or more of the following values. Otherwise, mouseData is not used.
-        /// 
+        ///
         /// <list type="bullet">
         /// <item>
         ///   <term> XBUTTON1 </term>

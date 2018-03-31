@@ -1,9 +1,9 @@
-﻿using Process=System.Diagnostics.Process;
-using Graphics=System.Drawing.Graphics;
-using log4net;
+﻿using log4net;
 using System.Windows;
 using System.Windows.Forms;
 using Toastify.View;
+using Graphics = System.Drawing.Graphics;
+using Process = System.Diagnostics.Process;
 
 namespace Toastify.Helpers
 {

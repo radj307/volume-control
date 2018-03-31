@@ -10,9 +10,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Toastify.Common;
-using ToastifyAPI;
-using ToastifyAPI.Native;
-using ToastifyAPI.Native.Enums;
 
 namespace Toastify.Helpers
 {
