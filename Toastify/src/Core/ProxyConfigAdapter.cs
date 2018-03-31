@@ -71,6 +71,7 @@ namespace Toastify.Core
             this.ProxyConfig.Set(proxyConfig);
         }
 
+        /// <inheritdoc />
         public bool IsValid()
         {
             return this.ProxyConfig.IsValid();

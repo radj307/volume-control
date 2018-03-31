@@ -153,7 +153,7 @@ namespace Toastify.Helpers.Markdown
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            text = this.Normalize(text);
+            text = Normalize(text);
             var document = Create<FlowDocument, Block>(this.RunBlockGamut(text));
 
             if (this.DocumentStyle != null)
@@ -441,6 +441,10 @@ namespace Toastify.Helpers.Markdown
                     if (this.Heading4Style != null)
                         block.Style = this.Heading4Style;
                     break;
+
+                default:
+                    // Default to nosrmal text
+                    break;
             }
 
             return block;
@@ -680,18 +684,11 @@ namespace Toastify.Helpers.Markdown
                 throw new ArgumentNullException(nameof(text));
 
             // <strong> must go first, then <em>
-            if (this.StrictBoldItalic)
-            {
-                return this.Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
-                    s1 => this.Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3),
-                    defaultHandler));
-            }
-            else
-            {
-                return this.Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
-                   s1 => this.Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2),
-                   defaultHandler));
-            }
+            return this.StrictBoldItalic
+                ? this.Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
+                    s1 => this.Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3), defaultHandler))
+                : this.Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
+                    s1 => this.Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2), defaultHandler));
         }
 
         private Inline ItalicEvaluator(Match match, int contentGroup)
@@ -715,7 +712,7 @@ namespace Toastify.Helpers.Markdown
         /// <summary>
         /// Remove one level of line-leading spaces
         /// </summary>
-        private string Outdent(string block)
+        private static string Outdent(string block)
         {
             return outDentRegex.Replace(block, "");
         }
@@ -726,7 +723,7 @@ namespace Toastify.Helpers.Markdown
         /// makes sure text ends with a couple of newlines;
         /// removes any blank lines (only spaces) in the text
         /// </summary>
-        private string Normalize(string text)
+        private static string Normalize(string text)
         {
             if (text == null)
                 throw new ArgumentNullException(nameof(text));

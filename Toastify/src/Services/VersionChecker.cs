@@ -126,6 +126,10 @@ namespace Toastify.Services
                 case nameof(Settings.VersionCheckFrequency):
                     this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), new TimeSpan(-1));
                     break;
+
+                default:
+                    // Ignore!
+                    break;
             }
         }
 

@@ -16,6 +16,8 @@ namespace ToastifyAPI.Core
         /// </summary>
         bool BypassProxyOnLocal { get; }
 
+        bool IsValid();
+
         IWebProxy CreateWebProxy();
     }
 }

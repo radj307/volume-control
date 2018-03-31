@@ -427,7 +427,7 @@ namespace Toastify.View
                 Stream stream = null;
                 try
                 {
-                    stream = await GetAlbumArtAsStream(http, uri, async () => await this.UpdateAlbumArt(DEFAULT_ICON));
+                    stream = await GetAlbumArtAsStream(http, uri, async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false)).ConfigureAwait(false);
                     if (logger.IsDebugEnabled)
                         logger.Debug($"Album art downloaded: {albumArtUri}");
 

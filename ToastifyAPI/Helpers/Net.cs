@@ -6,7 +6,12 @@ namespace ToastifyAPI.Helpers
 {
     public static class Net
     {
-        public static HttpClientHandler CreateHttpClientHandler(IProxyConfig proxyConfig = null)
+        public static HttpClientHandler CreateHttpClientHandler()
+        {
+            return CreateHttpClientHandler(null);
+        }
+
+        public static HttpClientHandler CreateHttpClientHandler(IProxyConfig proxyConfig)
         {
             HttpClientHandler clientHandler = new HttpClientHandler
             {
@@ -15,13 +20,16 @@ namespace ToastifyAPI.Helpers
                 UseProxy = false
             };
 
-            if (!string.IsNullOrWhiteSpace(proxyConfig?.Host))
+            if (proxyConfig?.IsValid() == true)
             {
                 IWebProxy proxy = proxyConfig.CreateWebProxy();
-                clientHandler.UseProxy = true;
-                clientHandler.Proxy = proxy;
-                clientHandler.UseDefaultCredentials = proxyConfig.UseDefaultCredentials;
-                clientHandler.PreAuthenticate = proxyConfig.UseDefaultCredentials;
+                if (proxy != null)
+                {
+                    clientHandler.UseProxy = true;
+                    clientHandler.Proxy = proxy;
+                    clientHandler.UseDefaultCredentials = proxyConfig.UseDefaultCredentials;
+                    clientHandler.PreAuthenticate = proxyConfig.UseDefaultCredentials;
+                }
             }
 
             return clientHandler;
