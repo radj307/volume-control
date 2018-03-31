@@ -48,11 +48,11 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.10.6.*")]
+[assembly: AssemblyVersion("1.10.7.*")]
 #pragma warning disable CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
 #if DEBUG
-[assembly: AssemblyFileVersion("1.10.6 [DEBUG BUILD]")]
+[assembly: AssemblyFileVersion("1.10.7 [DEBUG BUILD]")]
 #elif TEST_RELEASE
-[assembly: AssemblyFileVersion("1.10.6 [TEST BUILD]")]
+[assembly: AssemblyFileVersion("1.10.7 [TEST BUILD]")]
 #endif
 #pragma warning restore CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
