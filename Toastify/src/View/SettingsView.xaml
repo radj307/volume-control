@@ -3,11 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpft="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:core="clr-namespace:Toastify.Core"
         xmlns:common="clr-namespace:Toastify.Common"
         xmlns:converters="clr-namespace:Toastify.Helpers.Converters"
-        xmlns:helpers="clr-namespace:Toastify.Helpers"
         xmlns:markup="clr-namespace:Toastify.Helpers.Markup"
         xmlns:validators="clr-namespace:Toastify.Helpers.Validators"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
@@ -16,8 +14,6 @@
         Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
 
     <Window.Resources>
-        <converters:HexColorToAlphaValueConverter x:Key="HexColorToAlphaValueConverter"></converters:HexColorToAlphaValueConverter>
-        <converters:OppositeBoolConverter x:Key="OppositeBoolConverter"></converters:OppositeBoolConverter>
         <converters:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter"></converters:OppositeBoolToVisibleConverter>
         <converters:SettingValueToValueConverter x:Key="SettingValueToValueConverter"></converters:SettingValueToValueConverter>
         <converters:SettingValueToOppositeBoolValueConverter x:Key="SettingValueToOppositeBoolValueConverter"></converters:SettingValueToOppositeBoolValueConverter>
@@ -55,21 +51,36 @@
                     </StackPanel>
 
                     <GroupBox Header="Updates" Margin="12,148,12,0" Padding="8" VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26">
-                            <Label VerticalContentAlignment="Center">Update check frequency:</Label>
-                            <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180"
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26">
+                                <Label VerticalContentAlignment="Center">Update check frequency:</Label>
+                                <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180"
                                       ItemsSource="{Binding Source={markup:Enum {x:Type core:VersionCheckFrequency}}}"
                                       SelectedValue="{Binding Path=Settings.VersionCheckFrequency, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Margin="0,12,0,0">
+                                <Label VerticalContentAlignment="Center">Configure auto updates:</Label>
+                                <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180"
+                                      ItemsSource="{Binding Source={markup:Enum {x:Type core:UpdateDeliveryMode}}}"
+                                      SelectedValue="{Binding Path=Settings.UpdateDeliveryMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
                         </StackPanel>
                     </GroupBox>
 
-                    <Grid VerticalAlignment="Top" Margin="12,229,12,0">
+                    <Grid VerticalAlignment="Top" Margin="12,267,12,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="26" />
                             <RowDefinition />
@@ -83,9 +94,9 @@
                         <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InfoTextColorBrush}" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
                     </Grid>
 
-                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,322,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
-                    <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,347,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
-                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,392,0,0" Height="31">
+                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,360,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
+                    <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,385,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
+                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,430,0,0" Height="31">
                         <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak />
                             Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
                     </CheckBox>
