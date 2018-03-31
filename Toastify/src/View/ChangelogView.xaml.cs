@@ -1,8 +1,9 @@
 ﻿using log4net;
-using System;
+using System.Diagnostics;
 using System.Media;
 using System.Net;
 using System.Windows;
+using System.Windows.Navigation;
 using Toastify.ViewModel;
 using ToastifyAPI.GitHub;
 using ToastifyAPI.GitHub.Model;
@@ -53,15 +54,14 @@ namespace Toastify.View
             if (release.HttpStatusCode != HttpStatusCode.OK)
                 release = gitHubAPI.GetLatestRelease(App.RepoInfo);
 
+            // OnDownloaded
             if (release.HttpStatusCode == HttpStatusCode.OK)
             {
                 this.viewModel.ReleaseBodyMarkdown = $"## {release.Name}\n" +
                                                      $"{gitHubAPI.GitHubify(release.Body)}";
 
-                if (release.PublishedAt != null)
-                    this.TextBlockPublishedDate.Text = release.PublishedAt?.ToString(App.UserCulture);
-                else
-                    this.PanelPublished.Visibility = Visibility.Collapsed;
+                this.viewModel.GitHubLink = release.HtmlUrl;
+                this.viewModel.PublishedAt = release.PublishedAt?.ToString(App.UserCulture);
 
                 logger.Info("Changelog downloaded");
             }
@@ -73,6 +73,13 @@ namespace Toastify.View
 
                 logger.Warn($"Failed to download the latest changelog. StatusCode = {release.HttpStatusCode}");
             }
+        }
+
+        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true };
+            Process.Start(psi);
+            e.Handled = true;
         }
     }
 }

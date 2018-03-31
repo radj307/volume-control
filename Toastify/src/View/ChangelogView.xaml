@@ -7,7 +7,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
-        Title="Toastify - Changelog" Height="450" MaxHeight="450" Width="450" SizeToContent="Height" ResizeMode="NoResize"
+        Title="Toastify - Changelog" Height="520" MaxHeight="520" Width="480" SizeToContent="Height" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Topmost="True" Icon="/Toastify;component/Resources/ToastifyIcon.ico">
 
     <Window.Resources>
@@ -43,9 +43,25 @@
         <FlowDocumentScrollViewer Grid.Row="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
                                   IsSelectionEnabled="False" Document="{Binding Path=ReleaseBodyMarkdown, Mode=OneWay, Converter={StaticResource TextToFlowDocumentConverter}}" />
 
-        <StackPanel x:Name="PanelPublished" Grid.Row="1" Margin="8,2,8,2" HorizontalAlignment="Right" Orientation="Horizontal">
-            <TextBlock VerticalAlignment="Center" FontSize="12" Foreground="DimGray">Published:</TextBlock>
-            <TextBlock x:Name="TextBlockPublishedDate" Margin="6,0,0,0" VerticalAlignment="Center" FontSize="12" Foreground="DimGray" />
-        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="PanelLink" Grid.Column="0" Margin="8,2,8,2" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontSize="12">
+                    <Hyperlink x:Name="GitHubLink" TextDecorations="{x:Null}" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                               NavigateUri="{Binding Path=GitHubLink, Mode=OneWay}" RequestNavigate="Hyperlink_OnRequestNavigate">
+                        <TextBlock>View on GitHub</TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel x:Name="PanelPublished" Grid.Column="1" Margin="8,2,8,2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontSize="12" Foreground="DimGray">Published:</TextBlock>
+                <TextBlock x:Name="TextBlockPublishedDate" Margin="6,0,0,0" VerticalAlignment="Center" FontSize="12" Foreground="DimGray" Text="{Binding Path=PublishedAt, Mode=OneWay}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
