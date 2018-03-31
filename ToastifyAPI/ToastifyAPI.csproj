@@ -175,6 +175,11 @@
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Net.cs" />
+    <Compile Include="Native\Crypt32.cs" />
+    <Compile Include="Native\Enums\CryptProtectFlags.cs" />
+    <Compile Include="Native\Enums\CryptProtectPromptFlags.cs" />
+    <Compile Include="Native\Structs\CryptProtectPromptStruct.cs" />
+    <Compile Include="Native\Structs\DataBlob.cs" />
     <Compile Include="Native\Delegates\EnumResNameProcDelegate.cs" />
     <Compile Include="Native\Enums\ExecutionStateFlags.cs" />
     <Compile Include="Native\Enums\ExtendedWindowStylesFlags.cs" />

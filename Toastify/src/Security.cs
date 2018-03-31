@@ -8,6 +8,9 @@ using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using ToastifyAPI.Native;
+using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 
 namespace Toastify
 {
@@ -65,20 +68,20 @@ namespace Toastify
 
             try
             {
-                Crypt32.DataBlob dataBlob = new Crypt32.DataBlob
+                DataBlob dataBlob = new DataBlob
                 {
                     cbData = encryptedData.Length,
                     pbData = dataPtr
                 };
-                Crypt32.DataBlob entropyBlob = new Crypt32.DataBlob
+                DataBlob entropyBlob = new DataBlob
                 {
                     cbData = entropy.Length,
                     pbData = entropyPtr
                 };
-                Crypt32.DataBlob outBlob = new Crypt32.DataBlob();
+                DataBlob outBlob = new DataBlob();
 
                 // Crypt
-                bool success = Crypt32.CryptUnprotectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, Crypt32.CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
+                bool success = Crypt32.CryptUnprotectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
                 if (!success)
                 {
                     int error = Marshal.GetLastWin32Error();
@@ -196,20 +199,20 @@ namespace Toastify
 
             try
             {
-                Crypt32.DataBlob dataBlob = new Crypt32.DataBlob
+                DataBlob dataBlob = new DataBlob
                 {
                     cbData = secureString.Length * 2,
                     pbData = unmanagedString
                 };
-                Crypt32.DataBlob entropyBlob = new Crypt32.DataBlob
+                DataBlob entropyBlob = new DataBlob
                 {
                     cbData = entropy.Length,
                     pbData = entropyPtr
                 };
-                Crypt32.DataBlob outBlob = new Crypt32.DataBlob();
+                DataBlob outBlob = new DataBlob();
 
                 // Crypt
-                bool success = Crypt32.CryptProtectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, Crypt32.CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
+                bool success = Crypt32.CryptProtectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
                 if (!success)
                 {
                     int error = Marshal.GetLastWin32Error();
