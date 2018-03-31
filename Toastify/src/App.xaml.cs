@@ -467,7 +467,17 @@ namespace Toastify
             if (action == null)
                 return null;
 
-            Thread t = new Thread(() => action())
+            Thread t = new Thread(() =>
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Unknown error in {nameof(CallInSTAThreadAsync)}", ex);
+                }
+            })
             {
                 IsBackground = background
             };

@@ -107,8 +107,6 @@ namespace ToastifyAPI.GitHub
 
         private static readonly Regex issueOrPullRegex = new Regex(@"\B#([0-9]+)\b", RegexOptions.Compiled);
 
-        private static readonly Regex hashRegex = new Regex(@"\b([a-f0-9]{7,})\b", RegexOptions.Compiled);
-
         private static readonly Regex emojiRegex = new Regex(@":([^\s]+):", RegexOptions.Compiled);
 
         public string GitHubify(string ghText)
@@ -127,14 +125,6 @@ namespace ToastifyAPI.GitHub
                 string sNumber = match.Groups[1].Value;
                 int number = int.Parse(sNumber);
                 string pattern = this.GitHubify_IssueOrPull(number);
-                return match.Result(pattern);
-            });
-
-            // Hashes ([a-f0-9]{7,})
-            ghText = hashRegex.Replace(ghText, match =>
-            {
-                string hash = match.Groups[1].Value;
-                string pattern = this.GitHubify_Hash(hash);
                 return match.Result(pattern);
             });
 

@@ -23,13 +23,13 @@
 
     <Style x:Key="H3Style" TargetType="Paragraph">
         <Setter Property="FontSize" Value="18" />
-        <Setter Property="Foreground" Value="#99000000" />
+        <Setter Property="Foreground" Value="#ff000000" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
     <Style x:Key="H4Style" TargetType="Paragraph">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="#99000000" />
+        <Setter Property="Foreground" Value="#ff000000" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 

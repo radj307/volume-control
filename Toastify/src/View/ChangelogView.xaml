@@ -8,7 +8,7 @@
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         Title="Toastify - Changelog" Height="520" MaxHeight="520" Width="480" SizeToContent="Height" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Topmost="True" Icon="/Toastify;component/Resources/ToastifyIcon.ico">
+        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Icon="/Toastify;component/Resources/ToastifyIcon.ico">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -15,7 +15,7 @@ namespace Toastify.View
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ChangelogView));
 
-        private static ChangelogView current;
+        private static bool showed;
 
         private readonly ChangelogViewModel viewModel;
 
@@ -29,18 +29,21 @@ namespace Toastify.View
 
         internal static void Launch()
         {
-            if (current != null)
+            if (showed)
                 return;
 
             if (logger.IsDebugEnabled)
                 logger.Debug("Launching ChangelogViewer...");
 
-            current = new ChangelogView();
             App.CallInSTAThreadAsync(() =>
             {
-                current.DownloadChangelog();
-                current.Show();
+                ChangelogView changelogView = new ChangelogView();
+                changelogView.DownloadChangelog();
+
+                showed = true;
+                changelogView.Show();
                 SystemSounds.Asterisk.Play();
+
                 Dispatch.Run();
             }, true, "Changelog Viewer");
         }
