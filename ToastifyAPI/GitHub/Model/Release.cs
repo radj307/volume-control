@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace ToastifyAPI.GitHub.Model
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptOut)]
     public class Release : BaseModel
     {
         [JsonProperty("url")]
@@ -51,12 +53,10 @@ namespace ToastifyAPI.GitHub.Model
         [JsonProperty("published_at")]
         public DateTime? PublishedAt { get; set; }
 
-        // TODO: Author object
         //[JsonProperty("author")]
-        //public Author Author { get; set; }
+        //public User Author { get; set; }
 
-        // TODO: Asset object
-        //[JsonProperty("assets")]
-        //public List<Asset> Assets { get; set; }
+        [JsonProperty("assets")]
+        public List<Asset> Assets { get; set; }
     }
 }

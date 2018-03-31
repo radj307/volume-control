@@ -24,6 +24,7 @@ using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI.GitHub;
 
 namespace Toastify
 {
@@ -151,7 +152,8 @@ namespace Toastify
             if (logger.IsDebugEnabled)
                 logger.Debug("Preparing to launch Toastify...");
 
-            // Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
+            //   Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
+            // > Initialize AutoUpdater & VersionChecker
             LoadSettings();
             StartupTask();
             Analytics.Init();
@@ -159,6 +161,8 @@ namespace Toastify
             previousVersion = Settings.Current.PreviousVersion;
             Settings.Current.PreviousVersion = App.CurrentVersionNoRevision;
             Settings.Current.Save();
+
+            InitUpdater();
         }
 
         private static void RunApp()
@@ -257,6 +261,17 @@ namespace Toastify
             }
         }
 
+        private static void InitUpdater()
+        {
+            // Just getting the instances to initialize the singletons
+            // ReSharper disable UnusedVariable
+            var ignore1 = VersionChecker.Instance;
+            var ignore2 = AutoUpdater.Instance;
+            // ReSharper restore UnusedVariable
+
+            AutoUpdater.Instance.UpdateReady += AutoUpdater_UpdateReady;
+        }
+
         private static void Spotify_Connected(object sender, SpotifyStateEventArgs spotifyStateEventArgs)
         {
             // Show the changelog if necessary
@@ -265,6 +280,54 @@ namespace Toastify
                 Version previous = new Version(previousVersion);
                 if (previous < new Version(App.CurrentVersionNoRevision))
                     ChangelogView.Launch();
+            }
+        }
+
+        private static void AutoUpdater_UpdateReady(object sender, UpdateReadyEventArgs e)
+        {
+            logger.Info($"New update is ready to be installed ({e.Version})");
+
+            MessageBoxResult choice = MessageBoxResult.Yes;
+            App.CallInSTAThread(() =>
+            {
+                choice = CustomMessageBox.ShowYesNoCancel(
+                    "A new update is ready to be installed!",
+                   $"Toastify {e.Version}",
+                    "Install",      // Yes
+                    "Open folder",  // No
+                    "Go to GitHub", // Cancel
+                    MessageBoxImage.Information);
+            });
+
+            logger.Info($"Use choice = {(choice == MessageBoxResult.Cancel ? "Go to GitHub" : choice == MessageBoxResult.No ? "Open folder" : "Install")}");
+
+            try
+            {
+                if (choice == MessageBoxResult.Cancel)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo(e.GitHubReleaseUrl) { UseShellExecute = true };
+                    Process.Start(psi);
+                }
+                else if (choice == MessageBoxResult.No)
+                {
+                    FileInfo fileInfo = new FileInfo(e.InstallerPath);
+                    ProcessStartInfo psi = new ProcessStartInfo(fileInfo.Directory?.FullName)
+                    {
+                        UseShellExecute = true,
+                        Verb = "open"
+                    };
+                    Process.Start(psi);
+                }
+                else
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo(e.InstallerPath) { UseShellExecute = true };
+                    Process.Start(psi);
+                    App.Terminate();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Unknown error in {nameof(AutoUpdater_UpdateReady)}", ex);
             }
         }
 
@@ -357,6 +420,8 @@ namespace Toastify
             }
             set { _proxyConfig.Set(value.ProxyConfig ?? noProxy); }
         }
+
+        public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
 
         public App() : this("")
         {

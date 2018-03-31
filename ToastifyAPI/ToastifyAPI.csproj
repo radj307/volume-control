@@ -166,7 +166,9 @@
   <ItemGroup>
     <Compile Include="Core\IProxyConfig.cs" />
     <Compile Include="GitHub\GitHubAPI.cs" />
+    <Compile Include="GitHub\Model\Asset.cs" />
     <Compile Include="GitHub\Model\BaseModel.cs" />
+    <Compile Include="GitHub\Model\CollectionData.cs" />
     <Compile Include="GitHub\Model\Emoji.cs" />
     <Compile Include="GitHub\Model\Release.cs" />
     <Compile Include="GitHub\Releases.cs" />

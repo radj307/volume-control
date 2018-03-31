@@ -1,7 +1,6 @@
 ﻿using log4net;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using SpotifyAPI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -131,6 +130,8 @@ namespace Toastify.Model
         private SettingValue<bool> _closeSpotifyWithToastify;
         private SettingValue<ToastifyVolumeControlMode> _volumeControlMode;
         private SettingValue<float> _windowsVolumeMixerIncrement;
+        private SettingValue<VersionCheckFrequency> _versionCheckFrequency;
+        private SettingValue<UpdateDeliveryMode> _updateDeliveryMode;
         private SettingValue<string> _clipboardTemplate;
         private SettingValue<bool> _saveTrackToFile;
         private SettingValue<string> _saveTrackToFilePath;
@@ -195,6 +196,8 @@ namespace Toastify.Model
         private SettingValue<bool> _useProxy;
         private ProxyConfigAdapter _proxyConfig;
 
+        private SettingValue<DateTime> _lastVersionCheck;
+
         #endregion Private fields
 
         #region [General]
@@ -254,6 +257,20 @@ namespace Toastify.Model
         {
             get { return this.GetSettingValue(ref this._windowsVolumeMixerIncrement); }
             set { this.SetSettingValue(ref this._windowsVolumeMixerIncrement, value); }
+        }
+
+        [DefaultValue(Core.VersionCheckFrequency.EveryDay)]
+        public SettingValue<VersionCheckFrequency> VersionCheckFrequency
+        {
+            get { return this.GetSettingValue(ref this._versionCheckFrequency); }
+            set { this.SetSettingValue(ref this._versionCheckFrequency, value); }
+        }
+
+        [DefaultValue(Core.UpdateDeliveryMode.NotifyUpdate)]
+        public SettingValue<UpdateDeliveryMode> UpdateDeliveryMode
+        {
+            get { return this.GetSettingValue(ref this._updateDeliveryMode); }
+            set { this.SetSettingValue(ref this._updateDeliveryMode, value); }
         }
 
         [DefaultValue("I'm currently listening to {0}")]
@@ -578,6 +595,12 @@ namespace Toastify.Model
         public bool FirstRun { get; set; }
 
         public string PreviousVersion { get; set; }
+        
+        public SettingValue<DateTime> LastVersionCheck
+        {
+            get { return this.GetSettingValue(ref this._lastVersionCheck); }
+            set { this.SetSettingValue(ref this._lastVersionCheck, value); }
+        }
 
         [DefaultValue(60000)]
         public int StartupWaitTimeout { get; set; }
@@ -655,6 +678,7 @@ namespace Toastify.Model
             {
                 this.FirstRun = _current.FirstRun;
                 this.PreviousVersion = _current.PreviousVersion;
+                this.LastVersionCheck = new SettingValue<DateTime>(DateTime.Now);
             }
         }
 
@@ -665,6 +689,9 @@ namespace Toastify.Model
             this.CloseSpotifyWithToastify = DefaultValueOf(this.CloseSpotifyWithToastify, nameof(this.CloseSpotifyWithToastify));
             this.VolumeControlMode = DefaultValueOf(this.VolumeControlMode, nameof(this.VolumeControlMode));
             this.WindowsVolumeMixerIncrement = new SettingValue<float>(DefaultValueOf(this.WindowsVolumeMixerIncrement, nameof(this.WindowsVolumeMixerIncrement)), new Range<float>(0.1f, 100.0f));
+
+            this.VersionCheckFrequency = DefaultValueOf(this.VersionCheckFrequency, nameof(this.VersionCheckFrequency));
+            this.UpdateDeliveryMode = DefaultValueOf(this.UpdateDeliveryMode, nameof(this.UpdateDeliveryMode));
 
             this.ClipboardTemplate = DefaultValueOf(this.ClipboardTemplate, nameof(this.ClipboardTemplate));
             this.SaveTrackToFile = DefaultValueOf(this.SaveTrackToFile, nameof(this.SaveTrackToFile));

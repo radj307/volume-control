@@ -8,13 +8,17 @@ namespace Toastify.ViewModel
     {
         private readonly Uri homepageUri;
 
-        public string ToastifyVersion { get { return VersionChecker.CurrentVersion; } }
+        private string _updateUrl;
 
-        public string HomepageUrl { get; } = "http://github.com/aleab/toastify";
+        public string HomepageUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo");
 
         public string HomepageUrlNoScheme { get { return $"{this.homepageUri.Host}{this.homepageUri.PathAndQuery}"; } }
 
-        public string UpdateUrl { get { return VersionChecker.UpdateUrl; } }
+        public string UpdateUrl
+        {
+            get { return string.IsNullOrWhiteSpace(this._updateUrl) ? VersionChecker.GitHubReleasesUrl : this._updateUrl; }
+            set { this.RaiseAndSetIfChanged(ref this._updateUrl, value); }
+        }
 
         public AboutViewModel()
         {

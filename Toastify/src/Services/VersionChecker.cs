@@ -1,14 +1,29 @@
-﻿using System;
-using System.Net.Http;
-using System.Text.RegularExpressions;
+﻿using log4net;
+using System;
+using System.ComponentModel;
 using System.Threading;
+using Toastify.Core;
 using Toastify.Events;
-using ToastifyAPI.Helpers;
+using Toastify.Model;
+using Toastify.View;
+using ToastifyAPI.GitHub;
+
+#if !DEBUG
+
+using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using ToastifyAPI.GitHub.Model;
+
+#endif
 
 namespace Toastify.Services
 {
     internal class VersionChecker : IDisposable
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(VersionChecker));
+
         #region Singleton
 
         private static VersionChecker _instance;
@@ -20,95 +35,111 @@ namespace Toastify.Services
 
         #endregion Singleton
 
-        #region Static properties
+        public static string GitHubReleasesUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo/releases");
 
-        private static string _version;
+        private readonly GitHubAPI gitHubAPI;
 
-        public static string CurrentVersion
-        {
-            get
-            {
-                if (_version == null)
-                {
-                    _version = App.CurrentVersion;
-
-                    if (_version != null)
-                    {
-                        Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
-                        Match match = regex.Match(_version);
-                        if (match.Success)
-                            _version = match.Groups[1].Value;
-                    }
-                }
-
-                return _version;
-            }
-        }
-
-        public static string UpdateUrl { get { return "https://github.com/aleab/toastify/releases"; } }
-
-        public static string VersionUrl { get { return "https://raw.githubusercontent.com/aleab/toastify/master/Toastify/version"; } }
-
-        #endregion Static properties
-
-        private Thread checkVersionThread;
+        private Settings current;
+        private readonly Timer checkVersionTimer;
 
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
 
         protected VersionChecker()
         {
-        }
+            this.gitHubAPI = new GitHubAPI(App.ProxyConfig);
 
-        public void BeginCheckVersion()
-        {
+            this.current = Settings.Current;
+            this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
+            SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
+
 #if DEBUG
-            this.checkVersionThread = null;
-            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = CurrentVersion, New = false });
+            this.checkVersionTimer = null;
 #else
-            this.checkVersionThread = new Thread(this.ThreadedCheckVersion)
-            {
-                Name = "Toastify VersionChecker",
-                IsBackground = true
-            };
-            this.checkVersionThread.Start();
+            this.checkVersionTimer = new Timer(state => this.CheckNow(), null, CalcCheckVersionDueTime().Add(TimeSpan.FromMinutes(2.5)), new TimeSpan(-1));
 #endif
         }
 
-        private async void ThreadedCheckVersion()
+        public void CheckNow()
         {
-            string downloadedString = null;
+#if DEBUG
+            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = App.CurrentVersionNoRevision, IsNew = false });
+#else
+            Task.Run(() => this.CheckVersion());
+#endif
+        }
+
+#if !DEBUG
+
+        private void CheckVersion()
+        {
             try
             {
-                HttpClientHandler handler = Net.CreateHttpClientHandler(App.ProxyConfig);
-                using (HttpClient http = new HttpClient(handler))
-                {
-                    downloadedString = await http.GetStringAsync(new Uri(VersionUrl)).ConfigureAwait(false);
-                }
-            }
-            finally
-            {
-                string sRemote = string.Empty;
+                string latestTagName = null;
+                Release latest = this.gitHubAPI.GetLatestRelease(App.RepoInfo);
+                if (latest.HttpStatusCode == HttpStatusCode.OK)
+                    latestTagName = latest.TagName;
+
+                string sRemoteVersion = string.Empty;
                 bool isNewVersion = false;
 
-                if (!string.IsNullOrWhiteSpace(downloadedString))
+                if (!string.IsNullOrWhiteSpace(latestTagName))
                 {
-                    var match = Regex.Match(downloadedString, @"(\d+\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                    var match = Regex.Match(latestTagName, @"(\d+\.?)+", RegexOptions.IgnoreCase | RegexOptions.Singleline);
                     if (match.Success)
                     {
-                        sRemote = match.Value;
-                        Version vLocal = new Version(CurrentVersion);
-                        Version vRemote = new Version(sRemote);
-                        isNewVersion = vLocal.CompareTo(vRemote) < 0;
+                        sRemoteVersion = match.Value;
+                        Version localVersion = new Version(App.CurrentVersionNoRevision);
+                        Version remoteVersion = new Version(sRemoteVersion);
+                        isNewVersion = localVersion.CompareTo(remoteVersion) < 0;
                     }
                 }
 
-                this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = sRemote, New = isNewVersion });
+                CheckVersionCompleteEventArgs e = new CheckVersionCompleteEventArgs
+                {
+                    Version = sRemoteVersion,
+                    IsNew = isNewVersion,
+                    GitHubReleaseId = latest.Id,
+                    GitHubReleaseUrl = latest.HtmlUrl,
+                    GitHubReleaseDownloadUrl = latest.Assets.FirstOrDefault(asset => asset.Name == "ToastifyInstaller.exe")?.DownloadUrl
+                };
+                this.CheckVersionComplete?.Invoke(this, e);
             }
+            catch (Exception ex)
+            {
+                logger.Error("Unknown error while checking for updates.", ex);
+            }
+            finally
+            {
+                Settings.Current.LastVersionCheck = DateTime.Now;
+                Settings.Current.Save();
+
+                this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), new TimeSpan(-1));
+            }
+        }
+
+#endif
+
+        private void CurrentSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.VersionCheckFrequency):
+                    this.checkVersionTimer?.Change(CalcCheckVersionDueTime(), new TimeSpan(-1));
+                    break;
+            }
+        }
+
+        private void SettingsView_SettingsSaved(object sender, SettingsSavedEventArgs e)
+        {
+            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
+            this.current = e.Settings;
+            this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
         }
 
         public void Dispose()
         {
-            this.checkVersionThread?.Abort();
+            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
+            SettingsView.SettingsSaved -= this.SettingsView_SettingsSaved;
         }
 
         public static void DisposeInstance()
@@ -118,6 +149,23 @@ namespace Toastify.Services
                 _instance.Dispose();
                 _instance = null;
             }
+        }
+
+        private static TimeSpan CalcCheckVersionDueTime()
+        {
+            DateTime last = Settings.Current.LastVersionCheck ?? default(DateTime);
+            DateTime now = DateTime.Now;
+            TimeSpan freq = Settings.Current.VersionCheckFrequency.Value.ToTimeSpan();
+
+            if (last.Equals(default(DateTime)))
+            {
+                last = DateTime.Now;
+                Settings.Current.LastVersionCheck = last;
+                Settings.Current.Save();
+            }
+
+            TimeSpan t = now.Subtract(last);
+            return t >= freq ? TimeSpan.Zero : freq.Subtract(t);
         }
     }
 }
