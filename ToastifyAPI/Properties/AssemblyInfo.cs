@@ -31,11 +31,11 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.10.4.*")]
+[assembly: AssemblyVersion("1.10.5.*")]
 #pragma warning disable CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
 #if DEBUG
-[assembly: AssemblyFileVersion("1.10.4 [DEBUG BUILD]")]
+[assembly: AssemblyFileVersion("1.10.5 [DEBUG BUILD]")]
 #elif TEST_RELEASE
-[assembly: AssemblyFileVersion("1.10.4 [TEST BUILD]")]
+[assembly: AssemblyFileVersion("1.10.5 [TEST BUILD]")]
 #endif
 #pragma warning restore CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
