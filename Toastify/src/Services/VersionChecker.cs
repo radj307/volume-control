@@ -1,19 +1,20 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.ComponentModel;
-using System.Net;
 using System.Threading;
-using log4net;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.View;
 using ToastifyAPI.GitHub;
-using ToastifyAPI.GitHub.Model;
 
 #if !DEBUG
 
+using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ToastifyAPI.GitHub.Model;
 
 #endif
 
@@ -61,7 +62,7 @@ namespace Toastify.Services
         public void CheckNow()
         {
 #if DEBUG
-            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = App.CurrentVersionNoRevision, New = false });
+            this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = App.CurrentVersionNoRevision, IsNew = false });
 #else
             Task.Run(() => this.CheckVersion());
 #endif
@@ -93,7 +94,15 @@ namespace Toastify.Services
                     }
                 }
 
-                this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = sRemoteVersion, New = isNewVersion });
+                CheckVersionCompleteEventArgs e = new CheckVersionCompleteEventArgs
+                {
+                    Version = sRemoteVersion,
+                    IsNew = isNewVersion,
+                    GitHubReleaseId = latest.Id,
+                    GitHubReleaseUrl = latest.HtmlUrl,
+                    GitHubReleaseDownloadUrl = latest.Assets.FirstOrDefault(asset => asset.Name == "ToastifyInstaller.exe")?.DownloadUrl
+                };
+                this.CheckVersionComplete?.Invoke(this, e);
             }
             catch (Exception ex)
             {
@@ -144,7 +153,7 @@ namespace Toastify.Services
 
         private static TimeSpan CalcCheckVersionDueTime()
         {
-            DateTime last = Settings.Current.LastVersionCheck;
+            DateTime last = Settings.Current.LastVersionCheck ?? default(DateTime);
             DateTime now = DateTime.Now;
             TimeSpan freq = Settings.Current.VersionCheckFrequency.Value.ToTimeSpan();
 

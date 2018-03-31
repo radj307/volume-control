@@ -131,6 +131,7 @@ namespace Toastify.Model
         private SettingValue<ToastifyVolumeControlMode> _volumeControlMode;
         private SettingValue<float> _windowsVolumeMixerIncrement;
         private SettingValue<VersionCheckFrequency> _versionCheckFrequency;
+        private SettingValue<UpdateDeliveryMode> _updateDeliveryMode;
         private SettingValue<string> _clipboardTemplate;
         private SettingValue<bool> _saveTrackToFile;
         private SettingValue<string> _saveTrackToFilePath;
@@ -263,6 +264,13 @@ namespace Toastify.Model
         {
             get { return this.GetSettingValue(ref this._versionCheckFrequency); }
             set { this.SetSettingValue(ref this._versionCheckFrequency, value); }
+        }
+
+        [DefaultValue(Core.UpdateDeliveryMode.NotifyUpdate)]
+        public SettingValue<UpdateDeliveryMode> UpdateDeliveryMode
+        {
+            get { return this.GetSettingValue(ref this._updateDeliveryMode); }
+            set { this.SetSettingValue(ref this._updateDeliveryMode, value); }
         }
 
         [DefaultValue("I'm currently listening to {0}")]
@@ -683,6 +691,7 @@ namespace Toastify.Model
             this.WindowsVolumeMixerIncrement = new SettingValue<float>(DefaultValueOf(this.WindowsVolumeMixerIncrement, nameof(this.WindowsVolumeMixerIncrement)), new Range<float>(0.1f, 100.0f));
 
             this.VersionCheckFrequency = DefaultValueOf(this.VersionCheckFrequency, nameof(this.VersionCheckFrequency));
+            this.UpdateDeliveryMode = DefaultValueOf(this.UpdateDeliveryMode, nameof(this.UpdateDeliveryMode));
 
             this.ClipboardTemplate = DefaultValueOf(this.ClipboardTemplate, nameof(this.ClipboardTemplate));
             this.SaveTrackToFile = DefaultValueOf(this.SaveTrackToFile, nameof(this.SaveTrackToFile));

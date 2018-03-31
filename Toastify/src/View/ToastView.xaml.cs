@@ -1,6 +1,7 @@
 ﻿using log4net;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -71,6 +72,7 @@ namespace Toastify.View
         private string toastIconURI = "";
 
         private bool isUpdateToast;
+        private string toastClickWhenUpdateUrl;
         private bool isPreviewForSettings;
 
         private bool dragging;
@@ -146,22 +148,36 @@ namespace Toastify.View
         private void FinalizeInit()
         {
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
+            Spotify.Instance.Exited -= this.Application_Shutdown;
             Spotify.Instance.Exited += this.Application_Shutdown;
+            Spotify.Instance.SongChanged -= this.Spotify_SongChanged;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
+            Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
             Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
+            Spotify.Instance.TrackTimeChanged -= this.Spotify_TrackTimeChanged;
             Spotify.Instance.TrackTimeChanged += this.Spotify_TrackTimeChanged;
 
             // Subscribe to SettingsView's events
+            SettingsView.SettingsLaunched -= this.SettingsView_Launched;
             SettingsView.SettingsLaunched += this.SettingsView_Launched;
+            SettingsView.SettingsClosed -= this.SettingsView_Closed;
             SettingsView.SettingsClosed += this.SettingsView_Closed;
+            SettingsView.SettingsSaved -= this.SettingsView_SettingsSaved;
             SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
 
+            this.Deactivated -= this.Toast_Deactivated;
             this.Deactivated += this.Toast_Deactivated;
 
             this.LoadPlugins();
             this.Started?.Invoke(this, EventArgs.Empty);
 
-            this.InitVersionChecker();
+            // Subscribe to AutoUpdater's events
+            AutoUpdater.Instance.AutoUpdateFailed -= this.AutoUpdater_AutoUpdateFailed;
+            AutoUpdater.Instance.AutoUpdateFailed += this.AutoUpdater_AutoUpdateFailed;
+
+            // Subscribe to VersionChecker's events
+            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
+            VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
 
             this.IsInitComplete = true;
         }
@@ -330,12 +346,6 @@ namespace Toastify.View
                 }
                 Console.WriteLine(@"Loaded " + p.TypeName);
             }
-        }
-        
-        private void InitVersionChecker()
-        {
-            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
-            VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
         }
 
         #endregion Initialization
@@ -584,7 +594,8 @@ namespace Toastify.View
         /// <param name="title1"> First title. </param>
         /// <param name="title2">  Second title. </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        /// <param name="forceShow"> Whether or no0t to force the toast to show up. </param>
+        /// <param name="forceShow"> Whether or not to force the toast to show up. </param>
+        /// <param name="showPermanent"></param>
         private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool forceShow = false, bool showPermanent = false)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
@@ -594,6 +605,12 @@ namespace Toastify.View
                 if (fadeIn)
                     this.ShowOrHideToast(force: forceShow, keepUp: true, permanent: showPermanent);
             }));
+        }
+
+        private void UpdateSongProgressBar(double trackTime)
+        {
+            double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
+            this.toastViewModel.SongProgressBarWidth = this.SongProgressBarContainer.ActualWidth * timePercentage;
         }
 
         private void FetchOtherTrackInfo()
@@ -642,6 +659,12 @@ namespace Toastify.View
                 };
                 timer.Start();
             });
+        }
+
+        private void DisplayNewUpdateToast()
+        {
+            this.isUpdateToast = true;
+            this.DisplayFlashContent("New update available!", "(click here to open the download page)", UPDATE_LOGO_ICON, 5000, () => this.isUpdateToast = false);
         }
 
         private void SetToastVisibility(bool shallBeVisible)
@@ -841,13 +864,9 @@ namespace Toastify.View
 
         #endregion DisplayAction
 
-        private void UpdateSongProgressBar(double trackTime)
-        {
-            double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
-            this.toastViewModel.SongProgressBarWidth = this.SongProgressBarContainer.ActualWidth * timePercentage;
-        }
+        #region Event handlers [xaml]
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
             // Close Spotify first.
             if (this.Settings.CloseSpotifyWithToastify && Spotify.Instance.IsRunning)
@@ -870,8 +889,6 @@ namespace Toastify.View
 
             base.OnClosing(e);
         }
-
-        #region Event handlers [xaml]
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -902,24 +919,16 @@ namespace Toastify.View
             this.FadeOut();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 this.dragging = true;
                 this.DragMove();
-                return;
             }
-
-            this.FadeOut(true);
-
-            if (this.isUpdateToast)
-                Process.Start(new ProcessStartInfo(VersionChecker.GitHubReleasesUrl));
-            else
-                Spotify.Instance.SendAction(ToastifyAction.ShowSpotify);
         }
 
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftUp(object sender, MouseButtonEventArgs e)
         {
             if (this.dragging)
             {
@@ -930,6 +939,19 @@ namespace Toastify.View
                 this.Settings.PositionTop = this.Top;
                 if (this.Settings == Settings.Current)
                     this.Settings.Save();
+            }
+            else
+            {
+                this.FadeOut(true);
+
+                if (this.isUpdateToast)
+                {
+                    string url = string.IsNullOrWhiteSpace(this.toastClickWhenUpdateUrl) ? VersionChecker.GitHubReleasesUrl : this.toastClickWhenUpdateUrl;
+                    ProcessStartInfo psi = new ProcessStartInfo(url) { UseShellExecute = true };
+                    Process.Start(psi);
+                }
+                else
+                    Spotify.Instance.SendAction(ToastifyAction.ShowSpotify);
             }
         }
 
@@ -1029,20 +1051,21 @@ namespace Toastify.View
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
         {
-            if (!e.New)
+            if (Settings.Current.UpdateDeliveryMode != UpdateDeliveryMode.NotifyUpdate || !e.IsNew)
                 return;
 
-            // This is a background thread, so sleep it a bit so that it doesn't clash with the startup toast.
-            Thread.Sleep(20000);
-
-            this.toastIconURI = UPDATE_LOGO_ICON;
-            this.isUpdateToast = true;
-            this.UpdateToastText("Update Toastify!", $"Version {e.Version} available now.", force: true);
-
-            VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
+            this.toastClickWhenUpdateUrl = e.GitHubReleaseUrl;
+            this.DisplayNewUpdateToast();
         }
 
-        private void ToastViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void AutoUpdater_AutoUpdateFailed(object sender, CheckVersionCompleteEventArgs e)
+        {
+            // If the auto-updater fails, fallback to just show a notification toast
+            this.toastClickWhenUpdateUrl = e.GitHubReleaseUrl;
+            this.DisplayNewUpdateToast();
+        }
+
+        private void ToastViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {

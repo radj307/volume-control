@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Toastify.Events;
 using Toastify.Services;
 using Toastify.ViewModel;
@@ -15,11 +16,14 @@ namespace Toastify.View
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class AboutView : Window
     {
+        private readonly AboutViewModel viewModel;
+
         public AboutView()
         {
             this.InitializeComponent();
 
-            this.DataContext = new AboutViewModel();
+            this.viewModel = new AboutViewModel();
+            this.DataContext = this.viewModel;
         }
 
         private void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -27,18 +31,20 @@ namespace Toastify.View
             string latestVersionText;
 
             if (string.IsNullOrEmpty(e.Version))
-                latestVersionText = "Unable to check version.";
-            else if (e.New)
+                latestVersionText = "Unable to check for updates";
+            else if (e.IsNew)
                 latestVersionText = "New version available!";
             else
-                latestVersionText = "You have the latest version.";
+                latestVersionText = "You have the latest version";
+
+            this.viewModel.UpdateUrl = e.GitHubReleaseUrl;
 
             this.Dispatcher.Invoke(() =>
             {
                 Run run = new Run(latestVersionText);
                 this.LatestVersion.Inlines.Clear();
                 this.LatestVersion.Inlines.Add(run);
-            }, System.Windows.Threading.DispatcherPriority.Normal);
+            }, DispatcherPriority.Render);
         }
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)

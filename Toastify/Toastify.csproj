@@ -164,10 +164,12 @@
     <Compile Include="src\Core\MouseAction.cs" />
     <Compile Include="src\Core\ProxyConfigAdapter.cs" />
     <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
+    <Compile Include="src\Core\UpdateDeliveryMode.cs" />
     <Compile Include="src\Core\VersionCheckFrequency.cs" />
     <Compile Include="src\Crypt32.cs" />
     <Compile Include="src\CustomMessageBox.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
+    <Compile Include="src\Events\UpdateReadyEventArgs.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
     <Compile Include="src\Common\ConstraintFailedException.cs" />
     <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
@@ -215,6 +217,7 @@
       <DependentUpon>Analytics.g.tt</DependentUpon>
     </Compile>
     <Compile Include="src\Common\Union32.cs" />
+    <Compile Include="src\Services\AutoUpdater.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
     <Compile Include="src\ViewModel\ChangelogViewModel.cs" />

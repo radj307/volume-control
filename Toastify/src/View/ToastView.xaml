@@ -7,7 +7,7 @@
         x:Class="Toastify.View.ToastView"
         Width="250" Height="70" AllowsTransparency="True" Background="#00000000" Opacity="1"
         Title="Toastify" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Cursor="Hand" Topmost="True" WindowState="Minimized" ShowActivated="False"
-        Loaded="Window_Loaded" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseDown="Window_MouseDown" MouseUp="Window_MouseUp">
+        Loaded="Window_Loaded" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" MouseLeftButtonDown="Window_MouseLeftDown" MouseLeftButtonUp="Window_MouseLeftUp">
 
     <!-- maintain TopMost="True" as per http://www.programmingtidbits.com/post/2013/01/05/Setting-WPF-Window-to-be-Always-on-Top.aspx -->
     <!--
