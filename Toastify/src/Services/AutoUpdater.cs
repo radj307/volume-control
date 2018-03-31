@@ -38,14 +38,6 @@ namespace Toastify.Services
         protected AutoUpdater()
         {
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-
-            this.VersionChecker_CheckVersionComplete(this, new CheckVersionCompleteEventArgs
-            {
-                GitHubReleaseDownloadUrl = "https://github.com/aleab/toastify/releases/download/v1.10.5/ToastifyInstaller.exe",
-                Version = "v1.10.5",
-                GitHubReleaseUrl = "https://github.com/aleab/toastify/releases/tag/v1.10.5",
-                IsNew = true
-            });
         }
 
         private static bool ShouldDownload(UpdateDeliveryMode updateDeliveryMode)
