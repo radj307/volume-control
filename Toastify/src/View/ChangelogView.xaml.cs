@@ -2,7 +2,6 @@
 using System;
 using System.Media;
 using System.Net;
-using System.Threading;
 using System.Windows;
 using Toastify.ViewModel;
 using ToastifyAPI.GitHub;
@@ -15,7 +14,7 @@ namespace Toastify.View
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ChangelogView));
 
-        private static Thread changelogViewerThread;
+        private static ChangelogView current;
 
         private readonly ChangelogViewModel viewModel;
 
@@ -29,26 +28,20 @@ namespace Toastify.View
 
         internal static void Launch()
         {
-            if (changelogViewerThread != null)
+            if (current != null)
                 return;
 
             if (logger.IsDebugEnabled)
                 logger.Debug("Launching ChangelogViewer...");
 
-            changelogViewerThread = new Thread(() =>
+            current = new ChangelogView();
+            App.CallInSTAThreadAsync(() =>
             {
-                ChangelogView view = new ChangelogView();
-                view.DownloadChangelog();
-                view.Show();
+                current.DownloadChangelog();
+                current.Show();
                 SystemSounds.Asterisk.Play();
                 Dispatch.Run();
-            })
-            {
-                Name = "Changelog Viewer",
-                IsBackground = true
-            };
-            changelogViewerThread.SetApartmentState(ApartmentState.STA);
-            changelogViewerThread.Start();
+            }, true, "Changelog Viewer");
         }
 
         private void DownloadChangelog()
@@ -88,7 +81,6 @@ namespace Toastify.View
 
         private void ChangelogView_OnClosed(object sender, EventArgs e)
         {
-            changelogViewerThread = null;
         }
     }
 }

@@ -280,7 +280,7 @@ namespace Toastify.Helpers.Markdown
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            return this.Evaluate(text, imageInlineRegex, this.ImageInlineEvaluator, defaultHandler);
+            return Evaluate(text, imageInlineRegex, this.ImageInlineEvaluator, defaultHandler);
         }
 
         private Inline ImageInlineEvaluator(Match match)
@@ -346,7 +346,7 @@ namespace Toastify.Helpers.Markdown
                 throw new ArgumentNullException(nameof(text));
 
             // Next, inline-style links: [link text](url "optional title") or [link text](url "optional title")
-            return this.Evaluate(text, anchorInlineRegex, this.AnchorInlineEvaluator, defaultHandler);
+            return Evaluate(text, anchorInlineRegex, this.AnchorInlineEvaluator, defaultHandler);
         }
 
         private Inline AnchorInlineEvaluator(Match match)
@@ -387,8 +387,8 @@ namespace Toastify.Helpers.Markdown
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            return this.Evaluate(text, headerSetextRegex, this.SetextHeaderEvaluator,
-                s => this.Evaluate(s, headerAtxRegex, this.AtxHeaderEvaluator, defaultHandler));
+            return Evaluate(text, headerSetextRegex, this.SetextHeaderEvaluator,
+                s => Evaluate(s, headerAtxRegex, this.AtxHeaderEvaluator, defaultHandler));
         }
 
         private Block SetextHeaderEvaluator(Match match)
@@ -464,7 +464,7 @@ namespace Toastify.Helpers.Markdown
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            return this.Evaluate(text, horizontalRulesRegex, this.RuleEvaluator, defaultHandler);
+            return Evaluate(text, horizontalRulesRegex, this.RuleEvaluator, defaultHandler);
         }
 
         private Block RuleEvaluator(Match match)
@@ -495,7 +495,7 @@ namespace Toastify.Helpers.Markdown
 
             // We use a different prefix before nested lists than top-level lists.
             // See extended comment in _ProcessListItems().
-            return this.Evaluate(text, this.listLevel > 0 ? listNestedRegex : listTopLevelRegex, this.ListEvaluator, defaultHandler);
+            return Evaluate(text, this.listLevel > 0 ? listNestedRegex : listTopLevelRegex, this.ListEvaluator, defaultHandler);
         }
 
         private Block ListEvaluator(Match match)
@@ -651,7 +651,7 @@ namespace Toastify.Helpers.Markdown
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            return this.Evaluate(text, codeSpanRegex, this.CodeSpanEvaluator, defaultHandler);
+            return Evaluate(text, codeSpanRegex, this.CodeSpanEvaluator, defaultHandler);
         }
 
         private Inline CodeSpanEvaluator(Match match)
@@ -685,10 +685,10 @@ namespace Toastify.Helpers.Markdown
 
             // <strong> must go first, then <em>
             return this.StrictBoldItalic
-                ? this.Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
-                    s1 => this.Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3), defaultHandler))
-                : this.Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
-                    s1 => this.Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2), defaultHandler));
+                ? Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
+                    s1 => Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3), defaultHandler))
+                : Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
+                    s1 => Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2), defaultHandler));
         }
 
         private Inline ItalicEvaluator(Match match, int contentGroup)
@@ -805,7 +805,7 @@ namespace Toastify.Helpers.Markdown
             return result;
         }
 
-        private IEnumerable<T> Evaluate<T>(string text, Regex expression, Func<Match, T> build, Func<string, IEnumerable<T>> rest)
+        private static IEnumerable<T> Evaluate<T>(string text, Regex expression, Func<Match, T> build, Func<string, IEnumerable<T>> rest)
         {
             if (text == null)
                 throw new ArgumentNullException(nameof(text));

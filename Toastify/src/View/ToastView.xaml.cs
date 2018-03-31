@@ -483,7 +483,7 @@ namespace Toastify.View
 
             if (downloader.IsCompleted)
                 cts?.Cancel();
-            Stream stream = await downloader;
+            Stream stream = await downloader.ConfigureAwait(false);
 
             if (awaiter?.IsCompleted == false)
                 awaiter.Dispose();
@@ -645,7 +645,7 @@ namespace Toastify.View
             this.UpdateToastText(title1, title2, fadeIn: true, forceShow: true, showPermanent: true);
             Task.Factory.StartNew(async () =>
             {
-                await this.UpdateAlbumArt(artUri);
+                await this.UpdateAlbumArt(artUri).ConfigureAwait(false);
                 Timer timer = new Timer(displayTime) { AutoReset = false };
                 timer.Elapsed += (sender, args) =>
                 {

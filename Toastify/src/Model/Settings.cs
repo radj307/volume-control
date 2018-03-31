@@ -595,7 +595,7 @@ namespace Toastify.Model
         public bool FirstRun { get; set; }
 
         public string PreviousVersion { get; set; }
-        
+
         public SettingValue<DateTime> LastVersionCheck
         {
             get { return this.GetSettingValue(ref this._lastVersionCheck); }
@@ -1009,11 +1009,12 @@ namespace Toastify.Model
 
         internal static string PrintSettings(int indentLevel = 0)
         {
-            string indent = string.Empty;
-            for (int i = 0; i < indentLevel; ++i)
-                indent += "\t";
-
             StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < indentLevel; ++i)
+                sb.Append("\t");
+            string indent = sb.ToString();
+
+            sb.Clear();
 
             var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 

@@ -92,7 +92,7 @@ namespace Toastify.Model
             // ReSharper disable once PossibleInvalidOperationException
             return this.IsKey
                 ? $"{this.Key.Value}"
-                : this.MouseButton.HasValue ? $"{this.MouseButton.Value}" : throw new InvalidOperationException();
+                : this.MouseButton.HasValue ? $"{this.MouseButton.Value}" : string.Empty;
         }
 
         public static implicit operator KeyOrButton(Key key)

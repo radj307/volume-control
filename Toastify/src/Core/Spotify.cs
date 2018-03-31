@@ -239,7 +239,7 @@ namespace Toastify.Core
                             "Yes",  // Yes
                             "No",   // No
                             MessageBoxImage.Error);
-                    });
+                    }, true);
 
                     if (choice == MessageBoxResult.Yes)
                         this.ChangeProxySettings();
@@ -493,7 +493,7 @@ namespace Toastify.Core
                                     "Change settings",  // No
                                     "Exit",             // Cancel
                                     MessageBoxImage.Exclamation);
-                            });
+                            }, true);
 
                             if (logger.IsDebugEnabled)
                             {
@@ -737,6 +737,8 @@ namespace Toastify.Core
                 case ToastifyAction.PlayPause:
                 case ToastifyAction.PreviousTrack:
                 case ToastifyAction.NextTrack:
+                    goto default;
+
                 default:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
                     sendAppCommandMessage = true;

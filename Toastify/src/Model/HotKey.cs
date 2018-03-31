@@ -19,7 +19,6 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Services;
 using Toastify.View;
-using ToastifyAPI;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
@@ -50,7 +49,6 @@ namespace Toastify.Model
         private KeyOrButton _keyOrButton;
 
         private IntPtr hMouseHook = IntPtr.Zero;
-        private LowLevelMouseHookProc mouseHookProc;
 
         private bool _isValid;
         private string _invalidReason;
@@ -418,8 +416,8 @@ namespace Toastify.Model
         {
             if (enable && this.hMouseHook == IntPtr.Zero)
             {
-                this.mouseHookProc = this.MouseHookProc;
-                this.hMouseHook = Processes.SetLowLevelMouseHook(ref this.mouseHookProc);
+                LowLevelMouseHookProc mouseHookProc = this.MouseHookProc;
+                this.hMouseHook = Processes.SetLowLevelMouseHook(ref mouseHookProc);
 
                 registeredMouseHooks.Add(this);
             }
@@ -430,7 +428,6 @@ namespace Toastify.Model
                     logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
 
                 this.hMouseHook = IntPtr.Zero;
-                this.mouseHookProc = null;
 
                 registeredMouseHooks.Remove(this);
             }
@@ -462,7 +459,7 @@ namespace Toastify.Model
                 else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
                 {
                     Union32 union = new Union32(lParam.mouseData);
-                    
+
                     short delta = unchecked((short)union.High);
                     if (this.TestModifiers() && (delta > 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelUp ||
                                                  delta < 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelDown))

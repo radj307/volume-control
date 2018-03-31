@@ -1,6 +1,8 @@
-﻿namespace ToastifyAPI.GitHub
+﻿using System;
+
+namespace ToastifyAPI.GitHub
 {
-    public class RepoInfo
+    public class RepoInfo : IEquatable<RepoInfo>
     {
         public string Name { get; }
 
@@ -18,8 +20,14 @@
                           .Replace(":repo", this.Name).Replace("{repo}", this.Name);
         }
 
-        protected bool Equals(RepoInfo other)
+        /// <inheritdoc />
+        public bool Equals(RepoInfo other)
         {
+            if (other is null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+
             return string.Equals(this.Name, other.Name) &&
                    string.Equals(this.Owner, other.Owner);
         }

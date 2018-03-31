@@ -150,8 +150,7 @@ namespace Toastify.View
                     break;
 
                 default:
-                    icon = SystemIcons.Information;
-                    break;
+                    goto case MessageBoxImage.Information;
             }
 
             this.ImageMessageBox.Source = ToImageSource(icon);

@@ -6,7 +6,34 @@ namespace ToastifyAPI.Helpers
 {
     public static class Extensions
     {
-        public static uint GetLParam(this Key key, short repeatCount = 1, byte extended = 0, byte contextCode = 0, byte previousState = 0, byte transitionState = 0)
+        #region GetLParam
+
+        public static uint GetLParam(this Key key)
+        {
+            return key.GetLParam(1, 0, 0, 0, 0);
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount)
+        {
+            return key.GetLParam(repeatCount, 0, 0, 0, 0);
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount, byte extended)
+        {
+            return key.GetLParam(repeatCount, extended, 0, 0, 0);
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount, byte extended, byte contextCode)
+        {
+            return key.GetLParam(repeatCount, extended, contextCode, 0, 0);
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount, byte extended, byte contextCode, byte previousState)
+        {
+            return key.GetLParam(repeatCount, extended, contextCode, previousState, 0);
+        }
+
+        public static uint GetLParam(this Key key, short repeatCount, byte extended, byte contextCode, byte previousState, byte transitionState)
         {
             uint lParam = (uint)repeatCount;
             uint scanCode = key.GetScanCode();
@@ -18,7 +45,16 @@ namespace ToastifyAPI.Helpers
             return lParam;
         }
 
-        public static uint GetVirtualKey(this Key key, bool preferLeftOrRight = false)
+        #endregion GetLParam
+
+        #region GetVirtualKey
+
+        public static uint GetVirtualKey(this Key key)
+        {
+            return key.GetVirtualKey(false);
+        }
+
+        public static uint GetVirtualKey(this Key key, bool preferLeftOrRight)
         {
             if (!preferLeftOrRight)
             {
@@ -37,11 +73,14 @@ namespace ToastifyAPI.Helpers
                         return 0x12;
 
                     default:
+                        // Ignore!
                         break;
                 }
             }
             return (uint)KeyInterop.VirtualKeyFromKey(key);
         }
+
+        #endregion GetVirtualKey
 
         public static uint GetScanCode(this Key key)
         {

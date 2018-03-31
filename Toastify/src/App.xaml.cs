@@ -297,7 +297,7 @@ namespace Toastify
                     "Open folder",  // No
                     "Go to GitHub", // Cancel
                     MessageBoxImage.Information);
-            });
+            }, true);
 
             logger.Info($"Use choice = {(choice == MessageBoxResult.Cancel ? "Go to GitHub" : choice == MessageBoxResult.No ? "Open folder" : "Install")}");
 
@@ -338,7 +338,7 @@ namespace Toastify
             [ArgShortcut("--debug")]
             [ArgDescription("Enables Debug level logging.")]
             [ArgCantBeCombinedWith("IsLogDisabled")]
-            public bool IsDebugLogEnabled { get; set; } = false;
+            public bool IsDebugLogEnabled { get; set; }
 
             // [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
             [ArgShortcut("--disable-log")]
@@ -438,18 +438,40 @@ namespace Toastify
             {
                 ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
                 proxyDialog.ShowDialog();
-            });
+            }, true, "Config Proxy");
         }
 
-        public static void CallInSTAThread(Action action)
+        public static void CallInSTAThread(Action action, bool background)
+        {
+            Thread t = CallInSTAThreadAsync(action, background);
+            t?.Join();
+        }
+
+        public static void CallInSTAThread(Action action, bool background, string threadName)
+        {
+            Thread t = CallInSTAThreadAsync(action, background, threadName);
+            t?.Join();
+        }
+
+        public static Thread CallInSTAThreadAsync(Action action, bool background)
+        {
+            return CallInSTAThreadAsync(action, background, null);
+        }
+
+        public static Thread CallInSTAThreadAsync(Action action, bool background, string threadName)
         {
             if (action == null)
-                return;
+                return null;
 
-            Thread t = new Thread(() => action());
+            Thread t = new Thread(() => action())
+            {
+                IsBackground = background
+            };
+            if (!string.IsNullOrWhiteSpace(threadName))
+                t.Name = threadName;
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
-            t.Join();
+            return t;
         }
 
         public static void Terminate()

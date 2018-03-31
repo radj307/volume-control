@@ -153,7 +153,7 @@ namespace ToastifyAPI.Native
         {
             const WindowsMessagesFlags msg = WindowsMessagesFlags.WM_KEYDOWN;
             IntPtr wParam = (IntPtr)key.GetVirtualKey();
-            IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0));
+            IntPtr lParam = (IntPtr)key.GetLParam(1, (byte)(extended ? 1 : 0));
 
             return SendWindowMessage(hWnd, msg, wParam, lParam, postMessage);
         }
@@ -162,7 +162,7 @@ namespace ToastifyAPI.Native
         {
             const WindowsMessagesFlags msg = WindowsMessagesFlags.WM_KEYUP;
             IntPtr wParam = (IntPtr)key.GetVirtualKey();
-            IntPtr lParam = (IntPtr)key.GetLParam(extended: (byte)(extended ? 1 : 0), previousState: 1, transitionState: 1);
+            IntPtr lParam = (IntPtr)key.GetLParam(1, (byte)(extended ? 1 : 0), 0, 1, 1);
 
             return SendWindowMessage(hWnd, msg, wParam, lParam, postMessage);
         }

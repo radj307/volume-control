@@ -99,7 +99,7 @@ namespace Toastify
         /// <param name="caption">A System.String that specifies the title bar caption to display.</param>
         /// <param name="okButtonText">A System.String that specifies the text to display within the OK button.</param>
         /// <returns>A System.Windows.MessageBoxResult value that specifies which message box button is clicked by the user.</returns>
-        public static MessageBoxResult ShowOK(string messageBoxText, string caption, string okButtonText)
+        public static MessageBoxResult ShowOk(string messageBoxText, string caption, string okButtonText)
         {
             CustomMessageBoxWindow msg = new CustomMessageBoxWindow(messageBoxText, caption, MessageBoxButton.OK) { OkButtonText = okButtonText };
             msg.ShowDialog();
@@ -115,7 +115,7 @@ namespace Toastify
         /// <param name="okButtonText">A System.String that specifies the text to display within the OK button.</param>
         /// <param name="icon">A System.Windows.MessageBoxImage value that specifies the icon to display.</param>
         /// <returns>A System.Windows.MessageBoxResult value that specifies which message box button is clicked by the user.</returns>
-        public static MessageBoxResult ShowOK(string messageBoxText, string caption, string okButtonText, MessageBoxImage icon)
+        public static MessageBoxResult ShowOk(string messageBoxText, string caption, string okButtonText, MessageBoxImage icon)
         {
             CustomMessageBoxWindow msg = new CustomMessageBoxWindow(messageBoxText, caption, MessageBoxButton.OK, icon) { OkButtonText = okButtonText };
             msg.ShowDialog();
@@ -132,7 +132,7 @@ namespace Toastify
         /// <param name="okButtonText">A System.String that specifies the text to display within the OK button.</param>
         /// <param name="cancelButtonText">A System.String that specifies the text to display within the Cancel button.</param>
         /// <returns>A System.Windows.MessageBoxResult value that specifies which message box button is clicked by the user.</returns>
-        public static MessageBoxResult ShowOKCancel(string messageBoxText, string caption, string okButtonText, string cancelButtonText)
+        public static MessageBoxResult ShowOkCancel(string messageBoxText, string caption, string okButtonText, string cancelButtonText)
         {
             CustomMessageBoxWindow msg = new CustomMessageBoxWindow(messageBoxText, caption, MessageBoxButton.OKCancel)
             {
@@ -154,7 +154,7 @@ namespace Toastify
         /// <param name="cancelButtonText">A System.String that specifies the text to display within the Cancel button.</param>
         /// <param name="icon">A System.Windows.MessageBoxImage value that specifies the icon to display.</param>
         /// <returns>A System.Windows.MessageBoxResult value that specifies which message box button is clicked by the user.</returns>
-        public static MessageBoxResult ShowOKCancel(string messageBoxText, string caption, string okButtonText, string cancelButtonText, MessageBoxImage icon)
+        public static MessageBoxResult ShowOkCancel(string messageBoxText, string caption, string okButtonText, string cancelButtonText, MessageBoxImage icon)
         {
             CustomMessageBoxWindow msg = new CustomMessageBoxWindow(messageBoxText, caption, MessageBoxButton.OKCancel, icon)
             {
