@@ -14,7 +14,13 @@ namespace Toastify.ViewModel
     {
         private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
 
-        public Settings Settings { get; private set; }
+        private Settings _settings;
+
+        public Settings Settings
+        {
+            get { return this._settings; }
+            private set { this.RaiseAndSetIfChanged(ref this._settings, value); }
+        }
 
         public int CurrentTabIndex { get; set; }
 

@@ -126,6 +126,7 @@ namespace Toastify.Model
 
         #region Private fields
 
+        private bool? _launchOnStartup;
         private SettingValue<bool> _minimizeSpotifyOnStartup;
         private SettingValue<bool> _closeSpotifyWithToastify;
         private SettingValue<ToastifyVolumeControlMode> _volumeControlMode;
@@ -210,22 +211,33 @@ namespace Toastify.Model
         {
             get
             {
-                bool launchOnStartup;
+                bool regValue;
                 using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false))
                 {
-                    launchOnStartup = key?.GetValue("Toastify", null) != null;
+                    regValue = key?.GetValue("Toastify", null) != null;
                 }
-                return launchOnStartup;
+
+                if (this == Current)
+                    return regValue;
+
+                if (!this._launchOnStartup.HasValue)
+                    this._launchOnStartup = regValue;
+                return this._launchOnStartup.Value;
             }
             set
             {
-                using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
+                if (this == Current)
                 {
-                    if (value)
-                        key?.SetValue("Toastify", $"\"{Application.ExecutablePath}\"");
-                    else
-                        key?.DeleteValue("Toastify", false);
+                    using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
+                    {
+                        if (value)
+                            key?.SetValue("Toastify", $"\"{Application.ExecutablePath}\"");
+                        else
+                            key?.DeleteValue("Toastify", false);
+                    }
                 }
+                else
+                    this._launchOnStartup = value;
 
                 this.NotifyPropertyChanged();
             }
@@ -791,6 +803,10 @@ namespace Toastify.Model
             {
                 JsonSerializer.Serialize(sw, this);
             }
+
+            // Save settings that were not serialized
+            if (this._launchOnStartup.HasValue)
+                this.LaunchOnStartup = this._launchOnStartup.Value;
         }
 
         /// <summary>
@@ -835,7 +851,10 @@ namespace Toastify.Model
             }
             catch (Exception)
             {
+                bool launchOnStartup = this.LaunchOnStartup;
                 Current.SetDefault();
+                this.LaunchOnStartup = launchOnStartup;
+
                 Current.Save();
             }
         }

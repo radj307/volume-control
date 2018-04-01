@@ -77,6 +77,8 @@ namespace Toastify.View
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {pp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }
+                        else if (property.PropertyType.IsPrimitive)
+                            Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-30} | {preview?.ToString(),-30} | {@default?.ToString(),-30}");
                     }
                 }
             }
@@ -101,6 +103,8 @@ namespace Toastify.View
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }
+                        else if (property.PropertyType.IsPrimitive)
+                            Debug.WriteLine($"{property.Name,-36}:  {current?.ToString(),-30} | {@default?.ToString(),-30}");
                     }
                 }
             }
