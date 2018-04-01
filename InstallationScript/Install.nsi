@@ -2,15 +2,25 @@
 !include MUI.nsh
 !include x64.nsh
 !include WinVer.nsh
-!include DotNetChecker.nsh
 
-Name "Toastify Installer"
-OutFile "ToastifyInstaller.exe"
-InstallDir $PROGRAMFILES64\Toastify
+!define ProgramName "Toastify"
+!define RegUninstallKey "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
+
+!include .\DotNetChecker.nsh
+!include .\Functions.nsh
+
+!define EstimatedSize 4510
+
+Name "${ProgramName} Installer"
 RequestExecutionLevel admin
+CRCCheck force
+
 ManifestSupportedOS "{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"  # Windows 7
 ManifestSupportedOS "{1f676c76-80e1-4239-95bb-83d0f6d0da78}"  # Windows 8.1
 ManifestSupportedOS "{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"  # Windows 10
+
+OutFile "ToastifyInstaller.exe"
+InstallDir $PROGRAMFILES64\Toastify
 
 ;--------------------------------
 ; Pages
@@ -18,12 +28,12 @@ ManifestSupportedOS "{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"  # Windows 10
 Page components
 Page directory
 Page instfiles
- 
+
 # These statements modify settings for MUI_PAGE_FINISH
 !define MUI_FINISHPAGE_AUTOCLOSE
 !define MUI_FINISHPAGE_RUN
-!define MUI_FINISHPAGE_RUN_CHECKED
-!define MUI_FINISHPAGE_RUN_TEXT "Launch Toastify Now"
+!define MUI_FINISHPAGE_RUN_NOTCHECKED
+!define MUI_FINISHPAGE_RUN_TEXT "Launch ${ProgramName} now"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchApplication"
 !insertmacro MUI_PAGE_FINISH
 
@@ -33,24 +43,20 @@ UninstPage uninstConfirm
 UninstPage instfiles
 
 ;--------------------------------
-; Functions
-
-Function LaunchApplication
-  ShellExecAsUser::ShellExecAsUser "" "$INSTDIR\Toastify.exe" ""
-FunctionEnd
-
-;--------------------------------
 ; Installer
 
-Section "Toastify (required)"
+Section "${ProgramName} (required)"
   SectionIn RO
+  AddSize ${EstimatedSize}
   
   # Since process termination is non-destructive for Toastify, just kill it
-  DetailPrint "Shutting down Toastify..."
+  DetailPrint "Shutting down ${ProgramName}..."
   KillProcWMI::KillProc "Toastify.exe"
+  Sleep 2000
   
-  # Let the process shutdown
-  Sleep 1000
+  # Uninstall previous versions
+  DetailPrint "Uninstalling previous versions of ${ProgramName}..."
+  Call UninstallPreviousVersions
 
   # Check .NET Framework
   !insertmacro CheckNetFramework 45
@@ -83,17 +89,19 @@ Section "Toastify (required)"
 
   # Remove files belonging to old versions
   Delete "$INSTDIR\Garlic.dll"
+  Delete "$INSTDIR\uninstall.exe"
   
   # Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayName" "Toastify"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "UninstallString" '"$INSTDIR\uninstall.exe"'
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Publisher" "Jesper Palm, Oren Nachman, Alessandro Attard Barbini"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "Version" "1.10.8"  
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "DisplayVersion" "1.10.8"
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoModify" 1
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify" "NoRepair" 1
-  WriteUninstaller "uninstall.exe"
+  WriteRegStr HKLM "${RegUninstallKey}" "DisplayName" "Toastify"
+  WriteRegStr HKLM "${RegUninstallKey}" "UninstallString" '"$INSTDIR\uninst.exe"'
+  WriteRegStr HKLM "${RegUninstallKey}" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
+  WriteRegStr HKLM "${RegUninstallKey}" "Publisher" "Jesper Palm, Oren Nachman, Alessandro Attard Barbini"
+  WriteRegStr HKLM "${RegUninstallKey}" "Version" "1.10.8"  
+  WriteRegStr HKLM "${RegUninstallKey}" "DisplayVersion" "1.10.8"
+  WriteRegDWORD HKLM "${RegUninstallKey}" "EstimatedSize" ${EstimatedSize}
+  WriteRegDWORD HKLM "${RegUninstallKey}" "NoModify" 1
+  WriteRegDWORD HKLM "${RegUninstallKey}" "NoRepair" 1
+  WriteUninstaller "uninst.exe"
 
 SectionEnd
 
@@ -113,9 +121,6 @@ SectionEnd
 ; Uninstaller
 
 Section "Uninstall"
-  
-  # Remove Start Menu launcher
-  Delete "$SMPROGRAMS\Toastify.lnk"
   
   # Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Toastify"
@@ -137,19 +142,28 @@ Section "Uninstall"
   Delete "$INSTDIR\Xceed.Wpf.Toolkit.dll"
   Delete "$INSTDIR\LICENSE"
   Delete "$INSTDIR\LICENSE-3RD-PARTY"
-  Delete "$INSTDIR\uninstall.exe"
+  Delete "$INSTDIR\uninst.exe"
   
   # remove the settings directory
   Delete "$APPDATA\Toastify.xml"
   RMDir "$APPDATA\Toastify"
 
-  # Remove shortcuts, if any
+  # Remove shortcuts
   Delete "$DESKTOP\Toastify.lnk"
+  Delete "$SMPROGRAMS\Toastify.lnk"
 
   # Remove directories used
   RMDir "$INSTDIR"
 
 SectionEnd
 
+
+;--------------------------------
+; Functions
+
 Function .onInit
+FunctionEnd
+
+Function LaunchApplication
+  ShellExecAsUser::ShellExecAsUser "" "$INSTDIR\Toastify.exe" ""
 FunctionEnd

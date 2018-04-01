@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 15.0.26430.14
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installation", "{FCD4BE87-8354-47A1-85DE-709E35559000}"
 	ProjectSection(SolutionItems) = preProject
 		InstallationScript\DotNetChecker.nsh = InstallationScript\DotNetChecker.nsh
+		InstallationScript\Functions.nsh = InstallationScript\Functions.nsh
 		InstallationScript\Install.nsi = InstallationScript\Install.nsi
 	EndProjectSection
 EndProject
