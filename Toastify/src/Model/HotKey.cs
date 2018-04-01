@@ -48,8 +48,6 @@ namespace Toastify.Model
         private bool _windowsKey;
         private KeyOrButton _keyOrButton;
 
-        private IntPtr hMouseHook = IntPtr.Zero;
-
         private bool _isValid;
         private string _invalidReason;
 
@@ -261,6 +259,11 @@ namespace Toastify.Model
 
         #endregion Public properties
 
+        ~Hotkey()
+        {
+            this.Deactivate();
+        }
+
         public object Clone()
         {
             Hotkey clone = (Hotkey)this.MemberwiseClone();
@@ -293,7 +296,7 @@ namespace Toastify.Model
             if (this._globalKey != null)
                 this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
 
-            this.SetMouseHook(false);
+            ToggleMouseHotkeyHook(this, false);
 
             // If we're not enabled shut everything down asap
             if (!this.Enabled || !this.Active)
@@ -360,13 +363,14 @@ namespace Toastify.Model
                     this._globalKey.HotkeyPressed -= this.GlobalKey_HotkeyPressed;
                 this._globalKey?.Dispose();
 
-                if (registeredMouseHooks.Any(h => h.Shift == this.Shift && h.Ctrl == this.Ctrl && h.Alt == this.Alt && h.WindowsKey == this.WindowsKey && h.KeyOrButton?.MouseButton == this.KeyOrButton?.MouseButton))
+                if (registeredMouseHooks.Any(h => h.Shift == this.Shift && h.Ctrl == this.Ctrl && h.Alt == this.Alt && h.WindowsKey == this.WindowsKey &&
+                                                  h.KeyOrButton?.MouseButton == this.KeyOrButton?.MouseButton))
                 {
                     this.IsValid = false;
-                    this.InvalidReason = "Hotkey is already in use by a different program";
+                    this.InvalidReason = "Hotkey is already in use";
                 }
                 else
-                    this.SetMouseHook(true);
+                    ToggleMouseHotkeyHook(this, true);
             }
         }
 
@@ -412,25 +416,71 @@ namespace Toastify.Model
                    (this.WindowsKey == Keyboard.IsKeyDown(Key.LWin) || this.WindowsKey == Keyboard.IsKeyDown(Key.RWin));
         }
 
-        private void SetMouseHook(bool enable)
+        private static IntPtr hMouseHook;
+        private static LowLevelMouseHookProc mouseHookProc = MouseHookProc;
+
+        private static void EnsureMouseHookEnabledIfNeeded()
         {
-            if (enable && this.hMouseHook == IntPtr.Zero)
+            // If no hotkeys need the mouse hook, then unregister it
+            if (registeredMouseHooks.Count == 0)
             {
-                LowLevelMouseHookProc mouseHookProc = this.MouseHookProc;
-                this.hMouseHook = Processes.SetLowLevelMouseHook(ref mouseHookProc);
-
-                registeredMouseHooks.Add(this);
+                if (hMouseHook != IntPtr.Zero)
+                {
+                    bool success = User32.UnhookWindowsHookEx(hMouseHook);
+                    if (!success)
+                        logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
+                    hMouseHook = IntPtr.Zero;
+                }
             }
-            else if (!enable && this.hMouseHook != IntPtr.Zero)
+            else
             {
-                bool success = User32.UnhookWindowsHookEx(this.hMouseHook);
-                if (success == false)
-                    logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
-
-                this.hMouseHook = IntPtr.Zero;
-
-                registeredMouseHooks.Remove(this);
+                if (hMouseHook == IntPtr.Zero)
+                    hMouseHook = Processes.SetLowLevelMouseHook(ref mouseHookProc);
             }
+        }
+
+        private static IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
+        {
+            if (nCode >= 0 && registeredMouseHooks != null)
+            {
+                foreach (var h in registeredMouseHooks)
+                {
+                    Union32 union = new Union32(lParam.mouseData);
+
+                    bool isXButton = h.KeyOrButton.MouseButton == MouseAction.XButton1 || h.KeyOrButton.MouseButton == MouseAction.XButton2;
+                    bool isMWheel = h.KeyOrButton.MouseButton == MouseAction.MWheelUp || h.KeyOrButton.MouseButton == MouseAction.MWheelDown;
+
+                    if (isXButton && wParam == WindowsMessagesFlags.WM_XBUTTONUP)
+                    {
+                        if (h.TestModifiers() && (union.High == 0x0001 && h.KeyOrButton.MouseButton == MouseAction.XButton1 ||
+                                                  union.High == 0x0002 && h.KeyOrButton.MouseButton == MouseAction.XButton2))
+                            HotkeyActionCallback(h);
+                    }
+                    else if (isMWheel && wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
+                    {
+                        short delta = unchecked((short)union.High);
+                        if (h.TestModifiers() && (delta > 0 && h.KeyOrButton.MouseButton == MouseAction.MWheelUp ||
+                                                  delta < 0 && h.KeyOrButton.MouseButton == MouseAction.MWheelDown))
+                            HotkeyActionCallback(h);
+                    }
+                }
+            }
+
+            return User32.CallNextHookEx(hMouseHook, nCode, wParam, lParam);
+        }
+
+        private static void ToggleMouseHotkeyHook(Hotkey hotkey, bool enable)
+        {
+            if (hotkey == null)
+                throw new ArgumentNullException(nameof(hotkey), nameof(hotkey));
+            if (hotkey.KeyOrButton == null || hotkey.KeyOrButton.IsKey)
+                return;
+
+            if (enable)
+                registeredMouseHooks.Add(hotkey);
+            else
+                registeredMouseHooks.RemoveAll(h => EqualityComparerOnAction.Equals(h, hotkey));
+            EnsureMouseHookEnabledIfNeeded();
         }
 
         private void GlobalKey_HotkeyPressed(object sender, EventArgs e)
@@ -442,34 +492,6 @@ namespace Toastify.Model
             }
 
             HotkeyActionCallback(this);
-        }
-
-        private IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
-        {
-            if (nCode >= 0 && this.KeyOrButton.MouseButton.HasValue)
-            {
-                if (wParam == WindowsMessagesFlags.WM_XBUTTONUP)
-                {
-                    Union32 union = new Union32(lParam.mouseData);
-
-                    if (this.TestModifiers() && (union.High == 0x0001 && this.KeyOrButton.MouseButton == MouseAction.XButton1 ||
-                                                 union.High == 0x0002 && this.KeyOrButton.MouseButton == MouseAction.XButton2))
-                        HotkeyActionCallback(this);
-                }
-                else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
-                {
-                    Union32 union = new Union32(lParam.mouseData);
-
-                    short delta = unchecked((short)union.High);
-                    if (this.TestModifiers() && (delta > 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelUp ||
-                                                 delta < 0 && this.KeyOrButton.MouseButton == MouseAction.MWheelDown))
-                        HotkeyActionCallback(this);
-                }
-            }
-            else if (!this.KeyOrButton.MouseButton.HasValue)
-                this.SetMouseHook(false);
-
-            return User32.CallNextHookEx(this.hMouseHook, nCode, wParam, lParam);
         }
 
         public override string ToString()
@@ -711,8 +733,6 @@ namespace Toastify.Model
 
         #endregion IXmlSerializable
 
-        #region Static
-
         public static readonly ActionEqualityComparer EqualityComparerOnAction = new ActionEqualityComparer();
 
         private static Keys ConvertInputKeyToFormsKeys(Key key)
@@ -722,10 +742,6 @@ namespace Toastify.Model
 
             return Keys.None;
         }
-
-        #endregion Static
-
-        #region Nested classes
 
         public class ActionEqualityComparer : IEqualityComparer<Hotkey>
         {
@@ -741,7 +757,5 @@ namespace Toastify.Model
                 return obj.Action.GetHashCode();
             }
         }
-
-        #endregion Nested classes
     }
 }
