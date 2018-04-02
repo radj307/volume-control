@@ -63,7 +63,6 @@ namespace Toastify.View
                 this.viewModel.ReleaseBodyMarkdown = $"## {release.Name}\n" +
                                                      $"{gitHubAPI.GitHubify(release.Body)}";
 
-                this.viewModel.GitHubLink = release.HtmlUrl;
                 this.viewModel.PublishedAt = release.PublishedAt?.ToString(App.UserCulture);
 
                 logger.Info("Changelog downloaded");
