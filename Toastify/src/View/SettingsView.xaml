@@ -113,13 +113,14 @@
                 <Grid>
                     <CheckBox Name="CbHotkeys" IsChecked="{Binding Path=Settings.GlobalHotKeys, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Enable Global Hotkeys</CheckBox>
 
-                    <Grid IsEnabled="{Binding ElementName=CbHotkeys, Path=IsChecked}" DataContext="{Binding Path=Settings.HotKeys}" Margin="0,38,0,0">
+                    <Grid IsEnabled="{Binding ElementName=CbHotkeys, Path=IsChecked}" Margin="0,38,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
 
-                        <ListBox x:Name="LstHotKeys" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" SelectionChanged="LstHotKeys_SelectionChanged" Margin="12,10,8,10" Grid.Column="0" VerticalContentAlignment="Center">
+                        <ListBox x:Name="LstHotKeys" Grid.Column="0" Margin="12,10,8,10" VerticalContentAlignment="Center" ItemsSource="{Binding Path=HotKeys}"
+                                 IsSynchronizedWithCurrentItem="True" SelectionChanged="LstHotKeys_SelectionChanged">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -127,30 +128,32 @@
                                             <ColumnDefinition Width="20" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0"></CheckBox>
+                                        <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0" />
                                         <Image Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
                                                Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
-                                        <TextBlock Text="{Binding Path=HumanReadableAction}" Grid.Column="1"></TextBlock>
+                                        <TextBlock Text="{Binding Path=HumanReadableAction}" Grid.Column="1" />
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="12,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Width="245">
-                            <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center" />
-                            <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
-                            <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
-                            <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
-                        </StackPanel>
+                        <Grid Grid.Column="1" Margin="12,10" DataContext="{Binding Path=Settings.HotKeys}">
+                            <StackPanel Height="21" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center" />
+                                <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                                <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                                <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                            </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,52,0,0" Width="160">
-                            <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
-                            <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
-                        </StackPanel>
+                            <StackPanel Height="26" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,42,0,0">
+                                <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
+                                <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
+                            </StackPanel>
 
-                        <Grid Grid.Column="1" Margin="12,96,12,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}" VerticalAlignment="Top">
-                            <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
-                            <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" />
+                            <Grid Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
+                                <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -21,6 +22,11 @@ namespace Toastify.ViewModel
             get { return this._settings; }
             private set { this.RaiseAndSetIfChanged(ref this._settings, value); }
         }
+
+        // The ListBox is bound to this property instead of Settings.HotKeys so that when saving or
+        // resetting to default, the SelectedIndex doesn't reset to 0 because of the DataContext update
+        // (since Save and Default trigger a NotifyPropertyChanged for Settings)
+        public List<Hotkey> HotKeys { get { return this.Settings.HotKeys; } }
 
         public int CurrentTabIndex { get; set; }
 
