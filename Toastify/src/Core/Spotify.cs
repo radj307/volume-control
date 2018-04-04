@@ -389,7 +389,7 @@ namespace Toastify.Core
                     if (openSpotifyBlocked)
                     {
                         logger.Error("Couldn't access \"open.spotify.com\": the client blocked the connection to the host.");
-                        throw new ApplicationStartupException(openSpotifyBlockedMessage, false);
+                        throw new ApplicationStartupException(openSpotifyBlockedMessage);
                     }
 
                     if (ex.Status == WebExceptionStatus.ProtocolError)
