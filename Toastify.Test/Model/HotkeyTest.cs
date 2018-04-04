@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System.Collections;
 using System.Windows.Input;
-using NUnit.Framework;
 using Toastify.Core;
 using Toastify.Model;
+using MouseAction = Toastify.Core.MouseAction;
 
 namespace Toastify.Tests.Model
 {
@@ -24,12 +24,16 @@ namespace Toastify.Tests.Model
                 get
                 {
                     yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = Key.None }).Returns(false);
-                    
-                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseButton.XButton1 }).Returns(true);
-                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseButton.XButton2 }).Returns(true);
-                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseButton.Left }).Returns(false);
-                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseButton.Middle }).Returns(false);
-                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseButton.Right }).Returns(false);
+
+                    // XButton1 / XButton2 don't require any modifier
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.XButton1 }).Returns(true);
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.XButton2 }).Returns(true);
+
+                    // MWheelUp / MWheelUp require at least one modifier
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.MWheelUp }).Returns(false);
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.MWheelDown }).Returns(false);
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.MWheelUp, Ctrl = true }).Returns(true);
+                    yield return new TestCaseData(new Hotkey { Action = ToastifyAction.PlayPause, KeyOrButton = MouseAction.MWheelDown, Ctrl = true }).Returns(true);
                 }
             }
         }
