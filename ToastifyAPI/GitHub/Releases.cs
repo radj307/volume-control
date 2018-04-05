@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ToastifyAPI.GitHub.Model;
@@ -14,7 +15,7 @@ namespace ToastifyAPI.GitHub
         /// <param name="repo"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        public static Release GetReleaseByTagName(this GitHubAPI api, RepoInfo repo, string tag)
+        public static Release GetReleaseByTagName(this GitHubAPI api, [NotNull] RepoInfo repo, [NotNull] string tag)
         {
             string url = api.GetFullEndpointUrl($"/repos/:owner/:repo/releases/tags/{tag}", repo);
             return api.DownloadJson<Release>(url);
@@ -26,7 +27,7 @@ namespace ToastifyAPI.GitHub
         /// <param name="api"></param>
         /// <param name="repo"></param>
         /// <returns></returns>
-        public static Release GetLatestRelease(this GitHubAPI api, RepoInfo repo)
+        public static Release GetLatestRelease(this GitHubAPI api, [NotNull] RepoInfo repo)
         {
             string url = api.GetFullEndpointUrl("/repos/:owner/:repo/releases/latest", repo);
             return api.DownloadJson<Release>(url);
@@ -40,14 +41,14 @@ namespace ToastifyAPI.GitHub
         /// <param name="api"></param>
         /// <param name="repo"></param>
         /// <returns></returns>
-        public static List<Release> GetReleases(this GitHubAPI api, RepoInfo repo)
+        public static List<Release> GetReleases(this GitHubAPI api, [NotNull] RepoInfo repo)
         {
             string url = api.GetFullEndpointUrl("/repos/:owner/:repo/releases", repo);
             CollectionData<Release> releases = api.DownloadCollectionJson<Release>(url);
             return releases.HttpStatusCode == HttpStatusCode.OK ? releases.Collection.ToList() : new List<Release>();
         }
 
-        public static string GetUrlOfLatestRelease(RepoInfo repo)
+        public static string GetUrlOfLatestRelease([NotNull] RepoInfo repo)
         {
             return repo.Format("https://github.com/:owner/:repo/releases/latest");
         }

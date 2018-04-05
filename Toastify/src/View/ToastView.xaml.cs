@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -357,7 +358,7 @@ namespace Toastify.View
         /// Also, save track info to file, if settings say so.
         /// </summary>
         /// <param name="song"> The song to set as current. </param>
-        private void ChangeCurrentSong(Song song)
+        private void ChangeCurrentSong([CanBeNull] Song song)
         {
             if (logger.IsDebugEnabled)
                 logger.Debug($"{nameof(this.ChangeCurrentSong)} has been called");
@@ -464,7 +465,7 @@ namespace Toastify.View
             }
         }
 
-        private static async Task<Stream> GetAlbumArtAsStream(HttpClient http, Uri uri, Action ifTooLong = null)
+        private static async Task<Stream> GetAlbumArtAsStream([NotNull] HttpClient http, [NotNull] Uri uri, Action ifTooLong = null)
         {
             Task<Stream> downloader = http.GetStreamAsync(uri);
 
@@ -500,7 +501,7 @@ namespace Toastify.View
         /// NOTE: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(System.Action)"/>).
         /// </summary>
         /// <param name="uri"></param>
-        private void UpdateAlbumArtFromUri(Uri uri)
+        private void UpdateAlbumArtFromUri([NotNull] Uri uri)
         {
             this.cover = new BitmapImage();
             this.cover.BeginInit();
@@ -530,7 +531,7 @@ namespace Toastify.View
         /// NOTE #2: The specified <see cref="MemoryStream"/> will be closed.
         /// </summary>
         /// <param name="memoryStream"></param>
-        private void UpdateAlbumArtFromMemoryStream(MemoryStream memoryStream)
+        private void UpdateAlbumArtFromMemoryStream([NotNull] MemoryStream memoryStream)
         {
             this.cover = new BitmapImage();
             this.cover.BeginInit();
@@ -565,7 +566,7 @@ namespace Toastify.View
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        private void UpdateToastText(Song song, string altTitle1 = null, bool fadeIn = true)
+        private void UpdateToastText([CanBeNull] Song song, string altTitle1 = null, bool fadeIn = true)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -600,7 +601,7 @@ namespace Toastify.View
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
         /// <param name="forceShow"> Whether or not to force the toast to show up. </param>
         /// <param name="showPermanent"></param>
-        private void UpdateToastText(string title1, string title2 = "", bool fadeIn = true, bool forceShow = false, bool showPermanent = false)
+        private void UpdateToastText([NotNull] string title1, [NotNull] string title2 = "", bool fadeIn = true, bool forceShow = false, bool showPermanent = false)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -631,7 +632,7 @@ namespace Toastify.View
         /// <param name="title2"> The text on the second line. </param>
         /// <param name="artUri"> The URI of the image to display. </param>
         /// <param name="displayTime"> The display time in milliseconds. </param>
-        public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime)
+        public void DisplayFlashContent([NotNull] string title1, [NotNull] string title2, [NotNull] string artUri, double displayTime)
         {
             this.DisplayFlashContent(title1, title2, artUri, displayTime, null);
         }
@@ -644,7 +645,7 @@ namespace Toastify.View
         /// <param name="artUri"> The URI of the image to display. </param>
         /// <param name="displayTime"> The display time in milliseconds. </param>
         /// <param name="callback"> A callback. </param>
-        public void DisplayFlashContent(string title1, string title2, string artUri, double displayTime, Action callback)
+        public void DisplayFlashContent([NotNull] string title1, [NotNull] string title2, [NotNull] string artUri, double displayTime, Action callback)
         {
             this.UpdateToastText(title1, title2, fadeIn: true, forceShow: true, showPermanent: true);
             Task.Factory.StartNew(async () =>

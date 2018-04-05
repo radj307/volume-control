@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using ManagedWinapi;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -37,6 +38,9 @@ namespace Toastify.Model
         private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
 
         private static readonly List<Hotkey> registeredMouseHooks = new List<Hotkey>();
+
+        private static IntPtr hMouseHook;
+        private static LowLevelMouseHookProc mouseHookProc = MouseHookProc;
 
         #region Private fields
 
@@ -373,7 +377,7 @@ namespace Toastify.Model
                     ToggleMouseHotkeyHook(this, true);
             }
         }
-        
+
         private void CheckIfValid()
         {
             if (this.KeyOrButton == null || this.KeyOrButton.IsKey && this.KeyOrButton.Key == Key.None)
@@ -409,9 +413,6 @@ namespace Toastify.Model
                    (this.Alt == Keyboard.IsKeyDown(Key.LeftAlt) || this.Alt == Keyboard.IsKeyDown(Key.RightAlt)) &&
                    (this.WindowsKey == Keyboard.IsKeyDown(Key.LWin) || this.WindowsKey == Keyboard.IsKeyDown(Key.RWin));
         }
-
-        private static IntPtr hMouseHook;
-        private static LowLevelMouseHookProc mouseHookProc = MouseHookProc;
 
         private static void EnsureMouseHookEnabledIfNeeded()
         {
@@ -463,7 +464,7 @@ namespace Toastify.Model
             return User32.CallNextHookEx(hMouseHook, nCode, wParam, lParam);
         }
 
-        private static void ToggleMouseHotkeyHook(Hotkey hotkey, bool enable)
+        private static void ToggleMouseHotkeyHook([NotNull] Hotkey hotkey, bool enable)
         {
             if (hotkey == null)
                 throw new ArgumentNullException(nameof(hotkey), nameof(hotkey));
@@ -515,7 +516,7 @@ namespace Toastify.Model
         /// </summary>
         private const int WAIT_BETWEEN_HOTKEY_PRESS = 150;
 
-        private static void HotkeyActionCallback(Hotkey hotkey)
+        private static void HotkeyActionCallback([NotNull] Hotkey hotkey)
         {
             if (ToastView.Current?.IsInitComplete != true)
                 return;

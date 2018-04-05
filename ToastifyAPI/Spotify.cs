@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace ToastifyAPI
             "Chrome_WidgetWin_0" // Since v1.0.75.483.g7ff4a0dc
         };
 
+        [NotNull]
         public static string GetSpotifyPath()
         {
             string spotifyPath = GetSpotifyPath_common() ?? GetSpotifyPath_platform();
@@ -31,13 +33,14 @@ namespace ToastifyAPI
             return spotifyPath;
         }
 
+        [CanBeNull]
         private static string GetSpotifyPath_common()
         {
-            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
+            string spotifyPath = Registry.CurrentUser.GetValue(@"Software\Spotify", string.Empty) as string;
 
-            // Try in the secondary location.
+            // Try the with Uninstall key
             if (string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+                spotifyPath = Registry.CurrentUser.GetValue(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify\InstallLocation", string.Empty) as string;
 
             if (!string.IsNullOrEmpty(spotifyPath))
                 spotifyPath = Path.Combine(spotifyPath, "Spotify.exe");
@@ -45,6 +48,7 @@ namespace ToastifyAPI
             return spotifyPath;
         }
 
+        [CanBeNull]
         public static Process FindSpotifyProcess()
         {
             if (logger.IsDebugEnabled)

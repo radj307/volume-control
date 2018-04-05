@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Globalization;
 using System.Windows.Media;
 
@@ -11,7 +12,7 @@ namespace Toastify.Helpers
         /// </summary>
         /// <param name="hexColor"> Hex color. </param>
         /// <returns> A <see cref="Color"/>. </returns>
-        public static Color HexToColor(string hexColor)
+        public static Color HexToColor([NotNull] string hexColor)
         {
             //Remove # if present
             if (hexColor.IndexOf('#') != -1)

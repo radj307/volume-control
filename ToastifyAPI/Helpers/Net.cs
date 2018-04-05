@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using JetBrains.Annotations;
+using System.Net;
 using System.Net.Http;
 using ToastifyAPI.Core;
 
@@ -11,7 +12,7 @@ namespace ToastifyAPI.Helpers
             return CreateHttpClientHandler(null);
         }
 
-        public static HttpClientHandler CreateHttpClientHandler(IProxyConfig proxyConfig)
+        public static HttpClientHandler CreateHttpClientHandler([CanBeNull] IProxyConfig proxyConfig)
         {
             HttpClientHandler clientHandler = new HttpClientHandler
             {

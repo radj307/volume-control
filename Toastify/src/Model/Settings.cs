@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -986,7 +987,7 @@ namespace Toastify.Model
         /// <param name="newValue"> The new value. </param>
         /// <param name="propertyName"> An optional property name to use in place of the automatically provided <paramref name="callerPropertyName"/>. </param>
         /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
-        private void SetSettingValue<T>(ref SettingValue<T> field, SettingValue<T> newValue, string propertyName = null, [CallerMemberName] string callerPropertyName = null)
+        private void SetSettingValue<T>(ref SettingValue<T> field, SettingValue<T> newValue, [CanBeNull] string propertyName = null, [CallerMemberName] string callerPropertyName = null)
             where T : IComparable, IConvertible
         {
             if (field == null)
@@ -1000,7 +1001,7 @@ namespace Toastify.Model
                 this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
         }
 
-        private static T DefaultValueOf<T>(SettingValue<T> _, string propertyName) where T : IComparable, IConvertible
+        private static T DefaultValueOf<T>(SettingValue<T> _, [NotNull] string propertyName) where T : IComparable, IConvertible
         {
             var property = typeof(Settings).GetProperty(propertyName);
             if (property == null)
@@ -1013,7 +1014,7 @@ namespace Toastify.Model
             return attribute.Value is T @default ? @default : default(T);
         }
 
-        private static T DefaultValueOf<T>(T _, string propertyName)
+        private static T DefaultValueOf<T>(T _, [NotNull] string propertyName)
         {
             var property = typeof(Settings).GetProperty(propertyName);
             if (property == null)

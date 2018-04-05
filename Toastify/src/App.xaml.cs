@@ -19,6 +19,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -457,12 +458,14 @@ namespace Toastify
             t?.Join();
         }
 
-        public static Thread CallInSTAThreadAsync(Action action, bool background)
+        [CanBeNull]
+        public static Thread CallInSTAThreadAsync([CanBeNull] Action action, bool background)
         {
             return CallInSTAThreadAsync(action, background, null);
         }
 
-        public static Thread CallInSTAThreadAsync(Action action, bool background, string threadName)
+        [CanBeNull]
+        public static Thread CallInSTAThreadAsync([CanBeNull] Action action, bool background, [CanBeNull] string threadName)
         {
             if (action == null)
                 return null;

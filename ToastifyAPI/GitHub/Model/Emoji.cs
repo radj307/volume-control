@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using JetBrains.Annotations;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace ToastifyAPI.GitHub.Model
@@ -9,6 +10,7 @@ namespace ToastifyAPI.GitHub.Model
 
         public string Url { get; set; }
 
+        [NotNull]
         public string GetAsUnicodeString()
         {
             if (string.IsNullOrWhiteSpace(this.Url))

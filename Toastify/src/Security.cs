@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -18,7 +19,7 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Security));
 
-        public static bool ProtectedDataExists(string fileName)
+        public static bool ProtectedDataExists([NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
@@ -42,7 +43,7 @@ namespace Toastify
 
         #endregion Proxy Password
 
-        internal static byte[] GetProtectedData(string fileName)
+        internal static byte[] GetProtectedData([NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
@@ -51,7 +52,7 @@ namespace Toastify
             return ProtectedData.Unprotect(encryptedData, entropy, DataProtectionScope.CurrentUser);
         }
 
-        internal static SecureString GetProtectedSecureString(string fileName)
+        internal static SecureString GetProtectedSecureString([NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
@@ -152,13 +153,8 @@ namespace Toastify
             }
         }
 
-        internal static void SaveProtectedData(byte[] plaintext, string fileName)
+        internal static void SaveProtectedData([NotNull] byte[] plaintext, [NotNull] string fileName)
         {
-            if (plaintext == null)
-            {
-                logger.Warn($"{nameof(plaintext)} is null");
-                return;
-            }
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
 
@@ -174,13 +170,8 @@ namespace Toastify
             SaveProtectedDataInternal(ciphertext, entropy, fileName);
         }
 
-        internal static void SaveProtectedData(SecureString secureString, string fileName)
+        internal static void SaveProtectedData([NotNull] SecureString secureString, [NotNull] string fileName)
         {
-            if (secureString == null)
-            {
-                logger.Warn($"{nameof(secureString)} is null");
-                return;
-            }
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
 

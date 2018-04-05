@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 using SpotifyAPI;
 using System;
 using System.Net;
@@ -29,7 +30,7 @@ namespace Toastify.Core
             get { return this.ProxyConfig.Port; }
             set { this.ProxyConfig.Port = value; }
         }
-
+        
         public string Username
         {
             get { return this.ProxyConfig.Username; }
@@ -60,13 +61,13 @@ namespace Toastify.Core
         {
         }
 
-        internal ProxyConfigAdapter(ProxyConfig proxyConfig)
+        internal ProxyConfigAdapter([CanBeNull] ProxyConfig proxyConfig)
         {
             this.ProxyConfig = new ProxyConfig();
             this.ProxyConfig.Set(proxyConfig);
         }
 
-        internal void Set(ProxyConfig proxyConfig)
+        internal void Set([CanBeNull] ProxyConfig proxyConfig)
         {
             this.ProxyConfig.Set(proxyConfig);
         }
