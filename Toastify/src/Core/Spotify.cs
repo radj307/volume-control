@@ -309,7 +309,7 @@ namespace Toastify.Core
             bool signaled;
 
             bool connected = false;
-            bool proxySettingsChangedManually = false;
+            bool proxySettingsChangedAlready = false;
 
             #region try { this.localAPI.Connect(); }
 
@@ -327,13 +327,15 @@ namespace Toastify.Core
                 {
                     /*
                      * Multiple known things might lead to a WebException:
-                     * 1) "open.spotify.com" is blocked
-                     *    If "open.spotify.com" is blocked or redirected, a few things can happen:
-                     *    a) SocketException; either ConnectionRefused or AccessDenied
-                     *    b) NameResolutionFailure
+                     * 1) Cannot enstablish connection to "open.spotify.com"
+                     *    - If "open.spotify.com" is blocked or redirected, a few things can happen:
+                     *      (a) SocketException; either ConnectionRefused or AccessDenied
+                     *      (b) NameResolutionFailure
+                     *    - Also (c), if the user needs to use a proxy and the server does not return UseProxy or ProxyAuthenticationRequired,
+                     *      it could fail with a ConnectionRefused error or AccessDenied (or possibly something else)
                      * 2) A proxy is required
-                     *    a) ProtocolError; either 305 (UseProxy) or 407 (ProxyAuthenticationRequired)
-                     *    b) SocketException
+                     *    (a) ProtocolError; either 305 (UseProxy) or 407 (ProxyAuthenticationRequired)
+                     *    (b) SocketException
                      * 3) The proxy is not needed anymore?
                      */
 
@@ -368,10 +370,19 @@ namespace Toastify.Core
                                     }
                                     catch
                                     {
-                                        openSpotifyBlocked = true;
-                                        openSpotifyBlockedMessage = hostRedirected
-                                            ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
-                                            : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
+                                        //// 1c) The user might need to enter or reset their proxy details (#62)
+                                        if (!proxySettingsChangedAlready || (Settings.Current.UseProxy && !App.ProxyConfig.IsValid()))
+                                        {
+                                            this.AskTheUserToChangeOrDisableProxy("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?");
+                                            proxySettingsChangedAlready = true;
+                                        }
+                                        else
+                                        {
+                                            openSpotifyBlocked = true;
+                                            openSpotifyBlockedMessage = hostRedirected
+                                                ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
+                                                : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
+                                        }
                                         handled = true;
                                     }
                                 }
@@ -388,7 +399,7 @@ namespace Toastify.Core
 
                     if (openSpotifyBlocked)
                     {
-                        logger.Error("Couldn't access \"open.spotify.com\": the client blocked the connection to the host.");
+                        logger.Error("Couldn't enstablish a connection to \"http://open.spotify.com\": the client blocked the connection to the host.");
                         throw new ApplicationStartupException(openSpotifyBlockedMessage);
                     }
 
@@ -396,7 +407,7 @@ namespace Toastify.Core
                     {
                         var httpResponse = (HttpWebResponse)ex.Response;
 
-                        //// 2a) UseProxy or ProxyAuthenticationRequired
+                        //// 2a) HttpStatusCode is UseProxy or ProxyAuthenticationRequired
                         if (httpResponse?.StatusCode == HttpStatusCode.UseProxy)
                         {
                             string location = httpResponse.Headers[HttpResponseHeader.Location];
@@ -417,17 +428,15 @@ namespace Toastify.Core
                             if (logger.IsDebugEnabled)
                                 logger.Debug($"The server requested the use of a proxy. Using \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\" as requested.");
                         }
-                        else if (httpResponse?.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
+                        else if (httpResponse?.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedAlready || App.ProxyConfig.IsValid()))
                         {
                             if (logger.IsDebugEnabled)
                                 logger.Debug("The requested proxy server requires authentication. Prompting the user for proxy details...", ex);
 
-                            this.spotifyLauncherTimeoutTimer.Pause();
-                            App.ShowConfigProxyDialog();
-                            this.spotifyLauncherTimeoutTimer.Resume();
+                            this.ChangeProxySettings();
 
                             handled = true;
-                            proxySettingsChangedManually = true;
+                            proxySettingsChangedAlready = true;
 
                             if (logger.IsDebugEnabled)
                             {
@@ -457,24 +466,10 @@ namespace Toastify.Core
                         }
 
                         // If we failed to handle the exception, ask the user if they need to configure a proxy
-                        if (!(proxySettingsChangedManually || App.ProxyConfig.IsValid()))
+                        if (!(proxySettingsChangedAlready || App.ProxyConfig.IsValid()))
                         {
-                            if (logger.IsDebugEnabled)
-                                logger.Debug("Asking the user if they are behind a proxy...");
-
-                            if (MessageBox.Show("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?", "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                                this.ChangeProxySettings();
-                            else
-                            {
-                                // Disable the proxy
-                                App.ProxyConfig.Set(null);
-                                Settings.Current.UseProxy = false;
-                                Settings.Current.Save();
-
-                                if (logger.IsDebugEnabled)
-                                    logger.Debug("Use of proxy has been disabled.");
-                            }
-                            proxySettingsChangedManually = true;
+                            this.AskTheUserToChangeOrDisableProxy("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?");
+                            proxySettingsChangedAlready = true;
                         }
                         else
                         {
@@ -521,6 +516,36 @@ namespace Toastify.Core
             var status = this.localAPI.GetStatus();
             if (status == null)
                 throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
+        }
+
+        /// <summary>
+        /// Prompt the user with the specified message. If they answer Yes, then they are requested to enter their proxy details;
+        /// if they answer No, then the proxy is disabled.
+        /// </summary>
+        /// <param name="message"> The message </param>
+        /// <returns> True if the user answered Yes; false otherwise. </returns>
+        private bool AskTheUserToChangeOrDisableProxy(string message)
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Asking the user if they are behind a proxy...");
+
+            if (MessageBox.Show(message, "Toastify", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                this.ChangeProxySettings();
+                return true;
+            }
+            else
+            {
+                // Disable the proxy
+                App.ProxyConfig.Set(null);
+                Settings.Current.UseProxy = false;
+                Settings.Current.Save();
+
+                if (logger.IsDebugEnabled)
+                    logger.Debug("Use of proxy has been disabled.");
+
+                return false;
+            }
         }
 
         private void ChangeProxySettings()
