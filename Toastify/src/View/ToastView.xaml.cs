@@ -364,10 +364,11 @@ namespace Toastify.View
 
             this.currentSong = song;
 
-            if (this.currentSong.IsOtherTrackType())
+            if (this.currentSong?.IsOtherTrackType() == true)
                 this.FetchOtherTrackInfo();
+            else
+                this.UpdateToastText(this.currentSong);
 
-            this.UpdateToastText(this.currentSong);
             this.UpdateSongProgressBar(0.0);
             this.UpdateAlbumArt();
 
@@ -397,13 +398,14 @@ namespace Toastify.View
 
             // Update cover art URL.
             string previousURI = this.toastIconURI;
-            if (this.currentSong == null)
+            if (this.currentSong == null || !this.currentSong.IsValid())
                 this.toastIconURI = DEFAULT_ICON;
             else
             {
                 if (this.currentSong.IsAd())
                     this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl))
+                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl) ||
+                         !Uri.TryCreate(this.currentSong.CoverArtUrl, UriKind.RelativeOrAbsolute, out Uri _))
                     this.currentSong.CoverArtUrl = DEFAULT_ICON;
 
                 this.toastIconURI = this.currentSong.CoverArtUrl;
@@ -567,14 +569,16 @@ namespace Toastify.View
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
-                if (altTitle1 != null)
-                    this.UpdateToastText(altTitle1, song?.ToString() ?? string.Empty, fadeIn);
+                if (song == null || !song.IsValid())
+                    this.UpdateToastText(STATE_NOTHING_PLAYING, fadeIn: false);
+                else if (altTitle1 != null)
+                    this.UpdateToastText(altTitle1, song.ToString(), fadeIn);
                 else if (this.paused)
-                    this.UpdateToastText(STATE_PAUSED, song?.ToString() ?? string.Empty, fadeIn);
+                    this.UpdateToastText(STATE_PAUSED, song.ToString(), fadeIn);
                 else
                 {
-                    this.toastViewModel.TrackName = song?.Track ?? string.Empty;
-                    this.toastViewModel.ArtistName = song?.Artist ?? string.Empty;
+                    this.toastViewModel.TrackName = song.Track ?? string.Empty;
+                    this.toastViewModel.ArtistName = song.Artist ?? string.Empty;
 
                     this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
                     this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
@@ -972,24 +976,13 @@ namespace Toastify.View
             this.FinalizeInit();
 
             // Update current song
-            if (e.CurrentSong == null || !e.CurrentSong.IsValid())
-            {
-                this.toastIconURI = DEFAULT_ICON;
-                this.UpdateToastText(STATE_NOTHING_PLAYING, string.Empty, false);
-            }
-            else
-            {
-                this.paused = !e.Playing;
-                this.ChangeCurrentSong(e.CurrentSong);
-                this.UpdateSongProgressBar(e.TrackTime);
-            }
+            this.paused = !e.Playing;
+            this.ChangeCurrentSong(e.CurrentSong);
+            this.UpdateSongProgressBar(e.TrackTime);
         }
 
         private void Spotify_SongChanged(object sender, SpotifyTrackChangedEventArgs e)
         {
-            if (e.NewSong == null || !e.NewSong.IsValid())
-                return;
-
             this.ChangeCurrentSong(e.NewSong);
         }
 
