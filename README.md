@@ -1,9 +1,10 @@
-[Toastify](https://aleab.github.io/toastify/)
+# Toastify
+
 [![Codacy grade](https://img.shields.io/codacy/grade/dcbbd6b1f6cf45658a0f9232a5f35706.svg?label=Code%20Quality&maxAge=60)][aleab/toastify@codacy]
 [![GitHub last commit (master)](https://img.shields.io/github/last-commit/aleab/toastify/master.svg?label=Last%20Commit&maxAge=60)][commits]
 [![GitHub release](https://img.shields.io/github/release/aleab/toastify.svg?label=Release&maxAge=60)][release-latest]
 [![Github license](https://img.shields.io/badge/License-GPL%20v2-blue.svg?maxAge=86400)][license]
-========
+[![Gitter](https://badges.gitter.im/aleab/toastify.svg)][aleab/toastify@gitter]
 
 ![toastify-showcase][toastify-showcase]
 
@@ -58,5 +59,6 @@ This project uses third-party libraries; their verbatim licenses can be found [h
 [issues]: <https://github.com/aleab/toastify/issues>
 
 [aleab/toastify@codacy]: <https://www.codacy.com/app/aleab/toastify>
+[aleab/toastify@gitter]: <https://gitter.im/aleab-toastify>
 [SpotifyAPI-NET]: <https://github.com/JohnnyCrazy/SpotifyAPI-NET>
 [toastify@codeplex]: <http://toastify.codeplex.com/>
