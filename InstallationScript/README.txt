@@ -1,2 +1,2 @@
-Copy all *.dll files in this directory to:
-  [NSIS install directory]\Plugins
+Copy the Plugins folder to:
+  [NSIS install directory]\

@@ -38,7 +38,7 @@ CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 ECHO; 
 ECHO - Copy install script 
 COPY /Y "%SolutionDir%InstallationScript\Install.nsi" "%TargetDir%Install.nsi" 
-COPY /Y "%SolutionDir%InstallationScript\DotNetChecker.nsh" "%TargetDir%DotNetChecker.nsh" 
+COPY /Y "%SolutionDir%InstallationScript\*.nsh" "%TargetDir%"
 
 :: Check if makensis.exe is in the PATH
 makensis /VERSION 1>NUL 2>&1

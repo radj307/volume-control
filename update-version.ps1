@@ -6,13 +6,16 @@ $AsciiEncoding = New-Object System.Text.ASCIIEncoding
 Write-Host -NoNewLine "Current version: "
 Get-Content "Toastify\version"
 $NewVersion = Read-Host -Prompt "New version"
+$vMajor,$vMinor,$vBuild = $NewVersion.split('.')
 
 Write-Host
 
 # InstallationScript\Install.nsi
 Write-Host "Update: InstallationScript\Install.nsi"
 $FilePath = [System.IO.Path]::GetFullPath((Join-Path (pwd) "InstallationScript\Install.nsi"))
-$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '("(Display)?Version") ".*"', "`$1 `"$NewVersion`""
+$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONMAJOR) .*', "`$1 $vMajor"
+$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONMINOR) .*', "`$1 $vMinor"
+$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONBUILD) .*', "`$1 $vBuild"
 [System.IO.File]::WriteAllLines($FilePath, $Lines)
 
 # Toastify\version
