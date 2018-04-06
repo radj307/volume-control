@@ -7,6 +7,9 @@ August 8, 2011, the same date as the binaries.
 2. Managed Windows API (http://mwinapi.sourceforge.net/)
 3. SpotifyAPI-NET (https://github.com/JohnnyCrazy/SpotifyAPI-NET)
 4. Extended WPF Toolkit (https://github.com/xceedsoftware/wpftoolkit)
+5. NSISpcre (NSIS plug-in) (http://nsis.sourceforge.net/NSISpcre_plug-in)
+6. ShellLink (NSIS plug-in) (http://nsis.sourceforge.net/ShellLink_plug-in)
+
 
 
 Toastify License - GNU General Public License version 2 (GPLv2)
@@ -101,6 +104,7 @@ NO WARRANTY
 12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 
+
 Managed Windows API License - GNU Lesser General Public License (LGPL)
 =======================================================================
 
@@ -161,6 +165,7 @@ The Free Software Foundation may publish revised and/or new versions of the GNU 
 Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.
 
 If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy's public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.
+
 
 
 SpotifyAPI-NET - GNU Lesser General Public License v3.0 (LGPLv3)
@@ -333,6 +338,7 @@ permanent authorization for you to choose that version for the
 Library.
 
 
+
 Extended WPF Toolkit - MS-PL
 ============================
 
@@ -353,3 +359,59 @@ A "contributor" is any person that distributes its contribution under this licen
 (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
 (D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
 (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+
+
+
+NSISpcre (NSIS plug-in)
+=======================
+
+Copyright (c) 2007 Computerway Business Solutions Ltd. 
+Copyright (c) 2005 Google Inc. 
+Copyright (c) 1997-2006 University of Cambridge 
+ 
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met: 
+ 
+    * Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimer. 
+ 
+    * Redistributions in binary form must reproduce the above copyright 
+      notice, this list of conditions and the following disclaimer in the 
+      documentation and/or other materials provided with the distribution. 
+ 
+    * Neither the name of the University of Cambridge nor the name of Google 
+      Inc. nor the name of Computerway Business Solutions Ltd. nor the names 
+      of their contributors may be used to endorse or promote products derived 
+      from this software without specific prior written permission. 
+ 
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE. 
+ 
+Core PCRE Library Written by:       Philip Hazel, University of Cambridge 
+C++ Wrapper functions by:           Sanjay Ghemawat, Google Inc. 
+Support for PCRE_XXX modifiers by:  Giuseppe Maxia 
+NSIS integration by:                Rob Stocks, Computerway Business Solutions Ltd.
+
+
+
+ShellLink (NSIS plug-in)
+========================
+
+© 2004 Angelo Mandato
+
+This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+
+The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+Altered versions must be plainly marked as such, and must not be misrepresented as being the original software.
+This notice may not be removed or altered from any distribution.

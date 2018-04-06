@@ -1,4 +1,34 @@
+!include LogicLib.nsh
 !include FileFunc.nsh
+!include .\NSISpcre.nsh
+
+!insertmacro REMatches
+
+
+; FileExists is already part of LogicLib, but returns true for directories as well as files
+!macro _FileExists2 _a _b _t _f
+	!insertmacro _LOGICLIB_TEMP
+	StrCpy $_LOGICLIB_TEMP "0"
+	StrCmp `${_b}` `` +4 0         ; if path is not blank, continue to next check
+	IfFileExists `${_b}` `0` +3    ; if path exists, continue to next check (IfFileExists returns true if this is a directory)
+	IfFileExists `${_b}\*.*` +2 0  ; if path is not a directory, continue to confirm exists
+	StrCpy $_LOGICLIB_TEMP "1"     ; file exists
+	; now we have a definitive value - the file exists or it does not
+	StrCmp $_LOGICLIB_TEMP "1" `${_t}` `${_f}`
+!macroend
+!undef FileExists
+
+!define FileExists `"" FileExists2`
+!macro _DirExists _a _b _t _f
+	!insertmacro _LOGICLIB_TEMP
+	StrCpy $_LOGICLIB_TEMP "0"	
+	StrCmp `${_b}` `` +3 0        ; if path is not blank, continue to next check
+	IfFileExists `${_b}\*.*` 0 +2 ; if directory exists, continue to confirm exists
+	StrCpy $_LOGICLIB_TEMP "1"
+	StrCmp $_LOGICLIB_TEMP "1" `${_t}` `${_f}`
+!macroend
+!define DirExists `"" DirExists`
+
 
 ;--------------------------------
 ; Function Macros
@@ -9,6 +39,7 @@
   Pop ${Output}
 !macroend
 !define TrimQuotes `!insertmacro _TrimQuotes`
+
 
 ;--------------------------------
 ; Functions
@@ -32,6 +63,7 @@ Function TrimQuotes
   Exch $R0
 FunctionEnd
 
+
 ;--------------------------------
 
 Function UninstallPreviousVersions
@@ -39,15 +71,15 @@ Function UninstallPreviousVersions
   Push $R1
 
   ReadRegStr $R0 HKLM "${RegUninstallKey}" "UninstallString"
-  StrCmp $R0 "" done
+  ${If} $R0 != ""
+    ${TrimQuotes} $R0 $R0
+    ${GetParent} $R0 $R1
 
-  ${TrimQuotes} $R0 $R0
-  ${GetParent} $R0 $R1
-
-  ClearErrors
-  ExecWait '$R0 _?=$R1'
+    ClearErrors
+    ExecWait '$R0 /S _?=$R1'
+    RMDir /r "$R1"
+  ${EndIf}
 
   Pop $R1
   Pop $R0
-done:
 FunctionEnd
