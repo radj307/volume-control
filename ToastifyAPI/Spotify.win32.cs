@@ -1,6 +1,5 @@
-﻿using JetBrains.Annotations;
-
-#if !WIN_10
+﻿#if !WIN_10
+using JetBrains.Annotations;
 
 namespace ToastifyAPI
 {
@@ -9,7 +8,8 @@ namespace ToastifyAPI
         [CanBeNull]
         private static string GetSpotifyPath_platform()
         {
-            return GetSpotifyPath_common();
+            // noop, this is taken care of in the GetSpotifyPath_common()
+            return null;
         }
     }
 }

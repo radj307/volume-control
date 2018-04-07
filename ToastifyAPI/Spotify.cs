@@ -25,22 +25,22 @@ namespace ToastifyAPI
         [NotNull]
         public static string GetSpotifyPath()
         {
-            string spotifyPath = GetSpotifyPath_common() ?? GetSpotifyPath_platform();
+            string spotifyPath = GetSpotifyPath_platform() ?? GetSpotifyPath_common();
 
-            if (string.IsNullOrEmpty(spotifyPath))
-                throw new ArgumentException("Could not find spotify path.");
+            if (string.IsNullOrEmpty(spotifyPath) || !System.IO.File.Exists(spotifyPath))
+                throw new ArgumentException("Could not find spotify executable.");
 
             return spotifyPath;
         }
 
-        [CanBeNull]
+        [NotNull]
         private static string GetSpotifyPath_common()
         {
-            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
+            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, String.Empty) as string;
 
-            // Try the with Uninstall key
+            // Try the Uninstall key
             if (string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", String.Empty) as string;
 
             if (!string.IsNullOrEmpty(spotifyPath))
                 spotifyPath = Path.Combine(spotifyPath, "Spotify.exe");
