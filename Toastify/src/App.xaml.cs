@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
@@ -19,7 +20,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
-using JetBrains.Annotations;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -148,6 +148,8 @@ namespace Toastify
             }
         }
 
+        #region PrepareToRun
+
         private static void PrepareToRun()
         {
             if (logger.IsDebugEnabled)
@@ -166,26 +168,13 @@ namespace Toastify
             InitUpdater();
         }
 
-        private static void RunApp()
-        {
-            App app = new App(AppArgs.SpotifyArgs);
-            app.InitializeComponent();
-
-#if DEBUG
-            DebugView.Launch();
-#endif
-
-            Spotify.Instance.Connected -= Spotify_Connected;
-            Spotify.Instance.Connected += Spotify_Connected;
-
-            app.Run();
-        }
-
         private static void LoadSettings()
         {
             try
             {
                 Settings.Current.Load();
+
+                EnsureHotkeysRegisteredCorrectly();
 
                 if (logger.IsDebugEnabled)
                     logger.Debug("Settings loaded!");
@@ -247,6 +236,51 @@ namespace Toastify
             }
         }
 
+        private static void EnsureHotkeysRegisteredCorrectly()
+        {
+            // If Toastify is launched at system startup, then hotkeys might fail to register correctly
+
+            bool ShouldTryAgain(bool log = true)
+            {
+                var enabledHotkeys = Settings.Current.HotKeys.Where(h => h.Enabled).ToList();
+                int enabledCount = enabledHotkeys.Count;
+                int invalidCount = enabledHotkeys.Count(h => !h.IsValid);
+
+                if (log && logger.IsDebugEnabled)
+                    logger.Debug($"Enabled hotkeys: {enabledCount}; Invalid hotkeys: {invalidCount}");
+
+                return invalidCount >= enabledCount / 2;
+            }
+
+            if (ShouldTryAgain(false))
+            {
+                Thread thread = new Thread(() =>
+                {
+                    logger.Info("Hotkeys have not been registered correctly. Trying again...");
+
+                    // Let's try again
+                    int @try = 0;
+
+                    const int maxAttempts = 5;
+                    while (ShouldTryAgain() && @try < maxAttempts)
+                    {
+                        Thread.Sleep(2000);
+                        Settings.Current.ReActivateHotkeys();
+
+                        @try++;
+                    }
+
+                    logger.Info(ShouldTryAgain(false) ? "Hotkeys have not been registered correctly" : "Hotkeys have been registered correctly");
+                })
+                {
+                    Name = $"Toastify_{nameof(EnsureHotkeysRegisteredCorrectly)}",
+                    IsBackground = true
+                };
+
+                thread.Start();
+            }
+        }
+
         private static void StartupTask()
         {
             if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
@@ -272,6 +306,25 @@ namespace Toastify
 
             AutoUpdater.Instance.UpdateReady += AutoUpdater_UpdateReady;
         }
+
+        #endregion PrepareToRun
+
+        private static void RunApp()
+        {
+            App app = new App(AppArgs.SpotifyArgs);
+            app.InitializeComponent();
+
+#if DEBUG
+            DebugView.Launch();
+#endif
+
+            Spotify.Instance.Connected -= Spotify_Connected;
+            Spotify.Instance.Connected += Spotify_Connected;
+
+            app.Run();
+        }
+
+        #region Event handlers
 
         private static void Spotify_Connected(object sender, SpotifyStateEventArgs spotifyStateEventArgs)
         {
@@ -335,6 +388,8 @@ namespace Toastify
                 logger.Error($"Unknown error in {nameof(AutoUpdater_UpdateReady)}", ex);
             }
         }
+
+        #endregion Event handlers
 
         [TabCompletion]
         internal class MainArgs

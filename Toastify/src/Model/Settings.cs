@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -15,7 +16,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
-using JetBrains.Annotations;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
@@ -931,6 +931,24 @@ namespace Toastify.Model
             {
                 foreach (Hotkey hotkey in this.HotKeys)
                     hotkey.Deactivate();
+            }
+        }
+
+        public void ReActivateHotkeys()
+        {
+            if (this != Current)
+                return;
+
+            if (this.HotKeys != null)
+            {
+                foreach (Hotkey hotkey in this.HotKeys)
+                    hotkey.Deactivate();
+
+                if (this.GlobalHotKeys)
+                {
+                    foreach (Hotkey hotkey in this.HotKeys)
+                        hotkey.Activate();
+                }
             }
         }
 

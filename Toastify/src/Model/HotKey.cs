@@ -353,10 +353,12 @@ namespace Toastify.Model
                 {
                     this._globalKey.Enabled = true;
                 }
-                catch (HotkeyAlreadyInUseException)
+                catch (HotkeyAlreadyInUseException e)
                 {
                     this.IsValid = false;
                     this.InvalidReason = "Hotkey is already in use by a different program";
+
+                    logger.Warn($"Hotkey already in use: {this.HumanReadableKey}", e);
                 }
             }
             else if (this.KeyOrButton.MouseButton.HasValue)
