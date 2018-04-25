@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
@@ -7,6 +8,7 @@ using log4net.Repository;
 using log4net.Repository.Hierarchy;
 using PowerArgs;
 using SpotifyAPI;
+using StructureMap;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -19,13 +21,16 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
-using JetBrains.Annotations;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
 using ToastifyAPI.GitHub;
+using ToastifyAPI.Interop;
+using ToastifyAPI.Interop.Interfaces;
+using ToastifyAPI.Logic;
+using ToastifyAPI.Logic.Interfaces;
 
 namespace Toastify
 {
@@ -373,6 +378,8 @@ namespace Toastify
         // ReSharper disable once InconsistentNaming
         private static ProxyConfigAdapter _proxyConfig;
 
+        public static Container Container { get; private set; }
+
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
         public static string LocalApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
@@ -423,10 +430,40 @@ namespace Toastify
                     _proxyConfig.Set(noProxy);
                 return _proxyConfig;
             }
-            set { _proxyConfig.Set(value.ProxyConfig ?? noProxy); }
+            set
+            {
+                if (_proxyConfig == null)
+                    _proxyConfig = new ProxyConfigAdapter(noProxy);
+                _proxyConfig.Set(value?.ProxyConfig ?? noProxy);
+            }
         }
 
         public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
+
+        #region Static setup
+
+        static App()
+        {
+            SetupContainer();
+        }
+
+        private static void SetupContainer()
+        {
+            Container = new Container();
+            Container.Configure(x =>
+            {
+                x.For<IKeyboard>().Use(InputDevices.PrimaryKeyboard);
+                x.For<IMouse>().Use(InputDevices.PrimaryMouse);
+                x.For<IInputDevices>().Use<InputDevices>();
+
+                x.For<IToastifyActionRegistry>().Use<ToastifyActionRegistry>();
+
+                x.For<IKeyboardHotkeyVisitor>().Use<KeyboardHotkeyVisitor>();
+                x.For<IMouseHookHotkeyVisitor>().Use<MouseHookHotkeyVisitor>();
+            });
+        }
+
+        #endregion Static setup
 
         public App() : this("")
         {
@@ -445,6 +482,8 @@ namespace Toastify
                 proxyDialog.ShowDialog();
             }, true, "Config Proxy");
         }
+
+        #region CallInSTAThread
 
         public static void CallInSTAThread(Action action, bool background)
         {
@@ -484,12 +523,14 @@ namespace Toastify
             {
                 IsBackground = background
             };
-            if (!string.IsNullOrWhiteSpace(threadName))
+            if (!String.IsNullOrWhiteSpace(threadName))
                 t.Name = threadName;
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             return t;
         }
+
+        #endregion CallInSTAThread
 
         public static void Terminate()
         {
@@ -497,6 +538,8 @@ namespace Toastify
                 DispatcherPriority.Normal,
                 new Action(() => Current.Shutdown()));
         }
+
+        #region Event handlers
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
@@ -518,5 +561,7 @@ namespace Toastify
 
             logger.Info($"Toastify terminated with exit code {e.ApplicationExitCode}.");
         }
+
+        #endregion Event handlers
     }
 }

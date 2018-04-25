@@ -1,6 +1,8 @@
-﻿using log4net;
+﻿using JetBrains.Annotations;
+using log4net;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using StructureMap.Attributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,10 +17,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
-using JetBrains.Annotations;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Helpers;
+using ToastifyAPI.Helpers;
 using Application = System.Windows.Forms.Application;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
@@ -45,14 +47,22 @@ namespace Toastify.Model
         {
             get
             {
-                return _current ?? (_current = new Settings());
+                if (_current == null)
+                {
+                    _current = new Settings();
+                    App.Container.BuildUp(_current);
+                }
+                return _current;
             }
             private set
             {
                 if (_current != null)
                 {
                     _current.Unload();
+
                     _current = value;
+                    App.Container.BuildUp(_current);
+
                     _current.Apply();
                 }
             }
@@ -72,8 +82,9 @@ namespace Toastify.Model
             {
                 if (_default == null)
                 {
-                    _default = _current?.Clone();
+                    _default = new Settings();
                     _default?.SetDefault();
+                    App.Container.BuildUp(_default);
                 }
                 return _default;
             }
@@ -123,6 +134,11 @@ namespace Toastify.Model
             }
         }
 
+        // TODO: When the Settings class will not be a Singleton anymore, this dependency can be moved to the public constructor.
+        [JsonIgnore]
+        [SetterProperty]
+        public IToastifyActionRegistry ToastifyActionRegistry { get; set; }
+
         #region Settings
 
         #region Private fields
@@ -141,26 +157,7 @@ namespace Toastify.Model
 
         private SettingValue<bool> _globalHotKeys;
         private List<Hotkey> _hotKeys;
-
-        private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
-        {
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Add     , Action = ToastifyAction.VolumeUp      , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Subtract, Action = ToastifyAction.VolumeDown    , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.M       , Action = ToastifyAction.Mute          , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true , Shift = true, KeyOrButton = Key.Right   , Action = ToastifyAction.FastForward   , Enabled = false },
-            new Hotkey { Ctrl = true, Alt = true , Shift = true, KeyOrButton = Key.Left    , Action = ToastifyAction.Rewind        , Enabled = false },
-            new Hotkey { Ctrl = true,                            KeyOrButton = Key.S       , Action = ToastifyAction.ShowSpotify   , Enabled = false },
-            new Hotkey { Ctrl = true,              Shift = true, KeyOrButton = Key.C       , Action = ToastifyAction.CopyTrackInfo , Enabled = false },
-            new Hotkey { Ctrl = true,              Shift = true, KeyOrButton = Key.V       , Action = ToastifyAction.PasteTrackInfo, Enabled = false },
-
-#if DEBUG
-            new Hotkey { Ctrl = true,                            KeyOrButton = Key.D       , Action = ToastifyAction.ShowDebugView , Enabled = true  },
-#endif
-        };
+        private IReadOnlyList<Hotkey> defaultHotKeys;
 
         private SettingValue<bool> _disableToast;
         private SettingValue<bool> _onlyShowToastOnHotkey;
@@ -331,6 +328,33 @@ namespace Toastify.Model
             set { this.RaiseAndSetIfChanged(ref this._hotKeys, value); }
         }
 
+        [JsonIgnore]
+        public IReadOnlyList<Hotkey> DefaultHotkeys
+        {
+            get
+            {
+                return this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
+                {
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Space   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowToast), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Up      , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PlayPause), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Right   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.NextTrack), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Left    , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PreviousTrack), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Add     , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeUp), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Subtract, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeDown), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.M       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Mute), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Right   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.FastForward), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Left    , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Rewind), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                                        , Key = Key.S       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowSpotify), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                    | ModifierKeys.Shift, Key = Key.C       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.CopyTrackInfo), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                    | ModifierKeys.Shift, Key = Key.V       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PasteTrackInfo), Enabled = false },
+
+#if DEBUG
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control, Key = Key.D, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowDebugView), Enabled = true },
+#endif
+                });
+            }
+        }
+
         #endregion [Hotkeys]
 
         #region [Toast]
@@ -343,7 +367,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Only show the toast when the `<see cref="ToastifyAction.ShowToast"/>` hotkey is pressed.
+        /// Only show the toast when the `<see cref="ToastifyActionEnum.ShowToast"/>` hotkey is pressed.
         /// </summary>
         [DefaultValue(true)]
         public SettingValue<bool> OnlyShowToastOnHotkey
@@ -630,6 +654,7 @@ namespace Toastify.Model
         {
             JsonSerializerSettings = new JsonSerializerSettings
             {
+                ContractResolver = new JsonConverterContractResolver(),
                 StringEscapeHandling = StringEscapeHandling.Default,
                 FloatParseHandling = FloatParseHandling.Decimal,
                 FloatFormatHandling = FloatFormatHandling.String,
@@ -728,7 +753,7 @@ namespace Toastify.Model
                     hotkey.Deactivate();
             }
 
-            this.HotKeys = (List<Hotkey>)this.defaultHotKeys.Clone();
+            this.HotKeys = (List<Hotkey>)this.DefaultHotkeys.Clone();
 
             if (activateHotkeys && this == _current && this.HotKeys != null)
             {
@@ -878,10 +903,12 @@ namespace Toastify.Model
                 return;
 
             // Remove duplicate hotkeys
-            this._hotKeys = this._hotKeys.Distinct(Hotkey.EqualityComparerOnAction).ToList();
+            bool Equals(Hotkey h1, Hotkey h2) => h1?.Action?.Equals(h2?.Action) ?? h2?.Action == null;
+            int GetHashCode(Hotkey h) => h?.Action?.GetHashCode() ?? 0;
+            this._hotKeys = this._hotKeys.Distinct(Equals, GetHashCode).ToList();
 
             // Bring the Toast inside the working area if it is off-screen
-            System.Windows.Rect toastRect = new System.Windows.Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
             Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
@@ -901,9 +928,9 @@ namespace Toastify.Model
         /// </summary>
         private void CheckForNewSettings()
         {
-            foreach (Hotkey defaultHotkey in this.defaultHotKeys)
+            foreach (Hotkey defaultHotkey in this.DefaultHotkeys)
             {
-                bool found = this.HotKeys.Any(hotkey => hotkey.Action == defaultHotkey.Action);
+                bool found = this.HotKeys.Any(hotkey => hotkey.Action?.Equals(defaultHotkey.Action) ?? defaultHotkey.Action == null);
 
                 if (!found)
                     this.HotKeys.Add((Hotkey)defaultHotkey.Clone());

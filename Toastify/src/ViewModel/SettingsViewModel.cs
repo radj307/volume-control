@@ -16,6 +16,7 @@ namespace Toastify.ViewModel
         private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
 
         private Settings _settings;
+        private List<GenericHotkeyProxy> _hotkeys;
 
         public Settings Settings
         {
@@ -26,7 +27,20 @@ namespace Toastify.ViewModel
         // The ListBox is bound to this property instead of Settings.HotKeys so that when saving or
         // resetting to default, the SelectedIndex doesn't reset to 0 because of the DataContext update
         // (since Save and Default trigger a NotifyPropertyChanged for Settings)
-        public List<Hotkey> HotKeys { get { return this.Settings.HotKeys; } }
+        public List<GenericHotkeyProxy> Hotkeys
+        {
+            get
+            {
+                if (this._hotkeys == null || this._hotkeys.Count == 0)
+                {
+                    this._hotkeys = new List<GenericHotkeyProxy>(this.Settings.HotKeys.Count);
+                    foreach (var h in this.Settings.HotKeys)
+                        this._hotkeys.Add(new GenericHotkeyProxy(h));
+                }
+
+                return this._hotkeys;
+            }
+        }
 
         public int CurrentTabIndex { get; set; }
 
@@ -188,6 +202,7 @@ namespace Toastify.ViewModel
         {
             this.Settings = Settings.Temporary;
 
+            // Commands
             this.SaveCommand = new DelegateCommand(this.Save);
             this.DefaultCommand = new DelegateCommand(this.Default);
             this.DefaultAllCommand = new DelegateCommand(this.DefaultAll);
@@ -235,6 +250,7 @@ namespace Toastify.ViewModel
 
         private void Save()
         {
+            // Save proxy config
             if (this.Settings.UseProxy)
             {
                 // Proxy Password
@@ -255,11 +271,21 @@ namespace Toastify.ViewModel
                 }
             }
 
+            // Save hotkeys
+            this.Settings.HotKeys.Clear();
+            foreach (var h in this.Hotkeys)
+            {
+                Hotkey hotkey = h.Hotkey;
+                if (hotkey != null)
+                    this.Settings.HotKeys.Add(hotkey);
+            }
+
             this.Settings.SetAsCurrentAndSave();
 
             // Get a new clone of the current settings,
             // since Current and the original Temporary are now the same instance;
             this.Settings = Settings.Temporary;
+            this._hotkeys = null;
 
             this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings));
         }

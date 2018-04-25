@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Toastify.Common
+namespace ToastifyAPI.Common
 {
     [StructLayout(LayoutKind.Explicit, Size = 4)]
-    internal struct Union32 : IEquatable<Union32>, IComparable<Union32>, IComparable
+    public struct Union32 : IEquatable<Union32>, IComparable<Union32>, IComparable
     {
         public static readonly Union32 Zero;
 

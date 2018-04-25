@@ -13,13 +13,14 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
+using ToastifyAPI.Common;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
 using Xceed.Wpf.Toolkit;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using MouseAction = Toastify.Core.MouseAction;
+using MouseAction = ToastifyAPI.Core.MouseAction;
 using TextBox = System.Windows.Controls.TextBox;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
@@ -108,44 +109,50 @@ namespace Toastify.View
         {
             if (nCode >= 0)
             {
-                if (this.TxtSingleKey.IsFocused)
+                if (this.TxtSingleKey.IsFocused &&
+                    this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
                 {
-                    if (wParam == WindowsMessagesFlags.WM_XBUTTONUP)
-                    {
-                        Union32 union = new Union32(lParam.mouseData);
+                    bool validButton = false;
+                    MouseAction mouseAction = 0;
 
+                    Union32 union = new Union32(lParam.mouseData);
+
+                    if (wParam == WindowsMessagesFlags.WM_XBUTTONUP) // XButton
+                    {
                         if (union.High == 0x0001)
                         {
-                            this.TxtSingleKey.Text = MouseAction.XButton1.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.XButton1;
+                            validButton = true;
+                            mouseAction = MouseAction.XButton1;
                         }
                         else if (union.High == 0x0002)
                         {
-                            this.TxtSingleKey.Text = MouseAction.XButton2.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.XButton2;
+                            validButton = true;
+                            mouseAction = MouseAction.XButton2;
                         }
                     }
-                    else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
+                    else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL) // MWheel
                     {
-                        Union32 union = new Union32(lParam.mouseData);
-
                         short delta = unchecked((short)union.High);
                         if (delta > 0)
                         {
                             // MWheelUp
-                            this.TxtSingleKey.Text = MouseAction.MWheelUp.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.MWheelUp;
+                            validButton = true;
+                            mouseAction = MouseAction.MWheelUp;
                         }
                         else if (delta < 0)
                         {
                             // MWheelDown
-                            this.TxtSingleKey.Text = MouseAction.MWheelDown.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.MWheelDown;
+                            validButton = true;
+                            mouseAction = MouseAction.MWheelDown;
                         }
+                    }
+
+                    if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
+                    {
+                        this.TxtSingleKey.Text = mouseAction.ToString();
+
+                        hotkeyProxy.Type = HotkeyType.MouseHook;
+                        hotkeyProxy.SetActivator(mouseAction);
                     }
                 }
             }
@@ -187,7 +194,7 @@ namespace Toastify.View
         private void SettingsViewModel_SettingsSaved(object sender, SettingsSavedEventArgs e)
         {
             this.toastView.InitToast();
-            this.toastView.DisplayAction(ToastifyAction.SettingsSaved);
+            this.toastView.DisplayAction(ToastifyActionEnum.SettingsSaved);
             SettingsSaved?.Invoke(sender, e);
         }
 
@@ -222,22 +229,35 @@ namespace Toastify.View
 
         private void LstHotKeys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                this.TxtSingleKey.Text = hotkey.KeyOrButton?.ToString() ?? string.Empty;
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+            {
+                Hotkey hotkey = hotkeyProxy.Hotkey;
+                string text = string.Empty;
+
+                if (hotkey is KeyboardHotkey kbdHotkey)
+                    text = kbdHotkey.Key?.ToString();
+                else if (hotkey is MouseHookHotkey mhHotkey)
+                    text = mhHotkey.MouseButton?.ToString();
+
+                this.TxtSingleKey.Text = text ?? string.Empty;
+            }
         }
 
         private void TxtSingleKey_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = true;
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+            {
+                e.Handled = true;
 
-            var key = e.Key;
-            if (key == Key.System)
-                key = e.SystemKey;
+                var key = e.Key;
+                if (key == Key.System)
+                    key = e.SystemKey;
 
-            this.TxtSingleKey.Text = key.ToString();
+                this.TxtSingleKey.Text = key.ToString();
 
-            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                hotkey.KeyOrButton = key;
+                hotkeyProxy.Type = HotkeyType.Keyboard;
+                hotkeyProxy.SetActivator(key);
+            }
         }
 
         #endregion "Hotkeys" tab

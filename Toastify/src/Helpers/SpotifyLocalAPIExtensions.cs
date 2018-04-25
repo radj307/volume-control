@@ -16,7 +16,7 @@ namespace Toastify.Helpers
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyAction.VolumeUp);
+                Win32API.SendMediaKey(ToastifyActionEnum.VolumeUp);
             }
         }
 
@@ -30,7 +30,7 @@ namespace Toastify.Helpers
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyAction.VolumeDown);
+                Win32API.SendMediaKey(ToastifyActionEnum.VolumeDown);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Toastify.Helpers
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyAction.Mute);
+                Win32API.SendMediaKey(ToastifyActionEnum.Mute);
             }
         }
     }

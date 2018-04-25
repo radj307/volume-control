@@ -9,6 +9,7 @@ using System.IO;
 using System.Net.Cache;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -700,6 +701,11 @@ namespace Toastify.View
                 this.InitToast();
         }
 
+        public void Toggle(bool force)
+        {
+            this.ShowOrHideToast(force: force);
+        }
+
         /// <summary>
         /// Toggles the show state of the toast.
         /// </summary>
@@ -801,15 +807,90 @@ namespace Toastify.View
             this.Top += offsetVector.Y;
         }
 
+        internal void PrintInternalDebugInfo()
+        {
+            if (logger.IsDebugEnabled)
+            {
+                WindowPlacement wPlacement = new WindowPlacement();
+                User32.GetWindowPlacement(this.WindowHandle, ref wPlacement);
+
+                StringBuilder sb = new StringBuilder();
+                List<string> strings = new List<string>();
+
+                sb.Append("Internal Info:\n");
+                sb.Append($"\thWnd[{this.WindowHandle}]\n");
+
+                // minimizeTimer
+                strings.Clear();
+                if (this.minimizeTimer == null)
+                    strings.Add("null");
+                else
+                {
+                    strings.Add(this.minimizeTimer.Enabled ? "enabled" : "disabled");
+                    strings.Add($"{this.minimizeTimer.Interval}");
+                }
+                sb.Append($"\tminimizeTimer: {string.Join(",", strings)}\n");
+
+                // track
+                strings.Clear();
+                if (this.currentSong == null)
+                    strings.Add("null");
+                else
+                    strings.Add(this.currentSong.IsValid() ? "valid" : "invalid");
+                sb.Append($"\ttrack: {string.Join(",", strings)}\n");
+
+                // state
+                strings.Clear();
+                strings.Add(this.isUpdateToast ? "is-update" : string.Empty);
+                strings.Add(this.isPreviewForSettings ? "is-preview" : string.Empty);
+                strings.Add(this.dragging ? "dragging" : string.Empty);
+                strings.Add(this.paused ? "paused" : "playing");
+                strings.RemoveAll(string.IsNullOrWhiteSpace);
+                sb.Append($"\tstate: {string.Join(",", strings)}\n");
+
+                // visibility
+                strings.Clear();
+                strings.Add(this.ShownOrFading ? "shown-or-fading" : string.Empty);
+                strings.Add(this.IsVisible ? "is-visible" : string.Empty);
+                strings.Add($"{this.Visibility}");
+                strings.Add(this.Topmost ? "topmost" : string.Empty);
+                strings.Add($"{{{wPlacement}}}");
+                strings.RemoveAll(string.IsNullOrWhiteSpace);
+                sb.Append($"\tvisibility: {string.Join(",", strings)}\n");
+
+                // dispatcher
+                strings.Clear();
+                if (this.Dispatcher == null)
+                    strings.Add("null");
+                else
+                {
+                    strings.Add(this.Dispatcher.HasShutdownStarted ? "shutdown-started" : string.Empty);
+                    strings.RemoveAll(string.IsNullOrWhiteSpace);
+                }
+                sb.Append($"\tdispatcher: {string.Join(",", strings)}\n");
+
+                // settings
+                strings.Clear();
+                strings.Add(this.Settings.DisableToast ? "toast-disabled" : "toast-enabled");
+                strings.Add(this.Settings.OnlyShowToastOnHotkey ? "only-show-toast-on-hotkey" : string.Empty);
+                strings.Add($"{this.Settings.DisplayTime}");
+                strings.RemoveAll(string.IsNullOrWhiteSpace);
+                sb.Append($"\tsettings: {string.Join(",", strings)}\n");
+
+                string internalInfo = sb.ToString();
+                logger.Debug($"{internalInfo}\tStack Trace:\n{Environment.StackTrace}");
+            }
+        }
+
         #region DisplayAction
 
 #if DEBUG
         public bool LogShowToastAction { get; set; }
 #endif
 
-        public void DisplayAction(ToastifyAction action)
+        public void DisplayAction(ToastifyActionEnum action)
         {
-            if (!Spotify.Instance.IsRunning && action != ToastifyAction.SettingsSaved)
+            if (!Spotify.Instance.IsRunning && action != ToastifyActionEnum.SettingsSaved)
             {
                 this.toastIconURI = DEFAULT_ICON;
                 this.UpdateToastText("Spotify not available!");
@@ -818,20 +899,20 @@ namespace Toastify.View
 
             switch (action)
             {
-                case ToastifyAction.SettingsSaved:
+                case ToastifyActionEnum.SettingsSaved:
                     this.DisplayFlashContent("Settings Saved", string.Empty, DEFAULT_ICON, 1500.0);
                     break;
 
-                case ToastifyAction.VolumeUp:
-                case ToastifyAction.VolumeDown:
-                    this.UpdateToastText(this.currentSong, $"Volume {(action == ToastifyAction.VolumeUp ? "++" : "--")}");
+                case ToastifyActionEnum.VolumeUp:
+                case ToastifyActionEnum.VolumeDown:
+                    this.UpdateToastText(this.currentSong, $"Volume {(action == ToastifyActionEnum.VolumeUp ? "++" : "--")}");
                     break;
 
-                case ToastifyAction.Mute:
+                case ToastifyActionEnum.Mute:
                     this.UpdateToastText(this.currentSong, "Mute On/Off");
                     break;
 
-                case ToastifyAction.ShowToast:
+                case ToastifyActionEnum.ShowToast:
 #if DEBUG
                     if (this.LogShowToastAction)
                     {
@@ -851,12 +932,12 @@ namespace Toastify.View
                     this.ShowOrHideToast(force: true);
                     break;
 
-                case ToastifyAction.ThumbsUp:
+                case ToastifyActionEnum.ThumbsUp:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_up.png";
                     this.UpdateToastText(this.currentSong, "Thumbs Up!");
                     break;
 
-                case ToastifyAction.ThumbsDown:
+                case ToastifyActionEnum.ThumbsDown:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
                     this.UpdateToastText(this.currentSong, "Thumbs Down!");
                     break;
@@ -956,7 +1037,7 @@ namespace Toastify.View
                     Process.Start(psi);
                 }
                 else
-                    Spotify.Instance.SendAction(ToastifyAction.ShowSpotify);
+                    Spotify.Instance.SendAction(ToastifyActionEnum.ShowSpotify);
             }
         }
 
@@ -995,9 +1076,9 @@ namespace Toastify.View
 
             this.paused = !e.Playing;
 
-            // Only fade-in if the play state change was triggered by a hotkey.
-            bool fadeIn = Hotkey.LastHotkey?.Action == ToastifyAction.PlayPause;
-            this.UpdateToastText(this.currentSong, fadeIn: fadeIn);
+            // TODO: Only fade-in if the play state change was triggered by a hotkey.
+            //bool fadeIn = Hotkey.LastHotkey?.Action == ToastifyActionEnum.PlayPause;
+            //this.UpdateToastText(this.currentSong, fadeIn: fadeIn);
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)

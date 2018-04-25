@@ -1,17 +1,18 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
 using System.Windows.Input;
-using MouseAction = Toastify.Core.MouseAction;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using ToastifyAPI.Model.Interfaces;
+using MouseAction = ToastifyAPI.Core.MouseAction;
 
-namespace Toastify.Model
+namespace ToastifyAPI.Model
 {
     /// <summary>
     /// Represents either a <see cref="T:System.Windows.Input.Key"/> or a <see cref="MouseAction"/>.
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
-    public sealed class KeyOrButton : IEquatable<KeyOrButton>, ICloneable
+    public sealed class KeyOrButton : IKeyOrButton, IEquatable<KeyOrButton>
     {
         public bool IsKey
         {

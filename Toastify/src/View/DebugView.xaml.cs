@@ -141,7 +141,8 @@ namespace Toastify.View
             if (Settings.Current?.HotKeys != null)
             {
                 string showDebugViewHotkey = (from Hotkey h in Settings.Current.HotKeys
-                                              where h.Action == ToastifyAction.ShowDebugView && h.Enabled && h.Active
+                                              let toastifyAction = h.Action as ToastifyAction
+                                              where toastifyAction != null && toastifyAction.ToastifyActionEnum == ToastifyActionEnum.ShowDebugView && h.Enabled && h.Active
                                               select h.HumanReadableKey).SingleOrDefault();
 
                 if (!string.IsNullOrEmpty(showDebugViewHotkey))

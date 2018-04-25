@@ -155,19 +155,30 @@
     <Reference Include="ManagedWinapi">
       <HintPath>..\Toastify\ManagedWinapi.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AnonymousEqualityComparer.cs" />
+    <Compile Include="Common\Union32.cs" />
     <Compile Include="Core\IProxyConfig.cs" />
+    <Compile Include="Core\MouseAction.cs" />
+    <Compile Include="Events\ActionFailedEventArgs.cs" />
     <Compile Include="GitHub\GitHubAPI.cs" />
     <Compile Include="GitHub\Model\Asset.cs" />
     <Compile Include="GitHub\Model\BaseModel.cs" />
@@ -177,7 +188,29 @@
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\LinqExtensions.cs" />
     <Compile Include="Helpers\Net.cs" />
+    <Compile Include="Interop\InputDevices.cs" />
+    <Compile Include="Interop\Interfaces\IInputDevice.cs" />
+    <Compile Include="Interop\Interfaces\IInputDevices.cs" />
+    <Compile Include="Interop\Interfaces\IKeyboard.cs" />
+    <Compile Include="Interop\Interfaces\IMouse.cs" />
+    <Compile Include="Interop\Keyboard.cs" />
+    <Compile Include="Interop\Mouse.cs" />
+    <Compile Include="Logic\Interfaces\IHotkeyVisitor.cs" />
+    <Compile Include="Logic\Interfaces\IKeyboardHotkeyVisitor.cs" />
+    <Compile Include="Logic\Interfaces\IMouseHookHotkeyVisitor.cs" />
+    <Compile Include="Logic\KeyboardHotkeyVisitor.cs" />
+    <Compile Include="Logic\MouseHookHotkeyVisitor.cs" />
+    <Compile Include="Model\Actionable.cs" />
+    <Compile Include="Model\Interfaces\IAction.cs" />
+    <Compile Include="Model\Interfaces\IActionable.cs" />
+    <Compile Include="Model\Interfaces\IHotkey.cs" />
+    <Compile Include="Model\Interfaces\IKeyboardHotkey.cs" />
+    <Compile Include="Model\Interfaces\IKeyOrButton.cs" />
+    <Compile Include="Model\Interfaces\IMouseHookHotkey.cs" />
+    <Compile Include="Model\Interfaces\ISong.cs" />
+    <Compile Include="Model\KeyOrButton.cs" />
     <Compile Include="Native\Crypt32.cs" />
     <Compile Include="Native\Enums\CryptProtectFlags.cs" />
     <Compile Include="Native\Enums\CryptProtectPromptFlags.cs" />
@@ -225,7 +258,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="multiple.proj" />
 </Project>

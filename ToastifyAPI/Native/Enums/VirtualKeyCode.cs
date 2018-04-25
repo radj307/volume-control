@@ -3,6 +3,7 @@ namespace ToastifyAPI.Native.Enums
 {
     public enum VirtualKeyCode : byte
     {
+        None                = 0x00,
         VK_VOLUME_MUTE      = 0xAD,
         VK_VOLUME_DOWN      = 0xAE,
         VK_VOLUME_UP        = 0xAF,

@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using Toastify.Common;
 using Toastify.Events;
@@ -565,33 +566,42 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher background worker
 
-        private void Minimize(int delay = 0)
+        public Task Minimize(int delay = 0)
         {
-            int remainingSleep = 2000;
-
-            IntPtr hWnd;
-
-            // The window handle should have already been created, but just in case it has not, we wait for it to show up.
-            do
+            return Task.Run(async () =>
             {
-                remainingSleep -= 100;
-                Thread.Sleep(100);
-                hWnd = this.GetMainWindowHandle();
-            } while (hWnd == IntPtr.Zero && remainingSleep > 0);
+                int timeout = 2000;
+                IntPtr hWnd;
 
-            if (hWnd != IntPtr.Zero)
+                do
+                {
+                    hWnd = this.GetMainWindowHandle();
+
+                    if (hWnd == IntPtr.Zero)
+                    {
+                        timeout -= 100;
+                        await Task.Delay(100);
+                    }
+                } while (hWnd == IntPtr.Zero && timeout > 0);
+
+                return hWnd;
+            }).ContinueWith(async hWndTask =>
             {
-                // We also need to wait a little more before minimizing the window;
-                // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
-                Thread.Sleep(delay);
-                User32.ShowWindow(hWnd, ShowWindowCmd.SW_SHOWMINIMIZED);
-            }
+                IntPtr hWnd = await hWndTask;
+                if (hWnd != IntPtr.Zero)
+                {
+                    // We also need to wait a little more before minimizing the window;
+                    // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
+                    await Task.Delay(delay);
+                    User32.ShowWindow(hWnd, ShowWindowCmd.SW_SHOWMINIMIZED);
+                }
+            });
         }
 
         public void Kill()
         {
             //Can't kindly close Spotify this way anymore since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-            //this.SendShortcut(ToastifyAction.Exit);
+            //this.SendShortcut(ToastifyActionEnum.Exit);
 
             try
             {
@@ -607,7 +617,7 @@ namespace Toastify.Core
             catch { /* ignore */ }
         }
 
-        private void ShowSpotify()
+        public void ShowSpotify()
         {
             if (this.IsRunning)
             {
@@ -669,7 +679,7 @@ namespace Toastify.Core
             return this.spotifyProcess == null ? IntPtr.Zero : ToastifyAPI.Spotify.GetMainWindowHandle(unchecked((uint)this.spotifyProcess.Id));
         }
 
-        public void SendAction(ToastifyAction action)
+        public void SendAction(ToastifyActionEnum action)
         {
             if (!this.IsRunning)
                 return;
@@ -680,19 +690,19 @@ namespace Toastify.Core
             switch (action)
             {
 #if DEBUG
-                case ToastifyAction.ShowDebugView:
+                case ToastifyActionEnum.ShowDebugView:
 #endif
-                case ToastifyAction.None:
-                case ToastifyAction.CopyTrackInfo:
-                case ToastifyAction.PasteTrackInfo:
-                case ToastifyAction.ThumbsUp:
-                case ToastifyAction.ThumbsDown:
-                case ToastifyAction.ShowToast:
-                case ToastifyAction.SettingsSaved:
-                case ToastifyAction.Exit:
+                case ToastifyActionEnum.None:
+                case ToastifyActionEnum.CopyTrackInfo:
+                case ToastifyActionEnum.PasteTrackInfo:
+                case ToastifyActionEnum.ThumbsUp:
+                case ToastifyActionEnum.ThumbsDown:
+                case ToastifyActionEnum.ShowToast:
+                case ToastifyActionEnum.SettingsSaved:
+                case ToastifyActionEnum.Exit:
                     break;
 
-                case ToastifyAction.ShowSpotify:
+                case ToastifyActionEnum.ShowSpotify:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.ShowSpotify);
                     if (this.IsMinimized)
                         this.ShowSpotify();
@@ -700,7 +710,7 @@ namespace Toastify.Core
                         this.Minimize();
                     break;
 
-                case ToastifyAction.VolumeUp:
+                case ToastifyActionEnum.VolumeUp:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
@@ -723,7 +733,7 @@ namespace Toastify.Core
                     }
                     break;
 
-                case ToastifyAction.VolumeDown:
+                case ToastifyActionEnum.VolumeDown:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
@@ -743,7 +753,7 @@ namespace Toastify.Core
                     }
                     break;
 
-                case ToastifyAction.Mute:
+                case ToastifyActionEnum.Mute:
                     Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
@@ -760,11 +770,11 @@ namespace Toastify.Core
                     }
                     break;
 
-                case ToastifyAction.FastForward:
-                case ToastifyAction.Rewind:
-                case ToastifyAction.PlayPause:
-                case ToastifyAction.PreviousTrack:
-                case ToastifyAction.NextTrack:
+                case ToastifyActionEnum.FastForward:
+                case ToastifyActionEnum.Rewind:
+                case ToastifyActionEnum.PlayPause:
+                case ToastifyActionEnum.PreviousTrack:
+                case ToastifyActionEnum.NextTrack:
                     goto default;
 
                 default:
@@ -777,6 +787,21 @@ namespace Toastify.Core
                 Windows.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
             if (sendMediaKey)
                 Win32API.SendMediaKey(action);
+        }
+
+        public void VolumeUp()
+        {
+            this.localAPI?.IncrementVolume();
+        }
+
+        public void VolumeDown()
+        {
+            this.localAPI?.DecrementVolume();
+        }
+
+        public void ToggleMute()
+        {
+            this.localAPI?.ToggleMute();
         }
 
         private static string GetSpotifyPath()

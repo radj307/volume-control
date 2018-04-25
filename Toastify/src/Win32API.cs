@@ -85,48 +85,48 @@ namespace Toastify
             return false;
         }
 
-        public static void SendMediaKey(ToastifyAction action)
+        public static void SendMediaKey(ToastifyActionEnum action)
         {
             VirtualKeyCode virtualKey;
             switch (action)
             {
-                case ToastifyAction.PlayPause:
+                case ToastifyActionEnum.PlayPause:
                     virtualKey = VirtualKeyCode.VK_MEDIA_PLAY_PAUSE;
                     break;
 
-                case ToastifyAction.Mute:
+                case ToastifyActionEnum.Mute:
                     virtualKey = VirtualKeyCode.VK_VOLUME_MUTE;
                     break;
 
-                case ToastifyAction.VolumeDown:
+                case ToastifyActionEnum.VolumeDown:
                     virtualKey = VirtualKeyCode.VK_VOLUME_DOWN;
                     break;
 
-                case ToastifyAction.VolumeUp:
+                case ToastifyActionEnum.VolumeUp:
                     virtualKey = VirtualKeyCode.VK_VOLUME_UP;
                     break;
 
-                case ToastifyAction.PreviousTrack:
+                case ToastifyActionEnum.PreviousTrack:
                     virtualKey = VirtualKeyCode.VK_MEDIA_PREV_TRACK;
                     break;
 
-                case ToastifyAction.NextTrack:
+                case ToastifyActionEnum.NextTrack:
                     virtualKey = VirtualKeyCode.VK_MEDIA_NEXT_TRACK;
                     break;
 
-                case ToastifyAction.None:
-                case ToastifyAction.FastForward:
-                case ToastifyAction.Rewind:
-                case ToastifyAction.ShowToast:
-                case ToastifyAction.ShowSpotify:
-                case ToastifyAction.CopyTrackInfo:
-                case ToastifyAction.SettingsSaved:
-                case ToastifyAction.PasteTrackInfo:
-                case ToastifyAction.ThumbsUp:
-                case ToastifyAction.ThumbsDown:
-                case ToastifyAction.Exit:
+                case ToastifyActionEnum.None:
+                case ToastifyActionEnum.FastForward:
+                case ToastifyActionEnum.Rewind:
+                case ToastifyActionEnum.ShowToast:
+                case ToastifyActionEnum.ShowSpotify:
+                case ToastifyActionEnum.CopyTrackInfo:
+                case ToastifyActionEnum.SettingsSaved:
+                case ToastifyActionEnum.PasteTrackInfo:
+                case ToastifyActionEnum.ThumbsUp:
+                case ToastifyActionEnum.ThumbsDown:
+                case ToastifyActionEnum.Exit:
 #if DEBUG
-                case ToastifyAction.ShowDebugView:
+                case ToastifyActionEnum.ShowDebugView:
 #endif
                 default:
                     return;

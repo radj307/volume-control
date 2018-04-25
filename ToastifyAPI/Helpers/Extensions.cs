@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Input;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 
@@ -82,9 +85,24 @@ namespace ToastifyAPI.Helpers
 
         #endregion GetVirtualKey
 
+        public static Keys ConvertToWindowsFormsKeys(this Key key)
+        {
+            if (Enum.GetNames(typeof(Keys)).Contains(key.ToString(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                if (Enum.TryParse(key.ToString(), out Keys keys))
+                    return keys;
+            }
+            return Keys.None;
+        }
+
         public static uint GetScanCode(this Key key)
         {
             return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
+        }
+
+        public static object GetDefault(this Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
-MinimumVisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installation", "{FCD4BE87-8354-47A1-85DE-709E35559000}"
 	ProjectSection(SolutionItems) = preProject
 		InstallationScript\DotNetChecker.nsh = InstallationScript\DotNetChecker.nsh
@@ -28,6 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify.Tests", "Toastify.Test\Toastify.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5D68931F-528F-4D95-89BE-3EB26832AF8C} = {5D68931F-528F-4D95-89BE-3EB26832AF8C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastifyAPI.Tests", "ToastifyAPI.Tests\ToastifyAPI.Tests.csproj", "{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +102,22 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.zzz_ToastifyAPI (UWP)|Any CPU.Build.0 = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.zzz_ToastifyAPI (UWP)|x64.ActiveCfg = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.zzz_ToastifyAPI (UWP)|x64.Build.0 = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Debug)|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Debug)|Any CPU.Build.0 = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Debug)|x64.ActiveCfg = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Debug)|x64.Build.0 = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Release)|Any CPU.Build.0 = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Release)|x64.ActiveCfg = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Release)|x64.Build.0 = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Test Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Test Release)|Any CPU.Build.0 = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Test Release)|x64.ActiveCfg = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.Win (Test Release)|x64.Build.0 = Release|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|Any CPU.Build.0 = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|x64.ActiveCfg = Debug|Any CPU
+		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,9 +17,9 @@ namespace Toastify.Helpers
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Extensions));
 
-        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+        public static IList<T> Clone<T>(this IEnumerable<T> enumerableToClone) where T : ICloneable
         {
-            return listToClone.Select(item => (T)item.Clone()).ToList();
+            return enumerableToClone.Select(item => (T)item.Clone()).ToList();
         }
 
         public static bool CheckCancellation(this BackgroundWorker backgroundWorker, DoWorkEventArgs doWorkEventArgs)
