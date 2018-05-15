@@ -321,6 +321,8 @@ namespace Toastify.Core
 
                 try
                 {
+                    if(logger.IsDebugEnabled)
+                        logger.Debug($"Trying to connect to Spotify with {(!Settings.Current.UseProxy ? "no proxy" : $"proxy server \"{App.ProxyConfig}\"")}.");
                     connected = this.localAPI.Connect();
                 }
                 catch (WebException ex)
@@ -362,15 +364,6 @@ namespace Toastify.Core
             bool handled = false;
             bool openSpotifyBlocked = false;
             string openSpotifyBlockedMessage = "";
-
-            //// 1) Check if there's internet connection at all
-            if (!Net.CheckInternetConnection(App.ProxyConfig))
-            {
-                // TODO: What should we do if there's no internet connection?
-                //       Leave Toastify running but non-functional or just terminate it?
-                logger.Error("No internet connection detected.");
-                throw new ApplicationStartupException("No internet connection detected!");
-            }
 
             // ReSharper disable once MergeCastWithTypeCheck
             if (ex.InnerException is SocketException)
