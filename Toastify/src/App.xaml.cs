@@ -394,16 +394,14 @@ namespace Toastify
         [TabCompletion]
         internal class MainArgs
         {
-            // [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgShortcut("--debug")]
+            [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
             [ArgDescription("Enables Debug level logging.")]
-            [ArgCantBeCombinedWith("IsLogDisabled")]
+            [ArgCantBeCombinedWith("-disable-log")]
             public bool IsDebugLogEnabled { get; set; }
 
-            // [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgShortcut("--disable-log")]
+            [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
             [ArgDescription("Disables logging entirely.")]
-            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
+            [ArgCantBeCombinedWith("-debug")]
             public bool IsLogDisabled { get; set; } = false;
 
             [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
