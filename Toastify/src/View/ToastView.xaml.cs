@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Cache;
 using System.Net.Http;
@@ -30,16 +32,22 @@ using Toastify.ViewModel;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
-using ToastifyAPI.Native.Structs;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using PixelFormat = System.Windows.Media.PixelFormat;
 using Point = System.Windows.Point;
 using Spotify = Toastify.Core.Spotify;
 using Timer = System.Timers.Timer;
+
+#if DEBUG
+
+using ToastifyAPI.Native.Structs;
+
+#endif
 
 namespace Toastify.View
 {
@@ -69,7 +77,7 @@ namespace Toastify.View
         private SystemTray trayIcon;
 
         private Song currentSong;
-        private BitmapImage cover;
+        private BitmapSource cover;
         private string toastIconURI = "";
 
         private bool isUpdateToast;
@@ -430,7 +438,8 @@ namespace Toastify.View
                 Stream stream = null;
                 try
                 {
-                    stream = await GetAlbumArtAsStream(http, uri, async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false)).ConfigureAwait(false);
+                    stream = await GetAlbumArtAsStream(http, uri, async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false))
+                       .ConfigureAwait(false);
                     if (logger.IsDebugEnabled)
                         logger.Debug($"Album art downloaded: {albumArtUri}");
 
@@ -447,9 +456,19 @@ namespace Toastify.View
                                 bytesRead = reader.Read(bytebuffer, 0, 512);
                             }
 
+                            if (memoryStream.Length <= 0)
+                            {
+                                logger.Info($"Downloaded album art has size 0: {albumArtUri}");
+                                this.Dispatcher.Invoke(DispatcherPriority.Render, (Action)(async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false)));
+                            }
+
                             this.Dispatcher.Invoke(DispatcherPriority.Render, (Action<MemoryStream>)this.UpdateAlbumArtFromMemoryStream, memoryStream);
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Unhandled exception while updating the album art.", ex);
                 }
                 finally
                 {
@@ -498,27 +517,28 @@ namespace Toastify.View
         /// <summary>
         /// Updates the album art using the specified URI.
         /// <para />
-        /// NOTE: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(System.Action)"/>).
+        /// NOTE: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(Action)"/>).
         /// </summary>
         /// <param name="uri"></param>
         private void UpdateAlbumArtFromUri([NotNull] Uri uri)
         {
-            this.cover = new BitmapImage();
-            this.cover.BeginInit();
-            this.cover.CacheOption = BitmapCacheOption.OnLoad;
-            this.cover.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+            BitmapImage bitmapImage = new BitmapImage();
+            this.cover = bitmapImage;
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
             try
             {
-                this.cover.UriSource = uri;
+                bitmapImage.UriSource = uri;
             }
             catch (UriFormatException e)
             {
                 logger.Error($"UriFormatException with URI=[{uri}]", e);
-                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                bitmapImage.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
             }
             finally
             {
-                this.cover.EndInit();
+                bitmapImage.EndInit();
                 this.AlbumArt.Source = this.cover;
             }
         }
@@ -526,32 +546,87 @@ namespace Toastify.View
         /// <summary>
         /// Updates the album art using the specified memory stream.
         /// <para />
-        /// NOTE #1: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(System.Action)"/>).
+        /// NOTE #1: This method needs to be called from the UI thread (see <see cref="Dispatcher.Invoke(Action)"/>).
         /// <para />
         /// NOTE #2: The specified <see cref="MemoryStream"/> will be closed.
         /// </summary>
         /// <param name="memoryStream"></param>
         private void UpdateAlbumArtFromMemoryStream([NotNull] MemoryStream memoryStream)
         {
-            this.cover = new BitmapImage();
-            this.cover.BeginInit();
-            this.cover.CacheOption = BitmapCacheOption.OnLoad;
             try
             {
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                this.cover.StreamSource = memoryStream;
+                BitmapImage bitmapImage = new BitmapImage();
+                this.cover = bitmapImage;
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                try
+                {
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                }
+                catch (Exception e)
+                {
+                    logger.Error("Error while setting the stream source of the album art.", e);
+                    bitmapImage.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
+                }
+                finally
+                {
+                    bitmapImage.EndInit();
+                    this.AlbumArt.Source = this.cover;
+
+                    memoryStream.Close();
+                }
             }
             catch (Exception e)
             {
-                logger.Error("Error while setting the stream source of the album art.", e);
-                this.cover.UriSource = new Uri(ALBUM_ACCESS_DENIED_ICON, UriKind.RelativeOrAbsolute);
-            }
-            finally
-            {
-                this.cover.EndInit();
-                this.AlbumArt.Source = this.cover;
+                // Try to create a BitmapFrame from the MemoryStream.
+                logger.Warn($"Unhandled exception while updating the album art from memory stream ({memoryStream.Length} bytes)", e);
+                memoryStream.Seek(0, SeekOrigin.Begin);
 
-                memoryStream.Close();
+                try
+                {
+                    this.cover = BitmapFrame.Create(memoryStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    this.AlbumArt.Source = this.cover;
+                }
+                catch (Exception ee)
+                {
+                    logger.Error("Unhandled exception while updating the album art from a BitmapFrame", ee);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    try
+                    {
+                        // Last try: create a Bitmap from the MemoryStream and convert that to a BitmapSource
+                        using (var bitmap = new Bitmap(memoryStream))
+                        {
+                            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                            BitmapData bitmapData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+                            PixelFormat? pixelFormat = bitmap.PixelFormat.ConvertToWpfPixelFormat();
+                            if (!pixelFormat.HasValue)
+                            {
+                                logger.Error($"Unsupported bitmap pixel format: {bitmap.PixelFormat}");
+                                this.Dispatcher.Invoke(DispatcherPriority.Render, (Action)(async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false)));
+                            }
+                            else
+                            {
+                                BitmapSource bitmapSource = BitmapSource.Create(bitmapData.Width, bitmapData.Height,
+                                    bitmap.HorizontalResolution, bitmap.VerticalResolution,
+                                    pixelFormat.Value, null, bitmapData.Scan0, bitmapData.Stride * bitmapData.Height, bitmapData.Stride);
+
+                                bitmap.UnlockBits(bitmapData);
+
+                                this.cover = bitmapSource;
+                                this.AlbumArt.Source = bitmapSource;
+                            }
+                        }
+                    }
+                    catch (Exception eee)
+                    {
+                        // Don't know what else to try... :(
+                        logger.Error("Unhandled exception.", eee);
+                        this.Dispatcher.Invoke(DispatcherPriority.Render, (Action)(async () => await this.UpdateAlbumArt(DEFAULT_ICON).ConfigureAwait(false)));
+                    }
+                }
             }
         }
 

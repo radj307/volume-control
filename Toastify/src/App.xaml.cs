@@ -59,6 +59,8 @@ namespace Toastify
                     }
 
                     logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
+                    logger.Info($"Operating System: Version = {ToastifyAPI.Helpers.System.GetOSVersion()}, Friendly Name = \"{ToastifyAPI.Helpers.System.GetFriendlyOSVersion()}\"");
+                    logger.Info($"CLR: {Environment.Version}");
                     logger.Info($"Toastify version = {App.CurrentVersion}");
 
                     try

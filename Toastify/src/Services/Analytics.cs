@@ -268,26 +268,10 @@ namespace Toastify.Services
 
         private static string GetOS()
         {
-            return Environment.OSVersion.VersionString +
-                " (" + GetFriendlyOS() + ")" +
-                " (" + (Environment.Is64BitOperatingSystem ? "x64" : "x86") + ")";
-        }
-
-        private static string GetFriendlyOS()
-        {
-            object name = null;
-            try
-            {
-                var managementObjects = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem")
-                    .Get()
-                    .OfType<ManagementObject>();
-                name = (from x in managementObjects select x.GetPropertyValue("Caption")).FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                logger.Error("Error while getting FriendlyOS.", e);
-            }
-            return name?.ToString() ?? "Unknown";
+            string version = ToastifyAPI.Helpers.System.GetOSVersion();
+            string friendlyVersion = ToastifyAPI.Helpers.System.GetFriendlyOSVersion();
+            string arch = Environment.Is64BitOperatingSystem ? "x64" : "x86";
+            return $"{version} ({friendlyVersion}) ({arch})";
         }
 
         private static string GetMachineID()
