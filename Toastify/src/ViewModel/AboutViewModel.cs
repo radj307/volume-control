@@ -10,6 +10,8 @@ namespace Toastify.ViewModel
 
         private string _updateUrl;
 
+        public string ToastifyVersion { get { return $"v{App.CurrentVersionNoRevision}"; } }
+
         public string HomepageUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo");
 
         public string HomepageUrlNoScheme { get { return $"{this.homepageUri.Host}{this.homepageUri.PathAndQuery}"; } }
