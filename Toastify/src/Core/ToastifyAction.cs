@@ -35,6 +35,9 @@ namespace Toastify.Core
         [EnumReadableName("Thumbs Down")]
         ThumbsDown = 7,
 
+        [EnumReadableName("Stop")]
+        Stop = 0x000D0000L,
+
         [EnumReadableName("Play / Pause")]
         PlayPause = 0x000E0000L,
 

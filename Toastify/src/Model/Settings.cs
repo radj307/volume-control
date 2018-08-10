@@ -145,6 +145,7 @@ namespace Toastify.Model
         private readonly List<Hotkey> defaultHotKeys = new List<Hotkey>
         {
             new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Space   , Action = ToastifyAction.ShowToast     , Enabled = true  },
+            new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Down    , Action = ToastifyAction.Stop          , Enabled = false },
             new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Up      , Action = ToastifyAction.PlayPause     , Enabled = true  },
             new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Right   , Action = ToastifyAction.NextTrack     , Enabled = true  },
             new Hotkey { Ctrl = true, Alt = true ,               KeyOrButton = Key.Left    , Action = ToastifyAction.PreviousTrack , Enabled = true  },
@@ -877,11 +878,14 @@ namespace Toastify.Model
             if (this._hotKeys == null)
                 return;
 
-            // Remove duplicate hotkeys
-            this._hotKeys = this._hotKeys.Distinct(Hotkey.EqualityComparerOnAction).ToList();
+            // Remove duplicate and invalid hotkeys, sort them by Action
+            this._hotKeys = this._hotKeys
+                                .Where(h => h.Action != ToastifyAction.None)
+                                .Distinct(Hotkey.EqualityComparerOnAction)
+                                .OrderBy(h => h.HumanReadableAction).ToList();
 
             // Bring the Toast inside the working area if it is off-screen
-            System.Windows.Rect toastRect = new System.Windows.Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
             Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
