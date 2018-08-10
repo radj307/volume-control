@@ -530,6 +530,10 @@ namespace Toastify.Model
             hotkey.LastPressTime = DateTime.Now;
             LastHotkey = hotkey;
 
+            // TODO: TEMPORARY FIX: Never show the toast on demand!
+            if (hotkey.Action == ToastifyAction.ShowToast)
+                return;
+
             if (logger.IsDebugEnabled)
                 logger.Debug($"HotkeyActionCallback: {hotkey.Action}");
 

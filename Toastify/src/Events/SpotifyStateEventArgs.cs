@@ -19,7 +19,7 @@ namespace Toastify.Events
             this.Volume = volume;
         }
 
-        public SpotifyStateEventArgs(StatusResponse spotifyStatus) : this(spotifyStatus.Track, spotifyStatus.Playing, spotifyStatus.PlayingPosition, spotifyStatus.Volume)
+        public SpotifyStateEventArgs(StatusResponse spotifyStatus) : this(spotifyStatus?.Track, spotifyStatus?.Playing ?? false, spotifyStatus?.PlayingPosition ?? -1, spotifyStatus?.Volume ?? -1)
         {
         }
     }

@@ -158,7 +158,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Toast" Name="TabToast">
+            <TabItem Header="Toast" Name="TabToast" Visibility="Collapsed">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
 

@@ -98,7 +98,7 @@ namespace Toastify.Core
 
         public Song CurrentSong
         {
-            get { return this._currentSong ?? (this._currentSong = this.Status.Track); }
+            get { return this._currentSong ?? (this._currentSong = this.Status?.Track); }
             private set { this._currentSong = value; }
         }
 
@@ -143,11 +143,11 @@ namespace Toastify.Core
             };
             this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
 
-            this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
-            this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
-            this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
-            this.localAPI.OnVolumeChange += this.SpotifyLocalAPI_OnVolumeChange;
-            this.localAPI.ListenForEvents = true;
+            //this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
+            //this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
+            //this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
+            //this.localAPI.OnVolumeChange += this.SpotifyLocalAPI_OnVolumeChange;
+            //this.localAPI.ListenForEvents = true;
         }
 
         public void StartSpotify()
@@ -183,7 +183,7 @@ namespace Toastify.Core
             this.spotifyProcess.EnableRaisingEvents = true;
             this.spotifyProcess.Exited += this.Spotify_Exited;
 
-            this.ConnectWithSpotify(e);
+            //this.ConnectWithSpotify(e);
         }
 
         private void StartSpotify_WorkerTaskCompleted(object sender, RunWorkerCompletedEventArgs e)
