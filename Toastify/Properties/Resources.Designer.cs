@@ -139,6 +139,16 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t find Spotify executable.
+        ///Try to start Spotify manually before launching Toastify..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toastify timed out while trying to start, find or connect to Spotify..
         /// </summary>
         internal static string ERROR_STARTUP_SPOTIFY_TIMEOUT {

@@ -265,6 +265,9 @@ namespace Toastify.Core
         {
             logger.Info("Launching Spotify...");
 
+            if (string.IsNullOrWhiteSpace(this.spotifyPath))
+                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_NOT_FOUND);
+
             // Launch Spotify.
             this.spotifyProcess = Process.Start(this.spotifyPath, App.SpotifyParameters);
 

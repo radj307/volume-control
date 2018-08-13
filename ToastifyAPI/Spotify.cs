@@ -25,27 +25,33 @@ namespace ToastifyAPI
         [NotNull]
         public static string GetSpotifyPath()
         {
-            string spotifyPath = GetSpotifyPath_platform() ?? GetSpotifyPath_common();
-
-            if (string.IsNullOrEmpty(spotifyPath) || !System.IO.File.Exists(spotifyPath))
-                throw new ArgumentException("Could not find spotify executable.");
+            string spotifyPath = GetSpotifyPath_platform();
+            if (string.IsNullOrWhiteSpace(spotifyPath))
+            {
+                spotifyPath = GetSpotifyPath_common();
+                if (string.IsNullOrWhiteSpace(spotifyPath) || !File.Exists(spotifyPath))
+                    throw new FileNotFoundException("Could not find spotify executable", "Spotify.exe");
+            }
 
             return spotifyPath;
         }
 
-        [NotNull]
+        [CanBeNull]
         private static string GetSpotifyPath_common()
         {
-            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, String.Empty) as string;
+            string spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Spotify", string.Empty, string.Empty) as string;
 
-            // Try the Uninstall key
-            if (string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", String.Empty) as string;
+            // Try the Uninstall keys
+            if (string.IsNullOrWhiteSpace(spotifyPath))
+                spotifyPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
 
-            if (!string.IsNullOrEmpty(spotifyPath))
-                spotifyPath = Path.Combine(spotifyPath, "Spotify.exe");
+            if (string.IsNullOrWhiteSpace(spotifyPath))
+                spotifyPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
 
-            return spotifyPath;
+            if (string.IsNullOrWhiteSpace(spotifyPath))
+                spotifyPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Spotify", "InstallLocation", string.Empty) as string;
+
+            return !string.IsNullOrWhiteSpace(spotifyPath) ? Path.Combine(spotifyPath, "Spotify.exe") : spotifyPath;
         }
 
         [CanBeNull]
