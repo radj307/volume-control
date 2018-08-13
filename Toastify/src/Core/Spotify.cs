@@ -771,6 +771,7 @@ namespace Toastify.Core
 
                 case ToastifyAction.FastForward:
                 case ToastifyAction.Rewind:
+                case ToastifyAction.Stop:
                 case ToastifyAction.PlayPause:
                 case ToastifyAction.PreviousTrack:
                 case ToastifyAction.NextTrack:
