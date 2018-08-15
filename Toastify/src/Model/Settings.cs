@@ -1,8 +1,4 @@
-﻿using JetBrains.Annotations;
-using log4net;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +12,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
+using log4net;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.DI;
@@ -33,76 +33,19 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Settings));
 
-        private static readonly Regex regex4ChannelsColor = new Regex("^#[0-9A-F]{8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        #region Settings instances
-
-        private static Settings _current;
-        private static Settings _default;
-
-        /// <summary>
-        /// The currently applied settings. Whenever they get modified, the Settings file should be modified too.
-        /// </summary>
-        public static Settings Current
-        {
-            get
-            {
-                if (_current == null)
-                {
-                    _current = new Settings();
-                    App.Container.BuildUp(_current);
-                }
-                return _current;
-            }
-            private set
-            {
-                if (_current != null)
-                {
-                    _current.Unload();
-
-                    _current = value;
-                    App.Container.BuildUp(_current);
-
-                    _current.Apply();
-                }
-            }
-        }
-
-        /// <summary>
-        /// A temporary copy of the Current settings that can be modified without affecting the applied settings.
-        /// </summary>
-        public static Settings Temporary
-        {
-            get { return _current?.Clone(); }
-        }
-
-        public static Settings Default
-        {
-            get
-            {
-                if (_default == null)
-                {
-                    _default = new Settings();
-                    _default?.SetDefault();
-                    App.Container.BuildUp(_default);
-                }
-                return _default;
-            }
-        }
-
-        #endregion Settings instances
-
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILENAME = "Toastify.cfg";
+
+        private static readonly Regex regex4ChannelsColor = new Regex("^#[0-9A-F]{8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static string _settingsFilePath;
 
         public static JsonSerializerSettings JsonSerializerSettings { get; }
 
         public static JsonSerializer JsonSerializer { get; }
 
-        private static string _settingsFilePath;
-
         /// <summary>
-        /// Returns the location of the settings file
+        ///     Returns the location of the settings file
         /// </summary>
         public static string SettingsFilePath
         {
@@ -134,10 +77,427 @@ namespace Toastify.Model
             }
         }
 
+        #region Public properties
+
         // TODO: When the Settings class will not be a Singleton anymore, this dependency can be moved to the public constructor.
         [JsonIgnore]
         [PropertyDependency]
         public IToastifyActionRegistry ToastifyActionRegistry { get; set; }
+
+        #endregion
+
+        static Settings()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new JsonConverterContractResolver(),
+                StringEscapeHandling = StringEscapeHandling.Default,
+                FloatParseHandling = FloatParseHandling.Decimal,
+                FloatFormatHandling = FloatFormatHandling.String,
+                DateParseHandling = DateParseHandling.DateTime,
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Formatting = Formatting.Indented,
+                MaxDepth = null,
+                Culture = CultureInfo.InvariantCulture,
+                ConstructorHandling = ConstructorHandling.Default,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                TypeNameHandling = TypeNameHandling.None,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                NullValueHandling = NullValueHandling.Ignore,
+                ObjectCreationHandling = ObjectCreationHandling.Auto,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Error = JsonSerializer_Error
+            };
+
+            JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
+            JsonSerializer.Error += JsonSerializer_Error;
+        }
+
+        private Settings()
+        {
+        }
+
+        ~Settings()
+        {
+            this.Unload();
+        }
+
+        /// <summary>
+        ///     Save the current Settings instance to the file system.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        ///     if this instance is not <see cref="Current" />. Call
+        ///     <see cref="SetAsCurrentAndSave" />, instead.
+        /// </exception>
+        public void Save()
+        {
+            if (this != Current)
+                throw new InvalidOperationException("Cannot save non-Current instance of Settings");
+
+            this.SanitizeSettingsInstance();
+            using (var sw = new StreamWriter(SettingsFilePath, false))
+            {
+                JsonSerializer.Serialize(sw, this);
+            }
+
+            // Save settings that were not serialized
+            if (this._launchOnStartup.HasValue)
+                this.LaunchOnStartup = this._launchOnStartup.Value;
+        }
+
+        /// <summary>
+        ///     Loads the Settings instance from the file system onto the Current Settings.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current" />.</exception>
+        /// <exception cref="FileNotFoundException">if the serialized settings file was not found.</exception>
+        public void Load()
+        {
+            if (this != Current)
+                throw new InvalidOperationException("Cannot load settings onto non-Current instance");
+
+            // Load default values
+            bool launchOnStartup = this.LaunchOnStartup;
+            this.SetDefault(false);
+            this.LaunchOnStartup = launchOnStartup;
+
+            // Populate with saved values
+            using (var sr = new StreamReader(SettingsFilePath))
+            {
+                JsonSerializer.Populate(sr, this);
+            }
+
+            this.CheckForNewSettings();
+            this.SanitizeSettingsFile();
+            this.Apply();
+        }
+
+        /// <summary>
+        ///     Loads the Settings instance from the file system onto the Current Settings or use default settings.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current" />.</exception>
+        public void LoadSafe()
+        {
+            try
+            {
+                this.Load();
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                bool launchOnStartup = this.LaunchOnStartup;
+                Current.SetDefault();
+                this.LaunchOnStartup = launchOnStartup;
+
+                Current.Save();
+            }
+        }
+
+        /// <summary>
+        ///     Saves this instance of Settings as Current to the file system.
+        /// </summary>
+        public void SetAsCurrentAndSave()
+        {
+            Current = this;
+            this.Save();
+        }
+
+        /// <summary>
+        ///     Helpful place to fix common issues with settings files
+        /// </summary>
+        private void SanitizeSettingsFile()
+        {
+            this.SanitizeSettingsInstance();
+            this.Save();
+        }
+
+        /// <summary>
+        ///     Helpful place to fix common issues with settings files
+        /// </summary>
+        private void SanitizeSettingsInstance()
+        {
+            if (this._hotKeys != null)
+            {
+                // Remove duplicate hotkeys
+                bool Equals(Hotkey h1, Hotkey h2) => h1?.Action?.Equals(h2?.Action) ?? h2?.Action == null;
+                int GetHashCode(Hotkey h) => h?.Action?.GetHashCode() ?? 0;
+
+                this._hotKeys = (from h in this._hotKeys.Distinct(Equals, GetHashCode)
+                                 let toastifyAction = h.Action as ToastifyAction
+                                 where h.Action != null && (toastifyAction == null || toastifyAction.ToastifyActionEnum != ToastifyActionEnum.None)
+                                 orderby h.HumanReadableAction
+                                 select h).ToList();
+            }
+
+            // Bring the Toast inside the working area if it is off-screen
+            var toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
+            this.PositionLeft += offsetVector.X;
+            this.PositionTop += offsetVector.Y;
+
+            // Validate WindowsVolumeMixerIncrement: must be positive!
+            this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
+
+            // Validate StartupWaitTimeout: it cannot be negative!
+            this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
+        }
+
+        /// <summary>
+        ///     Called when loading a settings file to iterate through new dynamic properties (such as Hotkeys)
+        ///     which may have changed and would otherwise be hidden from the user
+        /// </summary>
+        private void CheckForNewSettings()
+        {
+            foreach (Hotkey defaultHotkey in this.DefaultHotkeys)
+            {
+                bool found = this.HotKeys.Any(hotkey => hotkey.Action?.Equals(defaultHotkey.Action) ?? defaultHotkey.Action == null);
+
+                if (!found)
+                    this.HotKeys.Add((Hotkey)defaultHotkey.Clone());
+            }
+        }
+
+        /// <summary>
+        ///     Any active settings (such as hotkeys) should be triggered here
+        /// </summary>
+        private void Apply()
+        {
+            if (this.GlobalHotKeys && this.HotKeys != null)
+            {
+                foreach (Hotkey hotkey in this.HotKeys)
+                {
+                    hotkey.Activate();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Any active settings (such as hotkeys) should be unloaded here
+        /// </summary>
+        private void Unload()
+        {
+            if (this.HotKeys != null)
+            {
+                foreach (Hotkey hotkey in this.HotKeys)
+                {
+                    hotkey.Deactivate();
+                }
+            }
+        }
+
+        public Settings Clone()
+        {
+            var clone = this.MemberwiseClone() as Settings;
+
+            if (clone != null)
+            {
+                // Hotkeys
+                clone.HotKeys = new List<Hotkey>();
+
+                foreach (Hotkey key in this.HotKeys)
+                {
+                    clone.HotKeys.Add((Hotkey)key.Clone());
+                }
+
+                // SettingValue<>'s
+                IEnumerable<PropertyInfo> properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                                                       .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
+                foreach (PropertyInfo property in properties)
+                {
+                    property.SetValue(clone, null);
+
+                    var value = (ISettingValue)property.GetValue(this);
+                    property.SetValue(clone, value?.Clone());
+                }
+
+                // ProxyConfig
+                clone._proxyConfig = (ProxyConfigAdapter)this._proxyConfig.Clone();
+            }
+
+            return clone;
+        }
+
+        /// <summary>
+        ///     Get a <see cref="SettingValue{T}" />. Its value is first checked against its constraints and changed to its default
+        ///     value if necessary.
+        /// </summary>
+        /// <typeparam name="T"> Type of setting. </typeparam>
+        /// <param name="field"> A reference to the property's field. </param>
+        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
+        /// <returns> Returns <paramref name="field" />. </returns>
+        private SettingValue<T> GetSettingValue<T>(ref SettingValue<T> field, [CallerMemberName] string callerPropertyName = null)
+            where T : IComparable, IConvertible
+        {
+            if (field != null && !field.CheckConstraintsSafe())
+                this.SetSettingValue(ref field, field.Default, callerPropertyName);
+            return field;
+        }
+
+        /// <summary>
+        ///     Set the value of a <see cref="SettingValue{T}" /> if it has changed and notifies the change using the
+        ///     <see cref="System.ComponentModel.INotifyPropertyChanged" /> interface.
+        /// </summary>
+        /// <typeparam name="T"> Type of setting. </typeparam>
+        /// <param name="field"> A reference to the property's field. </param>
+        /// <param name="newValue"> The new value. </param>
+        /// <param name="propertyName">
+        ///     An optional property name to use in place of the automatically provided
+        ///     <paramref name="callerPropertyName" />.
+        /// </param>
+        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
+        private void SetSettingValue<T>(ref SettingValue<T> field, SettingValue<T> newValue, [CanBeNull] string propertyName = null, [CallerMemberName] string callerPropertyName = null)
+            where T : IComparable, IConvertible
+        {
+            if (field == null)
+            {
+                field = newValue;
+                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
+            }
+            else if (newValue == null)
+                field = null;
+            else if (field.SetValueIfChanged(newValue))
+                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
+        }
+
+        private static T DefaultValueOf<T>(SettingValue<T> _, [NotNull] string propertyName) where T : IComparable, IConvertible
+        {
+            PropertyInfo property = typeof(Settings).GetProperty(propertyName);
+            if (property == null)
+                return default(T);
+
+            DefaultValueAttribute attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
+            if (attribute == null)
+                return default(T);
+
+            return attribute.Value is T @default ? @default : default(T);
+        }
+
+        private static T DefaultValueOf<T>(T _, [NotNull] string propertyName)
+        {
+            PropertyInfo property = typeof(Settings).GetProperty(propertyName);
+            if (property == null)
+                return default(T);
+
+            DefaultValueAttribute attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
+            if (attribute == null)
+                return default(T);
+
+            return attribute.Value is T @default ? @default : default(T);
+        }
+
+        internal static string PrintSettings(int indentLevel = 0)
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < indentLevel; ++i)
+                sb.Append("\t");
+            string indent = sb.ToString();
+
+            sb.Clear();
+
+            PropertyInfo[] properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (PropertyInfo property in properties)
+            {
+                object current = property.GetValue(Current);
+                if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
+                    sb.Append($"{indent}{property.Name}: {current}\n");
+                else
+                {
+                    if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
+                        continue;
+
+                    if (property.PropertyType == typeof(ProxyConfigAdapter))
+                    {
+                        var proxy = (ProxyConfigAdapter)current;
+                        sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}\n");
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
+        {
+            if (errorEventArgs.ErrorContext.Error.InnerException is ArgumentException)
+            {
+                // ReSharper disable once LocalNameCapturedOnly
+                // ReSharper disable once RedundantAssignment
+                if (errorEventArgs.CurrentObject is Hotkey hotkey)
+                {
+                    if (errorEventArgs.ErrorContext.Path.EndsWith(nameof(hotkey.Action)))
+                        errorEventArgs.ErrorContext.Handled = true;
+                }
+            }
+
+            if (!errorEventArgs.ErrorContext.Handled)
+                logger.Error("JsonSerializer error.", errorEventArgs.ErrorContext.Error);
+        }
+
+        #region Settings instances
+
+        private static Settings _current;
+        private static Settings _default;
+
+        /// <summary>
+        ///     The currently applied settings. Whenever they get modified, the Settings file should be modified too.
+        /// </summary>
+        public static Settings Current
+        {
+            get
+            {
+                if (_current == null)
+                {
+                    _current = new Settings();
+                    App.Container.BuildUp(_current);
+                }
+
+                return _current;
+            }
+            private set
+            {
+                if (_current != null)
+                {
+                    _current.Unload();
+
+                    _current = value;
+                    App.Container.BuildUp(_current);
+
+                    _current.Apply();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     A temporary copy of the Current settings that can be modified without affecting the applied settings.
+        /// </summary>
+        public static Settings Temporary
+        {
+            get { return _current?.Clone(); }
+        }
+
+        public static Settings Default
+        {
+            get
+            {
+                if (_default == null)
+                {
+                    _default = new Settings();
+                    _default?.SetDefault();
+                    App.Container.BuildUp(_default);
+                }
+
+                return _default;
+            }
+        }
+
+        #endregion Settings instances
 
         #region Settings
 
@@ -197,7 +557,7 @@ namespace Toastify.Model
 
         private SettingValue<DateTime> _lastVersionCheck;
 
-        #endregion Private fields
+        #endregion
 
         #region [General]
 
@@ -210,7 +570,7 @@ namespace Toastify.Model
             get
             {
                 bool regValue;
-                using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false))
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, false))
                 {
                     regValue = key?.GetValue("Toastify", null) != null;
                 }
@@ -226,7 +586,7 @@ namespace Toastify.Model
             {
                 if (this == Current)
                 {
-                    using (var key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_STARTUP, true))
                     {
                         if (value)
                             key?.SetValue("Toastify", $"\"{Application.ExecutablePath}\"");
@@ -310,7 +670,7 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._optInToAnalytics, value); }
         }
 
-        #endregion [General]
+        #endregion
 
         #region [Hotkeys]
 
@@ -335,18 +695,19 @@ namespace Toastify.Model
             {
                 return this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
                 {
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Space   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowToast), Enabled = true },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Up      , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PlayPause), Enabled = true },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Right   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.NextTrack), Enabled = true },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Left    , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PreviousTrack), Enabled = true },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Add     , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeUp), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.Subtract, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeDown), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt                     , Key = Key.M       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Mute), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Right   , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.FastForward), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Left    , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Rewind), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                                        , Key = Key.S       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowSpotify), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                    | ModifierKeys.Shift, Key = Key.C       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.CopyTrackInfo), Enabled = false },
-                    new KeyboardHotkey { Modifiers = ModifierKeys.Control                    | ModifierKeys.Shift, Key = Key.V       , Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PasteTrackInfo), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Space, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowToast), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Down, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Stop), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Up, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PlayPause), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Right, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.NextTrack), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Left, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PreviousTrack), Enabled = true },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Add, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeUp), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Subtract, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.VolumeDown), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.M, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Mute), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Right, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.FastForward), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt | ModifierKeys.Shift, Key = Key.Left, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Rewind), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control, Key = Key.S, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowSpotify), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Shift, Key = Key.C, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.CopyTrackInfo), Enabled = false },
+                    new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Shift, Key = Key.V, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.PasteTrackInfo), Enabled = false },
 
 #if DEBUG
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control, Key = Key.D, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowDebugView), Enabled = true },
@@ -355,7 +716,7 @@ namespace Toastify.Model
             }
         }
 
-        #endregion [Hotkeys]
+        #endregion
 
         #region [Toast]
 
@@ -367,7 +728,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Only show the toast when the `<see cref="ToastifyActionEnum.ShowToast"/>` hotkey is pressed.
+        ///     Only show the toast when the `<see cref="ToastifyActionEnum.ShowToast" />` hotkey is pressed.
         /// </summary>
         [DefaultValue(true)]
         public SettingValue<bool> OnlyShowToastOnHotkey
@@ -591,7 +952,7 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._songProgressBarForegroundColor, value); }
         }
 
-        #endregion [Toast]
+        #endregion
 
         #region [Advanced]
 
@@ -625,7 +986,7 @@ namespace Toastify.Model
             }
         }
 
-        #endregion [Advanced]
+        #endregion
 
         #region (hidden)
 
@@ -646,51 +1007,11 @@ namespace Toastify.Model
 
         public List<PluginDetails> Plugins { get; set; }
 
-        #endregion (hidden)
+        #endregion
 
-        #endregion Settings
+        #endregion
 
-        static Settings()
-        {
-            JsonSerializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = new JsonConverterContractResolver(),
-                StringEscapeHandling = StringEscapeHandling.Default,
-                FloatParseHandling = FloatParseHandling.Decimal,
-                FloatFormatHandling = FloatFormatHandling.String,
-                DateParseHandling = DateParseHandling.DateTime,
-                DateTimeZoneHandling = DateTimeZoneHandling.Local,
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                Formatting = Formatting.Indented,
-                MaxDepth = null,
-                Culture = CultureInfo.InvariantCulture,
-                ConstructorHandling = ConstructorHandling.Default,
-                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
-                MetadataPropertyHandling = MetadataPropertyHandling.Default,
-                TypeNameHandling = TypeNameHandling.None,
-                PreserveReferencesHandling = PreserveReferencesHandling.None,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
-                NullValueHandling = NullValueHandling.Ignore,
-                ObjectCreationHandling = ObjectCreationHandling.Auto,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Error = JsonSerializer_Error
-            };
-
-            JsonSerializer = JsonSerializer.Create(JsonSerializerSettings);
-            JsonSerializer.Error += JsonSerializer_Error;
-        }
-
-        private Settings()
-        {
-        }
-
-        ~Settings()
-        {
-            this.Unload();
-        }
-
-        #region Default
+        #region SetDefault*
 
         public void SetDefault()
         {
@@ -750,7 +1071,9 @@ namespace Toastify.Model
             if (this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
+                {
                     hotkey.Deactivate();
+                }
             }
 
             this.HotKeys = (List<Hotkey>)this.DefaultHotkeys.Clone();
@@ -758,7 +1081,9 @@ namespace Toastify.Model
             if (activateHotkeys && this == _current && this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
+                {
                     hotkey.Activate();
+                }
             }
         }
 
@@ -814,301 +1139,18 @@ namespace Toastify.Model
             this.ProxyConfig = new ProxyConfigAdapter();
         }
 
-        #endregion Default
-
-        /// <summary>
-        /// Save the current Settings instance to the file system.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>. Call <see cref="SetAsCurrentAndSave"/>, instead.</exception>
-        public void Save()
-        {
-            if (this != Current)
-                throw new InvalidOperationException("Cannot save non-Current instance of Settings");
-
-            using (StreamWriter sw = new StreamWriter(SettingsFilePath, false))
-            {
-                JsonSerializer.Serialize(sw, this);
-            }
-
-            // Save settings that were not serialized
-            if (this._launchOnStartup.HasValue)
-                this.LaunchOnStartup = this._launchOnStartup.Value;
-        }
-
-        /// <summary>
-        /// Loads the Settings instance from the file system onto the Current Settings.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>.</exception>
-        /// <exception cref="FileNotFoundException">if the serialized settings file was not found.</exception>
-        public void Load()
-        {
-            if (this != Current)
-                throw new InvalidOperationException("Cannot load settings onto non-Current instance");
-
-            // Load default values
-            bool launchOnStartup = this.LaunchOnStartup;
-            this.SetDefault(false);
-            this.LaunchOnStartup = launchOnStartup;
-
-            // Populate with saved values
-            using (StreamReader sr = new StreamReader(SettingsFilePath))
-            {
-                JsonSerializer.Populate(sr, this);
-            }
-
-            this.CheckForNewSettings();
-            this.SanitizeSettingsFile();
-            this.Apply();
-        }
-
-        /// <summary>
-        /// Loads the Settings instance from the file system onto the Current Settings or use default settings.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">if this instance is not <see cref="Current"/>.</exception>
-        public void LoadSafe()
-        {
-            try
-            {
-                this.Load();
-            }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                bool launchOnStartup = this.LaunchOnStartup;
-                Current.SetDefault();
-                this.LaunchOnStartup = launchOnStartup;
-
-                Current.Save();
-            }
-        }
-
-        /// <summary>
-        /// Saves this instance of Settings as Current to the file system.
-        /// </summary>
-        public void SetAsCurrentAndSave()
-        {
-            Current = this;
-            this.Save();
-        }
-
-        /// <summary>
-        /// Helpful place to fix common issues with settings files
-        /// </summary>
-        private void SanitizeSettingsFile()
-        {
-            if (this._hotKeys == null)
-                return;
-
-            // Remove duplicate hotkeys
-            bool Equals(Hotkey h1, Hotkey h2) => h1?.Action?.Equals(h2?.Action) ?? h2?.Action == null;
-            int GetHashCode(Hotkey h) => h?.Action?.GetHashCode() ?? 0;
-            this._hotKeys = this._hotKeys.Distinct(Equals, GetHashCode).ToList();
-
-            // Bring the Toast inside the working area if it is off-screen
-            Rect toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
-            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
-            this.PositionLeft += offsetVector.X;
-            this.PositionTop += offsetVector.Y;
-
-            // Validate WindowsVolumeMixerIncrement: must be positive!
-            this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
-
-            // Validate StartupWaitTimeout: it cannot be negative!
-            this.StartupWaitTimeout = Math.Abs(this.StartupWaitTimeout);
-
-            this.Save();
-        }
-
-        /// <summary>
-        /// Called when loading a settings file to iterate through new dynamic properties (such as Hotkeys)
-        /// which may have changed and would otherwise be hidden from the user
-        /// </summary>
-        private void CheckForNewSettings()
-        {
-            foreach (Hotkey defaultHotkey in this.DefaultHotkeys)
-            {
-                bool found = this.HotKeys.Any(hotkey => hotkey.Action?.Equals(defaultHotkey.Action) ?? defaultHotkey.Action == null);
-
-                if (!found)
-                    this.HotKeys.Add((Hotkey)defaultHotkey.Clone());
-            }
-        }
-
-        /// <summary>
-        /// Any active settings (such as hotkeys) should be triggered here
-        /// </summary>
-        private void Apply()
-        {
-            if (this.GlobalHotKeys && this.HotKeys != null)
-            {
-                foreach (Hotkey hotkey in this.HotKeys)
-                    hotkey.Activate();
-            }
-        }
-
-        /// <summary>
-        /// Any active settings (such as hotkeys) should be unloaded here
-        /// </summary>
-        private void Unload()
-        {
-            if (this.HotKeys != null)
-            {
-                foreach (Hotkey hotkey in this.HotKeys)
-                    hotkey.Deactivate();
-            }
-        }
-
-        public Settings Clone()
-        {
-            Settings clone = this.MemberwiseClone() as Settings;
-
-            if (clone != null)
-            {
-                // Hotkeys
-                clone.HotKeys = new List<Hotkey>();
-
-                foreach (Hotkey key in this.HotKeys)
-                    clone.HotKeys.Add((Hotkey)key.Clone());
-
-                // SettingValue<>'s
-                var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                                 .Where(p => p.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)));
-                foreach (var property in properties)
-                {
-                    property.SetValue(clone, null);
-
-                    var value = (ISettingValue)property.GetValue(this);
-                    property.SetValue(clone, value?.Clone());
-                }
-
-                // ProxyConfig
-                clone._proxyConfig = (ProxyConfigAdapter)this._proxyConfig.Clone();
-            }
-
-            return clone;
-        }
-
-        /// <summary>
-        /// Get a <see cref="SettingValue{T}"/>. Its value is first checked against its constraints and changed to its default value if necessary.
-        /// </summary>
-        /// <typeparam name="T"> Type of setting. </typeparam>
-        /// <param name="field"> A reference to the property's field. </param>
-        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
-        /// <returns> Returns <paramref name="field"/>. </returns>
-        private SettingValue<T> GetSettingValue<T>(ref SettingValue<T> field, [CallerMemberName] string callerPropertyName = null)
-            where T : IComparable, IConvertible
-        {
-            if (field != null && !field.CheckConstraintsSafe())
-                this.SetSettingValue(ref field, field.Default, callerPropertyName);
-            return field;
-        }
-
-        /// <summary>
-        /// Set the value of a <see cref="SettingValue{T}"/> if it has changed and notifies the change using the <see cref="System.ComponentModel.INotifyPropertyChanged"/> interface.
-        /// </summary>
-        /// <typeparam name="T"> Type of setting. </typeparam>
-        /// <param name="field"> A reference to the property's field. </param>
-        /// <param name="newValue"> The new value. </param>
-        /// <param name="propertyName"> An optional property name to use in place of the automatically provided <paramref name="callerPropertyName"/>. </param>
-        /// <param name="callerPropertyName"> Ignore. Filled automatically at runtime. </param>
-        private void SetSettingValue<T>(ref SettingValue<T> field, SettingValue<T> newValue, [CanBeNull] string propertyName = null, [CallerMemberName] string callerPropertyName = null)
-            where T : IComparable, IConvertible
-        {
-            if (field == null)
-            {
-                field = newValue;
-                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
-            }
-            else if (newValue == null)
-                field = null;
-            else if (field.SetValueIfChanged(newValue))
-                this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
-        }
-
-        private static T DefaultValueOf<T>(SettingValue<T> _, [NotNull] string propertyName) where T : IComparable, IConvertible
-        {
-            var property = typeof(Settings).GetProperty(propertyName);
-            if (property == null)
-                return default(T);
-
-            var attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
-            if (attribute == null)
-                return default(T);
-
-            return attribute.Value is T @default ? @default : default(T);
-        }
-
-        private static T DefaultValueOf<T>(T _, [NotNull] string propertyName)
-        {
-            var property = typeof(Settings).GetProperty(propertyName);
-            if (property == null)
-                return default(T);
-
-            var attribute = property.GetCustomAttributes<DefaultValueAttribute>().FirstOrDefault();
-            if (attribute == null)
-                return default(T);
-
-            return attribute.Value is T @default ? @default : default(T);
-        }
-
-        internal static string PrintSettings(int indentLevel = 0)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < indentLevel; ++i)
-                sb.Append("\t");
-            string indent = sb.ToString();
-
-            sb.Clear();
-
-            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (var property in properties)
-            {
-                object current = property.GetValue(Current);
-                if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
-                    sb.Append($"{indent}{property.Name}: {current}\n");
-                else
-                {
-                    if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
-                        continue;
-
-                    if (property.PropertyType == typeof(ProxyConfigAdapter))
-                    {
-                        ProxyConfigAdapter proxy = (ProxyConfigAdapter)current;
-                        sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}\n");
-                    }
-                }
-            }
-
-            return sb.ToString();
-        }
-
-        private static void JsonSerializer_Error(object sender, ErrorEventArgs errorEventArgs)
-        {
-            if (errorEventArgs.ErrorContext.Error.InnerException is ArgumentException)
-            {
-                // ReSharper disable once LocalNameCapturedOnly
-                // ReSharper disable once RedundantAssignment
-                if (errorEventArgs.CurrentObject is Hotkey hotkey)
-                {
-                    if (errorEventArgs.ErrorContext.Path.EndsWith(nameof(hotkey.Action)))
-                        errorEventArgs.ErrorContext.Handled = true;
-                }
-            }
-
-            if (!errorEventArgs.ErrorContext.Handled)
-                logger.Error("JsonSerializer error.", errorEventArgs.ErrorContext.Error);
-        }
+        #endregion
     }
 
     [Serializable]
     public class PluginDetails
     {
+        #region Public properties
+
         public string FileName { get; set; }
         public string TypeName { get; set; }
         public string Settings { get; set; }
+
+        #endregion
     }
 }

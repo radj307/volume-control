@@ -1,16 +1,19 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Windows.Forms;
+using System.Windows.Input;
+using JetBrains.Annotations;
 using log4net;
 using ManagedWinapi;
 using Newtonsoft.Json;
-using System;
-using System.Windows.Forms;
-using System.Windows.Input;
+using Newtonsoft.Json.Converters;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
 {
+    [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class KeyboardHotkey : Hotkey, IKeyboardHotkey
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(KeyboardHotkey));
@@ -21,7 +24,10 @@ namespace Toastify.Model
         private Key? _key;
         private bool isValid;
 
+        #region Public properties
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include, NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public Key? Key
         {
             get { return this._key; }
@@ -37,6 +43,8 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public override ModifierKeys Modifiers
         {
             get { return base.Modifiers; }
@@ -52,7 +60,6 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
-        [JsonIgnore]
         public override string HumanReadableKey
         {
             get
@@ -64,6 +71,8 @@ namespace Toastify.Model
                 return $"{alt}{ctlr}{shift}{win}{this.Key.ToString()}";
             }
         }
+
+        #endregion
 
         /// <inheritdoc />
         public KeyboardHotkey()

@@ -1,5 +1,5 @@
-﻿using log4net;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using log4net;
 using Toastify.Core;
 using ToastifyAPI.Native.Enums;
 
@@ -43,8 +43,15 @@ namespace Toastify.Model
                     action = new ToastifyShowSpotify();
                     break;
 
+                case ToastifyActionEnum.Stop:
+                    action = new ToastifySimpleMediaAction("Stop", actionEnum, (long)actionEnum, VirtualKeyCode.VK_MEDIA_PLAY_PAUSE)
+                    {
+                        ActionType = MediaActionType.AppCommandMessage
+                    };
+                    break;
+
                 case ToastifyActionEnum.PlayPause:
-                    action = new ToastifySimpleMediaAction("Play / Pause", actionEnum, 0x000E0000L, VirtualKeyCode.VK_MEDIA_PLAY_PAUSE)
+                    action = new ToastifySimpleMediaAction("Play / Pause", actionEnum, (long)actionEnum, VirtualKeyCode.VK_MEDIA_PLAY_PAUSE)
                     {
                         ActionType = MediaActionType.AppCommandMessage
                     };
@@ -72,28 +79,28 @@ namespace Toastify.Model
                     break;
 
                 case ToastifyActionEnum.PreviousTrack:
-                    action = new ToastifySimpleMediaAction("Previous Track", actionEnum, 0x000C0000L, VirtualKeyCode.VK_MEDIA_PREV_TRACK)
+                    action = new ToastifySimpleMediaAction("Previous Track", actionEnum, (long)actionEnum, VirtualKeyCode.VK_MEDIA_PREV_TRACK)
                     {
                         ActionType = MediaActionType.AppCommandMessage
                     };
                     break;
 
                 case ToastifyActionEnum.NextTrack:
-                    action = new ToastifySimpleMediaAction("Next Track", actionEnum, 0x000B0000L, VirtualKeyCode.VK_MEDIA_NEXT_TRACK)
+                    action = new ToastifySimpleMediaAction("Next Track", actionEnum, (long)actionEnum, VirtualKeyCode.VK_MEDIA_NEXT_TRACK)
                     {
                         ActionType = MediaActionType.AppCommandMessage
                     };
                     break;
 
                 case ToastifyActionEnum.FastForward:
-                    action = new ToastifySimpleMediaAction("Fast Forward", actionEnum, 0x00310000L)
+                    action = new ToastifySimpleMediaAction("Fast Forward", actionEnum, (long)actionEnum)
                     {
                         ActionType = MediaActionType.AppCommandMessage
                     };
                     break;
 
                 case ToastifyActionEnum.Rewind:
-                    action = new ToastifySimpleMediaAction("Rewind", actionEnum, 0x00320000L)
+                    action = new ToastifySimpleMediaAction("Rewind", actionEnum, (long)actionEnum)
                     {
                         ActionType = MediaActionType.AppCommandMessage
                     };

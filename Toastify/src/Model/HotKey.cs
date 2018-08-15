@@ -1,10 +1,11 @@
-﻿using JetBrains.Annotations;
-using log4net;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using JetBrains.Annotations;
+using log4net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Toastify.DI;
 using ToastifyAPI.Interop.Interfaces;
 using ToastifyAPI.Logic.Interfaces;
@@ -14,7 +15,7 @@ using ToastifyAPI.Model.Interfaces;
 namespace Toastify.Model
 {
     [Serializable]
-    [JsonObject(MemberSerialization.OptOut), JsonConverter(typeof(HotkeyJsonConverter))]
+    [JsonObject(MemberSerialization.OptIn), JsonConverter(typeof(HotkeyJsonConverter))]
     public abstract class Hotkey : Actionable, IHotkey, INotifyPropertyChanged, IEquatable<IHotkey>
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Hotkey));
@@ -24,28 +25,24 @@ namespace Toastify.Model
 
         #region Public properties
 
-        [JsonIgnore]
         [PropertyDependency]
         public IInputDevices InputDevices { get; set; }
 
         /// <summary>
-        /// Specifies whether or not the hotkey is enabled from a user's perspective.
-        /// Does not actually register the hotkey, use Activate() and Deactivate().
+        ///     Specifies whether or not the hotkey is enabled from a user's perspective.
+        ///     Does not actually register the hotkey, use Activate() and Deactivate().
         /// </summary>
         /// <remarks>
-        /// Why do we have these two properties? We need a way to be able to deactivate a
-        /// Hotkey (for example when unloading settings) without changing the Enabled
-        /// property (which only indicates the user's preference)
+        ///     Why do we have these two properties? We need a way to be able to deactivate a
+        ///     Hotkey (for example when unloading settings) without changing the Enabled
+        ///     property (which only indicates the user's preference)
         /// </remarks>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public bool Enabled { get; set; }
 
-        [JsonIgnore]
         public virtual bool Active
         {
-            get
-            {
-                return this._active;
-            }
+            get { return this._active; }
             protected set
             {
                 if (this._active != value)
@@ -60,6 +57,8 @@ namespace Toastify.Model
             }
         }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public virtual ModifierKeys Modifiers
         {
             get { return this._modifiers; }
@@ -67,7 +66,6 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
-        [JsonIgnore]
         public override bool CanPerformAction
         {
             get
@@ -78,19 +76,16 @@ namespace Toastify.Model
             }
         }
 
-        [JsonIgnore]
         public abstract string HumanReadableKey { get; }
 
-        [JsonIgnore]
         public virtual string HumanReadableAction
         {
             get { return this.Action?.Name; }
         }
 
-        [JsonIgnore]
         public virtual string InvalidReason { get; protected set; }
 
-        #endregion Public properties
+        #endregion
 
         /// <inheritdoc />
         protected Hotkey()
@@ -131,7 +126,7 @@ namespace Toastify.Model
         public abstract IHotkeyVisitor GetVisitor();
 
         /// <summary>
-        /// Turn this hotkey on. Does nothing if this Hotkey is not enabled.
+        ///     Turn this hotkey on. Does nothing if this Hotkey is not enabled.
         /// </summary>
         public void Activate()
         {
@@ -139,7 +134,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Turn this HotKey off.
+        ///     Turn this HotKey off.
         /// </summary>
         public void Deactivate()
         {
@@ -159,13 +154,18 @@ namespace Toastify.Model
 
         public object Clone()
         {
-            Hotkey clone = (Hotkey)this.MemberwiseClone();
+            var clone = (Hotkey)this.MemberwiseClone();
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.
             clone._active = false;
 
             return clone;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.HumanReadableKey} -> {this.HumanReadableAction}";
         }
 
         #region Equals / GetHashCode
@@ -224,11 +224,6 @@ namespace Toastify.Model
         protected abstract void DisposeInternal();
 
         #endregion Dispose
-
-        public override string ToString()
-        {
-            return $"{this.HumanReadableKey} -> {this.HumanReadableAction}";
-        }
 
         #region INotifyPropertyChanged
 

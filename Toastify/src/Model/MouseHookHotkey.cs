@@ -1,14 +1,17 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Windows.Input;
+using JetBrains.Annotations;
 using log4net;
 using Newtonsoft.Json;
-using System;
-using System.Windows.Input;
+using Newtonsoft.Json.Converters;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify.Model
 {
+    [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class MouseHookHotkey : Hotkey, IMouseHookHotkey
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(MouseHookHotkey));
@@ -18,7 +21,10 @@ namespace Toastify.Model
         private MouseAction? _mouseButton;
         private bool isValid;
 
+        #region Public properties
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include, NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public MouseAction? MouseButton
         {
             get { return this._mouseButton; }
@@ -34,6 +40,8 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public override ModifierKeys Modifiers
         {
             get { return base.Modifiers; }
@@ -47,6 +55,22 @@ namespace Toastify.Model
                 }
             }
         }
+
+        /// <inheritdoc />
+        [JsonIgnore]
+        public override string HumanReadableKey
+        {
+            get
+            {
+                string alt = this.Modifiers.HasFlag(ModifierKeys.Alt) ? "Alt+" : string.Empty;
+                string ctlr = this.Modifiers.HasFlag(ModifierKeys.Control) ? "Ctrl+" : string.Empty;
+                string shift = this.Modifiers.HasFlag(ModifierKeys.Shift) ? "Shift+" : string.Empty;
+                string win = this.Modifiers.HasFlag(ModifierKeys.Windows) ? "Win+" : string.Empty;
+                return $"{alt}{ctlr}{shift}{win}{this.MouseButton.ToString()}";
+            }
+        }
+
+        #endregion
 
         /// <inheritdoc />
         public MouseHookHotkey()
@@ -82,20 +106,6 @@ namespace Toastify.Model
         public MouseHookHotkey(IAction action, IMouseHookHotkeyVisitor visitor) : this(action)
         {
             this.visitor = visitor;
-        }
-
-        /// <inheritdoc />
-        [JsonIgnore]
-        public override string HumanReadableKey
-        {
-            get
-            {
-                string alt = this.Modifiers.HasFlag(ModifierKeys.Alt) ? "Alt+" : string.Empty;
-                string ctlr = this.Modifiers.HasFlag(ModifierKeys.Control) ? "Ctrl+" : string.Empty;
-                string shift = this.Modifiers.HasFlag(ModifierKeys.Shift) ? "Shift+" : string.Empty;
-                string win = this.Modifiers.HasFlag(ModifierKeys.Windows) ? "Win+" : string.Empty;
-                return $"{alt}{ctlr}{shift}{win}{this.MouseButton.ToString()}";
-            }
         }
 
         /// <inheritdoc />
@@ -141,7 +151,7 @@ namespace Toastify.Model
                 this.InvalidReason = $"You must use at leat one modifier key with {this.MouseButton.Value}";
             }
             else if (this.MouseButton.Value != MouseAction.XButton1 && this.MouseButton.Value != MouseAction.XButton2 &&
-                       this.MouseButton.Value != MouseAction.MWheelUp && this.MouseButton.Value != MouseAction.MWheelDown)
+                     this.MouseButton.Value != MouseAction.MWheelUp && this.MouseButton.Value != MouseAction.MWheelDown)
             {
                 this.isValid = false;
                 this.InvalidReason = $"You can't use the {this.MouseButton.Value} mouse button in a hotkey combination";

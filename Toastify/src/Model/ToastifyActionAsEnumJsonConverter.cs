@@ -1,6 +1,7 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using Newtonsoft.Json;
-using System;
+using Newtonsoft.Json.Converters;
 using Toastify.Core;
 using Toastify.Helpers;
 
@@ -9,6 +10,10 @@ namespace Toastify.Model
     public class ToastifyActionAsEnumJsonConverter : JsonConverter
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyActionAsEnumJsonConverter));
+
+        private readonly JsonConverter stringEnumConverter = new StringEnumConverter();
+
+        #region Public properties
 
         /// <inheritdoc />
         public override bool CanWrite
@@ -22,11 +27,13 @@ namespace Toastify.Model
             get { return true; }
         }
 
+        #endregion
+
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            ToastifyAction action = (ToastifyAction)value;
-            serializer.Serialize(writer, action.ToastifyActionEnum, typeof(ToastifyActionEnum));
+            var action = (ToastifyAction)value;
+            this.stringEnumConverter.WriteJson(writer, action.ToastifyActionEnum, serializer);
         }
 
         /// <inheritdoc />
@@ -34,7 +41,7 @@ namespace Toastify.Model
         {
             try
             {
-                ToastifyActionEnum actionEnum = serializer.Deserialize<ToastifyActionEnum>(reader);
+                var actionEnum = (ToastifyActionEnum)this.stringEnumConverter.ReadJson(reader, typeof(ToastifyActionEnum), ToastifyActionEnum.None, serializer);
                 ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(actionEnum);
                 App.Container.BuildUp(action);
                 return action;

@@ -90,6 +90,10 @@ namespace Toastify
             VirtualKeyCode virtualKey;
             switch (action)
             {
+                case ToastifyActionEnum.Stop:
+                    virtualKey = VirtualKeyCode.VK_MEDIA_STOP;
+                    break;
+
                 case ToastifyActionEnum.PlayPause:
                     virtualKey = VirtualKeyCode.VK_MEDIA_PLAY_PAUSE;
                     break;
