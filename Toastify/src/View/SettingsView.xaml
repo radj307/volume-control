@@ -11,6 +11,7 @@
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d"
         x:Class="Toastify.View.SettingsView"
+        Name="SettingsViewWindow" AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
         Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
 
     <Window.Resources>
@@ -23,29 +24,38 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid x:Name="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
+    <Grid x:Name="GeneralGrid" AutomationProperties.AutomationId="GeneralGrid" d:DataContext="{d:DesignInstance viewmodel:SettingsViewModel}">
 
         <TabControl Name="TabControl1" SelectedIndex="{Binding Path=CurrentTabIndex, Mode=TwoWay}">
             <TabItem Header="General" Name="General">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <CheckBox IsChecked="{Binding Path=Settings.LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Launch Toastify with Windows</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=Settings.MinimizeSpotifyOnStartup, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,34,0,0" Height="21" VerticalContentAlignment="Center">Minimize Spotify on launch</CheckBox>
-                    <CheckBox IsChecked="{Binding Path=Settings.CloseSpotifyWithToastify, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,58,0,0" Height="21" VerticalContentAlignment="Center">Close Spotify when Toastify is closed</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=Settings.LaunchOnStartup, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Launch Toastify with Windows" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                    <CheckBox IsChecked="{Binding Path=Settings.MinimizeSpotifyOnStartup, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,34,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Minimize Spotify on launch" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                    <CheckBox IsChecked="{Binding Path=Settings.CloseSpotifyWithToastify, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,58,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Close Spotify when Toastify is closed" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,84,0,0" Height="26">
-                        <Label VerticalContentAlignment="Center">Volume control mode:</Label>
-                        <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Name="ComboVolumeControlMode" SelectionChanged="ComboVolumeControlMode_OnSelectionChanged"
+                        <TextBlock x:Name="LabelVolumeControlMode" VerticalAlignment="Center">Volume control mode:</TextBlock>
+                        <ComboBox Name="ComboVolumeControlMode" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="260" IsEditable="False"
+                                  SelectionChanged="ComboVolumeControlMode_OnSelectionChanged" Initialized="ComboBox_OnInitialized"
+                                  AutomationProperties.Name="Volume control mode" AutomationProperties.LabeledBy="{Binding ElementName=LabelVolumeControlMode}"
+                                  AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
                                   ItemsSource="{Binding Source={markup:Enum {x:Type core:ToastifyVolumeControlMode}}}"
-                                  SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value" Width="210">
+                                  SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
+                                    <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                               AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Name="PanelWindowsMixerIncrement" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="37,116,0,0" Height="26">
-                        <Label x:Name="LabelWindowsMixerIncrement" Margin="0" Height="26" VerticalContentAlignment="Center" HorizontalAlignment="Left" Content="Windows Volume Mixer increment :" />
+                        <TextBlock x:Name="LabelWindowsMixerIncrement" VerticalAlignment="Center">Windows Volume Mixer increment:</TextBlock>
                         <wpft:DoubleUpDown Margin="8,0,0,0" Height="24" Width="50" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                           AutomationProperties.Name="Windows Volume Mixer increment" AutomationProperties.LabeledBy="{Binding ElementName=LabelWindowsMixerIncrement}"
+                                           AutomationProperties.HelpText="This value represents by how much the volume will increase or decrease each time the respective volume hotkey is pressed"
                                            Value="{Binding Path=Settings.WindowsVolumeMixerIncrement, Converter={StaticResource SettingValueToValueConverter}, Mode=TwoWay, StringFormat=F1, ValidatesOnExceptions=True}"
                                            AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" FormatString="F1" Minimum="0.0" Maximum="20.0" Increment="0.1" ClipValueToMinMax="True" DefaultValue="1.0" />
                     </StackPanel>
@@ -53,26 +63,34 @@
                     <GroupBox Header="Updates" Margin="12,148,12,0" Padding="8" VerticalAlignment="Top">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26">
-                                <Label VerticalContentAlignment="Center">Update check frequency:</Label>
-                                <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180"
-                                      ItemsSource="{Binding Source={markup:Enum {x:Type core:VersionCheckFrequency}}}"
-                                      SelectedValue="{Binding Path=Settings.VersionCheckFrequency, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
+                                <TextBlock x:Name="LabelUpdateCheckFrequency" VerticalAlignment="Center">Update check frequency:</TextBlock>
+                                <ComboBox x:Name="CbUpdateCheckFrequency" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180" Initialized="ComboBox_OnInitialized"
+                                          AutomationProperties.Name="Update check frequency" AutomationProperties.LabeledBy="{Binding ElementName=LabelUpdateCheckFrequency}"
+                                          AutomationProperties.HelpText="The frequency Toastify will check for available updates"
+                                          AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
+                                          ItemsSource="{Binding Source={markup:Enum {x:Type core:VersionCheckFrequency}}}"
+                                          SelectedValue="{Binding Path=Settings.VersionCheckFrequency, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" />
+                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                                       AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Margin="0,12,0,0">
-                                <Label VerticalContentAlignment="Center">Configure auto updates:</Label>
-                                <ComboBox VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180"
-                                      ItemsSource="{Binding Source={markup:Enum {x:Type core:UpdateDeliveryMode}}}"
-                                      SelectedValue="{Binding Path=Settings.UpdateDeliveryMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
+                                <TextBlock x:Name="LabelConfigureAutoUpdates" VerticalAlignment="Center">Configure auto updates:</TextBlock>
+                                <ComboBox x:Name="CbConfigureAutoUpdates" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="180" Initialized="ComboBox_OnInitialized"
+                                          AutomationProperties.Name="Configure auto updates" AutomationProperties.LabeledBy="{Binding ElementName=LabelConfigureAutoUpdates}"
+                                          AutomationProperties.HelpText="How software updates will be delivered"
+                                          AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
+                                          ItemsSource="{Binding Source={markup:Enum {x:Type core:UpdateDeliveryMode}}}"
+                                          SelectedValue="{Binding Path=Settings.UpdateDeliveryMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" />
+                                            <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                                       AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
@@ -89,16 +107,25 @@
                             <ColumnDefinition Width="123*" />
                             <ColumnDefinition Width="421*" />
                         </Grid.ColumnDefinitions>
-                        <Label Name="Label19" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template :</Label>
-                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0" />
-                        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InfoTextColorBrush}" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1">This is the text that will be copied to the clipboard when you hit the "Copy to Clipboard" hotkey. "{0}" will be replaced with the name of the currently playing song.</TextBlock>
+                        <TextBlock Name="LabelClipboardTemplate" VerticalAlignment="Center" HorizontalAlignment="Left" Width="119" Grid.Column="0" Grid.Row="0">Clipboard Template:</TextBlock>
+                        <TextBox Name="TbClipboardTemplate" Text="{Binding Path=Settings.ClipboardTemplate, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalContentAlignment="Center" Margin="0" Grid.Column="1" Grid.Row="0"
+                                 AutomationProperties.Name="Clipboard Template" AutomationProperties.LabeledBy="{Binding ElementName=LabelClipboardTemplate}"
+                                 AutomationProperties.HelpText="{Binding Text, ElementName=TbClipboardTemplateDescription}" />
+                        <TextBlock x:Name="TbClipboardTemplateDescription" TextWrapping="Wrap" Foreground="{StaticResource InfoTextColorBrush}" Margin="0,8,0,0" Grid.Column="1" Grid.Row="1"
+                                   Text="This is the text that will be copied to the clipboard when you hit the &quot;Copy to Clipboard&quot; hotkey. &quot;{0}&quot; will be replaced with the name of the currently playing song."
+                                   AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}" />
                     </Grid>
 
-                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,360,0,0" Height="21" VerticalContentAlignment="Center">Save Artist and Album to file when song changes (uses the clipboard template)</CheckBox>
-                    <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,385,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4">Select File</Button>
-                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,430,0,0" Height="31">
-                        <TextBlock TextWrapping="Wrap">Opt in to anonymous data collection.<LineBreak />
-                            Data is never shared, is anonymous, and is used solely to improve the app.</TextBlock>
+                    <CheckBox Name="CbSaveTrackToFile" IsChecked="{Binding Path=Settings.SaveTrackToFile, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,360,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Save Artist and Album to file when song changes (uses the clipboard template)" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                    <Button Name="BtnSaveTrackToFile" Command="{Binding Path=SelectFileForSavingTrackCommand}" IsEnabled="{Binding IsChecked, ElementName=CbSaveTrackToFile}" Margin="37,385,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="8,4"
+                            Content="Select File" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                    <CheckBox IsChecked="{Binding Path=Settings.OptInToAnalytics, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,430,0,0" Height="31"
+                              AutomationProperties.Name="Opt in to anonymous data collection" AutomationProperties.HelpText="Collected data is never shared and is used solely to improve the application.">
+                        <TextBlock x:Name="TextBlockOptInToAnalytics" TextWrapping="Wrap">
+                            Opt in to anonymous data collection.<LineBreak />
+                            Data is never shared, is anonymous, and is used solely to improve the app.
+                        </TextBlock>
                     </CheckBox>
 
                     <Image Name="Image1" Source="/Toastify;component/Resources/SpotifyToastifyLogo.png" RenderOptions.BitmapScalingMode="HighQuality"
@@ -111,7 +138,8 @@
             </TabItem>
             <TabItem Header="Hotkeys" Name="Hotkeys">
                 <Grid>
-                    <CheckBox Name="CbHotkeys" IsChecked="{Binding Path=Settings.GlobalHotKeys, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Enable Global Hotkeys</CheckBox>
+                    <CheckBox Name="CbHotkeys" IsChecked="{Binding Path=Settings.GlobalHotKeys, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Enable Global Hotkeys" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
 
                     <Grid IsEnabled="{Binding ElementName=CbHotkeys, Path=IsChecked}" Margin="0,38,0,0">
                         <Grid.ColumnDefinitions>
@@ -123,36 +151,40 @@
                                  IsSynchronizedWithCurrentItem="True" SelectionChanged="LstHotKeys_SelectionChanged">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" Margin="0,2,4,2" Grid.Column="0" />
-                                        <Image Grid.Column="0" Height="16" Width="16" Margin="0,0,4,0" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
-                                               Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
-                                        <TextBlock Text="{Binding Path=HumanReadableAction}" Grid.Column="1" />
-                                    </Grid>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Grid Margin="0,2,4,2">
+                                            <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" IsEnabled="{Binding Path=IsValid}"
+                                                      AutomationProperties.Name="{Binding Path=HumanReadableAction}" />
+                                            <Image Height="16" Width="16" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
+                                                   Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
+                                        </Grid>
+                                        <TextBlock Text="{Binding Path=HumanReadableAction}" AutomationProperties.Name="{Binding Path=HumanReadableAction}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
 
                         <Grid Grid.Column="1" Margin="12,10" DataContext="{Binding Path=HotKeys}">
                             <StackPanel Height="21" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center" />
-                                <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
-                                <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
-                                <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
+                                <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center"
+                                          AutomationProperties.Name="Ctrl modifier key" />
+                                <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          AutomationProperties.Name="Alt modifier key" />
+                                <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          AutomationProperties.Name="Shift modifier key" />
+                                <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          AutomationProperties.Name="Windows Key modifier key" />
                             </StackPanel>
 
                             <StackPanel Height="26" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,42,0,0">
-                                <Label VerticalContentAlignment="Center" Margin="0">Press a Key:</Label>
-                                <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
+                                <TextBlock x:Name="LabelSingleKey" VerticalAlignment="Center" Margin="0">Press a Key:</TextBlock>
+                                <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown"
+                                         AutomationProperties.Name="Hotkey" AutomationProperties.LabeledBy="{Binding ElementName=LabelSingleKey}" />
                             </StackPanel>
 
                             <Grid Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
                                 <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
-                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" />
+                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" AutomationProperties.AutomationId="WarningMessage" />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -160,7 +192,8 @@
             </TabItem>
             <TabItem Header="Toast" Name="TabToast" Visibility="Collapsed">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Disable Toast</CheckBox>
+                    <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                              Content="Disable Toast" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
 
                     <TabControl TabStripPlacement="Left" Margin="4,44,4,10" SelectedIndex="{Binding Path=CurrentToastTabIndex, Mode=TwoWay}" IsEnabled="{Binding Path=Settings.DisableToast, Converter={StaticResource SettingValueToOppositeBoolValueConverter}}">
                         <TabControl.Resources>
@@ -172,10 +205,13 @@
                         <!-- GENERAL -->
                         <TabItem Header="General">
                             <Grid>
-                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Only Show Toast when Hotkey is pressed</CheckBox>
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                                          Content="Only Show Toast when Hotkey is pressed" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                                 <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
-                                              IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center">Disable Toast when a fullscreen videogame is running</CheckBox>
-                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center">Show song progress bar</CheckBox>
+                                          IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center"
+                                          Content="Disable Toast when a fullscreen videogame is running" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                                          Content="Show song progress bar" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
 
                                 <!-- Display Time -->
                                 <Grid VerticalAlignment="Top" Margin="12,101,12,0">
@@ -193,14 +229,17 @@
                                 </Grid>
 
                                 <!-- ToastTitlesOrder -->
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="12,137,12,0">
-                                    <Label VerticalContentAlignment="Center">Artist and Track name :</Label>
-                                    <ComboBox VerticalContentAlignment="Center" Width="170" Margin="6,0,0,0"
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="12,137,12,0" Height="26">
+                                    <TextBlock x:Name="LabelToastTitlesOrder" VerticalAlignment="Center">Artist and Track name :</TextBlock>
+                                    <ComboBox x:Name="CbToastTitlesOrder" VerticalContentAlignment="Center" Width="170" Margin="6,0,0,0" Initialized="ComboBox_OnInitialized"
+                                              AutomationProperties.Name="Artist and track name order" AutomationProperties.LabeledBy="{Binding ElementName=LabelToastTitlesOrder}"
+                                              AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
                                               ItemsSource="{Binding Source={markup:Enum {x:Type core:ToastTitlesOrder}}}"
                                               SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}" Width="195" />
+                                                <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                                           AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
@@ -341,7 +380,8 @@
                                         <wpft:DoubleUpDown Name="Title1FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,1,6,0" VerticalAlignment="Top"
                                                            FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" DefaultValue="16" Increment="1"
                                                            Minimum="6" Maximum="22" Value="{Binding Path=Settings.ToastTitle1FontSize, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" />
-                                        <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                        <CheckBox Name="CbToastTitle1DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle1DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92"
+                                                  Content="Drop Shadow" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                                         <Grid Grid.Column="1" Height="26" Margin="16,28,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle1DropShadow}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -366,7 +406,8 @@
                                         <wpft:DoubleUpDown Name="Title2FontSizeUpDown" Grid.Column="1" Height="24" Margin="233,61,6,0" VerticalAlignment="Top"
                                                             FormatString="N0" Watermark="Font size" AllowInputSpecialValues="None" AllowSpin="True" AllowTextInput="True" ClipValueToMinMax="True" Increment="1"
                                                             Minimum="6" Maximum="22" Value="{Binding Settings.ToastTitle2FontSize, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" DefaultValue="12" />
-                                        <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92">Drop Shadow</CheckBox>
+                                        <CheckBox Name="CbToastTitle2DropShadow" Grid.Column="0" Height="21" IsChecked="{Binding Path=Settings.ToastTitle2DropShadow, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="92"
+                                                  Content="Drop Shadow" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                                         <Grid Grid.Column="1" Height="26" Margin="16,88,6,0" VerticalAlignment="Top" IsEnabled="{Binding IsChecked, ElementName=CbToastTitle2DropShadow}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -409,7 +450,8 @@
             </TabItem>
             <TabItem Header="Advanced" Name="TabAdvanced">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <CheckBox Name="CbUseProxy" IsChecked="{Binding Path=Settings.UseProxy, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center">Use Proxy</CheckBox>
+                    <CheckBox Name="CbUseProxy" IsChecked="{Binding Path=Settings.UseProxy, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Height="21" VerticalContentAlignment="Center"
+                              Content="Use Proxy" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                     <StackPanel Orientation="Vertical" Margin="32,38,12,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=CbUseProxy, Path=IsChecked}" DataContext="{Binding Path=Settings.ProxyConfig}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <wpft:WatermarkTextBox Width="200" Watermark="Host" KeepWatermarkOnGotFocus="False" Style="{StaticResource ErrorInTextBox}" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus">
@@ -436,7 +478,8 @@
                             <wpft:WatermarkPasswordBox Name="PasswordBox" Width="160" Margin="8,0,0,0" Watermark="Password" KeepWatermarkOnGotFocus="False" PasswordChanged="ProxyPasswordBox_OnPasswordChanged" GotKeyboardFocus="ProxyTextBox_OnGotKeyboardFocus" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
-                            <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}">Bypass proxy for local addresses</CheckBox>
+                            <CheckBox IsChecked="{Binding Path=BypassProxyOnLocal, Mode=TwoWay}"
+                                      Content="Bypass proxy for local addresses" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -450,11 +493,15 @@
 
         <Button Name="BtnSave" Height="23" HorizontalAlignment="Right" Margin="0,32,90,0" VerticalAlignment="Top" Width="47" Command="{Binding Path=SaveCommand}">Save</Button>
         <wpft:SplitButton Name="BtnDefault" Height="23" HorizontalAlignment="Right" Margin="0,32,10,0" VerticalAlignment="Top" Width="73"
-                          Content="Default" Command="{Binding Path=DefaultCommand}" ToolTip="Reset the current tab's settings to their default values">
+                          Command="{Binding Path=DefaultCommand}" Content="Default" ToolTip="Reset the current tab's settings to their default values"
+                          AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}"
+                          AutomationProperties.HelpText="{Binding ToolTip, RelativeSource={RelativeSource Self}}">
             <wpft:SplitButton.DropDownContent>
                 <Menu>
-                    <MenuItem Header="Default" ToolTip="Reset the current tab's settings to their default values" Click="BtnDefaultMenuItem_OnClick" />
-                    <MenuItem Header="Default All" ToolTip="Reset all settings to their default values" Click="BtnDefaultAllMenuItem_OnClick" />
+                    <MenuItem Header="Default" ToolTip="{Binding ToolTip, ElementName=BtnDefault}" Click="BtnDefaultMenuItem_OnClick"
+                              AutomationProperties.Name="Reset this tab" AutomationProperties.HelpText="{Binding ToolTip, RelativeSource={RelativeSource Self}}" />
+                    <MenuItem Header="Default All" ToolTip="Reset all settings to their default values" Click="BtnDefaultAllMenuItem_OnClick"
+                              AutomationProperties.Name="Reset all" AutomationProperties.HelpText="{Binding ToolTip, RelativeSource={RelativeSource Self}}" />
                     <Menu.Style>
                         <Style TargetType="Menu">
                             <Setter Property="ItemsPanel">

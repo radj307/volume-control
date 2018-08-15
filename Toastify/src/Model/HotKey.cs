@@ -493,11 +493,20 @@ namespace Toastify.Model
 
         public override string ToString()
         {
-            string prefix = $"{(this.Enabled ? 'E' : ' ')}{(this.Active ? 'A' : ' ')}";
-            string keyCombination = $"{(this.Ctrl ? "Ctrl+" : "")}{(this.Shift ? "Shift+" : "")}{(this.Alt ? "Alt+" : "")}{(this.WindowsKey ? "Win+" : "")}{this.KeyOrButton}";
+            string keyCombination = $"{(this.Ctrl ? "Ctrl-" : "")}{(this.Shift ? "Shift-" : "")}{(this.Alt ? "Alt-" : "")}{(this.WindowsKey ? "Win-" : "")}{this.KeyOrButton}";
+            return $"{this.Action,-15}: {keyCombination}";
+        }
 
-            // ReSharper disable once UseStringInterpolation
-            return $"{prefix} {this.Action,-15}: {keyCombination}";
+        public string ToString(bool extendedInfo)
+        {
+            if (extendedInfo)
+            {
+                string prefix = $"{(this.Enabled ? 'E' : ' ')}{(this.Active ? 'A' : ' ')}";
+                string keyCombination = $"{(this.Ctrl ? "Ctrl-" : "")}{(this.Shift ? "Shift-" : "")}{(this.Alt ? "Alt-" : "")}{(this.WindowsKey ? "Win-" : "")}{this.KeyOrButton}";
+                return $"{prefix} {this.Action,-15}: {keyCombination}";
+            }
+
+            return this.ToString();
         }
 
         #region HotkeyActionCallback

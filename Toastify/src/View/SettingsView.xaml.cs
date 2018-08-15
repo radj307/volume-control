@@ -1,11 +1,17 @@
 ﻿using log4net;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -228,11 +234,17 @@ namespace Toastify.View
 
         private void TxtSingleKey_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = true;
-
             var key = e.Key;
             if (key == Key.System)
                 key = e.SystemKey;
+
+            if (key == Key.Tab)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            e.Handled = true;
 
             this.TxtSingleKey.Text = key.ToString();
 
@@ -426,5 +438,46 @@ namespace Toastify.View
         #endregion "Advanced" tab
 
         #endregion Event handlers
+
+        #region ComboBox initialization for AutomationUI (accessibility)
+
+        private static readonly object automationRootElementLock = new object();
+        private AutomationElement mainAutomationWindow;
+
+        private async void ComboBox_OnInitialized(object sender, EventArgs e)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(0.5));
+            if (sender is ComboBox cb)
+                await Task.Run(() => this.InitializeExpandableElementForUIAutomation(cb));
+        }
+
+        private void InitializeExpandableElementForUIAutomation(IFrameworkInputElement element)
+        {
+            this.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                AutomationElement automationElement;
+                lock (automationRootElementLock)
+                {
+                    if (this.mainAutomationWindow == null)
+                        this.mainAutomationWindow = AutomationElement.RootElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, this.Name));
+
+                    automationElement = this.mainAutomationWindow?.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, element.Name));
+                }
+                
+                if (automationElement != null)
+                {
+                    AutomationPattern automationPatternFromElement = AutomationHelper.GetSpecifiedPattern(automationElement, "ExpandCollapsePatternIdentifiers.Pattern");
+                    if (automationElement.GetCurrentPattern(automationPatternFromElement) is ExpandCollapsePattern expandCollapsePattern)
+                    {
+                        expandCollapsePattern.Expand();
+                        expandCollapsePattern.Collapse();
+
+                        this.General.Focus();
+                    }
+                }
+            }));
+        }
+
+        #endregion
     }
 }
