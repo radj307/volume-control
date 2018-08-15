@@ -1,10 +1,9 @@
+using System;
 using JetBrains.Annotations;
 using log4net;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
-using System;
 using Toastify.Core;
-using ToastifyAPI.Model;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
@@ -13,13 +12,15 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Song));
 
-        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
-
         internal const string TITLE_SPOTIFY_AD = "Spotify Ad";
         internal const string TITLE_UNKNOWN = "[Unknown Track Type]";
 
+        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
+
         private readonly Track spotifyTrack;
         private string _coverArtUrl;
+
+        #region Public properties
 
         public string Artist { get; }
         public string Track { get; }
@@ -39,6 +40,8 @@ namespace Toastify.Model
             }
             set { this._coverArtUrl = value; }
         }
+
+        #endregion
 
         public Song(string artist, string title, int length, string type, string album)
         {
@@ -133,7 +136,7 @@ namespace Toastify.Model
         public string GetSmallestCoverArtUrl()
         {
             string url = string.Empty;
-            foreach (var size in albumArtSizes)
+            foreach (AlbumArtSize size in albumArtSizes)
             {
                 url = this.GetCoverArtUrl(size);
                 if (!string.IsNullOrWhiteSpace(url))
@@ -196,7 +199,7 @@ namespace Toastify.Model
             if (ReferenceEquals(this, obj))
                 return true;
 
-            Song that = obj as Song;
+            var that = obj as Song;
             return this.Equals(that);
         }
 
@@ -215,11 +218,6 @@ namespace Toastify.Model
                    string.Equals(this.Type, other.Type);
         }
 
-        public static implicit operator Song(Track spotifyTrack)
-        {
-            return spotifyTrack == null ? null : new Song(spotifyTrack);
-        }
-
         public static bool Equal(Song s1, Song s2)
         {
             if (ReferenceEquals(s1, s2))
@@ -228,6 +226,11 @@ namespace Toastify.Model
                 return false;
 
             return s1.Equals(s2);
+        }
+
+        public static implicit operator Song(Track spotifyTrack)
+        {
+            return spotifyTrack == null ? null : new Song(spotifyTrack);
         }
     }
 }

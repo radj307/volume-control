@@ -1,5 +1,5 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
+using JetBrains.Annotations;
 using Toastify.Core;
 using ToastifyAPI.Events;
 

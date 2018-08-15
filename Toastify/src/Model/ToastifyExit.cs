@@ -3,10 +3,12 @@
 namespace Toastify.Model
 {
     /// <summary>
-    /// Terminates Toastify.
+    ///     Terminates Toastify.
     /// </summary>
     public sealed class ToastifyExit : ToastifyAction
     {
+        #region Public properties
+
         /// <inheritdoc />
         public override string Name
         {
@@ -18,6 +20,8 @@ namespace Toastify.Model
         {
             get { return ToastifyActionEnum.Exit; }
         }
+
+        #endregion
 
         /// <inheritdoc />
         public override void PerformAction()

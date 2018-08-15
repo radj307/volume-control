@@ -1,5 +1,5 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
+using JetBrains.Annotations;
 using Toastify.Core;
 using ToastifyAPI.Events;
 using ToastifyAPI.Native.Enums;
@@ -9,6 +9,8 @@ namespace Toastify.Model
     public sealed class ToastifyVolumeUp : ToastifyVolumeAction
     {
         private readonly Action spotifyOnlyVolumeAction;
+
+        #region Public properties
 
         /// <inheritdoc />
         public override string Name
@@ -27,6 +29,8 @@ namespace Toastify.Model
 
         /// <inheritdoc />
         public override VirtualKeyCode VirtualKeyCode { get; } = VirtualKeyCode.VK_VOLUME_UP;
+
+        #endregion
 
         /// <inheritdoc />
         public ToastifyVolumeUp([NotNull] GetVolumeControlModeDelegate getVolumeControlModeDelegate, [NotNull] Action spotifyOnlyVolumeAction) : base(getVolumeControlModeDelegate)

@@ -1,14 +1,14 @@
-﻿using JetBrains.Annotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using JetBrains.Annotations;
 using Toastify.Core;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify.Model
 {
     /// <summary>
-    /// Hotkey proxy used in the View layer as a view model.
+    ///     Hotkey proxy used in the View layer as a view model.
     /// </summary>
     public class GenericHotkeyProxy : INotifyPropertyChanged
     {
@@ -17,7 +17,7 @@ namespace Toastify.Model
 
         private HotkeyType _hotkeyType;
 
-        #region Properties
+        #region Public properties
 
         public HotkeyType Type
         {
@@ -54,8 +54,6 @@ namespace Toastify.Model
         {
             get { return this.Hotkey.IsValid(); }
         }
-
-        #region Modifiers
 
         public bool Alt
         {
@@ -105,9 +103,7 @@ namespace Toastify.Model
             }
         }
 
-        #endregion Modifiers
-
-        #endregion Properties
+        #endregion
 
         public GenericHotkeyProxy()
         {
@@ -153,7 +149,7 @@ namespace Toastify.Model
         }
 
         /// <summary>
-        /// Set the hotkey's activator, i.e. the key or button that activates the hotkey.
+        ///     Set the hotkey's activator, i.e. the key or button that activates the hotkey.
         /// </summary>
         /// <param name="activator"></param>
         public void SetActivator(object activator)

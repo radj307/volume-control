@@ -4,6 +4,8 @@ namespace Toastify.Model
 {
     public sealed class ToastifyShowSpotify : ToastifyAction
     {
+        #region Public properties
+
         /// <inheritdoc />
         public override string Name
         {
@@ -15,6 +17,8 @@ namespace Toastify.Model
         {
             get { return ToastifyActionEnum.ShowSpotify; }
         }
+
+        #endregion
 
         /// <inheritdoc />
         public override void PerformAction()

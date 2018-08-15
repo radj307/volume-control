@@ -1,7 +1,7 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using Toastify.Helpers;
 
 namespace Toastify.Model
@@ -9,6 +9,8 @@ namespace Toastify.Model
     internal class HotkeyJsonConverter : JsonConverter
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(HotkeyJsonConverter));
+
+        #region Public properties
 
         /// <inheritdoc />
         public override bool CanWrite
@@ -22,6 +24,8 @@ namespace Toastify.Model
             get { return true; }
         }
 
+        #endregion
+
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -33,11 +37,11 @@ namespace Toastify.Model
         {
             object hotkey = existingValue;
 
-            var jObject = JObject.Load(reader);
+            JObject jObject = JObject.Load(reader);
             reader = jObject.CreateReader();
             Type hotkeyType = GetHotkeyType(jObject);
 
-            if (hotkey == null || (hotkeyType != null && hotkey.GetType() != hotkeyType))
+            if (hotkey == null || hotkeyType != null && hotkey.GetType() != hotkeyType)
             {
                 if (hotkeyType == null)
                 {
@@ -47,6 +51,7 @@ namespace Toastify.Model
 
                 hotkey = Activator.CreateInstance(hotkeyType);
             }
+
             serializer.Populate(reader, hotkey);
 
             // Inject dependencies

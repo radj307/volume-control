@@ -7,6 +7,8 @@ namespace Toastify.Model
 {
     public sealed class ToastifyShowDebugView : ToastifyAction
     {
+        #region Public properties
+
         /// <inheritdoc />
         public override string Name
         {
@@ -18,6 +20,8 @@ namespace Toastify.Model
         {
             get { return ToastifyActionEnum.ShowDebugView; }
         }
+
+        #endregion
 
         /// <inheritdoc />
         public override void PerformAction()

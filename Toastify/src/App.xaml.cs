@@ -1,15 +1,4 @@
-﻿using JetBrains.Annotations;
-using log4net;
-using log4net.Appender;
-using log4net.Config;
-using log4net.Core;
-using log4net.Filter;
-using log4net.Repository;
-using log4net.Repository.Hierarchy;
-using PowerArgs;
-using SpotifyAPI;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -22,12 +11,20 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Xml.Serialization;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using JetBrains.Annotations;
+using log4net;
+using log4net.Appender;
+using log4net.Config;
+using log4net.Core;
+using log4net.Filter;
+using log4net.Repository;
+using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using PowerArgs;
+using SpotifyAPI;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -39,6 +36,7 @@ using ToastifyAPI.Interop.Interfaces;
 using ToastifyAPI.Logic;
 using ToastifyAPI.Logic.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
+using Resources = Toastify.Properties.Resources;
 
 namespace Toastify
 {
@@ -55,7 +53,7 @@ namespace Toastify
         public static void Main(string[] args)
         {
             const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-            using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
+            using (var unused = new Mutex(true, appSpecificGuid, out bool exclusive))
             {
                 if (exclusive)
                 {
@@ -88,7 +86,7 @@ namespace Toastify
                     RunApp();
                 }
                 else
-                    MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -118,13 +116,13 @@ namespace Toastify
 
         private static void SetupLogger()
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
             {
                 XmlConfigurator.Configure(stream);
                 ILoggerRepository loggerRepository = LogManager.GetRepository();
 
                 // Set root logger's log level
-                var rootLogger = ((Hierarchy)loggerRepository).Root;
+                Logger rootLogger = ((Hierarchy)loggerRepository).Root;
 #if DEBUG || TEST_RELEASE
                 rootLogger.Level = Level.Debug;
 #else
@@ -141,7 +139,7 @@ namespace Toastify
                 rollingFileAppender.File = Path.Combine(AppArgs.LogDirectory, "Toastify.log");
 
                 // Set RollingFileAppender's minimum log level
-                var filter = rollingFileAppender.FilterHead;
+                IFilter filter = rollingFileAppender.FilterHead;
                 while (filter != null)
                 {
                     if (filter is LevelRangeFilter lrFilter)
@@ -183,7 +181,7 @@ namespace Toastify
 
         private static void RunApp()
         {
-            App app = new App(AppArgs.SpotifyArgs);
+            var app = new App(AppArgs.SpotifyArgs);
             app.InitializeComponent();
 
 #if DEBUG
@@ -226,7 +224,7 @@ namespace Toastify
                     JToken jHotkeys = jSettings["HotKeys"];
                     if (jHotkeys?.HasValues == true)
                     {
-                        JArray convertedHotkeys = new JArray();
+                        var convertedHotkeys = new JArray();
 
                         foreach (JToken jHotkey in jHotkeys.Children())
                         {
@@ -299,7 +297,7 @@ namespace Toastify
             {
                 logger.Warn("Error while loading settings. Toastify will reset to default values.", ex);
 
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
+                string msg = string.Format(Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 File.Copy(Settings.SettingsFilePath, $"{Settings.SettingsFilePath}.corrupted", true);
@@ -314,7 +312,7 @@ namespace Toastify
 
             if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
             {
-                Version previous = new Version(Settings.Current.PreviousVersion);
+                var previous = new Version(Settings.Current.PreviousVersion);
 
                 if (previous < new Version("1.9.7"))
                 {
@@ -332,8 +330,8 @@ namespace Toastify
 
             // Just getting the instances to initialize the singletons
             // ReSharper disable UnusedVariable
-            var ignore1 = VersionChecker.Instance;
-            var ignore2 = AutoUpdater.Instance;
+            VersionChecker ignore1 = VersionChecker.Instance;
+            AutoUpdater ignore2 = AutoUpdater.Instance;
             // ReSharper restore UnusedVariable
 
             AutoUpdater.Instance.UpdateReady += AutoUpdater_UpdateReady;
@@ -344,7 +342,7 @@ namespace Toastify
             // Show the changelog if necessary
             if (!string.IsNullOrWhiteSpace(previousVersion))
             {
-                Version previous = new Version(previousVersion);
+                var previous = new Version(previousVersion);
                 if (previous < new Version(App.CurrentVersionNoRevision))
                     ChangelogView.Launch();
             }
@@ -354,12 +352,12 @@ namespace Toastify
         {
             logger.Info($"New update is ready to be installed ({e.Version})");
 
-            MessageBoxResult choice = MessageBoxResult.Yes;
+            var choice = MessageBoxResult.Yes;
             App.CallInSTAThread(() =>
             {
                 choice = CustomMessageBox.ShowYesNoCancel(
                     "A new update is ready to be installed!",
-                   $"Toastify {e.Version}",
+                    $"Toastify {e.Version}",
                     "Install",      // Yes
                     "Open folder",  // No
                     "Go to GitHub", // Cancel
@@ -372,13 +370,13 @@ namespace Toastify
             {
                 if (choice == MessageBoxResult.Cancel)
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(e.GitHubReleaseUrl) { UseShellExecute = true };
+                    var psi = new ProcessStartInfo(e.GitHubReleaseUrl) { UseShellExecute = true };
                     Process.Start(psi);
                 }
                 else if (choice == MessageBoxResult.No)
                 {
-                    FileInfo fileInfo = new FileInfo(e.InstallerPath);
-                    ProcessStartInfo psi = new ProcessStartInfo(fileInfo.Directory?.FullName)
+                    var fileInfo = new FileInfo(e.InstallerPath);
+                    var psi = new ProcessStartInfo(fileInfo.Directory?.FullName)
                     {
                         UseShellExecute = true,
                         Verb = "open"
@@ -387,7 +385,7 @@ namespace Toastify
                 }
                 else
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(e.InstallerPath)
+                    var psi = new ProcessStartInfo(e.InstallerPath)
                     {
                         UseShellExecute = true,
                         Verb = "runas"
@@ -405,6 +403,8 @@ namespace Toastify
         [TabCompletion]
         internal class MainArgs
         {
+            #region Public properties
+
             // [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
             [ArgShortcut("--debug")]
             [ArgDescription("Enables Debug level logging.")]
@@ -425,6 +425,8 @@ namespace Toastify
             [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
             [ArgDescription("Spotify command-line arguments.")]
             public string SpotifyArgs { get; set; } = string.Empty;
+
+            #endregion
         }
     }
 
@@ -465,7 +467,7 @@ namespace Toastify
                 string version = CurrentVersion;
                 if (version != null)
                 {
-                    Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
+                    var regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
                     Match match = regex.Match(version);
                     if (match.Success)
                         version = match.Groups[1].Value;
@@ -478,7 +480,7 @@ namespace Toastify
         public static string SpotifyParameters { get; private set; }
 
         /// <summary>
-        /// The currently used proxy settings.
+        ///     The currently used proxy settings.
         /// </summary>
         public static ProxyConfigAdapter ProxyConfig
         {
@@ -501,6 +503,31 @@ namespace Toastify
 
         public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
 
+        public App() : this("")
+        {
+        }
+
+        public App(string spotifyArgs)
+        {
+            SpotifyParameters = spotifyArgs.Trim();
+        }
+
+        public static void ShowConfigProxyDialog()
+        {
+            CallInSTAThread(() =>
+            {
+                var proxyDialog = new ConfigProxyDialog();
+                proxyDialog.ShowDialog();
+            }, true, "Config Proxy");
+        }
+
+        public static void Terminate()
+        {
+            Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => Current.Shutdown()));
+        }
+
         #region Static setup
 
         static App()
@@ -522,29 +549,11 @@ namespace Toastify
                 Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
 
                 Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
-                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>(),
+                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>()
             });
         }
 
         #endregion Static setup
-
-        public App() : this("")
-        {
-        }
-
-        public App(string spotifyArgs)
-        {
-            SpotifyParameters = spotifyArgs.Trim();
-        }
-
-        public static void ShowConfigProxyDialog()
-        {
-            CallInSTAThread(() =>
-            {
-                ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
-                proxyDialog.ShowDialog();
-            }, true, "Config Proxy");
-        }
 
         #region CallInSTAThread
 
@@ -572,7 +581,7 @@ namespace Toastify
             if (action == null)
                 return null;
 
-            Thread t = new Thread(() =>
+            var t = new Thread(() =>
             {
                 try
                 {
@@ -586,7 +595,7 @@ namespace Toastify
             {
                 IsBackground = background
             };
-            if (!String.IsNullOrWhiteSpace(threadName))
+            if (!string.IsNullOrWhiteSpace(threadName))
                 t.Name = threadName;
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
@@ -594,13 +603,6 @@ namespace Toastify
         }
 
         #endregion CallInSTAThread
-
-        public static void Terminate()
-        {
-            Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                new Action(() => Current.Shutdown()));
-        }
 
         #region Event handlers
 

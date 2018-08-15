@@ -1,31 +1,37 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Toastify.Core;
 using ToastifyAPI.Events;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
+using Spotify = ToastifyAPI.Spotify;
 
 namespace Toastify.Model
 {
     public abstract class ToastifyMediaAction : ToastifyAction
     {
+        #region Public properties
+
         /// <summary>
-        /// <i>cmd</i> value of a <see cref="WindowsMessagesFlags.WM_APPCOMMAND"/>.
+        ///     <i>cmd</i> value of a <see cref="WindowsMessagesFlags.WM_APPCOMMAND" />.
         /// </summary>
         /// <remarks> See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646275.aspx </remarks>
         public virtual long AppCommandCode { get; }
 
         /// <summary>
-        /// The virtual key code associated with this media action, if any.
+        ///     The virtual key code associated with this media action, if any.
         /// </summary>
         public virtual VirtualKeyCode VirtualKeyCode { get; }
 
         /// <summary>
-        /// The media action type, i.e. how this media action will be performed.
-        /// <para/>
-        /// The default value is <see cref="MediaActionType.AppCommandMessage"/>.
+        ///     The media action type, i.e. how this media action will be performed.
+        ///     <para />
+        ///     The default value is <see cref="MediaActionType.AppCommandMessage" />.
         /// </summary>
         public MediaActionType ActionType { get; set; } = MediaActionType.AppCommandMessage;
+
+        #endregion
 
         protected ToastifyMediaAction()
         {
@@ -61,12 +67,12 @@ namespace Toastify.Model
         private void PerformActionAsAppCommandMessage()
         {
             // We need Spotify's main window handle
-            var process = ToastifyAPI.Spotify.FindSpotifyProcess();
+            Process process = Spotify.FindSpotifyProcess();
             if (process == null)
                 this.RaiseActionFailed(this, new ActionFailedEventArgs("Couldn't find Spotify's process."));
             else
             {
-                IntPtr hWnd = ToastifyAPI.Spotify.GetMainWindowHandle(unchecked((uint)process.Id));
+                IntPtr hWnd = Spotify.GetMainWindowHandle(unchecked((uint)process.Id));
                 if (hWnd == IntPtr.Zero)
                     this.RaiseActionFailed(this, new ActionFailedEventArgs("Couldn't find Spotify's main window handle."));
                 else

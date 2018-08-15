@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using Toastify.Core;
 using ToastifyAPI.Events;
 using ToastifyAPI.Model.Interfaces;
@@ -9,16 +9,24 @@ namespace Toastify.Model
     [JsonObject(MemberSerialization.OptOut)]
     public abstract class ToastifyAction : IAction
     {
+        #region Public properties
+
         /// <inheritdoc />
         public virtual string Name { get; }
 
         public virtual ToastifyActionEnum ToastifyActionEnum { get; }
+
+        #endregion
+
+        #region Events
 
         /// <inheritdoc />
         public event EventHandler ActionPerformed;
 
         /// <inheritdoc />
         public event EventHandler<ActionFailedEventArgs> ActionFailed;
+
+        #endregion
 
         protected ToastifyAction() : this(string.Empty)
         {
@@ -37,6 +45,16 @@ namespace Toastify.Model
 
         /// <inheritdoc />
         public abstract void PerformAction();
+
+        protected virtual void RaiseActionPerformed(object sender)
+        {
+            this.ActionPerformed?.Invoke(sender, EventArgs.Empty);
+        }
+
+        protected virtual void RaiseActionFailed(object sender, ActionFailedEventArgs e)
+        {
+            this.ActionFailed?.Invoke(sender, e);
+        }
 
         #region Equals / GetHashCode
 
@@ -74,15 +92,5 @@ namespace Toastify.Model
         }
 
         #endregion Equals / GetHashCode
-
-        protected virtual void RaiseActionPerformed(object sender)
-        {
-            this.ActionPerformed?.Invoke(sender, EventArgs.Empty);
-        }
-
-        protected virtual void RaiseActionFailed(object sender, ActionFailedEventArgs e)
-        {
-            this.ActionFailed?.Invoke(sender, e);
-        }
     }
 }

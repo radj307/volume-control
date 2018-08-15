@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
+using Newtonsoft.Json.Serialization;
 
 namespace Toastify.Model
 {
@@ -11,7 +11,7 @@ namespace Toastify.Model
         {
             JsonContract contract = base.CreateContract(objectType);
 
-            if (typeof(ToastifyAction).IsAssignableFrom(objectType))    // Serialize ToastifyAction objects only as a ToastifyActionEnum value
+            if (typeof(ToastifyAction).IsAssignableFrom(objectType)) // Serialize ToastifyAction objects only as a ToastifyActionEnum value
                 contract.Converter = new ToastifyActionAsEnumJsonConverter();
 
             return contract;

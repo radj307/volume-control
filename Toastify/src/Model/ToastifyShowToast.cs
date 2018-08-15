@@ -6,6 +6,8 @@ namespace Toastify.Model
 {
     public sealed class ToastifyShowToast : ToastifyAction
     {
+        #region Public properties
+
         /// <inheritdoc />
         public override string Name
         {
@@ -19,6 +21,8 @@ namespace Toastify.Model
         }
 
         public bool ShouldPrintExtendedDebugLog { get; set; }
+
+        #endregion
 
         /// <inheritdoc />
         public override void PerformAction()
