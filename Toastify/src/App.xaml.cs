@@ -9,19 +9,25 @@ using log4net.Repository.Hierarchy;
 using PowerArgs;
 using SpotifyAPI;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using System.Xml.Serialization;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -32,6 +38,7 @@ using ToastifyAPI.Interop;
 using ToastifyAPI.Interop.Interfaces;
 using ToastifyAPI.Logic;
 using ToastifyAPI.Logic.Interfaces;
+using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify
 {
@@ -159,8 +166,10 @@ namespace Toastify
             if (logger.IsDebugEnabled)
                 logger.Debug("Preparing to launch Toastify...");
 
-            //   Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
+            // > [StartupTaskPerSettings] > Load Settings > [StartupTask]
+            // > Initialize Analytics > Update PreviousVersion to this one
             // > Initialize AutoUpdater & VersionChecker
+            StartupTaskPreSettings();
             LoadSettings();
             StartupTask();
             Analytics.Init();
@@ -187,10 +196,89 @@ namespace Toastify
             app.Run();
         }
 
+        private static void StartupTaskPreSettings()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(StartupTaskPreSettings)}]");
+
+            // Convert the settings file
+            if (File.Exists(Settings.SettingsFilePath))
+            {
+                JObject jSettings;
+
+                using (var sr = new StreamReader(Settings.SettingsFilePath))
+                {
+                    using (var jsonReader = new JsonTextReader(sr))
+                    {
+                        jSettings = JObject.Load(jsonReader);
+                    }
+                }
+
+                JToken jPreviousV = jSettings["PreviousVersion"];
+                var previousV = new Version(jPreviousV?.Value<string>() ?? "0");
+
+                // [IDO] Hotkeys
+                if (previousV < new Version("1.10.10"))
+                {
+                    // pre-1.10.10 hotkeys must be converted to the current format
+                    logger.Info("Converting old hotkeys to the current format...");
+
+                    JToken jHotkeys = jSettings["HotKeys"];
+                    if (jHotkeys?.HasValues == true)
+                    {
+                        JArray convertedHotkeys = new JArray();
+
+                        foreach (JToken jHotkey in jHotkeys.Children())
+                        {
+                            JToken jKeyOrButton = jHotkey["KeyOrButton"];
+                            JToken jKey = jKeyOrButton?["Key"];
+
+                            ModifierKeys modifiers = (jHotkey["Alt"]?.Value<bool>() == true ? ModifierKeys.Alt : ModifierKeys.None) |
+                                                     (jHotkey["Ctrl"]?.Value<bool>() == true ? ModifierKeys.Control : ModifierKeys.None) |
+                                                     (jHotkey["Shift"]?.Value<bool>() == true ? ModifierKeys.Shift : ModifierKeys.None) |
+                                                     (jHotkey["WindowsKey"]?.Value<bool>() == true ? ModifierKeys.Windows : ModifierKeys.None);
+
+                            ToastifyActionEnum toastifyActionEnum = Enum.TryParse(jHotkey["Action"]?.Value<string>(), out ToastifyActionEnum tae) ? tae : ToastifyActionEnum.None;
+                            ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(toastifyActionEnum);
+                            bool enabled = jHotkey["Enabled"]?.Value<bool>() ?? false;
+
+                            Hotkey h = jKeyOrButton?["IsKey"]?.Value<bool>() ?? jKey != null
+                                ? new KeyboardHotkey
+                                {
+                                    Modifiers = modifiers,
+                                    Key = Enum.TryParse(jKey?.Value<string>(), out Key k) ? k : (Key?)null,
+                                    Action = action,
+                                    Enabled = enabled
+                                } as Hotkey
+                                : new MouseHookHotkey
+                                {
+                                    Modifiers = modifiers,
+                                    MouseButton = Enum.TryParse(jKeyOrButton?["MouseButton"]?.Value<string>(), out MouseAction ma) ? ma : (MouseAction?)null,
+                                    Action = action,
+                                    Enabled = enabled
+                                };
+
+                            JObject jH = JObject.FromObject(h, Settings.JsonSerializer);
+                            convertedHotkeys.Add(jH);
+                        }
+
+                        jHotkeys.Replace(convertedHotkeys);
+                    }
+                }
+
+                // Write the modified JObject back to the settings file
+                string json = JsonConvert.SerializeObject(jSettings, Formatting.Indented, Settings.JsonSerializerSettings);
+                File.WriteAllText(Settings.SettingsFilePath, json, Encoding.UTF8);
+            }
+        }
+
         private static void LoadSettings()
         {
             try
             {
+                if (logger.IsDebugEnabled)
+                    logger.Debug($"[{nameof(LoadSettings)}]");
+
                 Settings.Current.Load();
 
                 if (logger.IsDebugEnabled)
@@ -204,42 +292,8 @@ namespace Toastify
             }
             catch (FileNotFoundException ex)
             {
-                // Check if the old XML settings file is still there.
-
-                const string oldSettingsFileName = "Toastify.xml";
-
-                // ReSharper disable once PossibleNullReferenceException - The parent directory is created by Settings.SettingsFilePath, if needed
-                string dir = new FileInfo(Settings.SettingsFilePath).Directory.FullName;
-                string filePath = Path.Combine(dir, oldSettingsFileName);
-                if (File.Exists(filePath))
-                {
-                    if (logger.IsDebugEnabled)
-                        logger.Debug("Migrating from old XML settings to new JSON config file.");
-
-                    try
-                    {
-                        Settings xmlFile;
-                        using (StreamReader sr = new StreamReader(filePath))
-                        {
-                            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-                            xmlFile = serializer.Deserialize(sr) as Settings;
-                        }
-
-                        xmlFile?.SetAsCurrentAndSave();
-                        File.Copy(filePath, $"{filePath}.bak", true);
-                        File.Delete(filePath);
-                        LoadSettings();
-                    }
-                    catch (Exception exx)
-                    {
-                        logger.Error(exx.Message, exx);
-                    }
-                }
-                else
-                {
-                    logger.Warn("Neither a JSON config file nor an old XML settings file exist! Toastify will use default values.", ex);
-                    Settings.Current.LoadSafe();
-                }
+                logger.Warn("Config file not found! Toastify will use default values.", ex);
+                Settings.Current.LoadSafe();
             }
             catch (Exception ex)
             {
@@ -255,6 +309,9 @@ namespace Toastify
 
         private static void StartupTask()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(StartupTask)}]");
+
             if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
             {
                 Version previous = new Version(Settings.Current.PreviousVersion);
@@ -270,6 +327,9 @@ namespace Toastify
 
         private static void InitUpdater()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(InitUpdater)}]");
+
             // Just getting the instances to initialize the singletons
             // ReSharper disable UnusedVariable
             var ignore1 = VersionChecker.Instance;
