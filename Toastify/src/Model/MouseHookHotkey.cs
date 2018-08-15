@@ -160,7 +160,7 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
-        public override void Dispatch(IHotkeyVisitor hotkeyVisitor)
+        protected override void DispatchInternal(IHotkeyVisitor hotkeyVisitor)
         {
             if (this.visitor is IMouseHookHotkeyVisitor mouseHookHotkeyVisitor)
                 mouseHookHotkeyVisitor.Visit(this);

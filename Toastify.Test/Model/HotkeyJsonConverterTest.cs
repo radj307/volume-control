@@ -244,7 +244,7 @@ namespace Toastify.Tests.Model
             }
 
             /// <inheritdoc />
-            public override void Dispatch(IHotkeyVisitor hotkeyVisitor)
+            protected override void DispatchInternal(IHotkeyVisitor hotkeyVisitor)
             {
                 throw new NotImplementedException();
             }

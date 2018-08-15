@@ -1,4 +1,6 @@
-﻿using Toastify.Core;
+﻿#if DEBUG
+
+using Toastify.Core;
 using Toastify.View;
 
 namespace Toastify.Model
@@ -20,10 +22,10 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override void PerformAction()
         {
-#if DEBUG
             if (DebugView.Current == null)
                 DebugView.Launch();
-#endif
         }
     }
 }
+
+#endif

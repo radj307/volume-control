@@ -146,7 +146,16 @@ namespace Toastify.Model
             this.Active = false;
         }
 
-        public abstract void Dispatch(IHotkeyVisitor hotkeyVisitor);
+        public void Dispatch(IHotkeyVisitor hotkeyVisitor)
+        {
+            // TODO: TEMPORARY FIX: Never show the toast on demand!
+            if (this.Action is ToastifyShowToast)
+                return;
+
+            this.DispatchInternal(hotkeyVisitor);
+        }
+
+        protected abstract void DispatchInternal(IHotkeyVisitor hotkeyVisitor);
 
         public object Clone()
         {

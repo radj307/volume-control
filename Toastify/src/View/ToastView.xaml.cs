@@ -1093,7 +1093,7 @@ namespace Toastify.View
         private void SettingsView_Launched(object sender, SettingsViewLaunchedEventArgs e)
         {
             this.Settings = e.Settings;
-            this.ShowToastPreview(true);
+            //this.ShowToastPreview(true);
         }
 
         private void SettingsView_Closed(object sender, EventArgs e)

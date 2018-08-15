@@ -182,7 +182,7 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
-        public override void Dispatch(IHotkeyVisitor hotkeyVisitor)
+        protected override void DispatchInternal(IHotkeyVisitor hotkeyVisitor)
         {
             if (hotkeyVisitor is IKeyboardHotkeyVisitor keyboardHotkeyVisitor)
                 keyboardHotkeyVisitor.Visit(this);
