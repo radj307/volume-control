@@ -2,7 +2,6 @@
 using log4net;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using StructureMap.Attributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +18,7 @@ using System.Windows.Input;
 using System.Xml.Serialization;
 using Toastify.Common;
 using Toastify.Core;
+using Toastify.DI;
 using Toastify.Helpers;
 using ToastifyAPI.Helpers;
 using Application = System.Windows.Forms.Application;
@@ -136,7 +136,7 @@ namespace Toastify.Model
 
         // TODO: When the Settings class will not be a Singleton anymore, this dependency can be moved to the public constructor.
         [JsonIgnore]
-        [SetterProperty]
+        [PropertyDependency]
         public IToastifyActionRegistry ToastifyActionRegistry { get; set; }
 
         #region Settings

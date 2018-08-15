@@ -8,7 +8,6 @@ using log4net.Repository;
 using log4net.Repository.Hierarchy;
 using PowerArgs;
 using SpotifyAPI;
-using StructureMap;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -21,6 +20,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -378,7 +379,7 @@ namespace Toastify
         // ReSharper disable once InconsistentNaming
         private static ProxyConfigAdapter _proxyConfig;
 
-        public static Container Container { get; private set; }
+        public static WindsorContainer Container { get; private set; }
 
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
@@ -449,17 +450,19 @@ namespace Toastify
 
         private static void SetupContainer()
         {
-            Container = new Container();
-            Container.Configure(x =>
+            Container = new WindsorContainer();
+
+            // ReSharper disable once RedundantExplicitParamsArrayCreation
+            Container.Register(new IRegistration[]
             {
-                x.For<IKeyboard>().Use(InputDevices.PrimaryKeyboard);
-                x.For<IMouse>().Use(InputDevices.PrimaryMouse);
-                x.For<IInputDevices>().Use<InputDevices>();
+                Component.For<IKeyboard>().Instance(InputDevices.PrimaryKeyboard),
+                Component.For<IMouse>().Instance(InputDevices.PrimaryMouse),
+                Component.For<IInputDevices>().ImplementedBy<InputDevices>(),
 
-                x.For<IToastifyActionRegistry>().Use<ToastifyActionRegistry>();
+                Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
 
-                x.For<IKeyboardHotkeyVisitor>().Use<KeyboardHotkeyVisitor>();
-                x.For<IMouseHookHotkeyVisitor>().Use<MouseHookHotkeyVisitor>();
+                Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
+                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>(),
             });
         }
 

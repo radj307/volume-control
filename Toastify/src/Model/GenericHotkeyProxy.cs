@@ -111,8 +111,8 @@ namespace Toastify.Model
 
         public GenericHotkeyProxy()
         {
-            this.keyboardHotkey = App.Container.GetInstance<KeyboardHotkey>();
-            this.mouseHookHotkey = App.Container.GetInstance<MouseHookHotkey>();
+            this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
+            this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
         }
 
         public GenericHotkeyProxy(Hotkey hotkey)
@@ -121,18 +121,18 @@ namespace Toastify.Model
             {
                 this.Type = HotkeyType.Keyboard;
                 this.keyboardHotkey = kbdHotkey;
-                this.mouseHookHotkey = App.Container.GetInstance<MouseHookHotkey>();
+                this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
             }
             else if (hotkey is MouseHookHotkey mhHotkey)
             {
                 this.Type = HotkeyType.MouseHook;
-                this.keyboardHotkey = App.Container.GetInstance<KeyboardHotkey>();
+                this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
                 this.mouseHookHotkey = mhHotkey;
             }
             else
             {
-                this.keyboardHotkey = App.Container.GetInstance<KeyboardHotkey>();
-                this.mouseHookHotkey = App.Container.GetInstance<MouseHookHotkey>();
+                this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
+                this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
             }
         }
 
@@ -141,14 +141,14 @@ namespace Toastify.Model
             this.Type = HotkeyType.Keyboard;
 
             this.keyboardHotkey = keyboardHotkey;
-            this.mouseHookHotkey = App.Container.GetInstance<MouseHookHotkey>();
+            this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
         }
 
         public GenericHotkeyProxy(MouseHookHotkey mouseHookHotkey)
         {
             this.Type = HotkeyType.MouseHook;
 
-            this.keyboardHotkey = App.Container.GetInstance<KeyboardHotkey>();
+            this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
             this.mouseHookHotkey = mouseHookHotkey;
         }
 

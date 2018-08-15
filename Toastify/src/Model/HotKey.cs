@@ -1,11 +1,11 @@
 ﻿using JetBrains.Annotations;
 using log4net;
 using Newtonsoft.Json;
-using StructureMap.Attributes;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Toastify.DI;
 using ToastifyAPI.Interop.Interfaces;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model;
@@ -25,7 +25,7 @@ namespace Toastify.Model
         #region Public properties
 
         [JsonIgnore]
-        [SetterProperty]
+        [PropertyDependency]
         public IInputDevices InputDevices { get; set; }
 
         /// <summary>

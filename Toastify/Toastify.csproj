@@ -94,6 +94,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="GoogleMeasurementProtocol, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GoogleMeasurementProtocol.1.4.2\lib\net45\GoogleMeasurementProtocol.dll</HintPath>
     </Reference>
@@ -115,9 +121,6 @@
     </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpotifyAPI-NET.2.18.0\lib\SpotifyAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -176,6 +179,7 @@
     <Compile Include="src\Core\UpdateDeliveryMode.cs" />
     <Compile Include="src\Core\VersionCheckFrequency.cs" />
     <Compile Include="src\CustomMessageBox.cs" />
+    <Compile Include="src\DI\PropertyDependencyAttribute.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
     <Compile Include="src\Events\UpdateReadyEventArgs.cs" />
     <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
@@ -199,6 +203,7 @@
     <Compile Include="src\Helpers\Markdown\TextToFlowDocumentConverter.cs" />
     <Compile Include="src\Helpers\Validators\IPPortRule.cs" />
     <Compile Include="src\Helpers\Validators\IPAddressRule.cs" />
+    <Compile Include="src\Helpers\WindsorContainerExtensions.cs" />
     <Compile Include="src\Model\GenericHotkeyProxy.cs" />
     <Compile Include="src\Model\GetVolumeControlModeDelegate.cs" />
     <Compile Include="src\Model\HotkeyJsonConverter.cs" />

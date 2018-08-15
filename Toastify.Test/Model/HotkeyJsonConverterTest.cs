@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using StructureMap.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using Toastify.DI;
 using Toastify.Model;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Logic.Interfaces;
@@ -17,7 +17,7 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Tests.Model
 {
-    [TestFixture, TestOf(typeof(HotkeyJsonConverterTest))]
+    [TestFixture, TestOf(typeof(HotkeyJsonConverter))]
     public class HotkeyJsonConverterTest
     {
         private HotkeyJsonConverter hotkeyJsonConverter;
@@ -186,7 +186,7 @@ namespace Toastify.Tests.Model
                         h =>
                         {
                             var properties = typeof(Hotkey).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                                                           .Where(prop => prop.GetCustomAttributes(typeof(SetterPropertyAttribute)).Any());
+                                                           .Where(prop => prop.GetCustomAttributes(typeof(PropertyDependencyAttribute)).Any());
                             return properties.All(prop =>
                             {
                                 var type = prop.PropertyType;

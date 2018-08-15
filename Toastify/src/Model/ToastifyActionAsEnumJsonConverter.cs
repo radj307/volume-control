@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Toastify.Core;
+using Toastify.Helpers;
 
 namespace Toastify.Model
 {
@@ -34,7 +35,7 @@ namespace Toastify.Model
             try
             {
                 ToastifyActionEnum actionEnum = serializer.Deserialize<ToastifyActionEnum>(reader);
-                ToastifyAction action = App.Container.GetInstance<IToastifyActionRegistry>().GetAction(actionEnum);
+                ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(actionEnum);
                 App.Container.BuildUp(action);
                 return action;
             }
