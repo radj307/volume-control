@@ -12,8 +12,11 @@ using ToastifyAPI.Native.Structs;
 // ReSharper disable BuiltInTypeReferenceStyle
 namespace ToastifyAPI
 {
+    // ReSharper disable once PartialTypeWithSinglePart
     public static partial class Win32API
     {
+        #region Static Members
+
         public static ImageSource GetStockIconImage(ShStockIconId iconId, bool large)
         {
             return GetStockIconImage(iconId, large, false);
@@ -25,7 +28,7 @@ namespace ToastifyAPI
 
             if (Environment.OSVersion.Version.Major >= 6 && !getSystemIcon)
             {
-                ShStockIconInfo sii = new ShStockIconInfo { cbSize = (UInt32)Marshal.SizeOf(typeof(ShStockIconInfo)) };
+                var sii = new ShStockIconInfo { cbSize = (UInt32)Marshal.SizeOf(typeof(ShStockIconInfo)) };
 
                 int errCode = Shell32.SHGetStockIconInfo(iconId, ShGSI.SHGSI_ICON | (large ? ShGSI.SHGSI_LARGEICON : ShGSI.SHGSI_SMALLICON) | ShGSI.SHGSI_SHELLICONSIZE, ref sii);
                 Marshal.ThrowExceptionForHR(errCode);
@@ -71,5 +74,7 @@ namespace ToastifyAPI
 
             return imageSource;
         }
+
+        #endregion
     }
 }

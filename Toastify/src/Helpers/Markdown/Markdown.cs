@@ -17,19 +17,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Toastify.Helpers.Markdown
 {
     public class Markdown : DependencyObject
     {
         /// <summary>
-        /// Maximum nested depth of [] and () supported by the transform; implementation detail
+        ///     Maximum nested depth of [] and () supported by the transform; implementation detail
         /// </summary>
         private const int NEST_DEPTH = 6;
 
         /// <summary>
-        /// Tabs are automatically converted to spaces as part of the transform
-        /// this constant determines how "wide" those tabs become in spaces
+        ///     Tabs are automatically converted to spaces as part of the transform
+        ///     this constant determines how "wide" those tabs become in spaces
         /// </summary>
         private const int TAB_WIDTH = 4;
 
@@ -38,39 +39,11 @@ namespace Toastify.Helpers.Markdown
 
         private int listLevel;
 
-        #region DependencyProperty's
-
-        public static readonly DependencyProperty DocumentStyleProperty = DependencyProperty.Register("DocumentStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty TextStyleProperty = DependencyProperty.Register("TextStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty Heading1StyleProperty = DependencyProperty.Register("Heading1Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty Heading2StyleProperty = DependencyProperty.Register("Heading2Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty Heading3StyleProperty = DependencyProperty.Register("Heading3Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty Heading4StyleProperty = DependencyProperty.Register("Heading4Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty CodeTextStyleProperty = DependencyProperty.Register("CodeTextStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty CodeBorderStyleProperty = DependencyProperty.Register("CodeBorderStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty LinkStyleProperty = DependencyProperty.Register("LinkStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty ImageStyleProperty = DependencyProperty.Register("ImageStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty SeparatorStyleProperty = DependencyProperty.Register("SeparatorStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty AssetPathRootProperty = DependencyProperty.Register("AssetPathRootRoot", typeof(string), typeof(Markdown), new PropertyMetadata(null));
-
-        #endregion DependencyProperty's
-
         #region Public Properties
 
         /// <summary>
-        /// when true, bold and italics require non-word characters on either side
-        /// WARNING: this is a significant deviation from the markdown spec
+        ///     when true, bold and italics require non-word characters on either side
+        ///     WARNING: this is a significant deviation from the markdown spec
         /// </summary>
         public bool StrictBoldItalic { get; set; }
 
@@ -146,7 +119,7 @@ namespace Toastify.Helpers.Markdown
             set { this.SetValue(AssetPathRootProperty, value); }
         }
 
-        #endregion Public properties
+        #endregion
 
         public FlowDocument Transform(string text)
         {
@@ -154,7 +127,7 @@ namespace Toastify.Helpers.Markdown
                 throw new ArgumentNullException(nameof(text));
 
             text = Normalize(text);
-            var document = Create<FlowDocument, Block>(this.RunBlockGamut(text));
+            FlowDocument document = Create<FlowDocument, Block>(this.RunBlockGamut(text));
 
             if (this.DocumentStyle != null)
                 document.Style = this.DocumentStyle;
@@ -165,7 +138,7 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Perform transformations that form block-level tags like paragraphs, headers, and list items.
+        ///     Perform transformations that form block-level tags like paragraphs, headers, and list items.
         /// </summary>
         private IEnumerable<Block> RunBlockGamut(string text)
         {
@@ -180,7 +153,7 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Perform transformations that occur *within* block-level tags like paragraphs, headers, and list items.
+        ///     Perform transformations that occur *within* block-level tags like paragraphs, headers, and list items.
         /// </summary>
         private IEnumerable<Inline> RunSpanGamut(string text)
         {
@@ -196,7 +169,7 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Splits on two or more newlines, to form "paragraphs";
+        ///     Splits on two or more newlines, to form "paragraphs";
         /// </summary>
         private IEnumerable<Block> FormParagraphs(string text)
         {
@@ -206,74 +179,17 @@ namespace Toastify.Helpers.Markdown
             // split on two or more newlines
             string[] grafs = newlinesMultipleRegex.Split(newlinesLeadingTrailingRegex.Replace(text, ""));
 
-            foreach (var g in grafs)
+            foreach (string g in grafs)
             {
                 yield return Create<Paragraph, Inline>(this.RunSpanGamut(g));
             }
         }
 
         /// <summary>
-        /// Reusable pattern to match balanced [brackets]. See Friedl's
-        /// "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
-        /// </summary>
-        private static string GetNestedBracketsPattern()
-        {
-            // in other words [this] and [this[also]] and [this[also[too]]]
-            // up to _nestDepth
-            return nestedBracketsPattern ?? (nestedBracketsPattern =
-                       RepeatString(@"
-                            (?>           # Atomic matching
-                            [^\[\]]+      # Anything other than brackets
-                            |
-                            \[
-                            ", NEST_DEPTH) + RepeatString(
-                           @" \]
-                            )*", NEST_DEPTH));
-        }
-
-        /// <summary>
-        /// Reusable pattern to match balanced (parens). See Friedl's
-        /// "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
-        /// </summary>
-        private static string GetNestedParensPattern()
-        {
-            // in other words (this) and (this(also)) and (this(also(too)))
-            // up to _nestDepth
-            return nestedParensPattern ?? (nestedParensPattern =
-                       RepeatString(@"
-                        (?>             # Atomic matching
-                        [^()\s]+        # Anything other than parens or whitespace
-                        |
-                        \(
-                        ", NEST_DEPTH) + RepeatString(
-                       @" \)
-                        )*", NEST_DEPTH));
-        }
-
-        /// <summary>
-        /// Reusable pattern to match balanced (parens), including whitespace. See Friedl's
-        /// "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
-        /// </summary>
-        private static string GetNestedParensPatternWithWhiteSpace()
-        {
-            // in other words (this) and (this(also)) and (this(also(too)))
-            // up to _nestDepth
-            return nestedParensPatternWithWhiteSpace ?? (nestedParensPatternWithWhiteSpace =
-                       RepeatString(@"
-                        (?>            # Atomic matching
-                        [^()]+         # Anything other than parens
-                        |
-                        \(
-                        ", NEST_DEPTH) + RepeatString(
-                       @" \)
-                        )*", NEST_DEPTH));
-        }
-
-        /// <summary>
-        /// Turn Markdown images into images
+        ///     Turn Markdown images into images
         /// </summary>
         /// <remarks>
-        /// ![image alt](url)
+        ///     ![image alt](url)
         /// </remarks>
         private IEnumerable<Inline> DoImages(string text, Func<string, IEnumerable<Inline>> defaultHandler)
         {
@@ -293,8 +209,8 @@ namespace Toastify.Helpers.Markdown
             BitmapImage imgSource;
             try
             {
-                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && !System.IO.Path.IsPathRooted(url))
-                    url = System.IO.Path.Combine(this.AssetPathRoot ?? string.Empty, url);
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && !Path.IsPathRooted(url))
+                    url = Path.Combine(this.AssetPathRoot ?? string.Empty, url);
 
                 imgSource = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
             }
@@ -303,7 +219,7 @@ namespace Toastify.Helpers.Markdown
                 return new Run("!" + url) { Foreground = Brushes.Red };
             }
 
-            Image image = new Image { Source = imgSource, Tag = linkText };
+            var image = new Image { Source = imgSource, Tag = linkText };
             if (this.ImageStyle == null)
                 image.Margin = new Thickness(0);
             else
@@ -312,7 +228,7 @@ namespace Toastify.Helpers.Markdown
             // Bind size so document is updated when image is downloaded
             if (imgSource.IsDownloading)
             {
-                Binding binding = new Binding(nameof(BitmapImage.Width))
+                var binding = new Binding(nameof(BitmapImage.Width))
                 {
                     Source = imgSource,
                     Mode = BindingMode.OneWay
@@ -335,10 +251,10 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Turn Markdown link shortcuts into hyperlinks
+        ///     Turn Markdown link shortcuts into hyperlinks
         /// </summary>
         /// <remarks>
-        /// [link text](url "title")
+        ///     [link text](url "title")
         /// </remarks>
         private IEnumerable<Inline> DoAnchors(string text, Func<string, IEnumerable<Inline>> defaultHandler)
         {
@@ -357,7 +273,7 @@ namespace Toastify.Helpers.Markdown
             string linkText = match.Groups[2].Value;
             string url = match.Groups[3].Value;
 
-            var result = Create<Hyperlink, Inline>(this.RunSpanGamut(linkText));
+            Hyperlink result = Create<Hyperlink, Inline>(this.RunSpanGamut(linkText));
             result.NavigateUri = new Uri(url, UriKind.Absolute);
             result.RequestNavigate += Hyperlink_RequestNavigate;
             if (this.LinkStyle != null)
@@ -367,20 +283,18 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Turn Markdown headers into HTML header tags
+        ///     Turn Markdown headers into HTML header tags
         /// </summary>
         /// <remarks>
-        /// Header 1
-        /// ========
-        ///
-        /// Header 2
-        /// --------
-        ///
-        /// # Header 1
-        /// ## Header 2
-        /// ## Header 2 with closing hashes ##
-        /// ...
-        /// ###### Header 6
+        ///     Header 1
+        ///     ========
+        ///     Header 2
+        ///     --------
+        ///     # Header 1
+        ///     ## Header 2
+        ///     ## Header 2 with closing hashes ##
+        ///     ...
+        ///     ###### Header 6
         /// </remarks>
         private IEnumerable<Block> DoHeaders(string text, Func<string, IEnumerable<Block>> defaultHandler)
         {
@@ -418,7 +332,7 @@ namespace Toastify.Helpers.Markdown
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            var block = Create<Paragraph, Inline>(content);
+            Paragraph block = Create<Paragraph, Inline>(content);
 
             switch (level)
             {
@@ -451,13 +365,13 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Turn Markdown horizontal rules into HTML hr tags
+        ///     Turn Markdown horizontal rules into HTML hr tags
         /// </summary>
         /// <remarks>
-        /// ***
-        /// * * *
-        /// ---
-        /// - - -
+        ///     ***
+        ///     * * *
+        ///     ---
+        ///     - - -
         /// </remarks>
         private IEnumerable<Block> DoHorizontalRules(string text, Func<string, IEnumerable<Block>> defaultHandler)
         {
@@ -472,7 +386,7 @@ namespace Toastify.Helpers.Markdown
             if (match == null)
                 throw new ArgumentNullException(nameof(match));
 
-            Line line = new Line();
+            var line = new Line();
             if (this.SeparatorStyle == null)
             {
                 line.X2 = 1;
@@ -486,7 +400,7 @@ namespace Toastify.Helpers.Markdown
         }
 
         /// <summary>
-        /// Turn Markdown lists into HTML ul and ol and li tags
+        ///     Turn Markdown lists into HTML ul and ol and li tags
         /// </summary>
         private IEnumerable<Block> DoLists(string text, Func<string, IEnumerable<Block>> defaultHandler)
         {
@@ -510,15 +424,15 @@ namespace Toastify.Helpers.Markdown
             // paragraph for the last item in a list, if necessary:
             list = Regex.Replace(list, @"\n{2,}", "\n\n\n");
 
-            var resultList = Create<List, ListItem>(this.ProcessListItems(list, listType == "ul" ? MARKER_UL : MARKER_OL));
+            List resultList = Create<List, ListItem>(this.ProcessListItems(list, listType == "ul" ? MARKER_UL : MARKER_OL));
             resultList.MarkerStyle = listType == "ul" ? TextMarkerStyle.Disc : TextMarkerStyle.Decimal;
 
             return resultList;
         }
 
         /// <summary>
-        /// Process the contents of a single ordered or unordered list, splitting it
-        /// into individual list items.
+        ///     Process the contents of a single ordered or unordered list, splitting it
+        ///     into individual list items.
         /// </summary>
         private IEnumerable<ListItem> ProcessListItems(string list, string marker)
         {
@@ -550,7 +464,7 @@ namespace Toastify.Helpers.Markdown
                 list = Regex.Replace(list, @"\n{2,}\z", "\n");
 
                 string pattern = string.Format(
-                  @"(\n)?                      # leading line = $1
+                    @"(\n)?                      # leading line = $1
                     (^[ ]*)                    # leading whitespace = $2
                     ({0}) [ ]+                 # list marker = $3
                     ((?s:.+?)                  # list item text = $4
@@ -558,7 +472,7 @@ namespace Toastify.Helpers.Markdown
                     (?= \n* (\z | \2 ({0}) [ ]+))", marker);
 
                 var regex = new Regex(pattern, RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
-                var matches = regex.Matches(list);
+                MatchCollection matches = regex.Matches(list);
                 foreach (Match m in matches)
                 {
                     yield return this.ListItemEvaluator(m);
@@ -583,12 +497,313 @@ namespace Toastify.Helpers.Markdown
                 // we could correct any bad indentation here..
                 return Create<ListItem, Block>(this.RunBlockGamut(item));
             }
-            else
+
+            // recursion for sub-lists
+            return Create<ListItem, Block>(this.RunBlockGamut(item));
+        }
+
+        /// <summary>
+        ///     Turn Markdown `code spans` into HTML code tags
+        /// </summary>
+        private IEnumerable<Inline> DoCodeSpans(string text, Func<string, IEnumerable<Inline>> defaultHandler)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            return Evaluate(text, codeSpanRegex, this.CodeSpanEvaluator, defaultHandler);
+        }
+
+        private Inline CodeSpanEvaluator(Match match)
+        {
+            if (match == null)
+                throw new ArgumentNullException(nameof(match));
+
+            string span = match.Groups[2].Value;
+            span = Regex.Replace(span, @"^[ ]*", ""); // leading whitespace
+            span = Regex.Replace(span, @"[ ]*$", ""); // trailing whitespace
+
+            var border = new Border();
+            if (this.CodeBorderStyle != null)
+                border.Style = this.CodeBorderStyle;
+
+            var textBlock = new TextBlock { Text = span };
+            if (this.CodeTextStyle != null)
+                textBlock.Style = this.CodeTextStyle;
+
+            border.Child = textBlock;
+            return new InlineUIContainer(border);
+        }
+
+        /// <summary>
+        ///     Turn Markdown *italics* and **bold** into HTML strong and em tags
+        /// </summary>
+        private IEnumerable<Inline> DoItalicsAndBold(string text, Func<string, IEnumerable<Inline>> defaultHandler)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            // <strong> must go first, then <em>
+            return this.StrictBoldItalic
+                ? Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
+                    s1 => Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3), defaultHandler))
+                : Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
+                    s1 => Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2), defaultHandler));
+        }
+
+        private Inline ItalicEvaluator(Match match, int contentGroup)
+        {
+            if (match == null)
+                throw new ArgumentNullException(nameof(match));
+
+            string content = match.Groups[contentGroup].Value;
+            return Create<Italic, Inline>(this.RunSpanGamut(content));
+        }
+
+        private Inline BoldEvaluator(Match match, int contentGroup)
+        {
+            if (match == null)
+                throw new ArgumentNullException(nameof(match));
+
+            string content = match.Groups[contentGroup].Value;
+            return Create<Bold, Inline>(this.RunSpanGamut(content));
+        }
+
+        public IEnumerable<Inline> DoText(string text)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            string t = eolnRegex.Replace(text, " ");
+
+            var result = new Run(t);
+            if (this.TextStyle != null)
+                result.Style = this.TextStyle;
+            yield return result;
+        }
+
+        #region Static Members
+
+        /// <summary>
+        ///     Reusable pattern to match balanced [brackets]. See Friedl's
+        ///     "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
+        /// </summary>
+        private static string GetNestedBracketsPattern()
+        {
+            // in other words [this] and [this[also]] and [this[also[too]]]
+            // up to _nestDepth
+            return nestedBracketsPattern ?? (nestedBracketsPattern =
+                       RepeatString(@"
+                            (?>           # Atomic matching
+                            [^\[\]]+      # Anything other than brackets
+                            |
+                            \[
+                            ", NEST_DEPTH) + RepeatString(
+                           @" \]
+                            )*", NEST_DEPTH));
+        }
+
+        /// <summary>
+        ///     Reusable pattern to match balanced (parens). See Friedl's
+        ///     "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
+        /// </summary>
+        private static string GetNestedParensPattern()
+        {
+            // in other words (this) and (this(also)) and (this(also(too)))
+            // up to _nestDepth
+            return nestedParensPattern ?? (nestedParensPattern =
+                       RepeatString(@"
+                        (?>             # Atomic matching
+                        [^()\s]+        # Anything other than parens or whitespace
+                        |
+                        \(
+                        ", NEST_DEPTH) + RepeatString(
+                           @" \)
+                        )*", NEST_DEPTH));
+        }
+
+        /// <summary>
+        ///     Reusable pattern to match balanced (parens), including whitespace. See Friedl's
+        ///     "Mastering Regular Expressions", 2nd Ed., pp. 328-331.
+        /// </summary>
+        private static string GetNestedParensPatternWithWhiteSpace()
+        {
+            // in other words (this) and (this(also)) and (this(also(too)))
+            // up to _nestDepth
+            return nestedParensPatternWithWhiteSpace ?? (nestedParensPatternWithWhiteSpace =
+                       RepeatString(@"
+                        (?>            # Atomic matching
+                        [^()]+         # Anything other than parens
+                        |
+                        \(
+                        ", NEST_DEPTH) + RepeatString(
+                           @" \)
+                        )*", NEST_DEPTH));
+        }
+
+        /// <summary>
+        ///     Remove one level of line-leading spaces
+        /// </summary>
+        private static string Outdent(string block)
+        {
+            return outDentRegex.Replace(block, "");
+        }
+
+        /// <summary>
+        ///     convert all tabs to _tabWidth spaces;
+        ///     standardizes line endings from DOS (CR LF) or Mac (CR) to UNIX (LF);
+        ///     makes sure text ends with a couple of newlines;
+        ///     removes any blank lines (only spaces) in the text
+        /// </summary>
+        private static string Normalize(string text)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            var output = new StringBuilder(text.Length);
+            var line = new StringBuilder();
+            bool valid = false;
+
+            for (int i = 0; i < text.Length; i++)
             {
-                // recursion for sub-lists
-                return Create<ListItem, Block>(this.RunBlockGamut(item));
+                switch (text[i])
+                {
+                    case '\n':
+                        if (valid)
+                            output.Append(line);
+                        output.Append('\n');
+                        line.Length = 0;
+                        valid = false;
+                        break;
+
+                    case '\r':
+                        if (i < text.Length - 1 && text[i + 1] != '\n')
+                        {
+                            if (valid)
+                                output.Append(line);
+                            output.Append('\n');
+                            line.Length = 0;
+                            valid = false;
+                        }
+
+                        break;
+
+                    case '\t':
+                        int width = TAB_WIDTH - line.Length % TAB_WIDTH;
+                        for (int k = 0; k < width; k++)
+                            line.Append(' ');
+                        break;
+
+                    case '\x1A':
+                        break;
+
+                    default:
+                        if (!valid && text[i] != ' ')
+                            valid = true;
+                        line.Append(text[i]);
+                        break;
+                }
+            }
+
+            if (valid)
+                output.Append(line);
+            output.Append('\n');
+
+            // add two newlines to the end before return
+            return output.Append("\n\n").ToString();
+        }
+
+        /// <summary>
+        ///     This is to emulate what's available in PHP
+        /// </summary>
+        private static string RepeatString(string text, int count)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            var sb = new StringBuilder(text.Length * count);
+            for (int i = 0; i < count; i++)
+                sb.Append(text);
+            return sb.ToString();
+        }
+
+        private static TResult Create<TResult, TContent>(IEnumerable<TContent> content) where TResult : IAddChild, new()
+        {
+            var result = new TResult();
+            foreach (TContent c in content)
+            {
+                result.AddChild(c);
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<T> Evaluate<T>(string text, Regex expression, Func<Match, T> build, Func<string, IEnumerable<T>> rest)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+
+            MatchCollection matches = expression.Matches(text);
+            int index = 0;
+            foreach (Match m in matches)
+            {
+                if (m.Index > index)
+                {
+                    string prefix = text.Substring(index, m.Index - index);
+                    foreach (T t in rest(prefix))
+                    {
+                        yield return t;
+                    }
+                }
+
+                yield return build(m);
+
+                index = m.Index + m.Length;
+            }
+
+            if (index < text.Length)
+            {
+                string suffix = text.Substring(index, text.Length - index);
+                foreach (T t in rest(suffix))
+                {
+                    yield return t;
+                }
             }
         }
+
+        private static void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+        }
+
+        #endregion
+
+        #region DependencyProperty's
+
+        public static readonly DependencyProperty DocumentStyleProperty = DependencyProperty.Register("DocumentStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty TextStyleProperty = DependencyProperty.Register("TextStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty Heading1StyleProperty = DependencyProperty.Register("Heading1Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty Heading2StyleProperty = DependencyProperty.Register("Heading2Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty Heading3StyleProperty = DependencyProperty.Register("Heading3Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty Heading4StyleProperty = DependencyProperty.Register("Heading4Style", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty CodeTextStyleProperty = DependencyProperty.Register("CodeTextStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty CodeBorderStyleProperty = DependencyProperty.Register("CodeBorderStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty LinkStyleProperty = DependencyProperty.Register("LinkStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty ImageStyleProperty = DependencyProperty.Register("ImageStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty SeparatorStyleProperty = DependencyProperty.Register("SeparatorStyle", typeof(Style), typeof(Markdown), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty AssetPathRootProperty = DependencyProperty.Register("AssetPathRootRoot", typeof(string), typeof(Markdown), new PropertyMetadata(null));
+
+        #endregion DependencyProperty's
 
         #region old DoCodeSpans
 
@@ -642,219 +857,6 @@ namespace Toastify.Helpers.Markdown
         //}
 
         #endregion old DoCodeSpans
-
-        /// <summary>
-        /// Turn Markdown `code spans` into HTML code tags
-        /// </summary>
-        private IEnumerable<Inline> DoCodeSpans(string text, Func<string, IEnumerable<Inline>> defaultHandler)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            return Evaluate(text, codeSpanRegex, this.CodeSpanEvaluator, defaultHandler);
-        }
-
-        private Inline CodeSpanEvaluator(Match match)
-        {
-            if (match == null)
-                throw new ArgumentNullException(nameof(match));
-
-            string span = match.Groups[2].Value;
-            span = Regex.Replace(span, @"^[ ]*", ""); // leading whitespace
-            span = Regex.Replace(span, @"[ ]*$", ""); // trailing whitespace
-
-            Border border = new Border();
-            if (this.CodeBorderStyle != null)
-                border.Style = this.CodeBorderStyle;
-
-            TextBlock textBlock = new TextBlock { Text = span };
-            if (this.CodeTextStyle != null)
-                textBlock.Style = this.CodeTextStyle;
-
-            border.Child = textBlock;
-            return new InlineUIContainer(border);
-        }
-
-        /// <summary>
-        /// Turn Markdown *italics* and **bold** into HTML strong and em tags
-        /// </summary>
-        private IEnumerable<Inline> DoItalicsAndBold(string text, Func<string, IEnumerable<Inline>> defaultHandler)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            // <strong> must go first, then <em>
-            return this.StrictBoldItalic
-                ? Evaluate(text, strictBoldRegex, m => this.BoldEvaluator(m, 3),
-                    s1 => Evaluate(s1, strictItalicsRegex, m => this.ItalicEvaluator(m, 3), defaultHandler))
-                : Evaluate(text, boldRegex, m => this.BoldEvaluator(m, 2),
-                    s1 => Evaluate(s1, italicsRegex, m => this.ItalicEvaluator(m, 2), defaultHandler));
-        }
-
-        private Inline ItalicEvaluator(Match match, int contentGroup)
-        {
-            if (match == null)
-                throw new ArgumentNullException(nameof(match));
-
-            var content = match.Groups[contentGroup].Value;
-            return Create<Italic, Inline>(this.RunSpanGamut(content));
-        }
-
-        private Inline BoldEvaluator(Match match, int contentGroup)
-        {
-            if (match == null)
-                throw new ArgumentNullException(nameof(match));
-
-            var content = match.Groups[contentGroup].Value;
-            return Create<Bold, Inline>(this.RunSpanGamut(content));
-        }
-
-        /// <summary>
-        /// Remove one level of line-leading spaces
-        /// </summary>
-        private static string Outdent(string block)
-        {
-            return outDentRegex.Replace(block, "");
-        }
-
-        /// <summary>
-        /// convert all tabs to _tabWidth spaces;
-        /// standardizes line endings from DOS (CR LF) or Mac (CR) to UNIX (LF);
-        /// makes sure text ends with a couple of newlines;
-        /// removes any blank lines (only spaces) in the text
-        /// </summary>
-        private static string Normalize(string text)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            var output = new StringBuilder(text.Length);
-            var line = new StringBuilder();
-            bool valid = false;
-
-            for (int i = 0; i < text.Length; i++)
-            {
-                switch (text[i])
-                {
-                    case '\n':
-                        if (valid)
-                            output.Append(line);
-                        output.Append('\n');
-                        line.Length = 0;
-                        valid = false;
-                        break;
-
-                    case '\r':
-                        if ((i < text.Length - 1) && (text[i + 1] != '\n'))
-                        {
-                            if (valid)
-                                output.Append(line);
-                            output.Append('\n');
-                            line.Length = 0;
-                            valid = false;
-                        }
-                        break;
-
-                    case '\t':
-                        int width = (TAB_WIDTH - line.Length % TAB_WIDTH);
-                        for (int k = 0; k < width; k++)
-                            line.Append(' ');
-                        break;
-
-                    case '\x1A':
-                        break;
-
-                    default:
-                        if (!valid && text[i] != ' ')
-                            valid = true;
-                        line.Append(text[i]);
-                        break;
-                }
-            }
-
-            if (valid)
-                output.Append(line);
-            output.Append('\n');
-
-            // add two newlines to the end before return
-            return output.Append("\n\n").ToString();
-        }
-
-        /// <summary>
-        /// This is to emulate what's available in PHP
-        /// </summary>
-        private static string RepeatString(string text, int count)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            var sb = new StringBuilder(text.Length * count);
-            for (int i = 0; i < count; i++)
-                sb.Append(text);
-            return sb.ToString();
-        }
-
-        private static TResult Create<TResult, TContent>(IEnumerable<TContent> content) where TResult : IAddChild, new()
-        {
-            var result = new TResult();
-            foreach (var c in content)
-            {
-                result.AddChild(c);
-            }
-
-            return result;
-        }
-
-        private static IEnumerable<T> Evaluate<T>(string text, Regex expression, Func<Match, T> build, Func<string, IEnumerable<T>> rest)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            var matches = expression.Matches(text);
-            var index = 0;
-            foreach (Match m in matches)
-            {
-                if (m.Index > index)
-                {
-                    var prefix = text.Substring(index, m.Index - index);
-                    foreach (var t in rest(prefix))
-                    {
-                        yield return t;
-                    }
-                }
-
-                yield return build(m);
-
-                index = m.Index + m.Length;
-            }
-
-            if (index < text.Length)
-            {
-                var suffix = text.Substring(index, text.Length - index);
-                foreach (var t in rest(suffix))
-                {
-                    yield return t;
-                }
-            }
-        }
-
-        public IEnumerable<Inline> DoText(string text)
-        {
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            var t = eolnRegex.Replace(text, " ");
-
-            Run result = new Run(t);
-            if (this.TextStyle != null)
-                result.Style = this.TextStyle;
-            yield return result;
-        }
-
-        private static void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-        }
 
         #region Regex's and static strings
 

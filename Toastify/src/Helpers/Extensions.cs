@@ -1,5 +1,4 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -9,6 +8,7 @@ using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using log4net;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Model;
@@ -19,6 +19,8 @@ namespace Toastify.Helpers
     public static class Extensions
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Extensions));
+
+        #region Static Members
 
         public static IList<T> Clone<T>(this IEnumerable<T> enumerableToClone) where T : ICloneable
         {
@@ -50,8 +52,8 @@ namespace Toastify.Helpers
         public static string GetReadableName<TEnum>(this TEnum value)
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var attributes = value.GetType().GetField(value.ToString(CultureInfo.InvariantCulture)).GetCustomAttributes(typeof(EnumReadableNameAttribute), false);
-            var attribute = attributes.Any()
+            object[] attributes = value.GetType().GetField(value.ToString(CultureInfo.InvariantCulture)).GetCustomAttributes(typeof(EnumReadableNameAttribute), false);
+            EnumReadableNameAttribute attribute = attributes.Any()
                 ? (EnumReadableNameAttribute)attributes.First()
                 : new EnumReadableNameAttribute(value.ToString(CultureInfo.InvariantCulture));
 
@@ -60,7 +62,7 @@ namespace Toastify.Helpers
 
         public static IntPtr GetHandle(this Window window)
         {
-            WindowInteropHelper wndHelper = new WindowInteropHelper(window);
+            var wndHelper = new WindowInteropHelper(window);
             return wndHelper.Handle;
         }
 
@@ -71,7 +73,7 @@ namespace Toastify.Helpers
 
         public static ModifierKeys GetModifierKey(this Key key)
         {
-            ModifierKeys modifiers = ModifierKeys.None;
+            var modifiers = ModifierKeys.None;
 
             if (key == Key.LeftCtrl || key == Key.RightCtrl)
                 modifiers = ModifierKeys.Control;
@@ -143,5 +145,7 @@ namespace Toastify.Helpers
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
         }
+
+        #endregion
     }
 }

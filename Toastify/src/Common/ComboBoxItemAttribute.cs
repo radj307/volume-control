@@ -5,11 +5,19 @@ namespace Toastify.Common
     [AttributeUsage(AttributeTargets.Field)]
     public class ComboBoxItemAttribute : Attribute
     {
+        #region Static Fields and Properties
+
         public static readonly ComboBoxItemAttribute Default = new ComboBoxItemAttribute();
+
+        #endregion
+
+        #region Public Properties
 
         public string Content { get; }
 
         public string Tooltip { get; }
+
+        #endregion
 
         public ComboBoxItemAttribute() : this(null)
         {

@@ -66,6 +66,7 @@ namespace Toastify.Model
 
         private void PerformActionAsAppCommandMessage()
         {
+            // TODO: Provide this Action with a dependency to fetch a stored Spotify's process id, instead of having it search for it every time
             // We need Spotify's main window handle
             Process process = Spotify.FindSpotifyProcess();
             if (process == null)

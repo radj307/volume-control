@@ -1,4 +1,8 @@
-﻿using GoogleMeasurementProtocol;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
+using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters;
 using GoogleMeasurementProtocol.Parameters.AppTracking;
 using GoogleMeasurementProtocol.Parameters.ContentInformation;
@@ -10,12 +14,6 @@ using GoogleMeasurementProtocol.Parameters.User;
 using GoogleMeasurementProtocol.Requests;
 using log4net;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Management;
-using System.Net;
 using Toastify.Core;
 using Toastify.Model;
 
@@ -26,8 +24,9 @@ namespace Toastify.Services
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Analytics));
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        private static string TrackingId { get; set; }
+        #region Static Fields and Properties
+
+        private static GoogleAnalyticsRequestFactory requestFactory;
 
         public static bool AnalyticsEnabled
         {
@@ -38,7 +37,12 @@ namespace Toastify.Services
 #endif
         }
 
-        private static GoogleAnalyticsRequestFactory requestFactory;
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
+        private static string TrackingId { get; set; }
+
+        #endregion
+
+        #region Static Members
 
         internal static void Init()
         {
@@ -87,6 +91,144 @@ namespace Toastify.Services
             requestFactory = null;
         }
 
+        private static void PostRequest(IGoogleAnalyticsRequest request)
+        {
+            try
+            {
+                request?.Post(new ClientId(GetMachineID()));
+            }
+            catch (WebException webException)
+            {
+                logger.Info("Couldn't reach google, disabling Analytics", webException);
+                Settings.Current.OptInToAnalytics = false;
+                Settings.Current.Save();
+            }
+        }
+
+        private static IEnumerable<Parameter> GetCommonParameters()
+        {
+            var parameters = new List<Parameter>
+            {
+                new ApplicationName("Toastify"),
+                new ApplicationVersion(App.CurrentVersionNoRevision)
+            };
+            return parameters;
+        }
+
+        private static void TrackInstallEvent()
+        {
+            IEnumerable<Parameter> extraParameters = new List<Parameter>
+            {
+                new UserLanguage(CultureInfo.CurrentUICulture.Name)
+            };
+            TrackEvent(ToastifyEventCategory.General, "Install", GetOS(), -1, extraParameters);
+        }
+
+        private static void TrackSettingBinaryHit(string settingName, bool track)
+        {
+            if (track)
+                TrackPageHit($"/{App.CurrentVersionNoRevision}/Settings/{settingName}", null, false);
+        }
+
+        private static void CollectPreferences()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug("Collecting preferences...");
+
+            // General
+            TrackSettingBinaryHit(nameof(Settings.Current.LaunchOnStartup), Settings.Current.LaunchOnStartup);
+            TrackSettingBinaryHit(nameof(Settings.Current.MinimizeSpotifyOnStartup), Settings.Current.MinimizeSpotifyOnStartup);
+            TrackSettingBinaryHit(nameof(Settings.Current.CloseSpotifyWithToastify), Settings.Current.CloseSpotifyWithToastify);
+
+            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemGlobal}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemGlobal);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemSpotifyOnly}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemSpotifyOnly);
+
+            TrackSettingBinaryHit(nameof(Settings.Current.SaveTrackToFile), Settings.Current.SaveTrackToFile);
+
+            // Hotkeys
+            TrackSettingBinaryHit(nameof(Settings.Current.GlobalHotKeys), Settings.Current.GlobalHotKeys);
+            foreach (Hotkey hotkey in Settings.Current.HotKeys)
+            {
+                TrackSettingBinaryHit($"HotKeys/{hotkey.Action}", hotkey.Enabled);
+            }
+
+            // Toast
+            TrackSettingBinaryHit(nameof(Settings.Current.DisableToast), Settings.Current.DisableToast);
+            TrackSettingBinaryHit(nameof(Settings.Current.OnlyShowToastOnHotkey), Settings.Current.OnlyShowToastOnHotkey);
+            TrackSettingBinaryHit(nameof(Settings.Current.DisableToastWithFullscreenVideogames), Settings.Current.DisableToastWithFullscreenVideogames);
+            TrackSettingBinaryHit(nameof(Settings.Current.ShowSongProgressBar), Settings.Current.ShowSongProgressBar);
+
+            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
+            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.TrackByArtist}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist);
+        }
+
+        private static string GetOS()
+        {
+            string version = ToastifyAPI.Helpers.System.GetOSVersion();
+            string friendlyVersion = ToastifyAPI.Helpers.System.GetFriendlyOSVersion();
+            string arch = Environment.Is64BitOperatingSystem ? "x64" : "x86";
+            return $"{version} ({friendlyVersion}) ({arch})";
+        }
+
+        private static string GetMachineID()
+        {
+            // HKLM\SOFTWARE\Microsoft\Cryptography > MachineGuid
+            string machineGuid = Registry.LocalMachine
+                                        ?.OpenSubKey("SOFTWARE")
+                                        ?.OpenSubKey("Microsoft")
+                                        ?.OpenSubKey("Cryptography")
+                                        ?.GetValue("MachineGuid") as string;
+
+            return machineGuid ?? "00000000-0000-0000-0000-000000000000";
+        }
+
+        // ReSharper disable once PartialMethodWithSinglePart
+        static partial void SetTrackingId();
+
+        #endregion
+
+        public enum ToastifyEventCategory
+        {
+            General,
+            Action
+        }
+
+        /// <summary>
+        ///     Poor mans enum -> expanded string.
+        ///     Once I've been using this for a while I may change this to a pure enum if
+        ///     spaces in names prove to be annoying for querying / sorting the data
+        /// </summary>
+        public static class ToastifyEvent
+        {
+            #region Static Fields and Properties
+
+            public static string Exception { get; } = "Exception";
+
+            public static string AppLaunch { get; } = "Toastify.AppLaunched";
+            public static string AppTermination { get; } = "Toastify.AppTermination";
+            public static string SettingsLaunched { get; } = "Toastify.SettingsLaunched";
+
+            #endregion
+
+            public static class Action
+            {
+                #region Static Fields and Properties
+
+                public static string Mute { get; } = "Toastify.Action.Mute";
+                public static string VolumeDown { get; } = "Toastify.Action.VolumeDown";
+                public static string VolumeUp { get; } = "Toasitfy.Action.VolumeUp";
+                public static string ShowToast { get; } = "Toastify.Action.ShowToast";
+                public static string ShowSpotify { get; } = "Toastify.Action.ShowSpotify";
+                public static string CopyTrackInfo { get; } = "Toastify.Action.CopyTrackInfo";
+                public static string PasteTrackInfo { get; } = "Toastify.Action.PasteTrackInfo";
+                public static string FastForward { get; } = "Toastify.Action.FastForward";
+                public static string Rewind { get; } = "Toastify.Action.Rewind";
+                public static string Default { get; } = "Toastify.Action.";
+
+                #endregion
+            }
+        }
+
         #region TrackPageHit
 
         public static void TrackPageHit(string documentPath)
@@ -109,7 +251,7 @@ namespace Toastify.Services
             if (!AnalyticsEnabled)
                 return;
 
-            var request = requestFactory.CreateRequest(HitTypes.PageView);
+            IGoogleAnalyticsRequest request = requestFactory.CreateRequest(HitTypes.PageView);
 
             request.Parameters.AddRange(GetCommonParameters());
             request.Parameters.Add(new DocumentHostName("github.com/aleab/toastify"));
@@ -153,7 +295,7 @@ namespace Toastify.Services
             if (!AnalyticsEnabled)
                 return;
 
-            var request = requestFactory.CreateRequest(HitTypes.Event);
+            IGoogleAnalyticsRequest request = requestFactory.CreateRequest(HitTypes.Event);
 
             request.Parameters.AddRange(GetCommonParameters());
             request.Parameters.Add(new EventCategory(eventCategory.ToString()));
@@ -186,7 +328,7 @@ namespace Toastify.Services
                 return;
 
             // The exception will be truncated to 150 bytes; at some point it may be better to extract more pertinent information.
-            var request = requestFactory.CreateRequest(HitTypes.Exception, GetCommonParameters());
+            IGoogleAnalyticsRequest request = requestFactory.CreateRequest(HitTypes.Exception, GetCommonParameters());
 
             request.Parameters.AddRange(GetCommonParameters());
             request.Parameters.Add(new ExceptionDescription($"{exception}"));
@@ -196,132 +338,5 @@ namespace Toastify.Services
         }
 
         #endregion TrackException
-
-        private static void PostRequest(IGoogleAnalyticsRequest request)
-        {
-            try
-            {
-                request?.Post(new ClientId(GetMachineID()));
-            }
-            catch (WebException webException)
-            {
-                logger.Info("Couldn't reach google, disabling Analytics", webException);
-                Settings.Current.OptInToAnalytics = false;
-                Settings.Current.Save();
-            }
-        }
-
-        private static IEnumerable<Parameter> GetCommonParameters()
-        {
-            var parameters = new List<Parameter>
-            {
-                new ApplicationName("Toastify"),
-                new ApplicationVersion(App.CurrentVersionNoRevision)
-            };
-            return parameters;
-        }
-
-        private static void TrackInstallEvent()
-        {
-            IEnumerable<Parameter> extraParameters = new List<Parameter>
-            {
-                new UserLanguage(CultureInfo.CurrentUICulture.Name)
-            };
-            TrackEvent(ToastifyEventCategory.General, "Install", GetOS(), -1, extraParameters);
-        }
-
-        private static void TrackSettingBinaryHit(string settingName, bool track)
-        {
-            if (track)
-                TrackPageHit($"/{App.CurrentVersionNoRevision}/Settings/{settingName}", null, false);
-        }
-
-        private static void CollectPreferences()
-        {
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Collecting preferences...");
-
-            // General
-            TrackSettingBinaryHit(nameof(Settings.Current.LaunchOnStartup), Settings.Current.LaunchOnStartup);
-            TrackSettingBinaryHit(nameof(Settings.Current.MinimizeSpotifyOnStartup), Settings.Current.MinimizeSpotifyOnStartup);
-            TrackSettingBinaryHit(nameof(Settings.Current.CloseSpotifyWithToastify), Settings.Current.CloseSpotifyWithToastify);
-
-            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemGlobal}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemGlobal);
-            TrackSettingBinaryHit($"{nameof(Settings.Current.VolumeControlMode)}/{ToastifyVolumeControlMode.SystemSpotifyOnly}", Settings.Current.VolumeControlMode == ToastifyVolumeControlMode.SystemSpotifyOnly);
-
-            TrackSettingBinaryHit(nameof(Settings.Current.SaveTrackToFile), Settings.Current.SaveTrackToFile);
-
-            // Hotkeys
-            TrackSettingBinaryHit(nameof(Settings.Current.GlobalHotKeys), Settings.Current.GlobalHotKeys);
-            foreach (var hotkey in Settings.Current.HotKeys)
-                TrackSettingBinaryHit($"HotKeys/{hotkey.Action}", hotkey.Enabled);
-
-            // Toast
-            TrackSettingBinaryHit(nameof(Settings.Current.DisableToast), Settings.Current.DisableToast);
-            TrackSettingBinaryHit(nameof(Settings.Current.OnlyShowToastOnHotkey), Settings.Current.OnlyShowToastOnHotkey);
-            TrackSettingBinaryHit(nameof(Settings.Current.DisableToastWithFullscreenVideogames), Settings.Current.DisableToastWithFullscreenVideogames);
-            TrackSettingBinaryHit(nameof(Settings.Current.ShowSongProgressBar), Settings.Current.ShowSongProgressBar);
-
-            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
-            TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.TrackByArtist}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist);
-        }
-
-        private static string GetOS()
-        {
-            string version = ToastifyAPI.Helpers.System.GetOSVersion();
-            string friendlyVersion = ToastifyAPI.Helpers.System.GetFriendlyOSVersion();
-            string arch = Environment.Is64BitOperatingSystem ? "x64" : "x86";
-            return $"{version} ({friendlyVersion}) ({arch})";
-        }
-
-        private static string GetMachineID()
-        {
-            // HKLM\SOFTWARE\Microsoft\Cryptography > MachineGuid
-            string machineGuid = Registry.LocalMachine
-                ?.OpenSubKey("SOFTWARE")
-                ?.OpenSubKey("Microsoft")
-                ?.OpenSubKey("Cryptography")
-                ?.GetValue("MachineGuid") as string;
-
-            return machineGuid ?? "00000000-0000-0000-0000-000000000000";
-        }
-
-        // ReSharper disable once PartialMethodWithSinglePart
-        static partial void SetTrackingId();
-
-        public enum ToastifyEventCategory
-        {
-            General,
-            Action
-        }
-
-        /// <summary>
-        /// Poor mans enum -> expanded string.
-        ///
-        /// Once I've been using this for a while I may change this to a pure enum if
-        /// spaces in names prove to be annoying for querying / sorting the data
-        /// </summary>
-        public static class ToastifyEvent
-        {
-            public static string Exception { get; } = "Exception";
-
-            public static string AppLaunch { get; } = "Toastify.AppLaunched";
-            public static string AppTermination { get; } = "Toastify.AppTermination";
-            public static string SettingsLaunched { get; } = "Toastify.SettingsLaunched";
-
-            public static class Action
-            {
-                public static string Mute { get; } = "Toastify.Action.Mute";
-                public static string VolumeDown { get; } = "Toastify.Action.VolumeDown";
-                public static string VolumeUp { get; } = "Toasitfy.Action.VolumeUp";
-                public static string ShowToast { get; } = "Toastify.Action.ShowToast";
-                public static string ShowSpotify { get; } = "Toastify.Action.ShowSpotify";
-                public static string CopyTrackInfo { get; } = "Toastify.Action.CopyTrackInfo";
-                public static string PasteTrackInfo { get; } = "Toastify.Action.PasteTrackInfo";
-                public static string FastForward { get; } = "Toastify.Action.FastForward";
-                public static string Rewind { get; } = "Toastify.Action.Rewind";
-                public static string Default { get; } = "Toastify.Action.";
-            }
-        }
     }
 }

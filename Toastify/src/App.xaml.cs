@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -52,33 +53,6 @@ namespace Toastify
         private static MainArgs AppArgs { get; set; }
 
         #endregion
-
-        [TabCompletion]
-        internal class MainArgs
-        {
-            #region Public Properties
-
-            [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Enables Debug level logging.")]
-            [ArgCantBeCombinedWith("IsLogDisabled")]
-            public bool IsDebugLogEnabled { get; set; }
-
-            [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Disables logging entirely.")]
-            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
-            public bool IsLogDisabled { get; set; } = false;
-
-            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Destination directory of log files.")]
-            [ArgExistingDirectory]
-            public string LogDirectory { get; set; } = App.LocalApplicationData;
-
-            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Spotify command-line arguments.")]
-            public string SpotifyArgs { get; set; } = string.Empty;
-
-            #endregion
-        }
 
         #region Static Members
 
@@ -348,9 +322,9 @@ namespace Toastify
 
             bool ShouldTryAgain(bool log = true)
             {
-                var enabledHotkeys = Settings.Current.HotKeys.Where(h => h.Enabled).ToList();
+                List<Hotkey> enabledHotkeys = Settings.Current.HotKeys.Where(h => h.Enabled).ToList();
                 int enabledCount = enabledHotkeys.Count;
-                int invalidCount = enabledHotkeys.Count(h => !h.IsValid);
+                int invalidCount = enabledHotkeys.Count(h => !h.IsValid());
 
                 if (log && logger.IsDebugEnabled)
                     logger.Debug($"Enabled hotkeys: {enabledCount}; Invalid hotkeys: {invalidCount}");
@@ -360,7 +334,7 @@ namespace Toastify
 
             if (ShouldTryAgain(false))
             {
-                Thread thread = new Thread(() =>
+                var thread = new Thread(() =>
                 {
                     logger.Info("Hotkeys have not been registered correctly. Trying again...");
 
@@ -483,6 +457,33 @@ namespace Toastify
         }
 
         #endregion
+
+        [TabCompletion]
+        internal class MainArgs
+        {
+            #region Public Properties
+
+            [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Enables Debug level logging.")]
+            [ArgCantBeCombinedWith("-disable-log")]
+            public bool IsDebugLogEnabled { get; set; }
+
+            [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Disables logging entirely.")]
+            [ArgCantBeCombinedWith("-debug")]
+            public bool IsLogDisabled { get; set; } = false;
+
+            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Destination directory of log files.")]
+            [ArgExistingDirectory]
+            public string LogDirectory { get; set; } = App.LocalApplicationData;
+
+            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Spotify command-line arguments.")]
+            public string SpotifyArgs { get; set; } = string.Empty;
+
+            #endregion
+        }
     }
 
     /// <inheritdoc />

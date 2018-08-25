@@ -1,15 +1,17 @@
-﻿using JetBrains.Annotations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using ToastifyAPI.GitHub.Model;
 
 namespace ToastifyAPI.GitHub
 {
     public static class Releases
     {
+        #region Static Members
+
         /// <summary>
-        /// Get a published release with the specified tag.
+        ///     Get a published release with the specified tag.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="repo"></param>
@@ -22,7 +24,8 @@ namespace ToastifyAPI.GitHub
         }
 
         /// <summary>
-        /// View the latest published full release for the repository. Draft releases and prereleases are not returned by this endpoint.
+        ///     View the latest published full release for the repository. Draft releases and prereleases are not returned by this
+        ///     endpoint.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="repo"></param>
@@ -34,9 +37,11 @@ namespace ToastifyAPI.GitHub
         }
 
         /// <summary>
-        /// This returns a list of releases, which does not include regular Git tags that have not been associated with a release.
-        /// <para />
-        /// Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
+        ///     This returns a list of releases, which does not include regular Git tags that have not been associated with a
+        ///     release.
+        ///     <para />
+        ///     Information about published releases are available to everyone. Only users with push access will receive listings
+        ///     for draft releases.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="repo"></param>
@@ -52,5 +57,7 @@ namespace ToastifyAPI.GitHub
         {
             return repo.Format("https://github.com/:owner/:repo/releases/latest");
         }
+
+        #endregion
     }
 }

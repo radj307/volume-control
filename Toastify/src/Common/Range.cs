@@ -5,8 +5,12 @@ namespace Toastify.Common
 {
     public struct Range<T> : IEquatable<Range<T>> where T : IComparable
     {
+        #region Public Properties
+
         public T Min { get; }
         public T Max { get; }
+
+        #endregion
 
         public Range(T min, T max)
         {

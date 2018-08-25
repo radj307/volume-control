@@ -4,9 +4,13 @@ namespace ToastifyAPI.GitHub
 {
     public class RepoInfo : IEquatable<RepoInfo>
     {
+        #region Public Properties
+
         public string Name { get; }
 
         public string Owner { get; }
+
+        #endregion
 
         public RepoInfo(string name, string owner)
         {

@@ -7,6 +7,8 @@ namespace Toastify.Common
     {
         private Stopwatch stopwatch;
 
+        #region Public Properties
+
         public double? IntervalRemaining { get; private set; }
 
         public bool Paused { get; private set; }
@@ -33,6 +35,8 @@ namespace Toastify.Common
                     this.OriginalInterval = base.Interval;
             }
         }
+
+        #endregion
 
         public PausableTimer()
         {

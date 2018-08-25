@@ -4,6 +4,8 @@ namespace Toastify.Events
 {
     public class CheckVersionCompleteEventArgs : EventArgs
     {
+        #region Public Properties
+
         public string Version { get; set; }
 
         public bool IsNew { get; set; }
@@ -13,5 +15,7 @@ namespace Toastify.Events
         public string GitHubReleaseUrl { get; set; }
 
         public string GitHubReleaseDownloadUrl { get; set; }
+
+        #endregion
     }
 }

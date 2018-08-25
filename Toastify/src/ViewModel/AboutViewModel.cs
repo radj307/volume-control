@@ -10,17 +10,27 @@ namespace Toastify.ViewModel
 
         private string _updateUrl;
 
-        public string ToastifyVersion { get { return $"v{App.CurrentVersionNoRevision}"; } }
+        #region Public Properties
+
+        public string ToastifyVersion
+        {
+            get { return $"v{App.CurrentVersionNoRevision}"; }
+        }
 
         public string HomepageUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo");
 
-        public string HomepageUrlNoScheme { get { return $"{this.homepageUri.Host}{this.homepageUri.PathAndQuery}"; } }
+        public string HomepageUrlNoScheme
+        {
+            get { return $"{this.homepageUri.Host}{this.homepageUri.PathAndQuery}"; }
+        }
 
         public string UpdateUrl
         {
             get { return string.IsNullOrWhiteSpace(this._updateUrl) ? VersionChecker.GitHubReleasesUrl : this._updateUrl; }
             set { this.RaiseAndSetIfChanged(ref this._updateUrl, value); }
         }
+
+        #endregion
 
         public AboutViewModel()
         {

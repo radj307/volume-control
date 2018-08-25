@@ -1,7 +1,7 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Threading;
+using log4net;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -9,7 +9,6 @@ using Toastify.View;
 using ToastifyAPI.GitHub;
 
 #if !DEBUG
-
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -69,7 +68,6 @@ namespace Toastify.Services
         }
 
 #if !DEBUG
-
         private void CheckVersion()
         {
             try

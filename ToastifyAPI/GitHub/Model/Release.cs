@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ToastifyAPI.GitHub.Model
 {
@@ -8,6 +8,8 @@ namespace ToastifyAPI.GitHub.Model
     [JsonObject(MemberSerialization.OptOut)]
     public class Release : BaseModel
     {
+        #region Public Properties
+
         [JsonProperty("url")]
         public string Url { get; set; }
 
@@ -58,5 +60,7 @@ namespace ToastifyAPI.GitHub.Model
 
         [JsonProperty("assets")]
         public List<Asset> Assets { get; set; }
+
+        #endregion
     }
 }

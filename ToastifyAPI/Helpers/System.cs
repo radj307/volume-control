@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using log4net;
@@ -8,6 +9,8 @@ namespace ToastifyAPI.Helpers
     public static class System
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(System));
+
+        #region Static Members
 
         public static string GetOSVersion()
         {
@@ -24,9 +27,9 @@ namespace ToastifyAPI.Helpers
             object @object = null;
             try
             {
-                var managementObjects = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem")
-                                       .Get()
-                                       .OfType<ManagementObject>();
+                IEnumerable<ManagementObject> managementObjects = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem")
+                                                                 .Get()
+                                                                 .OfType<ManagementObject>();
                 @object = (from x in managementObjects select x.GetPropertyValue(property)).FirstOrDefault();
             }
             catch (Exception e)
@@ -36,5 +39,7 @@ namespace ToastifyAPI.Helpers
 
             return @object;
         }
+
+        #endregion
     }
 }

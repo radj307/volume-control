@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using log4net;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,6 +7,8 @@ using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using JetBrains.Annotations;
+using log4net;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
@@ -19,6 +19,8 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Security));
 
+        #region Static Members
+
         public static bool ProtectedDataExists([NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
@@ -27,21 +29,6 @@ namespace Toastify
             string secFilePath = Path.Combine(App.LocalApplicationData, fileName);
             return File.Exists(secFilePath);
         }
-
-        #region Proxy Password
-
-        internal static SecureString GetSecureProxyPassword()
-        {
-            SecureString secureString = GetProtectedSecureString("proxy.sec");
-            return secureString != null && secureString.Length > 0 ? secureString : null;
-        }
-
-        internal static void SaveProxyPassword(SecureString secureString)
-        {
-            SaveProtectedData(secureString, "proxy.sec");
-        }
-
-        #endregion Proxy Password
 
         internal static byte[] GetProtectedData([NotNull] string fileName)
         {
@@ -69,17 +56,17 @@ namespace Toastify
 
             try
             {
-                DataBlob dataBlob = new DataBlob
+                var dataBlob = new DataBlob
                 {
                     cbData = encryptedData.Length,
                     pbData = dataPtr
                 };
-                DataBlob entropyBlob = new DataBlob
+                var entropyBlob = new DataBlob
                 {
                     cbData = entropy.Length,
                     pbData = entropyPtr
                 };
-                DataBlob outBlob = new DataBlob();
+                var outBlob = new DataBlob();
 
                 // Crypt
                 bool success = Crypt32.CryptUnprotectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
@@ -97,14 +84,16 @@ namespace Toastify
                     if (outBlob.cbData <= 0)
                         return null;
 
-                    SecureString secureString = new SecureString();
+                    var secureString = new SecureString();
 
                     bytes = new byte[outBlob.cbData];
                     Marshal.Copy(outBlob.pbData, bytes, 0, bytes.Length);
 
                     chars = Encoding.Unicode.GetChars(bytes);
                     foreach (char c in chars)
+                    {
                         secureString.AppendChar(c);
+                    }
 
                     return secureString;
                 }
@@ -119,7 +108,7 @@ namespace Toastify
                             // Zero out the byte array
                             if (bytes != null)
                             {
-                                byte[] zeroB = new byte[bytes.Length];
+                                var zeroB = new byte[bytes.Length];
                                 fixed (byte* pb = &bytes[0])
                                 {
                                     Marshal.Copy(zeroB, 0, new IntPtr(pb), zeroB.Length);
@@ -129,7 +118,7 @@ namespace Toastify
                             // Zero out the char array
                             if (chars != null)
                             {
-                                char[] zeroC = new char[chars.Length];
+                                var zeroC = new char[chars.Length];
                                 fixed (char* pc = &chars[0])
                                 {
                                     Marshal.Copy(zeroC, 0, new IntPtr(pc), zeroC.Length);
@@ -159,11 +148,12 @@ namespace Toastify
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
 
             // Generate entropy
-            byte[] entropy = new byte[20];
-            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            var entropy = new byte[20];
+            using (var rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(entropy);
             }
+
             byte[] ciphertext = ProtectedData.Protect(plaintext, entropy, DataProtectionScope.CurrentUser);
 
             // Write to file
@@ -176,11 +166,12 @@ namespace Toastify
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
 
             // Generate entropy
-            byte[] entropy = new byte[20];
-            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            var entropy = new byte[20];
+            using (var rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(entropy);
             }
+
             IntPtr entropyPtr = Marshal.AllocHGlobal(entropy.Length);
             Marshal.Copy(entropy, 0, entropyPtr, entropy.Length);
 
@@ -190,17 +181,17 @@ namespace Toastify
 
             try
             {
-                DataBlob dataBlob = new DataBlob
+                var dataBlob = new DataBlob
                 {
                     cbData = secureString.Length * 2,
                     pbData = unmanagedString
                 };
-                DataBlob entropyBlob = new DataBlob
+                var entropyBlob = new DataBlob
                 {
                     cbData = entropy.Length,
                     pbData = entropyPtr
                 };
-                DataBlob outBlob = new DataBlob();
+                var outBlob = new DataBlob();
 
                 // Crypt
                 bool success = Crypt32.CryptProtectData(ref dataBlob, null, ref entropyBlob, IntPtr.Zero, IntPtr.Zero, CryptProtectFlags.CRYPTPROTECT_LOCAL_MACHINE, ref outBlob);
@@ -213,7 +204,7 @@ namespace Toastify
                 // Save to file
                 try
                 {
-                    byte[] cryptedData = new byte[outBlob.cbData];
+                    var cryptedData = new byte[outBlob.cbData];
                     Marshal.Copy(outBlob.pbData, cryptedData, 0, cryptedData.Length);
 
                     SaveProtectedDataInternal(cryptedData, entropy, fileName);
@@ -230,6 +221,30 @@ namespace Toastify
             }
         }
 
+        #endregion
+
+        [Serializable]
+        private class ProtectedText
+        {
+            public byte[] entropy;
+            public byte[] ciphertext;
+        }
+
+        #region Proxy Password
+
+        internal static SecureString GetSecureProxyPassword()
+        {
+            SecureString secureString = GetProtectedSecureString("proxy.sec");
+            return secureString != null && secureString.Length > 0 ? secureString : null;
+        }
+
+        internal static void SaveProxyPassword(SecureString secureString)
+        {
+            SaveProtectedData(secureString, "proxy.sec");
+        }
+
+        #endregion Proxy Password
+
         #region Internal
 
         private static byte[] GetProtectedDataInternal(string fileName, out byte[] entropy)
@@ -242,9 +257,9 @@ namespace Toastify
             }
 
             ProtectedText pt;
-            using (FileStream fs = new FileStream(secFilePath, FileMode.Open, FileAccess.Read))
+            using (var fs = new FileStream(secFilePath, FileMode.Open, FileAccess.Read))
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                var binaryFormatter = new BinaryFormatter();
                 pt = (ProtectedText)binaryFormatter.Deserialize(fs);
             }
 
@@ -257,14 +272,14 @@ namespace Toastify
             string secFilePath = Path.Combine(App.LocalApplicationData, fileName);
 
             // Write to file
-            using (FileStream fs = new FileStream(secFilePath, FileMode.Create, FileAccess.Write))
+            using (var fs = new FileStream(secFilePath, FileMode.Create, FileAccess.Write))
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                var binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(fs, new ProtectedText { entropy = entropy, ciphertext = cryptedData });
             }
 
             // Only allow access to the file to the current user
-            var acl = File.GetAccessControl(secFilePath);
+            FileSecurity acl = File.GetAccessControl(secFilePath);
             acl.AddAccessRule(new FileSystemAccessRule(
                 WindowsIdentity.GetCurrent().Name,
                 FileSystemRights.Read | FileSystemRights.Write | FileSystemRights.Delete,
@@ -276,12 +291,5 @@ namespace Toastify
         }
 
         #endregion Internal
-
-        [Serializable]
-        private class ProtectedText
-        {
-            public byte[] entropy;
-            public byte[] ciphertext;
-        }
     }
 }

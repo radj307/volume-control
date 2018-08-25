@@ -10,22 +10,25 @@ namespace Toastify.Helpers.Markup
     [ValueConversion(typeof(Type), typeof(IEnumerable<EnumComboBoxItem>))]
     public class EnumExtension : MarkupExtension
     {
+        #region Static Fields and Properties
+
         private static readonly EnumTuplesValueEqualityComparer enumTuplesValueEqualityComparer = new EnumTuplesValueEqualityComparer();
+
+        #endregion
 
         private Type _enumType;
 
+        #region Public Properties
+
         public Type EnumType
         {
-            get
-            {
-                return this._enumType;
-            }
+            get { return this._enumType; }
             private set
             {
                 if (this._enumType == value)
                     return;
 
-                var enumType = Nullable.GetUnderlyingType(value) ?? value;
+                Type enumType = Nullable.GetUnderlyingType(value) ?? value;
 
                 if (enumType.IsEnum == false)
                     throw new ArgumentException("Type must be an Enum.");
@@ -34,6 +37,8 @@ namespace Toastify.Helpers.Markup
             }
         }
 
+        #endregion
+
         public EnumExtension(Type enumType)
         {
             this.EnumType = enumType ?? throw new ArgumentNullException(nameof(enumType));
@@ -41,20 +46,20 @@ namespace Toastify.Helpers.Markup
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            var enumMembers = from string enumName in this.GetDistinctValuedNames()
-                              let enumValue = Enum.Parse(this.EnumType, enumName)
-                              let tuple = this.GetDescriptionAndTooltip(enumName, enumValue)
-                              select new EnumComboBoxItem(enumValue, tuple.Item1, tuple.Item2);
+            IEnumerable<EnumComboBoxItem> enumMembers = from string enumName in this.GetDistinctValuedNames()
+                                                        let enumValue = Enum.Parse(this.EnumType, enumName)
+                                                        let tuple = this.GetDescriptionAndTooltip(enumName, enumValue)
+                                                        select new EnumComboBoxItem(enumValue, tuple.Item1, tuple.Item2);
             return enumMembers;
         }
 
         private IEnumerable<string> GetDistinctValuedNames()
         {
-            var enumNames = this.EnumType.GetEnumNames();
-            var enumTuples = (from string enumName in enumNames
-                              let enumValue = Enum.Parse(this.EnumType, enumName)
-                              select new Tuple<string, object>(enumName, enumValue))
-                             .ToList();
+            string[] enumNames = this.EnumType.GetEnumNames();
+            List<Tuple<string, object>> enumTuples = (from string enumName in enumNames
+                                                      let enumValue = Enum.Parse(this.EnumType, enumName)
+                                                      select new Tuple<string, object>(enumName, enumValue))
+               .ToList();
 
             // If any of the enum values is annotated with ComboBoxItemAttribute, then skip those who aren't
             if (enumTuples.Any(t => this.EnumType.GetField(t.Item1).GetCustomAttributes(typeof(ComboBoxItemAttribute), false).Any()))
@@ -65,9 +70,9 @@ namespace Toastify.Helpers.Markup
 
         private Tuple<string, string> GetDescriptionAndTooltip(string enumName, object enumValue)
         {
-            var comboBoxItemAttributes = this.EnumType.GetField(enumName).GetCustomAttributes(typeof(ComboBoxItemAttribute), false);
+            object[] comboBoxItemAttributes = this.EnumType.GetField(enumName).GetCustomAttributes(typeof(ComboBoxItemAttribute), false);
 
-            var attribute = comboBoxItemAttributes.Any()
+            ComboBoxItemAttribute attribute = comboBoxItemAttributes.Any()
                 ? (ComboBoxItemAttribute)comboBoxItemAttributes.First()
                 : new ComboBoxItemAttribute(enumName);
 
@@ -84,10 +89,11 @@ namespace Toastify.Helpers.Markup
                     if (y?.Item2 == null)
                         return false;
 
-                    var xValue = Convert.ChangeType(x.Item2, Enum.GetUnderlyingType(x.Item2.GetType()));
-                    var yValue = Convert.ChangeType(y.Item2, Enum.GetUnderlyingType(y.Item2.GetType()));
+                    object xValue = Convert.ChangeType(x.Item2, Enum.GetUnderlyingType(x.Item2.GetType()));
+                    object yValue = Convert.ChangeType(y.Item2, Enum.GetUnderlyingType(y.Item2.GetType()));
                     return xValue.Equals(yValue);
                 }
+
                 return y == null;
             }
 

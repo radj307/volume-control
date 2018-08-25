@@ -1,9 +1,11 @@
-﻿using log4net;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
+using log4net;
 using Toastify.View;
-using Graphics = System.Drawing.Graphics;
-using Process = System.Diagnostics.Process;
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
 
 namespace Toastify.Helpers
 {
@@ -14,13 +16,15 @@ namespace Toastify.Helpers
         private const int SCREEN_RIGHT_MARGIN = 0;
         private const int SCREEN_TOP_MARGIN = 5;
 
+        #region Static Members
+
         public static Point GetDPIRatios()
         {
-            Point p = new Point(1.0, 1.0);
+            var p = new Point(1.0, 1.0);
             if (ToastView.Current == null)
                 return p;
 
-            var presentationSource = PresentationSource.FromVisual(ToastView.Current);
+            PresentationSource presentationSource = PresentationSource.FromVisual(ToastView.Current);
 
             if (presentationSource == null)
                 logger.Error("Couldn't get PresentationSource, current ToastView has been disposed.");
@@ -31,20 +35,20 @@ namespace Toastify.Helpers
 
         public static Point GetDefaultToastPosition(double width, double height)
         {
-            var screenRect = Screen.PrimaryScreen.WorkingArea;
+            Rectangle screenRect = Screen.PrimaryScreen.WorkingArea;
             Point dpiRatio = GetDPIRatios();
             return new Point(screenRect.Width / dpiRatio.X - width - SCREEN_RIGHT_MARGIN,
-                             screenRect.Height / dpiRatio.Y - height - SCREEN_TOP_MARGIN);
+                screenRect.Height / dpiRatio.Y - height - SCREEN_TOP_MARGIN);
         }
 
         /// <summary>
-        /// Calculates the offset vector needed to bring an off-screen rect inside the current working area.
+        ///     Calculates the offset vector needed to bring an off-screen rect inside the current working area.
         /// </summary>
         /// <param name="rect"> The off-screen rect. </param>
         /// <returns> A 2D translation vector. </returns>
         public static Vector BringRectInsideWorkingArea(Rect rect)
         {
-            Vector vector = new Vector();
+            var vector = new Vector();
             Rect totalRect = GetTotalWorkingArea();
 
             if (totalRect.Contains(rect))
@@ -52,13 +56,19 @@ namespace Toastify.Helpers
 
             vector.X = rect.Right > totalRect.Right
                 ? totalRect.Right - rect.Right
-                : rect.Left < totalRect.Left ? totalRect.Left - rect.Left : 0.0;
+                : rect.Left < totalRect.Left
+                    ? totalRect.Left - rect.Left
+                    : 0.0;
             vector.Y = rect.Bottom > totalRect.Bottom
                 ? totalRect.Bottom - rect.Bottom
-                : rect.Top < totalRect.Top ? totalRect.Top - rect.Top : 0.0;
+                : rect.Top < totalRect.Top
+                    ? totalRect.Top - rect.Top
+                    : 0.0;
 
             return vector;
         }
+
+        #endregion
 
         #region GetTotalWorkingArea
 
@@ -68,9 +78,9 @@ namespace Toastify.Helpers
             if (screens.Length == 0)
                 return new Rect(new Size(-1.0, -1.0));
 
-            Point minLocation = new Point(double.MaxValue, double.MaxValue);
-            Point maxLocation = new Point(double.MinValue, double.MinValue);
-            foreach (var screen in screens)
+            var minLocation = new Point(double.MaxValue, double.MaxValue);
+            var maxLocation = new Point(double.MinValue, double.MinValue);
+            foreach (Screen screen in screens)
             {
                 if (screen.WorkingArea.X < minLocation.X)
                     minLocation.X = screen.WorkingArea.X;
@@ -82,6 +92,7 @@ namespace Toastify.Helpers
                 if (screen.WorkingArea.Y + screen.WorkingArea.Height > maxLocation.Y)
                     maxLocation.Y = screen.WorkingArea.Y + screen.WorkingArea.Height;
             }
+
             return new Rect(minLocation, maxLocation);
         }
 
@@ -101,14 +112,14 @@ namespace Toastify.Helpers
 
         private static double GetScaleFactor()
         {
-            using (var mainWindowHandle = Graphics.FromHwnd(Process.GetCurrentProcess().MainWindowHandle))
+            using (Graphics mainWindowHandle = Graphics.FromHwnd(Process.GetCurrentProcess().MainWindowHandle))
             {
                 return mainWindowHandle.DpiX / 96; // 100% scale factor is 96 dpi
             }
         }
 
         /// <summary>
-        /// Get the rectangular area of the primary screen.
+        ///     Get the rectangular area of the primary screen.
         /// </summary>
         /// <returns> The rectangular area of the primary screen. </returns>
         public static Rect GetScreenRect()
@@ -120,7 +131,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the size of the primary screen.
+        ///     Get the size of the primary screen.
         /// </summary>
         /// <returns> The size of the primary screen. </returns>
         public static Size GetScreenSize()
@@ -130,7 +141,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the width of the primary screen.
+        ///     Get the width of the primary screen.
         /// </summary>
         /// <returns> The width of the primary screen. </returns>
         public static double GetScreenWidth()
@@ -139,7 +150,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the height of the primary screen.
+        ///     Get the height of the primary screen.
         /// </summary>
         /// <returns> The height of the primary screen. </returns>
         public static double GetScreenHeight()
@@ -148,7 +159,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the rectangular area of the screen that contains the given point.
+        ///     Get the rectangular area of the screen that contains the given point.
         /// </summary>
         /// <returns> The rectangular area of the screen that contains the given point. </returns>
         public static Rect GetScreenRect(Point pointOnScreen)
@@ -161,7 +172,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the size of the screen that contains the given point.
+        ///     Get the size of the screen that contains the given point.
         /// </summary>
         /// <param name="pointOnScreen"> A point on the screen. </param>
         /// <returns> The size of the screen that contains the point or of the closest one. </returns>
@@ -173,7 +184,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the width of the screen that contains the given point.
+        ///     Get the width of the screen that contains the given point.
         /// </summary>
         /// <param name="pointOnScreen"> A point on the screen. </param>
         /// <returns> The width of the screen that contains the point or of the closest one. </returns>
@@ -183,7 +194,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Get the height of the screen that contains the given point.
+        ///     Get the height of the screen that contains the given point.
         /// </summary>
         /// <param name="pointOnScreen"> A point on the screen. </param>
         /// <returns> The height of the screen that contains the point or of the closest one. </returns>
@@ -197,7 +208,7 @@ namespace Toastify.Helpers
         #region CalculateMaxToastSize
 
         /// <summary>
-        /// Calculates the maximum size the Toast can have, considering its current position.
+        ///     Calculates the maximum size the Toast can have, considering its current position.
         /// </summary>
         /// <returns> The maximum size. </returns>
         public static Size CalculateMaxToastSize()
@@ -233,7 +244,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Calculates the maximum width the Toast can have, considering its current position.
+        ///     Calculates the maximum width the Toast can have, considering its current position.
         /// </summary>
         /// <returns> The maximum width. </returns>
         public static double CalculateMaxToastWidth()
@@ -242,7 +253,7 @@ namespace Toastify.Helpers
         }
 
         /// <summary>
-        /// Calculates the maximum height the Toast can have, considering its current position.
+        ///     Calculates the maximum height the Toast can have, considering its current position.
         /// </summary>
         /// <returns> The maximum widheightth. </returns>
         public static double CalculateMaxToastHeight()

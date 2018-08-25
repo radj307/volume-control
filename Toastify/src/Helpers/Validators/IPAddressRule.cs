@@ -6,7 +6,11 @@ namespace Toastify.Helpers.Validators
 {
     public class IPAddressRule : ValidationRule
     {
+        #region Static Fields and Properties
+
         public static readonly Regex IPRegex = new Regex(@"^[0-9]{1,3}(\.[0-9]{1,3}){3}$", RegexOptions.Compiled);
+
+        #endregion
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -17,7 +21,7 @@ namespace Toastify.Helpers.Validators
             if (IPRegex.IsMatch(ip))
             {
                 string[] parts = ip.Split('.');
-                foreach (var part in parts)
+                foreach (string part in parts)
                 {
                     int n = int.Parse(part);
                     if (n > 255)

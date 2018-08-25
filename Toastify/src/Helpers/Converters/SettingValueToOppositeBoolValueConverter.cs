@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Windows.Data;
 using Toastify.Model;
 
@@ -6,7 +7,7 @@ namespace Toastify.Helpers.Converters
 {
     public class SettingValueToOppositeBoolValueConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
@@ -19,7 +20,7 @@ namespace Toastify.Helpers.Converters
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return new SettingValue<bool>(!(bool)(value ?? false));
         }

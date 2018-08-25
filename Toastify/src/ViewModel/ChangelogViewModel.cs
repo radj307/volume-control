@@ -10,6 +10,8 @@ namespace Toastify.ViewModel
         private string _releaseBodyMarkdown = LOADING_MD;
         private string _publishedAt;
 
+        #region Public Properties
+
         public string ReleaseBodyMarkdown
         {
             get { return string.IsNullOrWhiteSpace(this._releaseBodyMarkdown) ? NO_RELEASE_BODY_MD : this._releaseBodyMarkdown; }
@@ -23,5 +25,7 @@ namespace Toastify.ViewModel
             get { return this._publishedAt; }
             set { this.RaiseAndSetIfChanged(ref this._publishedAt, value); }
         }
+
+        #endregion
     }
 }

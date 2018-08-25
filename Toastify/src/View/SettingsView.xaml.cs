@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using log4net;
@@ -123,7 +125,7 @@ namespace Toastify.View
         {
             if (nCode >= 0)
             {
-                if (this.TxtSingleKey.IsFocused &&
+                if (Processes.IsCurrentProcessFocused() && this.TxtSingleKey.IsFocused &&
                     this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
                 {
                     bool validButton = false;
@@ -161,6 +163,7 @@ namespace Toastify.View
                         }
                     }
 
+                    // TODO: Fix StackOverflowException when changing type of hotkey from KeyboardHotkey
                     if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
                     {
                         this.TxtSingleKey.Text = mouseAction.ToString();

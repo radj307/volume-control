@@ -8,13 +8,21 @@ namespace Toastify.Common
     [Serializable]
     public struct WindowPosition : IEquatable<WindowPosition>
     {
+        #region Static Fields and Properties
+
+        public static readonly WindowPosition Zero = new WindowPosition(0, 0);
+
+        #endregion
+
+        #region Public Properties
+
         [XmlAttribute]
         public int Left { get; set; }
 
         [XmlAttribute]
         public int Top { get; set; }
 
-        public static readonly WindowPosition Zero = new WindowPosition(0, 0);
+        #endregion
 
         public WindowPosition(int left, int top)
         {
@@ -27,7 +35,7 @@ namespace Toastify.Common
             if (!(obj is WindowPosition))
                 return false;
 
-            WindowPosition w = (WindowPosition)obj;
+            var w = (WindowPosition)obj;
             return this.Left == w.Left && this.Top == w.Top;
         }
 
@@ -40,6 +48,8 @@ namespace Toastify.Common
         {
             return unchecked((this.Left * 397) ^ this.Top);
         }
+
+        #region Static Members
 
         public static WindowPosition operator *(WindowPosition w1, int n)
         {
@@ -60,5 +70,7 @@ namespace Toastify.Common
         {
             return !(w1 == w2);
         }
+
+        #endregion
     }
 }

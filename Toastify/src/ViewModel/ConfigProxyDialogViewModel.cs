@@ -8,6 +8,8 @@ namespace Toastify.ViewModel
 {
     public class ConfigProxyDialogViewModel : ObservableObject
     {
+        #region Public Properties
+
         public string Host
         {
             get { return App.ProxyConfig.Host; }
@@ -65,5 +67,7 @@ namespace Toastify.ViewModel
         {
             get { return ToastifyAPI.Win32API.GetStockIconImage(ShStockIconId.SIID_INFO, true); }
         }
+
+        #endregion
     }
 }

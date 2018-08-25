@@ -291,12 +291,16 @@ namespace Toastify.Model
             if (this.HotKeys != null)
             {
                 foreach (Hotkey hotkey in this.HotKeys)
+                {
                     hotkey.Deactivate();
+                }
 
                 if (this.GlobalHotKeys)
                 {
                     foreach (Hotkey hotkey in this.HotKeys)
+                    {
                         hotkey.Activate();
+                    }
                 }
             }
         }

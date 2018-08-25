@@ -5,9 +5,13 @@ namespace Toastify.Events
 {
     public class HotkeyActionCallbackFailedEventArgs : EventArgs
     {
-        public Hotkey Hotkey { get; private set; }
+        #region Public Properties
 
-        public Exception Exception { get; private set; }
+        public Hotkey Hotkey { get; }
+
+        public Exception Exception { get; }
+
+        #endregion
 
         public HotkeyActionCallbackFailedEventArgs(Hotkey hotkey, Exception exception)
         {

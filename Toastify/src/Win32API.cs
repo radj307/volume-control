@@ -7,15 +7,22 @@ using System.Windows.Forms;
 using Toastify.Core;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 
 // ReSharper disable InconsistentNaming
 namespace Toastify
 {
     internal static class Win32API
     {
+        #region Static Fields and Properties
+
         private static readonly IntPtr hDesktop = User32.GetDesktopWindow();
         private static readonly IntPtr hProgman = User32.GetShellWindow();
         private static readonly IntPtr hShellDll = GetShellDllDefViewWindow();
+
+        #endregion
+
+        #region Static Members
 
         private static IntPtr GetShellDllDefViewWindow()
         {
@@ -34,9 +41,11 @@ namespace Toastify
                             return false;
                         }
                     }
+
                     return true;
                 }, IntPtr.Zero);
             }
+
             return _SHELLDLL_DefView;
         }
 
@@ -55,18 +64,18 @@ namespace Toastify
                     !childWindows.Contains(hDesktop) && !childWindows.Contains(hProgman) && !childWindows.Contains(hShellDll))
                 {
                     Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
-                    User32.GetClientRect(hWnd, out ToastifyAPI.Native.Structs.Rect clientRect);
+                    User32.GetClientRect(hWnd, out Rect clientRect);
 
                     if (clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width)
                     {
-                        var processId = Windows.GetProcessFromWindowHandle(hWnd);
-                        var modules = Processes.GetProcessModules(processId);
+                        uint processId = Windows.GetProcessFromWindowHandle(hWnd);
+                        IEnumerable<ProcessModule> modules = Processes.GetProcessModules(processId);
                         if (modules != null)
                         {
-                            Regex regex_d3d = new Regex(@"(?:(?:d3d[0-9]+)|(?:dxgi))\.dll", RegexOptions.IgnoreCase);
+                            var regex_d3d = new Regex(@"(?:(?:d3d[0-9]+)|(?:dxgi))\.dll", RegexOptions.IgnoreCase);
 
                             // ReSharper disable once LoopCanBeConvertedToQuery
-                            foreach (var module in modules)
+                            foreach (ProcessModule module in modules)
                             {
                                 bool isDirectX = regex_d3d.Match(module.ModuleName).Success;
                                 bool isOpenGL = module.ModuleName.Equals("opengl32.dll", StringComparison.InvariantCultureIgnoreCase);
@@ -82,6 +91,7 @@ namespace Toastify
                     return false;
                 }
             }
+
             return false;
         }
 
@@ -138,5 +148,7 @@ namespace Toastify
 
             User32.KeyboardEvent(virtualKey, 0, 1, IntPtr.Zero);
         }
+
+        #endregion
     }
 }

@@ -7,8 +7,6 @@ namespace Toastify.ViewModel
 {
     public class ToastViewModel : ObservableObject
     {
-        #region Private fields
-
         private Settings _settings;
 
         private string _trackName;
@@ -17,8 +15,6 @@ namespace Toastify.ViewModel
         private string _title1;
         private string _title2;
         private double _songProgressBarWidth;
-
-        #endregion Private fields
 
         #region Public Properties
 
@@ -77,7 +73,7 @@ namespace Toastify.ViewModel
             set { this.RaiseAndSetIfChanged(ref this._songProgressBarWidth, value); }
         }
 
-        #endregion Public properties
+        #endregion
 
         public ToastViewModel()
         {

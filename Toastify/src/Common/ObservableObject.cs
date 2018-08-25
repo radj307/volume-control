@@ -7,10 +7,14 @@ namespace Toastify.Common
 {
     public class ObservableObject : INotifyPropertyChanged
     {
+        #region Events
+
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #endregion
+
         /// <summary>
-        /// Sets the new value of a field if it has changed and notifies the change.
+        ///     Sets the new value of a field if it has changed and notifies the change.
         /// </summary>
         /// <typeparam name="T"> The type of the field. </typeparam>
         /// <param name="field"> A reference to the field. </param>
@@ -42,7 +46,7 @@ namespace Toastify.Common
 
         protected void NotifyPropertyChanged(string propertyName = null, [CallerMemberName] string callerMemberName = null)
         {
-            var handler = this.PropertyChanged;
+            PropertyChangedEventHandler handler = this.PropertyChanged;
             handler?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? callerMemberName));
         }
 

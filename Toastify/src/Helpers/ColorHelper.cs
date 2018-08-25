@@ -1,17 +1,19 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Media;
+using JetBrains.Annotations;
 
 namespace Toastify.Helpers
 {
     internal static class ColorHelper
     {
+        #region Static Members
+
         /// <summary>
-        /// Hexadecimal to <see cref="Color"/> converter.
+        ///     Hexadecimal to <see cref="Color" /> converter.
         /// </summary>
         /// <param name="hexColor"> Hex color. </param>
-        /// <returns> A <see cref="Color"/>. </returns>
+        /// <returns> A <see cref="Color" />. </returns>
         public static Color HexToColor([NotNull] string hexColor)
         {
             //Remove # if present
@@ -46,5 +48,7 @@ namespace Toastify.Helpers
         {
             return $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
         }
+
+        #endregion
     }
 }

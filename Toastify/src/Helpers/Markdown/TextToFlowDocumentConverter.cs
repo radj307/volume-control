@@ -12,7 +12,15 @@ namespace Toastify.Helpers.Markdown
 {
     public class TextToFlowDocumentConverter : DependencyObject, IValueConverter
     {
+        #region Static Fields and Properties
+
+        public static readonly DependencyProperty MarkdownProperty = DependencyProperty.Register("Markdown", typeof(Markdown), typeof(TextToFlowDocumentConverter), new PropertyMetadata(null));
+
+        #endregion
+
         private readonly Lazy<Markdown> _markdown = new Lazy<Markdown>(() => new Markdown());
+
+        #region Public Properties
 
         public Markdown Markdown
         {
@@ -20,15 +28,15 @@ namespace Toastify.Helpers.Markdown
             set { this.SetValue(MarkdownProperty, value); }
         }
 
-        public static readonly DependencyProperty MarkdownProperty = DependencyProperty.Register("Markdown", typeof(Markdown), typeof(TextToFlowDocumentConverter), new PropertyMetadata(null));
+        #endregion
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return null;
 
-            var text = (string)value;
-            var engine = this.Markdown ?? this._markdown.Value;
+            string text = (string)value;
+            Markdown engine = this.Markdown ?? this._markdown.Value;
             return engine.Transform(text);
         }
 

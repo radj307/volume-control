@@ -1,7 +1,7 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
+using log4net;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
@@ -9,40 +9,32 @@ using Toastify.Model;
 namespace Toastify.Services
 {
     /// <summary>
-    /// Toastify auto-updater component
+    ///     Toastify auto-updater component
     /// </summary>
     /// <remarks>
-    /// The installation part of the update is handled in <see cref="EntryPoint.AutoUpdater_UpdateReady"/>.
+    ///     The installation part of the update is handled in <see cref="EntryPoint.AutoUpdater_UpdateReady" />.
     /// </remarks>
     internal class AutoUpdater
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(AutoUpdater));
 
-        #region Singleton
-
-        private static AutoUpdater _instance;
-
-        public static AutoUpdater Instance
-        {
-            get { return _instance ?? (_instance = new AutoUpdater()); }
-        }
-
-        #endregion Singleton
+        #region Static Fields and Properties
 
         public static string UpdateDownloadPath { get; } = Path.Combine(App.LocalApplicationData, "upd");
+
+        #endregion
+
+        #region Events
 
         public event EventHandler<CheckVersionCompleteEventArgs> AutoUpdateFailed;
 
         public event EventHandler<UpdateReadyEventArgs> UpdateReady;
 
+        #endregion
+
         protected AutoUpdater()
         {
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
-        }
-
-        private static bool ShouldDownload(UpdateDeliveryMode updateDeliveryMode)
-        {
-            return updateDeliveryMode == UpdateDeliveryMode.AutoDownload;
         }
 
         private async void VersionChecker_CheckVersionComplete(object sender, CheckVersionCompleteEventArgs e)
@@ -54,7 +46,7 @@ namespace Toastify.Services
                 this.AutoUpdateFailed?.Invoke(this, e);
             else
             {
-                using (WebClient webClient = new WebClient())
+                using (var webClient = new WebClient())
                 {
                     webClient.Proxy = App.ProxyConfig.CreateWebProxy();
                     try
@@ -67,7 +59,7 @@ namespace Toastify.Services
 
                         if (File.Exists(filePath))
                         {
-                            UpdateReadyEventArgs updateReadyEventArgs = new UpdateReadyEventArgs
+                            var updateReadyEventArgs = new UpdateReadyEventArgs
                             {
                                 Version = e.Version,
                                 InstallerPath = filePath,
@@ -86,5 +78,25 @@ namespace Toastify.Services
                 }
             }
         }
+
+        #region Static Members
+
+        private static bool ShouldDownload(UpdateDeliveryMode updateDeliveryMode)
+        {
+            return updateDeliveryMode == UpdateDeliveryMode.AutoDownload;
+        }
+
+        #endregion
+
+        #region Singleton
+
+        private static AutoUpdater _instance;
+
+        public static AutoUpdater Instance
+        {
+            get { return _instance ?? (_instance = new AutoUpdater()); }
+        }
+
+        #endregion Singleton
     }
 }

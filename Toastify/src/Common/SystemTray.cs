@@ -7,12 +7,12 @@ namespace Toastify.Common
     public class SystemTray : IDisposable
     {
         private readonly NotifyIcon sysTrayIcon;
+        private readonly Timer animationTimer;
 
         private int timeOut;
         private bool isTimeOut;
         private int _animationStepMilliseconds = 175;
         private int animationStep;
-        private readonly Timer animationTimer;
         private Icon[] animationIcons;
 
         #region Events
@@ -37,75 +37,7 @@ namespace Toastify.Common
 
         public event EventHandler BalloonTipClicked;
 
-        #endregion Events
-
-        #region Properties
-
-        public Icon Icon
-        {
-            get { return this.sysTrayIcon.Icon; }
-            set { this.sysTrayIcon.Icon = value; }
-        }
-
-        public bool Visible
-        {
-            get { return this.sysTrayIcon.Visible; }
-            set { this.sysTrayIcon.Visible = value; }
-        }
-
-        public string Text
-        {
-            get { return this.sysTrayIcon.Text; }
-            set { this.sysTrayIcon.Text = value; }
-        }
-
-        public bool Animate { get; set; }
-
-        public int AnimationStepMilliseconds
-        {
-            get
-            {
-                return this._animationStepMilliseconds;
-            }
-            set
-            {
-                this._animationStepMilliseconds = value;
-                if (this.animationTimer != null)
-                    this.animationTimer.Interval = value;
-            }
-        }
-
-        public string BalloonTipText
-        {
-            get { return this.sysTrayIcon.BalloonTipText; }
-            set { this.sysTrayIcon.BalloonTipText = value; }
-        }
-
-        public string BalloonTipTitle
-        {
-            get { return this.sysTrayIcon.BalloonTipTitle; }
-            set { this.sysTrayIcon.BalloonTipTitle = value; }
-        }
-
-        public ToolTipIcon BalloonTipIcon
-        {
-            get { return this.sysTrayIcon.BalloonTipIcon; }
-            set { this.sysTrayIcon.BalloonTipIcon = value; }
-        }
-
-        public ContextMenu ContextMenu
-        {
-            get { return this.sysTrayIcon.ContextMenu; }
-            set { this.sysTrayIcon.ContextMenu = value; }
-        }
-
-        public ContextMenuStrip ContextMenuStrip
-        {
-            get { return this.sysTrayIcon.ContextMenuStrip; }
-            set { this.sysTrayIcon.ContextMenuStrip = value; }
-        }
-
-        #endregion Properties
+        #endregion
 
         public SystemTray(string tooltipText, Icon icon) : this(tooltipText, icon, false)
         {
@@ -197,12 +129,14 @@ namespace Toastify.Common
                 for (int i = 0; i < icons.Length; ++i)
                     this.animationIcons[i] = new Icon(icons[i].ToString());
             }
+
             if (tp == typeof(Icon))
             {
                 this.animationIcons = new Icon[icons.Length];
                 for (int i = 0; i < icons.Length; ++i)
                     this.animationIcons[i] = (Icon)icons[i];
             }
+
             if (icons.Length > 0)
                 this.Icon = this.animationIcons[0];
         }
@@ -220,6 +154,71 @@ namespace Toastify.Common
                 this.isTimeOut = false;
             }
         }
+
+        #region Properties
+
+        public Icon Icon
+        {
+            get { return this.sysTrayIcon.Icon; }
+            set { this.sysTrayIcon.Icon = value; }
+        }
+
+        public bool Visible
+        {
+            get { return this.sysTrayIcon.Visible; }
+            set { this.sysTrayIcon.Visible = value; }
+        }
+
+        public string Text
+        {
+            get { return this.sysTrayIcon.Text; }
+            set { this.sysTrayIcon.Text = value; }
+        }
+
+        public bool Animate { get; set; }
+
+        public int AnimationStepMilliseconds
+        {
+            get { return this._animationStepMilliseconds; }
+            set
+            {
+                this._animationStepMilliseconds = value;
+                if (this.animationTimer != null)
+                    this.animationTimer.Interval = value;
+            }
+        }
+
+        public string BalloonTipText
+        {
+            get { return this.sysTrayIcon.BalloonTipText; }
+            set { this.sysTrayIcon.BalloonTipText = value; }
+        }
+
+        public string BalloonTipTitle
+        {
+            get { return this.sysTrayIcon.BalloonTipTitle; }
+            set { this.sysTrayIcon.BalloonTipTitle = value; }
+        }
+
+        public ToolTipIcon BalloonTipIcon
+        {
+            get { return this.sysTrayIcon.BalloonTipIcon; }
+            set { this.sysTrayIcon.BalloonTipIcon = value; }
+        }
+
+        public ContextMenu ContextMenu
+        {
+            get { return this.sysTrayIcon.ContextMenu; }
+            set { this.sysTrayIcon.ContextMenu = value; }
+        }
+
+        public ContextMenuStrip ContextMenuStrip
+        {
+            get { return this.sysTrayIcon.ContextMenuStrip; }
+            set { this.sysTrayIcon.ContextMenuStrip = value; }
+        }
+
+        #endregion Properties
 
         #region Event Handlers
 
