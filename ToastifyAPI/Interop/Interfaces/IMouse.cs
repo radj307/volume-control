@@ -3,7 +3,7 @@
 namespace ToastifyAPI.Interop.Interfaces
 {
     /// <summary>
-    /// A wrapper around the <see cref="MouseDevice"/> class.
+    ///     A wrapper around the <see cref="MouseDevice" /> class.
     /// </summary>
     public interface IMouse : IInputDevice
     {

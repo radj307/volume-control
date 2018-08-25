@@ -17,7 +17,7 @@ namespace Toastify.Model
 
         private HotkeyType _hotkeyType;
 
-        #region Public properties
+        #region Public Properties
 
         public HotkeyType Type
         {

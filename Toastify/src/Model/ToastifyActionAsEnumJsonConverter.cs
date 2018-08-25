@@ -13,7 +13,7 @@ namespace Toastify.Model
 
         private readonly JsonConverter stringEnumConverter = new StringEnumConverter();
 
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public override bool CanWrite

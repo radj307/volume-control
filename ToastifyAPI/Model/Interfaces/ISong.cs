@@ -5,6 +5,8 @@ namespace ToastifyAPI.Model.Interfaces
 {
     public interface ISong : IEquatable<ISong>
     {
+        #region Public Properties
+
         [NotNull]
         string Album { get; }
 
@@ -21,6 +23,8 @@ namespace ToastifyAPI.Model.Interfaces
 
         [NotNull]
         string CoverArtUrl { get; }
+
+        #endregion
 
         bool IsAd();
 

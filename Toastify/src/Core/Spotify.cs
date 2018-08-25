@@ -65,7 +65,7 @@ namespace Toastify.Core
 
         #endregion Private fields
 
-        #region Public properties
+        #region Public Properties
 
         public bool IsRunning { get { return this.GetMainWindowHandle() != IntPtr.Zero; } }
 

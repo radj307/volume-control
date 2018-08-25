@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-
 using JetBrains.Annotations;
 using log4net;
 using Newtonsoft.Json;
@@ -24,7 +23,7 @@ namespace Toastify.Model
         protected bool _active;
         private ModifierKeys _modifiers = ModifierKeys.None;
 
-        #region Public properties
+        #region Public Properties
 
         [PropertyDependency]
         public IInputDevices InputDevices { get; set; }
@@ -92,11 +91,11 @@ namespace Toastify.Model
         protected Hotkey()
         {
         }
-        
+
         protected Hotkey(IAction action) : base(action)
         {
         }
-        
+
         protected Hotkey([NotNull] IHotkey hotkey)
         {
             if (hotkey == null)

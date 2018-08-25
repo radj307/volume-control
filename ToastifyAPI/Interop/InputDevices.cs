@@ -5,8 +5,22 @@ namespace ToastifyAPI.Interop
 {
     public class InputDevices : IInputDevices
     {
+        #region Static Fields and Properties
+
         public static Keyboard PrimaryKeyboard { get; } = new Keyboard(System.Windows.Input.Keyboard.PrimaryDevice);
         public static Mouse PrimaryMouse { get; } = new Mouse(System.Windows.Input.Mouse.PrimaryDevice);
+
+        #endregion
+
+        #region Public Properties
+
+        /// <inheritdoc />
+        public IKeyboard Keyboard { get; set; }
+
+        /// <inheritdoc />
+        public IMouse Mouse { get; set; }
+
+        #endregion
 
         public InputDevices()
         {
@@ -19,12 +33,6 @@ namespace ToastifyAPI.Interop
             this.Keyboard = keyboard;
             this.Mouse = mouse;
         }
-
-        /// <inheritdoc />
-        public IKeyboard Keyboard { get; set; }
-
-        /// <inheritdoc />
-        public IMouse Mouse { get; set; }
 
         /// <inheritdoc />
         public bool IsPressed(Key key)

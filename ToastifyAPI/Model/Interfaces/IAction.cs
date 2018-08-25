@@ -1,18 +1,26 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
+using JetBrains.Annotations;
 using ToastifyAPI.Events;
 
 namespace ToastifyAPI.Model.Interfaces
 {
     public interface IAction : IEquatable<IAction>
     {
+        #region Public Properties
+
         [NotNull]
         string Name { get; }
 
-        void PerformAction();
+        #endregion
+
+        #region Events
 
         event EventHandler ActionPerformed;
 
         event EventHandler<ActionFailedEventArgs> ActionFailed;
+
+        #endregion
+
+        void PerformAction();
     }
 }

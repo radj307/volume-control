@@ -7,7 +7,7 @@ namespace Toastify.Model
     /// </summary>
     public sealed class ToastifyExit : ToastifyAction
     {
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public override string Name

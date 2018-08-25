@@ -12,6 +12,6 @@ namespace ToastifyAPI.Core
         MWheelUp = MouseButton.Middle + 120,
         MWheelDown = MouseButton.Middle - 120,
         XButton1 = MouseButton.XButton1,
-        XButton2 = MouseButton.XButton2,
+        XButton2 = MouseButton.XButton2
     }
 }

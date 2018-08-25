@@ -13,6 +13,8 @@ namespace ToastifyAPI.Model
 
         protected DateTime lastTimePerformed = DateTime.MinValue;
 
+        #region Public Properties
+
         /// <inheritdoc />
         [JsonProperty]
         public IAction Action { get; set; }
@@ -34,6 +36,8 @@ namespace ToastifyAPI.Model
                 return sinceLast.TotalMilliseconds >= 1000.0 / this.MaxFrequency;
             }
         }
+
+        #endregion
 
         public Actionable()
         {

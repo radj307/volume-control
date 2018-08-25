@@ -6,10 +6,14 @@ namespace ToastifyAPI.Model.Interfaces
 {
     public interface IKeyOrButton : ICloneable
     {
+        #region Public Properties
+
         bool IsKey { get; }
 
         Key? Key { get; }
 
         MouseAction? MouseButton { get; }
+
+        #endregion
     }
 }

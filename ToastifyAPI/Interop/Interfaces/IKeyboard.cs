@@ -3,7 +3,7 @@
 namespace ToastifyAPI.Interop.Interfaces
 {
     /// <summary>
-    /// A wrapper around the <see cref="KeyboardDevice"/> class.
+    ///     A wrapper around the <see cref="KeyboardDevice" /> class.
     /// </summary>
     public interface IKeyboard : IInputDevice
     {

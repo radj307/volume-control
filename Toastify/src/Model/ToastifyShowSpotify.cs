@@ -4,7 +4,7 @@ namespace Toastify.Model
 {
     public sealed class ToastifyShowSpotify : ToastifyAction
     {
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public override string Name

@@ -26,7 +26,7 @@ namespace Toastify.Model
 
         private bool _isSimple = true;
 
-        #region Public properties
+        #region Public Properties
 
         public T Value
         {
@@ -50,8 +50,6 @@ namespace Toastify.Model
 
 #endif
 
-        #endregion
-
         [JsonIgnore]
         internal List<Expression<Func<T, bool>>> Constraints { get; private set; }
 
@@ -67,6 +65,8 @@ namespace Toastify.Model
             get { return this._isSimple; }
             private set { this._isSimple = value; }
         }
+
+        #endregion
 
         public bool SetValueIfChanged(T value)
         {

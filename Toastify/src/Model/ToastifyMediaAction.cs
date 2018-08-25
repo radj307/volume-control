@@ -11,7 +11,7 @@ namespace Toastify.Model
 {
     public abstract class ToastifyMediaAction : ToastifyAction
     {
-        #region Public properties
+        #region Public Properties
 
         /// <summary>
         ///     <i>cmd</i> value of a <see cref="WindowsMessagesFlags.WM_APPCOMMAND" />.

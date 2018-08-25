@@ -10,7 +10,7 @@ namespace Toastify.Model
     {
         private readonly Action spotifyOnlyVolumeAction;
 
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public override string Name

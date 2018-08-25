@@ -1,7 +1,7 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using log4net;
 using ToastifyAPI.Common;
 using ToastifyAPI.Core;
 using ToastifyAPI.Logic.Interfaces;
@@ -64,9 +64,9 @@ namespace ToastifyAPI.Logic
         {
             if (nCode >= 0 && this.registeredHotkeys != null)
             {
-                foreach (var h in this.registeredHotkeys)
+                foreach (IMouseHookHotkey h in this.registeredHotkeys)
                 {
-                    Union32 union = new Union32(lParam.mouseData);
+                    var union = new Union32(lParam.mouseData);
 
                     bool isXButton = h.MouseButton == MouseAction.XButton1 || h.MouseButton == MouseAction.XButton2;
                     bool isMWheel = h.MouseButton == MouseAction.MWheelUp || h.MouseButton == MouseAction.MWheelDown;

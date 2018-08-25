@@ -66,7 +66,7 @@ namespace Toastify.Helpers.Markdown
 
         #endregion DependencyProperty's
 
-        #region Public properties
+        #region Public Properties
 
         /// <summary>
         /// when true, bold and italics require non-word characters on either side

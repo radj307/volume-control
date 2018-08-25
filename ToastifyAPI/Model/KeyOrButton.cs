@@ -8,12 +8,14 @@ using MouseAction = ToastifyAPI.Core.MouseAction;
 namespace ToastifyAPI.Model
 {
     /// <summary>
-    /// Represents either a <see cref="T:System.Windows.Input.Key"/> or a <see cref="MouseAction"/>.
+    ///     Represents either a <see cref="T:System.Windows.Input.Key" /> or a <see cref="Core.MouseAction" />.
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
     public sealed class KeyOrButton : IKeyOrButton, IEquatable<KeyOrButton>
     {
+        #region Public Properties
+
         public bool IsKey
         {
             get { return this.Key.HasValue; }
@@ -24,6 +26,8 @@ namespace ToastifyAPI.Model
 
         [JsonConverter(typeof(StringEnumConverter))]
         public MouseAction? MouseButton { get; }
+
+        #endregion
 
         public KeyOrButton(Key key)
         {
@@ -52,7 +56,9 @@ namespace ToastifyAPI.Model
             // ReSharper disable once PossibleInvalidOperationException
             return this.IsKey
                 ? new KeyOrButton(this.Key.Value)
-                : this.MouseButton.HasValue ? new KeyOrButton(this.MouseButton.Value) : throw new InvalidOperationException();
+                : this.MouseButton.HasValue
+                    ? new KeyOrButton(this.MouseButton.Value)
+                    : throw new InvalidOperationException();
         }
 
         /// <inheritdoc />
@@ -93,8 +99,12 @@ namespace ToastifyAPI.Model
             // ReSharper disable once PossibleInvalidOperationException
             return this.IsKey
                 ? $"{this.Key.Value}"
-                : this.MouseButton.HasValue ? $"{this.MouseButton.Value}" : string.Empty;
+                : this.MouseButton.HasValue
+                    ? $"{this.MouseButton.Value}"
+                    : string.Empty;
         }
+
+        #region Static Members
 
         public static implicit operator KeyOrButton(Key key)
         {
@@ -105,5 +115,7 @@ namespace ToastifyAPI.Model
         {
             return new KeyOrButton(mouseAction);
         }
+
+        #endregion
     }
 }

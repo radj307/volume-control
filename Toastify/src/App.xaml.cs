@@ -45,9 +45,44 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
 
+        #region Static Fields and Properties
+
         private static string previousVersion = string.Empty;
 
         private static MainArgs AppArgs { get; set; }
+
+        #endregion
+
+        [TabCompletion]
+        internal class MainArgs
+        {
+            #region Public Properties
+
+            // [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgShortcut("--debug")]
+            [ArgDescription("Enables Debug level logging.")]
+            [ArgCantBeCombinedWith("IsLogDisabled")]
+            public bool IsDebugLogEnabled { get; set; }
+
+            // [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgShortcut("--disable-log")]
+            [ArgDescription("Disables logging entirely.")]
+            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
+            public bool IsLogDisabled { get; set; } = false;
+
+            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Destination directory of log files.")]
+            [ArgExistingDirectory]
+            public string LogDirectory { get; set; } = App.LocalApplicationData;
+
+            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Spotify command-line arguments.")]
+            public string SpotifyArgs { get; set; } = string.Empty;
+
+            #endregion
+        }
+
+        #region Static Members
 
         [STAThread]
         public static void Main(string[] args)
@@ -400,34 +435,7 @@ namespace Toastify
             }
         }
 
-        [TabCompletion]
-        internal class MainArgs
-        {
-            #region Public properties
-
-            // [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgShortcut("--debug")]
-            [ArgDescription("Enables Debug level logging.")]
-            [ArgCantBeCombinedWith("IsLogDisabled")]
-            public bool IsDebugLogEnabled { get; set; }
-
-            // [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgShortcut("--disable-log")]
-            [ArgDescription("Disables logging entirely.")]
-            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
-            public bool IsLogDisabled { get; set; } = false;
-
-            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Destination directory of log files.")]
-            [ArgExistingDirectory]
-            public string LogDirectory { get; set; } = App.LocalApplicationData;
-
-            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Spotify command-line arguments.")]
-            public string SpotifyArgs { get; set; } = string.Empty;
-
-            #endregion
-        }
+        #endregion
     }
 
     /// <inheritdoc />
@@ -435,6 +443,8 @@ namespace Toastify
     public partial class App : Application
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
+
+        #region Static Fields and Properties
 
         private static readonly ProxyConfig noProxy = new ProxyConfig();
 
@@ -503,6 +513,8 @@ namespace Toastify
 
         public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
 
+        #endregion
+
         public App() : this("")
         {
         }
@@ -511,6 +523,8 @@ namespace Toastify
         {
             SpotifyParameters = spotifyArgs.Trim();
         }
+
+        #region Static Members
 
         public static void ShowConfigProxyDialog()
         {
@@ -527,6 +541,8 @@ namespace Toastify
                 DispatcherPriority.Normal,
                 new Action(() => Current.Shutdown()));
         }
+
+        #endregion
 
         #region Static setup
 

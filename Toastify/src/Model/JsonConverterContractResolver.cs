@@ -5,7 +5,11 @@ namespace Toastify.Model
 {
     public class JsonConverterContractResolver : DefaultContractResolver
     {
+        #region Static Fields and Properties
+
         internal static readonly IContractResolver Instance = new JsonConverterContractResolver();
+
+        #endregion
 
         protected override JsonContract CreateContract(Type objectType)
         {

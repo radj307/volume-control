@@ -3,7 +3,6 @@ using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Toastify.Helpers;
-using ToastifyAPI.Logic.Interfaces;
 
 namespace Toastify.Model
 {
@@ -67,7 +66,7 @@ namespace Toastify.Model
             return objectType == typeof(Hotkey);
         }
 
-        #region Static members
+        #region Static Members
 
         private static Type GetHotkeyType(JObject jObject)
         {

@@ -36,6 +36,8 @@ namespace Toastify.Model
         private const string REG_KEY_STARTUP = @"Software\Microsoft\Windows\CurrentVersion\Run";
         private const string SETTINGS_FILENAME = "Toastify.cfg";
 
+        #region Static Fields and Properties
+
         private static readonly Regex regex4ChannelsColor = new Regex("^#[0-9A-F]{8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static string _settingsFilePath;
@@ -77,7 +79,9 @@ namespace Toastify.Model
             }
         }
 
-        #region Public properties
+        #endregion
+
+        #region Public Properties
 
         // TODO: When the Settings class will not be a Singleton anymore, this dependency can be moved to the public constructor.
         [JsonIgnore]
@@ -368,6 +372,8 @@ namespace Toastify.Model
                 this.NotifyPropertyChanged(propertyName ?? callerPropertyName);
         }
 
+        #region Static Members
+
         private static T DefaultValueOf<T>(SettingValue<T> _, [NotNull] string propertyName) where T : IComparable, IConvertible
         {
             PropertyInfo property = typeof(Settings).GetProperty(propertyName);
@@ -442,6 +448,8 @@ namespace Toastify.Model
             if (!errorEventArgs.ErrorContext.Handled)
                 logger.Error("JsonSerializer error.", errorEventArgs.ErrorContext.Error);
         }
+
+        #endregion
 
         #region Settings instances
 
@@ -697,7 +705,7 @@ namespace Toastify.Model
         {
             get
             {
-                var hotkeys = this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
+                IReadOnlyList<Hotkey> hotkeys = this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
                 {
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Space, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowToast), Enabled = true },
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Down, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Stop), Enabled = true },
@@ -1151,7 +1159,7 @@ namespace Toastify.Model
     [Serializable]
     public class PluginDetails
     {
-        #region Public properties
+        #region Public Properties
 
         public string FileName { get; set; }
         public string TypeName { get; set; }

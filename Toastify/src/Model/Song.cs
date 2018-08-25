@@ -15,12 +15,16 @@ namespace Toastify.Model
         internal const string TITLE_SPOTIFY_AD = "Spotify Ad";
         internal const string TITLE_UNKNOWN = "[Unknown Track Type]";
 
+        #region Static Fields and Properties
+
         private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
+
+        #endregion
 
         private readonly Track spotifyTrack;
         private string _coverArtUrl;
 
-        #region Public properties
+        #region Public Properties
 
         public string Artist { get; }
         public string Track { get; }
@@ -218,6 +222,8 @@ namespace Toastify.Model
                    string.Equals(this.Type, other.Type);
         }
 
+        #region Static Members
+
         public static bool Equal(Song s1, Song s2)
         {
             if (ReferenceEquals(s1, s2))
@@ -232,5 +238,7 @@ namespace Toastify.Model
         {
             return spotifyTrack == null ? null : new Song(spotifyTrack);
         }
+
+        #endregion
     }
 }

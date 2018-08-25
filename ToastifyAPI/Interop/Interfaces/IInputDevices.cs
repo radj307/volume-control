@@ -4,9 +4,13 @@ namespace ToastifyAPI.Interop.Interfaces
 {
     public interface IInputDevices
     {
+        #region Public Properties
+
         IKeyboard Keyboard { get; set; }
 
         IMouse Mouse { get; set; }
+
+        #endregion
 
         bool IsPressed(Key key);
 

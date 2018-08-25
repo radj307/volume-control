@@ -1,6 +1,6 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Windows.Input;
+using JetBrains.Annotations;
 using ToastifyAPI.Interop.Interfaces;
 
 namespace ToastifyAPI.Interop
@@ -15,10 +15,16 @@ namespace ToastifyAPI.Interop
         }
 
         /// <inheritdoc />
-        public bool IsKeyboard() => false;
+        public bool IsKeyboard()
+        {
+            return false;
+        }
 
         /// <inheritdoc />
-        public bool IsMouse() => true;
+        public bool IsMouse()
+        {
+            return true;
+        }
 
         /// <inheritdoc />
         public bool IsPressed(MouseButton mouseButton)

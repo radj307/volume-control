@@ -9,7 +9,7 @@ namespace Toastify.Helpers
 {
     public static class WindsorContainerExtensions
     {
-        #region Static members
+        #region Static Members
 
         public static void BuildUp(this WindsorContainer container, [NotNull] object obj)
         {

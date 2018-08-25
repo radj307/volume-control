@@ -1,12 +1,14 @@
-﻿using JetBrains.Annotations;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
+using JetBrains.Annotations;
 using ToastifyAPI.Core;
 
 namespace ToastifyAPI.Helpers
 {
     public static class Net
     {
+        #region Static Members
+
         public static HttpClientHandler CreateHttpClientHandler()
         {
             return CreateHttpClientHandler(null);
@@ -14,7 +16,7 @@ namespace ToastifyAPI.Helpers
 
         public static HttpClientHandler CreateHttpClientHandler([CanBeNull] IProxyConfig proxyConfig)
         {
-            HttpClientHandler clientHandler = new HttpClientHandler
+            var clientHandler = new HttpClientHandler
             {
                 PreAuthenticate = false,
                 UseDefaultCredentials = true,
@@ -35,5 +37,7 @@ namespace ToastifyAPI.Helpers
 
             return clientHandler;
         }
+
+        #endregion
     }
 }

@@ -9,6 +9,31 @@ namespace ToastifyAPI.Helpers
 {
     public static class Extensions
     {
+        #region Static Members
+
+        public static Keys ConvertToWindowsFormsKeys(this Key key)
+        {
+            if (Enum.GetNames(typeof(Keys)).Contains(key.ToString(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                if (Enum.TryParse(key.ToString(), out Keys keys))
+                    return keys;
+            }
+
+            return Keys.None;
+        }
+
+        public static uint GetScanCode(this Key key)
+        {
+            return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
+        }
+
+        public static object GetDefault(this Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
+        #endregion
+
         #region GetLParam
 
         public static uint GetLParam(this Key key)
@@ -80,29 +105,10 @@ namespace ToastifyAPI.Helpers
                         break;
                 }
             }
+
             return (uint)KeyInterop.VirtualKeyFromKey(key);
         }
 
         #endregion GetVirtualKey
-
-        public static Keys ConvertToWindowsFormsKeys(this Key key)
-        {
-            if (Enum.GetNames(typeof(Keys)).Contains(key.ToString(), StringComparer.InvariantCultureIgnoreCase))
-            {
-                if (Enum.TryParse(key.ToString(), out Keys keys))
-                    return keys;
-            }
-            return Keys.None;
-        }
-
-        public static uint GetScanCode(this Key key)
-        {
-            return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
-        }
-
-        public static object GetDefault(this Type type)
-        {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
-        }
     }
 }
