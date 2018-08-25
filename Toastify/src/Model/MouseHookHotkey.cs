@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Toastify.DI;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
@@ -16,12 +17,13 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(MouseHookHotkey));
 
-        private IMouseHookHotkeyVisitor visitor;
-
         private MouseAction? _mouseButton;
         private bool isValid;
 
-        #region Public properties
+        #region Public Properties
+
+        [PropertyDependency]
+        public IMouseHookHotkeyVisitor HotkeyVisitor { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include, NullValueHandling = NullValueHandling.Include)]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -87,7 +89,6 @@ namespace Toastify.Model
         {
         }
 
-        /// <inheritdoc />
         public MouseHookHotkey([NotNull] MouseHookHotkey hotkey) : base(hotkey)
         {
             if (hotkey == null)
@@ -96,27 +97,18 @@ namespace Toastify.Model
             this._mouseButton = hotkey._mouseButton;
             this.isValid = hotkey.isValid;
 
-            this.visitor = hotkey.visitor;
-        }
-
-        public MouseHookHotkey(IMouseHookHotkeyVisitor visitor) : this(null, visitor)
-        {
-        }
-
-        public MouseHookHotkey(IAction action, IMouseHookHotkeyVisitor visitor) : this(action)
-        {
-            this.visitor = visitor;
+            this.HotkeyVisitor = hotkey.HotkeyVisitor;
         }
 
         /// <inheritdoc />
         protected override void InitInternal()
         {
-            if (this.visitor != null)
+            if (this.HotkeyVisitor != null)
             {
                 // If we're not enabled shut everything down asap
                 if (!this.Enabled || !this.Active)
                 {
-                    this.visitor.UnregisterHook(this);
+                    this.HotkeyVisitor.UnregisterHook(this);
 
                     // May not be false if !Enabled
                     this._active = false;
@@ -126,10 +118,10 @@ namespace Toastify.Model
                 if (!this.MouseButton.HasValue)
                     return;
 
-                this.visitor.RegisterHook(this);
+                this.HotkeyVisitor.RegisterHook(this);
             }
             else
-                logger.Warn($"{this.visitor} is null!");
+                logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
         }
 
         /// <inheritdoc />
@@ -166,23 +158,23 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override IHotkeyVisitor GetVisitor()
         {
-            return this.visitor;
+            return this.HotkeyVisitor;
         }
 
         /// <inheritdoc />
         protected override void DispatchInternal(IHotkeyVisitor hotkeyVisitor)
         {
-            if (this.visitor is IMouseHookHotkeyVisitor mouseHookHotkeyVisitor)
+            if (hotkeyVisitor is IMouseHookHotkeyVisitor mouseHookHotkeyVisitor)
                 mouseHookHotkeyVisitor.Visit(this);
         }
 
         /// <inheritdoc />
         protected override void DisposeInternal()
         {
-            if (this.visitor != null)
-                this.visitor.UnregisterHook(this);
+            if (this.HotkeyVisitor != null)
+                this.HotkeyVisitor.UnregisterHook(this);
             else
-                logger.Warn($"{this.visitor} is null!");
+                logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
         }
     }
 }

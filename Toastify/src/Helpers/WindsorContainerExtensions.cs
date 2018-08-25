@@ -9,6 +9,8 @@ namespace Toastify.Helpers
 {
     public static class WindsorContainerExtensions
     {
+        #region Static members
+
         public static void BuildUp(this WindsorContainer container, [NotNull] object obj)
         {
             IEnumerable<PropertyInfo> properties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -22,5 +24,15 @@ namespace Toastify.Helpers
                 }
             }
         }
+
+        public static void BuildUpAll(this WindsorContainer container, [NotNull] IEnumerable<object> objects)
+        {
+            foreach (object obj in objects)
+            {
+                BuildUp(container, obj);
+            }
+        }
+
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ namespace Toastify.Model
     [JsonObject(MemberSerialization.OptOut)]
     public abstract class ToastifyAction : IAction
     {
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public virtual string Name { get; }
@@ -56,41 +56,46 @@ namespace Toastify.Model
             this.ActionFailed?.Invoke(sender, e);
         }
 
-        #region Equals / GetHashCode
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
+        #region Equals / GethashCode
 
         protected bool Equals(ToastifyAction other)
         {
-            return this.Equals((IAction)other);
+            return string.Equals(this.Name, other.Name) &&
+                   this.ToastifyActionEnum == other.ToastifyActionEnum;
         }
 
-        /// <inheritdoc />
         public bool Equals(IAction other)
         {
-            if (other is null)
+            if (other == null)
                 return false;
             // ReSharper disable once ConvertIfStatementToReturnStatement
             if (ReferenceEquals(this, other))
                 return true;
-
             return string.Equals(this.Name, other.Name);
         }
 
-        /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (obj is null)
+            if (obj == null)
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
             return obj.GetType() == this.GetType() && this.Equals((ToastifyAction)obj);
         }
 
-        /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode();
+            unchecked
+            {
+                return (this.Name.GetHashCode() * 397) ^ this.ToastifyActionEnum.GetHashCode();
+            }
         }
 
-        #endregion Equals / GetHashCode
+        #endregion
     }
 }

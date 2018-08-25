@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+
 using JetBrains.Annotations;
 using log4net;
 using Newtonsoft.Json;
@@ -91,11 +92,11 @@ namespace Toastify.Model
         protected Hotkey()
         {
         }
-
+        
         protected Hotkey(IAction action) : base(action)
         {
         }
-
+        
         protected Hotkey([NotNull] IHotkey hotkey)
         {
             if (hotkey == null)
@@ -147,6 +148,8 @@ namespace Toastify.Model
             if (this.Action is ToastifyShowToast)
                 return;
 
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Hotkey dispatched: {this.HumanReadableAction}");
             this.DispatchInternal(hotkeyVisitor);
         }
 

@@ -3,6 +3,7 @@ using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Toastify.Helpers;
+using ToastifyAPI.Logic.Interfaces;
 
 namespace Toastify.Model
 {
@@ -10,7 +11,7 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(HotkeyJsonConverter));
 
-        #region Public properties
+        #region Public Properties
 
         /// <inheritdoc />
         public override bool CanWrite
@@ -66,6 +67,8 @@ namespace Toastify.Model
             return objectType == typeof(Hotkey);
         }
 
+        #region Static members
+
         private static Type GetHotkeyType(JObject jObject)
         {
             bool hasKey = jObject[nameof(KeyboardHotkey.Key)] != null;
@@ -78,5 +81,7 @@ namespace Toastify.Model
 
             return null;
         }
+
+        #endregion
     }
 }

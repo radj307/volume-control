@@ -120,11 +120,11 @@ namespace Toastify.View
 
             foreach (var hotkey in Settings.Default.HotKeys)
             {
-                var current = Settings.Current.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
-                var preview = this.PreviewSettings?.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
+                var current = Settings.Current.HotKeys?.SingleOrDefault(h => h?.Action.Equals(hotkey.Action) ?? false);
+                var preview = this.PreviewSettings?.HotKeys?.SingleOrDefault(h => h?.Action.Equals(hotkey.Action) ?? false);
                 var @default = hotkey;
 
-                Debug.Write($"{hotkey.Action,-15}: ");
+                Debug.Write($"{hotkey.HumanReadableAction,-15}: ");
                 Debug.Write($"[{(current?.Enabled == true ? 'E' : ' ')}{(current?.Active == true ? 'A' : ' ')}] {current?.HumanReadableKey ?? "—",-20} | ");
                 Debug.Write(this.PreviewSettings != null ? $"[{(preview?.Enabled == true ? 'E' : ' ')}{(preview?.Active == true ? 'A' : ' ')}] {preview?.HumanReadableKey ?? "—",-20} | " : "");
                 Debug.Write($"[{(@default?.Enabled == true ? 'E' : ' ')}{(@default?.Active == true ? 'A' : ' ')}] {@default?.HumanReadableKey ?? "—",-20}\n");

@@ -6,6 +6,7 @@ using log4net;
 using ManagedWinapi;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Toastify.DI;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model.Interfaces;
@@ -18,13 +19,15 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(KeyboardHotkey));
 
-        private IKeyboardHotkeyVisitor visitor;
         private ManagedWinapi.Hotkey globalHotkey;
 
         private Key? _key;
         private bool isValid;
 
-        #region Public properties
+        #region Public Properties
+
+        [PropertyDependency]
+        public IKeyboardHotkeyVisitor HotkeyVisitor { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include, NullValueHandling = NullValueHandling.Include)]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -97,16 +100,7 @@ namespace Toastify.Model
             this._key = hotkey._key;
             this.isValid = hotkey.isValid;
 
-            this.visitor = hotkey.visitor;
-        }
-
-        public KeyboardHotkey(IKeyboardHotkeyVisitor visitor) : this(null, visitor)
-        {
-        }
-
-        public KeyboardHotkey(IAction action, IKeyboardHotkeyVisitor visitor) : this(action)
-        {
-            this.visitor = visitor;
+            this.HotkeyVisitor = hotkey.HotkeyVisitor;
         }
 
         /// <inheritdoc />
@@ -187,7 +181,7 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override IHotkeyVisitor GetVisitor()
         {
-            return this.visitor;
+            return this.HotkeyVisitor;
         }
 
         /// <inheritdoc />
@@ -213,10 +207,10 @@ namespace Toastify.Model
 
         private void GlobalHotkey_HotkeyPressed(object sender, EventArgs e)
         {
-            if (this.visitor != null)
-                this.Dispatch(this.visitor);
+            if (this.HotkeyVisitor != null)
+                this.Dispatch(this.HotkeyVisitor);
             else
-                logger.Warn($"{this.visitor} is null!");
+                logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
         }
     }
 }

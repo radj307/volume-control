@@ -297,9 +297,10 @@ namespace Toastify.Model
 
             if (clone != null)
             {
+                App.Container.BuildUp(clone);
+
                 // Hotkeys
                 clone.HotKeys = new List<Hotkey>();
-
                 foreach (Hotkey key in this.HotKeys)
                 {
                     clone.HotKeys.Add((Hotkey)key.Clone());
@@ -318,6 +319,8 @@ namespace Toastify.Model
 
                 // ProxyConfig
                 clone._proxyConfig = (ProxyConfigAdapter)this._proxyConfig.Clone();
+
+                clone.SanitizeSettingsInstance();
             }
 
             return clone;
@@ -489,8 +492,9 @@ namespace Toastify.Model
                 if (_default == null)
                 {
                     _default = new Settings();
-                    _default?.SetDefault();
                     App.Container.BuildUp(_default);
+                    _default?.SetDefault(false);
+                    _default?.SanitizeSettingsInstance();
                 }
 
                 return _default;
@@ -693,7 +697,7 @@ namespace Toastify.Model
         {
             get
             {
-                return this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
+                var hotkeys = this.defaultHotKeys ?? (this.defaultHotKeys = new List<Hotkey>
                 {
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Space, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowToast), Enabled = true },
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control | ModifierKeys.Alt, Key = Key.Down, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.Stop), Enabled = true },
@@ -713,6 +717,8 @@ namespace Toastify.Model
                     new KeyboardHotkey { Modifiers = ModifierKeys.Control, Key = Key.D, Action = this.ToastifyActionRegistry.GetAction(ToastifyActionEnum.ShowDebugView), Enabled = true },
 #endif
                 });
+                App.Container.BuildUpAll(hotkeys);
+                return hotkeys;
             }
         }
 
