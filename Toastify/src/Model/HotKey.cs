@@ -118,6 +118,8 @@ namespace Toastify.Model
 
         public abstract bool IsValid();
 
+        internal abstract void SetIsValid(bool isValid, string invalidReason);
+
         public bool AreModifiersPressed()
         {
             return this.InputDevices?.ArePressed(this.Modifiers) ?? throw new InvalidOperationException("InputDevices is null");

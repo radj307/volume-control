@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using log4net;
@@ -18,7 +19,7 @@ namespace Toastify.Model
         private static readonly ILog logger = LogManager.GetLogger(typeof(MouseHookHotkey));
 
         private MouseAction? _mouseButton;
-        private bool isValid;
+        private bool? isValid;
 
         #region Public Properties
 
@@ -59,7 +60,6 @@ namespace Toastify.Model
         }
 
         /// <inheritdoc />
-        [JsonIgnore]
         public override string HumanReadableKey
         {
             get
@@ -69,6 +69,19 @@ namespace Toastify.Model
                 string shift = this.Modifiers.HasFlag(ModifierKeys.Shift) ? "Shift+" : string.Empty;
                 string win = this.Modifiers.HasFlag(ModifierKeys.Windows) ? "Win+" : string.Empty;
                 return $"{alt}{ctlr}{shift}{win}{this.MouseButton.ToString()}";
+            }
+        }
+
+        public override string InvalidReason
+        {
+            get { return base.InvalidReason; }
+            protected set
+            {
+                if (base.InvalidReason != value)
+                {
+                    base.InvalidReason = value;
+                    base.OnPropertyChanged();
+                }
             }
         }
 
@@ -127,11 +140,21 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override bool IsValid()
         {
-            return this.isValid;
+            this.CheckIfValid();
+            return this.isValid ?? true;
+        }
+
+        internal override void SetIsValid(bool isValid, string invalidReason)
+        {
+            this.isValid = isValid;
+            this.InvalidReason = isValid ? null : invalidReason;
         }
 
         protected virtual void CheckIfValid()
         {
+            if (this.isValid == false)
+                return;
+
             if (!this.MouseButton.HasValue)
             {
                 this.isValid = false;
@@ -175,6 +198,12 @@ namespace Toastify.Model
                 this.HotkeyVisitor.UnregisterHook(this);
             else
                 logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            this.isValid = null;
         }
     }
 }

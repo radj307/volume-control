@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Input;
 using JetBrains.Annotations;
@@ -22,7 +23,7 @@ namespace Toastify.Model
         private ManagedWinapi.Hotkey globalHotkey;
 
         private Key? _key;
-        private bool isValid;
+        private bool? isValid;
 
         #region Public Properties
 
@@ -72,6 +73,19 @@ namespace Toastify.Model
                 string shift = this.Modifiers.HasFlag(ModifierKeys.Shift) ? "Shift+" : string.Empty;
                 string win = this.Modifiers.HasFlag(ModifierKeys.Windows) ? "Win+" : string.Empty;
                 return $"{alt}{ctlr}{shift}{win}{this.Key.ToString()}";
+            }
+        }
+
+        public override string InvalidReason
+        {
+            get { return base.InvalidReason; }
+            protected set
+            {
+                if (base.InvalidReason != value)
+                {
+                    base.InvalidReason = value;
+                    base.OnPropertyChanged();
+                }
             }
         }
 
@@ -161,11 +175,20 @@ namespace Toastify.Model
         public override bool IsValid()
         {
             this.CheckIfValid();
-            return this.isValid;
+            return this.isValid ?? true;
+        }
+
+        internal override void SetIsValid(bool isValid, string invalidReason)
+        {
+            this.isValid = isValid;
+            this.InvalidReason = isValid ? null : invalidReason;
         }
 
         protected virtual void CheckIfValid()
         {
+            if (this.isValid == false)
+                return;
+
             if (!this.Key.HasValue || this.Key == System.Windows.Input.Key.None)
             {
                 this.isValid = false;
@@ -211,6 +234,12 @@ namespace Toastify.Model
                 this.Dispatch(this.HotkeyVisitor);
             else
                 logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            this.isValid = null;
         }
     }
 }

@@ -226,18 +226,8 @@ namespace Toastify.Model
         /// </summary>
         private void SanitizeSettingsInstance()
         {
-            if (this._hotKeys != null)
-            {
-                // Remove duplicate hotkeys
-                bool Equals(Hotkey h1, Hotkey h2) => h1?.Action?.Equals(h2?.Action) ?? h2?.Action == null;
-                int GetHashCode(Hotkey h) => h?.Action?.GetHashCode() ?? 0;
-
-                this._hotKeys = (from h in this._hotKeys.Distinct(Equals, GetHashCode)
-                                 let toastifyAction = h.Action as ToastifyAction
-                                 where h.Action != null && (toastifyAction == null || toastifyAction.ToastifyActionEnum != ToastifyActionEnum.None)
-                                 orderby h.HumanReadableAction
-                                 select h).ToList();
-            }
+            // Remove duplicate hotkeys
+            this._hotKeys = this._hotKeys?.DistinctAndSortByToastifyAction().ToList();
 
             // Bring the Toast inside the working area if it is off-screen
             var toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
@@ -272,12 +262,11 @@ namespace Toastify.Model
         /// </summary>
         private void Apply()
         {
-            if (this.GlobalHotKeys && this.HotKeys != null)
+            if (!this.GlobalHotKeys || this.HotKeys == null)
+                return;
+            foreach (Hotkey hotkey in this.HotKeys)
             {
-                foreach (Hotkey hotkey in this.HotKeys)
-                {
-                    hotkey.Activate();
-                }
+                hotkey.Activate();
             }
         }
 
@@ -286,12 +275,11 @@ namespace Toastify.Model
         /// </summary>
         private void Unload()
         {
-            if (this.HotKeys != null)
+            if (this.HotKeys == null)
+                return;
+            foreach (Hotkey hotkey in this.HotKeys)
             {
-                foreach (Hotkey hotkey in this.HotKeys)
-                {
-                    hotkey.Deactivate();
-                }
+                hotkey.Deactivate();
             }
         }
 

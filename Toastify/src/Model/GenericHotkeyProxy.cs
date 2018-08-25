@@ -133,6 +133,9 @@ namespace Toastify.Model
             }
 
             App.Container.BuildUp(this.keyboardHotkey, this.mouseHookHotkey);
+
+            this.keyboardHotkey.PropertyChanged += this.KeyboardHotkey_PropertyChanged;
+            this.mouseHookHotkey.PropertyChanged += this.MouseHookHotkey_PropertyChanged;
         }
 
         public GenericHotkeyProxy(KeyboardHotkey keyboardHotkey) : this((Hotkey)keyboardHotkey)
@@ -167,6 +170,17 @@ namespace Toastify.Model
             }
         }
 
+        public bool IsAlreadyInUseBy(GenericHotkeyProxy hotkeyProxy)
+        {
+            if (hotkeyProxy == null)
+                return false;
+
+            return this.Hotkey.Modifiers == hotkeyProxy.Hotkey.Modifiers &&
+                   this.Type == hotkeyProxy.Type &&
+                   (this.Type == HotkeyType.Keyboard && this.keyboardHotkey.Key == hotkeyProxy.keyboardHotkey.Key ||
+                    this.Type == HotkeyType.MouseHook && this.mouseHookHotkey.MouseButton == hotkeyProxy.mouseHookHotkey.MouseButton);
+        }
+
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -175,6 +189,16 @@ namespace Toastify.Model
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void KeyboardHotkey_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.PropertyName));
+        }
+
+        private void MouseHookHotkey_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.PropertyName));
         }
 
         #endregion INotifyPropertyChanged

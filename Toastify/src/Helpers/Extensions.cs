@@ -10,6 +10,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Toastify.Common;
+using Toastify.Core;
+using Toastify.Model;
+using ToastifyAPI.Helpers;
 
 namespace Toastify.Helpers
 {
@@ -20,6 +23,21 @@ namespace Toastify.Helpers
         public static IList<T> Clone<T>(this IEnumerable<T> enumerableToClone) where T : ICloneable
         {
             return enumerableToClone.Select(item => (T)item.Clone()).ToList();
+        }
+
+        public static IEnumerable<T> DistinctAndSortByToastifyAction<T>(this IEnumerable<T> hotkeys) where T : Hotkey
+        {
+            if (hotkeys == null)
+                return null;
+
+            bool Equals(T h1, T h2) => h1?.Action?.Equals(h2?.Action) ?? h2?.Action == null;
+            int GetHashCode(T h) => h?.Action?.GetHashCode() ?? 0;
+
+            return (from h in hotkeys.Distinct(Equals, GetHashCode)
+                    let toastifyAction = h.Action as ToastifyAction
+                    where h.Action != null && (toastifyAction == null || toastifyAction.ToastifyActionEnum != ToastifyActionEnum.None)
+                    orderby h.HumanReadableAction
+                    select h).ToList();
         }
 
         public static bool CheckCancellation(this BackgroundWorker backgroundWorker, DoWorkEventArgs doWorkEventArgs)

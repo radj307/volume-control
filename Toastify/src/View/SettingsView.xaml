@@ -137,7 +137,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <Grid Grid.Column="1" Margin="12,10" DataContext="{Binding Path=Hotkeys}">
+                        <Grid x:Name="HotkeyGrid" Grid.Column="1" Margin="12,10" DataContext="{Binding Path=Hotkeys}">
                             <StackPanel Height="21" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                                 <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl, Mode=TwoWay}" Margin="0" VerticalContentAlignment="Center" />
                                 <CheckBox Content="Alt" IsChecked="{Binding Path=Alt, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center" />
@@ -150,7 +150,7 @@
                                 <TextBox x:Name="TxtSingleKey" Margin="6,0,0,0" IsTabStop="False" VerticalContentAlignment="Center" Width="82" PreviewKeyDown="TxtSingleKey_OnPreviewKeyDown" />
                             </StackPanel>
 
-                            <Grid Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
+                            <Grid x:Name="HotkeyValidityGrid" Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
                                 <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
                                 <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Hotkey.InvalidReason}" TextWrapping="Wrap" />
                             </Grid>
