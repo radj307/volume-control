@@ -1,4 +1,19 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using JetBrains.Annotations;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -6,26 +21,22 @@ using log4net.Core;
 using log4net.Filter;
 using log4net.Repository;
 using log4net.Repository.Hierarchy;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PowerArgs;
 using SpotifyAPI;
-using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
-using System.Xml.Serialization;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
 using ToastifyAPI.GitHub;
+using ToastifyAPI.Interop;
+using ToastifyAPI.Interop.Interfaces;
+using ToastifyAPI.Logic;
+using ToastifyAPI.Logic.Interfaces;
+using MouseAction = ToastifyAPI.Core.MouseAction;
+using Resources = Toastify.Properties.Resources;
 
 namespace Toastify
 {
@@ -34,15 +45,48 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(EntryPoint));
 
+        #region Static Fields and Properties
+
         private static string previousVersion = string.Empty;
 
         private static MainArgs AppArgs { get; set; }
+
+        #endregion
+
+        [TabCompletion]
+        internal class MainArgs
+        {
+            #region Public Properties
+
+            [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Enables Debug level logging.")]
+            [ArgCantBeCombinedWith("IsLogDisabled")]
+            public bool IsDebugLogEnabled { get; set; }
+
+            [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Disables logging entirely.")]
+            [ArgCantBeCombinedWith("IsDebugLogEnabled")]
+            public bool IsLogDisabled { get; set; } = false;
+
+            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Destination directory of log files.")]
+            [ArgExistingDirectory]
+            public string LogDirectory { get; set; } = App.LocalApplicationData;
+
+            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
+            [ArgDescription("Spotify command-line arguments.")]
+            public string SpotifyArgs { get; set; } = string.Empty;
+
+            #endregion
+        }
+
+        #region Static Members
 
         [STAThread]
         public static void Main(string[] args)
         {
             const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-            using (Mutex unused = new Mutex(true, appSpecificGuid, out bool exclusive))
+            using (var unused = new Mutex(true, appSpecificGuid, out bool exclusive))
             {
                 if (exclusive)
                 {
@@ -77,7 +121,7 @@ namespace Toastify
                     RunApp();
                 }
                 else
-                    MessageBox.Show(Properties.Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -107,13 +151,13 @@ namespace Toastify
 
         private static void SetupLogger()
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
             {
                 XmlConfigurator.Configure(stream);
                 ILoggerRepository loggerRepository = LogManager.GetRepository();
 
                 // Set root logger's log level
-                var rootLogger = ((Hierarchy)loggerRepository).Root;
+                Logger rootLogger = ((Hierarchy)loggerRepository).Root;
 #if DEBUG || TEST_RELEASE
                 rootLogger.Level = Level.Debug;
 #else
@@ -130,7 +174,7 @@ namespace Toastify
                 rollingFileAppender.File = Path.Combine(AppArgs.LogDirectory, "Toastify.log");
 
                 // Set RollingFileAppender's minimum log level
-                var filter = rollingFileAppender.FilterHead;
+                IFilter filter = rollingFileAppender.FilterHead;
                 while (filter != null)
                 {
                     if (filter is LevelRangeFilter lrFilter)
@@ -150,15 +194,15 @@ namespace Toastify
             }
         }
 
-        #region PrepareToRun
-
         private static void PrepareToRun()
         {
             if (logger.IsDebugEnabled)
                 logger.Debug("Preparing to launch Toastify...");
 
-            //   Load Settings > [StartupTask] > Initialize Analytics > Update PreviousVersion to this one
+            // > [StartupTaskPerSettings] > Load Settings > [StartupTask]
+            // > Initialize Analytics > Update PreviousVersion to this one
             // > Initialize AutoUpdater & VersionChecker
+            StartupTaskPreSettings();
             LoadSettings();
             StartupTask();
             Analytics.Init();
@@ -170,10 +214,104 @@ namespace Toastify
             InitUpdater();
         }
 
+        private static void RunApp()
+        {
+            var app = new App(AppArgs.SpotifyArgs);
+            app.InitializeComponent();
+
+#if DEBUG
+            DebugView.Launch();
+#endif
+
+            Spotify.Instance.Connected -= Spotify_Connected;
+            Spotify.Instance.Connected += Spotify_Connected;
+
+            app.Run();
+        }
+
+        private static void StartupTaskPreSettings()
+        {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(StartupTaskPreSettings)}]");
+
+            // Convert the settings file
+            if (File.Exists(Settings.SettingsFilePath))
+            {
+                JObject jSettings;
+
+                using (var sr = new StreamReader(Settings.SettingsFilePath))
+                {
+                    using (var jsonReader = new JsonTextReader(sr))
+                    {
+                        jSettings = JObject.Load(jsonReader);
+                    }
+                }
+
+                JToken jPreviousV = jSettings["PreviousVersion"];
+                var previousV = new Version(jPreviousV?.Value<string>() ?? "0");
+
+                // [IDO] Hotkeys
+                if (previousV < new Version("1.10.10"))
+                {
+                    // pre-1.10.10 hotkeys must be converted to the current format
+                    logger.Info("Converting old hotkeys to the current format...");
+
+                    JToken jHotkeys = jSettings["HotKeys"];
+                    if (jHotkeys?.HasValues == true)
+                    {
+                        var convertedHotkeys = new JArray();
+
+                        foreach (JToken jHotkey in jHotkeys.Children())
+                        {
+                            JToken jKeyOrButton = jHotkey["KeyOrButton"];
+                            JToken jKey = jKeyOrButton?["Key"];
+
+                            ModifierKeys modifiers = (jHotkey["Alt"]?.Value<bool>() == true ? ModifierKeys.Alt : ModifierKeys.None) |
+                                                     (jHotkey["Ctrl"]?.Value<bool>() == true ? ModifierKeys.Control : ModifierKeys.None) |
+                                                     (jHotkey["Shift"]?.Value<bool>() == true ? ModifierKeys.Shift : ModifierKeys.None) |
+                                                     (jHotkey["WindowsKey"]?.Value<bool>() == true ? ModifierKeys.Windows : ModifierKeys.None);
+
+                            ToastifyActionEnum toastifyActionEnum = Enum.TryParse(jHotkey["Action"]?.Value<string>(), out ToastifyActionEnum tae) ? tae : ToastifyActionEnum.None;
+                            ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(toastifyActionEnum);
+                            bool enabled = jHotkey["Enabled"]?.Value<bool>() ?? false;
+
+                            Hotkey h = jKeyOrButton?["IsKey"]?.Value<bool>() ?? jKey != null
+                                ? new KeyboardHotkey
+                                {
+                                    Modifiers = modifiers,
+                                    Key = Enum.TryParse(jKey?.Value<string>(), out Key k) ? k : (Key?)null,
+                                    Action = action,
+                                    Enabled = enabled
+                                } as Hotkey
+                                : new MouseHookHotkey
+                                {
+                                    Modifiers = modifiers,
+                                    MouseButton = Enum.TryParse(jKeyOrButton?["MouseButton"]?.Value<string>(), out MouseAction ma) ? ma : (MouseAction?)null,
+                                    Action = action,
+                                    Enabled = enabled
+                                };
+
+                            JObject jH = JObject.FromObject(h, Settings.JsonSerializer);
+                            convertedHotkeys.Add(jH);
+                        }
+
+                        jHotkeys.Replace(convertedHotkeys);
+                    }
+                }
+
+                // Write the modified JObject back to the settings file
+                string json = JsonConvert.SerializeObject(jSettings, Formatting.Indented, Settings.JsonSerializerSettings);
+                File.WriteAllText(Settings.SettingsFilePath, json, Encoding.UTF8);
+            }
+        }
+
         private static void LoadSettings()
         {
             try
             {
+                if (logger.IsDebugEnabled)
+                    logger.Debug($"[{nameof(LoadSettings)}]");
+
                 Settings.Current.Load();
 
                 EnsureHotkeysRegisteredCorrectly();
@@ -189,48 +327,14 @@ namespace Toastify
             }
             catch (FileNotFoundException ex)
             {
-                // Check if the old XML settings file is still there.
-
-                const string oldSettingsFileName = "Toastify.xml";
-
-                // ReSharper disable once PossibleNullReferenceException - The parent directory is created by Settings.SettingsFilePath, if needed
-                string dir = new FileInfo(Settings.SettingsFilePath).Directory.FullName;
-                string filePath = Path.Combine(dir, oldSettingsFileName);
-                if (File.Exists(filePath))
-                {
-                    if (logger.IsDebugEnabled)
-                        logger.Debug("Migrating from old XML settings to new JSON config file.");
-
-                    try
-                    {
-                        Settings xmlFile;
-                        using (StreamReader sr = new StreamReader(filePath))
-                        {
-                            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-                            xmlFile = serializer.Deserialize(sr) as Settings;
-                        }
-
-                        xmlFile?.SetAsCurrentAndSave();
-                        File.Copy(filePath, $"{filePath}.bak", true);
-                        File.Delete(filePath);
-                        LoadSettings();
-                    }
-                    catch (Exception exx)
-                    {
-                        logger.Error(exx.Message, exx);
-                    }
-                }
-                else
-                {
-                    logger.Warn("Neither a JSON config file nor an old XML settings file exist! Toastify will use default values.", ex);
-                    Settings.Current.LoadSafe();
-                }
+                logger.Warn("Config file not found! Toastify will use default values.", ex);
+                Settings.Current.LoadSafe();
             }
             catch (Exception ex)
             {
                 logger.Warn("Error while loading settings. Toastify will reset to default values.", ex);
 
-                string msg = string.Format(Properties.Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
+                string msg = string.Format(Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
                 MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 File.Copy(Settings.SettingsFilePath, $"{Settings.SettingsFilePath}.corrupted", true);
@@ -285,9 +389,12 @@ namespace Toastify
 
         private static void StartupTask()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(StartupTask)}]");
+
             if (!string.IsNullOrWhiteSpace(Settings.Current.PreviousVersion))
             {
-                Version previous = new Version(Settings.Current.PreviousVersion);
+                var previous = new Version(Settings.Current.PreviousVersion);
 
                 if (previous < new Version("1.9.7"))
                 {
@@ -300,40 +407,24 @@ namespace Toastify
 
         private static void InitUpdater()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[{nameof(InitUpdater)}]");
+
             // Just getting the instances to initialize the singletons
             // ReSharper disable UnusedVariable
-            var ignore1 = VersionChecker.Instance;
-            var ignore2 = AutoUpdater.Instance;
+            VersionChecker ignore1 = VersionChecker.Instance;
+            AutoUpdater ignore2 = AutoUpdater.Instance;
             // ReSharper restore UnusedVariable
 
             AutoUpdater.Instance.UpdateReady += AutoUpdater_UpdateReady;
         }
-
-        #endregion PrepareToRun
-
-        private static void RunApp()
-        {
-            App app = new App(AppArgs.SpotifyArgs);
-            app.InitializeComponent();
-
-#if DEBUG
-            DebugView.Launch();
-#endif
-
-            Spotify.Instance.Connected -= Spotify_Connected;
-            Spotify.Instance.Connected += Spotify_Connected;
-
-            app.Run();
-        }
-
-        #region Event handlers
 
         private static void Spotify_Connected(object sender, SpotifyStateEventArgs spotifyStateEventArgs)
         {
             // Show the changelog if necessary
             if (!string.IsNullOrWhiteSpace(previousVersion))
             {
-                Version previous = new Version(previousVersion);
+                var previous = new Version(previousVersion);
                 if (previous < new Version(App.CurrentVersionNoRevision))
                     ChangelogView.Launch();
             }
@@ -343,12 +434,12 @@ namespace Toastify
         {
             logger.Info($"New update is ready to be installed ({e.Version})");
 
-            MessageBoxResult choice = MessageBoxResult.Yes;
+            var choice = MessageBoxResult.Yes;
             App.CallInSTAThread(() =>
             {
                 choice = CustomMessageBox.ShowYesNoCancel(
                     "A new update is ready to be installed!",
-                   $"Toastify {e.Version}",
+                    $"Toastify {e.Version}",
                     "Install",      // Yes
                     "Open folder",  // No
                     "Go to GitHub", // Cancel
@@ -361,13 +452,13 @@ namespace Toastify
             {
                 if (choice == MessageBoxResult.Cancel)
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(e.GitHubReleaseUrl) { UseShellExecute = true };
+                    var psi = new ProcessStartInfo(e.GitHubReleaseUrl) { UseShellExecute = true };
                     Process.Start(psi);
                 }
                 else if (choice == MessageBoxResult.No)
                 {
-                    FileInfo fileInfo = new FileInfo(e.InstallerPath);
-                    ProcessStartInfo psi = new ProcessStartInfo(fileInfo.Directory?.FullName)
+                    var fileInfo = new FileInfo(e.InstallerPath);
+                    var psi = new ProcessStartInfo(fileInfo.Directory?.FullName)
                     {
                         UseShellExecute = true,
                         Verb = "open"
@@ -376,7 +467,7 @@ namespace Toastify
                 }
                 else
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo(e.InstallerPath)
+                    var psi = new ProcessStartInfo(e.InstallerPath)
                     {
                         UseShellExecute = true,
                         Verb = "runas"
@@ -391,30 +482,7 @@ namespace Toastify
             }
         }
 
-        #endregion Event handlers
-
-        [TabCompletion]
-        internal class MainArgs
-        {
-            [ArgShortcut("--debug"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Enables Debug level logging.")]
-            [ArgCantBeCombinedWith("-disable-log")]
-            public bool IsDebugLogEnabled { get; set; }
-
-            [ArgShortcut("--disable-log"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Disables logging entirely.")]
-            [ArgCantBeCombinedWith("-debug")]
-            public bool IsLogDisabled { get; set; } = false;
-
-            [ArgShortcut("--log-dir"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Destination directory of log files.")]
-            [ArgExistingDirectory]
-            public string LogDirectory { get; set; } = App.LocalApplicationData;
-
-            [ArgShortcut("--spotify-args"), ArgShortcut(ArgShortcutPolicy.ShortcutsOnly)]
-            [ArgDescription("Spotify command-line arguments.")]
-            public string SpotifyArgs { get; set; } = string.Empty;
-        }
+        #endregion
     }
 
     /// <inheritdoc />
@@ -423,10 +491,14 @@ namespace Toastify
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
 
+        #region Static Fields and Properties
+
         private static readonly ProxyConfig noProxy = new ProxyConfig();
 
         // ReSharper disable once InconsistentNaming
         private static ProxyConfigAdapter _proxyConfig;
+
+        public static WindsorContainer Container { get; private set; }
 
         public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
 
@@ -452,7 +524,7 @@ namespace Toastify
                 string version = CurrentVersion;
                 if (version != null)
                 {
-                    Regex regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
+                    var regex = new Regex(@"([0-9]+\.[0-9]+\.[0-9]+)(?:\.[0-9]+)*");
                     Match match = regex.Match(version);
                     if (match.Success)
                         version = match.Groups[1].Value;
@@ -465,7 +537,7 @@ namespace Toastify
         public static string SpotifyParameters { get; private set; }
 
         /// <summary>
-        /// The currently used proxy settings.
+        ///     The currently used proxy settings.
         /// </summary>
         public static ProxyConfigAdapter ProxyConfig
         {
@@ -478,10 +550,17 @@ namespace Toastify
                     _proxyConfig.Set(noProxy);
                 return _proxyConfig;
             }
-            set { _proxyConfig.Set(value.ProxyConfig ?? noProxy); }
+            set
+            {
+                if (_proxyConfig == null)
+                    _proxyConfig = new ProxyConfigAdapter(noProxy);
+                _proxyConfig.Set(value?.ProxyConfig ?? noProxy);
+            }
         }
 
         public static RepoInfo RepoInfo { get; } = new RepoInfo("toastify", "aleab");
+
+        #endregion
 
         public App() : this("")
         {
@@ -492,14 +571,54 @@ namespace Toastify
             SpotifyParameters = spotifyArgs.Trim();
         }
 
+        #region Static Members
+
         public static void ShowConfigProxyDialog()
         {
             CallInSTAThread(() =>
             {
-                ConfigProxyDialog proxyDialog = new ConfigProxyDialog();
+                var proxyDialog = new ConfigProxyDialog();
                 proxyDialog.ShowDialog();
             }, true, "Config Proxy");
         }
+
+        public static void Terminate()
+        {
+            Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => Current.Shutdown()));
+        }
+
+        #endregion
+
+        #region Static setup
+
+        static App()
+        {
+            SetupContainer();
+        }
+
+        private static void SetupContainer()
+        {
+            Container = new WindsorContainer();
+
+            // ReSharper disable once RedundantExplicitParamsArrayCreation
+            Container.Register(new IRegistration[]
+            {
+                Component.For<IKeyboard>().Instance(InputDevices.PrimaryKeyboard),
+                Component.For<IMouse>().Instance(InputDevices.PrimaryMouse),
+                Component.For<IInputDevices>().ImplementedBy<InputDevices>(),
+
+                Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
+
+                Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
+                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>()
+            });
+        }
+
+        #endregion Static setup
+
+        #region CallInSTAThread
 
         public static void CallInSTAThread(Action action, bool background)
         {
@@ -525,7 +644,7 @@ namespace Toastify
             if (action == null)
                 return null;
 
-            Thread t = new Thread(() =>
+            var t = new Thread(() =>
             {
                 try
                 {
@@ -546,12 +665,9 @@ namespace Toastify
             return t;
         }
 
-        public static void Terminate()
-        {
-            Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                new Action(() => Current.Shutdown()));
-        }
+        #endregion CallInSTAThread
+
+        #region Event handlers
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
@@ -573,5 +689,7 @@ namespace Toastify
 
             logger.Info($"Toastify terminated with exit code {e.ApplicationExitCode}.");
         }
+
+        #endregion Event handlers
     }
 }

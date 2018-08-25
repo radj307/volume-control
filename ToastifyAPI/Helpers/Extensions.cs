@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
-
 using WpfPixelFormat = System.Windows.Media.PixelFormat;
 using GdiPixelFormat = System.Drawing.Imaging.PixelFormat;
 
@@ -11,6 +12,92 @@ namespace ToastifyAPI.Helpers
 {
     public static class Extensions
     {
+        #region Static Members
+
+        public static Keys ConvertToWindowsFormsKeys(this Key key)
+        {
+            if (Enum.GetNames(typeof(Keys)).Contains(key.ToString(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                if (Enum.TryParse(key.ToString(), out Keys keys))
+                    return keys;
+            }
+
+            return Keys.None;
+        }
+
+        public static uint GetScanCode(this Key key)
+        {
+            return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
+        }
+
+        public static object GetDefault(this Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
+        public static WpfPixelFormat? ConvertToWpfPixelFormat(this GdiPixelFormat wPixelFormat)
+        {
+            switch (wPixelFormat)
+            {
+                case GdiPixelFormat.Canonical:
+                    return PixelFormats.Bgra32;
+
+                case GdiPixelFormat.Format1bppIndexed:
+                    return PixelFormats.Indexed1;
+
+                case GdiPixelFormat.Format4bppIndexed:
+                    return PixelFormats.Indexed4;
+
+                case GdiPixelFormat.Format8bppIndexed:
+                    return PixelFormats.Indexed8;
+
+                case GdiPixelFormat.Format16bppGrayScale:
+                    return PixelFormats.Gray16;
+
+                case GdiPixelFormat.Format16bppRgb555:
+                    return PixelFormats.Bgr555;
+
+                case GdiPixelFormat.Format16bppRgb565:
+                    return PixelFormats.Bgr565;
+
+                case GdiPixelFormat.Format24bppRgb:
+                    return PixelFormats.Bgr24;
+
+                case GdiPixelFormat.Format32bppRgb:
+                    return PixelFormats.Bgr32;
+
+                case GdiPixelFormat.Format32bppArgb:
+                    return PixelFormats.Bgra32;
+
+                case GdiPixelFormat.Format32bppPArgb:
+                    return PixelFormats.Pbgra32;
+
+                case GdiPixelFormat.Format48bppRgb:
+                    return PixelFormats.Rgb48; // Bgr48?
+
+                case GdiPixelFormat.Format64bppArgb:
+                    return PixelFormats.Rgba64; // Bgra64?
+
+                case GdiPixelFormat.Format64bppPArgb:
+                    return PixelFormats.Prgba64; // Pbgra64?
+
+                case GdiPixelFormat.Alpha:
+                case GdiPixelFormat.DontCare:
+                case GdiPixelFormat.Indexed:
+                case GdiPixelFormat.Gdi:
+                case GdiPixelFormat.PAlpha:
+                case GdiPixelFormat.Extended:
+                case GdiPixelFormat.Format16bppArgb1555:
+                case GdiPixelFormat.Max:
+                    return null;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(wPixelFormat), wPixelFormat, null);
+            }
+        }
+
+        #endregion
+
         #region GetLParam
 
         public static uint GetLParam(this Key key)
@@ -82,75 +169,10 @@ namespace ToastifyAPI.Helpers
                         break;
                 }
             }
+
             return (uint)KeyInterop.VirtualKeyFromKey(key);
         }
 
         #endregion GetVirtualKey
-
-        public static uint GetScanCode(this Key key)
-        {
-            return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
-        }
-
-        public static WpfPixelFormat? ConvertToWpfPixelFormat(this GdiPixelFormat wPixelFormat)
-        {
-            switch (wPixelFormat)
-            {
-                case GdiPixelFormat.Canonical:
-                    return PixelFormats.Bgra32;
-
-                case GdiPixelFormat.Format1bppIndexed:
-                    return PixelFormats.Indexed1;
-
-                case GdiPixelFormat.Format4bppIndexed:
-                    return PixelFormats.Indexed4;
-
-                case GdiPixelFormat.Format8bppIndexed:
-                    return PixelFormats.Indexed8;
-
-                case GdiPixelFormat.Format16bppGrayScale:
-                    return PixelFormats.Gray16;
-
-                case GdiPixelFormat.Format16bppRgb555:
-                    return PixelFormats.Bgr555;
-
-                case GdiPixelFormat.Format16bppRgb565:
-                    return PixelFormats.Bgr565;
-
-                case GdiPixelFormat.Format24bppRgb:
-                    return PixelFormats.Bgr24;
-
-                case GdiPixelFormat.Format32bppRgb:
-                    return PixelFormats.Bgr32;
-
-                case GdiPixelFormat.Format32bppArgb:
-                    return PixelFormats.Bgra32;
-
-                case GdiPixelFormat.Format32bppPArgb:
-                    return PixelFormats.Pbgra32;
-
-                case GdiPixelFormat.Format48bppRgb:
-                    return PixelFormats.Rgb48;          // Bgr48?
-
-                case GdiPixelFormat.Format64bppArgb:
-                    return PixelFormats.Rgba64;         // Bgra64?
-
-                case GdiPixelFormat.Format64bppPArgb:
-                    return PixelFormats.Prgba64;        // Pbgra64?
-
-                case GdiPixelFormat.Alpha:
-                case GdiPixelFormat.DontCare:
-                case GdiPixelFormat.Indexed:
-                case GdiPixelFormat.Gdi:
-                case GdiPixelFormat.PAlpha:
-                case GdiPixelFormat.Extended:
-                case GdiPixelFormat.Format16bppArgb1555:
-                case GdiPixelFormat.Max:
-                    return null;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(wPixelFormat), wPixelFormat, null);
-            }
-        }
     }
 }

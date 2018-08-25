@@ -1,11 +1,12 @@
-﻿using log4net;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using log4net;
+using Newtonsoft.Json;
 using Toastify.Common;
 using Toastify.Helpers;
 
@@ -25,6 +26,8 @@ namespace Toastify.Model
 
         private bool _isSimple = true;
 
+        #region Public Properties
+
         public T Value
         {
             get { return this._value; }
@@ -38,6 +41,15 @@ namespace Toastify.Model
         [JsonIgnore]
         public T Default { get; private set; }
 
+#if DEBUG
+
+        public int ObjectHashCode
+        {
+            get { return RuntimeHelpers.GetHashCode(this); }
+        }
+
+#endif
+
         [JsonIgnore]
         internal List<Expression<Func<T, bool>>> Constraints { get; private set; }
 
@@ -45,13 +57,75 @@ namespace Toastify.Model
         internal Range<T>? Range { get; private set; }
 
         /// <summary>
-        /// Whether it's a simple value created with the no-args constructor or not (e.g. through deserialization).
+        ///     Whether it's a simple value created with the no-args constructor or not (e.g. through deserialization).
         /// </summary>
         [JsonIgnore]
         internal bool IsSimple
         {
             get { return this._isSimple; }
             private set { this._isSimple = value; }
+        }
+
+        #endregion
+
+        public bool SetValueIfChanged(T value)
+        {
+            if (!EqualityComparer<T>.Default.Equals(this.Value, value))
+            {
+                this.Value = value;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool SetValueIfChanged(SettingValue<T> value)
+        {
+            if (this.IsSimple)
+            {
+                this.Default = value.Default;
+                this.Constraints = value.Constraints;
+                this.Range = value.Range;
+                this.IsSimple = false;
+            }
+
+            return this.SetValueIfChanged(value.Value);
+        }
+
+        private void CheckConstraints(T value)
+        {
+            Expression<Func<T, bool>> failedConstraint = this.CheckConstraintsSafe(value);
+            if (failedConstraint != null)
+                throw new ConstraintFailedException(failedConstraint);
+        }
+
+        private Expression<Func<T, bool>> CheckConstraintsSafe(T value)
+        {
+            if (this.Constraints == null)
+                return null;
+
+            foreach (Expression<Func<T, bool>> constraint in this.Constraints)
+            {
+                if (!constraint.Compile().Invoke(value))
+                    return constraint;
+            }
+
+            return null;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+#if DEBUG
+            return $"{this.Value} @ {this.ObjectHashCode}";
+#else
+            return $"{this.Value}";
+#endif
+        }
+
+        public object Clone()
+        {
+            return new SettingValue<T>(this.Value, this.Default, this.Range, this.Constraints?.ToArray());
         }
 
         #region Constructors
@@ -103,51 +177,6 @@ namespace Toastify.Model
 
         #endregion Constructors
 
-        public bool SetValueIfChanged(T value)
-        {
-            if (!EqualityComparer<T>.Default.Equals(this.Value, value))
-            {
-                this.Value = value;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool SetValueIfChanged(SettingValue<T> value)
-        {
-            if (this.IsSimple)
-            {
-                this.Default = value.Default;
-                this.Constraints = value.Constraints;
-                this.Range = value.Range;
-                this.IsSimple = false;
-            }
-
-            return this.SetValueIfChanged(value.Value);
-        }
-
-        private void CheckConstraints(T value)
-        {
-            var failedConstraint = this.CheckConstraintsSafe(value);
-            if (failedConstraint != null)
-                throw new ConstraintFailedException(failedConstraint);
-        }
-
-        private Expression<Func<T, bool>> CheckConstraintsSafe(T value)
-        {
-            if (this.Constraints == null)
-                return null;
-
-            foreach (var constraint in this.Constraints)
-            {
-                if (!constraint.Compile().Invoke(value))
-                    return constraint;
-            }
-
-            return null;
-        }
-
         #region ISettingValue
 
         /// <inheritdoc />
@@ -158,7 +187,7 @@ namespace Toastify.Model
 
             try
             {
-                T typedValue = (T)Convert.ChangeType(value, typeof(T));
+                var typedValue = (T)Convert.ChangeType(value, typeof(T));
                 if (this.CheckConstraintsSafe(typedValue) == null)
                     this.Value = typedValue;
             }
@@ -251,21 +280,6 @@ namespace Toastify.Model
 
         #endregion Equals / CompareTo
 
-        /// <inheritdoc />
-        public override string ToString()
-        {
-#if DEBUG
-            return $"{this.Value} @ {this.ObjectHashCode}";
-#else
-            return $"{this.Value}";
-#endif
-        }
-
-        public object Clone()
-        {
-            return new SettingValue<T>(this.Value, this.Default, this.Range, this.Constraints?.ToArray());
-        }
-
         #region Operators
 
         public static bool operator <(SettingValue<T> left, SettingValue<T> right)
@@ -309,15 +323,6 @@ namespace Toastify.Model
         }
 
         #endregion Operators
-
-#if DEBUG
-
-        public int ObjectHashCode
-        {
-            get { return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this); }
-        }
-
-#endif
     }
 
 #pragma warning restore 660, 661
@@ -326,8 +331,8 @@ namespace Toastify.Model
     public interface ISettingValue : ICloneable
     {
         /// <summary>
-        /// Set a value safely, without raising any ConstraintFailedException.
-        /// If a constraint is not respected, the value is not changed.
+        ///     Set a value safely, without raising any ConstraintFailedException.
+        ///     If a constraint is not respected, the value is not changed.
         /// </summary>
         /// <param name="value"> The new value. </param>
         /// <exception cref="InvalidCastException"> If the value type is wrong. </exception>

@@ -1,18 +1,21 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
 using System.Windows.Input;
-using MouseAction = Toastify.Core.MouseAction;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using ToastifyAPI.Model.Interfaces;
+using MouseAction = ToastifyAPI.Core.MouseAction;
 
-namespace Toastify.Model
+namespace ToastifyAPI.Model
 {
     /// <summary>
-    /// Represents either a <see cref="T:System.Windows.Input.Key"/> or a <see cref="MouseAction"/>.
+    ///     Represents either a <see cref="T:System.Windows.Input.Key" /> or a <see cref="Core.MouseAction" />.
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
-    public sealed class KeyOrButton : IEquatable<KeyOrButton>, ICloneable
+    public sealed class KeyOrButton : IKeyOrButton, IEquatable<KeyOrButton>
     {
+        #region Public Properties
+
         public bool IsKey
         {
             get { return this.Key.HasValue; }
@@ -23,6 +26,8 @@ namespace Toastify.Model
 
         [JsonConverter(typeof(StringEnumConverter))]
         public MouseAction? MouseButton { get; }
+
+        #endregion
 
         public KeyOrButton(Key key)
         {
@@ -51,7 +56,9 @@ namespace Toastify.Model
             // ReSharper disable once PossibleInvalidOperationException
             return this.IsKey
                 ? new KeyOrButton(this.Key.Value)
-                : this.MouseButton.HasValue ? new KeyOrButton(this.MouseButton.Value) : throw new InvalidOperationException();
+                : this.MouseButton.HasValue
+                    ? new KeyOrButton(this.MouseButton.Value)
+                    : throw new InvalidOperationException();
         }
 
         /// <inheritdoc />
@@ -92,8 +99,12 @@ namespace Toastify.Model
             // ReSharper disable once PossibleInvalidOperationException
             return this.IsKey
                 ? $"{this.Key.Value}"
-                : this.MouseButton.HasValue ? $"{this.MouseButton.Value}" : string.Empty;
+                : this.MouseButton.HasValue
+                    ? $"{this.MouseButton.Value}"
+                    : string.Empty;
         }
+
+        #region Static Members
 
         public static implicit operator KeyOrButton(Key key)
         {
@@ -104,5 +115,7 @@ namespace Toastify.Model
         {
             return new KeyOrButton(mouseAction);
         }
+
+        #endregion
     }
 }

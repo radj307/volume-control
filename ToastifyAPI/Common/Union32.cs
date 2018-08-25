@@ -1,21 +1,22 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Toastify.Common
+namespace ToastifyAPI.Common
 {
     [StructLayout(LayoutKind.Explicit, Size = 4)]
-    internal struct Union32 : IEquatable<Union32>, IComparable<Union32>, IComparable
+    public struct Union32 : IEquatable<Union32>, IComparable<Union32>, IComparable
     {
+        #region Static Fields and Properties
+
         public static readonly Union32 Zero;
 
-        [FieldOffset(0)]
-        private readonly int number;
+        #endregion
 
-        [FieldOffset(0)]
-        public readonly ushort Low;
+        [FieldOffset(0)] private readonly int number;
 
-        [FieldOffset(2)]
-        public readonly ushort High;
+        [FieldOffset(0)] public readonly ushort Low;
+
+        [FieldOffset(2)] public readonly ushort High;
 
         public Union32(int number)
         {
@@ -31,24 +32,55 @@ namespace Toastify.Common
             this.High = high;
         }
 
-        public int ToInt32() => this.number;
+        public int ToInt32()
+        {
+            return this.number;
+        }
 
-        public uint ToUInt32() => unchecked((uint)this.number);
+        public uint ToUInt32()
+        {
+            return unchecked((uint)this.number);
+        }
 
-        public IntPtr ToIntPtr() => (IntPtr)this.number;
+        public IntPtr ToIntPtr()
+        {
+            return (IntPtr)this.number;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{this.number} (0x{this.High:X4} | 0x{this.Low:X4})";
+        }
+
+        #region Static Members
 
         public static IntPtr IntPtr(ushort high, ushort low)
         {
             return new Union32(high, low);
         }
 
-        public static explicit operator int(Union32 union) => union.ToInt32();
+        public static explicit operator int(Union32 union)
+        {
+            return union.ToInt32();
+        }
 
-        public static explicit operator uint(Union32 union) => union.ToUInt32();
+        public static explicit operator uint(Union32 union)
+        {
+            return union.ToUInt32();
+        }
 
-        public static implicit operator IntPtr(Union32 union) => union.ToIntPtr();
+        public static implicit operator IntPtr(Union32 union)
+        {
+            return union.ToIntPtr();
+        }
 
-        public static implicit operator Union32(int @int) => new Union32(@int);
+        public static implicit operator Union32(int @int)
+        {
+            return new Union32(@int);
+        }
+
+        #endregion
 
         #region Equals / GetHashCode / operator== / operator!=
 
@@ -129,11 +161,5 @@ namespace Toastify.Common
         }
 
         #endregion CompareTo / operator< / operator> / operator<= / operator>=
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"{this.number} (0x{this.High:X4} | 0x{this.Low:X4})";
-        }
     }
 }

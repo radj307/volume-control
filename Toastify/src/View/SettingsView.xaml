@@ -147,32 +147,32 @@
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
 
-                        <ListBox x:Name="LstHotKeys" Grid.Column="0" Margin="12,10,8,10" VerticalContentAlignment="Center" ItemsSource="{Binding Path=HotKeys}"
+                        <ListBox x:Name="LstHotKeys" Grid.Column="0" Margin="12,10,8,10" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Hotkeys}"
                                  IsSynchronizedWithCurrentItem="True" SelectionChanged="LstHotKeys_SelectionChanged">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Grid Margin="0,2,4,2">
-                                            <CheckBox IsChecked="{Binding Path=Enabled, Mode=TwoWay}" IsEnabled="{Binding Path=IsValid}"
-                                                      AutomationProperties.Name="{Binding Path=HumanReadableAction}" />
+                                            <CheckBox IsChecked="{Binding Path=Hotkey.Enabled, Mode=TwoWay}" IsEnabled="{Binding Path=IsValid}"
+                                                      AutomationProperties.Name="{Binding Path=Hotkey.HumanReadableAction}" />
                                             <Image Height="16" Width="16" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}"
                                                    Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="Linear" />
                                         </Grid>
-                                        <TextBlock Text="{Binding Path=HumanReadableAction}" AutomationProperties.Name="{Binding Path=HumanReadableAction}" />
+                                        <TextBlock Text="{Binding Path=Hotkey.HumanReadableAction}" AutomationProperties.Name="{Binding Path=Hotkey.HumanReadableAction}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <Grid Grid.Column="1" Margin="12,10" DataContext="{Binding Path=HotKeys}">
+                        <Grid x:Name="HotkeyGrid" Grid.Column="1" Margin="12,10" DataContext="{Binding Path=Hotkeys}">
                             <StackPanel Height="21" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl}" Margin="0" VerticalContentAlignment="Center"
+                                <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl, Mode=TwoWay}" Margin="0" VerticalContentAlignment="Center"
                                           AutomationProperties.Name="Ctrl modifier key" />
-                                <CheckBox Content="Alt" IsChecked="{Binding Path=Alt}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                <CheckBox Content="Alt" IsChecked="{Binding Path=Alt, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
                                           AutomationProperties.Name="Alt modifier key" />
-                                <CheckBox Content="Shift" IsChecked="{Binding Path=Shift}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                <CheckBox Content="Shift" IsChecked="{Binding Path=Shift, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
                                           AutomationProperties.Name="Shift modifier key" />
-                                <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                <CheckBox Content="Windows Key" IsChecked="{Binding Path=WindowsKey, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
                                           AutomationProperties.Name="Windows Key modifier key" />
                             </StackPanel>
 
@@ -182,9 +182,9 @@
                                          AutomationProperties.Name="Hotkey" AutomationProperties.LabeledBy="{Binding ElementName=LabelSingleKey}" />
                             </StackPanel>
 
-                            <Grid Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
+                            <Grid x:Name="HotkeyValidityGrid" Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
                                 <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
-                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" AutomationProperties.AutomationId="WarningMessage" />
+                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Hotkey.InvalidReason}" TextWrapping="Wrap" AutomationProperties.AutomationId="WarningMessage" />
                             </Grid>
                         </Grid>
                     </Grid>

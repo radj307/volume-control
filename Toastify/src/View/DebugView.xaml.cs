@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using Toastify.Core;
+using Toastify.Events;
 using Toastify.Model;
 
 namespace Toastify.View
@@ -18,6 +23,7 @@ namespace Toastify.View
         internal static DebugView Current { get; private set; }
 
         private Settings PreviewSettings { get; set; }
+        private IReadOnlyList<GenericHotkeyProxy> PreviewHotkeys { get; set; }
 
         public DebugView()
         {
@@ -28,6 +34,7 @@ namespace Toastify.View
 
             SettingsView.SettingsLaunched += this.SettingsView_SettingsLaunched;
             SettingsView.SettingsClosed += this.SettingsView_SettingsClosed;
+            SettingsView.SettingsSaved += this.SettingsView_SettingsSaved;
         }
 
         internal static void Launch()
@@ -35,11 +42,11 @@ namespace Toastify.View
             if (Current != null)
                 return;
 
-            Thread th = new Thread(() =>
+            var th = new Thread(() =>
             {
-                DebugView debugView = new DebugView();
+                var debugView = new DebugView();
                 debugView.Show();
-                System.Windows.Threading.Dispatcher.Run();
+                Dispatcher.Run();
             });
             th.SetApartmentState(ApartmentState.STA);
             th.IsBackground = true;
@@ -52,11 +59,11 @@ namespace Toastify.View
             Debug.WriteLine("SETTINGS [Current | (Preview) | Default]");
             Debug.WriteLine("");
 
-            var properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] properties = typeof(Settings).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             if (this.PreviewSettings != null)
             {
-                foreach (var property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     dynamic current = property.GetValue(Settings.Current);
                     dynamic preview = property.GetValue(this.PreviewSettings);
@@ -71,9 +78,9 @@ namespace Toastify.View
 
                         if (property.PropertyType == typeof(ProxyConfigAdapter))
                         {
-                            ProxyConfigAdapter cp = (ProxyConfigAdapter)current;
-                            ProxyConfigAdapter pp = (ProxyConfigAdapter)preview;
-                            ProxyConfigAdapter dp = (ProxyConfigAdapter)@default;
+                            var cp = (ProxyConfigAdapter)current;
+                            var pp = (ProxyConfigAdapter)preview;
+                            var dp = (ProxyConfigAdapter)@default;
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {pp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }
@@ -84,7 +91,7 @@ namespace Toastify.View
             }
             else
             {
-                foreach (var property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     dynamic current = property.GetValue(Settings.Current);
                     dynamic @default = property.GetValue(Settings.Default);
@@ -98,8 +105,8 @@ namespace Toastify.View
 
                         if (property.PropertyType == typeof(ProxyConfigAdapter))
                         {
-                            ProxyConfigAdapter cp = (ProxyConfigAdapter)current;
-                            ProxyConfigAdapter dp = (ProxyConfigAdapter)@default;
+                            var cp = (ProxyConfigAdapter)current;
+                            var dp = (ProxyConfigAdapter)@default;
 
                             Debug.WriteLine($"{property.Name,-36}:  {cp?.ToString(true),-30} | {dp?.ToString(true),-30}");
                         }
@@ -118,13 +125,19 @@ namespace Toastify.View
             Debug.WriteLine("HOTKEYS [Current | (Preview) | Default]");
             Debug.WriteLine("");
 
-            foreach (var hotkey in Settings.Default.HotKeys)
-            {
-                var current = Settings.Current.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
-                var preview = this.PreviewSettings?.HotKeys?.SingleOrDefault(h => h.Action == hotkey.Action);
-                var @default = hotkey;
+            int GetObjectHash(object obj) => RuntimeHelpers.GetHashCode(obj);
+            Debug.Write($"{string.Empty,-15}  ");
+            Debug.Write($"@ {GetObjectHash(Settings.Current),-23} | ");
+            Debug.Write(this.PreviewSettings != null ? $"@ {GetObjectHash(this.PreviewSettings),-23} | " : "");
+            Debug.Write($"@ {GetObjectHash(Settings.Default),-23}\n");
 
-                Debug.Write($"{hotkey.Action,-15}: ");
+            foreach (Hotkey hotkey in Settings.Default.HotKeys)
+            {
+                Hotkey current = Settings.Current.HotKeys?.SingleOrDefault(h => h?.Action.Equals(hotkey.Action) ?? false);
+                Hotkey preview = this.PreviewHotkeys?.SingleOrDefault(h => h?.Hotkey?.Action.Equals(hotkey.Action) ?? false)?.Hotkey;
+                Hotkey @default = hotkey;
+
+                Debug.Write($"{hotkey.HumanReadableAction,-15}: ");
                 Debug.Write($"[{(current?.Enabled == true ? 'E' : ' ')}{(current?.Active == true ? 'A' : ' ')}] {current?.HumanReadableKey ?? "—",-20} | ");
                 Debug.Write(this.PreviewSettings != null ? $"[{(preview?.Enabled == true ? 'E' : ' ')}{(preview?.Active == true ? 'A' : ' ')}] {preview?.HumanReadableKey ?? "—",-20} | " : "");
                 Debug.Write($"[{(@default?.Enabled == true ? 'E' : ' ')}{(@default?.Active == true ? 'A' : ' ')}] {@default?.HumanReadableKey ?? "—",-20}\n");
@@ -141,7 +154,8 @@ namespace Toastify.View
             if (Settings.Current?.HotKeys != null)
             {
                 string showDebugViewHotkey = (from Hotkey h in Settings.Current.HotKeys
-                                              where h.Action == ToastifyAction.ShowDebugView && h.Enabled && h.Active
+                                              let toastifyAction = h.Action as ToastifyAction
+                                              where toastifyAction != null && toastifyAction.ToastifyActionEnum == ToastifyActionEnum.ShowDebugView && h.Enabled && h.Active
                                               select h.HumanReadableKey).SingleOrDefault();
 
                 if (!string.IsNullOrEmpty(showDebugViewHotkey))
@@ -155,14 +169,22 @@ namespace Toastify.View
             Current = null;
         }
 
-        private void SettingsView_SettingsLaunched(object sender, Events.SettingsViewLaunchedEventArgs e)
+        private void SettingsView_SettingsLaunched(object sender, SettingsViewLaunchedEventArgs e)
         {
             this.PreviewSettings = e.Settings;
+            this.PreviewHotkeys = e.SettingsViewModel.Hotkeys;
         }
 
-        private void SettingsView_SettingsClosed(object sender, System.EventArgs e)
+        private void SettingsView_SettingsClosed(object sender, EventArgs e)
         {
             this.PreviewSettings = null;
+            this.PreviewHotkeys = null;
+        }
+
+        private void SettingsView_SettingsSaved(object sender, SettingsSavedEventArgs e)
+        {
+            this.PreviewSettings = e.Settings;
+            this.PreviewHotkeys = e.PreviewHotkeys;
         }
 
         private void LogShowToastAction_OnChecked(object sender, RoutedEventArgs e)

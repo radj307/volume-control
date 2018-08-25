@@ -20,7 +20,7 @@ namespace Toastify.ViewModel
 
         #endregion Private fields
 
-        #region Public properties
+        #region Public Properties
 
         public Settings Settings
         {

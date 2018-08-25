@@ -5,7 +5,7 @@ namespace Toastify.Core
     // TODO: Apply the 'Polymorphism' pattern.
     //       When related alternatives or behaviours vary by type, assign responsibilities for the
     //       behaviour, using polymorphic operations, to the types for which the behaviour varies.
-    public enum ToastifyAction : long
+    public enum ToastifyActionEnum : long
     {
         // (Some of) these values are the lParam of a WM_APPCOMMAND message.
         // Used simulate a keyboard multimedia key press on the desktop in Spotify.SendAction(-)?

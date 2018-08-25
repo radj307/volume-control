@@ -1,17 +1,12 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
+using log4net;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Events;
@@ -19,14 +14,14 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
+using ToastifyAPI.Common;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
 using Xceed.Wpf.Toolkit;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using MouseAction = Toastify.Core.MouseAction;
-using TextBox = System.Windows.Controls.TextBox;
+using MouseAction = ToastifyAPI.Core.MouseAction;
+using Rect = System.Windows.Rect;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -37,13 +32,19 @@ namespace Toastify.View
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(SettingsView));
 
+        #region Static Fields and Properties
+
         private static SettingsView _current;
+
+        #endregion
 
         private readonly ToastView toastView;
         private readonly SettingsViewModel settingsViewModel;
 
         private IntPtr hHook = IntPtr.Zero;
         private LowLevelMouseHookProc mouseHookProc;
+
+        #region Public Properties
 
         private Settings Settings
         {
@@ -64,9 +65,14 @@ namespace Toastify.View
                     this.Top = this.Settings.SettingsWindowLastLocation.Top;
                     location = WindowStartupLocation.Manual;
                 }
+
                 return location;
             }
         }
+
+        #endregion
+
+        #region Events
 
         public static event EventHandler<SettingsViewLaunchedEventArgs> SettingsLaunched;
 
@@ -74,12 +80,15 @@ namespace Toastify.View
 
         public static event EventHandler<SettingsSavedEventArgs> SettingsSaved;
 
+        #endregion
+
         private SettingsView(ToastView toastView)
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.SettingsLaunched);
 
             this.settingsViewModel = new SettingsViewModel();
             this.settingsViewModel.SettingsSaved += this.SettingsViewModel_SettingsSaved;
+            this.settingsViewModel.HotkeyValidityChanged += this.SettingsViewModel_HotkeyValidityChanged;
 
             this.toastView = toastView;
 
@@ -114,50 +123,58 @@ namespace Toastify.View
         {
             if (nCode >= 0)
             {
-                if (this.TxtSingleKey.IsFocused)
+                if (this.TxtSingleKey.IsFocused &&
+                    this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
                 {
-                    if (wParam == WindowsMessagesFlags.WM_XBUTTONUP)
-                    {
-                        Union32 union = new Union32(lParam.mouseData);
+                    bool validButton = false;
+                    MouseAction mouseAction = 0;
 
+                    var union = new Union32(lParam.mouseData);
+
+                    if (wParam == WindowsMessagesFlags.WM_XBUTTONUP) // XButton
+                    {
                         if (union.High == 0x0001)
                         {
-                            this.TxtSingleKey.Text = MouseAction.XButton1.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.XButton1;
+                            validButton = true;
+                            mouseAction = MouseAction.XButton1;
                         }
                         else if (union.High == 0x0002)
                         {
-                            this.TxtSingleKey.Text = MouseAction.XButton2.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.XButton2;
+                            validButton = true;
+                            mouseAction = MouseAction.XButton2;
                         }
                     }
-                    else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL)
+                    else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL) // MWheel
                     {
-                        Union32 union = new Union32(lParam.mouseData);
-
                         short delta = unchecked((short)union.High);
                         if (delta > 0)
                         {
                             // MWheelUp
-                            this.TxtSingleKey.Text = MouseAction.MWheelUp.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.MWheelUp;
+                            validButton = true;
+                            mouseAction = MouseAction.MWheelUp;
                         }
                         else if (delta < 0)
                         {
                             // MWheelDown
-                            this.TxtSingleKey.Text = MouseAction.MWheelDown.ToString();
-                            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                                hotkey.KeyOrButton = MouseAction.MWheelDown;
+                            validButton = true;
+                            mouseAction = MouseAction.MWheelDown;
                         }
+                    }
+
+                    if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
+                    {
+                        this.TxtSingleKey.Text = mouseAction.ToString();
+
+                        hotkeyProxy.Type = HotkeyType.MouseHook;
+                        hotkeyProxy.SetActivator(mouseAction);
                     }
                 }
             }
 
             return User32.CallNextHookEx(this.hHook, nCode, wParam, lParam);
         }
+
+        #region Static Members
 
         public static void Launch(ToastView toastView)
         {
@@ -168,12 +185,14 @@ namespace Toastify.View
             }
             else
             {
-                SettingsView settingsView = new SettingsView(toastView);
-                SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings));
+                var settingsView = new SettingsView(toastView);
+                SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings, settingsView.settingsViewModel));
                 settingsView.SetMouseHook(true);
                 settingsView.ShowDialog();
             }
         }
+
+        #endregion
 
         #region Event handlers
 
@@ -193,8 +212,18 @@ namespace Toastify.View
         private void SettingsViewModel_SettingsSaved(object sender, SettingsSavedEventArgs e)
         {
             this.toastView.InitToast();
-            this.toastView.DisplayAction(ToastifyAction.SettingsSaved);
+            this.toastView.DisplayAction(ToastifyActionEnum.SettingsSaved);
+
+            this.LstHotKeys.GetBindingExpression(ItemsControl.ItemsSourceProperty)?.UpdateTarget();
+            this.HotkeyGrid.GetBindingExpression(DataContextProperty)?.UpdateTarget();
+
             SettingsSaved?.Invoke(sender, e);
+        }
+
+        private void SettingsViewModel_HotkeyValidityChanged(object sender, EventArgs e)
+        {
+            this.LstHotKeys.Items.Refresh();
+            this.HotkeyValidityGrid.GetBindingExpression(VisibilityProperty)?.UpdateTarget();
         }
 
         private void BtnDefaultMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -213,12 +242,12 @@ namespace Toastify.View
 
         private void ComboVolumeControlMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var currentItems = e.AddedItems.Cast<EnumComboBoxItem>()
-                                           .Select(it => (ToastifyVolumeControlMode)it.Value).ToList();
+            List<ToastifyVolumeControlMode> currentItems = e.AddedItems.Cast<EnumComboBoxItem>()
+                                                            .Select(it => (ToastifyVolumeControlMode)it.Value).ToList();
             if (!currentItems.Any())
                 return;
 
-            var current = currentItems.First();
+            ToastifyVolumeControlMode current = currentItems.First();
             this.PanelWindowsMixerIncrement.IsEnabled = current == ToastifyVolumeControlMode.SystemSpotifyOnly;
         }
 
@@ -228,28 +257,41 @@ namespace Toastify.View
 
         private void LstHotKeys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                this.TxtSingleKey.Text = hotkey.KeyOrButton?.ToString() ?? string.Empty;
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+            {
+                Hotkey hotkey = hotkeyProxy.Hotkey;
+                string text = string.Empty;
+
+                if (hotkey is KeyboardHotkey kbdHotkey)
+                    text = kbdHotkey.Key?.ToString();
+                else if (hotkey is MouseHookHotkey mhHotkey)
+                    text = mhHotkey.MouseButton?.ToString();
+
+                this.TxtSingleKey.Text = text ?? string.Empty;
+            }
         }
 
         private void TxtSingleKey_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            var key = e.Key;
-            if (key == Key.System)
-                key = e.SystemKey;
-
-            if (key == Key.Tab)
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
             {
-                e.Handled = false;
-                return;
+                Key key = e.Key;
+                if (key == Key.System)
+                    key = e.SystemKey;
+
+                if (key == Key.Tab)
+                {
+                    e.Handled = false;
+                    return;
+                }
+
+                e.Handled = true;
+
+                this.TxtSingleKey.Text = key.ToString();
+
+                hotkeyProxy.Type = HotkeyType.Keyboard;
+                hotkeyProxy.SetActivator(key);
             }
-
-            e.Handled = true;
-
-            this.TxtSingleKey.Text = key.ToString();
-
-            if (this.LstHotKeys.SelectedItem is Hotkey hotkey)
-                hotkey.KeyOrButton = key;
         }
 
         #endregion "Hotkeys" tab
@@ -317,8 +359,8 @@ namespace Toastify.View
                 double increment = this.ToastWidthUpDown.Increment ?? 0.0;
 
                 // Move the toast leftwards
-                System.Windows.Rect toastRect = ToastView.Current == null ? new System.Windows.Rect() : this.toastView.Rect;
-                System.Windows.Rect totalRect = ScreenHelper.GetTotalWorkingArea();
+                Rect toastRect = ToastView.Current == null ? new Rect() : this.toastView.Rect;
+                Rect totalRect = ScreenHelper.GetTotalWorkingArea();
                 double availableSpaceToTheLeft = toastRect.Left - totalRect.Left;
                 double deltaX = Math.Min(availableSpaceToTheLeft, increment);
 
@@ -335,8 +377,8 @@ namespace Toastify.View
                 double increment = this.ToastHeightUpDown.Increment ?? 0.0;
 
                 // Move the toast upwards
-                System.Windows.Rect toastRect = ToastView.Current == null ? new System.Windows.Rect() : this.toastView.Rect;
-                System.Windows.Rect totalRect = ScreenHelper.GetTotalWorkingArea();
+                Rect toastRect = ToastView.Current == null ? new Rect() : this.toastView.Rect;
+                Rect totalRect = ScreenHelper.GetTotalWorkingArea();
                 double availableSpaceAbove = toastRect.Top - totalRect.Top;
                 double deltaY = Math.Min(availableSpaceAbove, increment);
 

@@ -31,6 +31,19 @@ namespace ToastifyAPI.Native
             return process.Modules.Cast<ProcessModule>();
         }
 
+        /// <summary>
+        /// Returns true if the current application has focus, false otherwise.
+        /// </summary>
+        public static bool IsCurrentProcessFocused()
+        {
+            var foregroundHwnd = User32.GetForegroundWindow();
+            if (foregroundHwnd == IntPtr.Zero)
+                return false;
+            
+            User32.GetWindowThreadProcessId(foregroundHwnd, out uint processId);
+            return processId == Process.GetCurrentProcess().Id;
+        }
+
         public static IntPtr SetLowLevelMouseHook(ref LowLevelMouseHookProc mouseHookProc)
         {
             IntPtr hHook;

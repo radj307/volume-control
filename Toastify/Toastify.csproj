@@ -94,6 +94,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="GoogleMeasurementProtocol, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GoogleMeasurementProtocol.1.4.2\lib\net45\GoogleMeasurementProtocol.dll</HintPath>
     </Reference>
@@ -117,12 +123,15 @@
       <HintPath>..\packages\SpotifyAPI-NET.2.18.0\lib\SpotifyAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -166,12 +175,13 @@
     <Compile Include="src\Common\PausableTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="src\Core\MouseAction.cs" />
+    <Compile Include="src\Core\HotkeyType.cs" />
     <Compile Include="src\Core\ProxyConfigAdapter.cs" />
     <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
     <Compile Include="src\Core\UpdateDeliveryMode.cs" />
     <Compile Include="src\Core\VersionCheckFrequency.cs" />
     <Compile Include="src\CustomMessageBox.cs" />
+    <Compile Include="src\DI\PropertyDependencyAttribute.cs" />
     <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
     <Compile Include="src\Events\UpdateReadyEventArgs.cs" />
     <Compile Include="src\Helpers\AutomationHelper.cs" />
@@ -196,7 +206,15 @@
     <Compile Include="src\Helpers\Markdown\TextToFlowDocumentConverter.cs" />
     <Compile Include="src\Helpers\Validators\IPPortRule.cs" />
     <Compile Include="src\Helpers\Validators\IPAddressRule.cs" />
-    <Compile Include="src\Model\KeyOrButton.cs" />
+    <Compile Include="src\Helpers\WindsorContainerExtensions.cs" />
+    <Compile Include="src\Model\GenericHotkeyProxy.cs" />
+    <Compile Include="src\Model\GetVolumeControlModeDelegate.cs" />
+    <Compile Include="src\Model\HotkeyJsonConverter.cs" />
+    <Compile Include="src\Model\IToastifyActionRegistry.cs" />
+    <Compile Include="src\Model\JsonConverterContractResolver.cs" />
+    <Compile Include="src\Model\KeyboardHotkey.cs" />
+    <Compile Include="src\Model\MediaActionType.cs" />
+    <Compile Include="src\Model\MouseHookHotkey.cs" />
     <Compile Include="src\Model\SettingValue.cs" />
     <Compile Include="src\Model\SettingValueJsonConverter.cs" />
     <Compile Include="src\Model\Song.cs" />
@@ -205,7 +223,7 @@
     <Compile Include="src\Events\SpotifyTrackTimeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
     <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
-    <Compile Include="src\Core\ToastifyAction.cs" />
+    <Compile Include="src\Core\ToastifyActionEnum.cs" />
     <Compile Include="src\Common\EnumComboBoxItem.cs" />
     <Compile Include="src\Helpers\Markup\EnumExtension.cs" />
     <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
@@ -215,17 +233,31 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Analytics.g.cs</LastGenOutput>
     </Content>
+    <Compile Include="src\Model\ToastifyAction.cs" />
+    <Compile Include="src\Model\ToastifyActionAsEnumJsonConverter.cs" />
+    <Compile Include="src\Model\ToastifyActionRegistry.cs" />
+    <Compile Include="src\Model\ToastifyExit.cs" />
+    <Compile Include="src\Model\ToastifyMediaAction.cs" />
+    <Compile Include="src\Model\ToastifyNoAction.cs" />
+    <Compile Include="src\Model\ToastifyShowDebugView.cs" />
+    <Compile Include="src\Model\ToastifyShowSpotify.cs" />
+    <Compile Include="src\Model\ToastifyShowToast.cs" />
+    <Compile Include="src\Model\ToastifySimpleMediaAction.cs" />
+    <Compile Include="src\Model\ToastifyVolumeAction.cs" />
+    <Compile Include="src\Model\ToastifyVolumeMute.cs" />
+    <Compile Include="src\Model\ToastifyVolumeDown.cs" />
+    <Compile Include="src\Model\ToastifyVolumeUp.cs" />
     <Compile Include="src\Security.cs" />
     <Compile Include="src\Services\Analytics.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Analytics.g.tt</DependentUpon>
     </Compile>
-    <Compile Include="src\Common\Union32.cs" />
     <Compile Include="src\Services\AutoUpdater.cs" />
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
     <Compile Include="src\ViewModel\ChangelogViewModel.cs" />
+    <Compile Include="src\ViewModel\ISettingsViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />
     <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
@@ -309,7 +341,7 @@
     </Compile>
     <Compile Include="src\Model\Settings.cs" />
     <Compile Include="src\Core\Spotify.cs" />
-    <Compile Include="src\Model\HotKey.cs">
+    <Compile Include="src\Model\Hotkey.cs">
     </Compile>
     <Compile Include="src\Services\VersionChecker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

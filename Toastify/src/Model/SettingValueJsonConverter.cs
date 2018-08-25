@@ -1,8 +1,8 @@
-﻿using log4net;
+﻿using System;
+using System.Linq;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Linq;
 
 namespace Toastify.Model
 {
@@ -37,7 +37,7 @@ namespace Toastify.Model
 
                 try
                 {
-                    IComparable enumValue = (IComparable)Enum.Parse(genericTypeArgument, token);
+                    var enumValue = (IComparable)Enum.Parse(genericTypeArgument, token);
                     int index = genericTypeArgument.GetEnumValues().Cast<IComparable>().ToList().IndexOf(enumValue);
                     deserializedValue = genericTypeArgument.GetEnumValues().GetValue(index);
                 }
@@ -54,7 +54,7 @@ namespace Toastify.Model
             var existingSettingValue = (ISettingValue)existingValue;
             if (existingSettingValue == null)
             {
-                var genericType = typeof(SettingValue<>).MakeGenericType(genericTypeArgument);
+                Type genericType = typeof(SettingValue<>).MakeGenericType(genericTypeArgument);
                 existingSettingValue = (ISettingValue)Activator.CreateInstance(genericType);
             }
 
