@@ -17,12 +17,17 @@ namespace Toastify.Helpers
                                                       .Where(p => p.GetCustomAttribute<PropertyDependencyAttribute>() != null && p.GetValue(obj) == null);
             foreach (PropertyInfo property in properties)
             {
-                if (container.Kernel.HasComponent(property.PropertyType))
+                if (property.GetValue(obj) == null && container.Kernel.HasComponent(property.PropertyType))
                 {
                     object dependency = container.Kernel.Resolve(property.PropertyType);
                     property.SetValue(obj, dependency);
                 }
             }
+        }
+
+        public static void BuildUp(this WindsorContainer container, [NotNull] params object[] objects)
+        {
+            BuildUpAll(container, objects);
         }
 
         public static void BuildUpAll(this WindsorContainer container, [NotNull] IEnumerable<object> objects)

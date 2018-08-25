@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using Toastify.Core;
+using Toastify.Helpers;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify.Model
@@ -105,10 +106,10 @@ namespace Toastify.Model
 
         #endregion
 
-        public GenericHotkeyProxy()
+        public GenericHotkeyProxy() : this((Hotkey)null)
         {
-            this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
-            this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
+            this.keyboardHotkey = new KeyboardHotkey();
+            this.mouseHookHotkey = new MouseHookHotkey();
         }
 
         public GenericHotkeyProxy(Hotkey hotkey)
@@ -116,36 +117,30 @@ namespace Toastify.Model
             if (hotkey is KeyboardHotkey kbdHotkey)
             {
                 this.Type = HotkeyType.Keyboard;
-                this.keyboardHotkey = kbdHotkey;
-                this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
+                this.keyboardHotkey = new KeyboardHotkey(kbdHotkey);
+                this.mouseHookHotkey = new MouseHookHotkey();
             }
             else if (hotkey is MouseHookHotkey mhHotkey)
             {
                 this.Type = HotkeyType.MouseHook;
-                this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
-                this.mouseHookHotkey = mhHotkey;
+                this.keyboardHotkey = new KeyboardHotkey();
+                this.mouseHookHotkey = new MouseHookHotkey(mhHotkey);
             }
             else
             {
-                this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
-                this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
+                this.keyboardHotkey = new KeyboardHotkey();
+                this.mouseHookHotkey = new MouseHookHotkey();
             }
+
+            App.Container.BuildUp(this.keyboardHotkey, this.mouseHookHotkey);
         }
 
-        public GenericHotkeyProxy(KeyboardHotkey keyboardHotkey)
+        public GenericHotkeyProxy(KeyboardHotkey keyboardHotkey) : this((Hotkey)keyboardHotkey)
         {
-            this.Type = HotkeyType.Keyboard;
-
-            this.keyboardHotkey = keyboardHotkey;
-            this.mouseHookHotkey = App.Container.Resolve<MouseHookHotkey>();
         }
 
-        public GenericHotkeyProxy(MouseHookHotkey mouseHookHotkey)
+        public GenericHotkeyProxy(MouseHookHotkey mouseHookHotkey) : this((Hotkey)mouseHookHotkey)
         {
-            this.Type = HotkeyType.MouseHook;
-
-            this.keyboardHotkey = App.Container.Resolve<KeyboardHotkey>();
-            this.mouseHookHotkey = mouseHookHotkey;
         }
 
         /// <summary>
