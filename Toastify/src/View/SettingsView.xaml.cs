@@ -170,7 +170,7 @@ namespace Toastify.View
             else
             {
                 SettingsView settingsView = new SettingsView(toastView);
-                SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings));
+                SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings, settingsView.settingsViewModel));
                 settingsView.SetMouseHook(true);
                 settingsView.ShowDialog();
             }

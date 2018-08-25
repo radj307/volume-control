@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Toastify.View
         internal static DebugView Current { get; private set; }
 
         private Settings PreviewSettings { get; set; }
+        private IReadOnlyList<GenericHotkeyProxy> PreviewHotkeys { get; set; }
 
         public DebugView()
         {
@@ -121,7 +123,7 @@ namespace Toastify.View
             foreach (var hotkey in Settings.Default.HotKeys)
             {
                 var current = Settings.Current.HotKeys?.SingleOrDefault(h => h?.Action.Equals(hotkey.Action) ?? false);
-                var preview = this.PreviewSettings?.HotKeys?.SingleOrDefault(h => h?.Action.Equals(hotkey.Action) ?? false);
+                var preview = this.PreviewHotkeys?.SingleOrDefault(h => h?.Hotkey?.Action.Equals(hotkey.Action) ?? false)?.Hotkey;
                 var @default = hotkey;
 
                 Debug.Write($"{hotkey.HumanReadableAction,-15}: ");
@@ -159,11 +161,13 @@ namespace Toastify.View
         private void SettingsView_SettingsLaunched(object sender, Events.SettingsViewLaunchedEventArgs e)
         {
             this.PreviewSettings = e.Settings;
+            this.PreviewHotkeys = e.SettingsViewModel.Hotkeys;
         }
 
         private void SettingsView_SettingsClosed(object sender, System.EventArgs e)
         {
             this.PreviewSettings = null;
+            this.PreviewHotkeys = null;
         }
 
         private void LogShowToastAction_OnChecked(object sender, RoutedEventArgs e)

@@ -11,7 +11,7 @@ using ToastifyAPI.Native.Enums;
 
 namespace Toastify.ViewModel
 {
-    public class SettingsViewModel : ObservableObject
+    public class SettingsViewModel : ObservableObject, ISettingsViewModel
     {
         private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
 
@@ -27,7 +27,7 @@ namespace Toastify.ViewModel
         // The ListBox is bound to this property instead of Settings.HotKeys so that when saving or
         // resetting to default, the SelectedIndex doesn't reset to 0 because of the DataContext update
         // (since Save and Default trigger a NotifyPropertyChanged for Settings)
-        public List<GenericHotkeyProxy> Hotkeys
+        public IReadOnlyList<GenericHotkeyProxy> Hotkeys
         {
             get
             {
@@ -280,11 +280,8 @@ namespace Toastify.ViewModel
                     this.Settings.HotKeys.Add(hotkey);
             }
 
-            this.Settings.SetAsCurrentAndSave();
-
-            // Get a new clone of the current settings,
-            // since Current and the original Temporary are now the same instance;
-            this.Settings = Settings.Temporary;
+            // Save a clone of the preview settings
+            this.Settings.Clone().SetAsCurrentAndSave();
             this._hotkeys = null;
 
             this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings));

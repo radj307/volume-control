@@ -254,6 +254,7 @@
     <Compile Include="src\ViewModel\AboutViewModel.cs" />
     <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
     <Compile Include="src\ViewModel\ChangelogViewModel.cs" />
+    <Compile Include="src\ViewModel\ISettingsViewModel.cs" />
     <Compile Include="src\ViewModel\SettingsViewModel.cs" />
     <Compile Include="src\ViewModel\ToastViewModel.cs" />
     <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
