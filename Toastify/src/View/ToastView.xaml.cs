@@ -33,6 +33,7 @@ using Toastify.ViewModel;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.Structs;
 using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
@@ -43,12 +44,6 @@ using PixelFormat = System.Windows.Media.PixelFormat;
 using Point = System.Windows.Point;
 using Spotify = Toastify.Core.Spotify;
 using Timer = System.Timers.Timer;
-
-#if DEBUG
-
-using ToastifyAPI.Native.Structs;
-
-#endif
 
 namespace Toastify.View
 {
