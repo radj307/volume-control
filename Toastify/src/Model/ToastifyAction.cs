@@ -56,9 +56,14 @@ namespace Toastify.Model
             this.ActionFailed?.Invoke(sender, e);
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return this.Name;
+        }
+
+        public virtual object Clone()
+        {
+            return (ToastifyAction)this.MemberwiseClone();
         }
 
         #region Equals / GethashCode

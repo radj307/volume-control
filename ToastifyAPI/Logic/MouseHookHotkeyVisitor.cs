@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using log4net;
 using ToastifyAPI.Common;
@@ -35,34 +36,47 @@ namespace ToastifyAPI.Logic
         }
 
         /// <inheritdoc />
+        public bool IsRegistered(IMouseHookHotkey hotkey)
+        {
+            if (hotkey == null)
+                throw new ArgumentNullException(nameof(hotkey));
+            return hotkey.MouseButton.HasValue && this.registeredHotkeys.Any(h => h.Action.Equals(hotkey.Action));
+        }
+
+        /// <inheritdoc />
         public void RegisterHook(IMouseHookHotkey hotkey)
         {
-            this.EnsureMouseHookEnabledIfNeeded();
-
             if (hotkey == null)
                 throw new ArgumentNullException(nameof(hotkey));
             if (!hotkey.MouseButton.HasValue)
                 return;
 
-            this.registeredHotkeys?.Add(hotkey);
+            this.registeredHotkeys.Add(hotkey);
+            this.EnsureMouseHookEnabledIfNeeded();
         }
 
         /// <inheritdoc />
         public void UnregisterHook(IMouseHookHotkey hotkey)
         {
-            this.EnsureMouseHookEnabledIfNeeded();
-
             if (hotkey == null)
                 throw new ArgumentNullException(nameof(hotkey));
             if (!hotkey.MouseButton.HasValue)
                 return;
 
-            this.registeredHotkeys?.RemoveAll(h => h?.Action == hotkey.Action);
+            this.registeredHotkeys.RemoveAll(h => h.Action.Equals(hotkey.Action));
+            this.EnsureMouseHookEnabledIfNeeded();
+        }
+
+        /// <inheritdoc />
+        public void UnregisterAll()
+        {
+            this.registeredHotkeys.Clear();
+            this.EnsureMouseHookEnabledIfNeeded();
         }
 
         private IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
         {
-            if (nCode >= 0 && this.registeredHotkeys != null)
+            if (nCode >= 0)
             {
                 foreach (IMouseHookHotkey h in this.registeredHotkeys)
                 {

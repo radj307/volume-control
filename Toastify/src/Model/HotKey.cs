@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using log4net;
+using log4net.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Toastify.DI;
@@ -101,8 +102,10 @@ namespace Toastify.Model
             if (hotkey == null)
                 throw new ArgumentNullException(nameof(hotkey));
 
-            this.InputDevices = hotkey.InputDevices;
             this.Action = hotkey.Action;
+            this.MaxFrequency = hotkey.MaxFrequency;
+
+            this.InputDevices = hotkey.InputDevices;
             this.Enabled = hotkey.Enabled;
             this._active = false;
             this._modifiers = hotkey.Modifiers;
@@ -149,8 +152,7 @@ namespace Toastify.Model
             if (this.Action is ToastifyShowToast)
                 return;
 
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Hotkey dispatched: {this.HumanReadableAction}");
+            logger.DebugExt($"Hotkey dispatched: {this.HumanReadableAction}");
             this.DispatchInternal(hotkeyVisitor);
         }
 
@@ -159,6 +161,7 @@ namespace Toastify.Model
         public object Clone()
         {
             var clone = (Hotkey)this.MemberwiseClone();
+            clone.Action = this.Action?.Clone() as IAction;
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.
@@ -182,7 +185,9 @@ namespace Toastify.Model
             if (ReferenceEquals(this, other))
                 return true;
 
-            return this.Modifiers == other.Modifiers;
+            return this.Modifiers == other.Modifiers &&
+                   Math.Abs(this.MaxFrequency - other.MaxFrequency) < float.Epsilon &&
+                   (this.Action?.Equals(other.Action) ?? other.Action == null);
         }
 
         protected bool Equals(Hotkey other)
@@ -208,7 +213,9 @@ namespace Toastify.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (int)this.Modifiers;
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int)this.Modifiers;
+                return hashCode;
             }
         }
 

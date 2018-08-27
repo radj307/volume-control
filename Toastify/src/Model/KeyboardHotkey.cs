@@ -10,6 +10,7 @@ using Newtonsoft.Json.Converters;
 using Toastify.DI;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Logic.Interfaces;
+using ToastifyAPI.Model;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
@@ -20,7 +21,7 @@ namespace Toastify.Model
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(KeyboardHotkey));
 
-        private ManagedWinapi.Hotkey globalHotkey;
+        private IGlobalHotkey globalHotkey;
 
         private Key? _key;
         private bool? isValid;
@@ -89,6 +90,11 @@ namespace Toastify.Model
             }
         }
 
+        public ILockedGlobalHotkey GlobalHotkey
+        {
+            get { return this.globalHotkey != null ? new LockedGlobalHotkey(this.globalHotkey) : null; }
+        }
+
         #endregion
 
         /// <inheritdoc />
@@ -108,55 +114,38 @@ namespace Toastify.Model
 
         public KeyboardHotkey([NotNull] KeyboardHotkey hotkey) : base(hotkey)
         {
-            if (hotkey == null)
-                throw new ArgumentNullException(nameof(hotkey));
-
             this._key = hotkey._key;
             this.isValid = hotkey.isValid;
 
             this.HotkeyVisitor = hotkey.HotkeyVisitor;
         }
 
+        public KeyboardHotkey([NotNull] IGlobalHotkey globalHotkey)
+        {
+            this.globalHotkey = globalHotkey ?? throw new ArgumentNullException(nameof(globalHotkey));
+        }
+
         /// <inheritdoc />
         protected override void InitInternal()
         {
+            // InitInternal is executed only if (this.Enabled && this.Active && this.IsValid())
+
             if (this.globalHotkey != null)
                 this.globalHotkey.HotkeyPressed -= this.GlobalHotkey_HotkeyPressed;
 
-            // If we're not enabled shut everything down asap
-            if (!this.Enabled || !this.Active)
-            {
-                if (this.globalHotkey != null)
-                {
-                    this.globalHotkey.Enabled = false;
-                    this.globalHotkey = null;
-                }
-
-                // May not be false if !Enabled
-                this._active = false;
-
-                return;
-            }
-
-            if (!this.Key.HasValue)
-                return;
-
-            Keys keyCode = this.Key.Value.ConvertToWindowsFormsKeys();
-            if (keyCode == Keys.None)
-                return;
-
             if (this.globalHotkey == null)
-                this.globalHotkey = new ManagedWinapi.Hotkey();
+                this.globalHotkey = new GlobalHotkey();
 
             // Make sure that we don't try to re-register the key midway updating the combination.
             if (this.globalHotkey.Enabled)
                 this.globalHotkey.Enabled = false;
 
+            // ReSharper disable once PossibleInvalidOperationException
+            this.globalHotkey.KeyCode = this.Key.Value.ConvertToWindowsFormsKeys();
             this.globalHotkey.Alt = this.Modifiers.HasFlag(ModifierKeys.Alt);
             this.globalHotkey.Ctrl = this.Modifiers.HasFlag(ModifierKeys.Control);
             this.globalHotkey.Shift = this.Modifiers.HasFlag(ModifierKeys.Shift);
             this.globalHotkey.WindowsKey = this.Modifiers.HasFlag(ModifierKeys.Windows);
-            this.globalHotkey.KeyCode = keyCode;
 
             this.globalHotkey.HotkeyPressed += this.GlobalHotkey_HotkeyPressed;
 
@@ -181,15 +170,16 @@ namespace Toastify.Model
         internal override void SetIsValid(bool isValid, string invalidReason)
         {
             this.isValid = isValid;
-            this.InvalidReason = isValid ? null : invalidReason;
+            this.InvalidReason = isValid ? string.Empty : invalidReason;
         }
 
         protected virtual void CheckIfValid()
         {
+            // If the hotkey has been invalidated elsewhere, ignore the following basic checks
             if (this.isValid == false)
                 return;
 
-            if (!this.Key.HasValue || this.Key == System.Windows.Input.Key.None)
+            if (!this.Key.HasValue || this.Key == System.Windows.Input.Key.None || this.Key.Value.ConvertToWindowsFormsKeys() == Keys.None)
             {
                 this.isValid = false;
                 this.InvalidReason = "You must select a valid key for your hotkey combination";

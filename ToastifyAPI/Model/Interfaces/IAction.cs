@@ -4,7 +4,7 @@ using ToastifyAPI.Events;
 
 namespace ToastifyAPI.Model.Interfaces
 {
-    public interface IAction : IEquatable<IAction>
+    public interface IAction : IEquatable<IAction>, ICloneable
     {
         #region Public Properties
 

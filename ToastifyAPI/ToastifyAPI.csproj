@@ -198,14 +198,20 @@
     <Compile Include="Logic\KeyboardHotkeyVisitor.cs" />
     <Compile Include="Logic\MouseHookHotkeyVisitor.cs" />
     <Compile Include="Model\Actionable.cs" />
+    <Compile Include="Model\GlobalHotkey.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\Interfaces\IAction.cs" />
     <Compile Include="Model\Interfaces\IActionable.cs" />
+    <Compile Include="Model\Interfaces\IGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IHotkey.cs" />
     <Compile Include="Model\Interfaces\IKeyboardHotkey.cs" />
     <Compile Include="Model\Interfaces\IKeyOrButton.cs" />
+    <Compile Include="Model\Interfaces\ILockedGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IMouseHookHotkey.cs" />
     <Compile Include="Model\Interfaces\ISong.cs" />
     <Compile Include="Model\KeyOrButton.cs" />
+    <Compile Include="Model\LockedGlobalHotkey.cs" />
     <Compile Include="Native\Crypt32.cs" />
     <Compile Include="Native\Enums\CryptProtectFlags.cs" />
     <Compile Include="Native\Enums\CryptProtectPromptFlags.cs" />

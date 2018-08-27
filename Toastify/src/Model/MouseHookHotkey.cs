@@ -104,9 +104,6 @@ namespace Toastify.Model
 
         public MouseHookHotkey([NotNull] MouseHookHotkey hotkey) : base(hotkey)
         {
-            if (hotkey == null)
-                throw new ArgumentNullException(nameof(hotkey));
-
             this._mouseButton = hotkey._mouseButton;
             this.isValid = hotkey.isValid;
 
@@ -116,25 +113,15 @@ namespace Toastify.Model
         /// <inheritdoc />
         protected override void InitInternal()
         {
+            // InitInternal is executed only if (this.Enabled && this.Active && this.IsValid())
+
             if (this.HotkeyVisitor != null)
-            {
-                // If we're not enabled shut everything down asap
-                if (!this.Enabled || !this.Active)
-                {
-                    this.HotkeyVisitor.UnregisterHook(this);
-
-                    // May not be false if !Enabled
-                    this._active = false;
-                    return;
-                }
-
-                if (!this.MouseButton.HasValue)
-                    return;
-
                 this.HotkeyVisitor.RegisterHook(this);
-            }
             else
+            {
+                this._active = false;
                 logger.Warn($"{nameof(this.HotkeyVisitor)} is null!");
+            }
         }
 
         /// <inheritdoc />
@@ -147,11 +134,12 @@ namespace Toastify.Model
         internal override void SetIsValid(bool isValid, string invalidReason)
         {
             this.isValid = isValid;
-            this.InvalidReason = isValid ? null : invalidReason;
+            this.InvalidReason = isValid ? string.Empty : invalidReason;
         }
 
         protected virtual void CheckIfValid()
         {
+            // If the hotkey has been invalidated elsewhere, ignore the following basic checks
             if (this.isValid == false)
                 return;
 

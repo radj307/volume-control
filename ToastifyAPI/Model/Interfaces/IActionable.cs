@@ -6,6 +6,8 @@
 
         IAction Action { get; set; }
 
+        float MaxFrequency { get; set; }
+
         #endregion
 
         void PerformAction();

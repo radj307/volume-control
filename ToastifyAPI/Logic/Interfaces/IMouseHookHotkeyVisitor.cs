@@ -7,7 +7,9 @@ namespace ToastifyAPI.Logic.Interfaces
     {
         void Visit(IMouseHookHotkey hotkey);
 
+        bool IsRegistered([NotNull] IMouseHookHotkey hotkey);
         void RegisterHook([NotNull] IMouseHookHotkey hotkey);
         void UnregisterHook([NotNull] IMouseHookHotkey hotkey);
+        void UnregisterAll();
     }
 }

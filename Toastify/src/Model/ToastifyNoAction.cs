@@ -4,12 +4,18 @@ namespace Toastify.Model
 {
     public sealed class ToastifyNoAction : ToastifyAction
     {
+        #region Static Fields and Properties
+
+        public static readonly string ActionName = "No Action";
+
+        #endregion
+
         #region Public Properties
 
         /// <inheritdoc />
         public override string Name
         {
-            get { return "No Action"; }
+            get { return ActionName; }
         }
 
         /// <inheritdoc />
