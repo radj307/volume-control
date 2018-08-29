@@ -9,6 +9,9 @@ using Spotify = ToastifyAPI.Spotify;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     A media action that uses either a system APPCOMMAND message or a virtual key code.
+    /// </summary>
     public abstract class ToastifyMediaAction : ToastifyAction
     {
         #region Public Properties

@@ -7,6 +7,9 @@ using Toastify.Helpers;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Serializes a <see cref="ToastifyAction" /> using its underlying <see cref="ToastifyAction.ToastifyActionEnum" /> value.
+    /// </summary>
     public class ToastifyActionAsEnumJsonConverter : JsonConverter
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyActionAsEnumJsonConverter));

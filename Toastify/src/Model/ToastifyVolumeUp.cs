@@ -6,6 +6,9 @@ using ToastifyAPI.Native.Enums;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Implementation of <see cref="ToastifyVolumeAction" /> that turns the volume up.
+    /// </summary>
     public sealed class ToastifyVolumeUp : ToastifyVolumeAction
     {
         private readonly Action spotifyOnlyVolumeAction;

@@ -15,6 +15,9 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     A hotkey based on a keyboard global hotkey.
+    /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     public class KeyboardHotkey : Hotkey, IKeyboardHotkey

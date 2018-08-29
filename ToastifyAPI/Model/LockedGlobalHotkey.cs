@@ -3,6 +3,9 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace ToastifyAPI.Model
 {
+    /// <summary>
+    ///     A read-only global hotkey.
+    /// </summary>
     public class LockedGlobalHotkey : ILockedGlobalHotkey
     {
         #region Public Properties

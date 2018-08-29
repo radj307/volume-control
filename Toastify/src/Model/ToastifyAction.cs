@@ -6,6 +6,9 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Abstract class implemented by every Toastify's action.
+    /// </summary>
     [JsonObject(MemberSerialization.OptOut)]
     public abstract class ToastifyAction : IAction
     {

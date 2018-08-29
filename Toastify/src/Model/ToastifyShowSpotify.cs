@@ -2,6 +2,9 @@
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     This action shows or minimizes Spotify's main window.
+    /// </summary>
     public sealed class ToastifyShowSpotify : ToastifyAction
     {
         #region Public Properties

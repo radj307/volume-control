@@ -9,7 +9,7 @@ using MouseAction = ToastifyAPI.Core.MouseAction;
 namespace Toastify.Model
 {
     /// <summary>
-    ///     Hotkey proxy used in the View layer as a view model.
+    ///     Proxy class for the various hotkey types. This class is used in the View layer as a view model.
     /// </summary>
     public class GenericHotkeyProxy : INotifyPropertyChanged
     {

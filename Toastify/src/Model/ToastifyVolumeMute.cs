@@ -6,6 +6,9 @@ using ToastifyAPI.Native.Enums;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Implementation of <see cref="ToastifyVolumeAction" /> that turns the volume off.
+    /// </summary>
     public sealed class ToastifyVolumeMute : ToastifyVolumeAction
     {
         private readonly Action spotifyOnlyVolumeAction;

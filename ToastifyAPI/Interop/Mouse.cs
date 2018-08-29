@@ -5,6 +5,9 @@ using ToastifyAPI.Interop.Interfaces;
 
 namespace ToastifyAPI.Interop
 {
+    /// <summary>
+    ///     Represents a mouse.
+    /// </summary>
     public class Mouse : IMouse
     {
         private readonly MouseDevice mouseDevice;

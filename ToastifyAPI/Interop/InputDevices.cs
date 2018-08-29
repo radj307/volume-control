@@ -3,6 +3,9 @@ using ToastifyAPI.Interop.Interfaces;
 
 namespace ToastifyAPI.Interop
 {
+    /// <summary>
+    ///     Represents a collection of input devices.
+    /// </summary>
     public class InputDevices : IInputDevices
     {
         #region Static Fields and Properties

@@ -5,6 +5,9 @@ using ToastifyAPI.Events;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     This media action changes the volume.
+    /// </summary>
     public abstract class ToastifyVolumeAction : ToastifyMediaAction
     {
         private readonly GetVolumeControlModeDelegate getVolumeControlMode;

@@ -4,6 +4,9 @@ using ToastifyAPI.Events;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     This action shows or hides Toastify's toast.
+    /// </summary>
     public sealed class ToastifyShowToast : ToastifyAction
     {
         #region Public Properties

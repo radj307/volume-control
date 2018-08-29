@@ -14,6 +14,9 @@ using ToastifyAPI.Native.Structs;
 
 namespace ToastifyAPI.Logic
 {
+    /// <summary>
+    ///     Implements the Visitor pattern for the <see cref="IMouseHookHotkey" /> class.
+    /// </summary>
     public class MouseHookHotkeyVisitor : IMouseHookHotkeyVisitor
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(MouseHookHotkeyVisitor));

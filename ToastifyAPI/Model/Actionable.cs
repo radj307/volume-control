@@ -5,6 +5,9 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace ToastifyAPI.Model
 {
+    /// <summary>
+    ///     Basic implementation of <see cref="IActionable" />. An <see cref="Actionable" /> can perform an action a maximum number of times per second.
+    /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     public class Actionable : IActionable

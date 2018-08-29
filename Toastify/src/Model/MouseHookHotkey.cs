@@ -12,6 +12,9 @@ using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     A hotkey based on low-level mouse hooks.
+    /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     public class MouseHookHotkey : Hotkey, IMouseHookHotkey

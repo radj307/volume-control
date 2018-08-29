@@ -4,6 +4,9 @@ using ToastifyAPI.Interop.Interfaces;
 
 namespace ToastifyAPI.Interop
 {
+    /// <summary>
+    ///     Represents a keyboard.
+    /// </summary>
     public class Keyboard : IKeyboard
     {
         private readonly KeyboardDevice keyboardDevice;

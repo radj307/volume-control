@@ -15,6 +15,9 @@ using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Base class for all hotkey types.
+    /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn), JsonConverter(typeof(HotkeyJsonConverter))]
     public abstract class Hotkey : Actionable, IHotkey, INotifyPropertyChanged, IEquatable<IHotkey>

@@ -3,6 +3,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Default JSON contract resolver used by the application.
+    ///     Converters for special classes should be set here.
+    /// </summary>
     public class JsonConverterContractResolver : DefaultContractResolver
     {
         #region Static Fields and Properties

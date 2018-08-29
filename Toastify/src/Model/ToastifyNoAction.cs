@@ -2,6 +2,9 @@
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     Void action
+    /// </summary>
     public sealed class ToastifyNoAction : ToastifyAction
     {
         #region Static Fields and Properties

@@ -5,6 +5,9 @@ using ToastifyAPI.Native.Enums;
 
 namespace Toastify.Model
 {
+    /// <summary>
+    ///     A registry of <see cref="ToastifyAction" /> singletons. Instances are fetched (and lazily created) using a <see cref="ToastifyActionEnum" /> key.
+    /// </summary>
     public class ToastifyActionRegistry : IToastifyActionRegistry
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyActionRegistry));

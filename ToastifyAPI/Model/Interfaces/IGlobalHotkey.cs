@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace ToastifyAPI.Model.Interfaces
 {
+    /// <summary>
+    ///     A global hotkey.
+    /// </summary>
     public interface IGlobalHotkey
     {
         #region Public Properties
