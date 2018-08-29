@@ -108,8 +108,6 @@ namespace Toastify.Model
 
         public GenericHotkeyProxy() : this((Hotkey)null)
         {
-            this.keyboardHotkey = new KeyboardHotkey();
-            this.mouseHookHotkey = new MouseHookHotkey();
         }
 
         public GenericHotkeyProxy(Hotkey hotkey)
@@ -128,6 +126,7 @@ namespace Toastify.Model
             }
             else
             {
+                this.Type = HotkeyType.Undefined;
                 this.keyboardHotkey = new KeyboardHotkey();
                 this.mouseHookHotkey = new MouseHookHotkey();
             }

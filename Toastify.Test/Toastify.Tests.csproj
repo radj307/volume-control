@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\WindsorContainerExtensionsTest.cs" />
+    <Compile Include="Model\GenericHotkeyProxyTest.cs" />
     <Compile Include="Model\HotkeyJsonConverterTest.cs" />
     <Compile Include="Model\HotkeyTest.cs" />
     <Compile Include="Model\MouseHookHotkeyTest.cs" />
