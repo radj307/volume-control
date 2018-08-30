@@ -7,6 +7,7 @@ namespace ToastifyAPI.Common
 {
     public class WindowTitleWatcher : IDisposable
     {
+        private readonly object currentTitleLock = new object();
         private readonly IntPtr hWnd;
 
         private int _checkInterval = 100;
@@ -92,11 +93,16 @@ namespace ToastifyAPI.Common
 
         private void CheckTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            string title = NativeWindows.GetWindowTitle(this.hWnd);
-            if (!string.Equals(this.CurrentTitle, title, StringComparison.CurrentCulture))
-                this.OnTitleChanged(this.CurrentTitle, title);
-
-            this.CurrentTitle = title;
+            lock (this.currentTitleLock)
+            {
+                string oldTitle = this.CurrentTitle;
+                string newTitle = NativeWindows.GetWindowTitle(this.hWnd);
+                if (!string.Equals(oldTitle, newTitle, StringComparison.CurrentCulture))
+                {
+                    this.CurrentTitle = newTitle;
+                    this.OnTitleChanged(oldTitle, newTitle);
+                }
+            }
         }
 
         private void OnTitleChanged(string oldTitle, string newTitle)
