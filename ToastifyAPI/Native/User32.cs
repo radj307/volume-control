@@ -30,7 +30,7 @@ namespace ToastifyAPI.Native
         public static extern bool ShowWindow(IntPtr hWnd, ShowWindowCmd nCmdShow);
 
         [DllImport("user32.dll")]
-        internal static extern bool UpdateWindow(IntPtr hWnd);
+        public static extern bool UpdateWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
@@ -49,10 +49,10 @@ namespace ToastifyAPI.Native
         internal static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        internal static extern IntPtr GetParent(IntPtr hWnd);
+        public static extern IntPtr GetParent(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
-        internal static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll")]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
@@ -207,10 +207,10 @@ namespace ToastifyAPI.Native
         public static extern void KeyboardEvent(VirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
 
         [DllImport("user32.dll")]
-        internal static extern IntPtr GetDC(IntPtr hWnd);
+        public static extern IntPtr GetDC(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool DestroyIcon(IntPtr hIcon);

@@ -136,7 +136,12 @@ namespace ToastifyAPI.Native
         {
             const int nMaxCount = 256;
             StringBuilder lpString = new StringBuilder(nMaxCount);
-            return User32.GetWindowText(hWnd, lpString, nMaxCount) > 0 ? lpString.ToString() : String.Empty;
+
+            if (User32.GetWindowText(hWnd, lpString, nMaxCount) > 0)
+                return lpString.ToString();
+
+            int errorCode = Marshal.GetLastWin32Error();
+            return errorCode == 0 ? string.Empty : null;
         }
 
         public static bool SendWindowMessage(IntPtr hWnd, WindowsMessagesFlags msg, IntPtr wParam, IntPtr lParam, bool postMessage = false)

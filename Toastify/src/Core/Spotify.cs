@@ -51,6 +51,8 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher
 
+        private SpotifyWindow spotifyWindow;
+
         private SpotifyLocalAPI localAPI;
 
         private SpotifyLocalAPIConfig localAPIConfig;
@@ -67,33 +69,7 @@ namespace Toastify.Core
 
         #region Public Properties
 
-        public bool IsRunning { get { return this.GetMainWindowHandle() != IntPtr.Zero; } }
-
-        public bool IsMinimized
-        {
-            get
-            {
-                if (!this.IsRunning)
-                    return false;
-
-                var hWnd = this.GetMainWindowHandle();
-                WindowStylesFlags windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
-                return (windowStyles & WindowStylesFlags.WS_MINIMIZE) != 0L || this.IsMinimizedToTray;
-            }
-        }
-
-        public bool IsMinimizedToTray
-        {
-            get
-            {
-                if (!this.IsRunning)
-                    return false;
-
-                var hWnd = this.GetMainWindowHandle();
-                WindowStylesFlags windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(hWnd, GWL.GWL_STYLE);
-                return (windowStyles & WindowStylesFlags.WS_MINIMIZE) == 0L && (windowStyles & WindowStylesFlags.WS_VISIBLE) == 0L;
-            }
-        }
+        public bool IsRunning { get { return this.spotifyWindow?.IsValid ?? false; } }
 
         public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
 
@@ -183,6 +159,8 @@ namespace Toastify.Core
 
             this.spotifyProcess.EnableRaisingEvents = true;
             this.spotifyProcess.Exited += this.Spotify_Exited;
+
+            this.spotifyWindow = new SpotifyWindow(this.spotifyProcess);
 
             //this.ConnectWithSpotify(e);
         }
@@ -578,37 +556,34 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher background worker
 
+        #region SpotifyWindow wrapper methods/properties
+
+        public bool IsMinimized
+        {
+            get { return this.spotifyWindow?.IsMinimized ?? false; }
+        }
+
+        public bool IsMinimizedToTray
+        {
+            get { return this.spotifyWindow?.IsMinimizedToTray ?? false; }
+        }
+
         public Task Minimize(int delay = 0)
         {
-            return Task.Run(async () =>
-            {
-                int timeout = 2000;
-                IntPtr hWnd;
-
-                do
-                {
-                    hWnd = this.GetMainWindowHandle();
-
-                    if (hWnd == IntPtr.Zero)
-                    {
-                        timeout -= 100;
-                        await Task.Delay(100);
-                    }
-                } while (hWnd == IntPtr.Zero && timeout > 0);
-
-                return hWnd;
-            }).ContinueWith(async hWndTask =>
-            {
-                IntPtr hWnd = await hWndTask;
-                if (hWnd != IntPtr.Zero)
-                {
-                    // We also need to wait a little more before minimizing the window;
-                    // if we don't, the toast will not show the current track until 'something' happens (track change, play state change...).
-                    await Task.Delay(delay);
-                    User32.ShowWindow(hWnd, ShowWindowCmd.SW_SHOWMINIMIZED);
-                }
-            });
+            return this.spotifyWindow?.Minimize(delay);
         }
+
+        public void ShowSpotify()
+        {
+            this.spotifyWindow?.Show();
+        }
+
+        private IntPtr GetMainWindowHandle()
+        {
+            return this.spotifyWindow?.Handle ?? IntPtr.Zero;
+        }
+
+        #endregion
 
         public void Kill()
         {
@@ -627,68 +602,6 @@ namespace Toastify.Core
                 this.localAPI.Dispose();
             }
             catch { /* ignore */ }
-        }
-
-        public void ShowSpotify()
-        {
-            if (this.IsRunning)
-            {
-                var hWnd = this.GetMainWindowHandle();
-
-                // check Spotify's current window state
-                var placement = new WindowPlacement();
-                User32.GetWindowPlacement(hWnd, ref placement);
-
-                var showCommand = ShowWindowCmd.SW_SHOW;
-                if (placement.showCmd == ShowWindowCmd.SW_SHOWMINIMIZED || placement.showCmd == ShowWindowCmd.SW_HIDE)
-                    showCommand = ShowWindowCmd.SW_RESTORE;
-
-                if (this.IsMinimizedToTray)
-                {
-                    // TODO: Restore Spotify if minimized to the tray.
-
-                    return;
-
-                    //IntPtr renderWindowHandle = Win32API.GetProcessWindows((uint)this.spotifyProcess.Id, "Chrome_WidgetWin_0")
-                    //                                    .Select(Win32API.GetChildWindows)
-                    //                                    .SingleOrDefault(children => children != null && children.Any(h => Win32API.GetClassName(h) == "Chrome_RenderWidgetHostHWND"))
-                    //                                   ?.SingleOrDefault() ?? IntPtr.Zero;
-
-                    //Win32API.ShowWindow(hWnd, showCommand);
-                    //if (renderWindowHandle != IntPtr.Zero)
-                    //{
-                    //    IntPtr parent = Win32API.GetParent(renderWindowHandle);
-                    //    if (parent != hWnd)
-                    //    {
-                    //        Win32API.SetParent(renderWindowHandle, hWnd);
-                    //        Win32API.SendWindowMessage(renderWindowHandle, Win32API.WindowsMessagesFlags.WM_CHILDACTIVATE, IntPtr.Zero, IntPtr.Zero);
-                    //        Win32API.ShowWindow(renderWindowHandle, Win32API.ShowWindowCmd.SW_SHOW);
-                    //        Win32API.ShowWindow(renderWindowHandle, Win32API.ShowWindowCmd.SW_RESTORE);
-
-                    //        IntPtr hDC = Win32API.GetDC(renderWindowHandle);
-                    //        Win32API.SendWindowMessage(renderWindowHandle, Win32API.WindowsMessagesFlags.WM_ERASEBKGND, hDC, IntPtr.Zero);
-                    //        Win32API.ReleaseDC(renderWindowHandle, hDC);
-
-                    //        Win32API.UpdateWindow(renderWindowHandle);
-                    //    }
-                    //    else
-                    //        Win32API.AddVisibleWindowStyle(renderWindowHandle);
-                    //}
-                }
-                else
-                    User32.ShowWindow(hWnd, showCommand);
-
-                User32.SetForegroundWindow(hWnd);
-                User32.SetFocus(hWnd);
-            }
-        }
-
-        private IntPtr GetMainWindowHandle()
-        {
-            if (this.spotifyProcess == null)
-                this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
-
-            return this.spotifyProcess == null ? IntPtr.Zero : ToastifyAPI.Spotify.GetMainWindowHandle(unchecked((uint)this.spotifyProcess.Id));
         }
 
         public void SendAction(ToastifyActionEnum action)
