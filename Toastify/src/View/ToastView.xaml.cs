@@ -246,7 +246,8 @@ namespace Toastify.View
             this.Title2.FontSize = this.Settings.ToastTitle2FontSize;
 
             // [ SONG PROGRESS BAR ]
-            this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            //this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            this.SongProgressBar.Visibility = Visibility.Hidden;
             this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarBackgroundColor));
             this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
             this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
@@ -1234,7 +1235,8 @@ namespace Toastify.View
                 switch (e.PropertyName)
                 {
                     case nameof(this.Settings.ShowSongProgressBar):
-                        this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+                        //this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+                        this.SongProgressBar.Visibility = Visibility.Hidden;
                         break;
 
                     case nameof(this.Settings.ToastTitlesOrder):
