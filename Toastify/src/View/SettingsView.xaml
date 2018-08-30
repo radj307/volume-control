@@ -190,7 +190,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Toast" Name="TabToast" Visibility="Collapsed">
+            <TabItem Header="Toast" Name="TabToast">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
                               Content="Disable Toast" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
