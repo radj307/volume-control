@@ -235,8 +235,8 @@ namespace Toastify.Core
                 // Terminate Toastify
                 App.Terminate();
             }
-            else
-                this.Spotify_Connected(this, new SpotifyStateEventArgs(this.Status));
+            //else
+            //    this.Spotify_Connected(this, new SpotifyStateEventArgs(this.Status));
 
             this.DisposeSpotifyLauncher();
             this.DisposeSpotifyLauncherTimeoutTimer();
@@ -831,7 +831,32 @@ namespace Toastify.Core
             this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
 
             if (this.spotifyWindow.IsValid)
+            {
                 this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
+
+                // Fake the Connected event
+                string currentTitle = this.spotifyWindow.Title;
+                SpotifyStateEventArgs spotifyStateEventArgs = null;
+
+                if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                    spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
+                else
+                {
+                    string[] titleElements = currentTitle.Split('-');
+                    if (titleElements.Length != 2)
+                    {
+                        // TODO: Handle unexpected title format
+                    }
+                    else
+                    {
+                        this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                        spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
+                    }
+                }
+
+                if (spotifyStateEventArgs != null)
+                    this.Connected?.Invoke(this, spotifyStateEventArgs);
+            }
             else
             {
                 string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
