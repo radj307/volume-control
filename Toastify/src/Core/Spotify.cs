@@ -17,10 +17,12 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
+using ToastifyAPI.Events;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
+using SpotifyTrackChangedEventArgs = Toastify.Events.SpotifyTrackChangedEventArgs;
 
 namespace Toastify.Core
 {
@@ -69,7 +71,10 @@ namespace Toastify.Core
 
         #region Public Properties
 
-        public bool IsRunning { get { return this.spotifyWindow?.IsValid ?? false; } }
+        public bool IsRunning
+        {
+            get { return this.spotifyWindow?.IsValid ?? false; }
+        }
 
         public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
 
@@ -151,7 +156,9 @@ namespace Toastify.Core
 
         private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
         {
-            this.spotifyProcess = !this.IsRunning ? this.LaunchSpotifyAndWaitForInputIdle(e) : ToastifyAPI.Spotify.FindSpotifyProcess();
+            var process = ToastifyAPI.Spotify.FindSpotifyProcess();
+            this.spotifyProcess = !this.IsRunning && process == null ? this.LaunchSpotifyAndWaitForInputIdle(e) : process;
+
             if (e.Cancel)
                 return;
             if (this.spotifyProcess == null)
@@ -161,6 +168,7 @@ namespace Toastify.Core
             this.spotifyProcess.Exited += this.Spotify_Exited;
 
             this.spotifyWindow = new SpotifyWindow(this.spotifyProcess);
+            this.spotifyWindow.InitializationFinished += this.SpotifyWindow_InitializationFinished;
 
             //this.ConnectWithSpotify(e);
         }
@@ -816,6 +824,47 @@ namespace Toastify.Core
         private void Spotify_Connected(object sender, SpotifyStateEventArgs e)
         {
             this.Connected?.Invoke(sender, e);
+        }
+
+        private void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
+        {
+            this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
+
+            if (this.spotifyWindow.IsValid)
+                this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
+            else
+            {
+                string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
+                logger.Error($"Couldn't find Spotify's window: {logError}");
+
+                string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
+                MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                App.Terminate();
+            }
+        }
+
+        private void SpotifyWindowTitleWatcher_TitleChanged(object sender, WindowTitleChangedEventArgs e)
+        {
+            if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
+            else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
+            else
+            {
+                string[] oldTitleElements = e.OldTitle.Split('-');
+                string[] newTitleElements = e.NewTitle.Split('-');
+                if (oldTitleElements.Length != 2 || newTitleElements.Length != 2)
+                {
+                    // TODO: Handle unexpected title format
+                }
+                else
+                {
+                    Song oldSong = this.CurrentSong;
+                    this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                    this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(oldSong, this.CurrentSong));
+                }
+            }
         }
 
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)

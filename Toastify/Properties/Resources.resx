@@ -237,4 +237,8 @@ The host address "open.spotify.com" might have been redirected by the client. Ch
     <value>Couldn't find Spotify executable.
 Try to start Spotify manually before launching Toastify.</value>
   </data>
+  <data name="ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND" xml:space="preserve">
+    <value>Couldn't find Spotify main window.
+Try to start Spotify manually before launching Toastify.</value>
+  </data>
 </root>

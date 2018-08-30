@@ -11,6 +11,7 @@ namespace Toastify.Core
 {
     public class SpotifyWindow
     {
+        public const string PAUSED_TITLE = "Spotify";
         private const int GET_WINDOW_HANDLE_TIMEOUT = 2000;
 
         private readonly Process process;
