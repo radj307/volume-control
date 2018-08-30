@@ -37,7 +37,7 @@
                               Content="Close Spotify when Toastify is closed" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,84,0,0" Height="26">
                         <TextBlock x:Name="LabelVolumeControlMode" VerticalAlignment="Center">Volume control mode:</TextBlock>
-                        <ComboBox Name="ComboVolumeControlMode" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="260" IsEditable="False"
+                        <ComboBox Name="ComboVolumeControlMode" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="235" IsEditable="False"
                                   SelectionChanged="ComboVolumeControlMode_OnSelectionChanged" Initialized="ComboBox_OnInitialized"
                                   AutomationProperties.Name="Volume control mode" AutomationProperties.LabeledBy="{Binding ElementName=LabelVolumeControlMode}"
                                   AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
@@ -45,7 +45,7 @@
                                   SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                    <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
                                                AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -238,7 +238,7 @@
                                               SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                                <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
                                                            AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
