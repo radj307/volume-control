@@ -6,6 +6,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using log4net;
 using Microsoft.Win32;
+using NativeWindows = ToastifyAPI.Native.Windows;
 
 namespace ToastifyAPI
 {
@@ -71,7 +72,7 @@ namespace ToastifyAPI
 
             if (windowedProcesses.Count > 1)
             {
-                IEnumerable<string> classNames = windowedProcesses.Select(p => $"\"{Native.Windows.GetClassName(p.MainWindowHandle)}\"");
+                IEnumerable<string> classNames = windowedProcesses.Select(p => $"\"{NativeWindows.GetClassName(p.MainWindowHandle)}\"");
                 logger.Warn($"More than one ({windowedProcesses.Count}) \"spotify\" process has a non-null main window: {string.Join(", ", classNames)}");
             }
 
@@ -96,17 +97,17 @@ namespace ToastifyAPI
             if (pid == 0)
                 return IntPtr.Zero;
 
-            List<IntPtr> windows = Native.Windows.GetProcessWindows(pid);
+            List<IntPtr> windows = NativeWindows.GetProcessWindows(pid);
             List<IntPtr> possibleMainWindows = windows.Where(h =>
             {
-                string className = Native.Windows.GetClassName(h);
-                string windowName = Native.Windows.GetWindowTitle(h);
+                string className = NativeWindows.GetClassName(h);
+                string windowName = NativeWindows.GetWindowTitle(h);
                 return !string.IsNullOrWhiteSpace(windowName) && spotifyMainWindowNames.Contains(className);
             }).ToList();
 
             if (possibleMainWindows.Count > 1)
             {
-                IEnumerable<string> classNames = possibleMainWindows.Select(h => $"\"{Native.Windows.GetClassName(h)}\"");
+                IEnumerable<string> classNames = possibleMainWindows.Select(h => $"\"{NativeWindows.GetClassName(h)}\"");
                 logger.Warn($"More than one ({possibleMainWindows.Count}) possible main windows located for Spotify: {string.Join(", ", classNames)}");
             }
 
@@ -115,8 +116,8 @@ namespace ToastifyAPI
 
         public static bool IsMainSpotifyProcess(uint pid)
         {
-            List<IntPtr> windows = Native.Windows.GetProcessWindows(pid);
-            IntPtr hWnd = windows.FirstOrDefault(h => spotifyMainWindowNames.Contains(Native.Windows.GetClassName(h)));
+            List<IntPtr> windows = NativeWindows.GetProcessWindows(pid);
+            IntPtr hWnd = windows.FirstOrDefault(h => spotifyMainWindowNames.Contains(NativeWindows.GetClassName(h)));
             return hWnd != IntPtr.Zero;
         }
 

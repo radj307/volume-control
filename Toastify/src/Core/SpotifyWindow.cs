@@ -5,6 +5,7 @@ using ToastifyAPI.Common;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
+using NativeWindows = ToastifyAPI.Native.Windows;
 
 namespace Toastify.Core
 {
@@ -20,7 +21,7 @@ namespace Toastify.Core
 
         public string Title
         {
-            get { return !this.IsValid ? null : Windows.GetWindowTitle(this.Handle); }
+            get { return !this.IsValid ? null : NativeWindows.GetWindowTitle(this.Handle); }
         }
 
         public bool IsValid
@@ -40,7 +41,7 @@ namespace Toastify.Core
                 if (!this.IsValid)
                     return false;
 
-                var windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(this.Handle, GWL.GWL_STYLE);
+                var windowStyles = (WindowStylesFlags)NativeWindows.GetWindowLongPtr(this.Handle, GWL.GWL_STYLE);
                 return (windowStyles & WindowStylesFlags.WS_MINIMIZE) != 0L || this.IsMinimizedToTray;
             }
         }
@@ -52,7 +53,7 @@ namespace Toastify.Core
                 if (!this.IsValid)
                     return false;
 
-                var windowStyles = (WindowStylesFlags)Windows.GetWindowLongPtr(this.Handle, GWL.GWL_STYLE);
+                var windowStyles = (WindowStylesFlags)NativeWindows.GetWindowLongPtr(this.Handle, GWL.GWL_STYLE);
                 return (windowStyles & WindowStylesFlags.WS_MINIMIZE) == 0L && (windowStyles & WindowStylesFlags.WS_VISIBLE) == 0L;
             }
         }
@@ -108,10 +109,10 @@ namespace Toastify.Core
 
                 return;
 
-                //IntPtr renderWindowHandle = Windows.GetProcessWindows((uint)this.process.Id, "Chrome_WidgetWin_0")
-                //                                    .Select(Windows.GetChildWindows)
-                //                                    .SingleOrDefault(children => children != null && children.Any(h => Windows.GetClassName(h) == "Chrome_RenderWidgetHostHWND"))
-                //                                   ?.SingleOrDefault() ?? IntPtr.Zero;
+                //IntPtr renderWindowHandle = NativeWindows.GetProcessWindows((uint)this.process.Id, "Chrome_WidgetWin_0")
+                //                                         .Select(NativeWindows.GetChildWindows)
+                //                                         .SingleOrDefault(children => children != null && children.Any(h => NativeWindows.GetClassName(h) == "Chrome_RenderWidgetHostHWND"))
+                //                                         ?.SingleOrDefault() ?? IntPtr.Zero;
 
                 //User32.ShowWindow(this.hWnd, showCommand);
                 //if (renderWindowHandle != IntPtr.Zero)
@@ -120,18 +121,18 @@ namespace Toastify.Core
                 //    if (parent != this.hWnd)
                 //    {
                 //        User32.SetParent(renderWindowHandle, this.hWnd);
-                //        Windows.SendWindowMessage(renderWindowHandle, WindowsMessagesFlags.WM_CHILDACTIVATE, IntPtr.Zero, IntPtr.Zero);
+                //        NativeWindows.SendWindowMessage(renderWindowHandle, WindowsMessagesFlags.WM_CHILDACTIVATE, IntPtr.Zero, IntPtr.Zero);
                 //        User32.ShowWindow(renderWindowHandle, ShowWindowCmd.SW_SHOW);
                 //        User32.ShowWindow(renderWindowHandle, ShowWindowCmd.SW_RESTORE);
 
                 //        IntPtr hDC = User32.GetDC(renderWindowHandle);
-                //        Windows.SendWindowMessage(renderWindowHandle, WindowsMessagesFlags.WM_ERASEBKGND, hDC, IntPtr.Zero);
+                //        NativeWindows.SendWindowMessage(renderWindowHandle, WindowsMessagesFlags.WM_ERASEBKGND, hDC, IntPtr.Zero);
                 //        User32.ReleaseDC(renderWindowHandle, hDC);
 
                 //        User32.UpdateWindow(renderWindowHandle);
                 //    }
                 //    else
-                //        Windows.AddVisibleWindowStyle(renderWindowHandle);
+                //        NativeWindows.AddVisibleWindowStyle(renderWindowHandle);
                 //}
             }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 using ToastifyAPI.Events;
-using ToastifyAPI.Native;
+using NativeWindows = ToastifyAPI.Native.Windows;
 
 namespace ToastifyAPI.Common
 {
@@ -65,7 +65,7 @@ namespace ToastifyAPI.Common
                 throw new ArgumentException($"{nameof(hWnd)} is null", nameof(hWnd));
 
             this.hWnd = hWnd;
-            this.CurrentTitle = Windows.GetWindowTitle(this.hWnd);
+            this.CurrentTitle = NativeWindows.GetWindowTitle(this.hWnd);
         }
 
         private void AttachTimer()
@@ -92,7 +92,7 @@ namespace ToastifyAPI.Common
 
         private void CheckTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            string title = Windows.GetWindowTitle(this.hWnd);
+            string title = NativeWindows.GetWindowTitle(this.hWnd);
             if (!string.Equals(this.CurrentTitle, title, StringComparison.CurrentCulture))
                 this.OnTitleChanged(this.CurrentTitle, title);
 
