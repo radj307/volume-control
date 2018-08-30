@@ -151,10 +151,6 @@ namespace Toastify.Model
 
         public void Dispatch(IHotkeyVisitor hotkeyVisitor)
         {
-            // TODO: TEMPORARY FIX: Never show the toast on demand!
-            if (this.Action is ToastifyShowToast)
-                return;
-
             logger.DebugExt($"Hotkey dispatched: {this.HumanReadableAction}");
             this.DispatchInternal(hotkeyVisitor);
         }
@@ -164,7 +160,6 @@ namespace Toastify.Model
         public object Clone()
         {
             var clone = (Hotkey)this.MemberwiseClone();
-            clone.Action = this.Action?.Clone() as IAction;
 
             // Regardless of whether or not the original hotkey was active,
             // the cloned one should not start in an active state.

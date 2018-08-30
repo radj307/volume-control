@@ -173,6 +173,7 @@
     <Compile Include="src\Core\HotkeyType.cs" />
     <Compile Include="src\Core\ProxyConfigAdapter.cs" />
     <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
+    <Compile Include="src\Core\SpotifyWindow.cs" />
     <Compile Include="src\Core\UpdateDeliveryMode.cs" />
     <Compile Include="src\Core\VersionCheckFrequency.cs" />
     <Compile Include="src\CustomMessageBox.cs" />

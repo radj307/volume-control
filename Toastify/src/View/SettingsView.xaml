@@ -37,7 +37,7 @@
                               Content="Close Spotify when Toastify is closed" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,84,0,0" Height="26">
                         <TextBlock x:Name="LabelVolumeControlMode" VerticalAlignment="Center">Volume control mode:</TextBlock>
-                        <ComboBox Name="ComboVolumeControlMode" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="260" IsEditable="False"
+                        <ComboBox Name="ComboVolumeControlMode" VerticalContentAlignment="Center" Margin="6,0,0,0" Width="235" IsEditable="False"
                                   SelectionChanged="ComboVolumeControlMode_OnSelectionChanged" Initialized="ComboBox_OnInitialized"
                                   AutomationProperties.Name="Volume control mode" AutomationProperties.LabeledBy="{Binding ElementName=LabelVolumeControlMode}"
                                   AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
@@ -45,7 +45,7 @@
                                   SelectedValue="{Binding Path=Settings.VolumeControlMode, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                    <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
                                                AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -190,7 +190,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Toast" Name="TabToast" Visibility="Collapsed">
+            <TabItem Header="Toast" Name="TabToast">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <CheckBox Height="21" IsChecked="{Binding Path=Settings.DisableToast, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
                               Content="Disable Toast" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
@@ -210,7 +210,7 @@
                                 <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
                                           IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center"
                                           Content="Disable Toast when a fullscreen videogame is running" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
-                                <CheckBox Height="21" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                                <CheckBox Height="21" IsEnabled="False" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
                                           Content="Show song progress bar" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
 
                                 <!-- Display Time -->
@@ -238,7 +238,7 @@
                                               SelectedValue="{Binding Path=Settings.ToastTitlesOrder, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" SelectedValuePath="Value">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Width="195" d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
+                                                <TextBlock d:DataContext="{d:DesignInstance Type=common:EnumComboBoxItem}" Text="{Binding Path=Description}" ToolTip="{Binding Path=Tooltip}"
                                                            AutomationProperties.Name="{Binding Path=Description}" AutomationProperties.HelpText="{Binding Path=Tooltip, TargetNullValue=''}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>

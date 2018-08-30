@@ -158,6 +158,16 @@ namespace Toastify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t find Spotify main window.
+        ///Try to start Spotify manually before launching Toastify..
+        /// </summary>
+        internal static string ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unknown error occurred when trying to start Spotify..
         /// </summary>
         internal static string ERROR_UNKNOWN {

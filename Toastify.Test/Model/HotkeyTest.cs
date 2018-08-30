@@ -23,10 +23,12 @@ namespace Toastify.Tests.Model
             this.action = A.Fake<IAction>();
             A.CallTo(() => this.action.Name).Returns("Fake Action");
             A.CallTo(() => this.action.PerformAction()).DoesNothing();
+            A.CallTo(() => this.action.Equals(this.action)).Returns(true);
 
             this.actionClone = A.Fake<IAction>();
             A.CallTo(() => this.actionClone.Name).Returns("Fake Action");
             A.CallTo(() => this.actionClone.PerformAction()).DoesNothing();
+            A.CallTo(() => this.actionClone.Equals(this.actionClone)).Returns(true);
 
             A.CallTo(() => this.action.Equals(this.actionClone)).Returns(true);
             A.CallTo(() => this.actionClone.Equals(this.action)).Returns(true);
@@ -125,7 +127,7 @@ namespace Toastify.Tests.Model
 
                 Assert.That(hotkeyClone.Active, Is.False);
                 if (hotkeyClone.Action != null)
-                    Assert.That(hotkeyClone.Action, Is.Not.SameAs(this.fakeHotkey.Action));
+                    Assert.That(hotkeyClone.Action, Is.SameAs(this.fakeHotkey.Action)); // Actions should be the same
             });
         }
 

@@ -25,6 +25,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Toastify.Common;
 using Toastify.Core;
+using Toastify.DI;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -118,6 +119,9 @@ namespace Toastify.View
 
         internal List<IPluginBase> Plugins { get; set; }
 
+        [PropertyDependency]
+        public IToastifyActionRegistry ActionRegistry { get; set; }
+
         #region Events
 
         public event EventHandler Started;
@@ -129,6 +133,7 @@ namespace Toastify.View
         public ToastView()
         {
             this.InitializeComponent();
+            App.Container.BuildUp(this);
 
             this.toastViewModel = new ToastViewModel();
             this.toastViewModel.PropertyChanged += this.ToastViewModel_PropertyChanged;
@@ -184,6 +189,10 @@ namespace Toastify.View
             VersionChecker.Instance.CheckVersionComplete -= this.VersionChecker_CheckVersionComplete;
             VersionChecker.Instance.CheckVersionComplete += this.VersionChecker_CheckVersionComplete;
 
+            // Subscribe to actions' events
+            var playPauseAction = this.ActionRegistry.GetAction(ToastifyActionEnum.PlayPause);
+            playPauseAction.ActionPerformed += this.ActionPlayPause_ActionPerformed;
+
             this.IsInitComplete = true;
         }
 
@@ -237,7 +246,8 @@ namespace Toastify.View
             this.Title2.FontSize = this.Settings.ToastTitle2FontSize;
 
             // [ SONG PROGRESS BAR ]
-            this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            //this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+            this.SongProgressBar.Visibility = Visibility.Hidden;
             this.SongProgressBarContainer.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarBackgroundColor));
             this.SongProgressBarLine.Background = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
             this.SongProgressBarLineEllipse.Fill = new SolidColorBrush(ColorHelper.HexToColor(this.Settings.SongProgressBarForegroundColor));
@@ -1145,10 +1155,7 @@ namespace Toastify.View
                 this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
 
             this.paused = !e.Playing;
-
-            // TODO: Only fade-in if the play state change was triggered by a hotkey.
-            //bool fadeIn = Hotkey.LastHotkey?.Action == ToastifyActionEnum.PlayPause;
-            //this.UpdateToastText(this.currentSong, fadeIn: fadeIn);
+            this.UpdateToastText(this.currentSong, fadeIn: false);
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)
@@ -1158,12 +1165,23 @@ namespace Toastify.View
 
         #endregion Event handlers [Spotify]
 
+        #region Event handlers [actions]
+
+        private void ActionPlayPause_ActionPerformed(object sender, EventArgs e)
+        {
+            // Try to fade-in if the play state change was triggered by a hotkey
+            // (depends on current Settings, specifically on OnlyShowToastOnHotkey)
+            this.ShowOrHideToast(keepUp: true);
+        }
+
+        #endregion
+
         #region Event handlers
 
         private void SettingsView_Launched(object sender, SettingsViewLaunchedEventArgs e)
         {
             this.Settings = e.Settings;
-            //this.ShowToastPreview(true);
+            this.ShowToastPreview(true);
         }
 
         private void SettingsView_Closed(object sender, EventArgs e)
@@ -1217,7 +1235,8 @@ namespace Toastify.View
                 switch (e.PropertyName)
                 {
                     case nameof(this.Settings.ShowSongProgressBar):
-                        this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+                        //this.SongProgressBar.Visibility = this.Settings.ShowSongProgressBar ? Visibility.Visible : Visibility.Hidden;
+                        this.SongProgressBar.Visibility = Visibility.Hidden;
                         break;
 
                     case nameof(this.Settings.ToastTitlesOrder):
