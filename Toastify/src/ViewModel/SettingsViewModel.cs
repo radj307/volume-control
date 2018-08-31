@@ -267,7 +267,8 @@ namespace Toastify.ViewModel
 
             lock (sender)
             {
-                if (e.PropertyName == nameof(Hotkey.InvalidReason))
+                if (e.PropertyName == nameof(Hotkey.InvalidReason) ||
+                    e.PropertyName == nameof(GenericHotkeyProxy.Type))
                 {
                     this.CheckIfHotkeyIsAlreadyInUse(hotkeyProxy);
                     this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
@@ -276,11 +277,15 @@ namespace Toastify.ViewModel
                 {
                     bool previousValid = hotkeyProxy.IsValid;
                     bool alreadyInUse = this.CheckIfHotkeyIsAlreadyInUse(hotkeyProxy);
+                    bool isValid = hotkeyProxy.IsValid;
 
-                    if (!alreadyInUse && !hotkeyProxy.IsValid)
+                    if (!alreadyInUse && !isValid)
+                    {
                         hotkeyProxy.Hotkey.SetIsValid(true, null);
+                        isValid = true;
+                    }
 
-                    if (hotkeyProxy.IsValid != previousValid)
+                    if (isValid != previousValid)
                         this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
                 }
             }

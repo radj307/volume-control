@@ -184,7 +184,7 @@
 
                             <Grid x:Name="HotkeyValidityGrid" Margin="0,86,0,0" VerticalAlignment="Top" Visibility="{Binding Path=IsValid, Converter={StaticResource OppositeBoolToVisibleConverter}}">
                                 <Image Width="32" Height="32" HorizontalAlignment="Left" Source="{Binding ElementName=GeneralGrid, Path=DataContext.WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
-                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Hotkey.InvalidReason}" TextWrapping="Wrap" AutomationProperties.AutomationId="WarningMessage" />
+                                <TextBlock Margin="40,0,0,0" VerticalAlignment="Center" Text="{Binding Path=InvalidReason}" TextWrapping="Wrap" AutomationProperties.AutomationId="WarningMessage" />
                             </Grid>
                         </Grid>
                     </Grid>

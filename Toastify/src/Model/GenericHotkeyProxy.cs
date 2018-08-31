@@ -64,7 +64,12 @@ namespace Toastify.Model
 
         public bool IsValid
         {
-            get { return this.Hotkey.IsValid(); }
+            get { return this.Hotkey?.IsValid() ?? false; }
+        }
+
+        public string InvalidReason
+        {
+            get { return this.Hotkey?.InvalidReason; }
         }
 
         public bool Alt
