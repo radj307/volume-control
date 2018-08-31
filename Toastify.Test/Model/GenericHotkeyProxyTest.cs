@@ -37,8 +37,22 @@ namespace Toastify.Tests.Model
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
+        [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.InvalidReasonTestCases))]
+        public void TestInvalidReason(Action test)
+        {
+            Test(test);
+        }
+
+        [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.SetActivatorTestCases))]
         public void TestSetActivator(Action test)
+        {
+            Test(test);
+        }
+
+        [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
+        [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.GetActivatorTestCases))]
+        public void TestGetActivator(Action test)
         {
             Test(test);
         }
@@ -290,6 +304,47 @@ namespace Toastify.Tests.Model
                 }
             }
 
+            public static IEnumerable InvalidReasonTestCases
+            {
+                get
+                {
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (Hotkey hotkey = new KeyboardHotkey(FakeAction) { Key = Key.Left, Modifiers = ModifierKeys.Control })
+                        {
+                            hotkey.SetIsValid(false, "Invalid");
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+                            Assert.That(genericHotkeyProxy.InvalidReason, Is.EqualTo(genericHotkeyProxy.Hotkey.InvalidReason));
+                        }
+                    })).SetName("Same as the underlying hotkey | SetIsValid(false)");
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (Hotkey hotkey = new KeyboardHotkey(FakeAction) { Key = Key.Left, Modifiers = ModifierKeys.Control })
+                        {
+                            hotkey.SetIsValid(true, string.Empty);
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+                            Assert.That(genericHotkeyProxy.InvalidReason, Is.EqualTo(genericHotkeyProxy.Hotkey.InvalidReason));
+                        }
+                    })).SetName("Same as the underlying hotkey | SetIsValid(true)");
+
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (Hotkey hotkey = new KeyboardHotkey(FakeAction) { Key = Key.Left, Modifiers = ModifierKeys.Control })
+                        {
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+                            genericHotkeyProxy.Hotkey.SetIsValid(false, "Invalid keayboard hotkey");
+
+                            genericHotkeyProxy.Type = HotkeyType.MouseHook;
+                            genericHotkeyProxy.Hotkey.SetIsValid(false, "Invalid mouse hotkey");
+                            Assert.That(genericHotkeyProxy.InvalidReason, Is.EqualTo("Invalid mouse hotkey"));
+
+                            genericHotkeyProxy.Type = HotkeyType.Keyboard;
+                            Assert.That(genericHotkeyProxy.InvalidReason, Is.EqualTo("Invalid keayboard hotkey"));
+                        }
+                    })).SetName("Changing HotkeyType doesn't transfer the invalid reason");
+                }
+            }
+
             public static IEnumerable SetActivatorTestCases
             {
                 get
@@ -417,6 +472,48 @@ namespace Toastify.Tests.Model
 #pragma warning restore IDE0017 // Simplify object initialization
                         }
                     })).SetName("HotkeyType.MouseHook | trying to set a Key doesn't cause any side-effect");
+                }
+            }
+
+            public static IEnumerable GetActivatorTestCases
+            {
+                get
+                {
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        var genericHotkeyProxy = new GenericHotkeyProxy();
+                        Assert.That(genericHotkeyProxy.GetActivator(), Is.Null);
+                    })).SetName("HotkeyType.Undefined");
+
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (Hotkey hotkey = new KeyboardHotkey(FakeAction) { Key = Key.Left, Modifiers = ModifierKeys.Control })
+                        {
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+                            var underlyingHotkey = genericHotkeyProxy.Hotkey as KeyboardHotkey;
+                            Assert.That(underlyingHotkey, Is.Not.Null);
+
+                            object activator = genericHotkeyProxy.GetActivator();
+                            Assert.That(activator, Is.Not.Null);
+                            Assert.That(activator, Is.TypeOf<Key?>().Or.TypeOf<Key>());
+                            Assert.That(activator, Is.EqualTo(underlyingHotkey.Key));
+                        }
+                    })).SetName("HotkeyType.Keyboard");
+
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (Hotkey hotkey = new MouseHookHotkey(FakeAction) { MouseButton = MouseAction.XButton1, Modifiers = ModifierKeys.Control })
+                        {
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+                            var underlyingHotkey = genericHotkeyProxy.Hotkey as MouseHookHotkey;
+                            Assert.That(underlyingHotkey, Is.Not.Null);
+
+                            object activator = genericHotkeyProxy.GetActivator();
+                            Assert.That(activator, Is.Not.Null);
+                            Assert.That(activator, Is.TypeOf<MouseAction?>().Or.TypeOf<MouseAction>());
+                            Assert.That(activator, Is.EqualTo(underlyingHotkey.MouseButton));
+                        }
+                    })).SetName("HotkeyType.MouseHook");
                 }
             }
 

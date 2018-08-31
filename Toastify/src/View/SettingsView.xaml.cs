@@ -125,8 +125,8 @@ namespace Toastify.View
         {
             if (nCode >= 0)
             {
-                if (Processes.IsCurrentProcessFocused() && this.TxtSingleKey.IsFocused &&
-                    this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+                if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy &&
+                    this.TxtSingleKey.IsFocused && Processes.IsCurrentProcessFocused())
                 {
                     bool validButton = false;
                     MouseAction mouseAction = 0;
@@ -162,19 +162,42 @@ namespace Toastify.View
                             mouseAction = MouseAction.MWheelDown;
                         }
                     }
-
-                    // TODO: Fix StackOverflowException when changing type of hotkey from KeyboardHotkey
+                    
                     if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
-                    {
-                        this.TxtSingleKey.Text = mouseAction.ToString();
-
-                        hotkeyProxy.Type = HotkeyType.MouseHook;
-                        hotkeyProxy.SetActivator(mouseAction);
-                    }
+                        this.UpdateHotkeyActivator(hotkeyProxy, HotkeyType.MouseHook, mouseAction, mouseAction.ToString());
                 }
             }
 
             return User32.CallNextHookEx(this.hHook, nCode, wParam, lParam);
+        }
+
+        private void UpdateHotkeyActivator(GenericHotkeyProxy hotkeyProxy, HotkeyType newHotkeyType, object newActivator, string text)
+        {
+            this.TxtSingleKey.Text = text;
+
+            // This should be called before changing the hotkey type; otherwise, it will return the Key/MouseAction
+            // used by the previous *keyboard/mouse hotkey* instead of the activator used by the previous *generic hotkey*.
+            // This doesn't make any difference if we are not changing hotkey type.
+            object previousActivator = hotkeyProxy.GetActivator();
+            HotkeyType previousType = hotkeyProxy.Type;
+
+            hotkeyProxy.Type = newHotkeyType;
+            hotkeyProxy.SetActivator(newActivator);
+
+            // Check every hotkey's validity again in case one of them has been set to use
+            // the same activator this hotkey was previously using.
+            var hotkeys = this.settingsViewModel.Hotkeys;
+            foreach (var hp in hotkeys)
+            {
+                if (hp == hotkeyProxy)
+                    continue;
+
+                if (hp.IsAlreadyInUseBy(hotkeyProxy.Hotkey.Modifiers, previousType, previousActivator) && !previousActivator.Equals(hotkeyProxy.GetActivator()))
+                {
+                    if (!this.settingsViewModel.CheckIfHotkeyIsAlreadyInUse(hp))
+                        hp.Hotkey.SetIsValid(true, null);
+                }
+            }
         }
 
         #region Static Members
@@ -288,12 +311,8 @@ namespace Toastify.View
                     return;
                 }
 
+                this.UpdateHotkeyActivator(hotkeyProxy, HotkeyType.Keyboard, key, key.ToString());
                 e.Handled = true;
-
-                this.TxtSingleKey.Text = key.ToString();
-
-                hotkeyProxy.Type = HotkeyType.Keyboard;
-                hotkeyProxy.SetActivator(key);
             }
         }
 

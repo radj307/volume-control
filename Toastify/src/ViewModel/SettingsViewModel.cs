@@ -239,7 +239,7 @@ namespace Toastify.ViewModel
                 this.Settings.SaveTrackToFilePath = dialog.FileName;
         }
 
-        private bool CheckIfHotkeyIsAlreadyInUse(GenericHotkeyProxy hotkeyProxy)
+        public bool CheckIfHotkeyIsAlreadyInUse(GenericHotkeyProxy hotkeyProxy)
         {
             int i = 0;
             bool alreadyInUse = false;

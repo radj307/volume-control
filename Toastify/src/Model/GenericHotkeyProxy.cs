@@ -185,15 +185,38 @@ namespace Toastify.Model
             }
         }
 
+        /// <summary>
+        ///     Get the hotkey's activator, i.e. the key or mouse button that activates the hotkey.
+        /// </summary>
+        public object GetActivator()
+        {
+            switch (this.Type)
+            {
+                case HotkeyType.Keyboard:
+                    return this.keyboardHotkey?.Key;
+
+                case HotkeyType.MouseHook:
+                    return this.mouseHookHotkey?.MouseButton;
+
+                default:
+                    // ignore
+                    break;
+            }
+
+            return null;
+        }
+
         public bool IsAlreadyInUseBy(GenericHotkeyProxy hotkeyProxy)
         {
-            if (hotkeyProxy == null)
-                return false;
+            return hotkeyProxy != null && this.IsAlreadyInUseBy(hotkeyProxy.Hotkey.Modifiers, hotkeyProxy.Type, hotkeyProxy.GetActivator());
+        }
 
-            return this.Hotkey.Modifiers == hotkeyProxy.Hotkey.Modifiers &&
-                   this.Type == hotkeyProxy.Type &&
-                   (this.Type == HotkeyType.Keyboard && this.keyboardHotkey.Key == hotkeyProxy.keyboardHotkey.Key ||
-                    this.Type == HotkeyType.MouseHook && this.mouseHookHotkey.MouseButton == hotkeyProxy.mouseHookHotkey.MouseButton);
+        public bool IsAlreadyInUseBy(ModifierKeys modifiers, HotkeyType type, object activator)
+        {
+            return this.Hotkey.Modifiers == modifiers &&
+                   this.Type == type &&
+                   (this.Type == HotkeyType.Keyboard && this.keyboardHotkey.Key == (activator as Key?) ||
+                    this.Type == HotkeyType.MouseHook && this.mouseHookHotkey.MouseButton == (activator as MouseAction?));
         }
 
         #region INotifyPropertyChanged
