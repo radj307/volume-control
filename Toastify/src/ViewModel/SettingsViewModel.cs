@@ -155,6 +155,11 @@ namespace Toastify.ViewModel
 
             // Save a clone of the preview settings
             this.Settings.Clone().SetAsCurrentAndSave();
+            foreach (var genericHotkeyProxy in this.Hotkeys)
+            {
+                genericHotkeyProxy.PropertyChanged -= this.GenericHotkeyProxy_PropertyChanged;
+            }
+
             this._hotkeys = null;
 
             this.SettingsSaved?.Invoke(this, new SettingsSavedEventArgs(this.Settings, this.Hotkeys));
@@ -234,14 +239,8 @@ namespace Toastify.ViewModel
                 this.Settings.SaveTrackToFilePath = dialog.FileName;
         }
 
-        private void GenericHotkeyProxy_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private bool CheckIfHotkeyIsAlreadyInUse(GenericHotkeyProxy hotkeyProxy)
         {
-            // An hotkey has been changed: check if it's valid
-            if (!(sender is GenericHotkeyProxy hotkeyProxy))
-                return;
-
-            bool previousValid = hotkeyProxy.IsValid;
-
             int i = 0;
             bool alreadyInUse = false;
             while (i < this.Hotkeys.Count && !alreadyInUse)
@@ -257,11 +256,34 @@ namespace Toastify.ViewModel
                 }
             }
 
-            if (!alreadyInUse && !hotkeyProxy.IsValid)
-                hotkeyProxy.Hotkey.SetIsValid(true, null);
+            return alreadyInUse;
+        }
 
-            if (hotkeyProxy.IsValid != previousValid)
-                this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
+        private void GenericHotkeyProxy_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // An hotkey has been changed: check if it's valid
+            if (!(sender is GenericHotkeyProxy hotkeyProxy))
+                return;
+
+            lock (sender)
+            {
+                if (e.PropertyName == nameof(Hotkey.InvalidReason))
+                {
+                    this.CheckIfHotkeyIsAlreadyInUse(hotkeyProxy);
+                    this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    bool previousValid = hotkeyProxy.IsValid;
+                    bool alreadyInUse = this.CheckIfHotkeyIsAlreadyInUse(hotkeyProxy);
+
+                    if (!alreadyInUse && !hotkeyProxy.IsValid)
+                        hotkeyProxy.Hotkey.SetIsValid(true, null);
+
+                    if (hotkeyProxy.IsValid != previousValid)
+                        this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
 
         #region Toast

@@ -168,12 +168,49 @@ namespace Toastify.Tests.Model
                             Assert.Multiple(() =>
                             {
                                 Assert.That(genericHotkeyProxy.Alt, Is.False);
-                                Assert.That(genericHotkeyProxy.Ctrl, Is.False);
-                                Assert.That(genericHotkeyProxy.Shift, Is.False);
+                                Assert.That(genericHotkeyProxy.Ctrl, Is.True);
+                                Assert.That(genericHotkeyProxy.Shift, Is.True);
                                 Assert.That(genericHotkeyProxy.Win, Is.False);
                             });
                         }
-                    })).SetName("get() | Changing HotkeyType doesn't transfer the modifiers to the other hotkey");
+                    })).SetName("get() | The underlying hotkeys share the same modifiers");
+
+                    yield return new TestCaseData(new Action(() =>
+                    {
+                        using (var hotkey = new KeyboardHotkey())
+                        {
+#pragma warning disable IDE0017 // Simplify object initialization
+                            // ReSharper disable once UseObjectOrCollectionInitializer
+                            var genericHotkeyProxy = new GenericHotkeyProxy(hotkey);
+
+                            genericHotkeyProxy.Alt = true;
+                            genericHotkeyProxy.Ctrl = true;
+                            genericHotkeyProxy.Shift = true;
+                            genericHotkeyProxy.Win = true;
+
+                            var kbHotkey = genericHotkeyProxy.Hotkey as IKeyboardHotkey;
+                            Assert.Multiple(() =>
+                            {
+                                Assert.That(kbHotkey, Is.Not.Null);
+                                Assert.That(kbHotkey.Modifiers.HasFlag(ModifierKeys.Alt));
+                                Assert.That(kbHotkey.Modifiers.HasFlag(ModifierKeys.Control));
+                                Assert.That(kbHotkey.Modifiers.HasFlag(ModifierKeys.Shift));
+                                Assert.That(kbHotkey.Modifiers.HasFlag(ModifierKeys.Windows));
+                            });
+
+                            genericHotkeyProxy.Type = HotkeyType.MouseHook;
+                            var mhHotkey = genericHotkeyProxy.Hotkey as IMouseHookHotkey;
+                            Assert.Multiple(() =>
+                            {
+                                Assert.That(mhHotkey, Is.Not.Null);
+                                Assert.That(mhHotkey.Modifiers.HasFlag(ModifierKeys.Alt));
+                                Assert.That(mhHotkey.Modifiers.HasFlag(ModifierKeys.Control));
+                                Assert.That(mhHotkey.Modifiers.HasFlag(ModifierKeys.Shift));
+                                Assert.That(mhHotkey.Modifiers.HasFlag(ModifierKeys.Windows));
+                            });
+#pragma warning restore IDE0017 // Simplify object initialization
+                        }
+                    })).SetName("set() | Changing a modifier changes it for every underlying hotkey");
 
                     yield return new TestCaseData(new Action(() =>
                     {
