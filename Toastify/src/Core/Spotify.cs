@@ -871,15 +871,21 @@ namespace Toastify.Core
 
         private void SpotifyWindowTitleWatcher_TitleChanged(object sender, WindowTitleChangedEventArgs e)
         {
+            bool updateSong = false;
             if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
                 this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
             else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
-            else
             {
-                string[] oldTitleElements = e.OldTitle.Split('-');
+                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
+                updateSong = this.CurrentSong == null;
+            }
+            else
+                updateSong = true;
+
+            if (updateSong)
+            {
                 string[] newTitleElements = e.NewTitle.Split('-');
-                if (oldTitleElements.Length != 2 || newTitleElements.Length != 2)
+                if (newTitleElements.Length != 2)
                 {
                     // TODO: Handle unexpected title format
                 }
