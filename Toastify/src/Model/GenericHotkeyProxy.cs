@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using Toastify.Core;
 using Toastify.Helpers;
+using ToastifyAPI.Model.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 
 namespace Toastify.Model
@@ -17,6 +19,15 @@ namespace Toastify.Model
         private readonly MouseHookHotkey mouseHookHotkey;
 
         private HotkeyType _hotkeyType;
+
+        #region Non-Public Properties
+
+        private List<Hotkey> ProxiedHotkeys
+        {
+            get { return new List<Hotkey> { this.keyboardHotkey, this.mouseHookHotkey }; }
+        }
+
+        #endregion
 
         #region Public Properties
 
@@ -62,9 +73,9 @@ namespace Toastify.Model
             set
             {
                 if (value)
-                    this.Hotkey.Modifiers |= ModifierKeys.Alt;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers |= ModifierKeys.Alt);
                 else
-                    this.Hotkey.Modifiers &= ~ModifierKeys.Alt;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers &= ~ModifierKeys.Alt);
             }
         }
 
@@ -74,9 +85,9 @@ namespace Toastify.Model
             set
             {
                 if (value)
-                    this.Hotkey.Modifiers |= ModifierKeys.Control;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers |= ModifierKeys.Control);
                 else
-                    this.Hotkey.Modifiers &= ~ModifierKeys.Control;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers &= ~ModifierKeys.Control);
             }
         }
 
@@ -86,9 +97,9 @@ namespace Toastify.Model
             set
             {
                 if (value)
-                    this.Hotkey.Modifiers |= ModifierKeys.Shift;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers |= ModifierKeys.Shift);
                 else
-                    this.Hotkey.Modifiers &= ~ModifierKeys.Shift;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers &= ~ModifierKeys.Shift);
             }
         }
 
@@ -98,9 +109,9 @@ namespace Toastify.Model
             set
             {
                 if (value)
-                    this.Hotkey.Modifiers |= ModifierKeys.Windows;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers |= ModifierKeys.Windows);
                 else
-                    this.Hotkey.Modifiers &= ~ModifierKeys.Windows;
+                    this.ProxiedHotkeys.ForEach(h => h.Modifiers &= ~ModifierKeys.Windows);
             }
         }
 
@@ -110,25 +121,25 @@ namespace Toastify.Model
         {
         }
 
-        public GenericHotkeyProxy(Hotkey hotkey)
+        public GenericHotkeyProxy(IHotkey hotkey)
         {
             if (hotkey is KeyboardHotkey kbdHotkey)
             {
                 this.Type = HotkeyType.Keyboard;
                 this.keyboardHotkey = new KeyboardHotkey(kbdHotkey);
-                this.mouseHookHotkey = new MouseHookHotkey();
+                this.mouseHookHotkey = new MouseHookHotkey(hotkey);
             }
             else if (hotkey is MouseHookHotkey mhHotkey)
             {
                 this.Type = HotkeyType.MouseHook;
-                this.keyboardHotkey = new KeyboardHotkey();
                 this.mouseHookHotkey = new MouseHookHotkey(mhHotkey);
+                this.keyboardHotkey = new KeyboardHotkey(hotkey);
             }
             else
             {
                 this.Type = HotkeyType.Undefined;
-                this.keyboardHotkey = new KeyboardHotkey();
-                this.mouseHookHotkey = new MouseHookHotkey();
+                this.keyboardHotkey = hotkey != null ? new KeyboardHotkey(hotkey) : new KeyboardHotkey();
+                this.mouseHookHotkey = hotkey != null ? new MouseHookHotkey(hotkey) : new MouseHookHotkey();
             }
 
             App.Container.BuildUp(this.keyboardHotkey, this.mouseHookHotkey);
@@ -137,11 +148,11 @@ namespace Toastify.Model
             this.mouseHookHotkey.PropertyChanged += this.MouseHookHotkey_PropertyChanged;
         }
 
-        public GenericHotkeyProxy(KeyboardHotkey keyboardHotkey) : this((Hotkey)keyboardHotkey)
+        public GenericHotkeyProxy(KeyboardHotkey keyboardHotkey) : this((IHotkey)keyboardHotkey)
         {
         }
 
-        public GenericHotkeyProxy(MouseHookHotkey mouseHookHotkey) : this((Hotkey)mouseHookHotkey)
+        public GenericHotkeyProxy(MouseHookHotkey mouseHookHotkey) : this((IHotkey)mouseHookHotkey)
         {
         }
 
