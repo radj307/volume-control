@@ -73,7 +73,14 @@ namespace Toastify
                     catch (Exception e)
                     {
                         Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
-                        File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
+                        try
+                        {
+                            File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}{Environment.NewLine}");
+                        }
+                        catch (Exception ee)
+                        {
+                            MessageBox.Show(ee.ToString(), "FATAL ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
 
                     logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
@@ -103,11 +110,15 @@ namespace Toastify
         {
             try
             {
+                if (args != null)
+                    File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  args: {string.Join(" ", args)}{Environment.NewLine}");
                 AppArgs = args != null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
             }
             catch (Exception e)
             {
+                File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.Message}{Environment.NewLine}");
                 logger.Warn("Invalid command-line arguments. Toastify will ignore them all.", e);
+
                 MessageBox.Show("Invalid command-line arguments. Toastify will ignore them all.", "Invalid arguments", MessageBoxButton.OK, MessageBoxImage.Warning);
                 AppArgs = new MainArgs();
             }
