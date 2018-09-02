@@ -1,4 +1,5 @@
-﻿using Toastify.Core;
+﻿using JetBrains.Annotations;
+using Toastify.Core;
 
 namespace Toastify.Model
 {
@@ -7,6 +8,7 @@ namespace Toastify.Model
     /// </summary>
     public interface IToastifyActionRegistry
     {
+        [CanBeNull]
         ToastifyAction GetAction(ToastifyActionEnum actionEnum);
     }
 }

@@ -46,7 +46,8 @@ namespace Toastify.Model
             {
                 var actionEnum = (ToastifyActionEnum)this.stringEnumConverter.ReadJson(reader, typeof(ToastifyActionEnum), ToastifyActionEnum.None, serializer);
                 ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(actionEnum);
-                App.Container.BuildUp(action);
+                if (action != null)
+                    App.Container.BuildUp(action);
                 return action;
             }
             catch (Exception e)
