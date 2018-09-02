@@ -184,7 +184,7 @@ namespace Toastify.Core
                         logger.Error("Error while starting Spotify.", applicationStartupException);
 
                         string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
-                        MessageBox.Show($"{errorMsg}\n{applicationStartupException.Message}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{errorMsg}{Environment.NewLine}{applicationStartupException.Message}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(applicationStartupException, true);
                     }
@@ -196,8 +196,8 @@ namespace Toastify.Core
                         string status = $"{webException.Status}";
                         if (webException.Status == WebExceptionStatus.ProtocolError)
                             status += $" ({(webException.Response as HttpWebResponse)?.StatusCode}, \"{(webException.Response as HttpWebResponse)?.StatusDescription}\")";
-                        string techDetails = $"Technical details: {webException.Message}\n{webException.HResult}, {status}";
-                        MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string techDetails = $"Technical details: {webException.Message}{Environment.NewLine}{webException.HResult}, {status}";
+                        MessageBox.Show($"{errorMsg}{Environment.NewLine}{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(webException, true);
                     }
@@ -206,8 +206,8 @@ namespace Toastify.Core
                         logger.Error("Unknown error while starting Spotify.", e.Error);
 
                         string errorMsg = Properties.Resources.ERROR_UNKNOWN;
-                        string techDetails = $"Technical Details: {e.Error.Message}\n{e.Error.StackTrace}";
-                        MessageBox.Show($"{errorMsg}\n{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string techDetails = $"Technical Details: {e.Error.Message}{Environment.NewLine}{e.Error.StackTrace}";
+                        MessageBox.Show($"{errorMsg}{Environment.NewLine}{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(e.Error, true);
                     }
@@ -221,7 +221,7 @@ namespace Toastify.Core
                     App.CallInSTAThread(() =>
                     {
                         choice = CustomMessageBox.ShowYesNo(
-                            $"{errorMsg}\nDo you need to set up or change your proxy details?\n\nToastify will terminate regardless of your choice.",
+                            $"{errorMsg}{Environment.NewLine}Do you need to set up or change your proxy details?{Environment.NewLine}{Environment.NewLine}Toastify will terminate regardless of your choice.",
                             "Toastify",
                             "Yes",  // Yes
                             "No",   // No
@@ -495,7 +495,7 @@ namespace Toastify.Core
                     App.CallInSTAThread(() =>
                     {
                         choice = CustomMessageBox.ShowYesNoCancel(
-                            $"Invalid proxy settings. {(errorCode != null ? $"Returned error code: {errorCode}" : "")}\nDo you want to retry?",
+                            $"Invalid proxy settings. {(errorCode != null ? $"Returned error code: {errorCode}" : "")}{Environment.NewLine}Do you want to retry?",
                             "Toastify",
                             "Retry",           // Yes
                             "Change settings", // No

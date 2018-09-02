@@ -5,7 +5,7 @@ namespace Toastify.Common
 {
     public class ConstraintFailedException : ApplicationException
     {
-        public ConstraintFailedException(Expression constraint) : base($"Constraint failed:\n    {constraint}\n")
+        public ConstraintFailedException(Expression constraint) : base($"Constraint failed:{Environment.NewLine}    {constraint}{Environment.NewLine}")
         {
         }
     }

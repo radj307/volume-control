@@ -414,7 +414,7 @@ namespace Toastify.Model
         {
             var sb = new StringBuilder();
             for (int i = 0; i < indentLevel; ++i)
-                sb.Append("\t");
+                sb.Append("    ");
             string indent = sb.ToString();
 
             sb.Clear();
@@ -425,7 +425,7 @@ namespace Toastify.Model
             {
                 object current = property.GetValue(Current);
                 if (property.PropertyType.GetInterfaces().Contains(typeof(ISettingValue)))
-                    sb.Append($"{indent}{property.Name}: {current}\n");
+                    sb.Append($"{indent}{property.Name}: {current}{Environment.NewLine}");
                 else
                 {
                     if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection)))
@@ -434,7 +434,7 @@ namespace Toastify.Model
                     if (property.PropertyType == typeof(ProxyConfigAdapter))
                     {
                         var proxy = (ProxyConfigAdapter)current;
-                        sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}\n");
+                        sb.Append($"{indent}{property.Name}: {proxy.ToString(true)}{Environment.NewLine}");
                     }
                 }
             }

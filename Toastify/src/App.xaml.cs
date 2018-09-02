@@ -73,7 +73,7 @@ namespace Toastify
                     catch (Exception e)
                     {
                         App.EmergencyLog(e);
-                        Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
+                        Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}{Environment.NewLine}");
                     }
 
                     logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
@@ -89,7 +89,7 @@ namespace Toastify
                     {
                         logger.Error("Unhandled exception while preparing to run.", e);
                         Analytics.TrackException(e);
-                        MessageBox.Show($"Unhandled exception while preparing to run.\n{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Unhandled exception while preparing to run.{Environment.NewLine}{e.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     RunApp();
@@ -715,7 +715,7 @@ namespace Toastify
         {
             logger.Error("Unhandled exception.", e.Exception);
             Analytics.TrackException(e.Exception);
-            MessageBox.Show($"Unhandled exception.\n{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Unhandled exception.{Environment.NewLine}{e.Exception.Message}", "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)

@@ -148,7 +148,7 @@ namespace Toastify.View
         private void Init()
         {
             if (logger.IsDebugEnabled)
-                logger.Debug($"Current Settings:\n{Settings.PrintSettings(2)}");
+                logger.Debug($"Current Settings:{Environment.NewLine}{Settings.PrintSettings(2)}");
 
             this.InitToast();
             this.InitTrayIcon();
@@ -191,7 +191,8 @@ namespace Toastify.View
 
             // Subscribe to actions' events
             var playPauseAction = this.ActionRegistry.GetAction(ToastifyActionEnum.PlayPause);
-            playPauseAction.ActionPerformed += this.ActionPlayPause_ActionPerformed;
+            if (playPauseAction != null)
+                playPauseAction.ActionPerformed += this.ActionPlayPause_ActionPerformed;
 
             this.IsInitComplete = true;
         }
@@ -897,8 +898,8 @@ namespace Toastify.View
                 StringBuilder sb = new StringBuilder();
                 List<string> strings = new List<string>();
 
-                sb.Append("Internal Info:\n");
-                sb.Append($"\thWnd[{this.WindowHandle}]\n");
+                sb.Append($"Internal Info:{Environment.NewLine}");
+                sb.Append($"\thWnd[{this.WindowHandle}]{Environment.NewLine}");
 
                 // minimizeTimer
                 strings.Clear();
@@ -909,7 +910,7 @@ namespace Toastify.View
                     strings.Add(this.minimizeTimer.Enabled ? "enabled" : "disabled");
                     strings.Add($"{this.minimizeTimer.Interval}");
                 }
-                sb.Append($"\tminimizeTimer: {string.Join(",", strings)}\n");
+                sb.Append($"\tminimizeTimer: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // track
                 strings.Clear();
@@ -917,7 +918,7 @@ namespace Toastify.View
                     strings.Add("null");
                 else
                     strings.Add(this.currentSong.IsValid() ? "valid" : "invalid");
-                sb.Append($"\ttrack: {string.Join(",", strings)}\n");
+                sb.Append($"\ttrack: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // state
                 strings.Clear();
@@ -926,7 +927,7 @@ namespace Toastify.View
                 strings.Add(this.dragging ? "dragging" : string.Empty);
                 strings.Add(this.paused ? "paused" : "playing");
                 strings.RemoveAll(string.IsNullOrWhiteSpace);
-                sb.Append($"\tstate: {string.Join(",", strings)}\n");
+                sb.Append($"\tstate: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // visibility
                 strings.Clear();
@@ -936,7 +937,7 @@ namespace Toastify.View
                 strings.Add(this.Topmost ? "topmost" : string.Empty);
                 strings.Add($"{{{wPlacement}}}");
                 strings.RemoveAll(string.IsNullOrWhiteSpace);
-                sb.Append($"\tvisibility: {string.Join(",", strings)}\n");
+                sb.Append($"\tvisibility: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // dispatcher
                 strings.Clear();
@@ -947,7 +948,7 @@ namespace Toastify.View
                     strings.Add(this.Dispatcher.HasShutdownStarted ? "shutdown-started" : string.Empty);
                     strings.RemoveAll(string.IsNullOrWhiteSpace);
                 }
-                sb.Append($"\tdispatcher: {string.Join(",", strings)}\n");
+                sb.Append($"\tdispatcher: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // settings
                 strings.Clear();
@@ -955,10 +956,10 @@ namespace Toastify.View
                 strings.Add(this.Settings.OnlyShowToastOnHotkey ? "only-show-toast-on-hotkey" : string.Empty);
                 strings.Add($"{this.Settings.DisplayTime}");
                 strings.RemoveAll(string.IsNullOrWhiteSpace);
-                sb.Append($"\tsettings: {string.Join(",", strings)}\n");
+                sb.Append($"\tsettings: {string.Join(",", strings)}{Environment.NewLine}");
 
                 string internalInfo = sb.ToString();
-                logger.Debug($"{internalInfo}\tStack Trace:\n{Environment.StackTrace}");
+                logger.Debug($"{internalInfo}\tStack Trace:{Environment.NewLine}{Environment.StackTrace}");
             }
         }
 
@@ -1006,7 +1007,7 @@ namespace Toastify.View
                         string visibility = $"visibility[{(this.ShownOrFading ? '1' : '0')}{(this.IsVisible ? '1' : '0')}{this.Visibility.ToString().Substring(0, 1)}{(this.Topmost ? '1' : '0')}, {{{wPlacement}}}]";
                         string dispatcher = $"dispatcher[{(this.Dispatcher == null ? "null" : $"{(this.Dispatcher.HasShutdownStarted ? '1' : '0')}")}]";
                         string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.DisplayTime}]";
-                        logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}\n  Stack Trace:\n{Environment.StackTrace}");
+                        logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}{Environment.NewLine}  Stack Trace:{Environment.NewLine}{Environment.StackTrace}");
                     }
 #endif
                     this.ShowOrHideToast(force: true);
