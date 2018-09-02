@@ -72,15 +72,8 @@ namespace Toastify
                     }
                     catch (Exception e)
                     {
+                        App.EmergencyLog(e);
                         Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}\n");
-                        try
-                        {
-                            File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}{Environment.NewLine}");
-                        }
-                        catch (Exception ee)
-                        {
-                            MessageBox.Show(ee.ToString(), "FATAL ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
                     }
 
                     logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
@@ -110,13 +103,11 @@ namespace Toastify
         {
             try
             {
-                if (args != null)
-                    File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  args: {string.Join(" ", args)}{Environment.NewLine}");
                 AppArgs = args != null && args.Length > 0 ? Args.Parse<MainArgs>(args) : new MainArgs();
             }
             catch (Exception e)
             {
-                File.AppendAllText(Path.Combine(App.LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e.Message}{Environment.NewLine}");
+                App.EmergencyLog(e);
                 logger.Warn("Invalid command-line arguments. Toastify will ignore them all.", e);
 
                 MessageBox.Show("Invalid command-line arguments. Toastify will ignore them all.", "Invalid arguments", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -506,15 +497,32 @@ namespace Toastify
         #region Static Fields and Properties
 
         private static readonly ProxyConfig noProxy = new ProxyConfig();
+        private static readonly string _applicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+        private static readonly string _localApplicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
 
-        // ReSharper disable once InconsistentNaming
         private static ProxyConfigAdapter _proxyConfig;
 
         public static WindsorContainer Container { get; private set; }
 
-        public static string ApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Toastify");
+        public static string ApplicationData
+        {
+            get
+            {
+                if (!Directory.Exists(_applicationData))
+                    Directory.CreateDirectory(_applicationData);
+                return _applicationData;
+            }
+        }
 
-        public static string LocalApplicationData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Toastify");
+        public static string LocalApplicationData
+        {
+            get
+            {
+                if (!Directory.Exists(_localApplicationData))
+                    Directory.CreateDirectory(_localApplicationData);
+                return _localApplicationData;
+            }
+        }
 
         public static CultureInfo UserUICulture { get; set; }
 
@@ -584,6 +592,28 @@ namespace Toastify
         }
 
         #region Static Members
+
+        public static void EmergencyLog(string logMessage)
+        {
+            if (string.IsNullOrWhiteSpace(logMessage))
+                return;
+
+            try
+            {
+                File.AppendAllText(Path.Combine(LocalApplicationData, "log.log"), $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {logMessage}{Environment.NewLine}");
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        public static void EmergencyLog(Exception exception)
+        {
+            if (string.IsNullOrWhiteSpace(exception?.Message))
+                return;
+            EmergencyLog(exception.ToString());
+        }
 
         public static void ShowConfigProxyDialog()
         {

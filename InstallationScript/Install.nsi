@@ -105,10 +105,14 @@ Section "${APPNAME} (required)"
   File "LICENSE"
   File "LICENSE-3RD-PARTY"
 
+  # Create directories in AppData
+  CreateDirectory "$APPDATA\Toastify"
+  CreateDirectory "$LOCALAPPDATA\Toastify"
+
   # Remove files belonging to old versions
   Delete "$INSTDIR\Garlic.dll"
   Delete "$INSTDIR\uninstall.exe"
-  
+
   # Write the uninstall keys for Windows
   WriteRegStr HKLM "${RegUninstallKey}" "DisplayName" "${APPNAME}"
   WriteRegStr HKLM "${RegUninstallKey}" "DisplayIcon" "$INSTDIR\Toastify.exe,0"
@@ -242,6 +246,11 @@ Function .onInit
 
   Pop $R1
   Pop $R0
+FunctionEnd
+
+Function un.onUninstSuccess
+  RMDir "$APPDATA\Toastify"
+  RMDir "$LOCALAPPDATA\Toastify"
 FunctionEnd
 
 Function LaunchApplication
