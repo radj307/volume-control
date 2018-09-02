@@ -184,15 +184,23 @@ namespace Toastify.View
             hotkeyProxy.Type = newHotkeyType;
             hotkeyProxy.SetActivator(newActivator);
 
-            // Check every hotkey's validity again in case one of them has been set to use
-            // the same activator this hotkey was previously using.
+            if (!previousActivator.Equals(hotkeyProxy.GetActivator()))
+            {
+                // Check every hotkey's validity again in case one of them has been set to use
+                // the same activator this hotkey was previously using.
+                this.VerifyHotkeysValidityAgainst(hotkeyProxy, null, previousType, previousActivator);
+            }
+        }
+
+        private void VerifyHotkeysValidityAgainst(GenericHotkeyProxy hotkeyProxy, ModifierKeys? previousModifiers, HotkeyType? previousType, object previousActivator)
+        {
             var hotkeys = this.settingsViewModel.Hotkeys;
             foreach (var hp in hotkeys)
             {
                 if (hp == hotkeyProxy)
                     continue;
 
-                if (hp.IsAlreadyInUseBy(hotkeyProxy.Hotkey.Modifiers, previousType, previousActivator) && !previousActivator.Equals(hotkeyProxy.GetActivator()))
+                if (hp.IsAlreadyInUseBy(previousModifiers ?? hotkeyProxy.Hotkey.Modifiers, previousType ?? hotkeyProxy.Type, previousActivator ?? hotkeyProxy.GetActivator()))
                 {
                     if (!this.settingsViewModel.CheckIfHotkeyIsAlreadyInUse(hp))
                         hp.Hotkey.SetIsValid(true, null);
@@ -315,6 +323,62 @@ namespace Toastify.View
                 e.Handled = true;
             }
         }
+
+        #region modifiers
+
+        private void CtrlToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnChecked(ModifierKeys.Control);
+        }
+
+        private void CtrlToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnUnchecked(ModifierKeys.Control);
+        }
+
+        private void AltToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnChecked(ModifierKeys.Alt);
+        }
+
+        private void AltToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnUnchecked(ModifierKeys.Alt);
+        }
+
+        private void ShiftToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnChecked(ModifierKeys.Shift);
+        }
+
+        private void ShiftToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnUnchecked(ModifierKeys.Shift);
+        }
+
+        private void WinToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnChecked(ModifierKeys.Windows);
+        }
+
+        private void WinToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            this.ModifierToggleButton_OnUnchecked(ModifierKeys.Windows);
+        }
+
+        private void ModifierToggleButton_OnChecked(ModifierKeys modifier)
+        {
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+                this.VerifyHotkeysValidityAgainst(hotkeyProxy, hotkeyProxy.Hotkey.Modifiers & ~modifier, null, null);
+        }
+
+        private void ModifierToggleButton_OnUnchecked(ModifierKeys modifier)
+        {
+            if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy)
+                this.VerifyHotkeysValidityAgainst(hotkeyProxy, hotkeyProxy.Hotkey.Modifiers | modifier, null, null);
+        }
+
+        #endregion
 
         #endregion "Hotkeys" tab
 

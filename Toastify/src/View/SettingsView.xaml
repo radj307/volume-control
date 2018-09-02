@@ -167,12 +167,16 @@
                         <Grid x:Name="HotkeyGrid" Grid.Column="1" Margin="12,10" DataContext="{Binding Path=Hotkeys}">
                             <StackPanel Height="21" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                                 <CheckBox Content="Ctrl" IsChecked="{Binding Path=Ctrl, Mode=TwoWay}" Margin="0" VerticalContentAlignment="Center"
+                                          Checked="CtrlToggleButton_OnChecked" Unchecked="CtrlToggleButton_OnUnchecked"
                                           AutomationProperties.Name="Ctrl modifier key" />
                                 <CheckBox Content="Alt" IsChecked="{Binding Path=Alt, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          Checked="AltToggleButton_OnChecked" Unchecked="AltToggleButton_OnUnchecked"
                                           AutomationProperties.Name="Alt modifier key" />
                                 <CheckBox Content="Shift" IsChecked="{Binding Path=Shift, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          Checked="ShiftToggleButton_OnChecked" Unchecked="ShiftToggleButton_OnUnchecked"
                                           AutomationProperties.Name="Shift modifier key" />
                                 <CheckBox Content="Windows Key" IsChecked="{Binding Path=Win, Mode=TwoWay}" Margin="12,0,0,0" VerticalContentAlignment="Center"
+                                          Checked="WinToggleButton_OnChecked" Unchecked="WinToggleButton_OnUnchecked"
                                           AutomationProperties.Name="Windows Key modifier key" />
                             </StackPanel>
 
