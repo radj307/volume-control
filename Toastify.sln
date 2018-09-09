@@ -34,6 +34,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify.Tests", "Toastify.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastifyAPI.Tests", "ToastifyAPI.Tests\ToastifyAPI.Tests.csproj", "{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{ECC4E0EF-4719-4443-94D5-B7D33F18D522}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aleab.Common", "..\Aleab.Common\Aleab.Common\Aleab.Common.csproj", "{D06F0D0E-6ACA-4015-A908-335A8267F55B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aleab.Common.Net.WebSockets", "..\Aleab.Common\Aleab.Common.Net.WebSockets\Aleab.Common.Net.WebSockets.csproj", "{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Win (Debug)|Any CPU = Win (Debug)|Any CPU
@@ -118,9 +124,45 @@ Global
 		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|Any CPU.Build.0 = Debug|Any CPU
 		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|x64.ActiveCfg = Debug|Any CPU
 		{A8E45C25-9EA5-4501-B525-6DD4FAF0A2F9}.zzz_ToastifyAPI (UWP)|x64.Build.0 = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Debug)|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Debug)|Any CPU.Build.0 = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Debug)|x64.ActiveCfg = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Debug)|x64.Build.0 = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Release)|Any CPU.Build.0 = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Release)|x64.ActiveCfg = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Release)|x64.Build.0 = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Test Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Test Release)|Any CPU.Build.0 = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Test Release)|x64.ActiveCfg = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.Win (Test Release)|x64.Build.0 = Release|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.zzz_ToastifyAPI (UWP)|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.zzz_ToastifyAPI (UWP)|Any CPU.Build.0 = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.zzz_ToastifyAPI (UWP)|x64.ActiveCfg = Debug|Any CPU
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B}.zzz_ToastifyAPI (UWP)|x64.Build.0 = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Debug)|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Debug)|Any CPU.Build.0 = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Debug)|x64.ActiveCfg = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Debug)|x64.Build.0 = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Release)|Any CPU.Build.0 = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Release)|x64.ActiveCfg = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Release)|x64.Build.0 = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Test Release)|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Test Release)|Any CPU.Build.0 = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Test Release)|x64.ActiveCfg = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.Win (Test Release)|x64.Build.0 = Release|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.zzz_ToastifyAPI (UWP)|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.zzz_ToastifyAPI (UWP)|Any CPU.Build.0 = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.zzz_ToastifyAPI (UWP)|x64.ActiveCfg = Debug|Any CPU
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1}.zzz_ToastifyAPI (UWP)|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D06F0D0E-6ACA-4015-A908-335A8267F55B} = {ECC4E0EF-4719-4443-94D5-B7D33F18D522}
+		{E8B784C2-4CB4-47E2-B459-6FEE3DA79EC1} = {ECC4E0EF-4719-4443-94D5-B7D33F18D522}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {237C82BB-6F9F-4244-B5DF-3CB7F45290D2}

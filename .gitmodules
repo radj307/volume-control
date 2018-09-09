@@ -1,0 +1,3 @@
+[submodule "Aleab.Common"]
+	path = Aleab.Common
+	url = https://github.com/aleab/Aleab.Common.git
