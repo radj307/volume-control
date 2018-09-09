@@ -88,7 +88,7 @@ namespace Toastify.Model
         private static void ResolveAction(JObject jObject, [NotNull] IActionable hotkey)
         {
             var actionToken = jObject[nameof(Hotkey.Action)];
-            if (actionToken.Type == JTokenType.String)
+            if (actionToken?.Type == JTokenType.String)
             {
                 string actionString = actionToken.Value<string>();
                 if (Enum.TryParse(actionString, out ToastifyActionEnum _))

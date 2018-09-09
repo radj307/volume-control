@@ -19,7 +19,7 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 
 ## Requirements
 * Windows (7, 8/8.1, 10)
-* .NET Framework 4.5.*
+* .NET Framework 4.6.1 or greater
 * Spotify
 
 ## Notices
@@ -37,6 +37,7 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 * The language version used to build the project is C# 7
 * The solution requires Visual Studio 2017 (or Visual Studio Code, alternatively)
 * Dependencies are not included. Use of NuGet is highly recommended.
+* The repository has a git submodule; use `git submodule update --init --recursive` to initialize it.
 
 ## Donations
 I dedicate most of my free time to improving and keeping Toastify alive. Although absolutely not necessary, if you'd like to support me and the project, you can buy me a coffee **[here](https://aleab.github.io/toastify/#donations)**! :coffee:

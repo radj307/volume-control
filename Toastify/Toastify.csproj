@@ -1,127 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Windows (Debug)</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <LangVersion>7</LangVersion>
-    <ProjectGuid>{CCC4A761-56D2-4188-807F-F7A547DFB031}</ProjectGuid>
+    <Configurations>Windows (Debug);Windows (Test Release);Windows (Release)</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
+    <Configuration Condition="'$(Configuration)' == ''">Windows (Debug)</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>net461</TargetFramework>
+    <LangVersion>default</LangVersion>
     <RootNamespace>Toastify</RootNamespace>
-    <AssemblyName>Toastify</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Resources\ToastifyIcon.ico</ApplicationIcon>
     <StartupObject>Toastify.EntryPoint</StartupObject>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <Install>true</Install>
-    <MapFileExtensions>true</MapFileExtensions>
-    <TargetFrameworkProfile />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ApplicationIcon>Resources\ToastifyIcon.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Debug%29|AnyCPU'">
+
+  <!-- Assembly Info -->
+  <PropertyGroup>
+    <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
+    <Revision Condition="'$(Configuration)' != 'Windows (Release)'">0</Revision>
+    <AssemblyVersion>1.10.12</AssemblyVersion>
+    <FileVersion>1.10.12.$(Revision)</FileVersion>
+    <Version>1.10.12</Version>
+    <AssemblyName>Toastify</AssemblyName>
+    <Description>Toast for Spotify</Description>
+    <Copyright>Copyright © 2009-2018</Copyright>
+    <Authors>Jesper Palm, Oren Nachman, Alessandro Attard Barbini</Authors>
+  </PropertyGroup>
+
+  <!-- Other Properties -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TransformOnBuild>true</TransformOnBuild>
+    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+  </PropertyGroup>
+  
+  <!-- Target Imports -->
+  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
+
+  <!-- Build Configurations -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Debug)|AnyCPU'">
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>bin\AnyCPU\Debug\Windows\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Debug%29|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Release)|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\Windows\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>bin\AnyCPU\Release\Windows\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Test Release)|AnyCPU'">
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Release%29|x64'">
-    <OutputPath>bin\x64\Release\Windows\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
     <OutputPath>bin\AnyCPU\Test Release\Windows\</OutputPath>
-    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Debug)|x64'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x64\Debug\Windows\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Release)|x64'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\x64\Release\Windows\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows %28Test Release%29|x64'">
-    <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
-    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Test Release)|x64'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
+    <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
   </PropertyGroup>
+
+  <!-- Project References -->
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleMeasurementProtocol, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GoogleMeasurementProtocol.1.4.2\lib\net45\GoogleMeasurementProtocol.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="ManagedWinapi">
-      <HintPath>.\ManagedWinapi.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj" />
+  </ItemGroup>
+
+  <!-- Package References -->
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="4.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.3.0" />
+    <PackageReference Include="GoogleMeasurementProtocol" Version="1.4.2" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="PowerArgs" Version="2.8.1" />
+    <PackageReference Include="SpotifyAPI-NET" Version="2.18.0" />
+  </ItemGroup>
+ 
+  <!-- Regular References -->
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PowerArgs, Version=2.8.1.0, Culture=neutral, PublicKeyToken=26a276264bbd55b8, processorArchitecture=MSIL">
-      <HintPath>..\packages\PowerArgs.2.8.1.0\lib\net45\PowerArgs.dll</HintPath>
-    </Reference>
-    <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpotifyAPI-NET.2.18.0\lib\SpotifyAPI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -136,305 +124,68 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="ManagedWinapi">
+      <HintPath>.\ManagedWinapi.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="src\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="src\Common\PausableTimer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="src\Core\HotkeyType.cs" />
-    <Compile Include="src\Core\ProxyConfigAdapter.cs" />
-    <Compile Include="src\Core\SecureProxyConfigJsonConverter.cs" />
-    <Compile Include="src\Core\SpotifyWindow.cs" />
-    <Compile Include="src\Core\UpdateDeliveryMode.cs" />
-    <Compile Include="src\Core\VersionCheckFrequency.cs" />
-    <Compile Include="src\CustomMessageBox.cs" />
-    <Compile Include="src\DI\PropertyDependencyAttribute.cs" />
-    <Compile Include="src\Events\SettingsSavedEventArgs.cs" />
-    <Compile Include="src\Events\UpdateReadyEventArgs.cs" />
-    <Compile Include="src\Helpers\AutomationHelper.cs" />
-    <Compile Include="src\Helpers\Converters\SettingValueToOppositeBoolValueConverter.cs" />
-    <Compile Include="src\Common\ConstraintFailedException.cs" />
-    <Compile Include="src\Common\EnumReadableNameAttribute.cs" />
-    <Compile Include="src\Common\Range.cs" />
-    <Compile Include="src\Common\SystemTray.cs" />
-    <Compile Include="src\Common\ComboBoxItemAttribute.cs" />
-    <Compile Include="src\Common\WindowPosition.cs" />
-    <Compile Include="src\Core\ApplicationStartupException.cs" />
-    <Compile Include="src\Core\SpotifyTrackType.cs" />
-    <Compile Include="src\Core\ToastifyVolumeControlMode.cs" />
-    <Compile Include="src\Core\ToastTitlesOrder.cs" />
-    <Compile Include="src\Events\HotkeyActionCallbackFailedEventArgs.cs" />
-    <Compile Include="src\Events\SettingsViewLaunchedEventArgs.cs" />
-    <Compile Include="src\Helpers\ColorHelper.cs" />
-    <Compile Include="src\Helpers\Converters\HexColorToAlphaValueConverter.cs" />
-    <Compile Include="src\Helpers\Extensions.cs" />
-    <Compile Include="src\Helpers\Converters\SettingValueToValueConverter.cs" />
-    <Compile Include="src\Helpers\Markdown\Markdown.cs" />
-    <Compile Include="src\Helpers\Markdown\TextToFlowDocumentConverter.cs" />
-    <Compile Include="src\Helpers\Validators\IPPortRule.cs" />
-    <Compile Include="src\Helpers\Validators\IPAddressRule.cs" />
-    <Compile Include="src\Helpers\WindsorContainerExtensions.cs" />
-    <Compile Include="src\Model\GenericHotkeyProxy.cs" />
-    <Compile Include="src\Model\GetVolumeControlModeDelegate.cs" />
-    <Compile Include="src\Model\HotkeyJsonConverter.cs" />
-    <Compile Include="src\Model\IToastifyActionRegistry.cs" />
-    <Compile Include="src\Model\JsonConverterContractResolver.cs" />
-    <Compile Include="src\Model\KeyboardHotkey.cs" />
-    <Compile Include="src\Model\MediaActionType.cs" />
-    <Compile Include="src\Model\MouseHookHotkey.cs" />
-    <Compile Include="src\Model\SettingValue.cs" />
-    <Compile Include="src\Model\SettingValueJsonConverter.cs" />
-    <Compile Include="src\Model\Song.cs" />
-    <Compile Include="src\Events\SpotifyPlayStateChangedEventArgs.cs" />
-    <Compile Include="src\Events\SpotifyStateEventArgs.cs" />
-    <Compile Include="src\Events\SpotifyTrackTimeChangedEventArgs.cs" />
-    <Compile Include="src\Events\SpotifyVolumeChangedEventArgs.cs" />
-    <Compile Include="src\Events\SpotifyTrackChangedEventArgs.cs" />
-    <Compile Include="src\Core\ToastifyActionEnum.cs" />
-    <Compile Include="src\Common\EnumComboBoxItem.cs" />
-    <Compile Include="src\Helpers\Markup\EnumExtension.cs" />
-    <Compile Include="src\Helpers\SpotifyLocalAPIExtensions.cs" />
-    <Compile Include="src\Common\DelegateCommand.cs" />
-    <Compile Include="src\Common\ObservableObject.cs" />
-    <Content Include="src\Services\Analytics.g.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Analytics.g.cs</LastGenOutput>
-    </Content>
-    <Compile Include="src\Model\ToastifyAction.cs" />
-    <Compile Include="src\Model\ToastifyActionAsEnumJsonConverter.cs" />
-    <Compile Include="src\Model\ToastifyActionRegistry.cs" />
-    <Compile Include="src\Model\ToastifyExit.cs" />
-    <Compile Include="src\Model\ToastifyMediaAction.cs" />
-    <Compile Include="src\Model\ToastifyNoAction.cs" />
-    <Compile Include="src\Model\ToastifyShowDebugView.cs" />
-    <Compile Include="src\Model\ToastifyShowSpotify.cs" />
-    <Compile Include="src\Model\ToastifyShowToast.cs" />
-    <Compile Include="src\Model\ToastifySimpleMediaAction.cs" />
-    <Compile Include="src\Model\ToastifyVolumeAction.cs" />
-    <Compile Include="src\Model\ToastifyVolumeMute.cs" />
-    <Compile Include="src\Model\ToastifyVolumeDown.cs" />
-    <Compile Include="src\Model\ToastifyVolumeUp.cs" />
-    <Compile Include="src\Security.cs" />
-    <Compile Include="src\Services\Analytics.g.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Analytics.g.tt</DependentUpon>
-    </Compile>
-    <Compile Include="src\Services\AutoUpdater.cs" />
-    <Compile Include="src\ViewModel\AboutViewModel.cs" />
-    <Compile Include="src\ViewModel\ConfigProxyDialogViewModel.cs" />
-    <Compile Include="src\ViewModel\ChangelogViewModel.cs" />
-    <Compile Include="src\ViewModel\ISettingsViewModel.cs" />
-    <Compile Include="src\ViewModel\SettingsViewModel.cs" />
-    <Compile Include="src\ViewModel\ToastViewModel.cs" />
-    <Compile Include="src\View\ConfigProxyDialog.xaml.cs">
-      <DependentUpon>ConfigProxyDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\View\CustomMessageBoxWindow.xaml.cs">
-      <DependentUpon>CustomMessageBoxWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\View\ChangelogView.xaml.cs">
-      <DependentUpon>ChangelogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml.cs">
-      <DependentUpon>DebugView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\Win32API.cs" />
-    <Page Include="src\Helpers\Markdown\Markdown.Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\View\AboutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="src\View\ConfigProxyDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\View\CustomMessageBoxWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\View\ChangelogView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Condition="'$(Configuration)' == 'Windows %28Debug%29'" Include="src\View\DebugView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\View\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\View\ToastView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="src\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\Events\CheckVersionCompleteEventArgs.cs" />
-    <Compile Include="src\Helpers\Converters\BoolToVisibleConverter.cs" />
-    <Compile Include="src\Helpers\Converters\OppositeBoolToVisibleConverter.cs" />
-    <Compile Include="src\Helpers\Converters\OppositeBoolConverter.cs" />
-    <Compile Include="src\Helpers\ScreenHelper.cs" />
-    <Compile Include="src\View\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\Services\Analytics.cs" />
-    <Compile Include="src\View\ToastView.xaml.cs">
-      <DependentUpon>ToastView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <!-- Resources -->
+    <EmbeddedResource Update="log4net.config" />
+    <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+    <Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
+    <Compile Update="Properties\Settings.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Settings.settings" />
+    <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
+
+    <!-- Compile Items -->
+    <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" Exclude="src\View\DebugView.xaml" />
+    <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+
+    <None Include="src\Services\Analytics.g.tt" Generator="TextTemplatingFileGenerator" LastGenOutput="Analytics.g.cs" />
+    <Compile Update="src\Services\Analytics.g.cs" DesignTime="True" AutoGen="True" DependentUpon="Analytics.g.tt" />
+
+    <!-- Non-compilable Items -->
+    <None Include="..\LICENSE" Link="LICENSES\LICENSE" CopyToOutputDirectory="Always" />
+    <None Include="..\LICENSE-3RD-PARTY" Link="LICENSES\LICENSE-3RD-PARTY" CopyToOutputDirectory="Always" />
+
+    <None Update="app.config" Link="Resources\app.config" />
+    <None Update="app.manifest" Link="Resources\app.manifest" />
+    <None Update="ga-code" Link="Resources\ga-code" />
+    <None Update="version" Link="Resources\version" />
+    
+    <Resource Include="Resources\**\*.png" />
+    <Resource Include="Resources\**\*.ico" />
+
+    <None Update="ManagedWinapi.dll" Link="Resources\ManagedWinapi.dll" />
+    <None Update="Resources\ManagedWinapiNativeHelper.dll" CopyToOutputDirectory="Always" />
+    
   </ItemGroup>
+
+  <!-- Debug-only Compile Items -->
+  <ItemGroup Condition="'$(Configuration)' == 'Windows (Debug)'">
+    <Page Include="src\View\DebugView.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <Compile Update="src\View\DebugView.xaml.cs" SubType="Designer" DependentUpon="DebugView.xaml" />
+  </ItemGroup>
+  
+  <!-- Services -->
   <ItemGroup>
-    <Compile Include="src\View\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="src\Model\Settings.cs" />
-    <Compile Include="src\Core\Spotify.cs" />
-    <Compile Include="src\Model\Hotkey.cs">
-    </Compile>
-    <Compile Include="src\Services\VersionChecker.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="..\LICENSE">
-      <Link>LICENSE</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\LICENSE-3RD-PARTY">
-      <Link>LICENSE-3RD-PARTY</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="app.config" />
-    <None Include="app.manifest" />
-    <None Include="ga-code" />
-    <EmbeddedResource Include="log4net.config" />
-    <None Include="packages.config" />
-    <None Include="post-build.cmd" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj">
-      <Project>{5d68931f-528f-4d95-89be-3eb26832af8c}</Project>
-      <Name>ToastifyAPI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ToastifyIcon.ico" />
-    <Resource Include="Resources\SpotifyLogo.png" />
-    <Resource Include="Resources\SpotifyToastifyLogo.png" />
-    <Resource Include="Resources\WarningSmall.png" />
-    <Resource Include="Resources\WarningLarge.png" />
-    <Resource Include="Resources\ToastifyAccessDenied.png" />
-    <Resource Include="Resources\SpotifyAdPlaying.png" />
-    <Resource Include="Resources\thumbs_down.png" />
-    <Resource Include="Resources\thumbs_up.png" />
-    <Resource Include="Resources\InfoLarge.png" />
-    <Resource Include="Resources\SpotifyToastifyUpdateLogo.png" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_0.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_1.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_2.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_3.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_4.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_5.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_6.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_7.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_8.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_9.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_10.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_11.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_12.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_13.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_14.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_15.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_16.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_17.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_18.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_19.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_20.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_21.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_22.ico" />
-    <Resource Include="Resources\SystemTrayAnimation\toastify_loading_spotify_23.ico" />
-    <None Include="version" />
-    <Content Include="Resources\ManagedWinapiNativeHelper.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild">
-    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows %28Test Release%29'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
+
+  <!-- Build Events -->
+  <Target Name="PreBuild" BeforeTargets="Build">
+    <Exec Command="&quot;$(ProjectDir)pre-build.cmd&quot; &quot;$(ProjectFileName)&quot; &quot;$(ProjectDir)&quot; &quot;$(DevEnvDir)&quot;" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
+    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)post-build.cmd" "$(ConfigurationName)" "$(DevEnvDir)" "$(SolutionDir)" "$(TargetDir)" "$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+
+  <Target Name="PostBuild" AfterTargets="Build">
+    <Exec Command="&quot;$(ProjectDir)post-build.cmd&quot; &quot;$(ConfigurationName)&quot; &quot;$(DevEnvDir)&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetDir)&quot; &quot;$(TargetFileName)&quot;" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

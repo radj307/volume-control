@@ -102,8 +102,8 @@ Section "${APPNAME} (required)"
   File "PowerArgs.dll"
   File "SpotifyAPI.dll"
   File "Xceed.Wpf.Toolkit.dll"
-  File "LICENSE"
-  File "LICENSE-3RD-PARTY"
+  File "LICENSES\LICENSE"
+  File "LICENSES\LICENSE-3RD-PARTY"
 
   # Create directories in AppData
   CreateDirectory "$APPDATA\Toastify"

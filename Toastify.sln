@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
@@ -11,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installation", "Installatio
 		InstallationScript\NSISpcre.nsh = InstallationScript\NSISpcre.nsh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toastify", "Toastify\Toastify.csproj", "{CCC4A761-56D2-4188-807F-F7A547DFB031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toastify", "Toastify\Toastify.csproj", "{CCC4A761-56D2-4188-807F-F7A547DFB031}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{68F1A17D-4930-4EEC-AEEF-5DD9C9033B40}"
 EndProject

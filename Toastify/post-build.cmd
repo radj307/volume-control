@@ -5,7 +5,7 @@ SET nsisInstallerFileName=ToastifyInstaller.exe
 SET sfxArchiveName=ToastifyInstaller
 
 
-:: ----------[ POST_BUILD ]--------------------------------
+:: ----------[ POST-BUILD ]--------------------------------
 :: [in]ConfigurationName  [in]DevEnvDir  [in]SolutionDir  [in]TargetDir  [in]TargetFileName
 
 SET "ConfigurationName=%~1"
@@ -13,6 +13,13 @@ SET "DevEnvDir=%~2"
 SET "SolutionDir=%~3"
 SET "TargetDir=%~4"
 SET "TargetFileName=%~5"
+
+:: Remove Xceed.Wpf.Toolkit's useless resource files
+ECHO;
+ECHO [POST-BUILD] Remove Xceed.Wpf.Toolkit's useless resource files
+FOR %%d IN (de es fr hu it pt-BR ro ru sv zh-Hans) DO (
+    RMDIR /S /Q "%TargetDir%%%d"
+)
 
 IF NOT ["%ConfigurationName:~0,7%"]==["Windows"] (
     GOTO :EOF
@@ -25,7 +32,7 @@ IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
 
 :: CALL VsDevCmd
 ECHO;
-ECHO - CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
+ECHO [POST-BUILD] CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 :: Manifest
@@ -36,7 +43,7 @@ CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 :: Copy installation scripts 
 ECHO; 
-ECHO - Copy install script 
+ECHO [POST-BUILD] Copy install script 
 COPY /Y "%SolutionDir%InstallationScript\Install.nsi" "%TargetDir%Install.nsi" 
 COPY /Y "%SolutionDir%InstallationScript\*.nsh" "%TargetDir%"
 
@@ -54,5 +61,5 @@ CD "%TargetDir%"
 
 :: Compile NSIS installer
 ECHO;
-ECHO - Compile NSIS installer
+ECHO [POST-BUILD] Compile NSIS installer
 makensis Install.nsi || GOTO :EOF
