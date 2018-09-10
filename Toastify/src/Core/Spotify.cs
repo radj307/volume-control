@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Toastify.Common;
+using Toastify.Core.Broadcaster;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
@@ -52,6 +53,8 @@ namespace Toastify.Core
         private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
 
         #endregion Spotify Launcher
+
+        private ToastifyBroadcaster broadcaster;
 
         private SpotifyWindow spotifyWindow;
 
@@ -112,6 +115,10 @@ namespace Toastify.Core
         {
             this.spotifyPath = GetSpotifyPath();
             this.InitLocalAPI();
+
+            // TODO: Init ToastifyBroadcaster later in the initialization flow (after Spotify?)
+            this.broadcaster = new ToastifyBroadcaster(41348);
+            this.broadcaster.StartAsync().Wait();
         }
 
         public void InitLocalAPI()
@@ -893,7 +900,7 @@ namespace Toastify.Core
                 {
                     Song oldSong = this.CurrentSong;
                     this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
-                    this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(oldSong, this.CurrentSong));
+                    this.OnSongChanged(oldSong);
                 }
             }
         }
@@ -901,13 +908,13 @@ namespace Toastify.Core
         private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong));
+            this.OnSongChanged(e.OldTrack);
         }
 
         private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
             this.IsPlaying = e.Playing;
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing));
+            this.OnPlayStateChanged(e.Playing);
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
@@ -921,5 +928,17 @@ namespace Toastify.Core
         }
 
         #endregion Event handlers
+
+        private void OnSongChanged(Song previousSong)
+        {
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
+            this.broadcaster?.BroadcastCurrentSong(this.CurrentSong);
+        }
+
+        private void OnPlayStateChanged(bool playing)
+        {
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
+            this.broadcaster?.BroadcastPlayState(playing);
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Toastify.Core.Broadcaster
             this.clients = new List<WebSocket>(5);
         }
 
-        private async Task WebSocketLoop(HttpContext context, WebSocket webSocket, Func<string, Task> messageHandler)
+        private async Task WebSocketLoop(HttpContext context, WebSocket webSocket, Func<string, WebSocket, Task> messageHandler)
         {
             var buffer = new byte[this.ReceiveBufferSize];
             WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -44,7 +44,7 @@ namespace Toastify.Core.Broadcaster
                     if (receiveResult.EndOfMessage)
                     {
                         if (messageHandler != null)
-                            await messageHandler.Invoke(message);
+                            await messageHandler.Invoke(message, webSocket);
                         message = string.Empty;
                     }
                 }
@@ -57,11 +57,13 @@ namespace Toastify.Core.Broadcaster
             await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
         }
 
-        private async Task HandleInternal(string message)
+        private async Task HandleInternal(string message, WebSocket webSocket)
         {
-            bool handled = false;
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[ToastifyBroadcaster] Internal message received: \"{message}\"");
 
             Match match;
+            bool handled = false;
             switch (message)
             {
                 case string s when (match = Regex.Match(s, "^BROADCAST (.+?) (.+)$", RegexOptions.Compiled)).Success:
@@ -69,10 +71,18 @@ namespace Toastify.Core.Broadcaster
                     switch (match.Groups[1].Value)
                     {
                         case "CURRENT-SONG":
-                            string redirectMessage = $"{cmd} {match.Groups[2].Value}";
                             foreach (var client in this.clients)
                             {
-                                await RedirectTo(redirectMessage, client);
+                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client);
+                            }
+
+                            handled = true;
+                            break;
+
+                        case "PLAY-STATE":
+                            foreach (var client in this.clients)
+                            {
+                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client);
                             }
 
                             handled = true;
@@ -84,7 +94,13 @@ namespace Toastify.Core.Broadcaster
 
                     break;
 
+                case "CLIENTS":
+                    await RedirectTo(this.clients.Count.ToString(), webSocket);
+                    handled = true;
+                    break;
+
                 default:
+                    logger.Warn($"Unrecognized command received on {INTERNAL_PATH}: {message}");
                     break;
             }
 
@@ -92,12 +108,16 @@ namespace Toastify.Core.Broadcaster
                 logger.Warn($"Unrecognized command received on {INTERNAL_PATH}: {message}");
         }
 
-        private async Task HandleClients(string message)
+        private async Task HandleClients(string message, WebSocket clientWebSocket)
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"[ToastifyBroadcaster] Message received from {clientWebSocket.GetHashCode()}: \"{message}\"");
+
             switch (message)
             {
                 case "PING":
-                    await RedirectTo(message, this.toastifyBroadcasterSocket);
+                    if (this.toastifyBroadcasterSocket != null)
+                        await RedirectTo("PONG", clientWebSocket);
                     break;
 
                 default:

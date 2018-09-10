@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Aleab.Common.Net;
 using Aleab.Common.Net.WebSockets;
 using log4net;
 using Newtonsoft.Json;
@@ -227,6 +226,11 @@ namespace Toastify.Core.Broadcaster
         {
             string songJson = song != null ? JsonConvert.SerializeObject(new JsonSong(song)) : "null";
             await this.Broadcast("CURRENT-SONG", songJson);
+        }
+
+        public async Task BroadcastPlayState(bool playing)
+        {
+            await this.Broadcast("PLAY-STATE", $"{{ \"playing\": {JsonConvert.ToString(playing)} }}");
         }
 
         #endregion
