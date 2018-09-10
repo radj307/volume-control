@@ -92,6 +92,8 @@
 
   <!-- Project References -->
   <ItemGroup>
+    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common.Net.WebSockets\Aleab.Common.Net.WebSockets.csproj" />
+    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common\Aleab.Common.csproj" />
     <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj" />
   </ItemGroup>
 
