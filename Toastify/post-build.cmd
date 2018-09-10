@@ -14,18 +14,11 @@ SET "SolutionDir=%~3"
 SET "TargetDir=%~4"
 SET "TargetFileName=%~5"
 
-:: Remove Xceed.Wpf.Toolkit's useless resource files
-ECHO;
-ECHO [POST-BUILD] Remove Xceed.Wpf.Toolkit's useless resource files
-FOR %%d IN (de es fr hu it pt-BR ro ru sv zh-Hans) DO (
-    RMDIR /S /Q "%TargetDir%%%d"
-)
-
 IF NOT ["%ConfigurationName:~0,7%"]==["Windows"] (
-    GOTO :EOF
+    GOTO EOF
 )
 IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
-    GOTO :EOF
+    GOTO EOF
 )
 
 :: It's a Windows Release configuration
@@ -54,7 +47,7 @@ IF ERRORLEVEL 9009 (
     ECHO ERROR: Couldn't find 'makensis' in the PATH!
     ECHO        Make sure NSIS is installed in your system and its 'Bin' directory is in the PATH environment variable.
     ECHO;
-    GOTO :EOF
+    GOTO EOF
 )
 
 CD "%TargetDir%"
@@ -62,4 +55,7 @@ CD "%TargetDir%"
 :: Compile NSIS installer
 ECHO;
 ECHO [POST-BUILD] Compile NSIS installer
-makensis Install.nsi || GOTO :EOF
+makensis Install.nsi || GOTO EOF
+
+:EOF
+ECHO;

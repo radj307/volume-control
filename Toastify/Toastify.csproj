@@ -1,31 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSBuild.Sdk.Extras/1.6.55" ToolsVersion="15.0">
+  <!-- Project Info -->
   <PropertyGroup>
     <Configurations>Windows (Debug);Windows (Test Release);Windows (Release)</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
     <Configuration Condition="'$(Configuration)' == ''">Windows (Debug)</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <LangVersion>default</LangVersion>
     <RootNamespace>Toastify</RootNamespace>
     <StartupObject>Toastify.EntryPoint</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ApplicationIcon>Resources\ToastifyIcon.ico</ApplicationIcon>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
   <!-- Assembly Info -->
   <PropertyGroup>
-    <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
+    <TimeOfDayTotalSeconds>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</TimeOfDayTotalSeconds>
+    <Revision>$(TimeOfDayTotalSeconds)</Revision>
     <Revision Condition="'$(Configuration)' != 'Windows (Release)'">0</Revision>
     <AssemblyVersion>1.10.12</AssemblyVersion>
     <FileVersion>1.10.12.$(Revision)</FileVersion>
     <Version>1.10.12</Version>
     <AssemblyName>Toastify</AssemblyName>
     <Description>Toast for Spotify</Description>
-    <Copyright>Copyright © 2009-2018</Copyright>
-    <Authors>Jesper Palm, Oren Nachman, Alessandro Attard Barbini</Authors>
+    <Authors>Alessandro Attard Barbini, Oren Nachman, Jesper Palm</Authors>
+    <Copyright>© 2009-2018 $(Authors)</Copyright>
   </PropertyGroup>
 
   <!-- Other Properties -->
@@ -35,10 +38,98 @@
     <TransformOnBuild>true</TransformOnBuild>
     <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
     <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TrimUnusedDependencies>true</TrimUnusedDependencies>
+    <RootPackageReference>false</RootPackageReference>
   </PropertyGroup>
-  
+
   <!-- Target Imports -->
   <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
+
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common.Net.WebSockets\Aleab.Common.Net.WebSockets.csproj" />
+    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common\Aleab.Common.csproj" />
+    <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj" />
+  </ItemGroup>
+
+  <!-- Package References -->
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="4.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.3.0" />
+    <PackageReference Include="GoogleMeasurementProtocol" Version="1.4.2" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="PowerArgs" Version="2.8.1" />
+    <PackageReference Include="SpotifyAPI-NET" Version="2.18.0" />
+  </ItemGroup>
+
+  <!-- Regular References -->
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ManagedWinapi">
+      <HintPath>.\ManagedWinapi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Resources -->
+    <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+    <Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
+    <EmbeddedResource Include="log4net.config" />
+
+    <Resource Include="Resources\**\*.png" />
+    <Resource Include="Resources\**\*.ico" />
+
+    <!-- Settings -->
+    <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
+    <Compile Update="Properties\Settings.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Settings.settings" />
+
+    <!-- WPF items -->
+    <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+
+    <!-- TextTemplate items -->
+    <None Include="src\Services\Analytics.g.tt" Generator="TextTemplatingFileGenerator" LastGenOutput="Analytics.g.cs" />
+
+    <!-- Non-compilable Items -->
+    <None Include="..\LICENSE" Link="LICENSES\LICENSE" CopyToOutputDirectory="Always" />
+    <None Include="..\LICENSE-3RD-PARTY" Link="LICENSES\LICENSE-3RD-PARTY" CopyToOutputDirectory="Always" />
+
+    <None Update="app.config" />
+    <None Update="app.manifest" />
+    <None Update="ga-code" />
+    <None Update="version" />
+
+    <None Update="ManagedWinapi.dll" Link="Resources\ManagedWinapi.dll" />
+    <None Update="Resources\ManagedWinapiNativeHelper.dll" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <!-- Debug-only Items -->
+  <ItemGroup Condition="'$(Configuration)' != 'Windows (Debug)'">
+    <Page Remove="src\View\DebugView.xaml" />
+    <Compile Remove="src\View\DebugView.xaml.cs" />
+  </ItemGroup>
+
+  <!-- Services -->
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
 
   <!-- Build Configurations -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Debug)|AnyCPU'">
@@ -90,104 +181,81 @@
     <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
   </PropertyGroup>
 
-  <!-- Project References -->
-  <ItemGroup>
-    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common.Net.WebSockets\Aleab.Common.Net.WebSockets.csproj" />
-    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common\Aleab.Common.csproj" />
-    <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj" />
-  </ItemGroup>
-
-  <!-- Package References -->
-  <ItemGroup>
-    <PackageReference Include="Castle.Windsor" Version="4.1.0" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.3.0" />
-    <PackageReference Include="GoogleMeasurementProtocol" Version="1.4.2" />
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="PowerArgs" Version="2.8.1" />
-    <PackageReference Include="SpotifyAPI-NET" Version="2.18.0" />
-  </ItemGroup>
- 
-  <!-- Regular References -->
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationClient" />
-    <Reference Include="UIAutomationTypes" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="ManagedWinapi">
-      <HintPath>.\ManagedWinapi.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Resources -->
-    <EmbeddedResource Update="log4net.config" />
-    <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
-    <Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
-    <Compile Update="Properties\Settings.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Settings.settings" />
-    <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
-
-    <!-- Compile Items -->
-    <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" Exclude="src\View\DebugView.xaml" />
-    <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
-
-    <None Include="src\Services\Analytics.g.tt" Generator="TextTemplatingFileGenerator" LastGenOutput="Analytics.g.cs" />
-    <Compile Update="src\Services\Analytics.g.cs" DesignTime="True" AutoGen="True" DependentUpon="Analytics.g.tt" />
-
-    <!-- Non-compilable Items -->
-    <None Include="..\LICENSE" Link="LICENSES\LICENSE" CopyToOutputDirectory="Always" />
-    <None Include="..\LICENSE-3RD-PARTY" Link="LICENSES\LICENSE-3RD-PARTY" CopyToOutputDirectory="Always" />
-
-    <None Update="app.config" Link="Resources\app.config" />
-    <None Update="app.manifest" Link="Resources\app.manifest" />
-    <None Update="ga-code" Link="Resources\ga-code" />
-    <None Update="version" Link="Resources\version" />
-    
-    <Resource Include="Resources\**\*.png" />
-    <Resource Include="Resources\**\*.ico" />
-
-    <None Update="ManagedWinapi.dll" Link="Resources\ManagedWinapi.dll" />
-    <None Update="Resources\ManagedWinapiNativeHelper.dll" CopyToOutputDirectory="Always" />
-    
-  </ItemGroup>
-
-  <!-- Debug-only Compile Items -->
-  <ItemGroup Condition="'$(Configuration)' == 'Windows (Debug)'">
-    <Page Include="src\View\DebugView.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-    <Compile Update="src\View\DebugView.xaml.cs" SubType="Designer" DependentUpon="DebugView.xaml" />
-  </ItemGroup>
+  <!-- Build Events and MSBuild Targets -->
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
   
-  <!-- Services -->
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  <!-- Events' Properties and Items -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Windows (Release)'">
+    <ToastifyAPIWinDir>$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows</ToastifyAPIWinDir>
+    <ToastifyAPIWin10Dir>$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10</ToastifyAPIWin10Dir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Windows (Test Release)'">
+    <ToastifyAPIWinDir>$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows</ToastifyAPIWinDir>
+    <ToastifyAPIWin10Dir>$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10</ToastifyAPIWin10Dir>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Windows (Release)' OR '$(Configuration)' == 'Windows (Test Release)'">
+    <ToastifyApiWin32Files Include="$(ToastifyAPIWinDir)\ToastifyAPI.dll;$(ToastifyAPIWinDir)\ToastifyAPI.pdb" />
+    <ToastifyApiUWPFiles Include="$(ToastifyAPIWin10Dir)\ToastifyAPI.dll;$(ToastifyAPIWin10Dir)\ToastifyAPI.pdb" />
   </ItemGroup>
 
-  <!-- Build Events -->
-  <Target Name="PreBuild" BeforeTargets="Build">
+  <!-- [PRE-BUILD] -->
+  <Target Name="PreBuild" AfterTargets="PreBuildEvent">
+    <Message Importance="High" Text="[PRE-BUILD]" />
+    
+    <!-- Execute pre-build.cmd script -->
+    <Message Importance="High" Text="[PRE-BUILD] Execute pre-build.cmd script" />
     <Exec Command="&quot;$(ProjectDir)pre-build.cmd&quot; &quot;$(ProjectFileName)&quot; &quot;$(ProjectDir)&quot; &quot;$(DevEnvDir)&quot;" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_Win32.pdb" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.dll" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.dll" />
-    <Copy Condition="'$(Configuration)' == 'Windows (Test Release)'" SourceFiles="$(SolutionDir)ToastifyAPI\bin\$(Platform)\Test Release\Windows 10\ToastifyAPI.pdb" DestinationFiles="$(TargetDir)ToastifyAPI_UWP.pdb" />
+
+    <!-- Transform TextTemplate files -->
+    <Message Importance="High" Text="[PRE-BUILD] Transform TextTemplate files" />
+    <MSBuild Projects="$(ProjectFileName)" Targets="TransformAll" />
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="Build">
+  <!-- [POST-BUILD] -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Message Importance="High" Text="[POST-BUILD]" />
+
+    <!-- Properties and Items -->
+    <ItemGroup>
+      <DirectoriesToRemove Include="$(TargetDir)de;$(TargetDir)es;$(TargetDir)fr;$(TargetDir)hu;$(TargetDir)it" />
+      <DirectoriesToRemove Include="$(TargetDir)pt-BR;$(TargetDir)ro;$(TargetDir)ru;$(TargetDir)sv;$(TargetDir)zh-Hans" />
+      <LibFilesToRemove Include="$(TargetDir)Xceed.Wpf.*.dll" Exclude="$(TargetDir)Xceed.Wpf.Toolkit.dll" />
+
+      <LibFiles Include="$(TargetDir)*.dll;$(TargetDir)*.pdb" Exclude="@(LibFilesToRemove);$(TargetDir)Toastify*" />
+    </ItemGroup>
+    
+    <!-- Remove Xceed.Wpf.Toolkit's unused files -->
+    <Message Importance="High" Text="[POST-BUILD] Remove Xceed.Wpf.Toolkit's unused files" />
+    <RemoveDir Directories="@(DirectoriesToRemove)" />
+    <Delete Files="@(LibFilesToRemove)" />
+
+    <!-- Copy ToastifyAPI files to output directory -->
+    <Message Importance="High" Text="[POST-BUILD] Copy ToastifyAPI files to output directory" />
+    <Copy SourceFiles="@(ToastifyApiWin32Files)" DestinationFiles="$(TargetDir)%(Filename)_Win32%(Extension)" />
+    <Copy SourceFiles="@(ToastifyApiUWPFiles)" DestinationFiles="$(TargetDir)%(Filename)_UWP%(Extension)" />
+
+    <!-- Move dependencies to /lib directory -->
+    <Message Importance="High" Text="[POST-BUILD] Move dependencies to /lib directory" />
+    <Move SourceFiles="@(LibFiles)" DestinationFolder="$(TargetDir)lib" />
+
+    <!-- Execute post-build.cmd script -->
+    <Message Importance="High" Text="[POST-BUILD] Execute post-build.cmd script" />
     <Exec Command="&quot;$(ProjectDir)post-build.cmd&quot; &quot;$(ConfigurationName)&quot; &quot;$(DevEnvDir)&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetDir)&quot; &quot;$(TargetFileName)&quot;" />
+  </Target>
+  
+  <!-- [POST-CLEAN] -->
+  <Target Name="PostClean" AfterTargets="Clean">
+    <Message Importance="High" Text="[POST-CLEAN]" />
+    <ItemGroup>
+      <NsisFiles Include="$(TargetDir)*.nsi;$(TargetDir)*.nsh" />
+      <ToastifyInstaller Include="$(TargetDir)ToastifyInstaller.exe" />
+    </ItemGroup>
+    <Delete Files="@(NsisFiles);@(ToastifyInstaller)" />
+    <Delete Files="@(ToastifyApiWin32Files->'$(TargetDir)%(Filename)_Win32%(Extension)')" />
+    <Delete Files="@(ToastifyApiUWPFiles->'$(TargetDir)%(Filename)_UWP%(Extension)')" />
+    <RemoveDir Directories="$(TargetDir)lib;$(TargetDir)LICENSES;$(TargetDir)Resources" />
   </Target>
 </Project>

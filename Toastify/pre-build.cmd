@@ -11,11 +11,8 @@ SET "DevEnvDir=%~3"
 
 :: CALL VsDevCmd
 ECHO;
-ECHO [PRE-BUILD] Start VS vevelopment console
+ECHO [PRE-BUILD] Start VS development console
 CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
-CD /D "%ProjectDir%"
-
+:EOF
 ECHO;
-ECHO [PRE-BUILD] Perform T4 transformations
-msbuild "%ProjectFileName%" /t:TransformAll
