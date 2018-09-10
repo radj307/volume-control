@@ -127,10 +127,11 @@ namespace Toastify
 
         private static void SetupLogger()
         {
+            // Configure log4net
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
             {
-                XmlConfigurator.Configure(stream);
-                ILoggerRepository loggerRepository = LogManager.GetRepository();
+                ILoggerRepository loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+                XmlConfigurator.Configure(loggerRepository, stream);
 
                 // Set root logger's log level
                 Logger rootLogger = ((Hierarchy)loggerRepository).Root;
@@ -488,7 +489,6 @@ namespace Toastify
         }
     }
 
-    /// <inheritdoc />
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {

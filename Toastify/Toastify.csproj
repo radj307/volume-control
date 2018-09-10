@@ -92,8 +92,8 @@
     <!-- Resources -->
     <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
     <Compile Update="Properties\Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
-    <EmbeddedResource Include="log4net.config" />
 
+    <EmbeddedResource Include="log4net.config" />
     <Resource Include="Resources\**\*.png" />
     <Resource Include="Resources\**\*.ico" />
 
@@ -133,9 +133,9 @@
 
   <!-- Build Configurations -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Debug)|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -150,18 +150,18 @@
     <OutputPath>bin\AnyCPU\Release\Windows\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Test Release)|AnyCPU'">
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
     <OutputPath>bin\AnyCPU\Test Release\Windows\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Debug)|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
     <OutputPath>bin\x64\Debug\Windows\</OutputPath>
   </PropertyGroup>
@@ -173,11 +173,11 @@
     <OutputPath>bin\x64\Release\Windows\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Windows (Test Release)|x64'">
+    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefineConstants>TRACE;TEST_RELEASE</DefineConstants>
     <OutputPath>bin\x64\Test Release\Windows\</OutputPath>
   </PropertyGroup>
 
@@ -253,9 +253,10 @@
       <NsisFiles Include="$(TargetDir)*.nsi;$(TargetDir)*.nsh" />
       <ToastifyInstaller Include="$(TargetDir)ToastifyInstaller.exe" />
     </ItemGroup>
-    <Delete Files="@(NsisFiles);@(ToastifyInstaller)" />
+    <RemoveDir Directories="$(TargetDir)lib;$(TargetDir)LICENSES;$(TargetDir)Resources" />
     <Delete Files="@(ToastifyApiWin32Files->'$(TargetDir)%(Filename)_Win32%(Extension)')" />
     <Delete Files="@(ToastifyApiUWPFiles->'$(TargetDir)%(Filename)_UWP%(Extension)')" />
-    <RemoveDir Directories="$(TargetDir)lib;$(TargetDir)LICENSES;$(TargetDir)Resources" />
+    <Delete Files="@(NsisFiles);@(ToastifyInstaller)" />
+    <Delete Files="$(TargetDir)log.log" />
   </Target>
 </Project>
