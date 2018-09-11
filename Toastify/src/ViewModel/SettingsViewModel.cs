@@ -6,9 +6,11 @@ using System.Security;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Toastify.Common;
+using Toastify.DI;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
+using ToastifyAPI.Core;
 using ToastifyAPI.Native.Enums;
 
 namespace Toastify.ViewModel
@@ -70,6 +72,11 @@ namespace Toastify.ViewModel
 
         public SecureString ProxyPassword { private get; set; }
 
+        [PropertyDependency]
+        public IToastifyBroadcaster ToastifyBroadcaster { get; set; }
+
+        public string ToastifyBroadcasterWikiUrl { get; } = "https://github.com/aleab/toastify/wiki/Toastify-Broadcaster";
+
         #endregion
 
         #region Events
@@ -86,6 +93,8 @@ namespace Toastify.ViewModel
         public SettingsViewModel()
         {
             this.Settings = Settings.Temporary;
+            if (this.ToastifyBroadcaster == null)
+                this.ToastifyBroadcaster = App.Container.Resolve<IToastifyBroadcaster>();
 
             // Commands
             this.SaveCommand = new DelegateCommand(this.Save);

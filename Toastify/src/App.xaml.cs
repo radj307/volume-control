@@ -27,10 +27,12 @@ using Newtonsoft.Json.Linq;
 using PowerArgs;
 using SpotifyAPI;
 using Toastify.Core;
+using Toastify.Core.Broadcaster;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI.Core;
 using ToastifyAPI.GitHub;
 using ToastifyAPI.Interop;
 using ToastifyAPI.Interop.Interfaces;
@@ -654,7 +656,9 @@ namespace Toastify
                 Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
 
                 Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
-                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>()
+                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>(),
+
+                Component.For<IToastifyBroadcaster>().ImplementedBy<ToastifyBroadcaster>()
             });
         }
 

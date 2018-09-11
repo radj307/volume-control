@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using log4net;
 using Toastify.Common;
 using Toastify.Core;
@@ -46,12 +48,16 @@ namespace Toastify.View
         private IntPtr hHook = IntPtr.Zero;
         private LowLevelMouseHookProc mouseHookProc;
 
-        #region Public Properties
+        #region Non-Public Properties
 
         private Settings Settings
         {
             get { return this.settingsViewModel?.Settings; }
         }
+
+        #endregion
+
+        #region Public Properties
 
         public WindowStartupLocation StartupLocation
         {
@@ -162,7 +168,7 @@ namespace Toastify.View
                             mouseAction = MouseAction.MWheelDown;
                         }
                     }
-                    
+
                     if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
                         this.UpdateHotkeyActivator(hotkeyProxy, HotkeyType.MouseHook, mouseAction, mouseAction.ToString());
                 }
@@ -563,6 +569,13 @@ namespace Toastify.View
                 textBox.SelectAll();
         }
 
+        private void ToastifyBroadcasterWiki_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true };
+            Process.Start(psi);
+            e.Handled = true;
+        }
+
         #endregion "Advanced" tab
 
         #endregion Event handlers
@@ -591,7 +604,7 @@ namespace Toastify.View
 
                     automationElement = this.mainAutomationWindow?.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, element.Name));
                 }
-                
+
                 if (automationElement != null)
                 {
                     AutomationPattern automationPatternFromElement = AutomationHelper.GetSpecifiedPattern(automationElement, "ExpandCollapsePatternIdentifiers.Pattern");

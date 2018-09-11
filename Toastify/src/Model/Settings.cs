@@ -19,8 +19,8 @@ using Newtonsoft.Json;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.DI;
+using Toastify.Events;
 using Toastify.Helpers;
-using ToastifyAPI.Helpers;
 using Application = System.Windows.Forms.Application;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
@@ -89,6 +89,8 @@ namespace Toastify.Model
         public IToastifyActionRegistry ToastifyActionRegistry { get; set; }
 
         #endregion
+
+        public static event EventHandler<CurrentSettingsChangedEventArgs> CurrentSettingsChanged;
 
         static Settings()
         {
@@ -358,7 +360,7 @@ namespace Toastify.Model
 
         /// <summary>
         ///     Set the value of a <see cref="SettingValue{T}" /> if it has changed and notifies the change using the
-        ///     <see cref="System.ComponentModel.INotifyPropertyChanged" /> interface.
+        ///     <see cref="INotifyPropertyChanged" /> interface.
         /// </summary>
         /// <typeparam name="T"> Type of setting. </typeparam>
         /// <param name="field"> A reference to the property's field. </param>
@@ -483,15 +485,14 @@ namespace Toastify.Model
             }
             private set
             {
-                if (_current != null)
-                {
-                    _current.Unload();
+                var previous = _current;
 
-                    _current = value;
-                    App.Container.BuildUp(_current);
+                _current?.Unload();
+                _current = value;
+                App.Container.BuildUp(_current);
+                _current.Apply();
 
-                    _current.Apply();
-                }
+                CurrentSettingsChanged?.Invoke(typeof(Settings), new CurrentSettingsChangedEventArgs(previous, _current));
             }
         }
 
@@ -576,6 +577,7 @@ namespace Toastify.Model
 
         private SettingValue<bool> _useProxy;
         private ProxyConfigAdapter _proxyConfig;
+        private SettingValue<bool> _enableBroadcaster;
 
         private SettingValue<DateTime> _lastVersionCheck;
 
@@ -1010,6 +1012,13 @@ namespace Toastify.Model
             }
         }
 
+        [DefaultValue(false)]
+        public SettingValue<bool> EnableBroadcaster
+        {
+            get { return this.GetSettingValue(ref this._enableBroadcaster); }
+            set { this.SetSettingValue(ref this._enableBroadcaster, value); }
+        }
+
         #endregion
 
         #region (hidden)
@@ -1161,6 +1170,7 @@ namespace Toastify.Model
         {
             this.UseProxy = DefaultValueOf(this.UseProxy, nameof(this.UseProxy));
             this.ProxyConfig = new ProxyConfigAdapter();
+            this.EnableBroadcaster = DefaultValueOf(this.EnableBroadcaster, nameof(this.EnableBroadcaster));
         }
 
         #endregion

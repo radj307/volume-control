@@ -172,6 +172,7 @@
     <Compile Include="Common\Union32.cs" />
     <Compile Include="Common\WindowTitleWatcher.cs" />
     <Compile Include="Core\IProxyConfig.cs" />
+    <Compile Include="Core\IToastifyBroadcaster.cs" />
     <Compile Include="Core\MouseAction.cs" />
     <Compile Include="Events\ActionFailedEventArgs.cs" />
     <Compile Include="Events\WindowTitleChangedEventArgs.cs" />

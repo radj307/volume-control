@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using Aleab.Common.Net.WebSockets;
 using log4net;
 using Newtonsoft.Json;
-using Toastify.Model;
+using ToastifyAPI.Core;
+using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Core.Broadcaster
 {
-    public class ToastifyBroadcaster
+    public class ToastifyBroadcaster : IToastifyBroadcaster
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyBroadcaster));
 
@@ -36,7 +37,7 @@ namespace Toastify.Core.Broadcaster
 
         #endregion
 
-        public ToastifyBroadcaster(uint port)
+        public ToastifyBroadcaster(uint port = 41348)
         {
             this.Port = port;
             this.webHost = new KestrelWebSocketHost<ToastifyWebSocketHostStartup>($"http://localhost:{this.Port}");
@@ -67,7 +68,7 @@ namespace Toastify.Core.Broadcaster
             if (currentWait >= maxWaitMilliseconds)
                 return false;
 
-            if (this.socket.State != WebSocketState.Open)
+            if (this.socket.State != WebSocketState.Open && this.webHostStarted)
             {
                 Uri baseUri = this.webHost.Uri;
                 var uriBuilder = new UriBuilder(baseUri)
@@ -146,8 +147,8 @@ namespace Toastify.Core.Broadcaster
                         throw;
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(1));
                 this.webHostStarted = true;
+                await Task.Delay(TimeSpan.FromSeconds(1));
             }
 
             if (this.receiveMessageThread == null)
@@ -162,8 +163,13 @@ namespace Toastify.Core.Broadcaster
 
         public async Task StopAsync()
         {
-            await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-            await this.webHost.StopAsync();
+            if (this.webHostStarted)
+            {
+                await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                await this.webHost.StopAsync();
+                this.webHostStarted = false;
+            }
+
             if (this.receiveMessageThread != null)
             {
                 this.receiveMessageThread.Abort();
@@ -222,7 +228,7 @@ namespace Toastify.Core.Broadcaster
             await this.SendCommand("BROADCAST", args);
         }
 
-        public async Task BroadcastCurrentSong(Song song)
+        public async Task BroadcastCurrentSong<T>(T song) where T : ISong
         {
             string songJson = song != null ? JsonConvert.SerializeObject(new JsonSong(song)) : "null";
             await this.Broadcast("CURRENT-SONG", songJson);
