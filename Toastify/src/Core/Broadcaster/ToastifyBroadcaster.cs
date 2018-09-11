@@ -18,12 +18,12 @@ namespace Toastify.Core.Broadcaster
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyBroadcaster));
 
-        private readonly ClientWebSocket socket;
+        private ClientWebSocket socket;
         private KestrelWebSocketHost<ToastifyWebSocketHostStartup> webHost;
-
-        private bool webHostStarted;
-
         private Thread receiveMessageThread;
+
+        private bool isSending;
+        private bool isReceiving;
 
         #region Public Properties
 
@@ -40,46 +40,79 @@ namespace Toastify.Core.Broadcaster
         public ToastifyBroadcaster(uint port = 41348)
         {
             this.Port = port;
-            this.webHost = new KestrelWebSocketHost<ToastifyWebSocketHostStartup>($"http://localhost:{this.Port}");
-            this.socket = new ClientWebSocket();
         }
 
-        private async Task<bool> EnsureConnection()
+        public async Task StartAsync()
         {
-            const int maxWaitMilliseconds = 5000;
-            int currentWait = 0;
+            await this.StartAsync(false);
+        }
 
-            while (this.socket.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
+        public async Task StartAsync(bool restart)
+        {
+            bool messageThreadNeededToBeStopped = false;
+            bool socketNeededToBeClosed = false;
+            bool webHostNeededToBeStopped = false;
+
+            if (restart || this.Port != this.webHost?.Uri.Port)
             {
-                currentWait += 50;
-                await Task.Delay(50);
+                messageThreadNeededToBeStopped = this.StopReceiveMessageThread();
+                socketNeededToBeClosed = await this.CloseSocket((WebSocketCloseStatus)1012);
+                webHostNeededToBeStopped = await this.StopWebHost();
             }
 
-            if (currentWait >= maxWaitMilliseconds)
-                return false;
-
-            currentWait = 0;
-            while ((this.socket.State == WebSocketState.CloseSent || this.socket.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
+            // Create a new web host and start it
+            if (this.webHost == null)
             {
-                currentWait += 50;
-                await Task.Delay(50);
-            }
-
-            if (currentWait >= maxWaitMilliseconds)
-                return false;
-
-            if (this.socket.State != WebSocketState.Open && this.webHostStarted)
-            {
-                Uri baseUri = this.webHost.Uri;
-                var uriBuilder = new UriBuilder(baseUri)
+                this.webHost = new KestrelWebSocketHost<ToastifyWebSocketHostStartup>($"http://localhost:{this.Port}");
+                try
                 {
-                    Scheme = "ws",
-                    Path = ToastifyWebSocketHostStartup.INTERNAL_PATH
-                };
-                await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None);
+                    this.webHost.Start();
+                }
+                catch (Exception e)
+                {
+                    if (e.Message.Contains("EADDRINUSE"))
+                    {
+                        this.Port = (uint)GetFreeTcpPort();
+                        this.webHost = new KestrelWebSocketHost<ToastifyWebSocketHostStartup>($"http://localhost:{this.Port}");
+                        this.webHost.Start();
+                    }
+                    else
+                    {
+                        this.webHost = null;
+                        logger.Error("Unhandled exception while starting the web host.", e);
+                    }
+                }
+
+                // Create a new internal socket
+                if (this.webHost != null && this.socket == null)
+                {
+                    this.socket = new ClientWebSocket();
+
+                    if (messageThreadNeededToBeStopped || socketNeededToBeClosed || webHostNeededToBeStopped)
+                        logger.Debug($"{nameof(ToastifyBroadcaster)} restarted!");
+                    else
+                        logger.Debug($"{nameof(ToastifyBroadcaster)} started!");
+                }
             }
 
-            return this.socket.State == WebSocketState.Open;
+            if (this.webHost != null)
+            {
+                this.receiveMessageThread = new Thread(this.ReceiveMessageLoop)
+                {
+                    Name = "ToastifyBroadcaster_ReceiveMessageThread"
+                };
+                this.receiveMessageThread.Start();
+            }
+        }
+
+        public async Task StopAsync()
+        {
+            bool messageThreadNeededToBeStopped = this.StopReceiveMessageThread();
+            bool socketNeededToBeClosed = await this.CloseSocket(WebSocketCloseStatus.NormalClosure);
+            bool webHostNeededToBeStopped = await this.StopWebHost();
+
+            if (socketNeededToBeClosed || webHostNeededToBeStopped || messageThreadNeededToBeStopped)
+                logger.Debug($"{nameof(ToastifyBroadcaster)} stopped!");
         }
 
         private async Task SendCommand(string command, params string[] args)
@@ -91,22 +124,42 @@ namespace Toastify.Core.Broadcaster
                     argsString = $" {string.Join(" ", args)}";
 
                 byte[] bytes = Encoding.UTF8.GetBytes($"{command}{argsString}");
-                await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+
+                // Wait until the previous message has been sent: only one outstanding send operation is allowed!
+                await this.SendChannelAvailable();
+
+                if (this.socket != null && this.socket.State == WebSocketState.Open)
+                {
+                    try
+                    {
+                        this.isSending = true;
+                        await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+                    }
+                    finally
+                    {
+                        this.isSending = false;
+                    }
+                }
             }
         }
 
         private async void ReceiveMessageLoop()
         {
-            if (!await this.EnsureConnection())
-            {
-                logger.Error("Couldn't establish a connection to the local WebSocket.");
-                return;
-            }
-
             try
             {
+                if (!await this.EnsureConnection())
+                {
+                    logger.Error("Couldn't establish a connection to the local WebSocket.");
+                    return;
+                }
+
+                // Wait until the previous message has been received: only one outstanding receive operation is allowed!
+                await this.ReceiveChannelAvailable();
+
+                this.isReceiving = true;
                 var buffer = new byte[4 * 1024];
                 WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                this.isReceiving = false;
 
                 string message = string.Empty;
                 while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection())
@@ -123,73 +176,144 @@ namespace Toastify.Core.Broadcaster
                     else
                         message = string.Empty;
 
-                    receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                    if (await this.EnsureConnection())
+                    {
+                        await this.ReceiveChannelAvailable();
+                        this.isReceiving = true;
+                        receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                        this.isReceiving = false;
+                    }
                 }
 
                 await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
             }
+            catch (Exception e)
+            {
+                if (this.receiveMessageThread != null)
+                    logger.Warn($"Unhandled exception in {nameof(this.ReceiveMessageLoop)}.", e);
+            }
             finally
             {
-                if (this.socket.State != WebSocketState.Open)
-                    await this.StopAsync();
+                this.isReceiving = false;
             }
         }
 
-        public async Task StartAsync()
+        private async Task<bool> EnsureConnection()
         {
-            if (!this.webHostStarted)
+            if (this.socket == null || this.webHost == null)
+                return false;
+
+            const int maxWaitMilliseconds = 5000;
+            int currentWait = 0;
+
+            while (this.socket?.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
+            {
+                await Task.Delay(50);
+                currentWait += 50;
+            }
+
+            while ((this.socket?.State == WebSocketState.CloseSent || this.socket?.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
+            {
+                await Task.Delay(50);
+                currentWait += 50;
+            }
+
+            if (this.socket?.State != WebSocketState.Open && this.webHost != null && currentWait <= maxWaitMilliseconds)
+            {
+                Uri baseUri = this.webHost.Uri;
+                var uriBuilder = new UriBuilder(baseUri)
+                {
+                    Scheme = "ws",
+                    Path = ToastifyWebSocketHostStartup.INTERNAL_PATH
+                };
+
+                await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None);
+            }
+
+            return this.socket?.State == WebSocketState.Open;
+        }
+
+        private async Task SendChannelAvailable()
+        {
+            while (this.isSending)
+            {
+                await Task.Delay(50);
+            }
+        }
+
+        private async Task ReceiveChannelAvailable()
+        {
+            while (this.isReceiving)
+            {
+                await Task.Delay(50);
+            }
+        }
+
+        private async Task<bool> CloseSocket(WebSocketCloseStatus closeStatus)
+        {
+            if (this.socket != null)
             {
                 try
                 {
-                    this.webHost.Start();
+                    if (this.socket.State != WebSocketState.Open)
+                        await this.socket.CloseAsync(closeStatus, string.Empty, CancellationToken.None);
+                    this.socket?.Abort();
                 }
-                catch (AggregateException e)
+                catch (ObjectDisposedException)
                 {
-                    if (e.Message.Contains("EADDRINUSE"))
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException is OperationCanceledException)
                     {
-                        this.Port = (uint)GetFreeTcpPort();
-                        this.webHost = new KestrelWebSocketHost<ToastifyWebSocketHostStartup>($"http://localhost:{this.Port}");
-                        this.webHost.Start();
                     }
-                    else
-                        throw;
+
+                    logger.Error("Unhandled exception while closing the socket.", e);
+                }
+                finally
+                {
+                    this.socket = null;
                 }
 
-                this.webHostStarted = true;
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                return true;
             }
 
-            if (this.receiveMessageThread == null)
-            {
-                this.receiveMessageThread = new Thread(this.ReceiveMessageLoop)
-                {
-                    Name = "ToastifyBroadcaster_ReceiveMessageThread"
-                };
-                this.receiveMessageThread.Start();
-            }
+            return false;
         }
 
-        public async Task StopAsync()
+        private async Task<bool> StopWebHost()
         {
-            try
+            if (this.webHost != null)
             {
-                if (this.webHostStarted)
+                try
                 {
-                    await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-                    await this.webHost.StopAsync();
+                    await this.webHost.StopAsync(TimeSpan.FromSeconds(1));
+                }
+                catch (Exception e)
+                {
+                    logger.Error("Unhandled exception while stopping the web host instance.", e);
+                }
+                finally
+                {
+                    this.webHost = null;
                 }
 
-                if (this.receiveMessageThread != null)
-                {
-                    this.receiveMessageThread.Abort();
-                    this.receiveMessageThread = null;
-                }
+                return true;
             }
-            finally
+
+            return false;
+        }
+
+        private bool StopReceiveMessageThread()
+        {
+            if (this.receiveMessageThread != null)
             {
-                if (this.socket.State != WebSocketState.Open)
-                    this.webHostStarted = false;
+                this.receiveMessageThread.Abort();
+                this.receiveMessageThread = null;
+                return true;
             }
+
+            return false;
         }
 
         #region Static Members

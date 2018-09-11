@@ -857,14 +857,17 @@ namespace Toastify.Core
         {
             try
             {
-                if (Settings.Current.EnableBroadcaster)
-                    await this.Broadcaster.StartAsync();
-                else
-                    await this.Broadcaster.StopAsync();
+                if (e.PreviousSettings?.EnableBroadcaster != e.CurrentSettings?.EnableBroadcaster)
+                {
+                    if (e.CurrentSettings?.EnableBroadcaster == true)
+                        await this.Broadcaster.StartAsync();
+                    else
+                        await this.Broadcaster.StopAsync();
+                }
             }
             catch (Exception exception)
             {
-                logger.Error($"Unhandled exception while {(Settings.Current.EnableBroadcaster.Value ? "starting" : "stopping")} the broadcaster.", exception);
+                logger.Error($"Unhandled exception while {(e.CurrentSettings?.EnableBroadcaster?.Value == true ? "starting" : "stopping")} the broadcaster.", exception);
             }
         }
 
