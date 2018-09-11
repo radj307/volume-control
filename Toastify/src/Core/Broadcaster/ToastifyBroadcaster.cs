@@ -122,7 +122,7 @@ namespace Toastify.Core.Broadcaster
 
         private async Task SendCommand(string command, params string[] args)
         {
-            if (await this.EnsureConnection())
+            if (await this.EnsureConnection().ConfigureAwait(false))
             {
                 string argsString = string.Empty;
                 if (args != null && args.Length > 0)
@@ -131,14 +131,14 @@ namespace Toastify.Core.Broadcaster
                 byte[] bytes = Encoding.UTF8.GetBytes($"{command}{argsString}");
 
                 // Wait until the previous message has been sent: only one outstanding send operation is allowed!
-                await this.SendChannelAvailable();
+                await this.SendChannelAvailable().ConfigureAwait(false);
 
                 if (this.socket != null && this.socket.State == WebSocketState.Open)
                 {
                     try
                     {
                         this.isSending = true;
-                        await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+                        await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None).ConfigureAwait(false);
                     }
                     finally
                     {
@@ -152,22 +152,22 @@ namespace Toastify.Core.Broadcaster
         {
             try
             {
-                if (!await this.EnsureConnection())
+                if (!await this.EnsureConnection().ConfigureAwait(false))
                 {
                     logger.Error("Couldn't establish a connection to the local WebSocket.");
                     return;
                 }
 
                 // Wait until the previous message has been received: only one outstanding receive operation is allowed!
-                await this.ReceiveChannelAvailable();
+                await this.ReceiveChannelAvailable().ConfigureAwait(false);
 
                 this.isReceiving = true;
                 var buffer = new byte[4 * 1024];
-                WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
                 this.isReceiving = false;
 
                 string message = string.Empty;
-                while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection())
+                while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection().ConfigureAwait(false))
                 {
                     if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
@@ -181,16 +181,16 @@ namespace Toastify.Core.Broadcaster
                     else
                         message = string.Empty;
 
-                    if (await this.EnsureConnection())
+                    if (await this.EnsureConnection().ConfigureAwait(false))
                     {
-                        await this.ReceiveChannelAvailable();
+                        await this.ReceiveChannelAvailable().ConfigureAwait(false);
                         this.isReceiving = true;
-                        receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                        receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
                         this.isReceiving = false;
                     }
                 }
 
-                await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None).ConfigureAwait(false);
             }
             catch (Exception e)
             {

@@ -128,7 +128,7 @@ namespace ToastifyAPI.Tests.Logic
             public MouseAction? MouseButton
             {
                 get { return MouseAction.XButton1; }
-                set { }
+                set { var _ = value; }
             }
 
             #endregion

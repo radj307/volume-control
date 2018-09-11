@@ -133,17 +133,18 @@ namespace Toastify.Core.Broadcaster
 
         public override void ConfigureServices(IServiceCollection services)
         {
+            // Nothing to configure
         }
 
         protected override async Task ConfigureWebSocketRequestPipeline(HttpContext context, Func<Task> next, WebSocket webSocket)
         {
             switch (context.Request.Path)
             {
-                case InternalPath:
+                case var s when s == InternalPath:
                     await this.WebSocketLoop(context, webSocket, this.HandleInternal).ConfigureAwait(false);
                     break;
 
-                case ClientsPath:
+                case var s when s == ClientsPath:
                     await this.WebSocketLoop(context, webSocket, this.HandleClients).ConfigureAwait(false);
                     break;
 
@@ -160,10 +161,10 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case InternalPath:
+                case var s when s == InternalPath:
                     return this.toastifyBroadcasterSocket == null || this.toastifyBroadcasterSocket == webSocket;
 
-                case ClientsPath:
+                case var s when s == ClientsPath:
                     return true;
 
                 default:
@@ -177,11 +178,11 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case InternalPath:
+                case var s when s == InternalPath:
                     this.toastifyBroadcasterSocket = webSocket;
                     break;
 
-                case ClientsPath:
+                case var s when s == ClientsPath:
                     int i = Array.FindIndex(this.clients.ToArray(), w => w == webSocket);
                     if (i < 0)
                     {
@@ -210,12 +211,12 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case InternalPath:
+                case var s when s == InternalPath:
                     if (this.toastifyBroadcasterSocket == webSocket)
                         this.toastifyBroadcasterSocket = null;
                     break;
 
-                case ClientsPath:
+                case var s when s == ClientsPath:
                     int i = Array.FindIndex(this.clients.ToArray(), w => w == webSocket);
                     if (i >= 0)
                         this.clients.RemoveAt(i);
