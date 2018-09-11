@@ -19,7 +19,7 @@ This application uses [SpotifyAPI-NET][SpotifyAPI-NET].
 
 ## Requirements
 * Windows (7, 8/8.1, 10)
-* .NET Framework 4.6.1 or greater
+* .NET Framework 4.7.2 or greater
 * Spotify
 
 ## Notices
