@@ -1,7 +1,3 @@
-using log4net;
-using SpotifyAPI;
-using SpotifyAPI.Local;
-using SpotifyAPI.Local.Models;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,17 +7,24 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
+using log4net;
+using SpotifyAPI;
+using SpotifyAPI.Local;
+using SpotifyAPI.Local.Models;
 using Toastify.Common;
+using Toastify.DI;
 using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
+using Toastify.Properties;
 using Toastify.Services;
+using ToastifyAPI.Core;
 using ToastifyAPI.Events;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
-using ToastifyAPI.Native.Enums;
-using ToastifyAPI.Native.Structs;
+using Settings = Toastify.Model.Settings;
 using SpotifyTrackChangedEventArgs = Toastify.Events.SpotifyTrackChangedEventArgs;
 
 namespace Toastify.Core
@@ -39,44 +42,33 @@ namespace Toastify.Core
             get { return _instance ?? (_instance = new Spotify()); }
         }
 
-        #endregion Singleton
-
-        #region Private fields
-
-        #region Spotify Launcher
-
-        private BackgroundWorker spotifyLauncher;
-
-        private PausableTimer spotifyLauncherTimeoutTimer;
-
-        private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
-
-        #endregion Spotify Launcher
-
-        private SpotifyWindow spotifyWindow;
-
-        private SpotifyLocalAPI localAPI;
-
-        private SpotifyLocalAPIConfig localAPIConfig;
+        #endregion
 
         private readonly string spotifyPath;
 
+        private SpotifyWindow spotifyWindow;
         private Process spotifyProcess;
 
-        private Song _currentSong;
+        private SpotifyLocalAPI localAPI;
+        private SpotifyLocalAPIConfig localAPIConfig;
 
+        private Song _currentSong;
         private bool? _isPlaying;
 
-        #endregion Private fields
-
         #region Public Properties
+
+        [PropertyDependency]
+        public IToastifyBroadcaster Broadcaster { get; set; }
 
         public bool IsRunning
         {
             get { return this.spotifyWindow?.IsValid ?? false; }
         }
 
-        public StatusResponse Status { get { return this.localAPI?.GetStatus(); } }
+        public StatusResponse Status
+        {
+            get { return this.localAPI?.GetStatus(); }
+        }
 
         public Song CurrentSong
         {
@@ -90,7 +82,7 @@ namespace Toastify.Core
             private set { this._isPlaying = value; }
         }
 
-        #endregion Public properties
+        #endregion
 
         #region Events
 
@@ -106,12 +98,18 @@ namespace Toastify.Core
 
         public event EventHandler<SpotifyVolumeChangedEventArgs> VolumeChanged;
 
-        #endregion Events
+        #endregion
 
         protected Spotify()
         {
             this.spotifyPath = GetSpotifyPath();
             this.InitLocalAPI();
+
+            Settings.CurrentSettingsChanged += this.Settings_CurrentSettingsChanged;
+
+            // TODO: IToastifyBroadcaster dependency is currently manually resolved. Not good!
+            if (this.Broadcaster == null)
+                this.Broadcaster = App.Container.Resolve<IToastifyBroadcaster>();
         }
 
         public void InitLocalAPI()
@@ -147,9 +145,207 @@ namespace Toastify.Core
             this.spotifyLauncherTimeoutTimer.Start();
         }
 
-        #region Spotify Launcher background worker
+        public void Kill()
+        {
+            //Can't kindly close Spotify this way anymore since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+            //this.SendShortcut(ToastifyActionEnum.Exit);
 
-        private void SpotifyLauncherTimeoutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+            try
+            {
+                if (this.spotifyProcess?.Handle != IntPtr.Zero)
+                {
+                    this.spotifyProcess?.CloseMainWindow();
+                    if (this.spotifyProcess?.HasExited == false)
+                        this.spotifyProcess?.Kill();
+                }
+
+                this.spotifyProcess?.Close();
+                this.localAPI.Dispose();
+            }
+            catch
+            {
+                /* ignore */
+            }
+        }
+
+        public void SendAction(ToastifyActionEnum action)
+        {
+            if (!this.IsRunning)
+                return;
+
+            bool sendAppCommandMessage = false;
+            bool sendMediaKey = false;
+
+            switch (action)
+            {
+#if DEBUG
+                case ToastifyActionEnum.ShowDebugView:
+#endif
+                case ToastifyActionEnum.None:
+                case ToastifyActionEnum.CopyTrackInfo:
+                case ToastifyActionEnum.PasteTrackInfo:
+                case ToastifyActionEnum.ThumbsUp:
+                case ToastifyActionEnum.ThumbsDown:
+                case ToastifyActionEnum.ShowToast:
+                case ToastifyActionEnum.SettingsSaved:
+                case ToastifyActionEnum.Exit:
+                    break;
+
+                case ToastifyActionEnum.ShowSpotify:
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.ShowSpotify);
+                    if (this.IsMinimized)
+                        this.ShowSpotify();
+                    else
+                        this.Minimize();
+                    break;
+
+                case ToastifyActionEnum.VolumeUp:
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
+                    {
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
+                        //    this.SendShortcut(action);
+                        //    break;
+
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.IncrementVolume();
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                            sendMediaKey = true;
+                            break;
+
+                        default:
+                            sendMediaKey = true;
+                            break;
+                    }
+
+                    break;
+
+                case ToastifyActionEnum.VolumeDown:
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
+                    {
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
+                        //    this.SendShortcut(action);
+                        //    break;
+
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.DecrementVolume();
+                            break;
+
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                        default:
+                            sendMediaKey = true;
+                            break;
+                    }
+
+                    break;
+
+                case ToastifyActionEnum.Mute:
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
+                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
+                    {
+                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
+                            this.localAPI.ToggleMute();
+                            break;
+
+                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
+                        //case ToastifyVolumeControlMode.Spotify:
+                        case ToastifyVolumeControlMode.SystemGlobal:
+                        default:
+                            sendMediaKey = true;
+                            break;
+                    }
+
+                    break;
+
+                case ToastifyActionEnum.FastForward:
+                case ToastifyActionEnum.Rewind:
+                case ToastifyActionEnum.Stop:
+                case ToastifyActionEnum.PlayPause:
+                case ToastifyActionEnum.PreviousTrack:
+                case ToastifyActionEnum.NextTrack:
+                    goto default;
+
+                default:
+                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
+                    sendAppCommandMessage = true;
+                    break;
+            }
+
+            if (sendAppCommandMessage)
+                Windows.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
+            if (sendMediaKey)
+                Win32API.SendMediaKey(action);
+        }
+
+        public void VolumeUp()
+        {
+            this.localAPI?.IncrementVolume();
+        }
+
+        public void VolumeDown()
+        {
+            this.localAPI?.DecrementVolume();
+        }
+
+        public void ToggleMute()
+        {
+            this.localAPI?.ToggleMute();
+        }
+
+        private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
+        {
+            this.Connected?.Invoke(this, e);
+
+            if (Settings.Current.EnableBroadcaster)
+                await this.Broadcaster.StartAsync();
+        }
+
+        private async Task OnSongChanged(Song previousSong)
+        {
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
+            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong);
+        }
+
+        private async Task OnPlayStateChanged(bool playing)
+        {
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
+            await this.Broadcaster.BroadcastPlayState(playing);
+        }
+
+        #region Static Members
+
+        private static string GetSpotifyPath()
+        {
+            string path = null;
+            try
+            {
+                path = ToastifyAPI.Spotify.GetSpotifyPath();
+                logger.Info($"Spotify executable found: \"{path}\"");
+            }
+            catch (Exception e)
+            {
+                logger.Error("Error while getting Spotify executable path.", e);
+            }
+
+            return path;
+        }
+
+        #endregion
+
+        #region Spotify Launcher
+
+        private BackgroundWorker spotifyLauncher;
+
+        private PausableTimer spotifyLauncherTimeoutTimer;
+
+        private readonly EventWaitHandle spotifyLauncherWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, "Toastify_SpotifyLauncherWaitHandle");
+
+        private void SpotifyLauncherTimeoutTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             this.spotifyLauncher.CancelAsync();
         }
@@ -162,7 +358,7 @@ namespace Toastify.Core
             if (e.Cancel)
                 return;
             if (this.spotifyProcess == null)
-                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_PROCESS);
+                throw new ApplicationStartupException(Resources.ERROR_STARTUP_PROCESS);
 
             this.spotifyProcess.EnableRaisingEvents = true;
             this.spotifyProcess.Exited += this.Spotify_Exited;
@@ -183,7 +379,7 @@ namespace Toastify.Core
                     {
                         logger.Error("Error while starting Spotify.", applicationStartupException);
 
-                        string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY;
+                        string errorMsg = Resources.ERROR_STARTUP_SPOTIFY;
                         MessageBox.Show($"{errorMsg}{Environment.NewLine}{applicationStartupException.Message}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         Analytics.TrackException(applicationStartupException, true);
@@ -192,7 +388,7 @@ namespace Toastify.Core
                     {
                         logger.Error("Web exception while starting Spotify.", webException);
 
-                        string errorMsg = Properties.Resources.ERROR_STARTUP_RESTART;
+                        string errorMsg = Resources.ERROR_STARTUP_RESTART;
                         string status = $"{webException.Status}";
                         if (webException.Status == WebExceptionStatus.ProtocolError)
                             status += $" ({(webException.Response as HttpWebResponse)?.StatusCode}, \"{(webException.Response as HttpWebResponse)?.StatusDescription}\")";
@@ -205,7 +401,7 @@ namespace Toastify.Core
                     {
                         logger.Error("Unknown error while starting Spotify.", e.Error);
 
-                        string errorMsg = Properties.Resources.ERROR_UNKNOWN;
+                        string errorMsg = Resources.ERROR_UNKNOWN;
                         string techDetails = $"Technical Details: {e.Error.Message}{Environment.NewLine}{e.Error.StackTrace}";
                         MessageBox.Show($"{errorMsg}{Environment.NewLine}{techDetails}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -216,15 +412,15 @@ namespace Toastify.Core
                 {
                     logger.Error($"Toastify was not able to find or connect to Spotify within the timeout interval ({Settings.Current.StartupWaitTimeout / 1000} seconds).");
 
-                    string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY_TIMEOUT;
+                    string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_TIMEOUT;
                     MessageBoxResult choice = MessageBoxResult.No;
                     App.CallInSTAThread(() =>
                     {
                         choice = CustomMessageBox.ShowYesNo(
                             $"{errorMsg}{Environment.NewLine}Do you need to set up or change your proxy details?{Environment.NewLine}{Environment.NewLine}Toastify will terminate regardless of your choice.",
                             "Toastify",
-                            "Yes",  // Yes
-                            "No",   // No
+                            "Yes", // Yes
+                            "No",  // No
                             MessageBoxImage.Error);
                     }, true);
 
@@ -245,7 +441,7 @@ namespace Toastify.Core
         }
 
         /// <summary>
-        /// Starts the Spotify process and waits for it to enter an idle state.
+        ///     Starts the Spotify process and waits for it to enter an idle state.
         /// </summary>
         /// <returns> The started process. </returns>
         private Process LaunchSpotifyAndWaitForInputIdle(DoWorkEventArgs e)
@@ -253,7 +449,7 @@ namespace Toastify.Core
             logger.Info("Launching Spotify...");
 
             if (string.IsNullOrWhiteSpace(this.spotifyPath))
-                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_NOT_FOUND);
+                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_NOT_FOUND);
 
             // Launch Spotify.
             this.spotifyProcess = Process.Start(this.spotifyPath, App.SpotifyParameters);
@@ -282,11 +478,11 @@ namespace Toastify.Core
         }
 
         /// <summary>
-        /// Connect with Spotify.
+        ///     Connect with Spotify.
         /// </summary>
         /// <exception cref="ApplicationStartupException">
-        ///   if Toastify was not able to connect with Spotify or
-        ///   if Spotify returns a null status after connection.
+        ///     if Toastify was not able to connect with Spotify or
+        ///     if Spotify returns a null status after connection.
         /// </exception>
         private void ConnectWithSpotify(DoWorkEventArgs e)
         {
@@ -311,7 +507,7 @@ namespace Toastify.Core
 
                 try
                 {
-                    if(logger.IsDebugEnabled)
+                    if (logger.IsDebugEnabled)
                         logger.Debug($"Trying to connect to Spotify with {(!Settings.Current.UseProxy ? "no proxy" : $"proxy server \"{App.ProxyConfig}\"")}.");
                     connected = this.localAPI.Connect();
                 }
@@ -324,14 +520,14 @@ namespace Toastify.Core
             #endregion try { this.localAPI.Connect(); }
 
             if (!connected)
-                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
+                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
             if (logger.IsDebugEnabled)
                 logger.Debug($"Connected with Spotify on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
 
             // Try to get a status report from Spotify
             var status = this.localAPI.GetStatus();
             if (status == null)
-                throw new ApplicationStartupException(Properties.Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
+                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
         }
 
         private void HandleConnectWithSpotifyException(WebException ex, ref bool proxySettingsChangedAlready)
@@ -378,12 +574,15 @@ namespace Toastify.Core
 
                             try
                             {
-                                using (http.SendAsync(request).Result) { /* do nothing */ }
+                                using (http.SendAsync(request).Result)
+                                {
+                                    /* do nothing */
+                                }
                             }
                             catch
                             {
                                 //// 2c) The user might need to enter or reset their proxy details (#62)
-                                if (!proxySettingsChangedAlready || (Settings.Current.UseProxy && !App.ProxyConfig.IsValid()))
+                                if (!proxySettingsChangedAlready || Settings.Current.UseProxy && !App.ProxyConfig.IsValid())
                                 {
                                     this.AskTheUserToChangeOrDisableProxy("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?");
                                     proxySettingsChangedAlready = true;
@@ -392,8 +591,8 @@ namespace Toastify.Core
                                 {
                                     openSpotifyBlocked = true;
                                     openSpotifyBlockedMessage = hostRedirected
-                                        ? Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
-                                        : Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
+                                        ? Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
+                                        : Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
                                 }
 
                                 handled = true;
@@ -406,7 +605,7 @@ namespace Toastify.Core
             {
                 //// 2b) "open.spotify.com" redirected to 0.0.0.0
                 openSpotifyBlocked = true;
-                openSpotifyBlockedMessage = Properties.Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS;
+                openSpotifyBlockedMessage = Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS;
                 handled = true;
             }
 
@@ -518,8 +717,8 @@ namespace Toastify.Core
         }
 
         /// <summary>
-        /// Prompt the user with the specified message. If they answer Yes, then they are requested to enter their proxy details;
-        /// if they answer No, then the proxy is disabled.
+        ///     Prompt the user with the specified message. If they answer Yes, then they are requested to enter their proxy details;
+        ///     if they answer No, then the proxy is disabled.
         /// </summary>
         /// <param name="message"> The message </param>
         /// <returns> True if the user answered Yes; false otherwise. </returns>
@@ -533,18 +732,16 @@ namespace Toastify.Core
                 this.ChangeProxySettings();
                 return true;
             }
-            else
-            {
-                // Disable the proxy
-                App.ProxyConfig.Set(null);
-                Settings.Current.UseProxy = false;
-                Settings.Current.Save();
 
-                if (logger.IsDebugEnabled)
-                    logger.Debug("Use of proxy has been disabled.");
+            // Disable the proxy
+            App.ProxyConfig.Set(null);
+            Settings.Current.UseProxy = false;
+            Settings.Current.Save();
 
-                return false;
-            }
+            if (logger.IsDebugEnabled)
+                logger.Debug("Use of proxy has been disabled.");
+
+            return false;
         }
 
         private void ChangeProxySettings()
@@ -592,166 +789,6 @@ namespace Toastify.Core
         }
 
         #endregion
-
-        public void Kill()
-        {
-            //Can't kindly close Spotify this way anymore since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-            //this.SendShortcut(ToastifyActionEnum.Exit);
-
-            try
-            {
-                if (this.spotifyProcess?.Handle != IntPtr.Zero)
-                {
-                    this.spotifyProcess?.CloseMainWindow();
-                    if (this.spotifyProcess?.HasExited == false)
-                        this.spotifyProcess?.Kill();
-                }
-                this.spotifyProcess?.Close();
-                this.localAPI.Dispose();
-            }
-            catch { /* ignore */ }
-        }
-
-        public void SendAction(ToastifyActionEnum action)
-        {
-            if (!this.IsRunning)
-                return;
-
-            bool sendAppCommandMessage = false;
-            bool sendMediaKey = false;
-
-            switch (action)
-            {
-#if DEBUG
-                case ToastifyActionEnum.ShowDebugView:
-#endif
-                case ToastifyActionEnum.None:
-                case ToastifyActionEnum.CopyTrackInfo:
-                case ToastifyActionEnum.PasteTrackInfo:
-                case ToastifyActionEnum.ThumbsUp:
-                case ToastifyActionEnum.ThumbsDown:
-                case ToastifyActionEnum.ShowToast:
-                case ToastifyActionEnum.SettingsSaved:
-                case ToastifyActionEnum.Exit:
-                    break;
-
-                case ToastifyActionEnum.ShowSpotify:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.ShowSpotify);
-                    if (this.IsMinimized)
-                        this.ShowSpotify();
-                    else
-                        this.Minimize();
-                    break;
-
-                case ToastifyActionEnum.VolumeUp:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeUp);
-                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
-                    {
-                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-                        //case ToastifyVolumeControlMode.Spotify:
-                        //    this.SendShortcut(action);
-                        //    break;
-
-                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.IncrementVolume();
-                            break;
-
-                        case ToastifyVolumeControlMode.SystemGlobal:
-                            sendMediaKey = true;
-                            break;
-
-                        default:
-                            sendMediaKey = true;
-                            break;
-                    }
-                    break;
-
-                case ToastifyActionEnum.VolumeDown:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.VolumeDown);
-                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
-                    {
-                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-                        //case ToastifyVolumeControlMode.Spotify:
-                        //    this.SendShortcut(action);
-                        //    break;
-
-                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.DecrementVolume();
-                            break;
-
-                        case ToastifyVolumeControlMode.SystemGlobal:
-                        default:
-                            sendMediaKey = true;
-                            break;
-                    }
-                    break;
-
-                case ToastifyActionEnum.Mute:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, Analytics.ToastifyEvent.Action.Mute);
-                    switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
-                    {
-                        case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.ToggleMute();
-                            break;
-
-                        // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
-                        //case ToastifyVolumeControlMode.Spotify:
-                        case ToastifyVolumeControlMode.SystemGlobal:
-                        default:
-                            sendMediaKey = true;
-                            break;
-                    }
-                    break;
-
-                case ToastifyActionEnum.FastForward:
-                case ToastifyActionEnum.Rewind:
-                case ToastifyActionEnum.Stop:
-                case ToastifyActionEnum.PlayPause:
-                case ToastifyActionEnum.PreviousTrack:
-                case ToastifyActionEnum.NextTrack:
-                    goto default;
-
-                default:
-                    Analytics.TrackEvent(Analytics.ToastifyEventCategory.Action, $"{Analytics.ToastifyEvent.Action.Default}{action}");
-                    sendAppCommandMessage = true;
-                    break;
-            }
-
-            if (sendAppCommandMessage)
-                Windows.SendAppCommandMessage(this.GetMainWindowHandle(), (IntPtr)action, true);
-            if (sendMediaKey)
-                Win32API.SendMediaKey(action);
-        }
-
-        public void VolumeUp()
-        {
-            this.localAPI?.IncrementVolume();
-        }
-
-        public void VolumeDown()
-        {
-            this.localAPI?.DecrementVolume();
-        }
-
-        public void ToggleMute()
-        {
-            this.localAPI?.ToggleMute();
-        }
-
-        private static string GetSpotifyPath()
-        {
-            string path = null;
-            try
-            {
-                path = ToastifyAPI.Spotify.GetSpotifyPath();
-                logger.Info($"Spotify executable found: \"{path}\"");
-            }
-            catch (Exception e)
-            {
-                logger.Error("Error while getting Spotify executable path.", e);
-            }
-            return path;
-        }
 
         #region Dispose
 
@@ -814,100 +851,132 @@ namespace Toastify.Core
 
         #endregion Dispose
 
-        #region Event handlers
+        #region Event Handlers
+
+        private async void Settings_CurrentSettingsChanged(object sender, CurrentSettingsChangedEventArgs e)
+        {
+            try
+            {
+                if (e.PreviousSettings?.EnableBroadcaster != e.CurrentSettings?.EnableBroadcaster)
+                {
+                    if (e.CurrentSettings?.EnableBroadcaster == true)
+                        await this.Broadcaster.StartAsync();
+                    else
+                        await this.Broadcaster.StopAsync();
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Error($"Unhandled exception while {(e.CurrentSettings?.EnableBroadcaster?.Value == true ? "starting" : "stopping")} the broadcaster.", exception);
+            }
+        }
 
         private void Spotify_Exited(object sender, EventArgs e)
         {
             this.Exited?.Invoke(sender, e);
         }
 
-        private void Spotify_Connected(object sender, SpotifyStateEventArgs e)
+        private async void Spotify_Connected(object sender, SpotifyStateEventArgs e)
         {
-            this.Connected?.Invoke(sender, e);
+            await this.OnSpotifyConnected(e);
         }
 
-        private void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
+        private async void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
         {
-            this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
-
-            if (this.spotifyWindow.IsValid)
+            try
             {
-                this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
+                this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
 
-                // Fake the Connected event
-                string currentTitle = this.spotifyWindow.Title;
-                SpotifyStateEventArgs spotifyStateEventArgs = null;
+                if (this.spotifyWindow.IsValid)
+                {
+                    this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
 
-                if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-                    spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
+                    // Fake the Connected event
+                    string currentTitle = this.spotifyWindow.Title;
+                    SpotifyStateEventArgs spotifyStateEventArgs = null;
+
+                    if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                        spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
+                    else
+                    {
+                        string[] titleElements = currentTitle.Split('-');
+                        if (titleElements.Length != 2)
+                        {
+                            // TODO: Handle unexpected title format
+                        }
+                        else
+                        {
+                            this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                            spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
+                        }
+                    }
+
+                    if (spotifyStateEventArgs != null)
+                        await this.OnSpotifyConnected(spotifyStateEventArgs);
+                }
                 else
                 {
-                    string[] titleElements = currentTitle.Split('-');
-                    if (titleElements.Length != 2)
+                    string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
+                    logger.Error($"Couldn't find Spotify's window: {logError}");
+
+                    string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
+                    MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    App.Terminate();
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Error($"Unhandled exception in {nameof(this.SpotifyWindow_InitializationFinished)}.", exception);
+            }
+        }
+
+        private async void SpotifyWindowTitleWatcher_TitleChanged(object sender, WindowTitleChangedEventArgs e)
+        {
+            try
+            {
+                bool updateSong = false;
+                if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
+                else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                {
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
+                    updateSong = this.CurrentSong == null;
+                }
+                else
+                    updateSong = true;
+
+                if (updateSong)
+                {
+                    string[] newTitleElements = e.NewTitle.Split('-');
+                    if (newTitleElements.Length != 2)
                     {
                         // TODO: Handle unexpected title format
                     }
                     else
                     {
-                        this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
-                        spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
+                        Song oldSong = this.CurrentSong;
+                        this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                        await this.OnSongChanged(oldSong);
                     }
                 }
-
-                if (spotifyStateEventArgs != null)
-                    this.Connected?.Invoke(this, spotifyStateEventArgs);
             }
-            else
+            catch (Exception exception)
             {
-                string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
-                logger.Error($"Couldn't find Spotify's window: {logError}");
-
-                string errorMsg = Properties.Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
-                MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                App.Terminate();
+                logger.Error($"Unhandled exception in {nameof(this.SpotifyWindowTitleWatcher_TitleChanged)}.", exception);
             }
         }
 
-        private void SpotifyWindowTitleWatcher_TitleChanged(object sender, WindowTitleChangedEventArgs e)
-        {
-            bool updateSong = false;
-            if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
-            else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-            {
-                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
-                updateSong = this.CurrentSong == null;
-            }
-            else
-                updateSong = true;
-
-            if (updateSong)
-            {
-                string[] newTitleElements = e.NewTitle.Split('-');
-                if (newTitleElements.Length != 2)
-                {
-                    // TODO: Handle unexpected title format
-                }
-                else
-                {
-                    Song oldSong = this.CurrentSong;
-                    this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
-                    this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(oldSong, this.CurrentSong));
-                }
-            }
-        }
-
-        private void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
+        private async void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(e.OldTrack, this.CurrentSong));
+            await this.OnSongChanged(e.OldTrack);
         }
 
-        private void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
+        private async void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
             this.IsPlaying = e.Playing;
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(e.Playing));
+            await this.OnPlayStateChanged(e.Playing);
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
@@ -920,6 +989,6 @@ namespace Toastify.Core
             this.VolumeChanged?.Invoke(this, new SpotifyVolumeChangedEventArgs(e.OldVolume, e.NewVolume));
         }
 
-        #endregion Event handlers
+        #endregion
     }
 }

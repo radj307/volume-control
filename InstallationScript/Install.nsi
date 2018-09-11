@@ -64,46 +64,43 @@ Var /GLOBAL PrevAutostartArgs
 Section "${APPNAME} (required)"
   SectionIn RO
   AddSize ${EstimatedSize}
-  
+
   # Since process termination is non-destructive for Toastify, just kill it
   DetailPrint "Shutting down ${APPNAME}..."
   KillProcWMI::KillProc "Toastify.exe"
   Sleep 2000
-  
+
   # Uninstall previous versions
   DetailPrint "Uninstalling previous versions of ${APPNAME}..."
   Call UninstallPreviousVersions
 
   # Check .NET Framework
-  !insertmacro CheckNetFramework 45
-  
+  !insertmacro CheckNetFramework 472
+
   # Set output path to the installation directory.
   SetOutPath $INSTDIR
-  
+
   # Bundle the files
-  ${If} ${IsWin10}
+    # Dependencies
+    File /R "lib"
+
+    # ToastifyAPI.dll
+    ${If} ${IsWin10}
     File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
     File /oname=ToastifyAPI.pdb "ToastifyAPI_UWP.pdb"
-  ${Else}
+    ${Else}
     File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
     File /oname=ToastifyAPI.pdb "ToastifyAPI_Win32.pdb"
-  ${EndIf}
-  
-  File "Toastify.exe"
-  File "Toastify.exe.config"
-  File "Toastify.pdb"
-  File "Castle.Core.dll"
-  File "Castle.Windsor.dll"
-  File "GoogleMeasurementProtocol.dll"
-  File "log4net.dll"
-  File "ManagedWinapi.dll"
-  File "Resources\ManagedWinapiNativeHelper.dll"
-  File "Newtonsoft.Json.dll"
-  File "PowerArgs.dll"
-  File "SpotifyAPI.dll"
-  File "Xceed.Wpf.Toolkit.dll"
-  File "LICENSE"
-  File "LICENSE-3RD-PARTY"
+    ${EndIf}
+
+    # Toastify.exe
+    File "Toastify.exe"
+    File "Toastify.exe.config"
+    File "Toastify.pdb"
+
+    # Resources
+    File "LICENSES\LICENSE"
+    File "LICENSES\LICENSE-3RD-PARTY"
 
   # Create directories in AppData
   CreateDirectory "$APPDATA\Toastify"
@@ -156,25 +153,25 @@ Section "un.Toastify"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify"
   DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "Toastify"
 
-  # Remove files
-  Delete "$INSTDIR\Toastify.exe"
-  Delete "$INSTDIR\Toastify.exe.config"
-  Delete "$INSTDIR\Toastify.pdb"
-  Delete "$INSTDIR\ToastifyAPI.dll"
-  Delete "$INSTDIR\ToastifyAPI.pdb"
-  Delete "$INSTDIR\Castle.Core.dll"
-  Delete "$INSTDIR\Castle.Windsor.dll"
-  Delete "$INSTDIR\GoogleMeasurementProtocol.dll"
-  Delete "$INSTDIR\log4net.dll"
-  Delete "$INSTDIR\ManagedWinapi.dll"
-  Delete "$INSTDIR\ManagedWinapiNativeHelper.dll"
-  Delete "$INSTDIR\Newtonsoft.Json.dll"
-  Delete "$INSTDIR\PowerArgs.dll"
-  Delete "$INSTDIR\SpotifyAPI.dll"
-  Delete "$INSTDIR\Xceed.Wpf.Toolkit.dll"
-  Delete "$INSTDIR\LICENSE"
-  Delete "$INSTDIR\LICENSE-3RD-PARTY"
-  Delete "$INSTDIR\uninst.exe"
+  # Remove files from $INSTDIR
+    # Dependencies
+    RMDir /r "$INSTDIR\lib"
+
+    # ToastifyAPI.dll
+    Delete "$INSTDIR\ToastifyAPI.dll"
+    Delete "$INSTDIR\ToastifyAPI.pdb"
+
+    # Toastify.exe
+    Delete "$INSTDIR\Toastify.exe"
+    Delete "$INSTDIR\Toastify.exe.config"
+    Delete "$INSTDIR\Toastify.pdb"
+
+    # Resources
+    Delete "$INSTDIR\LICENSE"
+    Delete "$INSTDIR\LICENSE-3RD-PARTY"
+
+    # Uninstaller
+    Delete "$INSTDIR\uninst.exe"
 
   # Remove log files
   Delete "$LOCALAPPDATA\Toastify\Toastify.log*"

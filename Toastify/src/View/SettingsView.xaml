@@ -491,6 +491,29 @@
                         <Image Width="20" Height="20" Source="{Binding Path=WarningIcon, Mode=OneWay}" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
                         <TextBlock Foreground="{StaticResource InfoTextColorBrush}" VerticalAlignment="Center" Margin="8,0,0,0">To correctly apply changes to the proxy settings, it's required to restart Toastify.</TextBlock>
                     </StackPanel>
+
+                    <Grid Margin="12,175,12,0" VerticalAlignment="Top" Height="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Name="CbEnableBroadcaster" Grid.Column="0" IsChecked="{Binding Path=Settings.EnableBroadcaster, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}"
+                                  HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="21"
+                                  AutomationProperties.Name="Enable Broadcaster (see: Wiki Page)" VerticalAlignment="Center">
+                            <TextBlock>
+                                Enable Broadcaster (see:
+                                <Hyperlink Name="LinkToastifyBoradcasterWiki" Foreground="#FF0000DB" NavigateUri="{Binding Path=ToastifyBroadcasterWikiUrl, Mode=OneWay}" RequestNavigate="ToastifyBroadcasterWiki_RequestNavigate">
+                                    <Run Text="Wiki Page" />
+                                </Hyperlink>)
+                            </TextBlock>
+                        </CheckBox>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=CbEnableBroadcaster, Path=IsChecked}">
+                            <TextBlock Foreground="{StaticResource InfoTextColorBrush}" VerticalAlignment="Center">WebSocket Port:</TextBlock>
+                            <wpft:WatermarkTextBox Text="{Binding Path=ToastifyBroadcaster.Port, Mode=OneWay}" Width="50" Margin="8,0,0,0" Watermark="Port"
+                                                   Style="{StaticResource DisabledTextBox}" FocusVisualStyle="{StaticResource DisabledTextBox}"
+                                                   IsReadOnly="True" IsReadOnlyCaretVisible="True" IsUndoEnabled="False" MaxLines="1" MinLines="1" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

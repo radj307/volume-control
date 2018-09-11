@@ -10,19 +10,14 @@
      */
     string gaCodeProduction = "null";
     string gaCodeDebugging = "null";
-    try
+
+    string[] lines = File.ReadAllLines("ga-code");
+    if (lines != null && lines[0] != null)
     {
-        string projectPath = this.Host.ResolveAssemblyReference("$(ProjectDir)");
-        string gaCodeFilePath = Path.Combine(projectPath, "ga-code");
-        string[] lines = File.ReadAllLines(gaCodeFilePath);
-        if (lines != null && lines[0] != null)
-        {
-            gaCodeProduction = $"\"{lines[0]}\"";
-            if (lines.Length > 1)
-                gaCodeDebugging = $"\"{lines[1]}\"";
-        }
+        gaCodeProduction = $"\"{lines[0]}\"";
+        if (lines.Length > 1)
+            gaCodeDebugging = $"\"{lines[1]}\"";
     }
-    catch (Exception) {}
 #>
 /*
  * This is an auto-generated file. DO NOT MODIFY IT MANUALLY!

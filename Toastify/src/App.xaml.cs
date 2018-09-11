@@ -27,10 +27,12 @@ using Newtonsoft.Json.Linq;
 using PowerArgs;
 using SpotifyAPI;
 using Toastify.Core;
+using Toastify.Core.Broadcaster;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
+using ToastifyAPI.Core;
 using ToastifyAPI.GitHub;
 using ToastifyAPI.Interop;
 using ToastifyAPI.Interop.Interfaces;
@@ -127,10 +129,11 @@ namespace Toastify
 
         private static void SetupLogger()
         {
+            // Configure log4net
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toastify.log4net.config"))
             {
-                XmlConfigurator.Configure(stream);
-                ILoggerRepository loggerRepository = LogManager.GetRepository();
+                ILoggerRepository loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+                XmlConfigurator.Configure(loggerRepository, stream);
 
                 // Set root logger's log level
                 Logger rootLogger = ((Hierarchy)loggerRepository).Root;
@@ -488,7 +491,6 @@ namespace Toastify
         }
     }
 
-    /// <inheritdoc />
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class App : Application
     {
@@ -654,7 +656,9 @@ namespace Toastify
                 Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
 
                 Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
-                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>()
+                Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>(),
+
+                Component.For<IToastifyBroadcaster>().ImplementedBy<ToastifyBroadcaster>()
             });
         }
 

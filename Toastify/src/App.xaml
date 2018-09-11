@@ -7,7 +7,9 @@
 
     <Application.Resources>
         <Color x:Key="InfoTextColor">#FF575757</Color>
+        <Color x:Key="DisabledBorderColor">#FFABADB3</Color>
         <SolidColorBrush x:Key="InfoTextColorBrush" Color="{StaticResource InfoTextColor}" />
+        <SolidColorBrush x:Key="DisabledBorderColorBrush" Color="{StaticResource DisabledBorderColor}" />
 
         <Style x:Key="ErrorInTextBox" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -15,6 +17,11 @@
                     <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisabledTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="{StaticResource InfoTextColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderColorBrush}" />
         </Style>
     </Application.Resources>
 </Application>

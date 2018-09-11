@@ -5,7 +5,7 @@ SET nsisInstallerFileName=ToastifyInstaller.exe
 SET sfxArchiveName=ToastifyInstaller
 
 
-:: ----------[ POST_BUILD ]--------------------------------
+:: ----------[ POST-BUILD ]--------------------------------
 :: [in]ConfigurationName  [in]DevEnvDir  [in]SolutionDir  [in]TargetDir  [in]TargetFileName
 
 SET "ConfigurationName=%~1"
@@ -15,17 +15,17 @@ SET "TargetDir=%~4"
 SET "TargetFileName=%~5"
 
 IF NOT ["%ConfigurationName:~0,7%"]==["Windows"] (
-    GOTO :EOF
+    GOTO EOF
 )
 IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
-    GOTO :EOF
+    GOTO EOF
 )
 
 :: It's a Windows Release configuration
 
 :: CALL VsDevCmd
 ECHO;
-ECHO - CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
+ECHO [POST-BUILD] CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 :: Manifest
@@ -36,7 +36,7 @@ CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 :: Copy installation scripts 
 ECHO; 
-ECHO - Copy install script 
+ECHO [POST-BUILD] Copy install script 
 COPY /Y "%SolutionDir%InstallationScript\Install.nsi" "%TargetDir%Install.nsi" 
 COPY /Y "%SolutionDir%InstallationScript\*.nsh" "%TargetDir%"
 
@@ -47,12 +47,15 @@ IF ERRORLEVEL 9009 (
     ECHO ERROR: Couldn't find 'makensis' in the PATH!
     ECHO        Make sure NSIS is installed in your system and its 'Bin' directory is in the PATH environment variable.
     ECHO;
-    GOTO :EOF
+    GOTO EOF
 )
 
 CD "%TargetDir%"
 
 :: Compile NSIS installer
 ECHO;
-ECHO - Compile NSIS installer
-makensis Install.nsi || GOTO :EOF
+ECHO [POST-BUILD] Compile NSIS installer
+makensis Install.nsi || GOTO EOF
+
+:EOF
+ECHO;
