@@ -1,10 +1,10 @@
-﻿using FakeItEasy;
+﻿using System;
+using System.Collections.Generic;
+using FakeItEasy;
 using NUnit.Framework;
 using SpotifyAPI.Local.Models;
-using System.Collections.Generic;
 using Toastify.Core;
 using Toastify.Model;
-using ToastifyAPI.Model;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Tests.Model
@@ -12,13 +12,9 @@ namespace Toastify.Tests.Model
     [TestFixture, TestOf(typeof(Song))]
     public class SongTest
     {
-        #region CoverArtUrl
-
         // TODO: Unit test GetAlbumArtUrl
         //       This will be quite tricky to unit test, since it has two external, non-mockable dependencies:
         //       Track and WebClient
-
-        #endregion CoverArtUrl
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsAdTestCases))]
@@ -41,41 +37,13 @@ namespace Toastify.Tests.Model
             return song.IsValid();
         }
 
-        #region Equals / GetHashCode
-
         [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.EqualsTestCases))]
-        public bool EqualsTest(Song s1, Song s2)
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.FromSpotifyWindowTitleTestCases))]
+        public void TestFromSpotifyWindowTitle(string title, Action<Song> test)
         {
-            if (s1 != null)
-                return s1.Equals(s2);
-            return s2 == null || s2.Equals(null);
+            Song song = Song.FromSpotifyWindowTitle(title);
+            test?.Invoke(song);
         }
-
-        [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.ObjectEqualsTestCases))]
-        public bool EqualsTest_Object(Song s, object obj)
-        {
-            if (s != null)
-                return s.Equals(obj);
-            return obj == null || obj.Equals(null);
-        }
-
-        [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.StaticEqualTestCases))]
-        public bool EqualTest_Static(Song s1, Song s2)
-        {
-            return Song.Equal(s1, s2);
-        }
-
-        [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.GetHashCodeTestCases))]
-        public bool GetHashCodeTest(Song s1, Song s2)
-        {
-            return s1?.GetHashCode() == s2?.GetHashCode();
-        }
-
-        #endregion Equals / GetHashCode
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.TrackTestCases))]
@@ -122,64 +90,43 @@ namespace Toastify.Tests.Model
             }
         }
 
+        [Test(Author = "aleab")]
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.EqualsTestCases))]
+        public bool EqualsTest(Song s1, Song s2)
+        {
+            if (s1 != null)
+                return s1.Equals(s2);
+            return s2 == null || s2.Equals(null);
+        }
+
+        [Test(Author = "aleab")]
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.ObjectEqualsTestCases))]
+        public bool EqualsTest_Object(Song s, object obj)
+        {
+            if (s != null)
+                return s.Equals(obj);
+            return obj == null || obj.Equals(null);
+        }
+
+        [Test(Author = "aleab")]
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.StaticEqualTestCases))]
+        public bool EqualTest_Static(Song s1, Song s2)
+        {
+            return Song.Equal(s1, s2);
+        }
+
+        [Test(Author = "aleab")]
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.GetHashCodeTestCases))]
+        public bool GetHashCodeTest(Song s1, Song s2)
+        {
+            return s1?.GetHashCode() == s2?.GetHashCode();
+        }
+
+        #region Test Cases
+
         public class SongAndTrackData
         {
-            internal static SpotifyResource TestAlbumResource { get; } = new SpotifyResource
-            {
-                Location = new TrackResourceLocation { Og = string.Empty },
-                Name = "Test Album",
-                Uri = "http://test.album"
-            };
-
-            internal static SpotifyResource TestArtistResource { get; } = new SpotifyResource
-            {
-                Location = new TrackResourceLocation { Og = string.Empty },
-                Name = "Test Artist",
-                Uri = "http://test.artist"
-            };
-
-            internal static SpotifyResource TestTrackResource { get; } = new SpotifyResource
-            {
-                Location = new TrackResourceLocation { Og = string.Empty },
-                Name = "Test Track",
-                Uri = "http://test.track"
-            };
-
-            internal static Track AdPositiveLengthTrack { get; } = new Track
-            {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 60,
-                TrackType = SpotifyTrackType.AD
-            };
-
-            internal static Track AdZeroLengthTrack { get; } = new Track
-            {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 0,
-                TrackType = SpotifyTrackType.AD
-            };
-
-            internal static Track OtherTrack { get; } = new Track
-            {
-                AlbumResource = null,
-                ArtistResource = null,
-                TrackResource = null,
-                Length = 60,
-                TrackType = SpotifyTrackType.OTHER
-            };
-
-            internal static Track NormalTrack { get; } = new Track
-            {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 60,
-                TrackType = SpotifyTrackType.NORMAL
-            };
+            #region Static Fields and Properties
 
             public static IEnumerable<TestCaseData> TrackTestCases
             {
@@ -405,6 +352,121 @@ namespace Toastify.Tests.Model
                         new Song("artist", "title", 60, SpotifyTrackType.AD, "album")).Returns(false).SetName("not equal: different type");
                 }
             }
+
+            public static IEnumerable<TestCaseData> FromSpotifyWindowTitleTestCases
+            {
+                get
+                {
+                    string GetTitle(IReadOnlyList<string> parts) => $"{parts[0]} - {parts[1]}";
+
+                    string GetTestName(IReadOnlyList<string> parts) => $"Artist: «{parts[0]}», Title: «{parts[1]}»";
+
+                    void Test(ISong song, IReadOnlyList<string> parts)
+                    {
+                        Assert.That(song.Artist, Is.EqualTo(parts[0]));
+                        Assert.That(song.Track, Is.EqualTo(parts[1]));
+                    }
+
+                    string[] t1 = { "Artist", "Title" };
+                    yield return new TestCaseData(GetTitle(t1), new Action<Song>(song => Test(song, t1))).SetName(GetTestName(t1));
+
+                    string[] t2 = { "Artist", "A Compound-Title" };
+                    yield return new TestCaseData(GetTitle(t2), new Action<Song>(song => Test(song, t2))).SetName(GetTestName(t2));
+
+                    string[] t3 = { "Artist", "Title - With - a Bunch of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t3), new Action<Song>(song => Test(song, t3))).SetName(GetTestName(t3));
+
+                    string[] t4 = { "Artist", "A Compound-Title - With - a-Bunch-of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t4), new Action<Song>(song => Test(song, t4))).SetName(GetTestName(t4));
+
+                    string[] t5 = { "A Compound-Artist Name", "Title" };
+                    yield return new TestCaseData(GetTitle(t5), new Action<Song>(song => Test(song, t5))).SetName(GetTestName(t5));
+
+                    string[] t6 = { "A Compound-Artist Name", "A Compound-Title" };
+                    yield return new TestCaseData(GetTitle(t6), new Action<Song>(song => Test(song, t6))).SetName(GetTestName(t6));
+
+                    string[] t7 = { "A Compound-Artist Name", "Title - With - a Bunch of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t7), new Action<Song>(song => Test(song, t7))).SetName(GetTestName(t7));
+
+                    string[] t8 = { "A Compound-Artist Name", "A Compound-Title - With - a-Bunch-of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t8), new Action<Song>(song => Test(song, t8))).SetName(GetTestName(t8));
+
+                    string[] t9 = { "A Multi-Compounded Artist-Name", "Title" };
+                    yield return new TestCaseData(GetTitle(t9), new Action<Song>(song => Test(song, t9))).SetName(GetTestName(t9));
+
+                    string[] t10 = { "A Multi-Compounded Artist-Name", "A Compound-Title" };
+                    yield return new TestCaseData(GetTitle(t10), new Action<Song>(song => Test(song, t10))).SetName(GetTestName(t10));
+
+                    string[] t11 = { "A Multi-Compounded Artist-Name", "Title - With - a Bunch of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t11), new Action<Song>(song => Test(song, t11))).SetName(GetTestName(t11));
+
+                    string[] t12 = { "A Multi-Compounded Artist-Name", "A Compound-Title - With - a-Bunch-of - Hyphens" };
+                    yield return new TestCaseData(GetTitle(t12), new Action<Song>(song => Test(song, t12))).SetName(GetTestName(t12));
+
+                    // NOTE: Artist names with hyphens surrounded by spaces are not supported: it has been chosen to assume that only song titles have them!
+                }
+            }
+
+            internal static SpotifyResource TestAlbumResource { get; } = new SpotifyResource
+            {
+                Location = new TrackResourceLocation { Og = string.Empty },
+                Name = "Test Album",
+                Uri = "http://test.album"
+            };
+
+            internal static SpotifyResource TestArtistResource { get; } = new SpotifyResource
+            {
+                Location = new TrackResourceLocation { Og = string.Empty },
+                Name = "Test Artist",
+                Uri = "http://test.artist"
+            };
+
+            internal static SpotifyResource TestTrackResource { get; } = new SpotifyResource
+            {
+                Location = new TrackResourceLocation { Og = string.Empty },
+                Name = "Test Track",
+                Uri = "http://test.track"
+            };
+
+            internal static Track AdPositiveLengthTrack { get; } = new Track
+            {
+                AlbumResource = TestAlbumResource,
+                ArtistResource = TestArtistResource,
+                TrackResource = TestTrackResource,
+                Length = 60,
+                TrackType = SpotifyTrackType.AD
+            };
+
+            internal static Track AdZeroLengthTrack { get; } = new Track
+            {
+                AlbumResource = TestAlbumResource,
+                ArtistResource = TestArtistResource,
+                TrackResource = TestTrackResource,
+                Length = 0,
+                TrackType = SpotifyTrackType.AD
+            };
+
+            internal static Track OtherTrack { get; } = new Track
+            {
+                AlbumResource = null,
+                ArtistResource = null,
+                TrackResource = null,
+                Length = 60,
+                TrackType = SpotifyTrackType.OTHER
+            };
+
+            internal static Track NormalTrack { get; } = new Track
+            {
+                AlbumResource = TestAlbumResource,
+                ArtistResource = TestArtistResource,
+                TrackResource = TestTrackResource,
+                Length = 60,
+                TrackType = SpotifyTrackType.NORMAL
+            };
+
+            #endregion
         }
+
+        #endregion
     }
 }

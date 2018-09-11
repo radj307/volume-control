@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using log4net;
 using SpotifyAPI.Local.Enums;
@@ -223,6 +224,31 @@ namespace Toastify.Model
         }
 
         #region Static Members
+
+        public static Song FromSpotifyWindowTitle([NotNull] string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                return null;
+
+            Song song = null;
+            string[] newTitleElements = title.Split('-');
+            if (newTitleElements.Length < 2)
+            {
+                // TODO: Handle unexpected title format
+            }
+            else if (newTitleElements.Length > 2)
+            {
+                // Either or both the song title or/and the artist name contain a "-".
+                // Either or both of them can contain compound words with hyphens: these hyphens should be ignored when separating the string!
+                // Let's assume that only the song title contains hyphens surrounded by spaces!
+                var match = Regex.Match(title, @"^((?:[^-]+)|(?:.*?\b-\b.*?)) - (.*)$", RegexOptions.Compiled);
+                song = new Song(match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+            }
+            else
+                song = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+
+            return song;
+        }
 
         public static bool Equal(Song s1, Song s2)
         {

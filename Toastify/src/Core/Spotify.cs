@@ -899,14 +899,10 @@ namespace Toastify.Core
                         spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
                     else
                     {
-                        string[] titleElements = currentTitle.Split('-');
-                        if (titleElements.Length != 2)
+                        Song newSong = Song.FromSpotifyWindowTitle(currentTitle);
+                        if (newSong != null)
                         {
-                            // TODO: Handle unexpected title format
-                        }
-                        else
-                        {
-                            this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                            this.CurrentSong = newSong;
                             spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
                         }
                     }
@@ -948,15 +944,11 @@ namespace Toastify.Core
 
                 if (updateSong)
                 {
-                    string[] newTitleElements = e.NewTitle.Split('-');
-                    if (newTitleElements.Length != 2)
-                    {
-                        // TODO: Handle unexpected title format
-                    }
-                    else
+                    Song newSong = Song.FromSpotifyWindowTitle(e.NewTitle);
+                    if (newSong != null)
                     {
                         Song oldSong = this.CurrentSong;
-                        this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                        this.CurrentSong = newSong;
                         await this.OnSongChanged(oldSong);
                     }
                 }
