@@ -39,9 +39,6 @@ namespace ToastifyAPI.Helpers
         {
             switch (wPixelFormat)
             {
-                case GdiPixelFormat.Canonical:
-                    return PixelFormats.Bgra32;
-
                 case GdiPixelFormat.Format1bppIndexed:
                     return PixelFormats.Indexed1;
 
@@ -62,7 +59,8 @@ namespace ToastifyAPI.Helpers
 
                 case GdiPixelFormat.Format24bppRgb:
                     return PixelFormats.Bgr24;
-
+            
+                case GdiPixelFormat.Canonical:
                 case GdiPixelFormat.Format32bppRgb:
                     return PixelFormats.Bgr32;
 

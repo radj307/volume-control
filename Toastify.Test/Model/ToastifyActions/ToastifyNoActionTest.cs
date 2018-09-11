@@ -8,7 +8,7 @@ namespace Toastify.Tests.Model.ToastifyActions
     public class ToastifyNoActionTest
     {
         [Test(Author = "aleab")]
-        public void TestState()
+        public static void TestState()
         {
             var action = new ToastifyNoAction();
             Assert.Multiple(() =>
@@ -19,7 +19,7 @@ namespace Toastify.Tests.Model.ToastifyActions
         }
 
         [Test(Author = "aleab")]
-        public void TestPerformAction()
+        public static void TestPerformAction()
         {
             var action = new ToastifyNoAction();
             Assert.DoesNotThrow(() => action.PerformAction());

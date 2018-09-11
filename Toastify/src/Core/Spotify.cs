@@ -305,23 +305,23 @@ namespace Toastify.Core
             this.Connected?.Invoke(this, e);
             if (Settings.Current.EnableBroadcaster)
             {
-                await this.Broadcaster.StartAsync();
-                await this.Broadcaster?.BroadcastPlayState(e.Playing);
-                await this.Broadcaster?.BroadcastCurrentSong(e.CurrentSong);
+                await this.Broadcaster.StartAsync().ConfigureAwait(false);
+                await this.Broadcaster.BroadcastPlayState(e.Playing).ConfigureAwait(false);
+                await this.Broadcaster.BroadcastCurrentSong(e.CurrentSong).ConfigureAwait(false);
             }
         }
 
         private async Task OnSongChanged(Song previousSong)
         {
             this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
-            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong);
+            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong).ConfigureAwait(false);
         }
 
         private async Task OnPlayStateChanged(bool playing)
         {
             this.IsPlaying = playing;
             this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
-            await this.Broadcaster.BroadcastPlayState(playing);
+            await this.Broadcaster.BroadcastPlayState(playing).ConfigureAwait(false);
         }
 
         #region Static Members
@@ -867,9 +867,9 @@ namespace Toastify.Core
                 if (e.PreviousSettings?.EnableBroadcaster != e.CurrentSettings?.EnableBroadcaster)
                 {
                     if (e.CurrentSettings?.EnableBroadcaster == true)
-                        await this.Broadcaster.StartAsync();
+                        await this.Broadcaster.StartAsync().ConfigureAwait(false);
                     else
-                        await this.Broadcaster.StopAsync();
+                        await this.Broadcaster.StopAsync().ConfigureAwait(false);
                 }
             }
             catch (Exception exception)
@@ -885,7 +885,7 @@ namespace Toastify.Core
 
         private async void Spotify_Connected(object sender, SpotifyStateEventArgs e)
         {
-            await this.OnSpotifyConnected(e);
+            await this.OnSpotifyConnected(e).ConfigureAwait(false);
         }
 
         private async void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
@@ -902,7 +902,7 @@ namespace Toastify.Core
                     string currentTitle = this.spotifyWindow.Title;
                     SpotifyStateEventArgs spotifyStateEventArgs = null;
 
-                    if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                    if (string.Equals(currentTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
                         spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
                     else
                     {
@@ -912,7 +912,7 @@ namespace Toastify.Core
                     }
 
                     if (spotifyStateEventArgs != null)
-                        await this.OnSpotifyConnected(spotifyStateEventArgs);
+                        await this.OnSpotifyConnected(spotifyStateEventArgs).ConfigureAwait(false);
                 }
                 else
                 {
@@ -936,9 +936,9 @@ namespace Toastify.Core
             try
             {
                 bool updateSong = false;
-                if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                if (string.Equals(e.NewTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
                     this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
-                else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                else if (string.Equals(e.OldTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
                 {
                     this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
                     updateSong = this.CurrentSong == null;
@@ -953,7 +953,7 @@ namespace Toastify.Core
                     {
                         Song oldSong = this.CurrentSong;
                         this.CurrentSong = newSong;
-                        await this.OnSongChanged(oldSong);
+                        await this.OnSongChanged(oldSong).ConfigureAwait(false);
                     }
                 }
             }
@@ -966,12 +966,12 @@ namespace Toastify.Core
         private async void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
         {
             this.CurrentSong = e.NewTrack;
-            await this.OnSongChanged(e.OldTrack);
+            await this.OnSongChanged(e.OldTrack).ConfigureAwait(false);
         }
 
         private async void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
-            await this.OnPlayStateChanged(e.Playing);
+            await this.OnPlayStateChanged(e.Playing).ConfigureAwait(false);
         }
 
         private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)

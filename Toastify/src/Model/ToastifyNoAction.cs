@@ -32,6 +32,7 @@ namespace Toastify.Model
         /// <inheritdoc />
         public override void PerformAction()
         {
+            // No action
         }
     }
 }

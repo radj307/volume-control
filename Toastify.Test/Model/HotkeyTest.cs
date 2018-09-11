@@ -52,14 +52,14 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.ConstructorsTestCases))]
-        public void TestConstructors(Action test)
+        public static void TestConstructors(Action test)
         {
             test?.Invoke();
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.ActiveAndInitTestCases))]
-        public bool TestActiveAndInit([NotNull] FakeHotkey hotkey, Action<FakeHotkey> setup, Action<FakeHotkey> tearDown)
+        public static bool TestActiveAndInit([NotNull] FakeHotkey hotkey, Action<FakeHotkey> setup, Action<FakeHotkey> tearDown)
         {
             setup?.Invoke(hotkey);
             bool initialized = hotkey.Initialized;
@@ -69,7 +69,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.CanPerformActionTestCases))]
-        public bool TestCanPerformAction([NotNull] FakeHotkey hotkey, Action<FakeHotkey> setup, Action<FakeHotkey> tearDown)
+        public static bool TestCanPerformAction([NotNull] FakeHotkey hotkey, Action<FakeHotkey> setup, Action<FakeHotkey> tearDown)
         {
             setup?.Invoke(hotkey);
             bool canPerformAction = hotkey.CanPerformAction;
@@ -79,7 +79,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.ModifiersPressedTestCases))]
-        public bool? TestAreModifiersPressed([NotNull] Hotkey hotkey)
+        public static bool? TestAreModifiersPressed([NotNull] Hotkey hotkey)
         {
             if (hotkey.InputDevices == null)
             {
@@ -100,14 +100,14 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.EqualsTestCases))]
-        public bool TestEquals([NotNull] Hotkey hotkey1, Hotkey hotkey2)
+        public static bool TestEquals([NotNull] Hotkey hotkey1, Hotkey hotkey2)
         {
             return hotkey1.Equals(hotkey2);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(HotkeyData), nameof(HotkeyData.ObjectEqualsTestCases))]
-        public bool TestEquals_Object([NotNull] Hotkey hotkey, object obj)
+        public static bool TestEquals_Object([NotNull] Hotkey hotkey, object obj)
         {
             return hotkey.Equals(obj);
         }
@@ -148,7 +148,7 @@ namespace Toastify.Tests.Model
             Assert.That(toString, Is.Not.Null);
         }
 
-        public class HotkeyData
+        public static class HotkeyData
         {
             #region Static Fields and Properties
 

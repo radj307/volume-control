@@ -56,7 +56,7 @@ namespace ToastifyAPI.Tests.Logic
             return this.visitor.IsRegistered(hotkey);
         }
 
-        public class MouseHookHotkeyVisitorData
+        public static class MouseHookHotkeyVisitorData
         {
             #region Static Fields and Properties
 
@@ -115,7 +115,7 @@ namespace ToastifyAPI.Tests.Logic
             public IAction Action
             {
                 get { return this._action; }
-                set { }
+                set { var _ = value; }
             }
 
             public float MaxFrequency { get; set; }
@@ -160,14 +160,17 @@ namespace ToastifyAPI.Tests.Logic
 
             public void Activate()
             {
+                // Ignore
             }
 
             public void Deactivate()
             {
+                // Ignore
             }
 
             public void Dispatch(IHotkeyVisitor visitor)
             {
+                // Ignore
             }
 
             public object Clone()
@@ -177,6 +180,7 @@ namespace ToastifyAPI.Tests.Logic
 
             public void Dispose()
             {
+                // Ignore
             }
         }
     }

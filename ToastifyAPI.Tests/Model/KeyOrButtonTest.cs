@@ -13,17 +13,15 @@ namespace ToastifyAPI.Tests.Model
     {
         [Test(Author = "aleab")]
         [TestCase(Key.A, null), TestCase(null, MouseAction.XButton1)]
-        public void IsKeyTest(Key? key, MouseAction? mouseAction)
+        public static void IsKeyTest(Key? key, MouseAction? mouseAction)
         {
             // ReSharper disable once PossibleInvalidOperationException
             KeyOrButton kob = key.HasValue ? new KeyOrButton(key.Value) : new KeyOrButton(mouseAction.Value);
             Assert.That(key.HasValue ? kob.IsKey : !kob.IsKey);
         }
 
-        #region JsonConstructor
-
         [Test(Author = "aleab")]
-        public void JsonConstructor_Key()
+        public static void JsonConstructor_Key()
         {
             KeyOrButton kob = new KeyOrButton(true, Key.Up, null);
 
@@ -36,7 +34,7 @@ namespace ToastifyAPI.Tests.Model
         }
 
         [Test(Author = "aleab")]
-        public void JsonConstructor_MouseAction()
+        public static void JsonConstructor_MouseAction()
         {
             KeyOrButton kob = new KeyOrButton(false, null, MouseAction.XButton1);
 
@@ -49,7 +47,7 @@ namespace ToastifyAPI.Tests.Model
         }
 
         [Test(Author = "aleab")]
-        public void JsonConstructor_IfBothDependsOnIsKey()
+        public static void JsonConstructor_IfBothDependsOnIsKey()
         {
             KeyOrButton kob1 = new KeyOrButton(false, Key.Up, MouseAction.XButton1);
             Assert.Multiple(() =>
@@ -71,17 +69,15 @@ namespace ToastifyAPI.Tests.Model
         [Test(Author = "aleab")]
         [TestCase(true, null, null), TestCase(false, null, null)]
         [TestCase(false, Key.Up, null), TestCase(true, null, MouseAction.XButton1)]
-        public void JsonConstructor_Invalid(bool isKey, Key? key, MouseAction? mouseAction)
+        public static void JsonConstructor_Invalid(bool isKey, Key? key, MouseAction? mouseAction)
         {
             // ReSharper disable once ObjectCreationAsStatement
             Assert.Throws<ArgumentException>(() => new KeyOrButton(isKey, key, mouseAction));
         }
 
-        #endregion JsonConstructor
-
         [Test(Author = "aleab")]
         [TestCase(Key.A, null), TestCase(null, MouseAction.XButton1)]
-        public void Clone(Key? key, MouseAction? mouseAction)
+        public static void Clone(Key? key, MouseAction? mouseAction)
         {
             // ReSharper disable once PossibleInvalidOperationException
             KeyOrButton kob = key.HasValue ? new KeyOrButton(key.Value) : new KeyOrButton(mouseAction.Value);
@@ -96,33 +92,29 @@ namespace ToastifyAPI.Tests.Model
             });
         }
 
-        #region Equals / GethashCode
-
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(KeyOrButtonData), nameof(KeyOrButtonData.EqualsTestCases))]
-        public bool EqualsTest([NotNull] KeyOrButton kob1, KeyOrButton kob2)
+        public static bool EqualsTest([NotNull] KeyOrButton kob1, KeyOrButton kob2)
         {
             return kob1.Equals(kob2);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(KeyOrButtonData), nameof(KeyOrButtonData.ObjectEqualsTestCases))]
-        public bool EqualsTest_Object([NotNull] KeyOrButton kob, object obj)
+        public static bool EqualsTest_Object([NotNull] KeyOrButton kob, object obj)
         {
             return kob.Equals(obj);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(KeyOrButtonData), nameof(KeyOrButtonData.GetHashCodeTestCases))]
-        public bool GetHashCodeTest([NotNull] KeyOrButton kob1, KeyOrButton kob2)
+        public static bool GetHashCodeTest([NotNull] KeyOrButton kob1, KeyOrButton kob2)
         {
             return kob1.GetHashCode() == kob2?.GetHashCode();
         }
 
-        #endregion Equals / GethashCode
-
         [Test(Author = "aleab")]
-        public void ImplicitCastToKeyOrMouseButton_FromKey()
+        public static void ImplicitCastToKeyOrMouseButton_FromKey()
         {
             const Key key = Key.A;
             KeyOrButton kob = key;
@@ -135,7 +127,7 @@ namespace ToastifyAPI.Tests.Model
         }
 
         [Test(Author = "aleab")]
-        public void ImplicitCastToKeyOrMouseButton_FromMouseAction()
+        public static void ImplicitCastToKeyOrMouseButton_FromMouseAction()
         {
             const MouseAction mouseAction = MouseAction.XButton1;
             KeyOrButton keyOrButton = mouseAction;
@@ -147,7 +139,7 @@ namespace ToastifyAPI.Tests.Model
             });
         }
 
-        public class KeyOrButtonData
+        public static class KeyOrButtonData
         {
             public static IEnumerable<TestCaseData> EqualsTestCases
             {

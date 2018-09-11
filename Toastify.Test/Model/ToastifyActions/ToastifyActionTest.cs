@@ -14,7 +14,7 @@ namespace Toastify.Tests.Model.ToastifyActions
     public class ToastifyActionTest
     {
         [Test(Author = "aleab")]
-        public void TestToString()
+        public static void TestToString()
         {
             const string name = "Action Name";
             var toastifyAction = A.Fake<ToastifyAction>();
@@ -25,28 +25,28 @@ namespace Toastify.Tests.Model.ToastifyActions
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ToastifyActionData), nameof(ToastifyActionData.EqualsActionTestCases))]
-        public bool TestEquals_IAction([NotNull] ToastifyAction action1, IAction action2)
+        public static bool TestEquals_IAction([NotNull] ToastifyAction action1, IAction action2)
         {
             return action1.Equals(action2);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ToastifyActionData), nameof(ToastifyActionData.EqualsObjectTestCases))]
-        public bool TestEquals_Object([NotNull] ToastifyAction action, object obj)
+        public static bool TestEquals_Object([NotNull] ToastifyAction action, object obj)
         {
             return action.Equals(obj);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ToastifyActionData), nameof(ToastifyActionData.GetHashCodeTestCases))]
-        public bool TestGetHashCode([NotNull] ToastifyAction action1, [NotNull] ToastifyAction action2)
+        public static bool TestGetHashCode([NotNull] ToastifyAction action1, [NotNull] ToastifyAction action2)
         {
             return action1.GetHashCode() == action2.GetHashCode();
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ToastifyActionData), nameof(ToastifyActionData.ActionEventsTestCases))]
-        public void TestActionEvents(ToastifyAction action, bool shouldFail)
+        public static void TestActionEvents(ToastifyAction action, bool shouldFail)
         {
             bool? success = null;
             void OnActionFailed(object sender, ActionFailedEventArgs e) => success = false;
@@ -64,7 +64,7 @@ namespace Toastify.Tests.Model.ToastifyActions
         }
 
         [Test(Author = "aleab")]
-        public void TestClone()
+        public static void TestClone()
         {
             ToastifyMediaAction toastifyAction = new ToastifySimpleMediaAction("Fake Media Action", ToastifyActionEnum.None, 0);
             ToastifyMediaAction toastifyActionClone = toastifyAction.Clone() as ToastifyMediaAction;
@@ -77,7 +77,7 @@ namespace Toastify.Tests.Model.ToastifyActions
             });
         }
 
-        public class ToastifyActionData
+        public static class ToastifyActionData
         {
             #region Static Fields and Properties
 

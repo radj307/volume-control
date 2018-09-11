@@ -38,14 +38,18 @@ namespace Toastify.Core.Broadcaster
 
         #endregion
 
-        public ToastifyBroadcaster(uint port = 41348)
+        public ToastifyBroadcaster() : this(41348)
+        {
+        }
+
+        public ToastifyBroadcaster(uint port)
         {
             this.Port = port;
         }
 
         public async Task StartAsync()
         {
-            await this.StartAsync(false);
+            await this.StartAsync(false).ConfigureAwait(false);
         }
 
         public async Task StartAsync(bool restart)
@@ -57,8 +61,8 @@ namespace Toastify.Core.Broadcaster
             if (restart || this.Port != this.webHost?.Uri.Port)
             {
                 messageThreadNeededToBeStopped = this.StopReceiveMessageThread();
-                socketNeededToBeClosed = await this.CloseSocket((WebSocketCloseStatus)1012);
-                webHostNeededToBeStopped = await this.StopWebHost();
+                socketNeededToBeClosed = await this.CloseSocket((WebSocketCloseStatus)1012).ConfigureAwait(false);
+                webHostNeededToBeStopped = await this.StopWebHost().ConfigureAwait(false);
             }
 
             // Create a new web host and start it
@@ -109,8 +113,8 @@ namespace Toastify.Core.Broadcaster
         public async Task StopAsync()
         {
             bool messageThreadNeededToBeStopped = this.StopReceiveMessageThread();
-            bool socketNeededToBeClosed = await this.CloseSocket(WebSocketCloseStatus.NormalClosure);
-            bool webHostNeededToBeStopped = await this.StopWebHost();
+            bool socketNeededToBeClosed = await this.CloseSocket(WebSocketCloseStatus.NormalClosure).ConfigureAwait(false);
+            bool webHostNeededToBeStopped = await this.StopWebHost().ConfigureAwait(false);
 
             if (socketNeededToBeClosed || webHostNeededToBeStopped || messageThreadNeededToBeStopped)
                 logger.Debug($"{nameof(ToastifyBroadcaster)} stopped!");
@@ -206,7 +210,7 @@ namespace Toastify.Core.Broadcaster
 
             try
             {
-                await this.Connection();
+                await this.Connection().ConfigureAwait(false);
                 this.isConnecting = true;
 
                 const int maxWaitMilliseconds = 5000;
@@ -214,20 +218,20 @@ namespace Toastify.Core.Broadcaster
 
                 while (this.socket?.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(50).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
                 while ((this.socket?.State == WebSocketState.CloseSent || this.socket?.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(50).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
                 const int maxOpenStateWait = 1000;
                 while (this.socket?.State != WebSocketState.Open && currentWait <= maxWaitMilliseconds && currentWait <= maxOpenStateWait)
                 {
-                    await Task.Delay(50);
+                    await Task.Delay(50).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
@@ -240,10 +244,10 @@ namespace Toastify.Core.Broadcaster
                     var uriBuilder = new UriBuilder(baseUri)
                     {
                         Scheme = "ws",
-                        Path = ToastifyWebSocketHostStartup.INTERNAL_PATH
+                        Path = ToastifyWebSocketHostStartup.InternalPath
                     };
 
-                    await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None);
+                    await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -262,7 +266,7 @@ namespace Toastify.Core.Broadcaster
         {
             while (this.isConnecting)
             {
-                await Task.Delay(50);
+                await Task.Delay(50).ConfigureAwait(false);
             }
         }
 
@@ -270,7 +274,7 @@ namespace Toastify.Core.Broadcaster
         {
             while (this.isSending)
             {
-                await Task.Delay(50);
+                await Task.Delay(50).ConfigureAwait(false);
             }
         }
 
@@ -278,7 +282,7 @@ namespace Toastify.Core.Broadcaster
         {
             while (this.isReceiving)
             {
-                await Task.Delay(50);
+                await Task.Delay(50).ConfigureAwait(false);
             }
         }
 
@@ -289,7 +293,7 @@ namespace Toastify.Core.Broadcaster
                 try
                 {
                     if (this.socket.State != WebSocketState.Open)
-                        await this.socket.CloseAsync(closeStatus, string.Empty, CancellationToken.None);
+                        await this.socket.CloseAsync(closeStatus, string.Empty, CancellationToken.None).ConfigureAwait(false);
                     this.socket?.Abort();
                 }
                 catch (ObjectDisposedException)
@@ -320,7 +324,7 @@ namespace Toastify.Core.Broadcaster
             {
                 try
                 {
-                    await this.webHost.StopAsync(TimeSpan.FromSeconds(1));
+                    await this.webHost.StopAsync(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
                 }
                 catch (Exception e)
                 {
@@ -380,7 +384,7 @@ namespace Toastify.Core.Broadcaster
                     response = JsonConvert.DeserializeObject<T>(match.Result("$1"));
             }
 
-            await this.SendCommand(command);
+            await this.SendCommand(command).ConfigureAwait(false);
             this.MessageReceived += OnMessageReceived;
 
             Task waitResponse = Task.Run(() =>
@@ -390,25 +394,25 @@ namespace Toastify.Core.Broadcaster
                     Task.Delay(TimeSpan.FromMilliseconds(100));
                 }
             });
-            await Task.WhenAny(waitResponse, Task.Delay(TimeSpan.FromSeconds(60)));
+            await Task.WhenAny(waitResponse, Task.Delay(TimeSpan.FromSeconds(60))).ConfigureAwait(false);
             this.MessageReceived -= OnMessageReceived;
             return response;
         }
 
         private async Task Broadcast(params string[] args)
         {
-            await this.SendCommand("BROADCAST", args);
+            await this.SendCommand("BROADCAST", args).ConfigureAwait(false);
         }
 
         public async Task BroadcastCurrentSong<T>(T song) where T : ISong
         {
             string songJson = song != null ? JsonConvert.SerializeObject(new JsonSong(song)) : "null";
-            await this.Broadcast("CURRENT-SONG", songJson);
+            await this.Broadcast("CURRENT-SONG", songJson).ConfigureAwait(false);
         }
 
         public async Task BroadcastPlayState(bool playing)
         {
-            await this.Broadcast("PLAY-STATE", $"{{ \"playing\": {JsonConvert.ToString(playing)} }}");
+            await this.Broadcast("PLAY-STATE", $"{{ \"playing\": {JsonConvert.ToString(playing)} }}").ConfigureAwait(false);
         }
 
         #endregion

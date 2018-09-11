@@ -18,7 +18,7 @@ namespace Toastify.Tests.Model
     {
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(KeyboardHotkeyData), nameof(KeyboardHotkeyData.ActiveAndInitTestCases))]
-        public void TestActiveAndInit([NotNull] KeyboardHotkey hotkey, Action<KeyboardHotkey> setup, Action<KeyboardHotkey> test, Action<KeyboardHotkey> tearDown)
+        public static void TestActiveAndInit([NotNull] KeyboardHotkey hotkey, Action<KeyboardHotkey> setup, Action<KeyboardHotkey> test, Action<KeyboardHotkey> tearDown)
         {
             setup?.Invoke(hotkey);
             if (test == null)
@@ -30,14 +30,14 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(KeyboardHotkeyData), nameof(KeyboardHotkeyData.IsValidTestCases))]
-        public bool TestIsValid([NotNull] KeyboardHotkey hotkey, Action<KeyboardHotkey> setup)
+        public static bool TestIsValid([NotNull] KeyboardHotkey hotkey, Action<KeyboardHotkey> setup)
         {
             setup?.Invoke(hotkey);
             return hotkey.IsValid();
         }
 
         [Test(Author = "aleab")]
-        public void TestGetVisitor()
+        public static void TestGetVisitor()
         {
             var visitor = A.Fake<IKeyboardHotkeyVisitor>();
             var hotkey = new KeyboardHotkey { HotkeyVisitor = visitor };
@@ -45,7 +45,7 @@ namespace Toastify.Tests.Model
             Assert.That(hotkey.GetVisitor(), Is.SameAs(visitor));
         }
 
-        public class KeyboardHotkeyData
+        public static class KeyboardHotkeyData
         {
             #region Static Fields and Properties
 

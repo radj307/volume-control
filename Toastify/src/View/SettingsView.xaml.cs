@@ -587,7 +587,7 @@ namespace Toastify.View
 
         private async void ComboBox_OnInitialized(object sender, EventArgs e)
         {
-            await Task.Delay(TimeSpan.FromSeconds(0.5));
+            await Task.Delay(TimeSpan.FromSeconds(0.5)).ConfigureAwait(false);
             if (sender is ComboBox cb)
                 await Task.Run(() => this.InitializeExpandableElementForUIAutomation(cb));
         }

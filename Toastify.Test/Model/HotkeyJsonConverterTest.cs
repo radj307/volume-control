@@ -114,7 +114,7 @@ namespace Toastify.Tests.Model
             return this.hotkeyJsonConverter.CanConvert(type);
         }
 
-        public class HotkeyJsonConverterData
+        public static class HotkeyJsonConverterData
         {
             public static IEnumerable<TestCaseData> CanConvertTestCases
             {

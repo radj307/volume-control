@@ -42,9 +42,7 @@ namespace ToastifyAPI.Tests.Model
             // After waiting 200ms, the action can be performed again.
             Assert.That(this.fakeActionable.CanPerformAction, Is.True);
         }
-
-        #region PerformAction
-
+        
         [Test(Author = "aleab")]
         [Description("An Actionable's PerformAction() method invokes its Action's PerformAction() method exactly once.")]
         public void PerformActionTest_PerformActionCalledOnce()
@@ -55,7 +53,7 @@ namespace ToastifyAPI.Tests.Model
 
         [Test(Author = "aleab")]
         [Description("If an Actionable has a null Action, it does not throw an exception when calling PerformAction().")]
-        public void PerformActionTest_NullActionDoesNotThrowExceptions()
+        public static void PerformActionTest_NullActionDoesNotThrowExceptions()
         {
             Actionable actionable = new Actionable();
             Assert.That(actionable.Action, Is.Null);
@@ -71,34 +69,28 @@ namespace ToastifyAPI.Tests.Model
             Assert.DoesNotThrow(() => this.fakeActionable.PerformAction());
         }
 
-        #endregion PerformAction
-
-        #region Equals / GethashCode
-
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ActionableData), nameof(ActionableData.EqualsTestCases))]
-        public bool EqualsTest([NotNull] Actionable actionable1, Actionable actionable2)
+        public static bool EqualsTest([NotNull] Actionable actionable1, Actionable actionable2)
         {
             return actionable1.Equals(actionable2);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ActionableData), nameof(ActionableData.ObjectEqualsTestCases))]
-        public bool EqualsTest_Object([NotNull] Actionable actionable, object obj)
+        public static bool EqualsTest_Object([NotNull] Actionable actionable, object obj)
         {
             return actionable.Equals(obj);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(ActionableData), nameof(ActionableData.GetHashCodeTestCases))]
-        public bool GetHashCodeTest([NotNull] Actionable actionable1, [NotNull] Actionable actionable2)
+        public static bool GetHashCodeTest([NotNull] Actionable actionable1, [NotNull] Actionable actionable2)
         {
             return actionable1.GetHashCode() == actionable2.GetHashCode();
         }
 
-        #endregion Equals / GethashCode
-
-        public class ActionableData
+        public static class ActionableData
         {
             public static IEnumerable<TestCaseData> EqualsTestCases
             {

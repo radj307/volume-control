@@ -3,7 +3,7 @@ using Castle.Windsor;
 
 namespace Toastify.Tests.WindsorTestsData
 {
-    internal class WindsorContainerData
+    internal static class WindsorContainerData
     {
         public static WindsorContainer Container
         {

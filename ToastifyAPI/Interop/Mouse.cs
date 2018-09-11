@@ -38,16 +38,16 @@ namespace ToastifyAPI.Interop
                     return this.mouseDevice.LeftButton == MouseButtonState.Pressed;
 
                 case MouseButton.Right:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Pressed;
+                    return this.mouseDevice.RightButton == MouseButtonState.Pressed;
 
                 case MouseButton.Middle:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Pressed;
+                    return this.mouseDevice.MiddleButton == MouseButtonState.Pressed;
 
                 case MouseButton.XButton1:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Pressed;
+                    return this.mouseDevice.XButton1 == MouseButtonState.Pressed;
 
                 case MouseButton.XButton2:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Pressed;
+                    return this.mouseDevice.XButton2 == MouseButtonState.Pressed;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mouseButton), mouseButton, null);
@@ -63,16 +63,16 @@ namespace ToastifyAPI.Interop
                     return this.mouseDevice.LeftButton == MouseButtonState.Released;
 
                 case MouseButton.Right:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Released;
+                    return this.mouseDevice.RightButton == MouseButtonState.Released;
 
                 case MouseButton.Middle:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Released;
+                    return this.mouseDevice.MiddleButton == MouseButtonState.Released;
 
                 case MouseButton.XButton1:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Released;
+                    return this.mouseDevice.XButton1 == MouseButtonState.Released;
 
                 case MouseButton.XButton2:
-                    return this.mouseDevice.LeftButton == MouseButtonState.Released;
+                    return this.mouseDevice.XButton2 == MouseButtonState.Released;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mouseButton), mouseButton, null);

@@ -25,8 +25,6 @@ namespace Toastify.Tests.Model
             this.settingValue = new SettingValue<IFakeT>(value, value, new Range<IFakeT>(min, max));
         }
 
-        #region Change Value (Range tests)
-
         [Test(Author = "aleab")]
         public void ChangeValueTest()
         {
@@ -64,8 +62,6 @@ namespace Toastify.Tests.Model
             // ReSharper disable once PossibleInvalidOperationException
             Assert.That(this.settingValue.Value, Is.SameAs(this.settingValue.Range.Value.Max));
         }
-
-        #endregion Change Value (Range tests)
 
         public interface IFakeT : IComparable, IConvertible
         {

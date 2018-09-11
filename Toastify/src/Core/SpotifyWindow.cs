@@ -11,8 +11,12 @@ namespace Toastify.Core
 {
     public class SpotifyWindow
     {
-        public const string PAUSED_TITLE = "Spotify";
-        private const int GET_WINDOW_HANDLE_TIMEOUT = 2000;
+        #region Static Fields and Properties
+
+        public static string PausedTitle { get; } = "Spotify";
+        private static int GetWindowHandleTimeout { get; } = 2000;
+
+        #endregion
 
         private readonly Process process;
 
@@ -79,13 +83,18 @@ namespace Toastify.Core
             Task.Run(this.Init);
         }
 
-        public Task Minimize(int delay = 0)
+        public Task Minimize()
+        {
+            return this.Minimize(0);
+        }
+
+        public Task Minimize(int delay)
         {
             return Task.Run(async () =>
             {
                 if (this.IsValid)
                 {
-                    await Task.Delay(delay);
+                    await Task.Delay(delay).ConfigureAwait(false);
                     User32.ShowWindow(this.Handle, ShowWindowCmd.SW_SHOWMINIMIZED);
                 }
             });
@@ -145,7 +154,7 @@ namespace Toastify.Core
 
         private async Task Init()
         {
-            await this.GetWindowHandle();
+            await this.GetWindowHandle().ConfigureAwait(false);
             if (this.Handle != IntPtr.Zero)
                 this.TitleWatcher = new WindowTitleWatcher(this.Handle);
 
@@ -156,7 +165,7 @@ namespace Toastify.Core
         {
             if (this.process != null)
             {
-                int timeout = GET_WINDOW_HANDLE_TIMEOUT;
+                int timeout = GetWindowHandleTimeout;
                 do
                 {
                     this.Handle = ToastifyAPI.Spotify.GetMainWindowHandle(unchecked((uint)this.process.Id));
@@ -164,7 +173,7 @@ namespace Toastify.Core
                     if (this.Handle == IntPtr.Zero)
                     {
                         timeout -= 100;
-                        await Task.Delay(100);
+                        await Task.Delay(100).ConfigureAwait(false);
                     }
                 } while (this.Handle == IntPtr.Zero && timeout > 0);
             }

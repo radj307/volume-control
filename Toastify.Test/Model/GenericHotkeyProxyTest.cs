@@ -17,49 +17,49 @@ namespace Toastify.Tests.Model
     {
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.ConstructorsTestCases))]
-        public void TestConstructors(Action test)
+        public static void TestConstructors(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.ModifiersTestCases))]
-        public void TestModifiers(Action test)
+        public static void TestModifiers(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.IsValidTestCases))]
-        public void TestIsValid(Action test)
+        public static void TestIsValid(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.InvalidReasonTestCases))]
-        public void TestInvalidReason(Action test)
+        public static void TestInvalidReason(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.SetActivatorTestCases))]
-        public void TestSetActivator(Action test)
+        public static void TestSetActivator(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.GetActivatorTestCases))]
-        public void TestGetActivator(Action test)
+        public static void TestGetActivator(Action test)
         {
             Test(test);
         }
 
         [Test(Author = "aleab"), Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(GenericHotkeyProxyData), nameof(GenericHotkeyProxyData.IsAlreadyInUseByTestCases))]
-        public bool TestIsAlreadyInUseBy([NotNull] Func<GenericHotkeyProxy> getHotkey, Func<GenericHotkeyProxy> getArg)
+        public static bool TestIsAlreadyInUseBy([NotNull] Func<GenericHotkeyProxy> getHotkey, Func<GenericHotkeyProxy> getArg)
         {
             return getHotkey.Invoke().IsAlreadyInUseBy(getArg?.Invoke());
         }
@@ -76,7 +76,7 @@ namespace Toastify.Tests.Model
 
         #endregion
 
-        public class GenericHotkeyProxyData
+        public static class GenericHotkeyProxyData
         {
             #region Static Fields and Properties
 

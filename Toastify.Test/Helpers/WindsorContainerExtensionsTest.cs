@@ -7,13 +7,8 @@ namespace Toastify.Tests.Helpers
     [TestFixture, TestOf(typeof(WindsorContainerExtensions))]
     public class WindsorContainerExtensionsTest
     {
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-        }
-
         [Test(Author = "aleab")]
-        public void BuildUpTest()
+        public static void BuildUpTest()
         {
             DependencyBase objWithDependencies = new DependecyWithDependencies();
             WindsorContainerData.Container.BuildUp(objWithDependencies);

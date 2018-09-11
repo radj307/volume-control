@@ -20,8 +20,12 @@ namespace Toastify.Core.Broadcaster
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyWebSocketHostStartup));
 
-        public const string INTERNAL_PATH = "/ws/toastify/internal";
-        public const string CLIENTS_PATH = "/ws/toastify";
+        #region Static Fields and Properties
+
+        public static string InternalPath { get; } = "/ws/toastify/internal";
+        public static string ClientsPath { get; } = "/ws/toastify";
+
+        #endregion
 
         private readonly IList<WebSocket> clients;
         private WebSocket toastifyBroadcasterSocket;
@@ -34,7 +38,7 @@ namespace Toastify.Core.Broadcaster
         private async Task WebSocketLoop(HttpContext context, WebSocket webSocket, Func<string, WebSocket, Task> messageHandler)
         {
             var buffer = new byte[this.ReceiveBufferSize];
-            WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
 
             string message = string.Empty;
             while (!receiveResult.CloseStatus.HasValue)
@@ -45,17 +49,17 @@ namespace Toastify.Core.Broadcaster
                     if (receiveResult.EndOfMessage)
                     {
                         if (messageHandler != null)
-                            await messageHandler.Invoke(message, webSocket);
+                            await messageHandler.Invoke(message, webSocket).ConfigureAwait(false);
                         message = string.Empty;
                     }
                 }
                 else
                     message = string.Empty;
 
-                receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
             }
 
-            await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+            await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None).ConfigureAwait(false);
         }
 
         private async Task HandleInternal(string message, WebSocket webSocket)
@@ -74,7 +78,7 @@ namespace Toastify.Core.Broadcaster
                         case "CURRENT-SONG":
                             foreach (var client in this.clients)
                             {
-                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client);
+                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client).ConfigureAwait(false);
                             }
 
                             handled = true;
@@ -83,7 +87,7 @@ namespace Toastify.Core.Broadcaster
                         case "PLAY-STATE":
                             foreach (var client in this.clients)
                             {
-                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client);
+                                await RedirectTo($"{cmd} {match.Groups[2].Value}", client).ConfigureAwait(false);
                             }
 
                             handled = true;
@@ -96,17 +100,17 @@ namespace Toastify.Core.Broadcaster
                     break;
 
                 case "CLIENTS":
-                    await RedirectTo(this.clients.Count.ToString(), webSocket);
+                    await RedirectTo(this.clients.Count.ToString(), webSocket).ConfigureAwait(false);
                     handled = true;
                     break;
 
                 default:
-                    logger.Warn($"Unrecognized command received on {INTERNAL_PATH}: {message}");
+                    logger.Warn($"Unrecognized command received on {InternalPath}: {message}");
                     break;
             }
 
             if (!handled)
-                logger.Warn($"Unrecognized command received on {INTERNAL_PATH}: {message}");
+                logger.Warn($"Unrecognized command received on {InternalPath}: {message}");
         }
 
         private async Task HandleClients(string message, WebSocket clientWebSocket)
@@ -118,11 +122,11 @@ namespace Toastify.Core.Broadcaster
             {
                 case "PING":
                     if (this.toastifyBroadcasterSocket != null)
-                        await RedirectTo("PONG", clientWebSocket);
+                        await RedirectTo("PONG", clientWebSocket).ConfigureAwait(false);
                     break;
 
                 default:
-                    logger.Warn($"Unrecognized command received on {CLIENTS_PATH}: {message}");
+                    logger.Warn($"Unrecognized command received on {ClientsPath}: {message}");
                     break;
             }
         }
@@ -135,16 +139,16 @@ namespace Toastify.Core.Broadcaster
         {
             switch (context.Request.Path)
             {
-                case INTERNAL_PATH:
-                    await this.WebSocketLoop(context, webSocket, this.HandleInternal);
+                case InternalPath:
+                    await this.WebSocketLoop(context, webSocket, this.HandleInternal).ConfigureAwait(false);
                     break;
 
-                case CLIENTS_PATH:
-                    await this.WebSocketLoop(context, webSocket, this.HandleClients);
+                case ClientsPath:
+                    await this.WebSocketLoop(context, webSocket, this.HandleClients).ConfigureAwait(false);
                     break;
 
                 default:
-                    await next();
+                    await next().ConfigureAwait(false);
                     break;
             }
         }
@@ -156,10 +160,10 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case INTERNAL_PATH:
+                case InternalPath:
                     return this.toastifyBroadcasterSocket == null || this.toastifyBroadcasterSocket == webSocket;
 
-                case CLIENTS_PATH:
+                case ClientsPath:
                     return true;
 
                 default:
@@ -173,11 +177,11 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case INTERNAL_PATH:
+                case InternalPath:
                     this.toastifyBroadcasterSocket = webSocket;
                     break;
 
-                case CLIENTS_PATH:
+                case ClientsPath:
                     int i = Array.FindIndex(this.clients.ToArray(), w => w == webSocket);
                     if (i < 0)
                     {
@@ -189,7 +193,7 @@ namespace Toastify.Core.Broadcaster
                                 Song = new JsonSong(Spotify.Instance.CurrentSong),
                                 Playing = Spotify.Instance.IsPlaying
                             };
-                            await RedirectTo($"HELLO {JsonConvert.SerializeObject(greetings)}", webSocket);
+                            await RedirectTo($"HELLO {JsonConvert.SerializeObject(greetings)}", webSocket).ConfigureAwait(false);
                         });
                     }
 
@@ -206,12 +210,12 @@ namespace Toastify.Core.Broadcaster
 
             switch (context.Request.Path)
             {
-                case INTERNAL_PATH:
+                case InternalPath:
                     if (this.toastifyBroadcasterSocket == webSocket)
                         this.toastifyBroadcasterSocket = null;
                     break;
 
-                case CLIENTS_PATH:
+                case ClientsPath:
                     int i = Array.FindIndex(this.clients.ToArray(), w => w == webSocket);
                     if (i >= 0)
                         this.clients.RemoveAt(i);

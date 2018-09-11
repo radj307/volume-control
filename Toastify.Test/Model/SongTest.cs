@@ -18,28 +18,28 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsAdTestCases))]
-        public bool IsAdTest(Song song)
+        public static bool IsAdTest(Song song)
         {
             return song.IsAd();
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsOtherTrackTypeTestCases))]
-        public bool IsOtherTrackTypeTest(Song song)
+        public static bool IsOtherTrackTypeTest(Song song)
         {
             return song.IsOtherTrackType();
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsValidTestCases))]
-        public bool IsValidTest(Song song)
+        public static bool IsValidTest(Song song)
         {
             return song.IsValid();
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.FromSpotifyWindowTitleTestCases))]
-        public void TestFromSpotifyWindowTitle(string title, Action<Song> test)
+        public static void TestFromSpotifyWindowTitle(string title, Action<Song> test)
         {
             Song song = Song.FromSpotifyWindowTitle(title);
             test?.Invoke(song);
@@ -47,7 +47,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.TrackTestCases))]
-        public void ImplicitCastToSong_Track(Track track)
+        public static void ImplicitCastToSong_Track(Track track)
         {
             Song song = track;
 
@@ -92,7 +92,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.EqualsTestCases))]
-        public bool EqualsTest(Song s1, Song s2)
+        public static bool EqualsTest(Song s1, Song s2)
         {
             if (s1 != null)
                 return s1.Equals(s2);
@@ -101,7 +101,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.ObjectEqualsTestCases))]
-        public bool EqualsTest_Object(Song s, object obj)
+        public static bool EqualsTest_Object(Song s, object obj)
         {
             if (s != null)
                 return s.Equals(obj);
@@ -110,21 +110,21 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.StaticEqualTestCases))]
-        public bool EqualTest_Static(Song s1, Song s2)
+        public static bool EqualTest_Static(Song s1, Song s2)
         {
             return Song.Equal(s1, s2);
         }
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.GetHashCodeTestCases))]
-        public bool GetHashCodeTest(Song s1, Song s2)
+        public static bool GetHashCodeTest(Song s1, Song s2)
         {
             return s1?.GetHashCode() == s2?.GetHashCode();
         }
 
         #region Test Cases
 
-        public class SongAndTrackData
+        public static class SongAndTrackData
         {
             #region Static Fields and Properties
 

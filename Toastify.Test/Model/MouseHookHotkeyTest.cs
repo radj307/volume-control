@@ -17,7 +17,7 @@ namespace Toastify.Tests.Model
     {
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(MouseHookHotkeyData), nameof(MouseHookHotkeyData.ActiveAndInitTestCases))]
-        public void TestActiveAndInit([NotNull] MouseHookHotkey hotkey, Action<MouseHookHotkey> setup, Action<MouseHookHotkey> test, Action<MouseHookHotkey> tearDown)
+        public static void TestActiveAndInit([NotNull] MouseHookHotkey hotkey, Action<MouseHookHotkey> setup, Action<MouseHookHotkey> test, Action<MouseHookHotkey> tearDown)
         {
             setup?.Invoke(hotkey);
             if (test == null)
@@ -29,7 +29,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(MouseHookHotkeyData), nameof(MouseHookHotkeyData.IsValidTestCases))]
-        public bool TestIsValid([NotNull] MouseHookHotkey hotkey, Action<MouseHookHotkey> setup)
+        public static bool TestIsValid([NotNull] MouseHookHotkey hotkey, Action<MouseHookHotkey> setup)
         {
             setup?.Invoke(hotkey);
             bool isValid = hotkey.IsValid();
@@ -38,7 +38,7 @@ namespace Toastify.Tests.Model
         }
 
         [Test(Author = "aleab")]
-        public void TestGetVisitor()
+        public static void TestGetVisitor()
         {
             var visitor = A.Fake<IMouseHookHotkeyVisitor>();
             var hotkey = new MouseHookHotkey { HotkeyVisitor = visitor };
@@ -46,7 +46,7 @@ namespace Toastify.Tests.Model
             Assert.That(hotkey.GetVisitor(), Is.SameAs(visitor));
         }
 
-        public class MouseHookHotkeyData
+        public static class MouseHookHotkeyData
         {
             #region Static Fields and Properties
 
