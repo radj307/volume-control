@@ -855,10 +855,17 @@ namespace Toastify.Core
 
         private async void Settings_CurrentSettingsChanged(object sender, CurrentSettingsChangedEventArgs e)
         {
-            if (Settings.Current.EnableBroadcaster)
-                await this.Broadcaster.StartAsync();
-            else
-                await this.Broadcaster.StopAsync();
+            try
+            {
+                if (Settings.Current.EnableBroadcaster)
+                    await this.Broadcaster.StartAsync();
+                else
+                    await this.Broadcaster.StopAsync();
+            }
+            catch (Exception exception)
+            {
+                logger.Error($"Unhandled exception while {(Settings.Current.EnableBroadcaster.Value ? "starting" : "stopping")} the broadcaster.", exception);
+            }
         }
 
         private void Spotify_Exited(object sender, EventArgs e)
@@ -873,73 +880,87 @@ namespace Toastify.Core
 
         private async void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
         {
-            this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
-
-            if (this.spotifyWindow.IsValid)
+            try
             {
-                this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
+                this.spotifyWindow.InitializationFinished -= this.SpotifyWindow_InitializationFinished;
 
-                // Fake the Connected event
-                string currentTitle = this.spotifyWindow.Title;
-                SpotifyStateEventArgs spotifyStateEventArgs = null;
-
-                if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-                    spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
-                else
+                if (this.spotifyWindow.IsValid)
                 {
-                    string[] titleElements = currentTitle.Split('-');
-                    if (titleElements.Length != 2)
-                    {
-                        // TODO: Handle unexpected title format
-                    }
+                    this.spotifyWindow.TitleWatcher.TitleChanged += this.SpotifyWindowTitleWatcher_TitleChanged;
+
+                    // Fake the Connected event
+                    string currentTitle = this.spotifyWindow.Title;
+                    SpotifyStateEventArgs spotifyStateEventArgs = null;
+
+                    if (string.Equals(currentTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                        spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
                     else
                     {
-                        this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
-                        spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
+                        string[] titleElements = currentTitle.Split('-');
+                        if (titleElements.Length != 2)
+                        {
+                            // TODO: Handle unexpected title format
+                        }
+                        else
+                        {
+                            this.CurrentSong = new Song(titleElements[0].Trim(), titleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                            spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
+                        }
                     }
+
+                    if (spotifyStateEventArgs != null)
+                        await this.OnSpotifyConnected(spotifyStateEventArgs);
                 }
+                else
+                {
+                    string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
+                    logger.Error($"Couldn't find Spotify's window: {logError}");
 
-                if (spotifyStateEventArgs != null)
-                    await this.OnSpotifyConnected(spotifyStateEventArgs);
+                    string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
+                    MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    App.Terminate();
+                }
             }
-            else
+            catch (Exception exception)
             {
-                string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
-                logger.Error($"Couldn't find Spotify's window: {logError}");
-
-                string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
-                MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                App.Terminate();
+                logger.Error($"Unhandled exception in {nameof(this.SpotifyWindow_InitializationFinished)}.", exception);
             }
         }
 
         private async void SpotifyWindowTitleWatcher_TitleChanged(object sender, WindowTitleChangedEventArgs e)
         {
-            bool updateSong = false;
-            if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
-                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
-            else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+            try
             {
-                this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
-                updateSong = this.CurrentSong == null;
-            }
-            else
-                updateSong = true;
-
-            if (updateSong)
-            {
-                string[] newTitleElements = e.NewTitle.Split('-');
-                if (newTitleElements.Length != 2)
+                bool updateSong = false;
+                if (string.Equals(e.NewTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
+                else if (string.Equals(e.OldTitle, SpotifyWindow.PAUSED_TITLE, StringComparison.InvariantCulture))
                 {
-                    // TODO: Handle unexpected title format
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
+                    updateSong = this.CurrentSong == null;
                 }
                 else
+                    updateSong = true;
+
+                if (updateSong)
                 {
-                    Song oldSong = this.CurrentSong;
-                    this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
-                    await this.OnSongChanged(oldSong);
+                    string[] newTitleElements = e.NewTitle.Split('-');
+                    if (newTitleElements.Length != 2)
+                    {
+                        // TODO: Handle unexpected title format
+                    }
+                    else
+                    {
+                        Song oldSong = this.CurrentSong;
+                        this.CurrentSong = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                        await this.OnSongChanged(oldSong);
+                    }
                 }
+            }
+            catch (Exception exception)
+            {
+                logger.Error($"Unhandled exception in {nameof(this.SpotifyWindowTitleWatcher_TitleChanged)}.", exception);
             }
         }
 

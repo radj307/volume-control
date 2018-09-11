@@ -103,28 +103,36 @@ namespace Toastify.Core.Broadcaster
                 return;
             }
 
-            var buffer = new byte[4 * 1024];
-            WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
-            string message = string.Empty;
-            while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection())
+            try
             {
-                if (receiveResult.MessageType == WebSocketMessageType.Text)
+                var buffer = new byte[4 * 1024];
+                WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+                string message = string.Empty;
+                while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection())
                 {
-                    message += Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
-                    if (receiveResult.EndOfMessage)
+                    if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
-                        this.MessageReceived?.Invoke(this, new MessageReceivedEventArgs(message));
-                        message = string.Empty;
+                        message += Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
+                        if (receiveResult.EndOfMessage)
+                        {
+                            this.MessageReceived?.Invoke(this, new MessageReceivedEventArgs(message));
+                            message = string.Empty;
+                        }
                     }
+                    else
+                        message = string.Empty;
+
+                    receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
-                else
-                    message = string.Empty;
 
-                receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
             }
-
-            await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+            finally
+            {
+                if (this.socket.State != WebSocketState.Open)
+                    await this.StopAsync();
+            }
         }
 
         public async Task StartAsync()
@@ -163,17 +171,24 @@ namespace Toastify.Core.Broadcaster
 
         public async Task StopAsync()
         {
-            if (this.webHostStarted)
+            try
             {
-                await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-                await this.webHost.StopAsync();
-                this.webHostStarted = false;
-            }
+                if (this.webHostStarted)
+                {
+                    await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                    await this.webHost.StopAsync();
+                }
 
-            if (this.receiveMessageThread != null)
+                if (this.receiveMessageThread != null)
+                {
+                    this.receiveMessageThread.Abort();
+                    this.receiveMessageThread = null;
+                }
+            }
+            finally
             {
-                this.receiveMessageThread.Abort();
-                this.receiveMessageThread = null;
+                if (this.socket.State != WebSocketState.Open)
+                    this.webHostStarted = false;
             }
         }
 
