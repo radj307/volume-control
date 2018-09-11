@@ -24,6 +24,7 @@ namespace Toastify.Core.Broadcaster
 
         private bool isSending;
         private bool isReceiving;
+        private bool isConnecting;
 
         #region Public Properties
 
@@ -203,34 +204,66 @@ namespace Toastify.Core.Broadcaster
             if (this.socket == null || this.webHost == null)
                 return false;
 
-            const int maxWaitMilliseconds = 5000;
-            int currentWait = 0;
-
-            while (this.socket?.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
+            try
             {
-                await Task.Delay(50);
-                currentWait += 50;
-            }
+                await this.Connection();
+                this.isConnecting = true;
 
-            while ((this.socket?.State == WebSocketState.CloseSent || this.socket?.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
-            {
-                await Task.Delay(50);
-                currentWait += 50;
-            }
+                const int maxWaitMilliseconds = 5000;
+                int currentWait = 0;
 
-            if (this.socket?.State != WebSocketState.Open && this.webHost != null && currentWait <= maxWaitMilliseconds)
-            {
-                Uri baseUri = this.webHost.Uri;
-                var uriBuilder = new UriBuilder(baseUri)
+                while (this.socket?.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
                 {
-                    Scheme = "ws",
-                    Path = ToastifyWebSocketHostStartup.INTERNAL_PATH
-                };
+                    await Task.Delay(50);
+                    currentWait += 50;
+                }
 
-                await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None);
+                while ((this.socket?.State == WebSocketState.CloseSent || this.socket?.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
+                {
+                    await Task.Delay(50);
+                    currentWait += 50;
+                }
+
+                const int maxOpenStateWait = 1000;
+                while (this.socket?.State != WebSocketState.Open && currentWait <= maxWaitMilliseconds && currentWait <= maxOpenStateWait)
+                {
+                    await Task.Delay(50);
+                    currentWait += 50;
+                }
+
+                if (this.socket == null || this.webHost == null)
+                    return false;
+
+                if (this.socket?.State != WebSocketState.Open && currentWait <= maxWaitMilliseconds)
+                {
+                    Uri baseUri = this.webHost.Uri;
+                    var uriBuilder = new UriBuilder(baseUri)
+                    {
+                        Scheme = "ws",
+                        Path = ToastifyWebSocketHostStartup.INTERNAL_PATH
+                    };
+
+                    await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Warn("Unhandled exception while ensuring connection to the WebSocket.", e);
+            }
+            finally
+            {
+                this.isConnecting = false;
             }
 
             return this.socket?.State == WebSocketState.Open;
+        }
+
+        private async Task Connection()
+        {
+            while (this.isConnecting)
+            {
+                await Task.Delay(50);
+            }
         }
 
         private async Task SendChannelAvailable()

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Toastify.Core.Broadcaster
 {
@@ -181,7 +182,15 @@ namespace Toastify.Core.Broadcaster
                     if (i < 0)
                     {
                         this.clients.Add(webSocket);
-                        Task.Run(async () => await RedirectTo("HELLO", webSocket));
+                        Task.Run(async () =>
+                        {
+                            JsonGreetingsObject greetings = new JsonGreetingsObject
+                            {
+                                Song = new JsonSong(Spotify.Instance.CurrentSong),
+                                Playing = Spotify.Instance.IsPlaying
+                            };
+                            await RedirectTo($"HELLO {JsonConvert.SerializeObject(greetings)}", webSocket);
+                        });
                     }
 
                     break;

@@ -299,10 +299,16 @@ namespace Toastify.Core
 
         private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
         {
-            this.Connected?.Invoke(this, e);
+            this.IsPlaying = e.Playing;
+            this.CurrentSong = e.CurrentSong;
 
+            this.Connected?.Invoke(this, e);
             if (Settings.Current.EnableBroadcaster)
+            {
                 await this.Broadcaster.StartAsync();
+                await this.Broadcaster?.BroadcastPlayState(e.Playing);
+                await this.Broadcaster?.BroadcastCurrentSong(e.CurrentSong);
+            }
         }
 
         private async Task OnSongChanged(Song previousSong)
@@ -313,6 +319,7 @@ namespace Toastify.Core
 
         private async Task OnPlayStateChanged(bool playing)
         {
+            this.IsPlaying = playing;
             this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
             await this.Broadcaster.BroadcastPlayState(playing);
         }
@@ -901,10 +908,7 @@ namespace Toastify.Core
                     {
                         Song newSong = Song.FromSpotifyWindowTitle(currentTitle);
                         if (newSong != null)
-                        {
-                            this.CurrentSong = newSong;
-                            spotifyStateEventArgs = new SpotifyStateEventArgs(this.CurrentSong, true, 1.0, 1.0);
-                        }
+                            spotifyStateEventArgs = new SpotifyStateEventArgs(newSong, true, 1.0, 1.0);
                     }
 
                     if (spotifyStateEventArgs != null)
@@ -967,7 +971,6 @@ namespace Toastify.Core
 
         private async void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
         {
-            this.IsPlaying = e.Playing;
             await this.OnPlayStateChanged(e.Playing);
         }
 
