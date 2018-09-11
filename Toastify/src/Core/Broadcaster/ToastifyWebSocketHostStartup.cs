@@ -177,7 +177,13 @@ namespace Toastify.Core.Broadcaster
                     break;
 
                 case CLIENTS_PATH:
-                    this.clients.Add(webSocket);
+                    int i = Array.FindIndex(this.clients.ToArray(), w => w == webSocket);
+                    if (i < 0)
+                    {
+                        this.clients.Add(webSocket);
+                        Task.Run(async () => await RedirectTo("HELLO", webSocket));
+                    }
+
                     break;
 
                 default:
