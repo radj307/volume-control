@@ -935,21 +935,19 @@ namespace Toastify.Core
         {
             try
             {
-                bool updateSong = false;
+                bool updateSong = true;
                 if (string.Equals(e.NewTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
-                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
-                else if (string.Equals(e.OldTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
                 {
-                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
-                    updateSong = this.CurrentSong == null;
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
+                    updateSong = false;
                 }
-                else
-                    updateSong = true;
+                else if (string.Equals(e.OldTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
+                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
 
                 if (updateSong)
                 {
                     Song newSong = Song.FromSpotifyWindowTitle(e.NewTitle);
-                    if (newSong != null)
+                    if (newSong != null && !Song.Equal(this.CurrentSong, newSong))
                     {
                         Song oldSong = this.CurrentSong;
                         this.CurrentSong = newSong;
