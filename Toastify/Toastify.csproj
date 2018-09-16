@@ -22,9 +22,9 @@
     <TimeOfDayTotalSeconds>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</TimeOfDayTotalSeconds>
     <Revision>$(TimeOfDayTotalSeconds)</Revision>
     <Revision Condition="'$(Configuration)' != 'Windows (Release)'">0</Revision>
-    <AssemblyVersion>1.10.12</AssemblyVersion>
-    <FileVersion>1.10.12.$(Revision)</FileVersion>
     <Version>1.10.12</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version).$(Revision)</FileVersion>
     <AssemblyName>Toastify</AssemblyName>
     <Description>Toast for Spotify</Description>
     <Authors>Alessandro Attard Barbini, Oren Nachman, Jesper Palm</Authors>
