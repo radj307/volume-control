@@ -40,6 +40,7 @@ using ToastifyAPI.Logic;
 using ToastifyAPI.Logic.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 using Resources = Toastify.Properties.Resources;
+using Spotify = ToastifyAPI.Spotify;
 
 namespace Toastify
 {
@@ -78,10 +79,7 @@ namespace Toastify
                         Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  -  {e}{Environment.NewLine}");
                     }
 
-                    logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
-                    logger.Info($"Operating System: Version = {ToastifyAPI.Helpers.System.GetOSVersion()}, Friendly Name = \"{ToastifyAPI.Helpers.System.GetFriendlyOSVersion()}\"");
-                    logger.Info($"CLR: {Environment.Version}");
-                    logger.Info($"Toastify version = {App.CurrentVersion}");
+                    LogSystemInfo();
 
                     try
                     {
@@ -99,6 +97,36 @@ namespace Toastify
                 else
                     MessageBox.Show(Resources.INFO_TOASTIFY_ALREADY_RUNNING, "Toastify Already Running", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private static void LogSystemInfo()
+        {
+            // Get .NET Framework version
+            string netVersion = null;
+            try
+            {
+                netVersion = ToastifyAPI.Helpers.System.GetNetFramework45PlusVersion();
+            }
+            catch
+            {
+                // ignore
+            }
+
+            // Get Spotify version
+            string spotifyVersion = null;
+            try
+            {
+                spotifyVersion = Spotify.GetSpotifyVersion();
+            }
+            catch
+            {
+                // ignore
+            }
+
+            logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
+            logger.Info($"OS: Version = {ToastifyAPI.Helpers.System.GetOSVersion()}, Friendly Name = \"{ToastifyAPI.Helpers.System.GetFriendlyOSVersion()}\"");
+            logger.Info($".NET: CLR Version = {Environment.Version}{(netVersion != null ? $", Framework Version = {netVersion}" : string.Empty)}");
+            logger.Info($"Toastify Version = {App.CurrentVersion}{(spotifyVersion != null ? $", Spotify Version = {spotifyVersion}" : string.Empty)}");
         }
 
         private static void ProcessCommandLineArguments(string[] args)
@@ -202,8 +230,8 @@ namespace Toastify
             DebugView.Launch();
 #endif
 
-            Spotify.Instance.Connected -= Spotify_Connected;
-            Spotify.Instance.Connected += Spotify_Connected;
+            Core.Spotify.Instance.Connected -= Spotify_Connected;
+            Core.Spotify.Instance.Connected += Spotify_Connected;
 
             app.Run();
         }
@@ -535,7 +563,7 @@ namespace Toastify
             get
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                return assembly.GetName().Version.ToString();
+                return FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
             }
         }
 
@@ -730,7 +758,7 @@ namespace Toastify
         private void App_OnExit(object sender, ExitEventArgs e)
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppTermination);
-            Spotify.DisposeInstance();
+            Core.Spotify.DisposeInstance();
             VersionChecker.DisposeInstance();
 
             logger.Info($"Toastify terminated with exit code {e.ApplicationExitCode}.");

@@ -121,6 +121,22 @@ namespace ToastifyAPI
             return hWnd != IntPtr.Zero;
         }
 
+        [CanBeNull]
+        public static string GetSpotifyVersion()
+        {
+            string exePath = null;
+            try
+            {
+                exePath = GetSpotifyPath();
+            }
+            catch
+            {
+                // ignore
+            }
+
+            return exePath != null && File.Exists(exePath) ? FileVersionInfo.GetVersionInfo(exePath).FileVersion : null;
+        }
+
         #endregion
     }
 }
