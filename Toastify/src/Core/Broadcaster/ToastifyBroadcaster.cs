@@ -163,6 +163,9 @@ namespace Toastify.Core.Broadcaster
 
                 this.isReceiving = true;
                 var buffer = new byte[4 * 1024];
+                if (this.socket.State != WebSocketState.Open)
+                    return;
+
                 WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
                 this.isReceiving = false;
 
