@@ -384,7 +384,7 @@ namespace Toastify.Core
                 {
                     if (e.Error is ApplicationStartupException applicationStartupException)
                     {
-                        logger.Error("Error while starting Spotify.", applicationStartupException);
+                        logger.Fatal("Error while starting Spotify.", applicationStartupException);
 
                         string errorMsg = Resources.ERROR_STARTUP_SPOTIFY;
                         MessageBox.Show($"{errorMsg}{Environment.NewLine}{applicationStartupException.Message}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -393,7 +393,7 @@ namespace Toastify.Core
                     }
                     else if (e.Error is WebException webException)
                     {
-                        logger.Error("Web exception while starting Spotify.", webException);
+                        logger.Fatal("Web exception while starting Spotify.", webException);
 
                         string errorMsg = Resources.ERROR_STARTUP_RESTART;
                         string status = $"{webException.Status}";
@@ -406,7 +406,7 @@ namespace Toastify.Core
                     }
                     else
                     {
-                        logger.Error("Unknown error while starting Spotify.", e.Error);
+                        logger.Fatal("Unknown error while starting Spotify.", e.Error);
 
                         string errorMsg = Resources.ERROR_UNKNOWN;
                         string techDetails = $"Technical Details: {e.Error.Message}{Environment.NewLine}{e.Error.StackTrace}";
@@ -417,7 +417,7 @@ namespace Toastify.Core
                 }
                 else // e.Cancelled
                 {
-                    logger.Error($"Toastify was not able to find or connect to Spotify within the timeout interval ({Settings.Current.StartupWaitTimeout / 1000} seconds).");
+                    logger.Fatal($"Toastify was not able to find or connect to Spotify within the timeout interval ({Settings.Current.StartupWaitTimeout / 1000} seconds).");
 
                     string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_TIMEOUT;
                     MessageBoxResult choice = MessageBoxResult.No;
@@ -436,6 +436,7 @@ namespace Toastify.Core
                 }
 
                 // Terminate Toastify
+                this.spotifyLauncherWaitHandle.WaitOne(2000);
                 App.Terminate();
             }
             //else
@@ -453,40 +454,55 @@ namespace Toastify.Core
         /// <returns> The started process. </returns>
         private Process LaunchSpotifyAndWaitForInputIdle(DoWorkEventArgs e)
         {
-            logger.Info("Launching Spotify...");
-
-            if (string.IsNullOrWhiteSpace(this.spotifyPath))
-                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_NOT_FOUND);
-
-            // Launch Spotify.
-            this.spotifyProcess = Process.Start(this.spotifyPath, App.SpotifyParameters);
-
-            // If it is an UWP app, then Process.Start should return null: we need to look for the process.
-            bool signaled = false;
-            while (this.spotifyProcess == null && !signaled)
+            try
             {
-                this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
-                signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
-                if (this.spotifyLauncher.CheckCancellation(e))
-                    return this.spotifyProcess;
+                logger.Info("Launching Spotify...");
+
+                this.spotifyLauncherWaitHandle.Reset();
+                bool signaled = false;
+
+                if (string.IsNullOrWhiteSpace(this.spotifyPath))
+                    throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_NOT_FOUND);
+
+                // Launch Spotify.
+                this.spotifyProcess = Process.Start(this.spotifyPath, App.SpotifyParameters);
+
+                // If it is an UWP app, then Process.Start should return null: we need to look for the process.
+                while (this.spotifyProcess == null && !signaled)
+                {
+                    this.spotifyProcess = ToastifyAPI.Spotify.FindSpotifyProcess();
+                    signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
+                    if (this.spotifyLauncher.CheckCancellation(e))
+                    {
+                        logger.Error("Toastify timed out while looking for Spotify's process");
+                        return this.spotifyProcess;
+                    }
+                }
+
+                // ReSharper disable once RedundantToStringCall
+                if (this.spotifyProcess != null)
+                    logger.Info($"Spotify process started with ID {this.spotifyProcess.Id}{(!string.IsNullOrWhiteSpace(App.SpotifyParameters) ? $" and arguments \"{App.SpotifyParameters}\"" : string.Empty)}");
+
+                // We need to let Spotify start-up before interacting with it.
+                while (this.spotifyProcess?.WaitForInputIdle(1000) != true && !signaled)
+                {
+                    signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
+                    if (this.spotifyLauncher.CheckCancellation(e))
+                    {
+                        logger.Error($"Toastify timed out while waiting for Spotify's process to enter an idle state. HasExited? {this.spotifyProcess?.HasExited}, Responding? {this.spotifyProcess?.Responding}");
+                        return this.spotifyProcess;
+                    }
+                }
+
+                if (Settings.Current.MinimizeSpotifyOnStartup)
+                    this.Minimize(1000);
+
+                return this.spotifyProcess;
             }
-
-            // ReSharper disable once RedundantToStringCall
-            if (this.spotifyProcess != null)
-                logger.Info($"Spotify process started with ID {this.spotifyProcess.Id}{(!string.IsNullOrWhiteSpace(App.SpotifyParameters) ? $" and arguments \"{App.SpotifyParameters}\"" : string.Empty)}");
-
-            // We need to let Spotify start-up before interacting with it.
-            while (this.spotifyProcess?.WaitForInputIdle(1000) != true && !signaled)
+            finally
             {
-                signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
-                if (this.spotifyLauncher.CheckCancellation(e))
-                    return this.spotifyProcess;
+                this.spotifyLauncherWaitHandle.Set();
             }
-
-            if (Settings.Current.MinimizeSpotifyOnStartup)
-                this.Minimize(1000);
-
-            return this.spotifyProcess;
         }
 
         /// <summary>
@@ -922,7 +938,7 @@ namespace Toastify.Core
                 else
                 {
                     string logError = this.spotifyProcess.HasExited ? "process has been terminated" : "null handle";
-                    logger.Error($"Couldn't find Spotify's window: {logError}");
+                    logger.Fatal($"Couldn't find Spotify's window: {logError}");
 
                     string errorMsg = Resources.ERROR_STARTUP_SPOTIFY_WINDOW_NOT_FOUND;
                     MessageBox.Show($"{errorMsg}", "Toastify", MessageBoxButton.OK, MessageBoxImage.Error);
