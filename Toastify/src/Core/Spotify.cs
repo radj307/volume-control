@@ -476,7 +476,12 @@ namespace Toastify.Core
                 logger.Info($"Spotify process started with ID {this.spotifyProcess.Id}{(!string.IsNullOrWhiteSpace(App.SpotifyParameters) ? $" and arguments \"{App.SpotifyParameters}\"" : string.Empty)}");
 
             // We need to let Spotify start-up before interacting with it.
-            this.spotifyProcess?.WaitForInputIdle();
+            while (this.spotifyProcess?.WaitForInputIdle(1000) != true && !signaled)
+            {
+                signaled = this.spotifyLauncherWaitHandle.WaitOne(1000);
+                if (this.spotifyLauncher.CheckCancellation(e))
+                    return this.spotifyProcess;
+            }
 
             if (Settings.Current.MinimizeSpotifyOnStartup)
                 this.Minimize(1000);
