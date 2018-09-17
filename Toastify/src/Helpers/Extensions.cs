@@ -8,11 +8,11 @@ using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Aleab.Common.Extensions;
 using log4net;
 using Toastify.Common;
 using Toastify.Core;
 using Toastify.Model;
-using ToastifyAPI.Helpers;
 
 namespace Toastify.Helpers
 {

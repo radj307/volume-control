@@ -30,11 +30,6 @@ namespace ToastifyAPI.Helpers
             return User32.MapVirtualKey(key.GetVirtualKey(), MapVirtualKeyType.MAPVK_VK_TO_VSC);
         }
 
-        public static object GetDefault(this Type type)
-        {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
-        }
-
         public static WpfPixelFormat? ConvertToWpfPixelFormat(this GdiPixelFormat wPixelFormat)
         {
             switch (wPixelFormat)

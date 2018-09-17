@@ -185,7 +185,6 @@
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
-    <Compile Include="Helpers\LinqExtensions.cs" />
     <Compile Include="Helpers\Net.cs" />
     <Compile Include="Helpers\System.cs" />
     <Compile Include="Interop\InputDevices.cs" />

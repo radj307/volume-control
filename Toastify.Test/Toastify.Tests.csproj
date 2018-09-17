@@ -93,6 +93,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Aleab.Common\Aleab.Common\Aleab.Common.csproj">
+      <Project>{D06F0D0E-6ACA-4015-A908-335A8267F55B}</Project>
+      <Name>Aleab.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToastifyAPI\ToastifyAPI.csproj">
       <Project>{5d68931f-528f-4d95-89be-3eb26832af8c}</Project>
       <Name>ToastifyAPI</Name>

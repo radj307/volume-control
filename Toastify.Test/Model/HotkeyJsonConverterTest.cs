@@ -1,17 +1,17 @@
-﻿using FakeItEasy;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using Aleab.Common.Extensions;
+using FakeItEasy;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using NUnit.Framework;
 using Toastify.DI;
 using Toastify.Model;
-using ToastifyAPI.Helpers;
 using ToastifyAPI.Logic.Interfaces;
 using ToastifyAPI.Model.Interfaces;
 
@@ -116,6 +116,8 @@ namespace Toastify.Tests.Model
 
         public static class HotkeyJsonConverterData
         {
+            #region Static Fields and Properties
+
             public static IEnumerable<TestCaseData> CanConvertTestCases
             {
                 get
@@ -177,7 +179,7 @@ namespace Toastify.Tests.Model
                             new List<Func<Hotkey, bool>> { h => h is KeyboardHotkey, h => h.Enabled })
                        .SetName("Non-empty json, different-type existing hotkey; KeyboardHotkey & MouseHookHotkey (serialized object prevails)");
                     yield return new TestCaseData($"{{Enabled: true, {nameof(MouseHookHotkey.MouseButton)}: null}}", keyboardHotkey,
-                            new List<Func<Hotkey, bool>> { h => h is MouseHookHotkey, h => h.Enabled, })
+                            new List<Func<Hotkey, bool>> { h => h is MouseHookHotkey, h => h.Enabled })
                        .SetName("Non-empty json, different-type existing hotkey; MouseHookHotkey & KeyboardHotkey (serialized object prevails)");
 
                     // Test property dependency injection
@@ -202,11 +204,20 @@ namespace Toastify.Tests.Model
                     }).SetName("Test property dependency injection");
                 }
             }
+
+            #endregion
         }
 
         private sealed class FakeHotkey : Hotkey
         {
             private readonly bool _isValid;
+
+            #region Public Properties
+
+            /// <inheritdoc />
+            public override string HumanReadableKey { get; }
+
+            #endregion
 
             public FakeHotkey()
             {
@@ -221,9 +232,6 @@ namespace Toastify.Tests.Model
                 this._isValid = isValid;
                 this.Active = active;
             }
-
-            /// <inheritdoc />
-            public override string HumanReadableKey { get; }
 
             /// <inheritdoc />
             protected override void InitInternal()
