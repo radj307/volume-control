@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using ToastifyAPI.Common;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
@@ -11,6 +13,8 @@ namespace Toastify.Core
 {
     public class SpotifyWindow
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SpotifyWindow));
+
         #region Static Fields and Properties
 
         public static string PausedTitle { get; } = "Spotify";
@@ -154,9 +158,14 @@ namespace Toastify.Core
 
         private async Task Init()
         {
+            if (logger.IsDebugEnabled)
+                logger.Debug($"Initializing {nameof(SpotifyWindow)} using process with ID {this.process.Id}...");
+
             await this.GetWindowHandle().ConfigureAwait(false);
             if (this.Handle != IntPtr.Zero)
                 this.TitleWatcher = new WindowTitleWatcher(this.Handle);
+            else
+                logger.Warn($"Null handle returned: can't initialize {nameof(WindowTitleWatcher)}!");
 
             this.OnInitializationFinished();
         }
@@ -181,6 +190,17 @@ namespace Toastify.Core
 
         private void OnInitializationFinished()
         {
+            if (logger.IsDebugEnabled)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"{nameof(SpotifyWindow)} initialization finished. Status = {{")
+                  .Append($" IsValid: {this.IsValid},")
+                  .Append($" Handle: {this.Handle},")
+                  .Append($" Title: \"{this.Title}\"")
+                  .Append(" }");
+                logger.Debug(sb.ToString());
+            }
+
             this.InitializationFinished?.Invoke(this, EventArgs.Empty);
         }
     }

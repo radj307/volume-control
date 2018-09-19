@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -299,6 +300,18 @@ namespace Toastify.Core
 
         private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
         {
+            if (logger.IsDebugEnabled)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Spotify Connected. Status = {")
+                  .Append($" CurrentSong: {(e.CurrentSong != null ? $"\"{e.CurrentSong}\"" : "null")},")
+                  .Append($" Playing: {e.Playing},")
+                  .Append($" TrackTime: {e.TrackTime},")
+                  .Append($" Volume: {e.Volume}")
+                  .Append(" }");
+                logger.Debug(sb.ToString());
+            }
+
             this.IsPlaying = e.Playing;
             this.CurrentSong = e.CurrentSong;
 
@@ -360,7 +373,15 @@ namespace Toastify.Core
         private void StartSpotify_WorkerTask(object sender, DoWorkEventArgs e)
         {
             var process = ToastifyAPI.Spotify.FindSpotifyProcess();
-            this.spotifyProcess = !this.IsRunning && process == null ? this.LaunchSpotifyAndWaitForInputIdle(e) : process;
+
+            this.spotifyProcess = null;
+            if (!this.IsRunning && process == null)
+            {
+                logger.Debug("Spotify is not running; lanching it nad waiting for input idle...");
+                this.spotifyProcess = this.LaunchSpotifyAndWaitForInputIdle(e);
+            }
+            else
+                this.spotifyProcess = process;
 
             if (e.Cancel)
                 return;
