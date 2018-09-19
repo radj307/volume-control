@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace Toastify.Core
 
         #region Static Fields and Properties
 
-        public static string PausedTitle { get; } = "Spotify";
+        public static IReadOnlyList<string> PausedTitles { get; } = new List<string> { "Spotify", "Spotify Premium" };
+
         private static int GetWindowHandleTimeout { get; } = 2000;
 
         #endregion

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
@@ -942,19 +943,17 @@ namespace Toastify.Core
 
                     // Fake the Connected event
                     string currentTitle = this.spotifyWindow.Title;
-                    SpotifyStateEventArgs spotifyStateEventArgs = null;
+                    SpotifyStateEventArgs spotifyStateEventArgs;
 
-                    if (string.Equals(currentTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
+                    if (SpotifyWindow.PausedTitles.Contains(currentTitle, StringComparer.InvariantCulture))
                         spotifyStateEventArgs = new SpotifyStateEventArgs(null, false, 1.0, 1.0);
                     else
                     {
                         Song newSong = Song.FromSpotifyWindowTitle(currentTitle);
-                        if (newSong != null)
-                            spotifyStateEventArgs = new SpotifyStateEventArgs(newSong, true, 1.0, 1.0);
+                        spotifyStateEventArgs = new SpotifyStateEventArgs(newSong, true, 1.0, 1.0);
                     }
 
-                    if (spotifyStateEventArgs != null)
-                        await this.OnSpotifyConnected(spotifyStateEventArgs).ConfigureAwait(false);
+                    await this.OnSpotifyConnected(spotifyStateEventArgs).ConfigureAwait(false);
                 }
                 else
                 {
@@ -978,12 +977,12 @@ namespace Toastify.Core
             try
             {
                 bool updateSong = true;
-                if (string.Equals(e.NewTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
+                if (SpotifyWindow.PausedTitles.Contains(e.NewTitle, StringComparer.InvariantCulture))
                 {
                     this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
                     updateSong = false;
                 }
-                else if (string.Equals(e.OldTitle, SpotifyWindow.PausedTitle, StringComparison.InvariantCulture))
+                else if (SpotifyWindow.PausedTitles.Contains(e.OldTitle, StringComparer.InvariantCulture))
                     this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
 
                 if (updateSong)
