@@ -187,6 +187,7 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Net.cs" />
     <Compile Include="Helpers\System.cs" />
+    <Compile Include="Helpers\Volume.cs" />
     <Compile Include="Interop\InputDevices.cs" />
     <Compile Include="Interop\Interfaces\IInputDevice.cs" />
     <Compile Include="Interop\Interfaces\IInputDevices.cs" />
@@ -217,6 +218,17 @@
     <Compile Include="Native\Crypt32.cs" />
     <Compile Include="Native\Enums\CryptProtectFlags.cs" />
     <Compile Include="Native\Enums\CryptProtectPromptFlags.cs" />
+    <Compile Include="Native\MMDeviceAPI\Enums\EDataFlow.cs" />
+    <Compile Include="Native\MMDeviceAPI\Enums\EDeviceState.cs" />
+    <Compile Include="Native\MMDeviceAPI\Enums\ERole.cs" />
+    <Compile Include="Native\MMDeviceAPI\IAudioSessionControl2.cs" />
+    <Compile Include="Native\MMDeviceAPI\IAudioSessionEnumerator.cs" />
+    <Compile Include="Native\MMDeviceAPI\IAudioSessionManager2.cs" />
+    <Compile Include="Native\MMDeviceAPI\IMMDevice.cs" />
+    <Compile Include="Native\MMDeviceAPI\IMMDeviceCollection.cs" />
+    <Compile Include="Native\MMDeviceAPI\IMMDeviceEnumerator.cs" />
+    <Compile Include="Native\MMDeviceAPI\ISimpleAudioVolume.cs" />
+    <Compile Include="Native\MMDeviceAPI\MMDeviceEnumerator.cs" />
     <Compile Include="Native\Structs\CryptProtectPromptStruct.cs" />
     <Compile Include="Native\Structs\DataBlob.cs" />
     <Compile Include="Native\Delegates\EnumResNameProcDelegate.cs" />

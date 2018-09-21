@@ -13,6 +13,15 @@ namespace ToastifyAPI.Helpers
 
         #region Static Members
 
+        public static bool IsOSCompatible(int minMajor, int minMinor)
+        {
+            if (Environment.OSVersion.Version.Major > minMajor)
+                return true;
+            if (Environment.OSVersion.Version.Major == minMajor)
+                return Environment.OSVersion.Version.Minor >= minMinor;
+            return false;
+        }
+
         public static string GetOSVersion()
         {
             return GetOperatingSystemManagementObject("Version")?.ToString() ?? Environment.OSVersion.VersionString;

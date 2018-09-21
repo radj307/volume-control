@@ -25,6 +25,8 @@ namespace ToastifyAPI
             "Chrome_WidgetWin_0" // Since v1.0.75.483.g7ff4a0dc
         };
 
+        public static string ProcessName { get; } = "spotify";
+
         #endregion
 
         #region Static Members
@@ -67,13 +69,13 @@ namespace ToastifyAPI
             if (logger.IsDebugEnabled)
                 logger.Debug("Looking for Spotify process...");
 
-            List<Process> spotifyProcesses = Process.GetProcessesByName("spotify").ToList();
+            List<Process> spotifyProcesses = Process.GetProcessesByName(ProcessName).ToList();
             List<Process> windowedProcesses = spotifyProcesses.Where(p => p.MainWindowHandle != IntPtr.Zero).ToList();
 
             if (windowedProcesses.Count > 1)
             {
                 IEnumerable<string> classNames = windowedProcesses.Select(p => $"\"{NativeWindows.GetClassName(p.MainWindowHandle)}\"");
-                logger.Warn($"More than one ({windowedProcesses.Count}) \"spotify\" process has a non-null main window: {string.Join(", ", classNames)}");
+                logger.Warn($"More than one ({windowedProcesses.Count}) \"{ProcessName}\" process has a non-null main window: {string.Join(", ", classNames)}");
             }
 
             Process process = windowedProcesses.FirstOrDefault();

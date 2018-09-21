@@ -3,18 +3,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Sockets;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using log4net;
-using SpotifyAPI;
 using SpotifyAPI.Local;
-using SpotifyAPI.Local.Models;
 using Toastify.Common;
 using Toastify.DI;
 using Toastify.Events;
@@ -24,7 +19,6 @@ using Toastify.Properties;
 using Toastify.Services;
 using ToastifyAPI.Core;
 using ToastifyAPI.Events;
-using ToastifyAPI.Helpers;
 using ToastifyAPI.Native;
 using Settings = Toastify.Model.Settings;
 using SpotifyTrackChangedEventArgs = Toastify.Events.SpotifyTrackChangedEventArgs;
@@ -51,12 +45,6 @@ namespace Toastify.Core
         private SpotifyWindow spotifyWindow;
         private Process spotifyProcess;
 
-        private SpotifyLocalAPI localAPI;
-        private SpotifyLocalAPIConfig localAPIConfig;
-
-        private Song _currentSong;
-        private bool? _isPlaying;
-
         #region Public Properties
 
         [PropertyDependency]
@@ -67,22 +55,9 @@ namespace Toastify.Core
             get { return this.spotifyWindow?.IsValid ?? false; }
         }
 
-        public StatusResponse Status
-        {
-            get { return this.localAPI?.GetStatus(); }
-        }
+        public Song CurrentSong { get; private set; }
 
-        public Song CurrentSong
-        {
-            get { return this._currentSong ?? (this._currentSong = this.Status?.Track); }
-            private set { this._currentSong = value; }
-        }
-
-        public bool IsPlaying
-        {
-            get { return this._isPlaying ?? (this._isPlaying = this.Status?.Playing ?? false).Value; }
-            private set { this._isPlaying = value; }
-        }
+        public bool IsPlaying { get; private set; }
 
         #endregion
 
@@ -105,31 +80,12 @@ namespace Toastify.Core
         protected Spotify()
         {
             this.spotifyPath = GetSpotifyPath();
-            this.InitLocalAPI();
 
             Settings.CurrentSettingsChanged += this.Settings_CurrentSettingsChanged;
 
             // TODO: IToastifyBroadcaster dependency is currently manually resolved. Not good!
             if (this.Broadcaster == null)
                 this.Broadcaster = App.Container.Resolve<IToastifyBroadcaster>();
-        }
-
-        public void InitLocalAPI()
-        {
-            this.DisposeLocalAPI();
-
-            this.localAPIConfig = new SpotifyLocalAPIConfig
-            {
-                TimerInterval = 500,
-                ProxyConfig = App.ProxyConfig.ProxyConfig
-            };
-            this.localAPI = new SpotifyLocalAPI(this.localAPIConfig);
-
-            //this.localAPI.OnTrackChange += this.SpotifyLocalAPI_OnTrackChange;
-            //this.localAPI.OnPlayStateChange += this.SpotifyLocalAPI_OnPlayStateChange;
-            //this.localAPI.OnTrackTimeChange += this.SpotifyLocalAPI_OnTrackTimeChange;
-            //this.localAPI.OnVolumeChange += this.SpotifyLocalAPI_OnVolumeChange;
-            //this.localAPI.ListenForEvents = true;
         }
 
         public void StartSpotify()
@@ -162,7 +118,6 @@ namespace Toastify.Core
                 }
 
                 this.spotifyProcess?.Close();
-                this.localAPI.Dispose();
             }
             catch
             {
@@ -211,7 +166,7 @@ namespace Toastify.Core
                         //    break;
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.IncrementVolume();
+                            VolumeHelper.IncrementVolume(Settings.Current.WindowsVolumeMixerIncrement);
                             break;
 
                         case ToastifyVolumeControlMode.SystemGlobal:
@@ -235,7 +190,7 @@ namespace Toastify.Core
                         //    break;
 
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.DecrementVolume();
+                            VolumeHelper.DecrementVolume(Settings.Current.WindowsVolumeMixerIncrement);
                             break;
 
                         case ToastifyVolumeControlMode.SystemGlobal:
@@ -251,7 +206,7 @@ namespace Toastify.Core
                     switch ((ToastifyVolumeControlMode)Settings.Current.VolumeControlMode)
                     {
                         case ToastifyVolumeControlMode.SystemSpotifyOnly:
-                            this.localAPI.ToggleMute();
+                            VolumeHelper.ToggleMute();
                             break;
 
                         // The Spotify volume control mode has been dropped since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
@@ -286,17 +241,17 @@ namespace Toastify.Core
 
         public void VolumeUp()
         {
-            this.localAPI?.IncrementVolume();
+            VolumeHelper.IncrementVolume(Settings.Current.WindowsVolumeMixerIncrement);
         }
 
         public void VolumeDown()
         {
-            this.localAPI?.DecrementVolume();
+            VolumeHelper.DecrementVolume(Settings.Current.WindowsVolumeMixerIncrement);
         }
 
         public void ToggleMute()
         {
-            this.localAPI?.ToggleMute();
+            VolumeHelper.ToggleMute();
         }
 
         private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
@@ -528,245 +483,6 @@ namespace Toastify.Core
         }
 
         /// <summary>
-        ///     Connect with Spotify.
-        /// </summary>
-        /// <exception cref="ApplicationStartupException">
-        ///     if Toastify was not able to connect with Spotify or
-        ///     if Spotify returns a null status after connection.
-        /// </exception>
-        private void ConnectWithSpotify(DoWorkEventArgs e)
-        {
-            // Sometimes (specially with a lot of active processes), the WaitForInputIdle method (used in LaunchSpotifyAndWaitForInputIdle)
-            // does not seem to wait long enough to let us connect to Spotify successfully on the first try; so we wait and re-try.
-
-            logger.Info("Connecting to Spotify's local APIs endpoint...");
-
-            this.spotifyLauncherWaitHandle.Reset();
-            bool signaled;
-
-            bool connected = false;
-            bool proxySettingsChangedAlready = false;
-
-            #region try { this.localAPI.Connect(); }
-
-            do
-            {
-                signaled = this.spotifyLauncherWaitHandle.WaitOne(500);
-                if (this.spotifyLauncher.CheckCancellation(e))
-                    return;
-
-                try
-                {
-                    if (logger.IsDebugEnabled)
-                        logger.Debug($"Trying to connect to Spotify with {(!Settings.Current.UseProxy ? "no proxy" : $"proxy server \"{App.ProxyConfig}\"")}.");
-                    connected = this.localAPI.Connect();
-                }
-                catch (WebException ex)
-                {
-                    this.HandleConnectWithSpotifyException(ex, ref proxySettingsChangedAlready);
-                }
-            } while (!connected && !signaled);
-
-            #endregion try { this.localAPI.Connect(); }
-
-            if (!connected)
-                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_API_CONNECT);
-            if (logger.IsDebugEnabled)
-                logger.Debug($"Connected with Spotify on \"{this.localAPIConfig.HostUrl}:{this.localAPIConfig.Port}/\".");
-
-            // Try to get a status report from Spotify
-            var status = this.localAPI.GetStatus();
-            if (status == null)
-                throw new ApplicationStartupException(Resources.ERROR_STARTUP_SPOTIFY_API_STATUS_NULL);
-        }
-
-        private void HandleConnectWithSpotifyException(WebException ex, ref bool proxySettingsChangedAlready)
-        {
-            /*
-             * Multiple known things might lead to a WebException:
-             * 1) No internet connection available: this will cause a NameResolutionFailure
-             * 2) Cannot enstablish connection to "open.spotify.com"
-             *    - If "open.spotify.com" is blocked or redirected, a few things can happen:
-             *      (a) SocketException; either ConnectionRefused or AccessDenied
-             *      (b) NameResolutionFailure
-             *    - Also (c), if the user needs to use a proxy and the server does not return UseProxy or ProxyAuthenticationRequired,
-             *      it could fail with a ConnectionRefused error or AccessDenied (or possibly something else)
-             * 3) A proxy is required
-             *    (a) ProtocolError; either 305 (UseProxy) or 407 (ProxyAuthenticationRequired)
-             *    (b) SocketException
-             * 4) The proxy is not needed anymore?
-             */
-
-            bool handled = false;
-            bool openSpotifyBlocked = false;
-            string openSpotifyBlockedMessage = "";
-
-            // ReSharper disable once MergeCastWithTypeCheck
-            if (ex.InnerException is SocketException)
-            {
-                SocketException socketException = (SocketException)ex.InnerException;
-
-                if (socketException.SocketErrorCode == SocketError.ConnectionRefused || socketException.SocketErrorCode == SocketError.AccessDenied)
-                {
-                    //// 2a) "open.spotify.com" redirected to 127.0.0.1 or blocked by the firewall
-
-                    bool hostRedirected = Regex.IsMatch(socketException.Message, @"(127\.0\.0\.1|localhost|0\.0\.0\.0):80(?![0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-                    // Double check
-                    HttpClientHandler clientHandler = Net.CreateHttpClientHandler(App.ProxyConfig);
-                    using (HttpClient http = new HttpClient(clientHandler))
-                    {
-                        using (HttpRequestMessage request = new HttpRequestMessage())
-                        {
-                            request.Method = HttpMethod.Head;
-                            request.RequestUri = new Uri("http://open.spotify.com");
-                            request.Headers.Add("User-Agent", "Spotify (1.0.50.41368.gbd68dbef)");
-
-                            try
-                            {
-                                using (http.SendAsync(request).Result)
-                                {
-                                    /* do nothing */
-                                }
-                            }
-                            catch
-                            {
-                                //// 2c) The user might need to enter or reset their proxy details (#62)
-                                if (!proxySettingsChangedAlready || Settings.Current.UseProxy && !App.ProxyConfig.IsValid())
-                                {
-                                    this.AskTheUserToChangeOrDisableProxy("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?");
-                                    proxySettingsChangedAlready = true;
-                                }
-                                else
-                                {
-                                    openSpotifyBlocked = true;
-                                    openSpotifyBlockedMessage = hostRedirected
-                                        ? Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS
-                                        : Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED;
-                                }
-
-                                handled = true;
-                            }
-                        }
-                    }
-                }
-            }
-            else if (ex.Status == WebExceptionStatus.NameResolutionFailure && ex.Message.Contains("open.spotify.com"))
-            {
-                //// 2b) "open.spotify.com" redirected to 0.0.0.0
-                openSpotifyBlocked = true;
-                openSpotifyBlockedMessage = Resources.ERROR_STARTUP_SPOTIFY_API_CONNECTION_BLOCKED_HOSTS;
-                handled = true;
-            }
-
-            if (openSpotifyBlocked)
-            {
-                logger.Error("Couldn't enstablish a connection to \"http://open.spotify.com\": the client blocked the connection to the host.");
-                throw new ApplicationStartupException(openSpotifyBlockedMessage);
-            }
-
-            if (ex.Status == WebExceptionStatus.ProtocolError)
-            {
-                var httpResponse = (HttpWebResponse)ex.Response;
-
-                //// 3a) HttpStatusCode is UseProxy or ProxyAuthenticationRequired
-                if (httpResponse?.StatusCode == HttpStatusCode.UseProxy)
-                {
-                    string location = httpResponse.Headers[HttpResponseHeader.Location];
-                    Uri uri = new Uri(location);
-                    string[] userInfo = uri.UserInfo.Split(':');
-                    ProxyConfig proxy = new ProxyConfig
-                    {
-                        Host = uri.Host,
-                        Port = uri.Port,
-                        Username = userInfo.Length > 0 && !string.IsNullOrEmpty(userInfo[0]) ? userInfo[0] : string.Empty,
-                        Password = userInfo.Length > 1 && !string.IsNullOrEmpty(userInfo[1]) ? userInfo[1] : string.Empty,
-                        BypassProxyOnLocal = true
-                    };
-
-                    App.ProxyConfig.Set(proxy);
-                    handled = true;
-
-                    if (logger.IsDebugEnabled)
-                        logger.Debug($"The server requested the use of a proxy. Using \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\" as requested.");
-                }
-                else if (httpResponse?.StatusCode == HttpStatusCode.ProxyAuthenticationRequired && !(proxySettingsChangedAlready || App.ProxyConfig.IsValid()))
-                {
-                    if (logger.IsDebugEnabled)
-                        logger.Debug("The requested proxy server requires authentication. Prompting the user for proxy details...", ex);
-
-                    this.ChangeProxySettings();
-
-                    handled = true;
-                    proxySettingsChangedAlready = true;
-
-                    if (logger.IsDebugEnabled)
-                    {
-                        var proxy = App.ProxyConfig;
-                        logger.Debug($"Proxy has been set to \"{(!string.IsNullOrEmpty(proxy.Username) ? $"{proxy.Username}@" : "")}{proxy.Host}:{proxy.Port}\"");
-                    }
-                }
-            }
-
-            // All unhandled socket errors or HTTP status codes should be handled here
-            if (!handled)
-            {
-                string errorCode;
-
-                // ReSharper disable once MergeCastWithTypeCheck
-                if (ex.InnerException is SocketException)
-                {
-                    SocketException socketException = (SocketException)ex.InnerException;
-                    errorCode = socketException.SocketErrorCode.ToString();
-                    logger.Warn($"Unhandled SocketException while connecting to Spotify: {socketException.SocketErrorCode}.", socketException);
-                }
-                else
-                {
-                    var httpResponse = (HttpWebResponse)ex.Response;
-                    errorCode = httpResponse?.StatusCode.ToString();
-                    logger.Warn("Unhandled WebException while connecting to Spotify.", ex);
-                }
-
-                // If we failed to handle the exception, ask the user if they need to configure a proxy
-                if (!(proxySettingsChangedAlready || App.ProxyConfig.IsValid()))
-                {
-                    this.AskTheUserToChangeOrDisableProxy("Toastify is having difficulties in connecting to Spotify. Are you behind a proxy?");
-                    proxySettingsChangedAlready = true;
-                }
-                else
-                {
-                    logger.Warn($"Proxy settings had no effect! {(errorCode != null ? $"Returned error code: {errorCode}" : "")}", ex);
-
-                    if (logger.IsDebugEnabled)
-                        logger.Debug("Asking the user if they want to retry, change proxy settings or exit...");
-
-                    MessageBoxResult choice = MessageBoxResult.Cancel;
-                    App.CallInSTAThread(() =>
-                    {
-                        choice = CustomMessageBox.ShowYesNoCancel(
-                            $"Invalid proxy settings. {(errorCode != null ? $"Returned error code: {errorCode}" : "")}{Environment.NewLine}Do you want to retry?",
-                            "Toastify",
-                            "Retry",           // Yes
-                            "Change settings", // No
-                            "Exit",            // Cancel
-                            MessageBoxImage.Exclamation);
-                    }, true);
-
-                    if (logger.IsDebugEnabled)
-                    {
-                        string hrChoice = choice == MessageBoxResult.Yes ? "Retry" : choice == MessageBoxResult.No ? "Change settings" : "Exit";
-                        logger.Debug($"Choice = {hrChoice}");
-                    }
-
-                    if (choice == MessageBoxResult.No)
-                        this.ChangeProxySettings();
-                    else if (choice == MessageBoxResult.Cancel)
-                        App.Terminate();
-                }
-            }
-        }
-
-        /// <summary>
         ///     Prompt the user with the specified message. If they answer Yes, then they are requested to enter their proxy details;
         ///     if they answer No, then the proxy is disabled.
         /// </summary>
@@ -853,26 +569,8 @@ namespace Toastify.Core
 
         public void Dispose()
         {
-            this.DisposeLocalAPI();
             this.DisposeSpotifyLauncher();
             this.DisposeSpotifyLauncherTimeoutTimer();
-        }
-
-        private void DisposeLocalAPI()
-        {
-            if (this.localAPI != null)
-            {
-                this.localAPI.ListenForEvents = false;
-                this.localAPI.OnTrackChange -= this.SpotifyLocalAPI_OnTrackChange;
-                this.localAPI.OnPlayStateChange -= this.SpotifyLocalAPI_OnPlayStateChange;
-                this.localAPI.OnTrackTimeChange -= this.SpotifyLocalAPI_OnTrackTimeChange;
-                this.localAPI.OnVolumeChange -= this.SpotifyLocalAPI_OnVolumeChange;
-
-                this.localAPI.Dispose();
-                this.localAPI = null;
-            }
-
-            this.localAPIConfig = null;
         }
 
         private void DisposeSpotifyLauncher()
