@@ -22,7 +22,7 @@ namespace Toastify.Events
 
         public static implicit operator ToastifyAPI.Events.SpotifyTrackChangedEventArgs(SpotifyTrackChangedEventArgs e)
         {
-            return new ToastifyAPI.Events.SpotifyTrackChangedEventArgs(e.NewSong.Artist, e.NewSong.Album, e.NewSong.Track);
+            return new ToastifyAPI.Events.SpotifyTrackChangedEventArgs(e.NewSong.Album, e.NewSong.Artists, e.NewSong.Title);
         }
 
         #endregion

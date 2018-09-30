@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace ToastifyAPI.Model.Interfaces
@@ -11,26 +12,15 @@ namespace ToastifyAPI.Model.Interfaces
         string Album { get; }
 
         [NotNull]
-        string Artist { get; }
+        IReadOnlyList<string> Artists { get; }
 
         [NotNull]
-        string Track { get; }
+        string Title { get; }
 
         int Length { get; }
 
-        [NotNull]
-        string Type { get; }
-
-        [NotNull]
-        string CoverArtUrl { get; }
+        ISongAlbumArt AlbumArt { get; }
 
         #endregion
-
-        bool IsAd();
-
-        bool IsOtherTrackType();
-
-        [NotNull]
-        string GetSmallestCoverArtUrl();
     }
 }

@@ -227,6 +227,7 @@
     <Compile Include="Model\Interfaces\ILockedGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IMouseHookHotkey.cs" />
     <Compile Include="Model\Interfaces\ISong.cs" />
+    <Compile Include="Model\Interfaces\ISongAlbumArt.cs" />
     <Compile Include="Model\KeyOrButton.cs" />
     <Compile Include="Model\LockedGlobalHotkey.cs" />
     <Compile Include="Native\Crypt32.cs" />

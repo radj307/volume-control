@@ -1,5 +1,4 @@
 ﻿using System;
-using SpotifyAPI.Local.Models;
 using Toastify.Model;
 
 namespace Toastify.Events
@@ -21,10 +20,6 @@ namespace Toastify.Events
             this.Playing = playing;
             this.TrackTime = trackTime;
             this.Volume = volume;
-        }
-
-        public SpotifyStateEventArgs(StatusResponse spotifyStatus) : this(spotifyStatus?.Track, spotifyStatus?.Playing ?? false, spotifyStatus?.PlayingPosition ?? -1, spotifyStatus?.Volume ?? -1)
-        {
         }
     }
 }

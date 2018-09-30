@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using log4net;
-using SpotifyAPI.Local;
 using Toastify.Common;
 using Toastify.DI;
 using Toastify.Events;
@@ -252,45 +251,6 @@ namespace Toastify.Core
         public void ToggleMute()
         {
             VolumeHelper.ToggleMute();
-        }
-
-        private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
-        {
-            if (logger.IsDebugEnabled)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("Spotify Connected. Status = {")
-                  .Append($" CurrentSong: {(e.CurrentSong != null ? $"\"{e.CurrentSong}\"" : "null")},")
-                  .Append($" Playing: {e.Playing},")
-                  .Append($" TrackTime: {e.TrackTime},")
-                  .Append($" Volume: {e.Volume}")
-                  .Append(" }");
-                logger.Debug(sb.ToString());
-            }
-
-            this.IsPlaying = e.Playing;
-            this.CurrentSong = e.CurrentSong;
-
-            this.Connected?.Invoke(this, e);
-            if (Settings.Current.EnableBroadcaster)
-            {
-                await this.Broadcaster.StartAsync().ConfigureAwait(false);
-                await this.Broadcaster.BroadcastPlayState(e.Playing).ConfigureAwait(false);
-                await this.Broadcaster.BroadcastCurrentSong(e.CurrentSong).ConfigureAwait(false);
-            }
-        }
-
-        private async Task OnSongChanged(Song previousSong)
-        {
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
-            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong).ConfigureAwait(false);
-        }
-
-        private async Task OnPlayStateChanged(bool playing)
-        {
-            this.IsPlaying = playing;
-            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
-            await this.Broadcaster.BroadcastPlayState(playing).ConfigureAwait(false);
         }
 
         #region Static Members
@@ -599,6 +559,59 @@ namespace Toastify.Core
 
         #endregion Dispose
 
+        #region Event Raisers
+
+        private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
+        {
+            if (logger.IsDebugEnabled)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Spotify Connected. Status = {")
+                  .Append($" CurrentSong: {(e.CurrentSong != null ? $"\"{e.CurrentSong}\"" : "null")},")
+                  .Append($" Playing: {e.Playing},")
+                  .Append($" TrackTime: {e.TrackTime},")
+                  .Append($" Volume: {e.Volume}")
+                  .Append(" }");
+                logger.Debug(sb.ToString());
+            }
+
+            this.IsPlaying = e.Playing;
+            this.CurrentSong = e.CurrentSong;
+
+            this.Connected?.Invoke(this, e);
+            if (Settings.Current.EnableBroadcaster)
+            {
+                await this.Broadcaster.StartAsync().ConfigureAwait(false);
+                await this.Broadcaster.BroadcastPlayState(e.Playing).ConfigureAwait(false);
+                await this.Broadcaster.BroadcastCurrentSong(e.CurrentSong).ConfigureAwait(false);
+            }
+        }
+
+        private async Task OnSongChanged(Song previousSong)
+        {
+            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
+            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong).ConfigureAwait(false);
+        }
+
+        private async Task OnPlayStateChanged(bool playing)
+        {
+            this.IsPlaying = playing;
+            this.PlayStateChanged?.Invoke(this, new SpotifyPlayStateChangedEventArgs(playing));
+            await this.Broadcaster.BroadcastPlayState(playing).ConfigureAwait(false);
+        }
+
+        private void OnTrackTimeChanged(double trackTime)
+        {
+            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(trackTime));
+        }
+
+        private void OnVolumeChanged(double previousVolume, double newVolume)
+        {
+            this.VolumeChanged?.Invoke(this, new SpotifyVolumeChangedEventArgs(previousVolume, newVolume));
+        }
+
+        #endregion
+
         #region Event Handlers
 
         private async void Settings_CurrentSettingsChanged(object sender, CurrentSettingsChangedEventArgs e)
@@ -622,11 +635,6 @@ namespace Toastify.Core
         private void Spotify_Exited(object sender, EventArgs e)
         {
             this.Exited?.Invoke(sender, e);
-        }
-
-        private async void Spotify_Connected(object sender, SpotifyStateEventArgs e)
-        {
-            await this.OnSpotifyConnected(e).ConfigureAwait(false);
         }
 
         private async void SpotifyWindow_InitializationFinished(object sender, EventArgs e)
@@ -677,11 +685,11 @@ namespace Toastify.Core
                 bool updateSong = true;
                 if (SpotifyWindow.PausedTitles.Contains(e.NewTitle, StringComparer.InvariantCulture))
                 {
-                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = false });
+                    await this.OnPlayStateChanged(false).ConfigureAwait(false);
                     updateSong = false;
                 }
                 else if (SpotifyWindow.PausedTitles.Contains(e.OldTitle, StringComparer.InvariantCulture))
-                    this.SpotifyLocalAPI_OnPlayStateChange(this, new PlayStateEventArgs { Playing = true });
+                    await this.OnPlayStateChanged(false).ConfigureAwait(true);
 
                 if (updateSong)
                 {
@@ -698,27 +706,6 @@ namespace Toastify.Core
             {
                 logger.Error($"Unhandled exception in {nameof(this.SpotifyWindowTitleWatcher_TitleChanged)}.", exception);
             }
-        }
-
-        private async void SpotifyLocalAPI_OnTrackChange(object sender, TrackChangeEventArgs e)
-        {
-            this.CurrentSong = e.NewTrack;
-            await this.OnSongChanged(e.OldTrack).ConfigureAwait(false);
-        }
-
-        private async void SpotifyLocalAPI_OnPlayStateChange(object sender, PlayStateEventArgs e)
-        {
-            await this.OnPlayStateChanged(e.Playing).ConfigureAwait(false);
-        }
-
-        private void SpotifyLocalAPI_OnTrackTimeChange(object sender, TrackTimeChangeEventArgs e)
-        {
-            this.TrackTimeChanged?.Invoke(this, new SpotifyTrackTimeChangedEventArgs(e.TrackTime));
-        }
-
-        private void SpotifyLocalAPI_OnVolumeChange(object sender, VolumeChangeEventArgs e)
-        {
-            this.VolumeChanged?.Invoke(this, new SpotifyVolumeChangedEventArgs(e.OldVolume, e.NewVolume));
         }
 
         #endregion

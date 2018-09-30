@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Net.Http;
 using System.Reflection;
@@ -43,6 +44,7 @@ using MenuItem = System.Windows.Forms.MenuItem;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using PixelFormat = System.Windows.Media.PixelFormat;
 using Point = System.Windows.Point;
+using Size = System.Drawing.Size;
 using Spotify = Toastify.Core.Spotify;
 using Timer = System.Timers.Timer;
 
@@ -60,6 +62,8 @@ namespace Toastify.View
 
         private const string STATE_PAUSED = "Paused";
         private const string STATE_NOTHING_PLAYING = "Nothing's playing";
+
+        private static readonly Size DEFAULT_ICON_SIZE = new Size(128, 128);
 
         internal static ToastView Current { get; private set; }
 
@@ -380,10 +384,7 @@ namespace Toastify.View
 
             this.currentSong = song;
 
-            if (this.currentSong?.IsOtherTrackType() == true)
-                this.FetchOtherTrackInfo();
-            else
-                this.UpdateToastText(this.currentSong);
+            this.UpdateToastText(this.currentSong);
 
             this.UpdateSongProgressBar(0.0);
             this.UpdateAlbumArt();
@@ -418,13 +419,11 @@ namespace Toastify.View
                 this.toastIconURI = DEFAULT_ICON;
             else
             {
-                if (this.currentSong.IsAd())
-                    this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl) ||
-                         !Uri.TryCreate(this.currentSong.CoverArtUrl, UriKind.RelativeOrAbsolute, out Uri _))
-                    this.currentSong.CoverArtUrl = DEFAULT_ICON;
+                if (string.IsNullOrWhiteSpace(this.currentSong?.AlbumArt?.Url) ||
+                         !Uri.TryCreate(this.currentSong.AlbumArt.Url, UriKind.RelativeOrAbsolute, out Uri _))
+                    this.currentSong.AlbumArt = new SongAlbumArt(DEFAULT_ICON_SIZE.Height, DEFAULT_ICON_SIZE.Width, DEFAULT_ICON);
 
-                this.toastIconURI = this.currentSong.CoverArtUrl;
+                this.toastIconURI = this.currentSong.AlbumArt.Url;
             }
 
             // Update the cover art only if the url has changed.
@@ -660,8 +659,9 @@ namespace Toastify.View
                     this.UpdateToastText(STATE_PAUSED, song.ToString(), fadeIn);
                 else
                 {
-                    this.toastViewModel.TrackName = song.Track ?? string.Empty;
-                    this.toastViewModel.ArtistName = song.Artist ?? string.Empty;
+                    this.toastViewModel.TrackName = song.Title;
+                    // TODO: Set a proper ArtistName depending on Settings (OnlyFirstArtist, AllArtists, AlbumArtist)
+                    this.toastViewModel.ArtistName = song.Artists.FirstOrDefault() ?? string.Empty;
 
                     this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
                     this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
