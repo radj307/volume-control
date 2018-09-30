@@ -1,4 +1,7 @@
-﻿using ToastifyAPI.Core;
+﻿using SpotifyAPI.Web.Models;
+using Toastify.Model;
+using ToastifyAPI.Core;
+using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Core
 {
@@ -10,16 +13,16 @@ namespace Toastify.Core
 
         #endregion
 
-        public object GetCurrentTrack()
+        public ICurrentlyPlayingObject GetCurrentlyPlayingTrack()
         {
-            var playbackContext = this.SpotifyWebApi?.GetPlayingTrack();
-            return playbackContext;
+            PlaybackContext playbackContext = this.SpotifyWebApi?.GetPlayingTrack();
+            return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
         }
 
-        public object GetUserPrivateProfile()
+        public ISpotifyUserProfile GetUserPrivateProfile()
         {
-            var profile = this.SpotifyWebApi?.GetPrivateProfile();
-            return profile;
+            PrivateProfile profile = this.SpotifyWebApi?.GetPrivateProfile();
+            return profile != null ? new SpotifyUserProfile(profile) : null;
         }
     }
 }

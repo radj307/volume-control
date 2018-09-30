@@ -1,8 +1,10 @@
-﻿namespace ToastifyAPI.Core
+﻿using ToastifyAPI.Model.Interfaces;
+
+namespace ToastifyAPI.Core
 {
     public interface ISpotifyWebAPI
     {
-        object GetCurrentTrack();
-        object GetUserPrivateProfile();
+        ICurrentlyPlayingObject GetCurrentlyPlayingTrack();
+        ISpotifyUserProfile GetUserPrivateProfile();
     }
 }

@@ -187,6 +187,7 @@
     <Compile Include="Core\ISpotifyWebAPI.cs" />
     <Compile Include="Core\IToastifyBroadcaster.cs" />
     <Compile Include="Core\MouseAction.cs" />
+    <Compile Include="Core\SpotifySubscriptionLevel.cs" />
     <Compile Include="Events\ActionFailedEventArgs.cs" />
     <Compile Include="Events\WindowTitleChangedEventArgs.cs" />
     <Compile Include="GitHub\GitHubAPI.cs" />
@@ -220,6 +221,7 @@
     </Compile>
     <Compile Include="Model\Interfaces\IAction.cs" />
     <Compile Include="Model\Interfaces\IActionable.cs" />
+    <Compile Include="Model\Interfaces\ICurrentlyPlayingObject.cs" />
     <Compile Include="Model\Interfaces\IGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IHotkey.cs" />
     <Compile Include="Model\Interfaces\IKeyboardHotkey.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Model\Interfaces\IMouseHookHotkey.cs" />
     <Compile Include="Model\Interfaces\ISong.cs" />
     <Compile Include="Model\Interfaces\ISongAlbumArt.cs" />
+    <Compile Include="Model\Interfaces\ISpotifyUserProfile.cs" />
     <Compile Include="Model\KeyOrButton.cs" />
     <Compile Include="Model\LockedGlobalHotkey.cs" />
     <Compile Include="Native\Crypt32.cs" />
