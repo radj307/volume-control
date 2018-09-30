@@ -26,14 +26,18 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PowerArgs;
 using SpotifyAPI;
+using SpotifyAPI.Web.Enums;
 using Toastify.Core;
+using Toastify.Core.Auth;
 using Toastify.Core.Broadcaster;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.View;
 using ToastifyAPI.Core;
+using ToastifyAPI.Core.Auth;
 using ToastifyAPI.GitHub;
+using ToastifyAPI.Helpers;
 using ToastifyAPI.Interop;
 using ToastifyAPI.Interop.Interfaces;
 using ToastifyAPI.Logic;
@@ -41,6 +45,7 @@ using ToastifyAPI.Logic.Interfaces;
 using MouseAction = ToastifyAPI.Core.MouseAction;
 using Resources = Toastify.Properties.Resources;
 using Spotify = ToastifyAPI.Spotify;
+using ToastifyWebAuthAPI_Utils = ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Utils;
 
 namespace Toastify
 {
@@ -674,20 +679,39 @@ namespace Toastify
         {
             Container = new WindsorContainer();
 
-            // ReSharper disable once RedundantExplicitParamsArrayCreation
-            Container.Register(new IRegistration[]
+            List<IRegistration> registrations = new List<IRegistration>
             {
+                // I/O
                 Component.For<IKeyboard>().Instance(InputDevices.PrimaryKeyboard),
                 Component.For<IMouse>().Instance(InputDevices.PrimaryMouse),
                 Component.For<IInputDevices>().ImplementedBy<InputDevices>(),
 
+                // Toastify Actions
                 Component.For<IToastifyActionRegistry>().ImplementedBy<ToastifyActionRegistry>(),
 
+                // Hotkeys
                 Component.For<IKeyboardHotkeyVisitor>().ImplementedBy<KeyboardHotkeyVisitor>(),
                 Component.For<IMouseHookHotkeyVisitor>().ImplementedBy<MouseHookHotkeyVisitor>(),
 
-                Component.For<IToastifyBroadcaster>().ImplementedBy<ToastifyBroadcaster>()
-            });
+                // Core
+                Component.For<IToastifyBroadcaster>().ImplementedBy<ToastifyBroadcaster>(),
+                Component.For<ISpotifyWebAPI>().ImplementedBy<SpotifyWebAPI>(),
+                Component.For<ISpotifyWeb>().ImplementedBy<SpotifyWeb>()
+            };
+
+            // ISpotifyWebAuth
+            if (ToastifyWebAuthAPI_Utils.Try())
+            {
+                const Scope scopes = Scope.UserReadPrivate | Scope.PlaylistReadPrivate | Scope.PlaylistReadCollaborative | Scope.UserReadPlaybackState;
+                registrations.Add(Component.For<ISpotifyWebAuth>().ImplementedBy<ToastifyWebAuth>().DependsOn(
+                    Dependency.OnValue(nameof(ToastifyWebAuth.Scopes).ToLowerCamelCase(), scopes),
+                    Dependency.OnValue(nameof(ToastifyWebAuth.State).ToLowerCamelCase(), ""),
+                    Dependency.OnValue(nameof(ToastifyWebAuth.ShowDialog).ToLowerCamelCase(), true)));
+            }
+            else
+                registrations.Add(Component.For<ISpotifyWebAuth>().ImplementedBy<NoAuth>());
+
+            Container.Register(registrations.ToArray());
         }
 
         #endregion Static setup

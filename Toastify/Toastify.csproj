@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/1.6.55" ToolsVersion="15.0">
   <!-- Project Info -->
   <PropertyGroup>
@@ -207,7 +207,7 @@
     
     <!-- Execute pre-build.cmd script -->
     <Message Importance="High" Text="[PRE-BUILD] Execute pre-build.cmd script" />
-    <Exec Command="&quot;$(ProjectDir)pre-build.cmd&quot; &quot;$(ProjectFileName)&quot; &quot;$(ProjectDir)&quot; &quot;$(DevEnvDir)&quot;" />
+    <Exec Command="&quot;$(ProjectDir)pre-build.cmd&quot; &quot;$(SolutionDir)&quot; &quot;$(DevEnvDir)&quot;" />
 
     <!-- Transform TextTemplate files -->
     <Message Importance="High" Text="[PRE-BUILD] Transform TextTemplate files" />
@@ -252,10 +252,12 @@
     <ItemGroup>
       <NsisFiles Include="$(TargetDir)*.nsi;$(TargetDir)*.nsh" />
       <ToastifyInstaller Include="$(TargetDir)ToastifyInstaller.exe" />
+      <ToastifyWebAuthAPIDll Include="$(TargetDir)ToastifyWebAuthAPI.dll" />
     </ItemGroup>
     <RemoveDir Directories="$(TargetDir)lib;$(TargetDir)LICENSES;$(TargetDir)Resources" />
     <Delete Files="@(ToastifyApiWin32Files->'$(TargetDir)%(Filename)_Win32%(Extension)')" />
     <Delete Files="@(ToastifyApiUWPFiles->'$(TargetDir)%(Filename)_UWP%(Extension)')" />
+    <Delete Files="@(ToastifyWebAuthAPIDll)" />
     <Delete Files="@(NsisFiles);@(ToastifyInstaller)" />
     <Delete Files="$(TargetDir)log.log" />
   </Target>

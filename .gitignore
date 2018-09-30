@@ -183,6 +183,9 @@ UpgradeLog*.htm
 
 # =================================
 
+# Dependenceis
+/_dependencies/
+
 # Auto-generated files
 *.g.cs
 

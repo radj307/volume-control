@@ -168,10 +168,23 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Auth\AuthEventArgs.cs" />
+    <Compile Include="Core\Auth\NoAuth.cs" />
+    <Compile Include="Core\Auth\IAuthHttpServer.cs" />
+    <Compile Include="Core\Auth\ISpotifyWebAuth.cs" />
+    <Compile Include="Core\Auth\IToken.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\AuthorizationCodeFlow.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\ClientCredentialsFlow.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\BaseSpotifyWebAuth.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\Structs\HttpResponse.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\Structs\SpotifyTokenResponse.cs" />
     <Compile Include="Common\AnonymousEqualityComparer.cs" />
     <Compile Include="Common\Union32.cs" />
     <Compile Include="Common\WindowTitleWatcher.cs" />
+    <Compile Include="Core\Auth\ToastifyWebAuthAPI\Utils.cs" />
     <Compile Include="Core\IProxyConfig.cs" />
+    <Compile Include="Core\ISpotifyWeb.cs" />
+    <Compile Include="Core\ISpotifyWebAPI.cs" />
     <Compile Include="Core\IToastifyBroadcaster.cs" />
     <Compile Include="Core\MouseAction.cs" />
     <Compile Include="Events\ActionFailedEventArgs.cs" />
@@ -186,6 +199,7 @@
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Net.cs" />
+    <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\System.cs" />
     <Compile Include="Helpers\Volume.cs" />
     <Compile Include="Interop\InputDevices.cs" />

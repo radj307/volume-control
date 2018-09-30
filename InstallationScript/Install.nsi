@@ -31,6 +31,15 @@ ManifestSupportedOS "{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"  # Windows 10
 OutFile "ToastifyInstaller.exe"
 InstallDir $PROGRAMFILES64\Toastify
 
+# Installer's Version Information
+VIProductVersion ${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.0
+VIFileVersion ${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.0
+VIAddVersionKey "ProductVersion" "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}"
+VIAddVersionKey "FileVersion" "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}"
+VIAddVersionKey "ProductName" "${APPNAME}"
+VIAddVersionKey "FileDescription" "${APPNAME} Installer"
+VIAddVersionKey "LegalCopyright" "© 2018 Alessandro Attard Barbini"
+
 
 ;--------------------------------
 ; Pages
@@ -86,17 +95,20 @@ Section "${APPNAME} (required)"
 
     # ToastifyAPI.dll
     ${If} ${IsWin10}
-    File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
-    File /oname=ToastifyAPI.pdb "ToastifyAPI_UWP.pdb"
+      File /oname=ToastifyAPI.dll "ToastifyAPI_UWP.dll"
+      File /oname=ToastifyAPI.pdb "ToastifyAPI_UWP.pdb"
     ${Else}
-    File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
-    File /oname=ToastifyAPI.pdb "ToastifyAPI_Win32.pdb"
+      File /oname=ToastifyAPI.dll "ToastifyAPI_Win32.dll"
+      File /oname=ToastifyAPI.pdb "ToastifyAPI_Win32.pdb"
     ${EndIf}
 
     # Toastify.exe
     File "Toastify.exe"
     File "Toastify.exe.config"
     File "Toastify.pdb"
+
+    # ToastifyWebAuthAPI.dll
+    File /nonfatal "ToastifyWebAuthAPI.dll"
 
     # Resources
     File "LICENSES\LICENSE"
@@ -165,6 +177,9 @@ Section "un.Toastify"
     Delete "$INSTDIR\Toastify.exe"
     Delete "$INSTDIR\Toastify.exe.config"
     Delete "$INSTDIR\Toastify.pdb"
+
+    # ToastifyWebAuthAPI.dll
+    Delete "$INSTDIR\ToastifyWebAuthAPI.dll"
 
     # Resources
     Delete "$INSTDIR\LICENSE"
