@@ -1,6 +1,8 @@
-﻿namespace ToastifyAPI.Model.Interfaces
+﻿using System;
+
+namespace ToastifyAPI.Model.Interfaces
 {
-    public interface ISongAlbumArt
+    public interface ISongAlbumArt : IEquatable<ISongAlbumArt>
     {
         #region Public Properties
 

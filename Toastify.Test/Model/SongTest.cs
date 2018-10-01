@@ -15,6 +15,13 @@ namespace Toastify.Tests.Model
         #region Static Members
 
         [Test(Author = "aleab")]
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.AlbumArtTestCases))]
+        public static void AlbumArtTest(Song song, Action<Song> test)
+        {
+            test?.Invoke(song);
+        }
+
+        [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsValidTestCases))]
         public static bool IsValidTest(Song song)
         {
@@ -103,6 +110,49 @@ namespace Toastify.Tests.Model
 
                     // Null track
                     yield return new TestCaseData(null).SetName("null Track");
+                }
+            }
+
+            public static IEnumerable<TestCaseData> AlbumArtTestCases
+            {
+                get
+                {
+                    Song regularSong = new Song("album", "artist", "title", 1);
+                    Song trackSong = new Song(TestFullTrack);
+                    Song songWithAlbumArt = new Song(TestFullTrack)
+                    {
+                        AlbumArt = new SongAlbumArt(10, 10, "http://fake.album.art")
+                    };
+
+                    yield return new TestCaseData(regularSong, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.Empty);
+                            Assert.That(song.AlbumArt.Height, Is.EqualTo(0));
+                            Assert.That(song.AlbumArt.Width, Is.EqualTo(0));
+                        });
+                    })).SetName("no album art set, no underlying track");
+
+                    yield return new TestCaseData(trackSong, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.EqualTo(TestFullTrack.Album?.Images?.LastOrDefault()?.Url));
+                        });
+                    })).SetName("no album art set, with underlying track");
+
+                    yield return new TestCaseData(songWithAlbumArt, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.Not.EqualTo(TestFullTrack.Album?.Images?.LastOrDefault()?.Url));
+                            Assert.That(song.AlbumArt.Url, Is.EqualTo("http://fake.album.art"));
+                        });
+                    })).SetName("album art set, with underlying track");
                 }
             }
 
@@ -239,6 +289,10 @@ namespace Toastify.Tests.Model
                         Assert.That(song.Artists.FirstOrDefault(), Is.EqualTo(parts[0]));
                         Assert.That(song.Title, Is.EqualTo(parts[1]));
                     }
+                    
+                    yield return new TestCaseData(null, new Action<Song>(song => Assert.That(song, Is.Null))).SetName("null title => null song");
+                    yield return new TestCaseData(string.Empty, new Action<Song>(song => Assert.That(song, Is.Null))).SetName("empty title => null song");
+                    yield return new TestCaseData(" ", new Action<Song>(song => Assert.That(song, Is.Null))).SetName("whitespace title => null song");
 
                     string[] t1 = { "Artist", "Title" };
                     yield return new TestCaseData(GetTitle(t1), new Action<Song>(song => Test(song, t1))).SetName(GetTestName(t1));
@@ -283,7 +337,12 @@ namespace Toastify.Tests.Model
             internal static SimpleAlbum TestSimpleAlbum { get; } = new SimpleAlbum
             {
                 Name = "Test Album",
-                Uri = "http://test.album"
+                Uri = "http://test.album",
+                Images = new List<Image>
+                {
+                    new Image { Height = 256, Width = 256, Url = "http://test.album/256/cover.png" },
+                    new Image { Height = 64, Width = 64, Url = "http://test.album/64/cover.png" }
+                }
             };
 
             internal static SimpleArtist TestSimpleArtist { get; } = new SimpleArtist
