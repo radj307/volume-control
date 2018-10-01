@@ -45,7 +45,7 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 
             if (this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
             {
-                if (this.authResponse.State == this.State)
+                if (this.authResponse.State == this.State || string.IsNullOrWhiteSpace(this.authResponse.State) && string.IsNullOrWhiteSpace(this.State))
                 {
                     HttpResponse httpResponse = new HttpResponse(256, 1024);
                     SpotifyTokenResponse spotifyTokenResponse = new SpotifyTokenResponse(256, 32, 736);
