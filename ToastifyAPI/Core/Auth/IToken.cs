@@ -1,4 +1,6 @@
-﻿namespace ToastifyAPI.Core.Auth
+﻿using System;
+
+namespace ToastifyAPI.Core.Auth
 {
     public interface IToken
     {
@@ -6,8 +8,9 @@
 
         string AccessToken { get; }
         string TokenType { get; }
-        int ExpiresIn { get; }
+        double ExpiresIn { get; }
         string RefreshToken { get; }
+        DateTime CreateDate { get; }
 
         #endregion
 

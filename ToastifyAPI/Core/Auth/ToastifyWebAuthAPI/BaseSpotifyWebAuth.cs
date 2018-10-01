@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Structs;
 
 namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
@@ -62,6 +63,23 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 
             this.tokenReturned = true;
             return null;
+        }
+
+        public Task<IToken> RefreshToken([NotNull] IToken token)
+        {
+            IToken refreshedToken = null;
+
+            HttpResponse httpResponse = new HttpResponse(256, 1024);
+            SpotifyTokenResponse spotifyTokenResponse = new SpotifyTokenResponse(256, 32, 736);
+            AuthorizationCodeFlow.RefreshAuthorizationToken(ref httpResponse, ref spotifyTokenResponse, token.RefreshToken);
+
+            if (httpResponse.status == (int)HttpStatusCode.OK)
+            {
+                spotifyTokenResponse.CreationDate = DateTime.Now;
+                refreshedToken = this.CreateToken(spotifyTokenResponse);
+            }
+
+            return Task.FromResult(refreshedToken);
         }
 
         protected abstract IToken CreateToken(SpotifyTokenResponse spotifyTokenResponse);

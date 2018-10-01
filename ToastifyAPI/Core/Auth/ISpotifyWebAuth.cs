@@ -5,5 +5,6 @@ namespace ToastifyAPI.Core.Auth
     public interface ISpotifyWebAuth
     {
         Task<IToken> GetToken();
+        Task<IToken> RefreshToken(IToken token);
     }
 }

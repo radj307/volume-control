@@ -63,7 +63,7 @@
     <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="PowerArgs" Version="2.8.1" />
-    <PackageReference Include="SpotifyAPI-NET" Version="2.18.0" />
+    <PackageReference Include="SpotifyAPI.Web" Version="3.0.2" />
   </ItemGroup>
 
   <!-- Regular References -->
