@@ -762,6 +762,8 @@ namespace Toastify.Core
                     }
 
                     await this.OnSpotifyConnected(spotifyStateEventArgs).ConfigureAwait(false);
+
+                    this.BeginInitializeWebAPI();
                 }
                 else
                 {

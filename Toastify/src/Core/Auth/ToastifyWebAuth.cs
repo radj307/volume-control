@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
 using ToastifyAPI.Core.Auth;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Structs;
@@ -27,9 +29,9 @@ namespace Toastify.Core.Auth
 
         #endregion
 
-        public ToastifyWebAuth(string scopes, string state, bool showDialog)
+        public ToastifyWebAuth(Scope scopes, string state, bool showDialog)
         {
-            this.Scopes = scopes;
+            this.Scopes = scopes.GetStringAttribute(" ");
             this.State = state;
             this.ShowDialog = showDialog;
 
