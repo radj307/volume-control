@@ -13,6 +13,10 @@ SET "SolutionDir=%~3"
 SET "TargetDir=%~4"
 SET "TargetFileName=%~5"
 
+SET Configuration=Release
+IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
+    SET Configuration=Debug
+)
 
 REM ===============
 REM  CALL VsDevCmd
@@ -64,18 +68,21 @@ IF EXIST _dependencies (
 
         REM Build ToastifyWebAuthAPI
         ECHO [POST-BUILD]     - ToastifyWebAuthAPI
-        msbuild ToastifyWebAuthAPI\ToastifyWebAuthAPI.vcxproj /t:Clean,Build /p:Configuration=Release /p:Platform=x64 >"ToastifyWebAuthAPI\bin\x64\Release\build.log""
-        IF NOT EXIST "ToastifyWebAuthAPI\bin\x64\Release\ToastifyWebAuthAPI.dll" (
+        msbuild ToastifyWebAuthAPI\ToastifyWebAuthAPI.vcxproj /t:Clean,Build /p:Configuration=%Configuration% /p:Platform=x64 >"ToastifyWebAuthAPI\bin\x64\%Configuration%\build.log""
+        IF NOT EXIST "ToastifyWebAuthAPI\bin\x64\%Configuration%\ToastifyWebAuthAPI.dll" (
             ECHO;
-            ECHO ERROR: Build failed^^! See "!ToastifyWebAuthAPI_Path!\ToastifyWebAuthAPI\bin\x64\Release\build.log"
+            ECHO ERROR: Build failed^^! See "!ToastifyWebAuthAPI_Path!\ToastifyWebAuthAPI\bin\x64\%Configuration%\build.log"
             ECHO;
             GOTO EOF
         ) ELSE (
-            DEL /Q /F "ToastifyWebAuthAPI\bin\x64\Release\build.log"
+            DEL /Q /F "ToastifyWebAuthAPI\bin\x64\%Configuration%\build.log"
         )
 
         REM Copy ToastifyWebAuthAPI.dll to TargetDir
-        COPY /Y "ToastifyWebAuthAPI\bin\x64\Release\ToastifyWebAuthAPI.dll" "%TargetDir%ToastifyWebAuthAPI.dll"
+        COPY /Y "ToastifyWebAuthAPI\bin\x64\%Configuration%\ToastifyWebAuthAPI.dll" "%TargetDir%ToastifyWebAuthAPI.dll"
+        IF ["%Configuration%"]==["Debug"] (
+            COPY /Y "ToastifyWebAuthAPI\bin\x64\%Configuration%\ToastifyWebAuthAPI.pdb" "%TargetDir%ToastifyWebAuthAPI.pdb"
+        )
     )
     CD "%SolutionDir%"
 )
@@ -84,8 +91,12 @@ IF EXIST _dependencies (
 REM ================================================================
 REM  Check if it's a Windows Release build; continue only if it is!
 REM ================================================================
-IF NOT ["%ConfigurationName:~0,7%"]==["Windows"] GOTO EOF
-IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] GOTO EOF
+IF NOT ["%ConfigurationName:~0,7%"]==["Windows"] (
+    GOTO EOF
+)
+IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
+    GOTO EOF
+)
 
 
 REM ========================================
