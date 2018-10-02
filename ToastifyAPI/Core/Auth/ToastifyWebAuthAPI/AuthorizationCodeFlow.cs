@@ -9,9 +9,11 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 
         [DllImport("ToastifyWebAuthAPI.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Authorize(
+            [In] [MarshalAs(UnmanagedType.FunctionPtr)] OpenBrowserPageFunc openBrowserPageFunc,
             [In, Optional] [MarshalAs(UnmanagedType.LPStr)] string scope,
             [In, Optional] [MarshalAs(UnmanagedType.LPStr)] string state,
-            [In, Optional] [MarshalAs(UnmanagedType.Bool)] bool showDialog);
+            [In, Optional] [MarshalAs(UnmanagedType.Bool)] bool showDialog,
+            [In, Optional] [MarshalAs(UnmanagedType.LPStr)] string lang);
 
         [DllImport("ToastifyWebAuthAPI.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetAuthorizationToken(
@@ -26,5 +28,7 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             [In] [MarshalAs(UnmanagedType.LPStr)] string refreshToken);
 
         #endregion
+
+        public delegate void OpenBrowserPageFunc([In] [MarshalAs(UnmanagedType.LPStr)] string url);
     }
 }

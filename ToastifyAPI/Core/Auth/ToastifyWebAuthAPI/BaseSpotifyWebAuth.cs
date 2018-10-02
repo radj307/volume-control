@@ -37,7 +37,7 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             this.AuthHttpServer.AuthorizationFinished += this.AuthHttpServer_AuthorizationFinished;
             await this.AuthHttpServer.Start();
 
-            AuthorizationCodeFlow.Authorize(this.Scopes, this.State, this.ShowDialog);
+            this.Authorize();
             while (this.authResponse == null)
             {
                 await Task.Delay(100);
@@ -82,9 +82,11 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             return Task.FromResult(refreshedToken);
         }
 
+        protected abstract void Authorize();
+
         protected abstract IToken CreateToken(SpotifyTokenResponse spotifyTokenResponse);
 
-        private async void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
+        protected virtual async void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
         {
             this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
             await this.AuthHttpServer.Stop();
