@@ -280,7 +280,7 @@ namespace Toastify.Core
                 IToken token = null;
 
                 // Check if a local token file exists
-                const string tokenFileName = "spToken.sec";
+                const string tokenFileName = "spotify-token.sec";
                 if (Security.ProtectedDataExists(tokenFileName))
                 {
                     logger.Debug("Fetching cached token...");
@@ -323,6 +323,7 @@ namespace Toastify.Core
 
                 if (token == null)
                 {
+                    // Request new token
                     logger.Debug("Requesting new token...");
                     token = await this.Web.Auth.GetToken();
                     if (token != null)

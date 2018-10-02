@@ -257,9 +257,9 @@ namespace Toastify
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException(@"File name is not valid", nameof(fileName));
 
+            BinaryFormatter serializer = new BinaryFormatter();
             using (MemoryStream stream = new MemoryStream())
             {
-                BinaryFormatter serializer = new BinaryFormatter();
                 serializer.Serialize(stream, obj);
                 byte[] bytes = stream.ToArray();
                 SaveProtectedData(bytes, fileName);
