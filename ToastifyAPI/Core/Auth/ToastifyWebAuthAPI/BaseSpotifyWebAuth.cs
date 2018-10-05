@@ -35,13 +35,18 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
                 return null;
 
             this.AuthHttpServer.AuthorizationFinished += this.AuthHttpServer_AuthorizationFinished;
-            await this.AuthHttpServer.Start();
+            await this.AuthHttpServer.Start().ConfigureAwait(false);
 
             this.Authorize();
-            while (this.authResponse == null)
+            bool shouldAbortAuthorization = false;
+            while (this.authResponse == null && !shouldAbortAuthorization)
             {
-                await Task.Delay(100);
+                await Task.Delay(100).ConfigureAwait(false);
+                shouldAbortAuthorization = await this.ShouldAbortAuthorization().ConfigureAwait(false);
             }
+
+            if (shouldAbortAuthorization)
+                return null;
 
             if (this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
             {
@@ -86,12 +91,16 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 
         protected abstract IToken CreateToken(SpotifyTokenResponse spotifyTokenResponse);
 
+        protected abstract Task<bool> ShouldAbortAuthorization();
+
         protected virtual async void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
         {
             this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
-            await this.AuthHttpServer.Stop();
+            await this.AuthHttpServer.Stop().ConfigureAwait(false);
 
             this.authResponse = e;
         }
+
+        public abstract void Dispose();
     }
 }

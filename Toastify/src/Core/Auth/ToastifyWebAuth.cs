@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using log4net;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
+using Toastify.Threading;
 using Toastify.View;
 using ToastifyAPI.Core.Auth;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI;
@@ -14,14 +15,13 @@ using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Structs;
 
 namespace Toastify.Core.Auth
 {
-    public class ToastifyWebAuth : BaseSpotifyWebAuth, IDisposable
+    public class ToastifyWebAuth : BaseSpotifyWebAuth
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyWebAuth));
 
         private AuthHttpServer authHttpServer;
 
-        private WebView webViewWindow;
-        private Thread webViewThread;
+        private WindowThread<WebView> webViewWindowThread;
 
         #region Non-Public Properties
 
@@ -51,11 +51,28 @@ namespace Toastify.Core.Auth
 
         protected override void Authorize()
         {
-            this.CloseWebView();
-            this.webViewThread = new Thread(this.WebViewThreadStart);
-            this.webViewThread.SetApartmentState(ApartmentState.STA);
-            this.webViewThread.IsBackground = true;
-            this.webViewThread.Start();
+            WindowThreadOptions<WebView> windowThreadOptions = new WindowThreadOptions<WebView>
+            {
+                WindowInitialization = window =>
+                {
+                    window.Title = "Spotify Authorization";
+                    window.AllowedHosts = new List<string> { "accounts.spotify.com", "localhost", string.Empty };
+                    window.SetSize(new Size(475, 512));
+                },
+                BeforeWindowShownAction = window =>
+                {
+                    window.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+                    {
+                        AuthorizationCodeFlow.Authorize(url => window.NavigateTo(url), this.Scopes, this.State, this.ShowDialog, "en");
+                    }));
+                },
+                OnWindowClosingAction = windowThread => windowThread.Abort()
+            };
+
+            this.webViewWindowThread = ThreadManager.Instance.CreateWindowThread(ApartmentState.STA, windowThreadOptions);
+            this.webViewWindowThread.IsBackground = true;
+            this.webViewWindowThread.ThreadName = $"{nameof(ToastifyWebAuth)}_{nameof(WebView)}_Thread";
+            this.webViewWindowThread.Start();
         }
 
         public override Task<IToken> GetToken()
@@ -68,59 +85,19 @@ namespace Toastify.Core.Auth
             return new Token(spotifyTokenResponse);
         }
 
-        private void CloseWebView()
+        protected override Task<bool> ShouldAbortAuthorization()
         {
-            Dispatcher.FromThread(this.webViewThread)?.Invoke(() =>
-            {
-                try
-                {
-                    if (this.webViewThread != null)
-                    {
-                        this.webViewWindow?.Hide();
-                        this.webViewWindow?.Close();
-                        this.webViewWindow = null;
-
-                        this.webViewThread = null;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    logger.Error($"Unhandled error while closing {nameof(ToastifyWebAuth)}'s WebView", ex);
-                }
-            });
+            bool shouldAbortAuthorization = App.ShutdownEvent.WaitOne(100);
+            return Task.FromResult(shouldAbortAuthorization);
         }
 
-        private void WebViewThreadStart()
-        {
-            try
-            {
-                SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
-
-                this.webViewWindow = new WebView
-                {
-                    Title = "Spotify Authorization",
-                    AllowedHosts = new List<string> { "accounts.spotify.com", "localhost", string.Empty }
-                };
-                this.webViewWindow.SetSize(new Size(475, 512));
-                this.webViewWindow.Closed += (s, e) => Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
-
-                this.webViewWindow.Show();
-                AuthorizationCodeFlow.Authorize(url => this.webViewWindow.NavigateTo(url), this.Scopes, this.State, this.ShowDialog, "en");
-
-                Dispatcher.Run();
-            }
-            catch (Exception ex)
-            {
-                logger.Error($"Unhandled error in {nameof(ToastifyWebAuth)}'s WebView thread", ex);
-            }
-        }
-
-        public void Dispose()
+        public override void Dispose()
         {
             this.authHttpServer?.Dispose();
             this.authHttpServer = null;
 
-            this.CloseWebView();
+            this.webViewWindowThread?.Dispose();
+            this.webViewWindowThread = null;
         }
 
         protected override void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
@@ -128,16 +105,15 @@ namespace Toastify.Core.Auth
             try
             {
                 base.AuthHttpServer_AuthorizationFinished(sender, e);
-
-                Dispatcher.FromThread(this.webViewThread)?.BeginInvoke(new Action(() =>
-                {
-                    this.webViewWindow.NavigateToRawHtml("<!DOCTYPE html><html><head></head><body><div>You can now close this window</div></body></html>");
-                    this.CloseWebView();
-                }));
             }
             catch (Exception ex)
             {
                 logger.Error($"Unhandled error in {nameof(this.AuthHttpServer_AuthorizationFinished)}", ex);
+            }
+            finally
+            {
+                this.webViewWindowThread?.Dispose();
+                this.webViewWindowThread = null;
             }
         }
     }

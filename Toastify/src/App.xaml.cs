@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -33,6 +33,7 @@ using Toastify.Core.Broadcaster;
 using Toastify.Events;
 using Toastify.Model;
 using Toastify.Services;
+using Toastify.Threading;
 using Toastify.View;
 using ToastifyAPI.Core;
 using ToastifyAPI.Core.Auth;
@@ -539,6 +540,8 @@ namespace Toastify
 
         public static WindsorContainer Container { get; private set; }
 
+        public static ManualResetEvent ShutdownEvent { get; } = new ManualResetEvent(false);
+
         public static string ApplicationData
         {
             get
@@ -661,9 +664,15 @@ namespace Toastify
 
         public static void Terminate()
         {
-            Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                new Action(() => Current.Shutdown()));
+            if (Current?.Dispatcher != null)
+            {
+                if (Current.Dispatcher.CheckAccess())
+                    Current.Shutdown();
+                else
+                    Current.Dispatcher?.Invoke(DispatcherPriority.Normal, new ThreadStart(() => Current.Shutdown()));
+            }
+            else
+                Environment.Exit(0);
         }
 
         #endregion
@@ -742,7 +751,7 @@ namespace Toastify
             if (action == null)
                 return null;
 
-            var t = new Thread(() =>
+            var thread = ThreadManager.Instance.CreateThread(() =>
             {
                 try
                 {
@@ -752,15 +761,13 @@ namespace Toastify
                 {
                     logger.Error($"Unknown error in {nameof(CallInSTAThreadAsync)}", ex);
                 }
-            })
-            {
-                IsBackground = background
-            };
+            });
+            thread.IsBackground = background;
             if (!string.IsNullOrWhiteSpace(threadName))
-                t.Name = threadName;
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            return t;
+                thread.Name = threadName;
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            return thread;
         }
 
         #endregion CallInSTAThread
@@ -782,10 +789,14 @@ namespace Toastify
         private void App_OnExit(object sender, ExitEventArgs e)
         {
             Analytics.TrackEvent(Analytics.ToastifyEventCategory.General, Analytics.ToastifyEvent.AppTermination);
+
+            ShutdownEvent.Set();
             Core.Spotify.DisposeInstance();
             VersionChecker.DisposeInstance();
+            ThreadManager.DisposeInstance();
 
             logger.Info($"Toastify terminated with exit code {e.ApplicationExitCode}.");
+            //Environment.Exit(e.ApplicationExitCode);
         }
 
         #endregion Event handlers

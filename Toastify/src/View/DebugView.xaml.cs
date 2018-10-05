@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using Toastify.Core;
 using Toastify.Events;
 using Toastify.Model;
+using Toastify.Threading;
 
 namespace Toastify.View
 {
@@ -42,15 +43,10 @@ namespace Toastify.View
             if (Current != null)
                 return;
 
-            var th = new Thread(() =>
-            {
-                var debugView = new DebugView();
-                debugView.Show();
-                Dispatcher.Run();
-            });
-            th.SetApartmentState(ApartmentState.STA);
-            th.IsBackground = true;
-            th.Start();
+            WindowThread<DebugView> thread = ThreadManager.Instance.CreateWindowThread<DebugView>(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.ThreadName = $"{nameof(DebugView)}_Thread";
+            thread.Start();
         }
 
         private void ButtonPrintSettings_OnClick(object sender, RoutedEventArgs e)

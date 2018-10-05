@@ -82,6 +82,12 @@ namespace Toastify.View
             return h.Count > 0 ? string.Join(Environment.NewLine, h.Select(kvp => $"{kvp.Key}: {kvp.Value}")) : null;
         }
 
+        private void WebView_OnClosing(object sender, EventArgs e)
+        {
+            this.WebBrowser.Dispatcher.InvokeShutdown();
+            this.WebBrowser.Dispose();
+        }
+
         private void WebBrowser_OnLoadCompleted(object sender, NavigationEventArgs e)
         {
             try

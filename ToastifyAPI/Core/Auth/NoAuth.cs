@@ -13,5 +13,9 @@ namespace ToastifyAPI.Core.Auth
         {
             return Task.FromResult<IToken>(null);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

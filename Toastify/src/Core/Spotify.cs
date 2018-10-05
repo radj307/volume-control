@@ -622,6 +622,8 @@ namespace Toastify.Core
         {
             this.DisposeSpotifyLauncher();
             this.DisposeSpotifyLauncherTimeoutTimer();
+
+            this.Web?.Auth?.Dispose();
         }
 
         private void DisposeSpotifyLauncher()
@@ -794,7 +796,7 @@ namespace Toastify.Core
                     updateSong = false;
                 }
                 else if (SpotifyWindow.PausedTitles.Contains(e.OldTitle, StringComparer.InvariantCulture))
-                    await this.OnPlayStateChanged(false).ConfigureAwait(true);
+                    await this.OnPlayStateChanged(false).ConfigureAwait(false);
 
                 if (updateSong)
                 {

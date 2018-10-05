@@ -162,8 +162,8 @@ namespace Toastify.View
         private void FinalizeInit()
         {
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
-            Spotify.Instance.Exited -= this.Application_Shutdown;
-            Spotify.Instance.Exited += this.Application_Shutdown;
+            Spotify.Instance.Exited -= this.ToastView_Exit;
+            Spotify.Instance.Exited += this.ToastView_Exit;
             Spotify.Instance.SongChanged -= this.Spotify_SongChanged;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
             Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
@@ -309,7 +309,7 @@ namespace Toastify.View
             menuAbout.Click += (s, ev) => { new AboutView().ShowDialog(); };
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
-            menuExit.Click += this.Application_Shutdown;
+            menuExit.Click += this.ToastView_Exit;
 
             this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
@@ -1065,6 +1065,11 @@ namespace Toastify.View
             Windows.AddToolWindowStyle(this.WindowHandle);
         }
 
+        private void Window_OnClosed(object sender, EventArgs e)
+        {
+            App.Terminate();
+        }
+
         /// <summary>
         /// Mouse is over the window, halt any fade out animations and keep the toast active.
         /// </summary>
@@ -1196,11 +1201,10 @@ namespace Toastify.View
             this.Settings = e.Settings;
         }
 
-        private void Application_Shutdown(object sender, EventArgs e)
+        private void ToastView_Exit(object sender, EventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                new Action(() => Application.Current.Shutdown()));
+            this.Close();
+            App.Terminate();
         }
 
         private void Toast_Deactivated(object sender, EventArgs e)
