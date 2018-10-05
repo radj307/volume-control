@@ -293,7 +293,7 @@ namespace Toastify.Core
                         else if (!string.IsNullOrWhiteSpace(savedToken.RefreshToken))
                         {
                             logger.Debug("Cached token is expired. Refreshing it...");
-                            savedToken = await this.Web.Auth.RefreshToken(savedToken);
+                            savedToken = await this.Web.Auth.RefreshToken(savedToken).ConfigureAwait(false);
                             if (savedToken != null)
                             {
                                 token = savedToken;
@@ -325,7 +325,7 @@ namespace Toastify.Core
                 {
                     // Request new token
                     logger.Debug("Requesting new token...");
-                    token = await this.Web.Auth.GetToken();
+                    token = await this.Web.Auth.GetToken().ConfigureAwait(false);
                     if (token != null)
                         Security.SaveProtectedObject(token, tokenFileName);
                 }

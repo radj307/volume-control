@@ -232,7 +232,7 @@ namespace Toastify.Core.Broadcaster
         private static async Task RedirectTo(string message, WebSocket socket)
         {
             if (socket != null && socket.State == WebSocketState.Open && !string.IsNullOrWhiteSpace(message))
-                await socket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(message)), WebSocketMessageType.Text, true, CancellationToken.None);
+                await socket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(message)), WebSocketMessageType.Text, true, CancellationToken.None).ConfigureAwait(false);
         }
 
         #endregion

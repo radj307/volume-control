@@ -42,7 +42,7 @@ namespace Toastify.Core.Auth
 
         public async Task Start()
         {
-            await this.webHost.StartAsync();
+            await this.webHost.StartAsync().ConfigureAwait(false);
             this.receiveThread = new Thread(this.ReceiveThread)
             {
                 Name = $"Toastify_{nameof(AuthHttpServer)}_ReceiveThread_{RuntimeHelpers.GetHashCode(this)}"
