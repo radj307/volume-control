@@ -84,8 +84,15 @@ namespace Toastify.View
 
         private void WebView_OnClosing(object sender, EventArgs e)
         {
-            this.WebBrowser.Dispatcher.InvokeShutdown();
-            this.WebBrowser.Dispose();
+            try
+            {
+                this.WebBrowser.Dispatcher.InvokeShutdown();
+                this.WebBrowser.Dispose();
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private void WebBrowser_OnLoadCompleted(object sender, NavigationEventArgs e)

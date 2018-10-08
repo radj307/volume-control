@@ -77,7 +77,7 @@ namespace Toastify.Core.Auth
 
         public override Task<IToken> GetToken()
         {
-            return this.authHttpServer == null ? null : base.GetToken();
+            return this.authHttpServer == null ? Task.FromResult((IToken)null) : base.GetToken();
         }
 
         protected override IToken CreateToken(SpotifyTokenResponse spotifyTokenResponse)

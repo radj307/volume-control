@@ -46,7 +46,11 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             }
 
             if (shouldAbortAuthorization)
+            {
+                this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
+                await this.AuthHttpServer.Stop().ConfigureAwait(false);
                 return null;
+            }
 
             if (this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
             {

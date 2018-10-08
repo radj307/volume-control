@@ -12,6 +12,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Aleab.Common.Extensions;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using JetBrains.Annotations;

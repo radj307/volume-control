@@ -16,7 +16,7 @@ namespace Toastify.Threading
 
         public T Window { get; private set; }
 
-        public Thread Thread { get; }
+        public Thread Thread { get; private set; }
 
         public bool IsBackground
         {
@@ -65,6 +65,7 @@ namespace Toastify.Threading
         public void Abort()
         {
             ThreadManager.Instance.Abort(this.Thread);
+            this.Thread = null;
         }
 
         public void Join()
@@ -101,25 +102,41 @@ namespace Toastify.Threading
             }
             catch (Exception ex)
             {
-                logger.Error($"Unhandled error while closing {nameof(WindowThread<T>)}'s window{(!string.IsNullOrWhiteSpace(this.Window?.Title) ? $" ({this.Window.Title})" : string.Empty)}", ex);
+                if (this.Window != null)
+                {
+                    this.Window.Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(() =>
+                    {
+                        string title = !string.IsNullOrWhiteSpace(this.Window?.Title) ? $" ({this.Window.Title})" : string.Empty;
+                        logger.Error($"Unhandled error while closing {nameof(WindowThread<T>)}'s window{title}", ex);
+                    }));
+                }
+                else
+                    logger.Error($"Unhandled error while closing {nameof(WindowThread<T>)}'s window", ex);
             }
         }
 
         private void ThreadStart()
         {
+            var syncContext = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+
             try
             {
-                var syncContext = SynchronizationContext.Current;
-                SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
-
                 this.Window = new T();
                 this.options?.WindowInitialization?.Invoke(this.Window);
 
                 this.Window.Closed += (sender, args) =>
                 {
-                    Application.Current?.Dispatcher?.BeginInvoke(new Action(() => Application.Current.Exit -= this.Application_Exit));
-                    this.options?.OnWindowClosingAction?.Invoke(this);
-                    this.Window?.Dispatcher?.BeginInvokeShutdown(DispatcherPriority.Background);
+                    try
+                    {
+                        Application.Current?.Dispatcher?.BeginInvoke(new Action(() => Application.Current.Exit -= this.Application_Exit));
+                        this.options?.OnWindowClosingAction?.Invoke(this);
+                        this.Window?.Dispatcher?.BeginInvokeShutdown(DispatcherPriority.Background);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
                 };
                 Application.Current?.Dispatcher?.Invoke(() => Application.Current.Exit += this.Application_Exit);
 
@@ -128,7 +145,6 @@ namespace Toastify.Threading
                 this.options?.AfterWindowShownAction?.Invoke(this.Window);
 
                 Dispatcher.Run();
-                SynchronizationContext.SetSynchronizationContext(syncContext);
             }
             catch (ThreadAbortException)
             {
@@ -141,11 +157,13 @@ namespace Toastify.Threading
             {
                 this.CloseWindow();
                 Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
+                SynchronizationContext.SetSynchronizationContext(syncContext);
             }
         }
 
         public override int GetHashCode()
         {
+            // ReSharper disable once NonReadonlyMemberInGetHashCode
             return this.Thread?.GetHashCode() ?? 0;
         }
 

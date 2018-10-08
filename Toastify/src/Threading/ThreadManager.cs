@@ -71,15 +71,23 @@ namespace Toastify.Threading
         {
             if (thread == null)
                 return;
-            this.threads.Remove(thread);
-            this.threads.Add(thread);
+
+            lock (instanceLock)
+            {
+                this.threads.Remove(thread);
+                this.threads.Add(thread);
+            }
         }
 
         public void Remove(Thread thread)
         {
             if (thread == null)
                 return;
-            this.threads.Remove(thread);
+
+            lock (instanceLock)
+            {
+                this.threads.Remove(thread);
+            }
         }
 
         public void Abort(Thread thread)
@@ -94,9 +102,12 @@ namespace Toastify.Threading
 
             try
             {
-                if (remove)
-                    this.Remove(thread);
-                thread.Abort();
+                lock (instanceLock)
+                {
+                    if (remove)
+                        this.Remove(thread);
+                    thread.Abort();
+                }
             }
             catch
             {
@@ -110,16 +121,19 @@ namespace Toastify.Threading
             {
                 while (!App.ShutdownEvent.WaitOne(TimeSpan.FromSeconds(10)))
                 {
-                    List<Thread> threadsToRemove = new List<Thread>(this.threads.Count);
-                    foreach (var thread in this.threads)
+                    lock (instanceLock)
                     {
-                        if (!thread.IsAlive)
-                            threadsToRemove.Add(thread);
-                    }
+                        List<Thread> threadsToRemove = new List<Thread>(this.threads.Count);
+                        foreach (var thread in this.threads)
+                        {
+                            if (!thread.IsAlive)
+                                threadsToRemove.Add(thread);
+                        }
 
-                    foreach (var thread in threadsToRemove)
-                    {
-                        this.Remove(thread);
+                        foreach (var thread in threadsToRemove)
+                        {
+                            this.Remove(thread);
+                        }
                     }
                 }
             }
@@ -131,17 +145,20 @@ namespace Toastify.Threading
 
         public void Dispose()
         {
-            if (this.threads != null)
+            lock (instanceLock)
             {
-                foreach (var thread in this.threads)
+                if (this.threads != null)
                 {
-                    this.Abort(thread, false);
+                    foreach (var thread in this.threads)
+                    {
+                        this.Abort(thread, false);
+                    }
+
+                    this.threads.Clear();
                 }
 
-                this.threads.Clear();
+                this.Abort(this.deadThreadsCleaner, false);
             }
-
-            this.Abort(this.deadThreadsCleaner, false);
         }
 
         #region Static Members
