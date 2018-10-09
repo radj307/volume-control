@@ -221,17 +221,16 @@
 
     <!-- Properties and Items -->
     <ItemGroup>
-      <DirectoriesToRemove Include="$(TargetDir)de;$(TargetDir)es;$(TargetDir)fr;$(TargetDir)hu;$(TargetDir)it" />
-      <DirectoriesToRemove Include="$(TargetDir)pt-BR;$(TargetDir)ro;$(TargetDir)ru;$(TargetDir)sv;$(TargetDir)zh-Hans" />
-      <LibFilesToRemove Include="$(TargetDir)Xceed.Wpf.*.dll" Exclude="$(TargetDir)Xceed.Wpf.Toolkit.dll" />
+      <WpfToolkitDirectoriesToRemove Include="de;es;fr;hu;it;pt-BR;ro;ru;sv;zh-Hans" />
+      <WpfToolkitFilesToRemove Include="$(TargetDir)Xceed.Wpf.*.dll" Exclude="$(TargetDir)Xceed.Wpf.Toolkit.dll" />
 
-      <LibFiles Include="$(TargetDir)*.dll;$(TargetDir)*.pdb" Exclude="@(LibFilesToRemove);$(TargetDir)Toastify*" />
+      <LibFiles Include="$(TargetDir)*.dll;$(TargetDir)*.pdb" Exclude="$(TargetDir)Toastify*;@(WpfToolkitFilesToRemove)" />
     </ItemGroup>
     
-    <!-- Remove Xceed.Wpf.Toolkit's unused files -->
-    <Message Importance="High" Text="[POST-BUILD] Remove Xceed.Wpf.Toolkit's unused files" />
-    <RemoveDir Directories="@(DirectoriesToRemove)" />
-    <Delete Files="@(LibFilesToRemove)" />
+    <!-- Remove unused Xceed.Wpf.Toolkit's files -->
+    <Message Importance="High" Text="[POST-BUILD] Remove unused Xceed.Wpf.Toolkit's files" />
+    <RemoveDir Directories="@(WpfToolkitDirectoriesToRemove->'$(TargetDir)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Delete Files="@(WpfToolkitFilesToRemove)" />
 
     <!-- Copy ToastifyAPI files to output directory -->
     <Message Importance="High" Text="[POST-BUILD] Copy ToastifyAPI files to output directory" />
