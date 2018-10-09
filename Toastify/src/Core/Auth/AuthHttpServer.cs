@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Toastify.Common;
+using Toastify.Threading;
 using ToastifyAPI.Core.Auth;
 using ToastifyWebAuthAPI_Utils = ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Utils;
 
@@ -15,6 +16,7 @@ namespace Toastify.Core.Auth
     {
         private readonly IWebHost webHost;
         private readonly NamedPipeServerStream pipe;
+        private readonly CancellationTokenSource cts;
 
         private Thread receiveThread;
 
@@ -38,28 +40,32 @@ namespace Toastify.Core.Auth
                           .UseStartup<AuthHttpServerStartup>()
                           .UseUrls(url)
                           .Build();
+
+            this.cts = new CancellationTokenSource();
         }
 
         public async Task Start()
         {
-            await this.webHost.StartAsync().ConfigureAwait(false);
-            this.receiveThread = new Thread(this.ReceiveThread)
-            {
-                Name = $"Toastify_{nameof(AuthHttpServer)}_ReceiveThread_{RuntimeHelpers.GetHashCode(this)}"
-            };
+            await this.webHost.StartAsync(this.cts.Token).ConfigureAwait(false);
+
+            this.receiveThread = ThreadManager.Instance.CreateThread(this.ReceiveThread);
+            this.receiveThread.IsBackground = true;
+            this.receiveThread.Name = $"Toastify_{nameof(AuthHttpServer)}_ReceiveThread_{RuntimeHelpers.GetHashCode(this)}";
             this.receiveThread.Start();
         }
 
         public Task Stop()
         {
-            return this.webHost.StopAsync();
+            return this.webHost.StopAsync(this.cts.Token);
         }
 
-        private void ReceiveThread()
+        private async void ReceiveThread()
         {
             try
             {
-                this.pipe.WaitForConnection();
+                await this.pipe.WaitForConnectionAsync(this.cts.Token).ConfigureAwait(false);
+                if (this.cts.IsCancellationRequested)
+                    return;
 
                 StringStream ss = new StringStream(this.pipe);
                 string responseString = ss.ReadString();
@@ -69,26 +75,44 @@ namespace Toastify.Core.Auth
                 string state = response.Get("state");
                 string error = response.Get("error");
 
-                this.pipe.Close();
-
                 this.OnAuthorizationFinished(code, state, error);
             }
-            catch
+            finally
             {
-                // ignore
+                this.pipe.Close();
             }
-        }
-
-        public void Dispose()
-        {
-            this.receiveThread?.Abort();
-            this.pipe?.Dispose();
-            this.webHost?.Dispose();
         }
 
         private void OnAuthorizationFinished(string code, string state, string error)
         {
             this.AuthorizationFinished?.Invoke(this, new AuthEventArgs(code, state, error));
         }
+
+        #region Dispose
+
+        public void Dispose()
+        {
+            this.Dispose(TimeSpan.FromSeconds(1));
+        }
+
+        public void Dispose(TimeSpan timeout)
+        {
+            try
+            {
+                this.cts.Cancel();
+                this.receiveThread.Join(timeout);
+            }
+            catch
+            {
+                // ignore
+            }
+
+            this.pipe?.Dispose();
+            this.webHost?.Dispose();
+
+            this.cts.Dispose();
+        }
+
+        #endregion
     }
 }

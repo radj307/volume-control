@@ -273,7 +273,7 @@ namespace Toastify.Core
                 return;
 
             this.spotifyWebInitializationStarted = true;
-            Task.Run(async () =>
+            ThreadPool.QueueUserWorkItem(async _ =>
             {
                 logger.Debug("Begin Spotify WebAPI initialization");
 

@@ -9,18 +9,20 @@ using System.Threading.Tasks;
 using Aleab.Common.Net.WebSockets;
 using log4net;
 using Newtonsoft.Json;
+using Toastify.Threading;
 using ToastifyAPI.Core;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Core.Broadcaster
 {
-    public class ToastifyBroadcaster : IToastifyBroadcaster
+    public class ToastifyBroadcaster : IToastifyBroadcaster, IDisposable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyBroadcaster));
 
         private ClientWebSocket socket;
         private KestrelWebSocketHost<ToastifyWebSocketHostStartup> webHost;
         private Thread receiveMessageThread;
+        private CancellationTokenSource cts;
 
         private bool isSending;
         private bool isReceiving;
@@ -100,12 +102,14 @@ namespace Toastify.Core.Broadcaster
                 }
             }
 
+            this.cts?.Dispose();
+            this.cts = new CancellationTokenSource();
+
             if (this.webHost != null)
             {
-                this.receiveMessageThread = new Thread(this.ReceiveMessageLoop)
-                {
-                    Name = "ToastifyBroadcaster_ReceiveMessageThread"
-                };
+                this.receiveMessageThread = ThreadManager.Instance.CreateThread(this.ReceiveMessageLoop);
+                this.receiveMessageThread.IsBackground = true;
+                this.receiveMessageThread.Name = $"{nameof(ToastifyBroadcaster)}_ReceiveMessageThread";
                 this.receiveMessageThread.Start();
             }
         }
@@ -122,7 +126,7 @@ namespace Toastify.Core.Broadcaster
 
         private async Task SendCommand(string command, params string[] args)
         {
-            if (await this.EnsureConnection().ConfigureAwait(false))
+            if (await this.EnsureConnection(this.cts.Token).ConfigureAwait(false))
             {
                 string argsString = string.Empty;
                 if (args != null && args.Length > 0)
@@ -131,14 +135,16 @@ namespace Toastify.Core.Broadcaster
                 byte[] bytes = Encoding.UTF8.GetBytes($"{command}{argsString}");
 
                 // Wait until the previous message has been sent: only one outstanding send operation is allowed!
-                await this.SendChannelAvailable().ConfigureAwait(false);
+                await this.SendChannelAvailable(this.cts.Token).ConfigureAwait(false);
+                if (this.cts.IsCancellationRequested)
+                    return;
 
                 if (this.socket != null && this.socket.State == WebSocketState.Open)
                 {
                     try
                     {
                         this.isSending = true;
-                        await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None).ConfigureAwait(false);
+                        await this.socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, this.cts.Token).ConfigureAwait(false);
                     }
                     finally
                     {
@@ -152,25 +158,27 @@ namespace Toastify.Core.Broadcaster
         {
             try
             {
-                if (!await this.EnsureConnection().ConfigureAwait(false))
+                if (!await this.EnsureConnection(this.cts.Token).ConfigureAwait(false))
                 {
                     logger.Error("Couldn't establish a connection to the local WebSocket.");
                     return;
                 }
 
                 // Wait until the previous message has been received: only one outstanding receive operation is allowed!
-                await this.ReceiveChannelAvailable().ConfigureAwait(false);
+                await this.ReceiveChannelAvailable(this.cts.Token).ConfigureAwait(false);
+                if (this.cts.IsCancellationRequested)
+                    return;
 
                 this.isReceiving = true;
                 var buffer = new byte[4 * 1024];
                 if (this.socket.State != WebSocketState.Open)
                     return;
 
-                WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
+                WebSocketReceiveResult receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), this.cts.Token).ConfigureAwait(false);
                 this.isReceiving = false;
 
                 string message = string.Empty;
-                while (!receiveResult.CloseStatus.HasValue && await this.EnsureConnection().ConfigureAwait(false))
+                while (!this.cts.IsCancellationRequested && !receiveResult.CloseStatus.HasValue && await this.EnsureConnection(this.cts.Token).ConfigureAwait(false))
                 {
                     if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
@@ -184,16 +192,23 @@ namespace Toastify.Core.Broadcaster
                     else
                         message = string.Empty;
 
-                    if (await this.EnsureConnection().ConfigureAwait(false))
+                    if (await this.EnsureConnection(this.cts.Token).ConfigureAwait(false))
                     {
-                        await this.ReceiveChannelAvailable().ConfigureAwait(false);
-                        this.isReceiving = true;
-                        receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).ConfigureAwait(false);
-                        this.isReceiving = false;
+                        await this.ReceiveChannelAvailable(this.cts.Token).ConfigureAwait(false);
+                        if (!this.cts.IsCancellationRequested)
+                        {
+                            this.isReceiving = true;
+                            receiveResult = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), this.cts.Token).ConfigureAwait(false);
+                            this.isReceiving = false;
+                        }
                     }
                 }
 
                 await this.socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None).ConfigureAwait(false);
+            }
+            catch (ThreadAbortException)
+            {
+                // ignore
             }
             catch (Exception e)
             {
@@ -206,14 +221,17 @@ namespace Toastify.Core.Broadcaster
             }
         }
 
-        private async Task<bool> EnsureConnection()
+        private async Task<bool> EnsureConnection(CancellationToken cancellationToken)
         {
             if (this.socket == null || this.webHost == null)
                 return false;
 
             try
             {
-                await this.Connection().ConfigureAwait(false);
+                await this.Connection(cancellationToken).ConfigureAwait(false);
+                if (cancellationToken.IsCancellationRequested)
+                    return false;
+
                 this.isConnecting = true;
 
                 const int maxWaitMilliseconds = 5000;
@@ -221,24 +239,30 @@ namespace Toastify.Core.Broadcaster
 
                 while (this.socket?.State == WebSocketState.Connecting && currentWait <= maxWaitMilliseconds)
                 {
-                    await Task.Delay(50).ConfigureAwait(false);
+                    if (cancellationToken.IsCancellationRequested)
+                        return false;
+                    await Task.Delay(50, cancellationToken).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
                 while ((this.socket?.State == WebSocketState.CloseSent || this.socket?.State == WebSocketState.CloseReceived) && currentWait <= maxWaitMilliseconds)
                 {
-                    await Task.Delay(50).ConfigureAwait(false);
+                    if (cancellationToken.IsCancellationRequested)
+                        return false;
+                    await Task.Delay(50, cancellationToken).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
                 const int maxOpenStateWait = 1000;
                 while (this.socket?.State != WebSocketState.Open && currentWait <= maxWaitMilliseconds && currentWait <= maxOpenStateWait)
                 {
-                    await Task.Delay(50).ConfigureAwait(false);
+                    if (cancellationToken.IsCancellationRequested)
+                        return false;
+                    await Task.Delay(50, cancellationToken).ConfigureAwait(false);
                     currentWait += 50;
                 }
 
-                if (this.socket == null || this.webHost == null)
+                if (cancellationToken.IsCancellationRequested || this.socket == null || this.webHost == null)
                     return false;
 
                 if (this.socket?.State != WebSocketState.Open && currentWait <= maxWaitMilliseconds)
@@ -250,7 +274,7 @@ namespace Toastify.Core.Broadcaster
                         Path = ToastifyWebSocketHostStartup.InternalPath
                     };
 
-                    await this.socket.ConnectAsync(uriBuilder.Uri, CancellationToken.None).ConfigureAwait(false);
+                    await this.socket.ConnectAsync(uriBuilder.Uri, cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -265,27 +289,27 @@ namespace Toastify.Core.Broadcaster
             return this.socket?.State == WebSocketState.Open;
         }
 
-        private async Task Connection()
+        private async Task Connection(CancellationToken cancellationToken)
         {
-            while (this.isConnecting)
+            while (this.isConnecting && !cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(50).ConfigureAwait(false);
+                await Task.Delay(50, cancellationToken).ConfigureAwait(false);
             }
         }
 
-        private async Task SendChannelAvailable()
+        private async Task SendChannelAvailable(CancellationToken cancellationToken)
         {
-            while (this.isSending)
+            while (this.isSending && !cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(50).ConfigureAwait(false);
+                await Task.Delay(50, cancellationToken).ConfigureAwait(false);
             }
         }
 
-        private async Task ReceiveChannelAvailable()
+        private async Task ReceiveChannelAvailable(CancellationToken cancellationToken)
         {
-            while (this.isReceiving)
+            while (this.isReceiving && !cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(50).ConfigureAwait(false);
+                await Task.Delay(50, cancellationToken).ConfigureAwait(false);
             }
         }
 
@@ -348,13 +372,26 @@ namespace Toastify.Core.Broadcaster
         {
             if (this.receiveMessageThread != null)
             {
-                this.receiveMessageThread.Abort();
+                this.cts.Cancel();
+                if (!this.receiveMessageThread.Join(TimeSpan.FromSeconds(2)))
+                    this.receiveMessageThread.Abort();
                 this.receiveMessageThread = null;
                 return true;
             }
 
             return false;
         }
+
+        #region Dispose
+
+        public async void Dispose()
+        {
+            await this.StopAsync();
+            this.socket?.Dispose();
+            this.cts?.Dispose();
+        }
+
+        #endregion
 
         #region Static Members
 

@@ -143,6 +143,20 @@ namespace Toastify.Threading
             }
         }
 
+        #region Dispose
+
+        public static void DisposeInstance()
+        {
+            lock (instanceLock)
+            {
+                if (_instance != null)
+                {
+                    _instance.Dispose();
+                    _instance = null;
+                }
+            }
+        }
+
         public void Dispose()
         {
             lock (instanceLock)
@@ -157,20 +171,14 @@ namespace Toastify.Threading
                     this.threads.Clear();
                 }
 
-                this.Abort(this.deadThreadsCleaner, false);
-            }
-        }
-
-        #region Static Members
-
-        public static void DisposeInstance()
-        {
-            lock (instanceLock)
-            {
-                if (_instance != null)
+                try
                 {
-                    _instance.Dispose();
-                    _instance = null;
+                    if (this.deadThreadsCleaner != null && !this.deadThreadsCleaner.Join(TimeSpan.FromSeconds(1)))
+                        this.Abort(this.deadThreadsCleaner, false);
+                }
+                finally
+                {
+                    this.Abort(this.deadThreadsCleaner, false);
                 }
             }
         }

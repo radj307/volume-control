@@ -16,6 +16,8 @@ namespace Toastify.Threading
 
         public T Window { get; private set; }
 
+        public bool IsClosed { get; private set; }
+
         public Thread Thread { get; private set; }
 
         public bool IsBackground
@@ -85,6 +87,9 @@ namespace Toastify.Threading
 
         public void CloseWindow()
         {
+            if (this.IsClosed)
+                return;
+
             try
             {
                 if (this.Thread != null)
@@ -127,6 +132,7 @@ namespace Toastify.Threading
 
                 this.Window.Closed += (sender, args) =>
                 {
+                    this.IsClosed = true;
                     try
                     {
                         Application.Current?.Dispatcher?.BeginInvoke(new Action(() => Application.Current.Exit -= this.Application_Exit));
@@ -148,6 +154,7 @@ namespace Toastify.Threading
             }
             catch (ThreadAbortException)
             {
+                // ignore
             }
             catch (Exception ex)
             {
@@ -167,21 +174,31 @@ namespace Toastify.Threading
             return this.Thread?.GetHashCode() ?? 0;
         }
 
-        public void Dispose()
-        {
-            try
-            {
-                this.Abort();
-            }
-            catch
-            {
-                // ignore
-            }
-        }
-
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             this.CloseWindow();
         }
+
+        #region Dispose
+
+        public void Dispose()
+        {
+            this.Dispose(TimeSpan.FromSeconds(1));
+        }
+
+        public void Dispose(TimeSpan timeout)
+        {
+            try
+            {
+                this.CloseWindow();
+                this.Join(timeout);
+            }
+            finally
+            {
+                this.Abort();
+            }
+        }
+
+        #endregion
     }
 }

@@ -19,8 +19,9 @@ namespace Toastify.Core.Auth
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyWebAuth));
 
-        private AuthHttpServer authHttpServer;
+        private readonly ManualResetEvent abortAuthEvent;
 
+        private AuthHttpServer authHttpServer;
         private WindowThread<WebView> webViewWindowThread;
 
         #region Non-Public Properties
@@ -47,6 +48,7 @@ namespace Toastify.Core.Auth
             this.ShowDialog = showDialog;
 
             this.authHttpServer = new AuthHttpServer();
+            this.abortAuthEvent = new ManualResetEvent(false);
         }
 
         protected override void Authorize()
@@ -66,7 +68,7 @@ namespace Toastify.Core.Auth
                         AuthorizationCodeFlow.Authorize(url => window.NavigateTo(url), this.Scopes, this.State, this.ShowDialog, "en");
                     }));
                 },
-                OnWindowClosingAction = windowThread => windowThread.Abort()
+                OnWindowClosingAction = window => this.abortAuthEvent.Set()
             };
 
             this.webViewWindowThread = ThreadManager.Instance.CreateWindowThread(ApartmentState.STA, windowThreadOptions);
@@ -87,17 +89,15 @@ namespace Toastify.Core.Auth
 
         protected override Task<bool> ShouldAbortAuthorization()
         {
-            bool shouldAbortAuthorization = App.ShutdownEvent.WaitOne(100);
-            return Task.FromResult(shouldAbortAuthorization);
-        }
-
-        public override void Dispose()
-        {
-            this.authHttpServer?.Dispose();
-            this.authHttpServer = null;
-
-            this.webViewWindowThread?.Dispose();
-            this.webViewWindowThread = null;
+            try
+            {
+                bool shouldAbortAuthorization = this.abortAuthEvent.WaitOne(20) || App.ShutdownEvent.WaitOne(20);
+                return Task.FromResult(shouldAbortAuthorization);
+            }
+            catch
+            {
+                return Task.FromResult(true);
+            }
         }
 
         protected override void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
@@ -105,16 +105,36 @@ namespace Toastify.Core.Auth
             try
             {
                 base.AuthHttpServer_AuthorizationFinished(sender, e);
+                this.DisposeWebViewWindow(TimeSpan.FromSeconds(2));
             }
             catch (Exception ex)
             {
                 logger.Error($"Unhandled error in {nameof(this.AuthHttpServer_AuthorizationFinished)}", ex);
             }
-            finally
-            {
-                this.webViewWindowThread?.Dispose();
-                this.webViewWindowThread = null;
-            }
         }
+
+        #region Dispose
+
+        public override void Dispose()
+        {
+            TimeSpan timeout = TimeSpan.FromSeconds(2);
+            this.abortAuthEvent.Set();
+            this.DisposeAuthHttpServer(timeout);
+            this.DisposeWebViewWindow(timeout);
+        }
+
+        private void DisposeAuthHttpServer(TimeSpan timeout)
+        {
+            this.authHttpServer?.Dispose(timeout);
+            this.authHttpServer = null;
+        }
+
+        private void DisposeWebViewWindow(TimeSpan timeout)
+        {
+            this.webViewWindowThread?.Dispose(timeout);
+            this.webViewWindowThread = null;
+        }
+
+        #endregion
     }
 }
