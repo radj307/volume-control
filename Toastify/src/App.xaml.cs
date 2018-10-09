@@ -69,8 +69,8 @@ namespace Toastify
         [STAThread]
         public static void Main(string[] args)
         {
-            const string appSpecificGuid = "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}";
-            using (var unused = new Mutex(true, appSpecificGuid, out bool exclusive))
+            const string mutexName = "Toastify-{3E929742-424C-46BE-9ED0-9FB410E4FFC0}";
+            using (var unused = new Mutex(true, mutexName, out bool exclusive))
             {
                 if (exclusive)
                 {

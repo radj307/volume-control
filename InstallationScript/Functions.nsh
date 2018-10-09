@@ -41,6 +41,13 @@
 !define TrimQuotes `!insertmacro _TrimQuotes`
 
 
+!macro _TerminateToastify MutexName
+  Push `${MutexName}`
+  Call TerminateToastify
+!macroend
+!define TerminateToastify `!insertmacro _TerminateToastify`
+
+
 ;--------------------------------
 ; Functions
 
@@ -65,6 +72,27 @@ FunctionEnd
 
 
 ;--------------------------------
+
+; TerminateToastify
+; Usage:
+;   ${TerminateToastify} $MutexName
+Function TerminateToastify
+  Exch $R0
+  Push $R1
+
+  System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "$R0") i .R1'
+  ${If} $R1 != 0
+    # Kill Toastify
+    System::Call 'kernel32::CloseHandle(i $R1)'
+    DetailPrint "Shutting down ${APPNAME}..."
+    KillProcWMI::KillProc "Toastify.exe"
+    Sleep 2000
+  ${EndIf}
+
+  Pop $R1
+  Pop $R0
+FunctionEnd
+
 
 Function UninstallPreviousVersions
   Push $R0
