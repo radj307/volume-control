@@ -4,12 +4,27 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace Toastify.View
 {
     [SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
     public partial class WebView : Window
     {
+        #region Non-Public Properties
+
+        private bool IsBusy
+        {
+            get { return this.BusyIndicator.IsBusy; }
+            set
+            {
+                this.BusyIndicator.Dispatcher.Invoke(() => this.BusyIndicator.IsBusy = value);
+                this.WebBrowser.Dispatcher.Invoke(() => this.WebBrowser.Visibility = value ? Visibility.Hidden : Visibility.Visible);
+            }
+        }
+
+        #endregion
+
         #region Public Properties
 
         public Dictionary<string, string> Headers { get; set; }
@@ -50,12 +65,18 @@ namespace Toastify.View
         public void NavigateTo(string url, Dictionary<string, string> headers = null)
         {
             Uri uri = new Uri(url);
-            this.WebBrowser.Navigate(uri, null, null, this.GetAdditionalHeaders(headers));
+            this.WebBrowser.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
+            {
+                this.WebBrowser.Navigate(uri, null, null, this.GetAdditionalHeaders(headers));
+            }));
         }
 
         public void NavigateToRawHtml(string html)
         {
-            this.WebBrowser.NavigateToString(html);
+            this.WebBrowser.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
+            {
+                this.WebBrowser.NavigateToString(html);
+            }));
         }
 
         private string GetAdditionalHeaders(Dictionary<string, string> additionalHeaders)
@@ -86,8 +107,9 @@ namespace Toastify.View
         {
             try
             {
-                this.WebBrowser.Dispatcher.InvokeShutdown();
-                this.WebBrowser.Dispose();
+                this.BusyIndicator?.Dispatcher?.InvokeShutdown();
+                this.WebBrowser?.Dispatcher?.InvokeShutdown();
+                this.WebBrowser?.Dispose();
             }
             catch
             {
@@ -99,14 +121,17 @@ namespace Toastify.View
         {
             try
             {
-                // Disable context menu
-                this.WebBrowser.InvokeScript("eval", "window.document.oncontextmenu = function() { return false; }");
+                this.WebBrowser.Dispatcher.Invoke(() =>
+                {
+                    // Disable context menu
+                    this.WebBrowser.InvokeScript("eval", "window.document.oncontextmenu = function() { return false; }");
 
-                // Disable back/forward navigation
-                this.WebBrowser.InvokeScript("eval", "history.pushState(null, document.title, location.href);" +
-                                                     "window.addEventListener('popstate', function(event) {" +
-                                                     "    history.pushState(null, document.title, location.href);" +
-                                                     "});");
+                    // Disable back/forward navigation
+                    this.WebBrowser.InvokeScript("eval", "history.pushState(null, document.title, location.href);" +
+                                                         "window.addEventListener('popstate', function(event) {" +
+                                                         "    history.pushState(null, document.title, location.href);" +
+                                                         "});");
+                }, DispatcherPriority.Normal);
             }
             catch
             {
@@ -121,10 +146,13 @@ namespace Toastify.View
                 if (!this.AllowedHosts.Contains(e.Uri?.Host ?? string.Empty))
                     e.Cancel = true;
             }
+
+            this.IsBusy = !e.Cancel;
         }
 
         private void WebBrowser_OnNavigated(object sender, NavigationEventArgs e)
         {
+            this.IsBusy = false;
         }
     }
 }
