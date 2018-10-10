@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Auth\AuthEventArgs.cs" />
+    <Compile Include="Core\Auth\ITokenManager.cs" />
     <Compile Include="Core\Auth\NoAuth.cs" />
     <Compile Include="Core\Auth\IAuthHttpServer.cs" />
     <Compile Include="Core\Auth\ISpotifyWebAuth.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Core\MouseAction.cs" />
     <Compile Include="Core\SpotifySubscriptionLevel.cs" />
     <Compile Include="Events\ActionFailedEventArgs.cs" />
+    <Compile Include="Events\SpotifyTokenChangedEventArgs.cs" />
     <Compile Include="Events\WindowTitleChangedEventArgs.cs" />
     <Compile Include="GitHub\GitHubAPI.cs" />
     <Compile Include="GitHub\Model\Asset.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\ITokenExtensions.cs" />
     <Compile Include="Helpers\Net.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\System.cs" />

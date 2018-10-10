@@ -1,7 +1,10 @@
-﻿using SpotifyAPI.Web.Models;
+﻿using System;
+using JetBrains.Annotations;
+using SpotifyAPI.Web.Models;
 using Toastify.Model;
 using ToastifyAPI.Core;
 using ToastifyAPI.Core.Auth;
+using ToastifyAPI.Events;
 using ToastifyAPI.Model.Interfaces;
 using SpotifyAPIWebAPI = SpotifyAPI.Web.SpotifyWebAPI;
 
@@ -27,6 +30,8 @@ namespace Toastify.Core
             }
         }
 
+        private ITokenManager TokenManager { get; }
+
         #endregion
 
         #region Public Properties
@@ -50,16 +55,44 @@ namespace Toastify.Core
 
         #endregion
 
+        public SpotifyWebAPI([NotNull] ITokenManager tokenManager)
+        {
+            this.TokenManager = tokenManager ?? throw new ArgumentNullException(nameof(tokenManager));
+            this.TokenManager.TokenChanged += this.TokenManager_TokenChanged;
+        }
+
         public ICurrentlyPlayingObject GetCurrentlyPlayingTrack()
         {
+            if (!this.WaitForTokenRefresh())
+                return null;
+
             PlaybackContext playbackContext = this.SpotifyWebApi?.GetPlayingTrack();
             return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
         }
 
         public ISpotifyUserProfile GetUserPrivateProfile()
         {
+            if (!this.WaitForTokenRefresh())
+                return null;
+
             PrivateProfile profile = this.SpotifyWebApi?.GetPrivateProfile();
             return profile != null ? new SpotifyUserProfile(profile) : null;
+        }
+
+        private bool WaitForTokenRefresh()
+        {
+            if (!this.TokenManager.RefreshingTokenEvent.WaitOne(TimeSpan.FromSeconds(20)))
+            {
+                // TODO: Handle token refresh timeout
+                return false;
+            }
+
+            return true;
+        }
+
+        private void TokenManager_TokenChanged(object sender, SpotifyTokenChangedEventArgs e)
+        {
+            this.Token = e.NewToken;
         }
     }
 }

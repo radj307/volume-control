@@ -2,7 +2,7 @@
 
 namespace ToastifyAPI.Core.Auth
 {
-    public interface IToken
+    public interface IToken : IEquatable<IToken>
     {
         #region Public Properties
 

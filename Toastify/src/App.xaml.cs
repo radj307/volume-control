@@ -12,7 +12,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Aleab.Common.Extensions;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using JetBrains.Annotations;
@@ -682,7 +681,14 @@ namespace Toastify
 
         static App()
         {
-            SetupContainer();
+            try
+            {
+                SetupContainer();
+            }
+            catch (Exception e)
+            {
+                logger.Fatal("Error while initializing static App class", e);
+            }
         }
 
         private static void SetupContainer()
@@ -705,6 +711,7 @@ namespace Toastify
 
                 // Core
                 Component.For<IToastifyBroadcaster>().ImplementedBy<ToastifyBroadcaster>(),
+                Component.For<ITokenManager>().ImplementedBy<TokenManager>(),
                 Component.For<ISpotifyWebAPI>().ImplementedBy<SpotifyWebAPI>(),
                 Component.For<ISpotifyWeb>().ImplementedBy<SpotifyWeb>()
             };

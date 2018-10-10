@@ -45,9 +45,10 @@ namespace Toastify.Core
         private SpotifyWindow spotifyWindow;
         private Process spotifyProcess;
 
-        private bool spotifyWebInitializationStarted;
-
         #region Public Properties
+
+        [PropertyDependency]
+        public ITokenManager TokenManager { get; set; }
 
         [PropertyDependency]
         public ISpotifyWeb Web { get; set; }
@@ -92,6 +93,10 @@ namespace Toastify.Core
 
             Settings.CurrentSettingsChanged += this.Settings_CurrentSettingsChanged;
 
+            // TODO: ITokenManager dependency is currently manually resolved. Not good!
+            if (this.TokenManager == null)
+                this.TokenManager = App.Container.Resolve<ITokenManager>();
+
             // TODO: ISpotifyWeb dependency is currently manually resolved. Not good!
             if (this.Web == null)
                 this.Web = App.Container.Resolve<ISpotifyWeb>();
@@ -114,6 +119,25 @@ namespace Toastify.Core
 
             this.spotifyLauncher.RunWorkerAsync();
             this.spotifyLauncherTimeoutTimer.Start();
+        }
+
+        private void BeginInitializeWebAPI()
+        {
+            if (this.TokenManager == null || this.Web == null)
+                return;
+
+            if (this.TokenManager.BeginGetToken(token =>
+            {
+                if (token != null)
+                    this.OnWebAPIInitializationSucceeded();
+                else
+                {
+                    this.OnWebAPIInitializationFailed(this.Web.Auth is NoAuth
+                        ? SpotifyWebAPIInitializationFailedReason.ToastifyWebAuthAPINotFound
+                        : SpotifyWebAPIInitializationFailedReason.NoToken);
+                }
+            }))
+                logger.Debug("Begin Spotify WebAPI initialization");
         }
 
         public void Kill()
@@ -265,83 +289,6 @@ namespace Toastify.Core
         public void ToggleMute()
         {
             VolumeHelper.ToggleMute();
-        }
-
-        private void BeginInitializeWebAPI()
-        {
-            if (this.Web == null || this.spotifyWebInitializationStarted)
-                return;
-
-            this.spotifyWebInitializationStarted = true;
-            ThreadPool.QueueUserWorkItem(async _ =>
-            {
-                logger.Debug("Begin Spotify WebAPI initialization");
-
-                IToken token = null;
-
-                // Check if a local token file exists
-                const string tokenFileName = "spotify-token.sec";
-                if (Security.ProtectedDataExists(tokenFileName))
-                {
-                    logger.Debug("Fetching cached token...");
-
-                    IToken savedToken = Security.GetProtectedObject<IToken>(tokenFileName);
-                    if (savedToken != null)
-                    {
-                        if (!savedToken.IsExpired())
-                            token = savedToken;
-                        else if (!string.IsNullOrWhiteSpace(savedToken.RefreshToken))
-                        {
-                            logger.Debug("Cached token is expired. Refreshing it...");
-                            savedToken = await this.Web.Auth.RefreshToken(savedToken).ConfigureAwait(false);
-                            if (savedToken != null)
-                            {
-                                token = savedToken;
-                                Security.SaveProtectedObject(savedToken, tokenFileName);
-                            }
-                            else
-                            {
-                                // Delete the file since the token couldn't be refreshed
-                                Security.DeleteProtectedData(tokenFileName);
-                                logger.Debug("Cached token deleted since it couldn't be refreshed");
-                            }
-                        }
-                        else
-                        {
-                            // Delete the file since the token is expired and it can't be refreshed
-                            Security.DeleteProtectedData(tokenFileName);
-                            logger.Debug("Cached token deleted since it was expired and it was not refreshable");
-                        }
-                    }
-                    else
-                    {
-                        // Delete the file since it isn't a valid IToken file
-                        Security.DeleteProtectedData(tokenFileName);
-                        logger.Debug("Cached token deleted since it wasn't a valid token file");
-                    }
-                }
-
-                if (token == null)
-                {
-                    // Request new token
-                    logger.Debug("Requesting new token...");
-                    token = await this.Web.Auth.GetToken().ConfigureAwait(false);
-                    if (token != null)
-                        Security.SaveProtectedObject(token, tokenFileName);
-                }
-
-                if (token != null)
-                {
-                    this.Web.API.Token = token;
-                    this.OnWebAPIInitializationSucceeded();
-                }
-                else
-                {
-                    this.OnWebAPIInitializationFailed(this.Web.Auth is NoAuth
-                        ? SpotifyWebAPIInitializationFailedReason.ToastifyWebAuthAPINotFound
-                        : SpotifyWebAPIInitializationFailedReason.NoToken);
-                }
-            });
         }
 
         #region Static Members
@@ -624,6 +571,7 @@ namespace Toastify.Core
             this.DisposeSpotifyLauncherTimeoutTimer();
 
             this.Web?.Auth?.Dispose();
+            this.TokenManager?.Dispose();
         }
 
         private void DisposeSpotifyLauncher()
@@ -684,6 +632,8 @@ namespace Toastify.Core
             this.CurrentSong = e.CurrentSong;
 
             this.Connected?.Invoke(this, e);
+
+            this.BeginInitializeWebAPI();
             if (Settings.Current.EnableBroadcaster)
             {
                 await this.Broadcaster.StartAsync().ConfigureAwait(false);
@@ -765,8 +715,6 @@ namespace Toastify.Core
                     }
 
                     await this.OnSpotifyConnected(spotifyStateEventArgs).ConfigureAwait(false);
-
-                    this.BeginInitializeWebAPI();
                 }
                 else
                 {

@@ -2,12 +2,15 @@
 using System.Net;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using log4net;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Structs;
 
 namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 {
     public abstract class BaseSpotifyWebAuth : ISpotifyWebAuth
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(BaseSpotifyWebAuth));
+
         private IToken token;
         private AuthEventArgs authResponse;
         private bool tokenReturned;
@@ -45,14 +48,14 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
                 shouldAbortAuthorization = await this.ShouldAbortAuthorization().ConfigureAwait(false);
             }
 
-            if (shouldAbortAuthorization)
+            if (this.authResponse == null && shouldAbortAuthorization)
             {
                 this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
                 await this.AuthHttpServer.Stop().ConfigureAwait(false);
                 return null;
             }
 
-            if (this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
+            if (this.authResponse != null && this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
             {
                 if (this.authResponse.State == this.State || string.IsNullOrWhiteSpace(this.authResponse.State) && string.IsNullOrWhiteSpace(this.State))
                 {
@@ -65,13 +68,17 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
                         spotifyTokenResponse.CreationDate = DateTime.Now;
                         this.token = this.CreateToken(spotifyTokenResponse);
                         this.tokenReturned = true;
-                        return this.token;
+                    }
+                    else
+                    {
+                        // TODO: Handle HTTP status != OK
+                        logger.Debug("TODO: Handle HTTP status != OK");
                     }
                 }
             }
 
             this.tokenReturned = true;
-            return null;
+            return this.token;
         }
 
         public Task<IToken> RefreshToken([NotNull] IToken token)
@@ -86,6 +93,11 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             {
                 spotifyTokenResponse.CreationDate = DateTime.Now;
                 refreshedToken = this.CreateToken(spotifyTokenResponse);
+            }
+            else
+            {
+                // TODO: Handle HTTP status != OK
+                logger.Debug("TODO: Handle HTTP status != OK");
             }
 
             return Task.FromResult(refreshedToken);
