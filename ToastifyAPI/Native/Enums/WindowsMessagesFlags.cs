@@ -34,6 +34,7 @@ namespace ToastifyAPI.Native.Enums
         WM_MENUSELECT      = 0x011F,
 
         // Mouse Input Notifications
+        WM_MOUSEMOVE       = 0x0200,
         WM_LBUTTONDOWN     = 0x0201,
         WM_LBUTTONUP       = 0x0202,
         WM_LBUTTONDBLCLK   = 0x0203,

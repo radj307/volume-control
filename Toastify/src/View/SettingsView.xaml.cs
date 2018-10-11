@@ -129,7 +129,9 @@ namespace Toastify.View
 
         private IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
         {
-            if (nCode >= 0)
+            bool shouldContinue = nCode >= 0 && (wParam == WindowsMessagesFlags.WM_XBUTTONUP || wParam == WindowsMessagesFlags.WM_MOUSEWHEEL);
+
+            if (shouldContinue)
             {
                 if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy &&
                     this.TxtSingleKey.IsFocused && Processes.IsCurrentProcessFocused())
