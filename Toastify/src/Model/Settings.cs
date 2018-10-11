@@ -90,7 +90,11 @@ namespace Toastify.Model
 
         #endregion
 
+        #region Events
+
         public static event EventHandler<CurrentSettingsChangedEventArgs> CurrentSettingsChanged;
+
+        #endregion
 
         static Settings()
         {
@@ -232,10 +236,17 @@ namespace Toastify.Model
             this._hotKeys = this._hotKeys?.DistinctAndSortByToastifyAction().ToList();
 
             // Bring the Toast inside the working area if it is off-screen
-            var toastRect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
-            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(toastRect);
+            Rect rect = new Rect(this.PositionLeft, this.PositionTop, this.ToastWidth, this.ToastHeight);
+            Vector offsetVector = ScreenHelper.BringRectInsideWorkingArea(rect);
             this.PositionLeft += offsetVector.X;
             this.PositionTop += offsetVector.Y;
+
+            // Sanitize SettingsWindowLastLocation
+            rect = new Rect(this.SettingsWindowLastLocation.Left, this.SettingsWindowLastLocation.Top, 100, 100);
+            offsetVector = ScreenHelper.BringRectInsideWorkingArea(rect);
+            this.SettingsWindowLastLocation = new WindowPosition(
+                (int)Math.Round(this.SettingsWindowLastLocation.Left + offsetVector.X),
+                (int)Math.Round(this.SettingsWindowLastLocation.Top + offsetVector.Y));
 
             // Validate WindowsVolumeMixerIncrement: must be positive!
             this.WindowsVolumeMixerIncrement = Math.Abs(this.WindowsVolumeMixerIncrement);
