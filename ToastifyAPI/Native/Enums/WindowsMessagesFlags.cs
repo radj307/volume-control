@@ -52,5 +52,8 @@ namespace ToastifyAPI.Native.Enums
         WM_NCXBUTTONDOWN   = 0x00AB,
         WM_NCXBUTTONUP     = 0x00AC,
         WM_NCXBUTTONDBLCLK = 0x00AD,
+
+        // Raw Input Notifications
+        WM_INPUT           = 0x00FF,
     }
 }

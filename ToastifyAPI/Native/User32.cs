@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
+using ToastifyAPI.Native.RawInputAPI.Enums;
+using ToastifyAPI.Native.RawInputAPI.Structs;
 using ToastifyAPI.Native.Structs;
 
 namespace ToastifyAPI.Native
@@ -182,6 +184,19 @@ namespace ToastifyAPI.Native
         // overload for use with LowLevelMouseProc
         [DllImport("user32.dll")]
         public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, WindowsMessagesFlags wParam, [In] LowLevelMouseHookStruct lParam);
+
+        /// <summary>
+        ///     Registers the devices that supply the raw input data.
+        /// </summary>
+        /// <param name="pRawInputDevices">An array of <see cref="RawInputDevice"/> structures that represent the devices that supply the raw input data.</param>
+        /// <param name="uiNumDevices">The number of <see cref="RawInputDevice"/> structures in <see cref="pRawInputDevices"/>.</param>
+        /// <param name="cbSize">The size, in bytes, of a <see cref="RawInputDevice"/> structure.</param>
+        /// <returns><code>true</code> if the function succeeds; <code>false</code> otherwise.</returns>
+        [DllImport("user32.dll")]
+        public static extern bool RegisterRawInputDevices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] RawInputDevice[] pRawInputDevices, int uiNumDevices, int cbSize);
+
+        [DllImport("user32.dll")]
+        public static extern int GetRawInputData(IntPtr hRawInput, RawInputCommand uiCommand, out RawInput pData, ref int pcbSize, int cbSizeHeader);
 
         [DllImport("user32.dll")]
         public static extern IntPtr SetFocus(IntPtr hWnd);

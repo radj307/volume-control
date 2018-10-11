@@ -62,8 +62,13 @@ namespace Toastify.Helpers
 
         public static IntPtr GetHandle(this Window window)
         {
+            return window.GetHandle(false);
+        }
+
+        public static IntPtr GetHandle(this Window window, bool ensureHandle)
+        {
             var wndHelper = new WindowInteropHelper(window);
-            return wndHelper.Handle;
+            return ensureHandle ? wndHelper.EnsureHandle() : wndHelper.Handle;
         }
 
         public static bool IsModifierKey(this Key key)

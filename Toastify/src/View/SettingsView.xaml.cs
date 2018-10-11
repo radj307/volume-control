@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Navigation;
 using log4net;
 using Toastify.Common;
@@ -18,14 +19,13 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
-using ToastifyAPI.Common;
 using ToastifyAPI.Native;
-using ToastifyAPI.Native.Delegates;
 using ToastifyAPI.Native.Enums;
-using ToastifyAPI.Native.Structs;
+using ToastifyAPI.Native.RawInputAPI.Enums;
+using ToastifyAPI.Native.RawInputAPI.Structs;
 using Xceed.Wpf.Toolkit;
 using MouseAction = ToastifyAPI.Core.MouseAction;
-using Rect = System.Windows.Rect;
+using RawInputApi = ToastifyAPI.Native.RawInputAPI.RawInput;
 using WindowStartupLocation = System.Windows.WindowStartupLocation;
 
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
@@ -44,9 +44,6 @@ namespace Toastify.View
 
         private readonly ToastView toastView;
         private readonly SettingsViewModel settingsViewModel;
-
-        private IntPtr hHook = IntPtr.Zero;
-        private LowLevelMouseHookProc mouseHookProc;
 
         #region Non-Public Properties
 
@@ -109,76 +106,6 @@ namespace Toastify.View
                 _current = this;
         }
 
-        private void SetMouseHook(bool enable)
-        {
-            if (enable && this.hHook == IntPtr.Zero)
-            {
-                this.mouseHookProc = this.MouseHookProc;
-                this.hHook = Processes.SetLowLevelMouseHook(ref this.mouseHookProc);
-            }
-            else if (!enable && this.hHook != IntPtr.Zero)
-            {
-                bool success = User32.UnhookWindowsHookEx(this.hHook);
-                if (success == false)
-                    logger.Error($"Failed to un-register a low-level mouse hook. Error code: {Marshal.GetLastWin32Error()}");
-
-                this.hHook = IntPtr.Zero;
-                this.mouseHookProc = null;
-            }
-        }
-
-        private IntPtr MouseHookProc(int nCode, WindowsMessagesFlags wParam, LowLevelMouseHookStruct lParam)
-        {
-            bool shouldContinue = nCode >= 0 && (wParam == WindowsMessagesFlags.WM_XBUTTONUP || wParam == WindowsMessagesFlags.WM_MOUSEWHEEL);
-
-            if (shouldContinue)
-            {
-                if (this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy &&
-                    this.TxtSingleKey.IsFocused && Processes.IsCurrentProcessFocused())
-                {
-                    bool validButton = false;
-                    MouseAction mouseAction = 0;
-
-                    var union = new Union32(lParam.mouseData);
-
-                    if (wParam == WindowsMessagesFlags.WM_XBUTTONUP) // XButton
-                    {
-                        if (union.High == 0x0001)
-                        {
-                            validButton = true;
-                            mouseAction = MouseAction.XButton1;
-                        }
-                        else if (union.High == 0x0002)
-                        {
-                            validButton = true;
-                            mouseAction = MouseAction.XButton2;
-                        }
-                    }
-                    else if (wParam == WindowsMessagesFlags.WM_MOUSEWHEEL) // MWheel
-                    {
-                        short delta = unchecked((short)union.High);
-                        if (delta > 0)
-                        {
-                            // MWheelUp
-                            validButton = true;
-                            mouseAction = MouseAction.MWheelUp;
-                        }
-                        else if (delta < 0)
-                        {
-                            // MWheelDown
-                            validButton = true;
-                            mouseAction = MouseAction.MWheelDown;
-                        }
-                    }
-
-                    if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
-                        this.UpdateHotkeyActivator(hotkeyProxy, HotkeyType.MouseHook, mouseAction, mouseAction.ToString());
-                }
-            }
-
-            return User32.CallNextHookEx(this.hHook, nCode, wParam, lParam);
-        }
-
         private void UpdateHotkeyActivator(GenericHotkeyProxy hotkeyProxy, HotkeyType newHotkeyType, object newActivator, string text)
         {
             this.TxtSingleKey.Text = text;
@@ -216,6 +143,81 @@ namespace Toastify.View
             }
         }
 
+        private void SetRawMouseInputHook(bool enable)
+        {
+            try
+            {
+                HwndSource source = HwndSource.FromHwnd(this.GetHandle(true));
+                if (source == null)
+                {
+                    logger.Error($"Raw mouse input hook not registered: couldn't get {nameof(HwndSource)}!");
+                    return;
+                }
+
+                if (enable)
+                {
+                    if (RawInputApi.RegisterRawMouseInput(source.Handle))
+                        source.AddHook(this.RawInputWndProc);
+                    else
+                        logger.Error($"Failed to register raw input mouse device. Error code: {Marshal.GetLastWin32Error()}");
+                }
+                else
+                    source.RemoveHook(this.RawInputWndProc);
+            }
+            catch (Exception e)
+            {
+                logger.Error($"Unhandled error while {(enable ? "en" : "dis")}abling raw mouse input hook", e);
+            }
+        }
+
+        private IntPtr RawInputWndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            try
+            {
+                WindowsMessagesFlags wm = (WindowsMessagesFlags)msg;
+                if (wm == WindowsMessagesFlags.WM_INPUT)
+                {
+                    int size = Marshal.SizeOf(typeof(RawInput));
+                    if (User32.GetRawInputData(lParam, RawInputCommand.Input, out RawInput raw, ref size, Marshal.SizeOf(typeof(RawInputHeader))) != -1)
+                    {
+                        var mb = raw.Data.Mouse.ButtonFlags;
+                        bool validRawMouseInputReceived = mb == RawMouseButtons.XButton1Up || mb == RawMouseButtons.XButton2Up || mb == RawMouseButtons.MouseWheel;
+                        if (validRawMouseInputReceived && this.LstHotKeys.SelectedItem is GenericHotkeyProxy hotkeyProxy &&
+                            this.TxtSingleKey.IsFocused && Processes.IsCurrentProcessFocused())
+                        {
+                            bool validButton = true;
+                            MouseAction mouseAction = 0;
+
+                            if (mb == RawMouseButtons.XButton1Up)
+                                mouseAction = MouseAction.XButton1;
+                            else if (mb == RawMouseButtons.XButton2Up)
+                                mouseAction = MouseAction.XButton2;
+                            else if (mb == RawMouseButtons.MouseWheel)
+                            {
+                                short delta = unchecked((short)raw.Data.Mouse.ButtonData);
+                                if (delta > 0) // MWheelUp
+                                    mouseAction = MouseAction.MWheelUp;
+                                else if (delta < 0) // MWheelDown
+                                    mouseAction = MouseAction.MWheelDown;
+                            }
+                            else
+                                validButton = false;
+
+                            if (validButton && Enum.IsDefined(typeof(MouseAction), mouseAction))
+                                this.UpdateHotkeyActivator(hotkeyProxy, HotkeyType.MouseHook, mouseAction, mouseAction.ToString());
+                        }
+                    }
+                }
+
+                return IntPtr.Zero;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Error", e);
+                return IntPtr.Zero;
+            }
+        }
+
         #region Static Members
 
         public static void Launch(ToastView toastView)
@@ -223,13 +225,13 @@ namespace Toastify.View
             if (_current != null)
             {
                 _current.Activate();
-                _current.SetMouseHook(true);
+                _current.SetRawMouseInputHook(true);
             }
             else
             {
                 var settingsView = new SettingsView(toastView);
                 SettingsLaunched?.Invoke(_current, new SettingsViewLaunchedEventArgs(settingsView.Settings, settingsView.settingsViewModel));
-                settingsView.SetMouseHook(true);
+                settingsView.SetRawMouseInputHook(true);
                 settingsView.ShowDialog();
             }
         }
@@ -248,7 +250,7 @@ namespace Toastify.View
             if (ReferenceEquals(_current, this))
                 _current = null;
 
-            this.SetMouseHook(false);
+            this.SetRawMouseInputHook(false);
         }
 
         private void SettingsViewModel_SettingsSaved(object sender, SettingsSavedEventArgs e)

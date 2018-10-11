@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO.Pipes;
+using System.Net;
 using System.Security.Principal;
 using System.Web;
+using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
