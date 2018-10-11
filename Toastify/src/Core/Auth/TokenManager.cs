@@ -44,12 +44,12 @@ namespace Toastify.Core.Auth
             this.RefreshingTokenEvent = new ManualResetEvent(true);
         }
 
-        public bool BeginGetToken()
+        public bool BeginGetToken(CancellationToken cancellationToken)
         {
-            return this.BeginGetToken(null);
+            return this.BeginGetToken(cancellationToken, null);
         }
 
-        public bool BeginGetToken(Action<IToken> callback)
+        public bool BeginGetToken(CancellationToken cancellationToken, Action<IToken> callback)
         {
             if (this.isGettingToken)
                 return false;
@@ -57,68 +57,90 @@ namespace Toastify.Core.Auth
             this.isGettingToken = true;
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                logger.Debug("Begin GetToken");
-
-                IToken token = null;
-
-                // Check if a local token file exists
-                const string tokenFileName = "spotify-token.sec";
-                if (Security.ProtectedDataExists(tokenFileName))
+                try
                 {
-                    logger.Debug("Fetching cached token...");
+                    logger.Debug("Begin GetToken");
 
-                    IToken savedToken = Security.GetProtectedObject<IToken>(tokenFileName);
-                    if (savedToken != null)
+                    CancellationToken ct = (CancellationToken)_;
+                    if (ct.IsCancellationRequested)
+                        return;
+
+                    IToken token = null;
+
+                    // Check if a local token file exists
+                    const string tokenFileName = "spotify-token.sec";
+                    if (Security.ProtectedDataExists(tokenFileName))
                     {
-                        if (!savedToken.IsExpired())
-                            token = savedToken;
-                        else if (!string.IsNullOrWhiteSpace(savedToken.RefreshToken))
+                        logger.Debug("Fetching cached token...");
+
+                        IToken savedToken = Security.GetProtectedObject<IToken>(tokenFileName);
+                        if (savedToken != null)
                         {
-                            logger.Debug("Cached token is expired. Refreshing it...");
-                            savedToken = await this.SpotifyWebAuth.RefreshToken(savedToken).ConfigureAwait(false);
-                            if (savedToken != null)
-                            {
+                            if (!savedToken.IsExpired())
                                 token = savedToken;
-                                Security.SaveProtectedObject(savedToken, tokenFileName);
+                            else if (!string.IsNullOrWhiteSpace(savedToken.RefreshToken))
+                            {
+                                logger.Debug("Cached token is expired. Refreshing it...");
+                                savedToken = await this.SpotifyWebAuth.RefreshToken(savedToken).ConfigureAwait(false);
+                                if (ct.IsCancellationRequested)
+                                    return;
+
+                                if (savedToken != null)
+                                {
+                                    token = savedToken;
+                                    Security.SaveProtectedObject(savedToken, tokenFileName);
+                                }
+                                else
+                                {
+                                    // Delete the file since the token couldn't be refreshed
+                                    Security.DeleteProtectedData(tokenFileName);
+                                    logger.Debug("Cached token deleted since it couldn't be refreshed");
+                                }
                             }
                             else
                             {
-                                // Delete the file since the token couldn't be refreshed
+                                // Delete the file since the token is expired and it can't be refreshed
                                 Security.DeleteProtectedData(tokenFileName);
-                                logger.Debug("Cached token deleted since it couldn't be refreshed");
+                                logger.Debug("Cached token deleted since it was expired and it was not refreshable");
                             }
                         }
                         else
                         {
-                            // Delete the file since the token is expired and it can't be refreshed
+                            // Delete the file since it isn't a valid IToken file
                             Security.DeleteProtectedData(tokenFileName);
-                            logger.Debug("Cached token deleted since it was expired and it was not refreshable");
+                            logger.Debug("Cached token deleted since it wasn't a valid token file");
                         }
                     }
-                    else
+
+                    if (token == null)
                     {
-                        // Delete the file since it isn't a valid IToken file
-                        Security.DeleteProtectedData(tokenFileName);
-                        logger.Debug("Cached token deleted since it wasn't a valid token file");
+                        // Request new token
+                        logger.Debug("Requesting new token...");
+                        token = await this.SpotifyWebAuth.GetToken().ConfigureAwait(false);
+                        if (!ct.IsCancellationRequested && token != null)
+                            Security.SaveProtectedObject(token, tokenFileName);
+                    }
+
+                    this.isGettingToken = false;
+
+                    if (!ct.IsCancellationRequested)
+                    {
+                        this.OnTokenChanged(token);
+                        callback?.Invoke(token);
                     }
                 }
-
-                if (token == null)
+                finally
                 {
-                    // Request new token
-                    logger.Debug("Requesting new token...");
-                    token = await this.SpotifyWebAuth.GetToken().ConfigureAwait(false);
-                    if (token != null)
-                        Security.SaveProtectedObject(token, tokenFileName);
+                    this.isGettingToken = false;
                 }
-
-                this.isGettingToken = false;
-                this.OnTokenChanged(token);
-
-                callback?.Invoke(token);
-            });
+            }, cancellationToken);
 
             return true;
+        }
+
+        public void ReleaseToken()
+        {
+            this.OnTokenChanged(null);
         }
 
         private async void RefreshTimerCallback(object state)

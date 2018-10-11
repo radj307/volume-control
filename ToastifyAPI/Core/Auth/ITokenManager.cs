@@ -19,7 +19,9 @@ namespace ToastifyAPI.Core.Auth
 
         #endregion
 
-        bool BeginGetToken();
-        bool BeginGetToken(Action<IToken> callback);
+        bool BeginGetToken(CancellationToken cancellationToken);
+        bool BeginGetToken(CancellationToken cancellationToken, Action<IToken> callback);
+
+        void ReleaseToken();
     }
 }

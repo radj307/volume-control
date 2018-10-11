@@ -121,25 +121,6 @@ namespace Toastify.Core
             this.spotifyLauncherTimeoutTimer.Start();
         }
 
-        private void BeginInitializeWebAPI()
-        {
-            if (this.TokenManager == null || this.Web == null)
-                return;
-
-            if (this.TokenManager.BeginGetToken(token =>
-            {
-                if (token != null)
-                    this.OnWebAPIInitializationSucceeded();
-                else
-                {
-                    this.OnWebAPIInitializationFailed(this.Web.Auth is NoAuth
-                        ? SpotifyWebAPIInitializationFailedReason.ToastifyWebAuthAPINotFound
-                        : SpotifyWebAPIInitializationFailedReason.NoToken);
-                }
-            }))
-                logger.Debug("Begin Spotify WebAPI initialization");
-        }
-
         public void Kill()
         {
             //Can't kindly close Spotify this way anymore since Spotify version 1.0.75.483.g7ff4a0dc due to issue #31
@@ -525,6 +506,32 @@ namespace Toastify.Core
 
         #endregion Spotify Launcher background worker
 
+        #region Spotify WebAPI
+
+        private CancellationTokenSource webApiInitCancellationTokenSource;
+
+        private void BeginInitializeWebAPI()
+        {
+            if (this.TokenManager == null || this.Web == null)
+                return;
+
+            var ct = this.webApiInitCancellationTokenSource?.Token ?? CancellationToken.None;
+            if (this.TokenManager.BeginGetToken(ct, token =>
+            {
+                if (token != null)
+                    this.OnWebAPIInitializationSucceeded();
+                else
+                {
+                    this.OnWebAPIInitializationFailed(this.Web.Auth is NoAuth
+                        ? SpotifyWebAPIInitializationFailedReason.ToastifyWebAuthAPINotFound
+                        : SpotifyWebAPIInitializationFailedReason.NoToken);
+                }
+            }))
+                logger.Debug("Begin Spotify WebAPI initialization");
+        }
+
+        #endregion
+
         #region SpotifyWindow wrapper methods/properties
 
         public bool IsMinimized
@@ -569,6 +576,7 @@ namespace Toastify.Core
         {
             this.DisposeSpotifyLauncher();
             this.DisposeSpotifyLauncherTimeoutTimer();
+            this.DisposeWebApiInitializer();
 
             this.Web?.Auth?.Dispose();
             this.TokenManager?.Dispose();
@@ -596,6 +604,21 @@ namespace Toastify.Core
                 this.spotifyLauncherTimeoutTimer.Close();
                 this.spotifyLauncherTimeoutTimer = null;
             }
+        }
+
+        private void DisposeWebApiInitializer()
+        {
+            try
+            {
+                this.webApiInitCancellationTokenSource?.Cancel();
+            }
+            catch
+            {
+                // ignore
+            }
+
+            this.webApiInitCancellationTokenSource?.Dispose();
+            this.webApiInitCancellationTokenSource = null;
         }
 
         #endregion Dispose
@@ -633,7 +656,13 @@ namespace Toastify.Core
 
             this.Connected?.Invoke(this, e);
 
-            this.BeginInitializeWebAPI();
+            if (Settings.Current.EnableSpotifyWebApi)
+            {
+                this.DisposeWebApiInitializer();
+                this.webApiInitCancellationTokenSource = new CancellationTokenSource();
+                this.BeginInitializeWebAPI();
+            }
+
             if (Settings.Current.EnableBroadcaster)
             {
                 await this.Broadcaster.StartAsync().ConfigureAwait(false);
@@ -671,6 +700,30 @@ namespace Toastify.Core
 
         private async void Settings_CurrentSettingsChanged(object sender, CurrentSettingsChangedEventArgs e)
         {
+            // Spotify WebAPI
+            try
+            {
+                if (e.PreviousSettings?.EnableSpotifyWebApi != e.CurrentSettings?.EnableSpotifyWebApi)
+                {
+                    if (e.CurrentSettings?.EnableSpotifyWebApi == true)
+                    {
+                        this.DisposeWebApiInitializer();
+                        this.webApiInitCancellationTokenSource = new CancellationTokenSource();
+                        this.BeginInitializeWebAPI();
+                    }
+                    else
+                    {
+                        this.DisposeWebApiInitializer();
+                        this.TokenManager.ReleaseToken();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Error($"Unhandled exception while {(e.CurrentSettings?.EnableSpotifyWebApi?.Value == true ? "enabling" : "disabling")} Spotify's WebAPI support.", exception);
+            }
+
+            // ToastifyBroadcaster
             try
             {
                 if (e.PreviousSettings?.EnableBroadcaster != e.CurrentSettings?.EnableBroadcaster)

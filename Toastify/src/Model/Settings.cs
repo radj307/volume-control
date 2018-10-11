@@ -526,6 +526,7 @@ namespace Toastify.Model
 
         #region Private fields
 
+        // [General]
         private bool? _launchOnStartup;
         private SettingValue<bool> _minimizeSpotifyOnStartup;
         private SettingValue<bool> _closeSpotifyWithToastify;
@@ -538,10 +539,12 @@ namespace Toastify.Model
         private SettingValue<string> _saveTrackToFilePath;
         private SettingValue<bool> _optInToAnalytics;
 
+        // [Hotkeys]
         private SettingValue<bool> _globalHotKeys;
         private List<Hotkey> _hotKeys;
         private IReadOnlyList<Hotkey> defaultHotKeys;
 
+        // [Toast]
         private SettingValue<bool> _disableToast;
         private SettingValue<bool> _onlyShowToastOnHotkey;
         private SettingValue<bool> _disableToastWithFullscreenVideogames;
@@ -575,10 +578,13 @@ namespace Toastify.Model
         private SettingValue<string> _songProgressBarBackgroundColor;
         private SettingValue<string> _songProgressBarForegroundColor;
 
+        // [Advanced]
         private SettingValue<bool> _useProxy;
         private ProxyConfigAdapter _proxyConfig;
         private SettingValue<bool> _enableBroadcaster;
+        private SettingValue<bool> _enableSpotifyWebApi;
 
+        // (hidden)
         private SettingValue<DateTime> _lastVersionCheck;
 
         #endregion
@@ -1019,6 +1025,13 @@ namespace Toastify.Model
             set { this.SetSettingValue(ref this._enableBroadcaster, value); }
         }
 
+        [DefaultValue(true)]
+        public SettingValue<bool> EnableSpotifyWebApi
+        {
+            get { return this.GetSettingValue(ref this._enableSpotifyWebApi); }
+            set { this.SetSettingValue(ref this._enableSpotifyWebApi, value); }
+        }
+
         #endregion
 
         #region (hidden)
@@ -1171,6 +1184,7 @@ namespace Toastify.Model
             this.UseProxy = DefaultValueOf(this.UseProxy, nameof(this.UseProxy));
             this.ProxyConfig = new ProxyConfigAdapter();
             this.EnableBroadcaster = DefaultValueOf(this.EnableBroadcaster, nameof(this.EnableBroadcaster));
+            this.EnableSpotifyWebApi = DefaultValueOf(this.EnableSpotifyWebApi, nameof(this.EnableSpotifyWebApi));
         }
 
         #endregion
