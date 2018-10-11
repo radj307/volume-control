@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
-using SpotifyAPI.Local.Models;
-using Toastify.Core;
+using SpotifyAPI.Web.Models;
 using Toastify.Model;
 using ToastifyAPI.Model.Interfaces;
 
@@ -12,22 +12,13 @@ namespace Toastify.Tests.Model
     [TestFixture, TestOf(typeof(Song))]
     public class SongTest
     {
-        // TODO: Unit test GetAlbumArtUrl
-        //       This will be quite tricky to unit test, since it has two external, non-mockable dependencies:
-        //       Track and WebClient
+        #region Static Members
 
         [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsAdTestCases))]
-        public static bool IsAdTest(Song song)
+        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.AlbumArtTestCases))]
+        public static void AlbumArtTest(Song song, Action<Song> test)
         {
-            return song.IsAd();
-        }
-
-        [Test(Author = "aleab")]
-        [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.IsOtherTrackTypeTestCases))]
-        public static bool IsOtherTrackTypeTest(Song song)
-        {
-            return song.IsOtherTrackType();
+            test?.Invoke(song);
         }
 
         [Test(Author = "aleab")]
@@ -47,7 +38,7 @@ namespace Toastify.Tests.Model
 
         [Test(Author = "aleab")]
         [TestCaseSource(typeof(SongAndTrackData), nameof(SongAndTrackData.TrackTestCases))]
-        public static void ImplicitCastToSong_Track(Track track)
+        public static void ImplicitCastToSong_Track(FullTrack track)
         {
             Song song = track;
 
@@ -56,36 +47,16 @@ namespace Toastify.Tests.Model
             else
             {
                 ISong mockedSong = A.Fake<ISong>(options => options.Wrapping(song));
-                A.CallTo(() => mockedSong.CoverArtUrl).Returns(string.Empty);
+                A.CallTo(() => mockedSong.AlbumArt).Returns(SongAlbumArt.Empty);
 
                 Assert.Multiple(() =>
                 {
-                    switch (track.TrackType)
-                    {
-                        case SpotifyTrackType.AD:
-                            Assert.That(mockedSong.Album, Is.EqualTo(string.Empty).Or.EqualTo(null));
-                            Assert.That(mockedSong.Artist, Is.EqualTo(string.Empty).Or.EqualTo(null));
-                            Assert.That(mockedSong.Track, Is.EqualTo(Song.TITLE_SPOTIFY_AD));
-                            Assert.That(mockedSong.Type, Is.EqualTo(track.TrackType));
-                            Assert.That(mockedSong.Length, Is.EqualTo(track.Length));
-                            break;
-
-                        case SpotifyTrackType.OTHER:
-                            Assert.That(mockedSong.Album, Is.EqualTo(string.Empty).Or.EqualTo(null));
-                            Assert.That(mockedSong.Artist, Is.EqualTo(string.Empty).Or.EqualTo(null));
-                            Assert.That(mockedSong.Track, Is.EqualTo(Song.TITLE_UNKNOWN));
-                            Assert.That(mockedSong.Type, Is.EqualTo(track.TrackType));
-                            Assert.That(mockedSong.Length, Is.EqualTo(track.Length));
-                            break;
-
-                        default:
-                            Assert.That(mockedSong.Album, Is.EqualTo(track.AlbumResource.Name));
-                            Assert.That(mockedSong.Artist, Is.EqualTo(track.ArtistResource.Name));
-                            Assert.That(mockedSong.Track, Is.EqualTo(track.TrackResource.Name));
-                            Assert.That(mockedSong.Type, Is.EqualTo(track.TrackType));
-                            Assert.That(mockedSong.Length, Is.EqualTo(track.Length));
-                            break;
-                    }
+                    var artistStrings = track.Artists.Select(a => a.Name).ToList();
+                    Assert.That(mockedSong.Album, Is.EqualTo(track.Album.Name));
+                    Assert.That(mockedSong.Artists, Is.SubsetOf(artistStrings));
+                    Assert.That(artistStrings, Is.SubsetOf(mockedSong.Artists));
+                    Assert.That(mockedSong.Title, Is.EqualTo(track.Name));
+                    Assert.That(mockedSong.Length, Is.EqualTo(track.DurationMs / 1000));
                 });
             }
         }
@@ -122,6 +93,8 @@ namespace Toastify.Tests.Model
             return s1?.GetHashCode() == s2?.GetHashCode();
         }
 
+        #endregion
+
         #region Test Cases
 
         public static class SongAndTrackData
@@ -133,60 +106,53 @@ namespace Toastify.Tests.Model
                 get
                 {
                     // Normal track
-                    yield return new TestCaseData(NormalTrack).SetName("NORMAL Track");
-
-                    // Ad tracks
-                    yield return new TestCaseData(AdPositiveLengthTrack).SetName("AD Track: >");
-                    yield return new TestCaseData(AdZeroLengthTrack).SetName("AD Track: 0");
-
-                    // Other track
-                    yield return new TestCaseData(OtherTrack).SetName("OTHER Track");
+                    yield return new TestCaseData(TestFullTrack).SetName("NORMAL Track");
 
                     // Null track
                     yield return new TestCaseData(null).SetName("null Track");
                 }
             }
 
-            public static IEnumerable<TestCaseData> IsAdTestCases
+            public static IEnumerable<TestCaseData> AlbumArtTestCases
             {
                 get
                 {
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.AD, string.Empty)).Returns(true).SetName("AD");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.OTHER, string.Empty)).Returns(false).SetName("OTHER");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, string.Empty, string.Empty)).Returns(false).SetName("empty type");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, "invalid-type", string.Empty)).Returns(false).SetName("invalid type");
+                    Song regularSong = new Song("album", "artist", "title", 1);
+                    Song trackSong = new Song(TestFullTrack);
+                    Song songWithAlbumArt = new Song(TestFullTrack)
+                    {
+                        AlbumArt = new SongAlbumArt(10, 10, "http://fake.album.art")
+                    };
 
-                    // A zero-length track is considered an AD regardless of its declared type
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, SpotifyTrackType.NORMAL, string.Empty)).Returns(true).SetName("NORMAL: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, SpotifyTrackType.AD, string.Empty)).Returns(true).SetName("AD: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, SpotifyTrackType.OTHER, string.Empty)).Returns(true).SetName("OTHER: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, string.Empty, string.Empty)).Returns(true).SetName("empty type: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, "invalid-type", string.Empty)).Returns(true).SetName("invalid type: 0");
+                    yield return new TestCaseData(regularSong, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.Empty);
+                            Assert.That(song.AlbumArt.Height, Is.EqualTo(0));
+                            Assert.That(song.AlbumArt.Width, Is.EqualTo(0));
+                        });
+                    })).SetName("no album art set, no underlying track");
 
-                    // Songs from Tracks
-                    yield return new TestCaseData(new Song(NormalTrack)).Returns(false).SetName("NORMAL Track");
-                    yield return new TestCaseData(new Song(AdPositiveLengthTrack)).Returns(true).SetName("AD Track: >");
-                    yield return new TestCaseData(new Song(AdZeroLengthTrack)).Returns(true).SetName("AD Track: 0");
-                    yield return new TestCaseData(new Song(OtherTrack)).Returns(false).SetName("OTHER Track");
-                }
-            }
+                    yield return new TestCaseData(trackSong, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.EqualTo(TestFullTrack.Album?.Images?.LastOrDefault()?.Url));
+                        });
+                    })).SetName("no album art set, with underlying track");
 
-            public static IEnumerable<TestCaseData> IsOtherTrackTypeTestCases
-            {
-                get
-                {
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.AD, string.Empty)).Returns(false).SetName("AD");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.OTHER, string.Empty)).Returns(true).SetName("OTHER");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, string.Empty, string.Empty)).Returns(false).SetName("empty type");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, "invalid-type", string.Empty)).Returns(false).SetName("invalid type");
-
-                    // Songs from Tracks
-                    yield return new TestCaseData(new Song(NormalTrack)).Returns(false).SetName("NORMAL Track");
-                    yield return new TestCaseData(new Song(AdPositiveLengthTrack)).Returns(false).SetName("AD Track: >");
-                    yield return new TestCaseData(new Song(AdZeroLengthTrack)).Returns(false).SetName("AD Track: 0");
-                    yield return new TestCaseData(new Song(OtherTrack)).Returns(true).SetName("OTHER Track");
+                    yield return new TestCaseData(songWithAlbumArt, new Action<Song>(song =>
+                    {
+                        Assert.Multiple(() =>
+                        {
+                            Assert.That(song.AlbumArt, Is.Not.Null);
+                            Assert.That(song.AlbumArt.Url, Is.Not.EqualTo(TestFullTrack.Album?.Images?.LastOrDefault()?.Url));
+                            Assert.That(song.AlbumArt.Url, Is.EqualTo("http://fake.album.art"));
+                        });
+                    })).SetName("album art set, with underlying track");
                 }
             }
 
@@ -195,37 +161,21 @@ namespace Toastify.Tests.Model
                 get
                 {
                     // NORMAL songs must have a non-null & non-empty Album, Artist and Track, the NORMAL type and a positive length.
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(true).SetName("NORMAL: valid");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 60)).Returns(true).SetName("valid");
 
-                    yield return new TestCaseData(new Song(string.Empty, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL: artist");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL: artist,title");
-                    yield return new TestCaseData(new Song(string.Empty, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, string.Empty)).Returns(false).SetName("NORMAL: artist,album");
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, string.Empty, 60, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL: title");
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, string.Empty, 60, SpotifyTrackType.NORMAL, string.Empty)).Returns(false).SetName("NORMAL: title,album");
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 60, SpotifyTrackType.NORMAL, string.Empty)).Returns(false).SetName("NORMAL: album");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, string.Empty, TestSimpleTrack.Name, 60)).Returns(false).SetName("artist");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, string.Empty, string.Empty, 60)).Returns(false).SetName("artist,title");
+                    yield return new TestCaseData(new Song(string.Empty, string.Empty, TestSimpleTrack.Name, 60)).Returns(false).SetName("artist,album");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, string.Empty, 60)).Returns(false).SetName("title");
+                    yield return new TestCaseData(new Song(string.Empty, TestSimpleArtist.Name, string.Empty, 60)).Returns(false).SetName("title,album");
+                    yield return new TestCaseData(new Song(string.Empty, TestSimpleArtist.Name, TestSimpleTrack.Name, 60)).Returns(false).SetName("album");
 
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, -1, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL: <");
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 0, SpotifyTrackType.NORMAL, TestAlbumResource.Name)).Returns(false).SetName("NORMAL: 0");
-
-                    // AD tracks must have the AD type and have a non-negative length
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, -1, SpotifyTrackType.AD, string.Empty)).Returns(false).SetName("AD: <");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, SpotifyTrackType.AD, string.Empty)).Returns(true).SetName("AD: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.AD, string.Empty)).Returns(true).SetName("AD: >");
-
-                    // OTHER tracks must have the OTHER type and a positive length
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, -1, SpotifyTrackType.OTHER, string.Empty)).Returns(false).SetName("OTHER: <");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 0, SpotifyTrackType.OTHER, string.Empty)).Returns(false).SetName("OTHER: 0");
-                    yield return new TestCaseData(new Song(string.Empty, string.Empty, 60, SpotifyTrackType.OTHER, string.Empty)).Returns(true).SetName("OTHER: >");
-
-                    // If the Song has an unknown type, then it's invalid
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 0, string.Empty, TestAlbumResource.Name)).Returns(false).SetName("empty type");
-                    yield return new TestCaseData(new Song(TestArtistResource.Name, TestTrackResource.Name, 0, "invalid-type", TestAlbumResource.Name)).Returns(false).SetName("invalid type");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, -1)).Returns(false).SetName("length <0");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 0)).Returns(true).SetName("length =0");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 1)).Returns(true).SetName("length >0");
 
                     // Songs from valid Tracks
-                    yield return new TestCaseData(new Song(NormalTrack)).Returns(true).SetName("NORMAL Track");
-                    yield return new TestCaseData(new Song(AdPositiveLengthTrack)).Returns(true).SetName("AD Track: >");
-                    yield return new TestCaseData(new Song(AdZeroLengthTrack)).Returns(true).SetName("AD Track: 0");
-                    yield return new TestCaseData(new Song(OtherTrack)).Returns(true).SetName("OTHER Track");
+                    yield return new TestCaseData(new Song(TestFullTrack)).Returns(true).SetName("from valid Track");
                 }
             }
 
@@ -233,40 +183,30 @@ namespace Toastify.Tests.Model
             {
                 get
                 {
-                    Song normal = new Song(NormalTrack);
-                    Song ad = new Song(AdPositiveLengthTrack);
-                    Song other1 = new Song(OtherTrack);
-                    Song other2 = new Song(other1.Artist, other1.Track, other1.Length * 2, other1.Type, other1.Album);
+                    Song song = new Song(TestFullTrack);
 
                     // with null
-                    yield return new TestCaseData(normal, null).Returns(false).SetName("with null");
+                    yield return new TestCaseData(song, null).Returns(false).SetName("with null");
 
                     // same
-                    yield return new TestCaseData(normal, normal).Returns(true).SetName("same");
+                    yield return new TestCaseData(song, song).Returns(true).SetName("same");
 
                     // equal
-                    yield return new TestCaseData(normal, new Song(NormalTrack)).Returns(true).SetName("equal");
-                    yield return new TestCaseData(other1, new Song(OtherTrack)).Returns(true).SetName("equal: OTHER tracks with same length");
+                    yield return new TestCaseData(song, new Song(TestFullTrack)).Returns(true).SetName("equal");
 
                     // not equal
-                    yield return new TestCaseData(normal, ad).Returns(false).SetName("not equal");
-                    yield return new TestCaseData(other1, other2).Returns(false).SetName("not equal: OTHER tracks with different length");
-
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("different artist", "title", 60, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different artist");
+                        new Song("album", "artist", "title", 60),
+                        new Song("different album", "artist", "title", 60)).Returns(false).SetName("not equal: different album");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "different title", 60, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different title");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "different artist", "title", 60)).Returns(false).SetName("not equal: different artist");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "different album")).Returns(false).SetName("not equal: different album");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "artist", "different title", 60)).Returns(false).SetName("not equal: different title");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 30, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different length");
-                    yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 60, SpotifyTrackType.AD, "album")).Returns(false).SetName("not equal: different type");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "artist", "title", 30)).Returns(false).SetName("not equal: different length");
                 }
             }
 
@@ -274,9 +214,7 @@ namespace Toastify.Tests.Model
             {
                 get
                 {
-                    Song normal = new Song(NormalTrack);
-                    Song ad = new Song(AdPositiveLengthTrack);
-                    Song other = new Song(OtherTrack);
+                    Song song = new Song(TestFullTrack);
 
                     foreach (var testCase in EqualsTestCases)
                     {
@@ -286,16 +224,12 @@ namespace Toastify.Tests.Model
                     // with null
                     yield return new TestCaseData(null, null).Returns(true).SetName("with null: both null");
 
-                    yield return new TestCaseData(normal, null).Returns(false).SetName("with null: normal,null");
-                    yield return new TestCaseData(ad, null).Returns(false).SetName("with null: ad,null");
-                    yield return new TestCaseData(other, null).Returns(false).SetName("with null: other,null");
+                    yield return new TestCaseData(song, null).Returns(false).SetName("with null: song,null");
 
-                    yield return new TestCaseData(null, normal).Returns(false).SetName("with null: null,normal");
-                    yield return new TestCaseData(null, ad).Returns(false).SetName("with null: null,ad");
-                    yield return new TestCaseData(null, other).Returns(false).SetName("with null: null,other");
+                    yield return new TestCaseData(null, song).Returns(false).SetName("with null: null,song");
 
-                    yield return new TestCaseData(new Song(null, null, 0, null, null), null).Returns(false).SetName("with null: empty track,null");
-                    yield return new TestCaseData(null, new Song(null, null, 0, null, null)).Returns(false).SetName("with null: null,empty track");
+                    yield return new TestCaseData(new Song(null, (string)null, null, 0), null).Returns(false).SetName("with null: empty track,null");
+                    yield return new TestCaseData(null, new Song(null, (string)null, null, 0)).Returns(false).SetName("with null: null,empty track");
                 }
             }
 
@@ -303,7 +237,7 @@ namespace Toastify.Tests.Model
             {
                 get
                 {
-                    Song normal = new Song(NormalTrack);
+                    Song normal = new Song(TestFullTrack);
 
                     foreach (var testCase in EqualsTestCases)
                     {
@@ -319,37 +253,27 @@ namespace Toastify.Tests.Model
             {
                 get
                 {
-                    Song normal = new Song(NormalTrack);
-                    Song ad = new Song(AdPositiveLengthTrack);
-                    Song other1 = new Song(OtherTrack);
-                    Song other2 = new Song(other1.Artist, other1.Track, other1.Length * 2, other1.Type, other1.Album);
+                    Song song = new Song(TestFullTrack);
 
                     // same
-                    yield return new TestCaseData(normal, normal).Returns(true).SetName("same");
+                    yield return new TestCaseData(song, song).Returns(true).SetName("same");
 
                     // equal
-                    yield return new TestCaseData(normal, new Song(NormalTrack)).Returns(true).SetName("equal");
-                    yield return new TestCaseData(other1, new Song(OtherTrack)).Returns(true).SetName("equal: OTHER tracks with same length");
+                    yield return new TestCaseData(song, new Song(TestFullTrack)).Returns(true).SetName("equal");
 
                     // not equal
-                    yield return new TestCaseData(normal, ad).Returns(false).SetName("not equal");
-                    yield return new TestCaseData(other1, other2).Returns(false).SetName("not equal: OTHER tracks with different length");
-
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("different artist", "title", 60, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different artist");
+                        new Song("album", "artist", "title", 60),
+                        new Song("different album", "artist", "title", 60)).Returns(false).SetName("not equal: different album");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "different title", 60, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different title");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "different artist", "title", 60)).Returns(false).SetName("not equal: different artist");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "different album")).Returns(false).SetName("not equal: different album");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "artist", "different title", 60)).Returns(false).SetName("not equal: different title");
                     yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 30, SpotifyTrackType.NORMAL, "album")).Returns(false).SetName("not equal: different length");
-                    yield return new TestCaseData(
-                        new Song("artist", "title", 60, SpotifyTrackType.NORMAL, "album"),
-                        new Song("artist", "title", 60, SpotifyTrackType.AD, "album")).Returns(false).SetName("not equal: different type");
+                        new Song("album", "artist", "title", 60),
+                        new Song("album", "artist", "title", 30)).Returns(false).SetName("not equal: different length");
                 }
             }
 
@@ -363,9 +287,13 @@ namespace Toastify.Tests.Model
 
                     void Test(ISong song, IReadOnlyList<string> parts)
                     {
-                        Assert.That(song.Artist, Is.EqualTo(parts[0]));
-                        Assert.That(song.Track, Is.EqualTo(parts[1]));
+                        Assert.That(song.Artists.FirstOrDefault(), Is.EqualTo(parts[0]));
+                        Assert.That(song.Title, Is.EqualTo(parts[1]));
                     }
+                    
+                    yield return new TestCaseData(null, new Action<Song>(song => Assert.That(song, Is.Null))).SetName("null title => null song");
+                    yield return new TestCaseData(string.Empty, new Action<Song>(song => Assert.That(song, Is.Null))).SetName("empty title => null song");
+                    yield return new TestCaseData(" ", new Action<Song>(song => Assert.That(song, Is.Null))).SetName("whitespace title => null song");
 
                     string[] t1 = { "Artist", "Title" };
                     yield return new TestCaseData(GetTitle(t1), new Action<Song>(song => Test(song, t1))).SetName(GetTestName(t1));
@@ -407,61 +335,36 @@ namespace Toastify.Tests.Model
                 }
             }
 
-            internal static SpotifyResource TestAlbumResource { get; } = new SpotifyResource
+            internal static SimpleAlbum TestSimpleAlbum { get; } = new SimpleAlbum
             {
-                Location = new TrackResourceLocation { Og = string.Empty },
                 Name = "Test Album",
-                Uri = "http://test.album"
+                Uri = "http://test.album",
+                Images = new List<Image>
+                {
+                    new Image { Height = 256, Width = 256, Url = "http://test.album/256/cover.png" },
+                    new Image { Height = 64, Width = 64, Url = "http://test.album/64/cover.png" }
+                }
             };
 
-            internal static SpotifyResource TestArtistResource { get; } = new SpotifyResource
+            internal static SimpleArtist TestSimpleArtist { get; } = new SimpleArtist
             {
-                Location = new TrackResourceLocation { Og = string.Empty },
                 Name = "Test Artist",
                 Uri = "http://test.artist"
             };
 
-            internal static SpotifyResource TestTrackResource { get; } = new SpotifyResource
+            internal static SimpleTrack TestSimpleTrack { get; } = new SimpleTrack
             {
-                Location = new TrackResourceLocation { Og = string.Empty },
                 Name = "Test Track",
                 Uri = "http://test.track"
             };
 
-            internal static Track AdPositiveLengthTrack { get; } = new Track
+            internal static FullTrack TestFullTrack { get; } = new FullTrack
             {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 60,
-                TrackType = SpotifyTrackType.AD
-            };
-
-            internal static Track AdZeroLengthTrack { get; } = new Track
-            {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 0,
-                TrackType = SpotifyTrackType.AD
-            };
-
-            internal static Track OtherTrack { get; } = new Track
-            {
-                AlbumResource = null,
-                ArtistResource = null,
-                TrackResource = null,
-                Length = 60,
-                TrackType = SpotifyTrackType.OTHER
-            };
-
-            internal static Track NormalTrack { get; } = new Track
-            {
-                AlbumResource = TestAlbumResource,
-                ArtistResource = TestArtistResource,
-                TrackResource = TestTrackResource,
-                Length = 60,
-                TrackType = SpotifyTrackType.NORMAL
+                Album = TestSimpleAlbum,
+                Artists = new List<SimpleArtist>(1) { TestSimpleArtist },
+                Name = TestSimpleTrack.Name,
+                DurationMs = 60000,
+                Uri = TestSimpleTrack.Uri
             };
 
             #endregion

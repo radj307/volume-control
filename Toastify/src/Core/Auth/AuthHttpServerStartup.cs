@@ -67,7 +67,7 @@ namespace Toastify.Core.Auth
                         {
                             using (var pipe = new NamedPipeClientStream(".", this.Configuration["pipeName"], PipeDirection.Out, PipeOptions.None, TokenImpersonationLevel.Anonymous))
                             {
-                                await pipe.ConnectAsync();
+                                await pipe.ConnectAsync().ConfigureAwait(false);
                                 StringStream ss = new StringStream(pipe);
 
                                 var content = HttpUtility.ParseQueryString(string.Empty);
@@ -92,7 +92,7 @@ namespace Toastify.Core.Auth
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 }
                 else
-                    await next();
+                    await next().ConfigureAwait(false);
             });
         }
     }

@@ -44,7 +44,7 @@ namespace ExamplePlugin
 
         public void TrackChanged(object sender, SpotifyTrackChangedEventArgs e)
         {
-            System.IO.File.AppendAllText(this.logFilename, $"{e.Artist} - {e.Title}{Environment.NewLine}");
+            System.IO.File.AppendAllText(this.logFilename, $"{e.Artists} - {e.Title}{Environment.NewLine}");
         }
 
         public void Dispose()

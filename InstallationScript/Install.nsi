@@ -7,10 +7,14 @@
 !define HELPURL "https://github.com/aleab/toastify/issues"
 !define UPDATEURL "https://github.com/aleab/toastify/releases"
 !define ABOUTURL "https://aleab.github.io/toastify/"
-!define ESTIMATEDSIZE 4510
 
 !define RegUninstallKey "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 
+!define OldMutexName "{B8F3CA50-CE27-4ffa-A812-BBE1435C9485}"
+!define AppMutexName "Toastify-{3E929742-424C-46BE-9ED0-9FB410E4FFC0}"
+
+
+SetCompressor /SOLID /FINAL lzma  # zlib|bzip2|lzma
 
 !include LogicLib.nsh
 !include MUI.nsh
@@ -66,18 +70,18 @@ UninstPage instfiles
 ;--------------------------------
 ; Installer
 
+Var /GLOBAL EstimatedSize
+
 Var /GLOBAL PrevDesktopShortcutArgs
 Var /GLOBAL PrevSMShortcutArgs
 Var /GLOBAL PrevAutostartArgs
 
 Section "${APPNAME} (required)"
   SectionIn RO
-  AddSize ${EstimatedSize}
 
-  # Since process termination is non-destructive for Toastify, just kill it
-  DetailPrint "Shutting down ${APPNAME}..."
-  KillProcWMI::KillProc "Toastify.exe"
-  Sleep 2000
+  # Check if Toastify is running
+  ${TerminateToastify} "${OldMutexName}"
+  ${TerminateToastify} "${AppMutexName}"
 
   # Uninstall previous versions
   DetailPrint "Uninstalling previous versions of ${APPNAME}..."
@@ -111,16 +115,22 @@ Section "${APPNAME} (required)"
     File /nonfatal "ToastifyWebAuthAPI.dll"
 
     # Resources
-    File "LICENSES\LICENSE"
-    File "LICENSES\LICENSE-3RD-PARTY"
+    File /oname=LICENSE.txt "LICENSES\LICENSE"
+    File /oname=LICENSE-3RD-PARTY.txt "LICENSES\LICENSE-3RD-PARTY"
 
   # Create directories in AppData
   CreateDirectory "$APPDATA\Toastify"
   CreateDirectory "$LOCALAPPDATA\Toastify"
 
   # Remove files belonging to old versions
+  Delete "$INSTDIR\LICENSE"
+  Delete "$INSTDIR\LICENSE-3RD-PARTY"
   Delete "$INSTDIR\Garlic.dll"
   Delete "$INSTDIR\uninstall.exe"
+
+  # Get EstimatedSize
+  ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+  IntFmt $EstimatedSize "0x%08X" $0
 
   # Write the uninstall keys for Windows
   WriteRegStr HKLM "${RegUninstallKey}" "DisplayName" "${APPNAME}"
@@ -134,7 +144,7 @@ Section "${APPNAME} (required)"
   WriteRegStr HKLM "${RegUninstallKey}" "HelpLink" "${HELPURL}"
   WriteRegStr HKLM "${RegUninstallKey}" "URLUpdateInfo" "${UPDATEURL}"
   WriteRegStr HKLM "${RegUninstallKey}" "URLInfoAbout" "${ABOUTURL}"
-  WriteRegDWORD HKLM "${RegUninstallKey}" "EstimatedSize" ${EstimatedSize}
+  WriteRegDWORD HKLM "${RegUninstallKey}" "EstimatedSize" $EstimatedSize
   WriteRegDWORD HKLM "${RegUninstallKey}" "NoModify" 1
   WriteRegDWORD HKLM "${RegUninstallKey}" "NoRepair" 1
   WriteUninstaller "uninst.exe"
@@ -182,8 +192,8 @@ Section "un.Toastify"
     Delete "$INSTDIR\ToastifyWebAuthAPI.dll"
 
     # Resources
-    Delete "$INSTDIR\LICENSE"
-    Delete "$INSTDIR\LICENSE-3RD-PARTY"
+    Delete "$INSTDIR\LICENSE.txt"
+    Delete "$INSTDIR\LICENSE-3RD-PARTY.txt"
 
     # Uninstaller
     Delete "$INSTDIR\uninst.exe"

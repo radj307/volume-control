@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Toastify": {
+      "commandName": "Project",
+      "nativeDebugging" : false
+    }
+  }
+}

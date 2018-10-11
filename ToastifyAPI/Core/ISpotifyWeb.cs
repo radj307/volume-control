@@ -8,7 +8,7 @@ namespace ToastifyAPI.Core
 
         ISpotifyWebAuth Auth { get; }
 
-        ISpotifyWebAPI WebAPI { get; }
+        ISpotifyWebAPI API { get; }
 
         #endregion
     }

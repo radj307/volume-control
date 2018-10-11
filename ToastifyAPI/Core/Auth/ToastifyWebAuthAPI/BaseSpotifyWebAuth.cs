@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
+using log4net;
 using ToastifyAPI.Core.Auth.ToastifyWebAuthAPI.Structs;
 
 namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
 {
     public abstract class BaseSpotifyWebAuth : ISpotifyWebAuth
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(BaseSpotifyWebAuth));
+
         private IToken token;
         private AuthEventArgs authResponse;
         private bool tokenReturned;
@@ -34,17 +38,26 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
                 return null;
 
             this.AuthHttpServer.AuthorizationFinished += this.AuthHttpServer_AuthorizationFinished;
-            await this.AuthHttpServer.Start();
+            await this.AuthHttpServer.Start().ConfigureAwait(false);
 
-            AuthorizationCodeFlow.Authorize(this.Scopes, this.State, this.ShowDialog);
-            while (this.authResponse == null)
+            this.Authorize();
+            bool shouldAbortAuthorization = false;
+            while (this.authResponse == null && !shouldAbortAuthorization)
             {
-                await Task.Delay(100);
+                await Task.Delay(100).ConfigureAwait(false);
+                shouldAbortAuthorization = await this.ShouldAbortAuthorization().ConfigureAwait(false);
             }
 
-            if (this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
+            if (this.authResponse == null && shouldAbortAuthorization)
             {
-                if (this.authResponse.State == this.State)
+                this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
+                await this.AuthHttpServer.Stop().ConfigureAwait(false);
+                return null;
+            }
+
+            if (this.authResponse != null && this.authResponse.Error == null && !string.IsNullOrWhiteSpace(this.authResponse.Code))
+            {
+                if (this.authResponse.State == this.State || string.IsNullOrWhiteSpace(this.authResponse.State) && string.IsNullOrWhiteSpace(this.State))
                 {
                     HttpResponse httpResponse = new HttpResponse(256, 1024);
                     SpotifyTokenResponse spotifyTokenResponse = new SpotifyTokenResponse(256, 32, 736);
@@ -55,23 +68,55 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
                         spotifyTokenResponse.CreationDate = DateTime.Now;
                         this.token = this.CreateToken(spotifyTokenResponse);
                         this.tokenReturned = true;
-                        return this.token;
+                    }
+                    else
+                    {
+                        // TODO: Handle HTTP status != OK
+                        logger.Debug("TODO: Handle HTTP status != OK");
                     }
                 }
             }
 
             this.tokenReturned = true;
-            return null;
+            return this.token;
         }
+
+        public Task<IToken> RefreshToken([NotNull] IToken token)
+        {
+            IToken refreshedToken = null;
+
+            HttpResponse httpResponse = new HttpResponse(256, 1024);
+            SpotifyTokenResponse spotifyTokenResponse = new SpotifyTokenResponse(256, 32, 736);
+            AuthorizationCodeFlow.RefreshAuthorizationToken(ref httpResponse, ref spotifyTokenResponse, token.RefreshToken);
+
+            if (httpResponse.status == (int)HttpStatusCode.OK)
+            {
+                spotifyTokenResponse.CreationDate = DateTime.Now;
+                refreshedToken = this.CreateToken(spotifyTokenResponse);
+            }
+            else
+            {
+                // TODO: Handle HTTP status != OK
+                logger.Debug("TODO: Handle HTTP status != OK");
+            }
+
+            return Task.FromResult(refreshedToken);
+        }
+
+        protected abstract void Authorize();
 
         protected abstract IToken CreateToken(SpotifyTokenResponse spotifyTokenResponse);
 
-        private async void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
+        protected abstract Task<bool> ShouldAbortAuthorization();
+
+        protected virtual async void AuthHttpServer_AuthorizationFinished(object sender, AuthEventArgs e)
         {
             this.AuthHttpServer.AuthorizationFinished -= this.AuthHttpServer_AuthorizationFinished;
-            await this.AuthHttpServer.Stop();
+            await this.AuthHttpServer.Stop().ConfigureAwait(false);
 
             this.authResponse = e;
         }
+
+        public abstract void Dispose();
     }
 }

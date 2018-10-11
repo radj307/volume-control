@@ -8,5 +8,14 @@ namespace ToastifyAPI.Core.Auth
         {
             return Task.FromResult<IToken>(null);
         }
+
+        public Task<IToken> RefreshToken(IToken token)
+        {
+            return Task.FromResult<IToken>(null);
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }

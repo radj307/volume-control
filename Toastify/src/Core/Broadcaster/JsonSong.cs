@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using ToastifyAPI.Model.Interfaces;
 
@@ -13,8 +15,8 @@ namespace Toastify.Core.Broadcaster
         [JsonProperty("title")]
         public string Title { get; }
 
-        [JsonProperty("artist")]
-        public string Artist { get; }
+        [JsonProperty("artists")]
+        public List<string> Artists { get; }
 
         [JsonProperty("album")]
         public string Album { get; }
@@ -26,8 +28,8 @@ namespace Toastify.Core.Broadcaster
 
         public JsonSong(ISong song)
         {
-            this.Title = song?.Track;
-            this.Artist = song?.Artist;
+            this.Title = song?.Title;
+            this.Artists = song?.Artists.ToList();
             this.Album = song?.Album;
             this.Length = song?.Length ?? -1;
         }

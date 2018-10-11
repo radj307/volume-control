@@ -3,10 +3,11 @@ SetLocal EnableExtensions EnableDelayedExpansion
 
 
 REM ----------[ PRE-BUILD ]--------------------------------
-REM [in]SolutionDir  [in]DevEnvDir
+REM [in]ConfigurationName  [in]SolutionDir  [in]DevEnvDir
 
-SET "SolutionDir=%~1"
-SET "DevEnvDir=%~2"
+SET "ConfigurationName=%~1"
+SET "SolutionDir=%~2"
+SET "DevEnvDir=%~3"
 
 
 REM ===============
@@ -18,6 +19,10 @@ CALL "%DevEnvDir%..\Tools\VsDevCmd.bat"
 
 CD /D "%SolutionDir%"
 
+SET Configuration=Release
+IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
+    SET Configuration=Debug
+)
 
 REM ==============
 REM  Dependencies
@@ -43,8 +48,11 @@ IF EXIST toastify.webauthapi (
     git remote add origin git@bitbucket.org:aleab/toastify.webauthapi.git
     git remote add origin-aleab git@bitbucket.org-aleab:aleab/toastify.webauthapi.git
 
-    git fetch origin-aleab
-    git reset --hard origin-aleab/master
+    REM Pull remote only if this is a Release build
+    IF ["%Configuration%"]==["Release"] (
+        git fetch origin-aleab
+        git reset --hard origin-aleab/master
+    )
     CD ..
 )
 

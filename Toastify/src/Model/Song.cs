@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using log4net;
-using SpotifyAPI.Local.Enums;
-using SpotifyAPI.Local.Models;
+using SpotifyAPI.Web.Models;
 using Toastify.Core;
 using ToastifyAPI.Model.Interfaces;
 
@@ -16,139 +17,62 @@ namespace Toastify.Model
         internal const string TITLE_SPOTIFY_AD = "Spotify Ad";
         internal const string TITLE_UNKNOWN = "[Unknown Track Type]";
 
-        #region Static Fields and Properties
-
-        private static readonly AlbumArtSize[] albumArtSizes = { AlbumArtSize.Size160, AlbumArtSize.Size320, AlbumArtSize.Size640 };
-
-        #endregion
-
-        private readonly Track spotifyTrack;
-        private string _coverArtUrl;
+        private readonly FullTrack spotifyTrack;
+        private ISongAlbumArt _albumArt;
 
         #region Public Properties
 
-        public string Artist { get; }
-        public string Track { get; }
         public string Album { get; }
+        public IReadOnlyList<string> Artists { get; }
+        public string Title { get; }
         public int Length { get; }
-        public string Type { get; }
 
-        public string CoverArtUrl
+        public ISongAlbumArt AlbumArt
         {
             get
             {
                 // Lazy fetch of CoverArtUrl
-                if (this._coverArtUrl == null)
-                    this._coverArtUrl = this.GetSmallestCoverArtUrl();
+                if (this._albumArt == null)
+                {
+                    var smallestImage = this.spotifyTrack?.Album?.Images?.Last();
+                    this._albumArt = smallestImage != null ? new SongAlbumArt(smallestImage) : SongAlbumArt.Empty;
+                }
 
-                return this._coverArtUrl ?? string.Empty;
+                return this._albumArt;
             }
-            set { this._coverArtUrl = value; }
+            set { this._albumArt = value; }
         }
 
         #endregion
 
-        public Song(string artist, string title, int length, string type, string album)
+        public Song(string album, IEnumerable<string> artists, string title, int length)
         {
-            this.Artist = artist;
-            this.Track = title;
+            this.Artists = artists?.Where(artist => !string.IsNullOrWhiteSpace(artist)).ToList() ?? new List<string>(0);
+            this.Title = title;
             this.Album = album;
             this.Length = length;
-            this.Type = type;
         }
 
-        public Song([NotNull] Track track)
+        public Song(string album, string artist, string title, int length) : this(album, new List<string>(1) { artist }, title, length)
+        {
+        }
+
+        public Song([NotNull] FullTrack track)
         {
             this.spotifyTrack = track ?? throw new ArgumentNullException(nameof(track));
 
-            if (track.IsAd())
-            {
-                this.Album = string.Empty;
-                this.Artist = string.Empty;
-                this.Track = TITLE_SPOTIFY_AD;
-                this.Length = track.Length;
-                this.Type = SpotifyTrackType.AD;
-            }
-            else if (track.IsOtherTrackType())
-            {
-                this.Album = string.Empty;
-                this.Artist = string.Empty;
-                this.Track = TITLE_UNKNOWN;
-                this.Length = track.Length;
-                this.Type = SpotifyTrackType.OTHER;
-            }
-            else
-            {
-                this.Album = track.AlbumResource?.Name ?? string.Empty;
-                this.Artist = track.ArtistResource?.Name ?? string.Empty;
-                this.Track = track.TrackResource?.Name ?? string.Empty;
-                this.Length = track.Length;
-                this.Type = track.TrackType;
-            }
-        }
-
-        public bool IsAd()
-        {
-            return this.spotifyTrack?.IsAd() ?? this.Type == SpotifyTrackType.AD || this.Length == 0;
-        }
-
-        public bool IsOtherTrackType()
-        {
-            return this.spotifyTrack?.IsOtherTrackType() ?? this.Type == SpotifyTrackType.OTHER;
+            this.Album = track.Album?.Name ?? string.Empty;
+            this.Artists = track.Artists?.Select(a => a.Name).ToList() ?? new List<string>(0);
+            this.Title = track.Name ?? string.Empty;
+            this.Length = track.DurationMs / 1000;
         }
 
         public bool IsValid()
         {
-            if (string.IsNullOrEmpty(this.Type))
-                return false;
-
-            switch (this.Type)
-            {
-                case SpotifyTrackType.NORMAL:
-                    return !string.IsNullOrEmpty(this.Album) &&
-                           !string.IsNullOrEmpty(this.Artist) &&
-                           !string.IsNullOrEmpty(this.Track) &&
-                           this.Length > 0;
-
-                case SpotifyTrackType.OTHER:
-                    return this.Length > 0;
-
-                case SpotifyTrackType.AD:
-                    return this.Length >= 0;
-
-                default:
-                    logger.Warn($"Invalid Song type: \"{this.Type}\"");
-                    return false;
-            }
-        }
-
-        public string GetCoverArtUrl(AlbumArtSize size)
-        {
-            string url = string.Empty;
-            try
-            {
-                if (this.spotifyTrack?.AlbumResource != null)
-                    url = this.spotifyTrack.GetAlbumArtUrl(size, App.ProxyConfig.ProxyConfig);
-            }
-            catch (Exception e)
-            {
-                logger.Error("Error while getting album art url", e);
-            }
-
-            return url;
-        }
-
-        public string GetSmallestCoverArtUrl()
-        {
-            string url = string.Empty;
-            foreach (AlbumArtSize size in albumArtSizes)
-            {
-                url = this.GetCoverArtUrl(size);
-                if (!string.IsNullOrWhiteSpace(url))
-                    break;
-            }
-
-            return url ?? string.Empty;
+            return !string.IsNullOrEmpty(this.Album) &&
+                   this.Artists.Count > 0 &&
+                   !string.IsNullOrEmpty(this.Title) &&
+                   this.Length >= 0;
         }
 
         public string GetClipboardText(string template)
@@ -174,12 +98,13 @@ namespace Toastify.Model
         {
             // TODO: De-couple this ToString() from Settings
 
-            if (string.IsNullOrWhiteSpace(this.Artist))
-                return this.Track;
+            if (this.Artists.Count <= 0)
+                return this.Title;
 
+            string artists = string.Join(", ", this.Artists);
             return Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist
-                ? $"\x201C{this.Track}\x201D by {this.Artist}"
-                : $"{this.Artist}: \x201C{this.Track}\x201D";
+                ? $"\x201C{this.Title}\x201D by {artists}"
+                : $"{artists}: \x201C{this.Title}\x201D";
         }
 
         /// <inheritdoc />
@@ -188,10 +113,10 @@ namespace Toastify.Model
             unchecked
             {
                 int hashCode = this.Album.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.Artist.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.Track.GetHashCode();
+                hashCode = (hashCode * 397) ^ this.Album.GetHashCode();
+                hashCode = this.Artists.Aggregate(hashCode, (acc, artist) => (acc * 397) ^ artist.GetHashCode());
+                hashCode = (hashCode * 397) ^ this.Title.GetHashCode();
                 hashCode = (hashCode * 397) ^ this.Length;
-                hashCode = (hashCode * 397) ^ this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -217,10 +142,10 @@ namespace Toastify.Model
                 return true;
 
             return string.Equals(this.Album, other.Album) &&
-                   string.Equals(this.Artist, other.Artist) &&
-                   string.Equals(this.Track, other.Track) &&
-                   this.Length == other.Length &&
-                   string.Equals(this.Type, other.Type);
+                   this.Artists.All(artist => other.Artists.Contains(artist)) &&
+                   other.Artists.All(artist => this.Artists.Contains(artist)) &&
+                   string.Equals(this.Title, other.Title) &&
+                   this.Length == other.Length;
         }
 
         #region Static Members
@@ -235,6 +160,7 @@ namespace Toastify.Model
             if (newTitleElements.Length < 2)
             {
                 // TODO: Handle unexpected title format
+                // This can be an episode of a podcast
             }
             else if (newTitleElements.Length > 2)
             {
@@ -242,15 +168,20 @@ namespace Toastify.Model
                 // Either or both of them can contain compound words with hyphens: these hyphens should be ignored when separating the string!
                 // Let's assume that only the song title contains hyphens surrounded by spaces!
                 var match = Regex.Match(title, @"^((?:[^-]+)|(?:.*?\b-\b.*?)) - (.*)$", RegexOptions.Compiled);
-                song = new Song(match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                song = new Song("Unknown Album", match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim(), 0);
             }
             else
-                song = new Song(newTitleElements[0].Trim(), newTitleElements[1].Trim(), 1, SpotifyTrackType.NORMAL, "Unknown Album");
+                song = new Song("Unknown Album", newTitleElements[0].Trim(), newTitleElements[1].Trim(), 0);
 
             return song;
         }
 
         public static bool Equal(Song s1, Song s2)
+        {
+            return Equal((ISong)s1, s2);
+        }
+
+        public static bool Equal(ISong s1, ISong s2)
         {
             if (ReferenceEquals(s1, s2))
                 return true;
@@ -260,7 +191,7 @@ namespace Toastify.Model
             return s1.Equals(s2);
         }
 
-        public static implicit operator Song(Track spotifyTrack)
+        public static implicit operator Song(FullTrack spotifyTrack)
         {
             return spotifyTrack == null ? null : new Song(spotifyTrack);
         }

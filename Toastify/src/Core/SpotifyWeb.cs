@@ -8,14 +8,14 @@ namespace Toastify.Core
         #region Public Properties
 
         public ISpotifyWebAuth Auth { get; }
-        public ISpotifyWebAPI WebAPI { get; }
+        public ISpotifyWebAPI API { get; }
 
         #endregion
 
         public SpotifyWeb(ISpotifyWebAuth auth, ISpotifyWebAPI webApi)
         {
             this.Auth = auth;
-            this.WebAPI = webApi;
+            this.API = webApi;
         }
     }
 }

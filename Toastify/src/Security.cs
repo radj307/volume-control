@@ -30,6 +30,15 @@ namespace Toastify
             return File.Exists(secFilePath);
         }
 
+        public static void DeleteProtectedData([NotNull] string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
+            if (ProtectedDataExists(fileName))
+                File.Delete(Path.Combine(App.LocalApplicationData, fileName));
+        }
+
         internal static byte[] GetProtectedData([NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
@@ -142,6 +151,28 @@ namespace Toastify
             }
         }
 
+        internal static object GetProtectedObject([NotNull] string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
+            byte[] bytes = GetProtectedData(fileName);
+            BinaryFormatter serializer = new BinaryFormatter();
+
+            object obj;
+            using (MemoryStream stream = new MemoryStream(bytes, false))
+            {
+                obj = serializer.Deserialize(stream);
+            }
+
+            return obj;
+        }
+
+        internal static T GetProtectedObject<T>([NotNull] string fileName) where T : class
+        {
+            return GetProtectedObject(fileName) as T;
+        }
+
         internal static void SaveProtectedData([NotNull] byte[] plaintext, [NotNull] string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
@@ -219,6 +250,25 @@ namespace Toastify
                 Marshal.FreeHGlobal(entropyPtr);
                 Marshal.ZeroFreeBSTR(unmanagedString);
             }
+        }
+
+        internal static void SaveProtectedObject([NotNull] object obj, [NotNull] string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException(@"File name is not valid", nameof(fileName));
+
+            BinaryFormatter serializer = new BinaryFormatter();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.Serialize(stream, obj);
+                byte[] bytes = stream.ToArray();
+                SaveProtectedData(bytes, fileName);
+            }
+        }
+
+        internal static void SaveProtectedObject<T>([NotNull] T obj, [NotNull] string fileName) where T : class
+        {
+            SaveProtectedObject((object)obj, fileName);
         }
 
         #endregion

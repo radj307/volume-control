@@ -593,7 +593,7 @@ namespace Toastify.View
         {
             await Task.Delay(TimeSpan.FromSeconds(0.5)).ConfigureAwait(false);
             if (sender is ComboBox cb)
-                await Task.Run(() => this.InitializeExpandableElementForUIAutomation(cb));
+                await Task.Run(() => this.InitializeExpandableElementForUIAutomation(cb)).ConfigureAwait(false);
         }
 
         private void InitializeExpandableElementForUIAutomation(IFrameworkInputElement element)

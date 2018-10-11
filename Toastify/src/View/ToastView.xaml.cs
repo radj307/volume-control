@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Net.Http;
 using System.Reflection;
@@ -32,6 +33,7 @@ using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
 using ToastifyAPI.Helpers;
+using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
@@ -43,6 +45,7 @@ using MenuItem = System.Windows.Forms.MenuItem;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using PixelFormat = System.Windows.Media.PixelFormat;
 using Point = System.Windows.Point;
+using Size = System.Drawing.Size;
 using Spotify = Toastify.Core.Spotify;
 using Timer = System.Timers.Timer;
 
@@ -61,6 +64,8 @@ namespace Toastify.View
         private const string STATE_PAUSED = "Paused";
         private const string STATE_NOTHING_PLAYING = "Nothing's playing";
 
+        private static readonly Size DEFAULT_ICON_SIZE = new Size(128, 128);
+
         internal static ToastView Current { get; private set; }
 
         #region Private fields
@@ -73,7 +78,7 @@ namespace Toastify.View
 
         private SystemTray trayIcon;
 
-        private Song currentSong;
+        private ISong currentSong;
         private BitmapSource cover;
         private string toastIconURI = "";
 
@@ -158,8 +163,10 @@ namespace Toastify.View
         private void FinalizeInit()
         {
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
-            Spotify.Instance.Exited -= this.Application_Shutdown;
-            Spotify.Instance.Exited += this.Application_Shutdown;
+            Spotify.Instance.Exited -= this.ToastView_Exit;
+            Spotify.Instance.Exited += this.ToastView_Exit;
+            Spotify.Instance.WebAPIInitializationSucceeded -= this.Instance_WebAPIInitializationSucceeded;
+            Spotify.Instance.WebAPIInitializationSucceeded += this.Instance_WebAPIInitializationSucceeded;
             Spotify.Instance.SongChanged -= this.Spotify_SongChanged;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
             Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
@@ -305,7 +312,7 @@ namespace Toastify.View
             menuAbout.Click += (s, ev) => { new AboutView().ShowDialog(); };
 
             MenuItem menuExit = new MenuItem { Text = @"Exit" };
-            menuExit.Click += this.Application_Shutdown;
+            menuExit.Click += this.ToastView_Exit;
 
             this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
             this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
@@ -373,17 +380,29 @@ namespace Toastify.View
         /// Also, save track info to file, if settings say so.
         /// </summary>
         /// <param name="song"> The song to set as current. </param>
-        private void ChangeCurrentSong([CanBeNull] Song song)
+        private void ChangeCurrentSong([CanBeNull] ISong song)
         {
             if (logger.IsDebugEnabled)
-                logger.Debug($"{nameof(this.ChangeCurrentSong)} has been called");
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"{nameof(ToastView)}.{nameof(this.ChangeCurrentSong)} has been called. Song = ");
+                if (song != null)
+                {
+                    sb.Append($"{{{Environment.NewLine}")
+                      .Append($"   Title: \"{song.Title}\",{Environment.NewLine}")
+                      .Append($"   Album: \"{song.Album}\",{Environment.NewLine}")
+                      .Append($"   Artists: [ {string.Join(", ", song.Artists.Select(a => $"\"{a}\""))} ],{Environment.NewLine}")
+                      .Append($"   Length: {song.Length}{Environment.NewLine}")
+                      .Append("}");
+                }
+                else
+                    sb.Append("null");
+                logger.Debug(sb.ToString());
+            }
 
             this.currentSong = song;
 
-            if (this.currentSong?.IsOtherTrackType() == true)
-                this.FetchOtherTrackInfo();
-            else
-                this.UpdateToastText(this.currentSong);
+            this.UpdateToastText(this.currentSong);
 
             this.UpdateSongProgressBar(0.0);
             this.UpdateAlbumArt();
@@ -418,13 +437,11 @@ namespace Toastify.View
                 this.toastIconURI = DEFAULT_ICON;
             else
             {
-                if (this.currentSong.IsAd())
-                    this.currentSong.CoverArtUrl = AD_PLAYING_ICON;
-                else if (string.IsNullOrWhiteSpace(this.currentSong?.CoverArtUrl) ||
-                         !Uri.TryCreate(this.currentSong.CoverArtUrl, UriKind.RelativeOrAbsolute, out Uri _))
-                    this.currentSong.CoverArtUrl = DEFAULT_ICON;
+                if (string.IsNullOrWhiteSpace(this.currentSong?.AlbumArt?.Url) ||
+                         !Uri.TryCreate(this.currentSong.AlbumArt.Url, UriKind.RelativeOrAbsolute, out Uri _))
+                    this.currentSong.AlbumArt = new SongAlbumArt(DEFAULT_ICON_SIZE.Height, DEFAULT_ICON_SIZE.Width, DEFAULT_ICON);
 
-                this.toastIconURI = this.currentSong.CoverArtUrl;
+                this.toastIconURI = this.currentSong.AlbumArt.Url;
             }
 
             // Update the cover art only if the url has changed.
@@ -648,7 +665,7 @@ namespace Toastify.View
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        private void UpdateToastText([CanBeNull] Song song, string altTitle1 = null, bool fadeIn = true)
+        private void UpdateToastText([CanBeNull] ISong song, string altTitle1 = null, bool fadeIn = true)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -660,8 +677,9 @@ namespace Toastify.View
                     this.UpdateToastText(STATE_PAUSED, song.ToString(), fadeIn);
                 else
                 {
-                    this.toastViewModel.TrackName = song.Track ?? string.Empty;
-                    this.toastViewModel.ArtistName = song.Artist ?? string.Empty;
+                    this.toastViewModel.TrackName = song.Title;
+                    // TODO: Set a proper ArtistName depending on Settings (OnlyFirstArtist, AllArtists, AlbumArtist)
+                    this.toastViewModel.ArtistName = song.Artists.FirstOrDefault() ?? string.Empty;
 
                     this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
                     this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
@@ -1065,6 +1083,11 @@ namespace Toastify.View
             Windows.AddToolWindowStyle(this.WindowHandle);
         }
 
+        private void Window_OnClosed(object sender, EventArgs e)
+        {
+            App.Terminate();
+        }
+
         /// <summary>
         /// Mouse is over the window, halt any fade out animations and keep the toast active.
         /// </summary>
@@ -1125,6 +1148,13 @@ namespace Toastify.View
         #endregion Event handlers [xaml]
 
         #region Event handlers [Spotify]
+
+        private void Instance_WebAPIInitializationSucceeded(object sender, SpotifyStateEventArgs e)
+        {
+            this.paused = !e.Playing;
+            this.ChangeCurrentSong(e.CurrentSong);
+            this.UpdateSongProgressBar(e.TrackTime);
+        }
 
         /// <summary>
         /// This event is received only once, at the start of the application.
@@ -1196,11 +1226,10 @@ namespace Toastify.View
             this.Settings = e.Settings;
         }
 
-        private void Application_Shutdown(object sender, EventArgs e)
+        private void ToastView_Exit(object sender, EventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                new Action(() => Application.Current.Shutdown()));
+            this.Close();
+            App.Terminate();
         }
 
         private void Toast_Deactivated(object sender, EventArgs e)

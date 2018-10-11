@@ -7,12 +7,10 @@ using Toastify.Events;
 using Toastify.Model;
 using Toastify.View;
 using ToastifyAPI.GitHub;
-
 #if !DEBUG
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ToastifyAPI.GitHub.Model;
 
 #endif
@@ -32,16 +30,24 @@ namespace Toastify.Services
             get { return _instance ?? (_instance = new VersionChecker()); }
         }
 
-        #endregion Singleton
+        #endregion
+
+        #region Static Fields and Properties
 
         public static string GitHubReleasesUrl { get; } = App.RepoInfo.Format("https://github.com/:owner/:repo/releases");
 
-        private readonly GitHubAPI gitHubAPI;
+        #endregion
 
-        private Settings current;
+        private readonly GitHubAPI gitHubAPI;
         private readonly Timer checkVersionTimer;
 
+        private Settings current;
+
+        #region Events
+
         public event EventHandler<CheckVersionCompleteEventArgs> CheckVersionComplete;
+
+        #endregion
 
         protected VersionChecker()
         {
@@ -63,12 +69,12 @@ namespace Toastify.Services
 #if DEBUG
             this.CheckVersionComplete?.Invoke(this, new CheckVersionCompleteEventArgs { Version = App.CurrentVersionNoRevision, IsNew = false });
 #else
-            Task.Run(() => this.CheckVersion());
+            ThreadPool.QueueUserWorkItem(this.CheckVersion);
 #endif
         }
 
 #if !DEBUG
-        private void CheckVersion()
+        private void CheckVersion(object state)
         {
             try
             {
@@ -138,20 +144,7 @@ namespace Toastify.Services
             this.current.PropertyChanged += this.CurrentSettings_PropertyChanged;
         }
 
-        public void Dispose()
-        {
-            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
-            SettingsView.SettingsSaved -= this.SettingsView_SettingsSaved;
-        }
-
-        public static void DisposeInstance()
-        {
-            if (_instance != null)
-            {
-                _instance.Dispose();
-                _instance = null;
-            }
-        }
+        #region Static Members
 
         private static TimeSpan CalcCheckVersionDueTime()
         {
@@ -169,5 +162,26 @@ namespace Toastify.Services
             TimeSpan t = now.Subtract(last);
             return t >= freq ? TimeSpan.Zero : freq.Subtract(t);
         }
+
+        #endregion
+
+        #region Dispose
+
+        public static void DisposeInstance()
+        {
+            if (_instance != null)
+            {
+                _instance.Dispose();
+                _instance = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            this.current.PropertyChanged -= this.CurrentSettings_PropertyChanged;
+            SettingsView.SettingsSaved -= this.SettingsView_SettingsSaved;
+        }
+
+        #endregion
     }
 }

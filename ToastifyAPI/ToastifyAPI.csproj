@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Auth\AuthEventArgs.cs" />
+    <Compile Include="Core\Auth\ITokenManager.cs" />
     <Compile Include="Core\Auth\NoAuth.cs" />
     <Compile Include="Core\Auth\IAuthHttpServer.cs" />
     <Compile Include="Core\Auth\ISpotifyWebAuth.cs" />
@@ -187,7 +188,9 @@
     <Compile Include="Core\ISpotifyWebAPI.cs" />
     <Compile Include="Core\IToastifyBroadcaster.cs" />
     <Compile Include="Core\MouseAction.cs" />
+    <Compile Include="Core\SpotifySubscriptionLevel.cs" />
     <Compile Include="Events\ActionFailedEventArgs.cs" />
+    <Compile Include="Events\SpotifyTokenChangedEventArgs.cs" />
     <Compile Include="Events\WindowTitleChangedEventArgs.cs" />
     <Compile Include="GitHub\GitHubAPI.cs" />
     <Compile Include="GitHub\Model\Asset.cs" />
@@ -198,6 +201,7 @@
     <Compile Include="GitHub\Releases.cs" />
     <Compile Include="GitHub\RepoInfo.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\ITokenExtensions.cs" />
     <Compile Include="Helpers\Net.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\System.cs" />
@@ -220,6 +224,7 @@
     </Compile>
     <Compile Include="Model\Interfaces\IAction.cs" />
     <Compile Include="Model\Interfaces\IActionable.cs" />
+    <Compile Include="Model\Interfaces\ICurrentlyPlayingObject.cs" />
     <Compile Include="Model\Interfaces\IGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IHotkey.cs" />
     <Compile Include="Model\Interfaces\IKeyboardHotkey.cs" />
@@ -227,6 +232,8 @@
     <Compile Include="Model\Interfaces\ILockedGlobalHotkey.cs" />
     <Compile Include="Model\Interfaces\IMouseHookHotkey.cs" />
     <Compile Include="Model\Interfaces\ISong.cs" />
+    <Compile Include="Model\Interfaces\ISongAlbumArt.cs" />
+    <Compile Include="Model\Interfaces\ISpotifyUserProfile.cs" />
     <Compile Include="Model\KeyOrButton.cs" />
     <Compile Include="Model\LockedGlobalHotkey.cs" />
     <Compile Include="Native\Crypt32.cs" />

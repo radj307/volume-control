@@ -11,6 +11,8 @@ using Toastify.Events;
 using Toastify.Helpers;
 using Toastify.Model;
 using ToastifyAPI.Core;
+using ToastifyAPI.Core.Auth;
+using ToastifyAPI.Events;
 using ToastifyAPI.Native.Enums;
 
 namespace Toastify.ViewModel
@@ -18,6 +20,10 @@ namespace Toastify.ViewModel
     public class SettingsViewModel : ObservableObject, ISettingsViewModel
     {
         private const string templateDoubleUpDownAltIncrement = "Hold Ctrl while scrolling or while changing the value using the up/down buttons to increment/decrement by {0} units.";
+
+        private const string spotifyWebApiStatusTooltipNoToken = "Toastify has no Access Token!";
+        private const string spotifyWebApiStatusTooltipExpired = "The Access Token has expired!";
+        private const string spotifyWebApiStatusTooltipOk = "Ok!";
 
         private Settings _settings;
         private List<GenericHotkeyProxy> _hotkeys;
@@ -73,6 +79,25 @@ namespace Toastify.ViewModel
         public SecureString ProxyPassword { private get; set; }
 
         [PropertyDependency]
+        public ITokenManager TokenManager { get; set; }
+        
+        public bool? SpotifyWebApiStatus
+        {
+            get { return !this.TokenManager?.Token?.IsExpired(); }
+        }
+
+        public string SpotifyWebApiStatusTooltip
+        {
+            get
+            {
+                bool? status = this.SpotifyWebApiStatus;
+                if (!status.HasValue)
+                    return spotifyWebApiStatusTooltipNoToken;
+                return status.Value ? spotifyWebApiStatusTooltipOk : spotifyWebApiStatusTooltipExpired;
+            }
+        }
+
+        [PropertyDependency]
         public IToastifyBroadcaster ToastifyBroadcaster { get; set; }
 
         public string ToastifyBroadcasterWikiUrl { get; } = "https://github.com/aleab/toastify/wiki/Toastify-Broadcaster";
@@ -93,6 +118,8 @@ namespace Toastify.ViewModel
         public SettingsViewModel()
         {
             this.Settings = Settings.Temporary;
+            if (this.TokenManager == null)
+                this.TokenManager = App.Container.Resolve<ITokenManager>();
             if (this.ToastifyBroadcaster == null)
                 this.ToastifyBroadcaster = App.Container.Resolve<IToastifyBroadcaster>();
 
@@ -103,6 +130,7 @@ namespace Toastify.ViewModel
             this.SelectFileForSavingTrackCommand = new DelegateCommand(this.SelectFileForSavingTrack);
 
             this.Settings.PropertyChanged += this.Settings_PropertyChanged;
+            this.TokenManager.TokenChanged += this.TokenManager_TokenChanged;
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -298,6 +326,12 @@ namespace Toastify.ViewModel
                         this.HotkeyValidityChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
+        }
+
+        private void TokenManager_TokenChanged(object sender, SpotifyTokenChangedEventArgs e)
+        {
+            this.NotifyPropertyChanged(nameof(this.SpotifyWebApiStatus));
+            this.NotifyPropertyChanged(nameof(this.SpotifyWebApiStatusTooltip));
         }
 
         #region Toast
