@@ -23,7 +23,7 @@ namespace Toastify.Model
         }
 
         public CurrentlyPlayingObject(PlaybackContext playbackContext)
-            : this(playbackContext.ProgressMs, playbackContext.IsPlaying, new Song(playbackContext.Item), null)
+            : this(playbackContext.ProgressMs, playbackContext.IsPlaying, playbackContext.Item != null ? new Song(playbackContext.Item) : null, null)
         {
             // TODO: Set "currently_playing_type" once SpotifyAPI-NET has added it
         }

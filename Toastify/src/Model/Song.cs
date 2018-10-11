@@ -72,7 +72,7 @@ namespace Toastify.Model
             return !string.IsNullOrEmpty(this.Album) &&
                    this.Artists.Count > 0 &&
                    !string.IsNullOrEmpty(this.Title) &&
-                   this.Length > 0;
+                   this.Length >= 0;
         }
 
         public string GetClipboardText(string template)
@@ -160,6 +160,7 @@ namespace Toastify.Model
             if (newTitleElements.Length < 2)
             {
                 // TODO: Handle unexpected title format
+                // This can be an episode of a podcast
             }
             else if (newTitleElements.Length > 2)
             {
@@ -167,15 +168,20 @@ namespace Toastify.Model
                 // Either or both of them can contain compound words with hyphens: these hyphens should be ignored when separating the string!
                 // Let's assume that only the song title contains hyphens surrounded by spaces!
                 var match = Regex.Match(title, @"^((?:[^-]+)|(?:.*?\b-\b.*?)) - (.*)$", RegexOptions.Compiled);
-                song = new Song("Unknown Album", match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim(), -1);
+                song = new Song("Unknown Album", match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim(), 0);
             }
             else
-                song = new Song("Unknown Album", newTitleElements[0].Trim(), newTitleElements[1].Trim(), -1);
+                song = new Song("Unknown Album", newTitleElements[0].Trim(), newTitleElements[1].Trim(), 0);
 
             return song;
         }
 
         public static bool Equal(Song s1, Song s2)
+        {
+            return Equal((ISong)s1, s2);
+        }
+
+        public static bool Equal(ISong s1, ISong s2)
         {
             if (ReferenceEquals(s1, s2))
                 return true;

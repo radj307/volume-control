@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
+using log4net;
 using SpotifyAPI.Web.Models;
 using Toastify.Model;
 using ToastifyAPI.Core;
@@ -12,6 +16,8 @@ namespace Toastify.Core
 {
     public class SpotifyWebAPI : ISpotifyWebAPI
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SpotifyWebAPI));
+
         private SpotifyAPIWebAPI _spotifyWebApi;
         private IToken _token;
 
@@ -63,19 +69,45 @@ namespace Toastify.Core
 
         public ICurrentlyPlayingObject GetCurrentlyPlayingTrack()
         {
-            if (!this.WaitForTokenRefresh())
+            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
                 return null;
 
-            PlaybackContext playbackContext = this.SpotifyWebApi?.GetPlayingTrack();
+            PlaybackContext playbackContext = this.SpotifyWebApi.GetPlayingTrack();
+            LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
+
             return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
         }
 
         public ISpotifyUserProfile GetUserPrivateProfile()
         {
-            if (!this.WaitForTokenRefresh())
+            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
                 return null;
 
-            PrivateProfile profile = this.SpotifyWebApi?.GetPrivateProfile();
+            PrivateProfile profile = this.SpotifyWebApi.GetPrivateProfile();
+            LogReturnedValueIfError("Couldn't get the current user's private profile.", profile);
+
+            return profile != null ? new SpotifyUserProfile(profile) : null;
+        }
+
+        public async Task<ICurrentlyPlayingObject> GetCurrentlyPlayingTrackAsync()
+        {
+            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
+                return null;
+
+            PlaybackContext playbackContext = await this.SpotifyWebApi.GetPlayingTrackAsync();
+            LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
+
+            return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
+        }
+
+        public async Task<ISpotifyUserProfile> GetUserPrivateProfileAsync()
+        {
+            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
+                return null;
+
+            PrivateProfile profile = await this.SpotifyWebApi.GetPrivateProfileAsync();
+            LogReturnedValueIfError("Couldn't get the current user's private profile.", profile);
+
             return profile != null ? new SpotifyUserProfile(profile) : null;
         }
 
@@ -94,5 +126,37 @@ namespace Toastify.Core
         {
             this.Token = e.NewToken;
         }
+
+        #region Static Members
+
+        private static void LogReturnedValueIfError(string msg, BasicModel ret)
+        {
+            if (ret == null || ret.StatusCode() != HttpStatusCode.OK)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"{msg} Returned value = ");
+                if (ret != null)
+                {
+                    sb.Append($"{{{Environment.NewLine}")
+                      .Append($"   StatusCode: \"{ret.StatusCode()}\"");
+                    if (ret.HasError())
+                    {
+                        sb.Append($",{Environment.NewLine}")
+                          .Append($"   Error: {{{Environment.NewLine}")
+                          .Append($"      Status: {ret.Error.Status},{Environment.NewLine}")
+                          .Append($"      Message: \"{ret.Error.Message}\"{Environment.NewLine}")
+                          .Append($"   }}{Environment.NewLine}");
+                    }
+
+                    sb.Append("}");
+                }
+                else
+                    sb.Append("null");
+
+                logger.Warn(sb.ToString());
+            }
+        }
+
+        #endregion
     }
 }

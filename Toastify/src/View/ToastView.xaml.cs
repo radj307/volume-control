@@ -33,6 +33,7 @@ using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
 using ToastifyAPI.Helpers;
+using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
@@ -77,7 +78,7 @@ namespace Toastify.View
 
         private SystemTray trayIcon;
 
-        private Song currentSong;
+        private ISong currentSong;
         private BitmapSource cover;
         private string toastIconURI = "";
 
@@ -164,6 +165,8 @@ namespace Toastify.View
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
             Spotify.Instance.Exited -= this.ToastView_Exit;
             Spotify.Instance.Exited += this.ToastView_Exit;
+            Spotify.Instance.WebAPIInitializationSucceeded -= this.Instance_WebAPIInitializationSucceeded;
+            Spotify.Instance.WebAPIInitializationSucceeded += this.Instance_WebAPIInitializationSucceeded;
             Spotify.Instance.SongChanged -= this.Spotify_SongChanged;
             Spotify.Instance.SongChanged += this.Spotify_SongChanged;
             Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
@@ -377,10 +380,25 @@ namespace Toastify.View
         /// Also, save track info to file, if settings say so.
         /// </summary>
         /// <param name="song"> The song to set as current. </param>
-        private void ChangeCurrentSong([CanBeNull] Song song)
+        private void ChangeCurrentSong([CanBeNull] ISong song)
         {
             if (logger.IsDebugEnabled)
-                logger.Debug($"{nameof(this.ChangeCurrentSong)} has been called");
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"{nameof(ToastView)}.{nameof(this.ChangeCurrentSong)} has been called. Song = ");
+                if (song != null)
+                {
+                    sb.Append($"{{{Environment.NewLine}")
+                      .Append($"   Title: \"{song.Title}\",{Environment.NewLine}")
+                      .Append($"   Album: \"{song.Album}\",{Environment.NewLine}")
+                      .Append($"   Artists: [ {string.Join(", ", song.Artists.Select(a => $"\"{a}\""))} ],{Environment.NewLine}")
+                      .Append($"   Length: {song.Length}{Environment.NewLine}")
+                      .Append("}");
+                }
+                else
+                    sb.Append("null");
+                logger.Debug(sb.ToString());
+            }
 
             this.currentSong = song;
 
@@ -647,7 +665,7 @@ namespace Toastify.View
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        private void UpdateToastText([CanBeNull] Song song, string altTitle1 = null, bool fadeIn = true)
+        private void UpdateToastText([CanBeNull] ISong song, string altTitle1 = null, bool fadeIn = true)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -1130,6 +1148,13 @@ namespace Toastify.View
         #endregion Event handlers [xaml]
 
         #region Event handlers [Spotify]
+
+        private void Instance_WebAPIInitializationSucceeded(object sender, SpotifyStateEventArgs e)
+        {
+            this.paused = !e.Playing;
+            this.ChangeCurrentSong(e.CurrentSong);
+            this.UpdateSongProgressBar(e.TrackTime);
+        }
 
         /// <summary>
         /// This event is received only once, at the start of the application.

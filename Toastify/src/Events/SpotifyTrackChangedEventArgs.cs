@@ -1,5 +1,5 @@
 ﻿using System;
-using Toastify.Model;
+using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Events
 {
@@ -7,12 +7,12 @@ namespace Toastify.Events
     {
         #region Public Properties
 
-        public Song PreviousSong { get; }
-        public Song NewSong { get; }
+        public ISong PreviousSong { get; }
+        public ISong NewSong { get; }
 
         #endregion
 
-        public SpotifyTrackChangedEventArgs(Song previousSong, Song newSong)
+        public SpotifyTrackChangedEventArgs(ISong previousSong, ISong newSong)
         {
             this.PreviousSong = previousSong;
             this.NewSong = newSong;

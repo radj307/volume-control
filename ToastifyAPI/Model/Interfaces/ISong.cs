@@ -19,8 +19,11 @@ namespace ToastifyAPI.Model.Interfaces
 
         int Length { get; }
 
-        ISongAlbumArt AlbumArt { get; }
+        ISongAlbumArt AlbumArt { get; set; }
 
         #endregion
+
+        bool IsValid();
+        string GetClipboardText(string template);
     }
 }

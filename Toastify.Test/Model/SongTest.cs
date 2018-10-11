@@ -171,7 +171,8 @@ namespace Toastify.Tests.Model
                     yield return new TestCaseData(new Song(string.Empty, TestSimpleArtist.Name, TestSimpleTrack.Name, 60)).Returns(false).SetName("album");
 
                     yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, -1)).Returns(false).SetName("length <0");
-                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 0)).Returns(false).SetName("length =0");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 0)).Returns(true).SetName("length =0");
+                    yield return new TestCaseData(new Song(TestSimpleAlbum.Name, TestSimpleArtist.Name, TestSimpleTrack.Name, 1)).Returns(true).SetName("length >0");
 
                     // Songs from valid Tracks
                     yield return new TestCaseData(new Song(TestFullTrack)).Returns(true).SetName("from valid Track");
