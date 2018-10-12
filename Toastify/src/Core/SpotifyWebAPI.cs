@@ -75,7 +75,9 @@ namespace Toastify.Core
             PlaybackContext playbackContext = this.SpotifyWebApi.GetPlayingTrack();
             LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
 
-            return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
+            if (playbackContext == null || playbackContext.StatusCode() == HttpStatusCode.NoContent)
+                return null;
+            return new CurrentlyPlayingObject(playbackContext);
         }
 
         public ISpotifyUserProfile GetUserPrivateProfile()
@@ -97,7 +99,9 @@ namespace Toastify.Core
             PlaybackContext playbackContext = await this.SpotifyWebApi.GetPlayingTrackAsync();
             LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
 
-            return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
+            if (playbackContext == null || playbackContext.StatusCode() == HttpStatusCode.NoContent)
+                return null;
+            return new CurrentlyPlayingObject(playbackContext);
         }
 
         public async Task<ISpotifyUserProfile> GetUserPrivateProfileAsync()
@@ -145,10 +149,10 @@ namespace Toastify.Core
                           .Append($"   Error: {{{Environment.NewLine}")
                           .Append($"      Status: {ret.Error.Status},{Environment.NewLine}")
                           .Append($"      Message: \"{ret.Error.Message}\"{Environment.NewLine}")
-                          .Append($"   }}{Environment.NewLine}");
+                          .Append("   }");
                     }
 
-                    sb.Append("}");
+                    sb.Append($"{Environment.NewLine}}}");
                 }
                 else
                     sb.Append("null");
