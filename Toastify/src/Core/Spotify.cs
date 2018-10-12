@@ -513,6 +513,28 @@ namespace Toastify.Core
 
         private CancellationTokenSource webApiInitCancellationTokenSource;
 
+        public bool IsWebApiRunning { get; private set; }
+
+        public void EnableWebApi()
+        {
+            if (!this.IsWebApiRunning)
+            {
+                this.DisposeWebApiInitializer();
+                this.webApiInitCancellationTokenSource = new CancellationTokenSource();
+                this.BeginInitializeWebAPI();
+            }
+        }
+
+        public void DisableWebApi()
+        {
+            if (this.IsWebApiRunning)
+            {
+                this.DisposeWebApiInitializer();
+                this.TokenManager.ReleaseToken();
+                this.OnWebApiDisabled();
+            }
+        }
+
         private void BeginInitializeWebAPI()
         {
             if (this.TokenManager == null || this.Web == null)
@@ -662,17 +684,21 @@ namespace Toastify.Core
                 this.IsPlaying = currentlyPlayingObject.IsPlaying;
             }
 
+            this.IsWebApiRunning = true;
             this.WebAPIInitializationSucceeded?.Invoke(this, new SpotifyStateEventArgs(this.CurrentSong, this.IsPlaying, this.CurrentSong?.Length ?? 0.0, 1.0));
         }
 
         private void OnWebAPIInitializationFailed(SpotifyWebAPIInitializationFailedReason reason)
         {
             logger.Debug($"Spotify WebAPI initialization failed with reason: {reason}");
+            this.IsWebApiRunning = false;
             this.WebAPIInitializationFailed?.Invoke(this, new SpotifyWebAPIInitializationFailedEventArgs(reason));
         }
 
         private void OnWebApiDisabled()
         {
+            logger.Debug("Spotify WebAPI disabled");
+            this.IsWebApiRunning = false;
             this.WebApiDisabled?.Invoke(this, EventArgs.Empty);
         }
 
@@ -745,17 +771,9 @@ namespace Toastify.Core
                 if (e.PreviousSettings?.EnableSpotifyWebApi != e.CurrentSettings?.EnableSpotifyWebApi)
                 {
                     if (e.CurrentSettings?.EnableSpotifyWebApi == true)
-                    {
-                        this.DisposeWebApiInitializer();
-                        this.webApiInitCancellationTokenSource = new CancellationTokenSource();
-                        this.BeginInitializeWebAPI();
-                    }
+                        this.EnableWebApi();
                     else
-                    {
-                        this.DisposeWebApiInitializer();
-                        this.TokenManager.ReleaseToken();
-                        this.OnWebApiDisabled();
-                    }
+                        this.DisableWebApi();
                 }
             }
             catch (Exception exception)
@@ -834,8 +852,8 @@ namespace Toastify.Core
                 if (logger.IsDebugEnabled)
                     logger.Debug($"Spotify's window title changed: \"{e.NewTitle}\". Fetching song info...");
 
-                if (!(Settings.Current.EnableSpotifyWebApi && this.TokenManager?.Token != null &&
-                      !this.TokenManager.Token.IsExpired() && await this.UpdateSongInfoUsingWebApi().ConfigureAwait(false)))
+                if (!(Settings.Current.EnableSpotifyWebApi && this.IsWebApiRunning &&
+                      await this.UpdateSongInfoUsingWebApi().ConfigureAwait(false)))
                 {
                     // If the WebAPIs are disabled or they weren't able to retrieve the song info, fallback to
                     // the old method based on the title of Spotify's window.
