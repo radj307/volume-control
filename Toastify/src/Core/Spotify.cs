@@ -62,7 +62,7 @@ namespace Toastify.Core
             get { return this.spotifyWindow?.IsValid ?? false; }
         }
 
-        public ISong CurrentSong { get; private set; }
+        public ISpotifyTrack CurrentTrack { get; private set; }
 
         public bool IsPlaying { get; private set; }
 
@@ -80,7 +80,7 @@ namespace Toastify.Core
 
         public event EventHandler<SpotifyStateEventArgs> Connected;
 
-        public event EventHandler<SpotifyTrackChangedEventArgs> SongChanged;
+        public event EventHandler<SpotifyTrackChangedEventArgs> TrackChanged;
 
         public event EventHandler<SpotifyPlayStateChangedEventArgs> PlayStateChanged;
 
@@ -555,23 +555,23 @@ namespace Toastify.Core
                 logger.Debug("Begin Spotify WebAPI initialization");
         }
 
-        private async Task<bool> UpdateSongInfoUsingWebApi()
+        private async Task<bool> UpdateTrackInfoUsingWebApi()
         {
             if (this.Web?.API == null)
                 return false;
 
             // Pre-emptively waiting a little bit to let the remote Spotify server update its own information
-            await Task.Delay(TimeSpan.FromMilliseconds(25)).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromMilliseconds(50)).ConfigureAwait(false);
             var currentlyPlayingObject = await this.Web.API.GetCurrentlyPlayingTrackAsync().ConfigureAwait(false);
             if (currentlyPlayingObject?.Track == null || !currentlyPlayingObject.Track.IsValid())
                 return false;
 
-            ISong newSong = currentlyPlayingObject.Track;
-            if (newSong != null && !Song.Equal(this.CurrentSong, newSong))
+            ISpotifyTrack newTrack = currentlyPlayingObject.Track;
+            if (!SpotifyTrack.Equal(this.CurrentTrack, newTrack))
             {
-                ISong oldSong = this.CurrentSong;
-                this.CurrentSong = newSong;
-                await this.OnSongChanged(oldSong).ConfigureAwait(false);
+                ISpotifyTrack oldTrack = this.CurrentTrack;
+                this.CurrentTrack = newTrack;
+                await this.OnTrackChanged(oldTrack).ConfigureAwait(false);
             }
 
             await this.OnPlayStateChanged(currentlyPlayingObject.IsPlaying).ConfigureAwait(false);
@@ -680,12 +680,12 @@ namespace Toastify.Core
             var currentlyPlayingObject = await this.Web.API.GetCurrentlyPlayingTrackAsync().ConfigureAwait(false);
             if (currentlyPlayingObject?.Track != null && currentlyPlayingObject.Track.IsValid())
             {
-                this.CurrentSong = currentlyPlayingObject.Track;
+                this.CurrentTrack = currentlyPlayingObject.Track;
                 this.IsPlaying = currentlyPlayingObject.IsPlaying;
             }
 
             this.IsWebApiRunning = true;
-            this.WebAPIInitializationSucceeded?.Invoke(this, new SpotifyStateEventArgs(this.CurrentSong, this.IsPlaying, this.CurrentSong?.Length ?? 0.0, 1.0));
+            this.WebAPIInitializationSucceeded?.Invoke(this, new SpotifyStateEventArgs(this.CurrentTrack, this.IsPlaying, this.CurrentTrack?.Length ?? 0.0, 1.0));
         }
 
         private void OnWebAPIInitializationFailed(SpotifyWebAPIInitializationFailedReason reason)
@@ -708,7 +708,7 @@ namespace Toastify.Core
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append($"Spotify Connected. Status = {{{Environment.NewLine}")
-                  .Append($"   CurrentSong: {(e.CurrentSong != null ? $"\"{e.CurrentSong}\"" : "null")},{Environment.NewLine}")
+                  .Append($"   CurrentSong: {(e.CurrentTrack != null ? $"\"{e.CurrentTrack}\"" : "null")},{Environment.NewLine}")
                   .Append($"   Playing: {e.Playing},{Environment.NewLine}")
                   .Append($"   TrackTime: {e.TrackTime},{Environment.NewLine}")
                   .Append($"   Volume: {e.Volume}{Environment.NewLine}")
@@ -717,7 +717,7 @@ namespace Toastify.Core
             }
 
             this.IsPlaying = e.Playing;
-            this.CurrentSong = e.CurrentSong;
+            this.CurrentTrack = e.CurrentTrack;
 
             this.Connected?.Invoke(this, e);
 
@@ -732,14 +732,14 @@ namespace Toastify.Core
             {
                 await this.Broadcaster.StartAsync().ConfigureAwait(false);
                 await this.Broadcaster.BroadcastPlayState(e.Playing).ConfigureAwait(false);
-                await this.Broadcaster.BroadcastCurrentSong(e.CurrentSong).ConfigureAwait(false);
+                await this.Broadcaster.BroadcastCurrentTrack(e.CurrentTrack).ConfigureAwait(false);
             }
         }
 
-        private async Task OnSongChanged(ISong previousSong)
+        private async Task OnTrackChanged(ISpotifyTrack previousTrack)
         {
-            this.SongChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousSong, this.CurrentSong));
-            await this.Broadcaster.BroadcastCurrentSong(this.CurrentSong).ConfigureAwait(false);
+            this.TrackChanged?.Invoke(this, new SpotifyTrackChangedEventArgs(previousTrack, this.CurrentTrack));
+            await this.Broadcaster.BroadcastCurrentTrack(this.CurrentTrack).ConfigureAwait(false);
         }
 
         private async Task OnPlayStateChanged(bool playing)
@@ -853,7 +853,7 @@ namespace Toastify.Core
                     logger.Debug($"Spotify's window title changed: \"{e.NewTitle}\". Fetching song info...");
 
                 if (!(Settings.Current.EnableSpotifyWebApi && this.IsWebApiRunning &&
-                      await this.UpdateSongInfoUsingWebApi().ConfigureAwait(false)))
+                      await this.UpdateTrackInfoUsingWebApi().ConfigureAwait(false)))
                 {
                     // If the WebAPIs are disabled or they weren't able to retrieve the song info, fallback to
                     // the old method based on the title of Spotify's window.
@@ -872,12 +872,12 @@ namespace Toastify.Core
 
                     if (updateSong)
                     {
-                        ISong newSong = Song.FromSpotifyWindowTitle(e.NewTitle);
-                        if (!Song.Equal(this.CurrentSong, newSong))
+                        ISpotifyTrack newSong = Song.FromSpotifyWindowTitle(e.NewTitle);
+                        if (!SpotifyTrack.Equal(this.CurrentTrack, newSong))
                         {
-                            ISong oldSong = this.CurrentSong;
-                            this.CurrentSong = newSong;
-                            await this.OnSongChanged(oldSong).ConfigureAwait(false);
+                            ISpotifyTrack oldSong = this.CurrentTrack;
+                            this.CurrentTrack = newSong;
+                            await this.OnTrackChanged(oldSong).ConfigureAwait(false);
                         }
                     }
                 }

@@ -75,7 +75,7 @@ namespace Toastify.Core.Broadcaster
                     string cmd = match.Groups[1].Value;
                     switch (match.Groups[1].Value)
                     {
-                        case "CURRENT-SONG":
+                        case "CURRENT-TRACK":
                             foreach (var client in this.clients)
                             {
                                 await RedirectTo($"{cmd} {match.Groups[2].Value}", client).ConfigureAwait(false);
@@ -191,7 +191,7 @@ namespace Toastify.Core.Broadcaster
                         {
                             JsonGreetingsObject greetings = new JsonGreetingsObject
                             {
-                                Song = new JsonSong(Spotify.Instance.CurrentSong),
+                                Track = new JsonTrack(Spotify.Instance.CurrentTrack),
                                 Playing = Spotify.Instance.IsPlaying
                             };
                             await RedirectTo($"HELLO {JsonConvert.SerializeObject(greetings)}", webSocket).ConfigureAwait(false);

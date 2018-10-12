@@ -14,7 +14,7 @@ namespace ToastifyAPI.Core
         Task StartAsync();
         Task StopAsync();
 
-        Task BroadcastCurrentSong<T>(T song) where T : ISong;
+        Task BroadcastCurrentTrack<T>(T track) where T : ISpotifyTrack;
         Task BroadcastPlayState(bool playing);
     }
 }

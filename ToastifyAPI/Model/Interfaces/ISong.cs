@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace ToastifyAPI.Model.Interfaces
 {
-    public interface ISong : IEquatable<ISong>
+    public interface ISong : ISpotifyTrack, IEquatable<ISong>
     {
         #region Public Properties
 
@@ -14,16 +14,8 @@ namespace ToastifyAPI.Model.Interfaces
         [NotNull]
         IReadOnlyList<string> Artists { get; }
 
-        [NotNull]
-        string Title { get; }
-
-        int Length { get; }
-
         ISongAlbumArt AlbumArt { get; set; }
 
         #endregion
-
-        bool IsValid();
-        string GetClipboardText(string template);
     }
 }

@@ -1,4 +1,8 @@
-﻿using SpotifyAPI.Web.Models;
+﻿using System;
+using JetBrains.Annotations;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
+using ToastifyAPI.Core;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
@@ -9,12 +13,12 @@ namespace Toastify.Model
 
         public int ProgressMs { get; }
         public bool IsPlaying { get; }
-        public ISong Track { get; }
-        public string Type { get; }
+        public ISpotifyTrack Track { get; }
+        public SpotifyTrackType Type { get; }
 
         #endregion
 
-        public CurrentlyPlayingObject(int progressMs, bool isPlaying, ISong track, string type)
+        public CurrentlyPlayingObject(int progressMs, bool isPlaying, ISpotifyTrack track, SpotifyTrackType type)
         {
             this.ProgressMs = progressMs;
             this.IsPlaying = isPlaying;
@@ -22,10 +26,39 @@ namespace Toastify.Model
             this.Type = type;
         }
 
-        public CurrentlyPlayingObject(PlaybackContext playbackContext)
-            : this(playbackContext.ProgressMs, playbackContext.IsPlaying, playbackContext.Item != null ? new Song(playbackContext.Item) : null, null)
+        // ReSharper disable ConstantConditionalAccessQualifier
+        // ReSharper disable once ConstantNullCoalescingCondition
+        public CurrentlyPlayingObject([NotNull] PlaybackContext playbackContext)
+            : this(playbackContext?.ProgressMs ?? 0, playbackContext?.IsPlaying ?? false, null, SpotifyTrackType.Unknown)
         {
-            // TODO: Set "currently_playing_type" once SpotifyAPI-NET has added it
+            if (playbackContext == null)
+                throw new ArgumentNullException(nameof(playbackContext));
+
+            switch (playbackContext.CurrentlyPlayingType)
+            {
+                case TrackType.Track:
+                    if (playbackContext.Item != null)
+                        this.Track = new Song(playbackContext.Item);
+                    break;
+
+                case TrackType.Episode:
+                    this.Track = new SpotifyTrack(SpotifyTrackType.Episode, playbackContext.Item?.Name, (playbackContext.Item?.DurationMs ?? 0) / 1000);
+                    break;
+
+                case TrackType.Ad:
+                    this.Track = new SpotifyTrack(SpotifyTrackType.Ad);
+                    break;
+
+                case TrackType.Unknown:
+                    this.Track = new SpotifyTrack(SpotifyTrackType.Unknown, playbackContext.Item?.Name, (playbackContext.Item?.DurationMs ?? 0) / 1000);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            this.Type = this.Track?.Type ?? SpotifyTrackType.Unknown;
         }
+        // ReSharper restore ConstantConditionalAccessQualifier
     }
 }

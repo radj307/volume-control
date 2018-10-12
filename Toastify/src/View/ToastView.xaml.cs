@@ -32,6 +32,7 @@ using Toastify.Helpers;
 using Toastify.Model;
 using Toastify.Services;
 using Toastify.ViewModel;
+using ToastifyAPI.Core;
 using ToastifyAPI.Helpers;
 using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
@@ -63,6 +64,10 @@ namespace Toastify.View
         private const string STATE_PAUSED = "Paused";
         private const string STATE_NOTHING_PLAYING = "Nothing's playing";
 
+        private const string TITLE_TRACK_AD = "[Spotify Ad]";
+        private const string TITLE_TRACK_EPISODE = "[Podcast Episode]";
+        private const string TITLE_TRACK_UNKNOWN = "[Unknown Track Type]";
+
         private static readonly Size DEFAULT_ICON_SIZE = new Size(128, 128);
 
         internal static ToastView Current { get; private set; }
@@ -77,7 +82,7 @@ namespace Toastify.View
 
         private SystemTray trayIcon;
 
-        private ISong currentSong;
+        private ISpotifyTrack currentTrack;
         private BitmapSource cover;
         private string toastIconURI = "";
 
@@ -164,8 +169,8 @@ namespace Toastify.View
             Spotify.Instance.Exited += this.ToastView_Exit;
             Spotify.Instance.WebAPIInitializationSucceeded -= this.Instance_WebAPIInitializationSucceeded;
             Spotify.Instance.WebAPIInitializationSucceeded += this.Instance_WebAPIInitializationSucceeded;
-            Spotify.Instance.SongChanged -= this.Spotify_SongChanged;
-            Spotify.Instance.SongChanged += this.Spotify_SongChanged;
+            Spotify.Instance.TrackChanged -= this.Spotify_TrackChanged;
+            Spotify.Instance.TrackChanged += this.Spotify_TrackChanged;
             Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
             Spotify.Instance.PlayStateChanged += this.Spotify_PlayStateChanged;
             Spotify.Instance.TrackTimeChanged -= this.Spotify_TrackTimeChanged;
@@ -338,34 +343,37 @@ namespace Toastify.View
         #region Toast update
 
         /// <summary>
-        /// Update current song's cover art url and toast's text.
+        /// Update current track's cover art url and toast's text.
         /// Also, save track info to file, if settings say so.
         /// </summary>
-        /// <param name="song"> The song to set as current. </param>
-        private void ChangeCurrentSong([CanBeNull] ISong song)
+        /// <param name="track"> The track to set as current. </param>
+        private void UpdateCurrentTrack([CanBeNull] ISpotifyTrack track)
         {
-            if (logger.IsDebugEnabled)
+            ISong song = track as ISong;
+            if (track == null || track.Type == SpotifyTrackType.Song && song != null)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append($"{nameof(ToastView)}.{nameof(this.ChangeCurrentSong)} has been called. Song = ");
-                if (song != null)
+                if (logger.IsDebugEnabled)
                 {
-                    sb.Append($"{{{Environment.NewLine}")
-                      .Append($"   Title: \"{song.Title}\",{Environment.NewLine}")
-                      .Append($"   Album: \"{song.Album}\",{Environment.NewLine}")
-                      .Append($"   Artists: [ {string.Join(", ", song.Artists.Select(a => $"\"{a}\""))} ],{Environment.NewLine}")
-                      .Append($"   Length: {song.Length}{Environment.NewLine}")
-                      .Append("}");
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("Updating current song: ");
+                    if (song != null)
+                    {
+                        sb.Append($"{{{Environment.NewLine}")
+                          .Append($"   Title: \"{song.Title}\",{Environment.NewLine}")
+                          .Append($"   Album: \"{song.Album}\",{Environment.NewLine}")
+                          .Append($"   Artists: [ {string.Join(", ", song.Artists.Select(a => $"\"{a}\""))} ],{Environment.NewLine}")
+                          .Append($"   Length: {song.Length}{Environment.NewLine}")
+                          .Append("}");
+                    }
+                    else
+                        sb.Append("null");
+                    logger.Debug(sb.ToString());
                 }
-                else
-                    sb.Append("null");
-                logger.Debug(sb.ToString());
             }
 
-            this.currentSong = song;
-
-            this.UpdateToastText(this.currentSong);
-
+            this.currentTrack = track;
+            
+            this.UpdateToastText(track);
             this.UpdateSongProgressBar(0.0);
             this.UpdateAlbumArt();
 
@@ -376,7 +384,7 @@ namespace Toastify.View
                 {
                     try
                     {
-                        string trackText = this.currentSong.GetClipboardText(this.Settings.ClipboardTemplate);
+                        string trackText = this.currentTrack.GetClipboardText(this.Settings.ClipboardTemplate);
                         File.WriteAllText(this.Settings.SaveTrackToFilePath, trackText);
                     }
                     catch (Exception e)
@@ -395,20 +403,23 @@ namespace Toastify.View
 
             // Update cover art URL.
             string previousURI = this.toastIconURI;
-            if (this.currentSong == null || !this.currentSong.IsValid())
-                this.toastIconURI = DEFAULT_ICON;
-            else
-            {
-                if (string.IsNullOrWhiteSpace(this.currentSong?.AlbumArt?.Url) ||
-                         !Uri.TryCreate(this.currentSong.AlbumArt.Url, UriKind.RelativeOrAbsolute, out Uri _))
-                    this.currentSong.AlbumArt = new SongAlbumArt(DEFAULT_ICON_SIZE.Height, DEFAULT_ICON_SIZE.Width, DEFAULT_ICON);
 
-                this.toastIconURI = this.currentSong.AlbumArt.Url;
+            if (this.currentTrack == null || !this.currentTrack.IsValid())
+                this.toastIconURI = DEFAULT_ICON;
+            else if (this.currentTrack.Type == SpotifyTrackType.Ad)
+                this.toastIconURI = AD_PLAYING_ICON;
+            else if (this.currentTrack.Type == SpotifyTrackType.Song && this.currentTrack is ISong currentSong)
+            {
+                if (string.IsNullOrWhiteSpace(currentSong.AlbumArt?.Url) || !Uri.TryCreate(currentSong.AlbumArt.Url, UriKind.RelativeOrAbsolute, out Uri _))
+                    currentSong.AlbumArt = new SongAlbumArt(DEFAULT_ICON_SIZE.Height, DEFAULT_ICON_SIZE.Width, DEFAULT_ICON);
+                this.toastIconURI = currentSong.AlbumArt.Url;
             }
+            else
+                this.toastIconURI = DEFAULT_ICON;
 
             // Update the cover art only if the url has changed.
             if (!string.IsNullOrEmpty(this.toastIconURI) && (forceUpdate || this.toastIconURI != previousURI))
-                Task.Factory.StartNew(() => this.UpdateAlbumArt(this.toastIconURI));
+                Task.Run(() => this.UpdateAlbumArt(this.toastIconURI));
         }
 
         private async Task UpdateAlbumArt(string albumArtUri)
@@ -472,30 +483,44 @@ namespace Toastify.View
 
         private static async Task<Stream> GetAlbumArtAsStream([NotNull] HttpClient http, [NotNull] Uri uri, Action ifTooLong = null)
         {
-            Task<Stream> downloader = http.GetStreamAsync(uri);
-
+            Stream stream = null;
             CancellationTokenSource cts = null;
-            Task awaiter = null;
-
-            if (ifTooLong != null)
+            try
             {
-                cts = new CancellationTokenSource();
-                awaiter = Task.Factory.StartNew(() =>
+                Task<Stream> downloader = http.GetStreamAsync(uri);
+
+                Task awaiter = null;
+                if (ifTooLong != null)
                 {
-                    // ReSharper disable AccessToDisposedClosure
-                    return Task.Delay(2000, cts.Token).ContinueWith(t => ifTooLong, cts.Token);
-                    // ReSharper restore AccessToDisposedClosure
-                }, cts.Token).Unwrap();
-                await Task.WhenAny(awaiter, downloader).ConfigureAwait(false);
+                    cts = new CancellationTokenSource();
+
+                    // ReSharper disable once ImplicitlyCapturedClosure
+                    awaiter = Task.Delay(2000, cts.Token).ContinueWith(t => ifTooLong, cts.Token);
+                    await Task.WhenAny(awaiter, downloader).ConfigureAwait(false);
+                }
+
+                if (downloader.IsCompleted)
+                    cts?.Cancel();
+                stream = await downloader.ConfigureAwait(false);
+
+                try
+                {
+                    if (awaiter?.IsCompleted == false)
+                        awaiter.Dispose();
+                }
+                catch
+                {
+                    // ignore
+                }
             }
-
-            if (downloader.IsCompleted)
-                cts?.Cancel();
-            Stream stream = await downloader.ConfigureAwait(false);
-
-            if (awaiter?.IsCompleted == false)
-                awaiter.Dispose();
-            cts?.Dispose();
+            catch (Exception e)
+            {
+                logger.Error($"Unhandled exception in {nameof(GetAlbumArtAsStream)}", e);
+            }
+            finally
+            {
+                cts?.Dispose();
+            }
 
             return stream;
         }
@@ -621,36 +646,69 @@ namespace Toastify.View
         /// <summary>
         /// Update the toast's text using the songs' information.
         /// </summary>
-        /// <param name="song"> The song. </param>
+        /// <param name="track"> The track. </param>
         /// <param name="altTitle1">
         ///   An alternative text to use as the first title. If not null, this causes the
         ///   song's information to be displayed on one line as the second title.
         /// </param>
         /// <param name="fadeIn"> Whether or not to start the toast fade-in animation. </param>
-        private void UpdateToastText([CanBeNull] ISong song, string altTitle1 = null, bool fadeIn = true)
+        private void UpdateToastText([CanBeNull] ISpotifyTrack track, string altTitle1 = null, bool fadeIn = true)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
-                if (song == null || !song.IsValid())
+
+                if (track == null || !track.IsValid())
                     this.UpdateToastText(STATE_NOTHING_PLAYING, fadeIn: false);
                 else if (altTitle1 != null)
-                    this.UpdateToastText(altTitle1, song.ToString(), fadeIn);
+                    this.UpdateToastText(altTitle1, track.ToString(), fadeIn);
                 else if (this.paused)
-                    this.UpdateToastText(STATE_PAUSED, song.ToString(), fadeIn);
+                    this.UpdateToastText(STATE_PAUSED, track.ToString(), fadeIn);
                 else
                 {
-                    this.toastViewModel.TrackName = song.Title;
-                    // TODO: Set a proper ArtistName depending on Settings (OnlyFirstArtist, AllArtists, AlbumArtist)
-                    this.toastViewModel.ArtistName = song.Artists.FirstOrDefault() ?? string.Empty;
+                    if (track.Type == SpotifyTrackType.Song && track is ISong song)
+                    {
+                        this.toastViewModel.TrackName = song.Title;
+                        // TODO: Set a proper ArtistName depending on Settings (OnlyFirstArtist, AllArtists, AlbumArtist)
+                        this.toastViewModel.ArtistName = song.Artists.FirstOrDefault() ?? string.Empty;
 
-                    this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
-                    this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
+                        this.Title1.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
+                        this.Title2.GetBindingExpression(TextBlock.TextProperty)?.UpdateTarget();
 
-                    if (fadeIn)
-                        this.ShowOrHideToast(keepUp: true);
+                        if (fadeIn)
+                            this.ShowOrHideToast(keepUp: true);
 
-                    if (logger.IsDebugEnabled)
-                        logger.Debug($"Toast text changed. New track: {song}");
+                        if (logger.IsDebugEnabled)
+                            logger.Debug($"Toast text changed. New track: {song}");
+                    }
+                    else
+                    {
+                        switch (track.Type)
+                        {
+                            case SpotifyTrackType.Unknown:
+                                if (!string.IsNullOrWhiteSpace(track.Title))
+                                    this.UpdateToastText(TITLE_TRACK_UNKNOWN, track.Title);
+                                else
+                                    this.UpdateToastText(TITLE_TRACK_UNKNOWN);
+                                break;
+
+                            case SpotifyTrackType.Song:
+                                break;
+
+                            case SpotifyTrackType.Episode:
+                                if (!string.IsNullOrWhiteSpace(track.Title))
+                                    this.UpdateToastText(TITLE_TRACK_EPISODE, track.Title);
+                                else
+                                    this.UpdateToastText(TITLE_TRACK_EPISODE);
+                                break;
+
+                            case SpotifyTrackType.Ad:
+                                this.UpdateToastText(TITLE_TRACK_AD);
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
                 }
             }));
         }
@@ -676,13 +734,8 @@ namespace Toastify.View
 
         private void UpdateSongProgressBar(double trackTime)
         {
-            double timePercentage = trackTime / this.currentSong?.Length ?? trackTime;
+            double timePercentage = trackTime / this.currentTrack?.Length ?? trackTime;
             this.toastViewModel.SongProgressBarWidth = this.SongProgressBarContainer.ActualWidth * timePercentage;
-        }
-
-        private void FetchOtherTrackInfo()
-        {
-            // TODO: Podcast? Try to fetch track info using Spotify Web API? (Podcast specific APIs are not yet available)
         }
 
         #endregion Toast update
@@ -721,7 +774,7 @@ namespace Toastify.View
                         this.FadeOut(now: true);
                         Thread.Sleep(750);
                     }
-                    this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+                    this.UpdateCurrentTrack(Spotify.Instance.CurrentTrack);
                     callback?.Invoke();
                 };
                 timer.Start();
@@ -894,10 +947,10 @@ namespace Toastify.View
 
                 // track
                 strings.Clear();
-                if (this.currentSong == null)
+                if (this.currentTrack == null)
                     strings.Add("null");
                 else
-                    strings.Add(this.currentSong.IsValid() ? "valid" : "invalid");
+                    strings.Add(this.currentTrack.IsValid() ? "valid" : "invalid");
                 sb.Append($"\ttrack: {string.Join(",", strings)}{Environment.NewLine}");
 
                 // state
@@ -966,11 +1019,11 @@ namespace Toastify.View
 
                 case ToastifyActionEnum.VolumeUp:
                 case ToastifyActionEnum.VolumeDown:
-                    this.UpdateToastText(this.currentSong, $"Volume {(action == ToastifyActionEnum.VolumeUp ? "++" : "--")}");
+                    this.UpdateToastText(this.currentTrack, $"Volume {(action == ToastifyActionEnum.VolumeUp ? "++" : "--")}");
                     break;
 
                 case ToastifyActionEnum.Mute:
-                    this.UpdateToastText(this.currentSong, "Mute On/Off");
+                    this.UpdateToastText(this.currentTrack, "Mute On/Off");
                     break;
 
                 case ToastifyActionEnum.ShowToast:
@@ -982,12 +1035,12 @@ namespace Toastify.View
 
                         string hWnd = $"hWnd[{this.WindowHandle}]";
                         string timer = $"timer[{(this.minimizeTimer == null ? "null" : $"{(this.minimizeTimer.Enabled ? '1' : '0')}, {this.minimizeTimer.Interval}")}]";
-                        string song = $"track[{(this.currentSong == null ? "null" : $"{(this.currentSong.IsValid() ? '1' : '0')}")}]";
+                        string track = $"track[{(this.currentTrack == null ? "null" : $"{(this.currentTrack.IsValid() ? '1' : '0')}")}]";
                         string state = $"state[{(this.isUpdateToast ? '1' : '0')}{(this.isPreviewForSettings ? '1' : '0')}{(this.dragging ? '1' : '0')}{(this.paused ? '1' : '0')}]";
                         string visibility = $"visibility[{(this.ShownOrFading ? '1' : '0')}{(this.IsVisible ? '1' : '0')}{this.Visibility.ToString().Substring(0, 1)}{(this.Topmost ? '1' : '0')}, {{{wPlacement}}}]";
                         string dispatcher = $"dispatcher[{(this.Dispatcher == null ? "null" : $"{(this.Dispatcher.HasShutdownStarted ? '1' : '0')}")}]";
                         string settings = $"settings[{(this.Settings.DisableToast ? '1' : '0')}{(this.Settings.OnlyShowToastOnHotkey ? '1' : '0')}, {this.Settings.DisplayTime}]";
-                        logger.Info($"{hWnd}, {timer}, {song}, {state}, {visibility}, {dispatcher}, {settings}{Environment.NewLine}  Stack Trace:{Environment.NewLine}{Environment.StackTrace}");
+                        logger.Info($"{hWnd}, {timer}, {track}, {state}, {visibility}, {dispatcher}, {settings}{Environment.NewLine}  Stack Trace:{Environment.NewLine}{Environment.StackTrace}");
                     }
 #endif
                     this.ShowOrHideToast(force: true);
@@ -995,12 +1048,12 @@ namespace Toastify.View
 
                 case ToastifyActionEnum.ThumbsUp:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_up.png";
-                    this.UpdateToastText(this.currentSong, "Thumbs Up!");
+                    this.UpdateToastText(this.currentTrack, "Thumbs Up!");
                     break;
 
                 case ToastifyActionEnum.ThumbsDown:
                     this.toastIconURI = "pack://application:,,,/Toastify;component/Resources/thumbs_down.png";
-                    this.UpdateToastText(this.currentSong, "Thumbs Down!");
+                    this.UpdateToastText(this.currentTrack, "Thumbs Down!");
                     break;
 
                 default:
@@ -1113,7 +1166,7 @@ namespace Toastify.View
         private void Instance_WebAPIInitializationSucceeded(object sender, SpotifyStateEventArgs e)
         {
             this.paused = !e.Playing;
-            this.ChangeCurrentSong(e.CurrentSong);
+            this.UpdateCurrentTrack(e.CurrentTrack);
             this.UpdateSongProgressBar(e.TrackTime);
         }
 
@@ -1131,23 +1184,23 @@ namespace Toastify.View
 
             // Update current song
             this.paused = !e.Playing;
-            this.ChangeCurrentSong(e.CurrentSong);
+            this.UpdateCurrentTrack(e.CurrentTrack);
             this.UpdateSongProgressBar(e.TrackTime);
         }
 
-        private void Spotify_SongChanged(object sender, SpotifyTrackChangedEventArgs e)
+        private void Spotify_TrackChanged(object sender, SpotifyTrackChangedEventArgs e)
         {
-            this.ChangeCurrentSong(e.NewSong);
+            this.UpdateCurrentTrack(e.NewTrack);
         }
 
         private void Spotify_PlayStateChanged(object sender, SpotifyPlayStateChangedEventArgs e)
         {
             // Check if the toast is actually displaying something
-            if (this.currentSong == null)
-                this.ChangeCurrentSong(Spotify.Instance.CurrentSong);
+            if (this.currentTrack == null)
+                this.UpdateCurrentTrack(Spotify.Instance.CurrentTrack);
 
             this.paused = !e.Playing;
-            this.UpdateToastText(this.currentSong, fadeIn: false);
+            this.UpdateToastText(this.currentTrack, fadeIn: false);
         }
 
         private void Spotify_TrackTimeChanged(object sender, SpotifyTrackTimeChangedEventArgs e)

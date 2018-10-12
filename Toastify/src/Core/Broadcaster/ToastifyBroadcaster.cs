@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.WebSockets;
@@ -18,6 +19,12 @@ namespace Toastify.Core.Broadcaster
     public class ToastifyBroadcaster : IToastifyBroadcaster, IDisposable
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastifyBroadcaster));
+
+        #region Static Fields and Properties
+
+        public static JsonSerializerSettings JsonSerializerSettings { get; }
+
+        #endregion
 
         private ClientWebSocket socket;
         private KestrelWebSocketHost<ToastifyWebSocketHostStartup> webHost;
@@ -39,6 +46,32 @@ namespace Toastify.Core.Broadcaster
         private event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
         #endregion
+
+        static ToastifyBroadcaster()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.Default,
+                FloatParseHandling = FloatParseHandling.Decimal,
+                FloatFormatHandling = FloatFormatHandling.String,
+                DateParseHandling = DateParseHandling.DateTime,
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Formatting = Formatting.None,
+                MaxDepth = null,
+                Culture = CultureInfo.InvariantCulture,
+                ConstructorHandling = ConstructorHandling.Default,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                TypeNameHandling = TypeNameHandling.None,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+                NullValueHandling = NullValueHandling.Ignore,
+                ObjectCreationHandling = ObjectCreationHandling.Auto,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+        }
 
         public ToastifyBroadcaster() : this(41348)
         {
@@ -444,10 +477,10 @@ namespace Toastify.Core.Broadcaster
             await this.SendCommand("BROADCAST", args).ConfigureAwait(false);
         }
 
-        public async Task BroadcastCurrentSong<T>(T song) where T : ISong
+        public async Task BroadcastCurrentTrack<T>(T track) where T : ISpotifyTrack
         {
-            string songJson = song != null ? JsonConvert.SerializeObject(new JsonSong(song)) : "null";
-            await this.Broadcast("CURRENT-SONG", songJson).ConfigureAwait(false);
+            string trackJson = track != null ? JsonConvert.SerializeObject(new JsonTrack(track), JsonSerializerSettings) : "null";
+            await this.Broadcast("CURRENT-TRACK", trackJson).ConfigureAwait(false);
         }
 
         public async Task BroadcastPlayState(bool playing)

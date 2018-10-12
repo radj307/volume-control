@@ -6,16 +6,14 @@ using JetBrains.Annotations;
 using log4net;
 using SpotifyAPI.Web.Models;
 using Toastify.Core;
+using ToastifyAPI.Core;
 using ToastifyAPI.Model.Interfaces;
 
 namespace Toastify.Model
 {
-    public sealed class Song : ISong
+    public sealed class Song : SpotifyTrack, ISong
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Song));
-
-        internal const string TITLE_SPOTIFY_AD = "Spotify Ad";
-        internal const string TITLE_UNKNOWN = "[Unknown Track Type]";
 
         private readonly FullTrack spotifyTrack;
         private ISongAlbumArt _albumArt;
@@ -23,9 +21,8 @@ namespace Toastify.Model
         #region Public Properties
 
         public string Album { get; }
+
         public IReadOnlyList<string> Artists { get; }
-        public string Title { get; }
-        public int Length { get; }
 
         public ISongAlbumArt AlbumArt
         {
@@ -45,37 +42,32 @@ namespace Toastify.Model
 
         #endregion
 
-        public Song(string album, IEnumerable<string> artists, string title, int length)
-        {
-            this.Artists = artists?.Where(artist => !string.IsNullOrWhiteSpace(artist)).ToList() ?? new List<string>(0);
-            this.Title = title;
-            this.Album = album;
-            this.Length = length;
-        }
-
         public Song(string album, string artist, string title, int length) : this(album, new List<string>(1) { artist }, title, length)
         {
         }
 
-        public Song([NotNull] FullTrack track)
+        public Song(string album, IEnumerable<string> artists, string title, int length) : base(SpotifyTrackType.Song, title, length)
+        {
+            this.Artists = artists?.Where(artist => !string.IsNullOrWhiteSpace(artist)).ToList() ?? new List<string>(0);
+            this.Album = album;
+        }
+
+        // ReSharper disable ConstantConditionalAccessQualifier
+        // ReSharper disable once ConstantNullCoalescingCondition
+        public Song([NotNull] FullTrack track) : base(SpotifyTrackType.Song, track?.Name, (track?.DurationMs ?? 0) / 1000)
         {
             this.spotifyTrack = track ?? throw new ArgumentNullException(nameof(track));
-
             this.Album = track.Album?.Name ?? string.Empty;
             this.Artists = track.Artists?.Select(a => a.Name).ToList() ?? new List<string>(0);
-            this.Title = track.Name ?? string.Empty;
-            this.Length = track.DurationMs / 1000;
         }
+        // ReSharper restore ConstantConditionalAccessQualifier
 
-        public bool IsValid()
+        public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(this.Album) &&
-                   this.Artists.Count > 0 &&
-                   !string.IsNullOrEmpty(this.Title) &&
-                   this.Length >= 0;
+            return base.IsValid() && !string.IsNullOrEmpty(this.Album) && this.Artists.Count > 0;
         }
 
-        public string GetClipboardText(string template)
+        public override string GetClipboardText(string template)
         {
             // TODO: GetClipboardText(string) doesn't belong here; move it somewhere else and change it to GetClipboardText(Song,string)!
 
@@ -99,7 +91,7 @@ namespace Toastify.Model
             // TODO: De-couple this ToString() from Settings
 
             if (this.Artists.Count <= 0)
-                return this.Title;
+                return this.Title ?? string.Empty;
 
             string artists = string.Join(", ", this.Artists);
             return Settings.Current.ToastTitlesOrder == ToastTitlesOrder.TrackByArtist
@@ -107,18 +99,20 @@ namespace Toastify.Model
                 : $"{artists}: \x201C{this.Title}\x201D";
         }
 
+        #region Equals / GetHashCode
+
         /// <inheritdoc />
-        public override int GetHashCode()
+        public bool Equals(ISong other)
         {
-            unchecked
-            {
-                int hashCode = this.Album.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.Album.GetHashCode();
-                hashCode = this.Artists.Aggregate(hashCode, (acc, artist) => (acc * 397) ^ artist.GetHashCode());
-                hashCode = (hashCode * 397) ^ this.Title.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.Length;
-                return hashCode;
-            }
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return base.Equals(other) &&
+                   string.Equals(this.Album, other.Album) &&
+                   this.Artists.All(artist => other.Artists.Contains(artist)) &&
+                   other.Artists.All(artist => this.Artists.Contains(artist));
         }
 
         /// <inheritdoc />
@@ -129,24 +123,22 @@ namespace Toastify.Model
             if (ReferenceEquals(this, obj))
                 return true;
 
-            var that = obj as Song;
-            return this.Equals(that);
+            return base.Equals(obj) && this.Equals(obj as Song);
         }
 
         /// <inheritdoc />
-        public bool Equals(ISong other)
+        public override int GetHashCode()
         {
-            if (other == null)
-                return false;
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return string.Equals(this.Album, other.Album) &&
-                   this.Artists.All(artist => other.Artists.Contains(artist)) &&
-                   other.Artists.All(artist => this.Artists.Contains(artist)) &&
-                   string.Equals(this.Title, other.Title) &&
-                   this.Length == other.Length;
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ this.Album.GetHashCode();
+                hashCode = this.Artists.Aggregate(hashCode, (acc, artist) => (acc * 397) ^ artist.GetHashCode());
+                return hashCode;
+            }
         }
+
+        #endregion
 
         #region Static Members
 
@@ -161,6 +153,7 @@ namespace Toastify.Model
             {
                 // TODO: Handle unexpected title format
                 // This can be an episode of a podcast
+                logger.Warn($"Unexpected title format: \"{title}\"");
             }
             else if (newTitleElements.Length > 2)
             {
@@ -176,11 +169,6 @@ namespace Toastify.Model
             return song;
         }
 
-        public static bool Equal(Song s1, Song s2)
-        {
-            return Equal((ISong)s1, s2);
-        }
-
         public static bool Equal(ISong s1, ISong s2)
         {
             if (ReferenceEquals(s1, s2))
@@ -188,7 +176,7 @@ namespace Toastify.Model
             if (s1 == null || s2 == null)
                 return false;
 
-            return s1.Equals(s2);
+            return s1.Equals((object)s2);
         }
 
         public static implicit operator Song(FullTrack spotifyTrack)

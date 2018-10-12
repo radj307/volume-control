@@ -9,8 +9,8 @@ namespace Toastify.Core.Broadcaster
     {
         #region Public Properties
 
-        [JsonProperty("song")]
-        public JsonSong Song { get; set; }
+        [JsonProperty("track")]
+        public JsonTrack Track { get; set; }
 
         [JsonProperty("playing")]
         public bool Playing { get; set; }
