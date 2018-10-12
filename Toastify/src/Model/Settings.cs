@@ -1062,8 +1062,6 @@ namespace Toastify.Model
 
         public WindowPosition SettingsWindowLastLocation { get; set; }
 
-        public List<PluginDetails> Plugins { get; set; }
-
         #endregion
 
         #endregion
@@ -1085,7 +1083,6 @@ namespace Toastify.Model
 
             // (hidden)
             this.StartupWaitTimeout = DefaultValueOf(this.StartupWaitTimeout, nameof(this.StartupWaitTimeout));
-            this.Plugins = new List<PluginDetails>();
 
             // There are a few settings that we don't really want to override when
             // clearing settings (in fact these are more properties that we store
@@ -1197,18 +1194,6 @@ namespace Toastify.Model
             this.EnableBroadcaster = DefaultValueOf(this.EnableBroadcaster, nameof(this.EnableBroadcaster));
             this.EnableSpotifyWebApi = DefaultValueOf(this.EnableSpotifyWebApi, nameof(this.EnableSpotifyWebApi));
         }
-
-        #endregion
-    }
-
-    [Serializable]
-    public class PluginDetails
-    {
-        #region Public Properties
-
-        public string FileName { get; set; }
-        public string TypeName { get; set; }
-        public string Settings { get; set; }
 
         #endregion
     }

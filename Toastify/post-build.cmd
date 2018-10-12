@@ -47,7 +47,8 @@ IF EXIST _dependencies (
 
         REM Build ToastifyWebAuthAPI's PreBuildTool
         ECHO [POST-BUILD]     - PreBuildTool
-        msbuild PreBuildTool\PreBuildTool.vcxproj /t:Clean,Build /p:Configuration=Release /p:Platform=x64 >"PreBuildTool\bin\x64\Release\build.log""
+        MKDIR "PreBuildTool\bin\x64\Release"
+        msbuild PreBuildTool\PreBuildTool.vcxproj /t:Clean,Build /p:Configuration=Release /p:Platform=x64 >"PreBuildTool\bin\x64\Release\build.log"
         IF NOT EXIST "PreBuildTool\bin\x64\Release\PreBuildTool.exe" (
             ECHO;
             ECHO ERROR: Build failed^^! See "!ToastifyWebAuthAPI_Path!\PreBuildTool\bin\x64\Release\build.log"
@@ -68,6 +69,7 @@ IF EXIST _dependencies (
 
         REM Build ToastifyWebAuthAPI
         ECHO [POST-BUILD]     - ToastifyWebAuthAPI
+        MKDIR "ToastifyWebAuthAPI\bin\x64\%Configuration%"
         msbuild ToastifyWebAuthAPI\ToastifyWebAuthAPI.vcxproj /t:Clean,Build /p:Configuration=%Configuration% /p:Platform=x64 >"ToastifyWebAuthAPI\bin\x64\%Configuration%\build.log""
         IF NOT EXIST "ToastifyWebAuthAPI\bin\x64\%Configuration%\ToastifyWebAuthAPI.dll" (
             ECHO;

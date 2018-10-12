@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
 using ToastifyAPI.Native.Enums;
 using ToastifyAPI.Native.Structs;
-using ToastifyAPI.Plugins;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using ContextMenu = System.Windows.Forms.ContextMenu;
@@ -122,8 +121,6 @@ namespace Toastify.View
 
         public bool ShownOrFading { get; private set; }
 
-        internal List<IPluginBase> Plugins { get; set; }
-
         [PropertyDependency]
         public IToastifyActionRegistry ActionRegistry { get; set; }
 
@@ -185,7 +182,6 @@ namespace Toastify.View
             this.Deactivated -= this.Toast_Deactivated;
             this.Deactivated += this.Toast_Deactivated;
 
-            this.LoadPlugins();
             this.Started?.Invoke(this, EventArgs.Empty);
 
             // Subscribe to AutoUpdater's events
@@ -335,40 +331,6 @@ namespace Toastify.View
             Spotify.Instance.Connected -= this.Spotify_Connected;
             Spotify.Instance.Connected += this.Spotify_Connected;
             Spotify.Instance.StartSpotify();
-        }
-
-        private void LoadPlugins()
-        {
-            this.Plugins = new List<IPluginBase>();
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string applicationPath = new FileInfo(assembly.Location).DirectoryName;
-
-            foreach (var p in this.Settings.Plugins)
-            {
-                try
-                {
-                    // ReSharper disable once AssignNullToNotNullAttribute
-                    string pluginFilePath = Path.Combine(applicationPath, p.FileName);
-                    if (Activator.CreateInstanceFrom(pluginFilePath, p.TypeName).Unwrap() is IPluginBase plugin)
-                    {
-                        plugin.Init(p.Settings);
-                        this.Plugins.Add(plugin);
-
-                        this.Started += plugin.Started;
-                        this.ToastClosing += plugin.Closing;
-                        Spotify.Instance.SongChanged += (sender, e) => plugin.TrackChanged(sender, e);
-                    }
-                    else
-                        Debug.WriteLine("'plugin' is not of type IPluginBase (?)");
-                }
-                catch (Exception e)
-                {
-                    // TODO: Handle plugins' errors.
-                    logger.Error("Error while loading plugins.", e);
-                    Analytics.TrackException(e);
-                }
-                Console.WriteLine(@"Loaded " + p.TypeName);
-            }
         }
 
         #endregion Initialization
@@ -1070,7 +1032,6 @@ namespace Toastify.View
             }
 
             this.ToastClosing?.Invoke(this, EventArgs.Empty);
-            this.Plugins?.Clear();
 
             base.OnClosing(e);
         }
