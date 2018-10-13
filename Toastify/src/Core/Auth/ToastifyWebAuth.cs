@@ -121,6 +121,7 @@ namespace Toastify.Core.Auth
             this.abortAuthEvent.Set();
             this.DisposeAuthHttpServer(timeout);
             this.DisposeWebViewWindow(timeout);
+            this.abortAuthEvent?.Dispose();
         }
 
         private void DisposeAuthHttpServer(TimeSpan timeout)

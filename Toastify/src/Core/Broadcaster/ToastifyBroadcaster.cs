@@ -419,7 +419,7 @@ namespace Toastify.Core.Broadcaster
 
         public async void Dispose()
         {
-            await this.StopAsync();
+            await this.StopAsync().ConfigureAwait(false);
             this.socket?.Dispose();
             this.cts?.Dispose();
         }
