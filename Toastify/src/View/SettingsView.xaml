@@ -12,7 +12,8 @@
         xmlns:validators="clr-namespace:Toastify.Helpers.Validators"
         xmlns:viewmodel="clr-namespace:Toastify.ViewModel"
         mc:Ignorable="d" AutomationProperties.AutomationId="{Binding Name, RelativeSource={RelativeSource Self}}"
-        Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico" Closed="Window_Closed">
+        Title="Toastify - Settings" Height="570" Width="580" ResizeMode="NoResize" Icon="/Toastify;component/Resources/ToastifyIcon.ico"
+        Closing="Window_OnClosing" Closed="Window_Closed">
 
     <Window.Resources>
         <converters:OppositeBoolToVisibleConverter x:Key="OppositeBoolToVisibleConverter" />

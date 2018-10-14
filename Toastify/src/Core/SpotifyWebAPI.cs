@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Aleab.Common.Extensions;
 using JetBrains.Annotations;
 using log4net;
 using SpotifyAPI.Web.Models;
@@ -117,9 +119,9 @@ namespace Toastify.Core
 
         private bool WaitForTokenRefresh()
         {
-            if (!this.TokenManager.RefreshingTokenEvent.WaitOne(TimeSpan.FromSeconds(20)))
+            if (!this.TokenManager.RefreshingTokenEvent.WaitOne(TimeSpan.FromSeconds(30)))
             {
-                // TODO: Handle token refresh timeout
+                logger.Warn($"Timeout while waiting for the token to refresh: API request cancelled!{Environment.NewLine}{new StackTrace().GetFrames(1, 2)}");
                 return false;
             }
 

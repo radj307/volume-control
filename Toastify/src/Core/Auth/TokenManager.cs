@@ -173,6 +173,7 @@ namespace Toastify.Core.Auth
             if (newToken != null && newToken.IsExpired())
                 newToken = null;
 
+            // Notify subscribers
             lock (this.tokenLock)
             {
                 if (this.Token == null && newToken != null || this.Token != null && !this.Token.Equals(newToken))
@@ -183,6 +184,7 @@ namespace Toastify.Core.Auth
                 }
             }
 
+            // Reset refresh timer
             if (newToken != null)
             {
                 lock (this.refreshTimerLock)

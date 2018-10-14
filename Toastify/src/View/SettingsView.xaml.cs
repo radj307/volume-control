@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -147,7 +148,14 @@ namespace Toastify.View
         {
             try
             {
-                HwndSource source = HwndSource.FromHwnd(this.GetHandle(true));
+                IntPtr hWnd = this.GetHandle(true);
+                if (hWnd == IntPtr.Zero)
+                {
+                    // The app is probably terminating
+                    return;
+                }
+
+                HwndSource source = HwndSource.FromHwnd(hWnd);
                 if (source == null)
                 {
                     logger.Error($"Raw mouse input hook not registered: couldn't get {nameof(HwndSource)}!");
@@ -240,17 +248,20 @@ namespace Toastify.View
 
         #region Event handlers
 
+        private void Window_OnClosing(object sender, CancelEventArgs e)
+        {
+            Settings.Current.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
+            Settings.Current.Save();
+
+            this.SetRawMouseInputHook(false);
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             SettingsClosed?.Invoke(_current, EventArgs.Empty);
 
-            Settings.Current.SettingsWindowLastLocation = new WindowPosition((int)this.Left, (int)this.Top);
-            Settings.Current.Save();
-
             if (ReferenceEquals(_current, this))
                 _current = null;
-
-            this.SetRawMouseInputHook(false);
         }
 
         private void SettingsViewModel_SettingsSaved(object sender, SettingsSavedEventArgs e)

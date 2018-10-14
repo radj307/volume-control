@@ -129,10 +129,22 @@ namespace Toastify
                 // ignore
             }
 
-            logger.Info($"Architecture: IntPtr = {IntPtr.Size * 8}bit, Is64BitProcess = {Environment.Is64BitProcess}, Is64BitOS = {Environment.Is64BitOperatingSystem}");
-            logger.Info($"OS: Version = {ToastifyAPI.Helpers.System.GetOSVersion()}, Friendly Name = \"{ToastifyAPI.Helpers.System.GetFriendlyOSVersion()}\"");
-            logger.Info($".NET: CLR Version = {Environment.Version}{(netVersion != null ? $", Framework Version = {netVersion}" : string.Empty)}");
-            logger.Info($"Toastify Version = {App.CurrentVersion}{(spotifyVersion != null ? $", Spotify Version = {spotifyVersion}" : string.Empty)}");
+            var info = new LinkedList<string>(new List<string>
+            {
+                $"[Architecture] IntPtr: {IntPtr.Size * 8}bit, Is64BitProcess: {Environment.Is64BitProcess}, Is64BitOS: {Environment.Is64BitOperatingSystem}",
+                $"[OS] Version: {ToastifyAPI.Helpers.System.GetOSVersion()}, Friendly Name: \"{ToastifyAPI.Helpers.System.GetFriendlyOSVersion()}\"",
+                $"[.NET] CLR Version: {Environment.Version}{(netVersion != null ? $", Framework Version: {netVersion}" : string.Empty)}",
+                $"[Toastify] Version: {App.CurrentVersion}{(spotifyVersion != null ? $", [Spotify] Version: {spotifyVersion}" : string.Empty)}"
+            });
+
+            int len = info.Max(s => s.Length);
+            string line = new StringBuilder(len).Append('=', len).ToString();
+            info.AddFirst(line);
+            info.AddLast(line);
+            foreach (string s in info)
+            {
+                logger.Info($":: {new StringBuilder(len).Append(s).Append(' ', len - s.Length)} ::");
+            }
         }
 
         private static void ProcessCommandLineArguments(string[] args)
