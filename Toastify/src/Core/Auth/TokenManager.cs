@@ -34,6 +34,8 @@ namespace Toastify.Core.Auth
         #region Events
 
         public event EventHandler<SpotifyTokenChangedEventArgs> TokenChanged;
+        public event EventHandler TokenReleased;
+        public event EventHandler TokenNull;
 
         #endregion
 
@@ -129,6 +131,10 @@ namespace Toastify.Core.Auth
                         callback?.Invoke(token);
                     }
                 }
+                catch (Exception e)
+                {
+                    logger.Error("Unhandled exception while getting token", e);
+                }
                 finally
                 {
                     this.isGettingToken = false;
@@ -141,6 +147,7 @@ namespace Toastify.Core.Auth
         public void ReleaseToken()
         {
             this.OnTokenChanged(null);
+            this.OnTokenReleased();
         }
 
         private async void RefreshTimerCallback(object state)
@@ -162,6 +169,14 @@ namespace Toastify.Core.Auth
             this.RefreshingTokenEvent.Set();
         }
 
+        public void Dispose()
+        {
+            this.RefreshTimer?.Dispose();
+            this.RefreshingTokenEvent?.Dispose();
+        }
+
+        #region Event Handlers
+
         private void OnTokenChanged(IToken newToken)
         {
             if (logger.IsDebugEnabled)
@@ -182,6 +197,9 @@ namespace Toastify.Core.Auth
                     this.Token = newToken;
                     this.TokenChanged?.Invoke(this, new SpotifyTokenChangedEventArgs(oldToken, newToken));
                 }
+
+                if (this.Token != null && newToken == null)
+                    this.OnTokenNull();
             }
 
             // Reset refresh timer
@@ -198,10 +216,16 @@ namespace Toastify.Core.Auth
             }
         }
 
-        public void Dispose()
+        private void OnTokenReleased()
         {
-            this.RefreshTimer?.Dispose();
-            this.RefreshingTokenEvent?.Dispose();
+            this.TokenReleased?.Invoke(this, EventArgs.Empty);
         }
+
+        private void OnTokenNull()
+        {
+            this.TokenNull?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
     }
 }

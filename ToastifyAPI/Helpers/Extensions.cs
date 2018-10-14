@@ -54,7 +54,7 @@ namespace ToastifyAPI.Helpers
 
                 case GdiPixelFormat.Format24bppRgb:
                     return PixelFormats.Bgr24;
-            
+
                 case GdiPixelFormat.Canonical:
                 case GdiPixelFormat.Format32bppRgb:
                     return PixelFormats.Bgr32;
@@ -87,6 +87,14 @@ namespace ToastifyAPI.Helpers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(wPixelFormat), wPixelFormat, null);
             }
+        }
+
+        public static MenuItem FindMenuItem(this Menu menu, Shortcut shortcut)
+        {
+            if (menu == null)
+                throw new ArgumentNullException(nameof(menu));
+
+            return menu.FindMenuItem(Menu.FindShortcut, new IntPtr((int)shortcut));
         }
 
         #endregion

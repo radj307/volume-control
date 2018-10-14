@@ -22,7 +22,6 @@ using ToastifyAPI.Events;
 using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
 using Settings = Toastify.Model.Settings;
-using SpotifyTrackChangedEventArgs = Toastify.Events.SpotifyTrackChangedEventArgs;
 
 namespace Toastify.Core
 {
@@ -76,7 +75,7 @@ namespace Toastify.Core
 
         public event EventHandler<SpotifyWebAPIInitializationFailedEventArgs> WebAPIInitializationFailed;
 
-        public event EventHandler WebApiDisabled;
+        public event EventHandler WebAPIDisabled;
 
         public event EventHandler<SpotifyStateEventArgs> Connected;
 
@@ -99,6 +98,7 @@ namespace Toastify.Core
             // TODO: ITokenManager dependency is currently manually resolved. Not good!
             if (this.TokenManager == null)
                 this.TokenManager = App.Container.Resolve<ITokenManager>();
+            this.TokenManager.TokenNull += this.TokenManager_TokenNull;
 
             // TODO: ISpotifyWeb dependency is currently manually resolved. Not good!
             if (this.Web == null)
@@ -699,7 +699,7 @@ namespace Toastify.Core
         {
             logger.Debug("Spotify WebAPI disabled");
             this.IsWebApiRunning = false;
-            this.WebApiDisabled?.Invoke(this, EventArgs.Empty);
+            this.WebAPIDisabled?.Invoke(this, EventArgs.Empty);
         }
 
         private async Task OnSpotifyConnected(SpotifyStateEventArgs e)
@@ -886,6 +886,11 @@ namespace Toastify.Core
             {
                 logger.Error($"Unhandled exception in {nameof(this.SpotifyWindowTitleWatcher_TitleChanged)}.", exception);
             }
+        }
+
+        private void TokenManager_TokenNull(object sender, EventArgs e)
+        {
+            this.DisableWebApi();
         }
 
         #endregion

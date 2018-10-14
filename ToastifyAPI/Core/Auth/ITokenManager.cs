@@ -17,6 +17,10 @@ namespace ToastifyAPI.Core.Auth
 
         event EventHandler<SpotifyTokenChangedEventArgs> TokenChanged;
 
+        event EventHandler TokenReleased;
+
+        event EventHandler TokenNull;
+
         #endregion
 
         bool BeginGetToken(CancellationToken cancellationToken);

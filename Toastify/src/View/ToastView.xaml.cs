@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -55,6 +56,11 @@ namespace Toastify.View
     public partial class ToastView : Window
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ToastView));
+
+        private const Shortcut TRAY_MENU_SHORTCUT_SETTINGS = Shortcut.CtrlShiftA;
+        private const Shortcut TRAY_MENU_SHORTCUT_SPOTIFY_AUTH = Shortcut.CtrlShiftS;
+        private const Shortcut TRAY_MENU_SHORTCUT_ABOUT = Shortcut.CtrlF1;
+        private const Shortcut TRAY_MENU_SHORTCUT_EXIT = Shortcut.AltF4;
 
         private const string DEFAULT_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyToastifyLogo.png";
         private const string AD_PLAYING_ICON = "pack://application:,,,/Toastify;component/Resources/SpotifyAdPlaying.png";
@@ -167,8 +173,14 @@ namespace Toastify.View
             // Subscribe to Spotify's events (i.e. SpotifyLocalAPI's).
             Spotify.Instance.Exited -= this.ToastView_Exit;
             Spotify.Instance.Exited += this.ToastView_Exit;
-            Spotify.Instance.WebAPIInitializationSucceeded -= this.Instance_WebAPIInitializationSucceeded;
-            Spotify.Instance.WebAPIInitializationSucceeded += this.Instance_WebAPIInitializationSucceeded;
+
+            Spotify.Instance.WebAPIInitializationSucceeded -= this.Spotify_WebAPIInitializationSucceeded;
+            Spotify.Instance.WebAPIInitializationSucceeded += this.Spotify_WebAPIInitializationSucceeded;
+            Spotify.Instance.WebAPIInitializationFailed -= this.Spotify_WebAPIInitializationFailed;
+            Spotify.Instance.WebAPIInitializationFailed += this.Spotify_WebAPIInitializationFailed;
+            Spotify.Instance.WebAPIDisabled -= this.Spotify_WebAPIDisabled;
+            Spotify.Instance.WebAPIDisabled += this.Spotify_WebAPIDisabled;
+
             Spotify.Instance.TrackChanged -= this.Spotify_TrackChanged;
             Spotify.Instance.TrackChanged += this.Spotify_TrackChanged;
             Spotify.Instance.PlayStateChanged -= this.Spotify_PlayStateChanged;
@@ -306,16 +318,44 @@ namespace Toastify.View
             this.trayIcon.StartAnimation();
 
             // Init tray icon menu
-            MenuItem menuSettings = new MenuItem { Text = @"Settings", Enabled = false };
+            MenuItem menuSettings = new MenuItem
+            {
+                Text = @"Settings",
+                DefaultItem = true,
+                Enabled = false,
+                Shortcut = TRAY_MENU_SHORTCUT_SETTINGS,
+                ShowShortcut = false
+            };
             menuSettings.Click += (s, ev) => { SettingsView.Launch(this); };
 
-            MenuItem menuAbout = new MenuItem { Text = @"About Toastify" };
+            MenuItem menuSpotifyAuth = new MenuItem
+            {
+                Text = @"Spotify Authorization",
+                Enabled = false,
+                Visible = false,
+                Shortcut = TRAY_MENU_SHORTCUT_SPOTIFY_AUTH,
+                ShowShortcut = false
+            };
+            menuSpotifyAuth.Click += (s, ev) => { Spotify.Instance.EnableWebApi(); };
+
+            MenuItem menuAbout = new MenuItem
+            {
+                Text = @"About Toastify",
+                Shortcut = TRAY_MENU_SHORTCUT_ABOUT,
+                ShowShortcut = false
+            };
             menuAbout.Click += (s, ev) => { new AboutView().ShowDialog(); };
 
-            MenuItem menuExit = new MenuItem { Text = @"Exit" };
+            MenuItem menuExit = new MenuItem
+            {
+                Text = @"Exit",
+                Shortcut = TRAY_MENU_SHORTCUT_EXIT,
+                ShowShortcut = false
+            };
             menuExit.Click += this.ToastView_Exit;
 
             this.trayIcon.ContextMenu.MenuItems.Add(menuSettings);
+            this.trayIcon.ContextMenu.MenuItems.Add(menuSpotifyAuth);
             this.trayIcon.ContextMenu.MenuItems.Add(menuAbout);
             this.trayIcon.ContextMenu.MenuItems.Add("-");
             this.trayIcon.ContextMenu.MenuItems.Add(menuExit);
@@ -327,7 +367,15 @@ namespace Toastify.View
             this.trayIcon.Animate = false;
             this.trayIcon.Text = @"Toastify";
             this.trayIcon.Icon = Properties.Resources.ToastifyIcon;
-            this.trayIcon.ContextMenu.MenuItems[0].Enabled = true;
+
+            var menuSettings = this.trayIcon.ContextMenu.FindMenuItem(TRAY_MENU_SHORTCUT_SETTINGS);
+            if (menuSettings != null)
+                menuSettings.Enabled = true;
+
+            var menuSpotifyAuth = this.trayIcon.ContextMenu.FindMenuItem(TRAY_MENU_SHORTCUT_SPOTIFY_AUTH);
+            if (menuSpotifyAuth != null)
+                menuSpotifyAuth.Enabled = true;
+
             this.trayIcon.DoubleClick += this.TrayIcon_DoubleClick;
         }
 
@@ -1163,11 +1211,29 @@ namespace Toastify.View
 
         #region Event handlers [Spotify]
 
-        private void Instance_WebAPIInitializationSucceeded(object sender, SpotifyStateEventArgs e)
+        private void Spotify_WebAPIInitializationSucceeded(object sender, SpotifyStateEventArgs e)
         {
             this.paused = !e.Playing;
             this.UpdateCurrentTrack(e.CurrentTrack);
             this.UpdateSongProgressBar(e.TrackTime);
+            
+            var menuSpotifyAuth = this.trayIcon.ContextMenu.FindMenuItem(TRAY_MENU_SHORTCUT_SPOTIFY_AUTH);
+            if (menuSpotifyAuth != null)
+                menuSpotifyAuth.Visible = false;
+        }
+
+        private void Spotify_WebAPIInitializationFailed(object sender, SpotifyWebAPIInitializationFailedEventArgs e)
+        {
+            var menuSpotifyAuth = this.trayIcon.ContextMenu.FindMenuItem(TRAY_MENU_SHORTCUT_SPOTIFY_AUTH);
+            if (menuSpotifyAuth != null)
+                menuSpotifyAuth.Visible = true;
+        }
+
+        private void Spotify_WebAPIDisabled(object sender, EventArgs e)
+        {
+            var menuSpotifyAuth = this.trayIcon.ContextMenu.FindMenuItem(TRAY_MENU_SHORTCUT_SPOTIFY_AUTH);
+            if (menuSpotifyAuth != null)
+                menuSpotifyAuth.Visible = true;
         }
 
         /// <summary>
