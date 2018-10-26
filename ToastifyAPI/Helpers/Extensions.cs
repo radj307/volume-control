@@ -16,13 +16,12 @@ namespace ToastifyAPI.Helpers
 
         public static Keys ConvertToWindowsFormsKeys(this Key key)
         {
-            if (Enum.GetNames(typeof(Keys)).Contains(key.ToString(), StringComparer.InvariantCultureIgnoreCase))
-            {
-                if (Enum.TryParse(key.ToString(), out Keys keys))
-                    return keys;
-            }
+            string sKey = key.ToString();
+            Keys keys = Keys.None;
+            if (Enum.GetNames(typeof(Keys)).Contains(sKey, StringComparer.InvariantCultureIgnoreCase))
+                Enum.TryParse(sKey, true, out keys);
 
-            return Keys.None;
+            return keys;
         }
 
         public static uint GetScanCode(this Key key)
