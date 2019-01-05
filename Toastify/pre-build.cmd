@@ -24,6 +24,13 @@ IF ["%ConfigurationName:Release=%"]==["%ConfigurationName%"] (
     SET Configuration=Debug
 )
 
+REM =========
+REM  ga-code
+REM =========
+ECHO;
+ECHO [PRE-BUILD] Looking for ga-code...
+IF NOT EXIST Toastify\ga-code ECHO WARNING: .\Toastify\ga-code not found^^! Check .\Toastify\src\Services\Analytics.g.tt for details.
+
 REM ==============
 REM  Dependencies
 REM ==============
