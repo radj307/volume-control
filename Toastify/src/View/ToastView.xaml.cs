@@ -902,7 +902,7 @@ namespace Toastify.View
                                this.dragging ||
                                this.isPreviewForSettings ||
                                (this.Settings.DisableToast || (this.Settings.OnlyShowToastOnHotkey && !force)) ||
-                               (this.Settings.DisableToastWithFullscreenVideogames && Win32API.IsForegroundAppAFullscreenVideogame());
+                               (this.Settings.DisableToastWithFullscreenApps && Win32API.IsForegroundAppInFullscreen());
             if (doNotFadeIn)
                 return;
 

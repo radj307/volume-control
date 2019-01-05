@@ -558,7 +558,7 @@ namespace Toastify.Model
         // [Toast]
         private SettingValue<bool> _disableToast;
         private SettingValue<bool> _onlyShowToastOnHotkey;
-        private SettingValue<bool> _disableToastWithFullscreenVideogames;
+        private SettingValue<bool> _disableToastWithFullscreenApps;
         private SettingValue<bool> _showSongProgressBar;
         private SettingValue<int> _displayTime;
         private SettingValue<ToastTitlesOrder> _toastTitlesOrder;
@@ -781,10 +781,19 @@ namespace Toastify.Model
         }
 
         [DefaultValue(true)]
+        public SettingValue<bool> DisableToastWithFullscreenApps
+        {
+            get { return this.GetSettingValue(ref this._disableToastWithFullscreenApps); }
+            set { this.SetSettingValue(ref this._disableToastWithFullscreenApps, value); }
+        }
+
+        // TODO: Remove this setting in next version
+        [DefaultValue(true)]
+        [Obsolete("Use DisableToastWithFullscreenApps instead")]
         public SettingValue<bool> DisableToastWithFullscreenVideogames
         {
-            get { return this.GetSettingValue(ref this._disableToastWithFullscreenVideogames); }
-            set { this.SetSettingValue(ref this._disableToastWithFullscreenVideogames, value); }
+            get { return this.DisableToastWithFullscreenApps; }
+            set { this.DisableToastWithFullscreenApps = value; }
         }
 
         [DefaultValue(true)]
@@ -1146,7 +1155,7 @@ namespace Toastify.Model
             this.DisableToast = DefaultValueOf(this.DisableToast, nameof(this.DisableToast));
 
             this.OnlyShowToastOnHotkey = DefaultValueOf(this.OnlyShowToastOnHotkey, nameof(this.OnlyShowToastOnHotkey));
-            this.DisableToastWithFullscreenVideogames = DefaultValueOf(this.DisableToastWithFullscreenVideogames, nameof(this.DisableToastWithFullscreenVideogames));
+            this.DisableToastWithFullscreenApps = DefaultValueOf(this.DisableToastWithFullscreenApps, nameof(this.DisableToastWithFullscreenApps));
             this.ShowSongProgressBar = DefaultValueOf(this.ShowSongProgressBar, nameof(this.ShowSongProgressBar));
             this.DisplayTime = new SettingValue<int>(DefaultValueOf(this.DisplayTime, nameof(this.DisplayTime)), new Range<int>(100, int.MaxValue));
             this.ToastTitlesOrder = DefaultValueOf(this.ToastTitlesOrder, nameof(this.ToastTitlesOrder));

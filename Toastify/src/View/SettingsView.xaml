@@ -212,9 +212,9 @@
                             <Grid>
                                 <CheckBox Height="21" IsChecked="{Binding Path=Settings.OnlyShowToastOnHotkey, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
                                           Content="Only Show Toast when Hotkey is pressed" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
-                                <CheckBox ToolTip="The Toast will be disabled only if the videogame is running in a fullscreen mode,&#x0a;whether it's 'standard' fullscreen or 'borderless windowed' fullscreen."
-                                          IsChecked="{Binding Path=Settings.DisableToastWithFullscreenVideogames, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center"
-                                          Content="Disable Toast when a fullscreen videogame is running" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
+                                <CheckBox ToolTip="The Toast will be disabled only if the app is running in a fullscreen mode."
+                                          IsChecked="{Binding Path=Settings.DisableToastWithFullscreenApps, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="21" Margin="12,34,0,0" VerticalContentAlignment="Center"
+                                          Content="Disable Toast when a fullscreen app is running" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
                                 <CheckBox Height="21" IsEnabled="False" IsChecked="{Binding Path=Settings.ShowSongProgressBar, Mode=TwoWay, Converter={StaticResource SettingValueToValueConverter}}" HorizontalAlignment="Left" Margin="12,58,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"
                                           Content="Show song progress bar" AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" />
 

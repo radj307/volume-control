@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Toastify.Core;
 using ToastifyAPI.Native;
@@ -49,50 +48,34 @@ namespace Toastify
             return _SHELLDLL_DefView;
         }
 
-        public static bool IsForegroundAppAFullscreenVideogame()
+        public static bool IsForegroundAppInFullscreen()
         {
-            // Get the dimensions of the active window.
-            IntPtr hWnd = User32.GetForegroundWindow();
-
-            Debug.WriteLine($"[Win32API::IsForegroundAppAFullscreenVideogame] hWnd=0x{hWnd.ToInt64():X8}, className=\"{Windows.GetClassName(hWnd)}\"");
-
-            if (!hWnd.Equals(IntPtr.Zero))
+            try
             {
-                // Check we haven't picked up the desktop or the shell or the parent of one of them (Progman, WorkerW)
-                List<IntPtr> childWindows = Windows.GetChildWindows(hWnd);
-                if (!hWnd.Equals(hDesktop) && !hWnd.Equals(hProgman) && !hWnd.Equals(hShellDll) &&
-                    !childWindows.Contains(hDesktop) && !childWindows.Contains(hProgman) && !childWindows.Contains(hShellDll))
+                IntPtr hWnd = User32.GetForegroundWindow();
+                Debug.WriteLine($"[Win32API::IsForegroundAppInFullscreen] hWnd=0x{hWnd.ToInt64():X8}, className=\"{Windows.GetClassName(hWnd)}\"");
+
+                if (!hWnd.Equals(IntPtr.Zero))
                 {
-                    Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
-                    User32.GetClientRect(hWnd, out Rect clientRect);
-
-                    if (clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width)
+                    // Check we haven't picked up the desktop or the shell or the parent of one of them (Progman, WorkerW)
+                    List<IntPtr> childWindows = Windows.GetChildWindows(hWnd);
+                    if (!hWnd.Equals(hDesktop) && !hWnd.Equals(hProgman) && !hWnd.Equals(hShellDll) &&
+                        !childWindows.Contains(hDesktop) && !childWindows.Contains(hProgman) && !childWindows.Contains(hShellDll))
                     {
-                        uint processId = Windows.GetProcessFromWindowHandle(hWnd);
-                        IEnumerable<ProcessModule> modules = Processes.GetProcessModules(processId);
-                        if (modules != null)
-                        {
-                            var regex_d3d = new Regex(@"(?:(?:d3d[0-9]+)|(?:dxgi))\.dll", RegexOptions.IgnoreCase);
+                        // Get the dimensions of the active window.
+                        Rectangle screenRect = Screen.FromHandle(hWnd).Bounds;
+                        User32.GetClientRect(hWnd, out Rect clientRect);
 
-                            // ReSharper disable once LoopCanBeConvertedToQuery
-                            foreach (ProcessModule module in modules)
-                            {
-                                bool isDirectX = regex_d3d.Match(module.ModuleName).Success;
-                                bool isOpenGL = module.ModuleName.Equals("opengl32.dll", StringComparison.InvariantCultureIgnoreCase);
-                                if (isDirectX || isOpenGL)
-                                {
-                                    Debug.WriteLine($"[Win32API::IsForegroundAppAFullscreenVideogame] Fullscreen videogame: \"{Processes.GetProcessName(processId)}\", module found: \"{module.ModuleName}\"");
-                                    return true;
-                                }
-                            }
-                        }
+                        return clientRect.Height == screenRect.Height && clientRect.Width == screenRect.Width;
                     }
-
-                    return false;
                 }
-            }
 
-            return false;
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void SendMediaKey(ToastifyActionEnum action)

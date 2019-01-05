@@ -155,7 +155,7 @@ namespace Toastify.Services
             // Toast
             TrackSettingBinaryHit(nameof(Settings.Current.DisableToast), Settings.Current.DisableToast);
             TrackSettingBinaryHit(nameof(Settings.Current.OnlyShowToastOnHotkey), Settings.Current.OnlyShowToastOnHotkey);
-            TrackSettingBinaryHit(nameof(Settings.Current.DisableToastWithFullscreenVideogames), Settings.Current.DisableToastWithFullscreenVideogames);
+            TrackSettingBinaryHit(nameof(Settings.Current.DisableToastWithFullscreenApps), Settings.Current.DisableToastWithFullscreenApps);
             TrackSettingBinaryHit(nameof(Settings.Current.ShowSongProgressBar), Settings.Current.ShowSongProgressBar);
 
             TrackSettingBinaryHit($"{nameof(Settings.Current.ToastTitlesOrder)}/{ToastTitlesOrder.ArtistOfTrack}", Settings.Current.ToastTitlesOrder == ToastTitlesOrder.ArtistOfTrack);
