@@ -264,69 +264,80 @@ namespace Toastify
             {
                 JObject jSettings;
 
-                using (var sr = new StreamReader(Settings.SettingsFilePath))
+                try
                 {
-                    using (var jsonReader = new JsonTextReader(sr))
+                    using (var sr = new StreamReader(Settings.SettingsFilePath))
                     {
-                        jSettings = JObject.Load(jsonReader);
-                    }
-                }
-
-                JToken jPreviousV = jSettings["PreviousVersion"];
-                var previousV = new Version(jPreviousV?.Value<string>() ?? "0");
-
-                // [IDO] Hotkeys
-                if (previousV < new Version("1.10.10"))
-                {
-                    // pre-1.10.10 hotkeys must be converted to the current format
-                    logger.Info("Converting old hotkeys to the current format...");
-
-                    JToken jHotkeys = jSettings["HotKeys"];
-                    if (jHotkeys?.HasValues == true)
-                    {
-                        var convertedHotkeys = new JArray();
-
-                        foreach (JToken jHotkey in jHotkeys.Children())
+                        using (var jsonReader = new JsonTextReader(sr))
                         {
-                            JToken jKeyOrButton = jHotkey["KeyOrButton"];
-                            JToken jKey = jKeyOrButton?["Key"];
-
-                            ModifierKeys modifiers = (jHotkey["Alt"]?.Value<bool>() == true ? ModifierKeys.Alt : ModifierKeys.None) |
-                                                     (jHotkey["Ctrl"]?.Value<bool>() == true ? ModifierKeys.Control : ModifierKeys.None) |
-                                                     (jHotkey["Shift"]?.Value<bool>() == true ? ModifierKeys.Shift : ModifierKeys.None) |
-                                                     (jHotkey["WindowsKey"]?.Value<bool>() == true ? ModifierKeys.Windows : ModifierKeys.None);
-
-                            ToastifyActionEnum toastifyActionEnum = Enum.TryParse(jHotkey["Action"]?.Value<string>(), out ToastifyActionEnum tae) ? tae : ToastifyActionEnum.None;
-                            ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(toastifyActionEnum);
-                            bool enabled = jHotkey["Enabled"]?.Value<bool>() ?? false;
-
-                            Hotkey h = jKeyOrButton?["IsKey"]?.Value<bool>() ?? jKey != null
-                                ? new KeyboardHotkey
-                                {
-                                    Modifiers = modifiers,
-                                    Key = Enum.TryParse(jKey?.Value<string>(), out Key k) ? k : (Key?)null,
-                                    Action = action,
-                                    Enabled = enabled
-                                } as Hotkey
-                                : new MouseHookHotkey
-                                {
-                                    Modifiers = modifiers,
-                                    MouseButton = Enum.TryParse(jKeyOrButton?["MouseButton"]?.Value<string>(), out MouseAction ma) ? ma : (MouseAction?)null,
-                                    Action = action,
-                                    Enabled = enabled
-                                };
-
-                            JObject jH = JObject.FromObject(h, Settings.JsonSerializer);
-                            convertedHotkeys.Add(jH);
+                            jSettings = JObject.Load(jsonReader);
                         }
-
-                        jHotkeys.Replace(convertedHotkeys);
                     }
                 }
+                catch (JsonReaderException jrEx)
+                {
+                    ResetSettingsFile(jrEx);
+                    jSettings = null;
+                }
 
-                // Write the modified JObject back to the settings file
-                string json = JsonConvert.SerializeObject(jSettings, Formatting.Indented, Settings.JsonSerializerSettings);
-                File.WriteAllText(Settings.SettingsFilePath, json, Encoding.UTF8);
+                if (jSettings != null)
+                {
+                    JToken jPreviousV = jSettings["PreviousVersion"];
+                    var previousV = new Version(jPreviousV?.Value<string>() ?? "0");
+
+                    // [IDO] Hotkeys
+                    if (previousV < new Version("1.10.10"))
+                    {
+                        // pre-1.10.10 hotkeys must be converted to the current format
+                        logger.Info("Converting old hotkeys to the current format...");
+
+                        JToken jHotkeys = jSettings["HotKeys"];
+                        if (jHotkeys?.HasValues == true)
+                        {
+                            var convertedHotkeys = new JArray();
+
+                            foreach (JToken jHotkey in jHotkeys.Children())
+                            {
+                                JToken jKeyOrButton = jHotkey["KeyOrButton"];
+                                JToken jKey = jKeyOrButton?["Key"];
+
+                                ModifierKeys modifiers = (jHotkey["Alt"]?.Value<bool>() == true ? ModifierKeys.Alt : ModifierKeys.None) |
+                                                         (jHotkey["Ctrl"]?.Value<bool>() == true ? ModifierKeys.Control : ModifierKeys.None) |
+                                                         (jHotkey["Shift"]?.Value<bool>() == true ? ModifierKeys.Shift : ModifierKeys.None) |
+                                                         (jHotkey["WindowsKey"]?.Value<bool>() == true ? ModifierKeys.Windows : ModifierKeys.None);
+
+                                ToastifyActionEnum toastifyActionEnum = Enum.TryParse(jHotkey["Action"]?.Value<string>(), out ToastifyActionEnum tae) ? tae : ToastifyActionEnum.None;
+                                ToastifyAction action = App.Container.Resolve<IToastifyActionRegistry>().GetAction(toastifyActionEnum);
+                                bool enabled = jHotkey["Enabled"]?.Value<bool>() ?? false;
+
+                                Hotkey h = jKeyOrButton?["IsKey"]?.Value<bool>() ?? jKey != null
+                                    ? new KeyboardHotkey
+                                    {
+                                        Modifiers = modifiers,
+                                        Key = Enum.TryParse(jKey?.Value<string>(), out Key k) ? k : (Key?)null,
+                                        Action = action,
+                                        Enabled = enabled
+                                    } as Hotkey
+                                    : new MouseHookHotkey
+                                    {
+                                        Modifiers = modifiers,
+                                        MouseButton = Enum.TryParse(jKeyOrButton?["MouseButton"]?.Value<string>(), out MouseAction ma) ? ma : (MouseAction?)null,
+                                        Action = action,
+                                        Enabled = enabled
+                                    };
+
+                                JObject jH = JObject.FromObject(h, Settings.JsonSerializer);
+                                convertedHotkeys.Add(jH);
+                            }
+
+                            jHotkeys.Replace(convertedHotkeys);
+                        }
+                    }
+
+                    // Write the modified JObject back to the settings file
+                    string json = JsonConvert.SerializeObject(jSettings, Formatting.Indented, Settings.JsonSerializerSettings);
+                    File.WriteAllText(Settings.SettingsFilePath, json, Encoding.UTF8);
+                }
             }
         }
 
@@ -357,13 +368,7 @@ namespace Toastify
             }
             catch (Exception ex)
             {
-                logger.Warn("Error while loading settings. Toastify will reset to default values.", ex);
-
-                string msg = string.Format(Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
-                MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                File.Copy(Settings.SettingsFilePath, $"{Settings.SettingsFilePath}.corrupted", true);
-                Settings.Current.LoadSafe();
+                ResetSettingsFile(ex);
             }
         }
 
@@ -442,6 +447,17 @@ namespace Toastify
             // ReSharper restore UnusedVariable
 
             AutoUpdater.Instance.UpdateReady += AutoUpdater_UpdateReady;
+        }
+
+        private static void ResetSettingsFile(Exception ex)
+        {
+            logger.Warn("Error while loading settings file. The file will be backed up and reset to its default values.", ex);
+
+            string msg = string.Format(Resources.ERROR_SETTINGS_UNABLE_TO_LOAD, Settings.SettingsFilePath);
+            MessageBox.Show(msg, "Toastify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            File.Copy(Settings.SettingsFilePath, $"{Settings.SettingsFilePath}.corrupted", true);
+            Settings.Current.LoadSafe();
         }
 
         private static void Spotify_Connected(object sender, SpotifyStateEventArgs spotifyStateEventArgs)
