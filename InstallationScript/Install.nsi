@@ -2,7 +2,7 @@
 !define PUBLISHER "Jesper Palm, Oren Nachman, Alessandro Attard Barbini"
 !define DESCRIPTION "Toastify adds global hotkeys and toast notifications to Spotify"
 !define VERSIONMAJOR 1
-!define VERSIONMINOR 10
+!define VERSIONMINOR 11
 !define VERSIONBUILD 0
 !define HELPURL "https://github.com/aleab/toastify/issues"
 !define UPDATEURL "https://github.com/aleab/toastify/releases"
@@ -42,7 +42,7 @@ VIAddVersionKey "ProductVersion" "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD
 VIAddVersionKey "FileVersion" "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}"
 VIAddVersionKey "ProductName" "${APPNAME}"
 VIAddVersionKey "FileDescription" "${APPNAME} Installer"
-VIAddVersionKey "LegalCopyright" "© 2018 Alessandro Attard Barbini"
+VIAddVersionKey "LegalCopyright" "(C) 2018 Alessandro Attard Barbini"
 
 
 ;--------------------------------

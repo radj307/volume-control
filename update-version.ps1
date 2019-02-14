@@ -14,8 +14,8 @@ Write-Host
 Write-Host "Update: InstallationScript\Install.nsi"
 $FilePath = [System.IO.Path]::GetFullPath((Join-Path (pwd) "InstallationScript\Install.nsi"))
 $Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONMAJOR) .*', "`$1 $vMajor"
-$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONMINOR) .*', "`$1 $vMinor"
-$Lines = (Get-Content 'InstallationScript\Install.nsi') -replace '(VERSIONBUILD) .*', "`$1 $vBuild"
+$Lines = ($Lines) -replace '(VERSIONMINOR) .*', "`$1 $vMinor"
+$Lines = ($Lines) -replace '(VERSIONBUILD) .*', "`$1 $vBuild"
 [System.IO.File]::WriteAllLines($FilePath, $Lines)
 
 # Toastify\version
