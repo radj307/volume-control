@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Pipes;
 using System.Net;
+using System.Security.Policy;
 using System.Security.Principal;
 using System.Web;
 using log4net;
@@ -40,6 +41,8 @@ namespace Toastify.Core.Auth
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Uri url = new Uri(this.Configuration["url"]);
+            logger.Debug($"Configuring {nameof(AuthHttpServerStartup)}... URL: {url}");
+
             app.Use(async (context, next) =>
             {
                 logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Path.Value}{context.Request.QueryString.Value}");

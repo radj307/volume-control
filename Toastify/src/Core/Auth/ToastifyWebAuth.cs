@@ -79,6 +79,7 @@ namespace Toastify.Core.Auth
 
         public override Task<IToken> GetToken()
         {
+            this.abortAuthEvent.Reset();
             return this.authHttpServer == null ? Task.FromResult((IToken)null) : base.GetToken();
         }
 
