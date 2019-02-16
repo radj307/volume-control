@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Pipes;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -37,6 +38,8 @@ namespace Toastify.Core.Auth
 
             string url = ToastifyWebAuthAPI_Utils.GetRedirectUri();
             this.webHost = new WebHostBuilder()
+                          .UseContentRoot(App.ApplicationRootDirectory)
+                          .UseWebRoot(Path.Combine(App.ApplicationRootDirectory, "res"))
                           .UseKestrel()
                           .UseSetting("url", url)
                           .UseSetting("pipeName", pipeName)

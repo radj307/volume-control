@@ -620,6 +620,15 @@ namespace Toastify
             }
         }
 
+        public static string ApplicationRootDirectory
+        {
+            get
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                return new FileInfo(assembly.Location).Directory?.FullName;
+            }
+        }
+
         public static string SpotifyParameters { get; private set; }
 
         /// <summary>

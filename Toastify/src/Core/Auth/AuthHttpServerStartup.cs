@@ -3,10 +3,12 @@ using System.IO.Pipes;
 using System.Net;
 using System.Security.Policy;
 using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Web;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
@@ -43,6 +45,7 @@ namespace Toastify.Core.Auth
             Uri url = new Uri(this.Configuration["url"]);
             logger.Debug($"Configuring {nameof(AuthHttpServerStartup)}... URL: {url}");
 
+            app.UseStaticFiles();
             app.Use(async (context, next) =>
             {
                 logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Path.Value}{context.Request.QueryString.Value}");
@@ -82,7 +85,7 @@ namespace Toastify.Core.Auth
                                     content["error"] = error;
 
                                 ss.WriteString(content.ToString());
-                                context.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                                context.Response.Redirect("auth_redirect.html");
                             }
                         }
                         catch (Exception e)

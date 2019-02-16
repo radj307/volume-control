@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,28 +54,31 @@ namespace Toastify.Core.Auth
 
         protected override void Authorize()
         {
-            WindowThreadOptions<WebView> windowThreadOptions = new WindowThreadOptions<WebView>
-            {
-                WindowInitialization = window =>
-                {
-                    window.Title = "Spotify Authorization";
-                    window.AllowedHosts = new List<string> { "accounts.spotify.com", "localhost", string.Empty };
-                    window.SetSize(new Size(475, 512));
-                },
-                BeforeWindowShownAction = window =>
-                {
-                    window.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-                    {
-                        AuthorizationCodeFlow.Authorize(url => window.NavigateTo(url), this.Scopes, this.State, this.ShowDialog, "en");
-                    }));
-                },
-                OnWindowClosingAction = window => this.abortAuthEvent.Set()
-            };
+            //WindowThreadOptions<WebView> windowThreadOptions = new WindowThreadOptions<WebView>
+            //{
+            //    WindowInitialization = window =>
+            //    {
+            //        window.Title = "Spotify Authorization";
+            //        // TODO: AllowedHosts
+            //        //window.AllowedHosts = new List<string> { "accounts.spotify.com", "localhost", string.Empty };
+            //        window.SetSize(new Size(475, 512));
+            //    },
+            //    BeforeWindowShownAction = window =>
+            //    {
+            //        window.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            //        {
+            //            AuthorizationCodeFlow.Authorize(url => window.NavigateTo(url), this.Scopes, this.State, this.ShowDialog, "en");
+            //        }));
+            //    },
+            //    OnWindowClosingAction = window => this.abortAuthEvent.Set()
+            //};
 
-            this.webViewWindowThread = ThreadManager.Instance.CreateWindowThread(ApartmentState.STA, windowThreadOptions);
-            this.webViewWindowThread.IsBackground = true;
-            this.webViewWindowThread.ThreadName = $"{nameof(ToastifyWebAuth)}_{nameof(WebView)}_Thread";
-            this.webViewWindowThread.Start();
+            //this.webViewWindowThread = ThreadManager.Instance.CreateWindowThread(ApartmentState.STA, windowThreadOptions);
+            //this.webViewWindowThread.IsBackground = true;
+            //this.webViewWindowThread.ThreadName = $"{nameof(ToastifyWebAuth)}_{nameof(WebView)}_Thread";
+            //this.webViewWindowThread.Start();
+
+            AuthorizationCodeFlow.Authorize(url => Process.Start(url), this.Scopes, this.State, this.ShowDialog, "en");
         }
 
         public override Task<IToken> GetToken()
