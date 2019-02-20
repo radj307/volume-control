@@ -92,6 +92,7 @@ namespace ToastifyAPI.Core.Auth.ToastifyWebAuthAPI
             if (httpResponse.status == (int)HttpStatusCode.OK)
             {
                 spotifyTokenResponse.CreationDate = DateTime.Now;
+                spotifyTokenResponse.refreshToken = token.RefreshToken;   // The refresh API endpoint does not return the refresh token itself
                 refreshedToken = this.CreateToken(spotifyTokenResponse);
             }
             else

@@ -152,6 +152,8 @@ namespace Toastify.Core.Auth
 
         private async void RefreshTimerCallback(object state)
         {
+            logger.Info("Refreshing access token...");
+
             if (this.isGettingToken)
                 return;
 
@@ -184,6 +186,8 @@ namespace Toastify.Core.Auth
                 string logMsg = newToken?.GetExpirationInfo() ?? "null";
                 logger.Debug($"Token changed: {logMsg}");
             }
+            else
+                logger.Info("Token changed");
 
             if (newToken != null && newToken.IsExpired())
                 newToken = null;
@@ -207,7 +211,7 @@ namespace Toastify.Core.Auth
             {
                 lock (this.refreshTimerLock)
                 {
-                    TimeSpan dueTime = newToken.CreateDate.Add(TimeSpan.FromSeconds(newToken.ExpiresIn)) - DateTime.Now - TimeSpan.FromSeconds(40);
+                    TimeSpan dueTime = newToken.CreateDate.Add(TimeSpan.FromSeconds(newToken.ExpiresIn)) - DateTime.Now - TimeSpan.FromMinutes(2);
                     if (dueTime < TimeSpan.Zero)
                         dueTime = TimeSpan.Zero;
 
