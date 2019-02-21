@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using log4net;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using ToastifyAPI.Core;
@@ -9,6 +10,8 @@ namespace Toastify.Model
 {
     public class CurrentlyPlayingObject : ICurrentlyPlayingObject
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(CurrentlyPlayingObject));
+
         #region Public Properties
 
         public int ProgressMs { get; }
@@ -54,6 +57,7 @@ namespace Toastify.Model
                     break;
 
                 default:
+                    logger.Error($"Unexpected CurrentlyPlayingType of current playback context: {playbackContext.CurrentlyPlayingType}");
                     throw new ArgumentOutOfRangeException();
             }
 

@@ -159,6 +159,9 @@ namespace Toastify.Core.Broadcaster
 
         private async Task SendCommand(string command, params string[] args)
         {
+            if (this.cts == null)
+                this.cts = new CancellationTokenSource();
+
             if (await this.EnsureConnection(this.cts.Token).ConfigureAwait(false))
             {
                 string argsString = string.Empty;

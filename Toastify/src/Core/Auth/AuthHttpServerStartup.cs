@@ -48,7 +48,7 @@ namespace Toastify.Core.Auth
             app.UseStaticFiles();
             app.Use(async (context, next) =>
             {
-                logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Path.Value}{context.Request.QueryString.Value}");
+                logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Method}  {context.Request.Path.Value}{context.Request.QueryString.Value}");
 
                 if (context.Request.Scheme == url.Scheme &&
                     context.Request.Host.Equals(context.Request.Host) &&
