@@ -118,10 +118,6 @@ Section "${APPNAME} (required)"
     File /oname=LICENSE.txt "LICENSES\LICENSE"
     File /oname=LICENSE-3RD-PARTY.txt "LICENSES\LICENSE-3RD-PARTY"
 
-    # /wwwroot
-    File /R "Resources\wwwroot"
-    Rename "$INSTDIR\wwwroot" "$INSTDIR\res"
-
   # Create directories in AppData
   CreateDirectory "$APPDATA\Toastify"
   CreateDirectory "$LOCALAPPDATA\Toastify"
@@ -196,7 +192,6 @@ Section "un.Toastify"
     Delete "$INSTDIR\ToastifyWebAuthAPI.dll"
 
     # Resources
-    RMDir /r "$INSTDIR\res"
     Delete "$INSTDIR\LICENSE.txt"
     Delete "$INSTDIR\LICENSE-3RD-PARTY.txt"
 

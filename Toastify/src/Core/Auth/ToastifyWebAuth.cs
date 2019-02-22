@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using log4net;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
@@ -78,7 +76,13 @@ namespace Toastify.Core.Auth
             //this.webViewWindowThread.ThreadName = $"{nameof(ToastifyWebAuth)}_{nameof(WebView)}_Thread";
             //this.webViewWindowThread.Start();
 
-            AuthorizationCodeFlow.Authorize(url => Process.Start(url), this.Scopes, this.State, this.ShowDialog, "en");
+            AuthorizationCodeFlow.Authorize(url =>
+            {
+                string spotifyLoginUrl = Convert.ToBase64String(Encoding.UTF8.GetBytes(url));
+                string toastifyAuthUrl = "https://aleab.github.io/toastify/spotify/authorize";
+                toastifyAuthUrl = $"{toastifyAuthUrl}?toastifyPort={this.authHttpServer.Port}&redirectUrl={Uri.EscapeDataString(spotifyLoginUrl)}";
+                Process.Start(toastifyAuthUrl);
+            }, this.Scopes, this.State, this.ShowDialog, "en");
         }
 
         public override Task<IToken> GetToken()

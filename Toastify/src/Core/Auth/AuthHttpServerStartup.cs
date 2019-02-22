@@ -1,14 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.IO.Pipes;
 using System.Net;
-using System.Security.Policy;
 using System.Security.Principal;
-using System.Threading.Tasks;
+using System.Text;
 using System.Web;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
@@ -43,28 +43,39 @@ namespace Toastify.Core.Auth
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Uri url = new Uri(this.Configuration["url"]);
-            logger.Debug($"Configuring {nameof(AuthHttpServerStartup)}... URL: {url}");
+            logger.Debug($"Configuring {nameof(AuthHttpServerStartup)} at {url}");
 
             app.UseStaticFiles();
+            //app.UseCors(builder => builder.AllowAnyOrigin());
             app.Use(async (context, next) =>
             {
-                logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Method}  {context.Request.Path.Value}{context.Request.QueryString.Value}");
+                // CORS
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "https://aleab.github.io");
+                context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+
+                // Read body
+                string requestBody;
+                using (StreamReader sr = new StreamReader(context.Request.Body, Encoding.UTF8))
+                {
+                    requestBody = await sr.ReadToEndAsync();
+                }
+
+                logger.Debug($"[{nameof(AuthHttpServerStartup)}] {context.Request.Method}  {context.Request.Path.Value}{context.Request.QueryString.Value}  |  BODY: {requestBody}");
 
                 if (context.Request.Scheme == url.Scheme &&
                     context.Request.Host.Equals(context.Request.Host) &&
-                    context.Request.Path.Value == url.AbsolutePath &&
-                    context.Request.QueryString.HasValue && !string.IsNullOrWhiteSpace(context.Request.QueryString.Value))
+                    context.Request.Path.Value == url.AbsolutePath)
                 {
                     string code = null;
                     string state = null;
                     string error = null;
 
-                    var query = context.Request.Query;
-                    if (query.TryGetValue("code", out StringValues codeValues))
+                    var body = QueryHelpers.ParseQuery(requestBody);
+                    if (body.TryGetValue("code", out StringValues codeValues))
                         code = codeValues[0];
-                    if (query.TryGetValue("state", out StringValues stateValues))
+                    if (body.TryGetValue("state", out StringValues stateValues))
                         state = stateValues[0];
-                    if (query.TryGetValue("error", out StringValues errorValues))
+                    if (body.TryGetValue("error", out StringValues errorValues))
                         error = errorValues[0];
 
                     if (!string.IsNullOrWhiteSpace(code) || !string.IsNullOrWhiteSpace(error))
@@ -84,8 +95,8 @@ namespace Toastify.Core.Auth
                                 if (!string.IsNullOrWhiteSpace(error))
                                     content["error"] = error;
 
+                                context.Response.StatusCode = (int)HttpStatusCode.OK;
                                 ss.WriteString(content.ToString());
-                                context.Response.Redirect("auth_redirect.html");
                             }
                         }
                         catch (Exception e)

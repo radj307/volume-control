@@ -60,6 +60,7 @@
     <PackageReference Include="GoogleMeasurementProtocol" Version="1.4.2" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
@@ -96,7 +97,7 @@
 
     <EmbeddedResource Include="log4net.config" />
     <Resource Include="Resources\**\*.png" />
-    <Resource Include="Resources\**\*.ico" Exclude="Resources\wwwroot\favicon.ico" />
+    <Resource Include="Resources\**\*.ico" />
 
     <!-- Settings -->
     <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
@@ -116,9 +117,6 @@
     <None Update="app.manifest" />
     <None Update="ga-code" />
     <None Update="version" />
-
-    <None Update="Resources\wwwroot\favicon.ico"  CopyToOutputDirectory="Always"/>
-    <None Update="Resources\wwwroot\auth_redirect.html" CopyToOutputDirectory="Always" />
 
     <None Update="ManagedWinapi.dll" Link="Resources\ManagedWinapi.dll" />
     <None Update="Resources\ManagedWinapiNativeHelper.dll" CopyToOutputDirectory="Always" />

@@ -1,6 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.IO.Pipes;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,12 @@ namespace Toastify.Core.Auth
 
         private Thread receiveThread;
 
+        #region Public Properties
+
+        public int Port { get; }
+
+        #endregion
+
         #region Events
 
         public event EventHandler<AuthEventArgs> AuthorizationFinished;
@@ -32,14 +39,14 @@ namespace Toastify.Core.Auth
 
         public AuthHttpServer()
         {
+            this.Port = GetFreeTcpPort();
+
             // Create Named Pipe
             string pipeName = $"Toastify_{nameof(AuthHttpServer)}_Pipe_{RuntimeHelpers.GetHashCode(this)}";
             this.pipe = new NamedPipeServerStream(pipeName, PipeDirection.In, 1);
 
-            string url = ToastifyWebAuthAPI_Utils.GetRedirectUri();
+            string url = $"http://localhost:{this.Port}";
             this.webHost = new WebHostBuilder()
-                          .UseContentRoot(App.ApplicationRootDirectory)
-                          .UseWebRoot(Path.Combine(App.ApplicationRootDirectory, "res"))
                           .UseKestrel()
                           .UseSetting("url", url)
                           .UseSetting("pipeName", pipeName)
@@ -52,7 +59,7 @@ namespace Toastify.Core.Auth
         {
             this.cts?.Cancel();
             this.cts = new CancellationTokenSource();
-            
+
             try
             {
                 await this.webHost.StartAsync(this.cts.Token).ConfigureAwait(false);
@@ -72,13 +79,13 @@ namespace Toastify.Core.Auth
         {
             return this.webHost.StopAsync(this.cts.Token);
         }
-        
+
         private async void ReceiveThread()
         {
             try
             {
                 logger.Debug($"{nameof(this.ReceiveThread)} started ({this.receiveThread.Name})");
-                
+
                 await this.pipe.WaitForConnectionAsync(this.cts.Token).ConfigureAwait(false);
                 if (this.cts.IsCancellationRequested)
                     return;
@@ -106,6 +113,19 @@ namespace Toastify.Core.Auth
             logger.Debug($"Authorization finished! Error: \"{error}\"");
             this.AuthorizationFinished?.Invoke(this, new AuthEventArgs(code, state, error));
         }
+
+        #region Static Members
+
+        private static int GetFreeTcpPort()
+        {
+            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
+            l.Start();
+            int port = ((IPEndPoint)l.LocalEndpoint).Port;
+            l.Stop();
+            return port;
+        }
+
+        #endregion
 
         #region Dispose
 

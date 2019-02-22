@@ -14,6 +14,8 @@ namespace ToastifyAPI.Core.Auth
 
         #endregion
 
+        int Port { get; }
+
         Task Start();
         Task Stop();
     }
