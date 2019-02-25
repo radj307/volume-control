@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO.Pipes;
 using System.Net;
 using System.Net.Sockets;
@@ -24,6 +24,7 @@ namespace Toastify.Core.Auth
         private CancellationTokenSource cts;
 
         private Thread receiveThread;
+        private Timer timeoutTimer;
 
         #region Public Properties
 
@@ -73,11 +74,34 @@ namespace Toastify.Core.Auth
             this.receiveThread.IsBackground = true;
             this.receiveThread.Name = $"Toastify_{nameof(AuthHttpServer)}_ReceiveThread_{RuntimeHelpers.GetHashCode(this)}";
             this.receiveThread.Start();
+
+            this.ConfigureTimeoutTermination();
         }
 
         public Task Stop()
         {
             return this.webHost.StopAsync(this.cts.Token);
+        }
+
+        private void ConfigureTimeoutTermination()
+        {
+            this.timeoutTimer?.Dispose();
+            this.timeoutTimer = new Timer(this.TimeoutTerminationCallback, null, TimeSpan.FromMinutes(1), Timeout.InfiniteTimeSpan);
+        }
+
+        private async void TimeoutTerminationCallback(object state)
+        {
+            logger.Warn($"Terminating {nameof(AuthHttpServer)} due to timeout.");
+            try
+            {
+                await this.Stop();
+                this.cts.Cancel();
+                ThreadManager.Instance.Abort(this.receiveThread);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private async void ReceiveThread()
@@ -111,6 +135,7 @@ namespace Toastify.Core.Auth
         private void OnAuthorizationFinished(string code, string state, string error)
         {
             logger.Debug($"Authorization finished!{(string.IsNullOrEmpty(error) ? "" : $" Error: \"{error}\"")}");
+            this.timeoutTimer.Dispose();
             this.AuthorizationFinished?.Invoke(this, new AuthEventArgs(code, state, error));
         }
 
