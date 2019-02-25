@@ -868,8 +868,8 @@ namespace Toastify.Core
                         await this.OnPlayStateChanged(false).ConfigureAwait(false);
                         updateSong = false;
                     }
-                    else if (SpotifyWindow.PausedTitles.Contains(e.OldTitle, StringComparer.InvariantCulture))
-                        await this.OnPlayStateChanged(false).ConfigureAwait(false);
+                    else if (!this.IsPlaying)
+                        await this.OnPlayStateChanged(true).ConfigureAwait(false);
 
                     if (updateSong)
                     {
