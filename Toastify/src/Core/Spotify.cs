@@ -800,6 +800,7 @@ namespace Toastify.Core
 
         private void Spotify_Exited(object sender, EventArgs e)
         {
+            logger.Info("Spotify process terminated!");
             this.Exited?.Invoke(sender, e);
         }
 

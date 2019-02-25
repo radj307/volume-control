@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO.Pipes;
 using System.Net;
 using System.Net.Sockets;
@@ -110,7 +110,7 @@ namespace Toastify.Core.Auth
 
         private void OnAuthorizationFinished(string code, string state, string error)
         {
-            logger.Debug($"Authorization finished! Error: \"{error}\"");
+            logger.Debug($"Authorization finished!{(string.IsNullOrEmpty(error) ? "" : $" Error: \"{error}\"")}");
             this.AuthorizationFinished?.Invoke(this, new AuthEventArgs(code, state, error));
         }
 

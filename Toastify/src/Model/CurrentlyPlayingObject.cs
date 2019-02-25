@@ -58,7 +58,8 @@ namespace Toastify.Model
 
                 default:
                     logger.Error($"Unexpected CurrentlyPlayingType of current playback context: {playbackContext.CurrentlyPlayingType}");
-                    throw new ArgumentOutOfRangeException();
+                    this.Track = new SpotifyTrack(SpotifyTrackType.Unknown, playbackContext.Item?.Name, (playbackContext.Item?.DurationMs ?? 0) / 1000);
+                    break;
             }
 
             this.Type = this.Track?.Type ?? SpotifyTrackType.Unknown;
