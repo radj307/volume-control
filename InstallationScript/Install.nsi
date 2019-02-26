@@ -76,6 +76,8 @@ Var /GLOBAL PrevDesktopShortcutArgs
 Var /GLOBAL PrevSMShortcutArgs
 Var /GLOBAL PrevAutostartArgs
 
+Var /GLOBAL IsReInstall
+
 Section "${APPNAME} (required)"
   SectionIn RO
 
@@ -202,8 +204,10 @@ Section "un.Toastify"
   Delete "$LOCALAPPDATA\Toastify\Toastify.log*"
 
   # Remove shortcuts
-  Delete "$DESKTOP\Toastify.lnk"
-  Delete "$SMPROGRAMS\Toastify.lnk"
+  ${If} $IsReInstall != "true"
+    Delete "$DESKTOP\Toastify.lnk"
+    Delete "$SMPROGRAMS\Toastify.lnk"
+  ${EndIf}
 
   # Remove directories
   RMDir /r "$INSTDIR"
@@ -268,6 +272,14 @@ Function .onInit
 
   Pop $R1
   Pop $R0
+FunctionEnd
+
+Function un.onInit
+  # Is this a re-install/upgrade?
+  ${GetOptions} "$CMDLINE" "/Z" $R0
+  IfErrors 0 +2
+  StrCpy $IsReInstall "false"
+  StrCpy $IsReInstall "true"
 FunctionEnd
 
 Function un.onUninstSuccess

@@ -104,7 +104,7 @@ Function UninstallPreviousVersions
     ${GetParent} $R0 $R1
 
     ClearErrors
-    ExecWait '$R0 /S _?=$R1'
+    ExecWait '$R0 /S /W _?=$R1'
     RMDir /r "$R1"
   ${EndIf}
 
