@@ -69,41 +69,16 @@ namespace Toastify.Core
             this.TokenManager.TokenChanged += this.TokenManager_TokenChanged;
         }
 
-        public ICurrentlyPlayingObject GetCurrentlyPlayingTrack()
-        {
-            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
-                return null;
-
-            PlaybackContext playbackContext = this.SpotifyWebApi.GetPlayingTrack();
-            LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
-
-            if (playbackContext == null || playbackContext.StatusCode() == HttpStatusCode.NoContent)
-                return null;
-            return new CurrentlyPlayingObject(playbackContext);
-        }
-
-        public ISpotifyUserProfile GetUserPrivateProfile()
-        {
-            if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
-                return null;
-
-            PrivateProfile profile = this.SpotifyWebApi.GetPrivateProfile();
-            LogReturnedValueIfError("Couldn't get the current user's private profile.", profile);
-
-            return profile != null ? new SpotifyUserProfile(profile) : null;
-        }
-
         public async Task<ICurrentlyPlayingObject> GetCurrentlyPlayingTrackAsync()
         {
             if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
                 return null;
 
-            PlaybackContext playbackContext = await this.SpotifyWebApi.GetPlayingTrackAsync();
-            LogReturnedValueIfError("Couldn't get the current playback context.", playbackContext);
+            PlaybackContext playbackContext = await this.PerformRequest(
+                async () => await this.SpotifyWebApi.GetPlayingTrackAsync().ConfigureAwait(false),
+                "Couldn't get the current playback context.").ConfigureAwait(false);
 
-            if (playbackContext == null || playbackContext.StatusCode() == HttpStatusCode.NoContent)
-                return null;
-            return new CurrentlyPlayingObject(playbackContext);
+            return playbackContext != null ? new CurrentlyPlayingObject(playbackContext) : null;
         }
 
         public async Task<ISpotifyUserProfile> GetUserPrivateProfileAsync()
@@ -111,10 +86,38 @@ namespace Toastify.Core
             if (this.SpotifyWebApi == null || !this.WaitForTokenRefresh())
                 return null;
 
-            PrivateProfile profile = await this.SpotifyWebApi.GetPrivateProfileAsync();
-            LogReturnedValueIfError("Couldn't get the current user's private profile.", profile);
+            PrivateProfile profile = await this.PerformRequest(
+                async () => await this.SpotifyWebApi.GetPrivateProfileAsync().ConfigureAwait(false),
+                "Couldn't get the current user's private profile.").ConfigureAwait(false);
 
             return profile != null ? new SpotifyUserProfile(profile) : null;
+        }
+
+        private async Task<T> PerformRequest<T>(Func<Task<T>> request, string errorMsg) where T : BasicModel
+        {
+            return await this.PerformRequest(request, errorMsg, true).ConfigureAwait(false);
+        }
+
+        private async Task<T> PerformRequest<T>(Func<Task<T>> request, string errorMsg, bool retry) where T : BasicModel
+        {
+            T response = await request();
+            if (response == null || response.StatusCode() == HttpStatusCode.NoContent)
+                return null;
+
+            LogReturnedValueIfError(errorMsg, response);
+
+            var statusCode = response.StatusCode();
+            if (statusCode == (HttpStatusCode)431)
+            {
+                logger.Debug("HTTP 431 received: a new instance of SpotifyWebApi will be created.");
+                this._spotifyWebApi = null;
+
+                // Retry
+                if (retry)
+                    response = await this.PerformRequest(request, errorMsg, false).ConfigureAwait(false);
+            }
+
+            return response;
         }
 
         private bool WaitForTokenRefresh()

@@ -12,9 +12,6 @@ namespace ToastifyAPI.Core
 
         #endregion
 
-        ICurrentlyPlayingObject GetCurrentlyPlayingTrack();
-        ISpotifyUserProfile GetUserPrivateProfile();
-
         Task<ICurrentlyPlayingObject> GetCurrentlyPlayingTrackAsync();
         Task<ISpotifyUserProfile> GetUserPrivateProfileAsync();
     }

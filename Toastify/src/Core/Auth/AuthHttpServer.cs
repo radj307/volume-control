@@ -86,7 +86,7 @@ namespace Toastify.Core.Auth
         private void ConfigureTimeoutTermination()
         {
             this.timeoutTimer?.Dispose();
-            this.timeoutTimer = new Timer(this.TimeoutTerminationCallback, null, TimeSpan.FromMinutes(1), Timeout.InfiniteTimeSpan);
+            this.timeoutTimer = new Timer(this.TimeoutTerminationCallback, null, TimeSpan.FromMinutes(5), Timeout.InfiniteTimeSpan);
         }
 
         private async void TimeoutTerminationCallback(object state)

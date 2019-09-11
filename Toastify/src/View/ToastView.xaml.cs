@@ -1039,8 +1039,8 @@ namespace Toastify.View
                 strings.RemoveAll(string.IsNullOrWhiteSpace);
                 sb.Append($"\tsettings: {string.Join(",", strings)}{Environment.NewLine}");
 
-                string internalInfo = sb.ToString();
-                logger.Debug($"{internalInfo}\tStack Trace:{Environment.NewLine}{Environment.StackTrace}");
+                //sb.Append($"\tStack Trace:{Environment.NewLine}{Environment.StackTrace}");
+                logger.Debug(sb.ToString());
             }
         }
 
