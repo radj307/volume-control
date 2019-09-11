@@ -22,6 +22,7 @@ using ToastifyAPI.Events;
 using ToastifyAPI.Model.Interfaces;
 using ToastifyAPI.Native;
 using Settings = Toastify.Model.Settings;
+using Timer = System.Threading.Timer;
 
 namespace Toastify.Core
 {
@@ -41,9 +42,14 @@ namespace Toastify.Core
         #endregion
 
         private readonly string spotifyPath;
+        private readonly TimeSpan songChangeBuffer = TimeSpan.FromMilliseconds(1500);
 
         private SpotifyWindow spotifyWindow;
         private Process spotifyProcess;
+
+        private Timer apiTrackDelayedUpdateTimer;
+        private DateTime lastSongChange = DateTime.Now;
+        private int songChangesInTimespan;
 
         #region Public Properties
 
@@ -853,8 +859,25 @@ namespace Toastify.Core
                 if (logger.IsDebugEnabled)
                     logger.Debug($"Spotify's window title changed: \"{e.NewTitle}\". Fetching song info...");
 
-                if (!(Settings.Current.EnableSpotifyWebApi && this.IsWebApiRunning &&
-                      await this.UpdateTrackInfoUsingWebApi().ConfigureAwait(false)))
+                bool shouldUpdateUsingWindowTitle = !(Settings.Current.EnableSpotifyWebApi && this.IsWebApiRunning);
+
+                this.apiTrackDelayedUpdateTimer?.Dispose();
+                bool tooFast = this.songChangesInTimespan >= 3;
+                if (!shouldUpdateUsingWindowTitle && tooFast)
+                {
+                    logger.Debug($"Songs are being changed too fast ({this.songChangesInTimespan} times in {this.songChangeBuffer.TotalMilliseconds} ms)!");
+                    this.apiTrackDelayedUpdateTimer = new Timer(async state =>
+                    {
+                        logger.Debug($"Executing delayed track update using WebAPI (\"{state}\")");
+                        await this.UpdateTrackInfoUsingWebApi().ConfigureAwait(false);
+                    }, e.NewTitle, this.songChangeBuffer, TimeSpan.FromMilliseconds(-1));
+                    shouldUpdateUsingWindowTitle = true;
+                }
+
+                if (!shouldUpdateUsingWindowTitle)
+                    shouldUpdateUsingWindowTitle = !await this.UpdateTrackInfoUsingWebApi().ConfigureAwait(false);
+
+                if (shouldUpdateUsingWindowTitle)
                 {
                     // If the WebAPIs are disabled or they weren't able to retrieve the song info, fallback to
                     // the old method based on the title of Spotify's window.
@@ -882,6 +905,11 @@ namespace Toastify.Core
                         }
                     }
                 }
+
+                this.songChangesInTimespan++;
+                if (DateTime.Now - this.lastSongChange > this.songChangeBuffer)
+                    this.songChangesInTimespan = 0;
+                this.lastSongChange = DateTime.Now;
             }
             catch (Exception exception)
             {
