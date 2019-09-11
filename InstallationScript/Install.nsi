@@ -3,7 +3,7 @@
 !define DESCRIPTION "Toastify adds global hotkeys and toast notifications to Spotify"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 11
-!define VERSIONBUILD 1
+!define VERSIONBUILD 2
 !define HELPURL "https://github.com/aleab/toastify/issues"
 !define UPDATEURL "https://github.com/aleab/toastify/releases"
 !define ABOUTURL "https://aleab.github.io/toastify/"

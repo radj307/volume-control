@@ -22,7 +22,7 @@
     <TimeOfDayTotalSeconds>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</TimeOfDayTotalSeconds>
     <Revision>$(TimeOfDayTotalSeconds)</Revision>
     <Revision Condition="'$(Configuration)' != 'Windows (Release)'">0</Revision>
-    <Version>1.11.1</Version>
+    <Version>1.11.2</Version>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version).$(Revision)</FileVersion>
     <AssemblyName>Toastify</AssemblyName>
