@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{47D00B3D-0D8A-412C-855F-01615A9B627E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl-WinForms", "VolumeControl-WinForms\VolumeControl-WinForms.csproj", "{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{47D00B3D-0D8A-412C-855F-01615A9B627E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47D00B3D-0D8A-412C-855F-01615A9B627E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47D00B3D-0D8A-412C-855F-01615A9B627E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47D00B3D-0D8A-412C-855F-01615A9B627E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3912F5A2-5986-4AE3-9507-7EFCAEAF6C38}
+		SolutionGuid = {F0E227F0-6E21-47C5-8212-57778E64ED6B}
 	EndGlobalSection
 EndGlobal

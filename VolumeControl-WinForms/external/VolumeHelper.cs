@@ -18,7 +18,7 @@ namespace VolumeControl
             }
             catch
             {
-                Keyboard.SendMediaKey(ToastifyActionEnum.VolumeUp);
+                Win32API.SendMediaKey(ToastifyActionEnum.VolumeUp);
             }
         }
 
@@ -32,7 +32,7 @@ namespace VolumeControl
             }
             catch
             {
-                Keyboard.SendMediaKey(ToastifyActionEnum.VolumeDown);
+                Win32API.SendMediaKey(ToastifyActionEnum.VolumeDown);
             }
         }
 
@@ -47,7 +47,7 @@ namespace VolumeControl
             }
             catch
             {
-                Keyboard.SendMediaKey(ToastifyActionEnum.Mute);
+                Win32API.SendMediaKey(ToastifyActionEnum.Mute);
             }
         }
 
