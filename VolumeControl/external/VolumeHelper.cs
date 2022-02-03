@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using ToastifyAPI.Helpers;
 using ToastifyAPI.Native.MMDeviceAPI;
 
 namespace VolumeControl
@@ -19,7 +18,7 @@ namespace VolumeControl
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyActionEnum.VolumeUp);
+                Keyboard.SendMediaKey(ToastifyActionEnum.VolumeUp);
             }
         }
 
@@ -33,7 +32,7 @@ namespace VolumeControl
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyActionEnum.VolumeDown);
+                Keyboard.SendMediaKey(ToastifyActionEnum.VolumeDown);
             }
         }
 
@@ -48,7 +47,7 @@ namespace VolumeControl
             }
             catch
             {
-                Win32API.SendMediaKey(ToastifyActionEnum.Mute);
+                Keyboard.SendMediaKey(ToastifyActionEnum.Mute);
             }
         }
 

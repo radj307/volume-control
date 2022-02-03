@@ -7,7 +7,7 @@ namespace VolumeControl
     {
         #region Static Fields and Properties
 
-        public static readonly EnumReadableNameAttribute Default = new EnumReadableNameAttribute();
+        public static readonly EnumReadableNameAttribute Default = new();
 
         #endregion
 

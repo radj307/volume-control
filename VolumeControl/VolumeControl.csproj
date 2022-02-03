@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreAudio" Version="1.10.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="ManagedWinapi">
       <HintPath>ManagedWinapi.dll</HintPath>
     </Reference>

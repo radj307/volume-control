@@ -10,7 +10,7 @@ namespace VolumeControl
 
         public static List<IntPtr> GetChildWindows(IntPtr parent)
         {
-            List<IntPtr> result = new List<IntPtr>();
+            List<IntPtr> result = new();
             GCHandle listHandle = GCHandle.Alloc(result);
             try
             {
@@ -19,7 +19,7 @@ namespace VolumeControl
                     (hWnd, lParam) =>
                     {
                         GCHandle gch = GCHandle.FromIntPtr(lParam);
-                        if (!(gch.Target is List<IntPtr> list))
+                        if (gch.Target is not List<IntPtr> list)
                             throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
                         list.Add(hWnd);
                         return true;
@@ -41,7 +41,7 @@ namespace VolumeControl
 
         public static List<IntPtr> GetProcessWindows(uint processId, string lpClassName)
         {
-            List<IntPtr> result = new List<IntPtr>();
+            List<IntPtr> result = new();
             User32.EnumWindows((hWnd, lParam) =>
             {
                 User32.GetWindowThreadProcessId(hWnd, out uint pid);
@@ -59,7 +59,7 @@ namespace VolumeControl
 
         public static string GetClassName(IntPtr hWnd)
         {
-            StringBuilder sb = new StringBuilder(256);
+            StringBuilder sb = new(256);
             User32.GetClassName(hWnd, sb, 256);
             return sb.ToString();
         }
@@ -100,10 +100,10 @@ namespace VolumeControl
             return pid;
         }
 
-        public static string GetWindowTitle(IntPtr hWnd)
+        public static string? GetWindowTitle(IntPtr hWnd)
         {
             const int nMaxCount = 256;
-            StringBuilder lpString = new StringBuilder(nMaxCount);
+            StringBuilder lpString = new(nMaxCount);
 
             if (User32.GetWindowText(hWnd, lpString, nMaxCount) > 0)
                 return lpString.ToString();
