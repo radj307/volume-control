@@ -7,7 +7,14 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>VolumeControl.Program</StartupObject>
+    <ApplicationIcon>volume.ico</ApplicationIcon>
+    <DebugType>none</DebugType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="volume.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UIComponents\UIComponents.csproj" />
