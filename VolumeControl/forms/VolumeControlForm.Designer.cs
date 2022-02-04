@@ -118,7 +118,7 @@
             this.system_tray.Icon = ((System.Drawing.Icon)(resources.GetObject("system_tray.Icon")));
             this.system_tray.Text = "Volume Control";
             this.system_tray.Visible = true;
-            this.system_tray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.system_tray_event);
+            this.system_tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.system_tray_event);
             // 
             // system_tray_menu
             // 
