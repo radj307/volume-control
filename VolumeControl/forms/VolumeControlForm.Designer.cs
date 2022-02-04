@@ -35,8 +35,11 @@
             this.volume_step_label = new System.Windows.Forms.Label();
             this.process_name_label = new System.Windows.Forms.Label();
             this.process_name = new System.Windows.Forms.TextBox();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.system_tray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.system_tray_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
+            this.system_tray_menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkbox_enabled
@@ -104,17 +107,34 @@
             this.process_name.Size = new System.Drawing.Size(120, 26);
             this.process_name.TabIndex = 4;
             this.process_name.WordWrap = false;
-            this.process_name.KeyDown += new KeyEventHandler(this.process_name_event);
+            this.process_name.KeyDown += new System.Windows.Forms.KeyEventHandler(this.process_name_event);
             this.process_name.LostFocus += new System.EventHandler(this.process_name_event);
             // 
-            // notifyIcon1
+            // system_tray
             // 
-            this.notifyIcon1.BalloonTipText = "Application-Specific Volume Control Hotkeys";
-            this.notifyIcon1.BalloonTipTitle = "Volume Control";
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Volume Control";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_event);
+            this.system_tray.BalloonTipText = "Application-Specific Volume Control Hotkeys";
+            this.system_tray.BalloonTipTitle = "Volume Control";
+            this.system_tray.ContextMenuStrip = this.system_tray_menu;
+            this.system_tray.Icon = ((System.Drawing.Icon)(resources.GetObject("system_tray.Icon")));
+            this.system_tray.Text = "Volume Control";
+            this.system_tray.Visible = true;
+            this.system_tray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.system_tray_event);
+            // 
+            // system_tray_menu
+            // 
+            this.system_tray_menu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.system_tray_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.system_tray_menu.Name = "system_tray_menu";
+            this.system_tray_menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.system_tray_menu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.system_tray_menu_close);
             // 
             // VolumeControlForm
             // 
@@ -129,6 +149,7 @@
             this.Name = "VolumeControlForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).EndInit();
+            this.system_tray_menu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +162,8 @@
         private Label volume_step_label;
         private Label process_name_label;
         private TextBox process_name;
-        private NotifyIcon notifyIcon1;
+        private NotifyIcon system_tray;
+        private ContextMenuStrip system_tray_menu;
+        private ToolStripMenuItem closeToolStripMenuItem;
     }
 }

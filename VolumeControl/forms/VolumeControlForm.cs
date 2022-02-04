@@ -88,7 +88,9 @@ namespace VolumeControl
         {
             string title = "Volume Control";
             if (process_name.Text.Length > 0)
+            {
                 title += $"  ({process_name.Text})";
+            }
             Text = title;
         }
 
@@ -208,14 +210,21 @@ namespace VolumeControl
             Properties.Settings.Default.Reload();
         }
 
-        private void notifyIcon1_event(object sender, MouseEventArgs e)
+        private void system_tray_event(object sender, MouseEventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                WindowState = FormWindowState.Normal;
+                // make menu visible
                 Visible = true;
+                WindowState = FormWindowState.Normal;
             }
         }
+
+        private void system_tray_menu_close(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         #endregion FormComponents
     }
 }
