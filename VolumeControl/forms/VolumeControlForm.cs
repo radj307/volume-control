@@ -9,15 +9,15 @@ namespace VolumeControl
         /// <summary>
         /// Hotkey definition linked to volume up actions.
         /// </summary>
-        private readonly Hotkey hk_up;
+        private Hotkey hk_up;
         /// <summary>
         /// Hotkey definition linked to volume down actions.
         /// </summary>
-        private readonly Hotkey hk_down;
+        private Hotkey hk_down;
         /// <summary>
         /// Hotkey definition linked to toggle mute actions.
         /// </summary>
-        private readonly Hotkey hk_mute;
+        private Hotkey hk_mute;
 
         #endregion Members
 
@@ -26,7 +26,7 @@ namespace VolumeControl
         /// <summary>
         /// Register Hotkeys
         /// </summary>
-        internal void EnableHotkeys()
+        internal void RegisterHotkeys()
         {
             if (!hk_up.Registered)
                 hk_up.Register(this);
@@ -38,7 +38,7 @@ namespace VolumeControl
         /// <summary>
         /// Unregister Hotkeys
         /// </summary>
-        internal void DisableHotkeys()
+        internal void UnregisterHotkeys()
         {
             if (hk_up.Registered)
                 hk_up.Unregister();
@@ -49,25 +49,24 @@ namespace VolumeControl
         }
 
         /// <summary>
-        /// Increments the target application's volume by the current step value.
+        /// Initializes the hotkeys and assign delegate functions that use settings from the WinForms settings structure.
         /// </summary>
-        private void IncrementVolumeHandler()
+        private void InitializeHotkeys()
         {
-            VolumeHelper.IncrementVolume(process_name.Text, (float)volume_step.Value);
-        }
-        /// <summary>
-        /// Decrements the target application's volume by the current step value.
-        /// </summary>
-        private void DecrementVolumeHandler()
-        {
-            VolumeHelper.DecrementVolume(process_name.Text, (float)volume_step.Value);
-        }
-        /// <summary>
-        /// Toggles the target application's current mute state.
-        /// </summary>
-        private void MuteVolumeHandler()
-        {
-            VolumeHelper.ToggleMute(process_name.Text);
+            // set hotkeys
+            hk_up = TryInitHotkey(Properties.Settings.Default.hk_volumeup, new(Keys.VolumeUp, false, true, false, false));
+            hk_up.Pressed += delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); };
+
+            hk_down = TryInitHotkey(Properties.Settings.Default.hk_volumedown, new(Keys.VolumeDown, false, true, false, false));
+            hk_down.Pressed += delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); };
+
+            hk_mute = TryInitHotkey(Properties.Settings.Default.hk_volumemute, new(Keys.VolumeMute, false, true, false, false));
+            hk_mute.Pressed += delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); };
+           
+            // register hotkeys
+            hk_up.Register(this);
+            hk_down.Register(this);
+            hk_mute.Register(this);
         }
 
         private static Hotkey TryInitHotkey(string hkString, Hotkey def)
@@ -85,6 +84,14 @@ namespace VolumeControl
             return hk;
         }
 
+        private void UpdateTitle()
+        {
+            string title = "Volume Control";
+            if (process_name.Text.Length > 0)
+                title += $"  ({process_name.Text})";
+            Text = title;
+        }
+
         #endregion HelperMethods
 
         #region ClassFunctions
@@ -92,31 +99,26 @@ namespace VolumeControl
         {
             InitializeComponent();
 
+            // This needs to be done first, otherwise the window is destroyed & recreated which unbinds all of the hotkeys.
+            ShowInTaskbar = false;
+
             // populate settings boxes
             checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
             process_name.Text = Properties.Settings.Default.ProcessName;
-            
-            // set window title
-            Text = $"Volume Control{(process_name.Text.Length > 0 ? $"  ({process_name.Text})" : "")}";
 
-            // set hotkeys
-            hk_up = TryInitHotkey(Properties.Settings.Default.hk_volumeup, new(Keys.VolumeUp, false, true, false, false));
-            hk_up.Pressed += delegate { IncrementVolumeHandler(); };
+            UpdateTitle();
 
-            hk_down = TryInitHotkey(Properties.Settings.Default.hk_volumedown, new(Keys.VolumeDown, false, true, false, false));
-            hk_down.Pressed += delegate { DecrementVolumeHandler(); };
-
-            hk_mute = TryInitHotkey(Properties.Settings.Default.hk_volumemute, new(Keys.VolumeMute, false, true, false, false));
-            hk_mute.Pressed += delegate { MuteVolumeHandler(); };
-
-            hk_up.Register(this);
-            hk_down.Register(this);
-            hk_mute.Register(this);
+            // set all hotkeys to null to quiet compiler
+            hk_up = null!;
+            hk_down = null!;
+            hk_mute = null!;
+            // initialize hotkeys
+            InitializeHotkeys();
         }
         ~VolumeControlForm()
         {
             Properties.Settings.Default.Save();
-            DisableHotkeys();
+            UnregisterHotkeys();
         }
         #endregion ClassFunctions
 
@@ -128,9 +130,40 @@ namespace VolumeControl
         {
             Properties.Settings.Default.Enabled = checkbox_enabled.Checked;
             if (checkbox_enabled.Checked)
-                EnableHotkeys();
+                RegisterHotkeys();
             else
-                DisableHotkeys();
+                UnregisterHotkeys();
+        }
+        /// <summary>
+        /// Automatically called when the value of process_name is changed.
+        /// Sets the settings value "ProcessName" to the new value, and updates the window title.
+        /// </summary>
+        private void process_name_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ProcessName = process_name.Text;
+            UpdateTitle();
+        }
+        /// <summary>
+        /// Automatically called when the value of volume_step is changed.
+        /// Sets the settings value "VolumeStep" to the new value.
+        /// </summary>
+        private void volume_step_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.VolumeStep = (float)volume_step.Value;
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = FormWindowState.Normal;
+                Visible = true;
+
+            }
+            else if (WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Minimized;
+            }
         }
         #endregion FormComponents
     }

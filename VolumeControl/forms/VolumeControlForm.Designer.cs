@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VolumeControlForm));
             this.checkbox_enabled = new System.Windows.Forms.CheckBox();
             this.volume_step = new System.Windows.Forms.NumericUpDown();
             this.volume_step_label = new System.Windows.Forms.Label();
             this.process_name_label = new System.Windows.Forms.Label();
             this.process_name = new System.Windows.Forms.TextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +71,7 @@
             0,
             0,
             0});
+            this.volume_step.ValueChanged += new System.EventHandler(this.volume_step_ValueChanged);
             // 
             // volume_step_label
             // 
@@ -100,6 +104,15 @@
             this.process_name.TabIndex = 4;
             this.process_name.WordWrap = false;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipText = "Application-Specific Volume Control Hotkeys";
+            this.notifyIcon1.BalloonTipTitle = "Volume Control";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Volume Control";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -125,5 +138,6 @@
         private Label volume_step_label;
         private Label process_name_label;
         private TextBox process_name;
+        private NotifyIcon notifyIcon1;
     }
 }

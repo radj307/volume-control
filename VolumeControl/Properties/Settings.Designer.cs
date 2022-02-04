@@ -82,5 +82,17 @@ namespace VolumeControl.Properties {
                 this["hk_volumemute"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public float VolumeStep {
+            get {
+                return ((float)(this["VolumeStep"]));
+            }
+            set {
+                this["VolumeStep"] = value;
+            }
+        }
     }
 }
