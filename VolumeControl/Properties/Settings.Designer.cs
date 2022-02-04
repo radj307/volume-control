@@ -94,41 +94,5 @@ namespace VolumeControl.Properties {
                 this["VolumeStep"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enable_volumeup {
-            get {
-                return ((bool)(this["enable_volumeup"]));
-            }
-            set {
-                this["enable_volumeup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enable_volumedown {
-            get {
-                return ((bool)(this["enable_volumedown"]));
-            }
-            set {
-                this["enable_volumedown"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enable_volumemute {
-            get {
-                return ((bool)(this["enable_volumemute"]));
-            }
-            set {
-                this["enable_volumemute"] = value;
-            }
-        }
     }
 }
