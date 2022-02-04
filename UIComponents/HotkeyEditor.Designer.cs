@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VolumeControl
+namespace UIComponents
 {
     partial class HotkeyEditor : IComponent
     {
@@ -32,14 +32,14 @@ namespace VolumeControl
         {
             this.components = new System.ComponentModel.Container();
             this.key = new System.Windows.Forms.ComboBox();
+            this.keysConverterBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.keysConverterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mod_shift = new System.Windows.Forms.CheckBox();
             this.mod_ctrl = new System.Windows.Forms.CheckBox();
             this.mod_alt = new System.Windows.Forms.CheckBox();
             this.mod_win = new System.Windows.Forms.CheckBox();
-            this.keysConverterBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // key
@@ -52,7 +52,10 @@ namespace VolumeControl
             this.key.Name = "key";
             this.key.Size = new System.Drawing.Size(168, 24);
             this.key.TabIndex = 1;
-            this.key.SelectedIndexChanged += new System.EventHandler(this.key_SelectedIndexChanged);
+            // 
+            // keysConverterBindingSource1
+            // 
+            this.keysConverterBindingSource1.DataSource = typeof(System.Windows.Forms.KeysConverter);
             // 
             // keysConverterBindingSource
             // 
@@ -107,15 +110,10 @@ namespace VolumeControl
             this.mod_win.Text = "Win";
             this.mod_win.UseVisualStyleBackColor = true;
             // 
-            // keysConverterBindingSource1
-            // 
-            this.keysConverterBindingSource1.DataSource = typeof(System.Windows.Forms.KeysConverter);
-            // 
             // HotkeyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Controls.Add(this.mod_win);
             this.Controls.Add(this.mod_alt);
@@ -125,8 +123,8 @@ namespace VolumeControl
             this.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "HotkeyEditor";
             this.Size = new System.Drawing.Size(356, 24);
-            ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.keysConverterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

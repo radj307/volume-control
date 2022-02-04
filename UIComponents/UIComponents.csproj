@@ -15,4 +15,8 @@
     <EmbeddedResource Remove="UserControl1.resx" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
 </Project>
