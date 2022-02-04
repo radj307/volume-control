@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\UIComponents\UIComponents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ManagedWinapi">
       <HintPath>.\external\ManagedWinapi.dll</HintPath>
     </Reference>

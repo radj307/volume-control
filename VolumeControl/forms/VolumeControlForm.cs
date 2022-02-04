@@ -1,4 +1,4 @@
-using MovablePython;
+using Common;
 
 namespace VolumeControl
 {
@@ -10,14 +10,17 @@ namespace VolumeControl
         /// Hotkey definition linked to volume up actions.
         /// </summary>
         private Hotkey hk_up;
+        private bool enable_up;
         /// <summary>
         /// Hotkey definition linked to volume down actions.
         /// </summary>
         private Hotkey hk_down;
+        private bool enable_down;
         /// <summary>
         /// Hotkey definition linked to toggle mute actions.
         /// </summary>
         private Hotkey hk_mute;
+        private bool enable_mute;
 
         #endregion Members
 
@@ -28,11 +31,11 @@ namespace VolumeControl
         /// </summary>
         internal void RegisterHotkeys()
         {
-            if (hk_up != null && !hk_up.Registered)
+            if (hk_up != null && enable_up && !hk_up.Registered)
                 hk_up.Register(this);
-            if (hk_down != null && !hk_down.Registered)
+            if (hk_down != null && enable_down && !hk_down.Registered)
                 hk_down.Register(this);
-            if (hk_mute != null && !hk_mute.Registered)
+            if (hk_mute != null && enable_mute && !hk_mute.Registered)
                 hk_mute.Register(this);
         }
         /// <summary>
@@ -62,7 +65,7 @@ namespace VolumeControl
 
             hk_mute = TryInitHotkey(Properties.Settings.Default.hk_volumemute, new(Keys.VolumeMute, false, true, false, false));
             hk_mute.Pressed += delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); };
-           
+
             // register hotkeys
             hk_up.Register(this);
             hk_down.Register(this);
@@ -112,8 +115,24 @@ namespace VolumeControl
             hk_mute = null!;
             // initialize hotkeys
             InitializeHotkeys();
+            enable_up = Properties.Settings.Default.enable_volumeup;
+            enable_down = Properties.Settings.Default.enable_volumedown;
+            enable_mute = Properties.Settings.Default.enable_volumemute;
 
-            Resize += delegate {
+            hkedit_volumeup.Hotkey = hk_up;
+            hkedit_volumeup.Text = "Volume Up";
+            hkedit_volumeup.Enabled = true;
+
+            hkedit_volumedown.Hotkey = hk_down;
+            hkedit_volumedown.Text = "Volume Down";
+            hkedit_volumedown.Enabled = true;
+
+            hkedit_volumemute.Hotkey = hk_mute;
+            hkedit_volumemute.Text = "Volume Mute";
+            hkedit_volumemute.Enabled = true;
+
+            Resize += delegate
+            {
                 if (WindowState == FormWindowState.Minimized)
                 {
                     Visible = false;
@@ -216,6 +235,59 @@ namespace VolumeControl
                 Visible = true;
             }
         }
+
+        private void hkedit_volumeup_update(object sender, EventArgs e)
+        {
+            hk_up.Unregister();
+            hk_up = this.hkedit_volumeup.Hotkey;
+            hk_up.Register(this);
+            enable_up = this.hkedit_volumeup.Enabled;
+
+            Properties.Settings.Default.hk_volumeup = hk_up.ToString();
+            Properties.Settings.Default.enable_volumeup = enable_up;
+
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void hkedit_volumedown_update(object sender, EventArgs e)
+        {
+            hk_down.Unregister();
+            hk_down = this.hkedit_volumedown.Hotkey;
+            hk_down.Register(this);
+            enable_down = this.hkedit_volumedown.Enabled;
+
+            Properties.Settings.Default.hk_volumedown = hk_down.ToString();
+            Properties.Settings.Default.enable_volumedown = enable_down;
+            
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void hkedit_volumemute_update(object sender, EventArgs e)
+        {
+            hk_mute.Unregister();
+            hk_mute = this.hkedit_volumemute.Hotkey;
+            hk_mute.Register(this);
+            enable_mute = this.hkedit_volumemute.Enabled;
+
+            Properties.Settings.Default.hk_volumemute = hk_mute.ToString();
+            Properties.Settings.Default.enable_volumemute = enable_mute;
+
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void button_refresh_Click(object sender, EventArgs e)
+        {
+            hk_up = new(Properties.Settings.Default.hk_volumeup);
+            enable_up = Properties.Settings.Default.enable_volumeup;
+            hk_down = new(Properties.Settings.Default.hk_volumedown);
+            enable_down = Properties.Settings.Default.enable_volumedown;
+            hk_mute = new(Properties.Settings.Default.hk_volumemute);
+            enable_mute = Properties.Settings.Default.enable_volumemute;
+            checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
+            process_name.Text = Properties.Settings.Default.ProcessName;
+            volume_step.Value = Properties.Settings.Default.VolumeStep;
+        }
+
         #endregion FormComponents
     }
 }
