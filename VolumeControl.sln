@@ -5,10 +5,6 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIComponents", "UIComponents\UIComponents.csproj", "{6536DD22-8206-4194-8C96-2E269F16FFA4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{33F75CF9-D940-48A9-BD2D-F66B7ADEE2FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6536DD22-8206-4194-8C96-2E269F16FFA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6536DD22-8206-4194-8C96-2E269F16FFA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6536DD22-8206-4194-8C96-2E269F16FFA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6536DD22-8206-4194-8C96-2E269F16FFA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33F75CF9-D940-48A9-BD2D-F66B7ADEE2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33F75CF9-D940-48A9-BD2D-F66B7ADEE2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33F75CF9-D940-48A9-BD2D-F66B7ADEE2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33F75CF9-D940-48A9-BD2D-F66B7ADEE2FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
