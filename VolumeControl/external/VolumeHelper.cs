@@ -8,13 +8,13 @@ namespace VolumeControl
     {
         #region Static Members
 
-        public static void IncrementVolume(string proc_name, float increment)
+        public static void IncrementVolume(string proc_name, decimal increment)
         {
             try
             {
-                float currentVolume = GetVolume(proc_name);
-                float newVolume = currentVolume + increment;
-                SetVolume(proc_name, newVolume >= 100.0f ? 100.0f : newVolume);
+                decimal currentVolume = GetVolume(proc_name);
+                decimal newVolume = currentVolume + increment;
+                SetVolume(proc_name, newVolume >= 100.0m ? 100.0m : newVolume);
             }
             catch
             {
@@ -22,13 +22,13 @@ namespace VolumeControl
             }
         }
 
-        public static void DecrementVolume(string proc_name, float increment)
+        public static void DecrementVolume(string proc_name, decimal increment)
         {
             try
             {
-                float currentVolume = GetVolume(proc_name);
-                float newVolume = currentVolume - increment;
-                SetVolume(proc_name, newVolume <= 0.0f ? 0.0f : newVolume);
+                decimal currentVolume = GetVolume(proc_name);
+                decimal newVolume = currentVolume - increment;
+                SetVolume(proc_name, newVolume <= 0.0m ? 0.0m : newVolume);
             }
             catch
             {
@@ -51,7 +51,7 @@ namespace VolumeControl
             }
         }
 
-        internal static float GetVolume(string proc_name)
+        internal static decimal GetVolume(string proc_name)
         {
             ISimpleAudioVolume volume = GetVolumeObject(proc_name);
             if (volume == null)
@@ -59,7 +59,7 @@ namespace VolumeControl
 
             volume.GetMasterVolume(out float level);
             Marshal.ReleaseComObject(volume);
-            return level * 100;
+            return (decimal)level * 100m;
         }
 
         internal static bool IsMuted(string proc_name)
@@ -73,14 +73,14 @@ namespace VolumeControl
             return mute;
         }
 
-        internal static void SetVolume(string proc_name, float level)
+        internal static void SetVolume(string proc_name, decimal level)
         {
             ISimpleAudioVolume volume = GetVolumeObject(proc_name);
             if (volume == null)
                 throw new COMException("Volume object creation failed");
 
             Guid guid = Guid.Empty;
-            volume.SetMasterVolume(level / 100, ref guid);
+            volume.SetMasterVolume((float)(level / 100.0m), ref guid);
             Marshal.ReleaseComObject(volume);
         }
 

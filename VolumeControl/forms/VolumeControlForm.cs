@@ -28,11 +28,11 @@ namespace VolumeControl
         /// </summary>
         internal void RegisterHotkeys()
         {
-            if (!hk_up.Registered)
+            if (hk_up != null && !hk_up.Registered)
                 hk_up.Register(this);
-            if (!hk_down.Registered)
+            if (hk_down != null && !hk_down.Registered)
                 hk_down.Register(this);
-            if (!hk_mute.Registered)
+            if (hk_mute != null && !hk_mute.Registered)
                 hk_mute.Register(this);
         }
         /// <summary>
@@ -40,11 +40,11 @@ namespace VolumeControl
         /// </summary>
         internal void UnregisterHotkeys()
         {
-            if (hk_up.Registered)
+            if (hk_up != null && hk_up.Registered)
                 hk_up.Unregister();
-            if (hk_down.Registered)
+            if (hk_down != null && hk_down.Registered)
                 hk_down.Unregister();
-            if (hk_mute.Registered)
+            if (hk_mute != null && hk_mute.Registered)
                 hk_mute.Unregister();
         }
 
@@ -95,6 +95,10 @@ namespace VolumeControl
         #endregion HelperMethods
 
         #region ClassFunctions
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VolumeControlForm()
         {
             InitializeComponent();
@@ -102,34 +106,82 @@ namespace VolumeControl
             // This needs to be done first, otherwise the window is destroyed & recreated which unbinds all of the hotkeys.
             ShowInTaskbar = false;
 
-            // populate settings boxes
-            checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
-            process_name.Text = Properties.Settings.Default.ProcessName;
-
-            UpdateTitle();
-
             // set all hotkeys to null to quiet compiler
             hk_up = null!;
             hk_down = null!;
             hk_mute = null!;
             // initialize hotkeys
             InitializeHotkeys();
+
+            Resize += delegate {
+                if (WindowState == FormWindowState.Minimized)
+                {
+                    Visible = false;
+                }
+            };
+
+            // populate settings boxes
+            checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
+            process_name.Text = Properties.Settings.Default.ProcessName;
+            volume_step.Value = Properties.Settings.Default.VolumeStep;
+
+            UpdateTitle();
         }
+
+        /// <summary>
+        /// Destructor
+        /// Saves the current settings.
+        /// </summary>
         ~VolumeControlForm()
         {
             Properties.Settings.Default.Save();
+            Properties.Settings.Default.Upgrade();
             UnregisterHotkeys();
         }
+
+        /// <summary>
+        /// Overrides the base object's Visible member with a property that respects hotkeys.
+        /// This is required because changing the value of Visible causes all hotkey registrations to expire.
+        /// </summary>
+        private new bool Visible
+        {
+            get => base.Visible;
+            set
+            {
+                base.Visible = value;
+                RegisterHotkeys();
+            }
+        }
+
+
+        /// <summary>
+        /// Overrides the base object's ShowInTaskbar member with a property that respects hotkeys.
+        /// This is required because changing the value of ShowInTaskbar causes all hotkey registrations to expire.
+        /// </summary>
+        private new bool ShowInTaskbar
+        {
+            get => base.ShowInTaskbar;
+            set
+            {
+                base.ShowInTaskbar = value;
+                RegisterHotkeys();
+            }
+        }
+
         #endregion ClassFunctions
 
         #region FormComponents
+
+
         /// <summary>
         /// Handler for the "Enabled" checkbox. When checked, it enables the hotkeys, when unchecked, it disables them.
         /// </summary>
-        private void checkbox_enabled_CheckedChanged(object sender, EventArgs e)
+        private void checkbox_enabled_event(object sender, EventArgs e)
         {
             Properties.Settings.Default.Enabled = checkbox_enabled.Checked;
-            if (checkbox_enabled.Checked)
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            if (Properties.Settings.Default.Enabled)
                 RegisterHotkeys();
             else
                 UnregisterHotkeys();
@@ -138,31 +190,30 @@ namespace VolumeControl
         /// Automatically called when the value of process_name is changed.
         /// Sets the settings value "ProcessName" to the new value, and updates the window title.
         /// </summary>
-        private void process_name_TextChanged(object sender, EventArgs e)
+        private void process_name_event(object sender, EventArgs e)
         {
             Properties.Settings.Default.ProcessName = process_name.Text;
             UpdateTitle();
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
         /// <summary>
         /// Automatically called when the value of volume_step is changed.
         /// Sets the settings value "VolumeStep" to the new value.
         /// </summary>
-        private void volume_step_ValueChanged(object sender, EventArgs e)
+        private void volume_step_event(object sender, EventArgs e)
         {
-            Properties.Settings.Default.VolumeStep = (float)volume_step.Value;
+            Properties.Settings.Default.VolumeStep = Convert.ToDecimal(volume_step.Value);
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void notifyIcon1_event(object sender, MouseEventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
                 WindowState = FormWindowState.Normal;
                 Visible = true;
-
-            }
-            else if (WindowState == FormWindowState.Normal)
-            {
-                WindowState = FormWindowState.Minimized;
             }
         }
         #endregion FormComponents

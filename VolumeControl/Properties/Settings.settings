@@ -17,7 +17,7 @@
     <Setting Name="hk_volumemute" Type="System.String" Scope="User">
       <Value Profile="(Default)">Control+VolumeMute</Value>
     </Setting>
-    <Setting Name="VolumeStep" Type="System.Single" Scope="User">
+    <Setting Name="VolumeStep" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
   </Settings>

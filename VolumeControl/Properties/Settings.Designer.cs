@@ -86,9 +86,9 @@ namespace VolumeControl.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public float VolumeStep {
+        public decimal VolumeStep {
             get {
-                return ((float)(this["VolumeStep"]));
+                return ((decimal)(this["VolumeStep"]));
             }
             set {
                 this["VolumeStep"] = value;

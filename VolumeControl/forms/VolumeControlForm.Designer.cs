@@ -55,7 +55,7 @@
             this.checkbox_enabled.TabIndex = 0;
             this.checkbox_enabled.Text = "Enabled";
             this.checkbox_enabled.UseVisualStyleBackColor = true;
-            this.checkbox_enabled.CheckedChanged += new System.EventHandler(this.checkbox_enabled_CheckedChanged);
+            this.checkbox_enabled.CheckedChanged += new System.EventHandler(this.checkbox_enabled_event);
             // 
             // volume_step
             // 
@@ -71,7 +71,8 @@
             0,
             0,
             0});
-            this.volume_step.ValueChanged += new System.EventHandler(this.volume_step_ValueChanged);
+            this.volume_step.ValueChanged += new System.EventHandler(this.volume_step_event);
+            this.volume_step.LostFocus += new System.EventHandler(this.volume_step_event);
             // 
             // volume_step_label
             // 
@@ -103,6 +104,8 @@
             this.process_name.Size = new System.Drawing.Size(120, 26);
             this.process_name.TabIndex = 4;
             this.process_name.WordWrap = false;
+            this.process_name.KeyDown += new KeyEventHandler(this.process_name_event);
+            this.process_name.LostFocus += new System.EventHandler(this.process_name_event);
             // 
             // notifyIcon1
             // 
@@ -111,7 +114,7 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "Volume Control";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_event);
             // 
             // VolumeControlForm
             // 
