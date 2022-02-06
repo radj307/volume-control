@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using ToastifyAPI.Native.MMDeviceAPI.Enums;
+using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 
-namespace ToastifyAPI.Native.MMDeviceAPI
+namespace AudioAPI.WindowsAPI.Audio.MMDeviceAPI
 {
     [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

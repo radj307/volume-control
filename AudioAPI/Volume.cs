@@ -1,8 +1,9 @@
 ﻿using System.Runtime.InteropServices;
-using ToastifyAPI.Native.MMDeviceAPI;
-using ToastifyAPI.Native.MMDeviceAPI.Enums;
+using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
+using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
+using AudioAPI.WindowsAPI.Audio;
 
-namespace VolumeControl
+namespace AudioAPI
 {
     public static class Volume
     {
@@ -11,7 +12,6 @@ namespace VolumeControl
         public static ISimpleAudioVolume GetVolumeObject(int pid)
         {
             // Get the speakers (1st render + multimedia) device
-            // ReSharper disable once SuspiciousTypeConversion.Global
             IMMDeviceEnumerator deviceEnumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             deviceEnumerator.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out IMMDevice speakers);
 
@@ -53,7 +53,9 @@ namespace VolumeControl
             }
 
             Marshal.ReleaseComObject(deviceEnumerator);
+#           pragma warning disable CS8603 // Possible null reference return.
             return volumeControl;
+#           pragma warning restore CS8603 // Possible null reference return.
         }
 
         private static ISimpleAudioVolume GetVolumeObject(int pid, IMMDevice device)
@@ -69,7 +71,7 @@ namespace VolumeControl
 
             // Search for an audio session with the required name
             // NOTE: we could also use the process id instead of the app name (with IAudioSessionControl2)
-            ISimpleAudioVolume volumeControl = null;
+            ISimpleAudioVolume? volumeControl = null;
             for (int i = 0; i < count; i++)
             {
                 sessionEnumerator.GetSession(i, out IAudioSessionControl2 ctl);
@@ -77,7 +79,6 @@ namespace VolumeControl
 
                 if (cpid == pid)
                 {
-                    // ReSharper disable once SuspiciousTypeConversion.Global
                     volumeControl = (ISimpleAudioVolume)ctl;
                     break;
                 }
@@ -87,7 +88,9 @@ namespace VolumeControl
 
             Marshal.ReleaseComObject(sessionEnumerator);
             Marshal.ReleaseComObject(mgr);
+#           pragma warning disable CS8603 // Possible null reference return.
             return volumeControl;
+#           pragma warning restore CS8603 // Possible null reference return.
         }
 
         #endregion

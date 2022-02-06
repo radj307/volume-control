@@ -36,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ManagedWinapi">
       <HintPath>.\external\ManagedWinapi.dll</HintPath>
     </Reference>

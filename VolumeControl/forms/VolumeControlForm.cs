@@ -1,4 +1,5 @@
 using MovablePython;
+using AudioAPI;
 
 namespace VolumeControl
 {

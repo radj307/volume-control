@@ -1,5 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-namespace ToastifyAPI.Native.Enums
+﻿namespace AudioAPI
 {
     public enum VirtualKeyCode : byte
     {

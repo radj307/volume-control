@@ -1,7 +1,4 @@
-﻿using System;
-
-// ReSharper disable InconsistentNaming
-namespace ToastifyAPI.Native.Enums
+﻿namespace AudioAPI.WindowsAPI.Enum
 {
     [Flags]
     public enum MenuFlags : long

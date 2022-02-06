@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAPI", "AudioAPI\AudioAPI.csproj", "{1824AC8B-39F7-4FED-A39C-CC96507C66AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControlCLI", "VolumeControlCLI\VolumeControlCLI.csproj", "{63A334C5-21EB-4151-AC9C-9E4DE751F551}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2455A8CB-1BAA-479C-8CDA-4023F594B4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1824AC8B-39F7-4FED-A39C-CC96507C66AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1824AC8B-39F7-4FED-A39C-CC96507C66AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1824AC8B-39F7-4FED-A39C-CC96507C66AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1824AC8B-39F7-4FED-A39C-CC96507C66AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

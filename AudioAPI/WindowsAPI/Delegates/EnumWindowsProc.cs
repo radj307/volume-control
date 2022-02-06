@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToastifyAPI.Native.Delegates
+﻿namespace AudioAPI.WindowsAPI.Delegates
 {
     public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 }

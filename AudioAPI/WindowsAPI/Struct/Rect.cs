@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ToastifyAPI.Native.Structs
+namespace AudioAPI.WindowsAPI.Struct
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect

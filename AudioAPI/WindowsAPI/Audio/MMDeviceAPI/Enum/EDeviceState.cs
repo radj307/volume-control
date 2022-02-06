@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToastifyAPI.Native.MMDeviceAPI.Enums
+﻿namespace AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum
 {
     [Flags]
     public enum EDeviceState
