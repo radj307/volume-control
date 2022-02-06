@@ -38,6 +38,7 @@
             this.system_tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.system_tray_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkbox_minimizeOnStartup = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
             this.system_tray_menu.SuspendLayout();
             this.SuspendLayout();
@@ -49,12 +50,10 @@
             this.checkbox_enabled.AutoSize = true;
             this.checkbox_enabled.Checked = true;
             this.checkbox_enabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkbox_enabled.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkbox_enabled.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkbox_enabled.Location = new System.Drawing.Point(0, 0);
+            this.checkbox_enabled.Location = new System.Drawing.Point(12, 0);
             this.checkbox_enabled.Name = "checkbox_enabled";
-            this.checkbox_enabled.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.checkbox_enabled.Size = new System.Drawing.Size(255, 20);
+            this.checkbox_enabled.Size = new System.Drawing.Size(73, 20);
             this.checkbox_enabled.TabIndex = 0;
             this.checkbox_enabled.Text = "Enabled";
             this.checkbox_enabled.UseVisualStyleBackColor = true;
@@ -127,20 +126,34 @@
             this.closeToolStripMenuItem});
             this.system_tray_menu.Name = "system_tray_menu";
             this.system_tray_menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.system_tray_menu.Size = new System.Drawing.Size(181, 48);
+            this.system_tray_menu.Size = new System.Drawing.Size(104, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.system_tray_menu_close);
+            // 
+            // checkbox_minimizeOnStartup
+            // 
+            this.checkbox_minimizeOnStartup.AutoSize = true;
+            this.checkbox_minimizeOnStartup.Checked = true;
+            this.checkbox_minimizeOnStartup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(109, 1);
+            this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
+            this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(133, 19);
+            this.checkbox_minimizeOnStartup.TabIndex = 5;
+            this.checkbox_minimizeOnStartup.Text = "Minimize on Startup";
+            this.checkbox_minimizeOnStartup.UseVisualStyleBackColor = true;
+            this.checkbox_minimizeOnStartup.CheckedChanged += new System.EventHandler(this.checkbox_minimizeOnStartup_CheckedChanged);
             // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(255, 90);
+            this.Controls.Add(this.checkbox_minimizeOnStartup);
             this.Controls.Add(this.process_name);
             this.Controls.Add(this.process_name_label);
             this.Controls.Add(this.volume_step_label);
@@ -165,5 +178,6 @@
         private NotifyIcon system_tray;
         private ContextMenuStrip system_tray_menu;
         private ToolStripMenuItem closeToolStripMenuItem;
+        private CheckBox checkbox_minimizeOnStartup;
     }
 }

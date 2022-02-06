@@ -94,5 +94,17 @@ namespace VolumeControl.Properties {
                 this["VolumeStep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MinimizeOnStartup {
+            get {
+                return ((bool)(this["MinimizeOnStartup"]));
+            }
+            set {
+                this["MinimizeOnStartup"] = value;
+            }
+        }
     }
 }

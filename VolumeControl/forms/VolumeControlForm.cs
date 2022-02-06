@@ -107,7 +107,7 @@ namespace VolumeControl
             InitializeComponent();
 
             // This needs to be done first, otherwise the window is destroyed & recreated which unbinds all of the hotkeys.
-            ShowInTaskbar = false;
+            ShowInTaskbar = true;
 
             // set all hotkeys to null to quiet compiler
             hk_up = null!;
@@ -127,6 +127,13 @@ namespace VolumeControl
             checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
             process_name.Text = Properties.Settings.Default.ProcessName;
             volume_step.Value = Properties.Settings.Default.VolumeStep;
+            bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
+            checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
+
+            if (minimizeOnStartup)
+            {
+                WindowState = FormWindowState.Minimized;
+            }
 
             UpdateTitle();
         }
@@ -224,6 +231,12 @@ namespace VolumeControl
         private void system_tray_menu_close(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+        private void checkbox_minimizeOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         #endregion FormComponents
