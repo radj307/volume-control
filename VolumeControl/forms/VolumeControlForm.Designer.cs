@@ -159,6 +159,8 @@
             this.Controls.Add(this.volume_step_label);
             this.Controls.Add(this.volume_step);
             this.Controls.Add(this.checkbox_enabled);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).EndInit();
