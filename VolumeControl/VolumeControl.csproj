@@ -9,7 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
     <ApplicationIcon>volume.ico</ApplicationIcon>
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
     <ErrorReport>none</ErrorReport>
@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
+    <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
+    <ProjectReference Include="..\UIComposites\UIComposites.csproj" />
   </ItemGroup>
 
   <ItemGroup>

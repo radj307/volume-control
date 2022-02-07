@@ -25,18 +25,6 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Enabled {
-            get {
-                return ((bool)(this["Enabled"]));
-            }
-            set {
-                this["Enabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Deezer")]
         public string ProcessName {
             get {
@@ -104,6 +92,42 @@ namespace VolumeControl.Properties {
             }
             set {
                 this["MinimizeOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool hk_volumeup_enabled {
+            get {
+                return ((bool)(this["hk_volumeup_enabled"]));
+            }
+            set {
+                this["hk_volumeup_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool hk_volumedown_enabled {
+            get {
+                return ((bool)(this["hk_volumedown_enabled"]));
+            }
+            set {
+                this["hk_volumedown_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool hk_volumemute_enabled {
+            get {
+                return ((bool)(this["hk_volumemute_enabled"]));
+            }
+            set {
+                this["hk_volumemute_enabled"] = value;
             }
         }
     }

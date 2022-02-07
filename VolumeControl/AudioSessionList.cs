@@ -1,12 +1,7 @@
 ﻿using AudioAPI.WindowsAPI.Audio;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace VolumeControl
 {

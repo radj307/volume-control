@@ -2,8 +2,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
-namespace MovablePython
+namespace HotkeyLib
 {
     [TypeConverter(typeof(HotkeyConverter))]
     public class Hotkey : IMessageFilter

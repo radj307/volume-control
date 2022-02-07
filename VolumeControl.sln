@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeCont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAPI", "AudioAPI\AudioAPI.csproj", "{1824AC8B-39F7-4FED-A39C-CC96507C66AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControlCLI", "VolumeControlCLI\VolumeControlCLI.csproj", "{63A334C5-21EB-4151-AC9C-9E4DE751F551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControlCLI", "VolumeControlCLI\VolumeControlCLI.csproj", "{63A334C5-21EB-4151-AC9C-9E4DE751F551}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotkeyLib", "HotkeyLib\HotkeyLib.csproj", "{A7E9F1E5-C19A-43FD-83AA-D9B86E39B2CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIComposites", "UIComposites\UIComposites.csproj", "{59144427-4287-4551-A6B0-E610C1420ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A334C5-21EB-4151-AC9C-9E4DE751F551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E9F1E5-C19A-43FD-83AA-D9B86E39B2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E9F1E5-C19A-43FD-83AA-D9B86E39B2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E9F1E5-C19A-43FD-83AA-D9B86E39B2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E9F1E5-C19A-43FD-83AA-D9B86E39B2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59144427-4287-4551-A6B0-E610C1420ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59144427-4287-4551-A6B0-E610C1420ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59144427-4287-4551-A6B0-E610C1420ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59144427-4287-4551-A6B0-E610C1420ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
