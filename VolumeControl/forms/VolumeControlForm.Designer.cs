@@ -34,11 +34,11 @@
             this.volume_step = new System.Windows.Forms.NumericUpDown();
             this.volume_step_label = new System.Windows.Forms.Label();
             this.process_name_label = new System.Windows.Forms.Label();
-            this.process_name = new System.Windows.Forms.TextBox();
             this.system_tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.system_tray_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkbox_minimizeOnStartup = new System.Windows.Forms.CheckBox();
+            this.combobox_process_name = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
             this.system_tray_menu.SuspendLayout();
             this.SuspendLayout();
@@ -98,17 +98,6 @@
             this.process_name_label.TabIndex = 3;
             this.process_name_label.Text = "Target Process";
             // 
-            // process_name
-            // 
-            this.process_name.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.process_name.Location = new System.Drawing.Point(122, 24);
-            this.process_name.Name = "process_name";
-            this.process_name.Size = new System.Drawing.Size(120, 26);
-            this.process_name.TabIndex = 4;
-            this.process_name.WordWrap = false;
-            this.process_name.KeyDown += new System.Windows.Forms.KeyEventHandler(this.process_name_event);
-            this.process_name.LostFocus += new System.EventHandler(this.process_name_event);
-            // 
             // system_tray
             // 
             this.system_tray.BalloonTipText = "Application-Specific Volume Control Hotkeys";
@@ -148,13 +137,24 @@
             this.checkbox_minimizeOnStartup.UseVisualStyleBackColor = true;
             this.checkbox_minimizeOnStartup.CheckedChanged += new System.EventHandler(this.checkbox_minimizeOnStartup_CheckedChanged);
             // 
+            // combobox_process_name
+            // 
+            this.combobox_process_name.Location = new System.Drawing.Point(122, 25);
+            this.combobox_process_name.MaxDropDownItems = 16;
+            this.combobox_process_name.Name = "combobox_process_name";
+            this.combobox_process_name.Size = new System.Drawing.Size(120, 23);
+            this.combobox_process_name.Sorted = true;
+            this.combobox_process_name.TabIndex = 6;
+            this.combobox_process_name.TextChanged += new System.EventHandler(this.process_name_event);
+            this.combobox_process_name.GotFocus += new System.EventHandler(this.process_name_reload);
+            // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(255, 90);
+            this.Controls.Add(this.combobox_process_name);
             this.Controls.Add(this.checkbox_minimizeOnStartup);
-            this.Controls.Add(this.process_name);
             this.Controls.Add(this.process_name_label);
             this.Controls.Add(this.volume_step_label);
             this.Controls.Add(this.volume_step);
@@ -176,10 +176,10 @@
         private NumericUpDown volume_step;
         private Label volume_step_label;
         private Label process_name_label;
-        private TextBox process_name;
         private NotifyIcon system_tray;
         private ContextMenuStrip system_tray_menu;
         private ToolStripMenuItem closeToolStripMenuItem;
         private CheckBox checkbox_minimizeOnStartup;
+        private ComboBox combobox_process_name;
     }
 }

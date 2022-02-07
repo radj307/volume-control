@@ -1,5 +1,6 @@
 using MovablePython;
 using AudioAPI;
+using System.Diagnostics;
 
 namespace VolumeControl
 {
@@ -19,6 +20,8 @@ namespace VolumeControl
         /// Hotkey definition linked to toggle mute actions.
         /// </summary>
         private Hotkey hk_mute;
+
+        private AudioSessionList sessions = new();
 
         #endregion Members
 
@@ -87,12 +90,20 @@ namespace VolumeControl
 
         private void UpdateTitle()
         {
-            string title = "Volume Control";
-            if (process_name.Text.Length > 0)
+            if (combobox_process_name.Text.Length > 0)
             {
-                title += $"  ({process_name.Text})";
+                Text = $"{combobox_process_name.Text} Volume Controller";
             }
-            Text = title;
+            else
+            {
+                Text = "Volume Control";
+            }
+        }
+
+        private void UpdateProcessList()
+        {
+            sessions.UpdateProcessNames();
+            combobox_process_name.DataSource = sessions.ProcessNames;
         }
 
         #endregion HelperMethods
@@ -125,7 +136,7 @@ namespace VolumeControl
 
             // populate settings boxes
             checkbox_enabled.Checked = Properties.Settings.Default.Enabled;
-            process_name.Text = Properties.Settings.Default.ProcessName;
+            combobox_process_name.Text = Properties.Settings.Default.ProcessName;
             volume_step.Value = Properties.Settings.Default.VolumeStep;
             bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
@@ -134,6 +145,8 @@ namespace VolumeControl
             {
                 WindowState = FormWindowState.Minimized;
             }
+
+            UpdateProcessList();
 
             UpdateTitle();
         }
@@ -202,10 +215,14 @@ namespace VolumeControl
         /// </summary>
         private void process_name_event(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ProcessName = process_name.Text;
+            Properties.Settings.Default.ProcessName = combobox_process_name.Text;
             UpdateTitle();
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+        }
+        private void process_name_reload(object sender, EventArgs e)
+        {
+            UpdateProcessList();
         }
         /// <summary>
         /// Automatically called when the value of volume_step is changed.
