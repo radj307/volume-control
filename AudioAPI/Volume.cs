@@ -24,9 +24,6 @@ namespace AudioAPI
             {
                 // If volumeControl is null, then the process's volume object might be on a different device.
                 // This happens if the process doesn't use the default device.
-                // 
-                // As far as Spotify is concerned, if using the "--enable-audio-graph" command line argument,
-                // a new option becomes available in the Settings that makes it possible to change the playback device.
 
                 deviceEnumerator.EnumAudioEndpoints(EDataFlow.ERender, EDeviceState.Active, out IMMDeviceCollection deviceCollection);
 

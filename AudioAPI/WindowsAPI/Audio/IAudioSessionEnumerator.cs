@@ -1,4 +1,6 @@
 ﻿using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace AudioAPI.WindowsAPI.Audio
 {
@@ -21,5 +23,23 @@ namespace AudioAPI.WindowsAPI.Audio
         /// <returns>int</returns>
         [PreserveSig]
         int GetSession(int sessionCount, out IAudioSessionControl2 session);
+
+        /// <summary>
+        /// Get a list of all current audio sessions.
+        /// </summary>
+        /// <returns>List<IAudioSessionControl2></returns>
+        public List<IAudioSessionControl2> GetAllSessions()
+        {
+            GetCount(out int count);
+            List<IAudioSessionControl2> list = new();
+
+            for (int i = 0; i < count; ++i)
+            {
+                GetSession(i, out IAudioSessionControl2 session);
+                list.Add(session);
+            }
+
+            return list;
+        }
     }
 }
