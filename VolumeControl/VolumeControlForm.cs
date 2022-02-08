@@ -29,17 +29,6 @@ namespace VolumeControl
         #region MemberOverrides
 
         /// <summary>
-        /// Destructor
-        /// Saves the current settings.
-        /// </summary>
-        ~VolumeControlForm()
-        {
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Upgrade();
-            UnregisterHotkeys();
-        }
-
-        /// <summary>
         /// Overrides the base object's Visible member with a property that respects hotkeys.
         /// This is required because changing the value of Visible causes all hotkey registrations to expire.
         /// </summary>
@@ -49,6 +38,20 @@ namespace VolumeControl
             set
             {
                 base.Visible = value;
+                RegisterHotkeys();
+            }
+        }
+
+        /// <summary>
+        /// Overrides the base object's ShowInTaskbar member with a property that respects hotkeys.
+        /// This is required because changing the value of ShowInTaskbar causes all hotkey registrations to expire.
+        /// </summary>
+        private new bool ShowInTaskbar
+        {
+            get => base.ShowInTaskbar;
+            set
+            {
+                base.ShowInTaskbar = value;
                 RegisterHotkeys();
             }
         }
@@ -232,20 +235,15 @@ namespace VolumeControl
 
             UpdateTitle();
         }
-
-
         /// <summary>
-        /// Overrides the base object's ShowInTaskbar member with a property that respects hotkeys.
-        /// This is required because changing the value of ShowInTaskbar causes all hotkey registrations to expire.
+        /// Destructor
+        /// Saves the current settings.
         /// </summary>
-        private new bool ShowInTaskbar
+        ~VolumeControlForm()
         {
-            get => base.ShowInTaskbar;
-            set
-            {
-                base.ShowInTaskbar = value;
-                RegisterHotkeys();
-            }
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Upgrade();
+            UnregisterHotkeys();
         }
 
         #endregion ClassFunctions
