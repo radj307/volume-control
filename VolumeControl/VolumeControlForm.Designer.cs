@@ -1,4 +1,6 @@
-﻿namespace VolumeControl
+﻿using HotkeyLib;
+
+namespace VolumeControl
 {
     partial class VolumeControlForm
     {
@@ -30,9 +32,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VolumeControlForm));
-            HotkeyLib.Hotkey hotkey4 = new HotkeyLib.Hotkey();
-            HotkeyLib.Hotkey hotkey5 = new HotkeyLib.Hotkey();
-            HotkeyLib.Hotkey hotkey6 = new HotkeyLib.Hotkey();
             this.volume_step = new System.Windows.Forms.NumericUpDown();
             this.volume_step_label = new System.Windows.Forms.Label();
             this.process_name_label = new System.Windows.Forms.Label();
@@ -47,6 +46,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
             this.Tab_Hotkeys = new System.Windows.Forms.TabPage();
+            this.Button_Apply = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
             this.system_tray_menu.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -147,72 +147,30 @@
             // 
             // HKEdit_VolumeUp
             // 
-            this.HKEdit_VolumeUp.Alt = false;
             this.HKEdit_VolumeUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_VolumeUp.Ctrl = false;
-            hotkey4.Alt = false;
-            hotkey4.Control = false;
-            hotkey4.KeyCode = System.Windows.Forms.Keys.None;
-            hotkey4.Shift = false;
-            hotkey4.Windows = false;
-            this.HKEdit_VolumeUp.Hotkey = hotkey4;
-            this.HKEdit_VolumeUp.IsEnabled = false;
-            this.HKEdit_VolumeUp.Key = System.Windows.Forms.Keys.None;
-            this.HKEdit_VolumeUp.Label = "NULL";
             this.HKEdit_VolumeUp.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_VolumeUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeUp.Name = "HKEdit_VolumeUp";
-            this.HKEdit_VolumeUp.Shift = false;
             this.HKEdit_VolumeUp.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeUp.TabIndex = 7;
-            this.HKEdit_VolumeUp.Win = false;
-            this.HKEdit_VolumeUp.HotkeyChanged += new System.EventHandler(this.HKEdit_VolumeUp_HotkeyChanged);
             // 
             // HKEdit_VolumeDown
             // 
-            this.HKEdit_VolumeDown.Alt = false;
             this.HKEdit_VolumeDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_VolumeDown.Ctrl = false;
-            hotkey5.Alt = false;
-            hotkey5.Control = false;
-            hotkey5.KeyCode = System.Windows.Forms.Keys.None;
-            hotkey5.Shift = false;
-            hotkey5.Windows = false;
-            this.HKEdit_VolumeDown.Hotkey = hotkey5;
-            this.HKEdit_VolumeDown.IsEnabled = false;
-            this.HKEdit_VolumeDown.Key = System.Windows.Forms.Keys.None;
-            this.HKEdit_VolumeDown.Label = "NULL";
             this.HKEdit_VolumeDown.Location = new System.Drawing.Point(9, 79);
             this.HKEdit_VolumeDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeDown.Name = "HKEdit_VolumeDown";
-            this.HKEdit_VolumeDown.Shift = false;
             this.HKEdit_VolumeDown.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeDown.TabIndex = 8;
-            this.HKEdit_VolumeDown.Win = false;
-            this.HKEdit_VolumeDown.HotkeyChanged += new System.EventHandler(this.HKEdit_VolumeDown_HotkeyChanged);
             // 
             // HKEdit_VolumeMute
             // 
-            this.HKEdit_VolumeMute.Alt = false;
             this.HKEdit_VolumeMute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_VolumeMute.Ctrl = false;
-            hotkey6.Alt = false;
-            hotkey6.Control = false;
-            hotkey6.KeyCode = System.Windows.Forms.Keys.None;
-            hotkey6.Shift = false;
-            hotkey6.Windows = false;
-            this.HKEdit_VolumeMute.Hotkey = hotkey6;
-            this.HKEdit_VolumeMute.IsEnabled = false;
-            this.HKEdit_VolumeMute.Key = System.Windows.Forms.Keys.None;
-            this.HKEdit_VolumeMute.Label = "NULL";
             this.HKEdit_VolumeMute.Location = new System.Drawing.Point(9, 151);
             this.HKEdit_VolumeMute.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeMute.Name = "HKEdit_VolumeMute";
-            this.HKEdit_VolumeMute.Shift = false;
             this.HKEdit_VolumeMute.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeMute.TabIndex = 9;
-            this.HKEdit_VolumeMute.Win = false;
-            this.HKEdit_VolumeMute.HotkeyChanged += new System.EventHandler(this.HKEdit_VolumeMute_HotkeyChanged);
             // 
             // tabControl1
             // 
@@ -228,6 +186,7 @@
             // 
             // Tab_General
             // 
+            this.Tab_General.Controls.Add(this.Button_Apply);
             this.Tab_General.Controls.Add(this.checkbox_minimizeOnStartup);
             this.Tab_General.Controls.Add(this.volume_step);
             this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
@@ -253,6 +212,16 @@
             this.Tab_Hotkeys.TabIndex = 1;
             this.Tab_Hotkeys.Text = "Hotkeys";
             this.Tab_Hotkeys.UseVisualStyleBackColor = true;
+            // 
+            // Button_Apply
+            // 
+            this.Button_Apply.Location = new System.Drawing.Point(98, 133);
+            this.Button_Apply.Name = "Button_Apply";
+            this.Button_Apply.Size = new System.Drawing.Size(140, 40);
+            this.Button_Apply.TabIndex = 7;
+            this.Button_Apply.Text = "Apply Hotkeys";
+            this.Button_Apply.UseVisualStyleBackColor = true;
+            this.Button_Apply.Click += new System.EventHandler(this.Button_Apply_Click);
             // 
             // VolumeControlForm
             // 
@@ -290,5 +259,6 @@
         private TabControl tabControl1;
         private TabPage Tab_General;
         private TabPage Tab_Hotkeys;
+        private Button Button_Apply;
     }
 }

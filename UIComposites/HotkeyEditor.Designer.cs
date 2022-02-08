@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Checkbox_Enabled = new System.Windows.Forms.CheckBox();
             this.Label_HotkeyName = new System.Windows.Forms.Label();
             this.Combobox_KeySelector = new System.Windows.Forms.ComboBox();
+            this.hotkeyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Checkbox_ModifierKey_Ctrl = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Alt = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Shift = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Win = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.hotkeyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Checkbox_Enabled
@@ -47,7 +50,6 @@
             this.Checkbox_Enabled.TabIndex = 0;
             this.Checkbox_Enabled.Text = "Enabled";
             this.Checkbox_Enabled.UseVisualStyleBackColor = true;
-            this.Checkbox_Enabled.CheckedChanged += HotkeyChanged;
             // 
             // Label_HotkeyName
             // 
@@ -59,17 +61,21 @@
             this.Label_HotkeyName.Size = new System.Drawing.Size(90, 15);
             this.Label_HotkeyName.TabIndex = 1;
             this.Label_HotkeyName.Text = "[ hotkey name ]";
-            this.Label_HotkeyName.TextChanged += HotkeyChanged;
             // 
             // Combobox_KeySelector
             // 
+            this.Combobox_KeySelector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.Combobox_KeySelector.DataSource = this.hotkeyBindingSource;
             this.Combobox_KeySelector.FormattingEnabled = true;
             this.Combobox_KeySelector.Location = new System.Drawing.Point(115, 3);
             this.Combobox_KeySelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Combobox_KeySelector.Name = "Combobox_KeySelector";
             this.Combobox_KeySelector.Size = new System.Drawing.Size(220, 23);
             this.Combobox_KeySelector.TabIndex = 2;
-            this.Combobox_KeySelector.TextChanged += HotkeyChanged;
+            // 
+            // hotkeyBindingSource
+            // 
+            this.hotkeyBindingSource.DataSource = typeof(HotkeyLib.Hotkey);
             // 
             // Checkbox_ModifierKey_Ctrl
             // 
@@ -81,7 +87,7 @@
             this.Checkbox_ModifierKey_Ctrl.TabIndex = 3;
             this.Checkbox_ModifierKey_Ctrl.Text = "Ctrl";
             this.Checkbox_ModifierKey_Ctrl.UseVisualStyleBackColor = true;
-            this.Checkbox_ModifierKey_Ctrl.CheckedChanged += HotkeyChanged;
+            this.Checkbox_ModifierKey_Ctrl.CheckedChanged += new System.EventHandler(this.Checkbox_ModifierKey_Ctrl_CheckedChanged);
             // 
             // Checkbox_ModifierKey_Alt
             // 
@@ -93,7 +99,7 @@
             this.Checkbox_ModifierKey_Alt.TabIndex = 4;
             this.Checkbox_ModifierKey_Alt.Text = "Alt";
             this.Checkbox_ModifierKey_Alt.UseVisualStyleBackColor = true;
-            this.Checkbox_ModifierKey_Alt.CheckedChanged += HotkeyChanged;
+            this.Checkbox_ModifierKey_Alt.CheckedChanged += new System.EventHandler(this.Checkbox_ModifierKey_Alt_CheckedChanged);
             // 
             // Checkbox_ModifierKey_Shift
             // 
@@ -105,7 +111,7 @@
             this.Checkbox_ModifierKey_Shift.TabIndex = 5;
             this.Checkbox_ModifierKey_Shift.Text = "Shift";
             this.Checkbox_ModifierKey_Shift.UseVisualStyleBackColor = true;
-            this.Checkbox_ModifierKey_Shift.CheckedChanged += HotkeyChanged;
+            this.Checkbox_ModifierKey_Shift.CheckedChanged += new System.EventHandler(this.Checkbox_ModifierKey_Shift_CheckedChanged);
             // 
             // Checkbox_ModifierKey_Win
             // 
@@ -117,7 +123,7 @@
             this.Checkbox_ModifierKey_Win.TabIndex = 6;
             this.Checkbox_ModifierKey_Win.Text = "Win";
             this.Checkbox_ModifierKey_Win.UseVisualStyleBackColor = true;
-            this.Checkbox_ModifierKey_Win.CheckedChanged += HotkeyChanged;
+            this.Checkbox_ModifierKey_Win.CheckedChanged += new System.EventHandler(this.Checkbox_ModifierKey_Win_CheckedChanged);
             // 
             // HotkeyEditor
             // 
@@ -134,19 +140,20 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "HotkeyEditor";
             this.Size = new System.Drawing.Size(341, 57);
+            ((System.ComponentModel.ISupportInitialize)(this.hotkeyBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox Checkbox_Enabled;
-        private System.Windows.Forms.Label Label_HotkeyName;
         private System.Windows.Forms.ComboBox Combobox_KeySelector;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Ctrl;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Alt;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Shift;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Win;
+        private BindingSource hotkeyBindingSource;
+        public CheckBox Checkbox_Enabled;
+        private Label Label_HotkeyName;
     }
 }

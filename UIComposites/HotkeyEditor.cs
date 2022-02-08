@@ -10,118 +10,90 @@ namespace UIComposites
         public HotkeyEditor()
         {
             InitializeComponent();
-            Label_HotkeyName = new Label();
-            IsEnabled = false;
         }
 
         #endregion Constructors
 
-        #region Helpers
+        #region Methods
 
-        private Hotkey GetHotkey()
-        {
-            return new(Key, Shift, Ctrl, Alt, Win);
-        }
+        public void SetHotkeyIsEnabled(bool enable) => Checkbox_Enabled.Checked = enable;
 
-        private void SetFromHotkey(Hotkey hk)
-        {
-            Key = hk.KeyCode;
-            Shift = hk.Shift;
-            Ctrl = hk.Control;
-            Alt = hk.Alt;
-            Win = hk.Windows;
-        }
+        public void SetLabel(string label) => Label_HotkeyName.Text = label;
 
-        #endregion Helpers
 
-        #region Events
-
-        public event EventHandler HotkeyChanged;
-
-        #endregion Events
+        #endregion Methods
 
         #region Properties
 
+        public bool HotkeyIsEnabled
+        {
+            get => Checkbox_Enabled.Checked;
+        }
+
         public string Label
         {
-            get { return Label_HotkeyName.Text; }
-            set { Label_HotkeyName.Text = value; }
-        }
-
-        public Keys Key
-        {
-            get
-            {
-                try
-                {
-                    return (Keys)Enum.Parse(typeof(Keys), Combobox_KeySelector.Text, true);
-                }
-                catch (Exception)
-                {
-                    return Keys.None;
-                }
-            }
-            set
-            {
-                try
-                {
-                    Combobox_KeySelector.Text = Enum.GetName(value);
-                }
-                catch (Exception) { }
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get { return Checkbox_Enabled.Checked; }
-            set
-            {
-                Checkbox_Enabled.Checked = value;
-            }
-        }
-
-        public bool Shift
-        {
-            get { return Checkbox_ModifierKey_Shift.Checked; }
-            set
-            {
-                Checkbox_ModifierKey_Shift.Checked = value;
-            }
-        }
-        public bool Ctrl
-        {
-            get { return Checkbox_ModifierKey_Ctrl.Checked; }
-            set
-            {
-                Checkbox_ModifierKey_Ctrl.Checked = value;
-            }
-        }
-        public bool Alt
-        {
-            get { return Checkbox_ModifierKey_Alt.Checked; }
-            set
-            {
-                Checkbox_ModifierKey_Alt.Checked = value;
-            }
-        }
-        public bool Win
-        {
-            get { return Checkbox_ModifierKey_Win.Checked; }
-            set
-            {
-                Checkbox_ModifierKey_Win.Checked = value;
-            }
+            get => Label_HotkeyName.Text;
         }
 
         public Hotkey Hotkey
         {
-            get { return GetHotkey(); }
+            get
+            {
+                return new Hotkey(
+                    (Keys)Enum.Parse(typeof(Keys), Combobox_KeySelector.Text, true),
+                    Checkbox_ModifierKey_Shift.Checked,
+                    Checkbox_ModifierKey_Ctrl.Checked,
+                    Checkbox_ModifierKey_Alt.Checked,
+                    Checkbox_ModifierKey_Win.Checked
+                );
+            }
             set
             {
-                SetFromHotkey(value);
+                Combobox_KeySelector.Text = Enum.GetName(typeof(Keys), value.KeyCode);
+                Checkbox_ModifierKey_Shift.Checked = value.Shift;
+                Checkbox_ModifierKey_Ctrl.Checked = value.Control;
+                Checkbox_ModifierKey_Alt.Checked = value.Alt;
+                Checkbox_ModifierKey_Win.Checked = value.Windows;
             }
         }
 
         #endregion Properties
+
+        private EventHandler onModifierChanged;
+        public event EventHandler ModifierChanged
+        {
+            add
+            {
+                onModifierChanged += value;
+            }
+            remove
+            {
+                onModifierChanged -= value;
+            }
+        }
+        protected virtual void OnModifierChanged(EventArgs e)
+        {
+            onModifierChanged?.Invoke(this, e);
+        }
+
+        private void Checkbox_ModifierKey_Shift_CheckedChanged(object sender, EventArgs e)
+        {
+            OnModifierChanged(e);
+        }
+
+        private void Checkbox_ModifierKey_Ctrl_CheckedChanged(object sender, EventArgs e)
+        {
+            OnModifierChanged(e);
+        }
+
+        private void Checkbox_ModifierKey_Alt_CheckedChanged(object sender, EventArgs e)
+        {
+            OnModifierChanged(e);
+        }
+
+        private void Checkbox_ModifierKey_Win_CheckedChanged(object sender, EventArgs e)
+        {
+            OnModifierChanged(e);
+        }
     }
 }

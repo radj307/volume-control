@@ -62,11 +62,11 @@ namespace VolumeControl
         /// </summary>
         internal void RegisterHotkeys()
         {
-            if (hk_up != null && !hk_up.Registered && HKEdit_VolumeUp.IsEnabled)
+            if (hk_up != null && !hk_up.Registered && HKEdit_VolumeUp.HotkeyIsEnabled)
                 hk_up.Register(this);
-            if (hk_down != null && !hk_down.Registered && HKEdit_VolumeDown.IsEnabled)
+            if (hk_down != null && !hk_down.Registered && HKEdit_VolumeDown.HotkeyIsEnabled)
                 hk_down.Register(this);
-            if (hk_mute != null && !hk_mute.Registered && HKEdit_VolumeMute.IsEnabled)
+            if (hk_mute != null && !hk_mute.Registered && HKEdit_VolumeMute.HotkeyIsEnabled)
                 hk_mute.Register(this);
         }
         /// <summary>
@@ -123,14 +123,9 @@ namespace VolumeControl
         {
             UnregisterHotkeys();
 
-            hk_up = HKEdit_VolumeUp.Hotkey;
-            hk_up.Pressed += delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); };
-            
-            hk_down = HKEdit_VolumeDown.Hotkey;
-            hk_down.Pressed += delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); };
-            
-            hk_mute = HKEdit_VolumeMute.Hotkey;
-            hk_mute.Pressed += delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); };
+            hk_up.Reset(Properties.Settings.Default.hk_volumeup);
+            hk_down.Reset(Properties.Settings.Default.hk_volumedown);
+            hk_mute.Reset(Properties.Settings.Default.hk_volumemute);
 
             RegisterHotkeys();
         }
@@ -151,9 +146,11 @@ namespace VolumeControl
             ShowInTaskbar = true;
 
             // set all hotkeys to null to quiet compiler
-            hk_up = null!;
-            hk_down = null!;
-            hk_mute = null!;
+            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
+
+            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
+
+            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); });
 
             // set the window visibility to false when the window is minimized
             Resize += delegate
@@ -164,22 +161,69 @@ namespace VolumeControl
                 }
             };
 
-            // Initialize hotkey editor names
-            HKEdit_VolumeUp.Label = "Volume Up";
-            HKEdit_VolumeDown.Label = "Volume Down";
-            HKEdit_VolumeMute.Label = "Toggle Mute";
-
-            HKEdit_VolumeUp.IsEnabled = Properties.Settings.Default.hk_volumeup_enabled;
-            HKEdit_VolumeDown.IsEnabled = Properties.Settings.Default.hk_volumedown_enabled;
-            HKEdit_VolumeMute.IsEnabled = Properties.Settings.Default.hk_volumemute_enabled;
-
-            UpdateHotkeys();
-
             // populate settings boxes
+            HKEdit_VolumeUp.Hotkey = hk_up;
+            HKEdit_VolumeUp.SetLabel("Volume Up");
+            HKEdit_VolumeUp.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumeup_enabled);
+            HKEdit_VolumeUp.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_VolumeUp.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_volumeup = HKEdit_VolumeUp.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+
+            HKEdit_VolumeDown.Hotkey = hk_down;
+            HKEdit_VolumeDown.SetLabel("Volume Down");
+            HKEdit_VolumeDown.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumedown_enabled);
+            HKEdit_VolumeDown.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_VolumeDown.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_volumedown = HKEdit_VolumeDown.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+
+
+            HKEdit_VolumeMute.Hotkey = hk_mute;
+            HKEdit_VolumeMute.SetLabel("Toggle Mute");
+            HKEdit_VolumeMute.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumemute_enabled);
+            HKEdit_VolumeMute.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_VolumeMute.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_volumemute = HKEdit_VolumeMute.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+
+
             ComboBox_ProcessSelector.Text = Properties.Settings.Default.ProcessName;
             volume_step.Value = Properties.Settings.Default.VolumeStep;
             bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
+
+            UpdateHotkeys();
 
             if (minimizeOnStartup)
             {
@@ -264,40 +308,24 @@ namespace VolumeControl
         {
             UpdateProcessList();
         }
-        /// <summary>
-        /// Called when the hotkey for VolumeUp was modified
-        /// </summary>
-        private void HKEdit_VolumeUp_HotkeyChanged(object sender, EventArgs e)
-        {
-            hk_up = HKEdit_VolumeUp.Hotkey;
-            Properties.Settings.Default.hk_volumeup = hk_up.ToString();
-            Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.IsEnabled;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-        /// <summary>
-        /// Called when the hotkey for VolumeDown was modified
-        /// </summary>
-        private void HKEdit_VolumeDown_HotkeyChanged(object sender, EventArgs e)
-        {
-            hk_down = HKEdit_VolumeDown.Hotkey;
-            Properties.Settings.Default.hk_volumedown = hk_down.ToString();
-            Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.IsEnabled;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-        /// <summary>
-        /// Called when the hotkey for VolumeMute was modified
-        /// </summary>
-        private void HKEdit_VolumeMute_HotkeyChanged(object sender, EventArgs e)
-        {
-            hk_mute = HKEdit_VolumeMute.Hotkey;
-            Properties.Settings.Default.hk_volumemute = hk_mute.ToString();
-            Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.IsEnabled;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
 
         #endregion FormComponents
+
+        private void Button_Apply_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.HotkeyIsEnabled;
+            Properties.Settings.Default.hk_volumeup = HKEdit_VolumeUp.Hotkey.ToString();
+
+            Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.HotkeyIsEnabled;
+            Properties.Settings.Default.hk_volumedown = HKEdit_VolumeDown.Hotkey.ToString();
+
+            Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.HotkeyIsEnabled;
+            Properties.Settings.Default.hk_volumemute = HKEdit_VolumeMute.Hotkey.ToString();
+
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            UpdateHotkeys();
+        }
     }
 }

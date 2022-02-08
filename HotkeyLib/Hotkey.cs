@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace HotkeyLib
 {
@@ -46,7 +47,39 @@ namespace HotkeyLib
 
         public event HandledEventHandler Pressed;
 
-        public Hotkey() : this(Keys.None, false, false, false, false) {}
+        public Hotkey() : this(Keys.None, false, false, false, false)
+        {
+            // No work done here!
+        }
+
+        public Hotkey(string keystr, HandledEventHandler? pressed_action = null)
+        {
+            Pressed = null!;
+            windowControl = null!;
+
+            Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
+            Control  = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
+            Alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
+            Windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
+
+            int lastpos = keystr.LastIndexOf('+');
+            try
+            {
+                if (lastpos == -1)
+                    keyCode = (Keys)Enum.Parse(typeof(Keys), keystr, true);
+                else
+                    keyCode = (Keys)Enum.Parse(typeof(Keys), keystr.AsSpan(lastpos + 1), true);
+            }
+            catch (Exception)
+            {
+                keyCode = Keys.None;
+            }
+
+            if (pressed_action != null)
+                Pressed = pressed_action;
+
+            Application.AddMessageFilter(this);
+        }
 
         public Hotkey(Keys keyCode, bool shift, bool control, bool alt, bool windows)
         {
@@ -54,11 +87,11 @@ namespace HotkeyLib
             windowControl = null!;
 
             // Assign properties
-            KeyCode = keyCode;
-            Shift = shift;
-            Control = control;
-            Alt = alt;
-            Windows = windows;
+            this.KeyCode = keyCode;
+            this.Shift = shift;
+            this.Control = control;
+            this.Alt = alt;
+            this.Windows = windows;
 
             // Register us as a message filter
             Application.AddMessageFilter(this);
@@ -85,14 +118,39 @@ namespace HotkeyLib
         ~Hotkey()
         {
             // Unregister the hotkey if necessary
-            if (Registered)
-            { Unregister(); }
+            if (this.Registered)
+            { this.Unregister(); }
         }
 
+        public void Reset(string keystr)
+        {
+            if (keystr.Length > 0 && keystr != this.ToString())
+            {
+                Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
+                Control = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
+                Alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
+                Windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
+
+                int lastpos = keystr.LastIndexOf('+');
+                try
+                {
+                    if (lastpos == -1)
+                        keyCode = (Keys)Enum.Parse(typeof(Keys), keystr, true);
+                    else
+                        keyCode = (Keys)Enum.Parse(typeof(Keys), keystr.AsSpan(lastpos + 1), true);
+                }
+                catch (Exception)
+                {
+                    keyCode = Keys.None;
+                }
+
+                Reregister();
+            }
+        }
         public Hotkey Clone()
         {
             // Clone the whole object
-            return new Hotkey(keyCode, shift, control, alt, windows);
+            return new Hotkey(this.keyCode, this.shift, this.control, this.alt, this.windows);
         }
 
         public bool GetCanRegister(Control windowControl)
@@ -101,11 +159,11 @@ namespace HotkeyLib
             try
             {
                 // Attempt to register
-                if (!Register(windowControl))
+                if (!this.Register(windowControl))
                 { return false; }
 
                 // Unregister and say we managed it
-                Unregister();
+                this.Unregister();
                 return true;
             }
             catch (Win32Exception)
@@ -117,23 +175,23 @@ namespace HotkeyLib
         public bool Register(Control windowControl)
         {
             // Check that we have not registered
-            if (registered)
+            if (this.registered)
             { throw new NotSupportedException("You cannot register a hotkey that is already registered"); }
 
             // We can't register an empty hotkey
-            if (Empty)
+            if (this.Empty)
             { throw new NotSupportedException("You cannot register an empty hotkey"); }
 
             // Get an ID for the hotkey and increase current ID
-            id = currentID;
+            this.id = currentID;
             currentID = currentID + 1 % maximumID;
 
             // Translate modifier keys into unmanaged version
-            uint modifiers = (Alt ? MOD_ALT : 0) | (Control ? MOD_CONTROL : 0) |
-                            (Shift ? MOD_SHIFT : 0) | (Windows ? MOD_WIN : 0);
+            uint modifiers = (this.Alt ? MOD_ALT : 0) | (this.Control ? MOD_CONTROL : 0) |
+                            (this.Shift ? MOD_SHIFT : 0) | (this.Windows ? MOD_WIN : 0);
 
             // Register the hotkey
-            if (RegisterHotKey(windowControl.Handle, id, modifiers, keyCode) == 0)
+            if (RegisterHotKey(windowControl.Handle, this.id, modifiers, keyCode) == 0)
             {
                 // Is the error that the hotkey is registered?
                 if (Marshal.GetLastWin32Error() == ERROR_HOTKEY_ALREADY_REGISTERED)
@@ -143,7 +201,7 @@ namespace HotkeyLib
             }
 
             // Save the control reference and register state
-            registered = true;
+            this.registered = true;
             this.windowControl = windowControl;
 
             // We successfully registered
@@ -153,34 +211,34 @@ namespace HotkeyLib
         public void Unregister()
         {
             // Check that we have registered
-            if (!registered)
+            if (!this.registered)
             { throw new NotSupportedException("You cannot unregister a hotkey that is not registered"); }
 
             // It's possible that the control itself has died: in that case, no need to unregister!
-            if (!windowControl.IsDisposed)
+            if (!this.windowControl.IsDisposed)
             {
                 // Clean up after ourselves
-                if (UnregisterHotKey(windowControl.Handle, id) == 0)
+                if (UnregisterHotKey(this.windowControl.Handle, this.id) == 0)
                 { throw new Win32Exception(); }
             }
 
             // Clear the control reference and register state
-            registered = false;
-            windowControl = null!;
+            this.registered = false;
+            this.windowControl = null!;
         }
 
         private void Reregister()
         {
             // Only do something if the key is already registered
-            if (!registered)
+            if (!this.registered)
             { return; }
 
             // Save control reference
             Control windowControl = this.windowControl;
 
             // Unregister and then reregister again
-            Unregister();
-            Register(windowControl);
+            this.Unregister();
+            this.Register(windowControl);
         }
 
         public bool PreFilterMessage(ref Message message)
@@ -190,10 +248,10 @@ namespace HotkeyLib
             { return false; }
 
             // Check that the ID is our key and we are registerd
-            if (registered && (message.WParam.ToInt32() == id))
+            if (this.registered && (message.WParam.ToInt32() == this.id))
             {
                 // Fire the event and pass on the event if our handlers didn't handle it
-                return OnPressed();
+                return this.OnPressed();
             }
             else
             { return false; }
@@ -203,8 +261,8 @@ namespace HotkeyLib
         {
             // Fire the event if we can
             HandledEventArgs handledEventArgs = new HandledEventArgs(false);
-            if (Pressed != null)
-            { Pressed(this, handledEventArgs); }
+            if (this.Pressed != null)
+            { this.Pressed(this, handledEventArgs); }
 
             // Return whether we handled the event or not
             return handledEventArgs.Handled;
@@ -213,12 +271,12 @@ namespace HotkeyLib
         public override string ToString()
         {
             // We can be empty
-            if (Empty)
+            if (this.Empty)
             { return "(none)"; }
 
             // Build key name
             string keyName = Enum.GetName(typeof(Keys), keyCode) ?? "";
-            switch (keyCode)
+            switch (this.keyCode)
             {
             case Keys.D0:
             case Keys.D1:
@@ -240,13 +298,13 @@ namespace HotkeyLib
 
             // Build modifiers
             string modifiers = "";
-            if (shift)
+            if (this.shift)
             { modifiers += "Shift+"; }
-            if (control)
+            if (this.control)
             { modifiers += "Control+"; }
-            if (alt)
+            if (this.alt)
             { modifiers += "Alt+"; }
-            if (windows)
+            if (this.windows)
             { modifiers += "Windows+"; }
 
             // Return result
@@ -255,66 +313,66 @@ namespace HotkeyLib
 
         public bool Empty
         {
-            get { return keyCode == Keys.None; }
+            get { return this.keyCode == Keys.None; }
         }
 
         public bool Registered
         {
-            get { return registered; }
+            get { return this.registered; }
         }
 
         public Keys KeyCode
         {
-            get { return keyCode; }
+            get { return this.keyCode; }
             set
             {
                 // Save and reregister
-                keyCode = value;
-                Reregister();
+                this.keyCode = value;
+                this.Reregister();
             }
         }
 
         public bool Shift
         {
-            get { return shift; }
+            get { return this.shift; }
             set
             {
                 // Save and reregister
-                shift = value;
-                Reregister();
+                this.shift = value;
+                this.Reregister();
             }
         }
 
         public bool Control
         {
-            get { return control; }
+            get { return this.control; }
             set
             {
                 // Save and reregister
-                control = value;
-                Reregister();
+                this.control = value;
+                this.Reregister();
             }
         }
 
         public bool Alt
         {
-            get { return alt; }
+            get { return this.alt; }
             set
             {
                 // Save and reregister
-                alt = value;
-                Reregister();
+                this.alt = value;
+                this.Reregister();
             }
         }
 
         public bool Windows
         {
-            get { return windows; }
+            get { return this.windows; }
             set
             {
                 // Save and reregister
-                windows = value;
-                Reregister();
+                this.windows = value;
+                this.Reregister();
             }
         }
     }
@@ -323,9 +381,7 @@ namespace HotkeyLib
         public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
         {
             if (value != null && destinationType == typeof(string))
-            {
                 return value.ToString();
-            }
             return base.ConvertTo(context, culture, value, destinationType);
         }
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
