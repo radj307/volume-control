@@ -310,22 +310,5 @@ namespace VolumeControl
         }
 
         #endregion FormComponents
-
-        private void Button_Apply_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.HotkeyIsEnabled;
-            Properties.Settings.Default.hk_volumeup = HKEdit_VolumeUp.Hotkey.ToString();
-
-            Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.HotkeyIsEnabled;
-            Properties.Settings.Default.hk_volumedown = HKEdit_VolumeDown.Hotkey.ToString();
-
-            Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.HotkeyIsEnabled;
-            Properties.Settings.Default.hk_volumemute = HKEdit_VolumeMute.Hotkey.ToString();
-
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            UpdateHotkeys();
-        }
     }
 }

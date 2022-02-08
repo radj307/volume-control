@@ -46,7 +46,6 @@ namespace VolumeControl
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
             this.Tab_Hotkeys = new System.Windows.Forms.TabPage();
-            this.Button_Apply = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
             this.system_tray_menu.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -186,7 +185,6 @@ namespace VolumeControl
             // 
             // Tab_General
             // 
-            this.Tab_General.Controls.Add(this.Button_Apply);
             this.Tab_General.Controls.Add(this.checkbox_minimizeOnStartup);
             this.Tab_General.Controls.Add(this.volume_step);
             this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
@@ -208,20 +206,10 @@ namespace VolumeControl
             this.Tab_Hotkeys.Location = new System.Drawing.Point(4, 25);
             this.Tab_Hotkeys.Name = "Tab_Hotkeys";
             this.Tab_Hotkeys.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Hotkeys.Size = new System.Drawing.Size(360, 224);
+            this.Tab_Hotkeys.Size = new System.Drawing.Size(192, 71);
             this.Tab_Hotkeys.TabIndex = 1;
             this.Tab_Hotkeys.Text = "Hotkeys";
             this.Tab_Hotkeys.UseVisualStyleBackColor = true;
-            // 
-            // Button_Apply
-            // 
-            this.Button_Apply.Location = new System.Drawing.Point(98, 133);
-            this.Button_Apply.Name = "Button_Apply";
-            this.Button_Apply.Size = new System.Drawing.Size(140, 40);
-            this.Button_Apply.TabIndex = 7;
-            this.Button_Apply.Text = "Apply Hotkeys";
-            this.Button_Apply.UseVisualStyleBackColor = true;
-            this.Button_Apply.Click += new System.EventHandler(this.Button_Apply_Click);
             // 
             // VolumeControlForm
             // 
@@ -259,6 +247,5 @@ namespace VolumeControl
         private TabControl tabControl1;
         private TabPage Tab_General;
         private TabPage Tab_Hotkeys;
-        private Button Button_Apply;
     }
 }
