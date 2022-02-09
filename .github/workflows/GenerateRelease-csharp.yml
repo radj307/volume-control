@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
     - name: Checkout
@@ -73,9 +75,15 @@ jobs:
         #   ${{github.workspace}}/VolumeControl
         #   ${{github.workspace}}/VolumeControlCLI
       
+    - name:               'Remove Debugging Symbols'
+      run:                |
+                          ls -lAghR
+                          rm "${{github.workspace}}/VolumeControl*/*.pdb"
+      shell:              bash
+      continue-on-error:  true
+      
     - name:   'Stage Files'
       run:    |
-              rm "${{github.workspace}}/VolumeControl*/*.pdb"
               zip -T9 "VolumeControl-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControl/*"
               zip -T9 "VolumeControlCLI-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControlCLI/*"
       shell:  bash
