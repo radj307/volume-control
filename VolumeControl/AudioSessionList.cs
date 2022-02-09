@@ -1,7 +1,6 @@
 ﻿using AudioAPI.WindowsAPI.Audio;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
