@@ -75,7 +75,7 @@ jobs:
       
     - name:   'Stage Files'
       run:    |
-              rm ${{github.workspace}}/VolumeControl*/*.pdb
+              rm "${{github.workspace}}/VolumeControl*/*.pdb"
               zip -T9 "VolumeControl-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControl/*"
               zip -T9 "VolumeControlCLI-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControlCLI/*"
       shell:  bash
