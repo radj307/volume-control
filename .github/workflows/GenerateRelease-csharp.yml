@@ -17,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0
+        fetch-depth:  0
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
@@ -27,14 +27,27 @@ jobs:
     - name: Setup Dotnet
       uses: actions/setup-dotnet@main
       
-    - name: Publish Release to Directory
+    - name: Publish VolumeControl Release to Directory
       run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
-    - name: Stage Files
-      run:  |
-            cd publish/VolumeControl
-            rm *.pdb
-            Compress-Archive ./* VolumeControl-${GITHUB_REF/refs\/tags\//}.zip
+    - name: Publish VolumeControlCLI Release to Directory
+      run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+      
+    - name:   Get Release Tag
+      id:     get_version
+      run:    |
+              $TAG=${GITHUB_REF/refs\/tags\//}
+              if ("$TAG" -eq "") { $TAG="${{github.event.inputs.tag}}" }
+              echo ::set-output name=TAG::"$TAG"
+      shell:  powershell
+    
+    - name:   Stage Files
+      run:    |
+              cd publish
+              rm ./*/*.pdb
+              Compress-Archive ./VolumeControl/* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip
+              Compress-Archive ./VolumeControlCLI/* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip
+      shell:  powershell
       
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
@@ -44,29 +57,32 @@ jobs:
         
   create-release:
     needs:   build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     steps:
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v2
-        
-      - name: Get Release Tag
-        id:   get_version
-        run:  echo ::set-output name=NAME::"Release ${GITHUB_REF/refs\/tags\//}"
-        
-      - name:   Stage Archives
-        run:    |
-                cd ${{github.workspace}}
-                ls -lAghR
-                mv ./*/*.zip ./
-        
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          draft:                    true
-          prerelease:               false
-          tag_name:                 ${GITHUB_REF/refs\/tags\//}
-          name:                     ${{steps.get_version.outputs.NAME}}
-          generate_release_notes:   true
-          fail_on_unmatched_files:  true
-          files:                    ${{github.workspace}}/*/*.zip
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v2
+
+    - name:   'Get Release Tag'
+      id:     get_version
+      run:    |
+              if [ "${{github.event.inputs.tag}}" == "" ]; then TAG="${GITHUB_REF/refs\/tags\//}"; else TAG="${{github.event.inputs.tag}}" ; fi
+              echo ::set-output name=VERSION::$TAG
+              echo ::set-output name=NAME::"Release $TAG"
+      shell:  bash
+    - name:   'Stage Archives'
+      run:    |
+              cd ${{github.workspace}}
+              if mv ./latest-*/* ./ ; then ls -lAgh ; else ls -lAghR ; fi
+      shell:  bash
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft:                    true
+        prerelease:               false
+        tag_name:                 ${{ steps.get_version.outputs.VERSION }}
+        name:                     ${{ steps.get_version.outputs.NAME }}
+        generate_release_notes:   true
+        fail_on_unmatched_files:  true
+        files:                    ${{github.workspace}}/*.zip
