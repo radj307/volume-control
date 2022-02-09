@@ -154,5 +154,77 @@ namespace VolumeControl.Properties {
                 this["VisibleInTaskbar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+MediaNextTrack")]
+        public string hk_next {
+            get {
+                return ((string)(this["hk_next"]));
+            }
+            set {
+                this["hk_next"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+MediaPreviousTrack")]
+        public string hk_prev {
+            get {
+                return ((string)(this["hk_prev"]));
+            }
+            set {
+                this["hk_prev"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+MediaPlayPause")]
+        public string hk_playback {
+            get {
+                return ((string)(this["hk_playback"]));
+            }
+            set {
+                this["hk_playback"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_next_enabled {
+            get {
+                return ((bool)(this["hk_next_enabled"]));
+            }
+            set {
+                this["hk_next_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_prev_enabled {
+            get {
+                return ((bool)(this["hk_prev_enabled"]));
+            }
+            set {
+                this["hk_prev_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_playback_enabled {
+            get {
+                return ((bool)(this["hk_playback_enabled"]));
+            }
+            set {
+                this["hk_playback_enabled"] = value;
+            }
+        }
     }
 }

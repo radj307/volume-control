@@ -24,6 +24,18 @@ namespace VolumeControl
         /// </summary>
         private readonly Hotkey hk_mute;
         /// <summary>
+        /// Hotkey definition linked to the Next Song action.
+        /// </summary>
+        private readonly Hotkey hk_next;
+        /// <summary>
+        /// Hotkey definition linked to the Previous Song action
+        /// </summary>
+        private readonly Hotkey hk_prev;
+        /// <summary>
+        /// Hotkey definition linked to the Play/Pause action.
+        /// </summary>
+        private readonly Hotkey hk_playback;
+        /// <summary>
         /// Utility used to enumerate audio sessions to populate the Process selector box.
         /// </summary>
         private BindingList<string> sessions = new();
@@ -76,6 +88,10 @@ namespace VolumeControl
         /// </summary>
         private bool VolumeMuteHotkeyIsEnabled { get => HKEdit_VolumeMute.HotkeyIsEnabled; }
 
+        private bool NextHotkeyIsEnabled { get => HKEdit_Next.HotkeyIsEnabled; }
+        private bool PrevHotkeyIsEnabled { get => HKEdit_Prev.HotkeyIsEnabled; }
+        private bool PlaybackHotkeyIsEnabled { get => HKEdit_TogglePlayback.HotkeyIsEnabled; }
+
         #endregion Properties
 
         #region HelperMethods
@@ -86,19 +102,22 @@ namespace VolumeControl
         internal void RegisterHotkeys()
         {
             if (VolumeUpHotkeyIsEnabled && !hk_up.Registered)
-            {
                 hk_up.Register(this);
-            }
-
+            
             if (VolumeDownHotkeyIsEnabled && !hk_down.Registered)
-            {
                 hk_down.Register(this);
-            }
-
+            
             if (VolumeMuteHotkeyIsEnabled && !hk_mute.Registered)
-            {
                 hk_mute.Register(this);
-            }
+            
+            if (NextHotkeyIsEnabled && !hk_next.Registered)
+                hk_next.Register(this);
+
+            if (PrevHotkeyIsEnabled && !hk_prev.Registered)
+                hk_prev.Register(this);
+
+            if (PlaybackHotkeyIsEnabled && !hk_playback.Registered)
+                hk_playback.Register(this);
         }
         /// <summary>
         /// Unregister all Hotkeys
@@ -113,6 +132,15 @@ namespace VolumeControl
 
             if (hk_mute.Registered)
                 hk_mute.Unregister();
+
+            if (hk_next.Registered)
+                hk_next.Unregister();
+
+            if (hk_prev.Registered)
+                hk_prev.Unregister();
+
+            if (hk_playback.Registered)
+                hk_playback.Unregister();
         }
 
         private void UpdateTitle()
@@ -143,8 +171,16 @@ namespace VolumeControl
             hk_up.Reset(Properties.Settings.Default.hk_volumeup);
             hk_down.Reset(Properties.Settings.Default.hk_volumedown);
             hk_mute.Reset(Properties.Settings.Default.hk_volumemute);
+            hk_next.Reset(Properties.Settings.Default.hk_next);
+            hk_prev.Reset(Properties.Settings.Default.hk_prev);
+            hk_playback.Reset(Properties.Settings.Default.hk_playback);
 
             RegisterHotkeys();
+        }
+
+        private void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0, byte flags = 1)
+        {
+            AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
         }
 
         #endregion HelperMethods
@@ -155,12 +191,16 @@ namespace VolumeControl
         {
             InitializeComponent();
 
-            // INITIALIZE HOTKEYS
+            // INITIALIZE VOLUME HOTKEYS
             hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
             hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
             hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); });
+            // INITIALIZE PLAYBACK HOTKEYS
+            hk_next = new(Properties.Settings.Default.hk_next, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK); });
+            hk_prev = new(Properties.Settings.Default.hk_prev, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK); });
+            hk_playback = new(Properties.Settings.Default.hk_playback, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE); });
 
-            // INITIALIZE HOTKEY EDITORS
+            // INITIALIZE VOLUME HOTKEY EDITORS
             // VOLUME UP
             HKEdit_VolumeUp.Hotkey = hk_up;
             HKEdit_VolumeUp.SetLabel("Volume Up");
@@ -215,6 +255,58 @@ namespace VolumeControl
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();
             };
+            // INITIALIZE PLAYBACK HOTKEY EDITORS
+            // NEXT SONG
+            HKEdit_Next.Hotkey = hk_next;
+            HKEdit_Next.SetLabel("Next Song");
+            HKEdit_Next.SetHotkeyIsEnabled(Properties.Settings.Default.hk_next_enabled);
+            HKEdit_Next.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_next_enabled = HKEdit_Next.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_Next.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_next_enabled = HKEdit_Next.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_next = HKEdit_Next.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            // PREVIOUS SONG
+            HKEdit_Prev.Hotkey = hk_prev;
+            HKEdit_Prev.SetLabel("Previous Song");
+            HKEdit_Prev.SetHotkeyIsEnabled(Properties.Settings.Default.hk_prev_enabled);
+            HKEdit_Prev.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_prev_enabled = HKEdit_Prev.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_Prev.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_prev_enabled = HKEdit_Prev.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_prev = HKEdit_Prev.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            // TOGGLE PLAYBACK
+            HKEdit_TogglePlayback.Hotkey = hk_playback;
+            HKEdit_TogglePlayback.SetLabel("Play / Pause");
+            HKEdit_TogglePlayback.SetHotkeyIsEnabled(Properties.Settings.Default.hk_next_enabled);
+            HKEdit_TogglePlayback.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_playback_enabled = HKEdit_TogglePlayback.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
+            HKEdit_TogglePlayback.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_playback_enabled = HKEdit_TogglePlayback.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_playback = HKEdit_TogglePlayback.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            };
 
             // INITIALIZE UI COMPONENTS
             // VOLUME STEP
@@ -242,7 +334,7 @@ namespace VolumeControl
             if (minimizeOnStartup)
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
-            Label_VersionNumber.Text = "v3.0.0 r1";
+            Label_VersionNumber.Text = "v3.1.0";
 
             UpdateHotkeys();
             UpdateTitle();

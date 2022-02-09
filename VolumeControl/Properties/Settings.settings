@@ -35,5 +35,23 @@
     <Setting Name="VisibleInTaskbar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="hk_next" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+MediaNextTrack</Value>
+    </Setting>
+    <Setting Name="hk_prev" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+MediaPreviousTrack</Value>
+    </Setting>
+    <Setting Name="hk_playback" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+MediaPlayPause</Value>
+    </Setting>
+    <Setting Name="hk_next_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk_prev_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk_playback_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
