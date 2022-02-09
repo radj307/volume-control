@@ -289,8 +289,9 @@ namespace VolumeControl
                 // make menu visible
                 Visible = true;
                 WindowState = FormWindowState.Normal;
-                this.Activate(); // bring the form to the foreground
             }
+            // Always bring the window to the foreground
+            this.Activate();
         }
         /// <summary>
         /// Called when the user clicks the close button in the system tray context menu
