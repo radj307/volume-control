@@ -1,4 +1,4 @@
-name: Windows Build
+name: Generate Release
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
         type:     string
 
 jobs:
-  build:
+  generate-release:
     runs-on: windows-latest
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -33,7 +33,7 @@ jobs:
       run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
     - name: Publish VolumeControlCLI Release to Directory
-      run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+      run:  dotnet publish VolumeControlCLI -c Release /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
       
     - name:   Get Release Tag
       id:     get_version
@@ -43,51 +43,14 @@ jobs:
               echo ::set-output name=TAG::"$TAG"
       shell:  powershell
       
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: latest-Windows
-        path: |
-              ${{github.workspace}}/publish/VolumeControl
-              ${{github.workspace}}/publish/VolumeControlCLI
-        
-  create-release:
-    needs:   build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name:   'Get Release Tag'
-      id:     get_version
+    - name:   Stage Files
       run:    |
-              if [ "${{github.event.inputs.tag}}" == "" ]; then TAG="${GITHUB_REF/refs\/tags\//}"; else TAG="${{github.event.inputs.tag}}" ; fi
-              echo ::set-output name=VERSION::$TAG
-              echo ::set-output name=NAME::"Release $TAG"
-      shell:  bash
-      
-      # Change working directory to workspace
-    - run:  cd ${{github.workspace}}
-      
-    - name: Download Build Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: latest-Windows
-        # Creates Directories:
-        #   ${{github.workspace}}/VolumeControl
-        #   ${{github.workspace}}/VolumeControlCLI
-      
-    - name:               'Remove Debugging Symbols'
-      run:                |
-                          ls -lAghR
-                          rm "${{github.workspace}}/VolumeControl*/*.pdb"
-      shell:              bash
-      continue-on-error:  true
-      
-    - name:   'Stage Files'
-      run:    |
-              zip -T9 "VolumeControl-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControl/*"
-              zip -T9 "VolumeControlCLI-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControlCLI/*"
-      shell:  bash
-
+              mkdir STAGING
+              mv "publish/VolumeControl*/*.dll" ./STAGING/
+              mv "publish/VolumeControl*/*.exe" ./STAGING/
+              cd STAGING
+              Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.TAG}}.zip"
+              
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
@@ -97,4 +60,4 @@ jobs:
         name:                     ${{ steps.get_version.outputs.NAME }}
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        files:                    ${{github.workspace}}/*.zip
+        files:                    ./*.zip
