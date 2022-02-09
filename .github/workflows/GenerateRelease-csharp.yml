@@ -5,10 +5,36 @@ on:
     tags: '*.*.*'
   workflow_dispatch:
     inputs:
-      tag:
-        required: true
-        type:     string
-
+      name:
+        description:  'Release Name'
+        required:     false
+        default:      ''
+        type:         string
+      tag: # Target tag to make a release for
+        description:  'Release Tag'
+        required:     false
+        default:      ''
+        type:         string
+      is-draft: # Input that selects whether to make a draft release or a public release
+        description:  'Make Draft Release'
+        required:     false
+        default:      'true'
+        type:         boolean
+      is-prerelease: # Input that selects whether to make a pre-release or normal release
+        description:  'Make Pre-Release'
+        required:     false
+        default:      'false'
+        type:         boolean
+      autogenerate:
+        description:  'Autogenerate Release Notes From Commits'
+        required:     false
+        default:      'false'
+        type:         boolean
+      body:
+        description:  'Release Body Paragraph'
+        required:     false
+        default:      ''
+        
 jobs:
   build-release:
     runs-on: windows-latest
@@ -72,14 +98,14 @@ jobs:
         
     - run:  ls -lAghR
     
-    - name: Create Release
+    - name: '(Dispatch) Create Release'
       uses: softprops/action-gh-release@v1
       with:
-        draft:                    true
-        prerelease:               false
+        draft:                    ${{ github.event.inputs.is-draft || true }}
+        prerelease:               ${{ github.event.inputs.is-prerelease || false }}
         tag_name:                 ${{ steps.get_version.outputs.VERSION }}
         name:                     ${{ steps.get_version.outputs.NAME }}
-        body:                     ''
-        generate_release_notes:   true
+        generate_release_notes:   ${{ github.event.inputs.autogenerate || true }}
+        body:                     ${{ github.event.inputs.body || '' }}
         fail_on_unmatched_files:  true
-        files:                    "VolumeControl*.zip"
+        files:                    ${{github.workspace}}/*.zip
