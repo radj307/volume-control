@@ -31,7 +31,8 @@ If your keyboard doesn't have media keys, change the bound key in the _Hotkeys_ 
 Volume Control usually lives in the System Tray to keep it out of your way.  
 To show the main window, double-click on the system tray icon.  
 
-![The Main Window](https://i.imgur.com/Yw5LIqb.png)
+![The Main Window](https://i.imgur.com/Yw5LIqb.png)  
+_NOTE: I am in no way affiliated with Deezer._
 
 Here's an overview of the available settings:  _(as of v3.0.0)_
 
