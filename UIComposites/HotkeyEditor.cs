@@ -1,5 +1,5 @@
 ﻿using HotkeyLib;
-
+using System.ComponentModel;
 
 namespace UIComposites
 {
@@ -61,6 +61,7 @@ namespace UIComposites
             get => Label_HotkeyName.Text;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Hotkey Hotkey
         {
             get

@@ -336,6 +336,7 @@ namespace HotkeyLib
             get { return this.registered; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Keys KeyCode
         {
             get { return this.keyCode; }
@@ -347,6 +348,7 @@ namespace HotkeyLib
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Shift
         {
             get { return this.shift; }
@@ -358,6 +360,7 @@ namespace HotkeyLib
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Control
         {
             get { return this.control; }
@@ -369,6 +372,7 @@ namespace HotkeyLib
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Alt
         {
             get { return this.alt; }
@@ -380,6 +384,7 @@ namespace HotkeyLib
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Windows
         {
             get { return this.windows; }
