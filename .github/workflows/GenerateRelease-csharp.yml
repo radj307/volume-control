@@ -40,31 +40,20 @@ jobs:
               $TAG=$(if("$TAG" -eq "") { echo "${{github.event.inputs.tag}}" } else { echo $TAG })
               echo ::set-output name=TAG::"$TAG"
       shell:  powershell
-    
-    - name:   Stage Files
-      run:    |
-              cd publish
-              rm ./*/*.pdb
-              cd VolumeControl
-              Compress-Archive ./* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip
-              cd ../VolumeControlCLI
-              Compress-Archive ./* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip
-      shell:  powershell
       
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: latest-Windows
-        path: ${{github.workspace}}/publish/*.zip
+        path: |
+              ${{github.workspace}}/publish/VolumeControl
+              ${{github.workspace}}/publish/VolumeControlCLI
         
   create-release:
     needs:   build
     runs-on: ubuntu-latest
     
     steps:
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v2
-
     - name:   'Get Release Tag'
       id:     get_version
       run:    |
@@ -72,10 +61,23 @@ jobs:
               echo ::set-output name=VERSION::$TAG
               echo ::set-output name=NAME::"Release $TAG"
       shell:  bash
-    - name:   'Stage Archives'
+      
+      # Change working directory to workspace
+    - run:  cd ${{github.workspace}}
+      
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: latest-Windows
+        # Creates Directories:
+        #   ${{github.workspace}}/VolumeControl
+        #   ${{github.workspace}}/VolumeControlCLI
+      
+    - name:   'Stage Files'
       run:    |
-              cd ${{github.workspace}}
-              if mv ./latest-*/* ./ ; then ls -lAgh ; else ls -lAghR ; fi
+              rm ${{github.workspace}}/VolumeControl*/*.pdb
+              zip -T9 "VolumeControl-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControl/*"
+              zip -T9 "VolumeControlCLI-${{steps.get_version.outputs.VERSION}}.zip" "${{github.workspace}}/VolumeControlCLI/*"
       shell:  bash
 
     - name: Create Release
@@ -87,6 +89,4 @@ jobs:
         name:                     ${{ steps.get_version.outputs.NAME }}
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        files:  |
-                ${{github.workspace}}/VolumeControl/*.zip
-                ${{github.workspace}}/VolumeControlCLI/*.zip
+        files:                    ${{github.workspace}}/*.zip
