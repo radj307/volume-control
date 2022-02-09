@@ -32,92 +32,64 @@ namespace VolumeControl
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VolumeControlForm));
-            this.volume_step = new System.Windows.Forms.NumericUpDown();
-            this.volume_step_label = new System.Windows.Forms.Label();
-            this.process_name_label = new System.Windows.Forms.Label();
-            this.system_tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.system_tray_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SystemTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.SystemTray_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkbox_minimizeOnStartup = new System.Windows.Forms.CheckBox();
             this.ComboBox_ProcessSelector = new System.Windows.Forms.ComboBox();
+            this.BindingSource_KeyList = new System.Windows.Forms.BindingSource(this.components);
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
+            this.CheckBox_RunOnStartup = new System.Windows.Forms.CheckBox();
+            this.CheckBox_VisibleInTaskbar = new System.Windows.Forms.CheckBox();
+            this.Icon_VolumeControl = new System.Windows.Forms.PictureBox();
+            this.Label_VersionNumber = new System.Windows.Forms.Label();
+            this.Label_VolumeControl = new System.Windows.Forms.Label();
+            this.GroupBox_Volume = new System.Windows.Forms.GroupBox();
+            this.Label_VolumeStep = new System.Windows.Forms.Label();
+            this.Numeric_VolumeStep = new System.Windows.Forms.NumericUpDown();
+            this.GroupBox_TargetProcess = new System.Windows.Forms.GroupBox();
+            this.Button_ReloadProcessList = new System.Windows.Forms.Button();
             this.Tab_Hotkeys = new System.Windows.Forms.TabPage();
-            ((System.ComponentModel.ISupportInitialize)(this.volume_step)).BeginInit();
-            this.system_tray_menu.SuspendLayout();
+            this.SystemTray_ContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BindingSource_KeyList)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.Tab_General.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Icon_VolumeControl)).BeginInit();
+            this.GroupBox_Volume.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).BeginInit();
+            this.GroupBox_TargetProcess.SuspendLayout();
             this.Tab_Hotkeys.SuspendLayout();
             this.SuspendLayout();
             // 
-            // volume_step
+            // SystemTray
             // 
-            this.volume_step.AccessibleDescription = "Defines how much the volume increases or decreases when a hotkey is pressed.";
-            this.volume_step.AccessibleName = "Volume Step Control";
-            this.volume_step.AutoSize = true;
-            this.volume_step.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.volume_step.Location = new System.Drawing.Point(112, 56);
-            this.volume_step.Name = "volume_step";
-            this.volume_step.Size = new System.Drawing.Size(60, 26);
-            this.volume_step.TabIndex = 1;
-            this.volume_step.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.volume_step.ValueChanged += new System.EventHandler(this.volume_step_event);
-            this.volume_step.LostFocus += new System.EventHandler(this.volume_step_event);
+            this.SystemTray.BalloonTipText = "Application-Specific Volume Control Hotkeys";
+            this.SystemTray.BalloonTipTitle = "Volume Control";
+            this.SystemTray.ContextMenuStrip = this.SystemTray_ContextMenu;
+            this.SystemTray.Icon = ((System.Drawing.Icon)(resources.GetObject("SystemTray.Icon")));
+            this.SystemTray.Text = "Volume Control";
+            this.SystemTray.Visible = true;
+            this.SystemTray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.SystemTray_DoubleClick);
             // 
-            // volume_step_label
+            // SystemTray_ContextMenu
             // 
-            this.volume_step_label.AutoSize = true;
-            this.volume_step_label.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.volume_step_label.Location = new System.Drawing.Point(6, 58);
-            this.volume_step_label.Name = "volume_step_label";
-            this.volume_step_label.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.volume_step_label.Size = new System.Drawing.Size(86, 16);
-            this.volume_step_label.TabIndex = 2;
-            this.volume_step_label.Text = "Volume Step";
-            // 
-            // process_name_label
-            // 
-            this.process_name_label.AutoSize = true;
-            this.process_name_label.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.process_name_label.Location = new System.Drawing.Point(6, 29);
-            this.process_name_label.Name = "process_name_label";
-            this.process_name_label.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.process_name_label.Size = new System.Drawing.Size(100, 16);
-            this.process_name_label.TabIndex = 3;
-            this.process_name_label.Text = "Target Process";
-            // 
-            // system_tray
-            // 
-            this.system_tray.BalloonTipText = "Application-Specific Volume Control Hotkeys";
-            this.system_tray.BalloonTipTitle = "Volume Control";
-            this.system_tray.ContextMenuStrip = this.system_tray_menu;
-            this.system_tray.Icon = ((System.Drawing.Icon)(resources.GetObject("system_tray.Icon")));
-            this.system_tray.Text = "Volume Control";
-            this.system_tray.Visible = true;
-            this.system_tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.system_tray_double_click);
-            // 
-            // system_tray_menu
-            // 
-            this.system_tray_menu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.system_tray_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SystemTray_ContextMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SystemTray_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
-            this.system_tray_menu.Name = "system_tray_menu";
-            this.system_tray_menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.system_tray_menu.Size = new System.Drawing.Size(104, 26);
+            this.SystemTray_ContextMenu.Name = "system_tray_menu";
+            this.SystemTray_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.SystemTray_ContextMenu.Size = new System.Drawing.Size(104, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.system_tray_menu_close);
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.SystemTray_ContextMenu_Close);
             // 
             // checkbox_minimizeOnStartup
             // 
@@ -125,24 +97,29 @@ namespace VolumeControl
             this.checkbox_minimizeOnStartup.Checked = true;
             this.checkbox_minimizeOnStartup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkbox_minimizeOnStartup.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(189, 58);
+            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(214, 40);
             this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
             this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(140, 20);
             this.checkbox_minimizeOnStartup.TabIndex = 5;
             this.checkbox_minimizeOnStartup.Text = "Minimize on Startup";
             this.checkbox_minimizeOnStartup.UseVisualStyleBackColor = true;
-            this.checkbox_minimizeOnStartup.CheckedChanged += new System.EventHandler(this.checkbox_minimizeOnStartup_CheckedChanged);
+            this.checkbox_minimizeOnStartup.CheckedChanged += new System.EventHandler(this.Checkbox_MinimizeOnStartup_CheckedChanged);
             // 
             // ComboBox_ProcessSelector
             // 
+            this.ComboBox_ProcessSelector.DataSource = this.BindingSource_KeyList;
             this.ComboBox_ProcessSelector.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ComboBox_ProcessSelector.Location = new System.Drawing.Point(112, 26);
+            this.ComboBox_ProcessSelector.Location = new System.Drawing.Point(6, 25);
             this.ComboBox_ProcessSelector.MaxDropDownItems = 16;
             this.ComboBox_ProcessSelector.Name = "ComboBox_ProcessSelector";
-            this.ComboBox_ProcessSelector.Size = new System.Drawing.Size(232, 24);
-            this.ComboBox_ProcessSelector.Sorted = true;
+            this.ComboBox_ProcessSelector.Size = new System.Drawing.Size(260, 24);
             this.ComboBox_ProcessSelector.TabIndex = 6;
-            this.ComboBox_ProcessSelector.TextChanged += new System.EventHandler(this.process_name_text_changed);
+            this.ComboBox_ProcessSelector.TextChanged += new System.EventHandler(this.ComboBox_ProcessName_TextChanged);
+            // 
+            // BindingSource_KeyList
+            // 
+            this.BindingSource_KeyList.DataMember = "List";
+            this.BindingSource_KeyList.DataSource = typeof(HotkeyLib.KeyList);
             // 
             // HKEdit_VolumeUp
             // 
@@ -152,6 +129,7 @@ namespace VolumeControl
             this.HKEdit_VolumeUp.Name = "HKEdit_VolumeUp";
             this.HKEdit_VolumeUp.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeUp.TabIndex = 7;
+            this.HKEdit_VolumeUp.Tag = "";
             // 
             // HKEdit_VolumeDown
             // 
@@ -161,6 +139,7 @@ namespace VolumeControl
             this.HKEdit_VolumeDown.Name = "HKEdit_VolumeDown";
             this.HKEdit_VolumeDown.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeDown.TabIndex = 8;
+            this.HKEdit_VolumeDown.Tag = "";
             // 
             // HKEdit_VolumeMute
             // 
@@ -170,6 +149,7 @@ namespace VolumeControl
             this.HKEdit_VolumeMute.Name = "HKEdit_VolumeMute";
             this.HKEdit_VolumeMute.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_VolumeMute.TabIndex = 9;
+            this.HKEdit_VolumeMute.Tag = "";
             // 
             // tabControl1
             // 
@@ -185,11 +165,14 @@ namespace VolumeControl
             // 
             // Tab_General
             // 
+            this.Tab_General.Controls.Add(this.CheckBox_RunOnStartup);
+            this.Tab_General.Controls.Add(this.CheckBox_VisibleInTaskbar);
             this.Tab_General.Controls.Add(this.checkbox_minimizeOnStartup);
-            this.Tab_General.Controls.Add(this.volume_step);
-            this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
-            this.Tab_General.Controls.Add(this.process_name_label);
-            this.Tab_General.Controls.Add(this.volume_step_label);
+            this.Tab_General.Controls.Add(this.Icon_VolumeControl);
+            this.Tab_General.Controls.Add(this.Label_VersionNumber);
+            this.Tab_General.Controls.Add(this.Label_VolumeControl);
+            this.Tab_General.Controls.Add(this.GroupBox_Volume);
+            this.Tab_General.Controls.Add(this.GroupBox_TargetProcess);
             this.Tab_General.Location = new System.Drawing.Point(4, 25);
             this.Tab_General.Name = "Tab_General";
             this.Tab_General.Padding = new System.Windows.Forms.Padding(3);
@@ -197,6 +180,128 @@ namespace VolumeControl
             this.Tab_General.TabIndex = 0;
             this.Tab_General.Text = "General";
             this.Tab_General.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox_RunOnStartup
+            // 
+            this.CheckBox_RunOnStartup.AutoSize = true;
+            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(214, 14);
+            this.CheckBox_RunOnStartup.Name = "CheckBox_RunOnStartup";
+            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(111, 20);
+            this.CheckBox_RunOnStartup.TabIndex = 14;
+            this.CheckBox_RunOnStartup.Text = "Run on Startup";
+            this.CheckBox_RunOnStartup.UseVisualStyleBackColor = true;
+            this.CheckBox_RunOnStartup.CheckedChanged += new System.EventHandler(this.CheckBox_RunOnStartup_CheckedChanged);
+            // 
+            // CheckBox_VisibleInTaskbar
+            // 
+            this.CheckBox_VisibleInTaskbar.AutoSize = true;
+            this.CheckBox_VisibleInTaskbar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(214, 66);
+            this.CheckBox_VisibleInTaskbar.Name = "CheckBox_VisibleInTaskbar";
+            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(130, 20);
+            this.CheckBox_VisibleInTaskbar.TabIndex = 13;
+            this.CheckBox_VisibleInTaskbar.Text = "Visible in Taskbar";
+            this.CheckBox_VisibleInTaskbar.UseVisualStyleBackColor = true;
+            this.CheckBox_VisibleInTaskbar.CheckedChanged += new System.EventHandler(this.CheckBox_VisibleInTaskbar_CheckedChanged);
+            // 
+            // Icon_VolumeControl
+            // 
+            this.Icon_VolumeControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Icon_VolumeControl.ErrorImage = null;
+            this.Icon_VolumeControl.Image = global::VolumeControl.Properties.Resources.Icon_Refresh_PNG;
+            this.Icon_VolumeControl.InitialImage = null;
+            this.Icon_VolumeControl.Location = new System.Drawing.Point(8, 21);
+            this.Icon_VolumeControl.Name = "Icon_VolumeControl";
+            this.Icon_VolumeControl.Size = new System.Drawing.Size(50, 50);
+            this.Icon_VolumeControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Icon_VolumeControl.TabIndex = 12;
+            this.Icon_VolumeControl.TabStop = false;
+            // 
+            // Label_VersionNumber
+            // 
+            this.Label_VersionNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Label_VersionNumber.AutoSize = true;
+            this.Label_VersionNumber.Location = new System.Drawing.Point(71, 46);
+            this.Label_VersionNumber.Name = "Label_VersionNumber";
+            this.Label_VersionNumber.Size = new System.Drawing.Size(64, 16);
+            this.Label_VersionNumber.TabIndex = 11;
+            this.Label_VersionNumber.Text = "[ version ]";
+            this.Label_VersionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // Label_VolumeControl
+            // 
+            this.Label_VolumeControl.AutoSize = true;
+            this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(71, 29);
+            this.Label_VolumeControl.Name = "Label_VolumeControl";
+            this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
+            this.Label_VolumeControl.TabIndex = 10;
+            this.Label_VolumeControl.Text = "Volume Control";
+            // 
+            // GroupBox_Volume
+            // 
+            this.GroupBox_Volume.Controls.Add(this.Label_VolumeStep);
+            this.GroupBox_Volume.Controls.Add(this.Numeric_VolumeStep);
+            this.GroupBox_Volume.Location = new System.Drawing.Point(8, 157);
+            this.GroupBox_Volume.Name = "GroupBox_Volume";
+            this.GroupBox_Volume.Size = new System.Drawing.Size(344, 59);
+            this.GroupBox_Volume.TabIndex = 9;
+            this.GroupBox_Volume.TabStop = false;
+            this.GroupBox_Volume.Text = "Volume Adjustment";
+            // 
+            // Label_VolumeStep
+            // 
+            this.Label_VolumeStep.AutoSize = true;
+            this.Label_VolumeStep.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Label_VolumeStep.Location = new System.Drawing.Point(6, 27);
+            this.Label_VolumeStep.Name = "Label_VolumeStep";
+            this.Label_VolumeStep.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.Label_VolumeStep.Size = new System.Drawing.Size(39, 16);
+            this.Label_VolumeStep.TabIndex = 2;
+            this.Label_VolumeStep.Text = "Step";
+            // 
+            // Numeric_VolumeStep
+            // 
+            this.Numeric_VolumeStep.AccessibleDescription = "Defines how much the volume increases or decreases when a hotkey is pressed.";
+            this.Numeric_VolumeStep.AccessibleName = "Volume Step Control";
+            this.Numeric_VolumeStep.AutoSize = true;
+            this.Numeric_VolumeStep.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Numeric_VolumeStep.Location = new System.Drawing.Point(55, 25);
+            this.Numeric_VolumeStep.Name = "Numeric_VolumeStep";
+            this.Numeric_VolumeStep.Size = new System.Drawing.Size(47, 26);
+            this.Numeric_VolumeStep.TabIndex = 1;
+            this.Numeric_VolumeStep.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.Numeric_VolumeStep.ValueChanged += new System.EventHandler(this.Numeric_VolumeStep_ValueChanged);
+            // 
+            // GroupBox_TargetProcess
+            // 
+            this.GroupBox_TargetProcess.BackColor = System.Drawing.Color.Transparent;
+            this.GroupBox_TargetProcess.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GroupBox_TargetProcess.Controls.Add(this.ComboBox_ProcessSelector);
+            this.GroupBox_TargetProcess.Controls.Add(this.Button_ReloadProcessList);
+            this.GroupBox_TargetProcess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupBox_TargetProcess.Location = new System.Drawing.Point(8, 89);
+            this.GroupBox_TargetProcess.Margin = new System.Windows.Forms.Padding(0);
+            this.GroupBox_TargetProcess.Name = "GroupBox_TargetProcess";
+            this.GroupBox_TargetProcess.Size = new System.Drawing.Size(344, 65);
+            this.GroupBox_TargetProcess.TabIndex = 8;
+            this.GroupBox_TargetProcess.TabStop = false;
+            this.GroupBox_TargetProcess.Text = "Target Process";
+            // 
+            // Button_ReloadProcessList
+            // 
+            this.Button_ReloadProcessList.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Button_ReloadProcessList.Location = new System.Drawing.Point(272, 25);
+            this.Button_ReloadProcessList.Name = "Button_ReloadProcessList";
+            this.Button_ReloadProcessList.Size = new System.Drawing.Size(66, 24);
+            this.Button_ReloadProcessList.TabIndex = 7;
+            this.Button_ReloadProcessList.Text = "Reload";
+            this.Button_ReloadProcessList.UseVisualStyleBackColor = true;
+            this.Button_ReloadProcessList.Click += new System.EventHandler(this.Button_ReloadProcessList_Click);
             // 
             // Tab_Hotkeys
             // 
@@ -221,23 +326,26 @@ namespace VolumeControl
             this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
             this.Text = "Form1";
-            this.GotFocus += new System.EventHandler(this.window_got_focus_event);
-            ((System.ComponentModel.ISupportInitialize)(this.volume_step)).EndInit();
-            this.system_tray_menu.ResumeLayout(false);
+            this.GotFocus += new System.EventHandler(this.Window_GotFocus);
+            this.Resize += new System.EventHandler(this.Form_Resize);
+            this.SystemTray_ContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BindingSource_KeyList)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Icon_VolumeControl)).EndInit();
+            this.GroupBox_Volume.ResumeLayout(false);
+            this.GroupBox_Volume.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).EndInit();
+            this.GroupBox_TargetProcess.ResumeLayout(false);
             this.Tab_Hotkeys.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private NumericUpDown volume_step;
-        private Label volume_step_label;
-        private Label process_name_label;
-        private NotifyIcon system_tray;
-        private ContextMenuStrip system_tray_menu;
+        private NotifyIcon SystemTray;
+        private ContextMenuStrip SystemTray_ContextMenu;
         private ToolStripMenuItem closeToolStripMenuItem;
         private CheckBox checkbox_minimizeOnStartup;
         private ComboBox ComboBox_ProcessSelector;
@@ -247,5 +355,16 @@ namespace VolumeControl
         private TabControl tabControl1;
         private TabPage Tab_General;
         private TabPage Tab_Hotkeys;
+        private Button Button_ReloadProcessList;
+        private BindingSource BindingSource_KeyList;
+        private PictureBox Icon_VolumeControl;
+        private Label Label_VersionNumber;
+        private Label Label_VolumeControl;
+        private GroupBox GroupBox_Volume;
+        private GroupBox GroupBox_TargetProcess;
+        private Label Label_VolumeStep;
+        private NumericUpDown Numeric_VolumeStep;
+        private CheckBox CheckBox_RunOnStartup;
+        private CheckBox CheckBox_VisibleInTaskbar;
     }
 }

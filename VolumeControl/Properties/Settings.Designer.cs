@@ -130,5 +130,29 @@ namespace VolumeControl.Properties {
                 this["hk_volumemute_enabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RunOnStartup {
+            get {
+                return ((bool)(this["RunOnStartup"]));
+            }
+            set {
+                this["RunOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool VisibleInTaskbar {
+            get {
+                return ((bool)(this["VisibleInTaskbar"]));
+            }
+            set {
+                this["VisibleInTaskbar"] = value;
+            }
+        }
     }
 }

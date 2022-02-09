@@ -1,50 +1,28 @@
 ﻿using AudioAPI.WindowsAPI.Audio;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace VolumeControl
 {
-    internal class AudioSessionList
+    internal static class AudioSessionList
     {
-        public AudioSessionList(IMMDevice device)
+        public static BindingList<string> GetProcessNames()
         {
-            GUID = typeof(IAudioSessionManager2).GUID;
-            device.Activate(ref GUID, 0, IntPtr.Zero, out object o);
-            Manager = (IAudioSessionManager2)o;
 
-            UpdateSessions();
-            UpdateProcessNames();
-        }
-        public AudioSessionList()
-        {
             IMMDeviceEnumerator devEnum = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             devEnum.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out IMMDevice device);
 
-            GUID = typeof(IAudioSessionManager2).GUID;
+            Guid GUID = typeof(IAudioSessionManager2).GUID;
             device.Activate(ref GUID, 0, IntPtr.Zero, out object o);
-            Manager = (IAudioSessionManager2)o;
+            IAudioSessionManager2 mgr = (IAudioSessionManager2)o;
 
-            UpdateSessions();
-            UpdateProcessNames();
-        }
+            mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
+            List<IAudioSessionControl2> Sessions = enumerator.GetAllSessions();
 
-        private readonly Guid GUID;
-        private readonly IAudioSessionManager2 Manager;
-        public List<IAudioSessionControl2> Sessions = new();
-        public List<string> ProcessNames = new();
-
-        public void UpdateSessions()
-        {
-            Manager.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
-            Sessions = enumerator.GetAllSessions();
-        }
-
-        public List<string> GetProcessNames()
-        {
-            UpdateSessions();
-
-            List<string> l = new();
+            BindingList<string> l = new();
 
             foreach (IAudioSessionControl2 session in Sessions)
             {
@@ -54,10 +32,24 @@ namespace VolumeControl
 
             return l;
         }
-
-        public void UpdateProcessNames()
+        public static BindingList<string> GetProcessNames(IMMDevice device)
         {
-            ProcessNames = GetProcessNames();
+            Guid GUID = typeof(IAudioSessionManager2).GUID;
+            device.Activate(ref GUID, 0, IntPtr.Zero, out object o);
+            IAudioSessionManager2 mgr = (IAudioSessionManager2)o;
+
+            mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
+            List<IAudioSessionControl2> Sessions = enumerator.GetAllSessions();
+
+            BindingList<string> l = new();
+
+            foreach (IAudioSessionControl2 session in Sessions)
+            {
+                session.GetProcessId(out int pid);
+                l.Add(Process.GetProcessById(pid).ProcessName);
+            }
+
+            return l;
         }
     }
 }

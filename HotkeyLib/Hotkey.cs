@@ -208,6 +208,13 @@ namespace HotkeyLib
             return true;
         }
 
+        public bool TryRegister(Control windowControl)
+        {
+            if (registered)
+                return false;
+            return Register(windowControl);
+        }
+
         public void Unregister()
         {
             // Check that we have registered
@@ -225,6 +232,14 @@ namespace HotkeyLib
             // Clear the control reference and register state
             this.registered = false;
             this.windowControl = null!;
+        }
+
+        public bool TryUnregister()
+        {
+            if (!registered)
+                return false;
+            Unregister();
+            return true;
         }
 
         private void Reregister()

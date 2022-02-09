@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using HotkeyLib;
+﻿using HotkeyLib;
 
 namespace UIComposites
 {
@@ -7,10 +6,12 @@ namespace UIComposites
     {
         #region Constructors
 
+#       pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public HotkeyEditor()
         {
             InitializeComponent();
         }
+#       pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         #endregion Constructors
 
@@ -59,6 +60,8 @@ namespace UIComposites
 
         #endregion Properties
 
+        #region Events
+
         private EventHandler onModifierChanged;
         public event EventHandler ModifierChanged
         {
@@ -68,7 +71,9 @@ namespace UIComposites
             }
             remove
             {
+#               pragma warning disable CS8601 // Possible null reference assignment.
                 onModifierChanged -= value;
+#               pragma warning restore CS8601 // Possible null reference assignment.
             }
         }
         protected virtual void OnModifierChanged(EventArgs e)
@@ -76,24 +81,11 @@ namespace UIComposites
             onModifierChanged?.Invoke(this, e);
         }
 
-        private void Checkbox_ModifierKey_Shift_CheckedChanged(object sender, EventArgs e)
+        private void Checkbox_ModifierKey_CheckedChanged(object sender, EventArgs e)
         {
             OnModifierChanged(e);
         }
 
-        private void Checkbox_ModifierKey_Ctrl_CheckedChanged(object sender, EventArgs e)
-        {
-            OnModifierChanged(e);
-        }
-
-        private void Checkbox_ModifierKey_Alt_CheckedChanged(object sender, EventArgs e)
-        {
-            OnModifierChanged(e);
-        }
-
-        private void Checkbox_ModifierKey_Win_CheckedChanged(object sender, EventArgs e)
-        {
-            OnModifierChanged(e);
-        }
+        #endregion Events
     }
 }

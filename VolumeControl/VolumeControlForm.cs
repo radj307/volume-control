@@ -1,5 +1,6 @@
 using AudioAPI;
 using HotkeyLib;
+using System.ComponentModel;
 
 namespace VolumeControl
 {
@@ -8,29 +9,36 @@ namespace VolumeControl
         #region Members
 
         /// <summary>
-        /// Hotkey definition linked to volume up actions.
+        /// Hotkey definition linked to the volume up action.
+        /// Cannot be redefined, use the Reset() method to modify in-place.
         /// </summary>
-        private Hotkey hk_up;
+        private readonly Hotkey hk_up;
         /// <summary>
-        /// Hotkey definition linked to volume down actions.
+        /// Hotkey definition linked to the volume down action.
+        /// Cannot be redefined, use the Reset() method to modify in-place.
         /// </summary>
-        private Hotkey hk_down;
+        private readonly Hotkey hk_down;
         /// <summary>
-        /// Hotkey definition linked to toggle mute actions.
+        /// Hotkey definition linked to the toggle mute action.
+        /// Cannot be redefined, use the Reset() method to modify in-place.
         /// </summary>
-        private Hotkey hk_mute;
+        private readonly Hotkey hk_mute;
         /// <summary>
         /// Utility used to enumerate audio sessions to populate the Process selector box.
         /// </summary>
-        private readonly AudioSessionList sessions = new();
+        private BindingList<string> sessions = new();
+        /// <summary>
+        /// Binding source for the audio session list / process list.
+        /// </summary>
+        private readonly BindingSource binding;
 
         #endregion Members
 
-        #region MemberOverrides
+        #region Properties
 
         /// <summary>
         /// Overrides the base object's Visible member with a property that respects hotkeys.
-        /// This is required because changing the value of Visible causes all hotkey registrations to expire.
+        /// This is required because changing the value of "Visible" causes the window to be reconstructed, removing any hotkey registrations.
         /// </summary>
         private new bool Visible
         {
@@ -44,7 +52,7 @@ namespace VolumeControl
 
         /// <summary>
         /// Overrides the base object's ShowInTaskbar member with a property that respects hotkeys.
-        /// This is required because changing the value of ShowInTaskbar causes all hotkey registrations to expire.
+        /// This is required because changing the value of "ShowInTaskbar" causes the window to be reconstructed, removing any hotkey registrations.
         /// </summary>
         private new bool ShowInTaskbar
         {
@@ -55,50 +63,56 @@ namespace VolumeControl
                 RegisterHotkeys();
             }
         }
+        /// <summary>
+        /// Check if the Volume Up hotkey is enabled.
+        /// </summary>
+        private bool VolumeUpHotkeyIsEnabled { get => HKEdit_VolumeUp.HotkeyIsEnabled; }
+        /// <summary>
+        /// Check if the Volume Down hotkey is enabled.
+        /// </summary>
+        private bool VolumeDownHotkeyIsEnabled { get => HKEdit_VolumeDown.HotkeyIsEnabled; }
+        /// <summary>
+        /// Check if the Volume Mute hotkey is enabled.
+        /// </summary>
+        private bool VolumeMuteHotkeyIsEnabled { get => HKEdit_VolumeMute.HotkeyIsEnabled; }
 
-        #endregion MemberOverrides
+        #endregion Properties
 
         #region HelperMethods
 
         /// <summary>
-        /// Register Hotkeys
+        /// Register all enabled Hotkeys
         /// </summary>
         internal void RegisterHotkeys()
         {
-            if (hk_up != null && !hk_up.Registered && HKEdit_VolumeUp.HotkeyIsEnabled)
+            if (VolumeUpHotkeyIsEnabled && !hk_up.Registered)
+            {
                 hk_up.Register(this);
-            if (hk_down != null && !hk_down.Registered && HKEdit_VolumeDown.HotkeyIsEnabled)
+            }
+
+            if (VolumeDownHotkeyIsEnabled && !hk_down.Registered)
+            {
                 hk_down.Register(this);
-            if (hk_mute != null && !hk_mute.Registered && HKEdit_VolumeMute.HotkeyIsEnabled)
+            }
+
+            if (VolumeMuteHotkeyIsEnabled && !hk_mute.Registered)
+            {
                 hk_mute.Register(this);
+            }
         }
         /// <summary>
-        /// Unregister Hotkeys
+        /// Unregister all Hotkeys
         /// </summary>
         internal void UnregisterHotkeys()
         {
-            if (hk_up != null && hk_up.Registered)
+            if (hk_up.Registered)
                 hk_up.Unregister();
-            if (hk_down != null && hk_down.Registered)
-                hk_down.Unregister();
-            if (hk_mute != null && hk_mute.Registered)
-                hk_mute.Unregister();
-        }
 
-        private static Hotkey TryInitHotkey(string hkString, Hotkey def)
-        {
-            Hotkey hk;
-            try
-            {
-                // initializing hotkeys using a user-specified string might throw
-                hk = new Hotkey(hkString);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                hk = def;
-            }
-            return hk;
+            if (hk_down.Registered)
+                hk_down.Unregister();
+
+            if (hk_mute.Registered)
+                hk_mute.Unregister();
         }
 
         private void UpdateTitle()
@@ -118,8 +132,8 @@ namespace VolumeControl
         /// </summary>
         private void UpdateProcessList()
         {
-            sessions.UpdateProcessNames();
-            ComboBox_ProcessSelector.DataSource = sessions.ProcessNames;
+            sessions = AudioSessionList.GetProcessNames();
+            ComboBox_ProcessSelector.DataSource = sessions;
         }
 
         private void UpdateHotkeys()
@@ -137,34 +151,17 @@ namespace VolumeControl
 
         #region ClassFunctions
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public VolumeControlForm()
         {
             InitializeComponent();
-            UpdateProcessList();
 
-            // This needs to be done first, otherwise the window is destroyed & recreated which unbinds all of the hotkeys.
-            ShowInTaskbar = true;
-
-            // set all hotkeys to null to quiet compiler
+            // INITIALIZE HOTKEYS
             hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
-
             hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
-
             hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); });
 
-            // set the window visibility to false when the window is minimized
-            Resize += delegate
-            {
-                if (WindowState == FormWindowState.Minimized)
-                {
-                    Visible = false;
-                }
-            };
-
-            // populate settings boxes
+            // INITIALIZE HOTKEY EDITORS
+            // VOLUME UP
             HKEdit_VolumeUp.Hotkey = hk_up;
             HKEdit_VolumeUp.SetLabel("Volume Up");
             HKEdit_VolumeUp.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumeup_enabled);
@@ -182,7 +179,7 @@ namespace VolumeControl
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();
             };
-
+            // VOLUME DOWN
             HKEdit_VolumeDown.Hotkey = hk_down;
             HKEdit_VolumeDown.SetLabel("Volume Down");
             HKEdit_VolumeDown.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumedown_enabled);
@@ -200,8 +197,7 @@ namespace VolumeControl
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();
             };
-
-
+            // VOLUME MUTE
             HKEdit_VolumeMute.Hotkey = hk_mute;
             HKEdit_VolumeMute.SetLabel("Toggle Mute");
             HKEdit_VolumeMute.SetHotkeyIsEnabled(Properties.Settings.Default.hk_volumemute_enabled);
@@ -220,25 +216,37 @@ namespace VolumeControl
                 UpdateHotkeys();
             };
 
-
-            ComboBox_ProcessSelector.Text = Properties.Settings.Default.ProcessName;
-            volume_step.Value = Properties.Settings.Default.VolumeStep;
+            // INITIALIZE UI COMPONENTS
+            // VOLUME STEP
+            Numeric_VolumeStep.Value = Properties.Settings.Default.VolumeStep;
+            // PROCESS SELECTOR
+            string proc = Properties.Settings.Default.ProcessName;
+            binding = new();
+            binding.DataSource = sessions;
+            ComboBox_ProcessSelector.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            ComboBox_ProcessSelector.AutoCompleteCustomSource = new()
+            {
+                proc //< Always include setting value by default so it isn't overwritten if the process isn't active.
+            };
+            UpdateProcessList(); // update sessions list
+            ComboBox_ProcessSelector.AutoCompleteCustomSource.AddRange(sessions.ToArray());
+            ComboBox_ProcessSelector.DataSource = binding;
+            ComboBox_ProcessSelector.Text = proc;
+            // RUN ON STARTUP
+            CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
+            // VISIBLE IN TASKBAR
+            ShowInTaskbar = CheckBox_VisibleInTaskbar.Checked = Properties.Settings.Default.VisibleInTaskbar;
+            // MINIMIZE ON STARTUP
             bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
+            if (minimizeOnStartup)
+                WindowState = FormWindowState.Minimized;
+            // VERSION NUMBER
+            Label_VersionNumber.Text = "v3.0.0";
 
             UpdateHotkeys();
-
-            if (minimizeOnStartup)
-            {
-                WindowState = FormWindowState.Minimized;
-            }
-
             UpdateTitle();
         }
-        /// <summary>
-        /// Destructor
-        /// Saves the current settings.
-        /// </summary>
         ~VolumeControlForm()
         {
             Properties.Settings.Default.Save();
@@ -254,7 +262,7 @@ namespace VolumeControl
         /// Automatically called when the value of "ComboBox_ProcessSelector.Text" is changed.
         /// Sets the settings value "ProcessName" to the new value, and updates the window title.
         /// </summary>
-        private void process_name_text_changed(object sender, EventArgs e)
+        private void ComboBox_ProcessName_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.Text;
             UpdateTitle();
@@ -265,16 +273,16 @@ namespace VolumeControl
         /// Automatically called when the value of volume_step is changed.
         /// Sets the settings value "VolumeStep" to the new value.
         /// </summary>
-        private void volume_step_event(object sender, EventArgs e)
+        private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.VolumeStep = Convert.ToDecimal(volume_step.Value);
+            Properties.Settings.Default.VolumeStep = Convert.ToDecimal(Numeric_VolumeStep.Value);
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
         /// <summary>
         /// Called when the system tray icon is double-clicked
         /// </summary>
-        private void system_tray_double_click(object sender, MouseEventArgs e)
+        private void SystemTray_DoubleClick(object sender, MouseEventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
@@ -286,14 +294,14 @@ namespace VolumeControl
         /// <summary>
         /// Called when the user clicks the close button in the system tray context menu
         /// </summary>
-        private void system_tray_menu_close(object sender, EventArgs e)
+        private void SystemTray_ContextMenu_Close(object sender, EventArgs e)
         {
             Application.Exit();
         }
         /// <summary>
         /// Called when the "Minimize on Startup" checkbox is changed.
         /// </summary>
-        private void checkbox_minimizeOnStartup_CheckedChanged(object sender, EventArgs e)
+        private void Checkbox_MinimizeOnStartup_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
             Properties.Settings.Default.Save();
@@ -302,11 +310,53 @@ namespace VolumeControl
         /// <summary>
         /// Called when the window is focused by the user.
         /// </summary>
-        private void window_got_focus_event(object sender, EventArgs e)
+        private void Window_GotFocus(object sender, EventArgs e)
         {
             UpdateProcessList();
         }
+        /// <summary>
+        /// Called when the Reload button is pressed.
+        /// </summary>
+        private void Button_ReloadProcessList_Click(object sender, EventArgs e)
+        {
+            UpdateProcessList();
+        }
+        /// <summary>
+        /// Called when the window is maximized, minimized, or resized.
+        /// </summary>
+        private void Form_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                Visible = false;
+            }
+        }
+        private void CheckBox_RunOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = CheckBox_RunOnStartup.Checked;
+            if (isChecked)
+                RegAPI.EnableRunOnStartup();
+            else
+                RegAPI.DisableRunOnStartup();
+            Properties.Settings.Default.RunOnStartup = isChecked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void CheckBox_VisibleInTaskbar_CheckedChanged(object sender, EventArgs e)
+        {
+            UnregisterHotkeys();
+            bool isChecked = CheckBox_VisibleInTaskbar.Checked;
+            if (isChecked != Properties.Settings.Default.VisibleInTaskbar)
+            {
+                // Set the value of "ShowInTaskbar", automatically re-registers hotkeys using property override
+                this.ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar = isChecked;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            RegisterHotkeys();
+        }
 
         #endregion FormComponents
+
     }
 }
