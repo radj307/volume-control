@@ -323,9 +323,9 @@ namespace VolumeControl
             {
                 proc //< Always include setting value by default so it isn't overwritten if the process isn't active.
             };
-            UpdateProcessList(); // update sessions list
             ComboBox_ProcessSelector.AutoCompleteCustomSource.AddRange(sessions.ToArray());
             ComboBox_ProcessSelector.DataSource = binding;
+            UpdateProcessList(); // update sessions list
             ComboBox_ProcessSelector.Text = proc;
             // RUN ON STARTUP
             CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
