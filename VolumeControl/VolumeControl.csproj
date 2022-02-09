@@ -81,6 +81,6 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="powershell -ExecutionPolicy Bypass -NonInteractive -File ../VersionTag.ps1" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ../VersionTag.ps1" />
   </Target>
 </Project>
