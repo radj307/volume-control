@@ -37,7 +37,7 @@ jobs:
       id:     get_version
       run:    |
               $TAG=${GITHUB_REF/refs\/tags\//}
-              $TAG=$(if("$TAG" -eq "") { echo "3.1.1" } else { echo $TAG })
+              $TAG=$(if("$TAG" -eq "") { echo "${{github.event.inputs.tag}}" } else { echo $TAG })
               echo ::set-output name=TAG::"$TAG"
       shell:  powershell
     
