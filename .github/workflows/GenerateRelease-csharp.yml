@@ -98,14 +98,9 @@ jobs:
         
     - run:  ls -lAghR
     
-    - name: '(Dispatch) Create Release'
+    - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
-        draft:                    ${{ github.event.inputs.is-draft || true }}
-        prerelease:               ${{ github.event.inputs.is-prerelease || false }}
-        tag_name:                 ${{ steps.get_version.outputs.VERSION }}
-        name:                     ${{ steps.get_version.outputs.NAME }}
-        generate_release_notes:   ${{ github.event.inputs.autogenerate || true }}
-        body:                     ${{ github.event.inputs.body || '' }}
-        fail_on_unmatched_files:  true
-        files:                    ${{github.workspace}}/*.zip
+        draft:  true
+        files:  |
+                ${{github.workspace}}/*.zip
