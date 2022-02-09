@@ -37,7 +37,6 @@ namespace VolumeControl
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkbox_minimizeOnStartup = new System.Windows.Forms.CheckBox();
             this.ComboBox_ProcessSelector = new System.Windows.Forms.ComboBox();
-            this.BindingSource_KeyList = new System.Windows.Forms.BindingSource(this.components);
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
@@ -55,11 +54,10 @@ namespace VolumeControl
             this.Button_ReloadProcessList = new System.Windows.Forms.Button();
             this.Tab_Hotkeys_Volume = new System.Windows.Forms.TabPage();
             this.Tab_Hotkeys_Playback = new System.Windows.Forms.TabPage();
-            this.HKEdit_TogglePlayback = new UIComposites.HotkeyEditor();
-            this.HKEdit_Next = new UIComposites.HotkeyEditor();
             this.HKEdit_Prev = new UIComposites.HotkeyEditor();
+            this.HKEdit_Next = new UIComposites.HotkeyEditor();
+            this.HKEdit_TogglePlayback = new UIComposites.HotkeyEditor();
             this.SystemTray_ContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BindingSource_KeyList)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.Tab_General.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icon_VolumeControl)).BeginInit();
@@ -112,7 +110,6 @@ namespace VolumeControl
             // 
             // ComboBox_ProcessSelector
             // 
-            this.ComboBox_ProcessSelector.DataSource = this.BindingSource_KeyList;
             this.ComboBox_ProcessSelector.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ComboBox_ProcessSelector.Location = new System.Drawing.Point(6, 25);
             this.ComboBox_ProcessSelector.MaxDropDownItems = 16;
@@ -121,12 +118,9 @@ namespace VolumeControl
             this.ComboBox_ProcessSelector.TabIndex = 6;
             this.ComboBox_ProcessSelector.TextChanged += new System.EventHandler(this.ComboBox_ProcessName_TextChanged);
             // 
-            // BindingSource_KeyList
-            // 
-            this.BindingSource_KeyList.DataMember = "List";
-            // 
             // HKEdit_VolumeUp
             // 
+            this.HKEdit_VolumeUp.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_VolumeUp.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_VolumeUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -137,8 +131,9 @@ namespace VolumeControl
             // 
             // HKEdit_VolumeDown
             // 
+            this.HKEdit_VolumeDown.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_VolumeDown.Location = new System.Drawing.Point(9, 79);
+            this.HKEdit_VolumeDown.Location = new System.Drawing.Point(9, 78);
             this.HKEdit_VolumeDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeDown.Name = "HKEdit_VolumeDown";
             this.HKEdit_VolumeDown.Size = new System.Drawing.Size(343, 66);
@@ -147,8 +142,9 @@ namespace VolumeControl
             // 
             // HKEdit_VolumeMute
             // 
+            this.HKEdit_VolumeMute.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeMute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_VolumeMute.Location = new System.Drawing.Point(9, 151);
+            this.HKEdit_VolumeMute.Location = new System.Drawing.Point(9, 150);
             this.HKEdit_VolumeMute.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeMute.Name = "HKEdit_VolumeMute";
             this.HKEdit_VolumeMute.Size = new System.Drawing.Size(343, 66);
@@ -328,37 +324,40 @@ namespace VolumeControl
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_TogglePlayback);
             this.Tab_Hotkeys_Playback.Location = new System.Drawing.Point(4, 25);
             this.Tab_Hotkeys_Playback.Name = "Tab_Hotkeys_Playback";
-            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(360, 224);
+            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(192, 71);
             this.Tab_Hotkeys_Playback.TabIndex = 2;
             this.Tab_Hotkeys_Playback.Text = "Playback Hotkeys";
             this.Tab_Hotkeys_Playback.UseVisualStyleBackColor = true;
             // 
+            // HKEdit_Prev
+            // 
+            this.HKEdit_Prev.BackColor = System.Drawing.Color.Transparent;
+            this.HKEdit_Prev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_Prev.Location = new System.Drawing.Point(9, 150);
+            this.HKEdit_Prev.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_Prev.Name = "HKEdit_Prev";
+            this.HKEdit_Prev.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_Prev.TabIndex = 2;
+            // 
+            // HKEdit_Next
+            // 
+            this.HKEdit_Next.BackColor = System.Drawing.Color.Transparent;
+            this.HKEdit_Next.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_Next.Location = new System.Drawing.Point(9, 78);
+            this.HKEdit_Next.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_Next.Name = "HKEdit_Next";
+            this.HKEdit_Next.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_Next.TabIndex = 1;
+            // 
             // HKEdit_TogglePlayback
             // 
+            this.HKEdit_TogglePlayback.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_TogglePlayback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_TogglePlayback.Location = new System.Drawing.Point(9, 3);
+            this.HKEdit_TogglePlayback.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_TogglePlayback.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_TogglePlayback.Name = "HKEdit_TogglePlayback";
             this.HKEdit_TogglePlayback.Size = new System.Drawing.Size(343, 66);
             this.HKEdit_TogglePlayback.TabIndex = 0;
-            // 
-            // HKEdit_Next
-            // 
-            this.HKEdit_Next.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_Next.Location = new System.Drawing.Point(9, 75);
-            this.HKEdit_Next.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.HKEdit_Next.Name = "HKEdit_Next";
-            this.HKEdit_Next.Size = new System.Drawing.Size(343, 70);
-            this.HKEdit_Next.TabIndex = 1;
-            // 
-            // HKEdit_Prev
-            // 
-            this.HKEdit_Prev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HKEdit_Prev.Location = new System.Drawing.Point(9, 151);
-            this.HKEdit_Prev.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.HKEdit_Prev.Name = "HKEdit_Prev";
-            this.HKEdit_Prev.Size = new System.Drawing.Size(343, 70);
-            this.HKEdit_Prev.TabIndex = 2;
             // 
             // VolumeControlForm
             // 
@@ -373,7 +372,6 @@ namespace VolumeControl
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);
             this.SystemTray_ContextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BindingSource_KeyList)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
@@ -401,7 +399,6 @@ namespace VolumeControl
         private TabPage Tab_General;
         private TabPage Tab_Hotkeys_Volume;
         private Button Button_ReloadProcessList;
-        private BindingSource BindingSource_KeyList;
         private PictureBox Icon_VolumeControl;
         private Label Label_VersionNumber;
         private Label Label_VolumeControl;
