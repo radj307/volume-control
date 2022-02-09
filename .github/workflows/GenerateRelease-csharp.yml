@@ -47,7 +47,7 @@ jobs:
       run:    |
               mkdir "${{github.workspace}}/STAGING"
               cd "${{github.workspace}}/STAGING"
-              mv "$((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)" "${{github.workspace}}/STAGING"
+              foreach($file in $((dir ../ -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
               Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.TAG}}.zip"
               mv "./*.zip" "${{github.workspace}}"
               
