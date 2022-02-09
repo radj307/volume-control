@@ -47,10 +47,8 @@ jobs:
               rm ./*/*.pdb
               cd VolumeControl
               Compress-Archive ./* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip
-              mv ./*.zip ../
               cd ../VolumeControlCLI
               Compress-Archive ./* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip
-              mv ./*.zip ../
       shell:  powershell
       
     - name: Upload Artifact
@@ -89,4 +87,6 @@ jobs:
         name:                     ${{ steps.get_version.outputs.NAME }}
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        files:                    ${{github.workspace}}/*.zip
+        files:  |
+                ${{github.workspace}}/VolumeControl/*.zip
+                ${{github.workspace}}/VolumeControlCLI/*.zip
