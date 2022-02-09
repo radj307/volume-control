@@ -51,6 +51,24 @@ jobs:
               cd STAGING
               Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.TAG}}.zip"
               
+    - name:   Upload Archive
+      uses:   actions/upload-artifact@v2
+      with:
+        name: build-windows
+        path: "VolumeControl*.zip"
+        
+  # Use linux to create the release because windows is FUCKING BROKEN
+  create-release:
+    runs-on:  ubuntu-latest
+    
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: build-windows
+        
+    - run:  ls -lAghR
+              
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
@@ -58,6 +76,7 @@ jobs:
         prerelease:               false
         tag_name:                 ${{ steps.get_version.outputs.VERSION }}
         name:                     ${{ steps.get_version.outputs.NAME }}
+        body:                     ''
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        files:                    "${{github.workspace}}/STAGING/*.zip"
+        files:                    "VolumeControl*.zip"
