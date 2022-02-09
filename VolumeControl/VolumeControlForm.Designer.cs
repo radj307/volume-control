@@ -124,7 +124,6 @@ namespace VolumeControl
             // BindingSource_KeyList
             // 
             this.BindingSource_KeyList.DataMember = "List";
-            this.BindingSource_KeyList.DataSource = typeof(HotkeyLib.KeyList);
             // 
             // HKEdit_VolumeUp
             // 

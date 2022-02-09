@@ -32,18 +32,10 @@
             this.Checkbox_Enabled = new System.Windows.Forms.CheckBox();
             this.Label_HotkeyName = new System.Windows.Forms.Label();
             this.Combobox_KeySelector = new System.Windows.Forms.ComboBox();
-            this.hotkeyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.keyListBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.keyListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Checkbox_ModifierKey_Ctrl = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Alt = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Shift = new System.Windows.Forms.CheckBox();
             this.Checkbox_ModifierKey_Win = new System.Windows.Forms.CheckBox();
-            this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.hotkeyBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.keyListBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.keyListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Checkbox_Enabled
@@ -72,25 +64,11 @@
             // 
             this.Combobox_KeySelector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.Combobox_KeySelector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.Combobox_KeySelector.DataSource = this.listBindingSource;
             this.Combobox_KeySelector.FormattingEnabled = true;
             this.Combobox_KeySelector.Location = new System.Drawing.Point(115, 3);
             this.Combobox_KeySelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Combobox_KeySelector.Name = "Combobox_KeySelector";
             this.Combobox_KeySelector.Size = new System.Drawing.Size(220, 23);
-            this.Combobox_KeySelector.TabIndex = 2;
-            // 
-            // hotkeyBindingSource
-            // 
-            this.hotkeyBindingSource.DataSource = typeof(HotkeyLib.Hotkey);
-            // 
-            // keyListBindingSource1
-            // 
-            this.keyListBindingSource1.DataSource = typeof(HotkeyLib.KeyList);
-            // 
-            // keyListBindingSource
-            // 
-            this.keyListBindingSource.DataSource = typeof(HotkeyLib.KeyList);
             // 
             // Checkbox_ModifierKey_Ctrl
             // 
@@ -140,11 +118,6 @@
             this.Checkbox_ModifierKey_Win.UseVisualStyleBackColor = true;
             this.Checkbox_ModifierKey_Win.CheckedChanged += new System.EventHandler(this.Checkbox_ModifierKey_CheckedChanged);
             // 
-            // listBindingSource
-            // 
-            this.listBindingSource.DataMember = "List";
-            this.listBindingSource.DataSource = this.keyListBindingSource;
-            // 
             // HotkeyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -160,10 +133,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "HotkeyEditor";
             this.Size = new System.Drawing.Size(341, 57);
-            ((System.ComponentModel.ISupportInitialize)(this.hotkeyBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.keyListBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.keyListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,11 +144,7 @@
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Alt;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Shift;
         private System.Windows.Forms.CheckBox Checkbox_ModifierKey_Win;
-        private BindingSource hotkeyBindingSource;
         public CheckBox Checkbox_Enabled;
         private Label Label_HotkeyName;
-        private BindingSource keyListBindingSource;
-        private BindingSource keyListBindingSource1;
-        private BindingSource listBindingSource;
     }
 }

@@ -18,7 +18,7 @@
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="MinimizeOnStartup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="hk_volumeup_enabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

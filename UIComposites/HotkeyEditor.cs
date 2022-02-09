@@ -1,15 +1,27 @@
 ﻿using HotkeyLib;
+using System.Windows.Forms;
+using System.ComponentModel;
+
 
 namespace UIComposites
 {
     public partial class HotkeyEditor : UserControl
     {
+        #region Members
+
+        private readonly BindingSource keyBinding;
+
+        #endregion Members
+
         #region Constructors
 
 #       pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public HotkeyEditor()
         {
             InitializeComponent();
+            keyBinding = new();
+            keyBinding.DataSource = KeyboardKeysList.KeysList;
+            Combobox_KeySelector.DataSource = keyBinding;
         }
 #       pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
