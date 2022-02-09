@@ -10,7 +10,7 @@ on:
         type:     string
 
 jobs:
-  generate-release:
+  build-release:
     runs-on: windows-latest
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -59,6 +59,7 @@ jobs:
         
   # Use linux to create the release because windows is FUCKING BROKEN
   create-release:
+    needs:    build-release
     runs-on:  ubuntu-latest
     
     steps:
