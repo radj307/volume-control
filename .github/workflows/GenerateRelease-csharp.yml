@@ -4,37 +4,7 @@ on:
   push:
     tags: '*.*.*'
   workflow_dispatch:
-    inputs:
-      name:
-        description:  'Release Name'
-        required:     false
-        default:      ''
-        type:         string
-      tag: # Target tag to make a release for
-        description:  'Release Tag'
-        required:     false
-        default:      ''
-        type:         string
-      is-draft: # Input that selects whether to make a draft release or a public release
-        description:  'Make Draft Release'
-        required:     false
-        default:      'true'
-        type:         boolean
-      is-prerelease: # Input that selects whether to make a pre-release or normal release
-        description:  'Make Pre-Release'
-        required:     false
-        default:      'false'
-        type:         boolean
-      autogenerate:
-        description:  'Autogenerate Release Notes From Commits'
-        required:     false
-        default:      'false'
-        type:         boolean
-      body:
-        description:  'Release Body Paragraph'
-        required:     false
-        default:      ''
-        
+  
 jobs:
   build-release:
     runs-on: windows-latest
@@ -61,20 +31,12 @@ jobs:
     - name: Publish VolumeControlCLI Release to Directory
       run:  dotnet publish VolumeControlCLI -c Release /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
       
-    - name:   Get Release Tag
-      id:     get_version
-      run:    |
-              $TAG=${GITHUB_REF/refs\/tags\//}
-              $TAG=$(if("$TAG" -eq "") { echo "${{github.event.inputs.tag}}" } else { echo $TAG })
-              echo ::set-output name=TAG::"$TAG"
-      shell:  powershell
-      
     - name:   Stage Files
       run:    |
               mkdir "${{github.workspace}}/STAGING"
               cd "${{github.workspace}}/STAGING"
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
-              Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.TAG}}.zip"
+              Compress-Archive ./* "VolumeControl-${GITHUB_REF/refs\/tags\//}.zip"
               mv "./*.zip" "${{github.workspace}}"
               
     - name:   Upload Artifact
@@ -96,11 +58,10 @@ jobs:
       with:
         name: build-windows
         
-    - run:  ls -lAghR
-    
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
-        draft:  true
-        files:  |
-                ${{github.workspace}}/*.zip
+        draft:    true
+        tag_name: ${GITHUB_REF/refs\/tags\//}
+        files:    |
+                  ${{github.workspace}}/*.zip
