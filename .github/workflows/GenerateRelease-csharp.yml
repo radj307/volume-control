@@ -45,15 +45,17 @@ jobs:
       run:    |
               cd publish
               rm ./*/*.pdb
-              Compress-Archive ./VolumeControl/* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip
-              Compress-Archive ./VolumeControlCLI/* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip
+              cd VolumeControl
+              Compress-Archive ./* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip && mv ./*.zip ../
+              cd ../VolumeControlCLI
+              Compress-Archive ./* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip && mv ./*.zip ../
       shell:  powershell
       
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: latest-Windows
-        path: ${{github.workspace}}/publish/VolumeControl/*.zip
+        path: ${{github.workspace}}/publish/*.zip
         
   create-release:
     needs:   build
