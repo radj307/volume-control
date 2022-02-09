@@ -57,6 +57,7 @@ jobs:
       - name:   Stage Archives
         run:    |
                 cd ${{github.workspace}}
+                ls -lAghR
                 mv ./*/*.zip ./
         
       - name: Create Release
