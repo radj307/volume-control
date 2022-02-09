@@ -242,7 +242,7 @@ namespace VolumeControl
             if (minimizeOnStartup)
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
-            Label_VersionNumber.Text = "v3.0.1";
+            Label_VersionNumber.Text = "v3.0.0 r1";
 
             UpdateHotkeys();
             UpdateTitle();
