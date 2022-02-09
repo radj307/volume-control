@@ -45,17 +45,19 @@ jobs:
       
     - name:   Stage Files
       run:    |
-              mkdir STAGING
-              mv "publish/VolumeControl*/*.dll" ./STAGING/
-              mv "publish/VolumeControl*/*.exe" ./STAGING/
-              cd STAGING
+              mkdir "${{github.workspace}}/STAGING"
+              cd "${{github.workspace}}/STAGING"
+              mv "$((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)" "${{github.workspace}}/STAGING"
               Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.TAG}}.zip"
+              mv "./*.zip" "${{github.workspace}}"
               
-    - name:   Upload Archive
+    - name:   Upload Artifact
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
-        path: "VolumeControl*.zip"
+        path: "${{github.workspace}}/VolumeControl*.zip"
+        
+        
         
   # Use linux to create the release because windows is FUCKING BROKEN
   create-release:
@@ -69,7 +71,9 @@ jobs:
         name: build-windows
         
     - run:  ls -lAghR
-              
+    - run:  mv ./*/*.zip ./
+      continue_on_error: true
+        
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
