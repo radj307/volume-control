@@ -4,7 +4,10 @@ on:
   push:
     tags: '*.*.*'
   workflow_dispatch:
-    
+    inputs:
+      tag:
+        required: true
+        type:     string
 
 jobs:
   build:
@@ -54,8 +57,7 @@ jobs:
       - name:   Stage Archives
         run:    |
                 cd ${{github.workspace}}
-                if mv ./latest-*/* ./ ; then ls -lAgh ; else ls -lAghR ; fi
-        shell:  bash
+                mv ./*/*.zip ./
         
       - name: Create Release
         uses: softprops/action-gh-release@v1
