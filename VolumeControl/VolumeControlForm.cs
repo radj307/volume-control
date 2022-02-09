@@ -178,7 +178,7 @@ namespace VolumeControl
             RegisterHotkeys();
         }
 
-        private void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0, byte flags = 1)
+        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1)
         {
             AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
         }
