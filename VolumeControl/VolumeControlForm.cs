@@ -272,6 +272,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_next = HKEdit_Next.Hotkey.ToString();
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             // PREVIOUS SONG
             HKEdit_Prev.Hotkey = hk_prev;
@@ -289,6 +290,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_prev = HKEdit_Prev.Hotkey.ToString();
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             // TOGGLE PLAYBACK
             HKEdit_TogglePlayback.Hotkey = hk_playback;
@@ -306,6 +308,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_playback = HKEdit_TogglePlayback.Hotkey.ToString();
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
 
             // INITIALIZE UI COMPONENTS
