@@ -26,6 +26,12 @@ If your keyboard doesn't have media keys, change the bound key in the _Hotkeys_ 
   `Ctrl + VolumeDown`
 - Toggle Mute  
   `Ctrl + VolumeMute`
+- Next Track
+  `Ctrl + MediaNext`  _(Disabled by Default)_
+- Previous Track
+  `Ctrl + MediaPrevious`  _(Disabled by Default)_
+- Play / Pause
+  `Ctrl + MediaPlayPause`  _(Disabled by Default)_
 
 ## VolumeControl
 Volume Control usually lives in the System Tray to keep it out of your way.  
