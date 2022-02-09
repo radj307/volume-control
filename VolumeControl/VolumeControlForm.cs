@@ -242,7 +242,7 @@ namespace VolumeControl
             if (minimizeOnStartup)
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
-            Label_VersionNumber.Text = "v3.0.0";
+            Label_VersionNumber.Text = "v3.0.1";
 
             UpdateHotkeys();
             UpdateTitle();
@@ -289,6 +289,7 @@ namespace VolumeControl
                 // make menu visible
                 Visible = true;
                 WindowState = FormWindowState.Normal;
+                this.Activate(); // bring the form to the foreground
             }
         }
         /// <summary>
