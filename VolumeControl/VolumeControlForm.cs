@@ -210,6 +210,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_volumeup_enabled = HKEdit_VolumeUp.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_VolumeUp.ModifierChanged += delegate
             {
@@ -228,6 +229,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_volumedown_enabled = HKEdit_VolumeDown.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_VolumeDown.ModifierChanged += delegate
             {
@@ -246,6 +248,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_volumemute_enabled = HKEdit_VolumeMute.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_VolumeMute.ModifierChanged += delegate
             {
@@ -265,6 +268,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_next_enabled = HKEdit_Next.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_Next.ModifierChanged += delegate
             {
@@ -283,6 +287,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_prev_enabled = HKEdit_Prev.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_Prev.ModifierChanged += delegate
             {
@@ -301,6 +306,7 @@ namespace VolumeControl
                 Properties.Settings.Default.hk_playback_enabled = HKEdit_TogglePlayback.HotkeyIsEnabled;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                UpdateHotkeys();
             };
             HKEdit_TogglePlayback.ModifierChanged += delegate
             {
