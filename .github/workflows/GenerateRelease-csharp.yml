@@ -46,9 +46,11 @@ jobs:
               cd publish
               rm ./*/*.pdb
               cd VolumeControl
-              Compress-Archive ./* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip && mv ./*.zip ../
+              Compress-Archive ./* VolumeControl-${{ steps.get_version.outputs.TAG }}.zip
+              mv ./*.zip ../
               cd ../VolumeControlCLI
-              Compress-Archive ./* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip && mv ./*.zip ../
+              Compress-Archive ./* VolumeControlCLI-${{ steps.get_version.outputs.TAG }}.zip
+              mv ./*.zip ../
       shell:  powershell
       
     - name: Upload Artifact
