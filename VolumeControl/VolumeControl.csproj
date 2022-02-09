@@ -80,4 +80,7 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -ExecutionPolicy Bypass -NonInteractive -File ../VersionTag.ps1" />
+  </Target>
 </Project>

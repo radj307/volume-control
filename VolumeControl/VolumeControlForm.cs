@@ -96,6 +96,18 @@ namespace VolumeControl
 
         #region HelperMethods
 
+        private string FormatVersionNumber(Version v)
+        {
+            if (v.Revision == 0)
+            {
+                return $"v{v.Major}.{v.Minor}.{v.Build}";
+            }
+            else
+            {
+                return $"v{v.Major}.{v.Minor}.{v.Build} (Rev. {v.Revision})";
+            }
+        }
+
         /// <summary>
         /// Register all enabled Hotkeys
         /// </summary>
@@ -103,13 +115,13 @@ namespace VolumeControl
         {
             if (VolumeUpHotkeyIsEnabled && !hk_up.Registered)
                 hk_up.Register(this);
-            
+
             if (VolumeDownHotkeyIsEnabled && !hk_down.Registered)
                 hk_down.Register(this);
-            
+
             if (VolumeMuteHotkeyIsEnabled && !hk_mute.Registered)
                 hk_mute.Register(this);
-            
+
             if (NextHotkeyIsEnabled && !hk_next.Registered)
                 hk_next.Register(this);
 
@@ -343,7 +355,7 @@ namespace VolumeControl
             if (minimizeOnStartup)
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
-            Label_VersionNumber.Text = "v3.1.0";
+            Label_VersionNumber.Text = FormatVersionNumber(typeof(VolumeControlForm).Assembly.GetName().Version!);
 
             UpdateHotkeys();
             UpdateTitle();
