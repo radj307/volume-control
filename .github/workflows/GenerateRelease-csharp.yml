@@ -60,4 +60,4 @@ jobs:
         name:                     ${{ steps.get_version.outputs.NAME }}
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        files:                    ./*.zip
+        files:                    "${{github.workspace}}/STAGING/*.zip"
