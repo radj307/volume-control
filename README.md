@@ -11,7 +11,7 @@ _Note: The CLI version accepts PID numbers or Process Names._
 # Installation
  1. Download the [latest release](https://github.com/radj307/volume-control/releases).  
  2. Extract the `.zip` file to a directory of your choice.  
- 3. Launch `VolumeControl.exe`.
+ 3. Launch `VolumeControl.exe` for the main program, or `VolumeControlCLI.exe` for [CLI usage](https://github.com/radj307/volume-control/edit/main/README.md#volumecontrolcli).
 
 # Usage
 To get started, set a target application in the _General_ tab.  
