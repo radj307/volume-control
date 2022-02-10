@@ -72,7 +72,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-
+	
+<PropertyGroup>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+</PropertyGroup>
+	
   <ItemGroup>
     <None Update="volume.ico">
       <Pack>True</Pack>
@@ -83,4 +87,6 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ../VersionTag.ps1" />
   </Target>
+
+	
 </Project>
