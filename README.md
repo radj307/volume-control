@@ -65,6 +65,6 @@ Here's an overview of the available settings:  _(as of v3.0.0)_
 
 
 ## VolumeControlCLI
-For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
+For best results, place `VolumeControl.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
 
 Use `VolumeControlCLI -h` or `VolumeControlCLI --help` to see usage instructions.
