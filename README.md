@@ -27,11 +27,11 @@ If your keyboard doesn't have media keys, change the bound key in the _Hotkeys_ 
   `Ctrl + VolumeDown`
 - Toggle Mute  
   `Ctrl + VolumeMute`
-- Next Track
+- Next Track  
   `Ctrl + MediaNext`  _(Disabled by Default)_
-- Previous Track
+- Previous Track  
   `Ctrl + MediaPrevious`  _(Disabled by Default)_
-- Play / Pause
+- Play / Pause  
   `Ctrl + MediaPlayPause`  _(Disabled by Default)_
 
 ## VolumeControl
