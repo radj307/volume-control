@@ -25,6 +25,9 @@ jobs:
     - name: Setup Dotnet
       uses: actions/setup-dotnet@main
       
+    - name: Build Solution
+      run:  dotnet build
+      
     - name: Publish VolumeControl Release to Directory
       run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
@@ -38,30 +41,16 @@ jobs:
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
               Compress-Archive ./* "VolumeControl-${GITHUB_REF/refs\/tags\//}.zip"
               mv "./*.zip" "${{github.workspace}}"
-              
+          
     - name:   Upload Artifact
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
         path: "${{github.workspace}}/VolumeControl*.zip"
         
-        
-        
-  # Use linux to create the release because windows is FUCKING BROKEN
-  create-release:
-    needs:    build-release
-    runs-on:  ubuntu-latest
-    
-    steps:
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: build-windows
-        
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
         draft:    true
-        tag_name: ${GITHUB_REF/refs\/tags\//}
         files:    |
                   ${{github.workspace}}/*.zip
