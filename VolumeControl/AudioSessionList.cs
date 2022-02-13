@@ -8,7 +8,7 @@ namespace VolumeControl
 {
     internal static class AudioSessionList
     {
-        public static BindingList<string> GetProcessNames()
+        public static List<string> GetProcessNames()
         {
 
             IMMDeviceEnumerator devEnum = (IMMDeviceEnumerator)new MMDeviceEnumerator();
@@ -21,7 +21,7 @@ namespace VolumeControl
             mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
             List<IAudioSessionControl2> Sessions = enumerator.GetAllSessions();
 
-            BindingList<string> l = new();
+            List<string> l = new();
 
             foreach (IAudioSessionControl2 session in Sessions)
             {
@@ -31,7 +31,7 @@ namespace VolumeControl
 
             return l;
         }
-        public static BindingList<string> GetProcessNames(IMMDevice device)
+        public static List<string> GetProcessNames(IMMDevice device)
         {
             Guid GUID = typeof(IAudioSessionManager2).GUID;
             device.Activate(ref GUID, 0, IntPtr.Zero, out object o);
@@ -40,7 +40,7 @@ namespace VolumeControl
             mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
             List<IAudioSessionControl2> Sessions = enumerator.GetAllSessions();
 
-            BindingList<string> l = new();
+            List<string> l = new();
 
             foreach (IAudioSessionControl2 session in Sessions)
             {

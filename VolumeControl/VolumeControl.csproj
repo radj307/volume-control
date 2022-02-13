@@ -8,7 +8,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
-    <ApplicationIcon>icon3-grayscale2.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <DebugType>full</DebugType>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
@@ -26,7 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon3-grayscale2.ico" />
+    <Content Include="Resources\icons\iconSilvered.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="ToastForm.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
   </ItemGroup>
 

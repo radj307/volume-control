@@ -35,11 +35,17 @@ namespace VolumeControl
         /// Hotkey definition linked to the Play/Pause action.
         /// </summary>
         private readonly Hotkey hk_playback;
-
+        /// <summary>
+        /// Hotkey definition linked to the Next Target action.
+        /// </summary>
         private readonly Hotkey hk_nextTarget;
-
+        /// <summary>
+        /// Hotkey definition linked to the Previous Target action.
+        /// </summary>
         private readonly Hotkey hk_prevTarget;
-
+        /// <summary>
+        /// Hotkey definition linked to the Show Targets List action
+        /// </summary>
         private readonly Hotkey hk_showTarget;
         /// <summary>
         /// Utility used to enumerate audio sessions to populate the Process selector box.
@@ -50,9 +56,27 @@ namespace VolumeControl
         /// </summary>
         private readonly BindingSource binding;
 
+        private readonly ToastForm toast = new();
+
+        private readonly CancelButtonHandler cancelHandler = new();
+
         #endregion Members
 
         #region Properties
+
+        private int TargetListSize
+        {
+            get => ComboBox_ProcessSelector.Items.Count;
+        }
+        private int CurrentTargetIndex
+        {
+            get => ComboBox_ProcessSelector.SelectedIndex;
+            set => ComboBox_ProcessSelector.SelectedIndex = value;
+        }
+        private string CurrentTargetName
+        {
+            get => ComboBox_ProcessSelector.Text;
+        }
 
         /// <summary>
         /// Overrides the base object's Visible member with a property that respects hotkeys.
@@ -186,7 +210,9 @@ namespace VolumeControl
         {
             if (ComboBox_ProcessSelector.Text.Length > 0)
             {
-                Text = $"{ComboBox_ProcessSelector.Text} Volume Controller";
+                string name = ComboBox_ProcessSelector.Text;
+                Text = $"{name} Volume Controller";
+                toast.SetTitle(name);
             }
             else
             {
@@ -197,10 +223,38 @@ namespace VolumeControl
         /// <summary>
         /// Updates the options available in the Process selector box.
         /// </summary>
-        private void UpdateProcessList()
+        internal void UpdateProcessList(bool preserveSelected = true)
         {
-            sessions = AudioSessionList.GetProcessNames();
-            ComboBox_ProcessSelector.DataSource = sessions;
+            List<string> active = AudioSessionList.GetProcessNames();
+
+            if (preserveSelected)
+            {
+                string currentName = CurrentTargetName;
+                if (currentName.Length > 0 && !active.Contains(currentName))
+                {
+                    int currentIndex = CurrentTargetIndex;
+                    if (currentIndex != -1)
+                        active.Insert(currentIndex, currentName);
+                    else
+                        active.Add(currentName);
+                }
+            }
+            active.Sort();
+            if (toast.ToastEnabled)
+            {
+                toast.FlushItems();
+                toast.LoadItems(active);
+                toast.Selected = CurrentTargetName;
+            }
+            ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
+        }
+
+        private static BindingList<T> ToBindingList<T>(List<T> list)
+        {
+            BindingList<T> bindingList = new();
+            foreach (T item in list)
+                bindingList.Add(item);
+            return bindingList;
         }
 
         private void UpdateHotkeys()
@@ -219,48 +273,56 @@ namespace VolumeControl
 
             RegisterHotkeys();
         }
-
-        private int ProcessListSize
+        private void SetTarget(string name)
         {
-            get => ComboBox_ProcessSelector.Items.Count;
+            int index = ComboBox_ProcessSelector.Items.IndexOf(name);
+            if (index != -1)
+            {
+                CurrentTargetIndex = index;
+            }
         }
-        private int ProcessListIndex
-        {
-            get => ComboBox_ProcessSelector.SelectedIndex;
-            set => ComboBox_ProcessSelector.SelectedIndex = value;
-        }
-
+        /// <summary>
+        /// Increment the current target indexer.
+        /// </summary>
         private void NextTarget()
         {
-            if (ProcessListIndex + 1 < ProcessListSize - 1)
-                ++ProcessListIndex;
+            if (CurrentTargetIndex + 1 < TargetListSize)
+                ++CurrentTargetIndex;
             else
-                ProcessListIndex = 0;
+                CurrentTargetIndex = 0;
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
+        /// <summary>
+        /// Decrement the current target indexer.
+        /// </summary>
         private void PrevTarget()
         {
-            if (ProcessListIndex - 1 >= 0)
-                --ProcessListIndex;
+            if (CurrentTargetIndex - 1 >= 0)
+                --CurrentTargetIndex;
             else
-                ProcessListIndex = ProcessListSize - 1;
+                CurrentTargetIndex = TargetListSize - 1;
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
+        /// <summary>
+        /// Toggle the target list window.
+        /// </summary>
         private void ShowTarget()
         {
-            // TODO: Implement This
+            if (toast.Visible)
+                toast.Hide();
+            else
+            {
+                UpdateProcessList();
+                toast.Show();
+            }
         }
-
-        private int CurrentTargetIndex
-        {
-            get => ComboBox_ProcessSelector.SelectedIndex;
-            set => ComboBox_ProcessSelector.SelectedIndex = value;
-        }
-
+        /// <summary>
+        /// Send a virtual key press event using the Win32 API.
+        /// </summary>
         private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1)
         {
             AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
@@ -273,6 +335,21 @@ namespace VolumeControl
         public VolumeControlForm()
         {
             InitializeComponent();
+
+            // Setup handler for ESC key
+            cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
+            CancelButton = cancelHandler;
+
+            // set always on top state
+            TopMost = Properties.Settings.Default.AlwaysOnTop;
+            // setup toast window
+            toast.ToastEnabled = Properties.Settings.Default.toast_enabled;
+            toast.Timeout = (double)Properties.Settings.Default.toast_timeout;
+            Checkbox_ToastEnabled.Checked = Properties.Settings.Default.toast_enabled;
+            toast.ListDisplay.SelectedIndexChanged += delegate
+            {
+                SetTarget(toast.Selected);
+            };
 
             // INITIALIZE VOLUME HOTKEYS
             hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
@@ -472,7 +549,7 @@ namespace VolumeControl
             ComboBox_ProcessSelector.AutoCompleteSource = AutoCompleteSource.CustomSource;
             ComboBox_ProcessSelector.AutoCompleteCustomSource = new()
             {
-                proc //< Always include setting value by default so it isn't overwritten if the process isn't active.
+                proc
             };
             ComboBox_ProcessSelector.AutoCompleteCustomSource.AddRange(sessions.ToArray());
             ComboBox_ProcessSelector.DataSource = binding;
@@ -604,7 +681,20 @@ namespace VolumeControl
             RegisterHotkeys();
         }
 
-        #endregion FormComponents
+        private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.toast_enabled = Checkbox_ToastEnabled.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
 
+        private void ToastTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.toast_timeout = ToastTimeout.Value;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        #endregion FormComponents
     }
 }

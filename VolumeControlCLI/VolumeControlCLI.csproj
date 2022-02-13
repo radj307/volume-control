@@ -5,11 +5,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>volume_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Icon_Refresh.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="volume_icon.ico" />
+    <Content Include="Icon_Refresh.ico" />
   </ItemGroup>
 
   <ItemGroup>

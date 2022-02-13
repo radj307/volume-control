@@ -63,9 +63,9 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Icon_Original {
+        internal static System.Drawing.Icon ico_grayscale2 {
             get {
-                object obj = ResourceManager.GetObject("Icon_Original", resourceCulture);
+                object obj = ResourceManager.GetObject("ico_grayscale2", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -73,9 +73,29 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Icon_Refresh {
+        internal static System.Drawing.Icon ico_grayscaleFG {
             get {
-                object obj = ResourceManager.GetObject("Icon_Refresh", resourceCulture);
+                object obj = ResourceManager.GetObject("ico_grayscaleFG", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ico_refresh {
+            get {
+                object obj = ResourceManager.GetObject("ico_refresh", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ico_silvered {
+            get {
+                object obj = ResourceManager.GetObject("ico_silvered", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -83,9 +103,69 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Icon_Refresh_PNG {
+        internal static System.Drawing.Bitmap icon {
             get {
-                object obj = ResourceManager.GetObject("Icon_Refresh_PNG", resourceCulture);
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icon1 {
+            get {
+                object obj = ResourceManager.GetObject("icon1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_grayscale {
+            get {
+                object obj = ResourceManager.GetObject("png_grayscale", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_grayscale2 {
+            get {
+                object obj = ResourceManager.GetObject("png_grayscale2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_refresh {
+            get {
+                object obj = ResourceManager.GetObject("png_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_silvered {
+            get {
+                object obj = ResourceManager.GetObject("png_silvered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_x {
+            get {
+                object obj = ResourceManager.GetObject("png_x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
