@@ -27,18 +27,18 @@ If your keyboard doesn't have media keys, change the bound key in the _Hotkeys_ 
   `Ctrl + VolumeDown`
 - Toggle Mute  
   `Ctrl + VolumeMute`
-- Next Track
+- Next Track  
   `Ctrl + MediaNext`  _(Disabled by Default)_
-- Previous Track
+- Previous Track  
   `Ctrl + MediaPrevious`  _(Disabled by Default)_
-- Play / Pause
+- Play / Pause  
   `Ctrl + MediaPlayPause`  _(Disabled by Default)_
 
 ## VolumeControl
 Volume Control usually lives in the System Tray to keep it out of your way.  
 To show the main window, double-click on the system tray icon.  
 
-![The Main Window](https://i.imgur.com/Yw5LIqb.png)  
+![The Main Window](https://i.imgur.com/Kp8qUeO.png)  
 _NOTE: I am in no way affiliated with Deezer._
 
 Here's an overview of the available settings:  _(as of v3.0.0)_
@@ -65,6 +65,6 @@ Here's an overview of the available settings:  _(as of v3.0.0)_
 
 
 ## VolumeControlCLI
-For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
+For best results, place `VolumeControl.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
 
 Use `VolumeControlCLI -h` or `VolumeControlCLI --help` to see usage instructions.

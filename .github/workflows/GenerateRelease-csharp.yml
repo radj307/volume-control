@@ -1,9 +1,14 @@
 name: Generate Release
 
+# Trigger on SEMVER-format tag push event
 on:
   push:
     tags: '*.*.*'
   workflow_dispatch:
+
+# Configuration Type
+env:
+  BUILD_CONFIGURATION: 'Release'
   
 jobs:
   build-release:
@@ -12,37 +17,37 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       with:
         fetch-depth:  0
-
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@main
       with:
         dotnet-version: 6.0.x
-        
-    - name: Setup Dotnet
-      uses: actions/setup-dotnet@main
       
-    - name: Build Solution
-      run:  dotnet build
+    - name: '(Pre)Build Solution'
+      run:  dotnet build -c $BUILD_CONFIGURATION
       
-    - name: Publish VolumeControl Release to Directory
-      run:  dotnet publish VolumeControl -c Release /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+    - name: 'Run VersionTag Script'
+      run:  '${{github.workspace}}/VersionTag.ps1'
       
-    - name: Publish VolumeControlCLI Release to Directory
-      run:  dotnet publish VolumeControlCLI -c Release /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+    - name: 'Build VolumeControl Binary'
+      run:  dotnet publish VolumeControl -c $BUILD_CONFIGURATION /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
-    - name:   Stage Files
+    - name: 'Build VersionControlCLI Binary'
+      run:  dotnet publish VolumeControlCLI -c $BUILD_CONFIGURATION /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+      
+    - name:   Create Staging Workspace
       run:    |
               mkdir "${{github.workspace}}/STAGING"
               cd "${{github.workspace}}/STAGING"
+      
+    - name:   Stage Files
+      run:    |
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
               Compress-Archive ./* "VolumeControl-${GITHUB_REF/refs\/tags\//}.zip"
               mv "./*.zip" "${{github.workspace}}"
           
-    - name:   Upload Artifact
+    - name:   'Upload Build Artifact'
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
