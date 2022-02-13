@@ -40,7 +40,7 @@ namespace VolumeControl
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.Tab_TargetSelection = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
             this.CheckBox_RunOnStartup = new System.Windows.Forms.CheckBox();
             this.CheckBox_VisibleInTaskbar = new System.Windows.Forms.CheckBox();
@@ -57,8 +57,12 @@ namespace VolumeControl
             this.HKEdit_Prev = new UIComposites.HotkeyEditor();
             this.HKEdit_Next = new UIComposites.HotkeyEditor();
             this.HKEdit_TogglePlayback = new UIComposites.HotkeyEditor();
+            this.TabPage_Target = new System.Windows.Forms.TabPage();
+            this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
+            this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
+            this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
             this.SystemTray_ContextMenu.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icon_VolumeControl)).BeginInit();
             this.GroupBox_Volume.SuspendLayout();
@@ -66,6 +70,7 @@ namespace VolumeControl
             this.GroupBox_TargetProcess.SuspendLayout();
             this.Tab_Hotkeys_Volume.SuspendLayout();
             this.Tab_Hotkeys_Playback.SuspendLayout();
+            this.TabPage_Target.SuspendLayout();
             this.SuspendLayout();
             // 
             // SystemTray
@@ -97,10 +102,8 @@ namespace VolumeControl
             // checkbox_minimizeOnStartup
             // 
             this.checkbox_minimizeOnStartup.AutoSize = true;
-            this.checkbox_minimizeOnStartup.Checked = true;
-            this.checkbox_minimizeOnStartup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkbox_minimizeOnStartup.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(214, 40);
+            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(214, 38);
             this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
             this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(140, 20);
             this.checkbox_minimizeOnStartup.TabIndex = 5;
@@ -124,8 +127,10 @@ namespace VolumeControl
             this.HKEdit_VolumeUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_VolumeUp.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_VolumeUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_VolumeUp.MaximumSize = new System.Drawing.Size(343, 60);
+            this.HKEdit_VolumeUp.MinimumSize = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeUp.Name = "HKEdit_VolumeUp";
-            this.HKEdit_VolumeUp.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_VolumeUp.Size = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeUp.TabIndex = 7;
             this.HKEdit_VolumeUp.Tag = "";
             // 
@@ -135,8 +140,10 @@ namespace VolumeControl
             this.HKEdit_VolumeDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_VolumeDown.Location = new System.Drawing.Point(9, 78);
             this.HKEdit_VolumeDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_VolumeDown.MaximumSize = new System.Drawing.Size(343, 60);
+            this.HKEdit_VolumeDown.MinimumSize = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeDown.Name = "HKEdit_VolumeDown";
-            this.HKEdit_VolumeDown.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_VolumeDown.Size = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeDown.TabIndex = 8;
             this.HKEdit_VolumeDown.Tag = "";
             // 
@@ -146,23 +153,26 @@ namespace VolumeControl
             this.HKEdit_VolumeMute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_VolumeMute.Location = new System.Drawing.Point(9, 150);
             this.HKEdit_VolumeMute.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_VolumeMute.MaximumSize = new System.Drawing.Size(343, 60);
+            this.HKEdit_VolumeMute.MinimumSize = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeMute.Name = "HKEdit_VolumeMute";
-            this.HKEdit_VolumeMute.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_VolumeMute.Size = new System.Drawing.Size(343, 60);
             this.HKEdit_VolumeMute.TabIndex = 9;
             this.HKEdit_VolumeMute.Tag = "";
             // 
-            // tabControl1
+            // Tab_TargetSelection
             // 
-            this.tabControl1.Controls.Add(this.Tab_General);
-            this.tabControl1.Controls.Add(this.Tab_Hotkeys_Volume);
-            this.tabControl1.Controls.Add(this.Tab_Hotkeys_Playback);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(368, 253);
-            this.tabControl1.TabIndex = 10;
+            this.Tab_TargetSelection.Controls.Add(this.Tab_General);
+            this.Tab_TargetSelection.Controls.Add(this.Tab_Hotkeys_Volume);
+            this.Tab_TargetSelection.Controls.Add(this.Tab_Hotkeys_Playback);
+            this.Tab_TargetSelection.Controls.Add(this.TabPage_Target);
+            this.Tab_TargetSelection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tab_TargetSelection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Tab_TargetSelection.Location = new System.Drawing.Point(0, 0);
+            this.Tab_TargetSelection.Name = "Tab_TargetSelection";
+            this.Tab_TargetSelection.SelectedIndex = 0;
+            this.Tab_TargetSelection.Size = new System.Drawing.Size(368, 253);
+            this.Tab_TargetSelection.TabIndex = 10;
             // 
             // Tab_General
             // 
@@ -174,10 +184,10 @@ namespace VolumeControl
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
             this.Tab_General.Controls.Add(this.GroupBox_Volume);
             this.Tab_General.Controls.Add(this.GroupBox_TargetProcess);
-            this.Tab_General.Location = new System.Drawing.Point(4, 25);
+            this.Tab_General.Location = new System.Drawing.Point(4, 24);
             this.Tab_General.Name = "Tab_General";
             this.Tab_General.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_General.Size = new System.Drawing.Size(360, 224);
+            this.Tab_General.Size = new System.Drawing.Size(360, 225);
             this.Tab_General.TabIndex = 0;
             this.Tab_General.Text = "General";
             this.Tab_General.UseVisualStyleBackColor = true;
@@ -185,9 +195,9 @@ namespace VolumeControl
             // CheckBox_RunOnStartup
             // 
             this.CheckBox_RunOnStartup.AutoSize = true;
-            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(214, 14);
+            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(214, 13);
             this.CheckBox_RunOnStartup.Name = "CheckBox_RunOnStartup";
-            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(111, 20);
+            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(107, 19);
             this.CheckBox_RunOnStartup.TabIndex = 14;
             this.CheckBox_RunOnStartup.Text = "Run on Startup";
             this.CheckBox_RunOnStartup.UseVisualStyleBackColor = true;
@@ -197,9 +207,9 @@ namespace VolumeControl
             // 
             this.CheckBox_VisibleInTaskbar.AutoSize = true;
             this.CheckBox_VisibleInTaskbar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(214, 66);
+            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(214, 64);
             this.CheckBox_VisibleInTaskbar.Name = "CheckBox_VisibleInTaskbar";
-            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(130, 20);
+            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(124, 19);
             this.CheckBox_VisibleInTaskbar.TabIndex = 13;
             this.CheckBox_VisibleInTaskbar.Text = "Visible in Taskbar";
             this.CheckBox_VisibleInTaskbar.UseVisualStyleBackColor = true;
@@ -209,11 +219,11 @@ namespace VolumeControl
             // 
             this.Icon_VolumeControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Icon_VolumeControl.ErrorImage = null;
-            this.Icon_VolumeControl.Image = global::VolumeControl.Properties.Resources.Icon_Refresh_PNG;
+            this.Icon_VolumeControl.Image = ((System.Drawing.Image)(resources.GetObject("Icon_VolumeControl.Image")));
             this.Icon_VolumeControl.InitialImage = null;
-            this.Icon_VolumeControl.Location = new System.Drawing.Point(8, 21);
+            this.Icon_VolumeControl.Location = new System.Drawing.Point(8, 13);
             this.Icon_VolumeControl.Name = "Icon_VolumeControl";
-            this.Icon_VolumeControl.Size = new System.Drawing.Size(50, 50);
+            this.Icon_VolumeControl.Size = new System.Drawing.Size(55, 55);
             this.Icon_VolumeControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Icon_VolumeControl.TabIndex = 12;
             this.Icon_VolumeControl.TabStop = false;
@@ -222,9 +232,9 @@ namespace VolumeControl
             // 
             this.Label_VersionNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label_VersionNumber.AutoSize = true;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(71, 46);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(69, 43);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
-            this.Label_VersionNumber.Size = new System.Drawing.Size(64, 16);
+            this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
             this.Label_VersionNumber.TabIndex = 11;
             this.Label_VersionNumber.Text = "[ version ]";
             this.Label_VersionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -233,7 +243,7 @@ namespace VolumeControl
             // 
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Label_VolumeControl.Location = new System.Drawing.Point(71, 29);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(69, 23);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
             this.Label_VolumeControl.TabIndex = 10;
@@ -309,10 +319,10 @@ namespace VolumeControl
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeUp);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeMute);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeDown);
-            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(4, 25);
+            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(4, 24);
             this.Tab_Hotkeys_Volume.Name = "Tab_Hotkeys_Volume";
             this.Tab_Hotkeys_Volume.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(360, 224);
+            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(360, 225);
             this.Tab_Hotkeys_Volume.TabIndex = 1;
             this.Tab_Hotkeys_Volume.Text = "Volume Hotkeys";
             this.Tab_Hotkeys_Volume.UseVisualStyleBackColor = true;
@@ -322,9 +332,9 @@ namespace VolumeControl
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_Prev);
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_Next);
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_TogglePlayback);
-            this.Tab_Hotkeys_Playback.Location = new System.Drawing.Point(4, 25);
+            this.Tab_Hotkeys_Playback.Location = new System.Drawing.Point(4, 24);
             this.Tab_Hotkeys_Playback.Name = "Tab_Hotkeys_Playback";
-            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(192, 71);
+            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(360, 225);
             this.Tab_Hotkeys_Playback.TabIndex = 2;
             this.Tab_Hotkeys_Playback.Text = "Playback Hotkeys";
             this.Tab_Hotkeys_Playback.UseVisualStyleBackColor = true;
@@ -335,8 +345,10 @@ namespace VolumeControl
             this.HKEdit_Prev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_Prev.Location = new System.Drawing.Point(9, 150);
             this.HKEdit_Prev.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_Prev.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_Prev.MinimumSize = new System.Drawing.Size(343, 57);
             this.HKEdit_Prev.Name = "HKEdit_Prev";
-            this.HKEdit_Prev.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_Prev.Size = new System.Drawing.Size(343, 57);
             this.HKEdit_Prev.TabIndex = 2;
             // 
             // HKEdit_Next
@@ -345,8 +357,10 @@ namespace VolumeControl
             this.HKEdit_Next.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_Next.Location = new System.Drawing.Point(9, 78);
             this.HKEdit_Next.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_Next.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_Next.MinimumSize = new System.Drawing.Size(343, 57);
             this.HKEdit_Next.Name = "HKEdit_Next";
-            this.HKEdit_Next.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_Next.Size = new System.Drawing.Size(343, 57);
             this.HKEdit_Next.TabIndex = 1;
             // 
             // HKEdit_TogglePlayback
@@ -355,16 +369,66 @@ namespace VolumeControl
             this.HKEdit_TogglePlayback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HKEdit_TogglePlayback.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_TogglePlayback.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_TogglePlayback.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_TogglePlayback.MinimumSize = new System.Drawing.Size(343, 57);
             this.HKEdit_TogglePlayback.Name = "HKEdit_TogglePlayback";
-            this.HKEdit_TogglePlayback.Size = new System.Drawing.Size(343, 66);
+            this.HKEdit_TogglePlayback.Size = new System.Drawing.Size(343, 57);
             this.HKEdit_TogglePlayback.TabIndex = 0;
+            // 
+            // TabPage_Target
+            // 
+            this.TabPage_Target.Controls.Add(this.HKEdit_ShowTarget);
+            this.TabPage_Target.Controls.Add(this.HKEdit_PrevTarget);
+            this.TabPage_Target.Controls.Add(this.HKEdit_NextTarget);
+            this.TabPage_Target.Location = new System.Drawing.Point(4, 24);
+            this.TabPage_Target.Name = "TabPage_Target";
+            this.TabPage_Target.Size = new System.Drawing.Size(360, 225);
+            this.TabPage_Target.TabIndex = 4;
+            this.TabPage_Target.Text = "Target Hotkeys";
+            this.TabPage_Target.UseVisualStyleBackColor = true;
+            // 
+            // HKEdit_ShowTarget
+            // 
+            this.HKEdit_ShowTarget.BackColor = System.Drawing.Color.Transparent;
+            this.HKEdit_ShowTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_ShowTarget.Location = new System.Drawing.Point(9, 150);
+            this.HKEdit_ShowTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_ShowTarget.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_ShowTarget.MinimumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_ShowTarget.Name = "HKEdit_ShowTarget";
+            this.HKEdit_ShowTarget.Size = new System.Drawing.Size(343, 57);
+            this.HKEdit_ShowTarget.TabIndex = 2;
+            // 
+            // HKEdit_PrevTarget
+            // 
+            this.HKEdit_PrevTarget.BackColor = System.Drawing.Color.Transparent;
+            this.HKEdit_PrevTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_PrevTarget.Location = new System.Drawing.Point(9, 78);
+            this.HKEdit_PrevTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_PrevTarget.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_PrevTarget.MinimumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_PrevTarget.Name = "HKEdit_PrevTarget";
+            this.HKEdit_PrevTarget.Size = new System.Drawing.Size(343, 57);
+            this.HKEdit_PrevTarget.TabIndex = 1;
+            // 
+            // HKEdit_NextTarget
+            // 
+            this.HKEdit_NextTarget.BackColor = System.Drawing.Color.Transparent;
+            this.HKEdit_NextTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_NextTarget.Location = new System.Drawing.Point(9, 6);
+            this.HKEdit_NextTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.HKEdit_NextTarget.MaximumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_NextTarget.MinimumSize = new System.Drawing.Size(343, 57);
+            this.HKEdit_NextTarget.Name = "HKEdit_NextTarget";
+            this.HKEdit_NextTarget.Size = new System.Drawing.Size(343, 57);
+            this.HKEdit_NextTarget.TabIndex = 0;
             // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 253);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.Tab_TargetSelection);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
@@ -372,7 +436,7 @@ namespace VolumeControl
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);
             this.SystemTray_ContextMenu.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.Tab_TargetSelection.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icon_VolumeControl)).EndInit();
@@ -382,6 +446,7 @@ namespace VolumeControl
             this.GroupBox_TargetProcess.ResumeLayout(false);
             this.Tab_Hotkeys_Volume.ResumeLayout(false);
             this.Tab_Hotkeys_Playback.ResumeLayout(false);
+            this.TabPage_Target.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -395,7 +460,7 @@ namespace VolumeControl
         private UIComposites.HotkeyEditor HKEdit_VolumeUp;
         private UIComposites.HotkeyEditor HKEdit_VolumeDown;
         private UIComposites.HotkeyEditor HKEdit_VolumeMute;
-        private TabControl tabControl1;
+        private TabControl Tab_TargetSelection;
         private TabPage Tab_General;
         private TabPage Tab_Hotkeys_Volume;
         private Button Button_ReloadProcessList;
@@ -412,5 +477,9 @@ namespace VolumeControl
         private UIComposites.HotkeyEditor HKEdit_Prev;
         private UIComposites.HotkeyEditor HKEdit_Next;
         private UIComposites.HotkeyEditor HKEdit_TogglePlayback;
+        private TabPage TabPage_Target;
+        private UIComposites.HotkeyEditor HKEdit_ShowTarget;
+        private UIComposites.HotkeyEditor HKEdit_PrevTarget;
+        private UIComposites.HotkeyEditor HKEdit_NextTarget;
     }
 }

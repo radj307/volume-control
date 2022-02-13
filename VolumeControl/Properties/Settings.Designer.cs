@@ -226,5 +226,77 @@ namespace VolumeControl.Properties {
                 this["hk_playback_enabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_nextTarget_enabled {
+            get {
+                return ((bool)(this["hk_nextTarget_enabled"]));
+            }
+            set {
+                this["hk_nextTarget_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_prevTarget_enabled {
+            get {
+                return ((bool)(this["hk_prevTarget_enabled"]));
+            }
+            set {
+                this["hk_prevTarget_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hk_showTarget_enabled {
+            get {
+                return ((bool)(this["hk_showTarget_enabled"]));
+            }
+            set {
+                this["hk_showTarget_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+Shift+E")]
+        public string hk_nextTarget {
+            get {
+                return ((string)(this["hk_nextTarget"]));
+            }
+            set {
+                this["hk_nextTarget"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+Shift+Q")]
+        public string hk_prevTarget {
+            get {
+                return ((string)(this["hk_prevTarget"]));
+            }
+            set {
+                this["hk_prevTarget"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control+Shift+S")]
+        public string hk_showTarget {
+            get {
+                return ((string)(this["hk_showTarget"]));
+            }
+            set {
+                this["hk_showTarget"] = value;
+            }
+        }
     }
 }

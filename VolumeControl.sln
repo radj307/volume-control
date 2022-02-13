@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotkeyLib", "HotkeyLib\Hotk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIComposites", "UIComposites\UIComposites.csproj", "{59144427-4287-4551-A6B0-E610C1420ECE}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControlCLI", "VolumeControlCLI\VolumeControlCLI.csproj", "{636E0C72-AB0D-4F61-872D-5254778FBB1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,22 @@ Global
 		{59144427-4287-4551-A6B0-E610C1420ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59144427-4287-4551-A6B0-E610C1420ECE}.Release|x86.ActiveCfg = Release|Any CPU
 		{59144427-4287-4551-A6B0-E610C1420ECE}.Release|x86.Build.0 = Release|Any CPU
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Debug|Any CPU.Build.0 = Debug|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Debug|x86.ActiveCfg = Debug|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Debug|x86.Build.0 = Debug|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Release|Any CPU.ActiveCfg = Release|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Release|Any CPU.Build.0 = Release|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Release|x86.ActiveCfg = Release|x86
+		{B3D91644-A9AB-426E-96D7-1FB1016B2CA4}.Release|x86.Build.0 = Release|x86
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{636E0C72-AB0D-4F61-872D-5254778FBB1C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,7 +40,7 @@
             // Checkbox_Enabled
             // 
             this.Checkbox_Enabled.AutoSize = true;
-            this.Checkbox_Enabled.Location = new System.Drawing.Point(4, 32);
+            this.Checkbox_Enabled.Location = new System.Drawing.Point(4, 34);
             this.Checkbox_Enabled.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_Enabled.Name = "Checkbox_Enabled";
             this.Checkbox_Enabled.Size = new System.Drawing.Size(68, 19);
@@ -54,7 +54,7 @@
             this.Label_HotkeyName.AutoSize = true;
             this.Label_HotkeyName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Label_HotkeyName.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Label_HotkeyName.Location = new System.Drawing.Point(4, 6);
+            this.Label_HotkeyName.Location = new System.Drawing.Point(4, 8);
             this.Label_HotkeyName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label_HotkeyName.Name = "Label_HotkeyName";
             this.Label_HotkeyName.Size = new System.Drawing.Size(91, 16);
@@ -68,7 +68,7 @@
             this.Combobox_KeySelector.Cursor = System.Windows.Forms.Cursors.Default;
             this.Combobox_KeySelector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Combobox_KeySelector.FormattingEnabled = true;
-            this.Combobox_KeySelector.Location = new System.Drawing.Point(130, 3);
+            this.Combobox_KeySelector.Location = new System.Drawing.Point(132, 6);
             this.Combobox_KeySelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Combobox_KeySelector.MaximumSize = new System.Drawing.Size(250, 0);
             this.Combobox_KeySelector.MinimumSize = new System.Drawing.Size(164, 0);
@@ -79,7 +79,7 @@
             // Checkbox_ModifierKey_Ctrl
             // 
             this.Checkbox_ModifierKey_Ctrl.AutoSize = true;
-            this.Checkbox_ModifierKey_Ctrl.Location = new System.Drawing.Point(188, 32);
+            this.Checkbox_ModifierKey_Ctrl.Location = new System.Drawing.Point(190, 35);
             this.Checkbox_ModifierKey_Ctrl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Ctrl.Name = "Checkbox_ModifierKey_Ctrl";
             this.Checkbox_ModifierKey_Ctrl.Size = new System.Drawing.Size(45, 19);
@@ -92,7 +92,7 @@
             // Checkbox_ModifierKey_Alt
             // 
             this.Checkbox_ModifierKey_Alt.AutoSize = true;
-            this.Checkbox_ModifierKey_Alt.Location = new System.Drawing.Point(241, 32);
+            this.Checkbox_ModifierKey_Alt.Location = new System.Drawing.Point(243, 35);
             this.Checkbox_ModifierKey_Alt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Alt.Name = "Checkbox_ModifierKey_Alt";
             this.Checkbox_ModifierKey_Alt.Size = new System.Drawing.Size(41, 19);
@@ -105,7 +105,7 @@
             // Checkbox_ModifierKey_Shift
             // 
             this.Checkbox_ModifierKey_Shift.AutoSize = true;
-            this.Checkbox_ModifierKey_Shift.Location = new System.Drawing.Point(130, 32);
+            this.Checkbox_ModifierKey_Shift.Location = new System.Drawing.Point(132, 35);
             this.Checkbox_ModifierKey_Shift.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Shift.Name = "Checkbox_ModifierKey_Shift";
             this.Checkbox_ModifierKey_Shift.Size = new System.Drawing.Size(50, 19);
@@ -118,7 +118,7 @@
             // Checkbox_ModifierKey_Win
             // 
             this.Checkbox_ModifierKey_Win.AutoSize = true;
-            this.Checkbox_ModifierKey_Win.Location = new System.Drawing.Point(290, 32);
+            this.Checkbox_ModifierKey_Win.Location = new System.Drawing.Point(292, 35);
             this.Checkbox_ModifierKey_Win.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Win.Name = "Checkbox_ModifierKey_Win";
             this.Checkbox_ModifierKey_Win.Size = new System.Drawing.Size(47, 19);
@@ -142,10 +142,8 @@
             this.Controls.Add(this.Label_HotkeyName);
             this.Controls.Add(this.Checkbox_Enabled);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximumSize = new System.Drawing.Size(341, 60);
-            this.MinimumSize = new System.Drawing.Size(341, 60);
             this.Name = "HotkeyEditor";
-            this.Size = new System.Drawing.Size(341, 55);
+            this.Size = new System.Drawing.Size(341, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 

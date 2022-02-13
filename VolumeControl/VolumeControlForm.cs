@@ -35,6 +35,12 @@ namespace VolumeControl
         /// Hotkey definition linked to the Play/Pause action.
         /// </summary>
         private readonly Hotkey hk_playback;
+
+        private readonly Hotkey hk_nextTarget;
+
+        private readonly Hotkey hk_prevTarget;
+
+        private readonly Hotkey hk_showTarget;
         /// <summary>
         /// Utility used to enumerate audio sessions to populate the Process selector box.
         /// </summary>
@@ -91,12 +97,15 @@ namespace VolumeControl
         private bool NextHotkeyIsEnabled { get => HKEdit_Next.HotkeyIsEnabled; }
         private bool PrevHotkeyIsEnabled { get => HKEdit_Prev.HotkeyIsEnabled; }
         private bool PlaybackHotkeyIsEnabled { get => HKEdit_TogglePlayback.HotkeyIsEnabled; }
+        private bool NextTargetHotkeyIsEnabled { get => HKEdit_NextTarget.HotkeyIsEnabled; }
+        private bool PrevTargetHotkeyIsEnabled { get => HKEdit_PrevTarget.HotkeyIsEnabled; }
+        private bool ShowTargetHotkeyIsEnabled { get => HKEdit_ShowTarget.HotkeyIsEnabled; }
 
         #endregion Properties
 
         #region HelperMethods
 
-        private string FormatVersionNumber(Version v)
+        private static string FormatVersionNumber(Version v)
         {
             if (v.Revision == 0)
             {
@@ -130,6 +139,15 @@ namespace VolumeControl
 
             if (PlaybackHotkeyIsEnabled && !hk_playback.Registered)
                 hk_playback.Register(this);
+
+            if (NextTargetHotkeyIsEnabled && !hk_nextTarget.Registered)
+                hk_nextTarget.Register(this);
+
+            if (PrevTargetHotkeyIsEnabled && !hk_prevTarget.Registered)
+                hk_prevTarget.Register(this);
+
+            if (ShowTargetHotkeyIsEnabled && !hk_showTarget.Registered)
+                hk_showTarget.Register(this);
         }
         /// <summary>
         /// Unregister all Hotkeys
@@ -153,6 +171,15 @@ namespace VolumeControl
 
             if (hk_playback.Registered)
                 hk_playback.Unregister();
+
+            if (hk_nextTarget.Registered)
+                hk_nextTarget.Unregister();
+
+            if (hk_prevTarget.Registered)
+                hk_prevTarget.Unregister();
+
+            if (hk_showTarget.Registered)
+                hk_showTarget.Unregister();
         }
 
         private void UpdateTitle()
@@ -186,8 +213,52 @@ namespace VolumeControl
             hk_next.Reset(Properties.Settings.Default.hk_next);
             hk_prev.Reset(Properties.Settings.Default.hk_prev);
             hk_playback.Reset(Properties.Settings.Default.hk_playback);
+            hk_nextTarget.Reset(Properties.Settings.Default.hk_nextTarget);
+            hk_prevTarget.Reset(Properties.Settings.Default.hk_prevTarget);
+            hk_showTarget.Reset(Properties.Settings.Default.hk_showTarget);
 
             RegisterHotkeys();
+        }
+
+        private int ProcessListSize
+        {
+            get => ComboBox_ProcessSelector.Items.Count;
+        }
+        private int ProcessListIndex
+        {
+            get => ComboBox_ProcessSelector.SelectedIndex;
+            set => ComboBox_ProcessSelector.SelectedIndex = value;
+        }
+
+        private void NextTarget()
+        {
+            if (ProcessListIndex + 1 < ProcessListSize - 1)
+                ++ProcessListIndex;
+            else
+                ProcessListIndex = 0;
+            Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void PrevTarget()
+        {
+            if (ProcessListIndex - 1 >= 0)
+                --ProcessListIndex;
+            else
+                ProcessListIndex = ProcessListSize - 1;
+            Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void ShowTarget()
+        {
+            // TODO: Implement This
+        }
+
+        private int CurrentTargetIndex
+        {
+            get => ComboBox_ProcessSelector.SelectedIndex;
+            set => ComboBox_ProcessSelector.SelectedIndex = value;
         }
 
         private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1)
@@ -211,6 +282,10 @@ namespace VolumeControl
             hk_next = new(Properties.Settings.Default.hk_next, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK); });
             hk_prev = new(Properties.Settings.Default.hk_prev, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK); });
             hk_playback = new(Properties.Settings.Default.hk_playback, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE); });
+            // INITIALIZE TARGET HOTKEYS
+            hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, delegate { NextTarget(); });
+            hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, delegate { PrevTarget(); });
+            hk_showTarget = new(Properties.Settings.Default.hk_showTarget, delegate { ShowTarget(); });
 
             // INITIALIZE VOLUME HOTKEY EDITORS
             // VOLUME UP
@@ -324,6 +399,64 @@ namespace VolumeControl
             {
                 Properties.Settings.Default.hk_playback_enabled = HKEdit_TogglePlayback.HotkeyIsEnabled;
                 Properties.Settings.Default.hk_playback = HKEdit_TogglePlayback.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            // INITIALIZE TARGET SELECTION HOTKEYS
+            // NEXT TARGET
+            HKEdit_NextTarget.Hotkey = hk_nextTarget;
+            HKEdit_NextTarget.SetLabel("Next Target");
+            HKEdit_NextTarget.SetHotkeyIsEnabled(Properties.Settings.Default.hk_nextTarget_enabled);
+            HKEdit_NextTarget.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_nextTarget_enabled = HKEdit_NextTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            HKEdit_NextTarget.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_nextTarget_enabled = HKEdit_NextTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_nextTarget = HKEdit_NextTarget.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            // PREV TARGET
+            HKEdit_PrevTarget.Hotkey = hk_prevTarget;
+            HKEdit_PrevTarget.SetLabel("Prev Target");
+            HKEdit_PrevTarget.SetHotkeyIsEnabled(Properties.Settings.Default.hk_prevTarget_enabled);
+            HKEdit_PrevTarget.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_prevTarget_enabled = HKEdit_PrevTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            HKEdit_PrevTarget.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_prevTarget_enabled = HKEdit_PrevTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_prevTarget = HKEdit_PrevTarget.Hotkey.ToString();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            // SHOW TARGET
+            HKEdit_ShowTarget.Hotkey = hk_showTarget;
+            HKEdit_ShowTarget.SetLabel("Show Target");
+            HKEdit_ShowTarget.SetHotkeyIsEnabled(Properties.Settings.Default.hk_showTarget_enabled);
+            HKEdit_ShowTarget.Checkbox_Enabled.CheckedChanged += delegate
+            {
+                Properties.Settings.Default.hk_showTarget_enabled = HKEdit_ShowTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+                UpdateHotkeys();
+            };
+            HKEdit_ShowTarget.ModifierChanged += delegate
+            {
+                Properties.Settings.Default.hk_showTarget_enabled = HKEdit_ShowTarget.HotkeyIsEnabled;
+                Properties.Settings.Default.hk_showTarget = HKEdit_ShowTarget.Hotkey.ToString();
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();

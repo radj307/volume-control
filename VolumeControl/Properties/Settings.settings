@@ -53,5 +53,23 @@
     <Setting Name="hk_playback_enabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="hk_nextTarget_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk_prevTarget_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk_showTarget_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk_nextTarget" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+Shift+E</Value>
+    </Setting>
+    <Setting Name="hk_prevTarget" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+Shift+Q</Value>
+    </Setting>
+    <Setting Name="hk_showTarget" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Control+Shift+S</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
