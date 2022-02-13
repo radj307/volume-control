@@ -1,6 +1,4 @@
-﻿using HotkeyLib;
-
-namespace VolumeControl
+﻿namespace VolumeControl
 {
     partial class VolumeControlForm
     {
