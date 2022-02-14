@@ -1,11 +1,12 @@
-﻿namespace VolumeControl
+﻿using UIComposites;
+
+namespace VolumeControl
 {
     public partial class ToastForm : Form
     {
-        private readonly System.Timers.Timer timer = new();
-        private bool enabled = true;
         private readonly CancelButtonHandler cancel = new();
         private readonly BindingSource listBindSource = new();
+        private bool timeout_enabled = false;
 
         public object DataSource
         {
@@ -13,15 +14,16 @@
             set => listBindSource.DataSource = value;
         }
 
-        public bool ToastEnabled
+        public int Timeout
         {
-            get => enabled;
-            set => enabled = value;
+            get => TimeoutTimer.Interval;
+            set => TimeoutTimer.Interval = value;
         }
-        public double Timeout
+
+        public bool TimeoutEnabled
         {
-            get => timer.Interval;
-            set => timer.Interval = value;
+            get => timeout_enabled;
+            set => timeout_enabled = value;
         }
 
         public string Selected
@@ -77,7 +79,8 @@
         /// </summary>
         public new void Hide()
         {
-            timer.Stop();
+            TimeoutTimer.Stop();
+            TimeoutTimer.Enabled = false;
             Visible = false;
             WindowState = FormWindowState.Minimized;
         }
@@ -86,21 +89,14 @@
         /// </summary>
         public new void Show()
         {
-            if (enabled)
+            if (TimeoutTimer.Enabled)
+                TimeoutTimer.Stop();
+            WindowState = FormWindowState.Normal;
+            base.Show();
+            if (timeout_enabled)
             {
-                WindowState = FormWindowState.Normal;
-                base.Show();
-                timer.Start();
-            }
-        }
-        public void Show(Point origin)
-        {
-            if (enabled)
-            {
-                WindowState = FormWindowState.Normal;
-                Location = origin;
-                base.Show();
-                timer.Start();
+                TimeoutTimer.Enabled = true;
+                TimeoutTimer.Start();
             }
         }
 
@@ -109,7 +105,7 @@
             InitializeComponent();
             Text = "Application Audio Sessions";
 
-            timer.Elapsed += delegate { Hide(); };
+            TimeoutTimer.Tick += delegate { Hide(); };
             cancel.Action += delegate { Hide(); };
 
             CancelButton = cancel;

@@ -1,6 +1,6 @@
-﻿namespace VolumeControl
+﻿namespace UIComposites
 {
-    internal class CancelButtonHandler : IButtonControl
+    public class CancelButtonHandler : IButtonControl
     {
         private DialogResult _result;
         private EventHandler? _action = null;

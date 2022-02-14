@@ -1,6 +1,7 @@
 using AudioAPI;
 using HotkeyLib;
 using System.ComponentModel;
+using UIComposites;
 
 namespace VolumeControl
 {
@@ -56,7 +57,7 @@ namespace VolumeControl
         /// </summary>
         private readonly BindingSource binding;
 
-        private readonly ToastForm toast = new();
+        private readonly ToastForm targetListForm = new();
 
         private readonly CancelButtonHandler cancelHandler = new();
 
@@ -212,7 +213,7 @@ namespace VolumeControl
             {
                 string name = ComboBox_ProcessSelector.Text;
                 Text = $"{name} Volume Controller";
-                toast.SetTitle(name);
+                targetListForm.SetTitle(name);
             }
             else
             {
@@ -240,11 +241,11 @@ namespace VolumeControl
                 }
             }
             active.Sort();
-            if (toast.ToastEnabled)
+            if (TargetListEnabled)
             {
-                toast.FlushItems();
-                toast.LoadItems(active);
-                toast.Selected = CurrentTargetName;
+                targetListForm.FlushItems();
+                targetListForm.LoadItems(active);
+                targetListForm.Selected = CurrentTargetName;
             }
             ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
         }
@@ -286,6 +287,10 @@ namespace VolumeControl
         /// </summary>
         private void NextTarget()
         {
+            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
+            {
+                targetListForm.Show();
+            }
             if (CurrentTargetIndex + 1 < TargetListSize)
                 ++CurrentTargetIndex;
             else
@@ -299,6 +304,10 @@ namespace VolumeControl
         /// </summary>
         private void PrevTarget()
         {
+            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
+            {
+                targetListForm.Show();
+            }
             if (CurrentTargetIndex - 1 >= 0)
                 --CurrentTargetIndex;
             else
@@ -312,12 +321,12 @@ namespace VolumeControl
         /// </summary>
         private void ShowTarget()
         {
-            if (toast.Visible)
-                toast.Hide();
+            if (targetListForm.Visible)
+                targetListForm.Hide();
             else
             {
                 UpdateProcessList();
-                toast.Show();
+                targetListForm.Show();
             }
         }
         /// <summary>
@@ -336,21 +345,7 @@ namespace VolumeControl
         {
             InitializeComponent();
 
-            // Setup handler for ESC key
-            cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
-            CancelButton = cancelHandler;
-
-            // set always on top state
-            TopMost = Properties.Settings.Default.AlwaysOnTop;
-            // setup toast window
-            toast.ToastEnabled = Properties.Settings.Default.toast_enabled;
-            toast.Timeout = (double)Properties.Settings.Default.toast_timeout;
-            Checkbox_ToastEnabled.Checked = Properties.Settings.Default.toast_enabled;
-            toast.ListDisplay.SelectedIndexChanged += delegate
-            {
-                SetTarget(toast.Selected);
-            };
-
+            #region InitializeHotkeys
             // INITIALIZE VOLUME HOTKEYS
             hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
             hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
@@ -362,7 +357,10 @@ namespace VolumeControl
             // INITIALIZE TARGET HOTKEYS
             hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, delegate { NextTarget(); });
             hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, delegate { PrevTarget(); });
-            hk_showTarget = new(Properties.Settings.Default.hk_showTarget, delegate { ShowTarget(); });
+            hk_showTarget = new(Properties.Settings.Default.hk_showTarget, delegate
+            {
+                ShowTarget();
+            });
 
             // INITIALIZE VOLUME HOTKEY EDITORS
             // VOLUME UP
@@ -538,6 +536,7 @@ namespace VolumeControl
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();
             };
+            #endregion InitializeHotkeys
 
             // INITIALIZE UI COMPONENTS
             // VOLUME STEP
@@ -566,7 +565,31 @@ namespace VolumeControl
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
             Label_VersionNumber.Text = FormatVersionNumber(typeof(VolumeControlForm).Assembly.GetName().Version!);
-
+            // CANCEL BUTTON HANDLER (ESC)
+            cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
+            CancelButton = cancelHandler;
+            // ALWAYS ON TOP
+            bool alwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
+            TopMost = alwaysOnTop;
+            Checkbox_AlwaysOnTop.Checked = alwaysOnTop;
+            // TARGET LIST FORM
+            targetListForm.Resize += delegate
+            {
+                if (targetListForm.WindowState != FormWindowState.Minimized)
+                {
+                    UpdateProcessList();
+                }
+            };
+            // TARGET LIST FORM ENABLED
+            TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
+            // TARGET LIST FORM TIMEOUT ENABLED
+            TargetListTimeoutEnabled = Properties.Settings.Default.tgtlist_timeout_enabled;
+            // TARGET LIST FORM TIMEOUT
+            TargetListTimeout = Properties.Settings.Default.tgtlist_timeout;
+            targetListForm.ListDisplay.SelectedIndexChanged += delegate //< Triggered when the user selects a process in the target list
+            {
+                SetTarget(targetListForm.Selected);
+            };
             UpdateHotkeys();
             UpdateTitle();
         }
@@ -598,7 +621,7 @@ namespace VolumeControl
         /// </summary>
         private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.VolumeStep = Convert.ToDecimal(Numeric_VolumeStep.Value);
+            Properties.Settings.Default.VolumeStep = Numeric_VolumeStep.Value;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
@@ -635,17 +658,11 @@ namespace VolumeControl
         /// <summary>
         /// Called when the window is focused by the user.
         /// </summary>
-        private void Window_GotFocus(object sender, EventArgs e)
-        {
-            UpdateProcessList();
-        }
+        private void Window_GotFocus(object sender, EventArgs e) => UpdateProcessList();
         /// <summary>
         /// Called when the Reload button is pressed.
         /// </summary>
-        private void Button_ReloadProcessList_Click(object sender, EventArgs e)
-        {
-            UpdateProcessList();
-        }
+        private void Button_ReloadProcessList_Click(object sender, EventArgs e) => UpdateProcessList();
         /// <summary>
         /// Called when the window is maximized, minimized, or resized.
         /// </summary>
@@ -680,17 +697,45 @@ namespace VolumeControl
             }
             RegisterHotkeys();
         }
-
+        private bool TargetListEnabled
+        {
+            get => Checkbox_TargetListEnabled.Checked;
+            set => Checkbox_TargetListEnabled.Checked = value;
+        }
         private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.toast_enabled = Checkbox_ToastEnabled.Checked;
+            Properties.Settings.Default.tgtlist_enabled = TargetListEnabled;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private int TargetListTimeout
+        {
+            get => Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
+            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = value);
+        }
+        private void ToastTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout = TargetListTimeout;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e)
+        {
+            bool top = Checkbox_AlwaysOnTop.Checked;
+            TopMost = top;
+            Properties.Settings.Default.AlwaysOnTop = top;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
 
-        private void ToastTimeout_ValueChanged(object sender, EventArgs e)
+        private bool TargetListTimeoutEnabled
         {
-            Properties.Settings.Default.toast_timeout = ToastTimeout.Value;
+            get => Checkbox_TargetListTimeoutEnabled.Checked;
+            set => Checkbox_TargetListTimeoutEnabled.Checked = targetListForm.TimeoutEnabled = value;
+        }
+        private void Checkbox_TargetListTimeoutEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            targetListForm.TimeoutEnabled = Properties.Settings.Default.tgtlist_timeout_enabled = TargetListTimeoutEnabled;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }

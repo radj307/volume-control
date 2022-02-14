@@ -17,7 +17,7 @@ namespace AudioAPI
                 IEnumerable<ManagementObject> objects = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get().OfType<ManagementObject>();
                 obj = (from it in objects select it.GetPropertyValue(property)).FirstOrDefault();
             }
-            catch (Exception) {}
+            catch (Exception) { }
             return obj;
         }
     }

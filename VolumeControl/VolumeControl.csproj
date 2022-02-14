@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
+    <ProjectReference Include="..\ToastNotification\TargetListForm.csproj" />
     <ProjectReference Include="..\UIComposites\UIComposites.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace AudioAPI.WindowsAPI.Audio
 {

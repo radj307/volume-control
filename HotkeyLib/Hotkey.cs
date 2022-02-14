@@ -1,9 +1,8 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Xml.Serialization;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Xml.Serialization;
 
 namespace HotkeyLib
 {
@@ -58,7 +57,7 @@ namespace HotkeyLib
             windowControl = null!;
 
             Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
-            Control  = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
+            Control = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
             Alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
             Windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
 

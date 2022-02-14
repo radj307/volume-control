@@ -301,30 +301,6 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool toast_enabled {
-            get {
-                return ((bool)(this["toast_enabled"]));
-            }
-            set {
-                this["toast_enabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public decimal toast_timeout {
-            get {
-                return ((decimal)(this["toast_timeout"]));
-            }
-            set {
-                this["toast_timeout"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AlwaysOnTop {
             get {
@@ -332,6 +308,42 @@ namespace VolumeControl.Properties {
             }
             set {
                 this["AlwaysOnTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool tgtlist_timeout_enabled {
+            get {
+                return ((bool)(this["tgtlist_timeout_enabled"]));
+            }
+            set {
+                this["tgtlist_timeout_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int tgtlist_timeout {
+            get {
+                return ((int)(this["tgtlist_timeout"]));
+            }
+            set {
+                this["tgtlist_timeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool tgtlist_enabled {
+            get {
+                return ((bool)(this["tgtlist_enabled"]));
+            }
+            set {
+                this["tgtlist_enabled"] = value;
             }
         }
     }

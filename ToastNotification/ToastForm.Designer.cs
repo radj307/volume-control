@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ListDisplay = new System.Windows.Forms.ListView();
-            this.index = new System.Windows.Forms.ColumnHeader();
             this.name = new System.Windows.Forms.ColumnHeader();
+            this.index = new System.Windows.Forms.ColumnHeader();
+            this.TimeoutTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // ListDisplay
@@ -48,15 +50,20 @@
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
             // 
+            // name
+            // 
+            this.name.Text = "Application Name";
+            this.name.Width = 120;
+            // 
             // index
             // 
             this.index.Text = "Index";
             this.index.Width = 50;
             // 
-            // name
+            // TimeoutTimer
             // 
-            this.name.Text = "Application Name";
-            this.name.Width = 120;
+            this.TimeoutTimer.Enabled = true;
+            this.TimeoutTimer.Interval = 6000;
             // 
             // ToastForm
             // 
@@ -79,8 +86,9 @@
         }
 
         #endregion
-        private ColumnHeader name;
         private ColumnHeader index;
-        internal ListView ListDisplay;
+        public ListView ListDisplay;
+        public ColumnHeader name;
+        public System.Windows.Forms.Timer TimeoutTimer;
     }
 }
