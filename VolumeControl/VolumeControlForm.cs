@@ -617,7 +617,7 @@ namespace VolumeControl
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
             Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
-            Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? "" : $"-R{currentVersion.Revision}")}";
+            Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? "" : $"-{currentVersion.Revision}")}";
 
             // CANCEL BUTTON HANDLER (ESC)
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
