@@ -28,7 +28,7 @@ jobs:
       run:  dotnet build -c ${{env.BUILD_TYPE}}
       
     - name: 'Run VersionTag Script'
-      run:  '${{github.workspace}}/VersionTag.ps1'
+      run:  '${{github.workspace}}/VersionTag.ps1 ${{github.workspace}}'
       
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
