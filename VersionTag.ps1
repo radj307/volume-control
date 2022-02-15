@@ -1,6 +1,15 @@
 # This is required when calling the script from visual studio's prebuild event for the VolumeControl project
 # It prevents the path names from being messed up because of differing working directories.
-cd ..
+$ARG=$args[0]
+
+if ("$ARG" -eq "")
+{
+	cd ..
+}
+else
+{
+	cd "$ARG"
+}
 
 function getVersion()
 {
