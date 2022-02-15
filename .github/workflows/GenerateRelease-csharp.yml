@@ -8,7 +8,7 @@ on:
 
 # Configuration Type
 env:
-  BUILD_CONFIGURATION: 'Release'
+  BUILD_TYPE: 'Release'
   
 jobs:
   build-release:
@@ -25,16 +25,16 @@ jobs:
         dotnet-version: 6.0.x
       
     - name: '(Pre)Build Solution'
-      run:  dotnet build -c $BUILD_CONFIGURATION
+      run:  dotnet build -c ${{env.BUILD_TYPE}}
       
     - name: 'Run VersionTag Script'
       run:  '${{github.workspace}}/VersionTag.ps1'
       
     - name: 'Build VolumeControl Binary'
-      run:  dotnet publish VolumeControl -c $BUILD_CONFIGURATION /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+      run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
     - name: 'Build VersionControlCLI Binary'
-      run:  dotnet publish VolumeControlCLI -c $BUILD_CONFIGURATION /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+      run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
       
     - name:   Create Staging Workspace
       run:    |
