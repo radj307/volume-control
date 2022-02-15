@@ -2,6 +2,7 @@ using AudioAPI;
 using HotkeyLib;
 using System.ComponentModel;
 using UIComposites;
+using TargetListForm;
 
 namespace VolumeControl
 {
@@ -61,6 +62,8 @@ namespace VolumeControl
 
         private readonly CancelButtonHandler cancelHandler = new();
 
+//        private NotificationForm notification = new();
+
         #endregion Members
 
         #region Properties
@@ -77,6 +80,24 @@ namespace VolumeControl
         private string CurrentTargetName
         {
             get => ComboBox_ProcessSelector.Text;
+        }
+        private decimal CurrentTargetVolume
+        {
+            get
+            {
+                if (VolumeHelper.TryGetVolume(CurrentTargetName, out decimal vol))
+                    return vol;
+                return -1m;
+            }
+        }
+        private bool CurrentTargetIsMuted
+        {
+            get
+            {
+                if (VolumeHelper.TryIsMuted(CurrentTargetName, out bool muted))
+                    return muted;
+                return true;
+            }
         }
 
         /// <summary>
@@ -119,7 +140,11 @@ namespace VolumeControl
         /// </summary>
         private bool VolumeMuteHotkeyIsEnabled { get => HKEdit_VolumeMute.HotkeyIsEnabled; }
 
-        private bool NextHotkeyIsEnabled { get => HKEdit_Next.HotkeyIsEnabled; }
+        private bool NextHotkeyIsEnabled
+        {
+            get => HKEdit_Next.HotkeyIsEnabled;
+        }
+
         private bool PrevHotkeyIsEnabled { get => HKEdit_Prev.HotkeyIsEnabled; }
         private bool PlaybackHotkeyIsEnabled { get => HKEdit_TogglePlayback.HotkeyIsEnabled; }
         private bool NextTargetHotkeyIsEnabled { get => HKEdit_NextTarget.HotkeyIsEnabled; }
@@ -129,18 +154,6 @@ namespace VolumeControl
         #endregion Properties
 
         #region HelperMethods
-
-        private static string FormatVersionNumber(Version v)
-        {
-            if (v.Revision == 0)
-            {
-                return $"v{v.Major}.{v.Minor}.{v.Build}";
-            }
-            else
-            {
-                return $"v{v.Major}.{v.Minor}.{v.Build} (Rev. {v.Revision})";
-            }
-        }
 
         /// <summary>
         /// Register all enabled Hotkeys
@@ -207,13 +220,16 @@ namespace VolumeControl
                 hk_showTarget.Unregister();
         }
 
+        /// <summary>
+        /// Update the window title of the main window & the target list form using the current target.
+        /// </summary>
         private void UpdateTitle()
         {
-            if (ComboBox_ProcessSelector.Text.Length > 0)
+            string currentTarget = CurrentTargetName;
+            if (currentTarget.Length > 0)
             {
-                string name = ComboBox_ProcessSelector.Text;
-                Text = $"{name} Volume Controller";
-                targetListForm.SetTitle(name);
+                Text = $"{currentTarget} Volume Controller";
+//                targetListForm.SetTitle(currentTarget);
             }
             else
             {
@@ -222,31 +238,34 @@ namespace VolumeControl
         }
 
         /// <summary>
-        /// Updates the options available in the Process selector box.
+        /// Updates the options available in the Process selector box & the target list form.
         /// </summary>
         internal void UpdateProcessList(bool preserveSelected = true)
         {
+            // get a list of all active audio sessions (applications that are outputting audio)
             List<string> active = AudioSessionList.GetProcessNames();
 
+            // if the current selection should be preserved, even if the audio session doesn't exist anymore:
             if (preserveSelected)
             {
                 string currentName = CurrentTargetName;
+                // if the current selection isn't blank, and the current audio sessions list doesn't contain it:
                 if (currentName.Length > 0 && !active.Contains(currentName))
                 {
-                    int currentIndex = CurrentTargetIndex;
+                    int currentIndex = CurrentTargetIndex; //< Get the index of the current selection in the current list
                     if (currentIndex != -1)
-                        active.Insert(currentIndex, currentName);
+                        active.Insert(currentIndex, currentName); //< insert the missing element at the same index if possible
                     else
-                        active.Add(currentName);
+                        active.Add(currentName); //< otherwise just append it
                 }
             }
+            // sort the list (unsure of how useful this is)
             active.Sort();
-            if (TargetListEnabled)
-            {
-                targetListForm.FlushItems();
-                targetListForm.LoadItems(active);
-                targetListForm.Selected = CurrentTargetName;
-            }
+            // update the target list window:
+            targetListForm.FlushItems();
+            targetListForm.LoadItems(active);
+            targetListForm.Selected = CurrentTargetName; //< don't use the previously set current name in case it changed
+            // set the current list
             ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
         }
 
@@ -274,53 +293,85 @@ namespace VolumeControl
 
             RegisterHotkeys();
         }
-        private void SetTarget(string name)
+
+        private Image SelectTargetImage(bool useWhiteImg)
+        {
+            decimal volume = CurrentTargetVolume;
+            if (volume == -1m)
+                return useWhiteImg ? Properties.Resources.target_null_white : Properties.Resources.target_null;
+            else if (volume == 0m || CurrentTargetIsMuted)
+                return useWhiteImg ? Properties.Resources.target_0_white : Properties.Resources.target_0;
+            else if (volume <= 33m)
+                return useWhiteImg ? Properties.Resources.target_1_white : Properties.Resources.target_1;
+            else if (volume <= 66m)
+                return useWhiteImg ? Properties.Resources.target_2_white : Properties.Resources.target_2;
+            else
+                return useWhiteImg ? Properties.Resources.target_3_white : Properties.Resources.target_3;
+        }
+
+        /// <summary>
+        /// Set the current target selection to a specific entry.
+        /// </summary>
+        /// <param name="name">The target's name.</param>
+        /// <param name="addIfMissing">When true, adds the target name if it doesn't already exist.</param>
+        private void SetTarget(string name, bool addIfMissing = true)
         {
             int index = ComboBox_ProcessSelector.Items.IndexOf(name);
             if (index != -1)
-            {
                 CurrentTargetIndex = index;
-            }
+            else if (addIfMissing)
+                CurrentTargetIndex = ComboBox_ProcessSelector.Items.Add(name);
         }
+
         /// <summary>
         /// Increment the current target indexer.
         /// </summary>
         private void NextTarget()
         {
-            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
-            {
-                targetListForm.Show();
-            }
             if (CurrentTargetIndex + 1 < TargetListSize)
                 ++CurrentTargetIndex;
             else
                 CurrentTargetIndex = 0;
-            Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
+
+            // if the main window is minimized, and the target list form is enabled.
+            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
+            {
+                targetListForm.Show();
+//                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+            }
+
+            Properties.Settings.Default.ProcessName = CurrentTargetName;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
+
         /// <summary>
         /// Decrement the current target indexer.
         /// </summary>
         private void PrevTarget()
         {
-            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
-            {
-                targetListForm.Show();
-            }
             if (CurrentTargetIndex - 1 >= 0)
                 --CurrentTargetIndex;
             else
                 CurrentTargetIndex = TargetListSize - 1;
+
+            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
+            {
+                targetListForm.Show();
+//                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+            }
+
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
+
         /// <summary>
         /// Toggle the target list window.
         /// </summary>
         private void ShowTarget()
         {
+            //notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             if (targetListForm.Visible)
                 targetListForm.Hide();
             else
@@ -329,6 +380,7 @@ namespace VolumeControl
                 targetListForm.Show();
             }
         }
+
         /// <summary>
         /// Send a virtual key press event using the Win32 API.
         /// </summary>
@@ -564,7 +616,9 @@ namespace VolumeControl
             if (minimizeOnStartup)
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
-            Label_VersionNumber.Text = FormatVersionNumber(typeof(VolumeControlForm).Assembly.GetName().Version!);
+            Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
+            Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? "" : $"-R{currentVersion.Revision}")}";
+
             // CANCEL BUTTON HANDLER (ESC)
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
             CancelButton = cancelHandler;
@@ -582,8 +636,6 @@ namespace VolumeControl
             };
             // TARGET LIST FORM ENABLED
             TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
-            // TARGET LIST FORM TIMEOUT ENABLED
-            TargetListTimeoutEnabled = Properties.Settings.Default.tgtlist_timeout_enabled;
             // TARGET LIST FORM TIMEOUT
             TargetListTimeout = Properties.Settings.Default.tgtlist_timeout;
             targetListForm.ListDisplay.SelectedIndexChanged += delegate //< Triggered when the user selects a process in the target list
@@ -711,6 +763,7 @@ namespace VolumeControl
         private int TargetListTimeout
         {
             get => Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
+//            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(value);
             set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = value);
         }
         private void ToastTimeout_ValueChanged(object sender, EventArgs e)
@@ -724,18 +777,6 @@ namespace VolumeControl
             bool top = Checkbox_AlwaysOnTop.Checked;
             TopMost = top;
             Properties.Settings.Default.AlwaysOnTop = top;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-
-        private bool TargetListTimeoutEnabled
-        {
-            get => Checkbox_TargetListTimeoutEnabled.Checked;
-            set => Checkbox_TargetListTimeoutEnabled.Checked = targetListForm.TimeoutEnabled = value;
-        }
-        private void Checkbox_TargetListTimeoutEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            targetListForm.TimeoutEnabled = Properties.Settings.Default.tgtlist_timeout_enabled = TargetListTimeoutEnabled;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }

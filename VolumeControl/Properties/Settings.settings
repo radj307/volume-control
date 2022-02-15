@@ -74,9 +74,6 @@
     <Setting Name="AlwaysOnTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="tgtlist_timeout_enabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="tgtlist_timeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3000</Value>
     </Setting>

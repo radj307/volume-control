@@ -42,10 +42,11 @@
             this.name,
             this.index});
             this.ListDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListDisplay.FullRowSelect = true;
             this.ListDisplay.Location = new System.Drawing.Point(0, 0);
             this.ListDisplay.MultiSelect = false;
             this.ListDisplay.Name = "ListDisplay";
-            this.ListDisplay.Size = new System.Drawing.Size(284, 161);
+            this.ListDisplay.Size = new System.Drawing.Size(300, 200);
             this.ListDisplay.TabIndex = 0;
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
@@ -71,14 +72,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(284, 161);
+            this.ClientSize = new System.Drawing.Size(300, 200);
+            this.ControlBox = false;
             this.Controls.Add(this.ListDisplay);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "ToastForm";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ToastForm";
             this.TopMost = true;
             this.ResumeLayout(false);

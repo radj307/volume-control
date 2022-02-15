@@ -26,6 +26,22 @@ namespace VolumeControl
             set => timeout_enabled = value;
         }
 
+        public Point Position
+        {
+            get => Location;
+            set => Location = value;
+        }
+        public int PositionX
+        {
+            get => Position.X;
+            set => Position = new Point(value, Position.Y);
+        }
+        public int PositionY
+        {
+            get => Position.Y;
+            set => Position = new Point(Position.X, value);
+        }
+
         public string Selected
         {
             get
@@ -104,6 +120,10 @@ namespace VolumeControl
         {
             InitializeComponent();
             Text = "Application Audio Sessions";
+            Position = new Point(
+                Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
+                Screen.PrimaryScreen.WorkingArea.Height - Height - 10
+            );
 
             TimeoutTimer.Tick += delegate { Hide(); };
             cancel.Action += delegate { Hide(); };

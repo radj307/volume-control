@@ -40,16 +40,16 @@
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.Tab_TargetSelection = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Checkbox_AlwaysOnTop = new System.Windows.Forms.CheckBox();
+            this.CheckBox_RunOnStartup = new System.Windows.Forms.CheckBox();
+            this.CheckBox_VisibleInTaskbar = new System.Windows.Forms.CheckBox();
             this.GroupBox_Toast = new System.Windows.Forms.GroupBox();
-            this.Checkbox_TargetListTimeoutEnabled = new System.Windows.Forms.CheckBox();
-            this.Label_TargetListTimeout = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.NumberUpDown_TargetListTimeout = new System.Windows.Forms.NumericUpDown();
             this.Checkbox_TargetListEnabled = new System.Windows.Forms.CheckBox();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
-            this.CheckBox_VisibleInTaskbar = new System.Windows.Forms.CheckBox();
-            this.CheckBox_RunOnStartup = new System.Windows.Forms.CheckBox();
             this.GroupBox_TargetProcess = new System.Windows.Forms.GroupBox();
             this.Label_VolumeStep = new System.Windows.Forms.Label();
             this.Numeric_VolumeStep = new System.Windows.Forms.NumericUpDown();
@@ -66,6 +66,7 @@
             this.SystemTray_ContextMenu.SuspendLayout();
             this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.GroupBox_Toast.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberUpDown_TargetListTimeout)).BeginInit();
             this.GroupBox_TargetProcess.SuspendLayout();
@@ -108,7 +109,7 @@
             // 
             this.checkbox_minimizeOnStartup.AutoSize = true;
             this.checkbox_minimizeOnStartup.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(11, 90);
+            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(6, 67);
             this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
             this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(115, 20);
             this.checkbox_minimizeOnStartup.TabIndex = 5;
@@ -130,6 +131,7 @@
             // 
             this.HKEdit_VolumeUp.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_VolumeUp.Label = "Volume Up";
             this.HKEdit_VolumeUp.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_VolumeUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeUp.MaximumSize = new System.Drawing.Size(343, 57);
@@ -143,6 +145,7 @@
             // 
             this.HKEdit_VolumeDown.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_VolumeDown.Label = "Volume Down";
             this.HKEdit_VolumeDown.Location = new System.Drawing.Point(9, 69);
             this.HKEdit_VolumeDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeDown.MaximumSize = new System.Drawing.Size(343, 57);
@@ -156,6 +159,7 @@
             // 
             this.HKEdit_VolumeMute.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_VolumeMute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_VolumeMute.Label = "Toggle Mute";
             this.HKEdit_VolumeMute.Location = new System.Drawing.Point(9, 132);
             this.HKEdit_VolumeMute.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_VolumeMute.MaximumSize = new System.Drawing.Size(343, 57);
@@ -181,13 +185,10 @@
             // 
             // Tab_General
             // 
-            this.Tab_General.Controls.Add(this.Checkbox_AlwaysOnTop);
+            this.Tab_General.Controls.Add(this.groupBox1);
             this.Tab_General.Controls.Add(this.GroupBox_Toast);
             this.Tab_General.Controls.Add(this.Label_VersionNumber);
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
-            this.Tab_General.Controls.Add(this.CheckBox_VisibleInTaskbar);
-            this.Tab_General.Controls.Add(this.CheckBox_RunOnStartup);
-            this.Tab_General.Controls.Add(this.checkbox_minimizeOnStartup);
             this.Tab_General.Controls.Add(this.GroupBox_TargetProcess);
             this.Tab_General.Location = new System.Drawing.Point(4, 24);
             this.Tab_General.Name = "Tab_General";
@@ -197,10 +198,23 @@
             this.Tab_General.Text = "General";
             this.Tab_General.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Checkbox_AlwaysOnTop);
+            this.groupBox1.Controls.Add(this.CheckBox_RunOnStartup);
+            this.groupBox1.Controls.Add(this.checkbox_minimizeOnStartup);
+            this.groupBox1.Controls.Add(this.CheckBox_VisibleInTaskbar);
+            this.groupBox1.Location = new System.Drawing.Point(218, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(134, 138);
+            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
             // Checkbox_AlwaysOnTop
             // 
             this.Checkbox_AlwaysOnTop.AutoSize = true;
-            this.Checkbox_AlwaysOnTop.Location = new System.Drawing.Point(11, 40);
+            this.Checkbox_AlwaysOnTop.Location = new System.Drawing.Point(6, 19);
             this.Checkbox_AlwaysOnTop.Name = "Checkbox_AlwaysOnTop";
             this.Checkbox_AlwaysOnTop.Size = new System.Drawing.Size(104, 19);
             this.Checkbox_AlwaysOnTop.TabIndex = 19;
@@ -208,38 +222,49 @@
             this.Checkbox_AlwaysOnTop.UseVisualStyleBackColor = true;
             this.Checkbox_AlwaysOnTop.CheckedChanged += new System.EventHandler(this.Checkbox_AlwaysOnTop_CheckedChanged);
             // 
+            // CheckBox_RunOnStartup
+            // 
+            this.CheckBox_RunOnStartup.AutoSize = true;
+            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(6, 42);
+            this.CheckBox_RunOnStartup.Name = "CheckBox_RunOnStartup";
+            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(107, 19);
+            this.CheckBox_RunOnStartup.TabIndex = 14;
+            this.CheckBox_RunOnStartup.Text = "Run on Startup";
+            this.CheckBox_RunOnStartup.UseVisualStyleBackColor = true;
+            this.CheckBox_RunOnStartup.CheckedChanged += new System.EventHandler(this.CheckBox_RunOnStartup_CheckedChanged);
+            // 
+            // CheckBox_VisibleInTaskbar
+            // 
+            this.CheckBox_VisibleInTaskbar.AutoSize = true;
+            this.CheckBox_VisibleInTaskbar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(6, 93);
+            this.CheckBox_VisibleInTaskbar.Name = "CheckBox_VisibleInTaskbar";
+            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(128, 19);
+            this.CheckBox_VisibleInTaskbar.TabIndex = 13;
+            this.CheckBox_VisibleInTaskbar.Text = "Show Taskbar Icon";
+            this.CheckBox_VisibleInTaskbar.UseVisualStyleBackColor = true;
+            this.CheckBox_VisibleInTaskbar.CheckedChanged += new System.EventHandler(this.CheckBox_VisibleInTaskbar_CheckedChanged);
+            // 
             // GroupBox_Toast
             // 
-            this.GroupBox_Toast.Controls.Add(this.Checkbox_TargetListTimeoutEnabled);
-            this.GroupBox_Toast.Controls.Add(this.Label_TargetListTimeout);
+            this.GroupBox_Toast.Controls.Add(this.label1);
             this.GroupBox_Toast.Controls.Add(this.NumberUpDown_TargetListTimeout);
             this.GroupBox_Toast.Controls.Add(this.Checkbox_TargetListEnabled);
-            this.GroupBox_Toast.Location = new System.Drawing.Point(176, 40);
+            this.GroupBox_Toast.Location = new System.Drawing.Point(5, 64);
             this.GroupBox_Toast.Name = "GroupBox_Toast";
-            this.GroupBox_Toast.Size = new System.Drawing.Size(176, 104);
+            this.GroupBox_Toast.Size = new System.Drawing.Size(207, 80);
             this.GroupBox_Toast.TabIndex = 18;
             this.GroupBox_Toast.TabStop = false;
-            this.GroupBox_Toast.Text = "Target Switching";
+            this.GroupBox_Toast.Text = "Target Switch Notifications";
             // 
-            // Checkbox_TargetListTimeoutEnabled
+            // label1
             // 
-            this.Checkbox_TargetListTimeoutEnabled.AutoSize = true;
-            this.Checkbox_TargetListTimeoutEnabled.Location = new System.Drawing.Point(6, 47);
-            this.Checkbox_TargetListTimeoutEnabled.Name = "Checkbox_TargetListTimeoutEnabled";
-            this.Checkbox_TargetListTimeoutEnabled.Size = new System.Drawing.Size(110, 19);
-            this.Checkbox_TargetListTimeoutEnabled.TabIndex = 18;
-            this.Checkbox_TargetListTimeoutEnabled.Text = "Enable Timeout";
-            this.Checkbox_TargetListTimeoutEnabled.UseVisualStyleBackColor = true;
-            this.Checkbox_TargetListTimeoutEnabled.CheckedChanged += new System.EventHandler(this.Checkbox_TargetListTimeoutEnabled_CheckedChanged);
-            // 
-            // Label_TargetListTimeout
-            // 
-            this.Label_TargetListTimeout.AutoSize = true;
-            this.Label_TargetListTimeout.Location = new System.Drawing.Point(6, 73);
-            this.Label_TargetListTimeout.Name = "Label_TargetListTimeout";
-            this.Label_TargetListTimeout.Size = new System.Drawing.Size(82, 15);
-            this.Label_TargetListTimeout.TabIndex = 17;
-            this.Label_TargetListTimeout.Text = "Duration (ms)";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 15);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Timeout (ms)";
             // 
             // NumberUpDown_TargetListTimeout
             // 
@@ -252,17 +277,17 @@
             0,
             0,
             0});
-            this.NumberUpDown_TargetListTimeout.Location = new System.Drawing.Point(91, 70);
+            this.NumberUpDown_TargetListTimeout.Location = new System.Drawing.Point(90, 46);
             this.NumberUpDown_TargetListTimeout.Maximum = new decimal(new int[] {
             60000,
             0,
             0,
             0});
             this.NumberUpDown_TargetListTimeout.Name = "NumberUpDown_TargetListTimeout";
-            this.NumberUpDown_TargetListTimeout.Size = new System.Drawing.Size(63, 26);
+            this.NumberUpDown_TargetListTimeout.Size = new System.Drawing.Size(80, 26);
             this.NumberUpDown_TargetListTimeout.TabIndex = 16;
             this.NumberUpDown_TargetListTimeout.Value = new decimal(new int[] {
-            4000,
+            500,
             0,
             0,
             0});
@@ -273,9 +298,9 @@
             this.Checkbox_TargetListEnabled.AutoSize = true;
             this.Checkbox_TargetListEnabled.Location = new System.Drawing.Point(6, 22);
             this.Checkbox_TargetListEnabled.Name = "Checkbox_TargetListEnabled";
-            this.Checkbox_TargetListEnabled.Size = new System.Drawing.Size(170, 19);
+            this.Checkbox_TargetListEnabled.Size = new System.Drawing.Size(135, 19);
             this.Checkbox_TargetListEnabled.TabIndex = 15;
-            this.Checkbox_TargetListEnabled.Text = "Enable Target List Window";
+            this.Checkbox_TargetListEnabled.Text = "Enable Notifications";
             this.Checkbox_TargetListEnabled.UseVisualStyleBackColor = true;
             this.Checkbox_TargetListEnabled.CheckedChanged += new System.EventHandler(this.Checkbox_ToastEnabled_CheckedChanged);
             // 
@@ -283,10 +308,10 @@
             // 
             this.Label_VersionNumber.AutoSize = true;
             this.Label_VersionNumber.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(3, 20);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(3, 35);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
-            this.Label_VersionNumber.Padding = new System.Windows.Forms.Padding(151, 0, 0, 0);
-            this.Label_VersionNumber.Size = new System.Drawing.Size(213, 15);
+            this.Label_VersionNumber.Padding = new System.Windows.Forms.Padding(70, 0, 0, 0);
+            this.Label_VersionNumber.Size = new System.Drawing.Size(132, 15);
             this.Label_VersionNumber.TabIndex = 11;
             this.Label_VersionNumber.Text = "[ version ]";
             this.Label_VersionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -298,34 +323,11 @@
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Label_VolumeControl.Location = new System.Drawing.Point(3, 3);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
-            this.Label_VolumeControl.Padding = new System.Windows.Forms.Padding(117, 0, 0, 0);
-            this.Label_VolumeControl.Size = new System.Drawing.Size(247, 17);
+            this.Label_VolumeControl.Padding = new System.Windows.Forms.Padding(40, 15, 0, 0);
+            this.Label_VolumeControl.Size = new System.Drawing.Size(170, 32);
             this.Label_VolumeControl.TabIndex = 10;
             this.Label_VolumeControl.Text = "Volume Control";
             this.Label_VolumeControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // CheckBox_VisibleInTaskbar
-            // 
-            this.CheckBox_VisibleInTaskbar.AutoSize = true;
-            this.CheckBox_VisibleInTaskbar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(11, 116);
-            this.CheckBox_VisibleInTaskbar.Name = "CheckBox_VisibleInTaskbar";
-            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(128, 19);
-            this.CheckBox_VisibleInTaskbar.TabIndex = 13;
-            this.CheckBox_VisibleInTaskbar.Text = "Show Taskbar Icon";
-            this.CheckBox_VisibleInTaskbar.UseVisualStyleBackColor = true;
-            this.CheckBox_VisibleInTaskbar.CheckedChanged += new System.EventHandler(this.CheckBox_VisibleInTaskbar_CheckedChanged);
-            // 
-            // CheckBox_RunOnStartup
-            // 
-            this.CheckBox_RunOnStartup.AutoSize = true;
-            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(11, 65);
-            this.CheckBox_RunOnStartup.Name = "CheckBox_RunOnStartup";
-            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(107, 19);
-            this.CheckBox_RunOnStartup.TabIndex = 14;
-            this.CheckBox_RunOnStartup.Text = "Run on Startup";
-            this.CheckBox_RunOnStartup.UseVisualStyleBackColor = true;
-            this.CheckBox_RunOnStartup.CheckedChanged += new System.EventHandler(this.CheckBox_RunOnStartup_CheckedChanged);
             // 
             // GroupBox_TargetProcess
             // 
@@ -374,7 +376,7 @@
             // Button_ReloadProcessList
             // 
             this.Button_ReloadProcessList.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Button_ReloadProcessList.Location = new System.Drawing.Point(140, 17);
+            this.Button_ReloadProcessList.Location = new System.Drawing.Point(141, 17);
             this.Button_ReloadProcessList.Name = "Button_ReloadProcessList";
             this.Button_ReloadProcessList.Size = new System.Drawing.Size(66, 24);
             this.Button_ReloadProcessList.TabIndex = 7;
@@ -411,6 +413,7 @@
             // 
             this.HKEdit_Prev.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_Prev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_Prev.Label = "Previous Track";
             this.HKEdit_Prev.Location = new System.Drawing.Point(9, 132);
             this.HKEdit_Prev.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_Prev.MaximumSize = new System.Drawing.Size(343, 57);
@@ -423,6 +426,7 @@
             // 
             this.HKEdit_Next.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_Next.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_Next.Label = "Next Track";
             this.HKEdit_Next.Location = new System.Drawing.Point(9, 69);
             this.HKEdit_Next.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_Next.MaximumSize = new System.Drawing.Size(343, 57);
@@ -435,6 +439,7 @@
             // 
             this.HKEdit_TogglePlayback.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_TogglePlayback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_TogglePlayback.Label = "Toggle Playback";
             this.HKEdit_TogglePlayback.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_TogglePlayback.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_TogglePlayback.MaximumSize = new System.Drawing.Size(343, 57);
@@ -459,6 +464,7 @@
             // 
             this.HKEdit_ShowTarget.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_ShowTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_ShowTarget.Label = "Show Current Target";
             this.HKEdit_ShowTarget.Location = new System.Drawing.Point(9, 132);
             this.HKEdit_ShowTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_ShowTarget.MaximumSize = new System.Drawing.Size(343, 57);
@@ -471,6 +477,7 @@
             // 
             this.HKEdit_PrevTarget.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_PrevTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_PrevTarget.Label = "Previous Target";
             this.HKEdit_PrevTarget.Location = new System.Drawing.Point(9, 69);
             this.HKEdit_PrevTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_PrevTarget.MaximumSize = new System.Drawing.Size(343, 57);
@@ -483,6 +490,7 @@
             // 
             this.HKEdit_NextTarget.BackColor = System.Drawing.Color.Transparent;
             this.HKEdit_NextTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HKEdit_NextTarget.Label = "Next Target";
             this.HKEdit_NextTarget.Location = new System.Drawing.Point(9, 6);
             this.HKEdit_NextTarget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.HKEdit_NextTarget.MaximumSize = new System.Drawing.Size(343, 57);
@@ -507,6 +515,8 @@
             this.Tab_TargetSelection.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.GroupBox_Toast.ResumeLayout(false);
             this.GroupBox_Toast.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberUpDown_TargetListTimeout)).EndInit();
@@ -549,10 +559,10 @@
         private UIComposites.HotkeyEditor HKEdit_PrevTarget;
         private UIComposites.HotkeyEditor HKEdit_NextTarget;
         private CheckBox Checkbox_TargetListEnabled;
-        private Label Label_TargetListTimeout;
         private NumericUpDown NumberUpDown_TargetListTimeout;
         private GroupBox GroupBox_Toast;
         private CheckBox Checkbox_AlwaysOnTop;
-        private CheckBox Checkbox_TargetListTimeoutEnabled;
+        private GroupBox groupBox1;
+        private Label label1;
     }
 }

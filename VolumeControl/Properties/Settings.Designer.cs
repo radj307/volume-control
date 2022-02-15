@@ -313,18 +313,6 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool tgtlist_timeout_enabled {
-            get {
-                return ((bool)(this["tgtlist_timeout_enabled"]));
-            }
-            set {
-                this["tgtlist_timeout_enabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
         public int tgtlist_timeout {
             get {

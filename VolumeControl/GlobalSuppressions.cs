@@ -7,10 +7,3 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "<Pending>", Scope = "member", Target = "~P:VolumeControl.VolumeControlForm.ShowInTaskbar")]
 [assembly: SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "<Pending>", Scope = "member", Target = "~P:VolumeControl.VolumeControlForm.Visible")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.checkbox_enabled_event(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.system_tray_menu_close(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.volume_step_event(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.checkbox_minimizeOnStartup_CheckedChanged(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.window_got_focus_event(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.process_name_text_changed(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.VolumeControlForm.system_tray_double_click(System.Object,System.Windows.Forms.MouseEventArgs)")]

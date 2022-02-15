@@ -43,7 +43,7 @@ namespace AudioAPI
             try
             {
                 if (!System.VersionGreaterThan(6, 1))
-                    throw new NotSupportedException("This feature is only available on Windows 7 or newer");
+                    throw new NotSupportedException($"This application requires Windows 7 or newer!");
 
                 SetMute(proc_name, !IsMuted(proc_name));
             }
@@ -57,11 +57,23 @@ namespace AudioAPI
         {
             ISimpleAudioVolume? volume = GetVolumeObject(proc_name);
             if (volume == null)
-                throw new COMException("Volume object creation failed");
+                throw new COMException($"Volume object creation failed for target \"{proc_name}\"");
 
             volume.GetMasterVolume(out float level);
             Marshal.ReleaseComObject(volume);
             return (decimal)level * 100m;
+        }
+
+        public static bool TryGetVolume(string proc_name, out decimal volume)
+        {
+            volume = 0m;
+            ISimpleAudioVolume? volObj = GetVolumeObject(proc_name);
+            if (volObj == null)
+                return false;
+            volObj.GetMasterVolume(out float level);
+            Marshal.ReleaseComObject(volObj);
+            volume = Convert.ToDecimal(level);
+            return true;
         }
 
         public static bool IsMuted(string proc_name)
@@ -73,6 +85,17 @@ namespace AudioAPI
             volume.GetMute(out bool mute);
             Marshal.ReleaseComObject(volume);
             return mute;
+        }
+
+        public static bool TryIsMuted(string proc_name, out bool muted)
+        {
+            muted = false;
+            ISimpleAudioVolume? volObj = GetVolumeObject(proc_name);
+            if (volObj == null)
+                return false;
+            volObj.GetMute(out muted);
+            Marshal.ReleaseComObject(volObj);
+            return true;
         }
 
         public static void SetVolume(string proc_name, decimal level)

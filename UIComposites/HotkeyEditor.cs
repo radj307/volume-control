@@ -59,6 +59,7 @@ namespace UIComposites
         public string Label
         {
             get => Label_HotkeyName.Text;
+            set => Label_HotkeyName.Text = value;
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
