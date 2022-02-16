@@ -54,7 +54,7 @@ jobs:
       run:    |
               cd "${{github.workspace}}/STAGING"
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
-              Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.VERSION }}.zip"
+              Compress-Archive ./*.exe "VolumeControl-$TAG.zip"
               mv "./*.zip" "${{github.workspace}}"
           
     - name:   'Upload Build Artifact'
