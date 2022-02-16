@@ -124,6 +124,7 @@ namespace VolumeControl
 
         public ToastForm()
         {
+            onSelectionChanged = null!;
             InitializeComponent();
 
             Text = "Application Audio Sessions";
