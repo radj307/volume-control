@@ -310,8 +310,8 @@
             this.Label_VersionNumber.Dock = System.Windows.Forms.DockStyle.Top;
             this.Label_VersionNumber.Location = new System.Drawing.Point(3, 35);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
-            this.Label_VersionNumber.Padding = new System.Windows.Forms.Padding(70, 0, 0, 0);
-            this.Label_VersionNumber.Size = new System.Drawing.Size(132, 15);
+            this.Label_VersionNumber.Padding = new System.Windows.Forms.Padding(72, 0, 0, 0);
+            this.Label_VersionNumber.Size = new System.Drawing.Size(134, 15);
             this.Label_VersionNumber.TabIndex = 11;
             this.Label_VersionNumber.Text = "[ version ]";
             this.Label_VersionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

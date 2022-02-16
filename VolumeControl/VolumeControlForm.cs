@@ -62,7 +62,7 @@ namespace VolumeControl
 
         private readonly CancelButtonHandler cancelHandler = new();
 
-//        private NotificationForm notification = new();
+        //        private NotificationForm notification = new();
 
         #endregion Members
 
@@ -229,7 +229,7 @@ namespace VolumeControl
             if (currentTarget.Length > 0)
             {
                 Text = $"{currentTarget} Volume Controller";
-//                targetListForm.SetTitle(currentTarget);
+                //                targetListForm.SetTitle(currentTarget);
             }
             else
             {
@@ -320,7 +320,10 @@ namespace VolumeControl
             if (index != -1)
                 CurrentTargetIndex = index;
             else if (addIfMissing)
-                CurrentTargetIndex = ComboBox_ProcessSelector.Items.Add(name);
+            {
+                sessions.Add(name);
+                CurrentTargetIndex = TargetListSize - 1;
+            }
         }
 
         /// <summary>
@@ -337,7 +340,7 @@ namespace VolumeControl
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
                 targetListForm.Show();
-//                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+                //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             }
 
             Properties.Settings.Default.ProcessName = CurrentTargetName;
@@ -358,7 +361,7 @@ namespace VolumeControl
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
                 targetListForm.Show();
-//                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+                //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             }
 
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
@@ -763,7 +766,7 @@ namespace VolumeControl
         private int TargetListTimeout
         {
             get => Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
-//            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(value);
+            //            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(value);
             set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = value);
         }
         private void ToastTimeout_ValueChanged(object sender, EventArgs e)
