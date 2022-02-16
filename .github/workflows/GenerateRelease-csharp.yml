@@ -61,14 +61,16 @@ jobs:
                             
     - name:   Create Release Archive
       if:     ${{ steps.get_version.outputs.PRERELEASE != true }}
-      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip"
+      run:    Compress-Archive '${{github.workspace}}/STAGING/*.exe' 'VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip'
+          
+    - run:    cd ${{github.workspace}}
           
     - name:   'Upload Build Artifact'
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
         if-no-files-found: error
-        path: "${{github.workspace}}/STAGING/VolumeControl*.zip"
+        path: './STAGING/*.zip'
         
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
@@ -78,4 +80,4 @@ jobs:
         tag_name:   ${{steps.get_version.outputs.VERSION}}
         fail_on_unmatched_files: true
         files:      |
-                    ${{github.workspace}}/STAGING/*.zip
+                    './STAGING/*.zip'
