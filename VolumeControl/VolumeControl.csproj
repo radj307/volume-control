@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -18,37 +17,32 @@
     <Copyright>GPLv3</Copyright>
     <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion></AssemblyVersion>
-    <FileVersion></FileVersion>
     <PackageLicenseFile>X:\_Workspace\_repo\VolumeControl\LICENSE</PackageLicenseFile>
     <AnalysisLevel>preview</AnalysisLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <Version>3.3.0</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="Resources\icons\iconSilvered.ico" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\ToastNotification\TargetListForm.csproj" />
     <ProjectReference Include="..\UIComposites\UIComposites.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System.Management">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Management.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -61,7 +55,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -73,21 +66,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-	
-<PropertyGroup>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-</PropertyGroup>
-	
   <ItemGroup>
     <None Update="volume.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ../VersionTag.ps1" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ../SetVersion.ps1" />
   </Target>
-
-	
 </Project>

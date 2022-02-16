@@ -25,13 +25,13 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Deezer")]
-        public string ProcessName {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastTarget {
             get {
-                return ((string)(this["ProcessName"]));
+                return ((string)(this["LastTarget"]));
             }
             set {
-                this["ProcessName"] = value;
+                this["LastTarget"] = value;
             }
         }
         

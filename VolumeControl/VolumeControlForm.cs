@@ -54,10 +54,6 @@ namespace VolumeControl
         /// Utility used to enumerate audio sessions to populate the Process selector box.
         /// </summary>
         private BindingList<string> sessions = new();
-        /// <summary>
-        /// Binding source for the audio session list / process list.
-        /// </summary>
-        private readonly BindingSource binding;
 
         private readonly ToastForm targetListForm = new();
 
@@ -81,6 +77,7 @@ namespace VolumeControl
         private string CurrentTargetName
         {
             get => ComboBox_ProcessSelector.Text;
+            set => ComboBox_ProcessSelector.Text = value;
         }
         private decimal CurrentTargetVolume
         {
@@ -241,33 +238,33 @@ namespace VolumeControl
         /// <summary>
         /// Updates the options available in the Process selector box & the target list form.
         /// </summary>
-        internal void UpdateProcessList(bool preserveSelected = true)
+        internal void UpdateProcessList()
         {
             // get a list of all active audio sessions (applications that are outputting audio)
             List<string> active = AudioSessionList.GetProcessNames();
 
-            // if the current selection should be preserved, even if the audio session doesn't exist anymore:
-            if (preserveSelected)
+            string currentName = CurrentTargetName;
+            bool isBlank = currentName.Length <= 0;
+
+            if (!active.Contains(currentName) && !isBlank)
             {
-                string currentName = CurrentTargetName;
-                // if the current selection isn't blank, and the current audio sessions list doesn't contain it:
-                if (currentName.Length > 0 && !active.Contains(currentName))
-                {
-                    int currentIndex = CurrentTargetIndex; //< Get the index of the current selection in the current list
-                    if (currentIndex != -1)
-                        active.Insert(currentIndex, currentName); //< insert the missing element at the same index if possible
-                    else
-                        active.Add(currentName); //< otherwise just append it
-                }
+                active.Add(currentName);
             }
             // sort the list (unsure of how useful this is)
             active.Sort();
+
             // update the target list window:
             targetListForm.FlushItems();
             targetListForm.LoadItems(active);
-            targetListForm.Selected = CurrentTargetName; //< don't use the previously set current name in case it changed
             // set the current list
             ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
+
+            if (!isBlank)
+            {
+                CurrentTargetName = currentName;
+            }
+
+            targetListForm.Selected = CurrentTargetName; //< don't use the previously set current name in case it changed
         }
 
         private static BindingList<T> ToBindingList<T>(List<T> list)
@@ -348,7 +345,7 @@ namespace VolumeControl
                 targetListForm.Selected = CurrentTargetName;
             }
 
-            Properties.Settings.Default.ProcessName = CurrentTargetName;
+            Properties.Settings.Default.LastTarget = CurrentTargetName;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
@@ -375,7 +372,7 @@ namespace VolumeControl
                 targetListForm.Selected = CurrentTargetName;
             }
 
-            Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();
+            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.SelectedValue?.ToString();
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
@@ -409,13 +406,15 @@ namespace VolumeControl
 
         public VolumeControlForm()
         {
+            string lastTarget = Properties.Settings.Default.LastTarget;
+
             InitializeComponent();
 
             #region InitializeHotkeys
             // INITIALIZE VOLUME HOTKEYS
-            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
-            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(Properties.Settings.Default.ProcessName, Properties.Settings.Default.VolumeStep); });
-            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(Properties.Settings.Default.ProcessName); });
+            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
+            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
+            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(CurrentTargetName); });
             // INITIALIZE PLAYBACK HOTKEYS
             hk_next = new(Properties.Settings.Default.hk_next, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK); });
             hk_prev = new(Properties.Settings.Default.hk_prev, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK); });
@@ -607,19 +606,7 @@ namespace VolumeControl
             // INITIALIZE UI COMPONENTS
             // VOLUME STEP
             Numeric_VolumeStep.Value = Properties.Settings.Default.VolumeStep;
-            // PROCESS SELECTOR
-            string proc = Properties.Settings.Default.ProcessName;
-            binding = new();
-            binding.DataSource = sessions;
-            ComboBox_ProcessSelector.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            ComboBox_ProcessSelector.AutoCompleteCustomSource = new()
-            {
-                proc
-            };
-            ComboBox_ProcessSelector.AutoCompleteCustomSource.AddRange(sessions.ToArray());
-            ComboBox_ProcessSelector.DataSource = binding;
-            UpdateProcessList(); // update sessions list
-            ComboBox_ProcessSelector.Text = proc;
+
             // RUN ON STARTUP
             CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
             // VISIBLE IN TASKBAR
@@ -631,7 +618,7 @@ namespace VolumeControl
                 WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
             Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
-            Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? "" : $"-{currentVersion.Revision}")}";
+            Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
 
             // CANCEL BUTTON HANDLER (ESC)
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
@@ -640,14 +627,14 @@ namespace VolumeControl
             bool alwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             TopMost = alwaysOnTop;
             Checkbox_AlwaysOnTop.Checked = alwaysOnTop;
+            // PROCESS SELECTOR
+            ComboBox_ProcessSelector.TextChanged -= ComboBox_ProcessName_TextChanged;
+            UpdateProcessList(); // update the process list
+            ComboBox_ProcessSelector.TextChanged += ComboBox_ProcessName_TextChanged;
+            ComboBox_ProcessSelector.Text = lastTarget;
+
             // TARGET LIST FORM
-            targetListForm.Resize += delegate
-            {
-                if (targetListForm.WindowState != FormWindowState.Minimized)
-                {
-                    UpdateProcessList();
-                }
-            };
+            targetListForm.Resize += delegate { if (targetListForm.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
             // TARGET LIST FORM ENABLED
             TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             // TARGET LIST FORM TIMEOUT
@@ -656,17 +643,28 @@ namespace VolumeControl
             {
                 SetTarget(targetListForm.Selected);
             };
+
+            // Set a save event to trigger when properties change
+            Properties.Settings.Default.PropertyChanged += SaveSettings;
+
             UpdateHotkeys();
             UpdateTitle();
         }
         ~VolumeControlForm()
         {
             Properties.Settings.Default.Save();
-            Properties.Settings.Default.Upgrade();
             UnregisterHotkeys();
         }
 
         #endregion ClassFunctions
+
+        private static void SaveSettings(object? sender, EventArgs e)
+        {
+            Properties.Settings.Default.PropertyChanged -= SaveSettings;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            Properties.Settings.Default.PropertyChanged += SaveSettings;
+        }
 
         #region FormComponents
 
@@ -676,10 +674,8 @@ namespace VolumeControl
         /// </summary>
         private void ComboBox_ProcessName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.Text;
+            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.Text;
             UpdateTitle();
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
         }
         /// <summary>
         /// Automatically called when the value of volume_step is changed.
@@ -688,8 +684,6 @@ namespace VolumeControl
         private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.VolumeStep = Numeric_VolumeStep.Value;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
         }
         /// <summary>
         /// Called when the system tray icon is double-clicked
@@ -718,8 +712,6 @@ namespace VolumeControl
         private void Checkbox_MinimizeOnStartup_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
         }
         /// <summary>
         /// Called when the window is focused by the user.
@@ -747,8 +739,6 @@ namespace VolumeControl
             else
                 RegAPI.DisableRunOnStartup();
             Properties.Settings.Default.RunOnStartup = isChecked;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
         }
         private void CheckBox_VisibleInTaskbar_CheckedChanged(object sender, EventArgs e)
         {
@@ -758,8 +748,6 @@ namespace VolumeControl
             {
                 // Set the value of "ShowInTaskbar", automatically re-registers hotkeys using property override
                 this.ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar = isChecked;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
             }
             RegisterHotkeys();
         }
@@ -768,31 +756,13 @@ namespace VolumeControl
             get => Checkbox_TargetListEnabled.Checked;
             set => Checkbox_TargetListEnabled.Checked = value;
         }
-        private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            bool enabled = TargetListEnabled;
-            targetListForm.TimeoutEnabled = enabled;
-            Properties.Settings.Default.tgtlist_enabled = enabled;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-        private void ToastTimeout_ValueChanged(object sender, EventArgs e)
-        {
-            int timeout_ms = Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
-            targetListForm.Timeout = timeout_ms;
-            Properties.Settings.Default.tgtlist_timeout = timeout_ms;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e)
-        {
-            bool top = Checkbox_AlwaysOnTop.Checked;
-            TopMost = top;
-            Properties.Settings.Default.AlwaysOnTop = top;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
+        private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
+
+        private void ToastTimeout_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
+
+        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = TopMost = Checkbox_AlwaysOnTop.Checked;
 
         #endregion FormComponents
+
     }
 }
