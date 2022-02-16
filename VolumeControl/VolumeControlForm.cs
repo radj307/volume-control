@@ -672,7 +672,7 @@ namespace VolumeControl
         /// Automatically called when the value of "ComboBox_ProcessSelector.Text" is changed.
         /// Sets the settings value "ProcessName" to the new value, and updates the window title.
         /// </summary>
-        private void ComboBox_ProcessName_TextChanged(object sender, EventArgs e)
+        private void ComboBox_ProcessName_TextChanged(object? sender, EventArgs e)
         {
             Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.Text;
             UpdateTitle();
