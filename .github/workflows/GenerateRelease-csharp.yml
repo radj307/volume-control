@@ -12,7 +12,7 @@ env:
   
 jobs:
   build-release:
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
@@ -28,23 +28,33 @@ jobs:
       run:  dotnet build -c ${{env.BUILD_TYPE}}
       
     - name: 'Run VersionTag Script'
-      run:  '${{github.workspace}}/VersionTag.ps1'
+      run:  '${{github.workspace}}/VersionTag.ps1 ${{github.workspace}}'
       
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       
     - name: 'Build VersionControlCLI Binary'
       run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
-      
+                    
+    - name:   Get Version Number
+      id:     get_version
+      run:    |
+              cd ${{github.workspace}}
+              $TAG=$(git describe --tags --abbrev=0)
+              echo ::set-output name=VERSION::$TAG
+              if ("$TAG" -like "*pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
+      shell:  powershell
+              
+              
     - name:   Create Staging Workspace
       run:    |
               mkdir "${{github.workspace}}/STAGING"
               cd "${{github.workspace}}/STAGING"
-      
+              
     - name:   Stage Files
       run:    |
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
-              Compress-Archive ./* "VolumeControl-${GITHUB_REF/refs\/tags\//}.zip"
+              Compress-Archive ./* "VolumeControl-${{steps.get_version.outputs.VERSION}}.zip"
               mv "./*.zip" "${{github.workspace}}"
           
     - name:   'Upload Build Artifact'
@@ -56,6 +66,8 @@ jobs:
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
-        draft:    true
-        files:    |
-                  ${{github.workspace}}/*.zip
+        draft:      true
+        prerelease: ${{steps.get_version.outputs.PRERELEASE}}
+        tag_name:   ${{steps.get_version.outputs.VERSION}}
+        files:      |
+                    ${{github.workspace}}/*.zip
