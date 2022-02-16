@@ -1,4 +1,5 @@
 ﻿using AudioAPI;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace VolumeControl.CLI;
@@ -35,11 +36,25 @@ public class Program
                 Console.WriteLine();
                 Console.WriteLine("OPTIONS:");
                 Console.WriteLine("  -h  --help                           Show this help display, then exit.");
+                Console.WriteLine("  -V  --version                        Show the current version number, then exit.");
                 Console.WriteLine("  -p <PROCESS>  --process <PROCESS>    Select the target process' name or ID.");
                 Console.WriteLine("  -v <VOLUME>   --volume <VOLUME>      Specify a volume level to set the process to.");
                 if (args.Length == 0)
                     throw new ArgumentException("No valid arguments specified!");
                 else return 0;
+            }
+            else if (args.Contains("-V") || args.Contains("--version"))
+            {
+                Version currentVersion = typeof(Program).Assembly.GetName().Version!;
+                if (Convert.ToBoolean(typeof(Program).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease)) // pre release
+                {
+                    Console.WriteLine($"VolumeControlCLI  v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}");
+                }
+                else // not a pre release
+                {
+                    Console.WriteLine($"VolumeControlCLI  v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}");
+                }
+                return 0;
             }
 
             string? processName = null;
