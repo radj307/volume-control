@@ -39,6 +39,12 @@ public class Program
                 Console.WriteLine("  -V  --version                        Show the current version number, then exit.");
                 Console.WriteLine("  -p <PROCESS>  --process <PROCESS>    Select the target process' name or ID.");
                 Console.WriteLine("  -v <VOLUME>   --volume <VOLUME>      Specify a volume level to set the process to.");
+                Console.WriteLine("  --mute                               Mute the target application.");
+                Console.WriteLine("  --unmute                             Unmute the target application.");
+                Console.WriteLine("  --set                                Specify that the target application's volume should be set.");
+                Console.WriteLine("                                       This option is implied when [-v|--volume] is specified.");
+                Console.WriteLine("  --get                                Specify that the target application's volume should be queried.");
+                Console.WriteLine("                                       This option is implied when [-v|--volume] is not specified.");
                 if (args.Length == 0)
                     throw new ArgumentException("No valid arguments specified!");
                 else return 0;
