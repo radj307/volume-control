@@ -3,6 +3,7 @@ using HotkeyLib;
 using System.ComponentModel;
 using UIComposites;
 using TargetListForm;
+using System;
 
 namespace VolumeControl
 {
@@ -339,8 +340,12 @@ namespace VolumeControl
             // if the main window is minimized, and the target list form is enabled.
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
-                targetListForm.Show(true);
+                targetListForm.Show(true, CurrentTargetName);
                 //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+            }
+            else if (targetListForm.WindowState != FormWindowState.Minimized)
+            {
+                targetListForm.Selected = CurrentTargetName;
             }
 
             Properties.Settings.Default.ProcessName = CurrentTargetName;
@@ -358,10 +363,16 @@ namespace VolumeControl
             else
                 CurrentTargetIndex = TargetListSize - 1;
 
+            targetListForm.Selected = CurrentTargetName;
+
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
-                targetListForm.Show(true);
+                targetListForm.Show(true, CurrentTargetName);
                 //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
+            }
+            else if (targetListForm.WindowState != FormWindowState.Minimized)
+            {
+                targetListForm.Selected = CurrentTargetName;
             }
 
             Properties.Settings.Default.ProcessName = ComboBox_ProcessSelector.SelectedValue?.ToString();

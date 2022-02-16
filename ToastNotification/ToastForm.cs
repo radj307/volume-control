@@ -45,7 +45,7 @@ namespace VolumeControl
         {
             get
             {
-                foreach (ListViewItem entry in ListDisplay.SelectedItems)
+                foreach (ListViewItem entry in ListDisplay.Items)
                 {
                     if (entry.Selected)
                     {
@@ -56,14 +56,18 @@ namespace VolumeControl
             }
             set
             {
-                foreach (ListViewItem entry in ListDisplay.SelectedItems)
+                foreach (ListViewItem entry in ListDisplay.Items)
                 {
                     if (entry.Text.Equals(value, StringComparison.OrdinalIgnoreCase))
                     {
+                        entry.Checked = true;
                         entry.Selected = true;
                     }
                     else
+                    {
+                        entry.Checked = false;
                         entry.Selected = false;
+                    }
                 }
             }
         }
@@ -99,8 +103,10 @@ namespace VolumeControl
         /// <summary>
         /// Show the toast notification form
         /// </summary>
-        public void Show(bool enableTimeout = false)
+        public void Show(bool enableTimeout = false, string selectName = "")
         {
+            if (selectName.Length > 0)
+                Selected = selectName;
             WindowState = FormWindowState.Normal;
             base.Show();
             if (enableTimeout)

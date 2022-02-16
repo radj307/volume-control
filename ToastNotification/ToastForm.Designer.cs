@@ -37,6 +37,7 @@
             // ListDisplay
             // 
             this.ListDisplay.AllowColumnReorder = true;
+            this.ListDisplay.CheckBoxes = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.name});
             this.ListDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
