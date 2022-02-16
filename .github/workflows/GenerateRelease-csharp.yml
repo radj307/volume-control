@@ -53,29 +53,34 @@ jobs:
       run:    |
               cd "${{github.workspace}}/STAGING"
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
+              Get-ChildItem -Recurse
               
-    - name:   Create Pre-Release Archive
-      if:     ${{ steps.get_version.outputs.PRERELEASE == true }}
-      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}.zip"
-                            
-    - name:   Create Release Archive
-      if:     ${{ steps.get_version.outputs.PRERELEASE != true }}
-      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip"
-              
-    - name:   Stage Archive
-      run:    mv "./*.zip" "${{github.workspace}}"
-          
-    - name:   'Upload Build Artifact'
+    - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
-        path: "${{github.workspace}}/VolumeControl*.zip"
+        path: '${{github.workspace}}/STAGING/*'
         
+        
+  create-release:
+    needs:    build-release
+    runs-on:  ubuntu-latest
+    
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path:  ${{github.workspace}}
+        
+    - run:  ls -lAghR
+      
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
         draft:      true
         prerelease: ${{steps.get_version.outputs.PRERELEASE}}
         tag_name:   ${{steps.get_version.outputs.VERSION}}
+        fail_on_unmatched_files: true
         files:      |
-                    ${{github.workspace}}/*.zip
+                    ${{github.workspace}}/build-windows/VolumeControl.exe
+                    ${{github.workspace}}/build-windows/VolumeControlCLI.exe
