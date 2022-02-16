@@ -320,7 +320,7 @@ namespace VolumeControl
             int index = ComboBox_ProcessSelector.Items.IndexOf(name);
             if (index != -1)
                 CurrentTargetIndex = index;
-            else if (addIfMissing)
+            else if (addIfMissing && name.Length > 0)
             {
                 sessions.Add(name);
                 CurrentTargetIndex = TargetListSize - 1;
