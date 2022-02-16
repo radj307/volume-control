@@ -36,20 +36,26 @@
             // 
             // ListDisplay
             // 
+            this.ListDisplay.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.ListDisplay.AllowColumnReorder = true;
             this.ListDisplay.CheckBoxes = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.name});
             this.ListDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListDisplay.FullRowSelect = true;
+            this.ListDisplay.HideSelection = true;
             this.ListDisplay.Location = new System.Drawing.Point(0, 0);
             this.ListDisplay.MultiSelect = false;
             this.ListDisplay.Name = "ListDisplay";
             this.ListDisplay.Scrollable = false;
+            this.ListDisplay.ShowGroups = false;
             this.ListDisplay.Size = new System.Drawing.Size(200, 200);
             this.ListDisplay.TabIndex = 0;
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
+            this.ListDisplay.ItemActivate += new System.EventHandler(this.ListDisplay_ItemActivate);
+            this.ListDisplay.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ListDisplay_ItemCheck);
+            this.ListDisplay.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.ListDisplay_ItemChecked);
             // 
             // name
             // 

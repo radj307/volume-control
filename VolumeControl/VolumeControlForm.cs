@@ -652,7 +652,7 @@ namespace VolumeControl
             TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             // TARGET LIST FORM TIMEOUT
             targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
-            targetListForm.ListDisplay.SelectedIndexChanged += delegate //< Triggered when the user selects a process in the target list
+            targetListForm.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
             {
                 SetTarget(targetListForm.Selected);
             };

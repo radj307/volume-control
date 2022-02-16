@@ -47,7 +47,9 @@ namespace VolumeControl
             {
                 foreach (ListViewItem entry in ListDisplay.Items)
                 {
-                    if (entry.Selected)
+                    if (entry == null)
+                        continue;
+                    if (entry.Checked)
                     {
                         return entry.Text;
                     }
@@ -56,6 +58,7 @@ namespace VolumeControl
             }
             set
             {
+                DisableEventTriggers();
                 foreach (ListViewItem entry in ListDisplay.Items)
                 {
                     if (entry.Text.Equals(value, StringComparison.OrdinalIgnoreCase))
@@ -69,6 +72,7 @@ namespace VolumeControl
                         entry.Selected = false;
                     }
                 }
+                EnableEventTriggers();
             }
         }
 
@@ -112,9 +116,7 @@ namespace VolumeControl
             if (enableTimeout)
             {
                 if (NotifyTimer.Enabled)
-                {
                     NotifyTimer.Enabled = false;
-                }
                 NotifyTimer.Enabled = true;
                 NotifyTimer.Start();
             }
@@ -123,6 +125,7 @@ namespace VolumeControl
         public ToastForm()
         {
             InitializeComponent();
+
             Text = "Application Audio Sessions";
             Position = new Point(
                 Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
@@ -134,5 +137,72 @@ namespace VolumeControl
 
             CancelButton = cancel;
         }
+
+        private void DisableEventTriggers()
+        {
+            ListDisplay.ItemCheck -= ListDisplay_ItemCheck;
+            ListDisplay.ItemActivate -= ListDisplay_ItemActivate;
+        }
+        private void EnableEventTriggers()
+        {
+            ListDisplay.ItemCheck += ListDisplay_ItemCheck;
+            ListDisplay.ItemActivate += ListDisplay_ItemActivate;
+        }
+
+        /// <summary>
+        /// Triggered before an item is checked.
+        /// This unchecks all items before the incoming changes.
+        /// </summary>
+        private void ListDisplay_ItemCheck(object? sender, ItemCheckEventArgs e)
+        {
+            DisableEventTriggers(); //< Don't trigger event recursively (causes stack overflow)
+            foreach (ListViewItem item in ListDisplay.Items)
+            {
+                if (item == null)
+                    continue;
+                item.Checked = false;
+            }
+            EnableEventTriggers();
+        }
+        private void ListDisplay_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            OnSelectionChanged(e);
+        }
+
+        private void ListDisplay_ItemActivate(object? sender, EventArgs e)
+        {
+            OnSelectionChanged(e);
+        }
+
+        #region Events
+
+        /// <summary>
+        /// Custom Event
+        /// Triggers when any key modifiers are changed.
+        /// </summary>
+        private EventHandler onSelectionChanged;
+        public event EventHandler SelectionChanged
+        {
+            add
+            {
+                onSelectionChanged += value;
+            }
+            remove
+            {
+#               pragma warning disable CS8601 // Possible null reference assignment.
+                onSelectionChanged -= value;
+#               pragma warning restore CS8601 // Possible null reference assignment.
+            }
+        }
+        /// <summary>
+        /// Trigger a ModifierChanged event.
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnSelectionChanged(EventArgs e)
+        {
+            onSelectionChanged?.Invoke(this, e);
+        }
+
+        #endregion Events
     }
 }
