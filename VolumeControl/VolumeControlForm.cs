@@ -1,10 +1,8 @@
 using AudioAPI;
 using HotkeyLib;
 using System.ComponentModel;
-using UIComposites;
-using TargetListForm;
-using System;
 using System.Reflection;
+using UIComposites;
 
 namespace VolumeControl
 {
@@ -401,6 +399,17 @@ namespace VolumeControl
             AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
         }
 
+        /// <summary>
+        /// Saves and Reloads the Properties.Settings.Default object.
+        /// </summary>
+        private static void SaveSettings(object? sender, EventArgs e)
+        {
+            Properties.Settings.Default.PropertyChanged -= SaveSettings;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            Properties.Settings.Default.PropertyChanged += SaveSettings;
+        }
+
         #endregion HelperMethods
 
         #region ClassFunctions
@@ -665,14 +674,6 @@ namespace VolumeControl
         }
 
         #endregion ClassFunctions
-
-        private static void SaveSettings(object? sender, EventArgs e)
-        {
-            Properties.Settings.Default.PropertyChanged -= SaveSettings;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-            Properties.Settings.Default.PropertyChanged += SaveSettings;
-        }
 
         #region FormComponents
 
