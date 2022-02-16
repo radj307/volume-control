@@ -80,4 +80,4 @@ jobs:
         tag_name:   ${{steps.get_version.outputs.VERSION}}
         fail_on_unmatched_files: true
         files:      |
-                    '${{github.workspace}}/*.exe'
+                    '${{github.workspace}}/build-windows/*.exe'
