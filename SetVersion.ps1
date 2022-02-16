@@ -1,20 +1,36 @@
-# VARIABLES
+$SCRIPTVERSION = "1" # The version number of this script file
 
-cd ..
+$ROOTPATH=$args[0]
 
-$global:VC = "$(Get-Location)\VolumeControl\VolumeControl.csproj"
-$global:VCCLI = "$(Get-Location)\VolumeControlCLI\VolumeControlCLI.csproj"
-$RGX=[regex]"\d+?\.\d+?\.\d+"
-$TAG = $(git describe --tags --abbrev=0)
-$global:TAG = $RGX.Match($TAG).Value
-
-$SCRIPTVERSION = "0.0.0" # The version number of this script file
-
-# SCRIPT
+if ($ROOTPATH)
+{
+    Set-Location -Path $ROOTPATH
+}
+else
+{
+    Set-Location -Path '..'
+}
 
 Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 
-"Working Directory:      `"$(Get-Location)`""
+# .csproj locations
+$global:VC = "$(Get-Location)\VolumeControl\VolumeControl.csproj"
+$global:VCCLI = "$(Get-Location)\VolumeControlCLI\VolumeControlCLI.csproj"
+
+$GIT_TAG_RAW = $(git describe --tags --abbrev=0)
+
+"Latest Git Tag:           `"$GIT_TAG_RAW`""
+
+$GIT_TAG_RAW -match '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
+
+$global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
+
+if ($Matches.EXTRA)
+{
+    $global:TAG = $global:TAG + '.' + $Matches.EXTRA
+}
+
+"Working Directory:        `"$(Get-Location)`""
 "Tag Version Number:       `"$TAG`""
 "VolumeControl.csproj:     `"$VC`""
 "VolumeControlCLI.csproj:  `"$VCCLI`""
@@ -29,13 +45,20 @@ function SetVersion
     [xml]$CONTENT = Get-Content -Path $file
 
     $oldversion = $CONTENT.Project.PropertyGroup.Version
-
+    
     "Project File Location:  `"$file`""
     "Current file version:   `"$oldversion`""
     "Incoming file version:  `"$global:TAG`""
 
-    $CONTENT.Project.PropertyGroup.Version = $global:TAG
-    $CONTENT.Save("$file")
+    if ($oldversion -ne $global:TAG)
+    {
+        $CONTENT.Project.PropertyGroup.Version = $global:TAG
+        $CONTENT.Save("$file")
+    }
+    else
+    {
+        "Version Numbers Match, Not Updating "
+    }
 }
 
 SetVersion($global:VC)
