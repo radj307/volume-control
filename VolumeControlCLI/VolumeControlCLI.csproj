@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -9,7 +9,7 @@
     <IsPreRelease>true</IsPreRelease>
   </PropertyGroup>
   <ItemGroup>
-    <AssemblyAttribute Include="VolumeControl.IsPreReleaseAttribute">
+    <AssemblyAttribute Include="VolumeControl.CLI.IsPreReleaseAttribute">
       <_Parameter1>$(IsPreRelease)</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
