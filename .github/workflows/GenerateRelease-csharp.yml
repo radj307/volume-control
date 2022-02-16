@@ -55,25 +55,22 @@ jobs:
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
               Get-ChildItem -Recurse
               
-    - name:   Create Pre-Release Archive
-      if:     ${{ steps.get_version.outputs.PRERELEASE == true }}
-      run:    Compress-Archive '${{github.workspace}}/STAGING/*' "VolumeControl-${{ steps.get_version.outputs.TAG }}.zip"
-                            
-    - name:   Create Release Archive
-      if:     ${{ steps.get_version.outputs.PRERELEASE != true }}
-      run:    Compress-Archive '${{github.workspace}}/STAGING/*' 'VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip'
-          
-    - run:    |
-              cd '${{github.workspace}}/STAGING'
-              Get-ChildItem -Recurse
-          
-    - name:   'Upload Build Artifact'
+    - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
-        if-no-files-found: error
-        path: './*.zip'
+        path: '${{github.workspace}}/STAGING/*'
         
+        
+  create-release:
+    runs-on:  ubuntu-latest
+    
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        working-directory:  ${{github.workspace}}
+      
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
@@ -82,4 +79,4 @@ jobs:
         tag_name:   ${{steps.get_version.outputs.VERSION}}
         fail_on_unmatched_files: true
         files:      |
-                    './*.zip'
+                    '${{github.workspace}}/*.exe'
