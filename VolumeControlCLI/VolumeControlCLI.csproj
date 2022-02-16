@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Icon_Refresh.ico</ApplicationIcon>
-    <Version>3.3.0.3</Version>
+    <Version>3.3.0.4</Version>
     <IsPreRelease>true</IsPreRelease>
   </PropertyGroup>
   <ItemGroup>
-	  <AssemblyAttribute Include="VolumeControl.IsPreReleaseAttribute">
-	    <_Parameter1>$(IsPreRelease)</_Parameter1>
-	  </AssemblyAttribute>
+    <AssemblyAttribute Include="VolumeControl.IsPreReleaseAttribute">
+      <_Parameter1>$(IsPreRelease)</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon_Refresh.ico" />
