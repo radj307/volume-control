@@ -6,7 +6,6 @@ namespace VolumeControl
     {
         private readonly CancelButtonHandler cancel = new();
         private readonly BindingSource listBindSource = new();
-        private bool timeout_enabled = false;
 
         public object DataSource
         {
@@ -14,16 +13,16 @@ namespace VolumeControl
             set => listBindSource.DataSource = value;
         }
 
-        public int Timeout
-        {
-            get => TimeoutTimer.Interval;
-            set => TimeoutTimer.Interval = value;
-        }
-
         public bool TimeoutEnabled
         {
-            get => timeout_enabled;
-            set => timeout_enabled = value;
+            get => NotifyTimer.Enabled;
+            set => NotifyTimer.Enabled = value;
+        }
+
+        public int Timeout
+        {
+            get => NotifyTimer.Interval;
+            set => NotifyTimer.Interval = value;
         }
 
         public Point Position
@@ -60,7 +59,9 @@ namespace VolumeControl
                 foreach (ListViewItem entry in ListDisplay.SelectedItems)
                 {
                     if (entry.Text.Equals(value, StringComparison.OrdinalIgnoreCase))
+                    {
                         entry.Selected = true;
+                    }
                     else
                         entry.Selected = false;
                 }
@@ -85,34 +86,31 @@ namespace VolumeControl
             }
         }
 
-        public void SetTitle(string name)
-        {
-            Text = name;
-        }
-
         /// <summary>
         /// Hide the toast notification form
         /// </summary>
-        public new void Hide()
+        public void Hide(object? sender, EventArgs e)
         {
-            TimeoutTimer.Stop();
-            TimeoutTimer.Enabled = false;
+            NotifyTimer.Stop();
+            NotifyTimer.Enabled = false;
             Visible = false;
             WindowState = FormWindowState.Minimized;
         }
         /// <summary>
         /// Show the toast notification form
         /// </summary>
-        public new void Show()
+        public void Show(bool enableTimeout = false)
         {
-            if (TimeoutTimer.Enabled)
-                TimeoutTimer.Stop();
             WindowState = FormWindowState.Normal;
             base.Show();
-            if (timeout_enabled)
+            if (enableTimeout)
             {
-                TimeoutTimer.Enabled = true;
-                TimeoutTimer.Start();
+                if (NotifyTimer.Enabled)
+                {
+                    NotifyTimer.Enabled = false;
+                }
+                NotifyTimer.Enabled = true;
+                NotifyTimer.Start();
             }
         }
 
@@ -125,8 +123,8 @@ namespace VolumeControl
                 Screen.PrimaryScreen.WorkingArea.Height - Height - 10
             );
 
-            TimeoutTimer.Tick += delegate { Hide(); };
-            cancel.Action += delegate { Hide(); };
+            NotifyTimer.Tick += Hide;
+            cancel.Action += Hide;
 
             CancelButton = cancel;
         }

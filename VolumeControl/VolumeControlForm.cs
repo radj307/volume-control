@@ -339,7 +339,7 @@ namespace VolumeControl
             // if the main window is minimized, and the target list form is enabled.
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
-                targetListForm.Show();
+                targetListForm.Show(true);
                 //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             }
 
@@ -360,7 +360,7 @@ namespace VolumeControl
 
             if (TargetListEnabled && WindowState == FormWindowState.Minimized)
             {
-                targetListForm.Show();
+                targetListForm.Show(true);
                 //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             }
 
@@ -640,7 +640,7 @@ namespace VolumeControl
             // TARGET LIST FORM ENABLED
             TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             // TARGET LIST FORM TIMEOUT
-            TargetListTimeout = Properties.Settings.Default.tgtlist_timeout;
+            targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
             targetListForm.ListDisplay.SelectedIndexChanged += delegate //< Triggered when the user selects a process in the target list
             {
                 SetTarget(targetListForm.Selected);
@@ -759,19 +759,17 @@ namespace VolumeControl
         }
         private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.tgtlist_enabled = TargetListEnabled;
+            bool enabled = TargetListEnabled;
+            targetListForm.TimeoutEnabled = enabled;
+            Properties.Settings.Default.tgtlist_enabled = enabled;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
-        private int TargetListTimeout
-        {
-            get => Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
-            //            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(value);
-            set => NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = value);
-        }
         private void ToastTimeout_ValueChanged(object sender, EventArgs e)
         {
-            targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout = TargetListTimeout;
+            int timeout_ms = Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
+            targetListForm.Timeout = timeout_ms;
+            Properties.Settings.Default.tgtlist_timeout = timeout_ms;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }

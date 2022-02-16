@@ -31,22 +31,21 @@
             this.components = new System.ComponentModel.Container();
             this.ListDisplay = new System.Windows.Forms.ListView();
             this.name = new System.Windows.Forms.ColumnHeader();
-            this.index = new System.Windows.Forms.ColumnHeader();
-            this.TimeoutTimer = new System.Windows.Forms.Timer(this.components);
+            this.NotifyTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // ListDisplay
             // 
             this.ListDisplay.AllowColumnReorder = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.name,
-            this.index});
+            this.name});
             this.ListDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListDisplay.FullRowSelect = true;
             this.ListDisplay.Location = new System.Drawing.Point(0, 0);
             this.ListDisplay.MultiSelect = false;
             this.ListDisplay.Name = "ListDisplay";
-            this.ListDisplay.Size = new System.Drawing.Size(300, 200);
+            this.ListDisplay.Scrollable = false;
+            this.ListDisplay.Size = new System.Drawing.Size(200, 200);
             this.ListDisplay.TabIndex = 0;
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
@@ -54,17 +53,12 @@
             // name
             // 
             this.name.Text = "Application Name";
-            this.name.Width = 120;
+            this.name.Width = 200;
             // 
-            // index
+            // NotifyTimer
             // 
-            this.index.Text = "Index";
-            this.index.Width = 50;
-            // 
-            // TimeoutTimer
-            // 
-            this.TimeoutTimer.Enabled = true;
-            this.TimeoutTimer.Interval = 6000;
+            this.NotifyTimer.Enabled = true;
+            this.NotifyTimer.Interval = 500;
             // 
             // ToastForm
             // 
@@ -72,13 +66,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(300, 200);
+            this.ClientSize = new System.Drawing.Size(200, 200);
             this.ControlBox = false;
             this.Controls.Add(this.ListDisplay);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(300, 200);
+            this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "ToastForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -91,9 +85,8 @@
         }
 
         #endregion
-        private ColumnHeader index;
         public ListView ListDisplay;
         public ColumnHeader name;
-        public System.Windows.Forms.Timer TimeoutTimer;
+        public System.Windows.Forms.Timer NotifyTimer;
     }
 }
