@@ -24,11 +24,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
       
-    - name: '(Pre)Build Solution'
-      run:  dotnet build -c ${{env.BUILD_TYPE}}
-      
-    - name: 'Run VersionTag Script'
-      run:  '${{github.workspace}}/VersionTag.ps1 ${{github.workspace}}'
+    - name: 'Run SetVersion Script'
+      run:  |
+            cd ${{github.workspace}}
+            './SetVersion.ps1'
       
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
@@ -54,8 +53,17 @@ jobs:
       run:    |
               cd "${{github.workspace}}/STAGING"
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
-              Compress-Archive ./*.exe "VolumeControl-$TAG.zip"
-              mv "./*.zip" "${{github.workspace}}"
+              
+    - name:   Create Pre-Release Archive
+      if:     ${{ steps.get_version.outputs.PRERELEASE == true }}
+      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}.zip"
+                            
+    - name:   Create Release Archive
+      if:     ${{ steps.get_version.outputs.PRERELEASE != true }}
+      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip"
+              
+    - name:   Stage Archive
+      run:    mv "./*.zip" "${{github.workspace}}"
           
     - name:   'Upload Build Artifact'
       uses:   actions/upload-artifact@v2
