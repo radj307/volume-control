@@ -57,20 +57,22 @@ jobs:
               
     - name:   Create Pre-Release Archive
       if:     ${{ steps.get_version.outputs.PRERELEASE == true }}
-      run:    Compress-Archive ./*.exe "VolumeControl-${{ steps.get_version.outputs.TAG }}.zip"
+      run:    Compress-Archive '${{github.workspace}}/STAGING/*' "VolumeControl-${{ steps.get_version.outputs.TAG }}.zip"
                             
     - name:   Create Release Archive
       if:     ${{ steps.get_version.outputs.PRERELEASE != true }}
-      run:    Compress-Archive '${{github.workspace}}/STAGING/*.exe' 'VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip'
+      run:    Compress-Archive '${{github.workspace}}/STAGING/*' 'VolumeControl-${{ steps.get_version.outputs.TAG }}-PreRelease.zip'
           
-    - run:    cd ${{github.workspace}}
+    - run:    |
+              cd '${{github.workspace}}/STAGING'
+              Get-ChildItem -Recurse
           
     - name:   'Upload Build Artifact'
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
         if-no-files-found: error
-        path: './STAGING/*.zip'
+        path: './*.zip'
         
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
@@ -80,4 +82,4 @@ jobs:
         tag_name:   ${{steps.get_version.outputs.VERSION}}
         fail_on_unmatched_files: true
         files:      |
-                    './STAGING/*.zip'
+                    './*.zip'
