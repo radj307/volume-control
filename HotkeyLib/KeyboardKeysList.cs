@@ -104,7 +104,7 @@ namespace HotkeyLib
             foreach (Keys key in list)
             {
                 // prevent duplicates that exist for some reason (thanks C# Enum), & don't allow keys that exist on any blacklist.
-                if (!bList.Contains(key) && ((blacklist == null || !blacklist.Contains(key)) && (str_blacklist == null || !str_blacklist.Any(s => key.ToString().Contains(s, StringComparison.Ordinal)))))
+                if (!bList.Contains(key) && ( ( blacklist == null || !blacklist.Contains(key) ) && ( str_blacklist == null || !str_blacklist.Any(s => key.ToString().Contains(s, StringComparison.Ordinal)) ) ))
                     bList.Add(key);
             }
             return bList;

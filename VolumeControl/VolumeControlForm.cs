@@ -64,10 +64,7 @@ namespace VolumeControl
 
         #region Properties
 
-        private int TargetListSize
-        {
-            get => ComboBox_ProcessSelector.Items.Count;
-        }
+        private int TargetListSize => ComboBox_ProcessSelector.Items.Count;
         private int CurrentTargetIndex
         {
             get => ComboBox_ProcessSelector.SelectedIndex;
@@ -127,26 +124,23 @@ namespace VolumeControl
         /// <summary>
         /// Check if the Volume Up hotkey is enabled.
         /// </summary>
-        private bool VolumeUpHotkeyIsEnabled { get => HKEdit_VolumeUp.HotkeyIsEnabled; }
+        private bool VolumeUpHotkeyIsEnabled => HKEdit_VolumeUp.HotkeyIsEnabled;
         /// <summary>
         /// Check if the Volume Down hotkey is enabled.
         /// </summary>
-        private bool VolumeDownHotkeyIsEnabled { get => HKEdit_VolumeDown.HotkeyIsEnabled; }
+        private bool VolumeDownHotkeyIsEnabled => HKEdit_VolumeDown.HotkeyIsEnabled;
         /// <summary>
         /// Check if the Volume Mute hotkey is enabled.
         /// </summary>
-        private bool VolumeMuteHotkeyIsEnabled { get => HKEdit_VolumeMute.HotkeyIsEnabled; }
+        private bool VolumeMuteHotkeyIsEnabled => HKEdit_VolumeMute.HotkeyIsEnabled;
 
-        private bool NextHotkeyIsEnabled
-        {
-            get => HKEdit_Next.HotkeyIsEnabled;
-        }
+        private bool NextHotkeyIsEnabled => HKEdit_Next.HotkeyIsEnabled;
 
-        private bool PrevHotkeyIsEnabled { get => HKEdit_Prev.HotkeyIsEnabled; }
-        private bool PlaybackHotkeyIsEnabled { get => HKEdit_TogglePlayback.HotkeyIsEnabled; }
-        private bool NextTargetHotkeyIsEnabled { get => HKEdit_NextTarget.HotkeyIsEnabled; }
-        private bool PrevTargetHotkeyIsEnabled { get => HKEdit_PrevTarget.HotkeyIsEnabled; }
-        private bool ShowTargetHotkeyIsEnabled { get => HKEdit_ShowTarget.HotkeyIsEnabled; }
+        private bool PrevHotkeyIsEnabled => HKEdit_Prev.HotkeyIsEnabled;
+        private bool PlaybackHotkeyIsEnabled => HKEdit_TogglePlayback.HotkeyIsEnabled;
+        private bool NextTargetHotkeyIsEnabled => HKEdit_NextTarget.HotkeyIsEnabled;
+        private bool PrevTargetHotkeyIsEnabled => HKEdit_PrevTarget.HotkeyIsEnabled;
+        private bool ShowTargetHotkeyIsEnabled => HKEdit_ShowTarget.HotkeyIsEnabled;
 
         #endregion Properties
 
@@ -216,7 +210,6 @@ namespace VolumeControl
             if (hk_showTarget.Registered)
                 hk_showTarget.Unregister();
         }
-
         /// <summary>
         /// Update the window title of the main window & the target list form using the current target.
         /// </summary>
@@ -233,7 +226,6 @@ namespace VolumeControl
                 Text = "Volume Control";
             }
         }
-
         /// <summary>
         /// Updates the options available in the Process selector box & the target list form.
         /// </summary>
@@ -394,10 +386,7 @@ namespace VolumeControl
         /// <summary>
         /// Send a virtual key press event using the Win32 API.
         /// </summary>
-        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1)
-        {
-            AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
-        }
+        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
 
         /// <summary>
         /// Saves and Reloads the Properties.Settings.Default object.
@@ -634,7 +623,7 @@ namespace VolumeControl
             }
             else
             {
-                Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
+                Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{( currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "" )}";
             }
 
             // CANCEL BUTTON HANDLER (ESC)
@@ -690,10 +679,7 @@ namespace VolumeControl
         /// Automatically called when the value of volume_step is changed.
         /// Sets the settings value "VolumeStep" to the new value.
         /// </summary>
-        private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.VolumeStep = Numeric_VolumeStep.Value;
-        }
+        private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.VolumeStep = Numeric_VolumeStep.Value;
         /// <summary>
         /// Called when the system tray icon is double-clicked
         /// </summary>
@@ -706,30 +692,26 @@ namespace VolumeControl
                 WindowState = FormWindowState.Normal;
             }
             // Always bring the window to the foreground
-            this.Activate();
+            Activate();
         }
         /// <summary>
         /// Called when the user clicks the close button in the system tray context menu
         /// </summary>
-        private void SystemTray_ContextMenu_Close(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void SystemTray_ContextMenu_Close(object sender, EventArgs e) => Application.Exit();
         /// <summary>
         /// Called when the "Minimize on Startup" checkbox is changed.
         /// </summary>
-        private void Checkbox_MinimizeOnStartup_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
-        }
+        private void Checkbox_MinimizeOnStartup_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
         /// <summary>
         /// Called when the window is focused by the user.
         /// </summary>
         private void Window_GotFocus(object sender, EventArgs e) => UpdateProcessList();
+
         /// <summary>
         /// Called when the Reload button is pressed.
         /// </summary>
         private void Button_ReloadProcessList_Click(object sender, EventArgs e) => UpdateProcessList();
+
         /// <summary>
         /// Called when the window is maximized, minimized, or resized.
         /// </summary>
@@ -756,7 +738,7 @@ namespace VolumeControl
             if (isChecked != Properties.Settings.Default.VisibleInTaskbar)
             {
                 // Set the value of "ShowInTaskbar", automatically re-registers hotkeys using property override
-                this.ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar = isChecked;
+                ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar = isChecked;
             }
             RegisterHotkeys();
         }

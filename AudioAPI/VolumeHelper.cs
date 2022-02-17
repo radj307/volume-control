@@ -105,7 +105,7 @@ namespace AudioAPI
                 throw new COMException("Volume object creation failed");
 
             Guid guid = Guid.Empty;
-            volume.SetMasterVolume((float)(level / 100.0m), ref guid);
+            volume.SetMasterVolume((float)( level / 100.0m ), ref guid);
             Marshal.ReleaseComObject(volume);
         }
 
@@ -202,7 +202,7 @@ namespace AudioAPI
                 throw new COMException("Volume object creation failed");
 
             Guid guid = Guid.Empty;
-            volume.SetMasterVolume((float)(level / 100.0m), ref guid);
+            volume.SetMasterVolume((float)( level / 100.0m ), ref guid);
             Marshal.ReleaseComObject(volume);
         }
 
@@ -217,10 +217,7 @@ namespace AudioAPI
             Marshal.ReleaseComObject(volume);
         }
 
-        public static ISimpleAudioVolume? GetVolumeObject(int proc_id)
-        {
-            return Volume.GetVolumeObject(proc_id);
-        }
+        public static ISimpleAudioVolume? GetVolumeObject(int proc_id) => Volume.GetVolumeObject(proc_id);
 
         #endregion
     }

@@ -76,15 +76,9 @@ namespace VolumeControl
             }
         }
 
-        public ListView.ListViewItemCollection Items
-        {
-            get => ListDisplay.Items;
-        }
+        public ListView.ListViewItemCollection Items => ListDisplay.Items;
 
-        public void FlushItems()
-        {
-            Items.Clear();
-        }
+        public void FlushItems() => Items.Clear();
 
         public void LoadItems(List<string> sessions)
         {
@@ -165,15 +159,9 @@ namespace VolumeControl
             }
             EnableEventTriggers();
         }
-        private void ListDisplay_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            OnSelectionChanged(e);
-        }
+        private void ListDisplay_ItemChecked(object sender, ItemCheckedEventArgs e) => OnSelectionChanged(e);
 
-        private void ListDisplay_ItemActivate(object? sender, EventArgs e)
-        {
-            OnSelectionChanged(e);
-        }
+        private void ListDisplay_ItemActivate(object? sender, EventArgs e) => OnSelectionChanged(e);
 
         #region Events
 
@@ -199,10 +187,7 @@ namespace VolumeControl
         /// Trigger a ModifierChanged event.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnSelectionChanged(EventArgs e)
-        {
-            onSelectionChanged?.Invoke(this, e);
-        }
+        protected virtual void OnSelectionChanged(EventArgs e) => onSelectionChanged?.Invoke(this, e);
 
         #endregion Events
     }

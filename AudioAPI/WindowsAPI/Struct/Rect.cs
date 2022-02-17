@@ -10,13 +10,10 @@ namespace AudioAPI.WindowsAPI.Struct
         public int right;
         public int bottom;
 
-        public int Width { get { return this.right - this.left; } }
+        public int Width => right - left;
 
-        public int Height { get { return this.bottom - this.top; } }
+        public int Height => bottom - top;
 
-        public override string ToString()
-        {
-            return $"{{X={this.left},Y={this.top},Width={this.Width},Height={this.Height}}}";
-        }
+        public override string ToString() => $"{{X={left},Y={top},Width={Width},Height={Height}}}";
     }
 }

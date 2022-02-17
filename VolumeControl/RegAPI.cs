@@ -31,8 +31,8 @@ namespace VolumeControl
 
         public static RegistryKey? RunKey
         {
-            get { return Registry.CurrentUser.OpenSubKey(KEY_RUN, true); }
-            set { value?.DeleteValue(SUBKEY_NAME); }
+            get => Registry.CurrentUser.OpenSubKey(KEY_RUN, true);
+            set => value?.DeleteValue(SUBKEY_NAME);
         }
     }
 }

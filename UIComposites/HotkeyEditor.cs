@@ -51,10 +51,7 @@ namespace UIComposites
 
         #region Properties
 
-        public bool HotkeyIsEnabled
-        {
-            get => Checkbox_Enabled.Checked;
-        }
+        public bool HotkeyIsEnabled => Checkbox_Enabled.Checked;
 
         public string Label
         {
@@ -65,16 +62,13 @@ namespace UIComposites
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Hotkey Hotkey
         {
-            get
-            {
-                return new Hotkey(
+            get => new Hotkey(
                     (Keys)Enum.Parse(typeof(Keys), Combobox_KeySelector.Text, true),
                     Checkbox_ModifierKey_Shift.Checked,
                     Checkbox_ModifierKey_Ctrl.Checked,
                     Checkbox_ModifierKey_Alt.Checked,
                     Checkbox_ModifierKey_Win.Checked
                 );
-            }
             set
             {
                 Combobox_KeySelector.Text = Enum.GetName(typeof(Keys), value.KeyCode);
@@ -111,17 +105,11 @@ namespace UIComposites
         /// Trigger a ModifierChanged event.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnModifierChanged(EventArgs e)
-        {
-            onModifierChanged?.Invoke(this, e);
-        }
+        protected virtual void OnModifierChanged(EventArgs e) => onModifierChanged?.Invoke(this, e);
         /// <summary>
         /// Called when any modifier checkbox is updated, triggers a ModifierChanged event.
         /// </summary>
-        private void Checkbox_ModifierKey_CheckedChanged(object sender, EventArgs e)
-        {
-            OnModifierChanged(e);
-        }
+        private void Checkbox_ModifierKey_CheckedChanged(object sender, EventArgs e) => OnModifierChanged(e);
 
         #endregion Events
     }

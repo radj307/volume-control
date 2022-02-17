@@ -21,8 +21,8 @@
     <AnalysisLevel>preview</AnalysisLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <Version>3.3.0.4</Version>
-    <IsPreRelease>true</IsPreRelease>
+    <Version>3.3.0</Version>
+    <IsPreRelease>false</IsPreRelease>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.IsPreReleaseAttribute">
@@ -41,7 +41,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
-    <ProjectReference Include="..\ToastNotification\TargetListForm.csproj" />
+    <ProjectReference Include="..\ToastForm\ToastForm.csproj" />
     <ProjectReference Include="..\UIComposites\UIComposites.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Icon_Refresh.ico</ApplicationIcon>
-    <Version>3.3.0.4</Version>
-    <IsPreRelease>true</IsPreRelease>
+    <ApplicationIcon>Resources\icons\Icon_Refresh.ico</ApplicationIcon>
+    <Version>3.3.0</Version>
+    <IsPreRelease>false</IsPreRelease>
+    <StartupObject>VolumeControl.CLI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.CLI.IsPreReleaseAttribute">
@@ -14,9 +15,22 @@
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon_Refresh.ico" />
+    <Content Include="Resources\icons\Icon_Refresh.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

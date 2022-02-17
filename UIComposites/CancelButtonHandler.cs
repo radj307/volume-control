@@ -18,9 +18,6 @@
         }
 
         public void NotifyDefault(bool value) { }
-        public void PerformClick()
-        {
-            _action?.Invoke(this, EventArgs.Empty);
-        }
+        public void PerformClick() => _action?.Invoke(this, EventArgs.Empty);
     }
 }
