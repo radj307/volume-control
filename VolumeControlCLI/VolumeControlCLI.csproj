@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Resources\icons\Icon_Refresh.ico</ApplicationIcon>
-    <Version>3.3.2</Version>
+    <Version>3.3.1</Version>
     <IsPreRelease>false</IsPreRelease>
     <StartupObject>VolumeControl.CLI.Program</StartupObject>
   </PropertyGroup>

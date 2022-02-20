@@ -21,7 +21,7 @@
     <AnalysisLevel>preview</AnalysisLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <Version>3.3.2</Version>
+    <Version>3.3.1</Version>
     <IsPreRelease>false</IsPreRelease>
   </PropertyGroup>
   <ItemGroup>
