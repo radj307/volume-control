@@ -4,8 +4,15 @@ namespace VolumeControl
 {
     public partial class ToastForm : Form
     {
+        #region Members
+
         private readonly CancelButtonHandler cancel = new();
         private readonly BindingSource listBindSource = new();
+        private readonly int listItemHeight;
+
+        #endregion Members
+
+        #region Properties
 
         public object DataSource
         {
@@ -58,7 +65,7 @@ namespace VolumeControl
             }
             set
             {
-                DisableEventTriggers();
+                DisableListEventTriggers();
                 foreach (ListViewItem entry in ListDisplay.Items)
                 {
                     if (entry.Text.Equals(value, StringComparison.OrdinalIgnoreCase))
@@ -72,11 +79,15 @@ namespace VolumeControl
                         entry.Selected = false;
                     }
                 }
-                EnableEventTriggers();
+                EnableListEventTriggers();
             }
         }
 
         public ListView.ListViewItemCollection Items => ListDisplay.Items;
+
+        #endregion Properties
+
+        #region Methods
 
         public void FlushItems() => Items.Clear();
 
@@ -86,6 +97,7 @@ namespace VolumeControl
             {
                 Items.Add(name);
             }
+            UpdatePosition();
         }
 
         /// <summary>
@@ -115,6 +127,48 @@ namespace VolumeControl
                 NotifyTimer.Start();
             }
         }
+        private void DisableListEventTriggers()
+        {
+            ListDisplay.ItemCheck -= ListDisplay_ItemCheck;
+            ListDisplay.ItemActivate -= ListDisplay_ItemActivate;
+        }
+        private void EnableListEventTriggers()
+        {
+            ListDisplay.ItemCheck += ListDisplay_ItemCheck;
+            ListDisplay.ItemActivate += ListDisplay_ItemActivate;
+        }
+
+        private void UpdatePosition()
+        {
+            SizeToFit();
+            Position = new Point(
+                Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
+                Screen.PrimaryScreen.WorkingArea.Height - Height - 10
+            );
+        }
+
+        /// <summary>
+        /// Calculates the amount of height needed to display all list items.
+        /// </summary>
+        private void SizeToFit()
+        {
+            int listSize = ListDisplay.Items.Count;
+            if (listSize == 0)
+                ++listSize;
+            int height = listItemHeight * listSize;
+
+            height += (DisplayPanel.Padding.Top + DisplayPanel.Padding.Bottom);
+
+            if (height > Screen.PrimaryScreen.WorkingArea.Height)
+                height = Screen.PrimaryScreen.WorkingArea.Height - 100;
+
+            // set the size of the form
+            Size = new(Width, height);
+        }
+
+        #endregion Methods
+
+        #region Constructor
 
         public ToastForm()
         {
@@ -122,27 +176,25 @@ namespace VolumeControl
             InitializeComponent();
 
             Text = "Application Audio Sessions";
-            Position = new Point(
-                Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
-                Screen.PrimaryScreen.WorkingArea.Height - Height - 10
-            );
 
             NotifyTimer.Tick += Hide;
             cancel.Action += Hide;
 
             CancelButton = cancel;
+
+            // Insert a temporary list item and draw the list to a bitmap image. (Item boundaries are set the first time it is drawn)
+            ListDisplay.Items.Insert(0, "TEMP");
+            ListDisplay.DrawToBitmap(new(100, 100), new Rectangle(0, 0, 100, 100));
+            listItemHeight = ListDisplay.Items[0].GetBounds(ItemBoundsPortion.Entire).Height;
+            ListDisplay.Items.Clear();
+
+            // Then update the size & position of the window
+            UpdatePosition();
         }
 
-        private void DisableEventTriggers()
-        {
-            ListDisplay.ItemCheck -= ListDisplay_ItemCheck;
-            ListDisplay.ItemActivate -= ListDisplay_ItemActivate;
-        }
-        private void EnableEventTriggers()
-        {
-            ListDisplay.ItemCheck += ListDisplay_ItemCheck;
-            ListDisplay.ItemActivate += ListDisplay_ItemActivate;
-        }
+        #endregion Constructor
+
+        #region FormEvents
 
         /// <summary>
         /// Triggered before an item is checked.
@@ -150,20 +202,22 @@ namespace VolumeControl
         /// </summary>
         private void ListDisplay_ItemCheck(object? sender, ItemCheckEventArgs e)
         {
-            DisableEventTriggers(); //< Don't trigger event recursively (causes stack overflow)
+            DisableListEventTriggers(); //< Don't trigger event recursively (causes stack overflow)
             foreach (ListViewItem item in ListDisplay.Items)
             {
                 if (item == null)
                     continue;
                 item.Checked = false;
             }
-            EnableEventTriggers();
+            EnableListEventTriggers();
         }
         private void ListDisplay_ItemChecked(object sender, ItemCheckedEventArgs e) => OnSelectionChanged(e);
 
         private void ListDisplay_ItemActivate(object? sender, EventArgs e) => OnSelectionChanged(e);
 
-        #region Events
+        #endregion FormEvents
+
+        #region CustomEvents
 
         /// <summary>
         /// Custom Event
@@ -189,6 +243,6 @@ namespace VolumeControl
         /// <param name="e"></param>
         protected virtual void OnSelectionChanged(EventArgs e) => onSelectionChanged?.Invoke(this, e);
 
-        #endregion Events
+        #endregion CustomEvents
     }
 }

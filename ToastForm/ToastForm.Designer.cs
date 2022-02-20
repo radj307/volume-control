@@ -32,24 +32,28 @@
             this.ListDisplay = new System.Windows.Forms.ListView();
             this.name = new System.Windows.Forms.ColumnHeader();
             this.NotifyTimer = new System.Windows.Forms.Timer(this.components);
+            this.DisplayPanel = new System.Windows.Forms.Panel();
+            this.DisplayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ListDisplay
             // 
             this.ListDisplay.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.ListDisplay.AllowColumnReorder = true;
+            this.ListDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListDisplay.CheckBoxes = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.name});
             this.ListDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListDisplay.FullRowSelect = true;
+            this.ListDisplay.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.ListDisplay.HideSelection = true;
-            this.ListDisplay.Location = new System.Drawing.Point(0, 0);
+            this.ListDisplay.Location = new System.Drawing.Point(2, 2);
             this.ListDisplay.MultiSelect = false;
             this.ListDisplay.Name = "ListDisplay";
             this.ListDisplay.Scrollable = false;
             this.ListDisplay.ShowGroups = false;
-            this.ListDisplay.Size = new System.Drawing.Size(200, 200);
+            this.ListDisplay.Size = new System.Drawing.Size(196, 46);
             this.ListDisplay.TabIndex = 0;
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
@@ -59,7 +63,7 @@
             // 
             // name
             // 
-            this.name.Text = "Application Name";
+            this.name.Text = "";
             this.name.Width = 200;
             // 
             // NotifyTimer
@@ -67,19 +71,27 @@
             this.NotifyTimer.Enabled = true;
             this.NotifyTimer.Interval = 500;
             // 
+            // DisplayPanel
+            // 
+            this.DisplayPanel.Controls.Add(this.ListDisplay);
+            this.DisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DisplayPanel.Location = new System.Drawing.Point(0, 0);
+            this.DisplayPanel.Name = "DisplayPanel";
+            this.DisplayPanel.Padding = new System.Windows.Forms.Padding(2);
+            this.DisplayPanel.Size = new System.Drawing.Size(200, 50);
+            this.DisplayPanel.TabIndex = 1;
+            // 
             // ToastForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(200, 200);
+            this.ClientSize = new System.Drawing.Size(200, 50);
             this.ControlBox = false;
-            this.Controls.Add(this.ListDisplay);
+            this.Controls.Add(this.DisplayPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(200, 200);
+            this.MinimumSize = new System.Drawing.Size(200, 50);
             this.Name = "ToastForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -87,6 +99,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ToastForm";
             this.TopMost = true;
+            this.DisplayPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -95,5 +108,6 @@
         public ListView ListDisplay;
         public ColumnHeader name;
         public System.Windows.Forms.Timer NotifyTimer;
+        private Panel DisplayPanel;
     }
 }
