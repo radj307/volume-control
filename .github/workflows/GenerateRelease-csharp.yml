@@ -9,7 +9,7 @@ on:
 # Configuration Type
 env:
   BUILD_TYPE: 'Release'
-  
+
 jobs:
   build-release:
     runs-on: windows-2022
@@ -23,18 +23,7 @@ jobs:
     - uses: actions/setup-dotnet@main
       with:
         dotnet-version: 6.0.x
-      
-    - name: 'Run SetVersion Script'
-      run:  |
-            cd ${{github.workspace}}
-            './SetVersion.ps1'
-      
-    - name: 'Build VolumeControl Binary'
-      run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
-      
-    - name: 'Build VersionControlCLI Binary'
-      run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
-                    
+
     - name:   Get Version Number
       id:     get_version
       run:    |
@@ -43,37 +32,46 @@ jobs:
               echo ::set-output name=VERSION::$TAG
               if ("$TAG" -like "*pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
       shell:  powershell
-              
-              
+
+    - name: 'Run SetVersion Script'
+      run:  |
+            cd ${{github.workspace}}
+            './SetVersion.ps1 '
+
+    - name: 'Build VolumeControl Binary'
+      run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+
+    - name: 'Build VersionControlCLI Binary'
+      run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+
     - name:   Create Staging Workspace
       run:    |
               mkdir "${{github.workspace}}/STAGING"
-              
+
     - name:   Stage Files
       run:    |
               cd "${{github.workspace}}/STAGING"
               foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
               Get-ChildItem -Recurse
-              
+
     - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
         path: '${{github.workspace}}/STAGING/*'
-        
-        
+
   create-release:
     needs:    build-release
     runs-on:  ubuntu-latest
-    
+
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
         path:  ${{github.workspace}}
-        
+
     - run:  ls -lAghR
-      
+
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
