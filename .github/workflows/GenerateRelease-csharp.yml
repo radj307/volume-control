@@ -3,10 +3,9 @@ name: Generate Release
 on:
   workflow_run:
     workflows:
-      - Update Project Version Numbers
+      - 'Update Version'
     types:
-      - completed
-  workflow_dispatch:
+      - 'completed'
 
 # Configuration Type
 env:
@@ -21,6 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
+        ref:          'main'
         fetch-depth:  0
     - uses: actions/setup-dotnet@main
       with:
