@@ -63,6 +63,7 @@
             this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
+            this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.SystemTray_ContextMenu.SuspendLayout();
             this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
@@ -108,10 +109,9 @@
             // checkbox_minimizeOnStartup
             // 
             this.checkbox_minimizeOnStartup.AutoSize = true;
-            this.checkbox_minimizeOnStartup.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(6, 67);
             this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
-            this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(115, 20);
+            this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(113, 19);
             this.checkbox_minimizeOnStartup.TabIndex = 5;
             this.checkbox_minimizeOnStartup.Text = "Start Minimized";
             this.checkbox_minimizeOnStartup.UseVisualStyleBackColor = true;
@@ -177,19 +177,23 @@
             this.Tab_TargetSelection.Controls.Add(this.TabPage_Target);
             this.Tab_TargetSelection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tab_TargetSelection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Tab_TargetSelection.HotTrack = true;
             this.Tab_TargetSelection.Location = new System.Drawing.Point(0, 0);
             this.Tab_TargetSelection.Name = "Tab_TargetSelection";
             this.Tab_TargetSelection.SelectedIndex = 0;
             this.Tab_TargetSelection.Size = new System.Drawing.Size(368, 230);
+            this.Tab_TargetSelection.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.Tab_TargetSelection.TabIndex = 10;
             // 
             // Tab_General
             // 
+            this.Tab_General.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Tab_General.Controls.Add(this.groupBox1);
             this.Tab_General.Controls.Add(this.GroupBox_Toast);
             this.Tab_General.Controls.Add(this.Label_VersionNumber);
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
             this.Tab_General.Controls.Add(this.GroupBox_TargetProcess);
+            this.Tab_General.Font = new System.Drawing.Font("Calibri", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Tab_General.Location = new System.Drawing.Point(4, 24);
             this.Tab_General.Name = "Tab_General";
             this.Tab_General.Padding = new System.Windows.Forms.Padding(3);
@@ -200,10 +204,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.Checkbox_AlwaysOnTop);
             this.groupBox1.Controls.Add(this.CheckBox_RunOnStartup);
             this.groupBox1.Controls.Add(this.checkbox_minimizeOnStartup);
             this.groupBox1.Controls.Add(this.CheckBox_VisibleInTaskbar);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(218, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(134, 138);
@@ -250,6 +256,7 @@
             this.GroupBox_Toast.Controls.Add(this.label1);
             this.GroupBox_Toast.Controls.Add(this.NumberUpDown_TargetListTimeout);
             this.GroupBox_Toast.Controls.Add(this.Checkbox_TargetListEnabled);
+            this.GroupBox_Toast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GroupBox_Toast.Location = new System.Drawing.Point(5, 64);
             this.GroupBox_Toast.Name = "GroupBox_Toast";
             this.GroupBox_Toast.Size = new System.Drawing.Size(207, 80);
@@ -271,15 +278,22 @@
             this.NumberUpDown_TargetListTimeout.AccessibleDescription = "";
             this.NumberUpDown_TargetListTimeout.AccessibleName = "";
             this.NumberUpDown_TargetListTimeout.AutoSize = true;
+            this.NumberUpDown_TargetListTimeout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NumberUpDown_TargetListTimeout.CausesValidation = false;
             this.NumberUpDown_TargetListTimeout.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NumberUpDown_TargetListTimeout.Increment = new decimal(new int[] {
-            500,
+            250,
             0,
             0,
             0});
             this.NumberUpDown_TargetListTimeout.Location = new System.Drawing.Point(90, 46);
             this.NumberUpDown_TargetListTimeout.Maximum = new decimal(new int[] {
             60000,
+            0,
+            0,
+            0});
+            this.NumberUpDown_TargetListTimeout.Minimum = new decimal(new int[] {
+            250,
             0,
             0,
             0});
@@ -307,7 +321,9 @@
             // Label_VersionNumber
             // 
             this.Label_VersionNumber.AutoSize = true;
+            this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Label_VersionNumber.Location = new System.Drawing.Point(3, 35);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Padding = new System.Windows.Forms.Padding(72, 0, 0, 0);
@@ -361,6 +377,7 @@
             this.Numeric_VolumeStep.AccessibleDescription = "Defines how much the volume increases or decreases when a hotkey is pressed.";
             this.Numeric_VolumeStep.AccessibleName = "Volume Step Control";
             this.Numeric_VolumeStep.AutoSize = true;
+            this.Numeric_VolumeStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Numeric_VolumeStep.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Numeric_VolumeStep.Location = new System.Drawing.Point(294, 15);
             this.Numeric_VolumeStep.Name = "Numeric_VolumeStep";
@@ -499,13 +516,20 @@
             this.HKEdit_NextTarget.Size = new System.Drawing.Size(343, 57);
             this.HKEdit_NextTarget.TabIndex = 0;
             // 
+            // TargetRefreshTimer
+            // 
+            this.TargetRefreshTimer.Enabled = true;
+            this.TargetRefreshTimer.Interval = 4000;
+            this.TargetRefreshTimer.Tick += new System.EventHandler(this.TargetRefreshTimer_Tick);
+            // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 230);
             this.Controls.Add(this.Tab_TargetSelection);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
             this.Text = "Form1";
@@ -564,5 +588,6 @@
         private CheckBox Checkbox_AlwaysOnTop;
         private GroupBox groupBox1;
         private Label label1;
+        private System.Windows.Forms.Timer TargetRefreshTimer;
     }
 }

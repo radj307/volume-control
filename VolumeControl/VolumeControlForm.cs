@@ -58,6 +58,8 @@ namespace VolumeControl
 
         private readonly CancelButtonHandler cancelHandler = new();
 
+        private bool triggerTargetRefresh = false;
+
         //        private NotificationForm notification = new();
 
         #endregion Members
@@ -283,20 +285,20 @@ namespace VolumeControl
             RegisterHotkeys();
         }
 
-        private Image SelectTargetImage(bool useWhiteImg)
-        {
-            decimal volume = CurrentTargetVolume;
-            if (volume == -1m)
-                return useWhiteImg ? Properties.Resources.target_null_white : Properties.Resources.target_null;
-            else if (volume == 0m || CurrentTargetIsMuted)
-                return useWhiteImg ? Properties.Resources.target_0_white : Properties.Resources.target_0;
-            else if (volume <= 33m)
-                return useWhiteImg ? Properties.Resources.target_1_white : Properties.Resources.target_1;
-            else if (volume <= 66m)
-                return useWhiteImg ? Properties.Resources.target_2_white : Properties.Resources.target_2;
-            else
-                return useWhiteImg ? Properties.Resources.target_3_white : Properties.Resources.target_3;
-        }
+        //private Image SelectTargetImage(bool useWhiteImg)
+        //{
+        //    decimal volume = CurrentTargetVolume;
+        //    if (volume == -1m)
+        //        return useWhiteImg ? Properties.Resources.target_null_white : Properties.Resources.target_null;
+        //    else if (volume == 0m || CurrentTargetIsMuted)
+        //        return useWhiteImg ? Properties.Resources.target_0_white : Properties.Resources.target_0;
+        //    else if (volume <= 33m)
+        //        return useWhiteImg ? Properties.Resources.target_1_white : Properties.Resources.target_1;
+        //    else if (volume <= 66m)
+        //        return useWhiteImg ? Properties.Resources.target_2_white : Properties.Resources.target_2;
+        //    else
+        //        return useWhiteImg ? Properties.Resources.target_3_white : Properties.Resources.target_3;
+        //}
 
         /// <summary>
         /// Set the current target selection to a specific entry.
@@ -320,25 +322,23 @@ namespace VolumeControl
         /// </summary>
         private void NextTarget()
         {
+            if (triggerTargetRefresh)
+            {
+                UpdateProcessList();
+                TargetRefreshTimer.Enabled = true;
+            }
+
             if (CurrentTargetIndex + 1 < TargetListSize)
                 ++CurrentTargetIndex;
             else
                 CurrentTargetIndex = 0;
 
-            // if the main window is minimized, and the target list form is enabled.
-            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
-            {
-                targetListForm.Show(true, CurrentTargetName);
-                //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
-            }
-            else if (targetListForm.WindowState != FormWindowState.Minimized)
-            {
-                targetListForm.Selected = CurrentTargetName;
-            }
+            targetListForm.Selected = CurrentTargetName;
 
-            Properties.Settings.Default.LastTarget = CurrentTargetName;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            if (TargetListEnabled)
+                targetListForm.Show(true);
+
+            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.SelectedValue?.ToString();
         }
 
         /// <summary>
@@ -346,6 +346,12 @@ namespace VolumeControl
         /// </summary>
         private void PrevTarget()
         {
+            if (triggerTargetRefresh)
+            {
+                UpdateProcessList();
+                TargetRefreshTimer.Enabled = true;
+            }
+
             if (CurrentTargetIndex - 1 >= 0)
                 --CurrentTargetIndex;
             else
@@ -353,19 +359,10 @@ namespace VolumeControl
 
             targetListForm.Selected = CurrentTargetName;
 
-            if (TargetListEnabled && WindowState == FormWindowState.Minimized)
-            {
-                targetListForm.Show(true, CurrentTargetName);
-                //                notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
-            }
-            else if (targetListForm.WindowState != FormWindowState.Minimized)
-            {
-                targetListForm.Selected = CurrentTargetName;
-            }
+            if (TargetListEnabled)
+                targetListForm.Show(true);
 
             Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.SelectedValue?.ToString();
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
         }
 
         /// <summary>
@@ -410,6 +407,7 @@ namespace VolumeControl
             InitializeComponent();
 
             #region InitializeHotkeys
+
             // INITIALIZE VOLUME HOTKEYS
             hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
             hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
@@ -600,12 +598,12 @@ namespace VolumeControl
                 Properties.Settings.Default.Reload();
                 UpdateHotkeys();
             };
+
             #endregion InitializeHotkeys
 
             // INITIALIZE UI COMPONENTS
             // VOLUME STEP
             Numeric_VolumeStep.Value = Properties.Settings.Default.VolumeStep;
-
             // RUN ON STARTUP
             CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
             // VISIBLE IN TASKBAR
@@ -618,14 +616,9 @@ namespace VolumeControl
             // VERSION NUMBER
             Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(VolumeControlForm).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
-            {
                 Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}";
-            }
             else
-            {
-                Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{( currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "" )}";
-            }
-
+                Label_VersionNumber.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
             // CANCEL BUTTON HANDLER (ESC)
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
             CancelButton = cancelHandler;
@@ -638,7 +631,6 @@ namespace VolumeControl
             UpdateProcessList(); // update the process list
             ComboBox_ProcessSelector.TextChanged += ComboBox_ProcessName_TextChanged;
             ComboBox_ProcessSelector.Text = lastTarget;
-
             // TARGET LIST FORM
             targetListForm.Resize += delegate { if (targetListForm.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
             // TARGET LIST FORM ENABLED
@@ -751,9 +743,14 @@ namespace VolumeControl
 
         private void ToastTimeout_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
 
-        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = TopMost = Checkbox_AlwaysOnTop.Checked;
+        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = Checkbox_AlwaysOnTop.Checked;
+
+        private void TargetRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            TargetRefreshTimer.Enabled = false;
+            triggerTargetRefresh = true;
+        }
 
         #endregion FormComponents
-
     }
 }
