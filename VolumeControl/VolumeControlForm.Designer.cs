@@ -39,7 +39,6 @@
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.Tab_TargetSelection = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
-            this.Image_Icon = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Numeric_VolumeStep = new System.Windows.Forms.NumericUpDown();
@@ -65,11 +64,9 @@
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
             this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.volumeStatusImage1 = new UIComposites.VolumeStatusImage();
             this.SystemTray_ContextMenu.SuspendLayout();
             this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Image_Icon)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).BeginInit();
             this.GroupBox_Toast.SuspendLayout();
@@ -179,8 +176,6 @@
             // Tab_General
             // 
             this.Tab_General.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Tab_General.Controls.Add(this.volumeStatusImage1);
-            this.Tab_General.Controls.Add(this.Image_Icon);
             this.Tab_General.Controls.Add(this.label2);
             this.Tab_General.Controls.Add(this.groupBox1);
             this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
@@ -196,16 +191,6 @@
             this.Tab_General.TabIndex = 0;
             this.Tab_General.Text = "General";
             this.Tab_General.UseVisualStyleBackColor = true;
-            // 
-            // Image_Icon
-            // 
-            this.Image_Icon.Image = global::VolumeControl.Properties.Resources.png_silvered;
-            this.Image_Icon.Location = new System.Drawing.Point(13, 6);
-            this.Image_Icon.Name = "Image_Icon";
-            this.Image_Icon.Size = new System.Drawing.Size(80, 72);
-            this.Image_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Image_Icon.TabIndex = 22;
-            this.Image_Icon.TabStop = false;
             // 
             // label2
             // 
@@ -389,7 +374,7 @@
             this.Label_VersionNumber.AutoSize = true;
             this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(252, 20);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(69, 37);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
             this.Label_VersionNumber.TabIndex = 11;
@@ -400,7 +385,7 @@
             // 
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Label_VolumeControl.Location = new System.Drawing.Point(217, 3);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(33, 20);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
             this.Label_VolumeControl.TabIndex = 10;
@@ -528,19 +513,6 @@
             this.TargetRefreshTimer.Interval = 4000;
             this.TargetRefreshTimer.Tick += new System.EventHandler(this.TargetRefreshTimer_Tick);
             // 
-            // volumeStatusImage1
-            // 
-            this.volumeStatusImage1.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.volumeStatusImage1.BackColor = System.Drawing.Color.Transparent;
-            this.volumeStatusImage1.CausesValidation = false;
-            this.volumeStatusImage1.Location = new System.Drawing.Point(109, 6);
-            this.volumeStatusImage1.MaximumSize = new System.Drawing.Size(1024, 1024);
-            this.volumeStatusImage1.MinimumSize = new System.Drawing.Size(32, 32);
-            this.volumeStatusImage1.Name = "volumeStatusImage1";
-            this.volumeStatusImage1.Size = new System.Drawing.Size(72, 72);
-            this.volumeStatusImage1.TabIndex = 23;
-            this.volumeStatusImage1.UseWhiteForeground = false;
-            // 
             // VolumeControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -559,7 +531,6 @@
             this.Tab_TargetSelection.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Image_Icon)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).EndInit();
@@ -608,7 +579,5 @@
         private CheckBox CheckBox_RunOnStartup;
         private CheckBox checkbox_minimizeOnStartup;
         private CheckBox CheckBox_VisibleInTaskbar;
-        private PictureBox Image_Icon;
-        private UIComposites.VolumeStatusImage volumeStatusImage1;
     }
 }

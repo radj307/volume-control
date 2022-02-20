@@ -1,4 +1,5 @@
 ﻿using UIComposites;
+using ToastForm.Extensions;
 
 namespace VolumeControl
 {
@@ -85,9 +86,34 @@ namespace VolumeControl
 
         public ListView.ListViewItemCollection Items => ListDisplay.Items;
 
+        private void SetActiveStateImage(Image value)
+        {
+            StateImages.Images[1] = value;
+        }
+
+        private Image StateImageHigh => VolumeStateImageCache.Images[4];
+        private Image StateImageMedium => VolumeStateImageCache.Images[3];
+        private Image StateImageLow => VolumeStateImageCache.Images[2];
+        private Image StateImageMuted => VolumeStateImageCache.Images[1];
+        private Image StateImageNull => VolumeStateImageCache.Images[0];
+
         #endregion Properties
 
         #region Methods
+
+        public void UpdateActiveStateImage(float volume, bool muted)
+        {
+            if (volume < 0f || volume > 1f)
+                SetActiveStateImage(StateImageNull);
+            else if (muted || volume.EqualsWithin(0f))
+                SetActiveStateImage(StateImageMuted);
+            else if (volume < 0.3f)
+                SetActiveStateImage(StateImageLow);
+            else if (volume < 0.6f)
+                SetActiveStateImage(StateImageMedium);
+            else
+                SetActiveStateImage(StateImageHigh);
+        }
 
         public void FlushItems() => Items.Clear();
 
@@ -165,6 +191,8 @@ namespace VolumeControl
             // set the size of the form
             Size = new(Width, height);
         }
+
+        
 
         #endregion Methods
 

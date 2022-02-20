@@ -278,7 +278,7 @@ namespace VolumeControl
             var volume = GetTargetVolume(target);
             if (volume == null)
                 return;
-            volumeStatusImage1.UpdateActiveImage(volume.Value.Item1, volume.Value.Item2);
+            targetListForm.UpdateActiveStateImage(volume.Value.Item1, volume.Value.Item2);
         }
 
         private void UpdateHotkeys()

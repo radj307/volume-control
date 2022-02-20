@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToastForm));
             this.ListDisplay = new System.Windows.Forms.ListView();
             this.name = new System.Windows.Forms.ColumnHeader();
+            this.StateImages = new System.Windows.Forms.ImageList(this.components);
             this.NotifyTimer = new System.Windows.Forms.Timer(this.components);
             this.DisplayPanel = new System.Windows.Forms.Panel();
+            this.VolumeStateImageCache = new System.Windows.Forms.ImageList(this.components);
             this.DisplayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +58,7 @@
             this.ListDisplay.Scrollable = false;
             this.ListDisplay.ShowGroups = false;
             this.ListDisplay.Size = new System.Drawing.Size(196, 46);
+            this.ListDisplay.StateImageList = this.StateImages;
             this.ListDisplay.TabIndex = 0;
             this.ListDisplay.UseCompatibleStateImageBehavior = false;
             this.ListDisplay.View = System.Windows.Forms.View.Details;
@@ -66,6 +70,14 @@
             // 
             this.name.Text = "";
             this.name.Width = 200;
+            // 
+            // StateImages
+            // 
+            this.StateImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
+            this.StateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("StateImages.ImageStream")));
+            this.StateImages.TransparentColor = System.Drawing.Color.Transparent;
+            this.StateImages.Images.SetKeyName(0, "blank16x16.png");
+            this.StateImages.Images.SetKeyName(1, "0.png");
             // 
             // NotifyTimer
             // 
@@ -83,6 +95,17 @@
             this.DisplayPanel.Padding = new System.Windows.Forms.Padding(2);
             this.DisplayPanel.Size = new System.Drawing.Size(200, 50);
             this.DisplayPanel.TabIndex = 1;
+            // 
+            // VolumeStateImageCache
+            // 
+            this.VolumeStateImageCache.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
+            this.VolumeStateImageCache.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("VolumeStateImageCache.ImageStream")));
+            this.VolumeStateImageCache.TransparentColor = System.Drawing.Color.Transparent;
+            this.VolumeStateImageCache.Images.SetKeyName(0, "tgt.png");
+            this.VolumeStateImageCache.Images.SetKeyName(1, "0.png");
+            this.VolumeStateImageCache.Images.SetKeyName(2, "1.png");
+            this.VolumeStateImageCache.Images.SetKeyName(3, "2.png");
+            this.VolumeStateImageCache.Images.SetKeyName(4, "3.png");
             // 
             // ToastForm
             // 
@@ -112,5 +135,7 @@
         public ColumnHeader name;
         public System.Windows.Forms.Timer NotifyTimer;
         private Panel DisplayPanel;
+        private ImageList StateImages;
+        private ImageList VolumeStateImageCache;
     }
 }
