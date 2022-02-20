@@ -18,10 +18,10 @@ namespace UIComposites
         {
             InitializeComponent();
             keyBinding = new();
-            keyBinding.DataSource = KeyboardKeysList.KeysList;
+            keyBinding.DataSource = ValidKeysList.KeysList;
             Combobox_KeySelector.AutoCompleteSource = AutoCompleteSource.ListItems;
             AutoCompleteStringCollection autocomplete = new();
-            foreach (Keys key in KeyboardKeysList.KeysList)
+            foreach (Keys key in ValidKeysList.KeysList)
             {
                 autocomplete.Add(key.ToString());
             }
