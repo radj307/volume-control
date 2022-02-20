@@ -1,15 +1,6 @@
 $SCRIPTVERSION = "1" # The version number of this script file
 
-$ROOTPATH=$args[0]
-
-if ($ROOTPATH)
-{
-    Set-Location -Path $ROOTPATH
-}
-else
-{
-    Set-Location -Path '..'
-}
+Set-Location -Path '..'
 
 Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 
@@ -17,11 +8,20 @@ Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 $global:VC = "$(Get-Location)\VolumeControl\VolumeControl.csproj"
 $global:VCCLI = "$(Get-Location)\VolumeControlCLI\VolumeControlCLI.csproj"
 
-$GIT_TAG_RAW = $(git describe --tags --abbrev=0)
+if ( $args[1] )
+{
+    "Using Argument `"$args[1]`""
+    $global:GIT_TAG_RAW = $args[1]
+}
+else
+{
+    $global:GIT_TAG_RAW = $(git describe --tags --abbrev=0)
+    "Using Git Tag: `"$global:GIT_TAG_RAW`""
+}
 
-"Latest Git Tag:           `"$GIT_TAG_RAW`""
+"Latest Git Tag:           `"$global:GIT_TAG_RAW`""
 
-$GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
+$global:GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
 
 $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 
