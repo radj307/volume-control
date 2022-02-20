@@ -39,7 +39,8 @@
             // ListDisplay
             // 
             this.ListDisplay.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.ListDisplay.AllowColumnReorder = true;
+            this.ListDisplay.AutoArrange = false;
+            this.ListDisplay.BackColor = System.Drawing.SystemColors.Window;
             this.ListDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListDisplay.CheckBoxes = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -73,8 +74,10 @@
             // 
             // DisplayPanel
             // 
+            this.DisplayPanel.BackColor = System.Drawing.Color.Transparent;
             this.DisplayPanel.Controls.Add(this.ListDisplay);
             this.DisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DisplayPanel.ForeColor = System.Drawing.Color.Transparent;
             this.DisplayPanel.Location = new System.Drawing.Point(0, 0);
             this.DisplayPanel.Name = "DisplayPanel";
             this.DisplayPanel.Padding = new System.Windows.Forms.Padding(2);
