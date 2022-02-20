@@ -1,8 +1,8 @@
-name: Update Project Version Numbers
+name: 'Update Version'
 
 on:
   push:
-    tags: '*.*.*'
+    tags: '[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 jobs:
@@ -29,4 +29,4 @@ jobs:
                 git config user.email github-actions@github.com
                 git add -A
                 git commit -m "Update .csproj Version Numbers"
-                git push
+                git push origin HEAD:main
