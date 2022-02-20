@@ -1,9 +1,10 @@
 # Volume Control
 <a href="https://github.com/radj307/volume-control/releases"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&label=Latest%20Version&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>
 <a href="https://github.com/radj307/volume-control/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>  
-Simple, universal application-specific volume hotkeys using the Windows Mixer.  
+Simple, universal application-specific hotkeys using the Windows Mixer.  
 
-I made this because of my frustration with being unable to use keyboard hotkeys to control the volume of Deezer after switching from Spotify, and I figured why not just make hotkeys that work for any process.
+I made this because of my frustration with being unable to use keyboard hotkeys to control the volume of Deezer after switching from Spotify, and I figured why not just make hotkeys that work for any process.  
+You can use the GUI to switch targets, or use configurable hotkeys to cycle between them.  
 
 There is also a CLI version available on the releases page.  
 _Note: The CLI version accepts PID numbers or Process Names._
@@ -28,21 +29,17 @@ To get started, set a target application in the _General_ tab.
 If the list is empty, try clicking _Reload_, or starting an application that plays audio.  
 If you know the process name of the application you want to control, you can enter it whether it's on the list or not.
 
-### Default Hotkeys
-If your keyboard doesn't have media keys, change the bound key in the _Hotkeys_ tab.
+## Available Hotkeys
 
-- Increase Volume  
-  `Ctrl + VolumeUp`
-- Decrease Volume  
-  `Ctrl + VolumeDown`
-- Toggle Mute  
-  `Ctrl + VolumeMute`
-- Next Track  
-  `Ctrl + MediaNext`  _(Disabled by Default)_
-- Previous Track  
-  `Ctrl + MediaPrevious`  _(Disabled by Default)_
-- Play / Pause  
-  `Ctrl + MediaPlayPause`  _(Disabled by Default)_
+ - Application Volume Up
+ - Application Volume Down
+ - Application Toggle Mute
+ - Next Track
+ - Previous Track
+ - Play/Pause
+ - Next Target
+ - Previous Target
+ - Show Target List
 
 ## VolumeControl
 Volume Control usually lives in the System Tray to keep it out of your way.  

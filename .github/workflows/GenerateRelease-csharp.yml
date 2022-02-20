@@ -1,9 +1,11 @@
 name: Generate Release
 
-# Trigger on SEMVER-format tag push event
 on:
-  push:
-    tags: '*.*.*'
+  workflow_run:
+    workflows:
+      - Update Project Version Numbers
+    types:
+      - completed
   workflow_dispatch:
 
 # Configuration Type
@@ -12,7 +14,7 @@ env:
 
 jobs:
   build-release:
-    runs-on: windows-2022
+    runs-on:  windows-2022
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
@@ -24,7 +26,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name:   Get Version Number
+    - name:   Get Tag Version
       id:     get_version
       run:    |
               cd ${{github.workspace}}
@@ -33,11 +35,6 @@ jobs:
               if ("$TAG" -like "*pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
       shell:  powershell
 
-    - name: 'Run SetVersion Script'
-      run:  |
-            cd ${{github.workspace}}
-            './SetVersion.ps1 '
-
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
@@ -45,8 +42,7 @@ jobs:
       run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
 
     - name:   Create Staging Workspace
-      run:    |
-              mkdir "${{github.workspace}}/STAGING"
+      run:    mkdir "${{github.workspace}}/STAGING"
 
     - name:   Stage Files
       run:    |
