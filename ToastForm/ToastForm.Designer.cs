@@ -76,8 +76,8 @@
             this.StateImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
             this.StateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("StateImages.ImageStream")));
             this.StateImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.StateImages.Images.SetKeyName(0, "blank16x16.png");
-            this.StateImages.Images.SetKeyName(1, "0.png");
+            this.StateImages.Images.SetKeyName(0, "Unchecked");
+            this.StateImages.Images.SetKeyName(1, "Checked");
             // 
             // NotifyTimer
             // 
