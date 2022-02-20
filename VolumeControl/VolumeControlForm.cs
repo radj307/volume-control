@@ -60,8 +60,6 @@ namespace VolumeControl
 
         private bool triggerTargetRefresh = false;
 
-        //        private NotificationForm notification = new();
-
         #endregion Members
 
         #region Properties
@@ -219,14 +217,9 @@ namespace VolumeControl
         {
             string currentTarget = CurrentTargetName;
             if (currentTarget.Length > 0)
-            {
                 Text = $"{currentTarget} Volume Controller";
-                //                targetListForm.SetTitle(currentTarget);
-            }
             else
-            {
                 Text = "Volume Control";
-            }
         }
         /// <summary>
         /// Updates the options available in the Process selector box & the target list form.
@@ -253,11 +246,12 @@ namespace VolumeControl
             ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
 
             if (!isBlank)
-            {
                 CurrentTargetName = currentName;
-            }
 
-            targetListForm.Selected = CurrentTargetName; //< don't use the previously set current name in case it changed
+            currentName = CurrentTargetName;
+
+            targetListForm.Selected = currentName; //< don't use the previously set current name in case it changed
+            UpdateStatusImage();
         }
 
         private static BindingList<T> ToBindingList<T>(List<T> list)
@@ -266,6 +260,25 @@ namespace VolumeControl
             foreach (T item in list)
                 bindingList.Add(item);
             return bindingList;
+        }
+
+        private (float, bool)? GetTargetVolume(string? target = null)
+        {
+            AudioAPI.WindowsAPI.Audio.ISimpleAudioVolume? vol = VolumeHelper.GetVolumeObject(target ?? CurrentTargetName);
+            if (vol == null)
+                return null;
+            vol.GetMute(out bool isMuted);
+            vol.GetMasterVolume(out float volume);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(vol);
+            return (volume, isMuted);
+        }
+
+        private void UpdateStatusImage(string? target = null)
+        {
+            var volume = GetTargetVolume(target);
+            if (volume == null)
+                return;
+            volumeStatusImage1.UpdateActiveImage(volume.Value.Item1, volume.Value.Item2);
         }
 
         private void UpdateHotkeys()
@@ -284,21 +297,6 @@ namespace VolumeControl
 
             RegisterHotkeys();
         }
-
-        //private Image SelectTargetImage(bool useWhiteImg)
-        //{
-        //    decimal volume = CurrentTargetVolume;
-        //    if (volume == -1m)
-        //        return useWhiteImg ? Properties.Resources.target_null_white : Properties.Resources.target_null;
-        //    else if (volume == 0m || CurrentTargetIsMuted)
-        //        return useWhiteImg ? Properties.Resources.target_0_white : Properties.Resources.target_0;
-        //    else if (volume <= 33m)
-        //        return useWhiteImg ? Properties.Resources.target_1_white : Properties.Resources.target_1;
-        //    else if (volume <= 66m)
-        //        return useWhiteImg ? Properties.Resources.target_2_white : Properties.Resources.target_2;
-        //    else
-        //        return useWhiteImg ? Properties.Resources.target_3_white : Properties.Resources.target_3;
-        //}
 
         /// <summary>
         /// Set the current target selection to a specific entry.
@@ -372,7 +370,6 @@ namespace VolumeControl
         /// </summary>
         private void ShowTarget()
         {
-            //notification.ShowNotification(CurrentTargetName, Properties.Settings.Default.tgtlist_timeout, SelectTargetImage(true), Color.DarkGray, Notify.GetAltColor(Color.DarkGray));
             if (targetListForm.Visible)
                 targetListForm.Hide();
             else
@@ -392,7 +389,7 @@ namespace VolumeControl
         /// </summary>
         private static void SaveSettings(object? sender, EventArgs e)
         {
-            Properties.Settings.Default.PropertyChanged -= SaveSettings;
+            Properties.Settings.Default.PropertyChanged -= SaveSettings; // don't recurse
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
             Properties.Settings.Default.PropertyChanged += SaveSettings;
@@ -411,16 +408,34 @@ namespace VolumeControl
             #region InitializeHotkeys
 
             // INITIALIZE VOLUME HOTKEYS
-            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate { VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
-            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate { VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep); });
-            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate { VolumeHelper.ToggleMute(CurrentTargetName); });
+            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate
+            {
+                VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
+                UpdateStatusImage();
+            });
+            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate
+            {
+                VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
+                UpdateStatusImage();
+            });
+            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate
+            {
+                VolumeHelper.ToggleMute(CurrentTargetName);
+                UpdateStatusImage();
+            });
             // INITIALIZE PLAYBACK HOTKEYS
             hk_next = new(Properties.Settings.Default.hk_next, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK); });
             hk_prev = new(Properties.Settings.Default.hk_prev, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK); });
             hk_playback = new(Properties.Settings.Default.hk_playback, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE); });
             // INITIALIZE TARGET HOTKEYS
-            hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, delegate { NextTarget(); });
-            hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, delegate { PrevTarget(); });
+            hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, delegate
+            {
+                NextTarget();
+            });
+            hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, delegate
+            {
+                PrevTarget();
+            });
             hk_showTarget = new(Properties.Settings.Default.hk_showTarget, delegate
             {
                 ShowTarget();
@@ -638,7 +653,7 @@ namespace VolumeControl
             // TARGET LIST FORM ENABLED
             TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             // TARGET LIST FORM TIMEOUT
-            targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
+            NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout);
             targetListForm.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
             {
                 SetTarget(targetListForm.Selected);
