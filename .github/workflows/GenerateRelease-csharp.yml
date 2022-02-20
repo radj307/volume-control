@@ -35,8 +35,8 @@ jobs:
 
     - name: 'Run SetVersion Script'
       run:  |
-            cd ${{github.workspace}}
-            './SetVersion.ps1 '
+            cd "${{github.workspace}}/VolumeControl"
+            '../SetVersion.ps1'
 
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
