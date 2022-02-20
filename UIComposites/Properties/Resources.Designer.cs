@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VolumeControl.Properties {
+namespace UIComposites.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VolumeControl.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VolumeControl.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UIComposites.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,71 +61,11 @@ namespace VolumeControl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon ico_grayscale2 {
-            get {
-                object obj = ResourceManager.GetObject("ico_grayscale2", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon ico_grayscaleFG {
-            get {
-                object obj = ResourceManager.GetObject("ico_grayscaleFG", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon ico_refresh {
-            get {
-                object obj = ResourceManager.GetObject("ico_refresh", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon ico_silvered {
-            get {
-                object obj = ResourceManager.GetObject("ico_silvered", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon {
+        internal static System.Drawing.Bitmap target_0 {
             get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon icon1 {
-            get {
-                object obj = ResourceManager.GetObject("icon1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap png_grayscale {
-            get {
-                object obj = ResourceManager.GetObject("png_grayscale", resourceCulture);
+                object obj = ResourceManager.GetObject("target-0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +73,9 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap png_grayscale2 {
+        internal static System.Drawing.Bitmap target_0_white {
             get {
-                object obj = ResourceManager.GetObject("png_grayscale2", resourceCulture);
+                object obj = ResourceManager.GetObject("target-0-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +83,9 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap png_refresh {
+        internal static System.Drawing.Bitmap target_1 {
             get {
-                object obj = ResourceManager.GetObject("png_refresh", resourceCulture);
+                object obj = ResourceManager.GetObject("target-1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +93,9 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap png_silvered {
+        internal static System.Drawing.Bitmap target_1_white {
             get {
-                object obj = ResourceManager.GetObject("png_silvered", resourceCulture);
+                object obj = ResourceManager.GetObject("target-1-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +103,59 @@ namespace VolumeControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap png_x {
+        internal static System.Drawing.Bitmap target_2 {
             get {
-                object obj = ResourceManager.GetObject("png_x", resourceCulture);
+                object obj = ResourceManager.GetObject("target-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_2_white {
+            get {
+                object obj = ResourceManager.GetObject("target-2-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_3 {
+            get {
+                object obj = ResourceManager.GetObject("target-3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_3_white {
+            get {
+                object obj = ResourceManager.GetObject("target-3-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_null {
+            get {
+                object obj = ResourceManager.GetObject("target-null", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap target_null_white {
+            get {
+                object obj = ResourceManager.GetObject("target-null-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
