@@ -11,8 +11,34 @@ env:
   BUILD_TYPE: 'Release'
 
 jobs:
+  # This job is required because C# is assholes and dotnet publish refuses to use the version number set by the SetVersion.ps1 script.
+  update-version-number:
+    runs-on:  windows-2022
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth:  0
+        
+      - name:   Run SetVersion.ps1
+        run:    |
+                cd ${{github.workspace}}\VolumeControl
+                ..\SetVersion.ps1
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+        
+      - name:   Push Changes
+        run:    |
+                cd ${{github.workspace}}
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+                git add -A
+                git commit -m "Update .csproj Version Numbers"
+                git push
+
   build-release:
-    runs-on: windows-2022
+    needs:    update-version-number
+    runs-on:  windows-2022
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
@@ -24,7 +50,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name:   Get Version Number
+    - name:   Get Tag Version
       id:     get_version
       run:    |
               cd ${{github.workspace}}
@@ -33,11 +59,6 @@ jobs:
               if ("$TAG" -like "*pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
       shell:  powershell
 
-    - name: 'Run SetVersion Script'
-      run:  |
-            cd "${{github.workspace}}/VolumeControl"
-            '../SetVersion.ps1'
-
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
@@ -45,8 +66,7 @@ jobs:
       run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
 
     - name:   Create Staging Workspace
-      run:    |
-              mkdir "${{github.workspace}}/STAGING"
+      run:    mkdir "${{github.workspace}}/STAGING"
 
     - name:   Stage Files
       run:    |
