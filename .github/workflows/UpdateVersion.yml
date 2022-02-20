@@ -1,0 +1,32 @@
+name: Update Project Version Numbers
+
+on:
+  push:
+    tags: '*.*.*'
+  workflow_dispatch:
+
+jobs:
+  # This job is required because C# is assholes and dotnet publish refuses to use the version number set by the SetVersion.ps1 script.
+  update-version-number:
+    runs-on:  windows-2022
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth:  0
+        
+      - name:   Run SetVersion.ps1
+        run:    |
+                cd ${{github.workspace}}\VolumeControl
+                ..\SetVersion.ps1
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+        
+      - name:   Push Changes
+        run:    |
+                cd ${{github.workspace}}
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+                git add -A
+                git commit -m "Update .csproj Version Numbers"
+                git push
