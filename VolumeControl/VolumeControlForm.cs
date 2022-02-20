@@ -324,6 +324,7 @@ namespace VolumeControl
         {
             if (triggerTargetRefresh)
             {
+                triggerTargetRefresh = false;
                 UpdateProcessList();
                 TargetRefreshTimer.Enabled = true;
             }
@@ -348,6 +349,7 @@ namespace VolumeControl
         {
             if (triggerTargetRefresh)
             {
+                triggerTargetRefresh = false;
                 UpdateProcessList();
                 TargetRefreshTimer.Enabled = true;
             }
