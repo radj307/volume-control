@@ -75,24 +75,6 @@ namespace VolumeControl
             get => ComboBox_ProcessSelector.Text;
             set => ComboBox_ProcessSelector.Text = value;
         }
-        private decimal CurrentTargetVolume
-        {
-            get
-            {
-                if (VolumeHelper.TryGetVolume(CurrentTargetName, out decimal vol))
-                    return vol;
-                return -1m;
-            }
-        }
-        private bool CurrentTargetIsMuted
-        {
-            get
-            {
-                if (VolumeHelper.TryIsMuted(CurrentTargetName, out bool muted))
-                    return muted;
-                return true;
-            }
-        }
 
         /// <summary>
         /// Overrides the base object's Visible member with a property that respects hotkeys.
@@ -141,6 +123,8 @@ namespace VolumeControl
         private bool NextTargetHotkeyIsEnabled => HKEdit_NextTarget.HotkeyIsEnabled;
         private bool PrevTargetHotkeyIsEnabled => HKEdit_PrevTarget.HotkeyIsEnabled;
         private bool ShowTargetHotkeyIsEnabled => HKEdit_ShowTarget.HotkeyIsEnabled;
+
+        private bool TargetListVisible => targetListForm.Visible;
 
         #endregion Properties
 
@@ -251,7 +235,6 @@ namespace VolumeControl
             currentName = CurrentTargetName;
 
             targetListForm.Selected = currentName; //< don't use the previously set current name in case it changed
-            UpdateStatusImage();
         }
 
         private static BindingList<T> ToBindingList<T>(List<T> list)
@@ -318,7 +301,7 @@ namespace VolumeControl
         /// <summary>
         /// Increment the current target indexer.
         /// </summary>
-        private void NextTarget()
+        private void NextTarget(object? sender, EventArgs e)
         {
             if (triggerTargetRefresh)
             {
@@ -332,18 +315,19 @@ namespace VolumeControl
             else
                 CurrentTargetIndex = 0;
 
-            targetListForm.Selected = CurrentTargetName;
+            Properties.Settings.Default.LastTarget = targetListForm.Selected = CurrentTargetName;
 
             if (TargetListEnabled)
-                targetListForm.Show(true);
-
-            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.SelectedValue?.ToString();
+            {
+                UpdateStatusImage();
+                targetListForm.Show(!TargetListVisible);
+            }
         }
 
         /// <summary>
         /// Decrement the current target indexer.
         /// </summary>
-        private void PrevTarget()
+        private void PrevTarget(object? sender, EventArgs e)
         {
             if (triggerTargetRefresh)
             {
@@ -357,18 +341,19 @@ namespace VolumeControl
             else
                 CurrentTargetIndex = TargetListSize - 1;
 
-            targetListForm.Selected = CurrentTargetName;
+            Properties.Settings.Default.LastTarget = targetListForm.Selected = CurrentTargetName;
 
             if (TargetListEnabled)
-                targetListForm.Show(true);
-
-            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.SelectedValue?.ToString();
+            {
+                UpdateStatusImage();
+                targetListForm.Show(!TargetListVisible);
+            }
         }
 
         /// <summary>
         /// Toggle the target list window.
         /// </summary>
-        private void ShowTarget()
+        private void ShowTarget(object? sender, EventArgs e)
         {
             if (targetListForm.Visible)
                 targetListForm.Hide();
@@ -376,6 +361,34 @@ namespace VolumeControl
             {
                 UpdateProcessList();
                 targetListForm.Show();
+            }
+        }
+
+        private void IncreaseVolume(object? sender, EventArgs e)
+        {
+            VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
+            if (TargetListVisible)
+            {
+                UpdateStatusImage(CurrentTargetName);
+                targetListForm.Refresh();
+            }
+        }
+        private void DecreaseVolume(object? sender, EventArgs e)
+        {
+            VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
+            if (TargetListVisible)
+            {
+                UpdateStatusImage(CurrentTargetName);
+                targetListForm.Refresh();
+            }
+        }
+        private void ToggleMute(object? sender, EventArgs e)
+        {
+            VolumeHelper.ToggleMute(CurrentTargetName);
+            if (TargetListVisible)
+            {
+                UpdateStatusImage(CurrentTargetName);
+                targetListForm.Refresh();
             }
         }
 
@@ -408,38 +421,17 @@ namespace VolumeControl
             #region InitializeHotkeys
 
             // INITIALIZE VOLUME HOTKEYS
-            hk_up = new(Properties.Settings.Default.hk_volumeup, delegate
-            {
-                VolumeHelper.IncrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
-                UpdateStatusImage();
-            });
-            hk_down = new(Properties.Settings.Default.hk_volumedown, delegate
-            {
-                VolumeHelper.DecrementVolume(CurrentTargetName, Properties.Settings.Default.VolumeStep);
-                UpdateStatusImage();
-            });
-            hk_mute = new(Properties.Settings.Default.hk_volumemute, delegate
-            {
-                VolumeHelper.ToggleMute(CurrentTargetName);
-                UpdateStatusImage();
-            });
+            hk_up = new(Properties.Settings.Default.hk_volumeup, IncreaseVolume);
+            hk_down = new(Properties.Settings.Default.hk_volumedown, DecreaseVolume);
+            hk_mute = new(Properties.Settings.Default.hk_volumemute, ToggleMute);
             // INITIALIZE PLAYBACK HOTKEYS
             hk_next = new(Properties.Settings.Default.hk_next, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK); });
             hk_prev = new(Properties.Settings.Default.hk_prev, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK); });
             hk_playback = new(Properties.Settings.Default.hk_playback, delegate { SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE); });
             // INITIALIZE TARGET HOTKEYS
-            hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, delegate
-            {
-                NextTarget();
-            });
-            hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, delegate
-            {
-                PrevTarget();
-            });
-            hk_showTarget = new(Properties.Settings.Default.hk_showTarget, delegate
-            {
-                ShowTarget();
-            });
+            hk_nextTarget = new(Properties.Settings.Default.hk_nextTarget, NextTarget);
+            hk_prevTarget = new(Properties.Settings.Default.hk_prevTarget, PrevTarget);
+            hk_showTarget = new(Properties.Settings.Default.hk_showTarget, ShowTarget);
 
             // INITIALIZE VOLUME HOTKEY EDITORS
             // VOLUME UP
@@ -625,11 +617,6 @@ namespace VolumeControl
             CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
             // VISIBLE IN TASKBAR
             ShowInTaskbar = CheckBox_VisibleInTaskbar.Checked = Properties.Settings.Default.VisibleInTaskbar;
-            // MINIMIZE ON STARTUP
-            bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
-            checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
-            if (minimizeOnStartup)
-                WindowState = FormWindowState.Minimized;
             // VERSION NUMBER
             Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(VolumeControlForm).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
@@ -664,6 +651,15 @@ namespace VolumeControl
 
             UpdateHotkeys();
             UpdateTitle();
+
+            // MINIMIZE ON STARTUP
+            bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
+            checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
+            if (minimizeOnStartup)
+            {
+                WindowState = FormWindowState.Minimized;
+                Visible = false;
+            }
         }
         ~VolumeControlForm()
         {
