@@ -86,7 +86,7 @@
             0,
             0});
             this.num_Timeout.Name = "num_Timeout";
-            this.num_Timeout.NumberUpDownWidth = 90;
+            this.num_Timeout.NumberUpDownWidth = 85;
             this.num_Timeout.Size = new System.Drawing.Size(170, 27);
             this.num_Timeout.TabIndex = 1;
             this.num_Timeout.Value = new decimal(new int[] {
