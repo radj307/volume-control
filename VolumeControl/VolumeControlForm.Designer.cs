@@ -37,26 +37,25 @@
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
-            this.Tab_TargetSelection = new System.Windows.Forms.TabControl();
-            this.Tab_General = new System.Windows.Forms.TabPage();
+            this.TabController = new Manina.Windows.Forms.TabControl();
+            this.Tab_General = new Manina.Windows.Forms.Tab();
             this.TgtSettings = new UIComposites.ToastSettings();
             this.Settings = new UIComposites.SettingsPane();
             this.label_targetswitch = new System.Windows.Forms.Label();
             this.Button_ReloadProcessList = new System.Windows.Forms.Button();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
-            this.Tab_Hotkeys_Volume = new System.Windows.Forms.TabPage();
-            this.Tab_Hotkeys_Playback = new System.Windows.Forms.TabPage();
+            this.Tab_Hotkeys_Volume = new Manina.Windows.Forms.Tab();
+            this.Tab_Hotkeys_Playback = new Manina.Windows.Forms.Tab();
             this.HKEdit_Prev = new UIComposites.HotkeyEditor();
             this.HKEdit_Next = new UIComposites.HotkeyEditor();
             this.HKEdit_TogglePlayback = new UIComposites.HotkeyEditor();
-            this.TabPage_Target = new System.Windows.Forms.TabPage();
+            this.TabPage_Target = new Manina.Windows.Forms.Tab();
             this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
             this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.SystemTray_ContextMenu.SuspendLayout();
-            this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
             this.Tab_Hotkeys_Volume.SuspendLayout();
             this.Tab_Hotkeys_Playback.SuspendLayout();
@@ -144,21 +143,19 @@
             this.HKEdit_VolumeMute.TabIndex = 9;
             this.HKEdit_VolumeMute.Tag = "";
             // 
-            // Tab_TargetSelection
+            // TabController
             // 
-            this.Tab_TargetSelection.Controls.Add(this.Tab_General);
-            this.Tab_TargetSelection.Controls.Add(this.Tab_Hotkeys_Volume);
-            this.Tab_TargetSelection.Controls.Add(this.Tab_Hotkeys_Playback);
-            this.Tab_TargetSelection.Controls.Add(this.TabPage_Target);
-            this.Tab_TargetSelection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Tab_TargetSelection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Tab_TargetSelection.HotTrack = true;
-            this.Tab_TargetSelection.Location = new System.Drawing.Point(0, 0);
-            this.Tab_TargetSelection.Name = "Tab_TargetSelection";
-            this.Tab_TargetSelection.SelectedIndex = 0;
-            this.Tab_TargetSelection.Size = new System.Drawing.Size(368, 230);
-            this.Tab_TargetSelection.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
-            this.Tab_TargetSelection.TabIndex = 10;
+            this.TabController.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabController.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TabController.Location = new System.Drawing.Point(0, 0);
+            this.TabController.Name = "TabController";
+            this.TabController.SelectedIndex = -1;
+            this.TabController.Size = new System.Drawing.Size(368, 230);
+            this.TabController.TabIndex = 10;
+            this.TabController.Tabs.Add(this.Tab_General);
+            this.TabController.Tabs.Add(this.Tab_Hotkeys_Volume);
+            this.TabController.Tabs.Add(this.Tab_Hotkeys_Playback);
+            this.TabController.Tabs.Add(this.TabPage_Target);
             // 
             // Tab_General
             // 
@@ -177,7 +174,6 @@
             this.Tab_General.Size = new System.Drawing.Size(360, 202);
             this.Tab_General.TabIndex = 0;
             this.Tab_General.Text = "General";
-            this.Tab_General.UseVisualStyleBackColor = true;
             // 
             // TgtSettings
             // 
@@ -275,7 +271,6 @@
             this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(360, 202);
             this.Tab_Hotkeys_Volume.TabIndex = 1;
             this.Tab_Hotkeys_Volume.Text = "Volume Hotkeys";
-            this.Tab_Hotkeys_Volume.UseVisualStyleBackColor = true;
             // 
             // Tab_Hotkeys_Playback
             // 
@@ -287,7 +282,6 @@
             this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(360, 202);
             this.Tab_Hotkeys_Playback.TabIndex = 2;
             this.Tab_Hotkeys_Playback.Text = "Playback Hotkeys";
-            this.Tab_Hotkeys_Playback.UseVisualStyleBackColor = true;
             // 
             // HKEdit_Prev
             // 
@@ -338,7 +332,6 @@
             this.TabPage_Target.Size = new System.Drawing.Size(360, 202);
             this.TabPage_Target.TabIndex = 4;
             this.TabPage_Target.Text = "Target Hotkeys";
-            this.TabPage_Target.UseVisualStyleBackColor = true;
             // 
             // HKEdit_ShowTarget
             // 
@@ -390,7 +383,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 230);
-            this.Controls.Add(this.Tab_TargetSelection);
+            this.Controls.Add(this.TabController);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -400,7 +393,6 @@
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);
             this.SystemTray_ContextMenu.ResumeLayout(false);
-            this.Tab_TargetSelection.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
             this.Tab_Hotkeys_Volume.ResumeLayout(false);
@@ -418,17 +410,17 @@
         private UIComposites.HotkeyEditor HKEdit_VolumeUp;
         private UIComposites.HotkeyEditor HKEdit_VolumeDown;
         private UIComposites.HotkeyEditor HKEdit_VolumeMute;
-        private TabControl Tab_TargetSelection;
-        private TabPage Tab_General;
-        private TabPage Tab_Hotkeys_Volume;
+        private Manina.Windows.Forms.TabControl TabController;
+        private Manina.Windows.Forms.Tab Tab_General;
+        private Manina.Windows.Forms.Tab Tab_Hotkeys_Volume;
         private Button Button_ReloadProcessList;
         private Label Label_VersionNumber;
         private Label Label_VolumeControl;
-        private TabPage Tab_Hotkeys_Playback;
+        private Manina.Windows.Forms.Tab Tab_Hotkeys_Playback;
         private UIComposites.HotkeyEditor HKEdit_Prev;
         private UIComposites.HotkeyEditor HKEdit_Next;
         private UIComposites.HotkeyEditor HKEdit_TogglePlayback;
-        private TabPage TabPage_Target;
+        private Manina.Windows.Forms.Tab TabPage_Target;
         private UIComposites.HotkeyEditor HKEdit_ShowTarget;
         private UIComposites.HotkeyEditor HKEdit_PrevTarget;
         private UIComposites.HotkeyEditor HKEdit_NextTarget;

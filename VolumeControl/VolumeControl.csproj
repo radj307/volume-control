@@ -39,6 +39,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+    <PackageReference Include="TabControl" Version="2.1.2" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\ToastForm\ToastForm.csproj" />
