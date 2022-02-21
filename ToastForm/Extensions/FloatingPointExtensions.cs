@@ -1,6 +1,6 @@
 ﻿namespace ToastForm.Extensions
 {
-    public static class FloatingPointComp
+    public static class FloatingPointExtensions
     {
         public static bool EqualsWithin(this float f, float compare, float epsilon = float.Epsilon)
         {
