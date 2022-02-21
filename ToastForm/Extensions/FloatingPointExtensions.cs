@@ -6,6 +6,10 @@
         {
             return (f - compare <= epsilon);
         }
+        public static bool EqualsWithin(this float f, double compare, double epsilon = double.Epsilon)
+        {
+            return (((double)f) - compare <= epsilon);
+        }
         public static bool EqualsWithin(this double d, double compare, double epsilon = double.Epsilon)
         {
             return (d - compare <= epsilon);

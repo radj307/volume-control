@@ -334,5 +334,29 @@ namespace VolumeControl.Properties {
                 this["tgtlist_enabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableDarkMode {
+            get {
+                return ((bool)(this["EnableDarkMode"]));
+            }
+            set {
+                this["EnableDarkMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableToastDarkMode {
+            get {
+                return ((bool)(this["EnableToastDarkMode"]));
+            }
+            set {
+                this["EnableToastDarkMode"] = value;
+            }
+        }
     }
 }

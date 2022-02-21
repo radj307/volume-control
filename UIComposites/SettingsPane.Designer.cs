@@ -35,6 +35,7 @@
             this.cb_ShowInTaskbar = new System.Windows.Forms.CheckBox();
             this.cb_AlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.panel = new System.Windows.Forms.Panel();
+            this.cb_DarkMode = new System.Windows.Forms.CheckBox();
             this.SettingsGroupBox.SuspendLayout();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -42,6 +43,7 @@
             // SettingsGroupBox
             // 
             this.SettingsGroupBox.BackColor = System.Drawing.SystemColors.Window;
+            this.SettingsGroupBox.Controls.Add(this.cb_DarkMode);
             this.SettingsGroupBox.Controls.Add(this.num_VolumeStep);
             this.SettingsGroupBox.Controls.Add(this.cb_RunAtStartup);
             this.SettingsGroupBox.Controls.Add(this.cb_MinimizeOnStartup);
@@ -52,7 +54,7 @@
             this.SettingsGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SettingsGroupBox.Location = new System.Drawing.Point(2, 2);
             this.SettingsGroupBox.Name = "SettingsGroupBox";
-            this.SettingsGroupBox.Size = new System.Drawing.Size(142, 131);
+            this.SettingsGroupBox.Size = new System.Drawing.Size(142, 151);
             this.SettingsGroupBox.TabIndex = 0;
             this.SettingsGroupBox.TabStop = false;
             this.SettingsGroupBox.Text = "Settings";
@@ -68,7 +70,7 @@
             0,
             0});
             this.num_VolumeStep.LabelText = "Volume Step";
-            this.num_VolumeStep.Location = new System.Drawing.Point(6, 100);
+            this.num_VolumeStep.Location = new System.Drawing.Point(6, 120);
             this.num_VolumeStep.MaxValue = new decimal(new int[] {
             100,
             0,
@@ -92,9 +94,10 @@
             // cb_RunAtStartup
             // 
             this.cb_RunAtStartup.AutoSize = true;
+            this.cb_RunAtStartup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_RunAtStartup.Location = new System.Drawing.Point(6, 20);
             this.cb_RunAtStartup.Name = "cb_RunAtStartup";
-            this.cb_RunAtStartup.Size = new System.Drawing.Size(101, 19);
+            this.cb_RunAtStartup.Size = new System.Drawing.Size(98, 19);
             this.cb_RunAtStartup.TabIndex = 3;
             this.cb_RunAtStartup.Text = "Run at Startup";
             this.cb_RunAtStartup.UseVisualStyleBackColor = true;
@@ -102,9 +105,10 @@
             // cb_MinimizeOnStartup
             // 
             this.cb_MinimizeOnStartup.AutoSize = true;
+            this.cb_MinimizeOnStartup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_MinimizeOnStartup.Location = new System.Drawing.Point(6, 40);
             this.cb_MinimizeOnStartup.Name = "cb_MinimizeOnStartup";
-            this.cb_MinimizeOnStartup.Size = new System.Drawing.Size(133, 19);
+            this.cb_MinimizeOnStartup.Size = new System.Drawing.Size(130, 19);
             this.cb_MinimizeOnStartup.TabIndex = 2;
             this.cb_MinimizeOnStartup.Text = "Minimize on Startup";
             this.cb_MinimizeOnStartup.UseVisualStyleBackColor = true;
@@ -112,9 +116,10 @@
             // cb_ShowInTaskbar
             // 
             this.cb_ShowInTaskbar.AutoSize = true;
+            this.cb_ShowInTaskbar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_ShowInTaskbar.Location = new System.Drawing.Point(6, 60);
             this.cb_ShowInTaskbar.Name = "cb_ShowInTaskbar";
-            this.cb_ShowInTaskbar.Size = new System.Drawing.Size(110, 19);
+            this.cb_ShowInTaskbar.Size = new System.Drawing.Size(107, 19);
             this.cb_ShowInTaskbar.TabIndex = 1;
             this.cb_ShowInTaskbar.Text = "Show In Taskbar";
             this.cb_ShowInTaskbar.UseVisualStyleBackColor = true;
@@ -122,9 +127,10 @@
             // cb_AlwaysOnTop
             // 
             this.cb_AlwaysOnTop.AutoSize = true;
+            this.cb_AlwaysOnTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_AlwaysOnTop.Location = new System.Drawing.Point(6, 80);
             this.cb_AlwaysOnTop.Name = "cb_AlwaysOnTop";
-            this.cb_AlwaysOnTop.Size = new System.Drawing.Size(102, 19);
+            this.cb_AlwaysOnTop.Size = new System.Drawing.Size(99, 19);
             this.cb_AlwaysOnTop.TabIndex = 0;
             this.cb_AlwaysOnTop.Text = "Always on Top";
             this.cb_AlwaysOnTop.UseMnemonic = false;
@@ -138,8 +144,19 @@
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(2);
-            this.panel.Size = new System.Drawing.Size(146, 135);
+            this.panel.Size = new System.Drawing.Size(146, 155);
             this.panel.TabIndex = 1;
+            // 
+            // cb_DarkMode
+            // 
+            this.cb_DarkMode.AutoSize = true;
+            this.cb_DarkMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_DarkMode.Location = new System.Drawing.Point(6, 100);
+            this.cb_DarkMode.Name = "cb_DarkMode";
+            this.cb_DarkMode.Size = new System.Drawing.Size(119, 19);
+            this.cb_DarkMode.TabIndex = 5;
+            this.cb_DarkMode.Text = "Enable Dark Mode";
+            this.cb_DarkMode.UseVisualStyleBackColor = true;
             // 
             // SettingsPane
             // 
@@ -149,7 +166,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.panel);
             this.Name = "SettingsPane";
-            this.Size = new System.Drawing.Size(146, 135);
+            this.Size = new System.Drawing.Size(146, 155);
             this.SettingsGroupBox.ResumeLayout(false);
             this.SettingsGroupBox.PerformLayout();
             this.panel.ResumeLayout(false);
@@ -166,5 +183,6 @@
         private CheckBox cb_MinimizeOnStartup;
         private CheckBox cb_ShowInTaskbar;
         private NumberUpDownWithLabel num_VolumeStep;
+        private CheckBox cb_DarkMode;
     }
 }

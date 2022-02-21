@@ -54,7 +54,7 @@
             // 
             this.numUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numUpDown.Dock = System.Windows.Forms.DockStyle.Right;
-            this.numUpDown.Location = new System.Drawing.Point(80, 1);
+            this.numUpDown.Location = new System.Drawing.Point(82, 1);
             this.numUpDown.Name = "numUpDown";
             this.numUpDown.Size = new System.Drawing.Size(50, 23);
             this.numUpDown.TabIndex = 1;
@@ -66,7 +66,6 @@
             // 
             // panel
             // 
-            this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Controls.Add(this.numUpDown);
             this.panel.Controls.Add(this.label);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;

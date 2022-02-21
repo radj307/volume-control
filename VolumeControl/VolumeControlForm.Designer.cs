@@ -183,27 +183,30 @@
             // 
             this.TgtSettings.BackColor = System.Drawing.Color.Transparent;
             this.TgtSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.TgtSettings.EnableDarkMode = false;
             this.TgtSettings.ForeColor = System.Drawing.Color.Transparent;
-            this.TgtSettings.Location = new System.Drawing.Point(8, 89);
+            this.TgtSettings.Location = new System.Drawing.Point(8, 65);
             this.TgtSettings.Name = "TgtSettings";
-            this.TgtSettings.Size = new System.Drawing.Size(180, 75);
+            this.TgtSettings.Size = new System.Drawing.Size(180, 99);
             this.TgtSettings.TabIndex = 23;
             this.TgtSettings.TargetListEnabled = false;
             this.TgtSettings.TargetListTimeout = 500;
             this.TgtSettings.TargetListEnabledChanged += new System.EventHandler(this.ToastEnabled_Changed);
             this.TgtSettings.TargetListTimeoutChanged += new System.EventHandler(this.ToastTimeout_Changed);
+            this.TgtSettings.DarkModeChanged += new System.EventHandler(this.TgtSettings_DarkModeChanged);
             // 
             // Settings
             // 
             this.Settings.AlwaysOnTop = false;
             this.Settings.BackColor = System.Drawing.Color.Transparent;
             this.Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Settings.Location = new System.Drawing.Point(206, 29);
+            this.Settings.EnableDarkMode = false;
+            this.Settings.Location = new System.Drawing.Point(206, 10);
             this.Settings.MinimizeOnStartup = false;
             this.Settings.Name = "Settings";
             this.Settings.RunAtStartup = false;
             this.Settings.ShowInTaskbar = false;
-            this.Settings.Size = new System.Drawing.Size(146, 135);
+            this.Settings.Size = new System.Drawing.Size(146, 154);
             this.Settings.TabIndex = 22;
             this.Settings.VolumeStep = new decimal(new int[] {
             5,
@@ -214,6 +217,7 @@
             this.Settings.RunAtStartupChanged += new System.EventHandler(this.RunOnStartup_Changed);
             this.Settings.MinimizeOnStartupChanged += new System.EventHandler(this.MinimizeOnStartup_Changed);
             this.Settings.ShowInTaskbarChanged += new System.EventHandler(this.VisibleInTaskbar_Changed);
+            this.Settings.DarkModeChanged += new System.EventHandler(this.Settings_DarkModeChanged);
             this.Settings.VolumeStepChanged += new System.EventHandler(this.VolumeStep_Changed);
             // 
             // label_targetswitch
@@ -242,7 +246,7 @@
             this.Label_VersionNumber.AutoSize = true;
             this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(69, 37);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(67, 35);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
             this.Label_VersionNumber.TabIndex = 11;
@@ -253,7 +257,7 @@
             // 
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Label_VolumeControl.Location = new System.Drawing.Point(33, 20);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(33, 18);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
             this.Label_VolumeControl.TabIndex = 10;

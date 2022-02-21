@@ -647,9 +647,11 @@ namespace VolumeControl
             Settings.MinimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             Settings.ShowInTaskbar = ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar;
             Settings.AlwaysOnTop = TopMost = Properties.Settings.Default.AlwaysOnTop;
+            Settings.EnableDarkMode = Properties.Settings.Default.EnableDarkMode;
             // TARGET LIST SETTINGS
             TgtSettings.TargetListEnabled = TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             TgtSettings.TargetListTimeout = targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
+            TgtSettings.EnableDarkMode = Properties.Settings.Default.EnableToastDarkMode;
 
             // Set a save event to trigger when properties change
             Properties.Settings.Default.PropertyChanged += SaveSettings;
@@ -762,5 +764,33 @@ namespace VolumeControl
         }
 
         #endregion FormComponents
+
+        private void TgtSettings_DarkModeChanged(object sender, EventArgs e)
+        {
+            bool enabled = TgtSettings.EnableDarkMode;
+            if (enabled)
+            {
+                ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
+            }
+            else
+            {
+                ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
+            }
+            Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
+        }
+
+        private void Settings_DarkModeChanged(object sender, EventArgs e)
+        {
+            bool enabled = Settings.EnableDarkMode;
+            if (enabled)
+            {
+                ColorScheme.DarkMode.ApplyTo(Controls);
+            }
+            else
+            {
+                ColorScheme.LightMode.ApplyTo(Controls);
+            }
+            Properties.Settings.Default.EnableDarkMode = enabled;
+        }
     }
 }

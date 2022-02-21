@@ -30,6 +30,7 @@
         {
             this.panel = new System.Windows.Forms.Panel();
             this.groupbox = new System.Windows.Forms.GroupBox();
+            this.cb_ToastDarkMode = new System.Windows.Forms.CheckBox();
             this.num_Timeout = new UIComposites.NumberUpDownWithLabel();
             this.cb_EnableNotification = new System.Windows.Forms.CheckBox();
             this.panel.SuspendLayout();
@@ -45,12 +46,13 @@
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(1);
-            this.panel.Size = new System.Drawing.Size(180, 75);
+            this.panel.Size = new System.Drawing.Size(180, 102);
             this.panel.TabIndex = 0;
             // 
             // groupbox
             // 
             this.groupbox.BackColor = System.Drawing.SystemColors.Window;
+            this.groupbox.Controls.Add(this.cb_ToastDarkMode);
             this.groupbox.Controls.Add(this.num_Timeout);
             this.groupbox.Controls.Add(this.cb_EnableNotification);
             this.groupbox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -58,10 +60,21 @@
             this.groupbox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupbox.Location = new System.Drawing.Point(1, 1);
             this.groupbox.Name = "groupbox";
-            this.groupbox.Size = new System.Drawing.Size(178, 73);
+            this.groupbox.Size = new System.Drawing.Size(178, 100);
             this.groupbox.TabIndex = 0;
             this.groupbox.TabStop = false;
             this.groupbox.Text = "Target Switch Settings";
+            // 
+            // cb_ToastDarkMode
+            // 
+            this.cb_ToastDarkMode.AutoSize = true;
+            this.cb_ToastDarkMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_ToastDarkMode.Location = new System.Drawing.Point(6, 42);
+            this.cb_ToastDarkMode.Name = "cb_ToastDarkMode";
+            this.cb_ToastDarkMode.Size = new System.Drawing.Size(149, 19);
+            this.cb_ToastDarkMode.TabIndex = 2;
+            this.cb_ToastDarkMode.Text = "Enable Toast Dark Mode";
+            this.cb_ToastDarkMode.UseVisualStyleBackColor = true;
             // 
             // num_Timeout
             // 
@@ -74,7 +87,7 @@
             0,
             0});
             this.num_Timeout.LabelText = "Timeout (ms)";
-            this.num_Timeout.Location = new System.Drawing.Point(5, 43);
+            this.num_Timeout.Location = new System.Drawing.Point(5, 67);
             this.num_Timeout.MaxValue = new decimal(new int[] {
             120000,
             0,
@@ -98,9 +111,10 @@
             // cb_EnableNotification
             // 
             this.cb_EnableNotification.AutoSize = true;
+            this.cb_EnableNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_EnableNotification.Location = new System.Drawing.Point(6, 20);
             this.cb_EnableNotification.Name = "cb_EnableNotification";
-            this.cb_EnableNotification.Size = new System.Drawing.Size(157, 19);
+            this.cb_EnableNotification.Size = new System.Drawing.Size(154, 19);
             this.cb_EnableNotification.TabIndex = 0;
             this.cb_EnableNotification.Text = "Enable Toast Notification";
             this.cb_EnableNotification.UseVisualStyleBackColor = true;
@@ -114,7 +128,7 @@
             this.Controls.Add(this.panel);
             this.ForeColor = System.Drawing.Color.Transparent;
             this.Name = "ToastSettings";
-            this.Size = new System.Drawing.Size(180, 75);
+            this.Size = new System.Drawing.Size(180, 102);
             this.panel.ResumeLayout(false);
             this.groupbox.ResumeLayout(false);
             this.groupbox.PerformLayout();
@@ -128,5 +142,6 @@
         private GroupBox groupbox;
         private NumberUpDownWithLabel num_Timeout;
         private CheckBox cb_EnableNotification;
+        private CheckBox cb_ToastDarkMode;
     }
 }

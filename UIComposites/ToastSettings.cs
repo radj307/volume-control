@@ -14,6 +14,11 @@
             get => num_Timeout.ValueInt32;
             set => num_Timeout.Value = Convert.ToDecimal(value);
         }
+        public bool EnableDarkMode
+        {
+            get => cb_ToastDarkMode.Checked;
+            set => cb_ToastDarkMode.Checked = value;
+        }
 
         #endregion Properties
 
@@ -31,6 +36,11 @@
         {
             add => num_Timeout.ValueChanged += value;
             remove => num_Timeout.ValueChanged -= value;
+        }
+        public event EventHandler DarkModeChanged
+        {
+            add => cb_ToastDarkMode.CheckedChanged += value;
+            remove => cb_ToastDarkMode.CheckedChanged -= value;
         }
     }
 }
