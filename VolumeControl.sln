@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControlCLI", "VolumeC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToastForm", "ToastForm\ToastForm.csproj", "{E43DDB53-FCBC-4EBB-A8AC-4088DD34AA8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessLog", "ProcessLog\ProcessLog.csproj", "{C743080F-490D-452B-B4BB-937580741E81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{E43DDB53-FCBC-4EBB-A8AC-4088DD34AA8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E43DDB53-FCBC-4EBB-A8AC-4088DD34AA8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{E43DDB53-FCBC-4EBB-A8AC-4088DD34AA8C}.Release|x86.Build.0 = Release|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Debug|x86.Build.0 = Debug|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Release|x86.ActiveCfg = Release|Any CPU
+		{C743080F-490D-452B-B4BB-937580741E81}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

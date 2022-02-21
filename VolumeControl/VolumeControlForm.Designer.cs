@@ -33,16 +33,14 @@
             this.SystemTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.SystemTray_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ComboBox_ProcessSelector = new System.Windows.Forms.ComboBox();
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.TabController = new Manina.Windows.Forms.TabControl();
             this.Tab_General = new Manina.Windows.Forms.Tab();
+            this.TargetSelector = new UIComposites.TargetSelector();
             this.TgtSettings = new UIComposites.ToastSettings();
             this.Settings = new UIComposites.SettingsPane();
-            this.label_targetswitch = new System.Windows.Forms.Label();
-            this.Button_ReloadProcessList = new System.Windows.Forms.Button();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
             this.Tab_Hotkeys_Volume = new Manina.Windows.Forms.Tab();
@@ -56,6 +54,7 @@
             this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
             this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.SystemTray_ContextMenu.SuspendLayout();
+            this.TabController.SuspendLayout();
             this.Tab_General.SuspendLayout();
             this.Tab_Hotkeys_Volume.SuspendLayout();
             this.Tab_Hotkeys_Playback.SuspendLayout();
@@ -90,16 +89,6 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.SystemTray_ContextMenu_Close);
-            // 
-            // ComboBox_ProcessSelector
-            // 
-            this.ComboBox_ProcessSelector.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ComboBox_ProcessSelector.Location = new System.Drawing.Point(54, 170);
-            this.ComboBox_ProcessSelector.MaxDropDownItems = 16;
-            this.ComboBox_ProcessSelector.Name = "ComboBox_ProcessSelector";
-            this.ComboBox_ProcessSelector.Size = new System.Drawing.Size(226, 24);
-            this.ComboBox_ProcessSelector.TabIndex = 6;
-            this.ComboBox_ProcessSelector.TextChanged += new System.EventHandler(this.ComboBox_ProcessName_TextChanged);
             // 
             // HKEdit_VolumeUp
             // 
@@ -145,11 +134,15 @@
             // 
             // TabController
             // 
+            this.TabController.Controls.Add(this.Tab_General);
+            this.TabController.Controls.Add(this.Tab_Hotkeys_Volume);
+            this.TabController.Controls.Add(this.Tab_Hotkeys_Playback);
+            this.TabController.Controls.Add(this.TabPage_Target);
             this.TabController.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabController.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TabController.Location = new System.Drawing.Point(0, 0);
             this.TabController.Name = "TabController";
-            this.TabController.SelectedIndex = -1;
+            this.TabController.SelectedIndex = 0;
             this.TabController.Size = new System.Drawing.Size(368, 230);
             this.TabController.TabIndex = 10;
             this.TabController.Tabs.Add(this.Tab_General);
@@ -160,20 +153,30 @@
             // Tab_General
             // 
             this.Tab_General.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Tab_General.Controls.Add(this.TargetSelector);
             this.Tab_General.Controls.Add(this.TgtSettings);
             this.Tab_General.Controls.Add(this.Settings);
-            this.Tab_General.Controls.Add(this.label_targetswitch);
-            this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
-            this.Tab_General.Controls.Add(this.Button_ReloadProcessList);
             this.Tab_General.Controls.Add(this.Label_VersionNumber);
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
             this.Tab_General.Font = new System.Drawing.Font("Calibri", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Tab_General.Location = new System.Drawing.Point(4, 24);
+            this.Tab_General.Location = new System.Drawing.Point(1, 23);
             this.Tab_General.Name = "Tab_General";
             this.Tab_General.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_General.Size = new System.Drawing.Size(360, 202);
-            this.Tab_General.TabIndex = 0;
+            this.Tab_General.Size = new System.Drawing.Size(366, 206);
             this.Tab_General.Text = "General";
+            // 
+            // TargetSelector
+            // 
+            this.TargetSelector.BackColor = System.Drawing.Color.Transparent;
+            this.TargetSelector.ForeColor = System.Drawing.Color.Transparent;
+            this.TargetSelector.LabelText = "Target";
+            this.TargetSelector.Location = new System.Drawing.Point(8, 170);
+            this.TargetSelector.Name = "TargetSelector";
+            this.TargetSelector.SelectedIndex = -1;
+            this.TargetSelector.SelectedItem = null;
+            this.TargetSelector.Size = new System.Drawing.Size(350, 30);
+            this.TargetSelector.TabIndex = 24;
+            this.TargetSelector.ReloadButtonPressed += new System.EventHandler(this.Reload_Clicked);
             // 
             // TgtSettings
             // 
@@ -197,7 +200,7 @@
             this.Settings.BackColor = System.Drawing.Color.Transparent;
             this.Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Settings.EnableDarkMode = false;
-            this.Settings.Location = new System.Drawing.Point(206, 10);
+            this.Settings.Location = new System.Drawing.Point(212, 10);
             this.Settings.MinimizeOnStartup = false;
             this.Settings.Name = "Settings";
             this.Settings.RunAtStartup = false;
@@ -215,27 +218,6 @@
             this.Settings.ShowInTaskbarChanged += new System.EventHandler(this.VisibleInTaskbar_Changed);
             this.Settings.DarkModeChanged += new System.EventHandler(this.Settings_DarkModeChanged);
             this.Settings.VolumeStepChanged += new System.EventHandler(this.VolumeStep_Changed);
-            // 
-            // label_targetswitch
-            // 
-            this.label_targetswitch.AutoSize = true;
-            this.label_targetswitch.Location = new System.Drawing.Point(8, 170);
-            this.label_targetswitch.Name = "label_targetswitch";
-            this.label_targetswitch.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.label_targetswitch.Size = new System.Drawing.Size(40, 19);
-            this.label_targetswitch.TabIndex = 21;
-            this.label_targetswitch.Text = "Target";
-            // 
-            // Button_ReloadProcessList
-            // 
-            this.Button_ReloadProcessList.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Button_ReloadProcessList.Location = new System.Drawing.Point(286, 170);
-            this.Button_ReloadProcessList.Name = "Button_ReloadProcessList";
-            this.Button_ReloadProcessList.Size = new System.Drawing.Size(66, 24);
-            this.Button_ReloadProcessList.TabIndex = 7;
-            this.Button_ReloadProcessList.Text = "Reload";
-            this.Button_ReloadProcessList.UseVisualStyleBackColor = true;
-            this.Button_ReloadProcessList.Click += new System.EventHandler(this.Button_ReloadProcessList_Click);
             // 
             // Label_VersionNumber
             // 
@@ -265,11 +247,10 @@
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeUp);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeMute);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeDown);
-            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(4, 24);
+            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(0, 0);
             this.Tab_Hotkeys_Volume.Name = "Tab_Hotkeys_Volume";
             this.Tab_Hotkeys_Volume.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(360, 202);
-            this.Tab_Hotkeys_Volume.TabIndex = 1;
+            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(0, 0);
             this.Tab_Hotkeys_Volume.Text = "Volume Hotkeys";
             // 
             // Tab_Hotkeys_Playback
@@ -277,10 +258,9 @@
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_Prev);
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_Next);
             this.Tab_Hotkeys_Playback.Controls.Add(this.HKEdit_TogglePlayback);
-            this.Tab_Hotkeys_Playback.Location = new System.Drawing.Point(4, 24);
+            this.Tab_Hotkeys_Playback.Location = new System.Drawing.Point(0, 0);
             this.Tab_Hotkeys_Playback.Name = "Tab_Hotkeys_Playback";
-            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(360, 202);
-            this.Tab_Hotkeys_Playback.TabIndex = 2;
+            this.Tab_Hotkeys_Playback.Size = new System.Drawing.Size(0, 0);
             this.Tab_Hotkeys_Playback.Text = "Playback Hotkeys";
             // 
             // HKEdit_Prev
@@ -327,10 +307,9 @@
             this.TabPage_Target.Controls.Add(this.HKEdit_ShowTarget);
             this.TabPage_Target.Controls.Add(this.HKEdit_PrevTarget);
             this.TabPage_Target.Controls.Add(this.HKEdit_NextTarget);
-            this.TabPage_Target.Location = new System.Drawing.Point(4, 24);
+            this.TabPage_Target.Location = new System.Drawing.Point(0, 0);
             this.TabPage_Target.Name = "TabPage_Target";
-            this.TabPage_Target.Size = new System.Drawing.Size(360, 202);
-            this.TabPage_Target.TabIndex = 4;
+            this.TabPage_Target.Size = new System.Drawing.Size(0, 0);
             this.TabPage_Target.Text = "Target Hotkeys";
             // 
             // HKEdit_ShowTarget
@@ -393,6 +372,7 @@
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);
             this.SystemTray_ContextMenu.ResumeLayout(false);
+            this.TabController.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
             this.Tab_Hotkeys_Volume.ResumeLayout(false);
@@ -406,14 +386,12 @@
         private NotifyIcon SystemTray;
         private ContextMenuStrip SystemTray_ContextMenu;
         private ToolStripMenuItem closeToolStripMenuItem;
-        private ComboBox ComboBox_ProcessSelector;
         private UIComposites.HotkeyEditor HKEdit_VolumeUp;
         private UIComposites.HotkeyEditor HKEdit_VolumeDown;
         private UIComposites.HotkeyEditor HKEdit_VolumeMute;
         private Manina.Windows.Forms.TabControl TabController;
         private Manina.Windows.Forms.Tab Tab_General;
         private Manina.Windows.Forms.Tab Tab_Hotkeys_Volume;
-        private Button Button_ReloadProcessList;
         private Label Label_VersionNumber;
         private Label Label_VolumeControl;
         private Manina.Windows.Forms.Tab Tab_Hotkeys_Playback;
@@ -425,8 +403,8 @@
         private UIComposites.HotkeyEditor HKEdit_PrevTarget;
         private UIComposites.HotkeyEditor HKEdit_NextTarget;
         private System.Windows.Forms.Timer TargetRefreshTimer;
-        private Label label_targetswitch;
         private UIComposites.ToastSettings TgtSettings;
         private UIComposites.SettingsPane Settings;
+        private UIComposites.TargetSelector TargetSelector;
     }
 }

@@ -10,7 +10,7 @@ namespace VolumeControl
         private readonly CancelButtonHandler cancel = new();
         private readonly BindingSource listBindSource = new();
         private readonly int listItemHeight;
-        private (int, int) positionPadding;
+        public bool ForceShow = false;
 
         #endregion Members
 
@@ -102,23 +102,7 @@ namespace VolumeControl
             set => ListDisplay.BackColor = value;
         }
 
-        /// <summary>
-        /// Change the distance between the window and the edge of the screen
-        /// Item1 = Width
-        /// Item2 = Height
-        /// </summary>
-        public (int, int) PositionPadding
-        {
-            get => positionPadding;
-            set => positionPadding = value;
-        }
-
         public ListView.ListViewItemCollection Items => ListDisplay.Items;
-
-        private void SetActiveStateImage(Image value)
-        {
-            StateImages.Images[1] = value;
-        }
 
         private Image StateImageHigh => VolumeStateImageCache.Images[4];
         private Image StateImageMedium => VolumeStateImageCache.Images[3];
@@ -129,6 +113,11 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
+
+        private void SetActiveStateImage(Image value)
+        {
+            StateImages.Images[1] = value;
+        }
 
         public void UpdateActiveStateImage(float volume, bool muted)
         {
@@ -179,7 +168,7 @@ namespace VolumeControl
             WindowState = FormWindowState.Normal;
             base.Show();
 
-            if (enableTimeout)
+            if (enableTimeout && !ForceShow)
             {
                 NotifyTimer.Enabled = true;
             }
@@ -199,8 +188,8 @@ namespace VolumeControl
         {
             SizeToFit();
             Position = new Point(
-                Screen.PrimaryScreen.WorkingArea.Width - Width - positionPadding.Item1,
-                Screen.PrimaryScreen.WorkingArea.Height - Height - positionPadding.Item2
+                Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
+                Screen.PrimaryScreen.WorkingArea.Height - Height - 10
             );
         }
 
@@ -222,8 +211,6 @@ namespace VolumeControl
             // set the size of the form
             Size = new(Width, height);
         }
-
-
 
         #endregion Methods
 
@@ -268,10 +255,29 @@ namespace VolumeControl
                 item.Checked = false;
             }
             EnableListEventTriggers();
+            OnSelectionChanged(e);
         }
         private void ListDisplay_ItemChecked(object sender, ItemCheckedEventArgs e) => OnSelectionChanged(e);
 
-        private void ListDisplay_ItemActivate(object? sender, EventArgs e) => OnSelectionChanged(e);
+        private void ListDisplay_ItemActivate(object? sender, EventArgs e)
+        {
+            DisableListEventTriggers(); //< Don't trigger event recursively (causes stack overflow)
+            
+            foreach (ListViewItem item in ListDisplay.Items)
+            {
+                if (item == null)
+                    continue;
+                item.Checked = false;
+            }
+            foreach (ListViewItem item in ListDisplay.SelectedItems)
+            {
+                if (item == null)
+                    continue;
+                item.Checked = true;
+            }
+            EnableListEventTriggers();
+            OnSelectionChanged(e);
+        }
 
         #endregion FormEvents
 

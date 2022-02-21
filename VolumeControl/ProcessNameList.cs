@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace VolumeControl
 {
-    internal static class AudioSessionList
+    internal static class ProcessNameList
     {
         public static List<string> GetProcessNames()
         {

@@ -62,7 +62,7 @@ namespace UIComposites
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Hotkey Hotkey
         {
-            get => new Hotkey(
+            get => new(
                     (Keys)Enum.Parse(typeof(Keys), Combobox_KeySelector.Text, true),
                     Checkbox_ModifierKey_Shift.Checked,
                     Checkbox_ModifierKey_Ctrl.Checked,

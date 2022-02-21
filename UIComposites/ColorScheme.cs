@@ -67,6 +67,13 @@ namespace UIComposites
         {
             throw new NotImplementedException("Cannot instantiate ColorBindingBase object.");
         }
+
+        public Form ApplyToSingle(Form frm)
+        {
+            frm.ForeColor = _fg;
+            frm.BackColor = _bg;
+            return frm;
+        }
     }
 
     public class DefaultColorBinding : ColorBindingBase

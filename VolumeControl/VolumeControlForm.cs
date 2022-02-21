@@ -64,16 +64,16 @@ namespace VolumeControl
 
         #region Properties
 
-        private int TargetListSize => ComboBox_ProcessSelector.Items.Count;
+        private int TargetListSize => TargetSelector.ListSize;
         private int CurrentTargetIndex
         {
-            get => ComboBox_ProcessSelector.SelectedIndex;
-            set => ComboBox_ProcessSelector.SelectedIndex = value;
+            get => TargetSelector.SelectedIndex;
+            set => TargetSelector.SelectedIndex = value;
         }
         private string CurrentTargetName
         {
-            get => ComboBox_ProcessSelector.Text;
-            set => ComboBox_ProcessSelector.Text = value;
+            get => TargetSelector.Text;
+            set => TargetSelector.Text = value;
         }
         private bool TargetListEnabled
         {
@@ -216,7 +216,7 @@ namespace VolumeControl
         internal void UpdateProcessList()
         {
             // get a list of all active audio sessions (applications that are outputting audio)
-            List<string> active = AudioSessionList.GetProcessNames();
+            List<string> active = ProcessNameList.GetProcessNames();
 
             string currentName = CurrentTargetName;
             bool isBlank = currentName.Length <= 0;
@@ -236,7 +236,7 @@ namespace VolumeControl
                 targetListForm.LoadItems(active);
             }
             // set the current list
-            ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
+            TargetSelector.DataSource = sessions = ToBindingList(active);
 
             if (!isBlank)
                 CurrentTargetName = currentName;
@@ -298,7 +298,7 @@ namespace VolumeControl
         /// <param name="addIfMissing">When true, adds the target name if it doesn't already exist.</param>
         private void SetTarget(string name, bool addIfMissing = true)
         {
-            int index = ComboBox_ProcessSelector.Items.IndexOf(name);
+            int index = TargetSelector.IndexOf(name);
             if (index != -1)
                 CurrentTargetIndex = index;
             else if (addIfMissing && name.Length > 0)
@@ -330,7 +330,7 @@ namespace VolumeControl
             if (TargetListEnabled)
             {
                 UpdateStatusImage();
-                targetListForm.Show(!TargetListVisible);
+                targetListForm.Show(true);
             }
         }
 
@@ -356,7 +356,7 @@ namespace VolumeControl
             if (TargetListEnabled)
             {
                 UpdateStatusImage();
-                targetListForm.Show(!TargetListVisible);
+                targetListForm.Show(true);
             }
         }
 
@@ -366,10 +366,14 @@ namespace VolumeControl
         private void ShowTarget(object? sender, EventArgs e)
         {
             if (targetListForm.Visible)
+            {
                 targetListForm.Hide();
+                targetListForm.ForceShow = false;
+            }
             else
             {
                 UpdateProcessList();
+                targetListForm.ForceShow = true;
                 targetListForm.Show();
             }
         }
@@ -631,10 +635,10 @@ namespace VolumeControl
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
             CancelButton = cancelHandler;
             // PROCESS SELECTOR
-            ComboBox_ProcessSelector.TextChanged -= ComboBox_ProcessName_TextChanged;
+            TargetSelector.TextChanged -= TargetComboBox_TextChanged;
             UpdateProcessList(); // update the process list
-            ComboBox_ProcessSelector.TextChanged += ComboBox_ProcessName_TextChanged;
-            ComboBox_ProcessSelector.Text = lastTarget;
+            TargetSelector.Text = lastTarget;
+            TargetSelector.TextChanged += TargetComboBox_TextChanged;
             // TARGET LIST FORM
             targetListForm.Resize += delegate { if (targetListForm.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
             targetListForm.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
@@ -679,9 +683,9 @@ namespace VolumeControl
         /// Automatically called when the value of "ComboBox_ProcessSelector.Text" is changed.
         /// Sets the settings value "ProcessName" to the new value, and updates the window title.
         /// </summary>
-        private void ComboBox_ProcessName_TextChanged(object? sender, EventArgs e)
+        private void TargetComboBox_TextChanged(object? sender, EventArgs e)
         {
-            Properties.Settings.Default.LastTarget = ComboBox_ProcessSelector.Text;
+            Properties.Settings.Default.LastTarget = TargetSelector.Text;
             UpdateTitle();
         }
         /// <summary>
@@ -719,7 +723,7 @@ namespace VolumeControl
         /// <summary>
         /// Called when the Reload button is pressed.
         /// </summary>
-        private void Button_ReloadProcessList_Click(object sender, EventArgs e) => UpdateProcessList();
+        private void Reload_Clicked(object sender, EventArgs e) => UpdateProcessList();
 
         /// <summary>
         /// Called when the window is maximized, minimized, or resized.

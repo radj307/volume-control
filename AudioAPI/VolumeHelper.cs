@@ -7,8 +7,8 @@ namespace AudioAPI
 {
     public static class VolumeHelper
     {
-        #region Static Members
-
+        #region StaticMembers
+        #region ByProcessName
         public static void IncrementVolume(string proc_name, decimal increment)
         {
             try
@@ -128,7 +128,8 @@ namespace AudioAPI
                                      select vol;
             return audioVolumeObjects.FirstOrDefault();
         }
-
+        #endregion ByProcessName
+        #region ByProcessID
         public static void IncrementVolume(int proc_id, decimal increment)
         {
             try
@@ -219,6 +220,7 @@ namespace AudioAPI
 
         public static ISimpleAudioVolume? GetVolumeObject(int proc_id) => Volume.GetVolumeObject(proc_id);
 
-        #endregion
+        #endregion ByProcessID
+        #endregion StaticMembers
     }
 }
