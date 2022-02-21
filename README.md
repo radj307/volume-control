@@ -7,7 +7,6 @@ I made this because of my frustration with being unable to use keyboard hotkeys 
 You can use the GUI to switch targets, or use configurable hotkeys to cycle between them.  
 
 There is also a CLI version available on the releases page.  
-_Note: The CLI version accepts PID numbers or Process Names._
 
 # Installation
  1. Download the [latest release](https://github.com/radj307/volume-control/releases).    
@@ -83,6 +82,7 @@ Here's an overview of the available settings:  _(as of v3.1.0)_
 For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
 
 Use `VolumeControlCLI -h` or `VolumeControlCLI --help` to see more up-to-date usage instructions.  
+_Note: The CLI version accepts PID numbers or Process Names._
 
 ### Commandline Options
 _This list was last updated as of `3.3.0-pr4`_
