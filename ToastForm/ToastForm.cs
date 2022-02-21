@@ -10,6 +10,7 @@ namespace VolumeControl
         private readonly CancelButtonHandler cancel = new();
         private readonly BindingSource listBindSource = new();
         private readonly int listItemHeight;
+        private (int, int) positionPadding;
 
         #endregion Members
 
@@ -84,6 +85,34 @@ namespace VolumeControl
             }
         }
 
+        /// <summary>
+        /// The color of the frame around the main list.
+        /// </summary>
+        public Color FrameColor
+        {
+            get => base.BackColor;
+            set => base.BackColor = value;
+        }
+        /// <summary>
+        /// The background color of the main list
+        /// </summary>
+        public Color BackgroundColor
+        {
+            get => ListDisplay.BackColor;
+            set => ListDisplay.BackColor = value;
+        }
+
+        /// <summary>
+        /// Change the distance between the window and the edge of the screen
+        /// Item1 = Width
+        /// Item2 = Height
+        /// </summary>
+        public (int, int) PositionPadding
+        {
+            get => positionPadding;
+            set => positionPadding = value;
+        }
+
         public ListView.ListViewItemCollection Items => ListDisplay.Items;
 
         private void SetActiveStateImage(Image value)
@@ -141,16 +170,18 @@ namespace VolumeControl
         /// </summary>
         public void Show(bool enableTimeout = false, string selectName = "")
         {
+            if (NotifyTimer.Enabled)
+                NotifyTimer.Enabled = false;
+
             if (selectName.Length > 0)
                 Selected = selectName;
+
             WindowState = FormWindowState.Normal;
             base.Show();
+
             if (enableTimeout)
             {
-                if (NotifyTimer.Enabled)
-                    NotifyTimer.Enabled = false;
                 NotifyTimer.Enabled = true;
-                NotifyTimer.Start();
             }
         }
         private void DisableListEventTriggers()
@@ -168,8 +199,8 @@ namespace VolumeControl
         {
             SizeToFit();
             Position = new Point(
-                Screen.PrimaryScreen.WorkingArea.Width - Width - 10,
-                Screen.PrimaryScreen.WorkingArea.Height - Height - 10
+                Screen.PrimaryScreen.WorkingArea.Width - Width - positionPadding.Item1,
+                Screen.PrimaryScreen.WorkingArea.Height - Height - positionPadding.Item2
             );
         }
 
@@ -192,7 +223,7 @@ namespace VolumeControl
             Size = new(Width, height);
         }
 
-        
+
 
         #endregion Methods
 
@@ -205,7 +236,6 @@ namespace VolumeControl
 
             Text = "Application Audio Sessions";
 
-            NotifyTimer.Tick += Hide;
             cancel.Action += Hide;
 
             CancelButton = cancel;

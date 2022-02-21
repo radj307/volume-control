@@ -39,19 +39,10 @@
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.Tab_TargetSelection = new System.Windows.Forms.TabControl();
             this.Tab_General = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Numeric_VolumeStep = new System.Windows.Forms.NumericUpDown();
-            this.Label_VolumeStep = new System.Windows.Forms.Label();
-            this.Checkbox_AlwaysOnTop = new System.Windows.Forms.CheckBox();
-            this.CheckBox_RunOnStartup = new System.Windows.Forms.CheckBox();
-            this.checkbox_minimizeOnStartup = new System.Windows.Forms.CheckBox();
-            this.CheckBox_VisibleInTaskbar = new System.Windows.Forms.CheckBox();
+            this.TgtSettings = new UIComposites.ToastSettings();
+            this.Settings = new UIComposites.SettingsPane();
+            this.label_targetswitch = new System.Windows.Forms.Label();
             this.Button_ReloadProcessList = new System.Windows.Forms.Button();
-            this.GroupBox_Toast = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.NumberUpDown_TargetListTimeout = new System.Windows.Forms.NumericUpDown();
-            this.Checkbox_TargetListEnabled = new System.Windows.Forms.CheckBox();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
             this.Tab_Hotkeys_Volume = new System.Windows.Forms.TabPage();
@@ -67,10 +58,6 @@
             this.SystemTray_ContextMenu.SuspendLayout();
             this.Tab_TargetSelection.SuspendLayout();
             this.Tab_General.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).BeginInit();
-            this.GroupBox_Toast.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberUpDown_TargetListTimeout)).BeginInit();
             this.Tab_Hotkeys_Volume.SuspendLayout();
             this.Tab_Hotkeys_Playback.SuspendLayout();
             this.TabPage_Target.SuspendLayout();
@@ -176,11 +163,11 @@
             // Tab_General
             // 
             this.Tab_General.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Tab_General.Controls.Add(this.label2);
-            this.Tab_General.Controls.Add(this.groupBox1);
+            this.Tab_General.Controls.Add(this.TgtSettings);
+            this.Tab_General.Controls.Add(this.Settings);
+            this.Tab_General.Controls.Add(this.label_targetswitch);
             this.Tab_General.Controls.Add(this.ComboBox_ProcessSelector);
             this.Tab_General.Controls.Add(this.Button_ReloadProcessList);
-            this.Tab_General.Controls.Add(this.GroupBox_Toast);
             this.Tab_General.Controls.Add(this.Label_VersionNumber);
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
             this.Tab_General.Font = new System.Drawing.Font("Calibri", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -192,104 +179,52 @@
             this.Tab_General.Text = "General";
             this.Tab_General.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // TgtSettings
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 170);
-            this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.label2.Size = new System.Drawing.Size(40, 19);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Target";
+            this.TgtSettings.BackColor = System.Drawing.Color.Transparent;
+            this.TgtSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.TgtSettings.ForeColor = System.Drawing.Color.Transparent;
+            this.TgtSettings.Location = new System.Drawing.Point(8, 89);
+            this.TgtSettings.Name = "TgtSettings";
+            this.TgtSettings.Size = new System.Drawing.Size(180, 75);
+            this.TgtSettings.TabIndex = 23;
+            this.TgtSettings.TargetListEnabled = false;
+            this.TgtSettings.TargetListTimeout = 500;
+            this.TgtSettings.TargetListEnabledChanged += new System.EventHandler(this.ToastEnabled_Changed);
+            this.TgtSettings.TargetListTimeoutChanged += new System.EventHandler(this.ToastTimeout_Changed);
             // 
-            // groupBox1
+            // Settings
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.Numeric_VolumeStep);
-            this.groupBox1.Controls.Add(this.Label_VolumeStep);
-            this.groupBox1.Controls.Add(this.Checkbox_AlwaysOnTop);
-            this.groupBox1.Controls.Add(this.CheckBox_RunOnStartup);
-            this.groupBox1.Controls.Add(this.checkbox_minimizeOnStartup);
-            this.groupBox1.Controls.Add(this.CheckBox_VisibleInTaskbar);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(211, 34);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(141, 130);
-            this.groupBox1.TabIndex = 20;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
-            // 
-            // Numeric_VolumeStep
-            // 
-            this.Numeric_VolumeStep.AccessibleDescription = "Defines how much the volume increases or decreases when a hotkey is pressed.";
-            this.Numeric_VolumeStep.AccessibleName = "Volume Step Control";
-            this.Numeric_VolumeStep.AutoSize = true;
-            this.Numeric_VolumeStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Numeric_VolumeStep.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Numeric_VolumeStep.Location = new System.Drawing.Point(87, 96);
-            this.Numeric_VolumeStep.Name = "Numeric_VolumeStep";
-            this.Numeric_VolumeStep.Size = new System.Drawing.Size(47, 26);
-            this.Numeric_VolumeStep.TabIndex = 1;
-            this.Numeric_VolumeStep.Value = new decimal(new int[] {
+            this.Settings.AlwaysOnTop = false;
+            this.Settings.BackColor = System.Drawing.Color.Transparent;
+            this.Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Settings.Location = new System.Drawing.Point(206, 29);
+            this.Settings.MinimizeOnStartup = false;
+            this.Settings.Name = "Settings";
+            this.Settings.RunAtStartup = false;
+            this.Settings.ShowInTaskbar = false;
+            this.Settings.Size = new System.Drawing.Size(146, 135);
+            this.Settings.TabIndex = 22;
+            this.Settings.VolumeStep = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.Numeric_VolumeStep.ValueChanged += new System.EventHandler(this.Numeric_VolumeStep_ValueChanged);
+            this.Settings.AlwaysOnTopChanged += new System.EventHandler(this.AlwaysOnTop_Changed);
+            this.Settings.RunAtStartupChanged += new System.EventHandler(this.RunOnStartup_Changed);
+            this.Settings.MinimizeOnStartupChanged += new System.EventHandler(this.MinimizeOnStartup_Changed);
+            this.Settings.ShowInTaskbarChanged += new System.EventHandler(this.VisibleInTaskbar_Changed);
+            this.Settings.VolumeStepChanged += new System.EventHandler(this.VolumeStep_Changed);
             // 
-            // Label_VolumeStep
+            // label_targetswitch
             // 
-            this.Label_VolumeStep.AutoSize = true;
-            this.Label_VolumeStep.Location = new System.Drawing.Point(6, 101);
-            this.Label_VolumeStep.Name = "Label_VolumeStep";
-            this.Label_VolumeStep.Size = new System.Drawing.Size(73, 15);
-            this.Label_VolumeStep.TabIndex = 2;
-            this.Label_VolumeStep.Text = "Volume Step";
-            // 
-            // Checkbox_AlwaysOnTop
-            // 
-            this.Checkbox_AlwaysOnTop.AutoSize = true;
-            this.Checkbox_AlwaysOnTop.Location = new System.Drawing.Point(6, 19);
-            this.Checkbox_AlwaysOnTop.Name = "Checkbox_AlwaysOnTop";
-            this.Checkbox_AlwaysOnTop.Size = new System.Drawing.Size(104, 19);
-            this.Checkbox_AlwaysOnTop.TabIndex = 19;
-            this.Checkbox_AlwaysOnTop.Text = "Always on Top";
-            this.Checkbox_AlwaysOnTop.UseVisualStyleBackColor = true;
-            this.Checkbox_AlwaysOnTop.CheckedChanged += new System.EventHandler(this.Checkbox_AlwaysOnTop_CheckedChanged);
-            // 
-            // CheckBox_RunOnStartup
-            // 
-            this.CheckBox_RunOnStartup.AutoSize = true;
-            this.CheckBox_RunOnStartup.Location = new System.Drawing.Point(6, 38);
-            this.CheckBox_RunOnStartup.Name = "CheckBox_RunOnStartup";
-            this.CheckBox_RunOnStartup.Size = new System.Drawing.Size(107, 19);
-            this.CheckBox_RunOnStartup.TabIndex = 14;
-            this.CheckBox_RunOnStartup.Text = "Run on Startup";
-            this.CheckBox_RunOnStartup.UseVisualStyleBackColor = true;
-            this.CheckBox_RunOnStartup.CheckedChanged += new System.EventHandler(this.CheckBox_RunOnStartup_CheckedChanged);
-            // 
-            // checkbox_minimizeOnStartup
-            // 
-            this.checkbox_minimizeOnStartup.AutoSize = true;
-            this.checkbox_minimizeOnStartup.Location = new System.Drawing.Point(6, 58);
-            this.checkbox_minimizeOnStartup.Name = "checkbox_minimizeOnStartup";
-            this.checkbox_minimizeOnStartup.Size = new System.Drawing.Size(113, 19);
-            this.checkbox_minimizeOnStartup.TabIndex = 5;
-            this.checkbox_minimizeOnStartup.Text = "Start Minimized";
-            this.checkbox_minimizeOnStartup.UseVisualStyleBackColor = true;
-            this.checkbox_minimizeOnStartup.CheckedChanged += new System.EventHandler(this.Checkbox_MinimizeOnStartup_CheckedChanged);
-            // 
-            // CheckBox_VisibleInTaskbar
-            // 
-            this.CheckBox_VisibleInTaskbar.AutoSize = true;
-            this.CheckBox_VisibleInTaskbar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CheckBox_VisibleInTaskbar.Location = new System.Drawing.Point(6, 77);
-            this.CheckBox_VisibleInTaskbar.Name = "CheckBox_VisibleInTaskbar";
-            this.CheckBox_VisibleInTaskbar.Size = new System.Drawing.Size(128, 19);
-            this.CheckBox_VisibleInTaskbar.TabIndex = 13;
-            this.CheckBox_VisibleInTaskbar.Text = "Show Taskbar Icon";
-            this.CheckBox_VisibleInTaskbar.UseVisualStyleBackColor = true;
-            this.CheckBox_VisibleInTaskbar.CheckedChanged += new System.EventHandler(this.CheckBox_VisibleInTaskbar_CheckedChanged);
+            this.label_targetswitch.AutoSize = true;
+            this.label_targetswitch.Location = new System.Drawing.Point(8, 170);
+            this.label_targetswitch.Name = "label_targetswitch";
+            this.label_targetswitch.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.label_targetswitch.Size = new System.Drawing.Size(40, 19);
+            this.label_targetswitch.TabIndex = 21;
+            this.label_targetswitch.Text = "Target";
             // 
             // Button_ReloadProcessList
             // 
@@ -301,73 +236,6 @@
             this.Button_ReloadProcessList.Text = "Reload";
             this.Button_ReloadProcessList.UseVisualStyleBackColor = true;
             this.Button_ReloadProcessList.Click += new System.EventHandler(this.Button_ReloadProcessList_Click);
-            // 
-            // GroupBox_Toast
-            // 
-            this.GroupBox_Toast.Controls.Add(this.label1);
-            this.GroupBox_Toast.Controls.Add(this.NumberUpDown_TargetListTimeout);
-            this.GroupBox_Toast.Controls.Add(this.Checkbox_TargetListEnabled);
-            this.GroupBox_Toast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GroupBox_Toast.Location = new System.Drawing.Point(8, 84);
-            this.GroupBox_Toast.Name = "GroupBox_Toast";
-            this.GroupBox_Toast.Size = new System.Drawing.Size(181, 80);
-            this.GroupBox_Toast.TabIndex = 18;
-            this.GroupBox_Toast.TabStop = false;
-            this.GroupBox_Toast.Text = "Target Switch Toast";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 15);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Timeout (ms)";
-            // 
-            // NumberUpDown_TargetListTimeout
-            // 
-            this.NumberUpDown_TargetListTimeout.AccessibleDescription = "";
-            this.NumberUpDown_TargetListTimeout.AccessibleName = "";
-            this.NumberUpDown_TargetListTimeout.AutoSize = true;
-            this.NumberUpDown_TargetListTimeout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.NumberUpDown_TargetListTimeout.CausesValidation = false;
-            this.NumberUpDown_TargetListTimeout.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NumberUpDown_TargetListTimeout.Increment = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.NumberUpDown_TargetListTimeout.Location = new System.Drawing.Point(90, 46);
-            this.NumberUpDown_TargetListTimeout.Maximum = new decimal(new int[] {
-            60000,
-            0,
-            0,
-            0});
-            this.NumberUpDown_TargetListTimeout.Minimum = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.NumberUpDown_TargetListTimeout.Name = "NumberUpDown_TargetListTimeout";
-            this.NumberUpDown_TargetListTimeout.Size = new System.Drawing.Size(80, 26);
-            this.NumberUpDown_TargetListTimeout.TabIndex = 16;
-            this.NumberUpDown_TargetListTimeout.Value = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.NumberUpDown_TargetListTimeout.ValueChanged += new System.EventHandler(this.ToastTimeout_ValueChanged);
-            // 
-            // Checkbox_TargetListEnabled
-            // 
-            this.Checkbox_TargetListEnabled.AutoSize = true;
-            this.Checkbox_TargetListEnabled.Location = new System.Drawing.Point(6, 21);
-            this.Checkbox_TargetListEnabled.Name = "Checkbox_TargetListEnabled";
-            this.Checkbox_TargetListEnabled.Size = new System.Drawing.Size(167, 19);
-            this.Checkbox_TargetListEnabled.TabIndex = 15;
-            this.Checkbox_TargetListEnabled.Text = "Enable Toast Notifications";
-            this.Checkbox_TargetListEnabled.UseVisualStyleBackColor = true;
-            this.Checkbox_TargetListEnabled.CheckedChanged += new System.EventHandler(this.Checkbox_ToastEnabled_CheckedChanged);
             // 
             // Label_VersionNumber
             // 
@@ -531,12 +399,6 @@
             this.Tab_TargetSelection.ResumeLayout(false);
             this.Tab_General.ResumeLayout(false);
             this.Tab_General.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Numeric_VolumeStep)).EndInit();
-            this.GroupBox_Toast.ResumeLayout(false);
-            this.GroupBox_Toast.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberUpDown_TargetListTimeout)).EndInit();
             this.Tab_Hotkeys_Volume.ResumeLayout(false);
             this.Tab_Hotkeys_Playback.ResumeLayout(false);
             this.TabPage_Target.ResumeLayout(false);
@@ -566,18 +428,9 @@
         private UIComposites.HotkeyEditor HKEdit_ShowTarget;
         private UIComposites.HotkeyEditor HKEdit_PrevTarget;
         private UIComposites.HotkeyEditor HKEdit_NextTarget;
-        private CheckBox Checkbox_TargetListEnabled;
-        private NumericUpDown NumberUpDown_TargetListTimeout;
-        private GroupBox GroupBox_Toast;
-        private Label label1;
         private System.Windows.Forms.Timer TargetRefreshTimer;
-        private Label label2;
-        private GroupBox groupBox1;
-        private NumericUpDown Numeric_VolumeStep;
-        private Label Label_VolumeStep;
-        private CheckBox Checkbox_AlwaysOnTop;
-        private CheckBox CheckBox_RunOnStartup;
-        private CheckBox checkbox_minimizeOnStartup;
-        private CheckBox CheckBox_VisibleInTaskbar;
+        private Label label_targetswitch;
+        private UIComposites.ToastSettings TgtSettings;
+        private UIComposites.SettingsPane Settings;
     }
 }

@@ -43,7 +43,7 @@
             // 
             this.ListDisplay.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.ListDisplay.AutoArrange = false;
-            this.ListDisplay.BackColor = System.Drawing.SystemColors.Window;
+            this.ListDisplay.BackColor = System.Drawing.SystemColors.Menu;
             this.ListDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListDisplay.CheckBoxes = true;
             this.ListDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -81,8 +81,8 @@
             // 
             // NotifyTimer
             // 
-            this.NotifyTimer.Enabled = true;
             this.NotifyTimer.Interval = 500;
+            this.NotifyTimer.Tick += new System.EventHandler(this.Hide);
             // 
             // DisplayPanel
             // 
@@ -111,6 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(200, 50);
             this.ControlBox = false;
             this.Controls.Add(this.DisplayPanel);

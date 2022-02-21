@@ -75,6 +75,11 @@ namespace VolumeControl
             get => ComboBox_ProcessSelector.Text;
             set => ComboBox_ProcessSelector.Text = value;
         }
+        private bool TargetListEnabled
+        {
+            get => TgtSettings.TargetListEnabled;
+            set => TgtSettings.TargetListEnabled = value;
+        }
 
         /// <summary>
         /// Overrides the base object's Visible member with a property that respects hotkeys.
@@ -223,9 +228,13 @@ namespace VolumeControl
             // sort the list (unsure of how useful this is)
             active.Sort();
 
+            bool tgtListEnabled = TargetListEnabled;
             // update the target list window:
-            targetListForm.FlushItems();
-            targetListForm.LoadItems(active);
+            if (tgtListEnabled)
+            {
+                targetListForm.FlushItems();
+                targetListForm.LoadItems(active);
+            }
             // set the current list
             ComboBox_ProcessSelector.DataSource = sessions = ToBindingList(active);
 
@@ -234,7 +243,8 @@ namespace VolumeControl
 
             currentName = CurrentTargetName;
 
-            targetListForm.Selected = currentName; //< don't use the previously set current name in case it changed
+            if (tgtListEnabled)
+                targetListForm.Selected = currentName; //< don't use the previously set current name in case it changed
         }
 
         private static BindingList<T> ToBindingList<T>(List<T> list)
@@ -611,12 +621,6 @@ namespace VolumeControl
             #endregion InitializeHotkeys
 
             // INITIALIZE UI COMPONENTS
-            // VOLUME STEP
-            Numeric_VolumeStep.Value = Properties.Settings.Default.VolumeStep;
-            // RUN ON STARTUP
-            CheckBox_RunOnStartup.Checked = Properties.Settings.Default.RunOnStartup;
-            // VISIBLE IN TASKBAR
-            ShowInTaskbar = CheckBox_VisibleInTaskbar.Checked = Properties.Settings.Default.VisibleInTaskbar;
             // VERSION NUMBER
             Version currentVersion = typeof(VolumeControlForm).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(VolumeControlForm).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
@@ -626,10 +630,6 @@ namespace VolumeControl
             // CANCEL BUTTON HANDLER (ESC)
             cancelHandler.Action += delegate { WindowState = FormWindowState.Minimized; };
             CancelButton = cancelHandler;
-            // ALWAYS ON TOP
-            bool alwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
-            TopMost = alwaysOnTop;
-            Checkbox_AlwaysOnTop.Checked = alwaysOnTop;
             // PROCESS SELECTOR
             ComboBox_ProcessSelector.TextChanged -= ComboBox_ProcessName_TextChanged;
             UpdateProcessList(); // update the process list
@@ -637,14 +637,19 @@ namespace VolumeControl
             ComboBox_ProcessSelector.Text = lastTarget;
             // TARGET LIST FORM
             targetListForm.Resize += delegate { if (targetListForm.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
-            // TARGET LIST FORM ENABLED
-            TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
-            // TARGET LIST FORM TIMEOUT
-            NumberUpDown_TargetListTimeout.Value = Convert.ToDecimal(targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout);
             targetListForm.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
             {
                 SetTarget(targetListForm.Selected);
             };
+            // SETTINGS
+            Settings.VolumeStep = Properties.Settings.Default.VolumeStep;
+            Settings.RunAtStartup = Properties.Settings.Default.RunOnStartup;
+            Settings.MinimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
+            Settings.ShowInTaskbar = ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar;
+            Settings.AlwaysOnTop = TopMost = Properties.Settings.Default.AlwaysOnTop;
+            // TARGET LIST SETTINGS
+            TgtSettings.TargetListEnabled = TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
+            TgtSettings.TargetListTimeout = targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
 
             // Set a save event to trigger when properties change
             Properties.Settings.Default.PropertyChanged += SaveSettings;
@@ -652,10 +657,7 @@ namespace VolumeControl
             UpdateHotkeys();
             UpdateTitle();
 
-            // MINIMIZE ON STARTUP
-            bool minimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
-            checkbox_minimizeOnStartup.Checked = minimizeOnStartup;
-            if (minimizeOnStartup)
+            if (Settings.MinimizeOnStartup)
             {
                 WindowState = FormWindowState.Minimized;
                 Visible = false;
@@ -684,7 +686,7 @@ namespace VolumeControl
         /// Automatically called when the value of volume_step is changed.
         /// Sets the settings value "VolumeStep" to the new value.
         /// </summary>
-        private void Numeric_VolumeStep_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.VolumeStep = Numeric_VolumeStep.Value;
+        private void VolumeStep_Changed(object sender, EventArgs e) => Properties.Settings.Default.VolumeStep = Settings.VolumeStep;
         /// <summary>
         /// Called when the system tray icon is double-clicked
         /// </summary>
@@ -706,7 +708,7 @@ namespace VolumeControl
         /// <summary>
         /// Called when the "Minimize on Startup" checkbox is changed.
         /// </summary>
-        private void Checkbox_MinimizeOnStartup_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.MinimizeOnStartup = checkbox_minimizeOnStartup.Checked;
+        private void MinimizeOnStartup_Changed(object sender, EventArgs e) => Properties.Settings.Default.MinimizeOnStartup = Settings.MinimizeOnStartup;
         /// <summary>
         /// Called when the window is focused by the user.
         /// </summary>
@@ -727,19 +729,19 @@ namespace VolumeControl
                 Visible = false;
             }
         }
-        private void CheckBox_RunOnStartup_CheckedChanged(object sender, EventArgs e)
+        private void RunOnStartup_Changed(object sender, EventArgs e)
         {
-            bool isChecked = CheckBox_RunOnStartup.Checked;
+            bool isChecked = Settings.RunAtStartup;
             if (isChecked)
                 RegAPI.EnableRunOnStartup();
             else
                 RegAPI.DisableRunOnStartup();
             Properties.Settings.Default.RunOnStartup = isChecked;
         }
-        private void CheckBox_VisibleInTaskbar_CheckedChanged(object sender, EventArgs e)
+        private void VisibleInTaskbar_Changed(object sender, EventArgs e)
         {
             UnregisterHotkeys();
-            bool isChecked = CheckBox_VisibleInTaskbar.Checked;
+            bool isChecked = Settings.ShowInTaskbar;
             if (isChecked != Properties.Settings.Default.VisibleInTaskbar)
             {
                 // Set the value of "ShowInTaskbar", automatically re-registers hotkeys using property override
@@ -747,16 +749,11 @@ namespace VolumeControl
             }
             RegisterHotkeys();
         }
-        private bool TargetListEnabled
-        {
-            get => Checkbox_TargetListEnabled.Checked;
-            set => Checkbox_TargetListEnabled.Checked = value;
-        }
-        private void Checkbox_ToastEnabled_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
+        private void ToastEnabled_Changed(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
 
-        private void ToastTimeout_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = Convert.ToInt32(NumberUpDown_TargetListTimeout.Value);
+        private void ToastTimeout_Changed(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = TgtSettings.TargetListTimeout;
 
-        private void Checkbox_AlwaysOnTop_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = Checkbox_AlwaysOnTop.Checked;
+        private void AlwaysOnTop_Changed(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = Settings.AlwaysOnTop;
 
         private void TargetRefreshTimer_Tick(object sender, EventArgs e)
         {
