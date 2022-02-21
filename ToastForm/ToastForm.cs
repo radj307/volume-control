@@ -1,5 +1,5 @@
-﻿using UIComposites;
-using ToastForm.Extensions;
+﻿using ToastForm.Extensions;
+using UIComposites;
 
 namespace VolumeControl
 {

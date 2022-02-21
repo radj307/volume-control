@@ -184,8 +184,8 @@ namespace HotkeyLib
             currentID = currentID + 1 % maximumID;
 
             // Translate modifier keys into unmanaged version
-            uint modifiers = ( Alt ? MOD_ALT : 0 ) | ( Control ? MOD_CONTROL : 0 ) |
-                            ( Shift ? MOD_SHIFT : 0 ) | ( Windows ? MOD_WIN : 0 );
+            uint modifiers = (Alt ? MOD_ALT : 0) | (Control ? MOD_CONTROL : 0) |
+                            (Shift ? MOD_SHIFT : 0) | (Windows ? MOD_WIN : 0);
 
             // Register the hotkey
             if (RegisterHotKey(windowControl.Handle, id, modifiers, keyCode) == 0)
@@ -260,7 +260,7 @@ namespace HotkeyLib
             { return false; }
 
             // Check that the ID is our key and we are registerd
-            if (registered && ( message.WParam.ToInt32() == id ))
+            if (registered && (message.WParam.ToInt32() == id))
             {
                 // Fire the event and pass on the event if our handlers didn't handle it
                 return OnPressed();
@@ -396,6 +396,6 @@ namespace HotkeyLib
             return base.ConvertTo(context, culture, value, destinationType);
         }
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => ( value as Hotkey ) ?? base.ConvertFrom(context, culture, value);
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => (value as Hotkey) ?? base.ConvertFrom(context, culture, value);
     }
 }

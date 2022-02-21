@@ -55,7 +55,7 @@ public class Program
                 }
                 else // not a pre release
                 {
-                    Console.WriteLine($"VolumeControlCLI  v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{( currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "" )}");
+                    Console.WriteLine($"VolumeControlCLI  v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}");
                 }
                 return 0;
             }
@@ -76,7 +76,7 @@ public class Program
                 if (arg.StartsWith("-p", StringComparison.Ordinal) || arg.StartsWith("--process", StringComparison.Ordinal))
                 {
                     if (setterPos != -1)
-                        processName = arg[( setterPos + 1 )..];
+                        processName = arg[(setterPos + 1)..];
                     else if (i + 1 < args.Length)
                     {
                         string nextArg = args[++i];
@@ -97,7 +97,7 @@ public class Program
                 {
                     targets.Add(Target.VOLUME);
                     if (setterPos != -1)
-                        volumeLevel = Convert.ToDecimal(arg[( setterPos + 1 )..]);
+                        volumeLevel = Convert.ToDecimal(arg[(setterPos + 1)..]);
                     else if (i + 1 < args.Length)
                     {
                         string nextArg = args[++i];
@@ -153,7 +153,7 @@ public class Program
                         VolumeHelper.SetMute(processName, mute);
                     else if (processId != null)
                         VolumeHelper.SetMute(Convert.ToInt32(processId), mute);
-                    Console.WriteLine($"{processName} {( mute ? "" : "un" )}muted.");
+                    Console.WriteLine($"{processName} {(mute ? "" : "un")}muted.");
                 }
             }
             else if (action == Action.GET)

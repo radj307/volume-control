@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
-
-namespace UIComposites
+﻿namespace UIComposites
 {
     public interface IColorBinding
     {
@@ -63,7 +56,7 @@ namespace UIComposites
         public Color GetBackColor() => _bg;
         public bool GetBackColorEnabled() => _bgEnabled;
 
-        virtual public bool AppliesToControl(Control type)
+        public virtual bool AppliesToControl(Control type)
         {
             throw new NotImplementedException("Cannot instantiate ColorBindingBase object.");
         }
@@ -91,7 +84,7 @@ namespace UIComposites
 
     public class ColorBinding<T> : ColorBindingBase where T : Control
     {
-        public ColorBinding(Color? fg, Color? bg) : base(fg, bg) {}
+        public ColorBinding(Color? fg, Color? bg) : base(fg, bg) { }
 
         public override bool AppliesToControl(Control type)
             => type is T;
@@ -125,7 +118,7 @@ namespace UIComposites
             }
             return Default;
         }
-       
+
         public void ApplyTo(Control.ControlCollection controls)
         {
             foreach (Control ctrl in controls)

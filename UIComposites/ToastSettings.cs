@@ -29,8 +29,8 @@
 
         public event EventHandler TargetListEnabledChanged
         {
-            add => cb_EnableNotification.CheckedChanged += value; 
-            remove => cb_EnableNotification.CheckedChanged -= value; 
+            add => cb_EnableNotification.CheckedChanged += value;
+            remove => cb_EnableNotification.CheckedChanged -= value;
         }
         public event EventHandler TargetListTimeoutChanged
         {
