@@ -104,15 +104,18 @@ namespace UIComposites
         {
             Theme = colors;
             Default = defaultColors;
+            BorderHighlight = new();
         }
         public ColorScheme()
         {
             Theme = new();
             Default = new();
+            BorderHighlight = new();
         }
 
         public List<IColorBinding> Theme;
         public DefaultColorBinding Default;
+        public DefaultColorBinding BorderHighlight;
 
         private IColorBinding GetApplicableColor(Control type)
         {
