@@ -762,23 +762,20 @@ namespace VolumeControl
             TargetRefreshTimer.Enabled = false;
             triggerTargetRefresh = true;
         }
-
-        #endregion FormComponents
-
         private void TgtSettings_DarkModeChanged(object sender, EventArgs e)
         {
             bool enabled = TgtSettings.EnableDarkMode;
             if (enabled)
             {
+                ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
                 targetListForm.ForeColor = ColorScheme.DarkMode.Default.GetForeColor();
                 targetListForm.BackColor = ColorScheme.DarkMode.Default.GetBackColor();
-                ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
             }
             else
             {
+                ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
                 targetListForm.ForeColor = ColorScheme.LightMode.Default.GetForeColor();
                 targetListForm.BackColor = ColorScheme.LightMode.Default.GetBackColor();
-                ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
             }
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
@@ -788,17 +785,19 @@ namespace VolumeControl
             bool enabled = Settings.EnableDarkMode;
             if (enabled)
             {
+                ColorScheme.DarkMode.ApplyTo(Controls);
                 ForeColor = ColorScheme.DarkMode.Default.GetForeColor();
                 BackColor = ColorScheme.DarkMode.Default.GetBackColor();
-                ColorScheme.DarkMode.ApplyTo(Controls);
             }
             else
             {
+                ColorScheme.LightMode.ApplyTo(Controls);
                 ForeColor = ColorScheme.LightMode.Default.GetForeColor();
                 BackColor = ColorScheme.LightMode.Default.GetBackColor();
-                ColorScheme.LightMode.ApplyTo(Controls);
             }
             Properties.Settings.Default.EnableDarkMode = enabled;
         }
+
+        #endregion FormComponents
     }
 }
