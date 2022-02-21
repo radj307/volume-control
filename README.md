@@ -29,6 +29,9 @@ To get started, set a target application in the _General_ tab.
 If the list is empty, try clicking _Reload_, or starting an application that plays audio.  
 If you know the process name of the application you want to control, you can enter it whether it's on the list or not.
 
+__Note:__ For an application to appear in the list of targets, it must be visible in the Windows Audio Mixer -- this happens as soon as it begins playing audio in most cases.
+
+
 ## Available Hotkeys
 
  - Application Volume Up
