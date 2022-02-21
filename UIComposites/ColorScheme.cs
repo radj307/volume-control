@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace UIComposites
 {
@@ -10,6 +11,8 @@ namespace UIComposites
     {
         public Color Foreground { get; set; }
         public Color Background { get; set; }
+        public bool EnableForeground { get; set; }
+        public bool EnableBackground { get; set; }
 
         /// <summary>
         /// Predicate function that determines whether or not this binding may apply to the given control type.
@@ -30,40 +33,72 @@ namespace UIComposites
         }
     }
 
-    public struct DefaultColorBinding : IColorBinding
+    public class ColorBindingBase : IColorBinding
     {
-        public DefaultColorBinding(Color fg, Color bg)
+        protected ColorBindingBase((Color, bool) fg, (Color, bool) bg)
         {
-            _foreground = fg;
-            _background = bg;
+            _fg = fg.Item1;
+            _fgEnabled = fg.Item2;
+            _bg = bg.Item1;
+            _bgEnabled = bg.Item2;
+        }
+        protected ColorBindingBase(Color? fg = null, Color? bg = null)
+        {
+            _fg = fg ?? Color.Transparent;
+            _fgEnabled = fg != null;
+            _bg = bg ?? Color.Transparent;
+            _bgEnabled = bg != null;
         }
 
-        private Color _foreground, _background;
+        protected Color _fg, _bg;
+        protected bool _fgEnabled, _bgEnabled;
 
-        Color IColorBinding.Foreground { get => _foreground; set => _foreground = value; }
-        Color IColorBinding.Background { get => _background; set => _background = value; }
+        Color IColorBinding.Foreground { get => _fg; set => _fg = value; }
+        Color IColorBinding.Background { get => _bg; set => _bg = value; }
+        bool IColorBinding.EnableForeground { get => _fgEnabled; set => _fgEnabled = value; }
+        bool IColorBinding.EnableBackground { get => _bgEnabled; set => _bgEnabled = value; }
 
-        bool IColorBinding.AppliesToControl(Control type) => true;
+        public Color GetForeColor() => _fg;
+        public bool GetForeColorEnabled() => _fgEnabled;
+        public Color GetBackColor() => _bg;
+        public bool GetBackColorEnabled() => _bgEnabled;
+
+        virtual public bool AppliesToControl(Control type)
+        {
+            throw new NotImplementedException("Cannot instantiate ColorBindingBase object.");
+        }
     }
 
-    public struct ColorBinding<T> : IColorBinding where T : Control
+    public class DefaultColorBinding : ColorBindingBase
     {
-        public ColorBinding(Color fg, Color bg)
+        public DefaultColorBinding(Color? fg = null, Color? bg = null, List<Type>? exclude = null) : base(fg, bg)
         {
-            _foreground = fg;
-            _background = bg;
+            excludeControls = exclude ?? new();
         }
 
-        private Color _foreground, _background;
+        private readonly List<Type> excludeControls;
 
-        Color IColorBinding.Foreground { get => _foreground; set => _foreground = value; }
-        Color IColorBinding.Background { get => _background; set => _background = value; }
+        public override bool AppliesToControl(Control type)
+        {
+            foreach (Type t in excludeControls)
+            {
+                if (type.GetType() == t)
+                    return false;
+            }
+            return true;
+        }
+    }
 
-        bool IColorBinding.AppliesToControl(Control type) => type is T;
+    public class ColorBinding<T> : ColorBindingBase where T : Control
+    {
+        public ColorBinding(Color? fg, Color? bg) : base(fg, bg) {}
+
+        public override bool AppliesToControl(Control type)
+            => type is T;
     }
 
 
-    public class ColorScheme
+    public partial class ColorScheme
     {
         public ColorScheme(DefaultColorBinding defaultColors, List<IColorBinding> colors)
         {
@@ -73,6 +108,7 @@ namespace UIComposites
         public ColorScheme()
         {
             Theme = new();
+            Default = new();
         }
 
         public List<IColorBinding> Theme;
@@ -99,26 +135,5 @@ namespace UIComposites
                 ApplyTo(ctrl.Controls);
             }
         }
-
-        public static readonly ColorScheme LightMode = new()
-        {
-            Default = new(Color.Black, Color.White),
-            Theme = new()
-            {
-                new ColorBinding<Panel>(Color.Transparent, Color.Transparent),
-                new ColorBinding<GroupBox>(Color.Transparent, Color.White),
-                new ColorBinding<Button>(Color.Black, Color.Transparent)
-            }
-        };
-        public static readonly ColorScheme DarkMode = new()
-        {
-            Default = new(Color.White, Color.DarkGray),
-            Theme = new()
-            {
-                new ColorBinding<Panel>(Color.Transparent, Color.Transparent),
-                new ColorBinding<GroupBox>(Color.Transparent, Color.SlateGray),
-                new ColorBinding<Button>(Color.White, Color.DarkSlateGray)
-            }
-        };
     }
 }
