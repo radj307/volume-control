@@ -42,10 +42,11 @@
             // Checkbox_Enabled
             // 
             this.Checkbox_Enabled.AutoSize = true;
+            this.Checkbox_Enabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Checkbox_Enabled.Location = new System.Drawing.Point(4, 34);
             this.Checkbox_Enabled.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_Enabled.Name = "Checkbox_Enabled";
-            this.Checkbox_Enabled.Size = new System.Drawing.Size(68, 19);
+            this.Checkbox_Enabled.Size = new System.Drawing.Size(65, 19);
             this.Checkbox_Enabled.TabIndex = 0;
             this.Checkbox_Enabled.Text = "Enabled";
             this.Checkbox_Enabled.UseMnemonic = false;
@@ -82,10 +83,11 @@
             // Checkbox_ModifierKey_Ctrl
             // 
             this.Checkbox_ModifierKey_Ctrl.AutoSize = true;
+            this.Checkbox_ModifierKey_Ctrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Checkbox_ModifierKey_Ctrl.Location = new System.Drawing.Point(190, 35);
             this.Checkbox_ModifierKey_Ctrl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Ctrl.Name = "Checkbox_ModifierKey_Ctrl";
-            this.Checkbox_ModifierKey_Ctrl.Size = new System.Drawing.Size(45, 19);
+            this.Checkbox_ModifierKey_Ctrl.Size = new System.Drawing.Size(42, 19);
             this.Checkbox_ModifierKey_Ctrl.TabIndex = 3;
             this.Checkbox_ModifierKey_Ctrl.Text = "Ctrl";
             this.Checkbox_ModifierKey_Ctrl.UseMnemonic = false;
@@ -95,10 +97,11 @@
             // Checkbox_ModifierKey_Alt
             // 
             this.Checkbox_ModifierKey_Alt.AutoSize = true;
+            this.Checkbox_ModifierKey_Alt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Checkbox_ModifierKey_Alt.Location = new System.Drawing.Point(243, 35);
             this.Checkbox_ModifierKey_Alt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Alt.Name = "Checkbox_ModifierKey_Alt";
-            this.Checkbox_ModifierKey_Alt.Size = new System.Drawing.Size(41, 19);
+            this.Checkbox_ModifierKey_Alt.Size = new System.Drawing.Size(38, 19);
             this.Checkbox_ModifierKey_Alt.TabIndex = 4;
             this.Checkbox_ModifierKey_Alt.Text = "Alt";
             this.Checkbox_ModifierKey_Alt.UseMnemonic = false;
@@ -108,10 +111,11 @@
             // Checkbox_ModifierKey_Shift
             // 
             this.Checkbox_ModifierKey_Shift.AutoSize = true;
+            this.Checkbox_ModifierKey_Shift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Checkbox_ModifierKey_Shift.Location = new System.Drawing.Point(132, 35);
             this.Checkbox_ModifierKey_Shift.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Shift.Name = "Checkbox_ModifierKey_Shift";
-            this.Checkbox_ModifierKey_Shift.Size = new System.Drawing.Size(50, 19);
+            this.Checkbox_ModifierKey_Shift.Size = new System.Drawing.Size(47, 19);
             this.Checkbox_ModifierKey_Shift.TabIndex = 5;
             this.Checkbox_ModifierKey_Shift.Text = "Shift";
             this.Checkbox_ModifierKey_Shift.UseMnemonic = false;
@@ -121,10 +125,11 @@
             // Checkbox_ModifierKey_Win
             // 
             this.Checkbox_ModifierKey_Win.AutoSize = true;
+            this.Checkbox_ModifierKey_Win.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Checkbox_ModifierKey_Win.Location = new System.Drawing.Point(292, 35);
             this.Checkbox_ModifierKey_Win.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Win.Name = "Checkbox_ModifierKey_Win";
-            this.Checkbox_ModifierKey_Win.Size = new System.Drawing.Size(47, 19);
+            this.Checkbox_ModifierKey_Win.Size = new System.Drawing.Size(44, 19);
             this.Checkbox_ModifierKey_Win.TabIndex = 6;
             this.Checkbox_ModifierKey_Win.Text = "Win";
             this.Checkbox_ModifierKey_Win.UseMnemonic = false;
