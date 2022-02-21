@@ -651,11 +651,19 @@ namespace VolumeControl
             Settings.MinimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             Settings.ShowInTaskbar = ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar;
             Settings.AlwaysOnTop = TopMost = Properties.Settings.Default.AlwaysOnTop;
+            Settings.DarkModeChanged -= Settings_DarkModeChanged;
             Settings.EnableDarkMode = Properties.Settings.Default.EnableDarkMode;
+            Settings.DarkModeChanged += Settings_DarkModeChanged;
             // TARGET LIST SETTINGS
             TgtSettings.TargetListEnabled = TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
             TgtSettings.TargetListTimeout = targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
+            TgtSettings.DarkModeChanged -= TgtSettings_DarkModeChanged;
             TgtSettings.EnableDarkMode = Properties.Settings.Default.EnableToastDarkMode;
+            TgtSettings.DarkModeChanged += TgtSettings_DarkModeChanged;
+
+            // Apply theme settings
+            Settings_DarkModeChanged(this, EventArgs.Empty);
+            TgtSettings_DarkModeChanged(this, EventArgs.Empty);
 
             // Set a save event to trigger when properties change
             Properties.Settings.Default.PropertyChanged += SaveSettings;
@@ -766,7 +774,7 @@ namespace VolumeControl
             TargetRefreshTimer.Enabled = false;
             triggerTargetRefresh = true;
         }
-        private void TgtSettings_DarkModeChanged(object sender, EventArgs e)
+        private void TgtSettings_DarkModeChanged(object? sender, EventArgs e)
         {
             bool enabled = TgtSettings.EnableDarkMode;
             if (enabled)
@@ -784,7 +792,7 @@ namespace VolumeControl
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
 
-        private void Settings_DarkModeChanged(object sender, EventArgs e)
+        private void Settings_DarkModeChanged(object? sender, EventArgs e)
         {
             bool enabled = Settings.EnableDarkMode;
             if (enabled)
