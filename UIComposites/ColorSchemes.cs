@@ -7,6 +7,7 @@ namespace UIComposites
         public static readonly ColorScheme LightMode = new()
         {
             Default = new(Color.Black, Color.WhiteSmoke),
+            BorderHighlight = new(Color.Black, Color.WhiteSmoke),
             Theme = new()
             {
                 new ColorBinding<Panel>(Color.Transparent, Color.WhiteSmoke),
@@ -21,14 +22,15 @@ namespace UIComposites
         };
         public static readonly ColorScheme DarkMode = new()
         {
-            Default = new(Color.WhiteSmoke, Color.FromArgb(75, 75, 75)),
+            Default = new(Color.WhiteSmoke, Color.FromArgb(50, 50, 50)),
+            BorderHighlight = new(Color.WhiteSmoke, Color.Magenta),
             Theme = new()
             {
                 new ColorBinding<Panel>(Color.Transparent, Color.FromArgb(60, 60, 60)),
                 new ColorBinding<GroupBox>(Color.WhiteSmoke, Color.FromArgb(60, 60, 60)),
                 new ColorBinding<Label>(Color.WhiteSmoke, Color.Transparent),
                 new ColorBinding<CheckBox>(Color.WhiteSmoke, Color.FromArgb(60, 60, 60)),
-                new ColorBinding<ComboBox>(Color.WhiteSmoke, Color.FromArgb(75, 75, 75)),
+                new ColorBinding<ComboBox>(Color.WhiteSmoke, Color.FromArgb(50, 50, 50)),
                 new ColorBinding<NumericUpDown>(Color.WhiteSmoke, Color.FromArgb(60, 60, 60)),
                 new ColorBinding<UserControl>(Color.WhiteSmoke, Color.FromArgb(60, 60, 60)),
                 new ColorBinding<Tab>(Color.WhiteSmoke, Color.FromArgb(60, 60, 60))
