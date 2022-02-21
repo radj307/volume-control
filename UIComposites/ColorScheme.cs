@@ -63,7 +63,7 @@ namespace UIComposites
     }
 
 
-    public class ColorScheme
+    public partial class ColorScheme
     {
         public ColorScheme(DefaultColorBinding defaultColors, List<IColorBinding> colors)
         {
@@ -100,25 +100,6 @@ namespace UIComposites
             }
         }
 
-        public static readonly ColorScheme LightMode = new()
-        {
-            Default = new(Color.Black, Color.White),
-            Theme = new()
-            {
-                new ColorBinding<Panel>(Color.Transparent, Color.Transparent),
-                new ColorBinding<GroupBox>(Color.Transparent, Color.White),
-                new ColorBinding<Button>(Color.Black, Color.Transparent)
-            }
-        };
-        public static readonly ColorScheme DarkMode = new()
-        {
-            Default = new(Color.White, Color.DarkGray),
-            Theme = new()
-            {
-                new ColorBinding<Panel>(Color.Transparent, Color.Transparent),
-                new ColorBinding<GroupBox>(Color.Transparent, Color.SlateGray),
-                new ColorBinding<Button>(Color.White, Color.DarkSlateGray)
-            }
-        };
+        
     }
 }
