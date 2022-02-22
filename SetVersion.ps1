@@ -41,8 +41,18 @@ if ($EXTRA)
     }
     
     $EXTRA -cmatch '(?<DIGITS>\d+)'
+    $EXTRA = $Matches.DIGITS
     
-    $global:TAG = $global:TAG + '.' + $Matches.DIGITS
+    if ($EXTRA)
+    {
+        $global:TAG = $global:TAG + '.' + $EXTRA
+        "Tag contained a suffix with numerical components -- Appending to the version number."
+        "Tag is now:               `"" + $global:TAG + "`""
+    }
+    else # Tag has a suffix, but it doesn't contain numbers.
+    {
+        "Unknown tag suffix format was ignored, tag wasn't modified."
+    }
 }
 
 "Working Directory:        `"$(Get-Location)`""
