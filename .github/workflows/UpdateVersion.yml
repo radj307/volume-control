@@ -29,4 +29,4 @@ jobs:
                 git config user.email github-actions@github.com
                 git add -A
                 git commit -m "Update .csproj Version Numbers"
-                git push origin HEAD:main
+                git push origin HEAD:github-actions
