@@ -168,6 +168,7 @@
             // TargetSelector
             // 
             this.TargetSelector.BackColor = System.Drawing.Color.Transparent;
+            this.TargetSelector.ComboBoxBorder = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TargetSelector.ForeColor = System.Drawing.Color.Transparent;
             this.TargetSelector.LabelText = "Target";
             this.TargetSelector.Location = new System.Drawing.Point(8, 170);
@@ -368,6 +369,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
+            this.ShowIcon = false;
             this.Text = "Volume Control";
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);
