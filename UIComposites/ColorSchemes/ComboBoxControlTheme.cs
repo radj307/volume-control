@@ -11,7 +11,7 @@
 
         public FlatStyle? FlatStyle { get => _flatStyle; }
 
-        public Control PaintControl(Control ctrl)
+        public new Control PaintControl(Control ctrl)
         {
             if (ctrl is ComboBox)
             {
