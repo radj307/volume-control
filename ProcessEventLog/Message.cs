@@ -1,6 +1,6 @@
-﻿using ProcessLog.Internal;
+﻿using ProcessEventLog.Internal;
 
-namespace ProcessLog
+namespace ProcessEventLog
 {
     public class DebugMessage : MessageBase { public DebugMessage(string msg) : base(Filter.MessageType.DEBUG, msg) { } }
     public class InfoMessage : MessageBase { public InfoMessage(string msg) : base(Filter.MessageType.INFO, msg) { } }

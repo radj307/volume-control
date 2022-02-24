@@ -1,4 +1,4 @@
-﻿namespace ProcessLog.Internal
+﻿namespace ProcessEventLog.Internal
 {
     public class MessageBase : ILogMessage
     {

@@ -1,6 +1,6 @@
-﻿using ProcessLog.Internal;
+﻿using ProcessEventLog.Internal;
 
-namespace ProcessLog
+namespace ProcessEventLog
 {
     public class Logger : StreamWriter, IDisposable
     {
