@@ -30,6 +30,13 @@ If you know the process name of the application you want to control, you can ent
 
 __Note:__ For an application to appear in the list of targets, it must be visible in the Windows Audio Mixer -- this happens as soon as it begins playing audio in most cases.
 
+## Rebinding Volume Media Keys
+
+This is fully supported, and is the original intent of the program.
+
+There are two ways to accomplish this:
+- Use a modifier key in combination with the volume up/down media keys to control application volume.
+- Use the volume up/down media keys to control application volume, then use any modifier key to change the global volume.  
 
 ## Available Hotkeys
 
@@ -47,36 +54,9 @@ __Note:__ For an application to appear in the list of targets, it must be visibl
 Volume Control usually lives in the System Tray to keep it out of your way.  
 To show the main window, double-click on the system tray icon.  
 
-![The Main Window](https://i.imgur.com/Kp8qUeO.png)  
-_NOTE: I am in no way affiliated with Deezer._
-
-Here's an overview of the available settings:  _(as of v3.1.0)_
-
-- Run on Startup  
-  - When checked, Volume Control will automatically start when you log in.  
-- Minimize on Startup  
-  - When checked, the application will start in the system tray instead of opening the main window.  
-- Visible in Taskbar  
-  - When checked, Volume Control will have a taskbar icon. _(Disabled by default)_
-- __Target Process__
-  - The name of the application you want to control.  
-    You can enter any string here, or use the drop-down to select an application. Use the _Reload_ button to refresh the list.  
-    _Note: Some applications will only show up when they are actually playing audio._  
-- Volume Adjustment - Step
-  - How much to adjust the application's volume each time the Volume Up / Volume Down hotkeys are pressed.   
-- Hotkeys
-  - Enabled  
-    When this is checked, the associated hotkey is active.
-  - Key Selector  
-    This is the textbox/dropdown in the top-right. You can enter the name of any valid key to select it.  
-  - Shift / Ctrl / Alt / Win  
-    These are modifier keys that you have to hold down when pressing the hotkey. By default, the `Ctrl` key is enabled.
-- _(3.3.0+)_ Target Switching Hotkeys
-  - These allow you to change the target process without interacting with the GUI.
-  - By default, when you use the `Next Target` or `Previous Target` hotkeys a notification window showing the currently selected target & all of the detected audio sessions will appear in the bottom right corner of the main screen. It will disappear after a configurable amount of time.
-  - The target list window can be disabled by unchecking _Enable Notifications_ under _Target Switch Notifications_.  
-    It will only appear if the `Show Targets` hotkey is enabled & pressed.
-  
+As of version 3.3.3, a dark theme is available for both the main window and the target list window. Comparison image between both themes:
+![Light & Dark Theme Comparison](https://i.imgur.com/lm5OuIe.png)  
+_This does not represent the actual appearance of the application._  
 
 ## VolumeControlCLI
 For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
