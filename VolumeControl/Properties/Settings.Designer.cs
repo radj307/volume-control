@@ -358,5 +358,17 @@ namespace VolumeControl.Properties {
                 this["EnableToastDarkMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AllowMultipleInstances {
+            get {
+                return ((bool)(this["AllowMultipleInstances"]));
+            }
+            set {
+                this["AllowMultipleInstances"] = value;
+            }
+        }
     }
 }

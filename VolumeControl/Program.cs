@@ -10,11 +10,14 @@ namespace VolumeControl
         [STAThread]
         private static void Main()
         {
-            Process thisProc = Process.GetCurrentProcess();
-            foreach (Process otherInst in Process.GetProcessesByName(thisProc.ProcessName))
-                if (thisProc.Id != otherInst.Id)
-                    throw new Exception("An instance of Volume Control is already running!");
+            if (!Properties.Settings.Default.AllowMultipleInstances)
+            {
+                Process thisProc = Process.GetCurrentProcess();
+                foreach (Process otherInst in Process.GetProcessesByName(thisProc.ProcessName))
+                    if (thisProc.Id != otherInst.Id)
+                        throw new Exception("An instance of Volume Control is already running!");
 
+            }
             //string themesDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\VolumeControl\themes";
 
             //ColorScheme.DarkMode.SaveToFile(themesDir + @"\DarkMode.json");
@@ -22,7 +25,7 @@ namespace VolumeControl
 
             //colors = new(themesDir);
 
-
+            // init & run application:
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
