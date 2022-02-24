@@ -22,6 +22,9 @@ jobs:
         shell:  |
                 pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
         
+      - name:   Fetch History for github-actions branch
+        run:    git fetch
+
       - name:   Push Changes
         run:    |
                 cd ${{github.workspace}}
