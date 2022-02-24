@@ -72,7 +72,7 @@
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(1);
-            this.panel.Size = new System.Drawing.Size(133, 27);
+            this.panel.Size = new System.Drawing.Size(133, 25);
             this.panel.TabIndex = 2;
             // 
             // NumberUpDownWithLabel
@@ -84,7 +84,7 @@
             this.Controls.Add(this.panel);
             this.ForeColor = System.Drawing.Color.Transparent;
             this.Name = "NumberUpDownWithLabel";
-            this.Size = new System.Drawing.Size(133, 27);
+            this.Size = new System.Drawing.Size(133, 25);
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown)).EndInit();
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();

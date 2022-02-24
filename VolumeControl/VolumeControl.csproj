@@ -84,7 +84,4 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ../SetVersion.ps1" />
-  </Target>
 </Project>

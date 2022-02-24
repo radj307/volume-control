@@ -46,7 +46,7 @@
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(1);
-            this.panel.Size = new System.Drawing.Size(180, 102);
+            this.panel.Size = new System.Drawing.Size(180, 92);
             this.panel.TabIndex = 0;
             // 
             // groupbox
@@ -60,7 +60,7 @@
             this.groupbox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupbox.Location = new System.Drawing.Point(1, 1);
             this.groupbox.Name = "groupbox";
-            this.groupbox.Size = new System.Drawing.Size(178, 100);
+            this.groupbox.Size = new System.Drawing.Size(178, 90);
             this.groupbox.TabIndex = 0;
             this.groupbox.TabStop = false;
             this.groupbox.Text = "Target Switch Settings";
@@ -69,7 +69,7 @@
             // 
             this.cb_ToastDarkMode.AutoSize = true;
             this.cb_ToastDarkMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_ToastDarkMode.Location = new System.Drawing.Point(6, 42);
+            this.cb_ToastDarkMode.Location = new System.Drawing.Point(10, 40);
             this.cb_ToastDarkMode.Name = "cb_ToastDarkMode";
             this.cb_ToastDarkMode.Size = new System.Drawing.Size(149, 19);
             this.cb_ToastDarkMode.TabIndex = 2;
@@ -87,7 +87,7 @@
             0,
             0});
             this.num_Timeout.LabelText = "Timeout (ms)";
-            this.num_Timeout.Location = new System.Drawing.Point(5, 67);
+            this.num_Timeout.Location = new System.Drawing.Point(4, 60);
             this.num_Timeout.MaxValue = new decimal(new int[] {
             120000,
             0,
@@ -100,7 +100,7 @@
             0});
             this.num_Timeout.Name = "num_Timeout";
             this.num_Timeout.NumberUpDownWidth = 85;
-            this.num_Timeout.Size = new System.Drawing.Size(170, 27);
+            this.num_Timeout.Size = new System.Drawing.Size(170, 25);
             this.num_Timeout.TabIndex = 1;
             this.num_Timeout.Value = new decimal(new int[] {
             500,
@@ -112,7 +112,7 @@
             // 
             this.cb_EnableNotification.AutoSize = true;
             this.cb_EnableNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_EnableNotification.Location = new System.Drawing.Point(6, 20);
+            this.cb_EnableNotification.Location = new System.Drawing.Point(10, 20);
             this.cb_EnableNotification.Name = "cb_EnableNotification";
             this.cb_EnableNotification.Size = new System.Drawing.Size(154, 19);
             this.cb_EnableNotification.TabIndex = 0;
@@ -128,7 +128,7 @@
             this.Controls.Add(this.panel);
             this.ForeColor = System.Drawing.Color.Transparent;
             this.Name = "ToastSettings";
-            this.Size = new System.Drawing.Size(180, 102);
+            this.Size = new System.Drawing.Size(180, 92);
             this.panel.ResumeLayout(false);
             this.groupbox.ResumeLayout(false);
             this.groupbox.PerformLayout();

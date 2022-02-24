@@ -64,7 +64,7 @@
             this.cb_DarkMode.AutoSize = true;
             this.cb_DarkMode.BackColor = System.Drawing.Color.Transparent;
             this.cb_DarkMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_DarkMode.Location = new System.Drawing.Point(6, 100);
+            this.cb_DarkMode.Location = new System.Drawing.Point(8, 100);
             this.cb_DarkMode.Name = "cb_DarkMode";
             this.cb_DarkMode.Size = new System.Drawing.Size(119, 19);
             this.cb_DarkMode.TabIndex = 5;
@@ -82,7 +82,7 @@
             0,
             0});
             this.num_VolumeStep.LabelText = "Volume Step";
-            this.num_VolumeStep.Location = new System.Drawing.Point(6, 120);
+            this.num_VolumeStep.Location = new System.Drawing.Point(5, 120);
             this.num_VolumeStep.MaxValue = new decimal(new int[] {
             100,
             0,
@@ -95,7 +95,7 @@
             0});
             this.num_VolumeStep.Name = "num_VolumeStep";
             this.num_VolumeStep.NumberUpDownWidth = 50;
-            this.num_VolumeStep.Size = new System.Drawing.Size(133, 27);
+            this.num_VolumeStep.Size = new System.Drawing.Size(132, 25);
             this.num_VolumeStep.TabIndex = 4;
             this.num_VolumeStep.Value = new decimal(new int[] {
             5,
@@ -108,7 +108,7 @@
             this.cb_RunAtStartup.AutoSize = true;
             this.cb_RunAtStartup.BackColor = System.Drawing.Color.Transparent;
             this.cb_RunAtStartup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_RunAtStartup.Location = new System.Drawing.Point(6, 20);
+            this.cb_RunAtStartup.Location = new System.Drawing.Point(8, 20);
             this.cb_RunAtStartup.Name = "cb_RunAtStartup";
             this.cb_RunAtStartup.Size = new System.Drawing.Size(98, 19);
             this.cb_RunAtStartup.TabIndex = 3;
@@ -120,7 +120,7 @@
             this.cb_MinimizeOnStartup.AutoSize = true;
             this.cb_MinimizeOnStartup.BackColor = System.Drawing.Color.Transparent;
             this.cb_MinimizeOnStartup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_MinimizeOnStartup.Location = new System.Drawing.Point(6, 40);
+            this.cb_MinimizeOnStartup.Location = new System.Drawing.Point(8, 40);
             this.cb_MinimizeOnStartup.Name = "cb_MinimizeOnStartup";
             this.cb_MinimizeOnStartup.Size = new System.Drawing.Size(130, 19);
             this.cb_MinimizeOnStartup.TabIndex = 2;
@@ -132,7 +132,7 @@
             this.cb_ShowInTaskbar.AutoSize = true;
             this.cb_ShowInTaskbar.BackColor = System.Drawing.Color.Transparent;
             this.cb_ShowInTaskbar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_ShowInTaskbar.Location = new System.Drawing.Point(6, 60);
+            this.cb_ShowInTaskbar.Location = new System.Drawing.Point(8, 60);
             this.cb_ShowInTaskbar.Name = "cb_ShowInTaskbar";
             this.cb_ShowInTaskbar.Size = new System.Drawing.Size(107, 19);
             this.cb_ShowInTaskbar.TabIndex = 1;
@@ -144,7 +144,7 @@
             this.cb_AlwaysOnTop.AutoSize = true;
             this.cb_AlwaysOnTop.BackColor = System.Drawing.Color.Transparent;
             this.cb_AlwaysOnTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_AlwaysOnTop.Location = new System.Drawing.Point(6, 80);
+            this.cb_AlwaysOnTop.Location = new System.Drawing.Point(8, 80);
             this.cb_AlwaysOnTop.Name = "cb_AlwaysOnTop";
             this.cb_AlwaysOnTop.Size = new System.Drawing.Size(99, 19);
             this.cb_AlwaysOnTop.TabIndex = 0;

@@ -172,7 +172,7 @@
             this.Controls.Add(this.Checkbox_Enabled);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "HotkeyEditor";
-            this.Size = new System.Drawing.Size(342, 55);
+            this.Size = new System.Drawing.Size(342, 56);
             ((System.ComponentModel.ISupportInitialize)(this.keyListBindingSource)).EndInit();
             this.cmb_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
