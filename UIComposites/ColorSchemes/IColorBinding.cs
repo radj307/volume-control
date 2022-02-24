@@ -2,5 +2,5 @@
 
 namespace UIComposites.ColorSchemes
 {
-    public interface IControlTheme : IReadOnlyControlTheme {}
+    public interface IControlTheme : IReadOnlyControlTheme { }
 }

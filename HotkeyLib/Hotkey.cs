@@ -160,7 +160,7 @@ namespace HotkeyLib
             Win = o.Win;
             KeyCode = o.KeyCode;
 
-            Reregister();   
+            Reregister();
         }
         public Hotkey Clone() => new(keyCode, shift, control, alt, windows);
 

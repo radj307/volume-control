@@ -1,5 +1,5 @@
-﻿using UIComposites;
-using ToastForm.Extensions;
+﻿using ToastForm.Extensions;
+using UIComposites;
 
 namespace VolumeControl
 {
@@ -262,7 +262,7 @@ namespace VolumeControl
         private void ListDisplay_ItemActivate(object? sender, EventArgs e)
         {
             DisableListEventTriggers(); //< Don't trigger event recursively (causes stack overflow)
-            
+
             foreach (ListViewItem item in ListDisplay.Items)
             {
                 if (item == null)

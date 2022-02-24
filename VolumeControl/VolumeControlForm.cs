@@ -132,6 +132,12 @@ namespace VolumeControl
 
         private bool TargetListVisible => targetListForm.Visible;
 
+        public bool AlwaysOnTop
+        {
+            get => Properties.Settings.Default.AlwaysOnTop;
+            set => Properties.Settings.Default.AlwaysOnTop = TopMost = ctmi_AlwaysOnTop.Checked = Settings.AlwaysOnTop = value;
+        }
+
         #endregion Properties
 
         #region HelperMethods
@@ -423,6 +429,9 @@ namespace VolumeControl
             Properties.Settings.Default.PropertyChanged += SaveSettings;
         }
 
+        public void BringToFront(object? sender, EventArgs e)
+            => BringToFront();
+
         #endregion HelperMethods
 
         #region ClassFunctions
@@ -651,7 +660,7 @@ namespace VolumeControl
             Settings.RunAtStartup = Properties.Settings.Default.RunOnStartup;
             Settings.MinimizeOnStartup = Properties.Settings.Default.MinimizeOnStartup;
             Settings.ShowInTaskbar = ShowInTaskbar = Properties.Settings.Default.VisibleInTaskbar;
-            Settings.AlwaysOnTop = TopMost = Properties.Settings.Default.AlwaysOnTop;
+            AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             Settings.DarkModeChanged -= Settings_DarkModeChanged;
             Settings.EnableDarkMode = Properties.Settings.Default.EnableDarkMode;
             Settings.DarkModeChanged += Settings_DarkModeChanged;
@@ -764,11 +773,14 @@ namespace VolumeControl
             }
             RegisterHotkeys();
         }
-        private void ToastEnabled_Changed(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
+        private void ToastEnabled_Changed(object sender, EventArgs e)
+            => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
 
-        private void ToastTimeout_Changed(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = TgtSettings.TargetListTimeout;
+        private void ToastTimeout_Changed(object sender, EventArgs e)
+            => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = TgtSettings.TargetListTimeout;
 
-        private void AlwaysOnTop_Changed(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = TopMost = Settings.AlwaysOnTop;
+        private void AlwaysOnTop_Changed(object sender, EventArgs e)
+            => AlwaysOnTop = Settings.AlwaysOnTop;
 
         private void TargetRefreshTimer_Tick(object sender, EventArgs e)
         {
@@ -806,6 +818,8 @@ namespace VolumeControl
             }
             Properties.Settings.Default.EnableDarkMode = enabled;
         }
+        private void AlwaysOnTop_CheckedChanged(object sender, EventArgs e)
+            => AlwaysOnTop = ctmi_AlwaysOnTop.Checked;
 
         #endregion FormComponents
     }

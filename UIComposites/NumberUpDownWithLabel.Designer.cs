@@ -57,7 +57,7 @@
             this.numUpDown.Location = new System.Drawing.Point(82, 1);
             this.numUpDown.Name = "numUpDown";
             this.numUpDown.Size = new System.Drawing.Size(50, 23);
-            this.numUpDown.TabIndex = 1;
+            this.numUpDown.TabIndex = 0;
             this.numUpDown.Value = new decimal(new int[] {
             5,
             0,

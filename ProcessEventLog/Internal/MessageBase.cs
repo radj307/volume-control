@@ -8,8 +8,8 @@
             _msg = msg;
         }
 
-        private Filter.MessageType _type;
-        private string _msg;
+        private readonly Filter.MessageType _type;
+        private readonly string _msg;
 
         public Filter.MessageType Type { get => _type; }
         public string Message { get => _msg; }

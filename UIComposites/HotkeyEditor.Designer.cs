@@ -70,12 +70,12 @@
             // 
             // Combobox_KeySelector
             // 
-            this.Combobox_KeySelector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.Combobox_KeySelector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.Combobox_KeySelector.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Combobox_KeySelector.Cursor = System.Windows.Forms.Cursors.Default;
             this.Combobox_KeySelector.DataSource = this.keyListBindingSource;
             this.Combobox_KeySelector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Combobox_KeySelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Combobox_KeySelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Combobox_KeySelector.FormattingEnabled = true;
             this.Combobox_KeySelector.Location = new System.Drawing.Point(0, 0);
             this.Combobox_KeySelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -93,7 +93,7 @@
             this.Checkbox_ModifierKey_Ctrl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Ctrl.Name = "Checkbox_ModifierKey_Ctrl";
             this.Checkbox_ModifierKey_Ctrl.Size = new System.Drawing.Size(42, 19);
-            this.Checkbox_ModifierKey_Ctrl.TabIndex = 4;
+            this.Checkbox_ModifierKey_Ctrl.TabIndex = 3;
             this.Checkbox_ModifierKey_Ctrl.Text = "Ctrl";
             this.Checkbox_ModifierKey_Ctrl.UseMnemonic = false;
             this.Checkbox_ModifierKey_Ctrl.UseVisualStyleBackColor = false;
@@ -107,7 +107,7 @@
             this.Checkbox_ModifierKey_Alt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Alt.Name = "Checkbox_ModifierKey_Alt";
             this.Checkbox_ModifierKey_Alt.Size = new System.Drawing.Size(38, 19);
-            this.Checkbox_ModifierKey_Alt.TabIndex = 5;
+            this.Checkbox_ModifierKey_Alt.TabIndex = 4;
             this.Checkbox_ModifierKey_Alt.Text = "Alt";
             this.Checkbox_ModifierKey_Alt.UseMnemonic = false;
             this.Checkbox_ModifierKey_Alt.UseVisualStyleBackColor = false;
@@ -121,7 +121,7 @@
             this.Checkbox_ModifierKey_Shift.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Shift.Name = "Checkbox_ModifierKey_Shift";
             this.Checkbox_ModifierKey_Shift.Size = new System.Drawing.Size(47, 19);
-            this.Checkbox_ModifierKey_Shift.TabIndex = 3;
+            this.Checkbox_ModifierKey_Shift.TabIndex = 2;
             this.Checkbox_ModifierKey_Shift.Text = "Shift";
             this.Checkbox_ModifierKey_Shift.UseMnemonic = false;
             this.Checkbox_ModifierKey_Shift.UseVisualStyleBackColor = false;
@@ -135,7 +135,7 @@
             this.Checkbox_ModifierKey_Win.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Checkbox_ModifierKey_Win.Name = "Checkbox_ModifierKey_Win";
             this.Checkbox_ModifierKey_Win.Size = new System.Drawing.Size(44, 19);
-            this.Checkbox_ModifierKey_Win.TabIndex = 6;
+            this.Checkbox_ModifierKey_Win.TabIndex = 5;
             this.Checkbox_ModifierKey_Win.Text = "Win";
             this.Checkbox_ModifierKey_Win.UseMnemonic = false;
             this.Checkbox_ModifierKey_Win.UseVisualStyleBackColor = false;

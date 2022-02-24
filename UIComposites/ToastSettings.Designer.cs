@@ -72,7 +72,7 @@
             this.cb_ToastDarkMode.Location = new System.Drawing.Point(10, 40);
             this.cb_ToastDarkMode.Name = "cb_ToastDarkMode";
             this.cb_ToastDarkMode.Size = new System.Drawing.Size(149, 19);
-            this.cb_ToastDarkMode.TabIndex = 2;
+            this.cb_ToastDarkMode.TabIndex = 1;
             this.cb_ToastDarkMode.Text = "Enable Toast Dark Mode";
             this.cb_ToastDarkMode.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +101,7 @@
             this.num_Timeout.Name = "num_Timeout";
             this.num_Timeout.NumberUpDownWidth = 85;
             this.num_Timeout.Size = new System.Drawing.Size(170, 25);
-            this.num_Timeout.TabIndex = 1;
+            this.num_Timeout.TabIndex = 2;
             this.num_Timeout.Value = new decimal(new int[] {
             500,
             0,
@@ -118,6 +118,7 @@
             this.cb_EnableNotification.TabIndex = 0;
             this.cb_EnableNotification.Text = "Enable Toast Notification";
             this.cb_EnableNotification.UseVisualStyleBackColor = true;
+            this.cb_EnableNotification.CheckedChanged += new System.EventHandler(this.cb_EnableNotification_CheckedChanged);
             // 
             // ToastSettings
             // 

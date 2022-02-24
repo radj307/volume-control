@@ -29,8 +29,8 @@
 
         public event EventHandler TargetListEnabledChanged
         {
-            add => cb_EnableNotification.CheckedChanged += value; 
-            remove => cb_EnableNotification.CheckedChanged -= value; 
+            add => cb_EnableNotification.CheckedChanged += value;
+            remove => cb_EnableNotification.CheckedChanged -= value;
         }
         public event EventHandler TargetListTimeoutChanged
         {
@@ -42,5 +42,8 @@
             add => cb_ToastDarkMode.CheckedChanged += value;
             remove => cb_ToastDarkMode.CheckedChanged -= value;
         }
+
+        private void cb_EnableNotification_CheckedChanged(object sender, EventArgs e)
+            => cb_ToastDarkMode.Enabled = num_Timeout.Enabled = cb_EnableNotification.Checked;
     }
 }

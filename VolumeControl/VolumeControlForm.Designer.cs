@@ -32,13 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VolumeControlForm));
             this.SystemTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.SystemTray_ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctmi_Close = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctmi_BringToFront = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctmi_div1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ctmi_AlwaysOnTop = new System.Windows.Forms.ToolStripMenuItem();
             this.HKEdit_VolumeUp = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeDown = new UIComposites.HotkeyEditor();
             this.HKEdit_VolumeMute = new UIComposites.HotkeyEditor();
             this.TabController = new Manina.Windows.Forms.TabControl();
             this.tab_general = new Manina.Windows.Forms.Tab();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel_general = new System.Windows.Forms.Panel();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
             this.TargetSelector = new UIComposites.TargetSelector();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
@@ -52,7 +55,7 @@
             this.HKEdit_Prev = new UIComposites.HotkeyEditor();
             this.HKEdit_Next = new UIComposites.HotkeyEditor();
             this.tab_target = new Manina.Windows.Forms.Tab();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel_target = new System.Windows.Forms.Panel();
             this.HKEdit_NextTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
@@ -60,13 +63,13 @@
             this.SystemTray_ContextMenu.SuspendLayout();
             this.TabController.SuspendLayout();
             this.tab_general.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panel_general.SuspendLayout();
             this.tab_volume.SuspendLayout();
             this.panel_volume.SuspendLayout();
             this.tab_media.SuspendLayout();
             this.panel_media.SuspendLayout();
             this.tab_target.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel_target.SuspendLayout();
             this.SuspendLayout();
             // 
             // SystemTray
@@ -81,22 +84,50 @@
             // 
             // SystemTray_ContextMenu
             // 
-            this.SystemTray_ContextMenu.BackColor = System.Drawing.SystemColors.Menu;
+            this.SystemTray_ContextMenu.BackColor = System.Drawing.Color.Transparent;
             this.SystemTray_ContextMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.SystemTray_ContextMenu.DropShadowEnabled = false;
             this.SystemTray_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
+            this.ctmi_Close,
+            this.ctmi_BringToFront,
+            this.ctmi_div1,
+            this.ctmi_AlwaysOnTop});
             this.SystemTray_ContextMenu.Name = "system_tray_menu";
-            this.SystemTray_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.SystemTray_ContextMenu.Size = new System.Drawing.Size(104, 26);
+            this.SystemTray_ContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.SystemTray_ContextMenu.ShowCheckMargin = true;
+            this.SystemTray_ContextMenu.ShowImageMargin = false;
+            this.SystemTray_ContextMenu.Size = new System.Drawing.Size(151, 76);
             // 
-            // closeToolStripMenuItem
+            // ctmi_Close
             // 
-            this.closeToolStripMenuItem.Image = global::VolumeControl.Properties.Resources.png_x;
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.SystemTray_ContextMenu_Close);
+            this.ctmi_Close.AutoToolTip = true;
+            this.ctmi_Close.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ctmi_Close.Image = global::VolumeControl.Properties.Resources.png_x;
+            this.ctmi_Close.Name = "ctmi_Close";
+            this.ctmi_Close.Size = new System.Drawing.Size(150, 22);
+            this.ctmi_Close.Text = "Close";
+            this.ctmi_Close.ToolTipText = "Close the application.";
+            this.ctmi_Close.Click += new System.EventHandler(this.SystemTray_ContextMenu_Close);
+            // 
+            // ctmi_BringToFront
+            // 
+            this.ctmi_BringToFront.Name = "ctmi_BringToFront";
+            this.ctmi_BringToFront.Size = new System.Drawing.Size(150, 22);
+            this.ctmi_BringToFront.Text = "Bring to Front";
+            this.ctmi_BringToFront.Click += new System.EventHandler(this.BringToFront);
+            // 
+            // ctmi_div1
+            // 
+            this.ctmi_div1.Name = "ctmi_div1";
+            this.ctmi_div1.Size = new System.Drawing.Size(147, 6);
+            // 
+            // ctmi_AlwaysOnTop
+            // 
+            this.ctmi_AlwaysOnTop.CheckOnClick = true;
+            this.ctmi_AlwaysOnTop.Name = "ctmi_AlwaysOnTop";
+            this.ctmi_AlwaysOnTop.Size = new System.Drawing.Size(150, 22);
+            this.ctmi_AlwaysOnTop.Text = "Always on Top";
+            this.ctmi_AlwaysOnTop.CheckedChanged += new System.EventHandler(this.AlwaysOnTop_CheckedChanged);
             // 
             // HKEdit_VolumeUp
             // 
@@ -137,14 +168,14 @@
             // TabController
             // 
             this.TabController.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.TabController.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TabController.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.TabController.Controls.Add(this.tab_general);
             this.TabController.Controls.Add(this.tab_volume);
             this.TabController.Controls.Add(this.tab_media);
             this.TabController.Controls.Add(this.tab_target);
             this.TabController.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabController.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TabController.ForeColor = System.Drawing.Color.Black;
+            this.TabController.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabController.Location = new System.Drawing.Point(0, 0);
             this.TabController.Name = "TabController";
             this.TabController.SelectedIndex = 0;
@@ -159,33 +190,33 @@
             // tab_general
             // 
             this.tab_general.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.tab_general.Controls.Add(this.panel2);
+            this.tab_general.Controls.Add(this.panel_general);
             this.tab_general.Font = new System.Drawing.Font("Calibri", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tab_general.Location = new System.Drawing.Point(0, 23);
+            this.tab_general.Location = new System.Drawing.Point(1, 23);
             this.tab_general.Name = "tab_general";
             this.tab_general.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_general.Size = new System.Drawing.Size(368, 208);
+            this.tab_general.Size = new System.Drawing.Size(366, 206);
             this.tab_general.Text = "General";
             // 
-            // panel2
+            // panel_general
             // 
-            this.panel2.Controls.Add(this.Label_VolumeControl);
-            this.panel2.Controls.Add(this.TargetSelector);
-            this.panel2.Controls.Add(this.Label_VersionNumber);
-            this.panel2.Controls.Add(this.Settings);
-            this.panel2.Controls.Add(this.TgtSettings);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(368, 208);
-            this.panel2.TabIndex = 12;
+            this.panel_general.Controls.Add(this.Label_VolumeControl);
+            this.panel_general.Controls.Add(this.TargetSelector);
+            this.panel_general.Controls.Add(this.Label_VersionNumber);
+            this.panel_general.Controls.Add(this.Settings);
+            this.panel_general.Controls.Add(this.TgtSettings);
+            this.panel_general.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_general.Location = new System.Drawing.Point(0, 0);
+            this.panel_general.Name = "panel_general";
+            this.panel_general.Size = new System.Drawing.Size(366, 206);
+            this.panel_general.TabIndex = 0;
             // 
             // Label_VolumeControl
             // 
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Label_VolumeControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label_VolumeControl.Location = new System.Drawing.Point(38, 20);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(38, 18);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
             this.Label_VolumeControl.TabIndex = 10;
@@ -202,7 +233,7 @@
             this.TargetSelector.Name = "TargetSelector";
             this.TargetSelector.SelectedIndex = -1;
             this.TargetSelector.SelectedItem = null;
-            this.TargetSelector.Size = new System.Drawing.Size(350, 30);
+            this.TargetSelector.Size = new System.Drawing.Size(350, 25);
             this.TargetSelector.TabIndex = 3;
             this.TargetSelector.ReloadButtonPressed += new System.EventHandler(this.Reload_Clicked);
             // 
@@ -212,12 +243,13 @@
             this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Label_VersionNumber.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(72, 35);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(72, 33);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
             this.Label_VersionNumber.TabIndex = 11;
             this.Label_VersionNumber.Text = "[ version ]";
             this.Label_VersionNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label_VersionNumber.UseMnemonic = false;
             // 
             // Settings
             // 
@@ -230,7 +262,7 @@
             this.Settings.Name = "Settings";
             this.Settings.RunAtStartup = false;
             this.Settings.ShowInTaskbar = false;
-            this.Settings.Size = new System.Drawing.Size(146, 154);
+            this.Settings.Size = new System.Drawing.Size(140, 150);
             this.Settings.TabIndex = 2;
             this.Settings.VolumeStep = new decimal(new int[] {
             5,
@@ -250,7 +282,7 @@
             this.TgtSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.TgtSettings.EnableDarkMode = false;
             this.TgtSettings.ForeColor = System.Drawing.Color.Transparent;
-            this.TgtSettings.Location = new System.Drawing.Point(15, 72);
+            this.TgtSettings.Location = new System.Drawing.Point(15, 67);
             this.TgtSettings.Name = "TgtSettings";
             this.TgtSettings.Size = new System.Drawing.Size(180, 92);
             this.TgtSettings.TabIndex = 1;
@@ -263,10 +295,10 @@
             // tab_volume
             // 
             this.tab_volume.Controls.Add(this.panel_volume);
-            this.tab_volume.Location = new System.Drawing.Point(0, 0);
+            this.tab_volume.Location = new System.Drawing.Point(1, 23);
             this.tab_volume.Name = "tab_volume";
             this.tab_volume.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_volume.Size = new System.Drawing.Size(0, 0);
+            this.tab_volume.Size = new System.Drawing.Size(366, 206);
             this.tab_volume.Text = "Volume Hotkeys";
             // 
             // panel_volume
@@ -277,15 +309,15 @@
             this.panel_volume.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_volume.Location = new System.Drawing.Point(0, 0);
             this.panel_volume.Name = "panel_volume";
-            this.panel_volume.Size = new System.Drawing.Size(0, 0);
-            this.panel_volume.TabIndex = 10;
+            this.panel_volume.Size = new System.Drawing.Size(366, 206);
+            this.panel_volume.TabIndex = 0;
             // 
             // tab_media
             // 
             this.tab_media.Controls.Add(this.panel_media);
-            this.tab_media.Location = new System.Drawing.Point(0, 0);
+            this.tab_media.Location = new System.Drawing.Point(1, 23);
             this.tab_media.Name = "tab_media";
-            this.tab_media.Size = new System.Drawing.Size(0, 0);
+            this.tab_media.Size = new System.Drawing.Size(366, 206);
             this.tab_media.Text = "Media Hotkeys";
             // 
             // panel_media
@@ -296,8 +328,8 @@
             this.panel_media.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_media.Location = new System.Drawing.Point(0, 0);
             this.panel_media.Name = "panel_media";
-            this.panel_media.Size = new System.Drawing.Size(0, 0);
-            this.panel_media.TabIndex = 3;
+            this.panel_media.Size = new System.Drawing.Size(366, 206);
+            this.panel_media.TabIndex = 0;
             // 
             // HKEdit_TogglePlayback
             // 
@@ -334,22 +366,22 @@
             // 
             // tab_target
             // 
-            this.tab_target.Controls.Add(this.panel1);
-            this.tab_target.Location = new System.Drawing.Point(0, 0);
+            this.tab_target.Controls.Add(this.panel_target);
+            this.tab_target.Location = new System.Drawing.Point(1, 23);
             this.tab_target.Name = "tab_target";
-            this.tab_target.Size = new System.Drawing.Size(0, 0);
+            this.tab_target.Size = new System.Drawing.Size(366, 206);
             this.tab_target.Text = "Target Hotkeys";
             // 
-            // panel1
+            // panel_target
             // 
-            this.panel1.Controls.Add(this.HKEdit_NextTarget);
-            this.panel1.Controls.Add(this.HKEdit_ShowTarget);
-            this.panel1.Controls.Add(this.HKEdit_PrevTarget);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(0, 0);
-            this.panel1.TabIndex = 3;
+            this.panel_target.Controls.Add(this.HKEdit_NextTarget);
+            this.panel_target.Controls.Add(this.HKEdit_ShowTarget);
+            this.panel_target.Controls.Add(this.HKEdit_PrevTarget);
+            this.panel_target.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_target.Location = new System.Drawing.Point(0, 0);
+            this.panel_target.Name = "panel_target";
+            this.panel_target.Size = new System.Drawing.Size(366, 206);
+            this.panel_target.TabIndex = 0;
             // 
             // HKEdit_NextTarget
             // 
@@ -409,22 +441,20 @@
             this.SystemTray_ContextMenu.ResumeLayout(false);
             this.TabController.ResumeLayout(false);
             this.tab_general.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel_general.ResumeLayout(false);
+            this.panel_general.PerformLayout();
             this.tab_volume.ResumeLayout(false);
             this.panel_volume.ResumeLayout(false);
             this.tab_media.ResumeLayout(false);
             this.panel_media.ResumeLayout(false);
             this.tab_target.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panel_target.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private NotifyIcon SystemTray;
-        private ContextMenuStrip SystemTray_ContextMenu;
-        private ToolStripMenuItem closeToolStripMenuItem;
         private UIComposites.HotkeyEditor HKEdit_VolumeUp;
         private UIComposites.HotkeyEditor HKEdit_VolumeDown;
         private UIComposites.HotkeyEditor HKEdit_VolumeMute;
@@ -447,7 +477,12 @@
         private UIComposites.TargetSelector TargetSelector;
         private Panel panel_volume;
         private Panel panel_media;
-        private Panel panel1;
-        private Panel panel2;
+        private Panel panel_target;
+        private Panel panel_general;
+        private ContextMenuStrip SystemTray_ContextMenu;
+        private ToolStripMenuItem ctmi_Close;
+        private ToolStripMenuItem ctmi_BringToFront;
+        private ToolStripSeparator ctmi_div1;
+        private ToolStripMenuItem ctmi_AlwaysOnTop;
     }
 }
