@@ -6,8 +6,17 @@ using System.Xml.Serialization;
 
 namespace HotkeyLib
 {
+    public interface IHotkey
+    {
+        Keys KeyCode { get; set; }
+        bool Shift { get; set; }
+        bool Ctrl { get; set; }
+        bool Alt { get; set; }
+        bool Win { get; set; }
+    }
+
     [TypeConverter(typeof(HotkeyConverter))]
-    public class Hotkey : IMessageFilter
+    public class Hotkey : IMessageFilter, IHotkey
     {
         #region Interop
 
@@ -46,10 +55,7 @@ namespace HotkeyLib
 
         public event HandledEventHandler Pressed;
 
-        public Hotkey() : this(Keys.None, false, false, false, false)
-        {
-            // No work done here!
-        }
+        public Hotkey() : this(Keys.None, false, false, false, false) { }
 
         public Hotkey(string keystr, HandledEventHandler? pressed_action = null)
         {
@@ -57,9 +63,9 @@ namespace HotkeyLib
             windowControl = null!;
 
             Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
-            Control = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
+            Ctrl = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
             Alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
-            Windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
+            Win = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
 
             int lastpos = keystr.LastIndexOf('+');
             try
@@ -88,9 +94,9 @@ namespace HotkeyLib
             // Assign properties
             KeyCode = keyCode;
             Shift = shift;
-            Control = control;
+            Ctrl = control;
             Alt = alt;
-            Windows = windows;
+            Win = windows;
 
             // Register us as a message filter
             Application.AddMessageFilter(this);
@@ -109,7 +115,7 @@ namespace HotkeyLib
             if (lastpos == -1)
                 keyCode = (Keys)Enum.Parse(typeof(Keys), keystr);
             else
-                keyCode = (Keys)Enum.Parse(typeof(Keys), keystr.Substring(lastpos + 1));
+                keyCode = (Keys)Enum.Parse(typeof(Keys), keystr.AsSpan(lastpos + 1));
 
             Application.AddMessageFilter(this);
         }
@@ -126,9 +132,9 @@ namespace HotkeyLib
             if (keystr.Length > 0 && keystr != ToString())
             {
                 Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
-                Control = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
+                Ctrl = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
                 Alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
-                Windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
+                Win = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
 
                 int lastpos = keystr.LastIndexOf('+');
                 try
@@ -146,9 +152,17 @@ namespace HotkeyLib
                 Reregister();
             }
         }
-        public Hotkey Clone() =>
-            // Clone the whole object
-            new Hotkey(keyCode, shift, control, alt, windows);
+        public void Reset(Hotkey o)
+        {
+            Shift = o.Shift;
+            Ctrl = o.Ctrl;
+            Alt = o.Alt;
+            Win = o.Win;
+            KeyCode = o.KeyCode;
+
+            Reregister();   
+        }
+        public Hotkey Clone() => new(keyCode, shift, control, alt, windows);
 
         public bool GetCanRegister(Control windowControl)
         {
@@ -173,19 +187,22 @@ namespace HotkeyLib
         {
             // Check that we have not registered
             if (registered)
-            { throw new NotSupportedException("You cannot register a hotkey that is already registered"); }
+                throw new NotSupportedException("You cannot register a hotkey that is already registered");
 
             // We can't register an empty hotkey
             if (Empty)
-            { throw new NotSupportedException("You cannot register an empty hotkey"); }
+            {
+                return false;
+                //throw new NotSupportedException("You cannot register an empty hotkey");
+            }
 
             // Get an ID for the hotkey and increase current ID
             id = currentID;
-            currentID = currentID + 1 % maximumID;
+            currentID++;
 
             // Translate modifier keys into unmanaged version
-            uint modifiers = ( Alt ? MOD_ALT : 0 ) | ( Control ? MOD_CONTROL : 0 ) |
-                            ( Shift ? MOD_SHIFT : 0 ) | ( Windows ? MOD_WIN : 0 );
+            uint modifiers = (Alt ? MOD_ALT : 0) | (Ctrl ? MOD_CONTROL : 0) |
+                            (Shift ? MOD_SHIFT : 0) | (Win ? MOD_WIN : 0);
 
             // Register the hotkey
             if (RegisterHotKey(windowControl.Handle, id, modifiers, keyCode) == 0)
@@ -216,14 +233,14 @@ namespace HotkeyLib
         {
             // Check that we have registered
             if (!registered)
-            { throw new NotSupportedException("You cannot unregister a hotkey that is not registered"); }
+                throw new NotSupportedException("You cannot unregister a hotkey that is not registered");
 
             // It's possible that the control itself has died: in that case, no need to unregister!
             if (!windowControl.IsDisposed)
             {
                 // Clean up after ourselves
                 if (UnregisterHotKey(windowControl.Handle, id) == 0)
-                { throw new Win32Exception(); }
+                    throw new Win32Exception();
             }
 
             // Clear the control reference and register state
@@ -260,7 +277,7 @@ namespace HotkeyLib
             { return false; }
 
             // Check that the ID is our key and we are registerd
-            if (registered && ( message.WParam.ToInt32() == id ))
+            if (registered && (message.WParam.ToInt32() == id))
             {
                 // Fire the event and pass on the event if our handlers didn't handle it
                 return OnPressed();
@@ -272,9 +289,8 @@ namespace HotkeyLib
         private bool OnPressed()
         {
             // Fire the event if we can
-            HandledEventArgs handledEventArgs = new HandledEventArgs(false);
-            if (Pressed != null)
-            { Pressed(this, handledEventArgs); }
+            HandledEventArgs handledEventArgs = new(false);
+            Pressed?.Invoke(this, handledEventArgs);
 
             // Return whether we handled the event or not
             return handledEventArgs.Handled;
@@ -301,7 +317,7 @@ namespace HotkeyLib
             case Keys.D8:
             case Keys.D9:
                 // Strip the first character
-                keyName = keyName.Substring(1);
+                keyName = keyName[1..];
                 break;
             default:
                 // Leave everything alone
@@ -352,7 +368,7 @@ namespace HotkeyLib
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool Control
+        public bool Ctrl
         {
             get => control;
             set
@@ -376,7 +392,7 @@ namespace HotkeyLib
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool Windows
+        public bool Win
         {
             get => windows;
             set
@@ -396,6 +412,6 @@ namespace HotkeyLib
             return base.ConvertTo(context, culture, value, destinationType);
         }
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => ( value as Hotkey ) ?? base.ConvertFrom(context, culture, value);
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => (value as Hotkey) ?? base.ConvertFrom(context, culture, value);
     }
 }

@@ -3,6 +3,7 @@ using HotkeyLib;
 using System.ComponentModel;
 using System.Reflection;
 using UIComposites;
+using UIComposites.ColorSchemes;
 
 namespace VolumeControl
 {
@@ -780,14 +781,10 @@ namespace VolumeControl
             if (enabled)
             {
                 ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
-                targetListForm.ForeColor = ColorScheme.DarkMode.Default.GetForeColor();
-                targetListForm.BackColor = ColorScheme.DarkMode.Default.GetBackColor();
             }
             else
             {
                 ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
-                targetListForm.ForeColor = ColorScheme.LightMode.Default.GetForeColor();
-                targetListForm.BackColor = ColorScheme.LightMode.Default.GetBackColor();
             }
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
@@ -798,14 +795,14 @@ namespace VolumeControl
             if (enabled)
             {
                 ColorScheme.DarkMode.ApplyTo(Controls);
-                ForeColor = ColorScheme.DarkMode.Default.GetForeColor();
-                BackColor = ColorScheme.DarkMode.Default.GetBackColor();
+                ForeColor = ColorScheme.DarkMode.Default.ForeColor;
+                BackColor = ColorScheme.DarkMode.Default.BackColor;
             }
             else
             {
                 ColorScheme.LightMode.ApplyTo(Controls);
-                ForeColor = ColorScheme.LightMode.Default.GetForeColor();
-                BackColor = ColorScheme.LightMode.Default.GetBackColor();
+                ForeColor = ColorScheme.LightMode.Default.ForeColor;
+                BackColor = ColorScheme.LightMode.Default.BackColor;
             }
             Properties.Settings.Default.EnableDarkMode = enabled;
         }

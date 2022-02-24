@@ -44,6 +44,7 @@
             // 
             this.cmb_Target.DataSource = this.cmb_Target_BindingSource;
             this.cmb_Target.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmb_Target.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_Target.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_Target.FormattingEnabled = true;
             this.cmb_Target.Location = new System.Drawing.Point(0, 0);
@@ -51,10 +52,6 @@
             this.cmb_Target.Name = "cmb_Target";
             this.cmb_Target.Size = new System.Drawing.Size(238, 23);
             this.cmb_Target.TabIndex = 0;
-            // 
-            // cmb_Target_BindingSource
-            // 
-            this.cmb_Target_BindingSource.DataSource = typeof(AudioAPI.AudioSessionList);
             // 
             // label_Target
             // 

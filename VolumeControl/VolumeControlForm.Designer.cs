@@ -134,15 +134,18 @@
             // 
             // TabController
             // 
+            this.TabController.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.TabController.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TabController.Controls.Add(this.Tab_General);
             this.TabController.Controls.Add(this.Tab_Hotkeys_Volume);
             this.TabController.Controls.Add(this.Tab_Hotkeys_Playback);
             this.TabController.Controls.Add(this.TabPage_Target);
             this.TabController.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabController.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TabController.ForeColor = System.Drawing.Color.Black;
             this.TabController.Location = new System.Drawing.Point(0, 0);
             this.TabController.Name = "TabController";
-            this.TabController.SelectedIndex = 0;
+            this.TabController.SelectedIndex = 1;
             this.TabController.Size = new System.Drawing.Size(368, 230);
             this.TabController.TabIndex = 10;
             this.TabController.Tabs.Add(this.Tab_General);
@@ -159,10 +162,10 @@
             this.Tab_General.Controls.Add(this.Label_VersionNumber);
             this.Tab_General.Controls.Add(this.Label_VolumeControl);
             this.Tab_General.Font = new System.Drawing.Font("Calibri", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Tab_General.Location = new System.Drawing.Point(1, 23);
+            this.Tab_General.Location = new System.Drawing.Point(0, 23);
             this.Tab_General.Name = "Tab_General";
             this.Tab_General.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_General.Size = new System.Drawing.Size(366, 206);
+            this.Tab_General.Size = new System.Drawing.Size(368, 208);
             this.Tab_General.Text = "General";
             // 
             // TargetSelector
@@ -225,6 +228,7 @@
             this.Label_VersionNumber.AutoSize = true;
             this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Label_VersionNumber.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label_VersionNumber.Location = new System.Drawing.Point(67, 35);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
@@ -236,6 +240,7 @@
             // 
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Label_VolumeControl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label_VolumeControl.Location = new System.Drawing.Point(33, 18);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
@@ -248,10 +253,10 @@
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeUp);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeMute);
             this.Tab_Hotkeys_Volume.Controls.Add(this.HKEdit_VolumeDown);
-            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(0, 0);
+            this.Tab_Hotkeys_Volume.Location = new System.Drawing.Point(0, 23);
             this.Tab_Hotkeys_Volume.Name = "Tab_Hotkeys_Volume";
             this.Tab_Hotkeys_Volume.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(0, 0);
+            this.Tab_Hotkeys_Volume.Size = new System.Drawing.Size(368, 208);
             this.Tab_Hotkeys_Volume.Text = "Volume Hotkeys";
             // 
             // Tab_Hotkeys_Playback
@@ -364,12 +369,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 230);
             this.Controls.Add(this.TabController);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "VolumeControlForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Volume Control";
             this.GotFocus += new System.EventHandler(this.Window_GotFocus);
             this.Resize += new System.EventHandler(this.Form_Resize);

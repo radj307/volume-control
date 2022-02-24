@@ -73,9 +73,9 @@ namespace UIComposites
             {
                 Combobox_KeySelector.Text = Enum.GetName(typeof(Keys), value.KeyCode);
                 Checkbox_ModifierKey_Shift.Checked = value.Shift;
-                Checkbox_ModifierKey_Ctrl.Checked = value.Control;
+                Checkbox_ModifierKey_Ctrl.Checked = value.Ctrl;
                 Checkbox_ModifierKey_Alt.Checked = value.Alt;
-                Checkbox_ModifierKey_Win.Checked = value.Windows;
+                Checkbox_ModifierKey_Win.Checked = value.Win;
             }
         }
 

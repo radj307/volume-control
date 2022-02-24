@@ -86,7 +86,7 @@
             // 
             // DisplayPanel
             // 
-            this.DisplayPanel.BackColor = System.Drawing.Color.Transparent;
+            this.DisplayPanel.BackColor = System.Drawing.Color.Yellow;
             this.DisplayPanel.Controls.Add(this.ListDisplay);
             this.DisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DisplayPanel.ForeColor = System.Drawing.Color.Transparent;
