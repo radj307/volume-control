@@ -1,6 +1,6 @@
 $SCRIPTVERSION = "1" # The version number of this script file
 
-Set-Location -Path '..'
+#Set-Location -Path '..'
 
 Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 

@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref:          'github-actions'
+        ref:          'main'
         fetch-depth:  0
     - uses: actions/setup-dotnet@main
       with:
