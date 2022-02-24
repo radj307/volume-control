@@ -767,7 +767,7 @@ namespace VolumeControl
 
         private void ToastTimeout_Changed(object sender, EventArgs e) => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = TgtSettings.TargetListTimeout;
 
-        private void AlwaysOnTop_Changed(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = Settings.AlwaysOnTop;
+        private void AlwaysOnTop_Changed(object sender, EventArgs e) => Properties.Settings.Default.AlwaysOnTop = TopMost = Settings.AlwaysOnTop;
 
         private void TargetRefreshTimer_Tick(object sender, EventArgs e)
         {
