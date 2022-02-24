@@ -1,4 +1,4 @@
-﻿namespace UIComposites
+﻿namespace UIComposites.ColorSchemes
 {
     public class ColorSchemeList
     {

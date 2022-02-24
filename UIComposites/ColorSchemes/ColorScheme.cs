@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
 
-namespace UIComposites
+namespace UIComposites.ColorSchemes
 {
     public partial class ColorScheme : IColorSchemeFile
     {
-        public ColorScheme(ColorBinding<Control> defaultColors, List<IColorBinding> colors)
+        public ColorScheme(ControlTheme<Control> defaultColors, List<IControlTheme> colors)
         {
             Theme = colors;
             Default = defaultColors;
@@ -17,17 +17,17 @@ namespace UIComposites
             BorderHighlight = new();
         }
 
-        public ColorBinding<Control> Default;
-        public ColorBinding<Control> BorderHighlight;
-        public List<IColorBinding> Theme;
+        public ControlTheme Default;
+        public ControlTheme BorderHighlight;
+        public List<IControlTheme> Theme;
 
-        public IColorBinding Primary { get => this.Default; set => this.Default = (ColorBinding<Control>)value; }
-        public IColorBinding Secondary { get => this.BorderHighlight; set => this.BorderHighlight = (ColorBinding<Control>)value; }
-        public List<IColorBinding> Components { get => this.Theme; set => this.Theme = value; }
+        public IControlTheme Primary { get => Default; set => Default = (ControlTheme<Control>)value; }
+        public IControlTheme Secondary { get => BorderHighlight; set => BorderHighlight = (ControlTheme<Control>)value; }
+        public List<IControlTheme> Components { get => Theme; set => Theme = value; }
 
-        private IColorBinding GetApplicableColor(Control type)
+        private IControlTheme GetApplicableColor(Control type)
         {
-            foreach (IColorBinding bind in Theme)
+            foreach (IControlTheme bind in Theme)
             {
                 if (bind.AppliesToControl(type))
                 {
@@ -41,7 +41,7 @@ namespace UIComposites
         {
             foreach (Control ctrl in controls)
             {
-                GetApplicableColor(ctrl).ApplyTo(ctrl);
+                GetApplicableColor(ctrl).PaintControl(ctrl);
                 // recurse:
                 ApplyTo(ctrl.Controls);
             }
@@ -53,8 +53,8 @@ namespace UIComposites
             {
                 Converters =
                 {
-                    new InterfaceConverterFactory(typeof(ColorBinding<Control>), typeof(IColorBinding)),
-                                 new IListInterfaceConverterFactory(typeof(IColorBinding))
+                    new InterfaceConverterFactory(typeof(ControlTheme<Control>), typeof(IControlTheme)),
+                                 new IListInterfaceConverterFactory(typeof(IControlTheme))
                 }
             });
         }
