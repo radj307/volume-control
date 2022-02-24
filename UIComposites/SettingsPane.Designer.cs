@@ -123,9 +123,9 @@
             this.cb_MinimizeOnStartup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_MinimizeOnStartup.Location = new System.Drawing.Point(5, 37);
             this.cb_MinimizeOnStartup.Name = "cb_MinimizeOnStartup";
-            this.cb_MinimizeOnStartup.Size = new System.Drawing.Size(130, 19);
+            this.cb_MinimizeOnStartup.Size = new System.Drawing.Size(106, 19);
             this.cb_MinimizeOnStartup.TabIndex = 1;
-            this.cb_MinimizeOnStartup.Text = "Minimize on Startup";
+            this.cb_MinimizeOnStartup.Text = "Start Minimized";
             this.cb_MinimizeOnStartup.UseVisualStyleBackColor = true;
             // 
             // cb_ShowInTaskbar
