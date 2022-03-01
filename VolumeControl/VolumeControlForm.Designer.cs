@@ -60,6 +60,7 @@
             this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
             this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.cb_OpenMixer = new System.Windows.Forms.Button();
             this.SystemTray_ContextMenu.SuspendLayout();
             this.TabController.SuspendLayout();
             this.tab_general.SuspendLayout();
@@ -200,6 +201,7 @@
             // 
             // panel_general
             // 
+            this.panel_general.Controls.Add(this.cb_OpenMixer);
             this.panel_general.Controls.Add(this.Label_VolumeControl);
             this.panel_general.Controls.Add(this.TargetSelector);
             this.panel_general.Controls.Add(this.Label_VersionNumber);
@@ -295,10 +297,10 @@
             // tab_volume
             // 
             this.tab_volume.Controls.Add(this.panel_volume);
-            this.tab_volume.Location = new System.Drawing.Point(1, 23);
+            this.tab_volume.Location = new System.Drawing.Point(0, 0);
             this.tab_volume.Name = "tab_volume";
             this.tab_volume.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_volume.Size = new System.Drawing.Size(366, 206);
+            this.tab_volume.Size = new System.Drawing.Size(0, 0);
             this.tab_volume.Text = "Volume Hotkeys";
             // 
             // panel_volume
@@ -309,15 +311,15 @@
             this.panel_volume.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_volume.Location = new System.Drawing.Point(0, 0);
             this.panel_volume.Name = "panel_volume";
-            this.panel_volume.Size = new System.Drawing.Size(366, 206);
+            this.panel_volume.Size = new System.Drawing.Size(0, 0);
             this.panel_volume.TabIndex = 0;
             // 
             // tab_media
             // 
             this.tab_media.Controls.Add(this.panel_media);
-            this.tab_media.Location = new System.Drawing.Point(1, 23);
+            this.tab_media.Location = new System.Drawing.Point(0, 0);
             this.tab_media.Name = "tab_media";
-            this.tab_media.Size = new System.Drawing.Size(366, 206);
+            this.tab_media.Size = new System.Drawing.Size(0, 0);
             this.tab_media.Text = "Media Hotkeys";
             // 
             // panel_media
@@ -328,7 +330,7 @@
             this.panel_media.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_media.Location = new System.Drawing.Point(0, 0);
             this.panel_media.Name = "panel_media";
-            this.panel_media.Size = new System.Drawing.Size(366, 206);
+            this.panel_media.Size = new System.Drawing.Size(0, 0);
             this.panel_media.TabIndex = 0;
             // 
             // HKEdit_TogglePlayback
@@ -367,9 +369,9 @@
             // tab_target
             // 
             this.tab_target.Controls.Add(this.panel_target);
-            this.tab_target.Location = new System.Drawing.Point(1, 23);
+            this.tab_target.Location = new System.Drawing.Point(0, 0);
             this.tab_target.Name = "tab_target";
-            this.tab_target.Size = new System.Drawing.Size(366, 206);
+            this.tab_target.Size = new System.Drawing.Size(0, 0);
             this.tab_target.Text = "Target Hotkeys";
             // 
             // panel_target
@@ -380,7 +382,7 @@
             this.panel_target.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_target.Location = new System.Drawing.Point(0, 0);
             this.panel_target.Name = "panel_target";
-            this.panel_target.Size = new System.Drawing.Size(366, 206);
+            this.panel_target.Size = new System.Drawing.Size(0, 0);
             this.panel_target.TabIndex = 0;
             // 
             // HKEdit_NextTarget
@@ -421,6 +423,16 @@
             this.TargetRefreshTimer.Enabled = true;
             this.TargetRefreshTimer.Interval = 4000;
             this.TargetRefreshTimer.Tick += new System.EventHandler(this.TargetRefreshTimer_Tick);
+            // 
+            // cb_OpenMixer
+            // 
+            this.cb_OpenMixer.Location = new System.Drawing.Point(15, 42);
+            this.cb_OpenMixer.Name = "cb_OpenMixer";
+            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 23);
+            this.cb_OpenMixer.TabIndex = 12;
+            this.cb_OpenMixer.Text = "Mixer";
+            this.cb_OpenMixer.UseVisualStyleBackColor = true;
+            this.cb_OpenMixer.Click += new System.EventHandler(this.cb_OpenMixer_Click);
             // 
             // VolumeControlForm
             // 
@@ -484,5 +496,6 @@
         private ToolStripMenuItem ctmi_BringToFront;
         private ToolStripSeparator ctmi_div1;
         private ToolStripMenuItem ctmi_AlwaysOnTop;
+        private Button cb_OpenMixer;
     }
 }

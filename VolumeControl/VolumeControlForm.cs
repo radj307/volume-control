@@ -1,5 +1,6 @@
 using AudioAPI;
 using HotkeyLib;
+using AudioMixer;
 using System.ComponentModel;
 using System.Reflection;
 using UIComposites;
@@ -10,8 +11,6 @@ namespace VolumeControl
     public partial class VolumeControlForm : Form
     {
         #region Members
-
-        private AudioMixer.MixerForm mixer = new();
 
         /// <summary>
         /// Hotkey definition linked to the volume up action.
@@ -57,11 +56,12 @@ namespace VolumeControl
         /// </summary>
         private BindingList<string> sessions = new();
 
-        private readonly ToastForm targetListForm = new();
-
         private readonly CancelButtonHandler cancelHandler = new();
 
         private bool triggerTargetRefresh = false;
+
+        private readonly ToastForm toast = new();
+        private readonly MixerForm mixer = new();
 
         #endregion Members
 
@@ -132,7 +132,7 @@ namespace VolumeControl
         private bool PrevTargetHotkeyIsEnabled => HKEdit_PrevTarget.HotkeyIsEnabled;
         private bool ShowTargetHotkeyIsEnabled => HKEdit_ShowTarget.HotkeyIsEnabled;
 
-        private bool TargetListVisible => targetListForm.Visible;
+        private bool TargetListVisible => toast.Visible;
 
         public bool AlwaysOnTop
         {
@@ -241,8 +241,8 @@ namespace VolumeControl
             // update the target list window:
             if (tgtListEnabled)
             {
-                targetListForm.FlushItems();
-                targetListForm.LoadItems(active);
+                toast.FlushItems();
+                toast.LoadItems(active);
             }
             // set the current list
             TargetSelector.DataSource = sessions = ToBindingList(active);
@@ -253,7 +253,7 @@ namespace VolumeControl
             currentName = CurrentTargetName;
 
             if (tgtListEnabled)
-                targetListForm.Selected = currentName; //< don't use the previously set current name in case it changed
+                toast.Selected = currentName; //< don't use the previously set current name in case it changed
         }
 
         private static BindingList<T> ToBindingList<T>(List<T> list)
@@ -280,7 +280,7 @@ namespace VolumeControl
             var volume = GetTargetVolume(target);
             if (volume == null)
                 return;
-            targetListForm.UpdateActiveStateImage3P(volume.Value.Item1, volume.Value.Item2);
+            toast.UpdateActiveStateImage3P(volume.Value.Item1, volume.Value.Item2);
         }
 
         private void UpdateHotkeys()
@@ -334,12 +334,12 @@ namespace VolumeControl
             else
                 CurrentTargetIndex = 0;
 
-            Properties.Settings.Default.LastTarget = targetListForm.Selected = CurrentTargetName;
+            Properties.Settings.Default.LastTarget = toast.Selected = CurrentTargetName;
 
             if (TargetListEnabled)
             {
                 UpdateStatusImage();
-                targetListForm.Show(true);
+                toast.Show(true);
             }
         }
 
@@ -360,12 +360,12 @@ namespace VolumeControl
             else
                 CurrentTargetIndex = TargetListSize - 1;
 
-            Properties.Settings.Default.LastTarget = targetListForm.Selected = CurrentTargetName;
+            Properties.Settings.Default.LastTarget = toast.Selected = CurrentTargetName;
 
             if (TargetListEnabled)
             {
                 UpdateStatusImage();
-                targetListForm.Show(true);
+                toast.Show(true);
             }
         }
 
@@ -374,16 +374,16 @@ namespace VolumeControl
         /// </summary>
         private void ShowTarget(object? sender, EventArgs e)
         {
-            if (targetListForm.Visible)
+            if (toast.Visible)
             {
-                targetListForm.Hide();
-                targetListForm.ForceShow = false;
+                toast.Hide();
+                toast.ForceShow = false;
             }
             else
             {
                 UpdateProcessList();
-                targetListForm.ForceShow = true;
-                targetListForm.Show();
+                toast.ForceShow = true;
+                toast.Show();
             }
         }
 
@@ -393,7 +393,7 @@ namespace VolumeControl
             if (TargetListVisible)
             {
                 UpdateStatusImage(CurrentTargetName);
-                targetListForm.Refresh();
+                toast.Refresh();
             }
         }
         private void DecreaseVolume(object? sender, EventArgs e)
@@ -402,7 +402,7 @@ namespace VolumeControl
             if (TargetListVisible)
             {
                 UpdateStatusImage(CurrentTargetName);
-                targetListForm.Refresh();
+                toast.Refresh();
             }
         }
         private void ToggleMute(object? sender, EventArgs e)
@@ -411,7 +411,7 @@ namespace VolumeControl
             if (TargetListVisible)
             {
                 UpdateStatusImage(CurrentTargetName);
-                targetListForm.Refresh();
+                toast.Refresh();
             }
         }
 
@@ -652,10 +652,10 @@ namespace VolumeControl
             TargetSelector.Text = lastTarget;
             TargetSelector.TextChanged += TargetComboBox_TextChanged;
             // TARGET LIST FORM
-            targetListForm.Resize += delegate { if (targetListForm.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
-            targetListForm.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
+            toast.Resize += delegate { if (toast.WindowState != FormWindowState.Minimized) UpdateProcessList(); }; // triggers when window is shown
+            toast.SelectionChanged += delegate //< Triggered when the user selects a process in the target list
             {
-                SetTarget(targetListForm.Selected);
+                SetTarget(toast.Selected);
             };
             // SETTINGS
             Settings.VolumeStep = Properties.Settings.Default.VolumeStep;
@@ -668,7 +668,7 @@ namespace VolumeControl
             Settings.DarkModeChanged += Settings_DarkModeChanged;
             // TARGET LIST SETTINGS
             TgtSettings.TargetListEnabled = TargetListEnabled = Properties.Settings.Default.tgtlist_enabled;
-            TgtSettings.TargetListTimeout = targetListForm.Timeout = Properties.Settings.Default.tgtlist_timeout;
+            TgtSettings.TargetListTimeout = toast.Timeout = Properties.Settings.Default.tgtlist_timeout;
             TgtSettings.DarkModeChanged -= TgtSettings_DarkModeChanged;
             TgtSettings.EnableDarkMode = Properties.Settings.Default.EnableToastDarkMode;
             TgtSettings.DarkModeChanged += TgtSettings_DarkModeChanged;
@@ -687,7 +687,6 @@ namespace VolumeControl
             {
                 SetTarget(mixer.CurrentCellProcessName, false);
             };
-            mixer.Show();
 
             if (Settings.MinimizeOnStartup)
             {
@@ -782,10 +781,10 @@ namespace VolumeControl
             RegisterHotkeys();
         }
         private void ToastEnabled_Changed(object sender, EventArgs e)
-            => Properties.Settings.Default.tgtlist_enabled = targetListForm.TimeoutEnabled = TargetListEnabled;
+            => Properties.Settings.Default.tgtlist_enabled = toast.TimeoutEnabled = TargetListEnabled;
 
         private void ToastTimeout_Changed(object sender, EventArgs e)
-            => Properties.Settings.Default.tgtlist_timeout = targetListForm.Timeout = TgtSettings.TargetListTimeout;
+            => Properties.Settings.Default.tgtlist_timeout = toast.Timeout = TgtSettings.TargetListTimeout;
 
         private void AlwaysOnTop_Changed(object sender, EventArgs e)
             => AlwaysOnTop = Settings.AlwaysOnTop;
@@ -800,13 +799,13 @@ namespace VolumeControl
             bool enabled = TgtSettings.EnableDarkMode;
             if (enabled)
             {
-                ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
-                targetListForm.BackColor = ColorScheme.DarkMode.BorderHighlight.BackColor;
+                ColorScheme.DarkMode.ApplyTo(toast.Controls);
+                toast.BackColor = ColorScheme.DarkMode.BorderHighlight.BackColor;
             }
             else
             {
-                ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
-                targetListForm.BackColor = ColorScheme.LightMode.BorderHighlight.BackColor;
+                ColorScheme.LightMode.ApplyTo(toast.Controls);
+                toast.BackColor = ColorScheme.LightMode.BorderHighlight.BackColor;
             }
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
@@ -828,6 +827,14 @@ namespace VolumeControl
         }
         private void AlwaysOnTop_CheckedChanged(object sender, EventArgs e)
             => AlwaysOnTop = ctmi_AlwaysOnTop.Checked;
+
+        private void cb_OpenMixer_Click(object sender, EventArgs e)
+        {
+            if (mixer.Visible)
+                mixer.Hide();
+            else
+                mixer.Show();
+        }
 
         #endregion FormComponents
     }

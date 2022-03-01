@@ -37,13 +37,13 @@ namespace AudioMixer
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerForm));
             this.grid = new System.Windows.Forms.DataGridView();
-            this.gridBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ReloadTimer = new System.Windows.Forms.Timer(this.components);
-            this.panel = new System.Windows.Forms.Panel();
             this.dgvColumn_PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_ProcessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_Muted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.gridBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ReloadTimer = new System.Windows.Forms.Timer(this.components);
+            this.panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBindingSource)).BeginInit();
             this.panel.SuspendLayout();
@@ -102,25 +102,6 @@ namespace AudioMixer
             this.grid.CurrentCellDirtyStateChanged += new System.EventHandler(this.grid_CurrentCellDirtyStateChanged);
             this.grid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_RowsAdded);
             // 
-            // gridBindingSource
-            // 
-            this.gridBindingSource.DataSource = typeof(AudioAPI.AudioProcessList);
-            // 
-            // ReloadTimer
-            // 
-            this.ReloadTimer.Interval = 500;
-            this.ReloadTimer.Tick += new System.EventHandler(this.ReloadTimer_Tick);
-            // 
-            // panel
-            // 
-            this.panel.Controls.Add(this.grid);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Padding = new System.Windows.Forms.Padding(5);
-            this.panel.Size = new System.Drawing.Size(384, 61);
-            this.panel.TabIndex = 1;
-            // 
             // dgvColumn_PID
             // 
             this.dgvColumn_PID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -158,6 +139,25 @@ namespace AudioMixer
             this.dgvColumn_Muted.Name = "dgvColumn_Muted";
             this.dgvColumn_Muted.TrueValue = "true";
             this.dgvColumn_Muted.Width = 48;
+            // 
+            // gridBindingSource
+            // 
+            this.gridBindingSource.DataSource = typeof(AudioAPI.AudioProcessList);
+            // 
+            // ReloadTimer
+            // 
+            this.ReloadTimer.Interval = 500;
+            this.ReloadTimer.Tick += new System.EventHandler(this.ReloadTimer_Tick);
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.grid);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Padding = new System.Windows.Forms.Padding(5);
+            this.panel.Size = new System.Drawing.Size(384, 61);
+            this.panel.TabIndex = 1;
             // 
             // MixerForm
             // 
