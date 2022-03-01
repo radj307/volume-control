@@ -21,8 +21,8 @@
     <AnalysisLevel>preview</AnalysisLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <Version>3.3.4.1</Version>
-    <IsPreRelease>false</IsPreRelease>
+    <Version>3.3.5.1</Version>
+    <IsPreRelease>true</IsPreRelease>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.IsPreReleaseAttribute">
