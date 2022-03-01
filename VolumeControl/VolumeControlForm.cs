@@ -683,13 +683,17 @@ namespace VolumeControl
             UpdateHotkeys();
             UpdateTitle();
 
+            mixer.SelectionChanged += delegate
+            {
+                SetTarget(mixer.CurrentCellProcessName, false);
+            };
+            mixer.Show();
+
             if (Settings.MinimizeOnStartup)
             {
                 WindowState = FormWindowState.Minimized;
                 Visible = false;
             }
-
-            mixer.Show();
         }
         ~VolumeControlForm()
         {

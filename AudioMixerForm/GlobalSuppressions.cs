@@ -6,3 +6,6 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:AudioMixer.MixerForm.grid_CurrentCellDirtyStateChanged(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:AudioMixer.MixerForm.grid_RowsAdded(System.Object,System.Windows.Forms.DataGridViewRowsAddedEventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:AudioMixer.MixerForm.grid_RowsRemoved(System.Object,System.Windows.Forms.DataGridViewRowsRemovedEventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:AudioMixer.MixerForm.grid_CellEndEdit(System.Object,System.Windows.Forms.DataGridViewCellEventArgs)")]

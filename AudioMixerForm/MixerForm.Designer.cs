@@ -37,15 +37,13 @@ namespace AudioMixer
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerForm));
             this.grid = new System.Windows.Forms.DataGridView();
+            this.gridBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ReloadTimer = new System.Windows.Forms.Timer(this.components);
+            this.panel = new System.Windows.Forms.Panel();
             this.dgvColumn_PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_ProcessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColumn_Muted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.gridBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mutedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ReloadTimer = new System.Windows.Forms.Timer(this.components);
-            this.panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBindingSource)).BeginInit();
             this.panel.SuspendLayout();
@@ -90,7 +88,8 @@ namespace AudioMixer
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.grid.RowHeadersWidth = 25;
+            this.grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(220)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             this.grid.RowsDefaultCellStyle = dataGridViewCellStyle4;
@@ -98,10 +97,29 @@ namespace AudioMixer
             this.grid.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grid.ShowEditingIcon = false;
-            this.grid.Size = new System.Drawing.Size(473, 191);
+            this.grid.Size = new System.Drawing.Size(374, 51);
             this.grid.TabIndex = 0;
-            this.grid.DataSourceChanged += new System.EventHandler(this.grid_DataSourceChanged);
             this.grid.CurrentCellDirtyStateChanged += new System.EventHandler(this.grid_CurrentCellDirtyStateChanged);
+            this.grid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_RowsAdded);
+            // 
+            // gridBindingSource
+            // 
+            this.gridBindingSource.DataSource = typeof(AudioAPI.AudioProcessList);
+            // 
+            // ReloadTimer
+            // 
+            this.ReloadTimer.Interval = 500;
+            this.ReloadTimer.Tick += new System.EventHandler(this.ReloadTimer_Tick);
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.grid);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Padding = new System.Windows.Forms.Padding(5);
+            this.panel.Size = new System.Drawing.Size(384, 61);
+            this.panel.TabIndex = 1;
             // 
             // dgvColumn_PID
             // 
@@ -126,6 +144,8 @@ namespace AudioMixer
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             this.dgvColumn_Volume.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvColumn_Volume.HeaderText = "Volume";
+            this.dgvColumn_Volume.MaxInputLength = 4;
+            this.dgvColumn_Volume.MinimumWidth = 20;
             this.dgvColumn_Volume.Name = "dgvColumn_Volume";
             this.dgvColumn_Volume.Width = 72;
             // 
@@ -139,50 +159,15 @@ namespace AudioMixer
             this.dgvColumn_Muted.TrueValue = "true";
             this.dgvColumn_Muted.Width = 48;
             // 
-            // gridBindingSource
-            // 
-            this.gridBindingSource.DataSource = typeof(AudioAPI.AudioProcessList);
-            // 
-            // volumeDataGridViewTextBoxColumn
-            // 
-            this.volumeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
-            this.volumeDataGridViewTextBoxColumn.FillWeight = 176.9329F;
-            this.volumeDataGridViewTextBoxColumn.HeaderText = "Volume";
-            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
-            // 
-            // mutedDataGridViewCheckBoxColumn
-            // 
-            this.mutedDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.mutedDataGridViewCheckBoxColumn.DataPropertyName = "Muted";
-            this.mutedDataGridViewCheckBoxColumn.FillWeight = 25.82962F;
-            this.mutedDataGridViewCheckBoxColumn.HeaderText = "Muted";
-            this.mutedDataGridViewCheckBoxColumn.MinimumWidth = 10;
-            this.mutedDataGridViewCheckBoxColumn.Name = "mutedDataGridViewCheckBoxColumn";
-            // 
-            // ReloadTimer
-            // 
-            this.ReloadTimer.Interval = 500;
-            this.ReloadTimer.Tick += new System.EventHandler(this.ReloadTimer_Tick);
-            // 
-            // panel
-            // 
-            this.panel.Controls.Add(this.grid);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Padding = new System.Windows.Forms.Padding(5);
-            this.panel.Size = new System.Drawing.Size(483, 201);
-            this.panel.TabIndex = 1;
-            // 
             // MixerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(483, 201);
+            this.ClientSize = new System.Drawing.Size(384, 61);
             this.Controls.Add(this.panel);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MixerForm";
@@ -203,8 +188,6 @@ namespace AudioMixer
         private DataGridView grid;
         private BindingSource gridBindingSource;
         private System.Windows.Forms.Timer ReloadTimer;
-        private DataGridViewTextBoxColumn volumeDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn mutedDataGridViewCheckBoxColumn;
         private Panel panel;
         private DataGridViewTextBoxColumn dgvColumn_PID;
         private DataGridViewTextBoxColumn dgvColumn_ProcessName;

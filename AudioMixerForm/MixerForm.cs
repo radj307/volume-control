@@ -4,30 +4,51 @@ namespace AudioMixer
 {
     public partial class MixerForm : Form
     {
+        #region Constructors
+
         public MixerForm(bool autoReloadEnabled)
         {
             InitializeComponent();
+
+            ReloadTimer.Enabled = autoReloadEnabled;
 
             audioProcessList = new();
             gridBindingSource.DataSource = audioProcessList;
 
             listItemHeight = grid.Font.Height + 9;
+
+            int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4);
+
+            totalFittingElements = threeQuartersHeight / listItemHeight;
+
+            SizeToFit();
         }
+
         public MixerForm() : this(false) { }
 
-        private readonly int listItemHeight;
+        #endregion Constructors
+
+        #region Members
+
+        private readonly int listItemHeight, totalFittingElements;
         private readonly AudioProcessList audioProcessList;
+
+        #endregion Members
+
+        #region Properties
 
         public Point Position
         {
             get => Location;
             set => Location = value;
         }
+
         public int PositionX
         {
             get => Location.X;
             set => Position = new Point(value, PositionY);
         }
+
         public int PositionY
         {
             get => Location.Y;
@@ -52,6 +73,45 @@ namespace AudioMixer
             set => ReloadTimer.Interval = value;
         }
 
+        public DataGridViewCell CurrentCell
+        {
+            get => grid.CurrentCell;
+            set => grid.CurrentCell = value;
+        }
+
+        public DataGridViewRow CurrentRow
+        {
+            get => grid.CurrentRow;
+        }
+
+        public int CurrentCellRowIndex
+        {
+            get => CurrentRow.Index;
+            set
+            {
+                for (int i = 0; i < grid.Rows.Count; ++i)
+                {
+                    grid.Rows[i].Selected = (i == value);
+                }
+            }
+        }
+
+        public string CurrentCellProcessName
+        {
+            get => CurrentRow.Cells[dgvColumn_ProcessName.Index].Value.ToString() ?? "";
+            set
+            {
+                for (int i = 0; i < grid.Rows.Count; ++i)
+                {
+                    grid.Rows[i].Selected = (grid.Rows[i].Cells[dgvColumn_ProcessName.Index].Value.ToString() == value);
+                }
+            }
+        }
+
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Calculates the amount of height needed to display all list items.
         /// </summary>
@@ -62,11 +122,15 @@ namespace AudioMixer
             if (FormBorderStyle != FormBorderStyle.None)
                 padding += 40;
 
-            int totalCellHeight = listItemHeight * (grid.RowCount % (Screen.PrimaryScreen.WorkingArea.Height / listItemHeight));
+            int totalCellHeight = listItemHeight * (grid.RowCount % totalFittingElements);
 
             // set the size of the form
             Size = new(Width, totalCellHeight + padding);
         }
+
+        #endregion Methods
+
+        #region FormMethods
 
         private void ReloadTimer_Tick(object sender, EventArgs e)
         {
@@ -93,15 +157,22 @@ namespace AudioMixer
             }
         }
 
+        private void grid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+            => SizeToFit();
+
+        private void grid_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+            => SizeToFit();
+
+        #endregion FormMethods
+
+        #region Events
+
         public event EventHandler SelectionChanged
         {
             add => grid.SelectionChanged += value;
             remove => grid.SelectionChanged -= value;
         }
 
-        private void grid_DataSourceChanged(object sender, EventArgs e)
-        {
-            SizeToFit();
-        }
+        #endregion Events
     }
 }
