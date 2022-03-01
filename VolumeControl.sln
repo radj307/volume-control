@@ -17,6 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToastForm", "ToastForm\Toas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessEventLog", "ProcessEventLog\ProcessEventLog.csproj", "{68508EF9-C774-4CFD-8DCB-DF6D239B1672}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EA8F9D60-8D5C-4C84-B8C7-643FA208DFD8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioMixer", "AudioMixerForm\AudioMixer.csproj", "{F20EC4BB-E51A-4643-BD33-370484AA5739}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +88,14 @@ Global
 		{68508EF9-C774-4CFD-8DCB-DF6D239B1672}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68508EF9-C774-4CFD-8DCB-DF6D239B1672}.Release|x86.ActiveCfg = Release|Any CPU
 		{68508EF9-C774-4CFD-8DCB-DF6D239B1672}.Release|x86.Build.0 = Release|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Debug|x86.Build.0 = Debug|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Release|x86.ActiveCfg = Release|Any CPU
+		{F20EC4BB-E51A-4643-BD33-370484AA5739}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

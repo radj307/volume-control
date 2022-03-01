@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-namespace VolumeControl.CLI;
+namespace VolumeControlCLI;
 
 internal enum Action : byte
 {

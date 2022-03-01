@@ -56,7 +56,8 @@ jobs:
       with:
         name: build-windows
         path: '${{github.workspace}}/STAGING/*'
-
+        if-no-files-found: error
+        
   create-release:
     needs:    build-release
     runs-on:  ubuntu-latest

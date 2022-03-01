@@ -33,6 +33,7 @@
     <Content Include="Resources\icons\iconSilvered.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -46,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
+    <ProjectReference Include="..\AudioMixerForm\AudioMixer.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\ToastForm\ToastForm.csproj" />
     <ProjectReference Include="..\UIComposites\UIComposites.csproj" />

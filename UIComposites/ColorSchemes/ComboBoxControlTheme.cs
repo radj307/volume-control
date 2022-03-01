@@ -13,9 +13,8 @@
 
         public new Control PaintControl(Control ctrl)
         {
-            if (ctrl is ComboBox)
+            if (ctrl is ComboBox cmb)
             {
-                var cmb = (ComboBox)ctrl;
                 cmb.ForeColor = ForeColor;
                 cmb.BackColor = BackColor;
                 var font = Font;

@@ -7,10 +7,10 @@
     <ApplicationIcon>Resources\icons\Icon_Refresh.ico</ApplicationIcon>
     <Version>3.3.4.1</Version>
     <IsPreRelease>false</IsPreRelease>
-    <StartupObject>VolumeControl.CLI.Program</StartupObject>
+    <StartupObject>VolumeControlCLI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <AssemblyAttribute Include="VolumeControl.CLI.IsPreReleaseAttribute">
+    <AssemblyAttribute Include="VolumeControlCLI.IsPreReleaseAttribute">
       <_Parameter1>$(IsPreRelease)</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>

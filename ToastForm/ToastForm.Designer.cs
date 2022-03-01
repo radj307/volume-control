@@ -35,7 +35,8 @@
             this.StateImages = new System.Windows.Forms.ImageList(this.components);
             this.NotifyTimer = new System.Windows.Forms.Timer(this.components);
             this.DisplayPanel = new System.Windows.Forms.Panel();
-            this.VolumeStateImageCache = new System.Windows.Forms.ImageList(this.components);
+            this.StateImageCache3Part = new System.Windows.Forms.ImageList(this.components);
+            this.StateImageCache5Part = new System.Windows.Forms.ImageList(this.components);
             this.DisplayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,16 +97,28 @@
             this.DisplayPanel.Size = new System.Drawing.Size(200, 50);
             this.DisplayPanel.TabIndex = 1;
             // 
-            // VolumeStateImageCache
+            // StateImageCache3Part
             // 
-            this.VolumeStateImageCache.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
-            this.VolumeStateImageCache.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("VolumeStateImageCache.ImageStream")));
-            this.VolumeStateImageCache.TransparentColor = System.Drawing.Color.Transparent;
-            this.VolumeStateImageCache.Images.SetKeyName(0, "tgt.png");
-            this.VolumeStateImageCache.Images.SetKeyName(1, "0.png");
-            this.VolumeStateImageCache.Images.SetKeyName(2, "1.png");
-            this.VolumeStateImageCache.Images.SetKeyName(3, "2.png");
-            this.VolumeStateImageCache.Images.SetKeyName(4, "3.png");
+            this.StateImageCache3Part.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
+            this.StateImageCache3Part.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("StateImageCache3Part.ImageStream")));
+            this.StateImageCache3Part.TransparentColor = System.Drawing.Color.Transparent;
+            this.StateImageCache3Part.Images.SetKeyName(0, "tgt.png");
+            this.StateImageCache3Part.Images.SetKeyName(1, "0.png");
+            this.StateImageCache3Part.Images.SetKeyName(2, "1.png");
+            this.StateImageCache3Part.Images.SetKeyName(3, "2.png");
+            this.StateImageCache3Part.Images.SetKeyName(4, "3.png");
+            // 
+            // StateImageCache5Part
+            // 
+            this.StateImageCache5Part.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit;
+            this.StateImageCache5Part.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("StateImageCache5Part.ImageStream")));
+            this.StateImageCache5Part.TransparentColor = System.Drawing.Color.Transparent;
+            this.StateImageCache5Part.Images.SetKeyName(0, "0");
+            this.StateImageCache5Part.Images.SetKeyName(1, "1-20");
+            this.StateImageCache5Part.Images.SetKeyName(2, "20-40");
+            this.StateImageCache5Part.Images.SetKeyName(3, "40-60");
+            this.StateImageCache5Part.Images.SetKeyName(4, "60-80");
+            this.StateImageCache5Part.Images.SetKeyName(5, "80-100");
             // 
             // ToastForm
             // 
@@ -137,6 +150,7 @@
         public System.Windows.Forms.Timer NotifyTimer;
         private Panel DisplayPanel;
         private ImageList StateImages;
-        private ImageList VolumeStateImageCache;
+        private ImageList StateImageCache3Part;
+        private ImageList StateImageCache5Part;
     }
 }

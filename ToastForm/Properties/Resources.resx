@@ -124,16 +124,34 @@
   <data name="tgt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\volume-states\tgt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="vol0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\volume-states\0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_3p0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\3p0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="vol1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\volume-states\1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_3p1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\3p1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="vol2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\volume-states\2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_3p2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\3p2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="vol3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\volume-states\3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_3p3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\3p3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5p5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volume-states\5p5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

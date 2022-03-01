@@ -11,6 +11,8 @@ namespace VolumeControl
     {
         #region Members
 
+        private AudioMixer.MixerForm mixer = new();
+
         /// <summary>
         /// Hotkey definition linked to the volume up action.
         /// Cannot be redefined, use the Reset() method to modify in-place.
@@ -278,7 +280,7 @@ namespace VolumeControl
             var volume = GetTargetVolume(target);
             if (volume == null)
                 return;
-            targetListForm.UpdateActiveStateImage(volume.Value.Item1, volume.Value.Item2);
+            targetListForm.UpdateActiveStateImage3P(volume.Value.Item1, volume.Value.Item2);
         }
 
         private void UpdateHotkeys()
@@ -686,6 +688,8 @@ namespace VolumeControl
                 WindowState = FormWindowState.Minimized;
                 Visible = false;
             }
+
+            mixer.Show();
         }
         ~VolumeControlForm()
         {
@@ -793,10 +797,12 @@ namespace VolumeControl
             if (enabled)
             {
                 ColorScheme.DarkMode.ApplyTo(targetListForm.Controls);
+                targetListForm.BackColor = ColorScheme.DarkMode.BorderHighlight.BackColor;
             }
             else
             {
                 ColorScheme.LightMode.ApplyTo(targetListForm.Controls);
+                targetListForm.BackColor = ColorScheme.LightMode.BorderHighlight.BackColor;
             }
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
@@ -807,13 +813,11 @@ namespace VolumeControl
             if (enabled)
             {
                 ColorScheme.DarkMode.ApplyTo(Controls);
-                ForeColor = ColorScheme.DarkMode.Default.ForeColor;
                 BackColor = ColorScheme.DarkMode.Default.BackColor;
             }
             else
             {
                 ColorScheme.LightMode.ApplyTo(Controls);
-                ForeColor = ColorScheme.LightMode.Default.ForeColor;
                 BackColor = ColorScheme.LightMode.Default.BackColor;
             }
             Properties.Settings.Default.EnableDarkMode = enabled;

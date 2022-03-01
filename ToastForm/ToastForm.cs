@@ -1,4 +1,5 @@
-﻿using ToastForm.Extensions;
+﻿using AudioAPI;
+using ToastForm.Extensions;
 using UIComposites;
 
 namespace VolumeControl
@@ -104,33 +105,43 @@ namespace VolumeControl
 
         public ListView.ListViewItemCollection Items => ListDisplay.Items;
 
-        private Image StateImageHigh => VolumeStateImageCache.Images[4];
-        private Image StateImageMedium => VolumeStateImageCache.Images[3];
-        private Image StateImageLow => VolumeStateImageCache.Images[2];
-        private Image StateImageMuted => VolumeStateImageCache.Images[1];
-        private Image StateImageNull => VolumeStateImageCache.Images[0];
-
         #endregion Properties
 
         #region Methods
 
         private void SetActiveStateImage(Image value)
+            => StateImages.Images[1] = value;
+
+        public void UpdateActiveStateImage5P(float volume, bool muted)
         {
-            StateImages.Images[1] = value;
+            if (volume <= 0f || muted)
+                SetActiveStateImage(StateImageCache5Part.Images[0]);
+            else if (volume < 0.2f)
+                SetActiveStateImage(StateImageCache5Part.Images[1]);
+            else if (volume < 0.4f)
+                SetActiveStateImage(StateImageCache5Part.Images[2]);
+            else if (volume < 0.6f)
+                SetActiveStateImage(StateImageCache5Part.Images[3]);
+            else if (volume < 0.8f)
+                SetActiveStateImage(StateImageCache5Part.Images[4]);
+            else if (volume <= 1f)
+                SetActiveStateImage(StateImageCache5Part.Images[5]);
+            else throw new ArgumentOutOfRangeException($"Volume is out-of-range! Received volume: {volume}, Maximum: 1.0");
         }
 
-        public void UpdateActiveStateImage(float volume, bool muted)
+        public void UpdateActiveStateImage3P(float volume, bool muted)
         {
             if (volume < 0f || volume > 1f)
-                SetActiveStateImage(StateImageNull);
+                SetActiveStateImage(StateImageCache3Part.Images[0]);
             else if (muted || volume.EqualsWithin(0f))
-                SetActiveStateImage(StateImageMuted);
+                SetActiveStateImage(StateImageCache3Part.Images[1]);
             else if (volume < 0.3f)
-                SetActiveStateImage(StateImageLow);
+                SetActiveStateImage(StateImageCache3Part.Images[2]);
             else if (volume < 0.6f)
-                SetActiveStateImage(StateImageMedium);
-            else
-                SetActiveStateImage(StateImageHigh);
+                SetActiveStateImage(StateImageCache3Part.Images[3]);
+            else if (volume <= 1f)
+                SetActiveStateImage(StateImageCache3Part.Images[4]);
+            else throw new ArgumentOutOfRangeException($"Volume is out-of-range! Received volume: {volume}, Maximum: 1.0");
         }
 
         public void FlushItems() => Items.Clear();

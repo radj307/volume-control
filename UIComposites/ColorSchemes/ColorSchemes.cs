@@ -7,7 +7,7 @@ namespace UIComposites.ColorSchemes
         public static readonly ColorScheme LightMode = new()
         {
             Default = new(Color.Black, Color.WhiteSmoke),
-            BorderHighlight = new(Color.Black, Color.WhiteSmoke),
+            BorderHighlight = new(Color.Black, Color.FromArgb(60, 60, 60)),
             Theme = new()
             {
                 new PanelControlTheme(Color.Transparent, Color.Transparent, null, BorderStyle.None),
@@ -23,7 +23,7 @@ namespace UIComposites.ColorSchemes
         public static readonly ColorScheme DarkMode = new()
         {
             Default = new(Color.WhiteSmoke, Color.FromArgb(50, 50, 50)),
-            BorderHighlight = new(Color.WhiteSmoke, Color.Yellow),
+            BorderHighlight = new(Color.WhiteSmoke, Color.WhiteSmoke),
             Theme = new()
             {
                 new PanelControlTheme(Color.Transparent, Color.Transparent, null, BorderStyle.None),
