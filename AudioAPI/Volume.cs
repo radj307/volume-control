@@ -9,51 +9,58 @@ namespace AudioAPI
     {
         #region Static Members
 
-        public static ISimpleAudioVolume GetVolumeObject(int pid)
+        public static IMMDeviceCollection GetAllDevices()
         {
-            // Get the speakers (1st render + multimedia) device
+            // Get the first (default) ERender device with a multimedia role
             IMMDeviceEnumerator deviceEnumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
-            deviceEnumerator.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out IMMDevice speakers);
-
-            speakers.GetId(out string defaultDeviceId);
-
-            ISimpleAudioVolume volumeControl = GetVolumeObject(pid, speakers);
-            Marshal.ReleaseComObject(speakers);
-
-            if (volumeControl == null)
-            {
-                // If volumeControl is null, then the process's volume object might be on a different device.
-                // This happens if the process doesn't use the default device.
-
-                deviceEnumerator.EnumAudioEndpoints(EDataFlow.ERender, EDeviceState.Active, out IMMDeviceCollection deviceCollection);
-
-                deviceCollection.GetCount(out int count);
-                for (int i = 0; i < count; i++)
-                {
-                    deviceCollection.Item(i, out IMMDevice device);
-                    device.GetId(out string deviceId);
-
-                    try
-                    {
-                        if (deviceId == defaultDeviceId)
-                            continue;
-
-                        volumeControl = GetVolumeObject(pid, device);
-                        if (volumeControl != null)
-                            break;
-                    }
-                    finally
-                    {
-                        Marshal.ReleaseComObject(device);
-                    }
-                }
-            }
-
-            Marshal.ReleaseComObject(deviceEnumerator);
-#           pragma warning disable CS8603 // Possible null reference return.
-            return volumeControl;
-#           pragma warning restore CS8603 // Possible null reference return.
+            deviceEnumerator.EnumAudioEndpoints(EDataFlow.ERender, EDeviceState.Active, out IMMDeviceCollection devices);
+            return devices;
         }
+        public static IMMDevice GetDevice(string endpointID)
+        {
+            IMMDeviceEnumerator deviceEnumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
+            deviceEnumerator.GetDevice(endpointID, out IMMDevice device);
+            return device;
+        }
+        public static IMMDevice GetDefaultDevice()
+        {
+            IMMDeviceEnumerator deviceEnumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
+            deviceEnumerator.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out IMMDevice device);
+            return device;
+        }
+
+        public static IAudioSessionControl2? GetSessionObject(int pid, IMMDevice device)
+        {
+            Guid iidAudioSessionManager2 = typeof(IAudioSessionManager2).GUID;
+            device.Activate(ref iidAudioSessionManager2, 0, IntPtr.Zero, out object o);
+            IAudioSessionManager2 mgr = (IAudioSessionManager2)o;
+
+            mgr.GetSessionEnumerator(out IAudioSessionEnumerator sessionEnumerator);
+            sessionEnumerator.GetCount(out int sessionCount);
+
+            IAudioSessionControl2? sessionControl = null;
+            for (int i = 0; i < sessionCount; ++i)
+            {
+                sessionEnumerator.GetSession(i, out sessionControl);
+
+                if (sessionControl == null)
+                    continue;
+
+                sessionControl.GetProcessId(out int sessionPID);
+
+                if (sessionPID == pid)
+                    break;
+                // else
+                Marshal.ReleaseComObject(sessionControl);
+            }
+            Marshal.ReleaseComObject(sessionEnumerator);
+            Marshal.ReleaseComObject(mgr);
+            Marshal.ReleaseComObject(device);
+
+            return sessionControl;
+        }
+        public static IAudioSessionControl2? GetSessionObject(int pid)
+            => GetSessionObject(pid, GetDefaultDevice());
 
         private static ISimpleAudioVolume GetVolumeObject(int pid, IMMDevice device)
         {
@@ -89,7 +96,28 @@ namespace AudioAPI
             return volumeControl;
 #           pragma warning restore CS8603 // Possible null reference return.
         }
+        public static ISimpleAudioVolume GetVolumeObject(int pid)
+            => GetVolumeObject(pid, GetDefaultDevice());
 
         #endregion
+
+        public static List<IAudioSessionControl2> GetAllSessions(IMMDevice device)
+        {
+            Guid GUID = typeof(IAudioSessionManager2).GUID;
+            device.Activate(ref GUID, 0, IntPtr.Zero, out object o);
+            IAudioSessionManager2 mgr = (IAudioSessionManager2)o;
+
+            mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
+
+            List<IAudioSessionControl2> l = enumerator.GetAllSessions();
+
+            Marshal.ReleaseComObject(enumerator);
+            Marshal.ReleaseComObject(mgr);
+            Marshal.ReleaseComObject(device);
+
+            return l;
+        }
+        public static List<IAudioSessionControl2> GetAllSessions()
+            => GetAllSessions(GetDefaultDevice());
     }
 }
