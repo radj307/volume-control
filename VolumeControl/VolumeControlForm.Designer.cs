@@ -42,6 +42,7 @@
             this.TabController = new Manina.Windows.Forms.TabControl();
             this.tab_general = new Manina.Windows.Forms.Tab();
             this.panel_general = new System.Windows.Forms.Panel();
+            this.cb_OpenMixer = new System.Windows.Forms.Button();
             this.Label_VolumeControl = new System.Windows.Forms.Label();
             this.TargetSelector = new UIComposites.TargetSelector();
             this.Label_VersionNumber = new System.Windows.Forms.Label();
@@ -60,7 +61,6 @@
             this.HKEdit_ShowTarget = new UIComposites.HotkeyEditor();
             this.HKEdit_PrevTarget = new UIComposites.HotkeyEditor();
             this.TargetRefreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.cb_OpenMixer = new System.Windows.Forms.Button();
             this.SystemTray_ContextMenu.SuspendLayout();
             this.TabController.SuspendLayout();
             this.tab_general.SuspendLayout();
@@ -212,6 +212,16 @@
             this.panel_general.Name = "panel_general";
             this.panel_general.Size = new System.Drawing.Size(366, 206);
             this.panel_general.TabIndex = 0;
+            // 
+            // cb_OpenMixer
+            // 
+            this.cb_OpenMixer.Location = new System.Drawing.Point(150, 48);
+            this.cb_OpenMixer.Name = "cb_OpenMixer";
+            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 23);
+            this.cb_OpenMixer.TabIndex = 12;
+            this.cb_OpenMixer.Text = "Mixer";
+            this.cb_OpenMixer.UseVisualStyleBackColor = false;
+            this.cb_OpenMixer.Click += new System.EventHandler(this.cb_OpenMixer_Click);
             // 
             // Label_VolumeControl
             // 
@@ -423,16 +433,6 @@
             this.TargetRefreshTimer.Enabled = true;
             this.TargetRefreshTimer.Interval = 4000;
             this.TargetRefreshTimer.Tick += new System.EventHandler(this.TargetRefreshTimer_Tick);
-            // 
-            // cb_OpenMixer
-            // 
-            this.cb_OpenMixer.Location = new System.Drawing.Point(15, 42);
-            this.cb_OpenMixer.Name = "cb_OpenMixer";
-            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 23);
-            this.cb_OpenMixer.TabIndex = 12;
-            this.cb_OpenMixer.Text = "Mixer";
-            this.cb_OpenMixer.UseVisualStyleBackColor = true;
-            this.cb_OpenMixer.Click += new System.EventHandler(this.cb_OpenMixer_Click);
             // 
             // VolumeControlForm
             // 
