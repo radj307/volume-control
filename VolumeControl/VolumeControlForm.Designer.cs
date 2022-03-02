@@ -215,11 +215,12 @@
             // 
             // cb_OpenMixer
             // 
-            this.cb_OpenMixer.Location = new System.Drawing.Point(150, 48);
+            this.cb_OpenMixer.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_OpenMixer.Location = new System.Drawing.Point(14, 16);
             this.cb_OpenMixer.Name = "cb_OpenMixer";
-            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 23);
+            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 34);
             this.cb_OpenMixer.TabIndex = 12;
-            this.cb_OpenMixer.Text = "Mixer";
+            this.cb_OpenMixer.Text = "Toggle Mixer";
             this.cb_OpenMixer.UseVisualStyleBackColor = false;
             this.cb_OpenMixer.Click += new System.EventHandler(this.cb_OpenMixer_Click);
             // 
@@ -228,7 +229,7 @@
             this.Label_VolumeControl.AutoSize = true;
             this.Label_VolumeControl.Font = new System.Drawing.Font("Lucida Sans Unicode", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Label_VolumeControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label_VolumeControl.Location = new System.Drawing.Point(38, 18);
+            this.Label_VolumeControl.Location = new System.Drawing.Point(70, 18);
             this.Label_VolumeControl.Name = "Label_VolumeControl";
             this.Label_VolumeControl.Size = new System.Drawing.Size(130, 17);
             this.Label_VolumeControl.TabIndex = 10;
@@ -255,7 +256,7 @@
             this.Label_VersionNumber.BackColor = System.Drawing.Color.Transparent;
             this.Label_VersionNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Label_VersionNumber.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label_VersionNumber.Location = new System.Drawing.Point(72, 33);
+            this.Label_VersionNumber.Location = new System.Drawing.Point(104, 33);
             this.Label_VersionNumber.Name = "Label_VersionNumber";
             this.Label_VersionNumber.Size = new System.Drawing.Size(62, 15);
             this.Label_VersionNumber.TabIndex = 11;
