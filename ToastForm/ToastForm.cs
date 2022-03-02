@@ -1,5 +1,5 @@
 ﻿using AudioAPI;
-using ToastForm.Extensions;
+using TypeExtensions;
 using UIComposites;
 
 namespace VolumeControl

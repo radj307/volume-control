@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TypeExtensions\TypeExtensions.csproj" />
     <ProjectReference Include="..\UIComposites\UIComposites.csproj" />
   </ItemGroup>
 

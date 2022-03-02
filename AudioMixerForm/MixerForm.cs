@@ -1,4 +1,5 @@
 ﻿using AudioAPI;
+using AudioAPI.Forms;
 
 namespace AudioMixer
 {
@@ -98,7 +99,7 @@ namespace AudioMixer
 
         public string CurrentCellProcessName
         {
-            get => CurrentRow.Cells[dgvColumn_ProcessName.Index].Value.ToString() ?? "";
+            get => CurrentRow.Cells[dgvColumn_ProcessName.Index]?.Value?.ToString() ?? "";
             set
             {
                 for (int i = 0; i < grid.Rows.Count; ++i)
@@ -106,6 +107,12 @@ namespace AudioMixer
                     grid.Rows[i].Selected = (grid.Rows[i].Cells[dgvColumn_ProcessName.Index].Value.ToString() == value);
                 }
             }
+        }
+
+        public float VolumeStepSize
+        {
+            get;
+            set;
         }
 
         #endregion Properties
