@@ -110,7 +110,20 @@ namespace AudioAPI
         /// </summary>
         public string VolumePercent
         {
-            get => VolumeFullRange.ToString() + '%';
+            get
+            {
+                string s = VolumeFullRange.ToString();
+                if (s.EndsWith('0'))
+                {
+                    int pos = s.IndexOf('.');
+                    if (pos != -1)
+                    {
+                        s = s[..pos];
+                    }
+                }
+                
+                return s + '%';
+            }
             set
             {
                 if (value != null)
