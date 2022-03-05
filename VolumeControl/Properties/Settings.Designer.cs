@@ -370,5 +370,17 @@ namespace VolumeControl.Properties {
                 this["AllowMultipleInstances"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TargetIsLocked {
+            get {
+                return ((bool)(this["TargetIsLocked"]));
+            }
+            set {
+                this["TargetIsLocked"] = value;
+            }
+        }
     }
 }

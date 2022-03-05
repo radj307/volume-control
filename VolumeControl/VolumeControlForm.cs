@@ -59,6 +59,7 @@ namespace VolumeControl
         private readonly CancelButtonHandler cancelHandler = new();
 
         private bool triggerTargetRefresh = false;
+        private bool targetIsLocked = false;
 
         private readonly ToastForm toast = new();
         private readonly MixerForm mixer = new();
@@ -66,6 +67,17 @@ namespace VolumeControl
         #endregion Members
 
         #region Properties
+
+        public bool TargetIsLocked
+        {
+            get => targetIsLocked;
+            set
+            {
+                TargetSelector.b_Reload.Enabled = TargetSelector.cmb_Target.Enabled = !(targetIsLocked = value);
+                if (TargetSelector.LockChecked != value)
+                    TargetSelector.LockChecked = value;
+            }
+        }
 
         private int TargetListSize => TargetSelector.ListSize;
         private int CurrentTargetIndex
@@ -224,6 +236,10 @@ namespace VolumeControl
         /// </summary>
         internal void UpdateProcessList()
         {
+            // TODO: improve target lock check
+            if (TargetIsLocked)
+                return;
+
             // get a list of all active audio sessions (applications that are outputting audio)
             List<string> active = ProcessNameList.GetProcessNames();
 
@@ -307,6 +323,9 @@ namespace VolumeControl
         /// <param name="addIfMissing">When true, adds the target name if it doesn't already exist.</param>
         private void SetTarget(string name, bool addIfMissing = true)
         {
+            if (TargetIsLocked)
+                return;
+
             int index = TargetSelector.IndexOf(name);
             if (index != -1)
                 CurrentTargetIndex = index;
@@ -328,6 +347,9 @@ namespace VolumeControl
                 UpdateProcessList();
                 TargetRefreshTimer.Enabled = true;
             }
+
+            if (TargetIsLocked)
+                return;
 
             if (CurrentTargetIndex + 1 < TargetListSize)
                 ++CurrentTargetIndex;
@@ -354,6 +376,9 @@ namespace VolumeControl
                 UpdateProcessList();
                 TargetRefreshTimer.Enabled = true;
             }
+
+            if (TargetIsLocked)
+                return;
 
             if (CurrentTargetIndex - 1 >= 0)
                 --CurrentTargetIndex;
@@ -688,6 +713,8 @@ namespace VolumeControl
                 SetTarget(mixer.CurrentCellProcessName, false);
             };
 
+            TargetIsLocked = Properties.Settings.Default.TargetIsLocked;
+
             if (Settings.MinimizeOnStartup)
             {
                 WindowState = FormWindowState.Minimized;
@@ -744,12 +771,10 @@ namespace VolumeControl
         /// Called when the window is focused by the user.
         /// </summary>
         private void Window_GotFocus(object sender, EventArgs e) => UpdateProcessList();
-
         /// <summary>
         /// Called when the Reload button is pressed.
         /// </summary>
         private void Reload_Clicked(object sender, EventArgs e) => UpdateProcessList();
-
         /// <summary>
         /// Called when the window is maximized, minimized, or resized.
         /// </summary>
@@ -760,6 +785,9 @@ namespace VolumeControl
                 Visible = false;
             }
         }
+        /// <summary>
+        /// Called when the "Run at Startup" checkbox is checked or unchecked, from any source.
+        /// </summary>
         private void RunOnStartup_Changed(object sender, EventArgs e)
         {
             bool isChecked = Settings.RunAtStartup;
@@ -782,13 +810,10 @@ namespace VolumeControl
         }
         private void ToastEnabled_Changed(object sender, EventArgs e)
             => Properties.Settings.Default.tgtlist_enabled = toast.TimeoutEnabled = TargetListEnabled;
-
         private void ToastTimeout_Changed(object sender, EventArgs e)
             => Properties.Settings.Default.tgtlist_timeout = toast.Timeout = TgtSettings.TargetListTimeout;
-
         private void AlwaysOnTop_Changed(object sender, EventArgs e)
             => AlwaysOnTop = Settings.AlwaysOnTop;
-
         private void TargetRefreshTimer_Tick(object sender, EventArgs e)
         {
             TargetRefreshTimer.Enabled = false;
@@ -809,7 +834,6 @@ namespace VolumeControl
             }
             Properties.Settings.Default.EnableToastDarkMode = TgtSettings.EnableDarkMode;
         }
-
         private void Settings_DarkModeChanged(object? sender, EventArgs e)
         {
             bool enabled = Settings.EnableDarkMode;
@@ -827,13 +851,16 @@ namespace VolumeControl
         }
         private void AlwaysOnTop_CheckedChanged(object sender, EventArgs e)
             => AlwaysOnTop = ctmi_AlwaysOnTop.Checked;
-
         private void cb_OpenMixer_Click(object sender, EventArgs e)
         {
             if (mixer.Visible)
                 mixer.Hide();
             else
                 mixer.Show();
+        }
+        private void TargetSelector_Lock_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.TargetIsLocked = TargetIsLocked = TargetSelector.LockChecked;
         }
 
         #endregion FormComponents

@@ -37,6 +37,11 @@
             get => cmb_Panel.BorderStyle;
             set => cmb_Panel.BorderStyle = value;
         }
+        public bool LockChecked
+        {
+            get => cb_Lock.Checked;
+            set => cb_Lock.Checked = value;
+        }
 
         public TargetSelector()
         {
@@ -57,6 +62,11 @@
         {
             add => b_Reload.Click += value;
             remove => b_Reload.Click -= value;
+        }
+        public event EventHandler Lock_CheckedChanged
+        {
+            add => cb_Lock.CheckedChanged += value;
+            remove => cb_Lock.CheckedChanged -= value;
         }
     }
 }

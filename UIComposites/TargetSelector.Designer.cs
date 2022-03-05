@@ -34,6 +34,7 @@
             this.label_Target = new System.Windows.Forms.Label();
             this.b_Reload = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
+            this.cb_Lock = new System.Windows.Forms.CheckBox();
             this.cmb_Panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.cmb_Target_BindingSource)).BeginInit();
             this.panel.SuspendLayout();
@@ -49,7 +50,7 @@
             this.cmb_Target.Location = new System.Drawing.Point(0, 0);
             this.cmb_Target.MaxDropDownItems = 12;
             this.cmb_Target.Name = "cmb_Target";
-            this.cmb_Target.Size = new System.Drawing.Size(238, 23);
+            this.cmb_Target.Size = new System.Drawing.Size(180, 23);
             this.cmb_Target.TabIndex = 0;
             // 
             // label_Target
@@ -71,7 +72,7 @@
             this.b_Reload.CausesValidation = false;
             this.b_Reload.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.b_Reload.ForeColor = System.Drawing.Color.Black;
-            this.b_Reload.Location = new System.Drawing.Point(293, 1);
+            this.b_Reload.Location = new System.Drawing.Point(236, 1);
             this.b_Reload.Name = "b_Reload";
             this.b_Reload.Size = new System.Drawing.Size(53, 23);
             this.b_Reload.TabIndex = 1;
@@ -81,6 +82,7 @@
             // panel
             // 
             this.panel.BackColor = System.Drawing.Color.Transparent;
+            this.panel.Controls.Add(this.cb_Lock);
             this.panel.Controls.Add(this.cmb_Panel);
             this.panel.Controls.Add(this.b_Reload);
             this.panel.Controls.Add(this.label_Target);
@@ -92,13 +94,25 @@
             this.panel.Size = new System.Drawing.Size(350, 25);
             this.panel.TabIndex = 3;
             // 
+            // cb_Lock
+            // 
+            this.cb_Lock.AutoSize = true;
+            this.cb_Lock.ForeColor = System.Drawing.Color.Black;
+            this.cb_Lock.Location = new System.Drawing.Point(295, 3);
+            this.cb_Lock.Name = "cb_Lock";
+            this.cb_Lock.Padding = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.cb_Lock.Size = new System.Drawing.Size(51, 20);
+            this.cb_Lock.TabIndex = 4;
+            this.cb_Lock.Text = "Lock";
+            this.cb_Lock.UseVisualStyleBackColor = true;
+            // 
             // cmb_Panel
             // 
             this.cmb_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cmb_Panel.Controls.Add(this.cmb_Target);
             this.cmb_Panel.Location = new System.Drawing.Point(48, 1);
             this.cmb_Panel.Name = "cmb_Panel";
-            this.cmb_Panel.Size = new System.Drawing.Size(240, 23);
+            this.cmb_Panel.Size = new System.Drawing.Size(182, 23);
             this.cmb_Panel.TabIndex = 3;
             // 
             // TargetSelector
@@ -119,12 +133,12 @@
         }
 
         #endregion
-
-        private ComboBox cmb_Target;
         private Label label_Target;
-        private Button b_Reload;
         private Panel panel;
         public BindingSource cmb_Target_BindingSource;
         private Panel cmb_Panel;
+        public ComboBox cmb_Target;
+        public Button b_Reload;
+        public CheckBox cb_Lock;
     }
 }

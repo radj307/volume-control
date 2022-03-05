@@ -249,6 +249,7 @@
             this.TargetSelector.Size = new System.Drawing.Size(350, 25);
             this.TargetSelector.TabIndex = 3;
             this.TargetSelector.ReloadButtonPressed += new System.EventHandler(this.Reload_Clicked);
+            this.TargetSelector.Lock_CheckedChanged += new System.EventHandler(this.TargetSelector_Lock_CheckedChanged);
             // 
             // Label_VersionNumber
             // 
