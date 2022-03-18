@@ -218,7 +218,7 @@
             this.cb_OpenMixer.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cb_OpenMixer.Location = new System.Drawing.Point(14, 16);
             this.cb_OpenMixer.Name = "cb_OpenMixer";
-            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 34);
+            this.cb_OpenMixer.Size = new System.Drawing.Size(51, 36);
             this.cb_OpenMixer.TabIndex = 12;
             this.cb_OpenMixer.Text = "Toggle Mixer";
             this.cb_OpenMixer.UseVisualStyleBackColor = false;

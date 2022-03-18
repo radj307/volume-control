@@ -457,7 +457,10 @@ namespace VolumeControl
         }
 
         public void BringToFront(object? sender, EventArgs e)
-            => BringToFront();
+        {
+            Show();
+            BringToFront();
+        }
 
         #endregion HelperMethods
 
