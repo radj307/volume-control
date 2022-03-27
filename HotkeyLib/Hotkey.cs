@@ -59,7 +59,7 @@ namespace HotkeyLib
 
         public Hotkey(string keystr, HandledEventHandler? pressed_action = null)
         {
-            Pressed = null!;
+            Pressed = pressed_action!;
             windowControl = null!;
 
             Shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
@@ -80,15 +80,12 @@ namespace HotkeyLib
                 keyCode = Keys.None;
             }
 
-            if (pressed_action != null)
-                Pressed = pressed_action;
-
             Application.AddMessageFilter(this);
         }
 
-        public Hotkey(Keys keyCode, bool shift, bool control, bool alt, bool windows)
+        public Hotkey(Keys keyCode, bool shift, bool control, bool alt, bool windows, HandledEventHandler? pressed_action = null)
         {
-            Pressed = null!;
+            Pressed = pressed_action!;
             windowControl = null!;
 
             // Assign properties
@@ -102,29 +99,11 @@ namespace HotkeyLib
             Application.AddMessageFilter(this);
         }
 
-        public Hotkey(string keystr)
-        {
-            Pressed = null!;
-            windowControl = null!;
-
-            shift = keystr.Contains("Shift+", StringComparison.OrdinalIgnoreCase);
-            control = keystr.Contains("Control+", StringComparison.OrdinalIgnoreCase);
-            alt = keystr.Contains("Alt+", StringComparison.OrdinalIgnoreCase);
-            windows = keystr.Contains("Windows+", StringComparison.OrdinalIgnoreCase);
-            int lastpos = keystr.LastIndexOf('+');
-            if (lastpos == -1)
-                keyCode = (Keys)Enum.Parse(typeof(Keys), keystr);
-            else
-                keyCode = (Keys)Enum.Parse(typeof(Keys), keystr.AsSpan(lastpos + 1));
-
-            Application.AddMessageFilter(this);
-        }
-
         ~Hotkey()
         {
             // Unregister the hotkey if necessary
             if (Registered)
-            { Unregister(); }
+                Unregister();
         }
 
         public void Reset(string keystr)

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "VolumeControlCLI": {
-      "commandName": "Project",
-      "commandLineArgs": "-p 22316 -v 50"
-    }
-  }
-}

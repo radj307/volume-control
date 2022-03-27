@@ -22,8 +22,6 @@ namespace AudioAPI
         {
             if (_audioProcesses == null) throw new ArgumentNullException(nameof(_audioProcesses));
 
-            _audioProcesses.Clear();
-
             IMMDeviceEnumerator devEnum = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             devEnum.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out IMMDevice device);
 
@@ -34,14 +32,47 @@ namespace AudioAPI
             mgr.GetSessionEnumerator(out IAudioSessionEnumerator enumerator);
             List<IAudioSessionControl2> Sessions = enumerator.GetAllSessions();
 
+            List<AudioProcess> tmp = new(); // put updated list in a temporary object
             foreach (IAudioSessionControl2 session in Sessions)
             {
-                _audioProcesses.Add(new AudioProcess(session));
+                tmp.Add(new AudioProcess(session));
             }
 
+            // release allocated resources
             Marshal.ReleaseComObject(enumerator);
             Marshal.ReleaseComObject(devEnum);
             Marshal.ReleaseComObject(mgr);
+
+            // if tmp is larger than the current list, allocate more memory
+            _audioProcesses.EnsureCapacity(tmp.Count);
+
+            // remove old entries
+            for (int i = 0; i < _audioProcesses.Count; ++i)
+            {
+                if (!tmp.Contains(_audioProcesses[i]))
+                    _audioProcesses.RemoveAt(i);
+            }
+
+            // may be faster?
+            //for (int i = 0; i < _audioProcesses.Count; ++i)
+            //{
+            //    AudioProcess here = _audioProcesses[i];
+            //    bool isPresent = false;
+            //    for (int j = 0; j < tmp.Count; ++j)
+            //    {
+            //        if (here == tmp[j])
+            //        {
+            //            isPresent = true;
+            //            break;
+            //        }
+            //    }
+            //    if (!isPresent)
+            //        _audioProcesses.RemoveAt(i);
+            //}
+            // add new entries
+            foreach (AudioProcess proc in tmp)
+                if (!_audioProcesses.Contains(proc))
+                    _audioProcesses.Add(proc);
         }
 
         public void Add(AudioProcess item)
