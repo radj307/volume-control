@@ -145,7 +145,7 @@
     <value>Mixer</value>
   </data>
   <data name="&gt;&gt;Mixer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>CoreControls.DoubleBufferedDataGridView, CoreControls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Mixer.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -153,31 +153,31 @@
   <data name="&gt;&gt;Mixer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
   </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 23</value>
   </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+  <data name="bHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
+  <data name="bHotkeyEditor.Text" xml:space="preserve">
     <value>Edit Hotkeys...</value>
   </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
+  <data name="&gt;&gt;bHotkeyEditor.Name" xml:space="preserve">
+    <value>bHotkeyEditor</value>
   </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+  <data name="&gt;&gt;bHotkeyEditor.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bHotkeyEditor.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

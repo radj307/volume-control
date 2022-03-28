@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AudioAPI;
 using AudioAPI.Forms;
+using Core.Enum;
+using HotkeyLib;
 
 namespace Core
 {
@@ -16,12 +18,44 @@ namespace Core
             _procList = new();
             _selected = _procList.First();
             _selected_lock = false;
+
+            _actions = new()
+            {
+                {
+                    VolumeControlSubject.VOLUME,
+                    new()
+                    {
+                        { VolumeControlAction.INCREMENT, null },
+                        { VolumeControlAction.DECREMENT, null },
+                        { VolumeControlAction.TOGGLE, null },
+                    }
+                },
+                {
+                    VolumeControlSubject.MEDIA,
+                    new()
+                    {
+                        { VolumeControlAction.NEXT, null },
+                        { VolumeControlAction.PREV, null },
+                        { VolumeControlAction.TOGGLE, null },
+                    }
+                },
+                {
+                    VolumeControlSubject.TARGET,
+                    new()
+                    {
+                        { VolumeControlAction.NEXT, null },
+                        { VolumeControlAction.PREV, null },
+                        { VolumeControlAction.TOGGLE, null },
+                    }
+                },
+            };
         }
 
         #region Members
         private AudioProcessList _procList;
         private AudioProcess _selected;
         private bool _selected_lock;
+        private Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> _actions;
         #endregion Members
 
         #region Events
@@ -31,6 +65,10 @@ namespace Core
         #endregion Events
 
         #region Properties
+        public Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> Actions
+        {
+            get => _actions;
+        }
         public AudioProcessList ProcessList
         {
             get => _procList;
@@ -82,6 +120,15 @@ namespace Core
                 else // invalid index:
                     _selected = _procList.First();
             }*/
+        }
+
+        public void SetHandler(VolumeControlSubject subject, VolumeControlAction action, HotkeyLib.KeyEventHandler handler)
+        {
+            _actions[subject][action] = handler;
+        }
+        public HotkeyLib.KeyEventHandler? GetHandler(VolumeControlSubject subject, VolumeControlAction action)
+        {
+            return _actions[subject][action];
         }
         #endregion Methods
     }

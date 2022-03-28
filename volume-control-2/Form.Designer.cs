@@ -45,7 +45,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Muted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Label_AutoReloadInterval = new System.Windows.Forms.Label();
             this.nAutoReloadInterval = new System.Windows.Forms.NumericUpDown();
@@ -137,6 +137,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Mixer.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.Mixer, "Mixer");
+            this.Mixer.DoubleBuffered = true;
             this.Mixer.MultiSelect = false;
             this.Mixer.Name = "Mixer";
             this.Mixer.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -190,11 +191,12 @@
             resources.ApplyResources(this.Muted, "Muted");
             this.Muted.Name = "Muted";
             // 
-            // button1
+            // bHotkeyEditor
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.bHotkeyEditor, "bHotkeyEditor");
+            this.bHotkeyEditor.Name = "bHotkeyEditor";
+            this.bHotkeyEditor.UseVisualStyleBackColor = true;
+            this.bHotkeyEditor.Click += new System.EventHandler(this.bHotkeyEditor_Click);
             // 
             // splitContainer1
             // 
@@ -211,7 +213,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.cbAutoReload);
             this.splitContainer1.Panel1.Controls.Add(this.bReload);
             this.splitContainer1.Panel1.Controls.Add(this.Label_Version);
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.bHotkeyEditor);
             // 
             // splitContainer1.Panel2
             // 
@@ -282,6 +284,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Form";
+            this.ShowInTaskbar = false;
             this.TrayContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mixer)).EndInit();
@@ -303,7 +306,7 @@
         private ToolStripMenuItem TrayContextMenuBringToFront;
         private BindingSource bsAudioProcessAPI;
         private CoreControls.DoubleBufferedDataGridView Mixer;
-        private Button button1;
+        private Button bHotkeyEditor;
         private SplitContainer splitContainer1;
         private Label Label_Version;
         private Button bReload;

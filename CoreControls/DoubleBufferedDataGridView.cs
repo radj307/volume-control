@@ -15,10 +15,12 @@
 
         public void ResetDataSource(object dataSource, Action? refreshFunction = null, bool setToNullFirst = false)
         {
+            SuspendLayout();
             if (setToNullFirst)
                 DataSource = null;
             refreshFunction?.Invoke();
             DataSource = dataSource;
+            ResumeLayout();
             Refresh();
         }
     }

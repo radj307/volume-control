@@ -1,6 +1,6 @@
 using Core;
+using CoreControls;
 using System.Reflection;
-using System.Windows.Forms;
 using VolumeControl;
 
 namespace volume_control_2
@@ -10,10 +10,10 @@ namespace volume_control_2
         public Form()
         {
             _api = new();
+            hkedit = new(_api);
+            hkedit.Hide();
             InitializeComponent();
             bsAudioProcessAPI.DataSource = _api;
-
-            
 
             Version currentVersion = typeof(Form).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(Form).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
@@ -30,6 +30,8 @@ namespace volume_control_2
         /// The height of a single row in the mixer.
         /// </summary>
         private int _mixerListItemHeight = 0;
+
+        private HotkeyEditorForm hkedit;
 
         public AudioProcessAPI API
         {
@@ -57,7 +59,7 @@ namespace volume_control_2
 
         private void ReloadProcessList()
         {
-            Mixer.ResetDataSource(bsAudioProcessAPI, API.ReloadProcessList);
+            Mixer.ResetDataSource(bsAudioProcessAPI, API.ReloadProcessList, true);
         }
 
         /// <summary>
@@ -88,7 +90,7 @@ namespace volume_control_2
             tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
             tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
         }
-        
+
         private void nAutoReloadInterval_ValueChanged(object sender, EventArgs e)
         {
             tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
@@ -97,6 +99,19 @@ namespace volume_control_2
         private void tAutoReload_Tick(object sender, EventArgs e)
         {
             ReloadProcessList();
+        }
+
+        private void bHotkeyEditor_Click(object sender, EventArgs e)
+        {
+            if (hkedit.Visible)
+            {
+                hkedit.Hide();
+            }
+            else
+            {
+                hkedit.Show();
+                hkedit.BringToFront();
+            }
         }
     }
 }

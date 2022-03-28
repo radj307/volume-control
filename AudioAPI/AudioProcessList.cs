@@ -49,30 +49,16 @@ namespace AudioAPI
             // remove old entries
             for (int i = 0; i < _audioProcesses.Count; ++i)
             {
-                if (!tmp.Contains(_audioProcesses[i]))
+                if (!tmp.Any(proc => proc.PID == _audioProcesses[i].PID))
                     _audioProcesses.RemoveAt(i);
             }
 
-            // may be faster?
-            //for (int i = 0; i < _audioProcesses.Count; ++i)
-            //{
-            //    AudioProcess here = _audioProcesses[i];
-            //    bool isPresent = false;
-            //    for (int j = 0; j < tmp.Count; ++j)
-            //    {
-            //        if (here == tmp[j])
-            //        {
-            //            isPresent = true;
-            //            break;
-            //        }
-            //    }
-            //    if (!isPresent)
-            //        _audioProcesses.RemoveAt(i);
-            //}
             // add new entries
-            foreach (AudioProcess proc in tmp)
-                if (!_audioProcesses.Contains(proc))
-                    _audioProcesses.Add(proc);
+            foreach (AudioProcess ap in tmp)
+            {
+                if (!_audioProcesses.Any(proc => proc.PID == ap.PID))
+                    _audioProcesses.Add(ap);
+            }
         }
 
         public void Add(AudioProcess item)
