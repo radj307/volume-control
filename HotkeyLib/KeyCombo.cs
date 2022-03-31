@@ -127,6 +127,10 @@ namespace HotkeyLib
         #endregion Properties
 
         #region Methods
+        /// <summary>
+        /// Converts this key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
+        /// </summary>
+        /// <returns>A valid hotkey string representation.</returns>
         public override string? ToString()
             => $"{Enum.GetName(typeof(Keys), _key)}{(_mod.Empty() ? "" : $"+{_mod.Stringify()}")}";
         #endregion Methods

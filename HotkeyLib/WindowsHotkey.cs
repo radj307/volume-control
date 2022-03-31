@@ -8,9 +8,21 @@ namespace HotkeyLib
     public class WindowsHotkey : IMessageFilter, IKeyCombo
     {
         #region Constructors
-        public WindowsHotkey(Control owner, string keystr) { _owner = owner; _combo = new(keystr); }
-        public WindowsHotkey(Control owner, Keys key, Modifier mods) { _owner = owner; _combo = new(key, mods); }
-        public WindowsHotkey(Control owner) { _owner = owner; _combo = new(); }
+        public WindowsHotkey(Control owner, string keystr)
+        {
+            _owner = owner; _combo = new(keystr);
+            Application.AddMessageFilter(this);
+        }
+        public WindowsHotkey(Control owner, Keys key, Modifier mods)
+        {
+            _owner = owner; _combo = new(key, mods);
+            Application.AddMessageFilter(this);
+        }
+        public WindowsHotkey(Control owner)
+        {
+            _owner = owner; _combo = new();
+            Application.AddMessageFilter(this);
+        }
         #endregion Constructors
 
         #region Destructors
@@ -75,10 +87,15 @@ namespace HotkeyLib
         {
             if (_state == HotkeyRegistrationState.UNREGISTERED)
                 return;
-
-            if (!_owner.IsDisposed)
+            else if (_state == HotkeyRegistrationState.FAILED)
             {
-                _id = HotkeyAPI.GetID();
+                _id = null;
+                _state = HotkeyRegistrationState.UNREGISTERED;
+                return;
+            }
+
+            if (!_owner.IsDisposed && _id != null)
+            {
                 if (HotkeyAPI.UnregisterHotKey(_owner.Handle, _id.Value) != 0)
                     _state = HotkeyRegistrationState.UNREGISTERED;
                 else
@@ -113,6 +130,14 @@ namespace HotkeyLib
             HandledEventArgs args = new(false);
             Pressed?.Invoke(this, args);
             return args.Handled;
+        }
+        /// <summary>
+        /// Converts this hotkey's key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
+        /// </summary>
+        /// <returns>A valid hotkey string representation.</returns>
+        public new string? ToString()
+        {
+            return _combo.ToString();
         }
         #endregion Methods
 
@@ -201,11 +226,9 @@ namespace HotkeyLib
             get => _state == HotkeyRegistrationState.REGISTERED;
             set
             {
-                bool isRegistered = _state == HotkeyRegistrationState.REGISTERED;
-                if (value && !isRegistered)
+                if (value)
                     Register();
-                else if (!value && isRegistered)
-                    Unregister();
+                else Unregister();
             }
         }
         #endregion Properties

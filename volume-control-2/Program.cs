@@ -1,3 +1,5 @@
+using Core;
+
 namespace volume_control_2
 {
     internal static class Program
@@ -10,12 +12,15 @@ namespace volume_control_2
         {
             // TODO: Disallow multiple instances
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
             ApplicationConfiguration.Initialize();
 
-            var form = new Form();
+            VC_Static.Initialize(); // Initialize global statics
+
+            var form = new Form(); // create a form
+
+            VC_Static.InitializeHotkeys(form); // Initialize hotkeys
+
+            form.hkedit.SetDataSource(VC_Static.Hotkeys);
 
             Application.Run(form);
         }

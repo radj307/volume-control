@@ -5,6 +5,21 @@ namespace Core
     public class HotkeyBindingList : ICollection<HotkeyBinding>, IEnumerable<HotkeyBinding>, IEnumerable, IList<HotkeyBinding>, IReadOnlyCollection<HotkeyBinding>, IReadOnlyList<HotkeyBinding>, ICollection, IList
     {
         public HotkeyBindingList() { _list = new(); }
+        public HotkeyBindingList(List<HotkeyBinding> list) { _list = list; }
+
+        public void BindHotkeyPressedEvents(AudioProcessAPI api)
+        {
+            foreach (HotkeyBinding hk in _list)
+            {
+                var handler = api.GetHandler(hk.Subject, hk.Action);
+                if (handler != null)
+                {
+                    VC_Static.Log.WriteInfo($"Hotkey \'{hk.Name}\' initialized successfully! ({hk.ToString()})");
+                    hk.Pressed += handler;
+                }
+                else VC_Static.Log.WriteError($"Couldn't find a valid action binding for hotkey: \'{hk.Name}\'");
+            }
+        }
 
         private readonly List<HotkeyBinding> _list;
 

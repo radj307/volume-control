@@ -22,5 +22,53 @@ namespace volume_control_2.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSelectedTarget {
+            get {
+                return ((string)(this["LastSelectedTarget"]));
+            }
+            set {
+                this["LastSelectedTarget"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public decimal LastAutoReloadInterval {
+            get {
+                return ((decimal)(this["LastAutoReloadInterval"]));
+            }
+            set {
+                this["LastAutoReloadInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LastAutoReloadEnabled {
+            get {
+                return ((bool)(this["LastAutoReloadEnabled"]));
+            }
+            set {
+                this["LastAutoReloadEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LastLockTargetState {
+            get {
+                return ((bool)(this["LastLockTargetState"]));
+            }
+            set {
+                this["LastLockTargetState"] = value;
+            }
+        }
     }
 }

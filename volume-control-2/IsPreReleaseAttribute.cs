@@ -1,7 +1,7 @@
-﻿namespace VolumeControl
+﻿namespace volume_control_2
 {
-    [System.AttributeUsage(System.AttributeTargets.Assembly, Inherited = false, AllowMultiple = false)]
-    internal sealed class IsPreReleaseAttribute : System.Attribute
+    [AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = false)]
+    internal sealed class IsPreReleaseAttribute : Attribute
     {
         public string IsPreRelease { get; }
         public IsPreReleaseAttribute(string isPreRelease) => IsPreRelease = isPreRelease;

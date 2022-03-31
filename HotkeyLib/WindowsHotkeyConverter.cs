@@ -12,6 +12,6 @@ namespace HotkeyLib
             return base.ConvertTo(context, culture, value, destinationType);
         }
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => (value as Hotkey) ?? base.ConvertFrom(context, culture, value);
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) => (value as WindowsHotkey) ?? base.ConvertFrom(context, culture, value);
     }
 }

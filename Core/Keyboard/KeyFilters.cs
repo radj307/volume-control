@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
 
-namespace HotkeyLib
+namespace Core.Keyboard
 {
-    internal struct KeyFilters
+    internal static class KeyFilters
     {
         internal static readonly Keys[] ExcludeKeys =
         {

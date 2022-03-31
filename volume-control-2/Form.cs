@@ -1,7 +1,6 @@
 using Core;
 using CoreControls;
 using System.Reflection;
-using VolumeControl;
 
 namespace volume_control_2
 {
@@ -9,34 +8,48 @@ namespace volume_control_2
     {
         public Form()
         {
-            _api = new();
-            hkedit = new(_api);
+            hkedit = new(VC_Static.API);
             hkedit.Hide();
             InitializeComponent();
-            bsAudioProcessAPI.DataSource = _api;
+            bsAudioProcessAPI.DataSource = VC_Static.API;
 
             Version currentVersion = typeof(Form).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(Form).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
                 Label_Version.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}";
             else
                 Label_Version.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
+
+            // Initialize local form settings
+            tbTargetSelector.Text = Properties.Settings.Default.LastSelectedTarget;
+            nAutoReloadInterval.Value = Properties.Settings.Default.LastAutoReloadInterval;
+            cbAutoReload.Checked = Properties.Settings.Default.LastAutoReloadEnabled;
+            cbLockTarget.Checked = Properties.Settings.Default.LastLockTargetState;
+        }
+        /// <summary>
+        /// Called before the form closes.
+        /// This is basically a cancellable finalizer.
+        /// </summary>
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Update local properties
+            Properties.Settings.Default.LastSelectedTarget = tbTargetSelector.Text;
+            Properties.Settings.Default.LastAutoReloadInterval = nAutoReloadInterval.Value;
+            Properties.Settings.Default.LastAutoReloadEnabled = cbAutoReload.Checked;
+            Properties.Settings.Default.LastLockTargetState = cbLockTarget.Checked;
+            // Save properties
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            e.Cancel = false; // don't cancel the close event (allow the form to close)
         }
 
-        /// <summary>
-        /// The underlying controller object.
-        /// </summary>
-        private readonly AudioProcessAPI _api;
         /// <summary>
         /// The height of a single row in the mixer.
         /// </summary>
         private int _mixerListItemHeight = 0;
-
-        private HotkeyEditorForm hkedit;
-
-        public AudioProcessAPI API
-        {
-            get => _api;
-        }
+        /// <summary>
+        /// Hotkey editor subform.
+        /// </summary>
+        public readonly HotkeyEditorForm hkedit;
 
         private void SizeToFit()
         {
@@ -54,14 +67,17 @@ namespace volume_control_2
 
             // set the size of the form
             Size = new(Width, totalCellHeight + padding);
-            this.UpdateBounds();
+            UpdateBounds();
         }
 
         private void ReloadProcessList()
         {
-            Mixer.ResetDataSource(bsAudioProcessAPI, API.ReloadProcessList, true);
+            Mixer.SuspendLayout();
+            Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
+            Mixer.ResumeLayout();
         }
 
+        #region MixerEventHandlers
         /// <summary>
         /// Handles checkbox checked/unchecked events in the mixer datagrid.
         /// This allows the checkboxes to actually function.
@@ -70,6 +86,16 @@ namespace volume_control_2
         {
             if (Mixer.CurrentCell is DataGridViewCheckBoxCell)
                 Mixer.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+        /// <summary>
+        /// Handles Mixer 'Select' button click events.
+        /// </summary>
+        private void Mixer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == MixerColSelectButton.Index && !LockTarget)
+            {
+                tbTargetSelector.Text = VC_Static.API.ProcessList[e.RowIndex].ProcessName;
+            }
         }
         /// <summary>
         /// This is triggered when rows are added from the list, including from the data binding source.
@@ -81,7 +107,11 @@ namespace volume_control_2
         /// </summary>
         private void Mixer_RowsRemoved(object? sender, DataGridViewRowsRemovedEventArgs e)
             => SizeToFit();
+        #endregion MixerEventHandlers
 
+        /// <summary>
+        /// Handles click events for the 'Reload' button.
+        /// </summary>
         private void bReload_Click(object sender, EventArgs e)
             => ReloadProcessList();
 
@@ -92,26 +122,23 @@ namespace volume_control_2
         }
 
         private void nAutoReloadInterval_ValueChanged(object sender, EventArgs e)
-        {
-            tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
-        }
+            => tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
 
         private void tAutoReload_Tick(object sender, EventArgs e)
-        {
-            ReloadProcessList();
-        }
+            => ReloadProcessList();
 
         private void bHotkeyEditor_Click(object sender, EventArgs e)
+            => hkedit.Toggle();
+
+        private void tbTargetName_TextChanged(object sender, EventArgs e)
+            => VC_Static.API.SetSelectedProcess(tbTargetSelector.Text);
+        private void cbLockTarget_CheckedChanged(object sender, EventArgs e)
+            => tbTargetSelector.Enabled = !(LockTarget = cbLockTarget.Checked);
+
+        private bool LockTarget
         {
-            if (hkedit.Visible)
-            {
-                hkedit.Hide();
-            }
-            else
-            {
-                hkedit.Show();
-                hkedit.BringToFront();
-            }
+            get => VC_Static.API.LockSelection;
+            set => VC_Static.API.LockSelection = value;
         }
     }
 }

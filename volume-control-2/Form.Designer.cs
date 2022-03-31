@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TrayContextMenuClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,17 +40,23 @@
             this.TrayContextMenuBringToFront = new System.Windows.Forms.ToolStripMenuItem();
             this.bsAudioProcessAPI = new System.Windows.Forms.BindingSource(this.components);
             this.Mixer = new CoreControls.DoubleBufferedDataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Muted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MixerColPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MixerColProcessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MixerColDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MixerColVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MixerColMuted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MixerColSelectButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.Label_AutoReloadInterval = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.cbLockTarget = new System.Windows.Forms.CheckBox();
+            this.Label_Target = new System.Windows.Forms.Label();
+            this.tbTargetSelector = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.nAutoReloadInterval = new System.Windows.Forms.NumericUpDown();
-            this.cbAutoReload = new System.Windows.Forms.CheckBox();
             this.bReload = new System.Windows.Forms.Button();
+            this.Label_AutoReloadInterval = new System.Windows.Forms.Label();
+            this.cbAutoReload = new System.Windows.Forms.CheckBox();
             this.Label_Version = new System.Windows.Forms.Label();
             this.tAutoReload = new System.Windows.Forms.Timer(this.components);
             this.TrayContextMenu.SuspendLayout();
@@ -60,6 +66,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAutoReloadInterval)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,36 +114,37 @@
             this.Mixer.AllowUserToDeleteRows = false;
             this.Mixer.AllowUserToOrderColumns = true;
             this.Mixer.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
-            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
+            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.Mixer.AutoGenerateColumns = false;
             this.Mixer.BackgroundColor = System.Drawing.SystemColors.Control;
             this.Mixer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Mixer.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.Mixer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Mixer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.Muted});
+            this.MixerColPID,
+            this.MixerColProcessName,
+            this.MixerColDisplayName,
+            this.MixerColVolume,
+            this.MixerColMuted,
+            this.MixerColSelectButton});
             this.Mixer.DataSource = this.bsAudioProcessAPI;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.Mixer, "Mixer");
             this.Mixer.DoubleBuffered = true;
             this.Mixer.MultiSelect = false;
@@ -145,51 +154,60 @@
             this.Mixer.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.Mixer.RowTemplate.Height = 25;
             this.Mixer.ShowEditingIcon = false;
+            this.Mixer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Mixer_CellContentClick);
             this.Mixer.CurrentCellDirtyStateChanged += new System.EventHandler(this.Mixer_CurrentCellDirtyStateChanged);
             this.Mixer.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.Mixer_RowsAdded);
             this.Mixer.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.Mixer_RowsRemoved);
             // 
-            // dataGridViewTextBoxColumn2
+            // MixerColPID
             // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "PID";
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.MixerColPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.MixerColPID.DataPropertyName = "PID";
+            resources.ApplyResources(this.MixerColPID, "MixerColPID");
+            this.MixerColPID.Name = "MixerColPID";
+            this.MixerColPID.ReadOnly = true;
+            this.MixerColPID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridViewTextBoxColumn3
+            // MixerColProcessName
             // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "ProcessName";
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.MixerColProcessName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MixerColProcessName.DataPropertyName = "ProcessName";
+            resources.ApplyResources(this.MixerColProcessName, "MixerColProcessName");
+            this.MixerColProcessName.Name = "MixerColProcessName";
+            this.MixerColProcessName.ReadOnly = true;
+            this.MixerColProcessName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridViewTextBoxColumn4
+            // MixerColDisplayName
             // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "DisplayName";
-            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.MixerColDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.MixerColDisplayName.DataPropertyName = "DisplayName";
+            resources.ApplyResources(this.MixerColDisplayName, "MixerColDisplayName");
+            this.MixerColDisplayName.Name = "MixerColDisplayName";
+            this.MixerColDisplayName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridViewTextBoxColumn5
+            // MixerColVolume
             // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "VolumePercent";
-            resources.ApplyResources(this.dataGridViewTextBoxColumn5, "dataGridViewTextBoxColumn5");
-            this.dataGridViewTextBoxColumn5.MaxInputLength = 4;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.MixerColVolume.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.MixerColVolume.DataPropertyName = "VolumePercent";
+            resources.ApplyResources(this.MixerColVolume, "MixerColVolume");
+            this.MixerColVolume.MaxInputLength = 4;
+            this.MixerColVolume.Name = "MixerColVolume";
+            this.MixerColVolume.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // Muted
+            // MixerColMuted
             // 
-            this.Muted.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Muted.DataPropertyName = "Muted";
-            resources.ApplyResources(this.Muted, "Muted");
-            this.Muted.Name = "Muted";
+            this.MixerColMuted.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.MixerColMuted.DataPropertyName = "Muted";
+            resources.ApplyResources(this.MixerColMuted, "MixerColMuted");
+            this.MixerColMuted.Name = "MixerColMuted";
+            // 
+            // MixerColSelectButton
+            // 
+            this.MixerColSelectButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            resources.ApplyResources(this.MixerColSelectButton, "MixerColSelectButton");
+            this.MixerColSelectButton.Name = "MixerColSelectButton";
+            this.MixerColSelectButton.Text = "Select";
+            this.MixerColSelectButton.UseColumnTextForButtonValue = true;
             // 
             // bHotkeyEditor
             // 
@@ -208,10 +226,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.Label_AutoReloadInterval);
-            this.splitContainer1.Panel1.Controls.Add(this.nAutoReloadInterval);
-            this.splitContainer1.Panel1.Controls.Add(this.cbAutoReload);
-            this.splitContainer1.Panel1.Controls.Add(this.bReload);
+            this.splitContainer1.Panel1.Controls.Add(this.panel2);
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.Label_Version);
             this.splitContainer1.Panel1.Controls.Add(this.bHotkeyEditor);
             // 
@@ -219,10 +235,42 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Mixer);
             // 
-            // Label_AutoReloadInterval
+            // panel2
             // 
-            resources.ApplyResources(this.Label_AutoReloadInterval, "Label_AutoReloadInterval");
-            this.Label_AutoReloadInterval.Name = "Label_AutoReloadInterval";
+            this.panel2.Controls.Add(this.cbLockTarget);
+            this.panel2.Controls.Add(this.Label_Target);
+            this.panel2.Controls.Add(this.tbTargetSelector);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
+            // 
+            // cbLockTarget
+            // 
+            resources.ApplyResources(this.cbLockTarget, "cbLockTarget");
+            this.cbLockTarget.Name = "cbLockTarget";
+            this.cbLockTarget.UseVisualStyleBackColor = true;
+            this.cbLockTarget.CheckedChanged += new System.EventHandler(this.cbLockTarget_CheckedChanged);
+            // 
+            // Label_Target
+            // 
+            resources.ApplyResources(this.Label_Target, "Label_Target");
+            this.Label_Target.Name = "Label_Target";
+            // 
+            // tbTargetSelector
+            // 
+            this.tbTargetSelector.AllowDrop = true;
+            this.tbTargetSelector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
+            this.tbTargetSelector.Name = "tbTargetSelector";
+            this.tbTargetSelector.TextChanged += new System.EventHandler(this.tbTargetName_TextChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.nAutoReloadInterval);
+            this.panel1.Controls.Add(this.bReload);
+            this.panel1.Controls.Add(this.Label_AutoReloadInterval);
+            this.panel1.Controls.Add(this.cbAutoReload);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
             // 
             // nAutoReloadInterval
             // 
@@ -245,18 +293,11 @@
             0});
             this.nAutoReloadInterval.Name = "nAutoReloadInterval";
             this.nAutoReloadInterval.Value = new decimal(new int[] {
-            100,
+            5000,
             0,
             0,
             0});
             this.nAutoReloadInterval.ValueChanged += new System.EventHandler(this.nAutoReloadInterval_ValueChanged);
-            // 
-            // cbAutoReload
-            // 
-            resources.ApplyResources(this.cbAutoReload, "cbAutoReload");
-            this.cbAutoReload.Name = "cbAutoReload";
-            this.cbAutoReload.UseVisualStyleBackColor = true;
-            this.cbAutoReload.CheckedChanged += new System.EventHandler(this.cbAutoReload_CheckedChanged);
             // 
             // bReload
             // 
@@ -264,6 +305,18 @@
             this.bReload.Name = "bReload";
             this.bReload.UseVisualStyleBackColor = true;
             this.bReload.Click += new System.EventHandler(this.bReload_Click);
+            // 
+            // Label_AutoReloadInterval
+            // 
+            resources.ApplyResources(this.Label_AutoReloadInterval, "Label_AutoReloadInterval");
+            this.Label_AutoReloadInterval.Name = "Label_AutoReloadInterval";
+            // 
+            // cbAutoReload
+            // 
+            resources.ApplyResources(this.cbAutoReload, "cbAutoReload");
+            this.cbAutoReload.Name = "cbAutoReload";
+            this.cbAutoReload.UseVisualStyleBackColor = true;
+            this.cbAutoReload.CheckedChanged += new System.EventHandler(this.cbAutoReload_CheckedChanged);
             // 
             // Label_Version
             // 
@@ -283,8 +336,10 @@
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Form";
             this.ShowInTaskbar = false;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.TrayContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mixer)).EndInit();
@@ -293,6 +348,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAutoReloadInterval)).EndInit();
             this.ResumeLayout(false);
 
@@ -310,14 +369,20 @@
         private SplitContainer splitContainer1;
         private Label Label_Version;
         private Button bReload;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewCheckBoxColumn Muted;
         private NumericUpDown nAutoReloadInterval;
         private CheckBox cbAutoReload;
         private System.Windows.Forms.Timer tAutoReload;
         private Label Label_AutoReloadInterval;
+        private Panel panel1;
+        private TextBox tbTargetSelector;
+        private Panel panel2;
+        private Label Label_Target;
+        private DataGridViewTextBoxColumn MixerColPID;
+        private DataGridViewTextBoxColumn MixerColProcessName;
+        private DataGridViewTextBoxColumn MixerColDisplayName;
+        private DataGridViewTextBoxColumn MixerColVolume;
+        private DataGridViewCheckBoxColumn MixerColMuted;
+        private DataGridViewButtonColumn MixerColSelectButton;
+        private CheckBox cbLockTarget;
     }
 }

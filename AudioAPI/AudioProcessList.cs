@@ -8,6 +8,7 @@ namespace AudioAPI
 {
     public class AudioProcessList : ICollection<AudioProcess>, IEnumerable<AudioProcess>, IEnumerable, IList<AudioProcess>, IReadOnlyCollection<AudioProcess>, IReadOnlyList<AudioProcess>, ICollection, IList, IDisposable
     {
+        #region Constructors
         public AudioProcessList(List<AudioProcess> list)
         {
             _audioProcesses = list;
@@ -17,7 +18,22 @@ namespace AudioAPI
             _audioProcesses = new();
             Reload();
         }
+        #endregion Constructors
 
+        #region Finalizers
+        ~AudioProcessList()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: false);
+        }
+        #endregion Finalizers
+
+        #region Members
+        private readonly List<AudioProcess> _audioProcesses;
+        private bool disposedValue;
+        #endregion Members
+
+        #region Methods
         public void Reload()
         {
             if (_audioProcesses == null) throw new ArgumentNullException(nameof(_audioProcesses));
@@ -46,19 +62,22 @@ namespace AudioAPI
             // if tmp is larger than the current list, allocate more memory
             _audioProcesses.EnsureCapacity(tmp.Count);
 
-            // remove old entries
             for (int i = 0; i < _audioProcesses.Count; ++i)
             {
-                if (!tmp.Any(proc => proc.PID == _audioProcesses[i].PID))
-                    _audioProcesses.RemoveAt(i);
+                int myPID = _audioProcesses[i].PID;
+                var tmpProc = tmp.FirstOrDefault(p => p != null && p.PID == myPID, null);
+                if (tmpProc != null) // this process IS present in the incoming list
+                {
+                    _audioProcesses[i] = tmpProc; // update the current object
+                }
+                else // this process IS NOT present in the incoming list
+                {
+                    _audioProcesses.RemoveAt(i--); // remove terminated process, then decrement i by one
+                }
             }
 
-            // add new entries
-            foreach (AudioProcess ap in tmp)
-            {
-                if (!_audioProcesses.Any(proc => proc.PID == ap.PID))
-                    _audioProcesses.Add(ap);
-            }
+            // add missing entries (new processes)
+            _audioProcesses.AddRange(tmp.Where(p => !_audioProcesses.Contains(p)));
         }
 
         public void Add(AudioProcess item)
@@ -140,23 +159,6 @@ namespace AudioAPI
         {
             ((IList)_audioProcesses).Remove(value);
         }
-
-        private readonly List<AudioProcess> _audioProcesses;
-        private bool disposedValue;
-
-        public int Count => ((ICollection<AudioProcess>)_audioProcesses).Count;
-
-        public bool IsReadOnly => ((ICollection<AudioProcess>)_audioProcesses).IsReadOnly;
-
-        public bool IsSynchronized => ((ICollection)_audioProcesses).IsSynchronized;
-
-        public object SyncRoot => ((ICollection)_audioProcesses).SyncRoot;
-
-        public bool IsFixedSize => ((IList)_audioProcesses).IsFixedSize;
-
-        object? IList.this[int index] { get => ((IList)_audioProcesses)[index]; set => ((IList)_audioProcesses)[index] = value; }
-        public AudioProcess this[int index] { get => ((IList<AudioProcess>)_audioProcesses)[index]; set => ((IList<AudioProcess>)_audioProcesses)[index] = value; }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -174,11 +176,6 @@ namespace AudioAPI
                 disposedValue = true;
             }
         }
-        ~AudioProcessList()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: false);
-        }
 
         public void Dispose()
         {
@@ -186,5 +183,21 @@ namespace AudioAPI
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        #endregion Methods
+
+        #region Properties
+        public int Count => ((ICollection<AudioProcess>)_audioProcesses).Count;
+
+        public bool IsReadOnly => ((ICollection<AudioProcess>)_audioProcesses).IsReadOnly;
+
+        public bool IsSynchronized => ((ICollection)_audioProcesses).IsSynchronized;
+
+        public object SyncRoot => ((ICollection)_audioProcesses).SyncRoot;
+
+        public bool IsFixedSize => ((IList)_audioProcesses).IsFixedSize;
+
+        object? IList.this[int index] { get => ((IList)_audioProcesses)[index]; set => ((IList)_audioProcesses)[index] = value; }
+        public AudioProcess this[int index] { get => ((IList<AudioProcess>)_audioProcesses)[index]; set => ((IList<AudioProcess>)_audioProcesses)[index] = value; }
+        #endregion Properties
     }
 }
