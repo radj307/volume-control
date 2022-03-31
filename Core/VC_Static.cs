@@ -123,6 +123,10 @@ namespace Core
         /// </summary>
         public static void SaveSettings()
         {
+            foreach (var hk in Hotkeys)
+            {
+                hk.Save();
+            }
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
             Log.WriteInfo("Saved Current Program Settings.");

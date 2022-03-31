@@ -16,7 +16,6 @@ namespace Core
             Action = action;
             Registered = (bool)Properties.Settings.Default[registerProperty];
         }
-        ~HotkeyBinding() => Save();
 
         public void Save()
         {

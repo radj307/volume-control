@@ -31,6 +31,7 @@ namespace volume_control_2
         /// </summary>
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
+            VC_Static.SaveSettings();
             // Update local properties
             Properties.Settings.Default.LastSelectedTarget = tbTargetSelector.Text;
             Properties.Settings.Default.LastAutoReloadInterval = nAutoReloadInterval.Value;

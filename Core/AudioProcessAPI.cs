@@ -24,7 +24,6 @@ namespace Core
 
         #region Members
         private readonly AudioProcessList _procList;
-        private readonly DataTable _procDataTable;
         /// <summary>
         /// This maintains the previously selected target, in case it was removed from the list (terminated) and _selected_lock is true.
         /// </summary>
