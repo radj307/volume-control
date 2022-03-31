@@ -10,9 +10,10 @@ namespace VolumeControl
         {
             SuspendLayout();
 
-            // initialize hkedit subform
-            hkedit = new(VC_Static.API);
+            // initialize hkedit subform (cannot bind data source yet -- VC_Static.InitializeHotkeys() hasn't been called yet. See 'Program.cs')
             hkedit.Hide();
+            // initialize toast subform
+            toast.Hide();
 
             // initialize designer components
             InitializeComponent();
@@ -40,6 +41,8 @@ namespace VolumeControl
             cbStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
             cbShowInTaskbar.Checked = Properties.Settings.Default.ShowInTaskbar;
             cbAlwaysOnTop.Checked = Properties.Settings.Default.AlwaysOnTop;
+            cbToastEnabled.Checked = Properties.Settings.Default.ToastEnabled;
+            nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate
@@ -74,6 +77,8 @@ namespace VolumeControl
             Properties.Settings.Default.StartMinimized = cbStartMinimized.Checked;
             Properties.Settings.Default.ShowInTaskbar = cbShowInTaskbar.Checked;
             Properties.Settings.Default.AlwaysOnTop = cbAlwaysOnTop.Checked;
+            Properties.Settings.Default.ToastEnabled = cbToastEnabled.Checked;
+            Properties.Settings.Default.ToastTimeoutInterval = nToastTimeoutInterval.Value;
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -93,6 +98,9 @@ namespace VolumeControl
         }
 
         #region Members
+        /// <summary>
+        /// This maintains the height of splitContainer.Panel1 to allow the 'Toggle Mixer' button to work correctly.
+        /// </summary>
         private readonly int _panel1Height;
         /// <summary>
         /// The height of a single row in the mixer.
@@ -101,10 +109,15 @@ namespace VolumeControl
         /// <summary>
         /// Hotkey editor subform.
         /// </summary>
-        public readonly HotkeyEditorForm hkedit;
+        public readonly HotkeyEditorForm hkedit = new();
+        private readonly ToastForm toast = new();
         #endregion Members
 
         #region Properties
+        /// <summary>
+        /// Lock or unlock the current target selection.
+        /// This binds directly to (VC_Static.API.LockSelection).
+        /// </summary>
         private static bool LockTarget
         {
             get => VC_Static.API.LockSelection;
@@ -268,7 +281,18 @@ namespace VolumeControl
         /// </summary>
         private void TrayContextMenuClose_Click(object sender, EventArgs e)
             => Close();
+        /// <summary>
+        /// Handles check/uncheck events for the toast 'Enable' checkbox
+        /// </summary>
+        private void cbToastEnabled_CheckedChanged(object sender, EventArgs e)
+            => nToastTimeoutInterval.Enabled = toast.Visible = toast.Enabled = cbToastEnabled.Checked;
+        /// <summary>
+        /// Handles value change events for the toast 'Timeout' number selector.
+        /// </summary>
+        private void nToastTimeoutInterval_ValueChanged(object sender, EventArgs e)
+            => toast.TimeoutInterval = Convert.ToInt32(nToastTimeoutInterval.Value);
         #endregion ControlEventHandlers
+
 
     }
 }

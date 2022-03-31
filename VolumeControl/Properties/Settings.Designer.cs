@@ -130,5 +130,29 @@ namespace VolumeControl.Properties {
                 this["LastMixerVisibleState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToastEnabled {
+            get {
+                return ((bool)(this["ToastEnabled"]));
+            }
+            set {
+                this["ToastEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public decimal ToastTimeoutInterval {
+            get {
+                return ((decimal)(this["ToastTimeoutInterval"]));
+            }
+            set {
+                this["ToastTimeoutInterval"] = value;
+            }
+        }
     }
 }

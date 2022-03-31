@@ -32,3 +32,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.nToastTimeout_ValueChanged(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.tAutoReload_Tick(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.tbTargetName_TextChanged(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.nToastTimeoutInterval_ValueChanged(System.Object,System.EventArgs)")]

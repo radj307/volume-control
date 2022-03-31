@@ -19,8 +19,7 @@ namespace VolumeControl
             var form = new Form(); // create a form
 
             VC_Static.InitializeHotkeys(form); // Initialize hotkeys
-
-            form.hkedit.SetDataSource(VC_Static.Hotkeys);
+            form.hkedit.SetDataSource(VC_Static.Hotkeys); // set data source
 
             Application.Run(form);
         }

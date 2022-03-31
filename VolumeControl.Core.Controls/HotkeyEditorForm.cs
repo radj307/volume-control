@@ -4,9 +4,8 @@ namespace VolumeControl.Core.Controls
 {
     public partial class HotkeyEditorForm : Form
     {
-        public HotkeyEditorForm(AudioProcessAPI api)
+        public HotkeyEditorForm()
         {
-            API = api;
             _hotkeys = new();
             InitializeComponent();
             bsHotkeyBindingList.DataSource = _hotkeys;
@@ -28,7 +27,6 @@ namespace VolumeControl.Core.Controls
 
         private readonly HotkeyBindingList _hotkeys;
         private int _dgvListItemHeight = 0;
-        public AudioProcessAPI API;
 
         private void SizeToFit()
         {

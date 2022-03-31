@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VolumeControl.Core.Controls.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DisplayCorner" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="DisplayPadding" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">10, 10</Value>
+    </Setting>
+    <Setting Name="DisplayScreen" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LockedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">LightCoral</Value>
+    </Setting>
+    <Setting Name="UnlockedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">LightGreen</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

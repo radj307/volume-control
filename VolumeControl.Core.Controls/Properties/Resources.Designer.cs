@@ -173,9 +173,29 @@ namespace VolumeControl.Core.Controls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap locked {
+            get {
+                object obj = ResourceManager.GetObject("locked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tgt {
             get {
                 object obj = ResourceManager.GetObject("tgt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unlocked {
+            get {
+                object obj = ResourceManager.GetObject("unlocked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

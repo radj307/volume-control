@@ -151,7 +151,13 @@
   <data name="blank16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\volume-states\blank16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock\locked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tgt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\volume-states\tgt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock\unlocked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

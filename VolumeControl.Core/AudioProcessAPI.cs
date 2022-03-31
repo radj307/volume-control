@@ -1,10 +1,11 @@
 ﻿using AudioAPI;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core
 {
-    public class AudioProcessAPI : INotifyPropertyChanged
+    public class AudioProcessAPI
     {
         public AudioProcessAPI(Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> actions)
         {
@@ -25,15 +26,26 @@ namespace VolumeControl.Core
         #endregion Members
 
         #region Events
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void InvokePropertyChanged(PropertyChangedEventArgs e)
-            => PropertyChanged?.Invoke(this, e);
+        /// <summary>
+        /// Triggered when the selected process changes.
+        /// </summary>
         public event EventHandler? SelectedProcessChanged;
-        public void InvokeSelectedProcessChanged(EventArgs e)
+        private void NotifySelectedProcessChanged(EventArgs e)
             => SelectedProcessChanged?.Invoke(this, e);
+
+        /// <summary>
+        /// Triggered when the LockSelection property changes.
+        /// </summary>
         public event EventHandler? LockSelectionChanged;
-        public void InvokeLockSelectionChanged(EventArgs e)
+        private void NotifyLockSelectionChanged(EventArgs e)
             => LockSelectionChanged?.Invoke(this, e);
+
+        /// <summary>
+        /// Triggered when the ProcessList is reloaded.
+        /// </summary>
+        public event EventHandler? ProcessListUpdated;
+        private void NotifyProcessListUpdated(EventArgs e)
+            => ProcessListUpdated?.Invoke(this, e);
         #endregion Events
 
         #region Properties
@@ -52,7 +64,7 @@ namespace VolumeControl.Core
             {
                 bool copy = _selected_lock;
                 if ((_selected_lock = value) != copy)
-                    InvokeLockSelectionChanged(EventArgs.Empty);
+                    NotifyLockSelectionChanged(EventArgs.Empty);
             }
         }
         #endregion Properties
@@ -68,10 +80,14 @@ namespace VolumeControl.Core
         {
             if (!_selected_lock)
             {
-                _selected = ProcessList.FirstOrDefault(p => p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null) ?? _selected;
-                InvokeSelectedProcessChanged(EventArgs.Empty);
+                _selected = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null) ?? _selected;
+                NotifySelectedProcessChanged(EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// Select the process after the current selection.
+        /// If no process is selected, the first process is used instead.
+        /// </summary>
         public void SelectNextProcess()
         {
             if (!_selected_lock)
@@ -82,9 +98,13 @@ namespace VolumeControl.Core
                     _selected = ProcessList[i % ProcessList.Count];
                 }
                 else _selected = ProcessList.First();
-                InvokeSelectedProcessChanged(EventArgs.Empty);
+                NotifySelectedProcessChanged(EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// Select the process before the current selection.
+        /// If no process is selected, the last process is used instead.
+        /// </summary>
         public void SelectPrevProcess()
         {
             if (!_selected_lock)
@@ -98,7 +118,7 @@ namespace VolumeControl.Core
                     _selected = ProcessList[i];
                 }
                 else _selected = ProcessList.Last();
-                InvokeSelectedProcessChanged(EventArgs.Empty);
+                NotifySelectedProcessChanged(EventArgs.Empty);
             }
         }
 
@@ -108,6 +128,7 @@ namespace VolumeControl.Core
         public void ReloadProcessList()
         {
             _procList.Reload();
+            NotifyProcessListUpdated(EventArgs.Empty);
         }
 
         public void SetHandler(VolumeControlSubject subject, VolumeControlAction action, HotkeyLib.KeyEventHandler handler)

@@ -1,11 +1,13 @@
 ﻿using AudioAPI.Forms;
 using AudioAPI.WindowsAPI.Audio;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AudioAPI
 {
-    public class AudioProcess : IAudioProcess, IGridViewAudioProcess
+    public class AudioProcess : IAudioProcess, IGridViewAudioProcess, INotifyPropertyChanged
     {
         #region Constructor
 
@@ -26,6 +28,8 @@ namespace AudioAPI
         #region Member
 
         private bool disposedValue;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         #endregion Member
 
@@ -72,6 +76,7 @@ namespace AudioAPI
             {
                 Guid guid = Guid.NewGuid();
                 SessionControl.SetDisplayName(value, guid);
+                NotifyPropertyChanged();
             }
         }
 
@@ -92,6 +97,7 @@ namespace AudioAPI
             {
                 Guid guid = Guid.Empty;
                 AudioControl.SetMasterVolume(value, ref guid);
+                NotifyPropertyChanged();
             }
         }
 
@@ -121,7 +127,7 @@ namespace AudioAPI
                         s = s[..pos];
                     }
                 }
-                
+
                 return s + '%';
             }
             set
@@ -131,6 +137,7 @@ namespace AudioAPI
                     string match = RegularExpr.ContiguousDigits.Match(value).Value;
                     if (match.Length > 0 && decimal.TryParse(match, out decimal dval))
                         VolumeFullRange = dval;
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -149,6 +156,7 @@ namespace AudioAPI
             {
                 Guid guid = Guid.NewGuid();
                 AudioControl.SetMute(value, ref guid);
+                NotifyPropertyChanged();
             }
         }
 
@@ -174,6 +182,11 @@ namespace AudioAPI
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion Methods
