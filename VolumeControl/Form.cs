@@ -57,6 +57,10 @@ namespace VolumeControl
                 tbTargetSelector.Enabled = !(cbLockTarget.Checked = VC_Static.API.LockSelection);
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
+            VC_Static.API.ProcessListUpdated += delegate
+            {
+                RefreshProcessList();
+            };
 
             Mixer.RowsAdded += Mixer_RowsAdded;
             Mixer.RowsRemoved += Mixer_RowsRemoved;
@@ -155,6 +159,12 @@ namespace VolumeControl
         {
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
+            Mixer.ResumeLayout();
+        }
+        private void RefreshProcessList()
+        {
+            Mixer.SuspendLayout();
+            Mixer.ResetDataSource(bsAudioProcessAPI, delegate { }, true);
             Mixer.ResumeLayout();
         }
 

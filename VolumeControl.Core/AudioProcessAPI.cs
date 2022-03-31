@@ -1,6 +1,4 @@
 ﻿using AudioAPI;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using VolumeControl.Core.Enum;
 
 namespace VolumeControl.Core
@@ -13,6 +11,14 @@ namespace VolumeControl.Core
             _selected = null;
             _selected_lock = false;
             _actions = actions;
+
+            _allowReload = false;
+            _reloadTimer = new(10000)
+            {
+                AutoReset = false
+            };
+            _reloadTimer.Elapsed += ReloadTimerElapsed!;
+            _reloadTimer.Start();
         }
 
         #region Members
@@ -22,6 +28,11 @@ namespace VolumeControl.Core
         /// </summary>
         private AudioProcess? _selected;
         private bool _selected_lock;
+        private bool _allowReload;
+        /// <summary>
+        /// Timer that prevents rapid successive key presses from reloading the list every time.
+        /// </summary>
+        private readonly System.Timers.Timer _reloadTimer;
         private readonly Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> _actions;
         #endregion Members
 
@@ -67,6 +78,14 @@ namespace VolumeControl.Core
                     NotifyLockSelectionChanged(EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// In milliseconds.
+        /// </summary>
+        public double HotkeyReloadInterval
+        {
+            get => _reloadTimer.Interval;
+            set => _reloadTimer.Interval = value;
+        }
         #endregion Properties
 
         #region Methods
@@ -90,6 +109,8 @@ namespace VolumeControl.Core
         /// </summary>
         public void SelectNextProcess()
         {
+            if (Properties.Settings.Default.ReloadOnHotkey)
+                TryReload();
             if (!_selected_lock)
             {
                 if (_selected != null)
@@ -107,6 +128,8 @@ namespace VolumeControl.Core
         /// </summary>
         public void SelectPrevProcess()
         {
+            if (Properties.Settings.Default.ReloadOnHotkey)
+                TryReload();
             if (!_selected_lock)
             {
                 if (_selected != null)
@@ -129,6 +152,22 @@ namespace VolumeControl.Core
         {
             _procList.Reload();
             NotifyProcessListUpdated(EventArgs.Empty);
+        }
+
+        private void TryReload()
+        {
+            if (_allowReload)
+            {
+                _allowReload = false;
+                ReloadProcessList();
+                _reloadTimer.Start();
+            }
+        }
+
+        private void ReloadTimerElapsed(object sender, EventArgs e)
+        {
+            _reloadTimer.Stop();
+            _allowReload = true;
         }
 
         public void SetHandler(VolumeControlSubject subject, VolumeControlAction action, HotkeyLib.KeyEventHandler handler)
