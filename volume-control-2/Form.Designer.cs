@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TrayContextMenuClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,10 @@
             this.MixerColSelectButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
+            this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
+            this.cbStartMinimized = new System.Windows.Forms.CheckBox();
+            this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.cbLockTarget = new System.Windows.Forms.CheckBox();
             this.Label_Target = new System.Windows.Forms.Label();
@@ -114,20 +118,20 @@
             this.Mixer.AllowUserToDeleteRows = false;
             this.Mixer.AllowUserToOrderColumns = true;
             this.Mixer.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
-            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
+            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.Mixer.AutoGenerateColumns = false;
             this.Mixer.BackgroundColor = System.Drawing.SystemColors.Control;
             this.Mixer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Mixer.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.Mixer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Mixer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MixerColPID,
@@ -137,14 +141,14 @@
             this.MixerColMuted,
             this.MixerColSelectButton});
             this.Mixer.DataSource = this.bsAudioProcessAPI;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.Mixer, "Mixer");
             this.Mixer.DoubleBuffered = true;
             this.Mixer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -227,6 +231,10 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cbAlwaysOnTop);
+            this.splitContainer1.Panel1.Controls.Add(this.cbShowInTaskbar);
+            this.splitContainer1.Panel1.Controls.Add(this.cbStartMinimized);
+            this.splitContainer1.Panel1.Controls.Add(this.cbRunAtStartup);
             this.splitContainer1.Panel1.Controls.Add(this.panel2);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.Label_Version);
@@ -235,6 +243,33 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.Mixer);
+            // 
+            // cbAlwaysOnTop
+            // 
+            resources.ApplyResources(this.cbAlwaysOnTop, "cbAlwaysOnTop");
+            this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
+            this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.cbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.cbAlwaysOnTop_CheckedChanged);
+            // 
+            // cbShowInTaskbar
+            // 
+            resources.ApplyResources(this.cbShowInTaskbar, "cbShowInTaskbar");
+            this.cbShowInTaskbar.Name = "cbShowInTaskbar";
+            this.cbShowInTaskbar.UseVisualStyleBackColor = true;
+            this.cbShowInTaskbar.CheckedChanged += new System.EventHandler(this.cbShowInTaskbar_CheckedChanged);
+            // 
+            // cbStartMinimized
+            // 
+            resources.ApplyResources(this.cbStartMinimized, "cbStartMinimized");
+            this.cbStartMinimized.Name = "cbStartMinimized";
+            this.cbStartMinimized.UseVisualStyleBackColor = true;
+            // 
+            // cbRunAtStartup
+            // 
+            resources.ApplyResources(this.cbRunAtStartup, "cbRunAtStartup");
+            this.cbRunAtStartup.Name = "cbRunAtStartup";
+            this.cbRunAtStartup.UseVisualStyleBackColor = true;
+            this.cbRunAtStartup.CheckedChanged += new System.EventHandler(this.cbRunAtStartup_CheckedChanged);
             // 
             // panel2
             // 
@@ -385,5 +420,9 @@
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
         private CheckBox cbLockTarget;
+        private CheckBox cbRunAtStartup;
+        private CheckBox cbShowInTaskbar;
+        private CheckBox cbStartMinimized;
+        private CheckBox cbAlwaysOnTop;
     }
 }

@@ -8,11 +8,18 @@ namespace volume_control_2
     {
         public Form()
         {
+            SuspendLayout();
+
+            // initialize hkedit subform
             hkedit = new(VC_Static.API);
             hkedit.Hide();
+
+            // initialize designer components
             InitializeComponent();
+
             bsAudioProcessAPI.DataSource = VC_Static.API;
 
+            // Set the current version number
             Version currentVersion = typeof(Form).Assembly.GetName().Version!;
             if (Convert.ToBoolean(typeof(Form).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
                 Label_Version.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}";
@@ -24,19 +31,26 @@ namespace volume_control_2
             nAutoReloadInterval.Value = Properties.Settings.Default.LastAutoReloadInterval;
             cbAutoReload.Checked = Properties.Settings.Default.LastAutoReloadEnabled;
             cbLockTarget.Checked = Properties.Settings.Default.LastLockTargetState;
+            cbRunAtStartup.Checked = Properties.Settings.Default.RunAtStartup;
+            cbStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
+            cbShowInTaskbar.Checked = Properties.Settings.Default.ShowInTaskbar;
+            cbAlwaysOnTop.Checked = Properties.Settings.Default.AlwaysOnTop;
 
+            // handle API events
             VC_Static.API.SelectedProcessChanged += delegate
             {
-                tbTargetSelector.TextChanged -= tbTargetName_TextChanged!;
+                tbTargetSelector.TextChanged -= tbTargetName_TextChanged!; //< prevent recursion
                 tbTargetSelector.Text = VC_Static.API.GetSelectedProcess().ProcessName;
                 tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
             };
             VC_Static.API.LockSelectionChanged += delegate
             {
-                cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!;
+                cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!; //< prevent recursion
                 tbTargetSelector.Enabled = !(cbLockTarget.Checked = VC_Static.API.LockSelection);
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
+
+            ResumeLayout();
         }
         /// <summary>
         /// Called before the form closes.
@@ -50,12 +64,17 @@ namespace volume_control_2
             Properties.Settings.Default.LastAutoReloadInterval = nAutoReloadInterval.Value;
             Properties.Settings.Default.LastAutoReloadEnabled = cbAutoReload.Checked;
             Properties.Settings.Default.LastLockTargetState = cbLockTarget.Checked;
+            Properties.Settings.Default.RunAtStartup = cbRunAtStartup.Checked;
+            Properties.Settings.Default.StartMinimized = cbStartMinimized.Checked;
+            Properties.Settings.Default.ShowInTaskbar = cbShowInTaskbar.Checked;
+            Properties.Settings.Default.AlwaysOnTop = cbAlwaysOnTop.Checked;
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
         }
 
+        #region Members
         /// <summary>
         /// The height of a single row in the mixer.
         /// </summary>
@@ -64,7 +83,17 @@ namespace volume_control_2
         /// Hotkey editor subform.
         /// </summary>
         public readonly HotkeyEditorForm hkedit;
+        #endregion Members
 
+        #region Properties
+        private static bool LockTarget
+        {
+            get => VC_Static.API.LockSelection;
+            set => VC_Static.API.LockSelection = value;
+        }
+        #endregion Properties
+
+        #region Methods
         private void SizeToFit()
         {
             if (_mixerListItemHeight == 0) // set the height of a list item
@@ -90,6 +119,7 @@ namespace volume_control_2
             Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
             Mixer.ResumeLayout();
         }
+        #endregion Methods
 
         #region MixerEventHandlers
         /// <summary>
@@ -123,6 +153,7 @@ namespace volume_control_2
             => SizeToFit();
         #endregion MixerEventHandlers
 
+        #region ControlEventHandlers
         /// <summary>
         /// Handles click events for the 'Reload' button.
         /// </summary>
@@ -149,10 +180,19 @@ namespace volume_control_2
         private void cbLockTarget_CheckedChanged(object sender, EventArgs e)
             => tbTargetSelector.Enabled = !(LockTarget = cbLockTarget.Checked);
 
-        private bool LockTarget
+        private void cbRunAtStartup_CheckedChanged(object sender, EventArgs e)
         {
-            get => VC_Static.API.LockSelection;
-            set => VC_Static.API.LockSelection = value;
+            if (cbRunAtStartup.Checked)
+                RegAPI.EnableRunOnStartup();
+            else
+                RegAPI.DisableRunOnStartup();
         }
+
+        private void cbShowInTaskbar_CheckedChanged(object sender, EventArgs e)
+            => ShowInTaskbar = cbShowInTaskbar.Checked;
+
+        private void cbAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
+            => TopMost = cbAlwaysOnTop.Checked;
+        #endregion ControlEventHandlers
     }
 }
