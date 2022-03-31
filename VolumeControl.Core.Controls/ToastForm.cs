@@ -39,6 +39,17 @@
                     ResumeLayout();
                 }
             };
+            VC_Static.API.ProcessListUpdated += delegate
+            {
+                SuspendLayout();
+                listBox.DataSource = null;
+                listBox.Items.Clear();
+                listBox.DataSource = bsAudioProcessAPI;
+                listBox.DisplayMember = "ProcessName";
+                listBox.ValueMember = "ProcessName";
+                Refresh();
+                ResumeLayout();
+            };
 
             UpdateSelection();
             UpdateLockSelection();
