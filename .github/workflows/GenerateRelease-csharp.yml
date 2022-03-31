@@ -43,7 +43,9 @@ jobs:
  #     run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
 
     - name:   Create Staging Workspace
-      run:    mkdir "${{github.workspace}}/STAGING"
+      run:    |
+              mkdir "${{github.workspace}}/STAGING"
+              ls -Recurse "${{github.workspace}}"
 
     - name:   Stage Files
       run:    |
