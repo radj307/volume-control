@@ -39,16 +39,18 @@ jobs:
     - name: 'Build VolumeControl Binary'
       run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
-    - name: 'Build VersionControlCLI Binary'
-      run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+ #   - name: 'Build VersionControlCLI Binary'
+ #     run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
 
     - name:   Create Staging Workspace
-      run:    mkdir "${{github.workspace}}/STAGING"
+      run:    |
+              mkdir "${{github.workspace}}/STAGING"
+              ls -Recurse "${{github.workspace}}"
 
     - name:   Stage Files
       run:    |
               cd "${{github.workspace}}/STAGING"
-              foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe",".dll"}).Fullname)){ mv $file ./ }
+              foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv $file ./ }
               Get-ChildItem -Recurse
 
     - name:   Upload Artifacts
