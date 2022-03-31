@@ -25,7 +25,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("VolumeUp+Ctrl")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+VolumeUp")]
         public string hks_VolumeUp {
             get {
                 return ((string)(this["hks_VolumeUp"]));
@@ -37,7 +37,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("VolumeDown+Ctrl")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+VolumeDown")]
         public string hks_VolumeDown {
             get {
                 return ((string)(this["hks_VolumeDown"]));
@@ -49,7 +49,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+VolumeMute")]
         public string hks_VolumeToggle {
             get {
                 return ((string)(this["hks_VolumeToggle"]));
@@ -97,7 +97,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CtrlShift+E")]
         public string hks_TargetNext {
             get {
                 return ((string)(this["hks_TargetNext"]));
@@ -109,7 +109,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CtrlShift+Q")]
         public string hks_TargetPrev {
             get {
                 return ((string)(this["hks_TargetPrev"]));
@@ -121,7 +121,7 @@ namespace Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CtrlShift+S")]
         public string hks_TargetToggle {
             get {
                 return ((string)(this["hks_TargetToggle"]));

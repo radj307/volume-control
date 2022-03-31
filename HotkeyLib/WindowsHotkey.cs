@@ -77,8 +77,9 @@ namespace HotkeyLib
                 _id = null;
 
                 // throw an exception if the error wasn't because the hotkey was already registered
-                if (lastError != HotkeyAPI.ERROR_HOTKEY_ALREADY_REGISTERED)
-                    throw new Win32Exception($"Failed to register hotkey ({_combo}) with ID {copyID}:  {lastError}");
+                if (lastError == HotkeyAPI.ERROR_HOTKEY_ALREADY_REGISTERED)
+                    throw new Exception($"Hotkey already registered!");
+                else throw new Win32Exception($"Failed to register hotkey ({_combo}) with ID {copyID}:  {lastError}");
             }
 
             return _id;

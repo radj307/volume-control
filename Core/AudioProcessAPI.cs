@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AudioAPI;
-using AudioAPI.Forms;
+﻿using AudioAPI;
 using Core.Enum;
-using HotkeyLib;
+using System.ComponentModel;
 
 namespace Core
 {
@@ -17,7 +9,7 @@ namespace Core
         public AudioProcessAPI(Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> actions)
         {
             _procList = new();
-            _selected = _procList.First();
+            _selected = null;
             _selected_lock = false;
             _actions = actions;
         }
@@ -27,7 +19,7 @@ namespace Core
         /// <summary>
         /// This maintains the previously selected target, in case it was removed from the list (terminated) and _selected_lock is true.
         /// </summary>
-        private AudioProcess _selected;
+        private AudioProcess? _selected;
         private bool _selected_lock;
         private readonly Dictionary<VolumeControlSubject, Dictionary<VolumeControlAction, HotkeyLib.KeyEventHandler?>> _actions;
         #endregion Members
@@ -36,6 +28,12 @@ namespace Core
         public event PropertyChangedEventHandler? PropertyChanged;
         public void InvokePropertyChanged(PropertyChangedEventArgs e)
             => PropertyChanged?.Invoke(this, e);
+        public event EventHandler? SelectedProcessChanged;
+        public void InvokeSelectedProcessChanged(EventArgs e)
+            => SelectedProcessChanged?.Invoke(this, e);
+        public event EventHandler? LockSelectionChanged;
+        public void InvokeLockSelectionChanged(EventArgs e)
+            => LockSelectionChanged?.Invoke(this, e);
         #endregion Events
 
         #region Properties
@@ -50,48 +48,58 @@ namespace Core
         public bool LockSelection
         {
             get => _selected_lock;
-            set => _selected_lock = value;
+            set
+            {
+                bool copy = _selected_lock;
+                if ((_selected_lock = value) != copy) 
+                    InvokeLockSelectionChanged(EventArgs.Empty);
+            }
         }
         #endregion Properties
 
         #region Methods
+        public AudioProcess GetSelectedProcess()
+        {
+            if (_selected == null)
+                SelectNextProcess();
+            return _selected!;
+        }
         public void SetSelectedProcess(string name)
         {
             if (!_selected_lock)
+            {
                 _selected = ProcessList.FirstOrDefault(p => p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null) ?? _selected;
+                InvokeSelectedProcessChanged(EventArgs.Empty);
+            }
         }
-        public void SetSelectedProcess(int index)
+        public void SelectNextProcess()
         {
             if (!_selected_lock)
             {
-                int sz = _procList.Count;
-                if (index < 0 || index >= sz)
-                    throw new ArgumentOutOfRangeException($"Out-of-range error: {nameof(index)} (0-{sz})");
-                _selected = _procList[index];
+                if (_selected != null)
+                {
+                    int i = ProcessList.IndexOf(_selected) + 1;
+                    _selected = ProcessList[i % ProcessList.Count];
+                }
+                else _selected = ProcessList.First();
+                InvokeSelectedProcessChanged(EventArgs.Empty);
             }
-        }
-
-        public AudioProcess GetSelectedProcess()
-            => _selected;
-
-        public int GetSelectedProcessIndex()
-            => _procList.IndexOf(_selected);
-
-        public void SelectNextProcess()
-        {
-            int i = GetSelectedProcessIndex();
-            if (i == -1)
-                SetSelectedProcess(0);
-            else 
-                SetSelectedProcess(--i % _procList.Count);
         }
         public void SelectPrevProcess()
         {
-            int i = GetSelectedProcessIndex();
-            if (i == -1)
-                SetSelectedProcess(0);
-            else
-                SetSelectedProcess(++i % _procList.Count);
+            if (!_selected_lock)
+            {
+                if (_selected != null)
+                {
+                    int i = ProcessList.IndexOf(_selected) - 1;
+                    // extra handling because of C-style modulo not handling negative numbers
+                    if (i < 0)
+                        i = ProcessList.Count - 1;
+                    _selected = ProcessList[i];
+                }
+                else _selected = ProcessList.Last();
+                InvokeSelectedProcessChanged(EventArgs.Empty);
+            }
         }
 
         /// <summary>

@@ -24,6 +24,19 @@ namespace volume_control_2
             nAutoReloadInterval.Value = Properties.Settings.Default.LastAutoReloadInterval;
             cbAutoReload.Checked = Properties.Settings.Default.LastAutoReloadEnabled;
             cbLockTarget.Checked = Properties.Settings.Default.LastLockTargetState;
+
+            VC_Static.API.SelectedProcessChanged += delegate
+            {
+                tbTargetSelector.TextChanged -= tbTargetName_TextChanged!;
+                tbTargetSelector.Text = VC_Static.API.GetSelectedProcess().ProcessName;
+                tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
+            };
+            VC_Static.API.LockSelectionChanged += delegate
+            {
+                cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!;
+                tbTargetSelector.Enabled = !(cbLockTarget.Checked = VC_Static.API.LockSelection);
+                cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
+            };
         }
         /// <summary>
         /// Called before the form closes.

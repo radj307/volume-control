@@ -64,6 +64,21 @@
     <value>108, 21</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="TrayContextMenuClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="TrayContextMenuClose.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TrayContextMenuSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 6</value>
+  </data>
+  <data name="TrayContextMenuBringToFront.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="TrayContextMenuBringToFront.Text" xml:space="preserve">
+    <value>Bring to Front</value>
+  </data>
   <data name="TrayContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 54</value>
   </data>
@@ -79,21 +94,6 @@
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="TrayIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="TrayContextMenuClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="TrayContextMenuClose.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="TrayContextMenuSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 6</value>
-  </data>
-  <data name="TrayContextMenuBringToFront.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="TrayContextMenuBringToFront.Text" xml:space="preserve">
-    <value>Bring to Front</value>
   </data>
   <metadata name="bsAudioProcessAPI.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>25, 65</value>
@@ -204,6 +204,21 @@
   <data name="splitContainer1.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 5</value>
+  </data>
+  <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 19</value>
+  </data>
+  <data name="cbLockTarget.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="cbLockTarget.Text" xml:space="preserve">
+    <value>Lock</value>
+  </data>
   <data name="&gt;&gt;cbLockTarget.Name" xml:space="preserve">
     <value>cbLockTarget</value>
   </data>
@@ -216,6 +231,21 @@
   <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="Label_Target.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_Target.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 6</value>
+  </data>
+  <data name="Label_Target.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
+  </data>
+  <data name="Label_Target.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="Label_Target.Text" xml:space="preserve">
+    <value>Current Target</value>
+  </data>
   <data name="&gt;&gt;Label_Target.Name" xml:space="preserve">
     <value>Label_Target</value>
   </data>
@@ -227,6 +257,18 @@
   </data>
   <data name="&gt;&gt;Label_Target.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
+    <value>91, 3</value>
+  </data>
+  <data name="tbTargetSelector.PlaceholderText" xml:space="preserve">
+    <value>Target Process Name</value>
+  </data>
+  <data name="tbTargetSelector.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 23</value>
+  </data>
+  <data name="tbTargetSelector.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;tbTargetSelector.Name" xml:space="preserve">
     <value>tbTargetSelector</value>
@@ -261,6 +303,15 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="nAutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 3</value>
+  </data>
+  <data name="nAutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 23</value>
+  </data>
+  <data name="nAutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
   <data name="&gt;&gt;nAutoReloadInterval.Name" xml:space="preserve">
     <value>nAutoReloadInterval</value>
   </data>
@@ -272,6 +323,18 @@
   </data>
   <data name="&gt;&gt;nAutoReloadInterval.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="bReload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="bReload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 23</value>
+  </data>
+  <data name="bReload.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bReload.Text" xml:space="preserve">
+    <value>Reload</value>
   </data>
   <data name="&gt;&gt;bReload.Name" xml:space="preserve">
     <value>bReload</value>
@@ -285,6 +348,21 @@
   <data name="&gt;&gt;bReload.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Label_AutoReloadInterval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 7</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="Label_AutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Text" xml:space="preserve">
+    <value>Interval (ms)</value>
+  </data>
   <data name="&gt;&gt;Label_AutoReloadInterval.Name" xml:space="preserve">
     <value>Label_AutoReloadInterval</value>
   </data>
@@ -296,6 +374,21 @@
   </data>
   <data name="&gt;&gt;Label_AutoReloadInterval.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="cbAutoReload.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbAutoReload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 6</value>
+  </data>
+  <data name="cbAutoReload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 19</value>
+  </data>
+  <data name="cbAutoReload.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cbAutoReload.Text" xml:space="preserve">
+    <value>Auto</value>
   </data>
   <data name="&gt;&gt;cbAutoReload.Name" xml:space="preserve">
     <value>cbAutoReload</value>
@@ -413,183 +506,6 @@
   </data>
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>323, 5</value>
-  </data>
-  <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 19</value>
-  </data>
-  <data name="cbLockTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="cbLockTarget.Text" xml:space="preserve">
-    <value>Lock</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Name" xml:space="preserve">
-    <value>cbLockTarget</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="Label_Target.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label_Target.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 6</value>
-  </data>
-  <data name="Label_Target.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 15</value>
-  </data>
-  <data name="Label_Target.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="Label_Target.Text" xml:space="preserve">
-    <value>Current Target</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Name" xml:space="preserve">
-    <value>Label_Target</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 3</value>
-  </data>
-  <data name="tbTargetSelector.PlaceholderText" xml:space="preserve">
-    <value>Target Process Name</value>
-  </data>
-  <data name="tbTargetSelector.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 23</value>
-  </data>
-  <data name="tbTargetSelector.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Name" xml:space="preserve">
-    <value>tbTargetSelector</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="nAutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 3</value>
-  </data>
-  <data name="nAutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 23</value>
-  </data>
-  <data name="nAutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Name" xml:space="preserve">
-    <value>nAutoReloadInterval</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="bReload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 23</value>
-  </data>
-  <data name="bReload.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="bReload.Text" xml:space="preserve">
-    <value>Reload</value>
-  </data>
-  <data name="&gt;&gt;bReload.Name" xml:space="preserve">
-    <value>bReload</value>
-  </data>
-  <data name="&gt;&gt;bReload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bReload.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;bReload.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="Label_AutoReloadInterval.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 7</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="Label_AutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Text" xml:space="preserve">
-    <value>Interval (ms)</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Name" xml:space="preserve">
-    <value>Label_AutoReloadInterval</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cbAutoReload.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbAutoReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 6</value>
-  </data>
-  <data name="cbAutoReload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 19</value>
-  </data>
-  <data name="cbAutoReload.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="cbAutoReload.Text" xml:space="preserve">
-    <value>Auto</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Name" xml:space="preserve">
-    <value>cbAutoReload</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <metadata name="tAutoReload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>181, 65</value>

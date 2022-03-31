@@ -16,26 +16,24 @@ namespace HotkeyLib
         /// <param name="keystr">A string in the format "<KEY>[+<MOD>...]"</param>
         public KeyCombo(string keystr)
         {
-            // Parse & set the primary key
-            int fst = keystr.IndexOf('+');
-            if (Enum.TryParse(typeof(Keys), fst == -1 ? keystr : keystr[..fst], out object? key) && key != null)
-            {
+            int div = keystr.IndexOf('+');
+            // set key
+            if (Enum.TryParse(typeof(Keys), div == -1 ? keystr : keystr[(div + 1)..], out object? key) && key != null)
                 _key = (Keys)key;
-            }
             else _key = Keys.None;
 
-            // Parse & set the modifier keys
+            // set modifiers
             _mod = Modifier.NONE;
-            if (fst != -1)
+            if (div != -1)
             {
-                string modstr = keystr[fst..];
-                if (modstr.Contains("Alt", StringComparison.OrdinalIgnoreCase))
+                string mod = keystr[..div];
+                if (mod.Contains("Alt", StringComparison.OrdinalIgnoreCase))
                     _mod.Set(Modifier.ALT);
-                if (modstr.Contains("Ctrl", StringComparison.OrdinalIgnoreCase))
+                if (mod.Contains("Ctrl", StringComparison.OrdinalIgnoreCase))
                     _mod.Set(Modifier.CTRL);
-                if (modstr.Contains("Shift", StringComparison.OrdinalIgnoreCase))
+                if (mod.Contains("Shift", StringComparison.OrdinalIgnoreCase))
                     _mod.Set(Modifier.SHIFT);
-                if (modstr.Contains("Win", StringComparison.OrdinalIgnoreCase))
+                if (mod.Contains("Win", StringComparison.OrdinalIgnoreCase))
                     _mod.Set(Modifier.WIN);
             }
         }
@@ -132,7 +130,7 @@ namespace HotkeyLib
         /// </summary>
         /// <returns>A valid hotkey string representation.</returns>
         public override string? ToString()
-            => $"{Enum.GetName(typeof(Keys), _key)}{(_mod.Empty() ? "" : $"+{_mod.Stringify()}")}";
+            => $"{(_mod.Empty() ? "" : $"{_mod.Stringify()}+")}{Enum.GetName(typeof(Keys), _key)}";
         #endregion Methods
     }
 
