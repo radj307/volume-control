@@ -16,7 +16,7 @@ namespace VolumeControl
 
             // initialize designer components
             InitializeComponent();
-            _panel1Height = splitContainer1.Panel1.Height;
+            _panel1Height = splitContainer.Panel1.Height;
 
             Mixer.RowsAdded -= Mixer_RowsAdded;
             Mixer.RowsRemoved -= Mixer_RowsRemoved;
@@ -35,7 +35,7 @@ namespace VolumeControl
             nAutoReloadInterval.Value = Properties.Settings.Default.LastAutoReloadInterval;
             cbAutoReload.Checked = Properties.Settings.Default.LastAutoReloadEnabled;
             cbLockTarget.Checked = Properties.Settings.Default.LastLockTargetState;
-            splitContainer1.Panel2Collapsed = Properties.Settings.Default.LastMixerVisibleState;
+            splitContainer.Panel2Collapsed = Properties.Settings.Default.LastMixerVisibleState;
             cbRunAtStartup.Checked = Properties.Settings.Default.RunAtStartup;
             cbStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
             cbShowInTaskbar.Checked = Properties.Settings.Default.ShowInTaskbar;
@@ -60,19 +60,16 @@ namespace VolumeControl
 
             ResumeLayout();
         }
-        /// <summary>
-        /// Called before the form closes.
-        /// This is basically a cancellable finalizer.
-        /// </summary>
-        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        private void SaveAll()
         {
+            // save hotkeys
             VC_Static.SaveSettings();
             // Update local properties
             Properties.Settings.Default.LastSelectedTarget = tbTargetSelector.Text;
             Properties.Settings.Default.LastAutoReloadInterval = nAutoReloadInterval.Value;
             Properties.Settings.Default.LastAutoReloadEnabled = cbAutoReload.Checked;
             Properties.Settings.Default.LastLockTargetState = cbLockTarget.Checked;
-            Properties.Settings.Default.LastMixerVisibleState = splitContainer1.Panel2Collapsed;
+            Properties.Settings.Default.LastMixerVisibleState = splitContainer.Panel2Collapsed;
             Properties.Settings.Default.RunAtStartup = cbRunAtStartup.Checked;
             Properties.Settings.Default.StartMinimized = cbStartMinimized.Checked;
             Properties.Settings.Default.ShowInTaskbar = cbShowInTaskbar.Checked;
@@ -80,7 +77,19 @@ namespace VolumeControl
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+        }
+        /// <summary>
+        /// Called before the form closes.
+        /// This is basically a cancellable finalizer.
+        /// </summary>
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
+        }
+        ~Form()
+        {
+            SaveAll();
         }
 
         #region Members
@@ -114,9 +123,9 @@ namespace VolumeControl
             if (FormBorderStyle != FormBorderStyle.None)
                 height += 40;
 
-            if (!splitContainer1.Panel2Collapsed)
+            if (!splitContainer.Panel2Collapsed)
             {
-                height += Mixer.ColumnHeadersHeight + splitContainer1.SplitterWidth;
+                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth;
                 int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4);
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
@@ -134,6 +143,14 @@ namespace VolumeControl
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
             Mixer.ResumeLayout();
+        }
+
+        public new void BringToFront()
+        {
+            if (WindowState != FormWindowState.Normal)
+                WindowState = FormWindowState.Normal;
+            Show();
+            base.BringToFront();
         }
         #endregion Methods
 
@@ -175,27 +192,42 @@ namespace VolumeControl
         /// </summary>
         private void bReload_Click(object sender, EventArgs e)
             => ReloadProcessList();
-
+        /// <summary>
+        /// Handles check/uncheck events for the 'Auto' reload checkbox
+        /// </summary>
         private void cbAutoReload_CheckedChanged(object sender, EventArgs e)
         {
             tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
             tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
         }
-
+        /// <summary>
+        /// Handles value change events for the 'Interval' number selector
+        /// </summary>
         private void nAutoReloadInterval_ValueChanged(object sender, EventArgs e)
             => tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
-
+        /// <summary>
+        /// Handles tick events for the auto-reload timer.
+        /// </summary>
         private void tAutoReload_Tick(object sender, EventArgs e)
             => ReloadProcessList();
-
+        /// <summary>
+        /// Handles click events for the 'Edit Hotkeys...' button.
+        /// </summary>
         private void bHotkeyEditor_Click(object sender, EventArgs e)
             => hkedit.Toggle();
-
+        /// <summary>
+        /// Handles text change events for the 'Target Process Name' textbox.
+        /// </summary>
         private void tbTargetName_TextChanged(object sender, EventArgs e)
             => VC_Static.API.SetSelectedProcess(tbTargetSelector.Text);
+        /// <summary>
+        /// Handles check/uncheck events for the 'Lock' current target checkbox.
+        /// </summary>
         private void cbLockTarget_CheckedChanged(object sender, EventArgs e)
             => tbTargetSelector.Enabled = !(LockTarget = cbLockTarget.Checked);
-
+        /// <summary>
+        /// Handles check/uncheck events for the 'Run at Startup' checkbox.
+        /// </summary>
         private void cbRunAtStartup_CheckedChanged(object sender, EventArgs e)
         {
             if (cbRunAtStartup.Checked)
@@ -203,18 +235,40 @@ namespace VolumeControl
             else
                 RegAPI.DisableRunOnStartup();
         }
-
+        /// <summary>
+        /// Handles check/uncheck events for the 'Show in Taskbar' checkbox.
+        /// </summary>
         private void cbShowInTaskbar_CheckedChanged(object sender, EventArgs e)
             => ShowInTaskbar = cbShowInTaskbar.Checked;
-
+        /// <summary>
+        /// Handles check/uncheck events for the 'Always on Top' checkbox.
+        /// </summary>
         private void cbAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
             => TopMost = cbAlwaysOnTop.Checked;
-
+        /// <summary>
+        /// Handles click events for the 'Toggle Mixer' button.
+        /// </summary>
         private void bToggleMixer_Click(object sender, EventArgs e)
         {
-            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+            splitContainer.Panel2Collapsed = !splitContainer.Panel2Collapsed;
             SizeToFit();
         }
+        /// <summary>
+        /// Handles double-click events for the tray icon.
+        /// </summary>
+        private void TrayIcon_DoubleClick(object sender, EventArgs e)
+            => BringToFront();
+        /// <summary>
+        /// Handles click events for the tray icon context menu's 'Bring to Front' button.
+        /// </summary>
+        private void TrayContextMenuBringToFront_Click(object sender, EventArgs e)
+            => BringToFront();
+        /// <summary>
+        /// Handles click events for the tray icon context menu's 'Close' button.
+        /// </summary>
+        private void TrayContextMenuClose_Click(object sender, EventArgs e)
+            => Close();
         #endregion ControlEventHandlers
+
     }
 }

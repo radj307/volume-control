@@ -49,7 +49,7 @@ namespace VolumeControl
             this.MixerColMuted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.MixerColSelectButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.bToggleMixer = new System.Windows.Forms.Button();
             this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
@@ -69,10 +69,10 @@ namespace VolumeControl
             this.TrayContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mixer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAutoReloadInterval)).BeginInit();
@@ -82,6 +82,7 @@ namespace VolumeControl
             // 
             this.TrayIcon.ContextMenuStrip = this.TrayContextMenu;
             resources.ApplyResources(this.TrayIcon, "TrayIcon");
+            this.TrayIcon.DoubleClick += new System.EventHandler(this.TrayIcon_DoubleClick);
             // 
             // TrayContextMenu
             // 
@@ -98,6 +99,7 @@ namespace VolumeControl
             // 
             this.TrayContextMenuClose.Name = "TrayContextMenuClose";
             resources.ApplyResources(this.TrayContextMenuClose, "TrayContextMenuClose");
+            this.TrayContextMenuClose.Click += new System.EventHandler(this.TrayContextMenuClose_Click);
             // 
             // TrayContextMenuSeparator
             // 
@@ -108,11 +110,12 @@ namespace VolumeControl
             // 
             this.TrayContextMenuBringToFront.Name = "TrayContextMenuBringToFront";
             resources.ApplyResources(this.TrayContextMenuBringToFront, "TrayContextMenuBringToFront");
+            this.TrayContextMenuBringToFront.Click += new System.EventHandler(this.TrayContextMenuBringToFront_Click);
             // 
             // bsAudioProcessAPI
             // 
             this.bsAudioProcessAPI.DataMember = "ProcessList";
-            this.bsAudioProcessAPI.DataSource = typeof(AudioProcessAPI);
+            this.bsAudioProcessAPI.DataSource = typeof(VolumeControl.Core.AudioProcessAPI);
             this.bsAudioProcessAPI.Sort = "";
             // 
             // Mixer
@@ -224,29 +227,30 @@ namespace VolumeControl
             this.bHotkeyEditor.UseVisualStyleBackColor = true;
             this.bHotkeyEditor.Click += new System.EventHandler(this.bHotkeyEditor_Click);
             // 
-            // splitContainer1
+            // splitContainer
             // 
-            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            resources.ApplyResources(this.splitContainer1, "splitContainer1");
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Arrow;
+            resources.ApplyResources(this.splitContainer, "splitContainer");
+            this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.bToggleMixer);
-            this.splitContainer1.Panel1.Controls.Add(this.cbAlwaysOnTop);
-            this.splitContainer1.Panel1.Controls.Add(this.cbShowInTaskbar);
-            this.splitContainer1.Panel1.Controls.Add(this.cbStartMinimized);
-            this.splitContainer1.Panel1.Controls.Add(this.cbRunAtStartup);
-            this.splitContainer1.Panel1.Controls.Add(this.panel2);
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.Controls.Add(this.Label_Version);
-            this.splitContainer1.Panel1.Controls.Add(this.bHotkeyEditor);
+            this.splitContainer.Panel1.Controls.Add(this.bToggleMixer);
+            this.splitContainer.Panel1.Controls.Add(this.cbAlwaysOnTop);
+            this.splitContainer.Panel1.Controls.Add(this.cbShowInTaskbar);
+            this.splitContainer.Panel1.Controls.Add(this.cbStartMinimized);
+            this.splitContainer.Panel1.Controls.Add(this.cbRunAtStartup);
+            this.splitContainer.Panel1.Controls.Add(this.panel2);
+            this.splitContainer.Panel1.Controls.Add(this.panel1);
+            this.splitContainer.Panel1.Controls.Add(this.Label_Version);
+            this.splitContainer.Panel1.Controls.Add(this.bHotkeyEditor);
+            this.splitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.Mixer);
+            this.splitContainer.Panel2.Controls.Add(this.Mixer);
             // 
             // bToggleMixer
             // 
@@ -380,7 +384,7 @@ namespace VolumeControl
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainer);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -390,11 +394,11 @@ namespace VolumeControl
             this.TrayContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mixer)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -413,7 +417,7 @@ namespace VolumeControl
         private BindingSource bsAudioProcessAPI;
         private VolumeControl.Core.Controls.DoubleBufferedDataGridView Mixer;
         private Button bHotkeyEditor;
-        private SplitContainer splitContainer1;
+        private SplitContainer splitContainer;
         private Label Label_Version;
         private Button bReload;
         private NumericUpDown nAutoReloadInterval;

@@ -22,6 +22,8 @@ namespace VolumeControl.Core.Controls
             e.Cancel = true;
             // hide this form instead
             Hide();
+            // save hotkeys
+            VC_Static.SaveSettings();
         }
 
         private readonly HotkeyBindingList _hotkeys;
