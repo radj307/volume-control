@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "volume-control-2", "volume-control-2\volume-control-2.csproj", "{288123C0-F587-4508-B07B-3C7929FF52DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotkeyLib", "HotkeyLib\HotkeyLib.csproj", "{797D1D1C-0E98-4486-8588-AEBA4414899A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{35BC5796-F692-4119-85EE-9FACFB7D4214}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAPI", "AudioAPI\AudioAPI.csproj", "{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreControls", "CoreControls\CoreControls.csproj", "{BF1461EF-64E8-4B7F-A4AD-8F31EB4D15A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{FBA02143-836D-4734-A7D4-B005471780B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{17B8DD24-9451-485A-B269-D2B9582859B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core.Controls", "VolumeControl.Core.Controls\VolumeControl.Core.Controls.csproj", "{2E70B992-A5D9-4673-A4DC-9B551AEB98A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,26 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{288123C0-F587-4508-B07B-3C7929FF52DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{288123C0-F587-4508-B07B-3C7929FF52DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{288123C0-F587-4508-B07B-3C7929FF52DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{288123C0-F587-4508-B07B-3C7929FF52DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{797D1D1C-0E98-4486-8588-AEBA4414899A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{797D1D1C-0E98-4486-8588-AEBA4414899A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{797D1D1C-0E98-4486-8588-AEBA4414899A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{797D1D1C-0E98-4486-8588-AEBA4414899A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35BC5796-F692-4119-85EE-9FACFB7D4214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35BC5796-F692-4119-85EE-9FACFB7D4214}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35BC5796-F692-4119-85EE-9FACFB7D4214}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35BC5796-F692-4119-85EE-9FACFB7D4214}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF1461EF-64E8-4B7F-A4AD-8F31EB4D15A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF1461EF-64E8-4B7F-A4AD-8F31EB4D15A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF1461EF-64E8-4B7F-A4AD-8F31EB4D15A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF1461EF-64E8-4B7F-A4AD-8F31EB4D15A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA02143-836D-4734-A7D4-B005471780B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA02143-836D-4734-A7D4-B005471780B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA02143-836D-4734-A7D4-B005471780B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA02143-836D-4734-A7D4-B005471780B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17B8DD24-9451-485A-B269-D2B9582859B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B8DD24-9451-485A-B269-D2B9582859B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B8DD24-9451-485A-B269-D2B9582859B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B8DD24-9451-485A-B269-D2B9582859B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E70B992-A5D9-4673-A4DC-9B551AEB98A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E70B992-A5D9-4673-A4DC-9B551AEB98A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E70B992-A5D9-4673-A4DC-9B551AEB98A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E70B992-A5D9-4673-A4DC-9B551AEB98A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
