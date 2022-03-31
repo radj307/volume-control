@@ -6,7 +6,6 @@ Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 
 # .csproj locations
 $global:VC = "$(Get-Location)\VolumeControl\VolumeControl.csproj"
-$global:VCCLI = "$(Get-Location)\VolumeControlCLI\VolumeControlCLI.csproj"
 
 if ( $args[1] )
 {
@@ -33,7 +32,7 @@ $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 $EXTRA = $Matches.EXTRA
 if ($EXTRA)
 {
-    if ($EXTRA -like "*-pr*")
+    if ($EXTRA -like "*-pre*")
     {
         $global:PRERELEASE = 'true'
         
@@ -58,7 +57,6 @@ if ($EXTRA)
 "Working Directory:        `"$(Get-Location)`""
 "Tag Version Number:       `"$TAG`""
 "VolumeControl.csproj:     `"$VC`""
-"VolumeControlCLI.csproj:  `"$VCCLI`""
 
 # @brief            Set the version number in the specified csproj file.
 # @param file       Target File Path.
@@ -97,6 +95,5 @@ function SetVersion
 }
 
 SetVersion($global:VC)
-SetVersion($global:VCCLI)
 
 "SetVersion.ps1 Finished."
