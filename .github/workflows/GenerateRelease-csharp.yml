@@ -87,4 +87,3 @@ jobs:
         fail_on_unmatched_files: true
         files:      |
                     ${{github.workspace}}/build-windows/VolumeControl.exe
-                    ${{github.workspace}}/build-windows/VolumeControlCLI.exe
