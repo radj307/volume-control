@@ -19,6 +19,8 @@ namespace VolumeControl.Core
             };
             _reloadTimer.Elapsed += ReloadTimerElapsed!;
             _reloadTimer.Start();
+
+            ReloadOnHotkey = true;
         }
 
         #region Members
@@ -86,6 +88,7 @@ namespace VolumeControl.Core
             get => _reloadTimer.Interval;
             set => _reloadTimer.Interval = value;
         }
+        public bool ReloadOnHotkey { get; set; }
         #endregion Properties
 
         #region Methods
@@ -109,7 +112,7 @@ namespace VolumeControl.Core
         /// </summary>
         public void SelectNextProcess()
         {
-            if (Properties.Settings.Default.ReloadOnHotkey)
+            if (ReloadOnHotkey)
                 TryReload();
             if (!_selected_lock)
             {
@@ -128,7 +131,7 @@ namespace VolumeControl.Core
         /// </summary>
         public void SelectPrevProcess()
         {
-            if (Properties.Settings.Default.ReloadOnHotkey)
+            if (ReloadOnHotkey)
                 TryReload();
             if (!_selected_lock)
             {

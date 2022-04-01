@@ -35,5 +35,8 @@
     <Setting Name="ToastTimeoutInterval" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">3000</Value>
     </Setting>
+    <Setting Name="ReloadOnHotkey" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

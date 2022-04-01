@@ -17,6 +17,11 @@ namespace VolumeControl
 
             // initialize designer components
             InitializeComponent();
+
+            // Force default cursors on both split containers, in case the designer decides to change them again
+            splitContainer.Cursor = Cursors.Default;
+            panel2SplitContainer.Cursor = Cursors.Default;
+
             _panel1Height = splitContainer.Panel1.Height;
 
             Mixer.RowsAdded -= Mixer_RowsAdded;
@@ -43,6 +48,7 @@ namespace VolumeControl
             cbAlwaysOnTop.Checked = Properties.Settings.Default.AlwaysOnTop;
             cbToastEnabled.Checked = Properties.Settings.Default.ToastEnabled;
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
+            cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate
@@ -67,6 +73,9 @@ namespace VolumeControl
 
             ResumeLayout();
         }
+        /// <summary>
+        /// Set properties to their current UI values and save them to the config file.
+        /// </summary>
         private void SaveAll()
         {
             // save hotkeys
@@ -83,6 +92,7 @@ namespace VolumeControl
             Properties.Settings.Default.AlwaysOnTop = cbAlwaysOnTop.Checked;
             Properties.Settings.Default.ToastEnabled = cbToastEnabled.Checked;
             Properties.Settings.Default.ToastTimeoutInterval = nToastTimeoutInterval.Value;
+            Properties.Settings.Default.ReloadOnHotkey = cbReloadOnHotkey.Checked;
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -221,7 +231,7 @@ namespace VolumeControl
         private void cbAutoReload_CheckedChanged(object sender, EventArgs e)
         {
             tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
-            tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
+            Label_AutoReloadInterval.Enabled = tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
         }
         /// <summary>
         /// Handles value change events for the 'Interval' number selector
@@ -301,8 +311,12 @@ namespace VolumeControl
         /// </summary>
         private void nToastTimeoutInterval_ValueChanged(object sender, EventArgs e)
             => toast.TimeoutInterval = Convert.ToInt32(nToastTimeoutInterval.Value);
+
         #endregion ControlEventHandlers
 
-
+        private void cbReloadOnHotkey_CheckedChanged(object sender, EventArgs e)
+        {
+            VC_Static.API.ReloadOnHotkey = cbReloadOnHotkey.Checked;
+        }
     }
 }

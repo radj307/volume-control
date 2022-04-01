@@ -4,6 +4,7 @@ namespace VolumeControl.Core.Controls
 {
     public partial class HotkeyEditorForm : Form
     {
+        #region Constructors
         public HotkeyEditorForm()
         {
             _hotkeys = new();
@@ -11,6 +12,9 @@ namespace VolumeControl.Core.Controls
             bsHotkeyBindingList.DataSource = _hotkeys;
             bsKeysList.DataSource = new ValidKeys();
         }
+        #endregion Constructors
+
+        #region Finalizers
         /// <summary>
         /// Called before the form closes.
         /// This is basically a cancellable finalizer.
@@ -24,10 +28,14 @@ namespace VolumeControl.Core.Controls
             // save hotkeys
             VC_Static.SaveSettings();
         }
+        #endregion Finalizers
 
+        #region Members
         private readonly HotkeyBindingList _hotkeys;
         private int _dgvListItemHeight = 0;
+        #endregion Members
 
+        #region Methods
         private void SizeToFit()
         {
             if (_dgvListItemHeight == 0) // set the height of a list item
@@ -70,24 +78,22 @@ namespace VolumeControl.Core.Controls
             else
                 Show();
         }
+        #endregion Methods
 
+        #region ControlEventHandlers
         private void dgv_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dgv.CurrentCell is DataGridViewCheckBoxCell)
                 dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
-
-
         private void bCancel_Click(object sender, EventArgs e)
             => Hide();
-
         private void dgv_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
             => SizeToFit();
-
         private void dgv_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
             => SizeToFit();
-
         private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
             => VC_Static.Log.WriteExceptionError(e.Exception);
+        #endregion ControlEventHandlers
     }
 }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace HotkeyLib
 {
     [TypeConverter(typeof(WindowsHotkeyConverter))]
-    public class WindowsHotkey : IMessageFilter, IKeyCombo
+    public class WindowsHotkey : IMessageFilter, IKeyCombo, IDisposable
     {
         #region Constructors
         public WindowsHotkey(Control owner, string keystr)
@@ -28,18 +28,19 @@ namespace HotkeyLib
         }
         #endregion Constructors
 
-        #region Destructors
+        #region Finalizers
         ~WindowsHotkey()
         {
-            Unregister();
+            Dispose(true); // unregister
         }
-        #endregion Destructors
+        #endregion Finalizers
 
         #region Members
         private Control _owner;
         private KeyCombo _combo;
         private HotkeyRegistrationState _state = HotkeyRegistrationState.UNREGISTERED;
         private int? _id = null;
+        private bool disposedValue;
 
         public event KeyEventHandler? Pressed = null;
         #endregion Members
@@ -142,6 +143,32 @@ namespace HotkeyLib
         public new string? ToString()
         {
             return _combo.ToString();
+        }
+        /// <summary>
+        /// Dispose of this object.
+        /// </summary>
+        /// <param name="disposing">When true, any hotkeys are unregistered before disposal.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Unregister();
+                }
+
+                _owner = null!;
+                _id = null;
+                disposedValue = true;
+            }
+        }
+        /// <summary>
+        /// Dispose of this object.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion Methods
 

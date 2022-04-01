@@ -154,5 +154,17 @@ namespace VolumeControl.Properties {
                 this["ToastTimeoutInterval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ReloadOnHotkey {
+            get {
+                return ((bool)(this["ReloadOnHotkey"]));
+            }
+            set {
+                this["ReloadOnHotkey"] = value;
+            }
+        }
     }
 }
