@@ -3028,12 +3028,6 @@
   <data name="MixerColProcessName.HeaderText" xml:space="preserve">
     <value>Process Name</value>
   </data>
-  <data name="MixerColDisplayName.HeaderText" xml:space="preserve">
-    <value>Display Name</value>
-  </data>
-  <data name="MixerColDisplayName.Width" type="System.Int32, mscorlib">
-    <value>105</value>
-  </data>
   <data name="MixerColVolume.HeaderText" xml:space="preserve">
     <value>Volume</value>
   </data>
@@ -3072,7 +3066,7 @@
     <value>0, 0</value>
   </data>
   <data name="Mixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>660, 29</value>
+    <value>362, 28</value>
   </data>
   <data name="Mixer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3084,7 +3078,7 @@
     <value>VolumeControl.Core.Controls.DoubleBufferedDataGridView, VolumeControl.Core.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Mixer.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
+    <value>panel2SplitContainer.Panel2</value>
   </data>
   <data name="&gt;&gt;Mixer.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -3096,7 +3090,7 @@
     <value>3, 3</value>
   </data>
   <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 23</value>
+    <value>100, 25</value>
   </data>
   <data name="bHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3114,7 +3108,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>6</value>
   </data>
   <data name="splitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3127,6 +3121,189 @@
   </data>
   <data name="splitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
+  </data>
+  <data name="cbRunAtStartup.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbRunAtStartup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="cbRunAtStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 19</value>
+  </data>
+  <data name="cbRunAtStartup.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="cbRunAtStartup.Text" xml:space="preserve">
+    <value>Run at Startup</value>
+  </data>
+  <data name="&gt;&gt;cbRunAtStartup.Name" xml:space="preserve">
+    <value>cbRunAtStartup</value>
+  </data>
+  <data name="&gt;&gt;cbRunAtStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbRunAtStartup.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;cbRunAtStartup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cbStartMinimized.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbStartMinimized.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 47</value>
+  </data>
+  <data name="cbStartMinimized.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 19</value>
+  </data>
+  <data name="cbStartMinimized.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="cbStartMinimized.Text" xml:space="preserve">
+    <value>Start Minimized</value>
+  </data>
+  <data name="&gt;&gt;cbStartMinimized.Name" xml:space="preserve">
+    <value>cbStartMinimized</value>
+  </data>
+  <data name="&gt;&gt;cbStartMinimized.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbStartMinimized.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;cbStartMinimized.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbShowInTaskbar.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbShowInTaskbar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 72</value>
+  </data>
+  <data name="cbShowInTaskbar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 19</value>
+  </data>
+  <data name="cbShowInTaskbar.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="cbShowInTaskbar.Text" xml:space="preserve">
+    <value>Show in Taskbar</value>
+  </data>
+  <data name="&gt;&gt;cbShowInTaskbar.Name" xml:space="preserve">
+    <value>cbShowInTaskbar</value>
+  </data>
+  <data name="&gt;&gt;cbShowInTaskbar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbShowInTaskbar.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;cbShowInTaskbar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cbAlwaysOnTop.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbAlwaysOnTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 97</value>
+  </data>
+  <data name="cbAlwaysOnTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 19</value>
+  </data>
+  <data name="cbAlwaysOnTop.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="cbAlwaysOnTop.Text" xml:space="preserve">
+    <value>Always on Top</value>
+  </data>
+  <data name="&gt;&gt;cbAlwaysOnTop.Name" xml:space="preserve">
+    <value>cbAlwaysOnTop</value>
+  </data>
+  <data name="&gt;&gt;cbAlwaysOnTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbAlwaysOnTop.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;cbAlwaysOnTop.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="gpSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>229, 3</value>
+  </data>
+  <data name="gpSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 122</value>
+  </data>
+  <data name="gpSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="gpSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;gpSettings.Name" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;gpSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpSettings.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;gpSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
+    <value>308, 134</value>
+  </data>
+  <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 19</value>
+  </data>
+  <data name="cbLockTarget.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="cbLockTarget.Text" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="&gt;&gt;cbLockTarget.Name" xml:space="preserve">
+    <value>cbLockTarget</value>
+  </data>
+  <data name="&gt;&gt;cbLockTarget.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbLockTarget.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 131</value>
+  </data>
+  <data name="tbTargetSelector.PlaceholderText" xml:space="preserve">
+    <value>Target Process Name</value>
+  </data>
+  <data name="tbTargetSelector.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 23</value>
+  </data>
+  <data name="tbTargetSelector.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tbTargetSelector.Name" xml:space="preserve">
+    <value>tbTargetSelector</value>
+  </data>
+  <data name="&gt;&gt;tbTargetSelector.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbTargetSelector.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="LabelToastTimeout.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3204,10 +3381,10 @@
     <value>2</value>
   </data>
   <data name="gbToastNotifications.Location" type="System.Drawing.Point, System.Drawing">
-    <value>343, 5</value>
+    <value>4, 81</value>
   </data>
   <data name="gbToastNotifications.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 46</value>
+    <value>221, 44</value>
   </data>
   <data name="gbToastNotifications.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -3225,13 +3402,13 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gbToastNotifications.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="bToggleMixer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 28</value>
+    <value>3, 130</value>
   </data>
   <data name="bToggleMixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 23</value>
+    <value>100, 25</value>
   </data>
   <data name="bToggleMixer.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -3249,337 +3426,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bToggleMixer.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cbAlwaysOnTop.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbAlwaysOnTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 31</value>
-  </data>
-  <data name="cbAlwaysOnTop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
-  </data>
-  <data name="cbAlwaysOnTop.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="cbAlwaysOnTop.Text" xml:space="preserve">
-    <value>Always on Top</value>
-  </data>
-  <data name="&gt;&gt;cbAlwaysOnTop.Name" xml:space="preserve">
-    <value>cbAlwaysOnTop</value>
-  </data>
-  <data name="&gt;&gt;cbAlwaysOnTop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbAlwaysOnTop.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;cbAlwaysOnTop.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cbShowInTaskbar.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbShowInTaskbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 6</value>
-  </data>
-  <data name="cbShowInTaskbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 19</value>
-  </data>
-  <data name="cbShowInTaskbar.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="cbShowInTaskbar.Text" xml:space="preserve">
-    <value>Show in Taskbar</value>
-  </data>
-  <data name="&gt;&gt;cbShowInTaskbar.Name" xml:space="preserve">
-    <value>cbShowInTaskbar</value>
-  </data>
-  <data name="&gt;&gt;cbShowInTaskbar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbShowInTaskbar.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;cbShowInTaskbar.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cbStartMinimized.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbStartMinimized.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 31</value>
-  </data>
-  <data name="cbStartMinimized.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 19</value>
-  </data>
-  <data name="cbStartMinimized.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="cbStartMinimized.Text" xml:space="preserve">
-    <value>Start Minimized</value>
-  </data>
-  <data name="&gt;&gt;cbStartMinimized.Name" xml:space="preserve">
-    <value>cbStartMinimized</value>
-  </data>
-  <data name="&gt;&gt;cbStartMinimized.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbStartMinimized.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;cbStartMinimized.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="cbRunAtStartup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbRunAtStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 6</value>
-  </data>
-  <data name="cbRunAtStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 19</value>
-  </data>
-  <data name="cbRunAtStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="cbRunAtStartup.Text" xml:space="preserve">
-    <value>Run at Startup</value>
-  </data>
-  <data name="&gt;&gt;cbRunAtStartup.Name" xml:space="preserve">
-    <value>cbRunAtStartup</value>
-  </data>
-  <data name="&gt;&gt;cbRunAtStartup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbRunAtStartup.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;cbRunAtStartup.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>323, 5</value>
-  </data>
-  <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 19</value>
-  </data>
-  <data name="cbLockTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="cbLockTarget.Text" xml:space="preserve">
-    <value>Lock</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Name" xml:space="preserve">
-    <value>cbLockTarget</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="Label_Target.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label_Target.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 6</value>
-  </data>
-  <data name="Label_Target.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 15</value>
-  </data>
-  <data name="Label_Target.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="Label_Target.Text" xml:space="preserve">
-    <value>Current Target</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Name" xml:space="preserve">
-    <value>Label_Target</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;Label_Target.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 3</value>
-  </data>
-  <data name="tbTargetSelector.PlaceholderText" xml:space="preserve">
-    <value>Target Process Name</value>
-  </data>
-  <data name="tbTargetSelector.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 23</value>
-  </data>
-  <data name="tbTargetSelector.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Name" xml:space="preserve">
-    <value>tbTargetSelector</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 57</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 29</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="nAutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 3</value>
-  </data>
-  <data name="nAutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 23</value>
-  </data>
-  <data name="nAutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Name" xml:space="preserve">
-    <value>nAutoReloadInterval</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;nAutoReloadInterval.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="bReload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 23</value>
-  </data>
-  <data name="bReload.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="bReload.Text" xml:space="preserve">
-    <value>Reload</value>
-  </data>
-  <data name="&gt;&gt;bReload.Name" xml:space="preserve">
-    <value>bReload</value>
-  </data>
-  <data name="&gt;&gt;bReload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bReload.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;bReload.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="Label_AutoReloadInterval.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 7</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="Label_AutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="Label_AutoReloadInterval.Text" xml:space="preserve">
-    <value>Interval (ms)</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Name" xml:space="preserve">
-    <value>Label_AutoReloadInterval</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;Label_AutoReloadInterval.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cbAutoReload.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbAutoReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 6</value>
-  </data>
-  <data name="cbAutoReload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 19</value>
-  </data>
-  <data name="cbAutoReload.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="cbAutoReload.Text" xml:space="preserve">
-    <value>Auto</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Name" xml:space="preserve">
-    <value>cbAutoReload</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;cbAutoReload.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 29</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>7</value>
   </data>
   <data name="Label_Version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -3588,7 +3435,7 @@
     <value>True</value>
   </data>
   <data name="Label_Version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>595, 9</value>
+    <value>141, 3</value>
   </data>
   <data name="Label_Version.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 15</value>
@@ -3609,7 +3456,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;Label_Version.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -3624,7 +3471,196 @@
     <value>0</value>
   </data>
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>90</value>
+    <value>158</value>
+  </data>
+  <data name="panel2SplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panel2SplitContainer.IsSplitterFixed" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="panel2SplitContainer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panel2SplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="cbReloadOnHotkey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbReloadOnHotkey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 4</value>
+  </data>
+  <data name="cbReloadOnHotkey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 19</value>
+  </data>
+  <data name="cbReloadOnHotkey.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="cbReloadOnHotkey.Text" xml:space="preserve">
+    <value>On Hotkey</value>
+  </data>
+  <data name="&gt;&gt;cbReloadOnHotkey.Name" xml:space="preserve">
+    <value>cbReloadOnHotkey</value>
+  </data>
+  <data name="&gt;&gt;cbReloadOnHotkey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbReloadOnHotkey.Parent" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cbReloadOnHotkey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nAutoReloadInterval.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="nAutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>299, 1</value>
+  </data>
+  <data name="nAutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 23</value>
+  </data>
+  <data name="nAutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;nAutoReloadInterval.Name" xml:space="preserve">
+    <value>nAutoReloadInterval</value>
+  </data>
+  <data name="&gt;&gt;nAutoReloadInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nAutoReloadInterval.Parent" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;nAutoReloadInterval.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bReload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 1</value>
+  </data>
+  <data name="bReload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 23</value>
+  </data>
+  <data name="bReload.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bReload.Text" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="&gt;&gt;bReload.Name" xml:space="preserve">
+    <value>bReload</value>
+  </data>
+  <data name="&gt;&gt;bReload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bReload.Parent" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;bReload.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label_AutoReloadInterval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>221, 5</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="Label_AutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Label_AutoReloadInterval.Text" xml:space="preserve">
+    <value>Interval (ms)</value>
+  </data>
+  <data name="&gt;&gt;Label_AutoReloadInterval.Name" xml:space="preserve">
+    <value>Label_AutoReloadInterval</value>
+  </data>
+  <data name="&gt;&gt;Label_AutoReloadInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_AutoReloadInterval.Parent" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;Label_AutoReloadInterval.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cbAutoReload.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbAutoReload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 4</value>
+  </data>
+  <data name="cbAutoReload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 19</value>
+  </data>
+  <data name="cbAutoReload.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cbAutoReload.Text" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="&gt;&gt;cbAutoReload.Name" xml:space="preserve">
+    <value>cbAutoReload</value>
+  </data>
+  <data name="&gt;&gt;cbAutoReload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbAutoReload.Parent" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cbAutoReload.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel1.Name" xml:space="preserve">
+    <value>panel2SplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel1.Parent" xml:space="preserve">
+    <value>panel2SplitContainer</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel2.Name" xml:space="preserve">
+    <value>panel2SplitContainer.Panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel2.Parent" xml:space="preserve">
+    <value>panel2SplitContainer</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel2SplitContainer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 50</value>
+  </data>
+  <data name="panel2SplitContainer.SplitterDistance" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="panel2SplitContainer.SplitterWidth" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="panel2SplitContainer.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Name" xml:space="preserve">
+    <value>panel2SplitContainer</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.Parent" xml:space="preserve">
+    <value>splitContainer.Panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2SplitContainer.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -3639,10 +3675,13 @@
     <value>1</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>660, 123</value>
+    <value>362, 209</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>90</value>
+    <value>158</value>
+  </data>
+  <data name="splitContainer.SplitterWidth" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -3672,7 +3711,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>660, 123</value>
+    <value>362, 209</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
@@ -3720,12 +3759,6 @@
     <value>MixerColProcessName</value>
   </data>
   <data name="&gt;&gt;MixerColProcessName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MixerColDisplayName.Name" xml:space="preserve">
-    <value>MixerColDisplayName</value>
-  </data>
-  <data name="&gt;&gt;MixerColDisplayName.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;MixerColVolume.Name" xml:space="preserve">

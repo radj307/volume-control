@@ -142,8 +142,8 @@ namespace VolumeControl
 
             if (!splitContainer.Panel2Collapsed)
             {
-                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth;
-                int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4);
+                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
+                int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
                 int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);

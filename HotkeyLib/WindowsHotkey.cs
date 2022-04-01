@@ -10,17 +10,20 @@ namespace HotkeyLib
         #region Constructors
         public WindowsHotkey(Control owner, string keystr)
         {
-            _owner = owner; _combo = new(keystr);
+            _owner = owner;
+            _combo = new(keystr);
             Application.AddMessageFilter(this);
         }
         public WindowsHotkey(Control owner, Keys key, Modifier mods)
         {
-            _owner = owner; _combo = new(key, mods);
+            _owner = owner;
+            _combo = new(key, mods);
             Application.AddMessageFilter(this);
         }
         public WindowsHotkey(Control owner)
         {
-            _owner = owner; _combo = new();
+            _owner = owner;
+            _combo = new();
             Application.AddMessageFilter(this);
         }
         #endregion Constructors

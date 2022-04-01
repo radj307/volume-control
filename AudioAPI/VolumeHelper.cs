@@ -182,7 +182,7 @@ namespace AudioAPI
 
             volume.GetMasterVolume(out float level);
             Marshal.ReleaseComObject(volume);
-            return (decimal)level * 100m;
+            return Convert.ToDecimal(level) * 100m;
         }
 
         public static bool IsMuted(int proc_id)

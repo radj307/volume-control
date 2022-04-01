@@ -44,31 +44,30 @@ namespace VolumeControl
             this.Mixer = new VolumeControl.Core.Controls.DoubleBufferedDataGridView();
             this.MixerColPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MixerColProcessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MixerColDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MixerColVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MixerColMuted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.MixerColSelectButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.gpSettings = new System.Windows.Forms.GroupBox();
+            this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
+            this.cbStartMinimized = new System.Windows.Forms.CheckBox();
+            this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
+            this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
+            this.cbLockTarget = new System.Windows.Forms.CheckBox();
+            this.tbTargetSelector = new System.Windows.Forms.TextBox();
             this.gbToastNotifications = new System.Windows.Forms.GroupBox();
             this.LabelToastTimeout = new System.Windows.Forms.Label();
             this.cbToastEnabled = new System.Windows.Forms.CheckBox();
             this.nToastTimeoutInterval = new System.Windows.Forms.NumericUpDown();
             this.bToggleMixer = new System.Windows.Forms.Button();
-            this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
-            this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
-            this.cbStartMinimized = new System.Windows.Forms.CheckBox();
-            this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.cbLockTarget = new System.Windows.Forms.CheckBox();
-            this.Label_Target = new System.Windows.Forms.Label();
-            this.tbTargetSelector = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.Label_Version = new System.Windows.Forms.Label();
+            this.panel2SplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cbReloadOnHotkey = new System.Windows.Forms.CheckBox();
             this.nAutoReloadInterval = new System.Windows.Forms.NumericUpDown();
             this.bReload = new System.Windows.Forms.Button();
             this.Label_AutoReloadInterval = new System.Windows.Forms.Label();
             this.cbAutoReload = new System.Windows.Forms.CheckBox();
-            this.Label_Version = new System.Windows.Forms.Label();
             this.tAutoReload = new System.Windows.Forms.Timer(this.components);
             this.TrayContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).BeginInit();
@@ -77,10 +76,13 @@ namespace VolumeControl
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.gpSettings.SuspendLayout();
             this.gbToastNotifications.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panel2SplitContainer)).BeginInit();
+            this.panel2SplitContainer.Panel1.SuspendLayout();
+            this.panel2SplitContainer.Panel2.SuspendLayout();
+            this.panel2SplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nAutoReloadInterval)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,7 +150,6 @@ namespace VolumeControl
             this.Mixer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MixerColPID,
             this.MixerColProcessName,
-            this.MixerColDisplayName,
             this.MixerColVolume,
             this.MixerColMuted,
             this.MixerColSelectButton});
@@ -194,13 +195,6 @@ namespace VolumeControl
             this.MixerColProcessName.ReadOnly = true;
             this.MixerColProcessName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // MixerColDisplayName
-            // 
-            this.MixerColDisplayName.DataPropertyName = "DisplayName";
-            resources.ApplyResources(this.MixerColDisplayName, "MixerColDisplayName");
-            this.MixerColDisplayName.Name = "MixerColDisplayName";
-            this.MixerColDisplayName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // MixerColVolume
             // 
             this.MixerColVolume.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -235,28 +229,79 @@ namespace VolumeControl
             // splitContainer
             // 
             this.splitContainer.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.splitContainer, "splitContainer");
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.gpSettings);
+            this.splitContainer.Panel1.Controls.Add(this.cbLockTarget);
+            this.splitContainer.Panel1.Controls.Add(this.tbTargetSelector);
             this.splitContainer.Panel1.Controls.Add(this.gbToastNotifications);
             this.splitContainer.Panel1.Controls.Add(this.bToggleMixer);
-            this.splitContainer.Panel1.Controls.Add(this.cbAlwaysOnTop);
-            this.splitContainer.Panel1.Controls.Add(this.cbShowInTaskbar);
-            this.splitContainer.Panel1.Controls.Add(this.cbStartMinimized);
-            this.splitContainer.Panel1.Controls.Add(this.cbRunAtStartup);
-            this.splitContainer.Panel1.Controls.Add(this.panel2);
-            this.splitContainer.Panel1.Controls.Add(this.panel1);
             this.splitContainer.Panel1.Controls.Add(this.Label_Version);
             this.splitContainer.Panel1.Controls.Add(this.bHotkeyEditor);
             this.splitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.Mixer);
+            this.splitContainer.Panel2.Controls.Add(this.panel2SplitContainer);
+            this.splitContainer.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
+            // 
+            // gpSettings
+            // 
+            this.gpSettings.Controls.Add(this.cbRunAtStartup);
+            this.gpSettings.Controls.Add(this.cbStartMinimized);
+            this.gpSettings.Controls.Add(this.cbShowInTaskbar);
+            this.gpSettings.Controls.Add(this.cbAlwaysOnTop);
+            resources.ApplyResources(this.gpSettings, "gpSettings");
+            this.gpSettings.Name = "gpSettings";
+            this.gpSettings.TabStop = false;
+            // 
+            // cbRunAtStartup
+            // 
+            resources.ApplyResources(this.cbRunAtStartup, "cbRunAtStartup");
+            this.cbRunAtStartup.Name = "cbRunAtStartup";
+            this.cbRunAtStartup.UseVisualStyleBackColor = true;
+            this.cbRunAtStartup.CheckedChanged += new System.EventHandler(this.cbRunAtStartup_CheckedChanged);
+            // 
+            // cbStartMinimized
+            // 
+            resources.ApplyResources(this.cbStartMinimized, "cbStartMinimized");
+            this.cbStartMinimized.Name = "cbStartMinimized";
+            this.cbStartMinimized.UseVisualStyleBackColor = true;
+            // 
+            // cbShowInTaskbar
+            // 
+            resources.ApplyResources(this.cbShowInTaskbar, "cbShowInTaskbar");
+            this.cbShowInTaskbar.Name = "cbShowInTaskbar";
+            this.cbShowInTaskbar.UseVisualStyleBackColor = true;
+            this.cbShowInTaskbar.CheckedChanged += new System.EventHandler(this.cbShowInTaskbar_CheckedChanged);
+            // 
+            // cbAlwaysOnTop
+            // 
+            resources.ApplyResources(this.cbAlwaysOnTop, "cbAlwaysOnTop");
+            this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
+            this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.cbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.cbAlwaysOnTop_CheckedChanged);
+            // 
+            // cbLockTarget
+            // 
+            resources.ApplyResources(this.cbLockTarget, "cbLockTarget");
+            this.cbLockTarget.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbLockTarget.Name = "cbLockTarget";
+            this.cbLockTarget.UseVisualStyleBackColor = true;
+            this.cbLockTarget.CheckedChanged += new System.EventHandler(this.cbLockTarget_CheckedChanged);
+            // 
+            // tbTargetSelector
+            // 
+            this.tbTargetSelector.AllowDrop = true;
+            this.tbTargetSelector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
+            this.tbTargetSelector.Name = "tbTargetSelector";
+            this.tbTargetSelector.TextChanged += new System.EventHandler(this.tbTargetName_TextChanged);
             // 
             // gbToastNotifications
             // 
@@ -315,79 +360,50 @@ namespace VolumeControl
             this.bToggleMixer.UseVisualStyleBackColor = true;
             this.bToggleMixer.Click += new System.EventHandler(this.bToggleMixer_Click);
             // 
-            // cbAlwaysOnTop
+            // Label_Version
             // 
-            resources.ApplyResources(this.cbAlwaysOnTop, "cbAlwaysOnTop");
-            this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
-            this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
-            this.cbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.cbAlwaysOnTop_CheckedChanged);
+            resources.ApplyResources(this.Label_Version, "Label_Version");
+            this.Label_Version.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.Label_Version.Name = "Label_Version";
             // 
-            // cbShowInTaskbar
+            // panel2SplitContainer
             // 
-            resources.ApplyResources(this.cbShowInTaskbar, "cbShowInTaskbar");
-            this.cbShowInTaskbar.Name = "cbShowInTaskbar";
-            this.cbShowInTaskbar.UseVisualStyleBackColor = true;
-            this.cbShowInTaskbar.CheckedChanged += new System.EventHandler(this.cbShowInTaskbar_CheckedChanged);
+            this.panel2SplitContainer.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.panel2SplitContainer, "panel2SplitContainer");
+            this.panel2SplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.panel2SplitContainer.Name = "panel2SplitContainer";
             // 
-            // cbStartMinimized
+            // panel2SplitContainer.Panel1
             // 
-            resources.ApplyResources(this.cbStartMinimized, "cbStartMinimized");
-            this.cbStartMinimized.Name = "cbStartMinimized";
-            this.cbStartMinimized.UseVisualStyleBackColor = true;
+            this.panel2SplitContainer.Panel1.Controls.Add(this.cbReloadOnHotkey);
+            this.panel2SplitContainer.Panel1.Controls.Add(this.nAutoReloadInterval);
+            this.panel2SplitContainer.Panel1.Controls.Add(this.bReload);
+            this.panel2SplitContainer.Panel1.Controls.Add(this.Label_AutoReloadInterval);
+            this.panel2SplitContainer.Panel1.Controls.Add(this.cbAutoReload);
+            this.panel2SplitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
-            // cbRunAtStartup
+            // panel2SplitContainer.Panel2
             // 
-            resources.ApplyResources(this.cbRunAtStartup, "cbRunAtStartup");
-            this.cbRunAtStartup.Name = "cbRunAtStartup";
-            this.cbRunAtStartup.UseVisualStyleBackColor = true;
-            this.cbRunAtStartup.CheckedChanged += new System.EventHandler(this.cbRunAtStartup_CheckedChanged);
+            this.panel2SplitContainer.Panel2.Controls.Add(this.Mixer);
+            this.panel2SplitContainer.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             // 
-            // panel2
+            // cbReloadOnHotkey
             // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Controls.Add(this.cbLockTarget);
-            this.panel2.Controls.Add(this.Label_Target);
-            this.panel2.Controls.Add(this.tbTargetSelector);
-            this.panel2.Name = "panel2";
-            // 
-            // cbLockTarget
-            // 
-            resources.ApplyResources(this.cbLockTarget, "cbLockTarget");
-            this.cbLockTarget.Name = "cbLockTarget";
-            this.cbLockTarget.UseVisualStyleBackColor = true;
-            this.cbLockTarget.CheckedChanged += new System.EventHandler(this.cbLockTarget_CheckedChanged);
-            // 
-            // Label_Target
-            // 
-            resources.ApplyResources(this.Label_Target, "Label_Target");
-            this.Label_Target.Name = "Label_Target";
-            // 
-            // tbTargetSelector
-            // 
-            this.tbTargetSelector.AllowDrop = true;
-            this.tbTargetSelector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
-            this.tbTargetSelector.Name = "tbTargetSelector";
-            this.tbTargetSelector.TextChanged += new System.EventHandler(this.tbTargetName_TextChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.nAutoReloadInterval);
-            this.panel1.Controls.Add(this.bReload);
-            this.panel1.Controls.Add(this.Label_AutoReloadInterval);
-            this.panel1.Controls.Add(this.cbAutoReload);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
+            resources.ApplyResources(this.cbReloadOnHotkey, "cbReloadOnHotkey");
+            this.cbReloadOnHotkey.Checked = true;
+            this.cbReloadOnHotkey.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbReloadOnHotkey.Name = "cbReloadOnHotkey";
+            this.cbReloadOnHotkey.UseVisualStyleBackColor = true;
             // 
             // nAutoReloadInterval
             // 
             this.nAutoReloadInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.nAutoReloadInterval, "nAutoReloadInterval");
             this.nAutoReloadInterval.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            resources.ApplyResources(this.nAutoReloadInterval, "nAutoReloadInterval");
             this.nAutoReloadInterval.Maximum = new decimal(new int[] {
             60000,
             0,
@@ -425,12 +441,6 @@ namespace VolumeControl
             this.cbAutoReload.UseVisualStyleBackColor = true;
             this.cbAutoReload.CheckedChanged += new System.EventHandler(this.cbAutoReload_CheckedChanged);
             // 
-            // Label_Version
-            // 
-            resources.ApplyResources(this.Label_Version, "Label_Version");
-            this.Label_Version.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.Label_Version.Name = "Label_Version";
-            // 
             // tAutoReload
             // 
             this.tAutoReload.Interval = 1000;
@@ -455,13 +465,16 @@ namespace VolumeControl
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            this.gpSettings.ResumeLayout(false);
+            this.gpSettings.PerformLayout();
             this.gbToastNotifications.ResumeLayout(false);
             this.gbToastNotifications.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panel2SplitContainer.Panel1.ResumeLayout(false);
+            this.panel2SplitContainer.Panel1.PerformLayout();
+            this.panel2SplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panel2SplitContainer)).EndInit();
+            this.panel2SplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nAutoReloadInterval)).EndInit();
             this.ResumeLayout(false);
 
@@ -483,10 +496,7 @@ namespace VolumeControl
         private CheckBox cbAutoReload;
         private System.Windows.Forms.Timer tAutoReload;
         private Label Label_AutoReloadInterval;
-        private Panel panel1;
         private TextBox tbTargetSelector;
-        private Panel panel2;
-        private Label Label_Target;
         private CheckBox cbLockTarget;
         private CheckBox cbRunAtStartup;
         private CheckBox cbShowInTaskbar;
@@ -497,11 +507,13 @@ namespace VolumeControl
         private NumericUpDown nToastTimeoutInterval;
         private GroupBox gbToastNotifications;
         private Label LabelToastTimeout;
+        private SplitContainer panel2SplitContainer;
         private DataGridViewTextBoxColumn MixerColPID;
         private DataGridViewTextBoxColumn MixerColProcessName;
-        private DataGridViewTextBoxColumn MixerColDisplayName;
         private DataGridViewTextBoxColumn MixerColVolume;
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
+        private GroupBox gpSettings;
+        private CheckBox cbReloadOnHotkey;
     }
 }

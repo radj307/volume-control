@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Debug": {
+      "commandName": "Project",
+      "commandLineArgs": "Deezer --set-volume=+5 --get-volume"
+    }
+  }
+}

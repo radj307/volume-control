@@ -18,6 +18,15 @@ namespace AudioAPI
             SessionControl = session;
             AudioControl = (ISimpleAudioVolume)SessionControl;
         }
+        public AudioProcess(Process proc)
+        {
+            var session = AudioAPI.Volume.GetSessionObject(proc.Id);
+            if (session == null)
+                throw new InvalidOperationException($"Process '{proc.Id}' ({proc.ProcessName}) does not have a registered audio session!");
+            Process = proc;
+            SessionControl = session;
+            AudioControl = (ISimpleAudioVolume)SessionControl;
+        }
         ~AudioProcess()
         {
             Dispose(disposing: false);
