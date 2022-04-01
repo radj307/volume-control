@@ -24,10 +24,11 @@ namespace VolumeControl
 
             _panel1Height = splitContainer.Panel1.Height;
 
-            Mixer.RowsAdded -= Mixer_RowsAdded;
-            Mixer.RowsRemoved -= Mixer_RowsRemoved;
+            _width = Size.Width;
 
+            Mixer.RowsAdded -= Mixer_RowsAdded;
             bsAudioProcessAPI.DataSource = VC_Static.API;
+            Mixer.RowsAdded += Mixer_RowsAdded;
 
             // Set the current version number
             Version currentVersion = typeof(Form).Assembly.GetName().Version!;
@@ -49,6 +50,7 @@ namespace VolumeControl
             cbToastEnabled.Checked = Properties.Settings.Default.ToastEnabled;
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
+            VC_Static.VolumeStep = nVolumeStep.Value = Properties.Settings.Default.VolumeStep;
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate
@@ -67,9 +69,6 @@ namespace VolumeControl
             {
                 RefreshProcessList();
             };
-
-            Mixer.RowsAdded += Mixer_RowsAdded;
-            Mixer.RowsRemoved += Mixer_RowsRemoved;
 
             ResumeLayout();
         }
@@ -93,6 +92,7 @@ namespace VolumeControl
             Properties.Settings.Default.ToastEnabled = cbToastEnabled.Checked;
             Properties.Settings.Default.ToastTimeoutInterval = nToastTimeoutInterval.Value;
             Properties.Settings.Default.ReloadOnHotkey = cbReloadOnHotkey.Checked;
+            Properties.Settings.Default.VolumeStep = nVolumeStep.Value;
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -116,6 +116,7 @@ namespace VolumeControl
         /// This maintains the height of splitContainer.Panel1 to allow the 'Toggle Mixer' button to work correctly.
         /// </summary>
         private readonly int _panel1Height;
+        private readonly int _width;
         /// <summary>
         /// The height of a single row in the mixer.
         /// </summary>
@@ -311,12 +312,16 @@ namespace VolumeControl
         /// </summary>
         private void nToastTimeoutInterval_ValueChanged(object sender, EventArgs e)
             => toast.TimeoutInterval = Convert.ToInt32(nToastTimeoutInterval.Value);
-
-        #endregion ControlEventHandlers
-
+        /// <summary>
+        /// Handles check/uncheck events for the reload 'On Hotkey' checkbox.
+        /// </summary>
         private void cbReloadOnHotkey_CheckedChanged(object sender, EventArgs e)
-        {
-            VC_Static.API.ReloadOnHotkey = cbReloadOnHotkey.Checked;
-        }
+            => VC_Static.API.ReloadOnHotkey = cbReloadOnHotkey.Checked;
+        /// <summary>
+        /// Handles value change events for the 'Volume Step' number selector.
+        /// </summary>
+        private void nVolumeStep_ValueChanged(object sender, EventArgs e)
+            => VC_Static.VolumeStep = nVolumeStep.Value;
+        #endregion ControlEventHandlers
     }
 }

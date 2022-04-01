@@ -133,18 +133,6 @@ namespace VolumeControl.Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public decimal volumeStep {
-            get {
-                return ((decimal)(this["volumeStep"]));
-            }
-            set {
-                this["volumeStep"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
         public string log_file {
             get {

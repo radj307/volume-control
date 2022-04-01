@@ -7,41 +7,15 @@ namespace VolumeControl.Core
 {
     public static partial class VC_Static
     {
-        #region Members
-        private static bool _initialized = false, _hk_initialized = false;
-        private static LogWriter _log = null!;
-        private static AudioProcessAPI _api = null!;
-        private static HotkeyBindingList _hotkeys = null!;
-        #endregion Members
-
-        #region Methods
-        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
-
-        #region HotkeyActions
-        internal static void Volume_Increase(object? sender, HandledEventArgs e)
-            => VolumeHelper.IncrementVolume(API.GetSelectedProcess().PID, VolumeStep);
-        internal static void Volume_Decrease(object? sender, HandledEventArgs e)
-            => VolumeHelper.DecrementVolume(API.GetSelectedProcess().PID, VolumeStep);
-        internal static void Volume_Toggle(object? sender, HandledEventArgs e)
-            => VolumeHelper.ToggleMute(API.GetSelectedProcess().PID);
-
-        internal static void Media_Next(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK);
-        internal static void Media_Prev(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK);
-        internal static void Media_Toggle(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
-
-        internal static void Target_Next(object? sender, HandledEventArgs e)
-            => API.SelectNextProcess();
-        internal static void Target_Prev(object? sender, HandledEventArgs e)
-            => API.SelectPrevProcess();
-        internal static void Target_Toggle(object? sender, HandledEventArgs e)
-            => API.LockSelection = !API.LockSelection;
-        #endregion HotkeyActions
-
+        #region Initializers
+        /// <summary>
+        /// Initialize all non-hotkey VC_Static members & set up the log file.
+        /// </summary>
+        /// <exception cref="Exception">Initialize already called.</exception>
         public static void Initialize()
         {
+            if (_initialized)
+                throw new Exception($"VC_Static.Initialize() was already called!");
             _initialized = true;
             // init log writer
 #           if DEBUG
@@ -91,13 +65,20 @@ namespace VolumeControl.Core
             Log.WriteInfo($"{nameof(API)} initialized.");
 
             // init volume step
-            VolumeStep = Properties.Settings.Default.volumeStep;
+            VolumeStep = new();
             Log.WriteInfo($"{nameof(VolumeStep)} initialized to \'{VolumeStep}\'");
 
             Log.WriteInfo($"{nameof(VC_Static)} initialization complete.");
         }
+        /// <summary>
+        /// Initialize the 'Hotkeys' list & load previous settings
+        /// </summary>
+        /// <param name="owner">Form that should be used as the owner control for all hotkeys.</param>
+        /// <exception cref="Exception">InitializeHotkeys already called.</exception>
         public static void InitializeHotkeys(Form owner)
         {
+            if (_hk_initialized)
+                throw new Exception($"Hotkey initialization already completed!");
             _hk_initialized = true;
             // init hotkey manager
             Hotkeys = new HotkeyBindingList(new()
@@ -118,6 +99,41 @@ namespace VolumeControl.Core
             Hotkeys.BindHotkeyPressedEvents(API);
             Log.WriteInfo("Finished initialization of hotkey-action bindings.");
         }
+        #endregion Initializers
+
+        #region Members
+        private static bool _initialized = false, _hk_initialized = false;
+        private static LogWriter _log = null!;
+        private static AudioProcessAPI _api = null!;
+        private static HotkeyBindingList _hotkeys = null!;
+        #endregion Members
+
+        #region Methods
+        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
+
+        #region HotkeyActions
+        internal static void Volume_Increase(object? sender, HandledEventArgs e)
+            => VolumeHelper.IncrementVolume(API.GetSelectedProcess().PID, VolumeStep);
+        internal static void Volume_Decrease(object? sender, HandledEventArgs e)
+            => VolumeHelper.DecrementVolume(API.GetSelectedProcess().PID, VolumeStep);
+        internal static void Volume_Toggle(object? sender, HandledEventArgs e)
+            => VolumeHelper.ToggleMute(API.GetSelectedProcess().PID);
+
+        internal static void Media_Next(object? sender, HandledEventArgs e)
+            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK);
+        internal static void Media_Prev(object? sender, HandledEventArgs e)
+            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK);
+        internal static void Media_Toggle(object? sender, HandledEventArgs e)
+            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
+
+        internal static void Target_Next(object? sender, HandledEventArgs e)
+            => API.SelectNextProcess();
+        internal static void Target_Prev(object? sender, HandledEventArgs e)
+            => API.SelectPrevProcess();
+        internal static void Target_Toggle(object? sender, HandledEventArgs e)
+            => API.LockSelection = !API.LockSelection;
+        #endregion HotkeyActions
+
         /// <summary>
         /// Saves all settings with their current values to the default windows forms settings file.
         /// </summary>

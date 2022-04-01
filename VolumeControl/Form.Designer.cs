@@ -32,9 +32,9 @@ namespace VolumeControl
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TrayContextMenuClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +51,8 @@ namespace VolumeControl
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.Label_ProgramName = new System.Windows.Forms.Label();
             this.gpSettings = new System.Windows.Forms.GroupBox();
+            this.Label_VolumeStep = new System.Windows.Forms.Label();
+            this.nVolumeStep = new System.Windows.Forms.NumericUpDown();
             this.cbRunAtStartup = new System.Windows.Forms.CheckBox();
             this.cbStartMinimized = new System.Windows.Forms.CheckBox();
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
@@ -78,6 +80,7 @@ namespace VolumeControl
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.gpSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).BeginInit();
             this.gbToastNotifications.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panel2SplitContainer)).BeginInit();
@@ -89,23 +92,25 @@ namespace VolumeControl
             // 
             // TrayIcon
             // 
-            this.TrayIcon.ContextMenuStrip = this.TrayContextMenu;
             resources.ApplyResources(this.TrayIcon, "TrayIcon");
+            this.TrayIcon.ContextMenuStrip = this.TrayContextMenu;
             this.TrayIcon.DoubleClick += new System.EventHandler(this.TrayIcon_DoubleClick);
             // 
             // TrayContextMenu
             // 
+            this.TrayContextMenu.BackColor = System.Drawing.SystemColors.Control;
             this.TrayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TrayContextMenuClose,
             this.TrayContextMenuSeparator,
             this.TrayContextMenuBringToFront});
             this.TrayContextMenu.Name = "TrayContextMenu";
-            this.TrayContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.TrayContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             resources.ApplyResources(this.TrayContextMenu, "TrayContextMenu");
             this.TrayContextMenu.TabStop = true;
             // 
             // TrayContextMenuClose
             // 
+            this.TrayContextMenuClose.Image = global::VolumeControl.Properties.Resources.X;
             this.TrayContextMenuClose.Name = "TrayContextMenuClose";
             resources.ApplyResources(this.TrayContextMenuClose, "TrayContextMenuClose");
             this.TrayContextMenuClose.Click += new System.EventHandler(this.TrayContextMenuClose_Click);
@@ -117,6 +122,7 @@ namespace VolumeControl
             // 
             // TrayContextMenuBringToFront
             // 
+            this.TrayContextMenuBringToFront.Image = global::VolumeControl.Properties.Resources.foreground;
             this.TrayContextMenuBringToFront.Name = "TrayContextMenuBringToFront";
             resources.ApplyResources(this.TrayContextMenuBringToFront, "TrayContextMenuBringToFront");
             this.TrayContextMenuBringToFront.Click += new System.EventHandler(this.TrayContextMenuBringToFront_Click);
@@ -133,21 +139,21 @@ namespace VolumeControl
             this.Mixer.AllowUserToDeleteRows = false;
             this.Mixer.AllowUserToOrderColumns = true;
             this.Mixer.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
-            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(233)))), ((int)(((byte)(233)))));
+            this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.Mixer.AutoGenerateColumns = false;
             this.Mixer.BackgroundColor = System.Drawing.SystemColors.Control;
             this.Mixer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Mixer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.Mixer.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.Mixer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Mixer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MixerColPID,
@@ -155,15 +161,16 @@ namespace VolumeControl
             this.MixerColVolume,
             this.MixerColMuted,
             this.MixerColSelectButton});
+            this.Mixer.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Mixer.DataSource = this.bsAudioProcessAPI;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mixer.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mixer.DefaultCellStyle = dataGridViewCellStyle9;
             resources.ApplyResources(this.Mixer, "Mixer");
             this.Mixer.DoubleBuffered = true;
             this.Mixer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -173,7 +180,9 @@ namespace VolumeControl
             this.Mixer.RowHeadersVisible = false;
             this.Mixer.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.Mixer.RowTemplate.Height = 25;
+            this.Mixer.ShowCellErrors = false;
             this.Mixer.ShowEditingIcon = false;
+            this.Mixer.ShowRowErrors = false;
             this.Mixer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Mixer_CellContentClick);
             this.Mixer.CurrentCellDirtyStateChanged += new System.EventHandler(this.Mixer_CurrentCellDirtyStateChanged);
             this.Mixer.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.Mixer_RowsAdded);
@@ -231,7 +240,7 @@ namespace VolumeControl
             // splitContainer
             // 
             this.splitContainer.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.HSplit;
             resources.ApplyResources(this.splitContainer, "splitContainer");
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.Name = "splitContainer";
@@ -260,6 +269,8 @@ namespace VolumeControl
             // 
             // gpSettings
             // 
+            this.gpSettings.Controls.Add(this.Label_VolumeStep);
+            this.gpSettings.Controls.Add(this.nVolumeStep);
             this.gpSettings.Controls.Add(this.cbRunAtStartup);
             this.gpSettings.Controls.Add(this.cbStartMinimized);
             this.gpSettings.Controls.Add(this.cbShowInTaskbar);
@@ -267,6 +278,27 @@ namespace VolumeControl
             resources.ApplyResources(this.gpSettings, "gpSettings");
             this.gpSettings.Name = "gpSettings";
             this.gpSettings.TabStop = false;
+            // 
+            // Label_VolumeStep
+            // 
+            resources.ApplyResources(this.Label_VolumeStep, "Label_VolumeStep");
+            this.Label_VolumeStep.Name = "Label_VolumeStep";
+            // 
+            // nVolumeStep
+            // 
+            resources.ApplyResources(this.nVolumeStep, "nVolumeStep");
+            this.nVolumeStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nVolumeStep.Name = "nVolumeStep";
+            this.nVolumeStep.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nVolumeStep.ValueChanged += new System.EventHandler(this.nVolumeStep_ValueChanged);
             // 
             // cbRunAtStartup
             // 
@@ -383,6 +415,7 @@ namespace VolumeControl
             // 
             // panel2SplitContainer.Panel1
             // 
+            this.panel2SplitContainer.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2SplitContainer.Panel1.Controls.Add(this.cbReloadOnHotkey);
             this.panel2SplitContainer.Panel1.Controls.Add(this.nAutoReloadInterval);
             this.panel2SplitContainer.Panel1.Controls.Add(this.bReload);
@@ -476,6 +509,7 @@ namespace VolumeControl
             this.splitContainer.ResumeLayout(false);
             this.gpSettings.ResumeLayout(false);
             this.gpSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).EndInit();
             this.gbToastNotifications.ResumeLayout(false);
             this.gbToastNotifications.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).EndInit();
@@ -517,13 +551,15 @@ namespace VolumeControl
         private GroupBox gbToastNotifications;
         private Label LabelToastTimeout;
         private SplitContainer panel2SplitContainer;
+        private GroupBox gpSettings;
+        private CheckBox cbReloadOnHotkey;
+        private Label Label_ProgramName;
+        private NumericUpDown nVolumeStep;
+        private Label Label_VolumeStep;
         private DataGridViewTextBoxColumn MixerColPID;
         private DataGridViewTextBoxColumn MixerColProcessName;
         private DataGridViewTextBoxColumn MixerColVolume;
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
-        private GroupBox gpSettings;
-        private CheckBox cbReloadOnHotkey;
-        private Label Label_ProgramName;
     }
 }

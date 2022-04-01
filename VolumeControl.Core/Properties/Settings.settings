@@ -29,9 +29,6 @@
     <Setting Name="hks_TargetToggle" Type="System.String" Scope="User">
       <Value Profile="(Default)">CtrlShift+S</Value>
     </Setting>
-    <Setting Name="volumeStep" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">5</Value>
-    </Setting>
     <Setting Name="log_file" Type="System.String" Scope="User">
       <Value Profile="(Default)">volumecontrol.log</Value>
     </Setting>

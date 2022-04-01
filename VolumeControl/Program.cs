@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using VolumeControl.Core;
 
 namespace VolumeControl
@@ -10,7 +11,21 @@ namespace VolumeControl
         [STAThread]
         static void Main()
         {
-            // TODO: Disallow multiple instances
+            if (!Properties.Settings.Default.AllowMultipleInstances)
+            {
+                Process thisProc = Process.GetCurrentProcess();
+                foreach (Process otherInst in Process.GetProcessesByName(thisProc.ProcessName))
+                {
+                    if (thisProc.Id != otherInst.Id)
+                    {
+#                   if DEBUG
+                        otherInst.Kill(true);
+#                   else // RELEASE:
+                        throw new Exception("An instance of Volume Control is already running!");
+#                   endif
+                    }
+                }
+            }
 
             ApplicationConfiguration.Initialize();
 

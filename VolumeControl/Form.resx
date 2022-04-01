@@ -60,12 +60,18 @@
   <metadata name="TrayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>18, 18</value>
   </metadata>
+  <data name="TrayIcon.BalloonTipTitle" xml:space="preserve">
+    <value>Volume Control</value>
+  </data>
   <metadata name="TrayContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>108, 21</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="TrayContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 54</value>
+  </data>
+  <data name="TrayContextMenu.Text" xml:space="preserve">
+    <value>Volume Control</value>
   </data>
   <data name="&gt;&gt;TrayContextMenu.Name" xml:space="preserve">
     <value>TrayContextMenu</value>
@@ -3007,6 +3013,9 @@
   <data name="TrayContextMenuClose.Text" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="TrayContextMenuClose.ToolTipText" xml:space="preserve">
+    <value>Terminate the Application</value>
+  </data>
   <data name="TrayContextMenuSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 6</value>
   </data>
@@ -3031,6 +3040,9 @@
   <data name="MixerColVolume.HeaderText" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="MixerColVolume.ToolTipText" xml:space="preserve">
+    <value>Application Volume</value>
+  </data>
   <data name="MixerColVolume.Width" type="System.Int32, mscorlib">
     <value>72</value>
   </data>
@@ -3039,6 +3051,9 @@
   </metadata>
   <data name="MixerColMuted.HeaderText" xml:space="preserve">
     <value>Muted</value>
+  </data>
+  <data name="MixerColMuted.ToolTipText" xml:space="preserve">
+    <value>Application Muted</value>
   </data>
   <data name="MixerColMuted.Width" type="System.Int32, mscorlib">
     <value>48</value>
@@ -3053,7 +3068,7 @@
     <value>20</value>
   </data>
   <data name="MixerColSelectButton.ToolTipText" xml:space="preserve">
-    <value>Set the current target to this process.</value>
+    <value>Select a Target</value>
   </data>
   <data name="MixerColSelectButton.Width" type="System.Int32, mscorlib">
     <value>20</value>
@@ -3069,7 +3084,7 @@
     <value>362, 28</value>
   </data>
   <data name="Mixer.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>15</value>
   </data>
   <data name="&gt;&gt;Mixer.Name" xml:space="preserve">
     <value>Mixer</value>
@@ -3155,6 +3170,30 @@
   <data name="&gt;&gt;Label_ProgramName.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;Label_VolumeStep.Name" xml:space="preserve">
+    <value>Label_VolumeStep</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Name" xml:space="preserve">
+    <value>nVolumeStep</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;cbRunAtStartup.Name" xml:space="preserve">
     <value>cbRunAtStartup</value>
   </data>
@@ -3165,7 +3204,7 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbRunAtStartup.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;cbStartMinimized.Name" xml:space="preserve">
     <value>cbStartMinimized</value>
@@ -3177,7 +3216,7 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbStartMinimized.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;cbShowInTaskbar.Name" xml:space="preserve">
     <value>cbShowInTaskbar</value>
@@ -3189,7 +3228,7 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbShowInTaskbar.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;cbAlwaysOnTop.Name" xml:space="preserve">
     <value>cbAlwaysOnTop</value>
@@ -3201,13 +3240,13 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbAlwaysOnTop.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="gpSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>229, 4</value>
+    <value>229, 5</value>
   </data>
   <data name="gpSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 122</value>
+    <value>128, 127</value>
   </data>
   <data name="gpSettings.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -3231,13 +3270,13 @@
     <value>True</value>
   </data>
   <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>308, 134</value>
+    <value>308, 141</value>
   </data>
   <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 19</value>
   </data>
   <data name="cbLockTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="cbLockTarget.Text" xml:space="preserve">
     <value>Lock</value>
@@ -3255,7 +3294,7 @@
     <value>2</value>
   </data>
   <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 131</value>
+    <value>99, 138</value>
   </data>
   <data name="tbTargetSelector.PlaceholderText" xml:space="preserve">
     <value>Target Process Name</value>
@@ -3264,7 +3303,7 @@
     <value>204, 23</value>
   </data>
   <data name="tbTargetSelector.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;tbTargetSelector.Name" xml:space="preserve">
     <value>tbTargetSelector</value>
@@ -3278,21 +3317,6 @@
   <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="LabelToastTimeout.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LabelToastTimeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 20</value>
-  </data>
-  <data name="LabelToastTimeout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
-  </data>
-  <data name="LabelToastTimeout.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="LabelToastTimeout.Text" xml:space="preserve">
-    <value>Timeout (ms)</value>
-  </data>
   <data name="&gt;&gt;LabelToastTimeout.Name" xml:space="preserve">
     <value>LabelToastTimeout</value>
   </data>
@@ -3305,21 +3329,6 @@
   <data name="&gt;&gt;LabelToastTimeout.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="cbToastEnabled.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbToastEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="cbToastEnabled.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="cbToastEnabled.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="cbToastEnabled.Text" xml:space="preserve">
-    <value>Enable</value>
-  </data>
   <data name="&gt;&gt;cbToastEnabled.Name" xml:space="preserve">
     <value>cbToastEnabled</value>
   </data>
@@ -3331,15 +3340,6 @@
   </data>
   <data name="&gt;&gt;cbToastEnabled.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="nToastTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>157, 16</value>
-  </data>
-  <data name="nToastTimeoutInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 23</value>
-  </data>
-  <data name="nToastTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
   </data>
   <data name="&gt;&gt;nToastTimeoutInterval.Name" xml:space="preserve">
     <value>nToastTimeoutInterval</value>
@@ -3354,7 +3354,7 @@
     <value>2</value>
   </data>
   <data name="gbToastNotifications.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 82</value>
+    <value>5, 88</value>
   </data>
   <data name="gbToastNotifications.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 44</value>
@@ -3378,13 +3378,13 @@
     <value>4</value>
   </data>
   <data name="bToggleMixer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 130</value>
+    <value>3, 137</value>
   </data>
   <data name="bToggleMixer.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 25</value>
   </data>
   <data name="bToggleMixer.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>8</value>
   </data>
   <data name="bToggleMixer.Text" xml:space="preserve">
     <value>Toggle Mixer</value>
@@ -3444,7 +3444,7 @@
     <value>0</value>
   </data>
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>158</value>
+    <value>165</value>
   </data>
   <data name="panel2SplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3468,7 +3468,7 @@
     <value>83, 19</value>
   </data>
   <data name="cbReloadOnHotkey.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>12</value>
   </data>
   <data name="cbReloadOnHotkey.Text" xml:space="preserve">
     <value>On Hotkey</value>
@@ -3498,7 +3498,7 @@
     <value>60, 23</value>
   </data>
   <data name="nAutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>14</value>
   </data>
   <data name="&gt;&gt;nAutoReloadInterval.Name" xml:space="preserve">
     <value>nAutoReloadInterval</value>
@@ -3519,7 +3519,7 @@
     <value>66, 23</value>
   </data>
   <data name="bReload.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>11</value>
   </data>
   <data name="bReload.Text" xml:space="preserve">
     <value>Reload</value>
@@ -3549,7 +3549,7 @@
     <value>73, 15</value>
   </data>
   <data name="Label_AutoReloadInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>0</value>
   </data>
   <data name="Label_AutoReloadInterval.Text" xml:space="preserve">
     <value>Interval (ms)</value>
@@ -3576,7 +3576,7 @@
     <value>52, 19</value>
   </data>
   <data name="cbAutoReload.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>13</value>
   </data>
   <data name="cbAutoReload.Text" xml:space="preserve">
     <value>Auto</value>
@@ -3618,7 +3618,7 @@
     <value>1</value>
   </data>
   <data name="panel2SplitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 50</value>
+    <value>362, 49</value>
   </data>
   <data name="panel2SplitContainer.SplitterDistance" type="System.Int32, mscorlib">
     <value>25</value>
@@ -3654,10 +3654,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 209</value>
+    <value>362, 215</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>158</value>
+    <value>165</value>
   </data>
   <data name="splitContainer.SplitterWidth" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3677,17 +3677,65 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Label_VolumeStep.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_VolumeStep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 102</value>
+  </data>
+  <data name="Label_VolumeStep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 15</value>
+  </data>
+  <data name="Label_VolumeStep.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="Label_VolumeStep.Text" xml:space="preserve">
+    <value>Volume Step</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.Name" xml:space="preserve">
+    <value>Label_VolumeStep</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;Label_VolumeStep.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nVolumeStep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 98</value>
+  </data>
+  <data name="nVolumeStep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 23</value>
+  </data>
+  <data name="nVolumeStep.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Name" xml:space="preserve">
+    <value>nVolumeStep</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;nVolumeStep.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="cbRunAtStartup.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbRunAtStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
+    <value>6, 16</value>
   </data>
   <data name="cbRunAtStartup.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 19</value>
   </data>
   <data name="cbRunAtStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>3</value>
   </data>
   <data name="cbRunAtStartup.Text" xml:space="preserve">
     <value>Run at Startup</value>
@@ -3702,19 +3750,19 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbRunAtStartup.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="cbStartMinimized.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbStartMinimized.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 47</value>
+    <value>6, 36</value>
   </data>
   <data name="cbStartMinimized.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 19</value>
   </data>
   <data name="cbStartMinimized.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>4</value>
   </data>
   <data name="cbStartMinimized.Text" xml:space="preserve">
     <value>Start Minimized</value>
@@ -3729,19 +3777,19 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbStartMinimized.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="cbShowInTaskbar.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbShowInTaskbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 72</value>
+    <value>6, 56</value>
   </data>
   <data name="cbShowInTaskbar.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 19</value>
   </data>
   <data name="cbShowInTaskbar.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>5</value>
   </data>
   <data name="cbShowInTaskbar.Text" xml:space="preserve">
     <value>Show in Taskbar</value>
@@ -3756,19 +3804,19 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbShowInTaskbar.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="cbAlwaysOnTop.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbAlwaysOnTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 97</value>
+    <value>6, 76</value>
   </data>
   <data name="cbAlwaysOnTop.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 19</value>
   </data>
   <data name="cbAlwaysOnTop.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>6</value>
   </data>
   <data name="cbAlwaysOnTop.Text" xml:space="preserve">
     <value>Always on Top</value>
@@ -3783,7 +3831,82 @@
     <value>gpSettings</value>
   </data>
   <data name="&gt;&gt;cbAlwaysOnTop.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
+  </data>
+  <data name="LabelToastTimeout.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LabelToastTimeout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 19</value>
+  </data>
+  <data name="LabelToastTimeout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="LabelToastTimeout.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="LabelToastTimeout.Text" xml:space="preserve">
+    <value>Timeout (ms)</value>
+  </data>
+  <data name="&gt;&gt;LabelToastTimeout.Name" xml:space="preserve">
+    <value>LabelToastTimeout</value>
+  </data>
+  <data name="&gt;&gt;LabelToastTimeout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelToastTimeout.Parent" xml:space="preserve">
+    <value>gbToastNotifications</value>
+  </data>
+  <data name="&gt;&gt;LabelToastTimeout.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cbToastEnabled.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbToastEnabled.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 18</value>
+  </data>
+  <data name="cbToastEnabled.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 19</value>
+  </data>
+  <data name="cbToastEnabled.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cbToastEnabled.Text" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.Name" xml:space="preserve">
+    <value>cbToastEnabled</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.Parent" xml:space="preserve">
+    <value>gbToastNotifications</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="nToastTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 15</value>
+  </data>
+  <data name="nToastTimeoutInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 23</value>
+  </data>
+  <data name="nToastTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Name" xml:space="preserve">
+    <value>nToastTimeoutInterval</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Parent" xml:space="preserve">
+    <value>gbToastNotifications</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="tAutoReload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>181, 65</value>
@@ -3798,7 +3921,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>362, 209</value>
+    <value>362, 215</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

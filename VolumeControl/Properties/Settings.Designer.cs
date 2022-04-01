@@ -166,5 +166,29 @@ namespace VolumeControl.Properties {
                 this["ReloadOnHotkey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public decimal VolumeStep {
+            get {
+                return ((decimal)(this["VolumeStep"]));
+            }
+            set {
+                this["VolumeStep"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AllowMultipleInstances {
+            get {
+                return ((bool)(this["AllowMultipleInstances"]));
+            }
+            set {
+                this["AllowMultipleInstances"] = value;
+            }
+        }
     }
 }
