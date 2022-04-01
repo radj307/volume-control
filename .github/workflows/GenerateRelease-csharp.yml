@@ -16,42 +16,46 @@ jobs:
     runs-on:  windows-2022
     if:       ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_NOLOGO:                true
+      DOTNET_CLI_TELEMETRY_OPTOUT:  true
 
     steps:
     - uses: actions/checkout@v2
       with:
         ref:          'main'
         fetch-depth:  0
+    # Setup dependencies
     - uses: actions/setup-dotnet@main
       with:
         dotnet-version: 6.0.x
 
+    - name:   Change Directory
+      run:    cd "${{github.workspace}}"
+
     - name:   Get Tag Version
       id:     get_version
       run:    |
-              cd ${{github.workspace}}
               $TAG=$(git describe --tags --abbrev=0)
               echo ::set-output name=VERSION::$TAG
-              if ("$TAG" -like "*pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
+              if ("$TAG" -like "*-pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
       shell:  powershell
 
-    - name: 'Build VolumeControl Binary'
-      run:  dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
-
- #   - name: 'Build VersionControlCLI Binary'
- #     run:  dotnet publish VolumeControlCLI -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControlCLI/Properties/PublishProfiles/FolderProfile.pubxml"
+    - name:   'Build VolumeControl Binary'
+      run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
     - name:   Create Staging Workspace
       run:    |
-              mkdir "${{github.workspace}}/STAGING"
-              ls -Recurse "${{github.workspace}}"
+              mkdir "STAGING"
+
+    - name:   '[DEBUG] List Publish Directory Contents'
+      run:    ls 'publish'
 
     - name:   Stage Files
       run:    |
-              cd "${{github.workspace}}/STAGING"
-              foreach($file in $((dir "${{github.workspace}}/publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv $file ./ }
-              Get-ChildItem -Recurse
+              foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+
+    - name:   '[DEBUG] List Staging Directory Contents'
+              ls 'STAGING'
 
     - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
@@ -60,6 +64,8 @@ jobs:
         path: '${{github.workspace}}/STAGING/*'
         if-no-files-found: error
         
+
+  # Create the release using the uploaded artifact on github:
   create-release:
     needs:    build-release
     runs-on:  ubuntu-latest
