@@ -186,20 +186,6 @@ namespace VolumeControl
             Show();
             base.BringToFront();
         }
-        public new void Show()
-        {
-            SuspendLayout();
-            WindowState = FormWindowState.Normal;
-            base.Show();
-            ResumeLayout();
-        }
-        public new void Hide()
-        {
-            SuspendLayout();
-            base.Hide();
-            WindowState = FormWindowState.Minimized;
-            ResumeLayout();
-        }
         #endregion Methods
 
         #region MixerEventHandlers
@@ -336,6 +322,12 @@ namespace VolumeControl
         /// </summary>
         private void nVolumeStep_ValueChanged(object sender, EventArgs e)
             => VC_Static.VolumeStep = nVolumeStep.Value;
+        private void Form_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+                Visible = true;
+            else Visible = false;
+        }
         #endregion ControlEventHandlers
     }
 }
