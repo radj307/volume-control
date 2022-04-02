@@ -1,3 +1,4 @@
+# This is a heavily modified version of my GenerateRelease.yml script for C++, written for building windows-only C# applications using .NET
 name: Generate Release
 
 on:
@@ -32,30 +33,14 @@ jobs:
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
 
-    - name:   Get Tag Version
-      id:     get_version
-      run:    |
-              $TAG=$(git describe --tags --abbrev=0)
-              echo ::set-output name=VERSION::$TAG
-              if ("$TAG" -like "*-pr*") { echo ::set-output name=PRERELEASE::true } else { echo ::set-output name=PRERELEASE::false }
-      shell:  powershell
-
     - name:   'Build VolumeControl Binary'
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
-    - name:   Create Staging Workspace
-      run:    |
-              mkdir "STAGING"
-
-    - name:   '[DEBUG] List Publish Directory Contents'
-      run:    ls 'publish'
+    - name:   'Create Staging Directory'
+      run:    mkdir "STAGING"
 
     - name:   Stage Files
-      run:    |
-              foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
-
-    - name:   '[DEBUG] List Staging Directory Contents'
-      run:    ls 'STAGING'
+      run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
     - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
@@ -81,9 +66,7 @@ jobs:
     - name: 'Create Release'
       uses: softprops/action-gh-release@v1
       with:
-        draft:      true
-        prerelease: ${{steps.get_version.outputs.PRERELEASE}}
-        tag_name:   ${{steps.get_version.outputs.VERSION}}
-        fail_on_unmatched_files: true
+        draft:                    true
+        fail_on_unmatched_files:  true
         files:      |
                     ${{github.workspace}}/build-windows/VolumeControl.exe
