@@ -2,9 +2,9 @@
 {
     public class Endpoint : IDisposable
     {
-        public Endpoint(string outfile, FileAccess access = FileAccess.ReadWrite)
+        public Endpoint(string outfile, FileAccess access = FileAccess.ReadWrite, FileShare sharing = FileShare.Read)
         {
-            _stream = new(outfile, FileMode.OpenOrCreate, access);
+            _stream = new(outfile, FileMode.OpenOrCreate, access, sharing);
         }
 
         #region Members

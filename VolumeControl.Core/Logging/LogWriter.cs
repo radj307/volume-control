@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.Core.Logging
+﻿using System.Reflection;
+
+namespace VolumeControl.Core.Logging
 {
     public class LogWriter : Endpoint
     {
@@ -44,14 +46,26 @@
         /// <param name="indentSize">The number of space characters to insert before each line.</param>
         /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing.</param>
         /// <returns>The formatted exception message, stack trace, and inner exceptions, spanning over multiple lines.</returns>
-        internal static string GetExceptionStringRecursive(Exception ex, int indentSize, int indentStep)
+        internal static string GetExceptionStringRecursive(Exception ex, int indentSize, int indentStep, int recurseCount = 0, int maxRecurse = 5)
         {
             string indent = new(' ', indentSize);
             string s =
-                $"{indent}Message:      \'{ex.Message}\'\n" +
-                $"{indent}Stack Trace:  \'{ex.StackTrace}\'";
-            if (ex.InnerException != null)
-                s += $"\n{(ex.InnerException != null ? $"Inner Exception:\n{GetExceptionStringRecursive(ex.InnerException, indentSize + indentStep, indentStep)}" : "")}";
+                $"{indent}Message:         '{ex.Message}'\n" +
+                $"{indent}Stack Trace:     '{ex.StackTrace}'";
+            if (ex.Data.Count > 0)
+            {
+                s += $"\n{indent}Exception Data: {{";
+                string innerIndent = new(' ', indentSize + indentStep);
+                foreach (var it in ex.Data)
+                {
+                    string? itStr = it.ToString();
+                    if (itStr != null && itStr.Length > 0)
+                        s += $"{innerIndent}{itStr}\n";
+                }
+                s += $"{indent}}}";
+            }
+            if (ex.InnerException != null && ++recurseCount < maxRecurse)
+                s += $"\n{(ex.InnerException != null ? $"Inner Exception:\n{GetExceptionStringRecursive(ex.InnerException, indentSize + indentStep, indentStep, recurseCount, maxRecurse)}" : "")}";
             return s;
         }
         /// <summary>
@@ -67,14 +81,7 @@
         /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing. This is only used when recurse is true.</param>
         /// <returns>The formatted exception message, stack trace, and inner exceptions if set to recurse, spanning over multiple lines.</returns>
         internal static string GetExceptionString(Exception ex, bool recurse = true, int indentSize = 0, int indentStep = 2)
-        {
-            if (recurse)
-                return GetExceptionStringRecursive(ex, indentSize, indentStep);
-            else return
-                $"Message:      \'{ex.Message}\'\n" +
-                $"Stack Trace:  \'{ex.StackTrace}\'";
-        }
-
+            => GetExceptionStringRecursive(ex, indentSize, indentStep, 0, recurse ? 5 : 1);
         /// <summary>
         /// Get a string with a formatted header containing the current timestamp and the event type header.
         /// </summary>
@@ -216,6 +223,7 @@
         public void WriteExceptionFatal(Exception ex)
             => WriteException(EventType.FATAL, ex);
         #endregion WriteMethods
+
         #endregion Methods
 
         #region Properties
