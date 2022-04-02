@@ -135,7 +135,7 @@
         /// </summary>
         /// <param name="type">Determines the message header used.</param>
         /// <param name="msg">The message string.</param>
-        private void WriteEventMessage(EventType type, object? msg)
+        public void WriteEventMessage(EventType type, object? msg)
         {
             if (FilterMessage(type))
                 WriteRawLine($"{GetFullHeader(type)} {msg}");
@@ -146,7 +146,7 @@
         /// </summary>
         /// <param name="type">Determines the message header used.</param>
         /// <param name="msg_lines">An array of strings where each string uses one line.</param>
-        private void WriteEventMessage(EventType type, object[] msg_lines)
+        public void WriteEventMessage(EventType type, object[] msg_lines)
         {
             if (msg_lines.Length > 0 && FilterMessage(type))
             {
@@ -263,9 +263,9 @@
         /// </summary>
         /// <param name="type">An EventType to use for the message header.</param>
         /// <param name="ex">The Exception instance to write.</param>
-        private void WriteException(EventType type, Exception ex)
+        public void WriteException(EventType type, Exception ex)
             => WriteEventMessage(type, GetExceptionString(ex));
-        private void WriteException(EventType type, string fstLine, Exception ex)
+        public void WriteException(EventType type, string fstLine, Exception ex)
             => WriteEventMessage(type, $"{fstLine}\n{GetBlankHeader()}{GetExceptionString(ex)}");
         /// <summary>
         /// Write a formatted debug exception to the logfile.

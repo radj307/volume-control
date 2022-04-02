@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.Core.Controls
+﻿using VolumeControl.Core.Audio;
+
+namespace VolumeControl.Core.Controls
 {
     public partial class ToastForm : Form
     {
@@ -124,7 +126,7 @@
 
             float longest = 0f;
             Graphics graphics = CreateGraphics(); //< used to get the size of a string in pixels
-            foreach (AudioAPI.AudioProcess proc in listBox.Items)
+            foreach (AudioProcess proc in listBox.Items)
             {
                 float sz = graphics.MeasureString(proc.ProcessName, listBox.Font).Width;
                 if (sz > longest)

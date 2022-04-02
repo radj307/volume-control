@@ -1,5 +1,6 @@
-﻿using AudioAPI;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Events;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core
@@ -43,8 +44,8 @@ namespace VolumeControl.Core
         /// <summary>
         /// Triggered when the selected process changes.
         /// </summary>
-        public event EventHandler? SelectedProcessChanged;
-        private void NotifySelectedProcessChanged(EventArgs e)
+        public event TargetEventHandler? SelectedProcessChanged;
+        private void NotifySelectedProcessChanged(TargetEventArgs e)
             => SelectedProcessChanged?.Invoke(this, e);
 
         /// <summary>
@@ -105,7 +106,8 @@ namespace VolumeControl.Core
             if (!_selected_lock)
             {
                 _selected = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null) ?? _selected;
-                NotifySelectedProcessChanged(EventArgs.Empty);
+                NotifySelectedProcessChanged(new() { UserOrigin = true });
+                FLog.Log.WriteDebug($"Target process name changed to '{_selected?.ProcessName}'");
             }
         }
         /// <summary>
@@ -124,7 +126,8 @@ namespace VolumeControl.Core
                     _selected = ProcessList[i % ProcessList.Count];
                 }
                 else _selected = ProcessList.First();
-                NotifySelectedProcessChanged(EventArgs.Empty);
+                NotifySelectedProcessChanged(new() { UserOrigin = false });
+                FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
             }
         }
         /// <summary>
@@ -146,7 +149,8 @@ namespace VolumeControl.Core
                     _selected = ProcessList[i];
                 }
                 else _selected = ProcessList.Last();
-                NotifySelectedProcessChanged(EventArgs.Empty);
+                NotifySelectedProcessChanged(new() { UserOrigin = false });
+                FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
             }
         }
 

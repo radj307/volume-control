@@ -1,9 +1,12 @@
 using VolumeControl.Core.Controls;
 using System.Reflection;
 using VolumeControl.Core;
+using VolumeControl.Core.Events;
+using System.Runtime.CompilerServices;
 
 namespace VolumeControl
 {
+
     public partial class Form : System.Windows.Forms.Form
     {
         public Form()
@@ -53,11 +56,14 @@ namespace VolumeControl
             VC_Static.VolumeStep = nVolumeStep.Value = Properties.Settings.Default.VolumeStep;
 
             // handle API events
-            VC_Static.API.SelectedProcessChanged += delegate
+            VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
             {
-                tbTargetSelector.TextChanged -= tbTargetName_TextChanged!; //< prevent recursion
-                tbTargetSelector.Text = VC_Static.API.GetSelectedProcess().ProcessName;
-                tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
+                if (!e.UserOrigin)
+                {
+                    tbTargetSelector.TextChanged -= tbTargetName_TextChanged!; //< prevent recursion
+                    tbTargetSelector.Text = VC_Static.API.GetSelectedProcess().ProcessName;
+                    tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
+                }
             };
             VC_Static.API.LockSelectionChanged += delegate
             {
@@ -71,6 +77,7 @@ namespace VolumeControl
             };
 
             ResumeLayout();
+            SuspendSizeToFit();
 
             VC_Static.Log.WriteInfo("Form initialization completed.");
         }
@@ -82,19 +89,19 @@ namespace VolumeControl
             // save hotkeys
             VC_Static.SaveSettings();
             // Update local properties
-            Properties.Settings.Default.LastSelectedTarget = tbTargetSelector.Text;
-            Properties.Settings.Default.LastAutoReloadInterval = nAutoReloadInterval.Value;
-            Properties.Settings.Default.LastAutoReloadEnabled = cbAutoReload.Checked;
-            Properties.Settings.Default.LastLockTargetState = cbLockTarget.Checked;
-            Properties.Settings.Default.LastMixerVisibleState = splitContainer.Panel2Collapsed;
-            Properties.Settings.Default.RunAtStartup = cbRunAtStartup.Checked;
-            Properties.Settings.Default.StartMinimized = cbStartMinimized.Checked;
-            Properties.Settings.Default.ShowInTaskbar = cbShowInTaskbar.Checked;
-            Properties.Settings.Default.AlwaysOnTop = cbAlwaysOnTop.Checked;
-            Properties.Settings.Default.ToastEnabled = cbToastEnabled.Checked;
-            Properties.Settings.Default.ToastTimeoutInterval = nToastTimeoutInterval.Value;
-            Properties.Settings.Default.ReloadOnHotkey = cbReloadOnHotkey.Checked;
-            Properties.Settings.Default.VolumeStep = nVolumeStep.Value;
+            Properties.Settings.Default.SetProperty("LastSelectedTarget", tbTargetSelector.Text);
+            Properties.Settings.Default.SetProperty("LastAutoReloadInterval", nAutoReloadInterval.Value);
+            Properties.Settings.Default.SetProperty("LastAutoReloadEnabled", cbAutoReload.Checked);
+            Properties.Settings.Default.SetProperty("LastLockTargetState", cbLockTarget.Checked);
+            Properties.Settings.Default.SetProperty("LastMixerVisibleState", splitContainer.Panel2Collapsed);
+            Properties.Settings.Default.SetProperty("RunAtStartup", cbRunAtStartup.Checked);
+            Properties.Settings.Default.SetProperty("StartMinimized", cbStartMinimized.Checked);
+            Properties.Settings.Default.SetProperty("ShowInTaskbar", cbShowInTaskbar.Checked);
+            Properties.Settings.Default.SetProperty("AlwaysOnTop", cbAlwaysOnTop.Checked);
+            Properties.Settings.Default.SetProperty("ToastEnabled", cbToastEnabled.Checked);
+            Properties.Settings.Default.SetProperty("ToastTimeoutInterval", nToastTimeoutInterval.Value);
+            Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
+            Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -107,12 +114,14 @@ namespace VolumeControl
         /// </summary>
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Mixer.RowsRemoved -= Mixer_RowsRemoved;
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
             VC_Static.Log.WriteDebug("Form closing event triggered.");
         }
         ~Form()
         {
+            Mixer.RowsRemoved -= Mixer_RowsRemoved;
             SaveAll();
             VC_Static.Log.WriteDebug("Form destructor triggered.");
         }
@@ -123,6 +132,7 @@ namespace VolumeControl
         /// </summary>
         private readonly int _panel1Height;
         private readonly int _width;
+        private bool _allowAutoSize = false;
         /// <summary>
         /// The height of a single row in the mixer.
         /// </summary>
@@ -147,44 +157,49 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
+        private void SuspendSizeToFit()
+            => _allowAutoSize = false;
+        private void ResumeSizeToFit(bool trigger = false)
+        {
+            _allowAutoSize = true;
+            if (trigger) SizeToFit();
+        }
         private void SizeToFit()
         {
-            if (_mixerListItemHeight == 0) // set the height of a list item
-                _mixerListItemHeight = Mixer.Font.Height + 9;
-
-            int height = _panel1Height;
-
-            if (FormBorderStyle != FormBorderStyle.None)
-                height += 40;
-
-            if (!splitContainer.Panel2Collapsed)
+            if (_allowAutoSize)
             {
-                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
-                int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
-                int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
+                if (_mixerListItemHeight == 0) // set the height of a list item
+                    _mixerListItemHeight = Mixer.Font.Height + 9;
 
-                int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
-                height += totalCellHeight;
+                int height = _panel1Height;
+
+                if (FormBorderStyle != FormBorderStyle.None)
+                    height += 40;
+
+                if (!splitContainer.Panel2Collapsed)
+                {
+                    height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
+                    int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
+                    int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
+
+                    int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
+                    height += totalCellHeight;
+                }
+
+                // set the size of the form
+                Size = new(_width, height);
+                UpdateBounds();
+                VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
             }
-
-            // set the size of the form
-            Size = new(_width, height);
-            UpdateBounds();
-            VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
         }
 
-        private void ReloadProcessList()
-        {
-            Mixer.SuspendLayout();
-            Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
-            Mixer.ResumeLayout();
-            VC_Static.Log.WriteDebug($"Reloaded process list.");
-        }
         private void RefreshProcessList()
         {
+            SuspendSizeToFit();
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, delegate { }, true);
             Mixer.ResumeLayout();
+            ResumeSizeToFit();
             VC_Static.Log.WriteDebug($"Refreshed process list.");
         }
 
@@ -234,7 +249,7 @@ namespace VolumeControl
         /// Handles click events for the 'Reload' button.
         /// </summary>
         private void bReload_Click(object sender, EventArgs e)
-            => ReloadProcessList();
+            => VC_Static.API.ReloadProcessList();
         /// <summary>
         /// Handles check/uncheck events for the 'Auto' reload checkbox
         /// </summary>
@@ -252,7 +267,7 @@ namespace VolumeControl
         /// Handles tick events for the auto-reload timer.
         /// </summary>
         private void tAutoReload_Tick(object sender, EventArgs e)
-            => ReloadProcessList();
+            => VC_Static.API.ReloadProcessList();
         /// <summary>
         /// Handles click events for the 'Edit Hotkeys...' button.
         /// </summary>
@@ -282,7 +297,11 @@ namespace VolumeControl
         /// Handles check/uncheck events for the 'Show in Taskbar' checkbox.
         /// </summary>
         private void cbShowInTaskbar_CheckedChanged(object sender, EventArgs e)
-            => ShowInTaskbar = cbShowInTaskbar.Checked;
+        {
+            SuspendSizeToFit();
+            ShowInTaskbar = cbShowInTaskbar.Checked;
+            ResumeSizeToFit();
+        }
         /// <summary>
         /// Handles check/uncheck events for the 'Always on Top' checkbox.
         /// </summary>
@@ -338,5 +357,10 @@ namespace VolumeControl
             else Visible = true;
         }
         #endregion ControlEventHandlers
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+            ResumeSizeToFit(true);
+        }
     }
 }

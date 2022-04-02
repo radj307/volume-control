@@ -1,7 +1,7 @@
 ﻿using HotkeyLib;
 using VolumeControl.Core.Enum;
 
-namespace VolumeControl.Core
+namespace VolumeControl.Core.Keyboard
 {
     public class HotkeyBinding : WindowsHotkey
     {
@@ -14,7 +14,7 @@ namespace VolumeControl.Core
             _name = name;
             Subject = subject;
             Action = action;
-            Registered = (bool)Properties.Settings.Default[registerProperty];
+            Registered = Convert.ToBoolean(Properties.Settings.Default[registerProperty]);
         }
 
         public void Save()

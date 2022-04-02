@@ -174,7 +174,7 @@ namespace VolumeControl.Core.Controls
             // 
             // bsHotkeyBindingList
             // 
-            this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.HotkeyBindingList);
+            this.bsHotkeyBindingList.DataSource = typeof(HotkeyBindingList);
             // 
             // bCancel
             // 

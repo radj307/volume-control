@@ -4,7 +4,7 @@ using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace AudioAPI
+namespace VolumeControl.Core.Audio
 {
     public class AudioProcessList : ICollection<AudioProcess>, IEnumerable<AudioProcess>, IEnumerable, IList<AudioProcess>, IReadOnlyCollection<AudioProcess>, IReadOnlyList<AudioProcess>, ICollection, IList, IDisposable
     {
@@ -51,6 +51,7 @@ namespace AudioAPI
             List<AudioProcess> tmp = new(); // put updated list in a temporary object
             foreach (IAudioSessionControl2 session in Sessions)
             {
+                // TODO: Optimize this
                 tmp.Add(new AudioProcess(session));
             }
 

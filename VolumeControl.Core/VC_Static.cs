@@ -1,6 +1,7 @@
 ﻿using AudioAPI;
 using System.ComponentModel;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core
@@ -87,7 +88,6 @@ namespace VolumeControl.Core
                 new(owner, "Previous Target", nameof(Properties.Settings.Default.hks_TargetPrev), VolumeControlSubject.TARGET, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_TargetPrevEnabled)),
                 new(owner, "Toggle Target Lock", nameof(Properties.Settings.Default.hks_TargetToggle), VolumeControlSubject.TARGET, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_TargetToggleEnabled)),
             });
-            Log.WriteInfo($"{nameof(Hotkeys)} successfully created.");
             Hotkeys.BindHotkeyPressedEvents(API);
             Log.WriteInfo("Finished initialization of hotkey-action bindings.");
         }

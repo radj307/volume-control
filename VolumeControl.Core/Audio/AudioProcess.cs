@@ -1,11 +1,12 @@
-﻿using AudioAPI.Forms;
+﻿using AudioAPI;
+using AudioAPI.Forms;
 using AudioAPI.WindowsAPI.Audio;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace AudioAPI
+namespace VolumeControl.Core.Audio
 {
     public class AudioProcess : IAudioProcess, IGridViewAudioProcess, INotifyPropertyChanged
     {
@@ -169,6 +170,16 @@ namespace AudioAPI
             }
         }
 
+        private string IconPath
+        {
+            get
+            {
+                SessionControl.GetIconPath(out string path);
+                return path;
+            }
+            set => SessionControl.SetIconPath(value, Guid.NewGuid());
+        }
+
         #endregion Properties
 
         #region Methods
@@ -193,7 +204,7 @@ namespace AudioAPI
             GC.SuppressFinalize(this);
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

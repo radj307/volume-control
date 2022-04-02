@@ -25,15 +25,6 @@
         /// </summary>
         NEXT = INCREMENT,
         /// <summary>
-        /// Performs an increment action on the associated subject.
-        /// <list type="bullet">
-        /// <item><term>VOLUME</term><description>Increase Target Application Volume.</description></item>
-        /// <item><term>MEDIA</term><description>Next Track.</description></item>
-        /// <item><term>TARGET</term><description>Next Target.</description></item>
-        /// </list>
-        /// </summary>
-        UP = INCREMENT,
-        /// <summary>
         /// Performs a decrement action on the associated subject.
         /// <list type="bullet">
         /// <item><term>VOLUME</term><description>Decrease Target Application Volume.</description></item>
@@ -51,15 +42,6 @@
         /// </list>
         /// </summary>
         PREV = DECREMENT,
-        /// <summary>
-        /// Performs a decrement action on the associated subject.
-        /// <list type="bullet">
-        /// <item><term>VOLUME</term><description>Decrease Target Application Volume.</description></item>
-        /// <item><term>MEDIA</term><description>Previous Track.</description></item>
-        /// <item><term>TARGET</term><description>Previous Target.</description></item>
-        /// </list>
-        /// </summary>
-        DOWN = DECREMENT,
         /// <summary>
         /// Performs a toggle action on the associated subject.
         /// <list type="bullet">

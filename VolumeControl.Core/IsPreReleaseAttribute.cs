@@ -1,4 +1,4 @@
-﻿namespace VolumeControl
+﻿namespace VolumeControl.Core
 {
     [AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = false)]
     public sealed class IsPreReleaseAttribute : Attribute
