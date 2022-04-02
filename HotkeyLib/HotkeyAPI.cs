@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using VolumeControl.Log;
 
 namespace HotkeyLib
 {
@@ -16,7 +17,6 @@ namespace HotkeyLib
             if (_currentID + 1 >= MaxID) // loop back around
                 _currentID = MinID;
             _currentID++;
-            
             return _currentID;
         }
         #endregion Methods
@@ -27,6 +27,8 @@ namespace HotkeyLib
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int UnregisterHotKey(IntPtr hWnd, int id);
+        public static int GetLastWin32Error()
+            => Marshal.GetLastWin32Error();
         #endregion InteropFunctions
 
         #region InteropConstants

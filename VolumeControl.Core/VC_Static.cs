@@ -16,6 +16,11 @@ namespace VolumeControl.Core
         {
             if (_initialized)
                 throw new Exception($"VC_Static.Initialize() was already called!");
+            else if (!FLog.Initialized)
+            {
+                FLog.Initialize();
+                Log.WriteWarning($"VC_Static.Initialize() automatically called FLog.Initialize()!");
+            }
             _initialized = true;
 
             // init process API

@@ -1,5 +1,6 @@
 ﻿using AudioAPI;
 using VolumeControl.Core.Enum;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core
 {
@@ -78,6 +79,7 @@ namespace VolumeControl.Core
                 bool copy = _selected_lock;
                 if ((_selected_lock = value) != copy)
                     NotifyLockSelectionChanged(EventArgs.Empty);
+                FLog.Log.WriteInfo($"Target Selection {(_selected_lock ? "Locked" : "Unlocked")}.");
             }
         }
         /// <summary>

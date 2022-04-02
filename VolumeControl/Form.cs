@@ -71,6 +71,8 @@ namespace VolumeControl
             };
 
             ResumeLayout();
+
+            VC_Static.Log.WriteInfo("Form initialization completed.");
         }
         /// <summary>
         /// Set properties to their current UI values and save them to the config file.
@@ -96,6 +98,8 @@ namespace VolumeControl
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+
+            VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
         }
         /// <summary>
         /// Called before the form closes.
@@ -105,10 +109,12 @@ namespace VolumeControl
         {
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
+            VC_Static.Log.WriteDebug("Form closing event triggered.");
         }
         ~Form()
         {
             SaveAll();
+            VC_Static.Log.WriteDebug("Form destructor triggered.");
         }
 
         #region Members
@@ -164,6 +170,7 @@ namespace VolumeControl
             // set the size of the form
             Size = new(_width, height);
             UpdateBounds();
+            VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
         }
 
         private void ReloadProcessList()
@@ -171,12 +178,14 @@ namespace VolumeControl
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, VC_Static.API.ReloadProcessList, true);
             Mixer.ResumeLayout();
+            VC_Static.Log.WriteDebug($"Reloaded process list.");
         }
         private void RefreshProcessList()
         {
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, delegate { }, true);
             Mixer.ResumeLayout();
+            VC_Static.Log.WriteDebug($"Refreshed process list.");
         }
 
         public new void BringToFront()
