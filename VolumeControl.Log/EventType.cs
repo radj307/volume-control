@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Logging
+﻿namespace VolumeControl.Log
 {
     /// <summary>
     /// Determines the header used to print formatted log messages.

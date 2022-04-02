@@ -23,7 +23,7 @@ namespace VolumeControl.Core
             bool registered = Registered;
             Properties.Settings.Default[_keystring_property] = keystring;
             Properties.Settings.Default[_enabled_property] = registered;
-            VC_Static.Log.WriteInfo($"Saved hotkey \'{Name}\' settings. ({keystring}, {registered})");
+            VC_Static.Log.WriteInfo($"Saved hotkey \'{Name}\':  ({keystring}, {registered})");
         }
 
         private readonly string _name;

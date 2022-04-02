@@ -162,7 +162,7 @@ namespace VolumeControl
             }
 
             // set the size of the form
-            Size = new(Width, height);
+            Size = new(_width, height);
             UpdateBounds();
         }
 
@@ -325,8 +325,8 @@ namespace VolumeControl
         private void Form_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
-                Visible = true;
-            else Visible = false;
+                Visible = false;
+            else Visible = true;
         }
         #endregion ControlEventHandlers
     }

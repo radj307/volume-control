@@ -1,7 +1,7 @@
 ﻿using AudioAPI;
 using System.ComponentModel;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Logging;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core
 {
@@ -17,19 +17,6 @@ namespace VolumeControl.Core
             if (_initialized)
                 throw new Exception($"VC_Static.Initialize() was already called!");
             _initialized = true;
-            // init log writer
-#           if DEBUG
-            EventType logFilter = EventType.ALL;
-#           else
-            EventType logFilter = EventType.ALL_EXCEPT_DEBUG;
-#           endif
-            string logFile = Properties.Settings.Default.log_file;
-            Log = new LogWriter(logFile, logFilter);
-            Log.WriteInfo(new string[] {
-                $"{nameof(Log)} initialized.",
-                $"Output File:  \'{logFile}\'",
-                $"Type Filter:  \'{System.Enum.GetName(typeof(EventType), logFilter)}\'"
-            });
 
             // init process API
             API = new AudioProcessAPI(new()
@@ -103,7 +90,6 @@ namespace VolumeControl.Core
 
         #region Members
         private static bool _initialized = false, _hk_initialized = false;
-        private static LogWriter _log = null!;
         private static AudioProcessAPI _api = null!;
         private static HotkeyBindingList _hotkeys = null!;
         #endregion Members
@@ -150,15 +136,7 @@ namespace VolumeControl.Core
         #endregion Methods
 
         #region Properties
-        public static LogWriter Log
-        {
-            get
-            {
-                if (!_initialized) throw new InvalidOperationException("Cannot retrieve uninitialized object! (This happened because the 'VC_Static.Initialize()' function wasn't called first!)");
-                return _log;
-            }
-            internal set => _log = value;
-        }
+        public static LogWriter Log => FLog.Log;
         public static AudioProcessAPI API
         {
             get

@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Logging
+﻿namespace VolumeControl.Log
 {
     /// <summary>
     /// Extension methods for the EventType enumerator.

@@ -133,18 +133,6 @@ namespace VolumeControl.Core.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
-        public string log_file {
-            get {
-                return ((string)(this["log_file"]));
-            }
-            set {
-                this["log_file"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool hks_VolumeUpEnabled {
             get {

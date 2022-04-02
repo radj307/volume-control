@@ -15,7 +15,9 @@ namespace HotkeyLib
         {
             if (_currentID + 1 >= MaxID) // loop back around
                 _currentID = MinID;
-            return _currentID++;
+            _currentID++;
+            
+            return _currentID;
         }
         #endregion Methods
 

@@ -29,9 +29,6 @@
     <Setting Name="hks_TargetToggle" Type="System.String" Scope="User">
       <Value Profile="(Default)">CtrlShift+S</Value>
     </Setting>
-    <Setting Name="log_file" Type="System.String" Scope="User">
-      <Value Profile="(Default)">volumecontrol.log</Value>
-    </Setting>
     <Setting Name="hks_VolumeUpEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
