@@ -186,6 +186,20 @@ namespace VolumeControl
             Show();
             base.BringToFront();
         }
+        public new void Show()
+        {
+            SuspendLayout();
+            WindowState = FormWindowState.Normal;
+            base.Show();
+            ResumeLayout();
+        }
+        public new void Hide()
+        {
+            SuspendLayout();
+            base.Hide();
+            WindowState = FormWindowState.Minimized;
+            ResumeLayout();
+        }
         #endregion Methods
 
         #region MixerEventHandlers
