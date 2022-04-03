@@ -61,7 +61,7 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LightCoral")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
         public global::System.Drawing.Color LockedColor {
             get {
                 return ((global::System.Drawing.Color)(this["LockedColor"]));
@@ -73,13 +73,25 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LightGreen")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LimeGreen")]
         public global::System.Drawing.Color UnlockedColor {
             get {
                 return ((global::System.Drawing.Color)(this["UnlockedColor"]));
             }
             set {
                 this["UnlockedColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 9.75pt")]
+        public global::System.Drawing.Font ToastFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ToastFont"]));
+            }
+            set {
+                this["ToastFont"] = value;
             }
         }
     }

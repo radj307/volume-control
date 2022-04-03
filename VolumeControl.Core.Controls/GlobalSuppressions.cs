@@ -15,3 +15,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Core.Controls.SmartTextBox.tb_Leave(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Core.Controls.SmartTextBox.tb_TextChanged(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Core.Controls.SmartTextBox.tInput_Tick(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Core.Controls.ToastForm.listBox_DrawItem(System.Object,System.Windows.Forms.DrawItemEventArgs)")]

@@ -1,4 +1,5 @@
-﻿using VolumeControl.Core.Audio;
+﻿using System.Drawing.Drawing2D;
+using VolumeControl.Core.Audio;
 
 namespace VolumeControl.Core.Controls
 {
@@ -38,6 +39,7 @@ namespace VolumeControl.Core.Controls
                     SuspendLayout();
                     Show();
                     UpdateLockSelection();
+                    listBox.Refresh();
                     ResumeLayout();
                 }
             };
@@ -55,6 +57,8 @@ namespace VolumeControl.Core.Controls
 
             UpdateSelection();
             UpdateLockSelection();
+
+            Font = Properties.Settings.Default.ToastFont;
 
             ResumeLayout();
         }
@@ -77,6 +81,10 @@ namespace VolumeControl.Core.Controls
         }
         #endregion Finalizers
 
+        #region Members
+        private bool _allowAutoSize = false;
+        #endregion Members
+
         #region Properties
         public int TimeoutInterval
         {
@@ -88,9 +96,25 @@ namespace VolumeControl.Core.Controls
         public Corner DisplayCorner { get; set; }
         public Color LockedColor { get; set; }
         public Color UnlockedColor { get; set; }
+        public new Font Font
+        {
+            get => listBox.Font;
+            set => listBox.Font = value;
+        }
+        private bool TargetIsLocked => VC_Static.API.LockSelection;
         #endregion Properties
 
         #region Methods
+        public void SuspendSizeToFit()
+            => _allowAutoSize = false;
+
+        public void ResumeSizeToFit(bool trigger = false)
+        {
+            _allowAutoSize = true;
+            if (trigger)
+                SizeToFit();
+        }
+
         public new void Hide()
         {
             base.Hide();
@@ -111,8 +135,11 @@ namespace VolumeControl.Core.Controls
 
         private void SizeToFit()
         {
+            if (!_allowAutoSize)
+                return;
+
             // calculate height
-            int height = listPanelInner.Padding.Top + listPanelInner.Padding.Bottom + listPanelOuter.Padding.Top + listPanelOuter.Padding.Bottom;
+            int height = colorPanel.Padding.Top + colorPanel.Padding.Bottom + listPanelInner.Padding.Top + listPanelInner.Padding.Bottom + listPanelOuter.Padding.Top + listPanelOuter.Padding.Bottom;
 
             if (FormBorderStyle != FormBorderStyle.None)
                 height += 40;
@@ -122,7 +149,7 @@ namespace VolumeControl.Core.Controls
             height += itemHeight * (listBox.Items.Count % ((Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4)) / itemHeight));
 
             // calculate width
-            int width = listPanelInner.Padding.Left + listPanelInner.Padding.Right + listPanelOuter.Padding.Left + listPanelOuter.Padding.Right;
+            int width = colorPanel.Padding.Left + colorPanel.Padding.Right + listPanelInner.Padding.Left + listPanelInner.Padding.Right + listPanelOuter.Padding.Left + listPanelOuter.Padding.Right;
 
             float longest = 0f;
             Graphics graphics = CreateGraphics(); //< used to get the size of a string in pixels
@@ -156,6 +183,8 @@ namespace VolumeControl.Core.Controls
         public void UpdatePosition()
         {
             SuspendLayout();
+            if (!_allowAutoSize)
+                ResumeSizeToFit();
             SizeToFit();
             SetPosition();
             ResumeLayout();
@@ -170,7 +199,9 @@ namespace VolumeControl.Core.Controls
         /// Updates the background color to indicate whether the current target is locked.
         /// </summary>
         public void UpdateLockSelection()
-            => BackColor = VC_Static.API.LockSelection ? LockedColor : UnlockedColor;
+            => colorPanel.BackColor = GetColor();
+        private Color GetColor()
+            => TargetIsLocked ? LockedColor : UnlockedColor;
         #endregion Methods
 
         #region ControlEventHandlers
@@ -181,6 +212,20 @@ namespace VolumeControl.Core.Controls
         }
         private void listBox_AddedRemoved(object sender, ControlEventArgs e)
             => UpdatePosition();
+        private void ToastForm_Load(object sender, EventArgs e)
+            => ResumeSizeToFit();
+        private void listBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            Graphics g = e.Graphics;
+            Brush b = new SolidBrush(((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                ? GetColor()
+                : e.BackColor);
+            g.FillRectangle(b, e.Bounds);
+            if (listBox.Items[e.Index] is not AudioProcess item)
+                return;
+            e.Graphics.DrawString(item.ProcessName, e.Font ?? listBox.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+        }
         #endregion ControlEventHandlers
     }
 }

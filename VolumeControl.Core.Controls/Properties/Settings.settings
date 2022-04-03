@@ -12,10 +12,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LockedColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">LightCoral</Value>
+      <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="UnlockedColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">LightGreen</Value>
+      <Value Profile="(Default)">LimeGreen</Value>
+    </Setting>
+    <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
   </Settings>
 </SettingsFile>
