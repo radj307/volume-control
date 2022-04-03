@@ -112,7 +112,7 @@
         /// <param name="autoIndent">When true, indentation will automatically be added to ensure log messages are aligned.</param>
         public void WriteLines(EventType type, string[] lines, bool autoIndent = true)
         {
-            if (FilterMessage(type) && lines.Length > 0)
+            if (Enabled && FilterMessage(type) && lines.Length > 0)
             {
                 string indent = string.Empty;
                 string header = GetFullHeader(type);
@@ -137,8 +137,9 @@
         /// <param name="msg">The message string.</param>
         public void WriteEventMessage(EventType type, object? msg)
         {
-            if (FilterMessage(type))
-                WriteRawLine($"{GetFullHeader(type)} {msg}");
+            if (Enabled)
+                if (FilterMessage(type))
+                    WriteRawLine($"{GetFullHeader(type)} {msg}");
         }
         /// <summary>
         /// Write a formatted event message to the logfile.
@@ -148,12 +149,15 @@
         /// <param name="msg_lines">An array of strings where each string uses one line.</param>
         public void WriteEventMessage(EventType type, object[] msg_lines)
         {
-            if (msg_lines.Length > 0 && FilterMessage(type))
+            if (Enabled)
             {
-                WriteRawLine($"{GetFullHeader(type)} {msg_lines[0]}");
-                string indent = GetBlankHeader();
-                for (int i = 1; i < msg_lines.Length; ++i)
-                    WriteRawLine($"{indent}{msg_lines[i]}");
+                if (msg_lines.Length > 0 && FilterMessage(type))
+                {
+                    WriteRawLine($"{GetFullHeader(type)} {msg_lines[0]}");
+                    string indent = GetBlankHeader();
+                    for (int i = 1; i < msg_lines.Length; ++i)
+                        WriteRawLine($"{indent}{msg_lines[i]}");
+                }
             }
         }
 

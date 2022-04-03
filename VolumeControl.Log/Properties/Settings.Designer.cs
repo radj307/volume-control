@@ -46,5 +46,17 @@ namespace VolumeControl.Log.Properties {
                 this["logfilter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableLog {
+            get {
+                return ((bool)(this["EnableLog"]));
+            }
+            set {
+                this["EnableLog"] = value;
+            }
+        }
     }
 }

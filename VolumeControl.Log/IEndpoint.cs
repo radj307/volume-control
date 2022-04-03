@@ -7,6 +7,10 @@
         /// </summary>
         bool Ready { get; }
         /// <summary>
+        /// Return true when the endpoint is enabled.
+        /// </summary>
+        bool Enabled { get; }
+        /// <summary>
         /// Write to the filestream.
         /// It is highly recommended that you do not use this function, as it doesn't conform to formatting rules.
         /// </summary>

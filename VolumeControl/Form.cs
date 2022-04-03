@@ -132,6 +132,10 @@ namespace VolumeControl
         /// </summary>
         private readonly int _panel1Height;
         private readonly int _width;
+        /// <summary>
+        /// When true, the SizeToFit() function is enabled.
+        /// When false, the SizeToFit() function will return before doing anything.
+        /// </summary>
         private bool _allowAutoSize = false;
         /// <summary>
         /// The height of a single row in the mixer.
@@ -166,31 +170,30 @@ namespace VolumeControl
         }
         private void SizeToFit()
         {
-            if (_allowAutoSize)
+            if (!_allowAutoSize)
+                return;
+            if (_mixerListItemHeight == 0) // set the height of a list item
+                _mixerListItemHeight = Mixer.Font.Height + 9;
+
+            int height = _panel1Height;
+
+            if (FormBorderStyle != FormBorderStyle.None)
+                height += 40;
+
+            if (!splitContainer.Panel2Collapsed)
             {
-                if (_mixerListItemHeight == 0) // set the height of a list item
-                    _mixerListItemHeight = Mixer.Font.Height + 9;
+                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
+                int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
+                int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
-                int height = _panel1Height;
-
-                if (FormBorderStyle != FormBorderStyle.None)
-                    height += 40;
-
-                if (!splitContainer.Panel2Collapsed)
-                {
-                    height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
-                    int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
-                    int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
-
-                    int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
-                    height += totalCellHeight;
-                }
-
-                // set the size of the form
-                Size = new(_width, height);
-                UpdateBounds();
-                VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
+                int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
+                height += totalCellHeight;
             }
+
+            // set the size of the form
+            Size = new(_width, height);
+            UpdateBounds();
+            VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
         }
 
         private void RefreshProcessList()
@@ -298,7 +301,7 @@ namespace VolumeControl
         /// </summary>
         private void cbShowInTaskbar_CheckedChanged(object sender, EventArgs e)
         {
-            SuspendSizeToFit();
+            SuspendSizeToFit(); // disable the SizeToFit() function to prevent flicker during the transition.
             ShowInTaskbar = cbShowInTaskbar.Checked;
             ResumeSizeToFit();
         }
@@ -350,17 +353,17 @@ namespace VolumeControl
         /// </summary>
         private void nVolumeStep_ValueChanged(object sender, EventArgs e)
             => VC_Static.VolumeStep = nVolumeStep.Value;
+        /// <summary>
+        /// Handles form 'Resize' events by setting the 'Visible' property to allow minimizing the form without showing a small box in the bottom-left of the screen.
+        /// </summary>
         private void Form_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-                Visible = false;
-            else Visible = true;
-        }
-        #endregion ControlEventHandlers
-
+            => Visible = !(WindowState == FormWindowState.Minimized);
+        /// <summary>
+        /// Handles the form 'Load' event, and enables the SizeToFit() function.
+        /// This function is disabled during initialization, to prevent constant form resizing when the mixer is being populated.
+        /// </summary>
         private void Form_Load(object sender, EventArgs e)
-        {
-            ResumeSizeToFit(true);
-        }
+            => ResumeSizeToFit(true);
+        #endregion ControlEventHandlers
     }
 }

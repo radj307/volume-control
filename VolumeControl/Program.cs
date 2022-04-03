@@ -21,41 +21,31 @@ namespace VolumeControl
 
 #               if DEBUG
                 FLog.Log.WriteDebug("This binary was built in Debug configuration.");
-#               else
-                VC_Static.Log.WriteDebug("This binary was built in Release configuration.");
-#               endif
-
                 if (!Properties.Settings.Default.AllowMultipleInstances)
                 {
-                    VC_Static.Log.WriteInfo("Multiple instances are disabled, checking for other instances...");
-                    Process thisProc = Process.GetCurrentProcess(); // check for other processes named the same thing.
-                    VC_Static.Log.WriteInfo(new string[] {
-                        "Retrieved information about this Volume Control instance from Windows.",
-                        $"Process Name:  '{thisProc.ProcessName}'",
-                        $"Process ID:    '{thisProc.Id}'"
-                    });
-                    var similarProcs = Process.GetProcessesByName(thisProc.ProcessName);
-                    if (similarProcs.Length > 1)
+                    var thisProc = Process.GetCurrentProcess();
+                    foreach (var proc in Process.GetProcessesByName(thisProc.ProcessName))
                     {
-                        VC_Static.Log.WriteInfo(similarProcs.Select(p => $"ID: {p.Id}").ToArray());
-                        VC_Static.Log.WriteInfo(new string[] { "Found at least one other running Volume Control instance!" });
-                        ;
-                        VC_Static.Log.WriteInfo();
-                        foreach (Process otherInst in similarProcs)
+                        if (proc.Id != thisProc.Id)
                         {
-                            if (thisProc.Id != otherInst.Id) // process has the same name but different IDs, this is (likely) another instance.
-                            {
-                                VC_Static.Log.WriteFatal($"Found another instance of Volume Control with PID '{otherInst.Id}'!");
-#                               if DEBUG // DEBUGGING MODE:
-                                otherInst.Kill(true); // kill the other instance and start debugging anyway.
-                                VC_Static.Log.WriteDebug($"Killed another instance of Volume Control with PID '{otherInst.Id}' because we're running in DEBUG mode.");
-#                               else // RELEASE:
-                                throw new Exception("An instance of Volume Control is already running!"); // In release mode, throw an exception and exit.
-#                               endif
-                            }
+                            FLog.Log.WriteWarning($"Killing other instance of Volume Control with PID '{proc.Id}'... (This only occurs in DEBUG configuration.)");
+                            proc.Kill();
                         }
                     }
                 }
+#               else
+                VC_Static.Log.WriteDebug("This binary was built in Release configuration.");
+
+                if (!Properties.Settings.Default.AllowMultipleInstances)
+                {
+                    Process thisProc = Process.GetCurrentProcess();
+                    if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
+                    {
+                        FLog.Log.WriteFatal("Another instance of Volume Control is already running!");
+                        return;
+                    }
+                }
+#               endif
 
                 var form = new Form(); // create the main form
 
