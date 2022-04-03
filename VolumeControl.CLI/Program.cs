@@ -1,8 +1,7 @@
 ﻿using AudioAPI;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using VolumeControl.Core;
+using VolumeControl.Core.Attributes;
 
 namespace VolumeControl.CLI
 {
@@ -11,7 +10,7 @@ namespace VolumeControl.CLI
         public Target(string? target = null) { Set(target); }
 
         private string? _str;
-        private AudioProcess? _proc;
+        private Core.Audio.AudioProcess? _proc;
 
         public void Set(string? target)
         {
@@ -138,16 +137,14 @@ namespace VolumeControl.CLI
                     Console.WriteLine("  ");
                     Console.WriteLine();
                     Console.WriteLine("Options:");
+                    return;
                 }
                 else if (argv.Any(a => a.Equals("--version")))
                 {
-                    string strver = null!;
-                    Version currentVersion = typeof(Form).Assembly.GetName().Version!;
-                    if (Convert.ToBoolean(typeof(Form).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
-                        strver = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}";
-                    else
-                        strver = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
+                    var assembly = Assembly.GetExecutingAssembly();
+                    string? strver = assembly.GetCustomAttribute<ExtendedVersionAttribute>()?.ExtendedVersion;
                     Console.WriteLine(strver);
+                    return;
                 }
                 #endregion Help
 
