@@ -33,12 +33,12 @@ namespace VolumeControl
             bsAudioProcessAPI.DataSource = VC_Static.API;
             Mixer.RowsAdded += Mixer_RowsAdded;
 
-            // Set the current version number
-            Version currentVersion = typeof(Form).Assembly.GetName().Version!;
-            if (Convert.ToBoolean(typeof(Form).Assembly.GetCustomAttribute<IsPreReleaseAttribute>()?.IsPreRelease))
-                Label_Version.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}-pre{currentVersion.Revision}";
-            else
-                Label_Version.Text = $"v{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Build}{(currentVersion.Revision >= 1 ? $"-{currentVersion.Revision}" : "")}";
+            // get the current version number
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            var extver = assembly.GetCustomAttribute<ExtendedVersionAttribute>()?.ExtendedVersion;
+            if (extver != null)
+                SetVersion($"v{extver}");
+            else SetVersion("[????]");
 
             // Initialize local form settings
             tbTargetSelector.Text = Properties.Settings.Default.LastSelectedTarget;
@@ -202,7 +202,7 @@ namespace VolumeControl
             Mixer.SuspendLayout();
             Mixer.ResetDataSource(bsAudioProcessAPI, delegate { }, true);
             Mixer.ResumeLayout();
-            ResumeSizeToFit();
+            ResumeSizeToFit(true);
             VC_Static.Log.WriteDebug($"Refreshed process list.");
         }
 
@@ -213,6 +213,8 @@ namespace VolumeControl
             Show();
             base.BringToFront();
         }
+        private void SetVersion(string ver)
+            => Label_Version.Text = ver;
         #endregion Methods
 
         #region MixerEventHandlers

@@ -52,6 +52,10 @@
                 throw new Exception("Cannot call FLog.Initialize() multiple times!");
             _initialized = true;
 
+            // Add properties to the settings file
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
             _filepath = Properties.Settings.Default.logfile;
 #           if DEBUG // always show all log messages in debug mode, ignore properties
             _filter = EventType.ALL;

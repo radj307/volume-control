@@ -20,6 +20,10 @@ else
 
 "Latest Git Tag:           `"$global:GIT_TAG_RAW`""
 
+# Extended Version String
+$global:EXTVER = $global:GIT_TAG_RAW
+"Extended Version:         `"$global:EXTVER`""
+
 $global:GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
 
 $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
@@ -34,7 +38,7 @@ if ($EXTRA)
 {
     if ($EXTRA -like "*-pre*")
     {
-        $global:PRERELEASE = 'true'
+        $global:PRERELEASE = true
         
         "Tag indicates that this is a pre-release version."
     }
@@ -86,6 +90,7 @@ function SetVersion
         }
         
         $CONTENT.Project.PropertyGroup.Version = $global:TAG
+        $CONTENT.Project.PropertyGroup.ExtendedVersion = "$global:EXTVER"
         $CONTENT.Save("$file")
     }
     else

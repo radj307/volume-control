@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.CLI", "VolumeControl.CLI\VolumeControl.CLI.csproj", "{387E960C-C7BF-48AC-86E6-CB7046A11609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Log", "VolumeControl.Log\VolumeControl.Log.csproj", "{7E3E035D-28B8-4212-838D-AA9FF73A3E60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Log", "VolumeControl.Log\VolumeControl.Log.csproj", "{7E3E035D-28B8-4212-838D-AA9FF73A3E60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries-APIs", "Libraries-APIs", "{5B4835BC-874A-4C31-A679-0F9CD3CE5A71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{797D1D1C-0E98-4486-8588-AEBA4414899A} = {5B4835BC-874A-4C31-A679-0F9CD3CE5A71}
+		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B} = {5B4835BC-874A-4C31-A679-0F9CD3CE5A71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5A019F3-AF20-43E2-890B-FA637ECCD06E}

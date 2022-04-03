@@ -20,5 +20,8 @@
     <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
+    <Setting Name="DisplayOffset" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

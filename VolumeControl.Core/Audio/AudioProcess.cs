@@ -170,16 +170,6 @@ namespace VolumeControl.Core.Audio
             }
         }
 
-        private string IconPath
-        {
-            get
-            {
-                SessionControl.GetIconPath(out string path);
-                return path;
-            }
-            set => SessionControl.SetIconPath(value, Guid.NewGuid());
-        }
-
         #endregion Properties
 
         #region Methods
