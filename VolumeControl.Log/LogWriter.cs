@@ -120,12 +120,15 @@
                     indent = GetBlankHeader();
 
                 var writer = GetWriter(FileAccess.Write, FileShare.Read);
-                writer.Write($"{header}{lines[0]}");
-                foreach (string line in lines[1..])
+                if (writer != null)
                 {
-                    writer.WriteLine($"{indent}{line}");
+                    writer.Write($"{header}{lines[0]}");
+                    foreach (string line in lines[1..])
+                    {
+                        writer.WriteLine($"{indent}{line}");
+                    }
+                    writer.Close();
                 }
-                writer.Close();
             }
         }
 
