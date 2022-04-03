@@ -3,6 +3,8 @@ using System.Reflection;
 using VolumeControl.Core;
 using VolumeControl.Core.Events;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
+using VolumeControl.Core.Attributes;
 
 namespace VolumeControl
 {
@@ -20,12 +22,9 @@ namespace VolumeControl
 
             // initialize designer components
             InitializeComponent();
+            ForceCorrectLayout();
 
-            // Force default cursors on both split containers, in case the designer decides to change them again
-            splitContainer.Cursor = Cursors.Default;
-            panel2SplitContainer.Cursor = Cursors.Default;
-
-            _panel1Height = splitContainer.Panel1.Height;
+            _panel1Height = MainSplitContainer.Panel1.Height;
 
             _width = Size.Width;
 
@@ -45,7 +44,7 @@ namespace VolumeControl
             nAutoReloadInterval.Value = Properties.Settings.Default.LastAutoReloadInterval;
             cbAutoReload.Checked = Properties.Settings.Default.LastAutoReloadEnabled;
             cbLockTarget.Checked = Properties.Settings.Default.LastLockTargetState;
-            splitContainer.Panel2Collapsed = Properties.Settings.Default.LastMixerVisibleState;
+            MainSplitContainer.Panel2Collapsed = Properties.Settings.Default.LastMixerVisibleState;
             cbRunAtStartup.Checked = Properties.Settings.Default.RunAtStartup;
             cbStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
             cbShowInTaskbar.Checked = Properties.Settings.Default.ShowInTaskbar;
@@ -54,6 +53,14 @@ namespace VolumeControl
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
             VC_Static.VolumeStep = nVolumeStep.Value = Properties.Settings.Default.VolumeStep;
+
+            // Attempt to restore window position
+            var lastOrigin = Properties.Settings.Default.LastLocation;
+            var lastMax = new Point(lastOrigin.X + Size.Width, lastOrigin.Y + Size.Height);
+            var lastScrBounds = Screen.FromPoint(lastOrigin).Bounds;
+            if (lastScrBounds.Contains(lastOrigin) && lastScrBounds.Contains(lastMax))
+                Location = lastOrigin;
+            else Location = lastScrBounds.Location + lastScrBounds.Size / 2 - Size / 2; // fallback to middle of the last screen
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
@@ -68,13 +75,19 @@ namespace VolumeControl
             VC_Static.API.LockSelectionChanged += delegate
             {
                 cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!; //< prevent recursion
-                tbTargetSelector.Enabled = !(cbLockTarget.Checked = VC_Static.API.LockSelection);
+                bool value = VC_Static.API.LockSelection;
+                Mixer.DefaultCellStyle.SelectionBackColor = value ? Color.Red : Color.Green;
+                tbTargetSelector.Enabled = !(cbLockTarget.Checked = value);
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
             VC_Static.API.ProcessListUpdated += delegate
             {
                 RefreshProcessList();
             };
+
+            // Initialize hotkey API now that we have a form
+            VC_Static.InitializeHotkeys(this);
+            hkedit.DataSource = VC_Static.Hotkeys;
 
             ResumeLayout();
             SuspendSizeToFit();
@@ -93,7 +106,7 @@ namespace VolumeControl
             Properties.Settings.Default.SetProperty("LastAutoReloadInterval", nAutoReloadInterval.Value);
             Properties.Settings.Default.SetProperty("LastAutoReloadEnabled", cbAutoReload.Checked);
             Properties.Settings.Default.SetProperty("LastLockTargetState", cbLockTarget.Checked);
-            Properties.Settings.Default.SetProperty("LastMixerVisibleState", splitContainer.Panel2Collapsed);
+            Properties.Settings.Default.SetProperty("LastMixerVisibleState", MainSplitContainer.Panel2Collapsed);
             Properties.Settings.Default.SetProperty("RunAtStartup", cbRunAtStartup.Checked);
             Properties.Settings.Default.SetProperty("StartMinimized", cbStartMinimized.Checked);
             Properties.Settings.Default.SetProperty("ShowInTaskbar", cbShowInTaskbar.Checked);
@@ -102,11 +115,29 @@ namespace VolumeControl
             Properties.Settings.Default.SetProperty("ToastTimeoutInterval", nToastTimeoutInterval.Value);
             Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
             Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
+            Properties.Settings.Default.SetProperty("LastLocation", Location);
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
             VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
+        }
+        /// <summary>
+        /// This function fixes the designer's failure to actually apply certain settings.
+        /// </summary>
+        private void ForceCorrectLayout()
+        {
+            // Force default cursors on both split containers, in case the designer decides to change them again
+            MainSplitContainer.Cursor = Cursors.Default;
+            MixerSplitContainer.Cursor = Cursors.Default;
+
+            // force correct layout on panel2SplitContainer
+            MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
+            MixerSplitContainer.Panel2MinSize = 0;
+            MixerSplitContainer.SplitterDistance = 27; // set splitter dist
+            MixerSplitContainer.SplitterWidth = 1; // correct splitter width
+            MixerSplitContainer.Panel1MinSize = 27; // apply minimum panel sizes
+            MixerSplitContainer.Panel2MinSize = 23;
         }
         /// <summary>
         /// Called before the form closes.
@@ -144,7 +175,7 @@ namespace VolumeControl
         /// <summary>
         /// Hotkey editor subform.
         /// </summary>
-        public readonly HotkeyEditorForm hkedit = new();
+        private readonly HotkeyEditorForm hkedit = new();
         private readonly ToastForm toast = new();
         #endregion Members
 
@@ -180,9 +211,11 @@ namespace VolumeControl
             if (FormBorderStyle != FormBorderStyle.None)
                 height += 40;
 
-            if (!splitContainer.Panel2Collapsed)
+            if (!MainSplitContainer.Panel2Collapsed)
             {
-                height += Mixer.ColumnHeadersHeight + splitContainer.SplitterWidth + splitContainer.SplitterWidth + panel2SplitContainer.Panel1.Height + panel2SplitContainer.SplitterWidth;
+                if (Mixer.ColumnHeadersVisible)
+                    height += Mixer.ColumnHeadersHeight;
+                height += MainSplitContainer.SplitterWidth + MainSplitContainer.SplitterWidth + MixerSplitContainer.Panel1.Height + MixerSplitContainer.SplitterWidth;
                 int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
@@ -232,9 +265,24 @@ namespace VolumeControl
         /// </summary>
         private void Mixer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == MixerColSelectButton.Index && !LockTarget)
+            if (e.ColumnIndex == MixerColSelectButton.Index)
             {
-                tbTargetSelector.Text = VC_Static.API.ProcessList[e.RowIndex].ProcessName;
+                if (!LockTarget)
+                    tbTargetSelector.Text = VC_Static.API.ProcessList[e.RowIndex].ProcessName;
+            }
+            else if (e.ColumnIndex == MixerColVolumeUp.Index)
+            { // volume up
+                var proc = VC_Static.API.ProcessList[e.RowIndex];
+                AudioAPI.VolumeHelper.IncrementVolume(proc.PID, VC_Static.VolumeStep);
+                RefreshProcessList();
+                VC_Static.Log.WriteInfo($"Increased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
+            }
+            else if (e.ColumnIndex == MixerColVolumeDown.Index)
+            { // volume down
+                var proc = VC_Static.API.ProcessList[e.RowIndex];
+                AudioAPI.VolumeHelper.DecrementVolume(proc.PID, VC_Static.VolumeStep);
+                RefreshProcessList();
+                VC_Static.Log.WriteInfo($"Decreased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
             }
         }
         /// <summary>
@@ -261,7 +309,7 @@ namespace VolumeControl
         private void cbAutoReload_CheckedChanged(object sender, EventArgs e)
         {
             tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
-            Label_AutoReloadInterval.Enabled = tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
+            tAutoReload.Enabled = nAutoReloadInterval.Enabled = cbAutoReload.Checked;
         }
         /// <summary>
         /// Handles value change events for the 'Interval' number selector
@@ -317,7 +365,7 @@ namespace VolumeControl
         /// </summary>
         private void bToggleMixer_Click(object sender, EventArgs e)
         {
-            splitContainer.Panel2Collapsed = !splitContainer.Panel2Collapsed;
+            MainSplitContainer.Panel2Collapsed = !MainSplitContainer.Panel2Collapsed;
             SizeToFit();
         }
         /// <summary>

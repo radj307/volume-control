@@ -13,10 +13,10 @@
 		<ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
-		<AssemblyAttribute Include="VolumeControl.Core.ExtendedVersionAttribute">
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersionAttribute">
 			<_Parameter1>$(ExtendedVersion)</_Parameter1>
 		</AssemblyAttribute>
-		<AssemblyAttribute Include="VolumeControl.Core.IsPreReleaseAttribute">
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.IsPreReleaseAttribute">
 			<_Parameter1>$(IsPreRelease)</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>

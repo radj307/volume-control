@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Controls
+﻿namespace VolumeControl.Core.Controls.Enum
 {
     public enum Corner : byte
     {

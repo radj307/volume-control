@@ -1,5 +1,7 @@
 ﻿using System.Drawing.Drawing2D;
 using VolumeControl.Core.Audio;
+using VolumeControl.Core.Controls.Enum;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Controls
 {
@@ -12,6 +14,7 @@ namespace VolumeControl.Core.Controls
             DisplayCorner = (Corner)Properties.Settings.Default.DisplayCorner;
             DisplayPadding = Properties.Settings.Default.DisplayPadding;
             DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName == Properties.Settings.Default.DisplayScreen, Screen.PrimaryScreen);
+            DisplayOffset = Properties.Settings.Default.DisplayOffset;
             LockedColor = Properties.Settings.Default.LockedColor;
             UnlockedColor = Properties.Settings.Default.UnlockedColor;
 
@@ -71,6 +74,7 @@ namespace VolumeControl.Core.Controls
             Properties.Settings.Default.DisplayCorner = (byte)DisplayCorner;
             Properties.Settings.Default.DisplayPadding = DisplayPadding;
             Properties.Settings.Default.DisplayScreen = DisplayScreen.DeviceName;
+            Properties.Settings.Default.DisplayOffset = DisplayOffset;
             Properties.Settings.Default.LockedColor = LockedColor;
             Properties.Settings.Default.UnlockedColor = UnlockedColor;
             // save settings
@@ -94,6 +98,7 @@ namespace VolumeControl.Core.Controls
         public Size DisplayPadding { get; set; }
         public Screen DisplayScreen { get; set; }
         public Corner DisplayCorner { get; set; }
+        public Size DisplayOffset { get; set; }
         public Color LockedColor { get; set; }
         public Color UnlockedColor { get; set; }
         public new Font Font
@@ -101,7 +106,7 @@ namespace VolumeControl.Core.Controls
             get => listBox.Font;
             set => listBox.Font = value;
         }
-        private bool TargetIsLocked => VC_Static.API.LockSelection;
+        private static bool TargetIsLocked => VC_Static.API.LockSelection;
         #endregion Properties
 
         #region Methods
@@ -153,9 +158,10 @@ namespace VolumeControl.Core.Controls
 
             float longest = 0f;
             Graphics graphics = CreateGraphics(); //< used to get the size of a string in pixels
+            var font = new Font(listBox.Font.FontFamily, listBox.Font.Size, FontStyle.Bold);
             foreach (AudioProcess proc in listBox.Items)
             {
-                float sz = graphics.MeasureString(proc.ProcessName, listBox.Font).Width;
+                float sz = graphics.MeasureString(proc.ProcessName, font).Width;
                 if (sz > longest)
                     longest = sz;
             }
@@ -170,13 +176,11 @@ namespace VolumeControl.Core.Controls
         /// </summary>
         private void SetPosition()
         {
-            Point? pos = DisplayCorner.GetPosition(DisplayScreen.WorkingArea.Size, Size, DisplayPadding);
-            if (pos == null) // fallback to default
-            {
-                Size wsz = Screen.PrimaryScreen.WorkingArea.Size;
-                pos = new(wsz.Width - Size.Width - DisplayPadding.Width, wsz.Height - Size.Height - DisplayPadding.Height);
-            }
-            Location = pos.Value;
+            Size wsz = DisplayScreen.WorkingArea.Size;
+            Point? pos = DisplayCorner.GetPosition(wsz, Size, DisplayPadding, DisplayOffset);
+            if (pos != null)
+                Location = pos.Value;
+            else FLog.Log.WriteError($"ToastForm.SetPosition() failed to calculate a valid origin point.");
             UpdateBounds();
         }
 
@@ -217,14 +221,25 @@ namespace VolumeControl.Core.Controls
         private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            Graphics g = e.Graphics;
-            Brush b = new SolidBrush(((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                ? GetColor()
-                : e.BackColor);
-            g.FillRectangle(b, e.Bounds);
-            if (listBox.Items[e.Index] is not AudioProcess item)
-                return;
-            e.Graphics.DrawString(item.ProcessName, e.Font ?? listBox.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+            if (e.Index != -1)
+            {
+                Graphics g = e.Graphics;
+                bool isSelected = (e.State & DrawItemState.Selected) != 0;
+                g.FillRectangle(new SolidBrush(isSelected ? GetColor() : e.BackColor), e.Bounds);
+                if (listBox.Items[e.Index] is not AudioProcess item)
+                {
+                    FLog.Log.WriteError($"ToastForm.listBox_DrawItem() skipped drawing item at index '{e.Index}' because it isn't an AudioProcess!");
+                    return;
+                }
+                if (isSelected)
+                {
+                    var font = e.Font ?? listBox.Font;
+                    g.DrawString(item.ProcessName, new Font(font.FontFamily, font.Size, FontStyle.Bold), new SolidBrush(Color.Black), e.Bounds, StringFormat.GenericDefault);
+                }
+                else
+                    g.DrawString(item.ProcessName, e.Font ?? listBox.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+            }
+            else FLog.Log.WriteError("ToastForm.listBox_DrawItem() skipped drawing item because the index was '-1'!");
         }
         #endregion ControlEventHandlers
     }

@@ -61,7 +61,7 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        [global::System.Configuration.DefaultSettingValueAttribute("200, 17, 31")]
         public global::System.Drawing.Color LockedColor {
             get {
                 return ((global::System.Drawing.Color)(this["LockedColor"]));
@@ -73,7 +73,7 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LimeGreen")]
+        [global::System.Configuration.DefaultSettingValueAttribute("39, 204, 30")]
         public global::System.Drawing.Color UnlockedColor {
             get {
                 return ((global::System.Drawing.Color)(this["UnlockedColor"]));

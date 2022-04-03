@@ -7,9 +7,7 @@ namespace VolumeControl.Core.Controls
         #region Constructors
         public HotkeyEditorForm()
         {
-            _hotkeys = new();
             InitializeComponent();
-            bsHotkeyBindingList.DataSource = _hotkeys;
             bsKeysList.DataSource = new ValidKeys();
         }
         #endregion Constructors
@@ -25,19 +23,36 @@ namespace VolumeControl.Core.Controls
             e.Cancel = true;
             // hide this form instead
             Hide();
-            // save hotkeys
-            VC_Static.SaveSettings();
         }
         #endregion Finalizers
 
         #region Members
-        private readonly HotkeyBindingList _hotkeys;
         private int _dgvListItemHeight = 0;
+        private bool _allowAutoSize = false;
         #endregion Members
 
+        #region Properties
+        public object DataSource
+        {
+            get => dgv.DataSource;
+            set => dgv.DataSource = value;
+        }
+        #endregion Properties
+
         #region Methods
+        public void SuspendSizeToFit()
+            => _allowAutoSize = false;
+        public void ResumeSizeToFit(bool trigger = false)
+        {
+            _allowAutoSize = true;
+            if (trigger)
+                SizeToFit();
+        }
         private void SizeToFit()
         {
+            if (!_allowAutoSize)
+                return;
+
             if (_dgvListItemHeight == 0) // set the height of a list item
                 _dgvListItemHeight = dgv.Font.Height + 9;
 
@@ -53,9 +68,6 @@ namespace VolumeControl.Core.Controls
             Size = new(Width, sizeY);
             this.UpdateBounds();
         }
-
-        public object SetDataSource(object src)
-            => dgv.DataSource = src;
 
         public new void Hide()
         {
@@ -95,5 +107,8 @@ namespace VolumeControl.Core.Controls
         private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
             => VC_Static.Log.WriteExceptionError(e.Exception);
         #endregion ControlEventHandlers
+
+        private void HotkeyEditorForm_Load(object sender, EventArgs e)
+            => ResumeSizeToFit(true);
     }
 }
