@@ -51,7 +51,7 @@ namespace VolumeControl
             this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.cbLockTarget = new System.Windows.Forms.CheckBox();
             this.gbToastNotifications = new System.Windows.Forms.GroupBox();
-            this.nToastTimeoutInterval = new VolumeControl.Core.Controls.CenteredNumericUpDown();
+            this.nToastTimeoutInterval = new System.Windows.Forms.NumericUpDown();
             this.LabelToastTimeout = new System.Windows.Forms.Label();
             this.cbToastEnabled = new System.Windows.Forms.CheckBox();
             this.bToggleMixer = new System.Windows.Forms.Button();
@@ -87,6 +87,7 @@ namespace VolumeControl
             this.gpSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).BeginInit();
             this.gbToastNotifications.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MixerSplitContainer)).BeginInit();
             this.MixerSplitContainer.Panel1.SuspendLayout();
             this.MixerSplitContainer.Panel2.SuspendLayout();
@@ -230,21 +231,8 @@ namespace VolumeControl
             // 
             // nToastTimeoutInterval
             // 
-            this.nToastTimeoutInterval.AllowDecimalPlaces = false;
-            this.nToastTimeoutInterval.AllowSeparators = false;
-            this.nToastTimeoutInterval.BackColorSplitter = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.nToastTimeoutInterval.BackColorTextBox = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.nToastTimeoutInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.nToastTimeoutInterval.FlatBorderColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.nToastTimeoutInterval.FlatBorderColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.nToastTimeoutInterval.FlatBorderSizeDown = 1;
-            this.nToastTimeoutInterval.FlatBorderSizeUp = 1;
-            this.nToastTimeoutInterval.FlatMouseDownBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.nToastTimeoutInterval.FlatMouseDownBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.nToastTimeoutInterval.FlatMouseOverBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.nToastTimeoutInterval.FlatMouseOverBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.nToastTimeoutInterval.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nToastTimeoutInterval.ForeColor = System.Drawing.Color.Transparent;
+            this.nToastTimeoutInterval.BackColor = System.Drawing.Color.Gainsboro;
+            this.nToastTimeoutInterval.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nToastTimeoutInterval.Increment = new decimal(new int[] {
             100,
             0,
@@ -262,7 +250,6 @@ namespace VolumeControl
             0,
             0});
             this.nToastTimeoutInterval.Name = "nToastTimeoutInterval";
-            this.nToastTimeoutInterval.PlaceholderText = "";
             this.nToastTimeoutInterval.Value = new decimal(new int[] {
             3000,
             0,
@@ -636,6 +623,7 @@ namespace VolumeControl
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).EndInit();
             this.gbToastNotifications.ResumeLayout(false);
             this.gbToastNotifications.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).EndInit();
             this.MixerSplitContainer.Panel1.ResumeLayout(false);
             this.MixerSplitContainer.Panel1.PerformLayout();
             this.MixerSplitContainer.Panel2.ResumeLayout(false);
@@ -689,6 +677,6 @@ namespace VolumeControl
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
         private Splitter splitter2;
-        private CenteredNumericUpDown nToastTimeoutInterval;
+        private NumericUpDown nToastTimeoutInterval;
     }
 }
