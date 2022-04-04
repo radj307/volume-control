@@ -75,6 +75,36 @@
   <data name="MainSplitContainer.Panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Verdana, 11.25pt, style=Bold</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 15</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 18</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Volume Control</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>MainSplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 133</value>
   </data>
@@ -94,7 +124,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Label_VolumeStep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -274,7 +304,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gpSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +331,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="gbToastNotifications.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -403,7 +433,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gbToastNotifications.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="bToggleMixer.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
@@ -433,19 +463,19 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bToggleMixer.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Label_Version.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label_Version.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Bold</value>
+    <value>Segoe UI, 9pt</value>
   </data>
   <data name="Label_Version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 19</value>
+    <value>89, 33</value>
   </data>
   <data name="Label_Version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 15</value>
+    <value>53, 15</value>
   </data>
   <data name="Label_Version.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -466,7 +496,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;Label_Version.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
@@ -475,7 +505,7 @@
     <value>NoControl</value>
   </data>
   <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 59</value>
+    <value>63, 51</value>
   </data>
   <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -496,7 +526,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
     <value>MainSplitContainer.Panel1</value>
@@ -712,7 +742,7 @@
     <value>Process ID</value>
   </data>
   <data name="MixerColPID.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>48</value>
   </data>
   <data name="MixerColProcessName.HeaderText" xml:space="preserve">
     <value>Process Name</value>
@@ -763,7 +793,7 @@
     <value>Application Mute</value>
   </data>
   <data name="MixerColMuted.Width" type="System.Int32, mscorlib">
-    <value>48</value>
+    <value>46</value>
   </data>
   <metadata name="MixerColSelectButton.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
