@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
     <Version>4.0.0</Version>
-    <ExtendedVersion>4.0.0-rc3</ExtendedVersion>
+    <ExtendedVersion>4.0.0-rc4</ExtendedVersion>
     <ReleaseType>CANDIDATE</ReleaseType>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
   </PropertyGroup>
