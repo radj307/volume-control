@@ -9,7 +9,7 @@
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="EnableLog" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,19 +1,19 @@
-using Microsoft.VisualBasic.Devices;
-using System.Reflection;
-using System.Windows.Forms;
-using VolumeControl.Core;
-using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Controls;
+using System.Reflection;
+using VolumeControl.Core;
 using VolumeControl.Core.Events;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
+using VolumeControl.Core.Attributes;
 
 namespace VolumeControl
 {
+
     public partial class Form : System.Windows.Forms.Form
     {
         public Form()
         {
             SuspendLayout();
-            SuspendSizeToFit();
 
             // initialize hkedit subform (cannot bind data source yet -- VC_Static.InitializeHotkeys() hasn't been called yet. See 'Program.cs')
             hkedit.Hide();
@@ -28,12 +28,16 @@ namespace VolumeControl
 
             _width = Size.Width;
 
+            Mixer.RowsAdded -= Mixer_RowsAdded;
             bsAudioProcessAPI.DataSource = VC_Static.API;
+            Mixer.RowsAdded += Mixer_RowsAdded;
 
             // get the current version number
             Assembly assembly = Assembly.GetExecutingAssembly();
-            var extver = assembly.GetCustomAttribute<ExtendedVersion>()?.Version;
-            SetVersion($"{extver}");
+            var extver = assembly.GetCustomAttribute<ExtendedVersionAttribute>()?.ExtendedVersion;
+            if (extver != null)
+                SetVersion($"v{extver}");
+            else SetVersion("[????]");
 
             // Initialize local form settings
             tbTargetSelector.Text = Properties.Settings.Default.LastSelectedTarget;
@@ -86,6 +90,7 @@ namespace VolumeControl
             hkedit.DataSource = VC_Static.Hotkeys;
 
             ResumeLayout();
+            SuspendSizeToFit();
 
             VC_Static.Log.WriteInfo("Form initialization completed.");
         }
@@ -123,14 +128,15 @@ namespace VolumeControl
         private void ForceCorrectLayout()
         {
             // Force default cursors on both split containers, in case the designer decides to change them again
-            MainSplitContainer.Cursor = MixerSplitContainer.Cursor = splitter1.Cursor = splitter2.Cursor = Cursors.Default;
+            MainSplitContainer.Cursor = Cursors.Default;
+            MixerSplitContainer.Cursor = Cursors.Default;
 
             // force correct layout on panel2SplitContainer
             MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
             MixerSplitContainer.Panel2MinSize = 0;
-            MixerSplitContainer.SplitterDistance = 31; // set splitter dist
+            MixerSplitContainer.SplitterDistance = 27; // set splitter dist
             MixerSplitContainer.SplitterWidth = 1; // correct splitter width
-            MixerSplitContainer.Panel1MinSize = 31; // apply minimum panel sizes
+            MixerSplitContainer.Panel1MinSize = 27; // apply minimum panel sizes
             MixerSplitContainer.Panel2MinSize = 23;
         }
         /// <summary>
@@ -203,16 +209,18 @@ namespace VolumeControl
             int height = _panel1Height;
 
             if (FormBorderStyle != FormBorderStyle.None)
-                height += 40; // add the amount of space taken up by the controlbox
+                height += 40;
 
             if (!MainSplitContainer.Panel2Collapsed)
             {
                 if (Mixer.ColumnHeadersVisible)
                     height += Mixer.ColumnHeadersHeight;
-                // Add additional static sizes to the height
-                height += MainSplitContainer.SplitterWidth + MixerSplitContainer.SplitterDistance + MixerSplitContainer.SplitterWidth;
-                // Calculate the number of mixer rows that can fit within 3/4 of the screen's remaining working area, then add the number of pixels that would take to the height.
-                height += _mixerListItemHeight * (Mixer.Rows.Count % ((Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - height) / _mixerListItemHeight));
+                height += MainSplitContainer.SplitterWidth + MainSplitContainer.SplitterWidth + MixerSplitContainer.Panel1.Height + MixerSplitContainer.SplitterWidth;
+                int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
+                int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
+
+                int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
+                height += totalCellHeight;
             }
 
             // set the size of the form
@@ -357,9 +365,8 @@ namespace VolumeControl
         /// </summary>
         private void bToggleMixer_Click(object sender, EventArgs e)
         {
-            SuspendSizeToFit();
             MainSplitContainer.Panel2Collapsed = !MainSplitContainer.Panel2Collapsed;
-            ResumeSizeToFit(true);
+            SizeToFit();
         }
         /// <summary>
         /// Handles double-click events for the tray icon.
@@ -407,31 +414,6 @@ namespace VolumeControl
         /// </summary>
         private void Form_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
-        private void cbPaint(object sender, PaintEventArgs e)
-        {
-            if (sender is not CheckBox cb) return;
-
-            Graphics g = e.Graphics;
-            var rect = e.ClipRectangle;
-
-            CheckBoxRenderer.DrawParentBackground(g, rect, cb);
-
-            int boxSize = 13;
-
-            var box = new Rectangle(rect.Location.X, rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize - 1, boxSize - 1);
-            int textStart = box.X + box.Width + 4;
-
-            SolidBrush border = new(Color.FromArgb(45, 45, 45));
-
-            g.DrawRectangle(new Pen(border, 1f), box);
-
-            if (cb.Checked)
-            {
-                g.FillRectangle(new SolidBrush(Color.FromArgb(200, 200, 200)), new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
-            }
-
-            g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
-        }
         #endregion ControlEventHandlers
     }
 }

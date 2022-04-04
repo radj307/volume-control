@@ -72,8 +72,8 @@ namespace VolumeControl.Log
         }
         public void Reset()
         {
-            if (_filepath != null && Enabled && File.Exists(_filepath))
-                File.Open(_filepath, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
+            if (Enabled)
+                File.Open(_filepath!, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
         }
         #endregion Methods
     }

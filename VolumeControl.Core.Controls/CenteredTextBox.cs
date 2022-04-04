@@ -78,11 +78,6 @@ namespace VolumeControl.Core.Controls
         /// Gets or sets the amount of empty space between the text and the left/right edges of the control.
         /// </summary>
         public int EdgePadding { get; set; }
-        /// <summary>
-        /// Direct access to the underlying text box.
-        /// This shouldn't be used directly unless absolutely necessary.
-        /// </summary>
-        public ref TextBox TextBox { get => ref tb; }
         #endregion Properties
 
         #region Methods
