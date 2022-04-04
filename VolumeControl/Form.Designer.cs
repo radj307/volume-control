@@ -41,7 +41,6 @@ namespace VolumeControl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.tbTargetSelector = new VolumeControl.Core.Controls.CenteredTextBox();
             this.gpSettings = new System.Windows.Forms.GroupBox();
             this.Label_VolumeStep = new System.Windows.Forms.Label();
@@ -52,14 +51,15 @@ namespace VolumeControl
             this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.cbLockTarget = new System.Windows.Forms.CheckBox();
             this.gbToastNotifications = new System.Windows.Forms.GroupBox();
+            this.nToastTimeoutInterval = new System.Windows.Forms.NumericUpDown();
             this.LabelToastTimeout = new System.Windows.Forms.Label();
             this.cbToastEnabled = new System.Windows.Forms.CheckBox();
-            this.nToastTimeoutInterval = new System.Windows.Forms.NumericUpDown();
             this.bToggleMixer = new System.Windows.Forms.Button();
             this.Label_Version = new System.Windows.Forms.Label();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.MixerSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.panel2SplitContainerPanel1Splitter = new System.Windows.Forms.Splitter();
+            this.splitter2 = new System.Windows.Forms.Splitter();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.cbReloadOnHotkey = new System.Windows.Forms.CheckBox();
             this.nAutoReloadInterval = new System.Windows.Forms.NumericUpDown();
             this.bReload = new System.Windows.Forms.Button();
@@ -108,8 +108,8 @@ namespace VolumeControl
             // 
             // MainSplitContainer.Panel1
             // 
+            this.MainSplitContainer.Panel1.BackgroundImage = global::VolumeControl.Properties.Resources.background_img1;
             resources.ApplyResources(this.MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
-            this.MainSplitContainer.Panel1.Controls.Add(this.label1);
             this.MainSplitContainer.Panel1.Controls.Add(this.tbTargetSelector);
             this.MainSplitContainer.Panel1.Controls.Add(this.gpSettings);
             this.MainSplitContainer.Panel1.Controls.Add(this.cbLockTarget);
@@ -118,7 +118,6 @@ namespace VolumeControl
             this.MainSplitContainer.Panel1.Controls.Add(this.Label_Version);
             this.MainSplitContainer.Panel1.Controls.Add(this.bHotkeyEditor);
             this.MainSplitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.MainSplitContainer.Panel1.ForeColor = System.Drawing.Color.Transparent;
             // 
             // MainSplitContainer.Panel2
             // 
@@ -127,18 +126,12 @@ namespace VolumeControl
             this.MainSplitContainer.Panel2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.MainSplitContainer.TabStop = false;
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Name = "label1";
-            // 
             // tbTargetSelector
             // 
-            this.tbTargetSelector.BackColor = System.Drawing.SystemColors.Window;
+            this.tbTargetSelector.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
             this.tbTargetSelector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbTargetSelector.EdgePadding = 3;
-            this.tbTargetSelector.ForeColor = System.Drawing.Color.Black;
+            this.tbTargetSelector.ForeColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
             this.tbTargetSelector.Name = "tbTargetSelector";
             this.tbTargetSelector.PlaceholderText = "Target Process Name";
@@ -153,7 +146,7 @@ namespace VolumeControl
             this.gpSettings.Controls.Add(this.cbStartMinimized);
             this.gpSettings.Controls.Add(this.cbShowInTaskbar);
             this.gpSettings.Controls.Add(this.cbAlwaysOnTop);
-            this.gpSettings.ForeColor = System.Drawing.Color.Black;
+            this.gpSettings.ForeColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.gpSettings, "gpSettings");
             this.gpSettings.Name = "gpSettings";
             this.gpSettings.TabStop = false;
@@ -165,7 +158,7 @@ namespace VolumeControl
             // 
             // nVolumeStep
             // 
-            this.nVolumeStep.BackColor = System.Drawing.SystemColors.Window;
+            this.nVolumeStep.BackColor = System.Drawing.Color.Gainsboro;
             resources.ApplyResources(this.nVolumeStep, "nVolumeStep");
             this.nVolumeStep.Minimum = new decimal(new int[] {
             1,
@@ -186,12 +179,14 @@ namespace VolumeControl
             this.cbRunAtStartup.Name = "cbRunAtStartup";
             this.cbRunAtStartup.UseVisualStyleBackColor = true;
             this.cbRunAtStartup.CheckedChanged += new System.EventHandler(this.cbRunAtStartup_CheckedChanged);
+            this.cbRunAtStartup.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbStartMinimized
             // 
             resources.ApplyResources(this.cbStartMinimized, "cbStartMinimized");
             this.cbStartMinimized.Name = "cbStartMinimized";
             this.cbStartMinimized.UseVisualStyleBackColor = true;
+            this.cbStartMinimized.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbShowInTaskbar
             // 
@@ -201,54 +196,43 @@ namespace VolumeControl
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
             this.cbShowInTaskbar.UseVisualStyleBackColor = true;
             this.cbShowInTaskbar.CheckedChanged += new System.EventHandler(this.cbShowInTaskbar_CheckedChanged);
+            this.cbShowInTaskbar.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbAlwaysOnTop
             // 
             resources.ApplyResources(this.cbAlwaysOnTop, "cbAlwaysOnTop");
+            this.cbAlwaysOnTop.FlatAppearance.BorderSize = 0;
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
-            this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.cbAlwaysOnTop.UseVisualStyleBackColor = false;
             this.cbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.cbAlwaysOnTop_CheckedChanged);
+            this.cbAlwaysOnTop.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbLockTarget
             // 
             resources.ApplyResources(this.cbLockTarget, "cbLockTarget");
-            this.cbLockTarget.ForeColor = System.Drawing.Color.Black;
+            this.cbLockTarget.FlatAppearance.BorderSize = 0;
+            this.cbLockTarget.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cbLockTarget.Name = "cbLockTarget";
-            this.cbLockTarget.UseVisualStyleBackColor = true;
+            this.cbLockTarget.UseVisualStyleBackColor = false;
             this.cbLockTarget.CheckedChanged += new System.EventHandler(this.cbLockTarget_CheckedChanged);
+            this.cbLockTarget.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // gbToastNotifications
             // 
             this.gbToastNotifications.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.gbToastNotifications, "gbToastNotifications");
+            this.gbToastNotifications.Controls.Add(this.nToastTimeoutInterval);
             this.gbToastNotifications.Controls.Add(this.LabelToastTimeout);
             this.gbToastNotifications.Controls.Add(this.cbToastEnabled);
-            this.gbToastNotifications.Controls.Add(this.nToastTimeoutInterval);
             this.gbToastNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gbToastNotifications.ForeColor = System.Drawing.Color.Black;
+            this.gbToastNotifications.ForeColor = System.Drawing.Color.Gainsboro;
             this.gbToastNotifications.Name = "gbToastNotifications";
             this.gbToastNotifications.TabStop = false;
             // 
-            // LabelToastTimeout
-            // 
-            resources.ApplyResources(this.LabelToastTimeout, "LabelToastTimeout");
-            this.LabelToastTimeout.ForeColor = System.Drawing.Color.Black;
-            this.LabelToastTimeout.Name = "LabelToastTimeout";
-            // 
-            // cbToastEnabled
-            // 
-            resources.ApplyResources(this.cbToastEnabled, "cbToastEnabled");
-            this.cbToastEnabled.Checked = true;
-            this.cbToastEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbToastEnabled.ForeColor = System.Drawing.Color.Black;
-            this.cbToastEnabled.Name = "cbToastEnabled";
-            this.cbToastEnabled.UseVisualStyleBackColor = true;
-            this.cbToastEnabled.CheckedChanged += new System.EventHandler(this.cbToastEnabled_CheckedChanged);
-            // 
             // nToastTimeoutInterval
             // 
-            this.nToastTimeoutInterval.BackColor = System.Drawing.SystemColors.Window;
-            this.nToastTimeoutInterval.ForeColor = System.Drawing.Color.Black;
+            this.nToastTimeoutInterval.BackColor = System.Drawing.Color.Gainsboro;
+            this.nToastTimeoutInterval.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nToastTimeoutInterval.Increment = new decimal(new int[] {
             100,
             0,
@@ -256,12 +240,12 @@ namespace VolumeControl
             0});
             resources.ApplyResources(this.nToastTimeoutInterval, "nToastTimeoutInterval");
             this.nToastTimeoutInterval.Maximum = new decimal(new int[] {
-            10000,
+            60000,
             0,
             0,
             0});
             this.nToastTimeoutInterval.Minimum = new decimal(new int[] {
-            500,
+            100,
             0,
             0,
             0});
@@ -273,26 +257,52 @@ namespace VolumeControl
             0});
             this.nToastTimeoutInterval.ValueChanged += new System.EventHandler(this.nToastTimeoutInterval_ValueChanged);
             // 
+            // LabelToastTimeout
+            // 
+            resources.ApplyResources(this.LabelToastTimeout, "LabelToastTimeout");
+            this.LabelToastTimeout.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.LabelToastTimeout.Name = "LabelToastTimeout";
+            // 
+            // cbToastEnabled
+            // 
+            resources.ApplyResources(this.cbToastEnabled, "cbToastEnabled");
+            this.cbToastEnabled.Checked = true;
+            this.cbToastEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbToastEnabled.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.cbToastEnabled.Name = "cbToastEnabled";
+            this.cbToastEnabled.UseVisualStyleBackColor = true;
+            this.cbToastEnabled.CheckedChanged += new System.EventHandler(this.cbToastEnabled_CheckedChanged);
+            this.cbToastEnabled.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
+            // 
             // bToggleMixer
             // 
+            this.bToggleMixer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bToggleMixer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bToggleMixer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bToggleMixer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bToggleMixer, "bToggleMixer");
+            this.bToggleMixer.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.bToggleMixer.Name = "bToggleMixer";
-            this.bToggleMixer.UseVisualStyleBackColor = true;
+            this.bToggleMixer.UseVisualStyleBackColor = false;
             this.bToggleMixer.Click += new System.EventHandler(this.bToggleMixer_Click);
             // 
             // Label_Version
             // 
             resources.ApplyResources(this.Label_Version, "Label_Version");
             this.Label_Version.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.Label_Version.ForeColor = System.Drawing.Color.Black;
+            this.Label_Version.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.Label_Version.Name = "Label_Version";
             // 
             // bHotkeyEditor
             // 
-            this.bHotkeyEditor.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bHotkeyEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bHotkeyEditor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bHotkeyEditor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bHotkeyEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bHotkeyEditor, "bHotkeyEditor");
+            this.bHotkeyEditor.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.bHotkeyEditor.Name = "bHotkeyEditor";
-            this.bHotkeyEditor.UseVisualStyleBackColor = true;
+            this.bHotkeyEditor.UseVisualStyleBackColor = false;
             this.bHotkeyEditor.Click += new System.EventHandler(this.bHotkeyEditor_Click);
             // 
             // MixerSplitContainer
@@ -305,7 +315,8 @@ namespace VolumeControl
             // MixerSplitContainer.Panel1
             // 
             this.MixerSplitContainer.Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.MixerSplitContainer.Panel1.Controls.Add(this.panel2SplitContainerPanel1Splitter);
+            this.MixerSplitContainer.Panel1.Controls.Add(this.splitter2);
+            this.MixerSplitContainer.Panel1.Controls.Add(this.splitter1);
             this.MixerSplitContainer.Panel1.Controls.Add(this.cbReloadOnHotkey);
             this.MixerSplitContainer.Panel1.Controls.Add(this.nAutoReloadInterval);
             this.MixerSplitContainer.Panel1.Controls.Add(this.bReload);
@@ -319,27 +330,35 @@ namespace VolumeControl
             this.MixerSplitContainer.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.MixerSplitContainer.TabStop = false;
             // 
-            // panel2SplitContainerPanel1Splitter
+            // splitter2
             // 
-            this.panel2SplitContainerPanel1Splitter.BackColor = System.Drawing.Color.DimGray;
-            this.panel2SplitContainerPanel1Splitter.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.panel2SplitContainerPanel1Splitter, "panel2SplitContainerPanel1Splitter");
-            this.panel2SplitContainerPanel1Splitter.Name = "panel2SplitContainerPanel1Splitter";
-            this.panel2SplitContainerPanel1Splitter.TabStop = false;
+            this.splitter2.BackColor = System.Drawing.Color.DarkGray;
+            this.splitter2.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.splitter2, "splitter2");
+            this.splitter2.Name = "splitter2";
+            this.splitter2.TabStop = false;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.Color.DarkGray;
+            this.splitter1.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.splitter1, "splitter1");
+            this.splitter1.Name = "splitter1";
+            this.splitter1.TabStop = false;
             // 
             // cbReloadOnHotkey
             // 
             resources.ApplyResources(this.cbReloadOnHotkey, "cbReloadOnHotkey");
             this.cbReloadOnHotkey.Checked = true;
             this.cbReloadOnHotkey.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbReloadOnHotkey.ForeColor = System.Drawing.Color.Black;
             this.cbReloadOnHotkey.Name = "cbReloadOnHotkey";
             this.cbReloadOnHotkey.UseVisualStyleBackColor = true;
             this.cbReloadOnHotkey.CheckedChanged += new System.EventHandler(this.cbReloadOnHotkey_CheckedChanged);
+            this.cbReloadOnHotkey.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // nAutoReloadInterval
             // 
-            this.nAutoReloadInterval.BackColor = System.Drawing.SystemColors.Window;
+            this.nAutoReloadInterval.BackColor = System.Drawing.Color.Gainsboro;
             this.nAutoReloadInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.nAutoReloadInterval, "nAutoReloadInterval");
             this.nAutoReloadInterval.Increment = new decimal(new int[] {
@@ -367,24 +386,27 @@ namespace VolumeControl
             // 
             // bReload
             // 
+            this.bReload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bReload.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bReload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bReload.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bReload, "bReload");
             this.bReload.Name = "bReload";
-            this.bReload.UseVisualStyleBackColor = true;
+            this.bReload.UseVisualStyleBackColor = false;
             this.bReload.Click += new System.EventHandler(this.bReload_Click);
             // 
             // Label_AutoReloadInterval
             // 
             resources.ApplyResources(this.Label_AutoReloadInterval, "Label_AutoReloadInterval");
-            this.Label_AutoReloadInterval.ForeColor = System.Drawing.Color.Black;
             this.Label_AutoReloadInterval.Name = "Label_AutoReloadInterval";
             // 
             // cbAutoReload
             // 
             resources.ApplyResources(this.cbAutoReload, "cbAutoReload");
-            this.cbAutoReload.ForeColor = System.Drawing.Color.Black;
             this.cbAutoReload.Name = "cbAutoReload";
             this.cbAutoReload.UseVisualStyleBackColor = true;
             this.cbAutoReload.CheckedChanged += new System.EventHandler(this.cbAutoReload_CheckedChanged);
+            this.cbAutoReload.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // Mixer
             // 
@@ -392,23 +414,23 @@ namespace VolumeControl
             this.Mixer.AllowUserToDeleteRows = false;
             this.Mixer.AllowUserToOrderColumns = true;
             this.Mixer.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.Mixer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.Mixer.AutoGenerateColumns = false;
-            this.Mixer.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.Mixer.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.Mixer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Mixer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.Mixer.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.Mixer.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Mixer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.Mixer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -423,11 +445,11 @@ namespace VolumeControl
             this.Mixer.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Mixer.DataSource = this.bsAudioProcessAPI;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Mixer.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.Mixer, "Mixer");
@@ -448,10 +470,10 @@ namespace VolumeControl
             this.Mixer.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.Mixer.RowHeadersVisible = false;
             this.Mixer.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.Mixer.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.Mixer.RowTemplate.Height = 25;
@@ -581,10 +603,10 @@ namespace VolumeControl
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Controls.Add(this.MainSplitContainer);
             this.DoubleBuffered = true;
-            this.ForeColor = System.Drawing.Color.Transparent;
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
@@ -638,7 +660,6 @@ namespace VolumeControl
         private CheckBox cbAlwaysOnTop;
         private Button bToggleMixer;
         private CheckBox cbToastEnabled;
-        private NumericUpDown nToastTimeoutInterval;
         private GroupBox gbToastNotifications;
         private Label LabelToastTimeout;
         private SplitContainer MixerSplitContainer;
@@ -646,7 +667,7 @@ namespace VolumeControl
         private CheckBox cbReloadOnHotkey;
         private NumericUpDown nVolumeStep;
         private Label Label_VolumeStep;
-        private Splitter panel2SplitContainerPanel1Splitter;
+        private Splitter splitter1;
         private Core.Controls.CenteredTextBox tbTargetSelector;
         private DataGridViewTextBoxColumn MixerColPID;
         private DataGridViewTextBoxColumn MixerColProcessName;
@@ -655,6 +676,7 @@ namespace VolumeControl
         private DataGridViewButtonColumn MixerColVolumeUp;
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
-        private Label label1;
+        private Splitter splitter2;
+        private NumericUpDown nToastTimeoutInterval;
     }
 }
