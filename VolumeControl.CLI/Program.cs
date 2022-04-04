@@ -142,7 +142,7 @@ namespace VolumeControl.CLI
                 else if (argv.Any(a => a.Equals("--version")))
                 {
                     var assembly = Assembly.GetExecutingAssembly();
-                    string? strver = assembly.GetCustomAttribute<ExtendedVersionAttribute>()?.ExtendedVersion;
+                    string? strver = assembly.GetCustomAttribute<ExtendedVersion>()?.Version;
                     Console.WriteLine(strver);
                     return;
                 }

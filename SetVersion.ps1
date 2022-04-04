@@ -4,9 +4,6 @@ $SCRIPTVERSION = "1" # The version number of this script file
 
 Write-Host "Running SetVersion.ps1 $SCRIPTVERSION" # LOG
 
-# .csproj locations
-$global:VC = "$(Get-Location)\VolumeControl\VolumeControl.csproj"
-
 if ( $args[1] )
 {
     "Using Argument `"$args[1]`""
@@ -20,47 +17,33 @@ else
 
 "Latest Git Tag:           `"$global:GIT_TAG_RAW`""
 
-# Extended Version String
-$global:EXTVER = $global:GIT_TAG_RAW
-"Extended Version:         `"$global:EXTVER`""
-
 $global:GIT_TAG_RAW -cmatch '(?<MAJOR>\d+?)\.(?<MINOR>\d+?)\.(?<PATCH>\d+?)(?<EXTRA>.*)'
 
 $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 
-"Major Version Number:     `"" + $Matches.MAJOR + "`""
-"Minor Version Number:     `"" + $Matches.MINOR + "`""
-"Patch Version Number:     `"" + $Matches.PATCH + "`""
-"Version Number Extras:    `"" + $Matches.EXTRA + "`""
-
 $EXTRA = $Matches.EXTRA
 if ($EXTRA)
 {
-    if ($EXTRA -like "*-pre*")
+    if ($EXTRA -like "*pre*")
     {
-        $global:PRERELEASE = true
-        
-        "Tag indicates that this is a pre-release version."
+        "Is a prerelease."
+        $global:TYPE = 'PRERELEASE'
     }
-    
-    $EXTRA -cmatch '(?<DIGITS>\d+)'
-    $EXTRA = $Matches.DIGITS
-    
-    if ($EXTRA)
+    elseif ($EXTRA -like "*rc*")
     {
-        $global:TAG = $global:TAG + '.' + $EXTRA
-        "Tag contained a suffix with numerical components -- Appending to the version number."
-        "Tag is now:               `"" + $global:TAG + "`""
+        "Is a release candidate."
+        $global:TYPE = 'CANDIDATE'
     }
-    else # Tag has a suffix, but it doesn't contain numbers.
+    else
     {
-        "Unknown tag suffix format was ignored, tag wasn't modified."
+        "Is a revision of a release."
+        $global:TYPE = 'REVISION'
     }
 }
-
-"Working Directory:        `"$(Get-Location)`""
-"Tag Version Number:       `"$TAG`""
-"VolumeControl.csproj:     `"$VC`""
+else {
+    "Is a normal release."
+    $global:TYPE = 'NORMAL'
+}
 
 # @brief            Set the version number in the specified csproj file.
 # @param file       Target File Path.
@@ -69,36 +52,32 @@ function SetVersion
 {
     param($file)
 
+    "Reading Project File '$file'..."
+
     [xml]$CONTENT = Get-Content -Path $file
 
     $oldversion = $CONTENT.Project.PropertyGroup.Version
-    $isPreRelease = $CONTENT.Project.PropertyGroup.IsPreRelease
-    
-    "Project File Location:  `"$file`""
-    "Current file version:   `"$oldversion`""
-    "Incoming file version:  `"$global:TAG`""
+    $oldextversion = $CONTENT.Project.PropertyGroup.ExtendedVersion
+    $oldtype = $CONTENT.Project.PropertyGroup.ReleaseType
 
-    if ($oldversion -ne $global:TAG -or $isPreRelease -ne $global:PRERELEASE)
+    if ($oldversion -eq $global:TAG -and $oldextversion -eq $global:GIT_TAG_RAW -and $oldtype -eq $global:TYPE)
     {
-        if ($global:PRERELEASE)
-        {
-            $CONTENT.Project.PropertyGroup.IsPreRelease = 'true'
-        }
-        else
-        {   
-            $CONTENT.Project.PropertyGroup.IsPreRelease = 'false'
-        }
-        
-        $CONTENT.Project.PropertyGroup.Version = $global:TAG
-        $CONTENT.Project.PropertyGroup.ExtendedVersion = "$global:EXTVER"
-        $CONTENT.Save("$file")
+        "  No changes, skipping."
+        return
     }
-    else
-    {
-        "Version Numbers Match. Nothing happened."
-    }
+    
+    "  Outgoing file version:  '$oldversion'`t|   '$oldextversion'"
+    "  Incoming file version:  '$global:TAG'`t|   '$global:GIT_TAG_RAW'"
+
+    $CONTENT.Project.PropertyGroup.Version = "$global:TAG"
+    $CONTENT.Project.PropertyGroup.ExtendedVersion = "$global:GIT_TAG_RAW"
+    $CONTENT.Project.PropertyGroup.ReleaseType = "$global:TYPE"
+    $CONTENT.Save("$file")
 }
 
-SetVersion($global:VC)
+$LOCATION = "$(Get-Location)"
+
+SetVersion("$LOCATION\VolumeControl\VolumeControl.csproj")
+SetVersion("$LOCATION\VolumeControl.CLI\VolumeControl.CLI.csproj")
 
 "SetVersion.ps1 Finished."

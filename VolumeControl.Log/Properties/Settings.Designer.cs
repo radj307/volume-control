@@ -49,7 +49,7 @@ namespace VolumeControl.Log.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableLog {
             get {
                 return ((bool)(this["EnableLog"]));

@@ -1,17 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>True</UseWindowsForms>
-		<Version>4.0.0.2</Version>
-		<IsPreRelease>true</IsPreRelease>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>True</UseWindowsForms>
+    <Version>4.0.0</Version>
+    <ReleaseType>CANDIDATE</ReleaseType>
+    <ExtendedVersion>4.0.0-rc3</ExtendedVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
+      <_Parameter1>$(ExtendedVersion)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="VolumeControl.Core.Attributes.ReleaseType">
+      <_Parameter1>$(ReleaseType)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+  </ItemGroup>
 </Project>

@@ -51,14 +51,15 @@ namespace VolumeControl
             this.cbAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.cbLockTarget = new System.Windows.Forms.CheckBox();
             this.gbToastNotifications = new System.Windows.Forms.GroupBox();
+            this.nToastTimeoutInterval = new VolumeControl.Core.Controls.CenteredNumericUpDown();
             this.LabelToastTimeout = new System.Windows.Forms.Label();
             this.cbToastEnabled = new System.Windows.Forms.CheckBox();
-            this.nToastTimeoutInterval = new System.Windows.Forms.NumericUpDown();
             this.bToggleMixer = new System.Windows.Forms.Button();
             this.Label_Version = new System.Windows.Forms.Label();
             this.bHotkeyEditor = new System.Windows.Forms.Button();
             this.MixerSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.panel2SplitContainerPanel1Splitter = new System.Windows.Forms.Splitter();
+            this.splitter2 = new System.Windows.Forms.Splitter();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.cbReloadOnHotkey = new System.Windows.Forms.CheckBox();
             this.nAutoReloadInterval = new System.Windows.Forms.NumericUpDown();
             this.bReload = new System.Windows.Forms.Button();
@@ -79,6 +80,7 @@ namespace VolumeControl
             this.TrayContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.TrayContextMenuBringToFront = new System.Windows.Forms.ToolStripMenuItem();
             this.tAutoReload = new System.Windows.Forms.Timer(this.components);
+            this.centeredNumericUpDown1 = new VolumeControl.Core.Controls.CenteredNumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
             this.MainSplitContainer.Panel2.SuspendLayout();
@@ -86,7 +88,6 @@ namespace VolumeControl
             this.gpSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).BeginInit();
             this.gbToastNotifications.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MixerSplitContainer)).BeginInit();
             this.MixerSplitContainer.Panel1.SuspendLayout();
             this.MixerSplitContainer.Panel2.SuspendLayout();
@@ -109,6 +110,7 @@ namespace VolumeControl
             // 
             this.MainSplitContainer.Panel1.BackgroundImage = global::VolumeControl.Properties.Resources.background_img1;
             resources.ApplyResources(this.MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
+            this.MainSplitContainer.Panel1.Controls.Add(this.centeredNumericUpDown1);
             this.MainSplitContainer.Panel1.Controls.Add(this.tbTargetSelector);
             this.MainSplitContainer.Panel1.Controls.Add(this.gpSettings);
             this.MainSplitContainer.Panel1.Controls.Add(this.cbLockTarget);
@@ -127,10 +129,10 @@ namespace VolumeControl
             // 
             // tbTargetSelector
             // 
-            this.tbTargetSelector.BackColor = System.Drawing.Color.Gainsboro;
+            this.tbTargetSelector.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
             this.tbTargetSelector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbTargetSelector.EdgePadding = 3;
-            this.tbTargetSelector.ForeColor = System.Drawing.Color.Black;
+            this.tbTargetSelector.ForeColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
             this.tbTargetSelector.Name = "tbTargetSelector";
             this.tbTargetSelector.PlaceholderText = "Target Process Name";
@@ -178,12 +180,14 @@ namespace VolumeControl
             this.cbRunAtStartup.Name = "cbRunAtStartup";
             this.cbRunAtStartup.UseVisualStyleBackColor = true;
             this.cbRunAtStartup.CheckedChanged += new System.EventHandler(this.cbRunAtStartup_CheckedChanged);
+            this.cbRunAtStartup.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbStartMinimized
             // 
             resources.ApplyResources(this.cbStartMinimized, "cbStartMinimized");
             this.cbStartMinimized.Name = "cbStartMinimized";
             this.cbStartMinimized.UseVisualStyleBackColor = true;
+            this.cbStartMinimized.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbShowInTaskbar
             // 
@@ -193,33 +197,80 @@ namespace VolumeControl
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
             this.cbShowInTaskbar.UseVisualStyleBackColor = true;
             this.cbShowInTaskbar.CheckedChanged += new System.EventHandler(this.cbShowInTaskbar_CheckedChanged);
+            this.cbShowInTaskbar.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbAlwaysOnTop
             // 
             resources.ApplyResources(this.cbAlwaysOnTop, "cbAlwaysOnTop");
+            this.cbAlwaysOnTop.FlatAppearance.BorderSize = 0;
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
-            this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.cbAlwaysOnTop.UseVisualStyleBackColor = false;
             this.cbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.cbAlwaysOnTop_CheckedChanged);
+            this.cbAlwaysOnTop.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // cbLockTarget
             // 
             resources.ApplyResources(this.cbLockTarget, "cbLockTarget");
-            this.cbLockTarget.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.cbLockTarget.FlatAppearance.BorderSize = 0;
+            this.cbLockTarget.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cbLockTarget.Name = "cbLockTarget";
-            this.cbLockTarget.UseVisualStyleBackColor = true;
+            this.cbLockTarget.UseVisualStyleBackColor = false;
             this.cbLockTarget.CheckedChanged += new System.EventHandler(this.cbLockTarget_CheckedChanged);
+            this.cbLockTarget.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // gbToastNotifications
             // 
             this.gbToastNotifications.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.gbToastNotifications, "gbToastNotifications");
+            this.gbToastNotifications.Controls.Add(this.nToastTimeoutInterval);
             this.gbToastNotifications.Controls.Add(this.LabelToastTimeout);
             this.gbToastNotifications.Controls.Add(this.cbToastEnabled);
-            this.gbToastNotifications.Controls.Add(this.nToastTimeoutInterval);
             this.gbToastNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbToastNotifications.ForeColor = System.Drawing.Color.Gainsboro;
             this.gbToastNotifications.Name = "gbToastNotifications";
             this.gbToastNotifications.TabStop = false;
+            // 
+            // nToastTimeoutInterval
+            // 
+            this.nToastTimeoutInterval.AllowDecimalPlaces = false;
+            this.nToastTimeoutInterval.AllowSeparators = false;
+            this.nToastTimeoutInterval.BackColorSplitter = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.nToastTimeoutInterval.BackColorTextBox = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.nToastTimeoutInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nToastTimeoutInterval.FlatBorderColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.nToastTimeoutInterval.FlatBorderColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.nToastTimeoutInterval.FlatBorderSizeDown = 1;
+            this.nToastTimeoutInterval.FlatBorderSizeUp = 1;
+            this.nToastTimeoutInterval.FlatMouseDownBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.nToastTimeoutInterval.FlatMouseDownBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.nToastTimeoutInterval.FlatMouseOverBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.nToastTimeoutInterval.FlatMouseOverBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.nToastTimeoutInterval.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nToastTimeoutInterval.ForeColor = System.Drawing.Color.Transparent;
+            this.nToastTimeoutInterval.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.nToastTimeoutInterval, "nToastTimeoutInterval");
+            this.nToastTimeoutInterval.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.nToastTimeoutInterval.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nToastTimeoutInterval.Name = "nToastTimeoutInterval";
+            this.nToastTimeoutInterval.PlaceholderText = "";
+            this.nToastTimeoutInterval.Value = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.nToastTimeoutInterval.ValueChanged += new System.EventHandler(this.nToastTimeoutInterval_ValueChanged);
             // 
             // LabelToastTimeout
             // 
@@ -236,40 +287,18 @@ namespace VolumeControl
             this.cbToastEnabled.Name = "cbToastEnabled";
             this.cbToastEnabled.UseVisualStyleBackColor = true;
             this.cbToastEnabled.CheckedChanged += new System.EventHandler(this.cbToastEnabled_CheckedChanged);
-            // 
-            // nToastTimeoutInterval
-            // 
-            this.nToastTimeoutInterval.BackColor = System.Drawing.Color.Gainsboro;
-            this.nToastTimeoutInterval.ForeColor = System.Drawing.Color.Black;
-            this.nToastTimeoutInterval.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.nToastTimeoutInterval, "nToastTimeoutInterval");
-            this.nToastTimeoutInterval.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nToastTimeoutInterval.Minimum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.nToastTimeoutInterval.Name = "nToastTimeoutInterval";
-            this.nToastTimeoutInterval.Value = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.nToastTimeoutInterval.ValueChanged += new System.EventHandler(this.nToastTimeoutInterval_ValueChanged);
+            this.cbToastEnabled.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // bToggleMixer
             // 
+            this.bToggleMixer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bToggleMixer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bToggleMixer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bToggleMixer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bToggleMixer, "bToggleMixer");
+            this.bToggleMixer.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.bToggleMixer.Name = "bToggleMixer";
-            this.bToggleMixer.UseVisualStyleBackColor = true;
+            this.bToggleMixer.UseVisualStyleBackColor = false;
             this.bToggleMixer.Click += new System.EventHandler(this.bToggleMixer_Click);
             // 
             // Label_Version
@@ -281,10 +310,14 @@ namespace VolumeControl
             // 
             // bHotkeyEditor
             // 
-            this.bHotkeyEditor.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bHotkeyEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bHotkeyEditor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bHotkeyEditor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bHotkeyEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bHotkeyEditor, "bHotkeyEditor");
+            this.bHotkeyEditor.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.bHotkeyEditor.Name = "bHotkeyEditor";
-            this.bHotkeyEditor.UseVisualStyleBackColor = true;
+            this.bHotkeyEditor.UseVisualStyleBackColor = false;
             this.bHotkeyEditor.Click += new System.EventHandler(this.bHotkeyEditor_Click);
             // 
             // MixerSplitContainer
@@ -297,7 +330,8 @@ namespace VolumeControl
             // MixerSplitContainer.Panel1
             // 
             this.MixerSplitContainer.Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.MixerSplitContainer.Panel1.Controls.Add(this.panel2SplitContainerPanel1Splitter);
+            this.MixerSplitContainer.Panel1.Controls.Add(this.splitter2);
+            this.MixerSplitContainer.Panel1.Controls.Add(this.splitter1);
             this.MixerSplitContainer.Panel1.Controls.Add(this.cbReloadOnHotkey);
             this.MixerSplitContainer.Panel1.Controls.Add(this.nAutoReloadInterval);
             this.MixerSplitContainer.Panel1.Controls.Add(this.bReload);
@@ -311,13 +345,21 @@ namespace VolumeControl
             this.MixerSplitContainer.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.MixerSplitContainer.TabStop = false;
             // 
-            // panel2SplitContainerPanel1Splitter
+            // splitter2
             // 
-            this.panel2SplitContainerPanel1Splitter.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2SplitContainerPanel1Splitter.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.panel2SplitContainerPanel1Splitter, "panel2SplitContainerPanel1Splitter");
-            this.panel2SplitContainerPanel1Splitter.Name = "panel2SplitContainerPanel1Splitter";
-            this.panel2SplitContainerPanel1Splitter.TabStop = false;
+            this.splitter2.BackColor = System.Drawing.Color.DarkGray;
+            this.splitter2.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.splitter2, "splitter2");
+            this.splitter2.Name = "splitter2";
+            this.splitter2.TabStop = false;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.Color.DarkGray;
+            this.splitter1.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.splitter1, "splitter1");
+            this.splitter1.Name = "splitter1";
+            this.splitter1.TabStop = false;
             // 
             // cbReloadOnHotkey
             // 
@@ -327,6 +369,7 @@ namespace VolumeControl
             this.cbReloadOnHotkey.Name = "cbReloadOnHotkey";
             this.cbReloadOnHotkey.UseVisualStyleBackColor = true;
             this.cbReloadOnHotkey.CheckedChanged += new System.EventHandler(this.cbReloadOnHotkey_CheckedChanged);
+            this.cbReloadOnHotkey.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // nAutoReloadInterval
             // 
@@ -358,9 +401,13 @@ namespace VolumeControl
             // 
             // bReload
             // 
+            this.bReload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bReload.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.bReload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.bReload.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             resources.ApplyResources(this.bReload, "bReload");
             this.bReload.Name = "bReload";
-            this.bReload.UseVisualStyleBackColor = true;
+            this.bReload.UseVisualStyleBackColor = false;
             this.bReload.Click += new System.EventHandler(this.bReload_Click);
             // 
             // Label_AutoReloadInterval
@@ -374,6 +421,7 @@ namespace VolumeControl
             this.cbAutoReload.Name = "cbAutoReload";
             this.cbAutoReload.UseVisualStyleBackColor = true;
             this.cbAutoReload.CheckedChanged += new System.EventHandler(this.cbAutoReload_CheckedChanged);
+            this.cbAutoReload.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
             // 
             // Mixer
             // 
@@ -566,6 +614,47 @@ namespace VolumeControl
             this.tAutoReload.Interval = 1000;
             this.tAutoReload.Tick += new System.EventHandler(this.tAutoReload_Tick);
             // 
+            // centeredNumericUpDown1
+            // 
+            this.centeredNumericUpDown1.AllowDecimalPlaces = false;
+            this.centeredNumericUpDown1.AllowSeparators = false;
+            this.centeredNumericUpDown1.BackColorSplitter = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.centeredNumericUpDown1.BackColorTextBox = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.centeredNumericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.centeredNumericUpDown1.FlatBorderColorDown = System.Drawing.Color.Empty;
+            this.centeredNumericUpDown1.FlatBorderColorUp = System.Drawing.Color.Empty;
+            this.centeredNumericUpDown1.FlatBorderSizeDown = 0;
+            this.centeredNumericUpDown1.FlatBorderSizeUp = 0;
+            this.centeredNumericUpDown1.FlatMouseDownBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.centeredNumericUpDown1.FlatMouseDownBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.centeredNumericUpDown1.FlatMouseOverBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.centeredNumericUpDown1.FlatMouseOverBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.centeredNumericUpDown1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.centeredNumericUpDown1.ForeColor = System.Drawing.Color.Transparent;
+            this.centeredNumericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.centeredNumericUpDown1, "centeredNumericUpDown1");
+            this.centeredNumericUpDown1.Maximum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.centeredNumericUpDown1.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.centeredNumericUpDown1.Name = "centeredNumericUpDown1";
+            this.centeredNumericUpDown1.PlaceholderText = "";
+            this.centeredNumericUpDown1.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
             // Form
             // 
             resources.ApplyResources(this, "$this");
@@ -590,7 +679,6 @@ namespace VolumeControl
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).EndInit();
             this.gbToastNotifications.ResumeLayout(false);
             this.gbToastNotifications.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nToastTimeoutInterval)).EndInit();
             this.MixerSplitContainer.Panel1.ResumeLayout(false);
             this.MixerSplitContainer.Panel1.PerformLayout();
             this.MixerSplitContainer.Panel2.ResumeLayout(false);
@@ -627,7 +715,6 @@ namespace VolumeControl
         private CheckBox cbAlwaysOnTop;
         private Button bToggleMixer;
         private CheckBox cbToastEnabled;
-        private NumericUpDown nToastTimeoutInterval;
         private GroupBox gbToastNotifications;
         private Label LabelToastTimeout;
         private SplitContainer MixerSplitContainer;
@@ -635,7 +722,7 @@ namespace VolumeControl
         private CheckBox cbReloadOnHotkey;
         private NumericUpDown nVolumeStep;
         private Label Label_VolumeStep;
-        private Splitter panel2SplitContainerPanel1Splitter;
+        private Splitter splitter1;
         private Core.Controls.CenteredTextBox tbTargetSelector;
         private DataGridViewTextBoxColumn MixerColPID;
         private DataGridViewTextBoxColumn MixerColProcessName;
@@ -644,5 +731,8 @@ namespace VolumeControl
         private DataGridViewButtonColumn MixerColVolumeUp;
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
+        private Splitter splitter2;
+        private CenteredNumericUpDown nToastTimeoutInterval;
+        private CenteredNumericUpDown centeredNumericUpDown1;
     }
 }

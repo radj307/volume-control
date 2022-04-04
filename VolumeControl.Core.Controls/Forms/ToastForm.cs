@@ -1,5 +1,4 @@
-﻿using System.Drawing.Drawing2D;
-using VolumeControl.Core.Audio;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Log;
 

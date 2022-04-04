@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Attributes\IsPreRelease.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />

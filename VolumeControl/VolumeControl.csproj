@@ -1,61 +1,61 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<RootNamespace>VolumeControl</RootNamespace>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<StartupObject>VolumeControl.Program</StartupObject>
-		<Version>4.0.0.3</Version>
-		<ExtendedVersion>4.0.0-rc3</ExtendedVersion>
-		<IsPreRelease>false</IsPreRelease>
-		<ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
-	</PropertyGroup>
-	<ItemGroup>
-		<AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersionAttribute">
-			<_Parameter1>$(ExtendedVersion)</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="VolumeControl.Core.Attributes.IsPreReleaseAttribute">
-			<_Parameter1>$(IsPreRelease)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<ItemGroup>
-		<Content Include="Resources\icons\iconSilvered.ico" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Update="Form.resx">
-			<Generator>
-			</Generator>
-		</EmbeddedResource>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="resources\" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\VolumeControl.Core.Controls\VolumeControl.Core.Controls.csproj" />
-		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="Properties\Settings.settings">
-			<Generator>PublicSettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>VolumeControl</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>VolumeControl.Program</StartupObject>
+    <Version>4.0.0</Version>
+    <ExtendedVersion>4.0.0-rc3</ExtendedVersion>
+    <ReleaseType>CANDIDATE</ReleaseType>
+    <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
+      <_Parameter1>$(ExtendedVersion)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="VolumeControl.Core.Attributes.ReleaseType">
+      <_Parameter1>$(ReleaseType)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icons\iconSilvered.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Form.resx">
+      <Generator>
+      </Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.Core.Controls\VolumeControl.Core.Controls.csproj" />
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>
