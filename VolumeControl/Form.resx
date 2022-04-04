@@ -75,33 +75,6 @@
   <data name="MainSplitContainer.Panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="centeredNumericUpDown1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 61</value>
-  </data>
-  <data name="centeredNumericUpDown1.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>600, 25</value>
-  </data>
-  <data name="centeredNumericUpDown1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>60, 25</value>
-  </data>
-  <data name="centeredNumericUpDown1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 25</value>
-  </data>
-  <data name="centeredNumericUpDown1.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;centeredNumericUpDown1.Name" xml:space="preserve">
-    <value>centeredNumericUpDown1</value>
-  </data>
-  <data name="&gt;&gt;centeredNumericUpDown1.Type" xml:space="preserve">
-    <value>VolumeControl.Core.Controls.CenteredNumericUpDown, VolumeControl.Core.Controls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;centeredNumericUpDown1.Parent" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;centeredNumericUpDown1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 131</value>
   </data>
@@ -121,7 +94,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="Label_VolumeStep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +274,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gpSettings.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -331,7 +304,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="gbToastNotifications.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -439,7 +412,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gbToastNotifications.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="bToggleMixer.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -469,7 +442,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bToggleMixer.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="Label_Version.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -502,7 +475,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;Label_Version.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -532,7 +505,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
     <value>MainSplitContainer.Panel1</value>

@@ -80,7 +80,6 @@ namespace VolumeControl
             this.TrayContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.TrayContextMenuBringToFront = new System.Windows.Forms.ToolStripMenuItem();
             this.tAutoReload = new System.Windows.Forms.Timer(this.components);
-            this.centeredNumericUpDown1 = new VolumeControl.Core.Controls.CenteredNumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
             this.MainSplitContainer.Panel2.SuspendLayout();
@@ -110,7 +109,6 @@ namespace VolumeControl
             // 
             this.MainSplitContainer.Panel1.BackgroundImage = global::VolumeControl.Properties.Resources.background_img1;
             resources.ApplyResources(this.MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
-            this.MainSplitContainer.Panel1.Controls.Add(this.centeredNumericUpDown1);
             this.MainSplitContainer.Panel1.Controls.Add(this.tbTargetSelector);
             this.MainSplitContainer.Panel1.Controls.Add(this.gpSettings);
             this.MainSplitContainer.Panel1.Controls.Add(this.cbLockTarget);
@@ -614,47 +612,6 @@ namespace VolumeControl
             this.tAutoReload.Interval = 1000;
             this.tAutoReload.Tick += new System.EventHandler(this.tAutoReload_Tick);
             // 
-            // centeredNumericUpDown1
-            // 
-            this.centeredNumericUpDown1.AllowDecimalPlaces = false;
-            this.centeredNumericUpDown1.AllowSeparators = false;
-            this.centeredNumericUpDown1.BackColorSplitter = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.centeredNumericUpDown1.BackColorTextBox = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.centeredNumericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.centeredNumericUpDown1.FlatBorderColorDown = System.Drawing.Color.Empty;
-            this.centeredNumericUpDown1.FlatBorderColorUp = System.Drawing.Color.Empty;
-            this.centeredNumericUpDown1.FlatBorderSizeDown = 0;
-            this.centeredNumericUpDown1.FlatBorderSizeUp = 0;
-            this.centeredNumericUpDown1.FlatMouseDownBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.centeredNumericUpDown1.FlatMouseDownBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.centeredNumericUpDown1.FlatMouseOverBackColorDown = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.centeredNumericUpDown1.FlatMouseOverBackColorUp = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.centeredNumericUpDown1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.centeredNumericUpDown1.ForeColor = System.Drawing.Color.Transparent;
-            this.centeredNumericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.centeredNumericUpDown1, "centeredNumericUpDown1");
-            this.centeredNumericUpDown1.Maximum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.centeredNumericUpDown1.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.centeredNumericUpDown1.Name = "centeredNumericUpDown1";
-            this.centeredNumericUpDown1.PlaceholderText = "";
-            this.centeredNumericUpDown1.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
             // Form
             // 
             resources.ApplyResources(this, "$this");
@@ -733,6 +690,5 @@ namespace VolumeControl
         private DataGridViewButtonColumn MixerColSelectButton;
         private Splitter splitter2;
         private CenteredNumericUpDown nToastTimeoutInterval;
-        private CenteredNumericUpDown centeredNumericUpDown1;
     }
 }
