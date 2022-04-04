@@ -469,7 +469,7 @@
     <value>5</value>
   </data>
   <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
+    <value>System</value>
   </data>
   <data name="bHotkeyEditor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

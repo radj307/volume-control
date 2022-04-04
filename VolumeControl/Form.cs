@@ -34,7 +34,7 @@ namespace VolumeControl
 
             // get the current version number
             Assembly assembly = Assembly.GetExecutingAssembly();
-            var extver = assembly.GetCustomAttribute<ExtendedVersionAttribute>()?.ExtendedVersion;
+            var extver = assembly.GetCustomAttribute<ExtendedVersion>()?.Version;
             if (extver != null)
                 SetVersion($"v{extver}");
             else SetVersion("[????]");
