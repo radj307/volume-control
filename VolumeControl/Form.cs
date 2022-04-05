@@ -241,9 +241,8 @@ namespace VolumeControl
 
         public new void BringToFront()
         {
-            if (WindowState != FormWindowState.Normal)
-                WindowState = FormWindowState.Normal;
-            Show();
+            Visible = true;
+            WindowState = FormWindowState.Normal;
             base.BringToFront();
         }
         private void SetVersion(string ver)
@@ -414,6 +413,31 @@ namespace VolumeControl
         /// </summary>
         private void Form_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
+        private void cbPaint(object sender, PaintEventArgs e)
+        {
+            if (sender is not CheckBox cb) return;
+
+            Graphics g = e.Graphics;
+            var rect = e.ClipRectangle;
+
+            CheckBoxRenderer.DrawParentBackground(g, rect, cb);
+
+            int boxSize = 13;
+
+            var box = new Rectangle(rect.Location.X, rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize - 1, boxSize - 1);
+            int textStart = box.X + box.Width + 4;
+
+            SolidBrush border = new(Color.FromArgb(45, 45, 45));
+
+            g.DrawRectangle(new Pen(border, 1f), box);
+
+            if (cb.Checked)
+            {
+                g.FillRectangle(new SolidBrush(Color.FromArgb(200, 200, 200)), new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+            }
+
+            g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
+        }
         #endregion ControlEventHandlers
     }
 }

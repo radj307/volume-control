@@ -35,3 +35,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.nToastTimeoutInterval_ValueChanged(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.cbReloadOnHotkey_CheckedChanged(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.nVolumeStep_ValueChanged(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Form.cbPaint(System.Object,System.Windows.Forms.PaintEventArgs)")]
