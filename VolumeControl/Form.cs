@@ -475,7 +475,7 @@ namespace VolumeControl
                     var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
                     var b = new SolidBrush(Color.FromArgb(200, 200, 200));
                     g.DrawRectangle(new Pen(b, 1f), box);
-                    if (Convert.ToBoolean(Mixer.Rows[e.RowIndex].Cells[e.ColumnIndex].Value))
+                    if (Convert.ToBoolean(e.Value))
                     {
                         g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
                     }

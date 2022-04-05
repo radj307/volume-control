@@ -36,21 +36,19 @@ namespace VolumeControl.Core.Controls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new VolumeControl.Core.Controls.DoubleBufferedDataGridView();
+            this.bsKeysList = new System.Windows.Forms.BindingSource(this.components);
+            this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
+            this.bCancel = new System.Windows.Forms.Button();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colKey = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.bsKeysList = new System.Windows.Forms.BindingSource(this.components);
             this.colAlt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colCtrl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colShift = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colWin = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
-            this.bCancel = new System.Windows.Forms.Button();
-            this.dgvPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsKeysList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHotkeyBindingList)).BeginInit();
-            this.dgvPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv
@@ -58,23 +56,23 @@ namespace VolumeControl.Core.Controls
             this.dgv.AllowUserToAddRows = false;
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.AutoGenerateColumns = false;
-            this.dgv.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgv.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dgv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -88,38 +86,58 @@ namespace VolumeControl.Core.Controls
             this.colWin});
             this.dgv.DataSource = this.bsHotkeyBindingList;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.DoubleBuffered = true;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgv.EnableHeadersVisualStyles = false;
-            this.dgv.GridColor = System.Drawing.Color.Black;
-            this.dgv.Location = new System.Drawing.Point(5, 5);
+            this.dgv.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.dgv.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.RowTemplate.Height = 25;
             this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(419, 17);
+            this.dgv.Size = new System.Drawing.Size(414, 20);
             this.dgv.TabIndex = 0;
+            this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgv_CurrentCellDirtyStateChanged);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgv_DataError);
             this.dgv.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_RowsAdded);
             this.dgv.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_RowsRemoved);
+            // 
+            // bsKeysList
+            // 
+            this.bsKeysList.AllowNew = false;
+            this.bsKeysList.DataSource = typeof(VolumeControl.Core.Keyboard.ValidKeys);
+            // 
+            // bsHotkeyBindingList
+            // 
+            this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
+            // 
+            // bCancel
+            // 
+            this.bCancel.Enabled = false;
+            this.bCancel.Location = new System.Drawing.Point(-1, -1);
+            this.bCancel.Name = "bCancel";
+            this.bCancel.Size = new System.Drawing.Size(0, 0);
+            this.bCancel.TabIndex = 1;
+            this.bCancel.UseVisualStyleBackColor = true;
+            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
             // colName
             // 
@@ -137,25 +155,22 @@ namespace VolumeControl.Core.Controls
             this.colEnabled.HeaderText = "Active";
             this.colEnabled.MinimumWidth = 40;
             this.colEnabled.Name = "colEnabled";
-            this.colEnabled.Width = 44;
+            this.colEnabled.Width = 47;
             // 
             // colKey
             // 
             this.colKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colKey.DataPropertyName = "Key";
             this.colKey.DataSource = this.bsKeysList;
+            this.colKey.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.colKey.DropDownWidth = 70;
+            this.colKey.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.colKey.HeaderText = "Key";
             this.colKey.MaxDropDownItems = 10;
             this.colKey.MinimumWidth = 100;
             this.colKey.Name = "colKey";
             this.colKey.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // bsKeysList
-            // 
-            this.bsKeysList.AllowNew = false;
-            this.bsKeysList.DataSource = typeof(VolumeControl.Core.Keyboard.ValidKeys);
             // 
             // colAlt
             // 
@@ -193,45 +208,20 @@ namespace VolumeControl.Core.Controls
             this.colWin.Name = "colWin";
             this.colWin.Width = 40;
             // 
-            // bsHotkeyBindingList
-            // 
-            this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
-            // 
-            // bCancel
-            // 
-            this.bCancel.Enabled = false;
-            this.bCancel.Location = new System.Drawing.Point(-1, -1);
-            this.bCancel.Name = "bCancel";
-            this.bCancel.Size = new System.Drawing.Size(0, 0);
-            this.bCancel.TabIndex = 1;
-            this.bCancel.UseVisualStyleBackColor = true;
-            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
-            // 
-            // dgvPanel
-            // 
-            this.dgvPanel.Controls.Add(this.dgv);
-            this.dgvPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvPanel.Location = new System.Drawing.Point(0, 0);
-            this.dgvPanel.Name = "dgvPanel";
-            this.dgvPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.dgvPanel.Size = new System.Drawing.Size(429, 27);
-            this.dgvPanel.TabIndex = 2;
-            // 
             // HotkeyEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(429, 27);
-            this.Controls.Add(this.dgvPanel);
+            this.ClientSize = new System.Drawing.Size(414, 20);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.bCancel);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(445, 66);
             this.Name = "HotkeyEditorForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -243,7 +233,6 @@ namespace VolumeControl.Core.Controls
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsKeysList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHotkeyBindingList)).EndInit();
-            this.dgvPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -253,7 +242,6 @@ namespace VolumeControl.Core.Controls
         private DoubleBufferedDataGridView dgv;
         private BindingSource bsHotkeyBindingList;
         private Button bCancel;
-        private Panel dgvPanel;
         private BindingSource bsKeysList;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewCheckBoxColumn colEnabled;

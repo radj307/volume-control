@@ -56,7 +56,7 @@ namespace VolumeControl.Core.Controls
             if (_dgvListItemHeight == 0) // set the height of a list item
                 _dgvListItemHeight = dgv.Font.Height + 9;
 
-            int sizeY = dgvPanel.Padding.Top + dgvPanel.Padding.Bottom + dgv.ColumnHeadersHeight;
+            int sizeY = dgv.ColumnHeadersHeight;
             if (FormBorderStyle != FormBorderStyle.None)
                 sizeY += 40;
 
@@ -110,5 +110,33 @@ namespace VolumeControl.Core.Controls
 
         private void HotkeyEditorForm_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
+
+        private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == colEnabled.Index || e.ColumnIndex == colAlt.Index || e.ColumnIndex == colCtrl.Index || e.ColumnIndex == colShift.Index || e.ColumnIndex == colWin.Index)
+                {
+                    e.Handled = true;
+                    Graphics g = e.Graphics;
+                    var rect = e.CellBounds;
+                    int bottom = rect.Y + rect.Height - 1;
+                    rect.Size = new(rect.Width, rect.Height - 1);
+                    // draw background
+                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
+                    // draw divider
+                    g.DrawLine(new Pen(new SolidBrush(dgv.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
+
+                    int boxSize = 13;
+                    var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
+                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
+                    g.DrawRectangle(new Pen(b, 1f), box);
+                    if (Convert.ToBoolean(e.Value))
+                    {
+                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                    }
+                }
+            }
+        }
     }
 }
