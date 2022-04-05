@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>True</UseWindowsForms>
     <Version>4.0.0</Version>
-    <ReleaseType>NORMAL</ReleaseType>
-    <ExtendedVersion>4.0.0</ExtendedVersion>
+    <ReleaseType>REVISION</ReleaseType>
+    <ExtendedVersion>4.0.0-1</ExtendedVersion>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
