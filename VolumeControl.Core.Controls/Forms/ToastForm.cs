@@ -208,6 +208,7 @@ namespace VolumeControl.Core.Controls
                 }
             }
             listBox.SelectedIndex = -1;
+            listBox.ClearSelected();
         }
         /// <summary>
         /// Updates the background color to indicate whether the current target is locked.
