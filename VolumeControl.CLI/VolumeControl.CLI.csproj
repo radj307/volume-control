@@ -7,7 +7,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <Version>4.0.0</Version>
     <ReleaseType>PRERELEASE</ReleaseType>
-    <ExtendedVersion>4.0.0-pre7</ExtendedVersion>
+    <ExtendedVersion>4.0.0-pre8</ExtendedVersion>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
