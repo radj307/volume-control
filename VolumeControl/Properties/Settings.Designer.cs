@@ -202,5 +202,17 @@ namespace VolumeControl.Properties {
                 this["LastLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableEscapeMinimize {
+            get {
+                return ((bool)(this["EnableEscapeMinimize"]));
+            }
+            set {
+                this["EnableEscapeMinimize"] = value;
+            }
+        }
     }
 }

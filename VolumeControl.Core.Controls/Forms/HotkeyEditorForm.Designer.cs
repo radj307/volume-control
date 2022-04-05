@@ -45,7 +45,6 @@ namespace VolumeControl.Core.Controls
             this.colShift = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colWin = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
-            this.bCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsKeysList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHotkeyBindingList)).BeginInit();
@@ -198,25 +197,13 @@ namespace VolumeControl.Core.Controls
             // 
             this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
             // 
-            // bCancel
-            // 
-            this.bCancel.Enabled = false;
-            this.bCancel.Location = new System.Drawing.Point(-1, -1);
-            this.bCancel.Name = "bCancel";
-            this.bCancel.Size = new System.Drawing.Size(0, 0);
-            this.bCancel.TabIndex = 1;
-            this.bCancel.UseVisualStyleBackColor = true;
-            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
-            // 
             // HotkeyEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.CancelButton = this.bCancel;
             this.ClientSize = new System.Drawing.Size(414, 19);
             this.Controls.Add(this.dgv);
-            this.Controls.Add(this.bCancel);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -227,7 +214,6 @@ namespace VolumeControl.Core.Controls
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hotkey Editor";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotkeyEditorForm_FormClosing);
             this.Load += new System.EventHandler(this.HotkeyEditorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
@@ -241,7 +227,6 @@ namespace VolumeControl.Core.Controls
 
         private DoubleBufferedDataGridView dgv;
         private BindingSource bsHotkeyBindingList;
-        private Button bCancel;
         private BindingSource bsKeysList;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewCheckBoxColumn colEnabled;

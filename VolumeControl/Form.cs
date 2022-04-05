@@ -26,6 +26,9 @@ namespace VolumeControl
             InitializeComponent();
             ForceCorrectLayout();
 
+            if (Properties.Settings.Default.EnableEscapeMinimize)
+                CancelButton = new VirtualButton(delegate { WindowState = FormWindowState.Minimized; });
+
             _panel1Height = MainSplitContainer.Panel1.Height;
 
             _width = Size.Width;
@@ -90,7 +93,6 @@ namespace VolumeControl
             hkedit.DataSource = VC_Static.Hotkeys;
 
             ResumeLayout();
-            SuspendSizeToFit();
 
             VC_Static.Log.WriteInfo("Form initialization completed.");
         }
@@ -101,15 +103,12 @@ namespace VolumeControl
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             Mixer.RowsRemoved -= Mixer_RowsRemoved;
+            SuspendLayout();
+            SuspendSizeToFit();
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
             VC_Static.Log.WriteDebug("Form closing event triggered.");
-        }
-        ~Form()
-        {
-            Mixer.RowsRemoved -= Mixer_RowsRemoved;
-            SaveAll();
-            VC_Static.Log.WriteDebug("Form destructor triggered.");
+            ResumeLayout();
         }
 
         #region Members
