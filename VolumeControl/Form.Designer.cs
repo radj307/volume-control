@@ -398,7 +398,7 @@ namespace VolumeControl
             resources.ApplyResources(this.bReload, "bReload");
             this.bReload.Name = "bReload";
             this.bReload.UseVisualStyleBackColor = false;
-            this.bReload.Click += new System.EventHandler(this.bReload_Click);
+            this.bReload.Click += new System.EventHandler(this.ReloadProcessList);
             // 
             // Label_AutoReloadInterval
             // 
@@ -447,7 +447,7 @@ namespace VolumeControl
             this.MixerColVolumeUp,
             this.MixerColMuted,
             this.MixerColSelectButton});
-            this.Mixer.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.Mixer.Cursor = System.Windows.Forms.Cursors.Default;
             this.Mixer.DataSource = this.bsAudioProcessAPI;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
@@ -615,7 +615,7 @@ namespace VolumeControl
             // tAutoReload
             // 
             this.tAutoReload.Interval = 1000;
-            this.tAutoReload.Tick += new System.EventHandler(this.tAutoReload_Tick);
+            this.tAutoReload.Tick += new System.EventHandler(this.ReloadProcessList);
             // 
             // Form
             // 

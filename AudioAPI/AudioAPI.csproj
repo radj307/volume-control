@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Forms\InterfaceAudioProcessList.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="System.Management">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Management.dll</HintPath>
     </Reference>

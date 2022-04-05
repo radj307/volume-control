@@ -18,8 +18,9 @@ namespace VolumeControl.Core.Controls
             LockedColor = Properties.Settings.Default.LockedColor;
             UnlockedColor = Properties.Settings.Default.UnlockedColor;
 
-            InitializeComponent();
+            Visible = false;
 
+            InitializeComponent();
             SuspendLayout();
 
             // set data source
@@ -52,9 +53,6 @@ namespace VolumeControl.Core.Controls
                 listBox.DataSource = null;
                 listBox.Items.Clear();
                 listBox.DataSource = bsAudioProcessAPI;
-                listBox.DisplayMember = "ProcessName";
-                listBox.ValueMember = "ProcessName";
-                Refresh();
                 ResumeLayout();
             };
 
@@ -198,7 +196,19 @@ namespace VolumeControl.Core.Controls
         /// Updates the selected item to reflect the current target selection.
         /// </summary>
         public void UpdateSelection()
-            => listBox.SelectedIndex = listBox.Items.IndexOf(VC_Static.API.GetSelectedProcess());
+        {
+            var sel = VC_Static.API.GetSelectedProcess();
+            if (sel is AudioProcess ap)
+            {
+                int i = listBox.Items.IndexOf(ap);
+                if (i != -1)
+                {
+                    listBox.SelectedIndex = i;
+                    return;
+                }
+            }
+            listBox.SelectedIndex = -1;
+        }
         /// <summary>
         /// Updates the background color to indicate whether the current target is locked.
         /// </summary>
@@ -221,7 +231,7 @@ namespace VolumeControl.Core.Controls
         private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            if (e.Index != -1)
+            if (e.Index >= 0)
             {
                 Graphics g = e.Graphics;
                 bool isSelected = (e.State & DrawItemState.Selected) != 0;
@@ -239,7 +249,6 @@ namespace VolumeControl.Core.Controls
                 else
                     g.DrawString(item.ProcessName, e.Font ?? listBox.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
             }
-            else FLog.Log.WriteError("ToastForm.listBox_DrawItem() skipped drawing item because the index was '-1'!");
         }
         #endregion ControlEventHandlers
     }

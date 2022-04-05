@@ -31,7 +31,7 @@ namespace VolumeControl.Core
         /// <summary>
         /// This maintains the previously selected target, in case it was removed from the list (terminated) and _selected_lock is true.
         /// </summary>
-        private AudioProcess? _selected;
+        private IAudioProcess? _selected;
         private bool _selected_lock;
         private bool _allowReload;
         /// <summary>
@@ -96,20 +96,25 @@ namespace VolumeControl.Core
         #endregion Properties
 
         #region Methods
-        public AudioProcess GetSelectedProcess()
-        {
-            if (_selected == null)
-                SelectNextProcess();
-            return _selected!;
-        }
+        public IAudioProcess? GetSelectedProcess() => _selected;
         public void SetSelectedProcess(string name)
         {
             if (!_selected_lock)
             {
-                _selected = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null) ?? _selected;
+                var it = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null);
+                if (it != null)
+                    _selected = it;
+                else _selected = new VirtualAudioProcess(name);
                 NotifySelectedProcessChanged(new() { UserOrigin = true });
                 FLog.Log.WriteDebug($"Target process name changed to '{_selected?.ProcessName}'");
             }
+        }
+        private int GetIndexOfProcessName(string name)
+        {
+            for (int i = 0, count = ProcessList.Count; i < count; ++i)
+                if (ProcessList[i].ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    return i;
+            return -1;
         }
         /// <summary>
         /// Select the process after the current selection.
@@ -123,7 +128,7 @@ namespace VolumeControl.Core
             {
                 if (_selected != null)
                 {
-                    int i = ProcessList.IndexOf(_selected) + 1;
+                    int i = GetIndexOfProcessName(_selected.ProcessName) + 1;
                     _selected = ProcessList[i % ProcessList.Count];
                 }
                 else _selected = ProcessList.First();
@@ -143,10 +148,9 @@ namespace VolumeControl.Core
             {
                 if (_selected != null)
                 {
-                    int i = ProcessList.IndexOf(_selected) - 1;
-                    // extra handling because of C-style modulo not handling negative numbers
-                    if (i < 0)
-                        i = ProcessList.Count - 1;
+                    int i = GetIndexOfProcessName(_selected.ProcessName) - 1;
+                    int count = ProcessList.Count;
+                    while (i < 0) i = count + i;
                     _selected = ProcessList[i];
                 }
                 else _selected = ProcessList.Last();

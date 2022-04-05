@@ -6,6 +6,7 @@ namespace VolumeControl.Log
     public class FileEndpoint : IEndpoint
     {
         #region Constructors
+        public FileEndpoint() { }
         public FileEndpoint(string path)
         {
             Path = path;
@@ -28,12 +29,12 @@ namespace VolumeControl.Log
         #endregion Properties
 
         #region Methods
-        protected StreamWriter? GetWriter(FileAccess access = FileAccess.ReadWrite, FileShare share = FileShare.ReadWrite)
-        {
-            if (Enabled)
-                return new(File.Open(_filepath!, FileMode.OpenOrCreate, access, share)) { AutoFlush = true };
-            return null;
-        }
+        internal StreamReader? GetReader(FileStreamOptions open)
+            => Enabled ? new(File.Open(_filepath!, open)) : null;
+        internal StreamWriter? GetWriter(FileStreamOptions open)
+            => Enabled ? new(File.Open(_filepath!, open)) { AutoFlush = true } : null;
+        public StreamReader? GetReader() => GetReader(new() { Mode = FileMode.Open, Access = FileAccess.Read, Share = FileShare.ReadWrite });
+        public StreamWriter? GetWriter() => GetWriter(new() { Mode = FileMode.OpenOrCreate, Access = FileAccess.Write, Share = FileShare.ReadWrite });
         public void WriteRaw(string? str, FileMode mode = FileMode.Append)
         {
             if (Ready && Enabled)
@@ -75,6 +76,7 @@ namespace VolumeControl.Log
             if (Enabled)
                 File.Open(_filepath!, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
         }
+
         #endregion Methods
     }
 }

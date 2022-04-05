@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Log
+﻿namespace VolumeControl.Log.Enum
 {
     /// <summary>
     /// Determines the header used to print formatted log messages.

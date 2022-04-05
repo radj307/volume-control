@@ -1,43 +1,37 @@
 ﻿using AudioAPI;
-using AudioAPI.Forms;
 using AudioAPI.WindowsAPI.Audio;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace VolumeControl.Core.Audio
 {
-    public class AudioProcess : IAudioProcess, IGridViewAudioProcess, INotifyPropertyChanged
+    public class AudioProcess : INotifyPropertyChanged, IDisposable, IAudioProcess
     {
         #region Constructor
 
         public AudioProcess(IAudioSessionControl2 session)
         {
-            session.GetProcessId(out int pid);
-            Process = Process.GetProcessById(pid);
-            SessionControl = session;
-            AudioControl = (ISimpleAudioVolume)SessionControl;
+            SessionControl = new(session, _defaultContext);
+            AudioControl = SessionControl.GetSimpleAudioVolume(_defaultContext);
+            Process = Process.GetProcessById(SessionControl.PID);
+            _processName = Process.ProcessName;
         }
         public AudioProcess(Process proc)
         {
-            var session = AudioAPI.Volume.GetSessionObject(proc.Id);
-            if (session == null)
-                throw new InvalidOperationException($"Process '{proc.Id}' ({proc.ProcessName}) does not have a registered audio session!");
             Process = proc;
-            SessionControl = session;
-            AudioControl = (ISimpleAudioVolume)SessionControl;
-        }
-        ~AudioProcess()
-        {
-            Dispose(disposing: false);
+            var session = AudioAPI.Volume.GetSessionObject(proc.Id);
+            if (session == null) throw new ArgumentException($"Process [{Process.Id}] '{Process.ProcessName}' doesn't have an audio session!");
+            SessionControl = new(session, _defaultContext);
+            AudioControl = SessionControl.GetSimpleAudioVolume(_defaultContext);
+            _processName = Process.ProcessName;
         }
 
         #endregion Constructor
 
         #region Member
-
-        private bool disposedValue;
+        private readonly Guid _defaultContext = Guid.NewGuid();
+        private readonly string _processName;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -46,30 +40,27 @@ namespace VolumeControl.Core.Audio
         #region Properties
 
         /// <summary>
-        /// A handle to the attached process.
+        /// The <see cref="System.Diagnostics.Process"/> associated with this audio session.
         /// </summary>
         public Process Process { get; }
 
-        /// <summary>
-        /// Audio session controller for the attached process.
-        /// </summary>
-        public IAudioSessionControl2 SessionControl { get; }
+        /// <summary>See <see cref="AudioSessionControl2"/> for documentation.</summary>
+        public AudioSessionControl2 SessionControl { get; }
+
+        /// <summary>See <see cref="SimpleAudioVolume"/> for documentation.</summary>
+        public SimpleAudioVolume AudioControl { get; }
 
         /// <summary>
         /// The process ID number of the attached process.
+        /// This is guaranteed to not throw.
         /// </summary>
-        public int PID
-        {
-            get => Process.Id;
-        }
+        public int PID => SessionControl.PID;
 
         /// <summary>
         /// The process name of the attached process.
+        /// This is guaranteed to not throw.
         /// </summary>
-        public string ProcessName
-        {
-            get => Process.ProcessName;
-        }
+        public string ProcessName => _processName;
 
         /// <summary>
         /// The display name of the attached process.
@@ -77,20 +68,9 @@ namespace VolumeControl.Core.Audio
         /// </summary>
         public string DisplayName
         {
-            get
-            {
-                SessionControl.GetDisplayName(out string n);
-                return n;
-            }
-            set
-            {
-                Guid guid = Guid.NewGuid();
-                SessionControl.SetDisplayName(value, guid);
-                NotifyPropertyChanged();
-            }
+            get => SessionControl.DisplayName;
+            set => SessionControl.DisplayName = value;
         }
-
-        public ISimpleAudioVolume AudioControl { get; }
 
         /// <summary>
         /// Property that controls the volume of the attached process.
@@ -98,17 +78,8 @@ namespace VolumeControl.Core.Audio
         /// </summary>
         public float Volume
         {
-            get
-            {
-                AudioControl.GetMasterVolume(out float v);
-                return v;
-            }
-            set
-            {
-                Guid guid = Guid.Empty;
-                AudioControl.SetMasterVolume(value, ref guid);
-                NotifyPropertyChanged();
-            }
+            get => AudioControl.Volume;
+            set => AudioControl.Volume = value;
         }
 
         /// <summary>
@@ -117,8 +88,8 @@ namespace VolumeControl.Core.Audio
         /// </summary>
         public decimal VolumeFullRange
         {
-            get => Convert.ToDecimal(Volume) * 100m;
-            set => Volume = (float)(value / 100m);
+            get => Convert.ToDecimal(AudioControl.VolumeFullRange);
+            set => AudioControl.VolumeFullRange = Convert.ToInt32(value);
         }
 
         /// <summary>
@@ -157,46 +128,43 @@ namespace VolumeControl.Core.Audio
         /// </summary>
         public bool Muted
         {
+            get => AudioControl.Muted;
+            set => AudioControl.Muted = value;
+        }
+
+        /// <summary>
+        /// Checks if the process is still running.
+        /// <br></br>
+        /// This works by calling <see cref="Process.GetProcessesByName(string?)"/> and checking if the returned list size is greater than 0, and contains a process with the same ID.
+        /// </summary>
+        public bool IsRunning
+        {
             get
             {
-                AudioControl.GetMute(out bool m);
-                return m;
-            }
-            set
-            {
-                Guid guid = Guid.NewGuid();
-                AudioControl.SetMute(value, ref guid);
-                NotifyPropertyChanged();
+                var list = Process.GetProcessesByName(ProcessName);
+                return list.Length > 0 && list.Any(p => p.Id == PID);
             }
         }
+
+        public bool Virtual => false;
 
         #endregion Properties
 
         #region Methods
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    Process.Dispose();
-                    Marshal.ReleaseComObject(SessionControl);
-                    Marshal.ReleaseComObject(AudioControl);
-                }
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+        public void ToggleMute() => Muted = !Muted;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            Process.Dispose();
+            AudioControl.Dispose();
+            SessionControl.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         #endregion Methods

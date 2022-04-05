@@ -140,7 +140,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VolumeControl Toast Notification";
             this.TopMost = true;
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToastForm_FormClosing);
             this.Load += new System.EventHandler(this.ToastForm_Load);
             this.listPanelInner.ResumeLayout(false);

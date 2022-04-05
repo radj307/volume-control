@@ -1,5 +1,6 @@
 ﻿using AudioAPI;
 using System.ComponentModel;
+using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
@@ -58,8 +59,7 @@ namespace VolumeControl.Core
             Log.WriteInfo($"{nameof(API)} initialized.");
 
             // init volume step
-            VolumeStep = new();
-            Log.WriteInfo($"{nameof(VolumeStep)} initialized to \'{VolumeStep}\'");
+            VolumeStep = 0m;
 
             Log.WriteInfo($"{nameof(VC_Static)} initialization complete.");
         }
@@ -104,11 +104,32 @@ namespace VolumeControl.Core
 
         #region HotkeyActions
         internal static void Volume_Increase(object? sender, HandledEventArgs e)
-            => VolumeHelper.IncrementVolume(API.GetSelectedProcess().PID, VolumeStep);
+        {
+            var sel = API.GetSelectedProcess();
+            if (sel is AudioProcess ap)
+            {
+                ap.VolumeFullRange += VolumeStep;
+                e.Handled = true;
+            }
+        }
         internal static void Volume_Decrease(object? sender, HandledEventArgs e)
-            => VolumeHelper.DecrementVolume(API.GetSelectedProcess().PID, VolumeStep);
+        {
+            var sel = API.GetSelectedProcess();
+            if (sel is AudioProcess ap)
+            {
+                ap.VolumeFullRange -= VolumeStep;
+                e.Handled = true;
+            }
+        }
         internal static void Volume_Toggle(object? sender, HandledEventArgs e)
-            => VolumeHelper.ToggleMute(API.GetSelectedProcess().PID);
+        {
+            var sel = API.GetSelectedProcess();
+            if (sel is AudioProcess ap)
+            {
+                ap.ToggleMute();
+                e.Handled = true;
+            }
+        }
 
         internal static void Media_Next(object? sender, HandledEventArgs e)
             => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK);
@@ -141,7 +162,7 @@ namespace VolumeControl.Core
         #endregion Methods
 
         #region Properties
-        public static LogWriter Log => FLog.Log;
+        public static LogWriter<FileEndpoint> Log => FLog.Log;
         public static AudioProcessAPI API
         {
             get

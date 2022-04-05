@@ -1,4 +1,7 @@
-﻿namespace VolumeControl.Log
+﻿using VolumeControl.Log.Enum;
+using VolumeControl.Log.Extensions;
+
+namespace VolumeControl.Log
 {
     public static class FLog
     {
@@ -6,7 +9,7 @@
         private static string _filepath = string.Empty;
         private static EventType _filter = EventType.NONE;
         private static bool _initialized = false;
-        private static LogWriter _log = null!;
+        private static LogWriter<FileEndpoint> _log = null!;
         #endregion Members
 
         #region Properties
@@ -14,7 +17,7 @@
         /// The LogWriter instance used by FLog.
         /// Note: Using this before calling the 'Initialize()' function will throw an exception!
         /// </summary>
-        public static LogWriter Log
+        public static LogWriter<FileEndpoint> Log
         {
             get
             {
@@ -63,7 +66,8 @@
             _filter = (EventType)Properties.Settings.Default.logfilter;
 #           endif
 
-            Log = new(_filepath, _filter);
+            Log = new(new FileEndpoint(_filepath), _filter);
+            
 
             Log.WriteInfo(new string[] {
                 "FLog.Initialize() Completed:",

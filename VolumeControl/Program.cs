@@ -46,6 +46,10 @@ namespace VolumeControl
                     else Process.GetCurrentProcess().Kill(); //< kill self
                 }
 
+#               if DEBUG
+                VolumeControl.Log.Properties.Settings.Default.EnableLog = true;
+#               endif
+
                 FLog.Initialize();
 
                 VC_Static.Initialize(); // Initialize global statics
@@ -88,7 +92,7 @@ namespace VolumeControl
             }
             catch (Exception ex)
             {
-                FLog.Log.WriteExceptionFatal("The program performed a controlled crash because of an unhandled exception!", ex);
+                FLog.Log.WriteExceptionFatal(ex);
             }
         }
     }

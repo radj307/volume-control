@@ -11,6 +11,24 @@
         /// </summary>
         bool Enabled { get; }
         /// <summary>
+        /// Retrieve a <see cref="StreamReader"/> object for reading from the endpoint.<br></br>
+        /// Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations.
+        /// </summary>
+        /// <returns><list type="table">
+        /// <item><term>null</term><description>The endpoint isn't enabled.</description></item>
+        /// <item><term><see cref="StreamReader"/></term><description>A reader using this endpoint's output target.</description></item>
+        /// </list></returns>
+        StreamReader? GetReader();
+        /// <summary>
+        /// Retrieve a <see cref="StreamWriter"/> object for writing to the endpoint.<br></br>
+        /// Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations.
+        /// </summary>
+        /// <returns><list type="table">
+        /// <item><term>null</term><description>The endpoint isn't enabled.</description></item>
+        /// <item><term><see cref="StreamWriter"/></term><description>A writer using this endpoint's output target.</description></item>
+        /// </list></returns>
+        StreamWriter? GetWriter();
+        /// <summary>
         /// Write to the filestream.
         /// It is highly recommended that you do not use this function, as it doesn't conform to formatting rules.
         /// </summary>
@@ -22,7 +40,6 @@
         /// </summary>
         /// <param name="str">A string to write.</param>
         void WriteRawLine(string? str = null, FileMode mode = FileMode.Append);
-
         /// <summary>
         /// Read a character from the log endpoint.
         /// </summary>

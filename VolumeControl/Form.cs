@@ -15,9 +15,9 @@ namespace VolumeControl
             SuspendSizeToFit();
 
             // initialize hkedit subform (cannot bind data source yet -- VC_Static.InitializeHotkeys() hasn't been called yet. See 'Program.cs')
-            hkedit.Hide();
+            hkedit.Visible = false;
             // initialize toast subform
-            toast.Hide();
+            toast.Visible = false;
 
             // initialize designer components
             InitializeComponent();
@@ -68,7 +68,7 @@ namespace VolumeControl
                 if (!e.UserOrigin)
                 {
                     tbTargetSelector.TextChanged -= tbTargetName_TextChanged!; //< prevent recursion
-                    tbTargetSelector.Text = VC_Static.API.GetSelectedProcess().ProcessName;
+                    tbTargetSelector.Text = VC_Static.API.GetSelectedProcess()?.ProcessName ?? tbTargetSelector.Text;
                     tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
                 }
             };
@@ -76,14 +76,10 @@ namespace VolumeControl
             {
                 cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!; //< prevent recursion
                 bool value = VC_Static.API.LockSelection;
-                Mixer.DefaultCellStyle.SelectionBackColor = value ? Color.Red : Color.Green;
                 tbTargetSelector.Enabled = !(cbLockTarget.Checked = value);
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
-            VC_Static.API.ProcessListUpdated += delegate
-            {
-                RefreshProcessList();
-            };
+            VC_Static.API.ProcessListUpdated += RefreshProcessList!;
 
             // Initialize hotkey API now that we have a form
             VC_Static.InitializeHotkeys(this);
@@ -184,15 +180,33 @@ namespace VolumeControl
             UpdateBounds();
             VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
         }
+        /// <summary>
+        /// Request a full reload of the process list from <see cref="VC_Static.API"/>.
+        /// </summary>
+        private static void ReloadProcessList()
+            => VC_Static.API.ReloadProcessList();
+        /// <summary>
+        /// Event handler overload of the <see cref="ReloadProcessList()"/> function.
+        /// </summary>
+        private void ReloadProcessList(object sender, EventArgs e) => ReloadProcessList();
+        /// <summary>
+        /// Refresh the list of processes displayed in the Mixer. <br></br>
+        /// This doesn't actually request a reload event from <see cref="VC_Static.API"/>, instead it simply resets the data source in order to refresh the displayed list. <br></br>
+        /// To perform a full reload of the list, see the <see cref="ReloadProcessList()"/> function.
+        /// </summary>
         private void RefreshProcessList()
         {
             SuspendSizeToFit();
             Mixer.SuspendLayout();
-            Mixer.ResetDataSource(bsAudioProcessAPI, delegate { }, true);
+            Mixer.SetDataSource(Mixer.UnsetDataSource());
+            Mixer.Update();
+            ResumeSizeToFit();
             Mixer.ResumeLayout();
-            ResumeSizeToFit(true);
-            VC_Static.Log.WriteDebug($"Refreshed process list.");
         }
+        /// <summary>
+        /// Event handler overload of the <see cref="RefreshProcessList()"/> function.
+        /// </summary>
+        private void RefreshProcessList(object sender, EventArgs e) => RefreshProcessList();
         public new void BringToFront()
         {
             Visible = true;
@@ -327,11 +341,6 @@ namespace VolumeControl
 
 #region ControlEventHandlers
         /// <summary>
-        /// Handles click events for the 'Reload' button.
-        /// </summary>
-        private void bReload_Click(object sender, EventArgs e)
-            => VC_Static.API.ReloadProcessList();
-        /// <summary>
         /// Handles check/uncheck events for the 'Auto' reload checkbox
         /// </summary>
         private void cbAutoReload_CheckedChanged(object sender, EventArgs e)
@@ -344,11 +353,6 @@ namespace VolumeControl
         /// </summary>
         private void nAutoReloadInterval_ValueChanged(object sender, EventArgs e)
             => tAutoReload.Interval = Convert.ToInt32(nAutoReloadInterval.Value);
-        /// <summary>
-        /// Handles tick events for the auto-reload timer.
-        /// </summary>
-        private void tAutoReload_Tick(object sender, EventArgs e)
-            => VC_Static.API.ReloadProcessList();
         /// <summary>
         /// Handles click events for the 'Edit Hotkeys...' button.
         /// </summary>

@@ -1,20 +1,31 @@
-﻿namespace VolumeControl.Log
+﻿using Microsoft.Extensions.Primitives;
+using VolumeControl.Log.Enum;
+using VolumeControl.Log.Extensions;
+
+namespace VolumeControl.Log
 {
-    public class LogWriter : FileEndpoint
+    public class LogWriter<T> where T : IEndpoint, new()
     {
         #region Constructors
-        public LogWriter(string filename, EventType typeFilter = EventType.ALL_EXCEPT_DEBUG) : base(filename)
+        public LogWriter(T endpoint, EventType typeFilter = EventType.ALL_EXCEPT_DEBUG)
         {
+            _endpoint = endpoint;
             _eventFilter = typeFilter;
-            Reset();
+            Endpoint.Reset();
 
             // Set the margin sizes for each of the log entry's elements.
             _margin_time = 29;
             _margin_header = 8;
         }
+        ~LogWriter()
+        {
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
         #endregion Constructors
 
         #region Members
+        private readonly T _endpoint;
         private EventType _eventFilter;
         /// <summary>
         /// The maximum length of the timestamp when printing to the log file.
@@ -55,10 +66,16 @@
         internal static string GetExceptionStringRecursive(Exception ex, int indentSize, int indentStep, int recurseCount = 0, int maxRecurse = 5)
         {
             string indent = new(' ', indentSize);
-            string s =
-                $"Message:         '{ex.Message}'";
-            if (ex.StackTrace?.Length > 0)
-                s += $"\n{indent}Stack Trace:     '{ex.StackTrace}'";
+            string s = ex.Message;
+            if (EnableStackTrace && ex.StackTrace?.Length > 0)
+            {
+                s += '\n'; // newline
+                string st = ex.StackTrace;
+                for (int i = st.IndexOf('\n'), lastNewLine = 0, len = st.Length, ln = 0; (i != -1 && i < len); lastNewLine = i, i = st.IndexOf('\n', i + 1), ++ln)
+                {
+                    s += $"{indent}  {(EnableStackTraceLineCount ? $"[{ln}]\t" : "")}{st[lastNewLine..i].Trim("\n ")}\n";
+                }
+            }
             if (ex.Data.Count > 0)
             {
                 s += $"\n{indent}Exception Data: {{";
@@ -87,8 +104,8 @@
         /// <param name="indentSize">The number of space characters to insert before each line. This is only used when recurse is true.</param>
         /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing. This is only used when recurse is true.</param>
         /// <returns>The formatted exception message, stack trace, and inner exceptions if set to recurse, spanning over multiple lines.</returns>
-        internal static string GetExceptionString(Exception ex, bool recurse = true, int indentSize = 0, int indentStep = 2)
-            => GetExceptionStringRecursive(ex, indentSize, indentStep, 0, recurse ? 5 : 1);
+        internal string GetExceptionString(Exception ex, bool recurse = true)
+            => GetExceptionStringRecursive(ex, 2 + _margin_time + _margin_header, 2, 0, recurse ? 5 : 1);
         /// <summary>
         /// Get a string with a formatted header containing the current timestamp and the event type header.
         /// </summary>
@@ -101,7 +118,7 @@
         }
         internal string GetBlankHeader()
         {
-            return new string(' ', 1 + _margin_time + _margin_header);
+            return new string(' ', 2 + _margin_time + _margin_header);
         }
 
         /// <summary>
@@ -112,14 +129,14 @@
         /// <param name="autoIndent">When true, indentation will automatically be added to ensure log messages are aligned.</param>
         public void WriteLines(EventType type, string[] lines, bool autoIndent = true)
         {
-            if (Enabled && FilterMessage(type) && lines.Length > 0)
+            if (Endpoint.Enabled && FilterMessage(type) && lines.Length > 0)
             {
                 string indent = string.Empty;
                 string header = GetFullHeader(type);
                 if (autoIndent)
                     indent = GetBlankHeader();
 
-                var writer = GetWriter(FileAccess.Write, FileShare.Read);
+                var writer = Endpoint.GetWriter();
                 if (writer != null)
                 {
                     writer.Write($"{header}{lines[0]}");
@@ -140,9 +157,9 @@
         /// <param name="msg">The message string.</param>
         public void WriteEventMessage(EventType type, object? msg)
         {
-            if (Enabled)
+            if (Endpoint.Enabled)
                 if (FilterMessage(type))
-                    WriteRawLine($"{GetFullHeader(type)} {msg}");
+                    Endpoint.WriteRawLine($"{GetFullHeader(type)} {msg}");
         }
         /// <summary>
         /// Write a formatted event message to the logfile.
@@ -152,14 +169,14 @@
         /// <param name="msg_lines">An array of strings where each string uses one line.</param>
         public void WriteEventMessage(EventType type, object[] msg_lines)
         {
-            if (Enabled)
+            if (Endpoint.Enabled)
             {
                 if (msg_lines.Length > 0 && FilterMessage(type))
                 {
-                    WriteRawLine($"{GetFullHeader(type)} {msg_lines[0]}");
+                    Endpoint.WriteRawLine($"{GetFullHeader(type)} {msg_lines[0]}");
                     string indent = GetBlankHeader();
                     for (int i = 1; i < msg_lines.Length; ++i)
-                        WriteRawLine($"{indent}{msg_lines[i]}");
+                        Endpoint.WriteRawLine($"{indent}{msg_lines[i]}");
                 }
             }
         }
@@ -339,6 +356,26 @@
             get => _eventFilter;
             set => _eventFilter = value;
         }
+        /// <summary>
+        /// Gets or sets the value of <see cref="Properties.Settings.Default.EnableStackTrace"/>.<br></br>
+        /// This controls whether exception messages in the log include a stack trace.
+        /// </summary>
+        public static bool EnableStackTrace
+        {
+            get => Properties.Settings.Default.EnableStackTrace;
+            set => Properties.Settings.Default.EnableStackTrace = value;
+        }
+        /// <summary>
+        /// Gets or sets the value of <see cref="Properties.Settings.Default.EnableStackTraceLineCount"/>.<br></br>
+        /// This controls whether the line number prefix is visible in the stack trace of exception messages.<br></br>
+        /// Does nothing if <see cref="Properties.Settings.Default.EnableStackTrace"/> is false.
+        /// </summary>
+        public static bool EnableStackTraceLineCount
+        {
+            get => Properties.Settings.Default.EnableStackTraceLineCount;
+            set => Properties.Settings.Default.EnableStackTraceLineCount = value;
+        }
+        internal IEndpoint Endpoint => _endpoint;
         #endregion Properties
     }
 }

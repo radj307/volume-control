@@ -7,8 +7,6 @@ namespace AudioAPI
 {
     public static class Volume
     {
-        #region Static Members
-
         public static IMMDeviceCollection GetAllDevices()
         {
             // Get the first (default) ERender device with a multimedia role
@@ -98,8 +96,6 @@ namespace AudioAPI
         }
         public static ISimpleAudioVolume GetVolumeObject(int pid)
             => GetVolumeObject(pid, GetDefaultDevice());
-
-        #endregion
 
         public static List<IAudioSessionControl2> GetAllSessions(IMMDevice device)
         {

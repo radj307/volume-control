@@ -58,5 +58,29 @@ namespace VolumeControl.Log.Properties {
                 this["EnableLog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableStackTrace {
+            get {
+                return ((bool)(this["EnableStackTrace"]));
+            }
+            set {
+                this["EnableStackTrace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableStackTraceLineCount {
+            get {
+                return ((bool)(this["EnableStackTraceLineCount"]));
+            }
+            set {
+                this["EnableStackTraceLineCount"] = value;
+            }
+        }
     }
 }
