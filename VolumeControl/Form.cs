@@ -15,6 +15,7 @@ namespace VolumeControl
         public Form()
         {
             SuspendLayout();
+            SuspendSizeToFit();
 
             // initialize hkedit subform (cannot bind data source yet -- VC_Static.InitializeHotkeys() hasn't been called yet. See 'Program.cs')
             hkedit.Hide();
@@ -29,9 +30,7 @@ namespace VolumeControl
 
             _width = Size.Width;
 
-            Mixer.RowsAdded -= Mixer_RowsAdded;
             bsAudioProcessAPI.DataSource = VC_Static.API;
-            Mixer.RowsAdded += Mixer_RowsAdded;
 
             // get the current version number
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -94,51 +93,6 @@ namespace VolumeControl
             SuspendSizeToFit();
 
             VC_Static.Log.WriteInfo("Form initialization completed.");
-        }
-        /// <summary>
-        /// Set properties to their current UI values and save them to the config file.
-        /// </summary>
-        private void SaveAll()
-        {
-            // save hotkeys
-            VC_Static.SaveSettings();
-            // Update local properties
-            Properties.Settings.Default.SetProperty("LastSelectedTarget", tbTargetSelector.Text);
-            Properties.Settings.Default.SetProperty("LastAutoReloadInterval", nAutoReloadInterval.Value);
-            Properties.Settings.Default.SetProperty("LastAutoReloadEnabled", cbAutoReload.Checked);
-            Properties.Settings.Default.SetProperty("LastLockTargetState", cbLockTarget.Checked);
-            Properties.Settings.Default.SetProperty("LastMixerVisibleState", MainSplitContainer.Panel2Collapsed);
-            Properties.Settings.Default.SetProperty("RunAtStartup", cbRunAtStartup.Checked);
-            Properties.Settings.Default.SetProperty("StartMinimized", cbStartMinimized.Checked);
-            Properties.Settings.Default.SetProperty("ShowInTaskbar", cbShowInTaskbar.Checked);
-            Properties.Settings.Default.SetProperty("AlwaysOnTop", cbAlwaysOnTop.Checked);
-            Properties.Settings.Default.SetProperty("ToastEnabled", cbToastEnabled.Checked);
-            Properties.Settings.Default.SetProperty("ToastTimeoutInterval", nToastTimeoutInterval.Value);
-            Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
-            Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
-            Properties.Settings.Default.SetProperty("LastLocation", Location);
-            // Save properties
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
-        }
-        /// <summary>
-        /// This function fixes the designer's failure to actually apply certain settings.
-        /// </summary>
-        private void ForceCorrectLayout()
-        {
-            // Force default cursors on both split containers, in case the designer decides to change them again
-            MainSplitContainer.Cursor = Cursors.Default;
-            MixerSplitContainer.Cursor = Cursors.Default;
-
-            // force correct layout on panel2SplitContainer
-            MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
-            MixerSplitContainer.Panel2MinSize = 0;
-            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
-            MixerSplitContainer.SplitterWidth = 1; // correct splitter width
-            MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
-            MixerSplitContainer.Panel2MinSize = 23;
         }
         /// <summary>
         /// Called before the form closes.
@@ -229,7 +183,6 @@ namespace VolumeControl
             UpdateBounds();
             VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
         }
-
         private void RefreshProcessList()
         {
             SuspendSizeToFit();
@@ -239,7 +192,6 @@ namespace VolumeControl
             ResumeSizeToFit(true);
             VC_Static.Log.WriteDebug($"Refreshed process list.");
         }
-
         public new void BringToFront()
         {
             Visible = true;
@@ -248,6 +200,51 @@ namespace VolumeControl
         }
         private void SetVersion(string ver)
             => Label_Version.Text = ver;
+        /// <summary>
+        /// Set properties to their current UI values and save them to the config file.
+        /// </summary>
+        private void SaveAll()
+        {
+            // save hotkeys
+            VC_Static.SaveSettings();
+            // Update local properties
+            Properties.Settings.Default.SetProperty("LastSelectedTarget", tbTargetSelector.Text);
+            Properties.Settings.Default.SetProperty("LastAutoReloadInterval", nAutoReloadInterval.Value);
+            Properties.Settings.Default.SetProperty("LastAutoReloadEnabled", cbAutoReload.Checked);
+            Properties.Settings.Default.SetProperty("LastLockTargetState", cbLockTarget.Checked);
+            Properties.Settings.Default.SetProperty("LastMixerVisibleState", MainSplitContainer.Panel2Collapsed);
+            Properties.Settings.Default.SetProperty("RunAtStartup", cbRunAtStartup.Checked);
+            Properties.Settings.Default.SetProperty("StartMinimized", cbStartMinimized.Checked);
+            Properties.Settings.Default.SetProperty("ShowInTaskbar", cbShowInTaskbar.Checked);
+            Properties.Settings.Default.SetProperty("AlwaysOnTop", cbAlwaysOnTop.Checked);
+            Properties.Settings.Default.SetProperty("ToastEnabled", cbToastEnabled.Checked);
+            Properties.Settings.Default.SetProperty("ToastTimeoutInterval", nToastTimeoutInterval.Value);
+            Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
+            Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
+            Properties.Settings.Default.SetProperty("LastLocation", Location);
+            // Save properties
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
+        }
+        /// <summary>
+        /// This function fixes the designer's failure to actually apply certain settings.
+        /// </summary>
+        private void ForceCorrectLayout()
+        {
+            // Force default cursors on both split containers, in case the designer decides to change them again
+            MainSplitContainer.Cursor = Cursors.Default;
+            MixerSplitContainer.Cursor = Cursors.Default;
+
+            // force correct layout on panel2SplitContainer
+            MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
+            MixerSplitContainer.Panel2MinSize = 0;
+            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
+            MixerSplitContainer.SplitterWidth = 1; // correct splitter width
+            MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
+            MixerSplitContainer.Panel2MinSize = 23;
+        }
         #endregion Methods
 
         #region MixerEventHandlers
@@ -295,6 +292,36 @@ namespace VolumeControl
         /// </summary>
         private void Mixer_RowsRemoved(object? sender, DataGridViewRowsRemovedEventArgs e)
             => SizeToFit();
+        /// <summary>
+        /// Handles drawing checkboxes for the Mixer.
+        /// </summary>
+        private void Mixer_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == MixerColMuted.Index)
+                {
+                    e.Handled = true;
+                    Graphics g = e.Graphics;
+                    var rect = e.CellBounds;
+                    int bottom = rect.Y + rect.Height - 1;
+                    rect.Size = new(rect.Width, rect.Height - 1);
+                    // draw background
+                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
+                    // draw divider
+                    g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
+
+                    int boxSize = 13;
+                    var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
+                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
+                    g.DrawRectangle(new Pen(b, 1f), box);
+                    if (Convert.ToBoolean(e.Value))
+                    {
+                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                    }
+                }
+            }
+        }
         #endregion MixerEventHandlers
 
         #region ControlEventHandlers
@@ -429,6 +456,9 @@ namespace VolumeControl
         /// </summary>
         private void Form_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
+        /// <summary>
+        /// Handles drawing checkboxes.
+        /// </summary>
         private void cbPaint(object sender, PaintEventArgs e)
         {
             if (sender is not CheckBox cb) return;
@@ -454,33 +484,5 @@ namespace VolumeControl
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
         #endregion ControlEventHandlers
-
-        private void Mixer_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                if (e.ColumnIndex == MixerColMuted.Index)
-                {
-                    e.Handled = true;
-                    Graphics g = e.Graphics;
-                    var rect = e.CellBounds;
-                    int bottom = rect.Y + rect.Height - 1;
-                    rect.Size = new(rect.Width, rect.Height - 1);
-                    // draw background
-                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
-                    // draw divider
-                    g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
-
-                    int boxSize = 13;
-                    var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
-                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
-                    g.DrawRectangle(new Pen(b, 1f), box);
-                    if (Convert.ToBoolean(e.Value))
-                    {
-                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
-                    }
-                }
-            }
-        }
     }
 }

@@ -36,16 +36,16 @@ namespace VolumeControl.Core.Controls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new VolumeControl.Core.Controls.DoubleBufferedDataGridView();
-            this.bsKeysList = new System.Windows.Forms.BindingSource(this.components);
-            this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
-            this.bCancel = new System.Windows.Forms.Button();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colKey = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.bsKeysList = new System.Windows.Forms.BindingSource(this.components);
             this.colAlt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colCtrl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colShift = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colWin = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
+            this.bCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsKeysList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHotkeyBindingList)).BeginInit();
@@ -112,32 +112,13 @@ namespace VolumeControl.Core.Controls
             this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(414, 20);
+            this.dgv.Size = new System.Drawing.Size(414, 19);
             this.dgv.TabIndex = 0;
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgv_CurrentCellDirtyStateChanged);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgv_DataError);
             this.dgv.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_RowsAdded);
             this.dgv.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_RowsRemoved);
-            // 
-            // bsKeysList
-            // 
-            this.bsKeysList.AllowNew = false;
-            this.bsKeysList.DataSource = typeof(VolumeControl.Core.Keyboard.ValidKeys);
-            // 
-            // bsHotkeyBindingList
-            // 
-            this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
-            // 
-            // bCancel
-            // 
-            this.bCancel.Enabled = false;
-            this.bCancel.Location = new System.Drawing.Point(-1, -1);
-            this.bCancel.Name = "bCancel";
-            this.bCancel.Size = new System.Drawing.Size(0, 0);
-            this.bCancel.TabIndex = 1;
-            this.bCancel.UseVisualStyleBackColor = true;
-            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
             // colName
             // 
@@ -171,6 +152,11 @@ namespace VolumeControl.Core.Controls
             this.colKey.Name = "colKey";
             this.colKey.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // bsKeysList
+            // 
+            this.bsKeysList.AllowNew = false;
+            this.bsKeysList.DataSource = typeof(VolumeControl.Core.Keyboard.ValidKeys);
             // 
             // colAlt
             // 
@@ -208,13 +194,27 @@ namespace VolumeControl.Core.Controls
             this.colWin.Name = "colWin";
             this.colWin.Width = 40;
             // 
+            // bsHotkeyBindingList
+            // 
+            this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
+            // 
+            // bCancel
+            // 
+            this.bCancel.Enabled = false;
+            this.bCancel.Location = new System.Drawing.Point(-1, -1);
+            this.bCancel.Name = "bCancel";
+            this.bCancel.Size = new System.Drawing.Size(0, 0);
+            this.bCancel.TabIndex = 1;
+            this.bCancel.UseVisualStyleBackColor = true;
+            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
+            // 
             // HotkeyEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(414, 20);
+            this.ClientSize = new System.Drawing.Size(414, 19);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.bCancel);
             this.DoubleBuffered = true;

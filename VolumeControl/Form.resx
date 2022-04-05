@@ -835,7 +835,7 @@
     <value>0, 0</value>
   </data>
   <data name="Mixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 28</value>
+    <value>362, 26</value>
   </data>
   <data name="Mixer.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -865,7 +865,7 @@
     <value>1</value>
   </data>
   <data name="MixerSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 60</value>
+    <value>362, 53</value>
   </data>
   <data name="MixerSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
     <value>31</value>
@@ -901,7 +901,7 @@
     <value>1</value>
   </data>
   <data name="MainSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 220</value>
+    <value>362, 213</value>
   </data>
   <data name="MainSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
     <value>159</value>
@@ -3906,7 +3906,7 @@
     <value>Center</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>362, 220</value>
+    <value>362, 213</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
