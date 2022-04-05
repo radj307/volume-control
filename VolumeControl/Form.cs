@@ -1,11 +1,8 @@
-using VolumeControl.Core.Controls;
 using System.Reflection;
 using VolumeControl.Core;
-using VolumeControl.Core.Events;
-using System.Runtime.CompilerServices;
-using System.ComponentModel;
 using VolumeControl.Core.Attributes;
-using System.Windows.Forms.VisualStyles;
+using VolumeControl.Core.Controls;
+using VolumeControl.Core.Events;
 
 namespace VolumeControl
 {
@@ -92,6 +89,11 @@ namespace VolumeControl
             VC_Static.InitializeHotkeys(this);
             hkedit.DataSource = VC_Static.Hotkeys;
 
+#           if !DEBUG
+            if (Properties.Settings.Default.StartMinimized)
+                WindowState = FormWindowState.Minimized;
+#           endif
+
             ResumeLayout();
 
             VC_Static.Log.WriteInfo("Form initialization completed.");
@@ -111,7 +113,7 @@ namespace VolumeControl
             ResumeLayout();
         }
 
-        #region Members
+#region Members
         /// <summary>
         /// This maintains the height of splitContainer.Panel1 to allow the 'Toggle Mixer' button to work correctly.
         /// </summary>
@@ -131,9 +133,9 @@ namespace VolumeControl
         /// </summary>
         private readonly HotkeyEditorForm hkedit = new();
         private readonly ToastForm toast = new();
-        #endregion Members
+#endregion Members
 
-        #region Properties
+#region Properties
         /// <summary>
         /// Lock or unlock the current target selection.
         /// This binds directly to (VC_Static.API.LockSelection).
@@ -143,9 +145,9 @@ namespace VolumeControl
             get => VC_Static.API.LockSelection;
             set => VC_Static.API.LockSelection = value;
         }
-        #endregion Properties
+#endregion Properties
 
-        #region Methods
+#region Methods
         private void SuspendSizeToFit()
             => _allowAutoSize = false;
         private void ResumeSizeToFit(bool trigger = false)
@@ -244,9 +246,9 @@ namespace VolumeControl
             MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
             MixerSplitContainer.Panel2MinSize = 23;
         }
-        #endregion Methods
+#endregion Methods
 
-        #region MixerEventHandlers
+#region MixerEventHandlers
         /// <summary>
         /// Handles checkbox checked/unchecked events in the mixer datagrid.
         /// This allows the checkboxes to actually function.
@@ -321,9 +323,9 @@ namespace VolumeControl
                 }
             }
         }
-        #endregion MixerEventHandlers
+#endregion MixerEventHandlers
 
-        #region ControlEventHandlers
+#region ControlEventHandlers
         /// <summary>
         /// Handles click events for the 'Reload' button.
         /// </summary>
@@ -482,6 +484,6 @@ namespace VolumeControl
 
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
-        #endregion ControlEventHandlers
+#endregion ControlEventHandlers
     }
 }

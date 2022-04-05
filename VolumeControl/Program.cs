@@ -1,7 +1,5 @@
 using System.Configuration;
 using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
 using VolumeControl.Core;
 using VolumeControl.Log;
 
