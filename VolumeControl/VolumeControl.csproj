@@ -11,6 +11,16 @@
     <ExtendedVersion>4.0.0-pre7</ExtendedVersion>
     <ReleaseType>PRERELEASE</ReleaseType>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
+    <Authors>$(AssemblyName)</Authors>
+    <PackageLicenseFile>X:\_Workspace\_repo\volume-control-2\LICENSE</PackageLicenseFile>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>iconSilvered.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/radj307/volume-control</PackageProjectUrl>
+    <Copyright>GPLv3</Copyright>
+    <Description>Windows application that adds hotkeys for adjusting the volume of specific applications using the Windows Audio Mixer.</Description>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
@@ -49,6 +59,12 @@
     <Folder Include="resources\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Core.Controls\VolumeControl.Core.Controls.csproj" />
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
   </ItemGroup>
@@ -56,6 +72,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\images\iconSilvered.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 </Project>

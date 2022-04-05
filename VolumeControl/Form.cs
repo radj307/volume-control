@@ -5,6 +5,7 @@ using VolumeControl.Core.Events;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using VolumeControl.Core.Attributes;
+using System.Windows.Forms.VisualStyles;
 
 namespace VolumeControl
 {
@@ -134,9 +135,9 @@ namespace VolumeControl
             // force correct layout on panel2SplitContainer
             MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
             MixerSplitContainer.Panel2MinSize = 0;
-            MixerSplitContainer.SplitterDistance = 27; // set splitter dist
+            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
             MixerSplitContainer.SplitterWidth = 1; // correct splitter width
-            MixerSplitContainer.Panel1MinSize = 27; // apply minimum panel sizes
+            MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
             MixerSplitContainer.Panel2MinSize = 23;
         }
         /// <summary>
@@ -215,7 +216,7 @@ namespace VolumeControl
             {
                 if (Mixer.ColumnHeadersVisible)
                     height += Mixer.ColumnHeadersHeight;
-                height += MainSplitContainer.SplitterWidth + MainSplitContainer.SplitterWidth + MixerSplitContainer.Panel1.Height + MixerSplitContainer.SplitterWidth;
+                height += MainSplitContainer.SplitterWidth + MixerSplitContainer.Panel1.Height;
                 int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
@@ -324,7 +325,22 @@ namespace VolumeControl
         /// Handles click events for the 'Edit Hotkeys...' button.
         /// </summary>
         private void bHotkeyEditor_Click(object sender, EventArgs e)
-            => hkedit.Toggle();
+        {
+            hkedit.Toggle();
+            if (hkedit.Visible)
+            {
+                var workingArea = Screen.FromPoint(Location).WorkingArea;
+                var size = hkedit.Size;
+                if (Location.X > workingArea.X + size.Width + 2)
+                {
+                    hkedit.Location = new(Location.X - size.Width - 2, Location.Y);
+                }
+                else
+                {
+                    hkedit.Location = new(Location.X + Size.Width + 1, Location.Y);
+                }
+            }
+        }
         /// <summary>
         /// Handles text change events for the 'Target Process Name' textbox.
         /// </summary>
@@ -427,17 +443,44 @@ namespace VolumeControl
             var box = new Rectangle(rect.Location.X, rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize - 1, boxSize - 1);
             int textStart = box.X + box.Width + 4;
 
-            SolidBrush border = new(Color.FromArgb(45, 45, 45));
+            var b = new SolidBrush(Color.FromArgb(200, 200, 200));
 
-            g.DrawRectangle(new Pen(border, 1f), box);
-
+            g.DrawRectangle(new Pen(b, 1f), box);
             if (cb.Checked)
             {
-                g.FillRectangle(new SolidBrush(Color.FromArgb(200, 200, 200)), new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
             }
 
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
         #endregion ControlEventHandlers
+
+        private void Mixer_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == MixerColMuted.Index)
+                {
+                    e.Handled = true;
+                    Graphics g = e.Graphics;
+                    var rect = e.CellBounds;
+                    int bottom = rect.Y + rect.Height - 1;
+                    rect.Size = new(rect.Width, rect.Height - 1);
+                    // draw background
+                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
+                    // draw divider
+                    g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
+
+                    int boxSize = 13;
+                    var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
+                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
+                    g.DrawRectangle(new Pen(b, 1f), box);
+                    if (Convert.ToBoolean(Mixer.Rows[e.RowIndex].Cells[e.ColumnIndex].Value))
+                    {
+                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                    }
+                }
+            }
+        }
     }
 }
