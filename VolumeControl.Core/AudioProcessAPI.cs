@@ -97,7 +97,7 @@ namespace VolumeControl.Core
 
         #region Methods
         public IAudioProcess? GetSelectedProcess() => _selected;
-        public void SetSelectedProcess(string name)
+        public void SetSelectedProcess(string name, bool userOrigin = true)
         {
             if (!_selected_lock)
             {
@@ -105,9 +105,13 @@ namespace VolumeControl.Core
                 if (it != null)
                     _selected = it;
                 else _selected = new VirtualAudioProcess(name);
-                NotifySelectedProcessChanged(new() { UserOrigin = true });
+                NotifySelectedProcessChanged(new() { UserOrigin = userOrigin });
                 FLog.Log.WriteDebug($"Target process name changed to '{_selected?.ProcessName}'");
             }
+        }
+        public void TrySetSelectedProcess(string? name, bool userOrigin = true)
+        {
+            if (name != null) SetSelectedProcess(name, userOrigin);
         }
         private int GetIndexOfProcessName(string name)
         {

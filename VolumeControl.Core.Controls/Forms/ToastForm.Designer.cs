@@ -70,6 +70,7 @@
             this.listBox.Size = new System.Drawing.Size(88, 88);
             this.listBox.TabIndex = 0;
             this.listBox.ValueMember = "ProcessName";
+            this.listBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseClick);
             this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox_DrawItem);
             this.listBox.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.listBox_AddedRemoved);
             this.listBox.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.listBox_AddedRemoved);

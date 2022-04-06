@@ -240,6 +240,9 @@ namespace VolumeControl.Core.Controls
             => UpdatePosition();
         private void ToastForm_Load(object sender, EventArgs e)
             => ResumeSizeToFit();
+
+        private void listBox_MouseClick(object sender, MouseEventArgs e) => VC_Static.API.TrySetSelectedProcess((listBox.SelectedItem as IAudioProcess)?.ProcessName, false);
+
         private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
