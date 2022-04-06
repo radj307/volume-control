@@ -56,11 +56,19 @@ namespace VolumeControl
 
             // Attempt to restore window position
             var lastOrigin = Properties.Settings.Default.LastLocation;
-            var lastMax = new Point(lastOrigin.X + Size.Width, lastOrigin.Y + Size.Height);
-            var lastScrBounds = Screen.FromPoint(lastOrigin).Bounds;
-            if (lastScrBounds.Contains(lastOrigin) && lastScrBounds.Contains(lastMax))
-                Location = lastOrigin;
-            else Location = lastScrBounds.Location + lastScrBounds.Size / 2 - Size / 2; // fallback to middle of the last screen
+            if (lastOrigin.Equals(new Point(-1, -1)))
+            {
+                var primaryWorkingArea = Screen.PrimaryScreen.WorkingArea;
+                Location = new(primaryWorkingArea.Width / 4 - Size.Width / 2, primaryWorkingArea.Height / 4 - Size.Height / 2);
+            }
+            else
+            {
+                var lastMax = new Point(lastOrigin.X + Size.Width, lastOrigin.Y + Size.Height);
+                var lastScrBounds = Screen.FromPoint(lastOrigin).Bounds;
+                if (lastScrBounds.Contains(lastOrigin) && lastScrBounds.Contains(lastMax))
+                    Location = lastOrigin;
+                else Location = lastScrBounds.Location + lastScrBounds.Size / 2 - Size / 2; // fallback to middle of the last screen
+            }                
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
@@ -85,7 +93,7 @@ namespace VolumeControl
             VC_Static.InitializeHotkeys(this);
             hkedit.DataSource = VC_Static.Hotkeys;
 
-#           if !DEBUG
+#           if !DEBUG // start minimized if enabled (only check in release configuration)
             if (Properties.Settings.Default.StartMinimized)
                 WindowState = FormWindowState.Minimized;
 #           endif
@@ -109,7 +117,7 @@ namespace VolumeControl
             ResumeLayout();
         }
 
-#region Members
+        #region Members
         /// <summary>
         /// This maintains the height of splitContainer.Panel1 to allow the 'Toggle Mixer' button to work correctly.
         /// </summary>
@@ -129,9 +137,9 @@ namespace VolumeControl
         /// </summary>
         private readonly HotkeyEditorForm hkedit = new();
         private readonly ToastForm toast = new();
-#endregion Members
+        #endregion Members
 
-#region Properties
+        #region Properties
         /// <summary>
         /// Lock or unlock the current target selection.
         /// This binds directly to (VC_Static.API.LockSelection).
@@ -141,9 +149,9 @@ namespace VolumeControl
             get => VC_Static.API.LockSelection;
             set => VC_Static.API.LockSelection = value;
         }
-#endregion Properties
+        #endregion Properties
 
-#region Methods
+        #region Methods
         private void SuspendSizeToFit()
             => _allowAutoSize = false;
         private void ResumeSizeToFit(bool trigger = false)
@@ -260,9 +268,9 @@ namespace VolumeControl
             MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
             MixerSplitContainer.Panel2MinSize = 23;
         }
-#endregion Methods
+        #endregion Methods
 
-#region MixerEventHandlers
+        #region MixerEventHandlers
         /// <summary>
         /// Handles checkbox checked/unchecked events in the mixer datagrid.
         /// This allows the checkboxes to actually function.
@@ -337,9 +345,9 @@ namespace VolumeControl
                 }
             }
         }
-#endregion MixerEventHandlers
+        #endregion MixerEventHandlers
 
-#region ControlEventHandlers
+        #region ControlEventHandlers
         /// <summary>
         /// Handles check/uncheck events for the 'Auto' reload checkbox
         /// </summary>
@@ -488,6 +496,6 @@ namespace VolumeControl
 
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
-#endregion ControlEventHandlers
+        #endregion ControlEventHandlers
     }
 }

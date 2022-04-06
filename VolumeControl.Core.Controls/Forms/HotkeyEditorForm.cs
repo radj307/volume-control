@@ -140,5 +140,15 @@ namespace VolumeControl.Core.Controls
                 }
             }
         }
+
+        private void HotkeyEditorForm_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
+            => MessageBox.Show(
+            this,
+            "Each row corresponds to a different hotkey. The 'Name' column indicates the hotkey's function.\n\nThe dropdown boxes under the 'Key' header select the primary key (or button) for a hotkey.\n\nThe 'Alt', 'Ctrl', 'Shift', & 'Win' checkboxes may be used to set modifier keys.\nIf your keyboard has multiple modifier keys (left/right on most keyboards), you can use either one.\n\nTo enable a hotkey, check the 'Active' box next to its name.\nHotkeys can only be enabled if they have a valid key set. (All keys except 'None' are considered valid.)",
+            "Hotkey Editor Usage",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information,
+            MessageBoxDefaultButton.Button1
+        );
     }
 }

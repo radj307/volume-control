@@ -28,7 +28,7 @@ namespace VolumeControl.Core.Controls
 
             VC_Static.API.SelectedProcessChanged += delegate
             {
-                if (Enabled)
+                if (Enabled && !_suspended)
                 {
                     SuspendLayout();
                     Show();
@@ -38,7 +38,7 @@ namespace VolumeControl.Core.Controls
             };
             VC_Static.API.LockSelectionChanged += delegate
             {
-                if (Enabled)
+                if (Enabled && !_suspended)
                 {
                     SuspendLayout();
                     Show();
@@ -84,7 +84,7 @@ namespace VolumeControl.Core.Controls
         #endregion Finalizers
 
         #region Members
-        private bool _allowAutoSize = false;
+        private bool _allowAutoSize = false, _suspended = false;
         #endregion Members
 
         #region Properties
@@ -108,6 +108,17 @@ namespace VolumeControl.Core.Controls
         #endregion Properties
 
         #region Methods
+        /// <summary>
+        /// Prevent the toast form from becoming visible.
+        /// </summary>
+        public void SuspendNotifications()
+            => _suspended = true;
+        /// <summary>
+        /// Allow the toast form to be visible again.
+        /// </summary>
+        public void ResumeNotifications()
+            => _suspended = false;
+
         public void SuspendSizeToFit()
             => _allowAutoSize = false;
 
@@ -126,7 +137,7 @@ namespace VolumeControl.Core.Controls
         public new void Show()
         {
             tTimeout.Enabled = false;
-            if (Enabled)
+            if (Enabled && !_suspended)
             {
                 WindowState = FormWindowState.Normal;
                 base.Show();

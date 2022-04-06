@@ -33,8 +33,9 @@ namespace VolumeControl.Core.Controls
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new VolumeControl.Core.Controls.DoubleBufferedDataGridView();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -57,7 +58,7 @@ namespace VolumeControl.Core.Controls
             this.dgv.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.AutoGenerateColumns = false;
@@ -70,7 +71,7 @@ namespace VolumeControl.Core.Controls
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -84,34 +85,38 @@ namespace VolumeControl.Core.Controls
             this.colShift,
             this.colWin});
             this.dgv.DataSource = this.bsHotkeyBindingList;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.DoubleBuffered = true;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.GridColor = System.Drawing.Color.Gainsboro;
             this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
-            this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            this.dgv.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            this.dgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv.RowTemplate.Height = 25;
             this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgv.ShowCellErrors = false;
+            this.dgv.ShowCellToolTips = false;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(414, 19);
+            this.dgv.ShowRowErrors = false;
+            this.dgv.Size = new System.Drawing.Size(404, 19);
             this.dgv.TabIndex = 0;
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgv_CurrentCellDirtyStateChanged);
@@ -133,8 +138,9 @@ namespace VolumeControl.Core.Controls
             this.colEnabled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.colEnabled.DataPropertyName = "Registered";
             this.colEnabled.HeaderText = "Active";
-            this.colEnabled.MinimumWidth = 40;
+            this.colEnabled.MinimumWidth = 45;
             this.colEnabled.Name = "colEnabled";
+            this.colEnabled.ToolTipText = "Enables the associated hotkey";
             this.colEnabled.Width = 47;
             // 
             // colKey
@@ -142,15 +148,23 @@ namespace VolumeControl.Core.Controls
             this.colKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colKey.DataPropertyName = "Key";
             this.colKey.DataSource = this.bsKeysList;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            this.colKey.DefaultCellStyle = dataGridViewCellStyle3;
             this.colKey.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.colKey.DropDownWidth = 70;
-            this.colKey.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.colKey.FillWeight = 99F;
+            this.colKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colKey.HeaderText = "Key";
             this.colKey.MaxDropDownItems = 10;
             this.colKey.MinimumWidth = 100;
             this.colKey.Name = "colKey";
             this.colKey.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colKey.ToolTipText = "Primary Key / Button";
             // 
             // bsKeysList
             // 
@@ -159,39 +173,43 @@ namespace VolumeControl.Core.Controls
             // 
             // colAlt
             // 
-            this.colAlt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colAlt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             this.colAlt.DataPropertyName = "Alt";
             this.colAlt.HeaderText = "Alt";
-            this.colAlt.MinimumWidth = 40;
+            this.colAlt.MinimumWidth = 35;
             this.colAlt.Name = "colAlt";
-            this.colAlt.Width = 40;
+            this.colAlt.ToolTipText = "Alt Modifier";
+            this.colAlt.Width = 35;
             // 
             // colCtrl
             // 
-            this.colCtrl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colCtrl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             this.colCtrl.DataPropertyName = "Ctrl";
             this.colCtrl.HeaderText = "Ctrl";
-            this.colCtrl.MinimumWidth = 40;
+            this.colCtrl.MinimumWidth = 35;
             this.colCtrl.Name = "colCtrl";
-            this.colCtrl.Width = 40;
+            this.colCtrl.ToolTipText = "Ctrl Modifier";
+            this.colCtrl.Width = 35;
             // 
             // colShift
             // 
-            this.colShift.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colShift.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             this.colShift.DataPropertyName = "Shift";
             this.colShift.HeaderText = "Shift";
-            this.colShift.MinimumWidth = 40;
+            this.colShift.MinimumWidth = 35;
             this.colShift.Name = "colShift";
-            this.colShift.Width = 40;
+            this.colShift.ToolTipText = "Shift Modifier";
+            this.colShift.Width = 35;
             // 
             // colWin
             // 
-            this.colWin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colWin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             this.colWin.DataPropertyName = "Win";
             this.colWin.HeaderText = "Win";
-            this.colWin.MinimumWidth = 40;
+            this.colWin.MinimumWidth = 35;
             this.colWin.Name = "colWin";
-            this.colWin.Width = 40;
+            this.colWin.ToolTipText = "Windows Key Modifier";
+            this.colWin.Width = 35;
             // 
             // bsHotkeyBindingList
             // 
@@ -202,11 +220,12 @@ namespace VolumeControl.Core.Controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(414, 19);
+            this.ClientSize = new System.Drawing.Size(404, 19);
             this.Controls.Add(this.dgv);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HotkeyEditorForm";
@@ -214,6 +233,7 @@ namespace VolumeControl.Core.Controls
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hotkey Editor";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.HotkeyEditorForm_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotkeyEditorForm_FormClosing);
             this.Load += new System.EventHandler(this.HotkeyEditorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
