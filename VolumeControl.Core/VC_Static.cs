@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Events;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
 
@@ -99,7 +100,13 @@ namespace VolumeControl.Core
         private static HotkeyBindingList _hotkeys = null!;
         #endregion Members
 
+        #region Events
+        // TODO: Implement a NotifyHotkeyPressed event trigger for all hotkeys (currently just volume)
+        public static event HotkeyPressedEventHandler? HotkeyPressed = null;
+        #endregion Events
+
         #region Methods
+        private static void NotifyHotkeyPressed(object? sender, HotkeyPressedEventArgs e) => HotkeyPressed?.Invoke(sender, e);
         private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
 
         #region HotkeyActions
@@ -108,7 +115,7 @@ namespace VolumeControl.Core
             var sel = API.GetSelectedProcess();
             if (sel is AudioProcess ap)
             {
-                ap.VolumeFullRange += VolumeStep;
+                NotifyHotkeyPressed(sender, new(VolumeControlSubject.VOLUME, VolumeControlAction.INCREMENT, ap.VolumeFullRange += VolumeStep));
                 e.Handled = true;
             }
         }
@@ -117,6 +124,7 @@ namespace VolumeControl.Core
             var sel = API.GetSelectedProcess();
             if (sel is AudioProcess ap)
             {
+                NotifyHotkeyPressed(sender, new(VolumeControlSubject.VOLUME, VolumeControlAction.DECREMENT, ap.VolumeFullRange -= VolumeStep));
                 ap.VolumeFullRange -= VolumeStep;
                 e.Handled = true;
             }
@@ -126,7 +134,7 @@ namespace VolumeControl.Core
             var sel = API.GetSelectedProcess();
             if (sel is AudioProcess ap)
             {
-                ap.ToggleMute();
+                NotifyHotkeyPressed(sender, new(VolumeControlSubject.VOLUME, VolumeControlAction.TOGGLE, ap.ToggleMute()));
                 e.Handled = true;
             }
         }

@@ -1,5 +1,4 @@
-﻿using System.Drawing.Drawing2D;
-using VolumeControl.Core.Audio;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Log;
 
@@ -15,8 +14,7 @@ namespace VolumeControl.Core.Controls
             DisplayPadding = Properties.Settings.Default.DisplayPadding;
             DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName == Properties.Settings.Default.DisplayScreen, Screen.PrimaryScreen);
             DisplayOffset = Properties.Settings.Default.DisplayOffset;
-            LockedColor = Properties.Settings.Default.LockedColor;
-            UnlockedColor = Properties.Settings.Default.UnlockedColor;
+            IndicatorWidth = Properties.Settings.Default.IndicatorWidth;
 
             Visible = false;
 
@@ -55,6 +53,17 @@ namespace VolumeControl.Core.Controls
                 listBox.DataSource = bsAudioProcessAPI;
                 ResumeLayout();
             };
+            VC_Static.HotkeyPressed += delegate
+            {
+                if (Enabled && !_suspended)
+                {
+                    SuspendLayout();
+                    UpdateLockSelection();
+                    if (ShowIndicator)
+                        listBox.Refresh();
+                    ResumeLayout();
+                }
+            };
 
             UpdateSelection();
             UpdateLockSelection();
@@ -73,8 +82,7 @@ namespace VolumeControl.Core.Controls
             Properties.Settings.Default.DisplayPadding = DisplayPadding;
             Properties.Settings.Default.DisplayScreen = DisplayScreen.DeviceName;
             Properties.Settings.Default.DisplayOffset = DisplayOffset;
-            Properties.Settings.Default.LockedColor = LockedColor;
-            Properties.Settings.Default.UnlockedColor = UnlockedColor;
+            Properties.Settings.Default.IndicatorWidth = IndicatorWidth;
             // save settings
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -97,14 +105,50 @@ namespace VolumeControl.Core.Controls
         public Screen DisplayScreen { get; set; }
         public Corner DisplayCorner { get; set; }
         public Size DisplayOffset { get; set; }
-        public Color LockedColor { get; set; }
-        public Color UnlockedColor { get; set; }
         public new Font Font
         {
             get => listBox.Font;
             set => listBox.Font = value;
         }
         private static bool TargetIsLocked => VC_Static.API.LockSelection;
+        private static bool TargetIsMuted => (VC_Static.API.GetSelectedProcess() is AudioProcess ap && ap.Muted);
+        private static decimal TargetVolume => VC_Static.API.GetSelectedProcess() is AudioProcess ap ? ap.VolumeFullRange : 0m;
+        /// <summary>
+        /// Color of the volume level indicator.
+        /// </summary>
+        private static Color ColorLevel => Properties.Settings.Default.ColorLevel;
+        /// <summary>
+        /// Color when the target is locked and isn't muted
+        /// </summary>
+        private static Color ColorLockUnmuted => Properties.Settings.Default.ColorLock;
+        /// <summary>
+        /// Color when the target is locked and is muted.
+        /// </summary>
+        private static Color ColorLockMuted => Properties.Settings.Default.ColorLockMuted;
+        /// <summary>
+        /// Color when the target is locked, auto-selected based on whether the target is muted.
+        /// </summary>
+        private static Color ColorLock => TargetIsMuted ? ColorLockMuted : ColorLockUnmuted;
+        /// <summary>
+        /// Color when the target is unlocked and isn't muted.
+        /// </summary>
+        private static Color ColorUnlockUnmuted => Properties.Settings.Default.ColorUnlock;
+        /// <summary>
+        /// Color when the target is unlocked and is muted.
+        /// </summary>
+        private static Color ColorUnlockMuted => Properties.Settings.Default.ColorUnlockMuted;
+        /// <summary>
+        /// Color when the target is unlocked, auto-selected based on whether the target is muted.
+        /// </summary>
+        private static Color ColorUnlock => TargetIsMuted ? ColorUnlockMuted : ColorUnlockUnmuted;
+        /// <summary>
+        /// Auto-selects the color based on whether it is locked/unlocked and muted/unmuted.
+        /// </summary>
+        private static Color Color => TargetIsLocked ? ColorLock : ColorUnlock;
+
+        private static bool ShowIndicator => Properties.Settings.Default.ShowIndicator;
+        public int IndicatorWidth { get; set; }
+        private int LevelIndicatorHeight => Convert.ToInt32(TargetVolume.Scale(0m, 100m, Convert.ToDecimal(IndicatorWidth), Convert.ToDecimal(listBox.Size.Height)));
         #endregion Properties
 
         #region Methods
@@ -225,9 +269,7 @@ namespace VolumeControl.Core.Controls
         /// Updates the background color to indicate whether the current target is locked.
         /// </summary>
         public void UpdateLockSelection()
-            => colorPanel.BackColor = GetColor();
-        private Color GetColor()
-            => TargetIsLocked ? LockedColor : UnlockedColor;
+            => colorPanel.BackColor = Color;
         #endregion Methods
 
         #region ControlEventHandlers
@@ -245,26 +287,41 @@ namespace VolumeControl.Core.Controls
 
         private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            e.DrawBackground();
-            if (e.Index >= 0)
+            if (e.Index < 0 || listBox.Items[e.Index] is not AudioProcess item)
             {
-                Graphics g = e.Graphics;
-                bool isSelected = (e.State & DrawItemState.Selected) != 0;
-                g.FillRectangle(new SolidBrush(isSelected ? GetColor() : e.BackColor), e.Bounds);
-                if (listBox.Items[e.Index] is not AudioProcess item)
-                {
-                    FLog.Log.WriteError($"ToastForm.listBox_DrawItem() skipped drawing item at index '{e.Index}' because it isn't an AudioProcess!");
-                    return;
-                }
-                if (isSelected)
-                {
-                    var font = e.Font ?? listBox.Font;
-                    g.DrawString(item.ProcessName, new Font(font.FontFamily, font.Size, FontStyle.Bold), new SolidBrush(Color.Black), e.Bounds, StringFormat.GenericDefault);
-                }
-                else
-                    g.DrawString(item.ProcessName, e.Font ?? listBox.Font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+                FLog.Log.WriteError($"ToastForm.listBox_DrawItem() skipped drawing item at index '{e.Index}' because it isn't an AudioProcess!");
+                return;
             }
+
+            e.DrawBackground();
+            Graphics g = e.Graphics;
+            bool isSelected = (e.State & DrawItemState.Selected) != 0;
+            g.FillRectangle(new SolidBrush(isSelected ? Color : e.BackColor), e.Bounds);
+
+            if (ShowIndicator)
+            {
+                int indicatorHeight = listBox.Size.Height - LevelIndicatorHeight;
+                if (indicatorHeight >= e.Bounds.Y && indicatorHeight <= e.Bounds.Y + e.Bounds.Height)
+                {
+                    listBox.CreateGraphics().DrawLine(new Pen(new SolidBrush(ColorLevel), IndicatorWidth), new Point(e.Bounds.X, indicatorHeight), new Point(e.Bounds.X + e.Bounds.Width, indicatorHeight));
+                }
+            }
+
+            var font = e.Font ?? listBox.Font;
+            if (isSelected)
+            {
+                g.DrawString(item.ProcessName, new Font(font.FontFamily, font.Size, FontStyle.Bold), new SolidBrush(Color.Black), e.Bounds, StringFormat.GenericDefault);
+            }
+            else
+                g.DrawString(item.ProcessName, font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
         }
         #endregion ControlEventHandlers
+    }
+    public static class DecimalExtensions
+    {
+        public static decimal Scale(this decimal n, decimal nMin, decimal nMax, decimal outMin, decimal outMax)
+        {
+            return nMin + (n - nMin) * (outMax - outMin) / (nMax - nMin);
+        }
     }
 }

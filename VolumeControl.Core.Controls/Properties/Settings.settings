@@ -11,17 +11,32 @@
     <Setting Name="DisplayScreen" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="LockedColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">200, 17, 31</Value>
-    </Setting>
-    <Setting Name="UnlockedColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">39, 204, 30</Value>
-    </Setting>
     <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
     <Setting Name="DisplayOffset" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="ColorLock" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">200, 17, 31</Value>
+    </Setting>
+    <Setting Name="ColorUnlock" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">39, 204, 30</Value>
+    </Setting>
+    <Setting Name="ColorLockMuted" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 192, 192</Value>
+    </Setting>
+    <Setting Name="ColorUnlockMuted" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">192, 255, 192</Value>
+    </Setting>
+    <Setting Name="ColorLevel" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">45, 45, 45</Value>
+    </Setting>
+    <Setting Name="IndicatorWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="ShowIndicator" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

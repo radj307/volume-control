@@ -61,30 +61,6 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200, 17, 31")]
-        public global::System.Drawing.Color LockedColor {
-            get {
-                return ((global::System.Drawing.Color)(this["LockedColor"]));
-            }
-            set {
-                this["LockedColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("39, 204, 30")]
-        public global::System.Drawing.Color UnlockedColor {
-            get {
-                return ((global::System.Drawing.Color)(this["UnlockedColor"]));
-            }
-            set {
-                this["UnlockedColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 9.75pt")]
         public global::System.Drawing.Font ToastFont {
             get {
@@ -104,6 +80,90 @@ namespace VolumeControl.Core.Controls.Properties {
             }
             set {
                 this["DisplayOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200, 17, 31")]
+        public global::System.Drawing.Color ColorLock {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorLock"]));
+            }
+            set {
+                this["ColorLock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("39, 204, 30")]
+        public global::System.Drawing.Color ColorUnlock {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorUnlock"]));
+            }
+            set {
+                this["ColorUnlock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 192, 192")]
+        public global::System.Drawing.Color ColorLockMuted {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorLockMuted"]));
+            }
+            set {
+                this["ColorLockMuted"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 192")]
+        public global::System.Drawing.Color ColorUnlockMuted {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorUnlockMuted"]));
+            }
+            set {
+                this["ColorUnlockMuted"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("45, 45, 45")]
+        public global::System.Drawing.Color ColorLevel {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorLevel"]));
+            }
+            set {
+                this["ColorLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int IndicatorWidth {
+            get {
+                return ((int)(this["IndicatorWidth"]));
+            }
+            set {
+                this["IndicatorWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowIndicator {
+            get {
+                return ((bool)(this["ShowIndicator"]));
+            }
+            set {
+                this["ShowIndicator"] = value;
             }
         }
     }
