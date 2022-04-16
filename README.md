@@ -2,71 +2,58 @@
 <img alt="[Volume Control Banner]" src="https://i.imgur.com/rMbNIhU.png">
 <a href="https://github.com/radj307/volume-control/releases"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&label=Latest%20Version&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>
 <a href="https://github.com/radj307/volume-control/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>
- <br />
-Simple, universal application-specific hotkeys using the Windows Mixer.  
+ <br /> 
 </p>
 <h1></h1>
 
-&nbsp;&nbsp;&nbsp;&nbsp;I made this because of my frustration with being unable to use keyboard hotkeys to control the volume of Deezer after switching from Spotify, and I figured why not just make hotkeys that work for any process.  
-You can use the GUI to switch targets, or use configurable hotkeys to cycle between them.  
+This is a simple Windows Forms program that adds _(configurable)_ hotkeys for adjusting the volume of specific applications instead of the global volume.
 
-&nbsp;&nbsp;&nbsp;&nbsp;There is also a commandline version available, it can get or set the volume of specific applications using a __PID__ or __Process Name__, and is useful for making scripts.  
+There is also a [commandline version](https://github.com/radj307/volume-control/releases/tag/3.3.4.1) available for scripting.  
+See [CLI usage](https://github.com/radj307/volume-control#volumecontrolcli) for more information about the commandline version.
+
 
 # Installation
  1. Download the [latest release](https://github.com/radj307/volume-control/releases).    
     - _VolumeControl.exe_ is the main GUI version that adds hotkeys.
-    - _VolumeControlCLI.exe_ is the commandline utility for adjusting or querying an application's volume.  
-      See [CLI usage](https://github.com/radj307/volume-control#volumecontrolcli) for more information about the commandline version.
+    - _VolumeControlCLI.exe_ is the commandline version.  
+
  2. Place `VolumeControl.exe` somewhere and launch it.  
 
 ## A Note on Windows Defender / Microsoft Defender Smartscreen
-The first time you launch the program, Microsoft Defender Smartscreen will show a pop-up window informing you that the application isn't signed, and is "unrecognized".  
-This is because Microsoft charges >$300 per year for a publishing certificate, and that's a lot of money that I don't have.  
+__The first time you launch the program, you'll be greeted with this popup:__  
 
-To ignore the popup and unblock the program, click on ___More Info___ -> ___Run anyway___.  
+![image](https://user-images.githubusercontent.com/1927798/161876965-4092ec80-3302-45c5-8e9d-9668b27081f9.png)
 
-If you're unsure, feel free to run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) or another virus scanner before trying it.
+This is because Microsoft charges >$300 per year for a publishing certificate in order to ~~rake in cash~~ _improve security_; since I don't have that kind of money to blow on Microsoft, run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) if you're unsure.
 
-# Usage
-To get started, set a target application in the _General_ tab, then go through each of the Hotkey tabs and set up the hotkeys you want.  
-By default, the _Volume Up/Down_ & _Toggle Mute_ hotkeys are set to _Ctrl+VolumeUp_, _Ctrl+VolumeDown_, & _Ctrl+VolumeMute_ respectively.  
-If the list is empty, try clicking _Reload_, or starting an application that plays audio.  
-If you know the __Process Name__ of the application you want to control, you can enter it whether it's on the list or not.
 
-__Note:__ For an application to appear in the list of targets, it must be visible in the Windows Audio Mixer -- this happens as soon as it begins playing audio in most cases.
-
-## Rebinding Keyboard Media Keys
-
-This is fully supported, and is the original intent of the program.
-
-There are two ways to accomplish this:
-- Use a modifier key in combination with the volume up/down media keys to control application volume.  
-- Use the volume up/down media keys to control application volume, then to change the global volume just press any modifier key as well.  
-
-## Available Hotkeys
-
- - Application Volume Up
- - Application Volume Down
- - Application Toggle Mute
- - Next Track
- - Previous Track
- - Play/Pause
- - Next Target
- - Previous Target
- - Show Target List
+# Getting Started
+ 1. First, download the [latest release](https://github.com/radj307/volume-control/releases) and launch it from a location of your choice.
+ 2. Click the ![Edit Hotkeys...](https://user-images.githubusercontent.com/1927798/161868661-4723424d-f3df-4665-b22a-3e15b5ef22b0.png) button to open the hotkey editor.  
+    For instructions on how to use the hotkey editor, click the ![?](https://user-images.githubusercontent.com/1927798/161875057-c9cc4aef-3b3e-4248-a0a9-f5cf14e12b9a.png) button in the top-right corner.
+ 3. Once you have the hotkeys set up, you can close the hotkey editor.  
+ 4. Pressing the _Volume Up_, _Volume Down_, or _Toggle Mute_ buttons will affect the currently selected 'target', which is whatever _(case-insensitive)_ Process Name you put here: ![in this box](https://user-images.githubusercontent.com/1927798/161877354-9219c68e-eba5-40d1-bdf8-1d78487dd045.png).  
+ 5. The first time you launch volume control, the 'target' field will be blank - luckily, there are a few options for filling it in.
+    1. Open the _Mixer_ by clicking the ![toggle mixer](https://user-images.githubusercontent.com/1927798/161878001-7e1b02af-ae5f-43df-8674-82518f7f12e7.png) button, then click the ![select](https://user-images.githubusercontent.com/1927798/161878224-6653f7ea-bccc-485b-9d97-de42d4acd588.png) button next to the process you want to set as the target.
+    2. If you enabled the _Next Target_ / _Previous Target_ hotkeys, you can press one _(or both, I guess)_ to begin cycling through the list of programs that are currently playing audio.
+    3. You can also just type in the name of any process, even if it isn't currently running.
+ 6. The built-in mixer is capable of doing everything that the Windows Audio Mixer can do, albeit without the snazzy volume sliders.  
+    You can click the ___-___ / ___+___ buttons to adjust the volume or click on the volume to directly set it using the keyboard.  
+    You can mute/unmute applications with the _Muted_ checkbox.
+ 7. To change how much the volume is adjusted with each hotkey/button press, use the ![volume step](https://i.imgur.com/exEliKh.png) spinbox.
 
 ## VolumeControl
 Volume Control usually lives in the System Tray to keep it out of your way.  
 To show the main window, double-click on the system tray icon.  
 
-As of version 3.3.3, a dark theme is available for both the main window and the target list window. Comparison image between both themes:
-![Light & Dark Theme Comparison](https://i.imgur.com/lm5OuIe.png)  
+All of the most important settings are exposed through the user interface, however there are many more configurable options available by editing the config file located in `<USER>\AppData\Local\VolumeControl\<LONG_ASS_GUID>\<VERSION>\user.config`
 
-### Target List Window
-The target list window is an optional toast notification that pops up when using the _Next/Prev Target_ hotkeys, and disappears after a configurable timeout.  
-It shows which target is currently selected, and an approximation of its current volume level.  
-![Target List Window](https://i.imgur.com/DWIvBHG.png) _Target List Window in v3.3.4_  
-You can also use the _Show Targets_ hotkey to toggle the window without having a timeout.  
+### Toast Notification
+The target list window is an optional toast notification that pops up when using the _Next Target_, _Previous Target_, and _Toggle Target Lock_ hotkeys. It disappears after a configurable amount of time _(Anywhere from 100ms to 1min)_.
+
+It shows which target is currently selected, and changes color depending on whether the target is locked.
+
+![Toast Notification in v4.0.0](https://i.imgur.com/IiXC3Co.png)  
 Clicking on a target in the list will select that target.
 
 ## VolumeControlCLI
