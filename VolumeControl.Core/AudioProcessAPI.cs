@@ -1,6 +1,4 @@
-﻿using AudioAPI;
-using System.Runtime.CompilerServices;
-using VolumeControl.Core.Audio;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Events;
 using VolumeControl.Log;
