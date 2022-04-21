@@ -1,4 +1,5 @@
 ﻿using AudioAPI;
+using System.Runtime.CompilerServices;
 using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Events;
@@ -99,7 +100,7 @@ namespace VolumeControl.Core
         public IAudioProcess? GetSelectedProcess() => _selected;
         public void SetSelectedProcess(string name, bool userOrigin = true)
         {
-            if (!_selected_lock)
+            if (!_selected_lock && ProcessList.Count > 0)
             {
                 var it = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null);
                 if (it != null)
@@ -113,12 +114,43 @@ namespace VolumeControl.Core
         {
             if (name != null) SetSelectedProcess(name, userOrigin);
         }
-        private int GetIndexOfProcessName(string name)
+
+        public int GetIndexWithProcessNameOrPID(object? process_identifier)
+        {
+            if (process_identifier is int pid)
+                return GetIndexWithPID(pid);
+            else if (process_identifier is string name)
+            {
+                name = name.Trim();
+                if (name.All(char.IsDigit))
+                {
+                    int i = GetIndexWithPID(int.Parse(name));
+                    if (i != -1) return i;
+                }
+                return GetIndexWithProcessName(name);
+            }
+            else return -1;
+        }
+
+        public int GetIndexWithProcessName(string name)
         {
             for (int i = 0, count = ProcessList.Count; i < count; ++i)
                 if (ProcessList[i].ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase))
                     return i;
             return -1;
+        }
+        public int GetIndexWithPID(int pid)
+        {
+            for (int i = 0, count = ProcessList.Count; i < count; ++i)
+                if (ProcessList[i].PID.Equals(pid))
+                    return i;
+            return -1;
+        }
+        public int GetSelectedIndex()
+        {
+            if (_selected == null)
+                return -1;
+            return GetIndexWithPID(_selected.PID);
         }
         /// <summary>
         /// Select the process after the current selection.
@@ -128,14 +160,15 @@ namespace VolumeControl.Core
         {
             if (ReloadOnHotkey)
                 TryReload();
-            if (!_selected_lock)
+            if (!_selected_lock && ProcessList.Count > 0)
             {
-                if (_selected != null)
-                {
-                    int i = GetIndexOfProcessName(_selected.ProcessName) + 1;
-                    _selected = ProcessList[i % ProcessList.Count];
-                }
-                else _selected = ProcessList.First();
+                int i = GetSelectedIndex();
+
+                if (i == -1)
+                    _selected = ProcessList.First();
+                else
+                    _selected = ProcessList[++i % ProcessList.Count];
+
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
                 FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
             }
@@ -148,16 +181,19 @@ namespace VolumeControl.Core
         {
             if (ReloadOnHotkey)
                 TryReload();
-            if (!_selected_lock)
+            if (!_selected_lock && ProcessList.Count > 0)
             {
-                if (_selected != null)
+                int i = GetSelectedIndex();
+
+                if (i == -1)
+                    _selected = ProcessList.Last();
+                else
                 {
-                    int i = GetIndexOfProcessName(_selected.ProcessName) - 1;
-                    int count = ProcessList.Count;
-                    while (i < 0) i = count + i;
+                    if (--i < 0)
+                        i = ProcessList.Count - 1;
                     _selected = ProcessList[i];
                 }
-                else _selected = ProcessList.Last();
+
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
                 FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
             }

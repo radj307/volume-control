@@ -8,5 +8,6 @@
         }
         public bool Virtual => true;
         public string ProcessName { get; }
+        public int PID => -1;
     }
 }

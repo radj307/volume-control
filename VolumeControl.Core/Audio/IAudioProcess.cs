@@ -4,5 +4,6 @@
     {
         bool Virtual { get; }
         string ProcessName { get; }
+        int PID { get; }
     }
 }
