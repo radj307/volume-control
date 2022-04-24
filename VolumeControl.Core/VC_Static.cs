@@ -167,6 +167,25 @@ namespace VolumeControl.Core
             Properties.Settings.Default.Reload();
             Log.WriteInfo("Saved Current Program Settings.");
         }
+        /// <summary>
+        /// Trigger the associated hotkey's bound action.
+        /// </summary>
+        /// <remarks>
+        /// This is useful for programmatically 'pressing' a hotkey rather than the user actually pressing it.
+        /// </remarks>
+        /// <param name="subject">The <see cref="VolumeControlSubject"/> target.</param>
+        /// <param name="action">The <see cref="VolumeControlAction"/> action to perform on the target.</param>
+        public static void TriggerHotkey(object? sender, VolumeControlSubject subject, VolumeControlAction action)
+        {
+            if (!_initialized || !_hk_initialized)
+                return; // not initialized yet
+            var hkAction = API.Actions[subject][action];
+            if (hkAction != null)
+            {
+                hkAction.Invoke(sender, new());
+                FLog.Log.WriteDebug($"Hotkey {subject}:{action} was triggered virtually.");
+            }
+        }
         #endregion Methods
 
         #region Properties
