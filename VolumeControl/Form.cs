@@ -88,6 +88,13 @@ namespace VolumeControl
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
             VC_Static.API.ProcessListUpdated += RefreshProcessList!;
+            VC_Static.HotkeyPressed += delegate(object? sender, HotkeyPressedEventArgs e)
+            {
+                if (!MainSplitContainer.Panel2Collapsed && cbReloadOnHotkey.Checked && e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
+                {
+                    RefreshProcessList(sender!, e);
+                }
+            };
 
             // Initialize hotkey API now that we have a form
             VC_Static.InitializeHotkeys(this);
