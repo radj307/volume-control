@@ -39,7 +39,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="VolumeStep" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="AllowMultipleInstances" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -48,7 +48,7 @@
       <Value Profile="(Default)">-1, -1</Value>
     </Setting>
     <Setting Name="EnableEscapeMinimize" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

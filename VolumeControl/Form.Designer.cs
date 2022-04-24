@@ -81,6 +81,7 @@ namespace VolumeControl
             this.TrayContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.TrayContextMenuBringToFront = new System.Windows.Forms.ToolStripMenuItem();
             this.tAutoReload = new System.Windows.Forms.Timer(this.components);
+            this.vbCancel = new VolumeControl.Core.Controls.VirtualButton(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
             this.MainSplitContainer.Panel2.SuspendLayout();
@@ -617,6 +618,10 @@ namespace VolumeControl
             this.tAutoReload.Interval = 1000;
             this.tAutoReload.Tick += new System.EventHandler(this.ReloadProcessList);
             // 
+            // vbCancel
+            // 
+            this.vbCancel.Click += new VolumeControl.Core.Controls.VirtualClickEventHandler(this.vbCancel_Click);
+            // 
             // Form
             // 
             resources.ApplyResources(this, "$this");
@@ -696,5 +701,6 @@ namespace VolumeControl
         private DataGridViewButtonColumn MixerColVolumeUp;
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
+        private VirtualButton vbCancel;
     }
 }

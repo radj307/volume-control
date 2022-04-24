@@ -23,9 +23,6 @@ namespace VolumeControl
             InitializeComponent();
             ForceCorrectLayout();
 
-            if (Properties.Settings.Default.EnableEscapeMinimize)
-                CancelButton = new VirtualButton(delegate { WindowState = FormWindowState.Minimized; });
-
             _panel1Height = MainSplitContainer.Panel1.Height;
 
             _width = Size.Width;
@@ -504,5 +501,11 @@ namespace VolumeControl
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
         #endregion ControlEventHandlers
+
+        private void vbCancel_Click(object? sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.EnableEscapeMinimize)
+                WindowState = FormWindowState.Minimized;
+        }
     }
 }

@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="hks_VolumeUp" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ctrl+VolumeUp</Value>
+      <Value Profile="(Default)">VolumeUp</Value>
     </Setting>
     <Setting Name="hks_VolumeDown" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ctrl+VolumeDown</Value>
+      <Value Profile="(Default)">VolumeDown</Value>
     </Setting>
     <Setting Name="hks_VolumeToggle" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ctrl+VolumeMute</Value>
+      <Value Profile="(Default)">VolumeMute</Value>
     </Setting>
     <Setting Name="hks_MediaNext" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -21,13 +21,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hks_TargetNext" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CtrlShift+E</Value>
+      <Value Profile="(Default)">CtrlShiftAlt+E</Value>
     </Setting>
     <Setting Name="hks_TargetPrev" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CtrlShift+Q</Value>
+      <Value Profile="(Default)">CtrlShiftAlt+Q</Value>
     </Setting>
     <Setting Name="hks_TargetToggle" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CtrlShift+S</Value>
+      <Value Profile="(Default)">CtrlShiftAlt+S</Value>
     </Setting>
     <Setting Name="hks_VolumeUpEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

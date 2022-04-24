@@ -169,7 +169,7 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public decimal VolumeStep {
             get {
                 return ((decimal)(this["VolumeStep"]));
@@ -205,7 +205,7 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableEscapeMinimize {
             get {
                 return ((bool)(this["EnableEscapeMinimize"]));

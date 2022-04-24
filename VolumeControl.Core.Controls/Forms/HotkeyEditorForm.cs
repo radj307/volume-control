@@ -9,8 +9,6 @@ namespace VolumeControl.Core.Controls
         {
             InitializeComponent();
             bsKeysList.DataSource = new ValidKeys();
-
-            CancelButton = new VirtualButton(delegate { Close(); });
         }
         #endregion Constructors
 
@@ -108,11 +106,8 @@ namespace VolumeControl.Core.Controls
             => SizeToFit();
         private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
             => VC_Static.Log.WriteExceptionError(e.Exception);
-        #endregion ControlEventHandlers
-
         private void HotkeyEditorForm_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
-
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -140,7 +135,6 @@ namespace VolumeControl.Core.Controls
                 }
             }
         }
-
         private void HotkeyEditorForm_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
             => MessageBox.Show(
             this,
@@ -150,5 +144,8 @@ namespace VolumeControl.Core.Controls
             MessageBoxIcon.Information,
             MessageBoxDefaultButton.Button1
         );
+        private void vbCancel_Click(object sender, EventArgs e)
+            => Close();
+        #endregion ControlEventHandlers
     }
 }

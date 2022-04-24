@@ -3995,6 +3995,9 @@
   <metadata name="tAutoReload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>181, 65</value>
   </metadata>
+  <metadata name="vbCancel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>301, 65</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -4143,6 +4146,12 @@
   </data>
   <data name="&gt;&gt;tAutoReload.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;vbCancel.Name" xml:space="preserve">
+    <value>vbCancel</value>
+  </data>
+  <data name="&gt;&gt;vbCancel.Type" xml:space="preserve">
+    <value>VolumeControl.Core.Controls.VirtualButton, VirtualButton, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form</value>
