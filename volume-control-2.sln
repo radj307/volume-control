@@ -19,10 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Log", "Volume
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries-APIs", "Libraries-APIs", "{5B4835BC-874A-4C31-A679-0F9CD3CE5A71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{AED10F4A-4C1F-48B4-9968-8EF90C859900}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualButton", "Components\VirtualButton\VirtualButton.csproj", "{0902235F-9B76-4C4D-BA2E-7D027B1E739F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5AC9655-776E-40BC-9260-21930F042172}"
 	ProjectSection(SolutionItems) = preProject
 		SetVersion.ps1 = SetVersion.ps1
@@ -62,10 +58,6 @@ Global
 		{7E3E035D-28B8-4212-838D-AA9FF73A3E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E3E035D-28B8-4212-838D-AA9FF73A3E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E3E035D-28B8-4212-838D-AA9FF73A3E60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0902235F-9B76-4C4D-BA2E-7D027B1E739F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0902235F-9B76-4C4D-BA2E-7D027B1E739F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0902235F-9B76-4C4D-BA2E-7D027B1E739F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0902235F-9B76-4C4D-BA2E-7D027B1E739F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,7 +65,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{797D1D1C-0E98-4486-8588-AEBA4414899A} = {5B4835BC-874A-4C31-A679-0F9CD3CE5A71}
 		{3D56E8DF-72E4-4CCD-9BE4-5C8772A0417B} = {5B4835BC-874A-4C31-A679-0F9CD3CE5A71}
-		{0902235F-9B76-4C4D-BA2E-7D027B1E739F} = {AED10F4A-4C1F-48B4-9968-8EF90C859900}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5A019F3-AF20-43E2-890B-FA637ECCD06E}
