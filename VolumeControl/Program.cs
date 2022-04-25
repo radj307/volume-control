@@ -2,6 +2,7 @@ using System.Configuration;
 using System.Diagnostics;
 using VolumeControl.Core;
 using VolumeControl.Core.Controls;
+using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -85,7 +86,8 @@ namespace VolumeControl
 
                 var hkeditForm = new HotkeyEditorForm(); // create the hotkey editor form
                 var toastForm = new ToastForm(); // create the toast notification form
-                var vcForm = new Form(hkeditForm, toastForm); // create the main form
+                var indicatorForm = new VolumeIndicatorForm();
+                var vcForm = new Form(hkeditForm, toastForm, indicatorForm); // create the main form
 
                 VC_Static.Log.Info("Initialization completed, starting the application...");
 

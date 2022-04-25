@@ -2,44 +2,65 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VolumeControl.Core.Controls.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DisplayCorner" Type="System.Byte" Scope="User">
+    <Setting Name="ToastDisplayCorner" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">4</Value>
     </Setting>
-    <Setting Name="DisplayPadding" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="ToastDisplayPadding" Type="System.Drawing.Size" Scope="Application">
       <Value Profile="(Default)">10, 10</Value>
     </Setting>
-    <Setting Name="DisplayScreen" Type="System.String" Scope="User">
+    <Setting Name="ToastDisplayScreen" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="User">
+    <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="Application">
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
-    <Setting Name="DisplayOffset" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="ToastDisplayOffset" Type="System.Drawing.Size" Scope="Application">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="ColorLock" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="ColorLock" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">200, 17, 31</Value>
     </Setting>
-    <Setting Name="ColorUnlock" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="ColorUnlock" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">39, 204, 30</Value>
     </Setting>
-    <Setting Name="ColorLockMuted" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="ColorLockMuted" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">255, 192, 192</Value>
     </Setting>
-    <Setting Name="ColorUnlockMuted" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="ColorUnlockMuted" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">192, 255, 192</Value>
     </Setting>
-    <Setting Name="ColorLevel" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="ColorLevel" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">45, 45, 45</Value>
     </Setting>
-    <Setting Name="IndicatorWidth" Type="System.Int32" Scope="User">
+    <Setting Name="IndicatorWidth" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="ShowIndicator" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowIndicator" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ToastFormTopMost" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="ToastFormTopMost" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VolumeDisplayCorner" Type="System.Byte" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="VolumeDisplayPadding" Type="System.Drawing.Size" Scope="Application">
+      <Value Profile="(Default)">20, 10</Value>
+    </Setting>
+    <Setting Name="VolumeDisplayScreen" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="VolumeDisplayOffset" Type="System.Drawing.Size" Scope="Application">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="VolumeDisplayFont" Type="System.Drawing.Font" Scope="Application">
+      <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
+    </Setting>
+    <Setting Name="VolumeFormTopMost" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VolumeFormOpacity" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">90</Value>
     </Setting>
   </Settings>
 </SettingsFile>

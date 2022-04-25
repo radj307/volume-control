@@ -3,6 +3,7 @@ using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls;
+using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Core.Events;
 using VolumeControl.Log;
 
@@ -11,10 +12,11 @@ namespace VolumeControl
 
     public partial class Form : System.Windows.Forms.Form
     {
-        public Form(HotkeyEditorForm hkeditorForm, ToastForm toastForm)
+        public Form(HotkeyEditorForm hkeditorForm, ToastForm toastForm, VolumeIndicatorForm indicatorForm)
         {
             hkedit = hkeditorForm;
             toast = toastForm;
+            volumeIndicator = indicatorForm;
 
             SuspendLayout();
             SuspendSizeToFit();
@@ -157,6 +159,7 @@ namespace VolumeControl
         /// </summary>
         private readonly HotkeyEditorForm hkedit;
         private readonly ToastForm toast;
+        private readonly VolumeIndicatorForm volumeIndicator;
         #endregion Members
 
         #region Methods

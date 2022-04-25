@@ -14,17 +14,17 @@ namespace VolumeControl.Core.Controls
             SuspendNotifications();
 
             // load local settings
-            DisplayCorner = (Corner)Properties.Settings.Default.DisplayCorner;
-            DisplayPadding = Properties.Settings.Default.DisplayPadding;
-            DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName == Properties.Settings.Default.DisplayScreen, Screen.PrimaryScreen);
-            DisplayOffset = Properties.Settings.Default.DisplayOffset;
+            DisplayCorner = (Corner)Properties.Settings.Default.ToastDisplayCorner;
+            DisplayPadding = Properties.Settings.Default.ToastDisplayPadding;
+            DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName.Equals(Properties.Settings.Default.ToastDisplayScreen, StringComparison.OrdinalIgnoreCase), Screen.PrimaryScreen);
+            DisplayOffset = Properties.Settings.Default.ToastDisplayOffset;
             IndicatorWidth = Properties.Settings.Default.IndicatorWidth;
             TopMost = Properties.Settings.Default.ToastFormTopMost;
 
             InitializeComponent();
             SuspendLayout();
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
-            ShowWindow(Handle, SW_HIDE);
+            User32.ShowWindow(Handle, User32.SW_HIDE);
 
             // set data source
             bsAudioProcessAPI.DataSource = VC_Static.API;
@@ -79,31 +79,10 @@ namespace VolumeControl.Core.Controls
         }
         #endregion Initializers
 
-        #region Finalizers
-        private void ToastForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // update local settings
-            Properties.Settings.Default.DisplayCorner = (byte)DisplayCorner;
-            Properties.Settings.Default.DisplayPadding = DisplayPadding;
-            Properties.Settings.Default.DisplayScreen = DisplayScreen.DeviceName;
-            Properties.Settings.Default.DisplayOffset = DisplayOffset;
-            Properties.Settings.Default.IndicatorWidth = IndicatorWidth;
-            // save settings
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-            e.Cancel = true; // don't delete the form, just hide it
-            Hide();
-        }
-        #endregion Finalizers
-
         #region Members
         private bool _allowAutoSize = false;
         private bool _suspended = true;
         #endregion Members
-        [DllImport("user32.dll")]
-        private extern static bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        const int SW_HIDE = 0;
-        const int SW_SHOWNOACTIVATE = 4;
 
         #region Properties
         /// <summary>
@@ -205,7 +184,7 @@ namespace VolumeControl.Core.Controls
                 {
                     WindowState = FormWindowState.Normal;
                     // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-                    ShowWindow(Handle, SW_SHOWNOACTIVATE);
+                    User32.ShowWindow(Handle, User32.SW_SHOWNOACTIVATE);
                     UpdatePosition();
                     tTimeout.Enabled = true;
                 }
