@@ -5,6 +5,7 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
+using VolumeControl.Log.Endpoints;
 
 namespace VolumeControl.Core
 {
@@ -22,7 +23,7 @@ namespace VolumeControl.Core
             else if (!FLog.Initialized)
             {
                 FLog.Initialize();
-                Log.WriteWarning($"VC_Static.Initialize() automatically called FLog.Initialize()!");
+                Log.Warning($"VC_Static.Initialize() automatically called FLog.Initialize()!");
             }
             _initialized = true;
 
@@ -57,12 +58,12 @@ namespace VolumeControl.Core
                     }
                 },
             });
-            Log.WriteInfo($"{nameof(API)} initialized.");
+            Log.Info($"{nameof(API)} initialized.");
 
             // init volume step
             VolumeStep = 0m;
 
-            Log.WriteInfo($"{nameof(VC_Static)} initialization complete.");
+            Log.Info($"{nameof(VC_Static)} initialization complete.");
         }
         /// <summary>
         /// Initialize the 'Hotkeys' list & load previous settings
@@ -90,7 +91,7 @@ namespace VolumeControl.Core
                 new(owner, "Toggle Target Lock", nameof(Properties.Settings.Default.hks_TargetToggle), VolumeControlSubject.TARGET, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_TargetToggleEnabled)),
             });
             Hotkeys.BindHotkeyPressedEvents(API);
-            Log.WriteInfo("Finished initialization of hotkey-action bindings.");
+            Log.Info("Finished initialization of hotkey-action bindings.");
         }
         #endregion Initializers
 
@@ -165,7 +166,7 @@ namespace VolumeControl.Core
             }
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
-            Log.WriteInfo("Saved Current Program Settings.");
+            Log.Info("Saved Current Program Settings.");
         }
         /// <summary>
         /// Trigger the associated hotkey's bound action.
@@ -183,13 +184,13 @@ namespace VolumeControl.Core
             if (hkAction != null)
             {
                 hkAction.Invoke(sender, new());
-                FLog.Log.WriteDebug($"Hotkey {subject}:{action} was triggered virtually.");
+                FLog.Log.Debug($"Hotkey {subject}:{action} was triggered virtually.");
             }
         }
         #endregion Methods
 
         #region Properties
-        public static LogWriter<FileEndpoint> Log => FLog.Log;
+        public static LogWriter Log => FLog.Log;
         public static AudioProcessAPI API
         {
             get

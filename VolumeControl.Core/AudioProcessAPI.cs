@@ -80,7 +80,7 @@ namespace VolumeControl.Core
                 bool copy = _selected_lock;
                 if ((_selected_lock = value) != copy)
                     NotifyLockSelectionChanged(EventArgs.Empty);
-                FLog.Log.WriteInfo($"Target Selection {(_selected_lock ? "Locked" : "Unlocked")}.");
+                FLog.Log.Info($"Target Selection {(_selected_lock ? "Locked" : "Unlocked")}.");
             }
         }
         /// <summary>
@@ -108,7 +108,7 @@ namespace VolumeControl.Core
                 if (it != null) _selected = it;
                 else _selected = new VirtualAudioProcess(name);
                 NotifySelectedProcessChanged(new() { UserOrigin = userOrigin });
-                FLog.Log.WriteDebug($"Target process name changed to '{_selected?.ProcessName}'");
+                FLog.Log.Debug($"Target process name changed to '{_selected?.ProcessName}'");
             }
             return _selected;
         }
@@ -172,7 +172,7 @@ namespace VolumeControl.Core
                     _selected = ProcessList[++i % ProcessList.Count];
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
-                FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
+                FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
             }
         }
         /// <summary>
@@ -197,7 +197,7 @@ namespace VolumeControl.Core
                 }
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
-                FLog.Log.WriteDebug($"Target process name changed to '{_selected.ProcessName}'");
+                FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
             }
         }
 

@@ -23,11 +23,11 @@ namespace VolumeControl.Core
                 if (copy != value)
                 {
                     appsettings[propertyName] = value;
-                    FLog.Log.WriteInfo($"Set '{propertyName}' to '{value}' (was '{copy}')");
+                    FLog.Log.Info($"Set '{propertyName}' to '{value}' (was '{copy}')");
                     return true;
                 }
             }
-            else FLog.Log.WriteError($"Failed to locate an application property with name '{propertyName}'!");
+            else FLog.Log.Error($"Failed to locate an application property with name '{propertyName}'!");
             return false;
         }
     }

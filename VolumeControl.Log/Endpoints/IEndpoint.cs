@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Log
+﻿namespace VolumeControl.Log.Endpoints
 {
     public interface IEndpoint
     {

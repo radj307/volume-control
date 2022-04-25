@@ -105,7 +105,7 @@ namespace VolumeControl.Core.Controls
         private void dgv_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
             => SizeToFit();
         private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
-            => VC_Static.Log.WriteExceptionError(e.Exception);
+            => VC_Static.Log.ErrorException(e.Exception);
         private void HotkeyEditorForm_Load(object sender, EventArgs e)
             => ResumeSizeToFit(true);
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

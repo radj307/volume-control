@@ -14,10 +14,10 @@ namespace VolumeControl.Core.Keyboard
                 var handler = api.GetHandler(hk.Subject, hk.Action);
                 if (handler != null)
                 {
-                    VC_Static.Log.WriteDebug($"Successfully assigned action [{hk.Subject}:{hk.Action}] to hotkey '{hk.Name}'");
+                    VC_Static.Log.Debug($"Successfully assigned action [{hk.Subject}:{hk.Action}] to hotkey '{hk.Name}'");
                     hk.Pressed += handler;
                 }
-                else VC_Static.Log.WriteError($"Couldn't find a valid action binding for hotkey: \'{hk.Name}\'");
+                else VC_Static.Log.Error($"Couldn't find a valid action binding for hotkey: \'{hk.Name}\'");
             }
         }
 

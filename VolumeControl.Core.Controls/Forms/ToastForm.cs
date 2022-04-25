@@ -255,7 +255,7 @@ namespace VolumeControl.Core.Controls
             Point? pos = DisplayCorner.GetPosition(wsz, Size, DisplayPadding, DisplayOffset);
             if (pos != null)
                 Location = pos.Value;
-            else FLog.Log.WriteError($"ToastForm.SetPosition() failed to calculate a valid origin point.");
+            else FLog.Log.Error($"ToastForm.SetPosition() failed to calculate a valid origin point.");
             UpdateBounds();
         }
 
@@ -313,7 +313,7 @@ namespace VolumeControl.Core.Controls
         {
             if (e.Index < 0 || listBox.Items[e.Index] is not AudioProcess item)
             {
-                FLog.Log.WriteError($"ToastForm.listBox_DrawItem() skipped drawing item at index '{e.Index}' because it isn't an AudioProcess!");
+                FLog.Log.Error($"ToastForm.listBox_DrawItem() skipped drawing item at index '{e.Index}' because it isn't an AudioProcess!");
                 return;
             }
 

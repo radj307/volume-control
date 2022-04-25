@@ -1,381 +1,115 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using System.Diagnostics;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
+using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
 {
-    public class LogWriter<T> where T : IEndpoint, new()
+    public class LogWriter : ILogWriter
     {
-        #region Constructors
-        public LogWriter(T endpoint, EventType typeFilter = EventType.ALL_EXCEPT_DEBUG)
+        public LogWriter(IEndpoint endpoint, EventType eventTypeFilter)
         {
-            _endpoint = endpoint;
-            _eventFilter = typeFilter;
+            Endpoint = endpoint;
+            EventTypeFilter = eventTypeFilter;
             Endpoint.Reset();
-
-            // Set the margin sizes for each of the log entry's elements.
-            _margin_time = 29;
-            _margin_header = 8;
         }
-        ~LogWriter()
+
+        public IEndpoint Endpoint { get; set; }
+        public EventType EventTypeFilter { get; set; }
+
+        public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
+        public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
+
+        public void Write(object text) => Endpoint.WriteRaw(text.ToString());
+        public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
+
+        public void WriteEvent(EventType eventType, params object?[] lines)
         {
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-        }
-        #endregion Constructors
-
-        #region Members
-        private readonly T _endpoint;
-        private EventType _eventFilter;
-        /// <summary>
-        /// The maximum length of the timestamp when printing to the log file.
-        /// </summary>
-        private readonly int _margin_time;
-        /// <summary>
-        /// The maximum length of the event type header when printing to the log file.
-        /// </summary>
-        private readonly int _margin_header;
-        #endregion Members
-
-        #region Methods
-        /// <summary>
-        /// Get a formatted timestamp with the given time point.
-        /// </summary>
-        /// <param name="timepoint">Input Timepoint</param>
-        /// <param name="format">Optional format override. Default is UTC.</param>
-        /// <returns>String containing just the timestamp with no extra spacing or indentation.</returns>
-        internal static string MakeTimestamp(DateTime timepoint, string format = "U")
-            => timepoint.ToString(format);
-
-        /// <summary>
-        /// Check if the given message type is allowed by the current message filter.
-        /// </summary>
-        /// <param name="type">The message type to check.</param>
-        /// <returns>True when the message type IS allowed.</returns>
-        internal bool FilterMessage(EventType type)
-            => _eventFilter.Contains(type);
-
-        #region WriteMethods
-        /// <summary>
-        /// Recursively converts an exception and all of its inner exceptions into a single printable string.
-        /// </summary>
-        /// <param name="ex">Input Exception object.</param>
-        /// <param name="indentSize">The number of space characters to insert before each line.</param>
-        /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing.</param>
-        /// <returns>The formatted exception message, stack trace, and inner exceptions, spanning over multiple lines.</returns>
-        internal static string GetExceptionStringRecursive(Exception ex, int indentSize, int indentStep, int recurseCount = 0, int maxRecurse = 5)
-        {
-            string indent = new(' ', indentSize);
-            string s = ex.Message;
-            if (EnableStackTrace && ex.StackTrace?.Length > 0)
+            if (lines.Length == 0 || !FilterEventType(eventType))
+                return;
+            string ts = MakeTimestamp(eventType).ToString();
+            WriteLine($"{ts}{lines[0]}");
+            if (lines.Length > 1)
             {
-                s += '\n'; // newline
-                string st = ex.StackTrace;
-                for (int i = st.IndexOf('\n'), lastNewLine = 0, len = st.Length, ln = 0; (i != -1 && i < len); lastNewLine = i, i = st.IndexOf('\n', i + 1), ++ln)
+                // replace the timestamp with an empty one of the same length
+                ts = new string(' ', ts.Length);
+                for (int i = 1; i < lines.Length; ++i)
                 {
-                    s += $"{indent}  {(EnableStackTraceLineCount ? $"[{ln}]\t" : "")}{st[lastNewLine..i].Trim("\n ")}\n";
-                }
-            }
-            if (ex.Data.Count > 0)
-            {
-                s += $"\n{indent}Exception Data: {{";
-                string innerIndent = new(' ', indentSize + indentStep);
-                foreach (var it in ex.Data)
-                {
-                    string? itStr = it.ToString();
-                    if (itStr != null && itStr.Length > 0)
-                        s += $"{innerIndent}{itStr}\n";
-                }
-                s += $"{indent}}}";
-            }
-            if (ex.InnerException != null && ++recurseCount < maxRecurse)
-                s += $"\n{(ex.InnerException != null ? $"Inner Exception:\n{GetExceptionStringRecursive(ex.InnerException, indentSize + indentStep, indentStep, recurseCount, maxRecurse)}" : "")}";
-            return s;
-        }
-        /// <summary>
-        /// Converts an exception into a single printable string, and optionally recurse for each sub-exception.
-        /// The message spans over multiple lines.
-        /// </summary>
-        /// <param name="ex">Input Exception object.</param>
-        /// <param name="recurse"><list type="table">
-        /// <item><term>true</term><description>Recursively includes all inner exceptions in the returned string.</description></item>
-        /// <item><term>false</term><description>Ignores all inner exceptions if they exist.</description></item>
-        /// </list></param>
-        /// <param name="indentSize">The number of space characters to insert before each line. This is only used when recurse is true.</param>
-        /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing. This is only used when recurse is true.</param>
-        /// <returns>The formatted exception message, stack trace, and inner exceptions if set to recurse, spanning over multiple lines.</returns>
-        internal string GetExceptionString(Exception ex, bool recurse = true)
-            => GetExceptionStringRecursive(ex, 2 + _margin_time + _margin_header, 2, 0, recurse ? 5 : 1);
-        /// <summary>
-        /// Get a string with a formatted header containing the current timestamp and the event type header.
-        /// </summary>
-        /// <param name="type">Determines the message header used.</param>
-        /// <returns>The formatted header, with a length of (_margin_time + _margin_header)</returns>
-        internal string GetFullHeader(EventType type)
-        {
-            string ts = Timestamp, head = type.GetHeader();
-            return $"{ts}{new string(' ', _margin_time - ts.Length)} {head}{new string(' ', _margin_header - head.Length)}";
-        }
-        internal string GetBlankHeader()
-        {
-            return new string(' ', 2 + _margin_time + _margin_header);
-        }
-
-        /// <summary>
-        /// Write multiple lines to the log file at once.
-        /// </summary>
-        /// <param name="type">Event type. Used in the header, and checking the event filter.</param>
-        /// <param name="lines">String array where each element is a line.</param>
-        /// <param name="autoIndent">When true, indentation will automatically be added to ensure log messages are aligned.</param>
-        public void WriteLines(EventType type, string[] lines, bool autoIndent = true)
-        {
-            if (Endpoint.Enabled && FilterMessage(type) && lines.Length > 0)
-            {
-                string indent = string.Empty;
-                string header = GetFullHeader(type);
-                if (autoIndent)
-                    indent = GetBlankHeader();
-
-                var writer = Endpoint.GetWriter();
-                if (writer != null)
-                {
-                    writer.Write($"{header}{lines[0]}");
-                    foreach (string line in lines[1..])
+                    var line = lines[i];
+                    if (line == null)
+                        continue;
+                    else if (line is Exception ex)
                     {
-                        writer.WriteLine($"{indent}{line}");
+                        WriteLine($"{ts}{ex.ToString(ts)}");
                     }
-                    writer.Close();
+                    else
+                    {
+                        WriteLine($"{ts}{line}");
+                    }
                 }
             }
         }
-
         /// <summary>
-        /// Write a formatted event message to the logfile.
-        /// This includes a timestamp & message header.
+        /// Write a formatted <see cref="EventType.DEBUG"/> message to the log endpoint.
         /// </summary>
-        /// <param name="type">Determines the message header used.</param>
-        /// <param name="msg">The message string.</param>
-        public void WriteEventMessage(EventType type, object? msg)
+        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        public void Debug(params object?[] lines) => WriteEvent(EventType.DEBUG, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.INFO"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        public void Info(params object?[] lines) => WriteEvent(EventType.INFO, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.WARN"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        public void Warning(params object?[] lines) => WriteEvent(EventType.WARN, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.ERROR"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        public void Error(params object?[] lines) => WriteEvent(EventType.ERROR, lines);
+        /// <summary>
+        /// Write a formatted <see cref="EventType.FATAL"/> message to the log endpoint.
+        /// </summary>
+        /// <param name="lines">Any number of objects, each written on a new line.</param>
+        public void Fatal(params object?[] lines) => WriteEvent(EventType.FATAL, lines);
+        public void WriteException(EventType ev, Exception exception, object? message = null)
         {
-            if (Endpoint.Enabled)
-                if (FilterMessage(type))
-                    Endpoint.WriteRawLine($"{GetFullHeader(type)} {msg}");
+            if (message == null)
+                WriteEvent(ev, exception);
+            WriteEvent(ev, message, exception);
         }
         /// <summary>
-        /// Write a formatted event message to the logfile.
-        /// This includes a timestamp & message header.
+        /// Write a formatted <see cref="EventType.DEBUG"/> exception message to the log endpoint.
         /// </summary>
-        /// <param name="type">Determines the message header used.</param>
-        /// <param name="msg_lines">An array of strings where each string uses one line.</param>
-        public void WriteEventMessage(EventType type, object[] msg_lines)
-        {
-            if (Endpoint.Enabled)
-            {
-                if (msg_lines.Length > 0 && FilterMessage(type))
-                {
-                    Endpoint.WriteRawLine($"{GetFullHeader(type)} {msg_lines[0]}");
-                    string indent = GetBlankHeader();
-                    for (int i = 1; i < msg_lines.Length; ++i)
-                        Endpoint.WriteRawLine($"{indent}{msg_lines[i]}");
-                }
-            }
-        }
-
+        /// <param name="exception">The exception that was thrown.</param>
+        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
+        public void DebugException(Exception exception, object? message = null) => WriteException(EventType.DEBUG, exception, message);
         /// <summary>
-        /// Write a formatted debug message to the logfile.
+        /// Write a formatted <see cref="EventType.INFO"/> exception message to the log endpoint.
         /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteDebug(object? msg = null)
-            => WriteEventMessage(EventType.DEBUG, msg);
+        /// <param name="exception">The exception that was thrown.</param>
+        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
+        public void InfoException(Exception exception, object? message = null) => WriteException(EventType.INFO, exception, message);
         /// <summary>
-        /// Write a formatted multi-line debug message to the logfile.
+        /// Write a formatted <see cref="EventType.WARN"/> exception message to the log endpoint.
         /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteDebug(object[] msg)
-            => WriteEventMessage(EventType.DEBUG, msg);
+        /// <param name="exception">The exception that was thrown.</param>
+        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
+        public void WarningException(Exception exception, object? message = null) => WriteException(EventType.WARN, exception, message);
         /// <summary>
-        /// Write a formatted multi-line debug message to the logfile.
-        /// This overload allows specifying the first line independently from the rest of the message, which allows you to print regular arrays with meaningful labels.
+        /// Write a formatted <see cref="EventType.ERROR"/> exception message to the log endpoint.
         /// </summary>
-        /// <param name="fstLine">The text that will appear on the first line, directly after the timestamp and message header.</param>
-        /// <param name="msg">The rest of the message.</param>
-        public void WriteDebug(object fstLine, object[] msg)
-            => WriteEventMessage(EventType.DEBUG, new[] { fstLine }.Concat(msg));
+        /// <param name="exception">The exception that was thrown.</param>
+        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
+        public void ErrorException(Exception exception, object? message = null) => WriteException(EventType.ERROR, exception, message);
         /// <summary>
-        /// Write a formatted informational message to the logfile.
+        /// Write a formatted <see cref="EventType.FATAL"/> exception message to the log endpoint.
         /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteInfo(object? msg = null)
-            => WriteEventMessage(EventType.INFO, msg);
-        /// <summary>
-        /// Write a formatted multi-line informational message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteInfo(object[] msg)
-            => WriteEventMessage(EventType.INFO, msg);
-        /// <summary>
-        /// Write a formatted multi-line informational message to the logfile.
-        /// This overload allows specifying the first line independently from the rest of the message, which allows you to print regular arrays with meaningful labels.
-        /// </summary>
-        /// <param name="fstLine">The text that will appear on the first line, directly after the timestamp and message header.</param>
-        /// <param name="msg">The rest of the message.</param>
-        public void WriteInfo(object fstLine, object[] msg)
-            => WriteEventMessage(EventType.INFO, new[] { fstLine }.Concat(msg));
-        /// <summary>
-        /// Write a formatted warning message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteWarning(object? msg = null)
-            => WriteEventMessage(EventType.WARN, msg);
-        /// <summary>
-        /// Write a formatted multi-line warning message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteWarning(object[] msg)
-            => WriteEventMessage(EventType.WARN, msg);
-        /// <summary>
-        /// Write a formatted multi-line warning message to the logfile.
-        /// This overload allows specifying the first line independently from the rest of the message, which allows you to print regular arrays with meaningful labels.
-        /// </summary>
-        /// <param name="fstLine">The text that will appear on the first line, directly after the timestamp and message header.</param>
-        /// <param name="msg">The rest of the message.</param>
-        public void WriteWarning(object fstLine, object[] msg)
-            => WriteEventMessage(EventType.WARN, new[] { fstLine }.Concat(msg));
-        /// <summary>
-        /// Write a formatted error message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteError(object? msg = null)
-            => WriteEventMessage(EventType.ERROR, msg);
-        /// <summary>
-        /// Write a formatted multi-line error message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteError(object[] msg)
-            => WriteEventMessage(EventType.ERROR, msg);
-        /// <summary>
-        /// Write a formatted multi-line error message to the logfile.
-        /// This overload allows specifying the first line independently from the rest of the message, which allows you to print regular arrays with meaningful labels.
-        /// </summary>
-        /// <param name="fstLine">The text that will appear on the first line, directly after the timestamp and message header.</param>
-        /// <param name="msg">The rest of the message.</param>
-        public void WriteError(object fstLine, object[] msg)
-            => WriteEventMessage(EventType.ERROR, new[] { fstLine }.Concat(msg));
-        /// <summary>
-        /// Write a formatted fatal error message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteFatal(object? msg = null)
-            => WriteEventMessage(EventType.FATAL, msg);
-        /// <summary>
-        /// Write a formatted multi-line fatal error message to the logfile.
-        /// </summary>
-        /// <param name="msg">The message string.</param>
-        public void WriteFatal(object[] msg)
-            => WriteEventMessage(EventType.FATAL, msg);
-        /// <summary>
-        /// Write a formatted multi-line fatal error message to the logfile.
-        /// This overload allows specifying the first line independently from the rest of the message, which allows you to print regular arrays with meaningful labels.
-        /// </summary>
-        /// <param name="fstLine">The text that will appear on the first line, directly after the timestamp and message header.</param>
-        /// <param name="msg">The rest of the message.</param>
-        public void WriteFatal(object fstLine, object[] msg)
-            => WriteEventMessage(EventType.FATAL, new[] { fstLine }.Concat(msg));
-
-        /// <summary>
-        /// Writes a formatted exception message to the logfile.
-        /// </summary>
-        /// <param name="type">An EventType to use for the message header.</param>
-        /// <param name="ex">The Exception instance to write.</param>
-        public void WriteException(EventType type, Exception ex)
-            => WriteEventMessage(type, GetExceptionString(ex));
-        public void WriteException(EventType type, string fstLine, Exception ex)
-            => WriteEventMessage(type, $"{fstLine}\n{GetBlankHeader()}{GetExceptionString(ex)}");
-        /// <summary>
-        /// Write a formatted debug exception to the logfile.
-        /// </summary>
-        /// <param name="ex">The exception message to print.</param>
-        public void WriteExceptionDebug(Exception ex)
-            => WriteException(EventType.DEBUG, ex);
-        public void WriteExceptionDebug(string fstLine, Exception ex)
-            => WriteException(EventType.DEBUG, fstLine, ex);
-        /// <summary>
-        /// Write a formatted informational exception to the logfile.
-        /// </summary>
-        /// <param name="ex">The exception message to print.</param>
-        public void WriteExceptionInfo(Exception ex)
-            => WriteException(EventType.INFO, ex);
-        public void WriteExceptionInfo(string fstLine, Exception ex)
-            => WriteException(EventType.INFO, fstLine, ex);
-        /// <summary>
-        /// Write a formatted warning exception to the logfile.
-        /// </summary>
-        /// <param name="ex">The exception message to print.</param>
-        public void WriteExceptionWarn(Exception ex)
-            => WriteException(EventType.WARN, ex);
-        public void WriteExceptionWarn(string fstLine, Exception ex)
-            => WriteException(EventType.WARN, fstLine, ex);
-        /// <summary>
-        /// Write a formatted error exception to the logfile.
-        /// </summary>
-        /// <param name="ex">The exception message to print.</param>
-        public void WriteExceptionError(Exception ex)
-            => WriteException(EventType.ERROR, ex);
-        public void WriteExceptionError(string fstLine, Exception ex)
-            => WriteException(EventType.ERROR, fstLine, ex);
-        /// <summary>
-        /// Write a formatted fatal error exception to the logfile.
-        /// </summary>
-        /// <param name="ex">The exception message to print.</param>
-        public void WriteExceptionFatal(Exception ex)
-            => WriteException(EventType.FATAL, ex);
-        /// <summary>
-        /// Write a formatted fatal error exception to the logfile.
-        /// </summary>
-        /// <param name="fstLine">Text shown on the first line, directly after the timestamp and message header.</param>
-        /// <param name="ex"></param>
-        public void WriteExceptionFatal(string fstLine, Exception ex)
-            => WriteException(EventType.FATAL, fstLine, ex);
-        #endregion WriteMethods
-
-        #endregion Methods
-
-        #region Properties
-        /// <summary>
-        /// Get the current timestamp, using the format string "U" for standard UTC format.
-        /// </summary>
-        internal static string Timestamp
-        {
-            get => MakeTimestamp(DateTime.Now, "U");
-        }
-        /// <summary>
-        /// Get or set the message type filter.
-        /// </summary>
-        public EventType EventTypeFilter
-        {
-            get => _eventFilter;
-            set => _eventFilter = value;
-        }
-        /// <summary>
-        /// Gets or sets the value of <see cref="Properties.Settings.Default.EnableStackTrace"/>.<br></br>
-        /// This controls whether exception messages in the log include a stack trace.
-        /// </summary>
-        public static bool EnableStackTrace
-        {
-            get => Properties.Settings.Default.EnableStackTrace;
-            set => Properties.Settings.Default.EnableStackTrace = value;
-        }
-        /// <summary>
-        /// Gets or sets the value of <see cref="Properties.Settings.Default.EnableStackTraceLineCount"/>.<br></br>
-        /// This controls whether the line number prefix is visible in the stack trace of exception messages.<br></br>
-        /// Does nothing if <see cref="Properties.Settings.Default.EnableStackTrace"/> is false.
-        /// </summary>
-        public static bool EnableStackTraceLineCount
-        {
-            get => Properties.Settings.Default.EnableStackTraceLineCount;
-            set => Properties.Settings.Default.EnableStackTraceLineCount = value;
-        }
-        internal IEndpoint Endpoint => _endpoint;
-        #endregion Properties
+        /// <param name="exception">The exception that was thrown.</param>
+        /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
+        public void FatalException(Exception exception, object? message = null) => WriteException(EventType.FATAL, exception, message);
     }
 }

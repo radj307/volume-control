@@ -56,7 +56,7 @@ namespace VolumeControl
                 VC_Static.Initialize(); // Initialize global statics
 
 #               if DEBUG
-                FLog.Log.WriteDebug("Binary was built in 'DEBUG' configuration.");
+                FLog.Log.Debug("Binary was built in 'DEBUG' configuration.");
                 if (!Properties.Settings.Default.AllowMultipleInstances)
                 {
                     var thisProc = Process.GetCurrentProcess();
@@ -64,20 +64,20 @@ namespace VolumeControl
                     {
                         if (proc.Id != thisProc.Id)
                         {
-                            FLog.Log.WriteWarning($"Killing other instance of Volume Control with PID '{proc.Id}'... (This only occurs in DEBUG configuration.)");
+                            FLog.Log.Warning($"Killing other instance of Volume Control with PID '{proc.Id}'... (This only occurs in DEBUG configuration.)");
                             proc.Kill();
                         }
                     }
                 }
 #               else
-                FLog.Log.WriteDebug("Binary was built in 'RELEASE' configuration.");
+                FLog.Log.Debug("Binary was built in 'RELEASE' configuration.");
 
                 if (!Properties.Settings.Default.AllowMultipleInstances)
                 {
                     Process thisProc = Process.GetCurrentProcess();
                     if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
                     {
-                        FLog.Log.WriteFatal("Another instance of Volume Control is already running!");
+                        FLog.Log.Fatal("Another instance of Volume Control is already running!");
                         return;
                     }
                 }
@@ -87,15 +87,15 @@ namespace VolumeControl
                 var toastForm = new ToastForm(); // create the toast notification form
                 var vcForm = new Form(hkeditForm, toastForm); // create the main form
 
-                VC_Static.Log.WriteInfo("Initialization completed, starting the application...");
+                VC_Static.Log.Info("Initialization completed, starting the application...");
 
                 Application.Run(vcForm);
 
-                VC_Static.Log.WriteInfo("Application exited normally.");
+                VC_Static.Log.Info("Application exited normally.");
             }
             catch (Exception ex)
             {
-                FLog.Log.WriteExceptionFatal(ex);
+                FLog.Log.FatalException(ex);
             }
         }
     }

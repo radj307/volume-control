@@ -4,6 +4,7 @@ using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls;
 using VolumeControl.Core.Events;
+using VolumeControl.Log;
 
 namespace VolumeControl
 {
@@ -119,7 +120,7 @@ namespace VolumeControl
 
             ResumeLayout();
 
-            VC_Static.Log.WriteInfo("Form initialization completed.");
+            VC_Static.Log.Info("Form initialization completed.");
         }
         /// <summary>
         /// Called before the form closes.
@@ -132,7 +133,7 @@ namespace VolumeControl
             SuspendSizeToFit();
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
-            VC_Static.Log.WriteDebug("Form closing event triggered.");
+            VC_Static.Log.Debug("Form closing event triggered.");
             ResumeLayout();
         }
 
@@ -204,7 +205,7 @@ namespace VolumeControl
             // set the size of the form
             Size = new(_width, height);
             UpdateBounds();
-            VC_Static.Log.WriteDebug($"Form size updated to ({_width}, {height})");
+            VC_Static.Log.Debug($"Form size updated to ({_width}, {height})");
         }
         /// <summary>
         /// Request a full reload of the process list from <see cref="VC_Static.API"/>.
@@ -267,7 +268,7 @@ namespace VolumeControl
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
+            VC_Static.Log.Info("Saved 'VolumeControl' project properties.");
         }
         #endregion Methods
 
@@ -296,14 +297,14 @@ namespace VolumeControl
                 var proc = VC_Static.API.ProcessList[e.RowIndex];
                 AudioAPI.VolumeHelper.IncrementVolume(proc.PID, VC_Static.VolumeStep);
                 RefreshProcessList();
-                VC_Static.Log.WriteInfo($"Increased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
+                VC_Static.Log.Info($"Increased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
             }
             else if (e.ColumnIndex == MixerColVolumeDown.Index)
             { // handle volume down buttons
                 var proc = VC_Static.API.ProcessList[e.RowIndex];
                 AudioAPI.VolumeHelper.DecrementVolume(proc.PID, VC_Static.VolumeStep);
                 RefreshProcessList();
-                VC_Static.Log.WriteInfo($"Decreased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
+                VC_Static.Log.Info($"Decreased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
             }
         }
         /// <summary>
@@ -323,26 +324,49 @@ namespace VolumeControl
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == MixerColMuted.Index)
-                {
-                    e.Handled = true;
-                    Graphics g = e.Graphics;
-                    var rect = e.CellBounds;
-                    int bottom = rect.Y + rect.Height - 1;
-                    rect.Size = new(rect.Width, rect.Height - 1);
-                    // draw background
-                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
-                    // draw divider
-                    g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
+                Graphics g = e.Graphics;
+                var rect = e.CellBounds;
+                int bottom = rect.Y + rect.Height - 1;
+                int colIndex = e.ColumnIndex, rowIndex = e.RowIndex;
 
+                // draw divider on every row except the last one
+                if (rowIndex != Mixer.Rows.Count - 1)
+                {
+                    rect.Size = new(rect.Width, rect.Height - 1); //< prevent painting over the divider line and prevent unnecessary work
+                    g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
+                }
+                // draw background
+                g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
+
+                if (colIndex == MixerColPID.Index || colIndex == MixerColProcessName.Index || colIndex == MixerColVolume.Index)
+                { // draw 'PID', 'Process Name' & 'Volume' text
+                    e.Handled = true;
+                    // draw text
+                    g.DrawString(e.Value as string, e.CellStyle.Font, new SolidBrush(e.CellStyle.ForeColor), rect.Location);
+                }
+                else if (colIndex == MixerColMuted.Index)
+                { // draw 'muted' column checkboxes
+                    e.Handled = true;
+                    // draw checkbox
                     int boxSize = 13;
                     var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
-                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
-                    g.DrawRectangle(new Pen(b, 1f), box);
+                    var cbColor = new SolidBrush(Color.FromArgb(200, 200, 200));
+
+                    // draw the box part of the checkbox
+                    g.DrawRectangle(new Pen(cbColor, 1f), box);
                     if (Convert.ToBoolean(e.Value))
-                    {
-                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                    { // draw the 'check' part of the checkbox
+                        g.FillRectangle(cbColor, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
                     }
+                }
+                else if ((colIndex == MixerColVolumeUp.Index || colIndex == MixerColVolumeDown.Index || colIndex == MixerColSelectButton.Index))
+                { // draw '+', '-', 'Select' buttons
+                    e.Handled = true;
+                }
+                else
+                {
+                    e.Handled = false;
+                    FLog.Log.Error($"No custom painter found for Mixer element at (col:{colIndex}, row:{rowIndex})!");
                 }
             }
         }
