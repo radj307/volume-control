@@ -7,8 +7,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
-    <Version>4.0.2</Version>
-    <ExtendedVersion>4.0.2</ExtendedVersion>
+    <Version>4.0.3</Version>
+    <ExtendedVersion>4.0.3</ExtendedVersion>
     <ReleaseType>NORMAL</ReleaseType>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <Authors>$(AssemblyName)</Authors>
