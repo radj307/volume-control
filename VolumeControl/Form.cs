@@ -327,49 +327,26 @@ namespace VolumeControl
         {
             if (e.RowIndex >= 0)
             {
-                Graphics g = e.Graphics;
-                var rect = e.CellBounds;
-                int bottom = rect.Y + rect.Height - 1;
-                int colIndex = e.ColumnIndex, rowIndex = e.RowIndex;
-
-                // draw divider on every row except the last one
-                if (rowIndex != Mixer.Rows.Count - 1)
+                if (e.ColumnIndex == MixerColMuted.Index)
                 {
-                    rect.Size = new(rect.Width, rect.Height - 1); //< prevent painting over the divider line and prevent unnecessary work
+                    e.Handled = true;
+                    Graphics g = e.Graphics;
+                    var rect = e.CellBounds;
+                    int bottom = rect.Y + rect.Height - 1;
+                    rect.Size = new(rect.Width, rect.Height - 1);
+                    // draw background
+                    g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
+                    // draw divider
                     g.DrawLine(new Pen(new SolidBrush(Mixer.GridColor), 1f), new(rect.X, bottom), new Point(rect.X + rect.Width, bottom));
-                }
-                // draw background
-                g.FillRectangle(new SolidBrush(e.CellStyle.BackColor), rect);
 
-                if (colIndex == MixerColPID.Index || colIndex == MixerColProcessName.Index || colIndex == MixerColVolume.Index)
-                { // draw 'PID', 'Process Name' & 'Volume' text
-                    e.Handled = true;
-                    // draw text
-                    g.DrawString(e.Value as string, e.CellStyle.Font, new SolidBrush(e.CellStyle.ForeColor), rect.Location);
-                }
-                else if (colIndex == MixerColMuted.Index)
-                { // draw 'muted' column checkboxes
-                    e.Handled = true;
-                    // draw checkbox
                     int boxSize = 13;
                     var box = new Rectangle(rect.Location.X + (rect.Width / 2 - boxSize / 2), rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize, boxSize);
-                    var cbColor = new SolidBrush(Color.FromArgb(200, 200, 200));
-
-                    // draw the box part of the checkbox
-                    g.DrawRectangle(new Pen(cbColor, 1f), box);
+                    var b = new SolidBrush(Color.FromArgb(200, 200, 200));
+                    g.DrawRectangle(new Pen(b, 1f), box);
                     if (Convert.ToBoolean(e.Value))
-                    { // draw the 'check' part of the checkbox
-                        g.FillRectangle(cbColor, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
+                    {
+                        g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
                     }
-                }
-                else if ((colIndex == MixerColVolumeUp.Index || colIndex == MixerColVolumeDown.Index || colIndex == MixerColSelectButton.Index))
-                { // draw '+', '-', 'Select' buttons
-                    e.Handled = true;
-                }
-                else
-                {
-                    e.Handled = false;
-                    FLog.Log.Error($"No custom painter found for Mixer element at (col:{colIndex}, row:{rowIndex})!");
                 }
             }
         }
