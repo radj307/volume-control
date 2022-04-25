@@ -95,18 +95,22 @@ namespace VolumeControl.Core
         #endregion Properties
 
         #region Methods
+        /// <summary>
+        /// Retrieve the currently selected process.
+        /// </summary>
+        /// <returns>An <see cref="IAudioProcess?"/> object. This is a valid process when it is an <see cref="AudioProcess"/>.</returns>
         public IAudioProcess? GetSelectedProcess() => _selected;
-        public void SetSelectedProcess(string name, bool userOrigin = true)
+        public IAudioProcess? SetSelectedProcess(string name, bool userOrigin = true)
         {
             if (!_selected_lock && ProcessList.Count > 0)
             {
                 var it = ProcessList.FirstOrDefault(p => p != null && p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase), null);
-                if (it != null)
-                    _selected = it;
+                if (it != null) _selected = it;
                 else _selected = new VirtualAudioProcess(name);
                 NotifySelectedProcessChanged(new() { UserOrigin = userOrigin });
                 FLog.Log.WriteDebug($"Target process name changed to '{_selected?.ProcessName}'");
             }
+            return _selected;
         }
         public void TrySetSelectedProcess(string? name, bool userOrigin = true)
         {

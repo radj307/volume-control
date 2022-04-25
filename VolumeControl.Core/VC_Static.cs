@@ -208,8 +208,18 @@ namespace VolumeControl.Core
             }
             internal set => _hotkeys = value;
         }
-
+        /// <summary>
+        /// Gets or sets the volume step size.
+        /// </summary>
         public static decimal VolumeStep { get; set; }
+        /// <summary>
+        /// Gets or sets the target lock state.
+        /// </summary>
+        public static bool TargetLocked
+        {
+            get => API.LockSelection;
+            set => API.LockSelection = value;
+        }
         #endregion Properties
     }
 }

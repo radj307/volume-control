@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.Core.Events
+﻿using VolumeControl.Core.Audio;
+
+namespace VolumeControl.Core.Events
 {
     /// <summary>
     /// Event arguments for target selection change events.
@@ -13,6 +15,10 @@
         /// </list>
         /// </summary>
         public bool UserOrigin;
+        /// <summary>
+        /// Contains the newly selected process, if there is one.
+        /// </summary>
+        public IAudioProcess? Selected;
         /// <summary>
         /// Empty event, sets UserOrigin to false.
         /// </summary>

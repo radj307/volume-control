@@ -1,5 +1,7 @@
-﻿using VolumeControl.Core.Audio;
+﻿using System.Runtime.InteropServices;
+using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
+using VolumeControl.Core.Events;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Controls
@@ -9,14 +11,16 @@ namespace VolumeControl.Core.Controls
         #region Initializers
         public ToastForm()
         {
+            Visible = false;
+            SuspendNotifications();
+
             // load local settings
             DisplayCorner = (Corner)Properties.Settings.Default.DisplayCorner;
             DisplayPadding = Properties.Settings.Default.DisplayPadding;
             DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName == Properties.Settings.Default.DisplayScreen, Screen.PrimaryScreen);
             DisplayOffset = Properties.Settings.Default.DisplayOffset;
             IndicatorWidth = Properties.Settings.Default.IndicatorWidth;
-
-            Visible = false;
+            TopMost = Properties.Settings.Default.ToastFormTopMost;
 
             InitializeComponent();
             SuspendLayout();
@@ -26,7 +30,7 @@ namespace VolumeControl.Core.Controls
 
             VC_Static.API.SelectedProcessChanged += delegate
             {
-                if (Enabled && !_suspended)
+                if (Enabled)
                 {
                     SuspendLayout();
                     Show();
@@ -36,7 +40,7 @@ namespace VolumeControl.Core.Controls
             };
             VC_Static.API.LockSelectionChanged += delegate
             {
-                if (Enabled && !_suspended)
+                if (Enabled)
                 {
                     SuspendLayout();
                     Show();
@@ -53,9 +57,9 @@ namespace VolumeControl.Core.Controls
                 listBox.DataSource = bsAudioProcessAPI;
                 ResumeLayout();
             };
-            VC_Static.HotkeyPressed += delegate
+            VC_Static.HotkeyPressed += delegate(object? sender, HotkeyPressedEventArgs e)
             {
-                if (Enabled && !_suspended)
+                if (Enabled && e.Subject == Core.Enum.VolumeControlSubject.TARGET)
                 {
                     SuspendLayout();
                     UpdateLockSelection();
@@ -92,10 +96,26 @@ namespace VolumeControl.Core.Controls
         #endregion Finalizers
 
         #region Members
-        private bool _allowAutoSize = false, _suspended = false;
+        private bool _allowAutoSize = false;
+        private bool _suspended = true;
         #endregion Members
 
         #region Properties
+        protected override bool ShowWithoutActivation
+        {
+            get { return true; }
+        }
+
+        private const int WS_EX_TOPMOST = 0x00000008;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.ExStyle |= WS_EX_TOPMOST;
+                return createParams;
+            }
+        }
         public int TimeoutInterval
         {
             get => tTimeout.Interval;
@@ -180,15 +200,18 @@ namespace VolumeControl.Core.Controls
         }
         public new void Show()
         {
-            tTimeout.Enabled = false;
-            if (Enabled && !_suspended)
+            if (!_suspended)
             {
-                WindowState = FormWindowState.Normal;
-                base.Show();
-                UpdatePosition();
-                tTimeout.Enabled = true;
+                tTimeout.Enabled = false;
+                if (Enabled)
+                {
+                    WindowState = FormWindowState.Normal;
+                    base.Show();
+                    UpdatePosition();
+                    tTimeout.Enabled = true;
+                }
+                else Hide();
             }
-            else Hide();
         }
 
         private void SizeToFit()
@@ -281,7 +304,9 @@ namespace VolumeControl.Core.Controls
         private void listBox_AddedRemoved(object sender, ControlEventArgs e)
             => UpdatePosition();
         private void ToastForm_Load(object sender, EventArgs e)
-            => ResumeSizeToFit();
+        {
+            ResumeSizeToFit();
+        }
 
         private void listBox_MouseClick(object sender, MouseEventArgs e) => VC_Static.API.TrySetSelectedProcess((listBox.SelectedItem as IAudioProcess)?.ProcessName, false);
 

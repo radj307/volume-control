@@ -166,5 +166,17 @@ namespace VolumeControl.Core.Controls.Properties {
                 this["ShowIndicator"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ToastFormTopMost {
+            get {
+                return ((bool)(this["ToastFormTopMost"]));
+            }
+            set {
+                this["ToastFormTopMost"] = value;
+            }
+        }
     }
 }

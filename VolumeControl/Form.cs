@@ -1,6 +1,7 @@
 using System.Reflection;
 using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
+using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls;
 using VolumeControl.Core.Events;
 
@@ -9,8 +10,11 @@ namespace VolumeControl
 
     public partial class Form : System.Windows.Forms.Form
     {
-        public Form()
+        public Form(HotkeyEditorForm hkeditorForm, ToastForm toastForm)
         {
+            hkedit = hkeditorForm;
+            toast = toastForm;
+
             SuspendLayout();
             SuspendSizeToFit();
 
@@ -21,7 +25,18 @@ namespace VolumeControl
 
             // initialize designer components
             InitializeComponent();
-            ForceCorrectLayout();
+
+            // Force default cursors on both split containers, in case the designer decides to change them again
+            MainSplitContainer.Cursor = Cursors.Default;
+            MixerSplitContainer.Cursor = Cursors.Default;
+
+            // force correct layout on panel2SplitContainer
+            MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
+            MixerSplitContainer.Panel2MinSize = 0;
+            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
+            MixerSplitContainer.SplitterWidth = 1; // correct splitter width
+            MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
+            MixerSplitContainer.Panel2MinSize = 23;
 
             _panel1Height = MainSplitContainer.Panel1.Height;
 
@@ -65,7 +80,7 @@ namespace VolumeControl
                 if (lastScrBounds.Contains(lastOrigin) && lastScrBounds.Contains(lastMax))
                     Location = lastOrigin;
                 else Location = lastScrBounds.Location + lastScrBounds.Size / 2 - Size / 2; // fallback to middle of the last screen
-            }                
+            }
 
             // handle API events
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
@@ -78,15 +93,15 @@ namespace VolumeControl
                 }
             };
             VC_Static.API.LockSelectionChanged += delegate
-            {
+            { // update the UI lock
                 cbLockTarget.CheckedChanged -= cbLockTarget_CheckedChanged!; //< prevent recursion
                 bool value = VC_Static.API.LockSelection;
                 tbTargetSelector.Enabled = !(cbLockTarget.Checked = value);
                 cbLockTarget.CheckedChanged += cbLockTarget_CheckedChanged!;
             };
-            VC_Static.API.ProcessListUpdated += RefreshProcessList!;
-            VC_Static.HotkeyPressed += delegate(object? sender, HotkeyPressedEventArgs e)
-            {
+            VC_Static.API.ProcessListUpdated += RefreshProcessList!; // refresh the process list
+            VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
+            { // when a volume hotkey is pressed, update the mixer if it is visible & if the reload-on-hotkey setting is enabled
                 if (!MainSplitContainer.Panel2Collapsed && cbReloadOnHotkey.Checked && e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
                 {
                     RefreshProcessList(sender!, e);
@@ -139,30 +154,29 @@ namespace VolumeControl
         /// <summary>
         /// Hotkey editor subform.
         /// </summary>
-        private readonly HotkeyEditorForm hkedit = new();
-        private readonly ToastForm toast = new();
+        private readonly HotkeyEditorForm hkedit;
+        private readonly ToastForm toast;
         #endregion Members
 
-        #region Properties
-        /// <summary>
-        /// Lock or unlock the current target selection.
-        /// This binds directly to (VC_Static.API.LockSelection).
-        /// </summary>
-        private static bool LockTarget
-        {
-            get => VC_Static.API.LockSelection;
-            set => VC_Static.API.LockSelection = value;
-        }
-        #endregion Properties
-
         #region Methods
+        /// <summary>
+        /// Prevents <see cref="SizeToFit"/> from doing anything.
+        /// </summary>
+        /// <remarks>This can be undone with <see cref="ResumeSizeToFit(bool)"/>.</remarks>
         private void SuspendSizeToFit()
             => _allowAutoSize = false;
+        /// <summary>
+        /// Allows <see cref="SizeToFit"/> to function again after being suspended with <see cref="SuspendSizeToFit"/>.
+        /// </summary>
+        /// <param name="trigger">When true, <see cref="SizeToFit"/> is called before returning.</param>
         private void ResumeSizeToFit(bool trigger = false)
         {
             _allowAutoSize = true;
             if (trigger) SizeToFit();
         }
+        /// <summary>
+        /// Changes the size of the form to fit all of its contents.
+        /// </summary>
         private void SizeToFit()
         {
             if (!_allowAutoSize)
@@ -255,23 +269,6 @@ namespace VolumeControl
 
             VC_Static.Log.WriteInfo("Saved 'VolumeControl' project properties.");
         }
-        /// <summary>
-        /// This function fixes the designer's failure to actually apply certain settings.
-        /// </summary>
-        private void ForceCorrectLayout()
-        {
-            // Force default cursors on both split containers, in case the designer decides to change them again
-            MainSplitContainer.Cursor = Cursors.Default;
-            MixerSplitContainer.Cursor = Cursors.Default;
-
-            // force correct layout on panel2SplitContainer
-            MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
-            MixerSplitContainer.Panel2MinSize = 0;
-            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
-            MixerSplitContainer.SplitterWidth = 1; // correct splitter width
-            MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
-            MixerSplitContainer.Panel2MinSize = 23;
-        }
         #endregion Methods
 
         #region MixerEventHandlers
@@ -290,19 +287,19 @@ namespace VolumeControl
         private void Mixer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == MixerColSelectButton.Index)
-            {
-                if (!LockTarget)
+            { // handle select buttons
+                if (!VC_Static.TargetLocked)
                     tbTargetSelector.Text = VC_Static.API.ProcessList[e.RowIndex].ProcessName;
             }
             else if (e.ColumnIndex == MixerColVolumeUp.Index)
-            { // volume up
+            { // handle volume up buttons
                 var proc = VC_Static.API.ProcessList[e.RowIndex];
                 AudioAPI.VolumeHelper.IncrementVolume(proc.PID, VC_Static.VolumeStep);
                 RefreshProcessList();
                 VC_Static.Log.WriteInfo($"Increased volume of '{proc.ProcessName}' to '{proc.VolumePercent}'");
             }
             else if (e.ColumnIndex == MixerColVolumeDown.Index)
-            { // volume down
+            { // handle volume down buttons
                 var proc = VC_Static.API.ProcessList[e.RowIndex];
                 AudioAPI.VolumeHelper.DecrementVolume(proc.PID, VC_Static.VolumeStep);
                 RefreshProcessList();
@@ -389,12 +386,24 @@ namespace VolumeControl
         /// Handles text change events for the 'Target Process Name' textbox.
         /// </summary>
         private void tbTargetName_TextChanged(object sender, EventArgs e)
-            => VC_Static.API.SetSelectedProcess(tbTargetSelector.Text);
+        {
+            // check if the new selection is valid and its name doesn't match the text in the target selector exactly.
+            if (VC_Static.API.SetSelectedProcess(tbTargetSelector.Text) is AudioProcess ap && !tbTargetSelector.Text.Equals(ap.ProcessName, StringComparison.Ordinal))
+            {
+                tbTargetSelector.TextChanged -= tbTargetName_TextChanged!; //< prevent recursion
+                bool doResetPos = tbTargetSelector.SelectionLength == 0;
+                int cursorPos = tbTargetSelector.GetCursorPos();
+                tbTargetSelector.Text = ap.ProcessName; //< update the process name
+                if (doResetPos)
+                    tbTargetSelector.SetCursorPos(cursorPos);
+                tbTargetSelector.TextChanged += tbTargetName_TextChanged!;
+            }
+        }
         /// <summary>
         /// Handles check/uncheck events for the 'Lock' current target checkbox.
         /// </summary>
         private void cbLockTarget_CheckedChanged(object sender, EventArgs e)
-            => tbTargetSelector.Enabled = !(LockTarget = cbLockTarget.Checked);
+            => tbTargetSelector.Enabled = !(VC_Static.TargetLocked = cbLockTarget.Checked);
         /// <summary>
         /// Handles check/uncheck events for the 'Run at Startup' checkbox.
         /// </summary>
@@ -466,13 +475,21 @@ namespace VolumeControl
         /// Handles form 'Resize' events by setting the 'Visible' property to allow minimizing the form without showing a small box in the bottom-left of the screen.
         /// </summary>
         private void Form_Resize(object sender, EventArgs e)
-            => Visible = !(WindowState == FormWindowState.Minimized);
+        {
+            if (!(Visible = WindowState != FormWindowState.Minimized) && hkedit.Visible)
+            { // when the main form isn't visible anymore, and the hotkey editor IS, hide it.
+                hkedit.Visible = false;
+            }
+        }
         /// <summary>
         /// Handles the form 'Load' event, and enables the SizeToFit() function.
         /// This function is disabled during initialization, to prevent constant form resizing when the mixer is being populated.
         /// </summary>
         private void Form_Load(object sender, EventArgs e)
-            => ResumeSizeToFit(true);
+        {
+            ResumeSizeToFit(true);
+            toast.ResumeNotifications();
+        }
         /// <summary>
         /// Handles drawing checkboxes.
         /// </summary>
@@ -500,12 +517,14 @@ namespace VolumeControl
 
             g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
         }
-        #endregion ControlEventHandlers
-
-        private void vbCancel_Click(object? sender, EventArgs e)
+        /// <summary>
+        /// Handles the virtual button click event.
+        /// </summary>
+        private void VbCancel_Click(object? sender, EventArgs e)
         {
             if (Properties.Settings.Default.EnableEscapeMinimize)
                 WindowState = FormWindowState.Minimized;
         }
+        #endregion ControlEventHandlers
     }
 }

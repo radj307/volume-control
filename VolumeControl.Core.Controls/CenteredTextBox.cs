@@ -40,6 +40,10 @@ namespace VolumeControl.Core.Controls
             set => tb.Text = value;
         }
         /// <summary>
+        /// Gets the length of text in the control.
+        /// </summary>
+        public int TextLength => tb.TextLength;
+        /// <summary>
         /// Gets or sets the text that is displayed when the control has no text and does not have the focus.
         /// </summary>
         /// <Returns>The text that is displayed when the control has no text and does not have focus.</Returns>
@@ -78,6 +82,41 @@ namespace VolumeControl.Core.Controls
         /// Gets or sets the amount of empty space between the text and the left/right edges of the control.
         /// </summary>
         public int EdgePadding { get; set; }
+        /// <summary>
+        /// Gets or sets the starting point of text selected in the text box.
+        /// </summary>
+        public int SelectionStart
+        {
+            get => tb.SelectionStart;
+            set => tb.SelectionStart = value;
+        }
+        /// <summary>
+        /// Gets or sets the number of characters selected in the text box.
+        /// </summary>
+        public int SelectionLength
+        {
+            get => tb.SelectionLength;
+            set => tb.SelectionLength = value;
+        }
+        /// <summary>
+        /// Sets the position of the cursor within the textbox.
+        /// </summary>
+        /// <param name="index">The index of the character to place the cursor before.</param>
+        public void SetCursorPos(int index)
+        {
+            // we don't have to verify that index is within bounds - out-of-bounds caret will insert text after the current text.
+            SelectionStart = index;
+            SelectionLength = 0;
+        }
+        /// <summary>
+        /// Gets the position of the cursor within the textbox.
+        /// </summary>
+        /// <returns>The position of the cursor within the textbox.</returns>
+        public int GetCursorPos() => SelectionStart;
+        /// <summary>
+        /// Gets the underlying textbox object.
+        /// </summary>
+        public TextBox TextBox => tb;
         #endregion Properties
 
         #region Methods
