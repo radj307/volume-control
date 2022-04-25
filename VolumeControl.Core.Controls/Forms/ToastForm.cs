@@ -11,7 +11,6 @@ namespace VolumeControl.Core.Controls
         #region Initializers
         public ToastForm()
         {
-            Visible = false;
             SuspendNotifications();
 
             // load local settings
@@ -24,6 +23,8 @@ namespace VolumeControl.Core.Controls
 
             InitializeComponent();
             SuspendLayout();
+            // call ShowWindow once here so it is initialized correctly for subsequent calls.
+            ShowWindow(Handle, SW_HIDE);
 
             // set data source
             bsAudioProcessAPI.DataSource = VC_Static.API;
@@ -57,7 +58,7 @@ namespace VolumeControl.Core.Controls
                 listBox.DataSource = bsAudioProcessAPI;
                 ResumeLayout();
             };
-            VC_Static.HotkeyPressed += delegate(object? sender, HotkeyPressedEventArgs e)
+            VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
             {
                 if (Enabled && e.Subject == Core.Enum.VolumeControlSubject.TARGET)
                 {
@@ -99,23 +100,20 @@ namespace VolumeControl.Core.Controls
         private bool _allowAutoSize = false;
         private bool _suspended = true;
         #endregion Members
+        [DllImport("user32.dll")]
+        private extern static bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        const int SW_HIDE = 0;
+        const int SW_SHOWNOACTIVATE = 4;
 
         #region Properties
+        /// <summary>
+        /// This prevents the form from stealing focus when it appears, however it only works when <see cref="Form.TopMost"/> is false.
+        /// </summary>
         protected override bool ShowWithoutActivation
         {
-            get { return true; }
+            get => true;
         }
 
-        private const int WS_EX_TOPMOST = 0x00000008;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams createParams = base.CreateParams;
-                createParams.ExStyle |= WS_EX_TOPMOST;
-                return createParams;
-            }
-        }
         public int TimeoutInterval
         {
             get => tTimeout.Interval;
@@ -206,7 +204,8 @@ namespace VolumeControl.Core.Controls
                 if (Enabled)
                 {
                     WindowState = FormWindowState.Normal;
-                    base.Show();
+                    // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
+                    ShowWindow(Handle, SW_SHOWNOACTIVATE);
                     UpdatePosition();
                     tTimeout.Enabled = true;
                 }
