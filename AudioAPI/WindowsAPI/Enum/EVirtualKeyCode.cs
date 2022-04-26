@@ -1,6 +1,6 @@
-﻿namespace AudioAPI
+﻿namespace AudioAPI.WindowsAPI.Enum
 {
-    public enum VirtualKeyCode : byte
+    public enum EVirtualKeyCode : byte
     {
         None = 0x00,
         VK_VOLUME_MUTE = 0xAD,

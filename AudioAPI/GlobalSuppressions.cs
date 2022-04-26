@@ -5,7 +5,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Design", "CA1069:Enums values should not be duplicated", Justification = "<Pending>", Scope = "type", Target = "~T:AudioAPI.WindowsAPI.Enum.MenuFlags")]
+[assembly: SuppressMessage("Design", "CA1069:Enums values should not be duplicated", Justification = "<Pending>", Scope = "type", Target = "~T:AudioAPI.WindowsAPI.Enum.EMenuFlags")]
 [assembly: SuppressMessage("Interoperability", "CA1401:P/Invokes should not be visible", Justification = "<Pending>", Scope = "member", Target = "~M:AudioAPI.WindowsAPI.User32.DestroyIcon(System.IntPtr)~System.Boolean")]
 [assembly: SuppressMessage("Interoperability", "CA1401:P/Invokes should not be visible", Justification = "<Pending>", Scope = "member", Target = "~M:AudioAPI.WindowsAPI.User32.EnableMenuItem(System.IntPtr,AudioAPI.WindowsAPI.Enum.SysCommands,AudioAPI.WindowsAPI.Enum.MenuFlags)~System.Boolean")]
 [assembly: SuppressMessage("Interoperability", "CA1401:P/Invokes should not be visible", Justification = "<Pending>", Scope = "member", Target = "~M:AudioAPI.WindowsAPI.User32.EnableMenuItem(System.IntPtr,System.UInt32,AudioAPI.WindowsAPI.Enum.MenuFlags)~System.Boolean")]

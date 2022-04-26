@@ -1,6 +1,6 @@
 ﻿namespace AudioAPI.WindowsAPI.Enum
 {
-    public enum ShowWindowCmd
+    public enum EShowWindowCmd
     {
         /// <summary>
         /// Hides the window and activates another window.

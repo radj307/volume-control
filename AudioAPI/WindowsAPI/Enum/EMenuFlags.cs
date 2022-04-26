@@ -1,7 +1,7 @@
 ﻿namespace AudioAPI.WindowsAPI.Enum
 {
     [Flags]
-    public enum MenuFlags : long
+    public enum EMenuFlags : long
     {
         MF_BYCOMMAND = 0x0000L,
         MF_ENABLED = 0x0000L,

@@ -26,7 +26,7 @@ namespace AudioAPI.WindowsAPI
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
         [DllImport("user32.dll")]
-        public static extern bool ShowWindow(IntPtr hWnd, ShowWindowCmd nCmdShow);
+        public static extern bool ShowWindow(IntPtr hWnd, EShowWindowCmd nCmdShow);
 
         [DllImport("user32.dll")]
         public static extern bool UpdateWindow(IntPtr hWnd);
@@ -35,11 +35,11 @@ namespace AudioAPI.WindowsAPI
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
         [DllImport("user32.dll")]
-        public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, MenuFlags uEnable);
+        public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, EMenuFlags uEnable);
 
         // Overload for system menu items
         [DllImport("user32.dll")]
-        public static extern bool EnableMenuItem(IntPtr hMenu, SysCommands uIDEnableItem, MenuFlags uEnable);
+        public static extern bool EnableMenuItem(IntPtr hMenu, ESysCommands uIDEnableItem, EMenuFlags uEnable);
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetMenu(IntPtr hWnd);
@@ -129,7 +129,7 @@ namespace AudioAPI.WindowsAPI
         public static extern bool SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
-        public static extern void KeyboardEvent(VirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+        public static extern void KeyboardEvent(EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetDC(IntPtr hWnd);

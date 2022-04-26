@@ -1,6 +1,6 @@
 ﻿namespace AudioAPI.WindowsAPI.Enum
 {
-    public enum SysCommands : uint
+    public enum ESysCommands : uint
     {
         SC_SIZE = 0xF000,
         SC_MOVE = 0xF010,

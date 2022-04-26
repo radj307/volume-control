@@ -1,5 +1,6 @@
 ﻿using AudioAPI.WindowsAPI;
 using AudioAPI.WindowsAPI.Audio;
+using AudioAPI.WindowsAPI.Enum;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -20,7 +21,7 @@ namespace AudioAPI
             catch
             {
                 // send media volume up keypress globally
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_UP, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_UP, 0, 1, IntPtr.Zero);
             }
         }
 
@@ -34,7 +35,7 @@ namespace AudioAPI
             }
             catch
             {
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_DOWN, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_DOWN, 0, 1, IntPtr.Zero);
             }
         }
 
@@ -49,7 +50,7 @@ namespace AudioAPI
             }
             catch
             {
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_MUTE, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_MUTE, 0, 1, IntPtr.Zero);
             }
         }
 
@@ -141,7 +142,7 @@ namespace AudioAPI
             catch
             {
                 // send media volume up keypress globally
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_UP, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_UP, 0, 1, IntPtr.Zero);
             }
         }
 
@@ -155,7 +156,7 @@ namespace AudioAPI
             }
             catch
             {
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_DOWN, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_DOWN, 0, 1, IntPtr.Zero);
             }
         }
 
@@ -170,7 +171,7 @@ namespace AudioAPI
             }
             catch
             {
-                User32.KeyboardEvent(VirtualKeyCode.VK_VOLUME_MUTE, 0, 1, IntPtr.Zero);
+                User32.KeyboardEvent(EVirtualKeyCode.VK_VOLUME_MUTE, 0, 1, IntPtr.Zero);
             }
         }
 
