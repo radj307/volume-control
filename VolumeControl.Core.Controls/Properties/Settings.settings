@@ -42,7 +42,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="VolumeDisplayCorner" Type="System.Byte" Scope="Application">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="VolumeDisplayPadding" Type="System.Drawing.Size" Scope="Application">
       <Value Profile="(Default)">20, 10</Value>

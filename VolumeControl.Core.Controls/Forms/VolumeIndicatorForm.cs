@@ -1,6 +1,7 @@
 ﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Core.Events;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Controls.Forms
@@ -21,29 +22,24 @@ namespace VolumeControl.Core.Controls.Forms
 
             Opacity = Properties.Settings.Default.VolumeFormOpacity;
 
-            int width = Size.Width - Size.Width / 3;
-
-            HandleSize = new(width, width);
-
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
-            User32.ShowWindow(Handle, User32.SW_HIDE);
+            User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
             {
-                if (!_suspended)
+                if (Enabled = e.Selected is AudioProcess)
                 {
-                    if (Enabled = e.Selected is AudioProcess)
-                    {
-                        SuspendLayout();
-                        UpdateIndicator();
-                        ResumeLayout();
-                    }
+                    SuspendLayout();
+                    UpdateIndicator();
+                    ResumeLayout();
                 }
             };
             VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
             {
-                if (Enabled && !_suspended && e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
+                if (e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
                 {
+                    if (Visible)
+                        tTimeout.Restart();
                     SuspendLayout();
                     Show();
                     UpdateIndicator();
@@ -54,8 +50,6 @@ namespace VolumeControl.Core.Controls.Forms
             ResumeLayout();
         }
 
-        private bool _suspended = false;
-
         /// <summary>
         /// This prevents the form from stealing focus when it appears, however it only works when <see cref="Form.TopMost"/> is false.
         /// </summary>
@@ -64,21 +58,15 @@ namespace VolumeControl.Core.Controls.Forms
             get => true;
         }
 
-        public int TimeoutInterval
-        {
-            get => tTimeout.Interval;
-            set => tTimeout.Interval = value;
-        }
+        //public int TimeoutInterval
+        //{
+        //    get => tTimeout.Interval;
+        //    set => tTimeout.Interval = value;
+        //}
         public Size DisplayPadding { get; set; }
         public Screen DisplayScreen { get; set; }
         public Corner DisplayCorner { get; set; }
         public Size DisplayOffset { get; set; }
-        public Size HandleSize { get; set; }
-        public new Font Font
-        {
-            get => base.Font;
-            set => base.Font = value;
-        }
 
         private static bool TargetIsMuted => (VC_Static.API.GetSelectedProcess() is AudioProcess ap && ap.Muted);
         private static decimal TargetVolume => VC_Static.API.GetSelectedProcess() is AudioProcess ap ? ap.VolumeFullRange : 0m;
@@ -99,37 +87,47 @@ namespace VolumeControl.Core.Controls.Forms
             set => tbLevel.Value = value;
         }
 
-        /// <summary>
-        /// Prevent the toast form from becoming visible.
-        /// </summary>
-        public void SuspendNotifications()
-            => _suspended = true;
-        /// <summary>
-        /// Allow the toast form to be visible again.
-        /// </summary>
-        public void ResumeNotifications()
-            => _suspended = false;
 
+        /// <summary>
+        /// Hides the window by fading it out over time.<br/>
+        /// This function handles the entire form hiding process:
+        /// <list type="bullet">
+        /// <item><description>Stops <see cref="tTimeout"/>.</description></item>
+        /// <item><description>Calls <see cref="Hide"/>.</description></item>
+        /// <item><description>Resets the form opacity back to its value prior to calling <see cref="FadeHide(double, int)"/>.</description></item>
+        /// </list>
+        /// </summary>
+        /// <remarks>
+        /// The total amount of time in milliseconds that it will take for the form to be completely hidden can be calculated as follows: <code>(<see cref="Form.Opacity"/> / <paramref name="step"/>) * <paramref name="interval"/></code>
+        /// </remarks>
+        /// <param name="step">The amount of opacity that is subtracted from the current opacity every interval.</param>
+        /// <param name="interval">The amount of time in milliseconds to wait before lowering the current opacity again.</param>
+        public void FadeHide(double step, int interval = 15)
+        {
+            tTimeout.Stop();
+            var prevOpacity = Opacity; //< we need to reset the opacity after fading out
+            for (double i = Opacity; i > 0.0; i -= step)
+            {
+                Opacity = i;
+                Thread.Sleep(interval);
+            }
+            Hide();
+            Opacity = prevOpacity;
+        }
+        public void FadeHide() => FadeHide(0.1, 15);
         public new void Hide()
         {
-            base.Hide();
+            Visible = false;
             WindowState = FormWindowState.Minimized;
         }
         public new void Show()
         {
-            if (!_suspended)
-            {
-                tTimeout.Enabled = false;
-                if (Enabled)
-                {
-                    WindowState = FormWindowState.Normal;
-                    // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-                    User32.ShowWindow(Handle, User32.SW_SHOWNOACTIVATE);
-                    UpdatePosition();
-                    tTimeout.Enabled = true;
-                }
-                else Hide();
-            }
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
+            User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+            UpdatePosition();
+            tTimeout.Start();
         }
 
         /// <summary>
@@ -141,7 +139,7 @@ namespace VolumeControl.Core.Controls.Forms
             Point? pos = DisplayCorner.GetPosition(wsz, Size, DisplayPadding, DisplayOffset);
             if (pos != null)
                 Location = pos.Value;
-            else FLog.Log.Error($"ToastForm.SetPosition() failed to calculate a valid origin point.");
+            else FLog.Log.Error($"VolumeIndicatorForm.SetPosition() failed to calculate a valid origin point.");
             UpdateBounds();
         }
 
@@ -153,44 +151,13 @@ namespace VolumeControl.Core.Controls.Forms
             tbLevel.ValueChanged -= tbLevel_ValueChanged!;
             cbMuted.CheckedChanged -= cbMuted_CheckedChanged!;
 
-            Level = Convert.ToInt32(TargetVolume);
+            labelVolume.Text = (Level = Convert.ToInt32(TargetVolume)).ToString();
             Muted = TargetIsMuted;
 
             tbLevel.ValueChanged += tbLevel_ValueChanged!;
             cbMuted.CheckedChanged += cbMuted_CheckedChanged!;
         }
-
-        private void tTimeout_Tick(object sender, EventArgs e)
-        {
-            tTimeout.Enabled = false;
-            Hide();
-        }
-
-        private void cbPaint(object sender, PaintEventArgs e)
-        {
-            if (sender is not CheckBox cb) return;
-
-            Graphics g = e.Graphics;
-            var rect = e.ClipRectangle;
-
-            CheckBoxRenderer.DrawParentBackground(g, rect, cb);
-
-            int boxSize = 13;
-
-            var box = new Rectangle(rect.Location.X, rect.Location.Y + (rect.Height / 2 - boxSize / 2), boxSize - 1, boxSize - 1);
-            int textStart = box.X + box.Width + 4;
-
-            var b = new SolidBrush(Color.FromArgb(200, 200, 200));
-
-            g.DrawRectangle(new Pen(b, 1f), box);
-            if (cb.Checked)
-            {
-                g.FillRectangle(b, new Rectangle(box.X + 3, box.Y + 3, box.Width - 5, box.Height - 5));
-            }
-
-            g.DrawString(cb.Text, cb.Font, new SolidBrush(cb.ForeColor), new Point(textStart, rect.Location.Y + 1));
-        }
-
+        
         private void cbMuted_CheckedChanged(object sender, EventArgs e)
         {
             if (VC_Static.API.GetSelectedProcess() is AudioProcess ap)
@@ -202,5 +169,12 @@ namespace VolumeControl.Core.Controls.Forms
             if (VC_Static.API.GetSelectedProcess() is AudioProcess ap)
                 ap.VolumeFullRange = Convert.ToDecimal(Level);
         }
+
+        private void cbMuted_CheckStateChanged(object sender, EventArgs e)
+        {
+            cbMuted.ImageIndex = Convert.ToInt32(cbMuted.Checked);
+        }
+
+        private void tTimeout_Tick(object sender, EventArgs e) => FadeHide();
     }
 }

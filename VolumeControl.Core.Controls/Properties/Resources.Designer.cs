@@ -63,9 +63,9 @@ namespace VolumeControl.Core.Controls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _3p0 {
+        internal static System.Drawing.Bitmap mute_white {
             get {
-                object obj = ResourceManager.GetObject("3p0", resourceCulture);
+                object obj = ResourceManager.GetObject("mute_white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,129 +73,9 @@ namespace VolumeControl.Core.Controls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _3p1 {
+        internal static System.Drawing.Bitmap unmute_white {
             get {
-                object obj = ResourceManager.GetObject("3p1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3p2 {
-            get {
-                object obj = ResourceManager.GetObject("3p2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3p3 {
-            get {
-                object obj = ResourceManager.GetObject("3p3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p0 {
-            get {
-                object obj = ResourceManager.GetObject("5p0", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p1 {
-            get {
-                object obj = ResourceManager.GetObject("5p1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p2 {
-            get {
-                object obj = ResourceManager.GetObject("5p2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p3 {
-            get {
-                object obj = ResourceManager.GetObject("5p3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p4 {
-            get {
-                object obj = ResourceManager.GetObject("5p4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _5p5 {
-            get {
-                object obj = ResourceManager.GetObject("5p5", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap blank16x16 {
-            get {
-                object obj = ResourceManager.GetObject("blank16x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap locked {
-            get {
-                object obj = ResourceManager.GetObject("locked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tgt {
-            get {
-                object obj = ResourceManager.GetObject("tgt", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap unlocked {
-            get {
-                object obj = ResourceManager.GetObject("unlocked", resourceCulture);
+                object obj = ResourceManager.GetObject("unmute_white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

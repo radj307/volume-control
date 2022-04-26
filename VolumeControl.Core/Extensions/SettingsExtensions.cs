@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using VolumeControl.Log;
 
-namespace VolumeControl.Core
+namespace VolumeControl.Core.Extensions
 {
     public static class SettingsExtensions
     {

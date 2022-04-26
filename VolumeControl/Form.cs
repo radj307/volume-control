@@ -5,6 +5,7 @@ using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls;
 using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Core.Events;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -201,8 +202,7 @@ namespace VolumeControl
                 int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
 
-                int totalCellHeight = _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
-                height += totalCellHeight;
+                height += _mixerListItemHeight * (Mixer.Rows.Count % totalFittingElements);
             }
 
             // set the size of the form

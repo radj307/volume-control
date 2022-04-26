@@ -142,7 +142,7 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public byte VolumeDisplayCorner {
             get {
                 return ((byte)(this["VolumeDisplayCorner"]));

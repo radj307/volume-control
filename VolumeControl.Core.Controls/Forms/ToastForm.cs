@@ -24,7 +24,7 @@ namespace VolumeControl.Core.Controls
             InitializeComponent();
             SuspendLayout();
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
-            User32.ShowWindow(Handle, User32.SW_HIDE);
+            User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
             // set data source
             bsAudioProcessAPI.DataSource = VC_Static.API;
@@ -170,6 +170,32 @@ namespace VolumeControl.Core.Controls
                 SizeToFit();
         }
 
+        /// <summary>
+        /// Hides the window by fading it out over time.<br/>
+        /// This function handles the entire form hiding process:
+        /// <list type="bullet">
+        /// <item><description>Stops <see cref="tTimeout"/>.</description></item>
+        /// <item><description>Calls <see cref="Hide"/>.</description></item>
+        /// <item><description>Resets the form opacity back to its value prior to calling <see cref="FadeHide(double, int)"/>.</description></item>
+        /// </list>
+        /// </summary>
+        /// <remarks>
+        /// The total amount of time in milliseconds that it will take for the form to be completely hidden can be calculated as follows: <code>(<see cref="Form.Opacity"/> / <paramref name="step"/>) * <paramref name="interval"/></code>
+        /// </remarks>
+        /// <param name="step">The amount of opacity that is subtracted from the current opacity every interval.</param>
+        /// <param name="interval">The amount of time in milliseconds to wait before lowering the current opacity again.</param>
+        public void FadeHide(double step, int interval = 15)
+        {
+            tTimeout.Enabled = false;
+            var prevOpacity = Opacity; //< we need to reset the opacity after fading out
+            for (double i = Opacity; i > 0.0; i -= step)
+            {
+                Opacity = i;
+                Thread.Sleep(interval);
+            }
+            Hide();
+            Opacity = prevOpacity;
+        }
         public new void Hide()
         {
             base.Hide();
@@ -184,7 +210,7 @@ namespace VolumeControl.Core.Controls
                 {
                     WindowState = FormWindowState.Normal;
                     // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-                    User32.ShowWindow(Handle, User32.SW_SHOWNOACTIVATE);
+                    User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
                     UpdatePosition();
                     tTimeout.Enabled = true;
                 }
