@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using VolumeControl.Core.Audio;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Core.Events;
 using VolumeControl.Log;
@@ -23,6 +22,10 @@ namespace VolumeControl.Core.Controls
 
             InitializeComponent();
             SuspendLayout();
+
+            Opacity = Properties.Settings.Default.ToastOpacity;
+
+
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
             User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
@@ -184,18 +187,23 @@ namespace VolumeControl.Core.Controls
         /// </remarks>
         /// <param name="step">The amount of opacity that is subtracted from the current opacity every interval.</param>
         /// <param name="interval">The amount of time in milliseconds to wait before lowering the current opacity again.</param>
-        public void FadeHide(double step, int interval = 15)
+        public void FadeHide(double step, int interval)
         {
             tTimeout.Enabled = false;
-            var prevOpacity = Opacity; //< we need to reset the opacity after fading out
-            for (double i = Opacity; i > 0.0; i -= step)
+            if (step > 0.0)
             {
-                Opacity = i;
-                Thread.Sleep(interval);
+                var prevOpacity = Opacity; //< we need to reset the opacity after fading out
+                for (double i = Opacity; i > 0.0; i -= step)
+                {
+                    Opacity = i;
+                    Thread.Sleep(interval);
+                }
+                Hide();
+                Opacity = prevOpacity;
             }
-            Hide();
-            Opacity = prevOpacity;
+            else Hide(); //< step is 0, this would cause an infinite loop if allowed to continue
         }
+        public void FadeHide() => FadeHide(Properties.Settings.Default.ToastFadeStep, Properties.Settings.Default.ToastFadePeriod);
         public new void Hide()
         {
             base.Hide();
@@ -303,14 +311,12 @@ namespace VolumeControl.Core.Controls
         private void tTimeout_Tick(object sender, EventArgs e)
         {
             tTimeout.Enabled = false;
-            Hide();
+            FadeHide();
         }
         private void listBox_AddedRemoved(object sender, ControlEventArgs e)
             => UpdatePosition();
         private void ToastForm_Load(object sender, EventArgs e)
-        {
-            ResumeSizeToFit();
-        }
+            => ResumeSizeToFit();
 
         private void listBox_MouseClick(object sender, MouseEventArgs e) => VC_Static.API.TrySetSelectedProcess((listBox.SelectedItem as IAudioProcess)?.ProcessName, false);
 
@@ -344,6 +350,8 @@ namespace VolumeControl.Core.Controls
             else
                 g.DrawString(item.ProcessName, font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
         }
+        private void ToastForm_MouseEnter(object sender, EventArgs e) => tTimeout.Stop();
+        private void ToastForm_MouseLeave(object sender, EventArgs e) => tTimeout.Start();
         #endregion ControlEventHandlers
     }
     public static class DecimalExtensions

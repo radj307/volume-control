@@ -9,7 +9,7 @@
         /// <summary>
         /// Return true when the endpoint is enabled.
         /// </summary>
-        bool Enabled { get; }
+        bool Enabled { get; internal set; }
         /// <summary>
         /// Retrieve a <see cref="StreamReader"/> object for reading from the endpoint.<br></br>
         /// Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations.

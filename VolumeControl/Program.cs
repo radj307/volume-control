@@ -48,11 +48,11 @@ namespace VolumeControl
                     else Process.GetCurrentProcess().Kill(); //< kill self
                 }
 
-#               if DEBUG
-                VolumeControl.Log.Properties.Settings.Default.EnableLog = true;
-#               endif
-
                 FLog.Initialize();
+
+#               if DEBUG // force enable log when running in DEBUG configuration
+                FLog.EnableLog = true;
+#               endif
 
                 VC_Static.Initialize(); // Initialize global statics
 
@@ -86,7 +86,11 @@ namespace VolumeControl
 
                 var hkeditForm = new HotkeyEditorForm(); // create the hotkey editor form
                 var toastForm = new ToastForm(); // create the toast notification form
-                var indicatorForm = new VolumeIndicatorForm();
+                var indicatorForm = new VolumeIndicatorForm(); // create the volume indicator form
+
+                if (toastForm.DisplayCorner == indicatorForm.DisplayCorner) // increase the amount of padding for the toastform so it doesn't overlap
+                    toastForm.DisplayPadding = new(toastForm.DisplayPadding.Width + indicatorForm.Size.Width + indicatorForm.DisplayPadding.Width, toastForm.DisplayPadding.Height);//.Width += ;
+
                 var vcForm = new Form(hkeditForm, toastForm, indicatorForm); // create the main form
 
                 VC_Static.Log.Info("Initialization completed, starting the application...");

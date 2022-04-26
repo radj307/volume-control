@@ -6,7 +6,6 @@ using VolumeControl.Core.Controls;
 using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.Extensions;
-using VolumeControl.Log;
 
 namespace VolumeControl
 {

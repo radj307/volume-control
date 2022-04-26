@@ -20,14 +20,16 @@ namespace VolumeControl.Core.Controls.Forms
             InitializeComponent();
             SuspendLayout();
 
+            TimeoutInterval = Properties.Settings.Default.VolumeFormTimeoutInterval;
             Opacity = Properties.Settings.Default.VolumeFormOpacity;
+            colorPanel.BackColor = Properties.Settings.Default.VolumeFormBackColor;
 
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
             User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
             {
-                if (Enabled = e.Selected is AudioProcess)
+                if (e.Selected is AudioProcess)
                 {
                     SuspendLayout();
                     UpdateIndicator();
@@ -57,12 +59,21 @@ namespace VolumeControl.Core.Controls.Forms
         {
             get => true;
         }
+        /// <summary>
+        /// Gets or sets the size of the form.
+        /// </summary>
+        /// <remarks>Overrides the <see cref="Form.Size"/> property's setter so that <see cref="Form.MinimumSize"/> and <see cref="Form.MaximumSize"/> are set as well.</remarks>
+        public new Size Size
+        {
+            get => base.Size;
+            set => base.Size = MaximumSize = MinimumSize = value;
+        }
 
-        //public int TimeoutInterval
-        //{
-        //    get => tTimeout.Interval;
-        //    set => tTimeout.Interval = value;
-        //}
+        public int TimeoutInterval
+        {
+            get => tTimeout.Interval;
+            set => tTimeout.Interval = value;
+        }
         public Size DisplayPadding { get; set; }
         public Screen DisplayScreen { get; set; }
         public Corner DisplayCorner { get; set; }
@@ -87,7 +98,6 @@ namespace VolumeControl.Core.Controls.Forms
             set => tbLevel.Value = value;
         }
 
-
         /// <summary>
         /// Hides the window by fading it out over time.<br/>
         /// This function handles the entire form hiding process:
@@ -102,21 +112,27 @@ namespace VolumeControl.Core.Controls.Forms
         /// </remarks>
         /// <param name="step">The amount of opacity that is subtracted from the current opacity every interval.</param>
         /// <param name="interval">The amount of time in milliseconds to wait before lowering the current opacity again.</param>
-        public void FadeHide(double step, int interval = 15)
+        public void FadeHide(double step, int interval)
         {
             tTimeout.Stop();
-            var prevOpacity = Opacity; //< we need to reset the opacity after fading out
-            for (double i = Opacity; i > 0.0; i -= step)
+            if (step > 0.0)
             {
-                Opacity = i;
-                Thread.Sleep(interval);
+                var prevOpacity = Opacity; //< we need to reset the opacity after fading out
+                for (double i = Opacity; i > 0.0; i -= step)
+                {
+                    Opacity = i;
+                    Thread.Sleep(interval);
+                }
+                Hide();
+                Opacity = prevOpacity;
             }
-            Hide();
-            Opacity = prevOpacity;
+            else Hide(); //< step is 0, this would cause an infinite loop if allowed to continue
         }
-        public void FadeHide() => FadeHide(0.1, 15);
+        public void FadeHide() => FadeHide(Properties.Settings.Default.VolumeFormFadeStep, Properties.Settings.Default.VolumeFormFadePeriod);
         public new void Hide()
         {
+            if (tTimeout.Enabled)
+                tTimeout.Stop();
             Visible = false;
             WindowState = FormWindowState.Minimized;
         }
@@ -147,34 +163,53 @@ namespace VolumeControl.Core.Controls.Forms
 
         public void UpdateIndicator()
         {
-            UpdatePosition();
             tbLevel.ValueChanged -= tbLevel_ValueChanged!;
             cbMuted.CheckedChanged -= cbMuted_CheckedChanged!;
 
+            // set the volume label and the level
             labelVolume.Text = (Level = Convert.ToInt32(TargetVolume)).ToString();
+            // set the muted checkbox
             Muted = TargetIsMuted;
 
             tbLevel.ValueChanged += tbLevel_ValueChanged!;
             cbMuted.CheckedChanged += cbMuted_CheckedChanged!;
         }
-        
+
         private void cbMuted_CheckedChanged(object sender, EventArgs e)
         {
+            tTimeout.Restart();
             if (VC_Static.API.GetSelectedProcess() is AudioProcess ap)
                 ap.Muted = Muted;
         }
-
         private void tbLevel_ValueChanged(object sender, EventArgs e)
         {
+            tTimeout.Restart();
             if (VC_Static.API.GetSelectedProcess() is AudioProcess ap)
-                ap.VolumeFullRange = Convert.ToDecimal(Level);
+                labelVolume.Text = (ap.VolumeFullRange = Convert.ToDecimal(Level)).ToString();
         }
-
         private void cbMuted_CheckStateChanged(object sender, EventArgs e)
         {
+            tTimeout.Restart();
             cbMuted.ImageIndex = Convert.ToInt32(cbMuted.Checked);
         }
 
         private void tTimeout_Tick(object sender, EventArgs e) => FadeHide();
+
+        private void VolumeIndicatorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true; //< don't allow subforms to close or they'll be deleted, only close when the program exits.
+            // apply property values
+            Properties.Settings.Default.VolumeFormTimeoutInterval = TimeoutInterval;
+            Properties.Settings.Default.VolumeDisplayCorner = (byte)DisplayCorner;
+            Properties.Settings.Default.VolumeDisplayPadding = DisplayPadding;
+            Properties.Settings.Default.VolumeDisplayScreen = DisplayScreen.DeviceName;
+            Properties.Settings.Default.VolumeDisplayOffset = DisplayOffset;
+            // save properties
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void VolumeIndicatorForm_MouseEnter(object sender, EventArgs e) => tTimeout.Stop();
+        private void VolumeIndicatorForm_MouseLeave(object sender, EventArgs e) => tTimeout.Start();
     }
 }

@@ -41,16 +41,16 @@
     <Setting Name="ToastFormTopMost" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="VolumeDisplayCorner" Type="System.Byte" Scope="Application">
+    <Setting Name="VolumeDisplayCorner" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="VolumeDisplayPadding" Type="System.Drawing.Size" Scope="Application">
+    <Setting Name="VolumeDisplayPadding" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">20, 10</Value>
     </Setting>
-    <Setting Name="VolumeDisplayScreen" Type="System.String" Scope="Application">
+    <Setting Name="VolumeDisplayScreen" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="VolumeDisplayOffset" Type="System.Drawing.Size" Scope="Application">
+    <Setting Name="VolumeDisplayOffset" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="VolumeDisplayFont" Type="System.Drawing.Font" Scope="Application">
@@ -59,8 +59,29 @@
     <Setting Name="VolumeFormTopMost" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="VolumeFormOpacity" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">90</Value>
+    <Setting Name="VolumeFormBackColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">50, 192, 255</Value>
+    </Setting>
+    <Setting Name="VolumeFormOpacity" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.9</Value>
+    </Setting>
+    <Setting Name="VolumeFormTimeoutInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2000</Value>
+    </Setting>
+    <Setting Name="VolumeFormFadeStep" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="VolumeFormFadePeriod" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+    <Setting Name="ToastFadeStep" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="ToastFadePeriod" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+    <Setting Name="ToastOpacity" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

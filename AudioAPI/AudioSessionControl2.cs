@@ -1,9 +1,8 @@
-﻿using AudioAPI;
-using AudioAPI.WindowsAPI.Audio;
+﻿using AudioAPI.WindowsAPI.Audio;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace VolumeControl.Core.Audio
+namespace AudioAPI
 {
     /// <summary>
     /// Wrapper object for the <see cref="IAudioSessionControl2"/> audio interface that automatically handles memory.

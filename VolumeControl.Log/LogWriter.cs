@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
-using VolumeControl.Log.Endpoints;
+﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
 {
+    /// <summary>
+    /// Basic log writer object.
+    /// </summary>
+    /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="VolumeControl.Log"/> namespace.</remarks>
     public class LogWriter : ILogWriter
     {
         public LogWriter(IEndpoint endpoint, EventType eventTypeFilter)

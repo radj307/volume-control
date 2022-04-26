@@ -8,21 +8,13 @@
         /// Gets or sets the value of <see cref="Settings.Default.EnableStackTrace"/>.<br></br>
         /// This controls whether exception messages in the log include a stack trace.
         /// </summary>
-        internal static bool EnableStackTrace
-        {
-            get => Properties.Settings.Default.EnableStackTrace;
-            set => Properties.Settings.Default.EnableStackTrace = value;
-        }
+        internal static bool EnableStackTrace => Properties.Settings.Default.EnableStackTrace;
         /// <summary>
         /// Gets or sets the value of <see cref="Settings.Default.EnableStackTraceLineCount"/>.<br></br>
         /// This controls whether the line number prefix is visible in the stack trace of exception messages.<br></br>
         /// Does nothing if <see cref="Settings.Default.EnableStackTrace"/> is false.
         /// </summary>
-        internal static bool EnableStackTraceLineCount
-        {
-            get => Properties.Settings.Default.EnableStackTraceLineCount;
-            set => Properties.Settings.Default.EnableStackTraceLineCount = value;
-        }
+        internal static bool EnableStackTraceLineCount => Properties.Settings.Default.EnableStackTraceLineCount;
 
         /// <summary>
         /// Recursively converts an exception and all of its inner exceptions into a single printable string.

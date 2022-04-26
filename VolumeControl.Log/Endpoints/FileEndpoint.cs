@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-
-namespace VolumeControl.Log.Endpoints
+﻿namespace VolumeControl.Log.Endpoints
 {
     public class FileEndpoint : IEndpoint
     {
@@ -15,12 +12,16 @@ namespace VolumeControl.Log.Endpoints
 
         #region Members
         private string? _filepath = null;
-        private readonly bool _enabled = Properties.Settings.Default.EnableLog;
+        private bool _enabled = Properties.Settings.Default.EnableLog;
         #endregion Members
 
         #region Properties
         public bool Ready => _filepath != null;
-        public bool Enabled => _enabled;
+        public bool Enabled
+        {
+            get => _enabled;
+            set => _enabled = value;
+        }
         public string? Path
         {
             get => _filepath;

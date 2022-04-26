@@ -23,63 +23,48 @@ namespace VolumeControl.Log.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
         public string logfile {
             get {
                 return ((string)(this["logfile"]));
             }
-            set {
-                this["logfile"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public int logfilter {
             get {
                 return ((int)(this["logfilter"]));
             }
-            set {
-                this["logfilter"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool EnableLog {
             get {
                 return ((bool)(this["EnableLog"]));
             }
-            set {
-                this["EnableLog"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableStackTrace {
             get {
                 return ((bool)(this["EnableStackTrace"]));
             }
-            set {
-                this["EnableStackTrace"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableStackTraceLineCount {
             get {
                 return ((bool)(this["EnableStackTraceLineCount"]));
-            }
-            set {
-                this["EnableStackTraceLineCount"] = value;
             }
         }
     }

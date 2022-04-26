@@ -16,8 +16,8 @@ namespace VolumeControl.Log
         #region Properties
         /// <summary>
         /// The LogWriter instance used by FLog.
-        /// Note: Using this before calling the 'Initialize()' function will throw an exception!
         /// </summary>
+        /// <remarks>Using this before calling the <see cref="Initialize"/> function will throw an exception!</remarks>
         public static LogWriter Log
         {
             get
@@ -26,6 +26,23 @@ namespace VolumeControl.Log
                 else return _log;
             }
             internal set => _log = value;
+        }
+        /// <summary>
+        /// Sets whether or not the log is enabled.
+        /// </summary>
+        /// <remarks>Using this before calling the <see cref="Initialize"/> function will throw an exception!</remarks>
+        public static bool EnableLog
+        {
+            get 
+            {
+                if (!_initialized) throw new Exception("Cannot check if the log is enabled; Log wasn't initialized! (Call FLog.Initialize() first!)");
+                else return _log.Endpoint.Enabled;
+            }
+            set
+            {
+                if (!_initialized) throw new Exception("Cannot enable or disable log; Log wasn't initialized! (Call FLog.Initialize() first!)");
+                else _log.Endpoint.Enabled = value;
+            }
         }
         /// <summary>
         /// Get or set the log filepath.
@@ -44,7 +61,7 @@ namespace VolumeControl.Log
             set => _filter = value;
         }
         /// <summary>
-        /// True when FLog.Initialize() has been called, and the log is ready.
+        /// True when <see cref="Initialize"/> has been called, and the log is ready.
         /// </summary>
         public static bool Initialized => _initialized;
         #endregion Properties
@@ -75,21 +92,6 @@ namespace VolumeControl.Log
                 $"logfile   = '{_filepath}'",
                 $"logfilter = '{_filter.ID()}'"
             });
-        }
-        public static void SaveSettings()
-        {
-            Properties.Settings.Default.logfile = _filepath;
-            Properties.Settings.Default.logfilter = _filter.ID();
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-            if (_log != null)
-            {
-                Log.Info(new string[] {
-                    "FLog.SaveSettings() Completed:",
-                    $"logfile   = '{_filepath}'",
-                    $"logfilter = '{_filter.ID()}'"
-                });
-            }
         }
         #endregion Methods
     }
