@@ -76,7 +76,7 @@
     <value>None</value>
   </data>
   <data name="nVolumeIndicatorTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 15</value>
+    <value>154, 13</value>
   </data>
   <data name="nVolumeIndicatorTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 0</value>
@@ -109,7 +109,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelVolumeTimeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 17</value>
+    <value>72, 15</value>
   </data>
   <data name="labelVolumeTimeout.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 15</value>
@@ -136,7 +136,7 @@
     <value>True</value>
   </data>
   <data name="cbVolumeIndicatorEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 16</value>
+    <value>7, 14</value>
   </data>
   <data name="cbVolumeIndicatorEnabled.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 19</value>
@@ -163,7 +163,7 @@
     <value>3, 45</value>
   </data>
   <data name="gbVolumeIndicator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 40</value>
+    <value>223, 42</value>
   </data>
   <data name="gbVolumeIndicator.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -418,7 +418,7 @@
     <value>Stretch</value>
   </data>
   <data name="nToastTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 15</value>
+    <value>154, 13</value>
   </data>
   <data name="nToastTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 0</value>
@@ -448,7 +448,7 @@
     <value>True</value>
   </data>
   <data name="LabelToastTimeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 17</value>
+    <value>72, 15</value>
   </data>
   <data name="LabelToastTimeout.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 15</value>
@@ -475,7 +475,7 @@
     <value>True</value>
   </data>
   <data name="cbToastEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 16</value>
+    <value>7, 15</value>
   </data>
   <data name="cbToastEnabled.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 19</value>
@@ -502,7 +502,7 @@
     <value>3, 86</value>
   </data>
   <data name="gbToastNotifications.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 44</value>
+    <value>223, 42</value>
   </data>
   <data name="gbToastNotifications.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -592,16 +592,16 @@
     <value>NoControl</value>
   </data>
   <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 14</value>
+    <value>157, 14</value>
   </data>
   <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 25</value>
+    <value>63, 26</value>
   </data>
   <data name="bHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="bHotkeyEditor.Text" xml:space="preserve">
-    <value>Edit Hotkeys...</value>
+    <value>Hotkeys</value>
   </data>
   <data name="&gt;&gt;bHotkeyEditor.Name" xml:space="preserve">
     <value>bHotkeyEditor</value>
