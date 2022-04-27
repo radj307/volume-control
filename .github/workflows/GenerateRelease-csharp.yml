@@ -42,11 +42,6 @@ jobs:
     - name:   Stage Files
       run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
-    - name: 'Get Release Tag'
-      run:  |
-            if [ "${{github.event.inputs.tag}}" == "" ]; then TAG="${GITHUB_REF/refs\/tags\//}"; else TAG="${{github.event.inputs.tag}}" ; fi
-            echo "$TAG" >> '${{ github.workspace }}/STAGING/version'
-      
     - name:   Upload Artifacts
       uses:   actions/upload-artifact@v2
       with:
