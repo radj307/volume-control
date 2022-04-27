@@ -55,7 +55,7 @@
             this.label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label.Location = new System.Drawing.Point(0, 0);
-            this.label.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.label.Name = "label";
             this.label.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.label.Size = new System.Drawing.Size(59, 19);
@@ -71,7 +71,7 @@
             this.nud.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nud.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nud.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.nud.Location = new System.Drawing.Point(63, 0);
+            this.nud.Location = new System.Drawing.Point(61, 0);
             this.nud.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.nud.Name = "nud";
             this.nud.Size = new System.Drawing.Size(55, 23);
