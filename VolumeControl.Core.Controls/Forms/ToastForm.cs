@@ -18,13 +18,12 @@ namespace VolumeControl.Core.Controls
             DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName.Equals(Properties.Settings.Default.ToastDisplayScreen, StringComparison.OrdinalIgnoreCase), Screen.PrimaryScreen);
             DisplayOffset = Properties.Settings.Default.ToastDisplayOffset;
             IndicatorWidth = Properties.Settings.Default.IndicatorWidth;
-            TopMost = Properties.Settings.Default.ToastFormTopMost;
 
             InitializeComponent();
             SuspendLayout();
 
             Opacity = Properties.Settings.Default.ToastOpacity;
-
+            TopMost = Properties.Settings.Default.ToastFormTopMost;
 
             // call ShowWindow once here so it is initialized correctly for subsequent calls.
             User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);

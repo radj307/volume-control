@@ -75,6 +75,114 @@
   <data name="MainSplitContainer.Panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="nVolumeIndicatorTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 15</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>600, 0</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>40, 0</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 23</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.Name" xml:space="preserve">
+    <value>nVolumeIndicatorTimeoutInterval</value>
+  </data>
+  <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.Parent" xml:space="preserve">
+    <value>gbVolumeIndicator</value>
+  </data>
+  <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelVolumeTimeout.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelVolumeTimeout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelVolumeTimeout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 17</value>
+  </data>
+  <data name="labelVolumeTimeout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="labelVolumeTimeout.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="labelVolumeTimeout.Text" xml:space="preserve">
+    <value>Timeout (ms)</value>
+  </data>
+  <data name="&gt;&gt;labelVolumeTimeout.Name" xml:space="preserve">
+    <value>labelVolumeTimeout</value>
+  </data>
+  <data name="&gt;&gt;labelVolumeTimeout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelVolumeTimeout.Parent" xml:space="preserve">
+    <value>gbVolumeIndicator</value>
+  </data>
+  <data name="&gt;&gt;labelVolumeTimeout.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 16</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 19</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Text" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Name" xml:space="preserve">
+    <value>cbVolumeIndicatorEnabled</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Parent" xml:space="preserve">
+    <value>gbVolumeIndicator</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="gbVolumeIndicator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 45</value>
+  </data>
+  <data name="gbVolumeIndicator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 40</value>
+  </data>
+  <data name="gbVolumeIndicator.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="gbVolumeIndicator.Text" xml:space="preserve">
+    <value>Volume Notifications</value>
+  </data>
+  <data name="&gt;&gt;gbVolumeIndicator.Name" xml:space="preserve">
+    <value>gbVolumeIndicator</value>
+  </data>
+  <data name="&gt;&gt;gbVolumeIndicator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbVolumeIndicator.Parent" xml:space="preserve">
+    <value>MainSplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;gbVolumeIndicator.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 131</value>
   </data>
@@ -94,7 +202,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Label_VolumeStep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -274,7 +382,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gpSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cbLockTarget.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -304,7 +412,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="gbToastNotifications.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -412,7 +520,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;gbToastNotifications.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="bToggleMixer.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -442,7 +550,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bToggleMixer.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Label_Version.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -475,7 +583,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;Label_Version.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -484,7 +592,7 @@
     <value>NoControl</value>
   </data>
   <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 59</value>
+    <value>126, 14</value>
   </data>
   <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 25</value>
@@ -505,7 +613,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
     <value>MainSplitContainer.Panel1</value>

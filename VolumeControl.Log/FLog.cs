@@ -33,7 +33,7 @@ namespace VolumeControl.Log
         /// <remarks>Using this before calling the <see cref="Initialize"/> function will throw an exception!</remarks>
         public static bool EnableLog
         {
-            get 
+            get
             {
                 if (!_initialized) throw new Exception("Cannot check if the log is enabled; Log wasn't initialized! (Call FLog.Initialize() first!)");
                 else return _log.Endpoint.Enabled;
@@ -84,14 +84,21 @@ namespace VolumeControl.Log
             _filter = (EventType)Properties.Settings.Default.logfilter;
 #           endif
 
-            Log = new(new FileEndpoint(_filepath), _filter);
-            
+            // this is ok in C# because who needs logic
+            var endpoint = new FileEndpoint(_filepath);
+            if (endpoint.Enabled || Properties.Settings.Default.EnableLog)
+            {
+                endpoint.Enabled = true;
+                endpoint.Reset();
+            }
+            Log = new(endpoint, _filter);
 
-            Log.Info(new string[] {
+
+            Log.Info(
                 "FLog.Initialize() Completed:",
                 $"logfile   = '{_filepath}'",
                 $"logfilter = '{_filter.ID()}'"
-            });
+            );
         }
         #endregion Methods
     }

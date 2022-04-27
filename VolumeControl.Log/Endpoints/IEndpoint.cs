@@ -3,10 +3,6 @@
     public interface IEndpoint
     {
         /// <summary>
-        /// Return true when endpoint is ready to read/write.
-        /// </summary>
-        bool Ready { get; }
-        /// <summary>
         /// Return true when the endpoint is enabled.
         /// </summary>
         bool Enabled { get; internal set; }

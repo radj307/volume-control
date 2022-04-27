@@ -2,6 +2,7 @@
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
+using static System.Windows.Forms.LinkLabel;
 
 namespace VolumeControl.Log
 {
@@ -11,47 +12,55 @@ namespace VolumeControl.Log
     /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="VolumeControl.Log"/> namespace.</remarks>
     public class LogWriter : ILogWriter
     {
+        #region Constructors
         public LogWriter(IEndpoint endpoint, EventType eventTypeFilter)
         {
             Endpoint = endpoint;
             EventTypeFilter = eventTypeFilter;
             Endpoint.Reset();
         }
+        #endregion Constructors
 
+        #region InterfaceImplementation
         public IEndpoint Endpoint { get; set; }
         public EventType EventTypeFilter { get; set; }
 
         public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
+        public static string MakeBlankTimestamp() => Timestamp.Blank();
+        #endregion InterfaceImplementation
 
+        #region Methods
+        #region WriteRaw
         public void Write(object text) => Endpoint.WriteRaw(text.ToString());
         public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
+        #endregion WriteRaw
 
+        public void WriteWithTimestamp(string ts, params object?[] lines)
+        {
+            if (!Endpoint.Enabled || lines.Length == 0)
+                return;
+            Write(ts);
+            string tsBlank = MakeBlankTimestamp();
+            for (int i = 0, end = lines.Length; i < end; ++i)
+            {
+                var line = lines[i];
+
+                if (line is null)
+                    continue;
+                else if (line is Exception ex)
+                    WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
+                else
+                    WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+            }
+        }
+        public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
+        #region WriteEvent
         public void WriteEvent(EventType eventType, params object?[] lines)
         {
-            if (lines.Length == 0 || !FilterEventType(eventType))
+            if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))
                 return;
-            string ts = MakeTimestamp(eventType).ToString();
-            WriteLine($"{ts}{lines[0]}");
-            if (lines.Length > 1)
-            {
-                // replace the timestamp with an empty one of the same length
-                ts = new string(' ', ts.Length);
-                for (int i = 1; i < lines.Length; ++i)
-                {
-                    var line = lines[i];
-                    if (line == null)
-                        continue;
-                    else if (line is Exception ex)
-                    {
-                        WriteLine($"{ts}{ex.ToString(ts)}");
-                    }
-                    else
-                    {
-                        WriteLine($"{ts}{line}");
-                    }
-                }
-            }
+            WriteWithTimestamp(MakeTimestamp(eventType), lines);
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> message to the log endpoint.
@@ -78,11 +87,17 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
         public void Fatal(params object?[] lines) => WriteEvent(EventType.FATAL, lines);
+        #endregion WriteEvent
+
+        #region WriteException
         public void WriteException(EventType ev, Exception exception, object? message = null)
         {
+            if (!Endpoint.Enabled)
+                return;
             if (message == null)
                 WriteEvent(ev, exception);
-            WriteEvent(ev, message, exception);
+            else
+                WriteEvent(ev, message, exception);
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> exception message to the log endpoint.
@@ -114,5 +129,19 @@ namespace VolumeControl.Log
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
         public void FatalException(Exception exception, object? message = null) => WriteException(EventType.FATAL, exception, message);
+        #endregion WriteException
+
+        /// <summary>
+        /// Write a formatted followup message without a timestamp or event type to the log endpoint.
+        /// </summary>
+        /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
+        /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
+        public void Followup(params object?[] lines)
+        {
+            if (!Endpoint.Enabled)
+                return;
+            WriteWithTimestamp(MakeBlankTimestamp(), lines);
+        }
+        #endregion Methods
     }
 }

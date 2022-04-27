@@ -174,12 +174,11 @@ namespace HotkeyLib
             {
                 int lastError = HotkeyAPI.GetLastWin32Error();
 
-                FLog.Log.Error(new[]
-                {
+                FLog.Log.Error(
                     $"Hotkey registration failed with code {lastError}! {(lastError == HotkeyAPI.ERROR_HOTKEY_ALREADY_REGISTERED ? "(Hotkey Already Registered)" : "")}",
                     $"Keys:       '{_combo}'",
                     $"Hotkey ID:  '{_id}'"
-                });
+                );
 
                 _state = HotkeyRegistrationState.FAILED;
                 _id = null;
@@ -208,12 +207,11 @@ namespace HotkeyLib
                 }
                 else
                 {
-                    FLog.Log.Error(new[]
-                    {
+                    FLog.Log.Error(
                         $"Hotkey unregistration failed with code {HotkeyAPI.GetLastWin32Error()}!",
                         $"Keys:       '{_combo}'",
                         $"Hotkey ID:  '{_id}'"
-                    });
+                    );
                     _id = null;
                     _state = HotkeyRegistrationState.FAILED;
                 }
@@ -229,11 +227,11 @@ namespace HotkeyLib
                 {
                     if (!HotkeyAPI.UnregisterHotkey(_owner.Handle, _id.Value))
                     {
-                        FLog.Log.Error(new[] {
+                        FLog.Log.Error(
                             $"Hotkey re-registration failed with code {HotkeyAPI.GetLastWin32Error()}!",
                             $"Keys:       '{_combo}'",
                             $"Hotkey ID:  '{_id}'"
-                        });
+                        );
                         _state = HotkeyRegistrationState.FAILED;
                         _id = null;
                     }

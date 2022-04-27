@@ -208,5 +208,29 @@ namespace VolumeControl.Properties {
                 return ((bool)(this["EnableEscapeMinimize"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpgradeSettings {
+            get {
+                return ((bool)(this["UpgradeSettings"]));
+            }
+            set {
+                this["UpgradeSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool VolumeNotificationEnabled {
+            get {
+                return ((bool)(this["VolumeNotificationEnabled"]));
+            }
+            set {
+                this["VolumeNotificationEnabled"] = value;
+            }
+        }
     }
 }

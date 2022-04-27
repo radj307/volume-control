@@ -22,8 +22,8 @@ namespace VolumeControl.Log
         #region Properties
         public DateTime TimePoint { get; set; }
         public EventType EventType { get; set; }
-        public int MarginTimePoint { get => 29; }
-        public int MarginEventType { get => 8; }
+        public int MarginTimePoint { get => MarginTimePointStatic; }
+        public int MarginEventType { get => MarginEventTypeStatic; }
         #endregion
 
         #region Methods
@@ -31,12 +31,20 @@ namespace VolumeControl.Log
         #endregion Methods
 
         #region Statics
+        public static int MarginTimePointStatic { get => 29; }
+        public static int MarginEventTypeStatic { get => 8; }
+
         /// <summary>
         /// Gets a timestamp with the current time and a given <see cref="EventType"/>.
         /// </summary>
         /// <param name="eventType">The event type header to show at the end of the timestamp.</param>
         /// <returns><see cref="Timestamp"/> object with the current time and given type.</returns>
         public static Timestamp Now(EventType eventType) => new(DateTime.Now, eventType);
+        /// <summary>
+        /// Gets a blank string with the same length as a <see cref="Timestamp"/>.
+        /// </summary>
+        /// <returns>A <see cref="string"/> entirely composed of space (' ') chars with the same length as a timestamp string.</returns>
+        public static string Blank() => new(' ', 2 + MarginTimePointStatic + MarginEventTypeStatic);
         #endregion Statics
     }
 }

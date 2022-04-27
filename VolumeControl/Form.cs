@@ -68,6 +68,9 @@ namespace VolumeControl
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
             VC_Static.VolumeStep = nVolumeStep.Value = Properties.Settings.Default.VolumeStep;
+            cbVolumeIndicatorEnabled.Checked = Properties.Settings.Default.VolumeNotificationEnabled;
+
+            nVolumeIndicatorTimeoutInterval.Value = Convert.ToDecimal(Core.Controls.Properties.Settings.Default.VolumeFormTimeoutInterval);
 
             // Attempt to restore window position
             var lastOrigin = Properties.Settings.Default.LastLocation;
@@ -266,6 +269,7 @@ namespace VolumeControl
             Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
             Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
             Properties.Settings.Default.SetProperty("LastLocation", Location);
+            Properties.Settings.Default.SetProperty("VolumeNotificationEnabled", cbVolumeIndicatorEnabled.Checked);
             // Save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -528,6 +532,10 @@ namespace VolumeControl
             if (Properties.Settings.Default.EnableEscapeMinimize)
                 WindowState = FormWindowState.Minimized;
         }
+        private void cbVolumeIndicatorEnabled_CheckedChanged(object sender, EventArgs e)
+            => volumeIndicator.ToggleNotifications();
+        private void nVolumeIndicatorTimeoutInterval_ValueChanged(object sender, EventArgs e)
+            => volumeIndicator.TimeoutInterval = Convert.ToInt32(nVolumeIndicatorTimeoutInterval.Value);
         #endregion ControlEventHandlers
     }
 }

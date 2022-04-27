@@ -2,7 +2,7 @@
 {
     public static class ExceptionExtensions
     {
-        public static string ToString(this Exception ex, string multiLineBlank) => GetExceptionString(ex, multiLineBlank);
+        public static string ToString(this Exception ex, int timestampLen) => GetExceptionString(ex, timestampLen);
 
         /// <summary>
         /// Gets or sets the value of <see cref="Settings.Default.EnableStackTrace"/>.<br></br>
@@ -57,7 +57,7 @@
         /// The message spans over multiple lines.
         /// </summary>
         /// <param name="ex">Input Exception object.</param>
-        /// <param name="ts">Timestamp object.</param>
+        /// <param name="ts">Timestamp length.</param>
         /// <param name="recurse"><list type="table">
         /// <item><term>true</term><description>Recursively includes all inner exceptions in the returned string.</description></item>
         /// <item><term>false</term><description>Ignores all inner exceptions if they exist.</description></item>
@@ -65,7 +65,7 @@
         /// <param name="indentSize">The number of space characters to insert before each line. This is only used when recurse is true.</param>
         /// <param name="indentStep">The amount to increase the indentSize by for every inner exception when recursing. This is only used when recurse is true.</param>
         /// <returns>The formatted exception message, stack trace, and inner exceptions if set to recurse, spanning over multiple lines.</returns>
-        internal static string GetExceptionString(Exception ex, string blank, bool recurse = true)
-            => GetExceptionStringRecursive(ex, blank.Length, 2, 0, recurse ? 5 : 1);
+        internal static string GetExceptionString(Exception ex, int tsLen, bool recurse = true)
+            => GetExceptionStringRecursive(ex, tsLen, 2, 0, recurse ? 5 : 1);
     }
 }

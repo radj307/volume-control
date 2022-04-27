@@ -29,7 +29,7 @@ namespace VolumeControl.Core.Controls.Forms
 
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
             {
-                if (e.Selected is AudioProcess)
+                if (!_suspended && e.Selected is AudioProcess)
                 {
                     SuspendLayout();
                     UpdateIndicator();
@@ -38,7 +38,7 @@ namespace VolumeControl.Core.Controls.Forms
             };
             VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
             {
-                if (e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
+                if (!_suspended && e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
                 {
                     if (Visible)
                         tTimeout.Restart();
@@ -51,6 +51,8 @@ namespace VolumeControl.Core.Controls.Forms
 
             ResumeLayout();
         }
+
+        private bool _suspended = false;
 
         /// <summary>
         /// This prevents the form from stealing focus when it appears, however it only works when <see cref="Form.TopMost"/> is false.
@@ -98,6 +100,9 @@ namespace VolumeControl.Core.Controls.Forms
             set => tbLevel.Value = value;
         }
 
+        public void SuspendNotifications() => _suspended = true;
+        public void ResumeNotifications() => _suspended = false;
+        public void ToggleNotifications() => _suspended = !_suspended;
         /// <summary>
         /// Hides the window by fading it out over time.<br/>
         /// This function handles the entire form hiding process:
@@ -138,12 +143,15 @@ namespace VolumeControl.Core.Controls.Forms
         }
         public new void Show()
         {
-            Visible = true;
-            WindowState = FormWindowState.Normal;
-            // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-            User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
-            UpdatePosition();
-            tTimeout.Start();
+            if (!_suspended)
+            {
+                Visible = true;
+                WindowState = FormWindowState.Normal;
+                // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
+                User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+                UpdatePosition();
+                tTimeout.Start();
+            }
         }
 
         /// <summary>
@@ -199,11 +207,11 @@ namespace VolumeControl.Core.Controls.Forms
         {
             e.Cancel = true; //< don't allow subforms to close or they'll be deleted, only close when the program exits.
             // apply property values
-            Properties.Settings.Default.VolumeFormTimeoutInterval = TimeoutInterval;
-            Properties.Settings.Default.VolumeDisplayCorner = (byte)DisplayCorner;
-            Properties.Settings.Default.VolumeDisplayPadding = DisplayPadding;
-            Properties.Settings.Default.VolumeDisplayScreen = DisplayScreen.DeviceName;
-            Properties.Settings.Default.VolumeDisplayOffset = DisplayOffset;
+            Properties.Settings.Default.SetProperty("VolumeFormTimeoutInterval", TimeoutInterval);
+            Properties.Settings.Default.SetProperty("VolumeDisplayCorner", (byte)DisplayCorner);
+            Properties.Settings.Default.SetProperty("VolumeDisplayPadding",  DisplayPadding);
+            Properties.Settings.Default.SetProperty("VolumeDisplayScreen", DisplayScreen.DeviceName);
+            Properties.Settings.Default.SetProperty("VolumeDisplayOffset", DisplayOffset);
             // save properties
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();

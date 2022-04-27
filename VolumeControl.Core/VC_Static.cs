@@ -1,4 +1,4 @@
-﻿using AudioAPI;
+﻿using AudioAPI.WindowsAPI.Enum;
 using System.ComponentModel;
 using VolumeControl.Core.Audio;
 using VolumeControl.Core.Enum;
@@ -108,7 +108,7 @@ namespace VolumeControl.Core
 
         #region Methods
         private static void NotifyHotkeyPressed(object? sender, HotkeyPressedEventArgs e) => HotkeyPressed?.Invoke(sender, e);
-        private static void SendKeyboardEvent(VirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
+        private static void SendKeyboardEvent(EVirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => AudioAPI.WindowsAPI.User32.KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
 
         #region HotkeyActions
         internal static void Volume_Increase(object? sender, HandledEventArgs e)
@@ -141,11 +141,11 @@ namespace VolumeControl.Core
         }
 
         internal static void Media_Next(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_NEXT_TRACK);
+            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
         internal static void Media_Prev(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PREV_TRACK);
+            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
         internal static void Media_Toggle(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(VirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
+            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
 
         internal static void Target_Next(object? sender, HandledEventArgs e)
             => API.SelectNextProcess();

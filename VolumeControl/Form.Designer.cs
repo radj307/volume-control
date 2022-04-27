@@ -42,6 +42,10 @@ namespace VolumeControl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.gbVolumeIndicator = new System.Windows.Forms.GroupBox();
+            this.nVolumeIndicatorTimeoutInterval = new System.Windows.Forms.NumericUpDown();
+            this.labelVolumeTimeout = new System.Windows.Forms.Label();
+            this.cbVolumeIndicatorEnabled = new System.Windows.Forms.CheckBox();
             this.tbTargetSelector = new VolumeControl.Core.Controls.CenteredTextBox();
             this.gpSettings = new System.Windows.Forms.GroupBox();
             this.Label_VolumeStep = new System.Windows.Forms.Label();
@@ -86,6 +90,8 @@ namespace VolumeControl
             this.MainSplitContainer.Panel1.SuspendLayout();
             this.MainSplitContainer.Panel2.SuspendLayout();
             this.MainSplitContainer.SuspendLayout();
+            this.gbVolumeIndicator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nVolumeIndicatorTimeoutInterval)).BeginInit();
             this.gpSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).BeginInit();
             this.gbToastNotifications.SuspendLayout();
@@ -112,6 +118,7 @@ namespace VolumeControl
             // 
             this.MainSplitContainer.Panel1.BackgroundImage = global::VolumeControl.Properties.Resources.background_img1;
             resources.ApplyResources(this.MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
+            this.MainSplitContainer.Panel1.Controls.Add(this.gbVolumeIndicator);
             this.MainSplitContainer.Panel1.Controls.Add(this.tbTargetSelector);
             this.MainSplitContainer.Panel1.Controls.Add(this.gpSettings);
             this.MainSplitContainer.Panel1.Controls.Add(this.cbLockTarget);
@@ -128,6 +135,60 @@ namespace VolumeControl
             this.MainSplitContainer.Panel2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.MainSplitContainer.TabStop = false;
             // 
+            // gbVolumeIndicator
+            // 
+            this.gbVolumeIndicator.Controls.Add(this.nVolumeIndicatorTimeoutInterval);
+            this.gbVolumeIndicator.Controls.Add(this.labelVolumeTimeout);
+            this.gbVolumeIndicator.Controls.Add(this.cbVolumeIndicatorEnabled);
+            this.gbVolumeIndicator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbVolumeIndicator.ForeColor = System.Drawing.Color.WhiteSmoke;
+            resources.ApplyResources(this.gbVolumeIndicator, "gbVolumeIndicator");
+            this.gbVolumeIndicator.Name = "gbVolumeIndicator";
+            this.gbVolumeIndicator.TabStop = false;
+            // 
+            // nVolumeIndicatorTimeoutInterval
+            // 
+            this.nVolumeIndicatorTimeoutInterval.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.nVolumeIndicatorTimeoutInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nVolumeIndicatorTimeoutInterval.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.nVolumeIndicatorTimeoutInterval.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.nVolumeIndicatorTimeoutInterval, "nVolumeIndicatorTimeoutInterval");
+            this.nVolumeIndicatorTimeoutInterval.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.nVolumeIndicatorTimeoutInterval.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nVolumeIndicatorTimeoutInterval.Name = "nVolumeIndicatorTimeoutInterval";
+            this.nVolumeIndicatorTimeoutInterval.Value = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nVolumeIndicatorTimeoutInterval.ValueChanged += new System.EventHandler(this.nVolumeIndicatorTimeoutInterval_ValueChanged);
+            // 
+            // labelVolumeTimeout
+            // 
+            resources.ApplyResources(this.labelVolumeTimeout, "labelVolumeTimeout");
+            this.labelVolumeTimeout.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.labelVolumeTimeout.Name = "labelVolumeTimeout";
+            // 
+            // cbVolumeIndicatorEnabled
+            // 
+            resources.ApplyResources(this.cbVolumeIndicatorEnabled, "cbVolumeIndicatorEnabled");
+            this.cbVolumeIndicatorEnabled.Name = "cbVolumeIndicatorEnabled";
+            this.cbVolumeIndicatorEnabled.UseVisualStyleBackColor = true;
+            this.cbVolumeIndicatorEnabled.CheckedChanged += new System.EventHandler(this.cbVolumeIndicatorEnabled_CheckedChanged);
+            this.cbVolumeIndicatorEnabled.Paint += new System.Windows.Forms.PaintEventHandler(this.cbPaint);
+            // 
             // tbTargetSelector
             // 
             this.tbTargetSelector.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
@@ -137,6 +198,8 @@ namespace VolumeControl
             resources.ApplyResources(this.tbTargetSelector, "tbTargetSelector");
             this.tbTargetSelector.Name = "tbTargetSelector";
             this.tbTargetSelector.PlaceholderText = "Target Process Name";
+            this.tbTargetSelector.SelectionLength = 0;
+            this.tbTargetSelector.SelectionStart = 0;
             this.tbTargetSelector.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbTargetSelector.TextChanged += new System.EventHandler(this.tbTargetName_TextChanged);
             // 
@@ -633,6 +696,7 @@ namespace VolumeControl
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MdiChildrenMinimizedAnchorBottom = false;
             this.Name = "Form";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.Shown += new System.EventHandler(this.Form_Load);
@@ -642,6 +706,9 @@ namespace VolumeControl
             this.MainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).EndInit();
             this.MainSplitContainer.ResumeLayout(false);
+            this.gbVolumeIndicator.ResumeLayout(false);
+            this.gbVolumeIndicator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nVolumeIndicatorTimeoutInterval)).EndInit();
             this.gpSettings.ResumeLayout(false);
             this.gpSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nVolumeStep)).EndInit();
@@ -703,5 +770,9 @@ namespace VolumeControl
         private DataGridViewCheckBoxColumn MixerColMuted;
         private DataGridViewButtonColumn MixerColSelectButton;
         private VirtualButton vbCancel;
+        private GroupBox gbVolumeIndicator;
+        private CheckBox cbVolumeIndicatorEnabled;
+        private NumericUpDown nVolumeIndicatorTimeoutInterval;
+        private Label labelVolumeTimeout;
     }
 }
