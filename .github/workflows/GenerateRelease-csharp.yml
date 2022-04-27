@@ -61,13 +61,6 @@ jobs:
       with:
         path:  ${{github.workspace}}
         
-    - name: Parse Release Tag from Artifact
-      id:   get_version
-      run:  |
-            TAG="$(cat '${{ github.workspace }})/build-windows/version')"
-            echo ::set-output name=VERSION::$TAG
-            echo ::set-output name=NAME::"Release $TAG"
-
     - run:  ls -lAghR
 
     - name: 'Create Release'
@@ -76,7 +69,5 @@ jobs:
         draft:                    true
         generate_release_notes:   true
         fail_on_unmatched_files:  true
-        tag_name:                 ${{ steps.get_version.outputs.VERSION }}
-        name:                     ${{ steps.get_version.outputs.NAME }}
         files:      |
                     ${{github.workspace}}/build-windows/VolumeControl.exe
