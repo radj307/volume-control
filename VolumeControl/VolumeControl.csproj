@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
     <Version>4.0.4</Version>
-    <ExtendedVersion>4.0.4-pr2</ExtendedVersion>
+    <ExtendedVersion>4.0.4-pr3</ExtendedVersion>
     <ReleaseType>REVISION</ReleaseType>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <Authors>$(AssemblyName)</Authors>
