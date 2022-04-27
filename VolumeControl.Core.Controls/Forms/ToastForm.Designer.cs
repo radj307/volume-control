@@ -53,8 +53,6 @@
             this.listPanelInner.Padding = new System.Windows.Forms.Padding(2);
             this.listPanelInner.Size = new System.Drawing.Size(92, 92);
             this.listPanelInner.TabIndex = 0;
-            this.listPanelInner.MouseEnter += new System.EventHandler(this.ToastForm_MouseEnter);
-            this.listPanelInner.MouseLeave += new System.EventHandler(this.ToastForm_MouseLeave);
             // 
             // listBox
             // 
@@ -76,8 +74,6 @@
             this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox_DrawItem);
             this.listBox.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.listBox_AddedRemoved);
             this.listBox.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.listBox_AddedRemoved);
-            this.listBox.MouseEnter += new System.EventHandler(this.ToastForm_MouseEnter);
-            this.listBox.MouseLeave += new System.EventHandler(this.ToastForm_MouseLeave);
             // 
             // bsAudioProcessAPI
             // 
@@ -112,8 +108,6 @@
             this.listPanelOuter.Padding = new System.Windows.Forms.Padding(1);
             this.listPanelOuter.Size = new System.Drawing.Size(100, 100);
             this.listPanelOuter.TabIndex = 1;
-            this.listPanelOuter.MouseEnter += new System.EventHandler(this.ToastForm_MouseEnter);
-            this.listPanelOuter.MouseLeave += new System.EventHandler(this.ToastForm_MouseLeave);
             // 
             // colorPanel
             // 
@@ -125,12 +119,13 @@
             this.colorPanel.Padding = new System.Windows.Forms.Padding(3);
             this.colorPanel.Size = new System.Drawing.Size(98, 98);
             this.colorPanel.TabIndex = 1;
-            this.colorPanel.MouseEnter += new System.EventHandler(this.ToastForm_MouseEnter);
-            this.colorPanel.MouseLeave += new System.EventHandler(this.ToastForm_MouseLeave);
             // 
             // ToastForm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(100, 100);
             this.ControlBox = false;
             this.Controls.Add(this.listPanelOuter);
@@ -142,11 +137,12 @@
             this.Name = "ToastForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VolumeControl Toast Notification";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToastForm_FormClosing);
             this.Load += new System.EventHandler(this.ToastForm_Load);
-            this.MouseEnter += new System.EventHandler(this.ToastForm_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.ToastForm_MouseLeave);
             this.listPanelInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsAudioProcessAPI)).EndInit();
             this.listPanelOuter.ResumeLayout(false);

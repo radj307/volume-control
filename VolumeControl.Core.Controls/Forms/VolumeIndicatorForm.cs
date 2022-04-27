@@ -26,9 +26,6 @@ namespace VolumeControl.Core.Controls.Forms
             Opacity = Properties.Settings.Default.VolumeFormOpacity;
             colorPanel.BackColor = Properties.Settings.Default.VolumeFormBackColor;
 
-            // call ShowWindow once here so it is initialized correctly for subsequent calls.
-            User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
-
             VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
             {
                 if (!_suspended && e.Selected is AudioProcess)
@@ -151,8 +148,9 @@ namespace VolumeControl.Core.Controls.Forms
             {
                 Visible = true;
                 WindowState = FormWindowState.Normal;
-                // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-                User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+                User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
+                    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
+                );
                 UpdatePosition();
                 tTimeout.Start();
             }
@@ -213,7 +211,7 @@ namespace VolumeControl.Core.Controls.Forms
             // apply property values
             Properties.Settings.Default.SetProperty("VolumeFormTimeoutInterval", TimeoutInterval);
             Properties.Settings.Default.SetProperty("VolumeDisplayCorner", (byte)DisplayCorner);
-            Properties.Settings.Default.SetProperty("VolumeDisplayPadding",  DisplayPadding);
+            Properties.Settings.Default.SetProperty("VolumeDisplayPadding", DisplayPadding);
             Properties.Settings.Default.SetProperty("VolumeDisplayScreen", DisplayScreen.DeviceName);
             Properties.Settings.Default.SetProperty("VolumeDisplayOffset", DisplayOffset);
             // save properties
