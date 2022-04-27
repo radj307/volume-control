@@ -26,18 +26,11 @@ namespace VolumeControl.Core.Controls.Forms
             Opacity = Properties.Settings.Default.VolumeFormOpacity;
             colorPanel.BackColor = Properties.Settings.Default.VolumeFormBackColor;
 
-            VC_Static.API.SelectedProcessChanged += delegate (object sender, TargetEventArgs e)
-            {
-                if (!_suspended && e.Selected is AudioProcess)
-                {
-                    SuspendLayout();
-                    UpdateIndicator();
-                    ResumeLayout();
-                }
-            };
             VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
             {
-                if (!_suspended && e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
+                if (_suspended)
+                    return;
+                if (e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
                 {
                     if (Visible)
                         tTimeout.Restart();
@@ -45,6 +38,10 @@ namespace VolumeControl.Core.Controls.Forms
                     Show();
                     UpdateIndicator();
                     ResumeLayout();
+                }
+                else if (e.Subject == Core.Enum.VolumeControlSubject.TARGET)
+                {
+                    UpdateIndicator();
                 }
             };
 
@@ -175,6 +172,8 @@ namespace VolumeControl.Core.Controls.Forms
         {
             tbLevel.ValueChanged -= tbLevel_ValueChanged!;
             cbMuted.CheckedChanged -= cbMuted_CheckedChanged!;
+
+
 
             // set the volume label and the level
             labelVolume.Text = (Level = Convert.ToInt32(TargetVolume)).ToString();

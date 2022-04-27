@@ -150,6 +150,8 @@ namespace VolumeControl
 
                 var vcForm = new Form(hkeditForm, toastForm, indicatorForm); // create the main form
 
+                toastForm.Owner = vcForm;
+
                 VC_Static.Log.Info("Initialization completed, starting the application...");
 
                 Application.Run(vcForm);

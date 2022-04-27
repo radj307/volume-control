@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using VolumeControl.Core.Audio;
+﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.Extensions;
@@ -17,12 +16,14 @@ namespace VolumeControl.Core.Controls
             // load local settings
             DisplayCorner = (Corner)Properties.Settings.Default.ToastDisplayCorner;
             DisplayPadding = Properties.Settings.Default.ToastDisplayPadding;
-            DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName == Properties.Settings.Default.ToastDisplayScreen, Screen.PrimaryScreen);
+            DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName.Equals(Properties.Settings.Default.ToastDisplayScreen, StringComparison.OrdinalIgnoreCase), Screen.PrimaryScreen);
             DisplayOffset = Properties.Settings.Default.ToastDisplayOffset;
             IndicatorWidth = Properties.Settings.Default.IndicatorWidth;
 
             InitializeComponent();
             SuspendLayout();
+
+            Opacity = Properties.Settings.Default.ToastOpacity;
 
             // set data source
             bsAudioProcessAPI.DataSource = VC_Static.API;
@@ -62,6 +63,7 @@ namespace VolumeControl.Core.Controls
                 {
                     SuspendLayout();
                     tTimeout.Restart();
+                    UpdateSelection();
                     UpdateLockSelection();
                     if (ShowIndicator)
                         listBox.Refresh();
@@ -77,18 +79,6 @@ namespace VolumeControl.Core.Controls
             ResumeLayout();
         }
         #endregion Initializers
-
-        #region Finalizers
-        private void ToastForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // update local settings
-            // save settings
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-            e.Cancel = true; // don't delete the form, just hide it
-            Hide();
-        }
-        #endregion Finalizers
 
         #region Members
         private bool _allowAutoSize = false;
@@ -181,6 +171,37 @@ namespace VolumeControl.Core.Controls
                 SizeToFit();
         }
 
+        /// <summary>
+        /// Hides the window by fading it out over time.<br/>
+        /// This function handles the entire form hiding process:
+        /// <list type="bullet">
+        /// <item><description>Stops <see cref="tTimeout"/>.</description></item>
+        /// <item><description>Calls <see cref="Hide"/>.</description></item>
+        /// <item><description>Resets the form opacity back to its value prior to calling <see cref="FadeHide(double, int)"/>.</description></item>
+        /// </list>
+        /// </summary>
+        /// <remarks>
+        /// The total amount of time in milliseconds that it will take for the form to be completely hidden can be calculated as follows: <code>(<see cref="Form.Opacity"/> / <paramref name="step"/>) * <paramref name="interval"/></code>
+        /// </remarks>
+        /// <param name="step">The amount of opacity that is subtracted from the current opacity every interval.</param>
+        /// <param name="interval">The amount of time in milliseconds to wait before lowering the current opacity again.</param>
+        public void FadeHide(double step, int interval)
+        {
+            tTimeout.Enabled = false;
+            if (step > 0.0)
+            {
+                var prevOpacity = Opacity; //< we need to reset the opacity after fading out
+                for (double i = Opacity; i > 0.0; i -= step)
+                {
+                    Opacity = i;
+                    Thread.Sleep(interval);
+                }
+                Hide();
+                Opacity = prevOpacity;
+            }
+            else Hide(); //< step is 0, this would cause an infinite loop if allowed to continue
+        }
+        public void FadeHide() => FadeHide(Properties.Settings.Default.ToastFadeStep, Properties.Settings.Default.ToastFadePeriod);
         public new void Hide()
         {
             if (tTimeout.Enabled)
@@ -190,13 +211,15 @@ namespace VolumeControl.Core.Controls
         }
         public new void Show()
         {
-            if (!_suspended && Enabled)
+            tTimeout.Restart();
+            if (!_suspended)
             {
+                User32.ShowWindow(this.Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+                //User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
+                //    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
+                //);
                 Visible = true;
                 WindowState = FormWindowState.Normal;
-                User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
-                    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
-                );
                 UpdatePosition();
                 tTimeout.Start();
             }
@@ -287,14 +310,12 @@ namespace VolumeControl.Core.Controls
         private void tTimeout_Tick(object sender, EventArgs e)
         {
             tTimeout.Enabled = false;
-            Hide();
+            FadeHide();
         }
         private void listBox_AddedRemoved(object sender, ControlEventArgs e)
             => UpdatePosition();
         private void ToastForm_Load(object sender, EventArgs e)
-        {
-            ResumeSizeToFit();
-        }
+            => ResumeSizeToFit();
 
         private void listBox_MouseClick(object sender, MouseEventArgs e) => VC_Static.API.TrySetSelectedProcess((listBox.SelectedItem as IAudioProcess)?.ProcessName, false);
 
@@ -327,6 +348,12 @@ namespace VolumeControl.Core.Controls
             }
             else
                 g.DrawString(item.ProcessName, font, new SolidBrush(e.ForeColor), e.Bounds, StringFormat.GenericDefault);
+        }
+        private void ToastForm_MouseEnter(object sender, EventArgs e) => tTimeout.Stop();
+        private void ToastForm_MouseLeave(object sender, EventArgs e) => tTimeout.Start();
+        private void ToastForm_Shown(object sender, EventArgs e)
+        {
+            User32.ShowWindow(this.Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
         }
         #endregion ControlEventHandlers
     }
