@@ -315,7 +315,7 @@ namespace VolumeControl.Core.Controls
         private void listBox_AddedRemoved(object sender, ControlEventArgs e)
             => UpdatePosition();
         private void ToastForm_Load(object sender, EventArgs e)
-            => ResumeSizeToFit();
+            => ResumeSizeToFit(true);
 
         private void listBox_MouseClick(object sender, MouseEventArgs e) => VC_Static.API.TrySetSelectedProcess((listBox.SelectedItem as IAudioProcess)?.ProcessName, false);
 
