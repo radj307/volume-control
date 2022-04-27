@@ -8,7 +8,7 @@ on:
 jobs:
   # This job is required because C# is assholes and dotnet publish refuses to use the version number set by the SetVersion.ps1 script.
   update-version-number:
-    runs-on:  windows-2022
+    runs-on:  windows-latest
     
     steps:
       - uses: actions/checkout@v2
