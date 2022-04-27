@@ -235,11 +235,14 @@ namespace VolumeControl
         private void RefreshProcessList()
         {
             SuspendSizeToFit();
+            var count = Mixer.Rows.Count;
             Mixer.SuspendLayout();
             Mixer.SetDataSource(Mixer.UnsetDataSource());
             Mixer.Update();
             ResumeSizeToFit();
             Mixer.ResumeLayout();
+            if (Mixer.Rows.Count != count)
+                SizeToFit();
         }
         /// <summary>
         /// Event handler overload of the <see cref="RefreshProcessList()"/> function.
