@@ -158,7 +158,7 @@ namespace VolumeControl.Core
         /// Select the process after the current selection.
         /// If no process is selected, the first process is used instead.
         /// </summary>
-        public void SelectNextProcess()
+        public IAudioProcess? SelectNextProcess()
         {
             if (ReloadOnHotkey)
                 TryReload();
@@ -173,13 +173,15 @@ namespace VolumeControl.Core
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
                 FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
+                return _selected;
             }
+            return null;
         }
         /// <summary>
         /// Select the process before the current selection.
         /// If no process is selected, the last process is used instead.
         /// </summary>
-        public void SelectPrevProcess()
+        public IAudioProcess? SelectPrevProcess()
         {
             if (ReloadOnHotkey)
                 TryReload();
@@ -198,7 +200,9 @@ namespace VolumeControl.Core
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
                 FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
+                return _selected;
             }
+            return null;
         }
 
         /// <summary>

@@ -15,10 +15,12 @@ namespace VolumeControl.Core.Controls.Forms
             DisplayPadding = Properties.Settings.Default.VolumeDisplayPadding;
             DisplayScreen = Screen.AllScreens.FirstOrDefault(scr => scr.DeviceName.Equals(Properties.Settings.Default.VolumeDisplayScreen, StringComparison.OrdinalIgnoreCase), Screen.PrimaryScreen);
             DisplayOffset = Properties.Settings.Default.VolumeDisplayOffset;
-            TopMost = Properties.Settings.Default.VolumeFormTopMost;
 
             InitializeComponent();
             SuspendLayout();
+
+            if (!TopMost)
+                TopMost = true;
 
             TimeoutInterval = Properties.Settings.Default.VolumeFormTimeoutInterval;
             Opacity = Properties.Settings.Default.VolumeFormOpacity;
@@ -54,6 +56,11 @@ namespace VolumeControl.Core.Controls.Forms
 
         private bool _suspended = false;
 
+        public bool Suspended
+        {
+            get => _suspended;
+            set => _suspended = value;
+        }
         /// <summary>
         /// This prevents the form from stealing focus when it appears, however it only works when <see cref="Form.TopMost"/> is false.
         /// </summary>
@@ -100,9 +107,6 @@ namespace VolumeControl.Core.Controls.Forms
             set => tbLevel.Value = value;
         }
 
-        public void SuspendNotifications() => _suspended = true;
-        public void ResumeNotifications() => _suspended = false;
-        public void ToggleNotifications() => _suspended = !_suspended;
         /// <summary>
         /// Hides the window by fading it out over time.<br/>
         /// This function handles the entire form hiding process:

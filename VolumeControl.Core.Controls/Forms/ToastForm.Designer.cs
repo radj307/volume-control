@@ -130,10 +130,7 @@
             // 
             // ToastForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.CausesValidation = false;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(100, 100);
             this.ControlBox = false;
             this.Controls.Add(this.listPanelOuter);
@@ -145,8 +142,6 @@
             this.Name = "ToastForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VolumeControl Toast Notification";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.ToastForm_Load);

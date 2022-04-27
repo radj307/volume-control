@@ -141,18 +141,36 @@ namespace VolumeControl.Core
         }
 
         internal static void Media_Next(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
+        {
+            SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.MEDIA, VolumeControlAction.NEXT));
+        }
         internal static void Media_Prev(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
+        {
+            SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.MEDIA, VolumeControlAction.PREV));
+        }
         internal static void Media_Toggle(object? sender, HandledEventArgs e)
-            => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
+        {
+            SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.MEDIA, VolumeControlAction.TOGGLE));
+        }
 
         internal static void Target_Next(object? sender, HandledEventArgs e)
-            => API.SelectNextProcess();
+        {
+            var sel = API.SelectNextProcess();
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.TARGET, VolumeControlAction.NEXT, sel));
+        }
         internal static void Target_Prev(object? sender, HandledEventArgs e)
-            => API.SelectPrevProcess();
+        {
+            var sel = API.SelectPrevProcess();
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.TARGET, VolumeControlAction.PREV, sel));
+        }
         internal static void Target_Toggle(object? sender, HandledEventArgs e)
-            => API.LockSelection = !API.LockSelection;
+        {
+            bool locked = API.LockSelection = !API.LockSelection;
+            NotifyHotkeyPressed(sender, new(VolumeControlSubject.TARGET, VolumeControlAction.TOGGLE, locked));
+        }
         #endregion HotkeyActions
 
         /// <summary>

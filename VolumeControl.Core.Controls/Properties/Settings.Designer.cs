@@ -131,15 +131,6 @@ namespace VolumeControl.Core.Controls.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ToastFormTopMost {
-            get {
-                return ((bool)(this["ToastFormTopMost"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
@@ -194,15 +185,6 @@ namespace VolumeControl.Core.Controls.Properties {
         public global::System.Drawing.Font VolumeDisplayFont {
             get {
                 return ((global::System.Drawing.Font)(this["VolumeDisplayFont"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool VolumeFormTopMost {
-            get {
-                return ((bool)(this["VolumeFormTopMost"]));
             }
         }
         

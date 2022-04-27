@@ -5,6 +5,7 @@
         /// <summary>
         /// Restarts the timer without triggering a <see cref="System.Windows.Forms.Timer.Tick"/> event.
         /// </summary>
+        /// <remarks>If the timer isn't started, this function won't start it.</remarks>
         /// <param name="t">Timer instance.</param>
         public static void Restart(this System.Windows.Forms.Timer t) => t.Enabled = !(t.Enabled = !t.Enabled);
     }

@@ -1,6 +1,7 @@
 ﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Core.Events;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 
 namespace VolumeControl.Core.Controls
@@ -23,13 +24,12 @@ namespace VolumeControl.Core.Controls
             SuspendLayout();
 
             Opacity = Properties.Settings.Default.ToastOpacity;
-            TopMost = Properties.Settings.Default.ToastFormTopMost;
-
-            // call ShowWindow once here so it is initialized correctly for subsequent calls.
-            User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
             // set data source
             bsAudioProcessAPI.DataSource = VC_Static.API;
+
+            // call ShowWindow once here so it is initialized correctly for subsequent calls.
+            User32.ShowWindow(Handle, User32.ECmdShow.SW_HIDE);
 
             VC_Static.API.SelectedProcessChanged += delegate
             {
@@ -65,6 +65,7 @@ namespace VolumeControl.Core.Controls
                 if (Enabled && e.Subject == Core.Enum.VolumeControlSubject.TARGET)
                 {
                     SuspendLayout();
+                    UpdateSelection();
                     UpdateLockSelection();
                     if (ShowIndicator)
                         listBox.Refresh();
@@ -205,23 +206,22 @@ namespace VolumeControl.Core.Controls
         public void FadeHide() => FadeHide(Properties.Settings.Default.ToastFadeStep, Properties.Settings.Default.ToastFadePeriod);
         public new void Hide()
         {
-            base.Hide();
+            if (tTimeout.Enabled)
+                tTimeout.Stop();
+            Visible = false;
             WindowState = FormWindowState.Minimized;
         }
         public new void Show()
         {
+            tTimeout.Restart();
             if (!_suspended)
             {
-                tTimeout.Enabled = false;
-                if (Enabled)
-                {
-                    WindowState = FormWindowState.Normal;
-                    // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
-                    User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
-                    UpdatePosition();
-                    tTimeout.Enabled = true;
-                }
-                else Hide();
+                Visible = true;
+                WindowState = FormWindowState.Normal;
+                // use ShowWindow instead of Form.Show() to prevent stealing focus when TopMost is true.
+                User32.ShowWindow(Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+                UpdatePosition();
+                tTimeout.Start();
             }
         }
 
