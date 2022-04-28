@@ -8,8 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>VolumeControl.Program</StartupObject>
     <Version>4.0.4</Version>
-    <ExtendedVersion>4.0.4</ExtendedVersion>
-    <ReleaseType>NORMAL</ReleaseType>
+    <ExtendedVersion>4.0.4-1</ExtendedVersion>
+    <ReleaseType>REVISION</ReleaseType>
     <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
     <Authors>$(AssemblyName)</Authors>
     <PackageLicenseFile>X:\_Workspace\_repo\volume-control-2\LICENSE</PackageLicenseFile>
