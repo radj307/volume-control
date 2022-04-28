@@ -11,6 +11,7 @@
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\WinVolumeOSD\WinVolumeOSD.csproj" />
   </ItemGroup>
 
   <ItemGroup>

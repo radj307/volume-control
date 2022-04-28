@@ -133,10 +133,9 @@ namespace HotkeyLib
             }
             else // an error occurred
             {
-                int lastError = HotkeyAPI.GetLastWin32Error();
-
+                var (code, msg) = WinHook.Win32.GetLastWin32Error();
                 FLog.Log.Error(
-                    $"Hotkey registration failed with code {lastError}! {(lastError == HotkeyAPI.ERROR_HOTKEY_ALREADY_REGISTERED ? "(Hotkey Already Registered)" : "")}",
+                    $"Hotkey registration failed with code {code} ({msg})!",
                     $"Keys:       '{_combo}'",
                     $"Hotkey ID:  '{_id}'"
                 );
@@ -168,8 +167,9 @@ namespace HotkeyLib
                 }
                 else
                 {
+                    var (code, msg) = WinHook.Win32.GetLastWin32Error();
                     FLog.Log.Error(
-                        $"Hotkey unregistration failed with code {HotkeyAPI.GetLastWin32Error()}!",
+                        $"Hotkey unregistration failed with code {code} ({msg})!",
                         $"Keys:       '{_combo}'",
                         $"Hotkey ID:  '{_id}'"
                     );
@@ -188,8 +188,9 @@ namespace HotkeyLib
                 {
                     if (!HotkeyAPI.UnregisterHotkey(_owner, _id.Value))
                     {
+                        var (code, msg) = WinHook.Win32.GetLastWin32Error();
                         FLog.Log.Error(
-                            $"Hotkey re-registration failed with code {HotkeyAPI.GetLastWin32Error()}!",
+                            $"Hotkey re-registration failed with code {code} ({msg})!",
                             $"Keys:       '{_combo}'",
                             $"Hotkey ID:  '{_id}'"
                         );
@@ -203,8 +204,8 @@ namespace HotkeyLib
                     }
                     else
                     {
-                        var lastError = HotkeyAPI.GetLastWin32Error();
-                        FLog.Log.Error($"Hotkey re-registration failed with code {lastError}! {(lastError == HotkeyAPI.GetLastWin32Error() ? "(Hotkey Already Registered)" : "")}");
+                        var (code, msg) = WinHook.Win32.GetLastWin32Error();
+                        FLog.Log.Error($"Hotkey re-registration failed with code {code} ({msg})!");
                         _state = HotkeyRegistrationState.FAILED;
                         _id = null;
                     }

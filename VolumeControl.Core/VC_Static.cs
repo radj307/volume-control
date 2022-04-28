@@ -6,6 +6,7 @@ using VolumeControl.Core.Events;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
 using VolumeControl.Log.Endpoints;
+using WinVolumeOSD;
 
 namespace VolumeControl.Core
 {
@@ -99,6 +100,7 @@ namespace VolumeControl.Core
         private static bool _initialized = false, _hk_initialized = false;
         private static AudioProcessAPI _api = null!;
         private static HotkeyBindingList _hotkeys = null!;
+        private static readonly HideVolumeOSDLib _volOSD = new();
         #endregion Members
 
         #region Events
@@ -238,6 +240,18 @@ namespace VolumeControl.Core
         {
             get => API.LockSelection;
             set => API.LockSelection = value;
+        }
+        public static bool ShowWindowsVolumeOSD
+        {
+            get => !_volOSD.Hidden;
+            set
+            {
+                if (value == _volOSD.Hidden)
+                    return;
+                if (value)
+                    _volOSD.ShowOSD();
+                else _volOSD.HideOSD();
+            }
         }
         #endregion Properties
     }

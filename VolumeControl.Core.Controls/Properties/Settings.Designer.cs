@@ -229,7 +229,7 @@ namespace VolumeControl.Core.Controls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50, 192, 255")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3, 113, 198")]
         public global::System.Drawing.Color VolumeFormBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["VolumeFormBackColor"]));
@@ -320,6 +320,18 @@ namespace VolumeControl.Core.Controls.Properties {
             }
             set {
                 this["ToastOpacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
+        public global::System.Drawing.Color VolumeFormBackColorGlobal {
+            get {
+                return ((global::System.Drawing.Color)(this["VolumeFormBackColorGlobal"]));
+            }
+            set {
+                this["VolumeFormBackColorGlobal"] = value;
             }
         }
     }

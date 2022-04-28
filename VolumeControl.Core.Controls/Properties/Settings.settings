@@ -54,7 +54,7 @@
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
     <Setting Name="VolumeFormBackColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">50, 192, 255</Value>
+      <Value Profile="(Default)">3, 113, 198</Value>
     </Setting>
     <Setting Name="VolumeFormOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.9</Value>
@@ -76,6 +76,9 @@
     </Setting>
     <Setting Name="ToastOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="VolumeFormBackColorGlobal" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Khaki</Value>
     </Setting>
   </Settings>
 </SettingsFile>

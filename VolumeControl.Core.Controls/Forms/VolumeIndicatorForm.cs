@@ -1,4 +1,5 @@
-﻿using VolumeControl.Core.Audio;
+﻿using System.ComponentModel;
+using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
 using VolumeControl.Core.Controls.Extensions;
 using VolumeControl.Core.Events;
@@ -50,6 +51,7 @@ namespace VolumeControl.Core.Controls.Forms
         }
 
         private bool _suspended = false;
+        private EVolumeIndicatorFormMode _colorMode = EVolumeIndicatorFormMode.Default;
 
         public bool Suspended
         {
@@ -71,6 +73,22 @@ namespace VolumeControl.Core.Controls.Forms
         {
             get => base.Size;
             set => base.Size = MaximumSize = MinimumSize = value;
+        }
+        /// <summary>
+        /// Gets or sets the color of the form's border area.
+        /// </summary>
+        [Category("Appearance")]
+        public Color BorderColor
+        {
+            get => colorPanel.BackColor;
+            set => colorPanel.BackColor = value;
+        }
+        public static Color BorderColorDefault => Properties.Settings.Default.VolumeFormBackColor;
+        public static Color BorderColorGlobal => Properties.Settings.Default.VolumeFormBackColorGlobal;
+        public EVolumeIndicatorFormMode ColorMode
+        {
+            get => _colorMode;
+            set => _colorMode = value;
         }
 
         public int TimeoutInterval

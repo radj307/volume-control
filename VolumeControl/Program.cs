@@ -148,6 +148,9 @@ namespace VolumeControl
 
                 toastForm.Owner = vcForm;
 
+                // disable the volume OSD if necessary
+                VC_Static.ShowWindowsVolumeOSD = Properties.Settings.Default.ShowWindowsVolumeOSD;
+
                 VC_Static.Log.Info("Initialization completed, starting the application...");
 
                 Application.Run(vcForm);

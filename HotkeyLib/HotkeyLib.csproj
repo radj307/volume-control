@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\WinHook\WinHook.csproj" />
   </ItemGroup>
 
   <ItemGroup>
