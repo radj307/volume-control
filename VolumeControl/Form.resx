@@ -75,8 +75,57 @@
   <data name="MainSplitContainer.Panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="cbVolumeIndicatorEnabled.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cbVolumeIndicatorEnabled.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 3</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 1, 0, 0</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 20</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cbVolumeIndicatorEnabled.Text" xml:space="preserve">
+    <value>Volume Notifications</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Name" xml:space="preserve">
+    <value>cbVolumeIndicatorEnabled</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;cbVolumeIndicatorEnabled.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="nVolumeIndicatorTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 13</value>
+    <value>146, 0</value>
+  </data>
+  <data name="nVolumeIndicatorTimeoutInterval.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 3</value>
   </data>
   <data name="nVolumeIndicatorTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 0</value>
@@ -90,6 +139,12 @@
   <data name="nVolumeIndicatorTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <metadata name="TooltipController.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>28, 112</value>
+  </metadata>
+  <data name="nVolumeIndicatorTimeoutInterval.ToolTip" xml:space="preserve">
+    <value>Timeout in Milliseconds</value>
+  </data>
   <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.Name" xml:space="preserve">
     <value>nVolumeIndicatorTimeoutInterval</value>
   </data>
@@ -97,94 +152,148 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.Parent" xml:space="preserve">
-    <value>gbVolumeIndicator</value>
+    <value>flowLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;nVolumeIndicatorTimeoutInterval.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelVolumeTimeout.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelVolumeTimeout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelVolumeTimeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 15</value>
-  </data>
-  <data name="labelVolumeTimeout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
-  </data>
-  <data name="labelVolumeTimeout.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelVolumeTimeout.Text" xml:space="preserve">
-    <value>Timeout (ms)</value>
-  </data>
-  <data name="&gt;&gt;labelVolumeTimeout.Name" xml:space="preserve">
-    <value>labelVolumeTimeout</value>
-  </data>
-  <data name="&gt;&gt;labelVolumeTimeout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelVolumeTimeout.Parent" xml:space="preserve">
-    <value>gbVolumeIndicator</value>
-  </data>
-  <data name="&gt;&gt;labelVolumeTimeout.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="cbVolumeIndicatorEnabled.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbToastEnabled.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="cbVolumeIndicatorEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 14</value>
+  <data name="cbToastEnabled.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="cbVolumeIndicatorEnabled.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
+  <data name="cbToastEnabled.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="cbVolumeIndicatorEnabled.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="cbToastEnabled.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 26</value>
   </data>
-  <data name="cbVolumeIndicatorEnabled.Text" xml:space="preserve">
-    <value>Enable</value>
+  <data name="cbToastEnabled.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 0</value>
   </data>
-  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Name" xml:space="preserve">
-    <value>cbVolumeIndicatorEnabled</value>
+  <data name="cbToastEnabled.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 1, 8, 0</value>
   </data>
-  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Type" xml:space="preserve">
+  <data name="cbToastEnabled.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 20</value>
+  </data>
+  <data name="cbToastEnabled.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cbToastEnabled.Text" xml:space="preserve">
+    <value>Target Notifications</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.Name" xml:space="preserve">
+    <value>cbToastEnabled</value>
+  </data>
+  <data name="&gt;&gt;cbToastEnabled.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cbVolumeIndicatorEnabled.Parent" xml:space="preserve">
-    <value>gbVolumeIndicator</value>
+  <data name="&gt;&gt;cbToastEnabled.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;cbVolumeIndicatorEnabled.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbToastEnabled.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="gbVolumeIndicator.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 45</value>
+  <data name="nToastTimeoutInterval.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
   </data>
-  <data name="gbVolumeIndicator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 42</value>
+  <data name="nToastTimeoutInterval.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
-  <data name="gbVolumeIndicator.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+  <data name="nToastTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 26</value>
   </data>
-  <data name="gbVolumeIndicator.Text" xml:space="preserve">
-    <value>Volume Notifications</value>
+  <data name="nToastTimeoutInterval.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 0</value>
   </data>
-  <data name="&gt;&gt;gbVolumeIndicator.Name" xml:space="preserve">
-    <value>gbVolumeIndicator</value>
+  <data name="nToastTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>600, 0</value>
   </data>
-  <data name="&gt;&gt;gbVolumeIndicator.Type" xml:space="preserve">
+  <data name="nToastTimeoutInterval.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>40, 0</value>
+  </data>
+  <data name="nToastTimeoutInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 23</value>
+  </data>
+  <data name="nToastTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="nToastTimeoutInterval.ToolTip" xml:space="preserve">
+    <value>Timeout in Milliseconds</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Name" xml:space="preserve">
+    <value>nToastTimeoutInterval</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;nToastTimeoutInterval.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="flowLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="flowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 54</value>
+  </data>
+  <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Name" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Parent" xml:space="preserve">
+    <value>gbNotifications</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="gbNotifications.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="gbNotifications.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 80</value>
+  </data>
+  <data name="gbNotifications.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 0, 1, 0</value>
+  </data>
+  <data name="gbNotifications.Size" type="System.Drawing.Size, System.Drawing">
+    <value>214, 70</value>
+  </data>
+  <data name="gbNotifications.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="gbNotifications.Text" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="&gt;&gt;gbNotifications.Name" xml:space="preserve">
+    <value>gbNotifications</value>
+  </data>
+  <data name="&gt;&gt;gbNotifications.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gbVolumeIndicator.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gbNotifications.Parent" xml:space="preserve">
     <value>MainSplitContainer.Panel1</value>
   </data>
-  <data name="&gt;&gt;gbVolumeIndicator.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;gbNotifications.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tbTargetSelector.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 131</value>
+    <value>99, 151</value>
   </data>
   <data name="tbTargetSelector.Size" type="System.Drawing.Size, System.Drawing">
     <value>203, 27</value>
@@ -204,62 +313,23 @@
   <data name="&gt;&gt;tbTargetSelector.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="Label_VolumeStep.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label_VolumeStep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 102</value>
-  </data>
-  <data name="Label_VolumeStep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 15</value>
-  </data>
-  <data name="Label_VolumeStep.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="Label_VolumeStep.Text" xml:space="preserve">
-    <value>Volume Step</value>
-  </data>
-  <data name="&gt;&gt;Label_VolumeStep.Name" xml:space="preserve">
-    <value>Label_VolumeStep</value>
-  </data>
-  <data name="&gt;&gt;Label_VolumeStep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label_VolumeStep.Parent" xml:space="preserve">
-    <value>gpSettings</value>
-  </data>
-  <data name="&gt;&gt;Label_VolumeStep.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="nVolumeStep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 98</value>
-  </data>
-  <data name="nVolumeStep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 23</value>
-  </data>
-  <data name="nVolumeStep.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;nVolumeStep.Name" xml:space="preserve">
-    <value>nVolumeStep</value>
-  </data>
-  <data name="&gt;&gt;nVolumeStep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nVolumeStep.Parent" xml:space="preserve">
-    <value>gpSettings</value>
-  </data>
-  <data name="&gt;&gt;nVolumeStep.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="cbRunAtStartup.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbRunAtStartup.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cbRunAtStartup.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="cbRunAtStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 15</value>
+    <value>3, 0</value>
+  </data>
+  <data name="cbRunAtStartup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="cbRunAtStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 19</value>
+    <value>120, 19</value>
   </data>
   <data name="cbRunAtStartup.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -274,19 +344,28 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbRunAtStartup.Parent" xml:space="preserve">
-    <value>gpSettings</value>
+    <value>flpSettings</value>
   </data>
   <data name="&gt;&gt;cbRunAtStartup.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="cbStartMinimized.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbStartMinimized.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cbStartMinimized.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="cbStartMinimized.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 35</value>
+    <value>3, 19</value>
+  </data>
+  <data name="cbStartMinimized.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="cbStartMinimized.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 19</value>
+    <value>120, 19</value>
   </data>
   <data name="cbStartMinimized.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -301,19 +380,28 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbStartMinimized.Parent" xml:space="preserve">
-    <value>gpSettings</value>
+    <value>flpSettings</value>
   </data>
   <data name="&gt;&gt;cbStartMinimized.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="cbShowInTaskbar.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbShowInTaskbar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cbShowInTaskbar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="cbShowInTaskbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 55</value>
+    <value>3, 38</value>
+  </data>
+  <data name="cbShowInTaskbar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="cbShowInTaskbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 19</value>
+    <value>120, 19</value>
   </data>
   <data name="cbShowInTaskbar.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -328,19 +416,28 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbShowInTaskbar.Parent" xml:space="preserve">
-    <value>gpSettings</value>
+    <value>flpSettings</value>
   </data>
   <data name="&gt;&gt;cbShowInTaskbar.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="cbAlwaysOnTop.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbAlwaysOnTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cbAlwaysOnTop.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="cbAlwaysOnTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 75</value>
+    <value>3, 57</value>
+  </data>
+  <data name="cbAlwaysOnTop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="cbAlwaysOnTop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
+    <value>120, 19</value>
   </data>
   <data name="cbAlwaysOnTop.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -355,16 +452,127 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbAlwaysOnTop.Parent" xml:space="preserve">
-    <value>gpSettings</value>
+    <value>flpSettings</value>
   </data>
   <data name="&gt;&gt;cbAlwaysOnTop.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="nlVolumeStep.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="nlVolumeStep.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="nlVolumeStep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 77</value>
+  </data>
+  <data name="nlVolumeStep.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 1, 3, 2</value>
+  </data>
+  <data name="nlVolumeStep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 23</value>
+  </data>
+  <data name="nlVolumeStep.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="nlVolumeStep.ToolTip" xml:space="preserve">
+    <value>How much to increase/decrease the volume by</value>
+  </data>
+  <data name="&gt;&gt;nlVolumeStep.Name" xml:space="preserve">
+    <value>nlVolumeStep</value>
+  </data>
+  <data name="&gt;&gt;nlVolumeStep.Type" xml:space="preserve">
+    <value>VolumeControl.Core.Controls.NumericUpDownWithLabel, VolumeControl.Core.Controls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nlVolumeStep.Parent" xml:space="preserve">
+    <value>flpSettings</value>
+  </data>
+  <data name="&gt;&gt;nlVolumeStep.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="bHotkeyEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="bHotkeyEditor.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="bHotkeyEditor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 102</value>
+  </data>
+  <data name="bHotkeyEditor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 0</value>
+  </data>
+  <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 25</value>
+  </data>
+  <data name="bHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bHotkeyEditor.Text" xml:space="preserve">
+    <value>Edit Hotkeys...</value>
+  </data>
+  <data name="&gt;&gt;bHotkeyEditor.Name" xml:space="preserve">
+    <value>bHotkeyEditor</value>
+  </data>
+  <data name="&gt;&gt;bHotkeyEditor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bHotkeyEditor.Parent" xml:space="preserve">
+    <value>flpSettings</value>
+  </data>
+  <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="flpSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flpSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="flpSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="flpSettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="flpSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 131</value>
+  </data>
+  <data name="flpSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="flpSettings.WrapContents" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;flpSettings.Name" xml:space="preserve">
+    <value>flpSettings</value>
+  </data>
+  <data name="&gt;&gt;flpSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flpSettings.Parent" xml:space="preserve">
+    <value>gpSettings</value>
+  </data>
+  <data name="&gt;&gt;flpSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="gpSettings.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
   </data>
   <data name="gpSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>229, 3</value>
   </data>
+  <data name="gpSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 0, 1, 0</value>
+  </data>
   <data name="gpSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 127</value>
+    <value>128, 147</value>
   </data>
   <data name="gpSettings.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -388,7 +596,7 @@
     <value>True</value>
   </data>
   <data name="cbLockTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>308, 135</value>
+    <value>308, 156</value>
   </data>
   <data name="cbLockTarget.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 19</value>
@@ -414,122 +622,17 @@
   <data name="&gt;&gt;cbLockTarget.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="gbToastNotifications.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="nToastTimeoutInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 13</value>
-  </data>
-  <data name="nToastTimeoutInterval.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>600, 0</value>
-  </data>
-  <data name="nToastTimeoutInterval.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>40, 0</value>
-  </data>
-  <data name="nToastTimeoutInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 23</value>
-  </data>
-  <data name="nToastTimeoutInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;nToastTimeoutInterval.Name" xml:space="preserve">
-    <value>nToastTimeoutInterval</value>
-  </data>
-  <data name="&gt;&gt;nToastTimeoutInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nToastTimeoutInterval.Parent" xml:space="preserve">
-    <value>gbToastNotifications</value>
-  </data>
-  <data name="&gt;&gt;nToastTimeoutInterval.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="LabelToastTimeout.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LabelToastTimeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 15</value>
-  </data>
-  <data name="LabelToastTimeout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
-  </data>
-  <data name="LabelToastTimeout.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="LabelToastTimeout.Text" xml:space="preserve">
-    <value>Timeout (ms)</value>
-  </data>
-  <data name="&gt;&gt;LabelToastTimeout.Name" xml:space="preserve">
-    <value>LabelToastTimeout</value>
-  </data>
-  <data name="&gt;&gt;LabelToastTimeout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LabelToastTimeout.Parent" xml:space="preserve">
-    <value>gbToastNotifications</value>
-  </data>
-  <data name="&gt;&gt;LabelToastTimeout.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cbToastEnabled.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbToastEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 15</value>
-  </data>
-  <data name="cbToastEnabled.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="cbToastEnabled.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cbToastEnabled.Text" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="&gt;&gt;cbToastEnabled.Name" xml:space="preserve">
-    <value>cbToastEnabled</value>
-  </data>
-  <data name="&gt;&gt;cbToastEnabled.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbToastEnabled.Parent" xml:space="preserve">
-    <value>gbToastNotifications</value>
-  </data>
-  <data name="&gt;&gt;cbToastEnabled.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="gbToastNotifications.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 86</value>
-  </data>
-  <data name="gbToastNotifications.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 42</value>
-  </data>
-  <data name="gbToastNotifications.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="gbToastNotifications.Text" xml:space="preserve">
-    <value>Toast Notifications</value>
-  </data>
-  <data name="&gt;&gt;gbToastNotifications.Name" xml:space="preserve">
-    <value>gbToastNotifications</value>
-  </data>
-  <data name="&gt;&gt;gbToastNotifications.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbToastNotifications.Parent" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;gbToastNotifications.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="bToggleMixer.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
+  </data>
+  <data name="bToggleMixer.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
   </data>
   <data name="bToggleMixer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="bToggleMixer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 132</value>
+    <value>3, 152</value>
   </data>
   <data name="bToggleMixer.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 25</value>
@@ -550,7 +653,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;bToggleMixer.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="Label_Version.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -583,37 +686,7 @@
     <value>MainSplitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;Label_Version.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="bHotkeyEditor.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="bHotkeyEditor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>157, 14</value>
-  </data>
-  <data name="bHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 26</value>
-  </data>
-  <data name="bHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="bHotkeyEditor.Text" xml:space="preserve">
-    <value>Hotkeys</value>
-  </data>
-  <data name="&gt;&gt;bHotkeyEditor.Name" xml:space="preserve">
-    <value>bHotkeyEditor</value>
-  </data>
-  <data name="&gt;&gt;bHotkeyEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bHotkeyEditor.Parent" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;bHotkeyEditor.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
     <value>MainSplitContainer.Panel1</value>
@@ -628,7 +701,7 @@
     <value>0</value>
   </data>
   <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>159</value>
+    <value>179</value>
   </data>
   <data name="MixerSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -761,6 +834,9 @@
   </data>
   <data name="bReload.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
+  </data>
+  <data name="bReload.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
   </data>
   <data name="bReload.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1003,10 +1079,10 @@
     <value>1</value>
   </data>
   <data name="MainSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 213</value>
+    <value>362, 233</value>
   </data>
   <data name="MainSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>159</value>
+    <value>179</value>
   </data>
   <data name="MainSplitContainer.SplitterWidth" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3995,9 +4071,6 @@
   <metadata name="tAutoReload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>181, 65</value>
   </metadata>
-  <metadata name="vbCancel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>301, 65</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -4011,7 +4084,7 @@
     <value>Center</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>362, 213</value>
+    <value>362, 233</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4147,11 +4220,11 @@
   <data name="&gt;&gt;tAutoReload.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;vbCancel.Name" xml:space="preserve">
-    <value>vbCancel</value>
+  <data name="&gt;&gt;TooltipController.Name" xml:space="preserve">
+    <value>TooltipController</value>
   </data>
-  <data name="&gt;&gt;vbCancel.Type" xml:space="preserve">
-    <value>VolumeControl.Core.Controls.VirtualButton, VirtualButton, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;TooltipController.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form</value>

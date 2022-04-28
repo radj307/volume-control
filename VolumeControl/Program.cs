@@ -107,10 +107,6 @@ namespace VolumeControl
 
                 FLog.Initialize();
 
-#               if DEBUG // force enable log when running in DEBUG configuration
-                FLog.EnableLog = true;
-#               endif
-
                 VC_Static.Initialize(); // Initialize global statics
 
 #               if DEBUG

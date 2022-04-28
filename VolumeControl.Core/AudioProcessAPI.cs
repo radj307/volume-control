@@ -108,7 +108,7 @@ namespace VolumeControl.Core
                 if (it != null) _selected = it;
                 else _selected = new VirtualAudioProcess(name);
                 NotifySelectedProcessChanged(new() { UserOrigin = userOrigin });
-                FLog.Log.Debug($"Target process name changed to '{_selected?.ProcessName}'");
+                FLog.Log.Info($"Target process name changed to '{_selected?.ProcessName}'");
             }
             return _selected;
         }
@@ -172,7 +172,7 @@ namespace VolumeControl.Core
                     _selected = ProcessList[++i % ProcessList.Count];
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
-                FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
+                FLog.Log.Info($"Target process name changed to '{_selected.ProcessName}'");
                 return _selected;
             }
             return null;
@@ -199,7 +199,7 @@ namespace VolumeControl.Core
                 }
 
                 NotifySelectedProcessChanged(new() { UserOrigin = false });
-                FLog.Log.Debug($"Target process name changed to '{_selected.ProcessName}'");
+                FLog.Log.Info($"Target process name changed to '{_selected.ProcessName}'");
                 return _selected;
             }
             return null;

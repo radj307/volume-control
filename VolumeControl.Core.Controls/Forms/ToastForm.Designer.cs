@@ -32,9 +32,7 @@
             this.listPanelInner = new System.Windows.Forms.Panel();
             this.listBox = new System.Windows.Forms.ListBox();
             this.bsAudioProcessAPI = new System.Windows.Forms.BindingSource(this.components);
-            this.listStateImages = new System.Windows.Forms.ImageList(this.components);
             this.tTimeout = new System.Windows.Forms.Timer(this.components);
-            this.ilLocked = new System.Windows.Forms.ImageList(this.components);
             this.listPanelOuter = new System.Windows.Forms.Panel();
             this.colorPanel = new System.Windows.Forms.Panel();
             this.listPanelInner.SuspendLayout();
@@ -84,22 +82,10 @@
             this.bsAudioProcessAPI.DataMember = "ProcessList";
             this.bsAudioProcessAPI.DataSource = typeof(VolumeControl.Core.AudioProcessAPI);
             // 
-            // listStateImages
-            // 
-            this.listStateImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.listStateImages.ImageSize = new System.Drawing.Size(16, 16);
-            this.listStateImages.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // tTimeout
             // 
             this.tTimeout.Interval = 3000;
             this.tTimeout.Tick += new System.EventHandler(this.tTimeout_Tick);
-            // 
-            // ilLocked
-            // 
-            this.ilLocked.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.ilLocked.ImageSize = new System.Drawing.Size(16, 16);
-            this.ilLocked.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // listPanelOuter
             // 
@@ -159,11 +145,9 @@
         #endregion
 
         private Panel listPanelInner;
-        private ImageList listStateImages;
         private System.Windows.Forms.Timer tTimeout;
         private BindingSource bsAudioProcessAPI;
         private ListBox listBox;
-        private ImageList ilLocked;
         private Panel listPanelOuter;
         private Panel colorPanel;
     }

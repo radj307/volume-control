@@ -1,5 +1,6 @@
 ﻿using VolumeControl.Core.Audio;
 using VolumeControl.Core.Controls.Enum;
+using VolumeControl.Core.Controls.Extensions;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Log;

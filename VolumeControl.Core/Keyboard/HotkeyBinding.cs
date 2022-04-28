@@ -5,8 +5,8 @@ namespace VolumeControl.Core.Keyboard
 {
     public class HotkeyBinding : WindowsHotkey
     {
-        public HotkeyBinding(Control owner, string name, string keystringProperty, VolumeControlSubject subject, VolumeControlAction action, string registerProperty)
-            : base(owner, (string)Properties.Settings.Default[keystringProperty])
+        public HotkeyBinding(IntPtr hWnd, string name, string keystringProperty, VolumeControlSubject subject, VolumeControlAction action, string registerProperty)
+            : base(hWnd, new KeyCombo((string)Properties.Settings.Default[keystringProperty]))
         {
             _keystring_property = keystringProperty;
             _enabled_property = registerProperty;

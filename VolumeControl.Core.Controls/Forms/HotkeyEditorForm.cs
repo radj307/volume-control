@@ -9,6 +9,8 @@ namespace VolumeControl.Core.Controls
         {
             InitializeComponent();
             bsKeysList.DataSource = new ValidKeys();
+
+            //CancelButton = vbCancel;
         }
         #endregion Constructors
 

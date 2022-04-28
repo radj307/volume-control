@@ -30,10 +30,14 @@ namespace VolumeControl
             InitializeComponent();
 
             // Force default cursors on both split containers, in case the designer decides to change them again
+            MainSplitContainer.Panel1.Cursor = Cursors.Default;
+            MainSplitContainer.Panel2.Cursor = Cursors.Default;
             MainSplitContainer.Cursor = Cursors.Default;
+            MixerSplitContainer.Panel1.Cursor = Cursors.Default;
+            MixerSplitContainer.Panel2.Cursor = Cursors.Default;
             MixerSplitContainer.Cursor = Cursors.Default;
 
-            // force correct layout on panel2SplitContainer
+            // force correct layout on mixer split container
             MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
             MixerSplitContainer.Panel2MinSize = 0;
             MixerSplitContainer.SplitterDistance = 29; // set splitter dist
@@ -67,7 +71,7 @@ namespace VolumeControl
             cbToastEnabled.Checked = Properties.Settings.Default.ToastEnabled;
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
-            VC_Static.VolumeStep = nVolumeStep.Value = Properties.Settings.Default.VolumeStep;
+            VC_Static.VolumeStep = nlVolumeStep.Value = Properties.Settings.Default.VolumeStep;
             
             cbVolumeIndicatorEnabled.CheckedChanged -= cbVolumeIndicatorEnabled_CheckedChanged!;
             cbVolumeIndicatorEnabled.Checked = Properties.Settings.Default.VolumeNotificationEnabled;
@@ -121,13 +125,15 @@ namespace VolumeControl
             };
 
             // Initialize hotkey API now that we have a form
-            VC_Static.InitializeHotkeys(this);
+            VC_Static.InitializeHotkeys(Handle);
             hkedit.DataSource = VC_Static.Hotkeys;
 
 #           if !DEBUG // start minimized if enabled (only check in release configuration)
             if (Properties.Settings.Default.StartMinimized)
                 WindowState = FormWindowState.Minimized;
 #           endif
+
+            //CancelButton = vbCancel;
 
             ResumeLayout();
 
@@ -276,7 +282,7 @@ namespace VolumeControl
             Properties.Settings.Default.SetProperty("ToastEnabled", cbToastEnabled.Checked);
             Properties.Settings.Default.SetProperty("ToastTimeoutInterval", nToastTimeoutInterval.Value);
             Properties.Settings.Default.SetProperty("ReloadOnHotkey", cbReloadOnHotkey.Checked);
-            Properties.Settings.Default.SetProperty("VolumeStep", nVolumeStep.Value);
+            Properties.Settings.Default.SetProperty("VolumeStep", nlVolumeStep.Value);
             Properties.Settings.Default.SetProperty("LastLocation", Location);
             Properties.Settings.Default.SetProperty("VolumeNotificationEnabled", cbVolumeIndicatorEnabled.Checked);
             // Save properties
@@ -485,8 +491,8 @@ namespace VolumeControl
         /// <summary>
         /// Handles value change events for the 'Volume Step' number selector.
         /// </summary>
-        private void nVolumeStep_ValueChanged(object sender, EventArgs e)
-            => VC_Static.VolumeStep = nVolumeStep.Value;
+        private void nlVolumeStep_ValueChanged(object sender, EventArgs e)
+            => VC_Static.VolumeStep = nlVolumeStep.Value;
         /// <summary>
         /// Handles form 'Resize' events by setting the 'Visible' property to allow minimizing the form without showing a small box in the bottom-left of the screen.
         /// </summary>
@@ -545,6 +551,17 @@ namespace VolumeControl
             => volumeIndicator.Suspended = cbVolumeIndicatorEnabled.Checked;
         private void nVolumeIndicatorTimeoutInterval_ValueChanged(object sender, EventArgs e)
             => volumeIndicator.TimeoutInterval = Convert.ToInt32(nVolumeIndicatorTimeoutInterval.Value);
+        /// <summary>
+        /// This is required to get tooltips to actually respect the colors that they expose.<br/>
+        /// Calls <see cref="DrawToolTipEventArgs.DrawBackground"/>, <see cref="DrawToolTipEventArgs.DrawBorder"/>, followed by <see cref="DrawToolTipEventArgs.DrawText"/>.
+        /// </summary>
+        /// <remarks>Why is it that this function does literally nothing that microsoft couldn't have already done? You know why.</remarks>
+        private void TooltipController_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
+        }
         #endregion ControlEventHandlers
     }
 }

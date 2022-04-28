@@ -86,6 +86,11 @@ namespace VolumeControl.Log
 
             // this is ok in C# because who needs logic
             var endpoint = new FileEndpoint(_filepath);
+
+#           if DEBUG // force enable log when running in DEBUG configuration
+            endpoint.Enabled = true;
+#           endif
+
             if (endpoint.Enabled || Properties.Settings.Default.EnableLog)
             {
                 endpoint.Enabled = true;

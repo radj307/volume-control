@@ -70,7 +70,7 @@ namespace VolumeControl.Core
         /// </summary>
         /// <param name="owner">Form that should be used as the owner control for all hotkeys.</param>
         /// <exception cref="Exception">InitializeHotkeys already called.</exception>
-        public static void InitializeHotkeys(Form owner)
+        public static void InitializeHotkeys(IntPtr hWnd)
         {
             if (_hk_initialized)
                 throw new Exception($"Hotkey initialization already completed!");
@@ -78,17 +78,17 @@ namespace VolumeControl.Core
             // init hotkey manager
             Hotkeys = new HotkeyBindingList(new()
             {
-                new(owner, "Volume Up", nameof(Properties.Settings.Default.hks_VolumeUp), VolumeControlSubject.VOLUME, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_VolumeUpEnabled)),
-                new(owner, "Volume Down", nameof(Properties.Settings.Default.hks_VolumeDown), VolumeControlSubject.VOLUME, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_VolumeDownEnabled)),
-                new(owner, "Toggle Mute", nameof(Properties.Settings.Default.hks_VolumeToggle), VolumeControlSubject.VOLUME, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_VolumeToggleEnabled)),
+                new(hWnd, "Volume Up", nameof(Properties.Settings.Default.hks_VolumeUp), VolumeControlSubject.VOLUME, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_VolumeUpEnabled)),
+                new(hWnd, "Volume Down", nameof(Properties.Settings.Default.hks_VolumeDown), VolumeControlSubject.VOLUME, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_VolumeDownEnabled)),
+                new(hWnd, "Toggle Mute", nameof(Properties.Settings.Default.hks_VolumeToggle), VolumeControlSubject.VOLUME, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_VolumeToggleEnabled)),
 
-                new(owner, "Next Track", nameof(Properties.Settings.Default.hks_MediaNext), VolumeControlSubject.MEDIA, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_MediaNextEnabled)),
-                new(owner, "Previous Track", nameof(Properties.Settings.Default.hks_MediaPrev), VolumeControlSubject.MEDIA, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_MediaPrevEnabled)),
-                new(owner, "Toggle Playback", nameof(Properties.Settings.Default.hks_MediaToggle), VolumeControlSubject.MEDIA, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_MediaToggleEnabled)),
+                new(hWnd, "Next Track", nameof(Properties.Settings.Default.hks_MediaNext), VolumeControlSubject.MEDIA, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_MediaNextEnabled)),
+                new(hWnd, "Previous Track", nameof(Properties.Settings.Default.hks_MediaPrev), VolumeControlSubject.MEDIA, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_MediaPrevEnabled)),
+                new(hWnd, "Toggle Playback", nameof(Properties.Settings.Default.hks_MediaToggle), VolumeControlSubject.MEDIA, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_MediaToggleEnabled)),
 
-                new(owner, "Next Target", nameof(Properties.Settings.Default.hks_TargetNext), VolumeControlSubject.TARGET, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_TargetNextEnabled)),
-                new(owner, "Previous Target", nameof(Properties.Settings.Default.hks_TargetPrev), VolumeControlSubject.TARGET, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_TargetPrevEnabled)),
-                new(owner, "Toggle Target Lock", nameof(Properties.Settings.Default.hks_TargetToggle), VolumeControlSubject.TARGET, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_TargetToggleEnabled)),
+                new(hWnd, "Next Target", nameof(Properties.Settings.Default.hks_TargetNext), VolumeControlSubject.TARGET, VolumeControlAction.INCREMENT, nameof(Properties.Settings.Default.hks_TargetNextEnabled)),
+                new(hWnd, "Previous Target", nameof(Properties.Settings.Default.hks_TargetPrev), VolumeControlSubject.TARGET, VolumeControlAction.DECREMENT, nameof(Properties.Settings.Default.hks_TargetPrevEnabled)),
+                new(hWnd, "Toggle Target Lock", nameof(Properties.Settings.Default.hks_TargetToggle), VolumeControlSubject.TARGET, VolumeControlAction.TOGGLE, nameof(Properties.Settings.Default.hks_TargetToggleEnabled)),
             });
             Hotkeys.BindHotkeyPressedEvents(API);
             Log.Info("Finished initialization of hotkey-action bindings.");

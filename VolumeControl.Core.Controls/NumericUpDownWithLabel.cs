@@ -81,8 +81,8 @@ namespace VolumeControl.Core.Controls
         [Category("Layout")]
         public int BoxWidth
         {
-            get => nud.Size.Width;
-            set => nud.Size = new(value, nud.Size.Height);
+            get => nudPanel.Size.Width;
+            set => nudPanel.Size = new(value, nudPanel.Size.Height);
         }
         [Category("Appearance")]
         public override Color ForeColor

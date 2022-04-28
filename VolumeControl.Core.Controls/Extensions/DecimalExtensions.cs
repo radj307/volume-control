@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Controls
+﻿namespace VolumeControl.Core.Controls.Extensions
 {
     public static class DecimalExtensions
     {

@@ -1,4 +1,6 @@
-﻿namespace VolumeControl.Core.Controls.Enum
+﻿using VolumeControl.Core.Controls.Enum;
+
+namespace VolumeControl.Core.Controls.Extensions
 {
     public static class CornerExtensions
     {
