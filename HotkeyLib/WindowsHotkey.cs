@@ -133,7 +133,7 @@ namespace HotkeyLib
             }
             else // an error occurred
             {
-                var (code, msg) = WinHook.Win32.GetLastWin32Error();
+                var (code, msg) = HotkeyAPI.GetLastWin32Error();
                 FLog.Log.Error(
                     $"Hotkey registration failed with code {code} ({msg})!",
                     $"Keys:       '{_combo}'",
@@ -167,7 +167,7 @@ namespace HotkeyLib
                 }
                 else
                 {
-                    var (code, msg) = WinHook.Win32.GetLastWin32Error();
+                    var (code, msg) = HotkeyAPI.GetLastWin32Error();
                     FLog.Log.Error(
                         $"Hotkey unregistration failed with code {code} ({msg})!",
                         $"Keys:       '{_combo}'",
@@ -188,7 +188,7 @@ namespace HotkeyLib
                 {
                     if (!HotkeyAPI.UnregisterHotkey(_owner, _id.Value))
                     {
-                        var (code, msg) = WinHook.Win32.GetLastWin32Error();
+                        var (code, msg) = HotkeyAPI.GetLastWin32Error();
                         FLog.Log.Error(
                             $"Hotkey re-registration failed with code {code} ({msg})!",
                             $"Keys:       '{_combo}'",
@@ -204,7 +204,7 @@ namespace HotkeyLib
                     }
                     else
                     {
-                        var (code, msg) = WinHook.Win32.GetLastWin32Error();
+                        var (code, msg) = HotkeyAPI.GetLastWin32Error();
                         FLog.Log.Error($"Hotkey re-registration failed with code {code} ({msg})!");
                         _state = HotkeyRegistrationState.FAILED;
                         _id = null;

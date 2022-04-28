@@ -81,30 +81,28 @@ namespace HotkeyLib
             IntPtr Arguments
         );
 
-        public static int GetLastWin32Error()
+        public static int GetLastError()
             => Marshal.GetLastWin32Error();
-        public static string GetLastWin32ErrorString(int err)
+        public static string FormatError(int err)
         {
             if (err == 0)
                 return "";
-
-            StringBuilder msg = new(256);
             _ = FormatMessage(
                 FORMAT_MESSAGE.ALLOCATE_BUFFER | FORMAT_MESSAGE.FROM_SYSTEM | FORMAT_MESSAGE.IGNORE_INSERTS,
                 IntPtr.Zero,
                 err,
                 0,
-                out msg,
-                msg.Capacity,
+                out StringBuilder msg,
+                256,
                 IntPtr.Zero
             );
             return msg.ToString().Trim();
         }
-        public static string GetLastWin32ErrorString() => GetLastWin32ErrorString(GetLastWin32Error());
-        public static (int, string) GetLastError()
+        public static string GetLastErrorString() => FormatError(GetLastError());
+        public static (int, string) GetLastWin32Error()
         {
-            int err = GetLastWin32Error();
-            return (err, GetLastWin32ErrorString(err));
+            int err = GetLastError();
+            return (err, FormatError(err));
         }
         #endregion InteropFunctions
 
@@ -115,14 +113,6 @@ namespace HotkeyLib
         public const uint MOD_CONTROL = 0x2;
         public const uint MOD_SHIFT = 0x4;
         public const uint MOD_WIN = 0x8;
-
-        public enum Error : uint
-        {
-            HOTKEY_NOT_REGISTERED = 1419,
-            HOTKEY_ALREADY_REGISTERED = 1409,
-        }
-
-        public const uint ERROR_HOTKEY_ALREADY_REGISTERED = 1409;
         #endregion InteropConstants
     }
 }
