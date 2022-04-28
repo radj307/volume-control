@@ -1,8 +1,6 @@
 using System.Configuration;
 using System.Diagnostics;
-using System.Reflection;
 using VolumeControl.Core;
-using VolumeControl.Core.Attributes;
 using VolumeControl.Core.Controls;
 using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Log;
@@ -15,7 +13,7 @@ namespace VolumeControl
         /// Attempts to upgrade the settings from previous versions.
         /// </summary>
         /// <remarks>This works for all assemblies, and should only be called once.</remarks>
-        static void UpgradeAllSettings()
+        private static void UpgradeAllSettings()
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -39,7 +37,7 @@ namespace VolumeControl
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             try
             {

@@ -8,7 +8,7 @@ namespace VolumeControl.CLI
         private static bool _quiet = false;
 
         [STAThread]
-        static void Main(string[] argv)
+        private static void Main(string[] argv)
         {
             try
             {

@@ -1,6 +1,7 @@
 ﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
+using VolumeControl.Log.Properties;
 
 namespace VolumeControl.Log
 {
@@ -45,20 +46,21 @@ namespace VolumeControl.Log
             }
         }
         /// <summary>
+        /// Gets or sets the event type filter that determines which event types are allowed to be written to the log endpoint.
+        /// </summary>
+        /// <remarks><b>Messages with an <see cref="EventType"/> that isn't present in this bitflag are discarded!</b></remarks>
+        public static EventType EventFilter
+        {
+            get => _filter;
+            set => _filter = value;
+        }
+        /// <summary>
         /// Get or set the log filepath.
         /// </summary>
         public static string FilePath
         {
             get => _filepath;
             set => _filepath = value;
-        }
-        /// <summary>
-        /// Get or set the log event type filter.
-        /// </summary>
-        public static EventType Filter
-        {
-            get => _filter;
-            set => _filter = value;
         }
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
@@ -74,35 +76,33 @@ namespace VolumeControl.Log
             _initialized = true;
 
             // Add properties to the settings file
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            Settings.Default.Save();
+            Settings.Default.Reload();
 
-            _filepath = Properties.Settings.Default.logfile;
-#           if DEBUG // always show all log messages in debug mode, ignore properties
-            _filter = EventType.ALL;
-#           else
-            _filter = (EventType)Properties.Settings.Default.logfilter;
+            // get the full filepath to the log
+            FilePath = Path.Combine(Settings.Default.LogDir, Settings.Default.LogFileName);
+            // Set the event type filter
+            EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
+
+            var endpoint = new FileEndpoint(FilePath, Settings.Default.EnableLogging);
+
+#           if DEBUG
+            FilePath = Settings.Default.LogFileName;//< use working directory
+            EventFilter = EventType.ALL;            //< show all log messages
+            endpoint.Enabled = true;                //< force enable logging
 #           endif
 
-            // this is ok in C# because who needs logic
-            var endpoint = new FileEndpoint(_filepath);
-
-#           if DEBUG // force enable log when running in DEBUG configuration
-            endpoint.Enabled = true;
-#           endif
-
-            if (endpoint.Enabled || Properties.Settings.Default.EnableLog)
+            if (endpoint.Enabled)
             {
-                endpoint.Enabled = true;
-                endpoint.Reset();
+                endpoint.Reset(); //< clear the log file
             }
-            Log = new(endpoint, _filter);
 
+            Log = new(endpoint, EventFilter);
 
             Log.Info(
                 "FLog.Initialize() Completed:",
-                $"logfile   = '{_filepath}'",
-                $"logfilter = '{_filter.ID()}'"
+                $"logfile   = '{FilePath}'",
+                $"logfilter = '{EventFilter.ID()}'"
             );
         }
         #endregion Methods

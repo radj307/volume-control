@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
-using VolumeControl.Log.Extensions;
 
 namespace VolumeControl.Log.Interfaces
 {

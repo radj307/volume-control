@@ -136,9 +136,9 @@ namespace VolumeControl
             if (Properties.Settings.Default.StartMinimized)
                 WindowState = FormWindowState.Minimized; // setting the window state automatically handles the Visible property
             else
-#           endif
-            
-            ResumeLayout();
+#endif
+
+                ResumeLayout();
         }
         /// <summary>
         /// Called before the form closes.

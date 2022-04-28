@@ -3,26 +3,16 @@
     public class FileEndpoint : IEndpoint
     {
         #region Constructors
-        public FileEndpoint()
-        {
-        }
-        public FileEndpoint(string path)
+        public FileEndpoint(string path, bool enabled)
         {
             Path = path;
+            Enabled = enabled;
         }
         #endregion Constructors
 
-        #region Members
-        private string? _filepath = null;
-        #endregion Members
-
         #region Properties
         public bool Enabled { get; set; }
-        public string? Path
-        {
-            get => _filepath;
-            set => _filepath = value;
-        }
+        public string Path { get; set; }
         #endregion Properties
 
         #region Methods
@@ -30,13 +20,13 @@
         {
             if (!Enabled)
                 return null;
-            return new(File.Open(_filepath!, open));
+            return new(File.Open(Path, open));
         }
         internal StreamWriter? GetWriter(FileStreamOptions open)
         {
             if (!Enabled)
                 return null;
-            return new(File.Open(_filepath!, open)) { AutoFlush = true };
+            return new(File.Open(Path, open)) { AutoFlush = true };
         }
         public StreamReader? GetReader()
         {
@@ -55,7 +45,7 @@
         {
             if (!Enabled)
                 return;
-            using StreamWriter w = new(File.Open(_filepath!, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
+            using StreamWriter w = new(File.Open(Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
             w.Write(str);
             w.Close();
         }
@@ -63,7 +53,7 @@
         {
             if (!Enabled)
                 return;
-            using StreamWriter w = new(File.Open(_filepath!, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
+            using StreamWriter w = new(File.Open(Path, mode, FileAccess.Write, FileShare.Read)) { AutoFlush = true };
             w.WriteLine(str);
             w.Close();
         }
@@ -71,21 +61,21 @@
         {
             if (!Enabled)
                 return null;
-            using StreamReader r = new(File.Open(_filepath!, mode, FileAccess.Read, FileShare.ReadWrite));
+            using StreamReader r = new(File.Open(Path, mode, FileAccess.Read, FileShare.ReadWrite));
             return r.Read();
         }
         public string? ReadRawLine(FileMode mode = FileMode.Open)
         {
             if (!Enabled)
                 return null;
-            using StreamReader r = new(File.Open(_filepath!, mode, FileAccess.Read, FileShare.ReadWrite));
+            using StreamReader r = new(File.Open(Path, mode, FileAccess.Read, FileShare.ReadWrite));
             return r.ReadLine();
         }
         public void Reset()
         {
-            if (!Enabled)
+            if (!Enabled || !File.Exists(Path))
                 return;
-            File.Open(_filepath!, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
+            File.Open(Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
         }
 
         #endregion Methods

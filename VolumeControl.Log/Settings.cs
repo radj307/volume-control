@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Properties
+﻿namespace VolumeControl.Log.Properties
 {
 
 

@@ -19,7 +19,7 @@ namespace VolumeControl.Core
         /// <param name="uFlags">The window sizing and positioning flags.</param>
         /// <returns>If the function succeeds, the return value is nonzero.<br/>If the function fails, the return value is zero.To get extended error information, call GetLastError.</returns>
         [DllImport("user32.dll")]
-        public extern static bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         /// <summary>
         /// Changes the size, position, and Z order of a child, pop-up, or top-level window. These windows are ordered according to their appearance on the screen. The topmost window receives the highest rank and is the first window in the Z order.
         /// </summary>
@@ -42,7 +42,7 @@ namespace VolumeControl.Core
         /// </remarks>
         /// <returns>If the function succeeds, the return value is the handle to the window that was previously active.<br/>If the function fails, the return value is NULL.To get extended error information, call GetLastError.</returns>
         [DllImport("user32.dll")]
-        public extern static bool SetActiveWindow(IntPtr hWnd);
+        public static extern bool SetActiveWindow(IntPtr hWnd);
         /// <summary>
         /// Sets the specified window's show state.
         /// </summary>
@@ -62,7 +62,7 @@ namespace VolumeControl.Core
         /// <item><term>false</term><description>If the window was previously hidden, the return value is zero.</description></item>
         /// </list></returns>
         [DllImport("user32.dll")]
-        public extern static bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         /// <summary>
         /// Sets the specified window's show state.
         /// </summary>

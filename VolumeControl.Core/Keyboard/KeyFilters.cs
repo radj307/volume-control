@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace VolumeControl.Core.Keyboard
+﻿namespace VolumeControl.Core.Keyboard
 {
     internal static class KeyFilters
     {

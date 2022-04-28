@@ -22,7 +22,7 @@ namespace VolumeControl.Core.Events
         /// <summary>
         /// Empty event, sets UserOrigin to false.
         /// </summary>
-        public new static readonly TargetEventArgs Empty = new() { UserOrigin = false };
+        public static new readonly TargetEventArgs Empty = new() { UserOrigin = false };
     }
     /// <summary>
     /// Event handler for target selection change events.

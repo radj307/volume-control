@@ -25,42 +25,6 @@ namespace VolumeControl.Log.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
-        public string logfile {
-            get {
-                return ((string)(this["logfile"]));
-            }
-            set {
-                this["logfile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int logfilter {
-            get {
-                return ((int)(this["logfilter"]));
-            }
-            set {
-                this["logfilter"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableLog {
-            get {
-                return ((bool)(this["EnableLog"]));
-            }
-            set {
-                this["EnableLog"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableStackTrace {
             get {
@@ -80,6 +44,55 @@ namespace VolumeControl.Log.Properties {
             }
             set {
                 this["EnableStackTraceLineCount"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// When true, logging is enabled.
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("When true, logging is enabled.")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableLogging {
+            get {
+                return ((bool)(this["EnableLogging"]));
+            }
+            set {
+                this["EnableLogging"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
+        public string LogFileName {
+            get {
+                return ((string)(this["LogFileName"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LogDir {
+            get {
+                return ((string)(this["LogDir"]));
+            }
+            set {
+                this["LogDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public uint LogAllowedEventTypeFlag {
+            get {
+                return ((uint)(this["LogAllowedEventTypeFlag"]));
+            }
+            set {
+                this["LogAllowedEventTypeFlag"] = value;
             }
         }
     }

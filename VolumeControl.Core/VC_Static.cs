@@ -5,7 +5,6 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Log;
-using VolumeControl.Log.Endpoints;
 
 namespace VolumeControl.Core
 {

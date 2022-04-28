@@ -2,7 +2,6 @@
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
-using static System.Windows.Forms.LinkLabel;
 
 namespace VolumeControl.Log
 {
@@ -132,16 +131,22 @@ namespace VolumeControl.Log
         #endregion WriteException
 
         /// <summary>
-        /// Write a formatted followup message without a timestamp or event type to the log endpoint.
+        /// Appends the given lines to the log with a blank timestamp.
         /// </summary>
         /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
-        public void Followup(params object?[] lines)
+        public void Append(params object?[] lines)
         {
             if (!Endpoint.Enabled)
                 return;
             WriteWithTimestamp(MakeBlankTimestamp(), lines);
         }
+        /// <summary>
+        /// Write a formatted followup message without a timestamp or event type to the log endpoint.
+        /// </summary>
+        /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
+        /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
+        public void Followup(params object?[] lines) => Append(lines);
         #endregion Methods
     }
 }
