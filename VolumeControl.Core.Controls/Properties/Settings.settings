@@ -2,40 +2,40 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VolumeControl.Core.Controls.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ToastDisplayCorner" Type="System.Byte" Scope="Application">
+    <Setting Name="ToastDisplayCorner" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">4</Value>
     </Setting>
-    <Setting Name="ToastDisplayPadding" Type="System.Drawing.Size" Scope="Application">
+    <Setting Name="ToastDisplayPadding" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">10, 10</Value>
     </Setting>
-    <Setting Name="ToastDisplayScreen" Type="System.String" Scope="Application">
+    <Setting Name="ToastDisplayScreen" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="Application">
+    <Setting Name="ToastFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
-    <Setting Name="ToastDisplayOffset" Type="System.Drawing.Size" Scope="Application">
+    <Setting Name="ToastDisplayOffset" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="ColorLock" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="ColorLock" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">200, 17, 31</Value>
     </Setting>
-    <Setting Name="ColorUnlock" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="ColorUnlock" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">39, 204, 30</Value>
     </Setting>
-    <Setting Name="ColorLockMuted" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="ColorLockMuted" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">255, 192, 192</Value>
     </Setting>
-    <Setting Name="ColorUnlockMuted" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="ColorUnlockMuted" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">192, 255, 192</Value>
     </Setting>
-    <Setting Name="ColorLevel" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="ColorLevel" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">45, 45, 45</Value>
     </Setting>
-    <Setting Name="IndicatorWidth" Type="System.Int32" Scope="Application">
+    <Setting Name="IndicatorWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="ShowIndicator" Type="System.Boolean" Scope="Application">
+    <Setting Name="ShowIndicator" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="VolumeDisplayCorner" Type="System.Byte" Scope="User">
@@ -50,31 +50,31 @@
     <Setting Name="VolumeDisplayOffset" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="VolumeDisplayFont" Type="System.Drawing.Font" Scope="Application">
+    <Setting Name="VolumeDisplayFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Segoe UI, 9.75pt</Value>
     </Setting>
-    <Setting Name="VolumeFormBackColor" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="VolumeFormBackColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">50, 192, 255</Value>
     </Setting>
-    <Setting Name="VolumeFormOpacity" Type="System.Double" Scope="Application">
+    <Setting Name="VolumeFormOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.9</Value>
     </Setting>
     <Setting Name="VolumeFormTimeoutInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2000</Value>
     </Setting>
-    <Setting Name="VolumeFormFadeStep" Type="System.Double" Scope="Application">
+    <Setting Name="VolumeFormFadeStep" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="VolumeFormFadePeriod" Type="System.Int32" Scope="Application">
+    <Setting Name="VolumeFormFadePeriod" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">18</Value>
     </Setting>
-    <Setting Name="ToastFadeStep" Type="System.Double" Scope="Application">
+    <Setting Name="ToastFadeStep" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="ToastFadePeriod" Type="System.Int32" Scope="Application">
+    <Setting Name="ToastFadePeriod" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">18</Value>
     </Setting>
-    <Setting Name="ToastOpacity" Type="System.Double" Scope="Application">
+    <Setting Name="ToastOpacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>

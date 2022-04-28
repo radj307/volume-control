@@ -41,13 +41,13 @@
     <Setting Name="VolumeStep" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="AllowMultipleInstances" Type="System.Boolean" Scope="Application">
+    <Setting Name="AllowMultipleInstances" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">-1, -1</Value>
     </Setting>
-    <Setting Name="EnableEscapeMinimize" Type="System.Boolean" Scope="Application">
+    <Setting Name="EnableEscapeMinimize" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UpgradeSettings" Type="System.Boolean" Scope="User">

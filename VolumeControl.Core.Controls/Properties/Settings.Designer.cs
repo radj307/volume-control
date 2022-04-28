@@ -23,111 +23,147 @@ namespace VolumeControl.Core.Controls.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public byte ToastDisplayCorner {
             get {
                 return ((byte)(this["ToastDisplayCorner"]));
             }
+            set {
+                this["ToastDisplayCorner"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10, 10")]
         public global::System.Drawing.Size ToastDisplayPadding {
             get {
                 return ((global::System.Drawing.Size)(this["ToastDisplayPadding"]));
             }
+            set {
+                this["ToastDisplayPadding"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ToastDisplayScreen {
             get {
                 return ((string)(this["ToastDisplayScreen"]));
             }
+            set {
+                this["ToastDisplayScreen"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 9.75pt")]
         public global::System.Drawing.Font ToastFont {
             get {
                 return ((global::System.Drawing.Font)(this["ToastFont"]));
             }
+            set {
+                this["ToastFont"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
         public global::System.Drawing.Size ToastDisplayOffset {
             get {
                 return ((global::System.Drawing.Size)(this["ToastDisplayOffset"]));
             }
+            set {
+                this["ToastDisplayOffset"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200, 17, 31")]
         public global::System.Drawing.Color ColorLock {
             get {
                 return ((global::System.Drawing.Color)(this["ColorLock"]));
             }
+            set {
+                this["ColorLock"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("39, 204, 30")]
         public global::System.Drawing.Color ColorUnlock {
             get {
                 return ((global::System.Drawing.Color)(this["ColorUnlock"]));
             }
+            set {
+                this["ColorUnlock"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("255, 192, 192")]
         public global::System.Drawing.Color ColorLockMuted {
             get {
                 return ((global::System.Drawing.Color)(this["ColorLockMuted"]));
             }
+            set {
+                this["ColorLockMuted"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 192")]
         public global::System.Drawing.Color ColorUnlockMuted {
             get {
                 return ((global::System.Drawing.Color)(this["ColorUnlockMuted"]));
             }
+            set {
+                this["ColorUnlockMuted"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("45, 45, 45")]
         public global::System.Drawing.Color ColorLevel {
             get {
                 return ((global::System.Drawing.Color)(this["ColorLevel"]));
             }
+            set {
+                this["ColorLevel"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int IndicatorWidth {
             get {
                 return ((int)(this["IndicatorWidth"]));
             }
+            set {
+                this["IndicatorWidth"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowIndicator {
             get {
                 return ((bool)(this["ShowIndicator"]));
+            }
+            set {
+                this["ShowIndicator"] = value;
             }
         }
         
@@ -179,30 +215,39 @@ namespace VolumeControl.Core.Controls.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 9.75pt")]
         public global::System.Drawing.Font VolumeDisplayFont {
             get {
                 return ((global::System.Drawing.Font)(this["VolumeDisplayFont"]));
             }
+            set {
+                this["VolumeDisplayFont"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50, 192, 255")]
         public global::System.Drawing.Color VolumeFormBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["VolumeFormBackColor"]));
             }
+            set {
+                this["VolumeFormBackColor"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.9")]
         public double VolumeFormOpacity {
             get {
                 return ((double)(this["VolumeFormOpacity"]));
+            }
+            set {
+                this["VolumeFormOpacity"] = value;
             }
         }
         
@@ -218,48 +263,63 @@ namespace VolumeControl.Core.Controls.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
         public double VolumeFormFadeStep {
             get {
                 return ((double)(this["VolumeFormFadeStep"]));
             }
+            set {
+                this["VolumeFormFadeStep"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("18")]
         public int VolumeFormFadePeriod {
             get {
                 return ((int)(this["VolumeFormFadePeriod"]));
             }
+            set {
+                this["VolumeFormFadePeriod"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
         public double ToastFadeStep {
             get {
                 return ((double)(this["ToastFadeStep"]));
             }
+            set {
+                this["ToastFadeStep"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("18")]
         public int ToastFadePeriod {
             get {
                 return ((int)(this["ToastFadePeriod"]));
             }
+            set {
+                this["ToastFadePeriod"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public double ToastOpacity {
             get {
                 return ((double)(this["ToastOpacity"]));
+            }
+            set {
+                this["ToastOpacity"] = value;
             }
         }
     }
