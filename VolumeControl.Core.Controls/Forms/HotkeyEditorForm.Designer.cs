@@ -46,6 +46,7 @@ namespace VolumeControl.Core.Controls
             this.colShift = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colWin = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.bsHotkeyBindingList = new System.Windows.Forms.BindingSource(this.components);
+            this.vButton1 = new VirtualButton.VButton(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsKeysList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHotkeyBindingList)).BeginInit();
@@ -215,6 +216,10 @@ namespace VolumeControl.Core.Controls
             // 
             this.bsHotkeyBindingList.DataSource = typeof(VolumeControl.Core.Keyboard.HotkeyBindingList);
             // 
+            // vButton1
+            // 
+            this.vButton1.Click += new VirtualButton.VirtualClickEventHandler(this.vbCancel_Click);
+            // 
             // HotkeyEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -255,5 +260,6 @@ namespace VolumeControl.Core.Controls
         private DataGridViewCheckBoxColumn colCtrl;
         private DataGridViewCheckBoxColumn colShift;
         private DataGridViewCheckBoxColumn colWin;
+        private VirtualButton.VButton vButton1;
     }
 }

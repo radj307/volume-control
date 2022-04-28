@@ -84,6 +84,7 @@ namespace VolumeControl.Core.Controls
         #region Members
         private bool _allowAutoSize = false;
         private bool _suspended = true;
+        private bool _showWindowInitialized = false;
         #endregion Members
 
         #region Properties

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="VirtualButton" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
   </ItemGroup>

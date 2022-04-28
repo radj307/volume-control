@@ -10,7 +10,7 @@ namespace VolumeControl.Core.Controls
             InitializeComponent();
             bsKeysList.DataSource = new ValidKeys();
 
-            //CancelButton = vbCancel;
+            CancelButton = vButton1;
         }
         #endregion Constructors
 
@@ -100,8 +100,6 @@ namespace VolumeControl.Core.Controls
             if (dgv.CurrentCell is DataGridViewCheckBoxCell)
                 dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
-        private void bCancel_Click(object sender, EventArgs e)
-            => Hide();
         private void dgv_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
             => SizeToFit();
         private void dgv_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)

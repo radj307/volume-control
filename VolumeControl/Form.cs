@@ -18,9 +18,6 @@ namespace VolumeControl
             toast = toastForm;
             volumeIndicator = indicatorForm;
 
-            SuspendLayout();
-            SuspendSizeToFit();
-
             // initialize hkedit subform (cannot bind data source yet -- VC_Static.InitializeHotkeys() hasn't been called yet. See 'Program.cs')
             hkedit.Visible = false;
             // initialize toast subform
@@ -28,6 +25,9 @@ namespace VolumeControl
 
             // initialize designer components
             InitializeComponent();
+
+            SuspendLayout();
+            SuspendSizeToFit();
 
             // Force default cursors on both split containers, in case the designer decides to change them again
             MainSplitContainer.Panel1.Cursor = Cursors.Default;
@@ -72,7 +72,7 @@ namespace VolumeControl
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
             VC_Static.VolumeStep = nlVolumeStep.Value = Properties.Settings.Default.VolumeStep;
-            
+
             cbVolumeIndicatorEnabled.CheckedChanged -= cbVolumeIndicatorEnabled_CheckedChanged!;
             cbVolumeIndicatorEnabled.Checked = Properties.Settings.Default.VolumeNotificationEnabled;
             cbVolumeIndicatorEnabled.CheckedChanged += cbVolumeIndicatorEnabled_CheckedChanged!;
@@ -128,16 +128,17 @@ namespace VolumeControl
             VC_Static.InitializeHotkeys(Handle);
             hkedit.DataSource = VC_Static.Hotkeys;
 
-#           if !DEBUG // start minimized if enabled (only check in release configuration)
-            if (Properties.Settings.Default.StartMinimized)
-                WindowState = FormWindowState.Minimized;
-#           endif
-
-            //CancelButton = vbCancel;
-
-            ResumeLayout();
+            CancelButton = vButton1;
 
             VC_Static.Log.Info("Form initialization completed.");
+
+#           if !DEBUG // start minimized if enabled (only check in release configuration)
+            if (Properties.Settings.Default.StartMinimized)
+                WindowState = FormWindowState.Minimized; // setting the window state automatically handles the Visible property
+            else
+#           endif
+            
+            ResumeLayout();
         }
         /// <summary>
         /// Called before the form closes.
@@ -151,6 +152,13 @@ namespace VolumeControl
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
             VC_Static.Log.Debug("Form closing event triggered.");
+            // clean up the tray icon
+            TrayIcon.Icon = null;
+            TrayIcon.Visible = false;
+            TrayIcon.Dispose();
+
+            if (Visible) FadeOut(0.15, 8);
+
             ResumeLayout();
         }
 
@@ -178,6 +186,36 @@ namespace VolumeControl
         #endregion Members
 
         #region Methods
+        private void FadeIn(double step, uint delay_ms)
+        {
+            if (Visible)
+                return;
+            if (delay_ms == 0)
+                ++delay_ms;
+            if (step <= 0.0)
+                step = 0.1;
+            var defOpacity = this.Opacity;
+            this.Opacity = 0.0;
+            Visible = true;
+            for (; this.Opacity < defOpacity; Thread.Sleep((int)delay_ms))
+            {
+                this.Opacity += step;
+            }
+        }
+        private void FadeOut(double step, uint delay_ms)
+        {
+            if (!Visible)
+                return;
+            if (delay_ms == 0)
+                ++delay_ms;
+            if (step <= 0.0)
+                step = 0.1;
+            for (; this.Opacity > 0; Thread.Sleep((int)delay_ms))
+            {
+                this.Opacity -= step;
+            }
+            Visible = false;
+        }
         /// <summary>
         /// Prevents <see cref="SizeToFit"/> from doing anything.
         /// </summary>
