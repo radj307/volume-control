@@ -151,6 +151,7 @@ namespace VolumeControl.Core.Audio
         #endregion Properties
 
         #region Methods
+
         public bool ToggleMute() => Muted = !Muted;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

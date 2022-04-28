@@ -1,4 +1,17 @@
-﻿using System.Runtime.InteropServices;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Diagnostics.Metrics;
+using System.Diagnostics;
+using System.DirectoryServices;
+using System.Dynamic;
+using System.IO;
+using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
+using System.Threading.Channels;
+using System.Windows.Forms;
+using VolumeControl.Log;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace VolumeControl.Core
 {

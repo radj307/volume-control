@@ -238,17 +238,5 @@ namespace VolumeControl.Properties {
                 this["VolumeNotificationEnabled"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowWindowsVolumeOSD {
-            get {
-                return ((bool)(this["ShowWindowsVolumeOSD"]));
-            }
-            set {
-                this["ShowWindowsVolumeOSD"] = value;
-            }
-        }
     }
 }
