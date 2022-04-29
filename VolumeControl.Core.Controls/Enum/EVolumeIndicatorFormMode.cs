@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Controls.Forms
+﻿namespace VolumeControl.Core.Controls.Enum
 {
     public enum EVolumeIndicatorFormMode : byte
     {

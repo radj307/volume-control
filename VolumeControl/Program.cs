@@ -148,7 +148,9 @@ namespace VolumeControl
 
                 VC_Static.Log.Info("Initialization completed, starting the application...");
 
-                Application.Run(vcForm);
+                // DEBUG
+                Application.Run(new SettingsMenuForm());
+                //Application.Run(vcForm);
 
                 VC_Static.Log.Info("Application exited normally.");
             }
