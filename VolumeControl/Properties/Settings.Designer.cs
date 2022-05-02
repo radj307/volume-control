@@ -238,5 +238,17 @@ namespace VolumeControl.Properties {
                 this["VolumeNotificationEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SHOW_DEBUG_FORM {
+            get {
+                return ((bool)(this["SHOW_DEBUG_FORM"]));
+            }
+            set {
+                this["SHOW_DEBUG_FORM"] = value;
+            }
+        }
     }
 }

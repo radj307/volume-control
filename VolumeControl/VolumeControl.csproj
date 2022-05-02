@@ -46,7 +46,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Form.resx">
+    <EmbeddedResource Update="MainForm.resx">
       <Generator>
       </Generator>
     </EmbeddedResource>

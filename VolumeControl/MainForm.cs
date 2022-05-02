@@ -10,9 +10,9 @@ using VolumeControl.Core.Extensions;
 namespace VolumeControl
 {
 
-    public partial class Form : System.Windows.Forms.Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
-        public Form(HotkeyEditorForm hkeditorForm, ToastForm toastForm, VolumeIndicatorForm indicatorForm)
+        public MainForm(HotkeyEditorForm hkeditorForm, ToastForm toastForm, VolumeIndicatorForm indicatorForm)
         {
             hkedit = hkeditorForm;
             toast = toastForm;
@@ -26,22 +26,19 @@ namespace VolumeControl
             // initialize designer components
             InitializeComponent();
 
-            SuspendLayout();
-            SuspendSizeToFit();
-
-            // Force default cursors on both split containers, in case the designer decides to change them again
+            // Force the main split container to behave
             MainSplitContainer.Panel1.Cursor = Cursors.Default;
             MainSplitContainer.Panel2.Cursor = Cursors.Default;
             MainSplitContainer.Cursor = Cursors.Default;
+
+            // Force the splitters to behave
             MixerSplitContainer.Panel1.Cursor = Cursors.Default;
             MixerSplitContainer.Panel2.Cursor = Cursors.Default;
             MixerSplitContainer.Cursor = Cursors.Default;
-
-            // force correct layout on mixer split container
             MixerSplitContainer.Panel1MinSize = 0; // zero sizes first
             MixerSplitContainer.Panel2MinSize = 0;
-            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
             MixerSplitContainer.SplitterWidth = 1; // correct splitter width
+            MixerSplitContainer.SplitterDistance = 29; // set splitter dist
             MixerSplitContainer.Panel1MinSize = 29; // apply minimum panel sizes
             MixerSplitContainer.Panel2MinSize = 23;
 
@@ -73,10 +70,7 @@ namespace VolumeControl
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
             VC_Static.VolumeStep = nlVolumeStep.Value = Properties.Settings.Default.VolumeStep;
             cbVolumeIndicatorEnabled.Checked = Properties.Settings.Default.VolumeNotificationEnabled;
-
-            nVolumeIndicatorTimeoutInterval.ValueChanged -= nVolumeIndicatorTimeoutInterval_ValueChanged!;
             nVolumeIndicatorTimeoutInterval.Value = Convert.ToDecimal(Core.Controls.Properties.Settings.Default.VolumeFormTimeoutInterval);
-            nVolumeIndicatorTimeoutInterval.ValueChanged += nVolumeIndicatorTimeoutInterval_ValueChanged!;
 
 
             // Attempt to restore window position
@@ -128,14 +122,7 @@ namespace VolumeControl
             CancelButton = vButton1;
 
             VC_Static.Log.Info("Form initialization completed.");
-
-#           if !DEBUG // start minimized if enabled (only check in release configuration)
-            if (Properties.Settings.Default.StartMinimized)
-                WindowState = FormWindowState.Minimized; // setting the window state automatically handles the Visible property
-            else
-#endif
-
-                ResumeLayout();
+            ResumeLayout();
         }
         /// <summary>
         /// Called before the form closes.
@@ -178,10 +165,42 @@ namespace VolumeControl
         private readonly VolumeIndicatorForm volumeIndicator;
         #endregion Members
 
+        #region Properties
+        private bool MixerPanelIsOpen
+        {
+            get => !MainSplitContainer.Panel2Collapsed;
+            set => MainSplitContainer.Panel2Collapsed = !value;
+        }
+        #endregion Properties
+
         #region Methods
+        internal static Control[] GetMatchingControls(string name, Control.ControlCollection source, bool recurse = true, bool fullNameMatch = true)
+        {
+            List<Control> matches = new();
+            foreach (Control ctrl in source)
+            {
+                if (fullNameMatch)
+                {
+                    if (ctrl.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                        matches.Add(ctrl);
+                }
+                else if (ctrl.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                    matches.Add(ctrl);
+                if (recurse)
+                    matches.AddRange(GetMatchingControls(name, ctrl.Controls, recurse, fullNameMatch));
+            }
+            return matches.ToArray();
+        }
+        internal Control[] GetMatchingControls(string name, bool recurse = true, bool fullNameMatch = true) => GetMatchingControls(name, Controls, recurse, fullNameMatch);
+
         public new void Show()
         {
+            SuspendLayout();
+            Visible = true;
             SizeToFit();
+            Refresh();
+            Visible = false;
+            ResumeLayout();
             FadeIn(0.15, 8);
         }
 
@@ -237,18 +256,34 @@ namespace VolumeControl
         {
             if (!_allowAutoSize)
                 return;
-            if (_mixerListItemHeight == 0) // set the height of a list item
+            if (_mixerListItemHeight == 0)
+            {  // set the height of a list item
                 _mixerListItemHeight = Mixer.Font.Height + 9;
+                VC_Static.Log.Debug($"Set the height of rows in the Mixer to '{_mixerListItemHeight}'.");
+            }
 
             int height = _panel1Height;
 
             if (FormBorderStyle != FormBorderStyle.None)
                 height += 40;
 
-            if (!MainSplitContainer.Panel2Collapsed)
+            if (MixerPanelIsOpen)
             {
+                //v DEBUG
+
+                if (Mixer.Dock != DockStyle.Fill)
+                {
+                    var style = Mixer.Dock;
+                    Mixer.Dock = DockStyle.Fill;
+                    VC_Static.Log.Warning($"Fixed Unexpected Mixer.DockStyle Property:  '{Enum.GetName(typeof(DockStyle), style)}'");
+                }
+
+                //^ DEBUG
+
+                // add header column height
                 if (Mixer.ColumnHeadersVisible)
                     height += Mixer.ColumnHeadersHeight;
+
                 height += MainSplitContainer.SplitterWidth + MixerSplitContainer.Panel1.Height;
                 int threeQuartersHeight = Screen.PrimaryScreen.WorkingArea.Height - (Screen.PrimaryScreen.WorkingArea.Height / 4) - _panel1Height;
                 int totalFittingElements = threeQuartersHeight / _mixerListItemHeight;
@@ -259,7 +294,7 @@ namespace VolumeControl
             // set the size of the form
             Size = new(_width, height);
             UpdateBounds();
-            VC_Static.Log.Debug($"Form size updated to ({_width}, {height})");
+            VC_Static.Log.Debug($"Main form size updated to ({_width}, {height})");
         }
         /// <summary>
         /// Request a full reload of the process list from <see cref="VC_Static.API"/>.
@@ -297,7 +332,7 @@ namespace VolumeControl
             WindowState = FormWindowState.Normal;
             base.BringToFront();
         }
-        private void SetVersion(string ver)
+        public void SetVersion(string ver)
             => Label_Version.Text = ver;
         /// <summary>
         /// Set properties to their current UI values and save them to the config file.

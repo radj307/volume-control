@@ -1015,6 +1015,9 @@
   <data name="Mixer.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="Mixer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
   <data name="Mixer.Size" type="System.Drawing.Size, System.Drawing">
     <value>362, 25</value>
   </data>
