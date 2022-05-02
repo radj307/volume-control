@@ -11,10 +11,19 @@ jobs:
     runs-on:  windows-latest
     
     steps:
-      - uses: actions/checkout@v2
+      - name:   Resolve Branch Name
+        id:     get_branch
+        run:    |
+                echo ::set-output name=REFNAME::"$($(git branch --contains ${GITHUB_REF#refs/heads/}) -replace '\* ')"
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          ref:          '${{ github.ref }}'
+          ref:          '${{ steps.get_branch.outputs.REFNAME }}'
           fetch-depth:  0
+
         
       - name:   Run SetVersion.ps1
         run:    |
