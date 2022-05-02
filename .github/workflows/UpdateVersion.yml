@@ -11,36 +11,16 @@ jobs:
     runs-on:  windows-latest
     
     steps:
-      - name:   Resolve Branch Name
-        id:     get_branch
-        run:    |
-                echo ::set-output name=REFNAME::"$($(git branch --contains ${GITHUB_REF#refs/heads/}) -replace '\* ')"
-        shell:  |
-                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref:          '${{ steps.get_branch.outputs.REFNAME }}'
-          fetch-depth:  0
-
-        
-      - name:   Run SetVersion.ps1
-        run:    |
+      - uses: actions/checkout@v3
+      - run:    |
                 cd ${{github.workspace}}
                 .\SetVersion.ps1
-        shell:  |
-                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
-        
-      - name:   Fetch History for github-actions branch
-        run:    git fetch
-
-      - name:   Push Changes
-        run:    |
-                cd ${{github.workspace}}
                 git config user.name github-actions
                 git config user.email github-actions@github.com
                 git add -A
                 git commit -m "Update .csproj Version Numbers"
-                git push origin
+                git push
+        shell:  |
+                pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+        
 # HEAD:github-actions
