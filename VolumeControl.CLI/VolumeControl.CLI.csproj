@@ -5,9 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWindowsForms>True</UseWindowsForms>
-    <Version>4.0.5</Version>
+    <Version>4.0.6</Version>
     <ReleaseType>NORMAL</ReleaseType>
-    <ExtendedVersion>4.0.5</ExtendedVersion>
+    <ExtendedVersion>4.0.6</ExtendedVersion>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
