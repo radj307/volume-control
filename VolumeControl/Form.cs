@@ -179,6 +179,12 @@ namespace VolumeControl
         #endregion Members
 
         #region Methods
+        public new void Show()
+        {
+            SizeToFit();
+            FadeIn(0.15, 8);
+        }
+
         public void FadeIn(double step, uint delay_ms)
         {
             if (Visible)
