@@ -1,12 +1,62 @@
 using System.Configuration;
 using System.Diagnostics;
 using VolumeControl.Core;
-using VolumeControl.Core.Controls;
-using VolumeControl.Core.Controls.Forms;
 using VolumeControl.Log;
+using VolumeControl.Core.Controls.Forms;
 
 namespace VolumeControl
 {
+    internal class VCApplicationContext : ApplicationContext
+    {
+        private void HandleFormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (sender is Form form)
+            { // hide the tray icon
+                form.TrayIcon.Visible = false;
+                form.TrayIcon.Icon = null;
+                form.TrayIcon.Dispose();
+            }
+            if (Interlocked.Decrement(ref openForms) == 0)
+                ExitThread();
+        }
+
+        public VCApplicationContext()
+        {
+            // Initialize forms
+            hkeditForm = new HotkeyEditorForm();
+            toastForm = new ToastForm();
+            indicatorForm = new VolumeIndicatorForm();
+            vcForm = new Form(hkeditForm, toastForm, indicatorForm);
+
+            // if the toastform & indicator are shown in the same corner, increase the amount of padding for the toastform so it doesn't overlap
+            if (toastForm.DisplayCorner == indicatorForm.DisplayCorner)
+                toastForm.DisplayPadding = new(toastForm.DisplayPadding.Width + indicatorForm.Size.Width + indicatorForm.DisplayPadding.Width, toastForm.DisplayPadding.Height);//.Width += ;
+
+            // Initialize form counter
+            openForms = 4;
+
+            // Set owners
+            hkeditForm.Owner = vcForm;
+            toastForm.Owner = vcForm;
+            indicatorForm.Owner = vcForm;
+
+            // Set event callbacks
+            hkeditForm.FormClosed += HandleFormClosed!;
+            toastForm.FormClosed += HandleFormClosed!;
+            indicatorForm.FormClosed += HandleFormClosed!;
+            vcForm.FormClosed += HandleFormClosed!;
+
+            if (!Properties.Settings.Default.StartMinimized)
+                vcForm.Show();
+        }
+
+        private readonly HotkeyEditorForm hkeditForm;
+        private readonly ToastForm toastForm;
+        private readonly VolumeIndicatorForm indicatorForm;
+        private readonly Form vcForm;
+        private int openForms;
+    }
+
     internal static class Program
     {
         /// <summary>
@@ -121,7 +171,7 @@ namespace VolumeControl
                         }
                     }
                 }
-#               else
+#else
                 FLog.Log.Debug("Binary was built in 'RELEASE' configuration.");
 
                 if (!Properties.Settings.Default.AllowMultipleInstances)
@@ -133,24 +183,15 @@ namespace VolumeControl
                         return;
                     }
                 }
-#               endif
+#endif
 
-                var hkeditForm = new HotkeyEditorForm(); // create the hotkey editor form
-                var toastForm = new ToastForm(); // create the toast notification form
-                var indicatorForm = new VolumeIndicatorForm(); // create the volume indicator form
+                VC_Static.Log.Info("Core systems initialization complete. Initializing Forms...");
 
-                if (toastForm.DisplayCorner == indicatorForm.DisplayCorner) // increase the amount of padding for the toastform so it doesn't overlap
-                    toastForm.DisplayPadding = new(toastForm.DisplayPadding.Width + indicatorForm.Size.Width + indicatorForm.DisplayPadding.Width, toastForm.DisplayPadding.Height);//.Width += ;
+                VCApplicationContext appContext = new();
 
-                var vcForm = new Form(hkeditForm, toastForm, indicatorForm); // create the main form
+                VC_Static.Log.Info("Form initialization complete. Starting application...");
 
-                toastForm.Owner = vcForm;
-
-                VC_Static.Log.Info("Initialization completed, starting the application...");
-
-                // DEBUG
-                Application.Run(new SettingsMenuForm());
-                //Application.Run(vcForm);
+                Application.Run(appContext);
 
                 VC_Static.Log.Info("Application exited normally.");
             }

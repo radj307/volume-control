@@ -152,10 +152,6 @@ namespace VolumeControl
             SaveAll();
             e.Cancel = false; // don't cancel the close event (allow the form to close)
             VC_Static.Log.Debug("Form closing event triggered.");
-            // clean up the tray icon
-            TrayIcon.Icon = null;
-            TrayIcon.Visible = false;
-            TrayIcon.Dispose();
 
             if (Visible) FadeOut(0.15, 8);
 
@@ -186,7 +182,7 @@ namespace VolumeControl
         #endregion Members
 
         #region Methods
-        private void FadeIn(double step, uint delay_ms)
+        public void FadeIn(double step, uint delay_ms)
         {
             if (Visible)
                 return;
@@ -202,7 +198,7 @@ namespace VolumeControl
                 this.Opacity += step;
             }
         }
-        private void FadeOut(double step, uint delay_ms)
+        public void FadeOut(double step, uint delay_ms)
         {
             if (!Visible)
                 return;

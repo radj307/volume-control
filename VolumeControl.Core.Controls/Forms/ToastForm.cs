@@ -5,7 +5,7 @@ using VolumeControl.Core.Events;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 
-namespace VolumeControl.Core.Controls
+namespace VolumeControl.Core.Controls.Forms
 {
     public partial class ToastForm : Form
     {

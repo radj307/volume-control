@@ -731,7 +731,6 @@ namespace VolumeControl
         }
 
         #endregion
-        private NotifyIcon TrayIcon;
         private ContextMenuStrip TrayContextMenu;
         private ToolStripMenuItem TrayContextMenuClose;
         private ToolStripSeparator TrayContextMenuSeparator;
@@ -775,5 +774,6 @@ namespace VolumeControl
         private FlowLayoutPanel flowLayoutPanel1;
         private ToolTip TooltipController;
         private VirtualButton.VButton vButton1;
+        public NotifyIcon TrayIcon;
     }
 }

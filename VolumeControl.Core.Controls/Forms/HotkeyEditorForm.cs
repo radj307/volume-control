@@ -1,6 +1,6 @@
 ﻿using VolumeControl.Core.Keyboard;
 
-namespace VolumeControl.Core.Controls
+namespace VolumeControl.Core.Controls.Forms
 {
     public partial class HotkeyEditorForm : Form
     {
@@ -10,7 +10,7 @@ namespace VolumeControl.Core.Controls
             InitializeComponent();
             bsKeysList.DataSource = new ValidKeys();
 
-            CancelButton = vButton1;
+            CancelButton = vbCancel;
         }
         #endregion Constructors
 

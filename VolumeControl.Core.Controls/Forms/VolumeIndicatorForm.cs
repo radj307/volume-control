@@ -164,9 +164,10 @@ namespace VolumeControl.Core.Controls.Forms
             {
                 Visible = true;
                 WindowState = FormWindowState.Normal;
-                User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
-                    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
-                );
+                User32.ShowWindow(this.Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+                //User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
+                //    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
+                //);
                 UpdatePosition();
                 tTimeout.Start();
             }
