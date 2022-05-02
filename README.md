@@ -20,11 +20,13 @@ See [CLI usage](https://github.com/radj307/volume-control#volumecontrolcli) for 
  2. Place `VolumeControl.exe` somewhere and launch it.  
 
 ## A Note on Windows Defender / Microsoft Defender Smartscreen
-__The first time you launch the program, you'll be greeted with this popup:__  
+Make sure you unblock `VolumeControl.exe` from the properties menu before starting it.  
+ 1. R+Click on `VolumeControl.exe` and select *Properties* in the context menu.  
+ 2. Check the box next to *Unblock:*  
+ ![](https://i.imgur.com/NMI4m4F.png)  
+ 3. Click **Ok** to save the changes.  
 
-![image](https://user-images.githubusercontent.com/1927798/161876965-4092ec80-3302-45c5-8e9d-9668b27081f9.png)
-
-This is because Microsoft charges >$300 per year for a publishing certificate in order to ~~rake in cash~~ _improve security_; since I don't have that kind of money to blow on Microsoft, run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) if you're unsure.
+This is because Microsoft charges >$300 per year for a publishing certificate in order to ~~rake in cash~~ _improve security_; since I don't have that kind of money to blow on Microsoft, run it through [VirusTotal](https://www.virustotal.com/gui/home/upload) or look through the code yourself if you're unsure.
 
 
 # Getting Started
