@@ -8,14 +8,37 @@ namespace VolumeControl
 {
     internal class VCApplicationContext : ApplicationContext
     {
+        /// <summary>
+        /// Handles <see cref="System.Windows.Forms.Form.FormClosed"/> events.<br/>
+        /// This kills the associated thread and decrements the <see cref="openForms"/> counter.
+        /// </summary>
+        /// <remarks>These events are only triggered once the <see cref="System.Windows.Forms.Form.FormClosing"/> event has returned <b>without setting Cancel to true.</b></remarks>
+        /// <param name="sender">The form that sent the event.</param>
+        /// <param name="e">The event arguments associated with this event.</param>
         private void HandleFormClosed(object sender, FormClosedEventArgs e)
         {
             if (sender is Form form)
             { // hide the tray icon
+                VC_Static.Log.Info("Closing the main form.");
+                if (form.TrayIcon.Container != null)
+                {
+                    VC_Static.Log.Debug($"The main form's tray icon contains {form.TrayIcon.Container.Components.Count} components to be disposed of.");
+                    foreach (object? item in form.TrayIcon.Container.Components)
+                    {
+                        if (item == null || item.Equals(form.TrayIcon))
+                            continue;
+                        if (item is IDisposable disposableItem)
+                            disposableItem.Dispose();
+                        else
+                            VC_Static.Log.FollowupIf(Log.Enum.EventType.DEBUG, $"- Found Non-Disposable Object Type '{item.GetType().FullName}'!");
+                    }
+                }
                 form.TrayIcon.Visible = false;
                 form.TrayIcon.Icon = null;
                 form.TrayIcon.Dispose();
+                VC_Static.Log.Debug("Finished cleaning up the tray icon.");
             }
+            VC_Static.Log.Info($"Closing '{sender.GetType().FullName}', the number of open forms is now {openForms - 1}");
             if (Interlocked.Decrement(ref openForms) == 0)
                 ExitThread();
         }

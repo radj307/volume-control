@@ -72,10 +72,7 @@ namespace VolumeControl
             nToastTimeoutInterval.Value = Properties.Settings.Default.ToastTimeoutInterval;
             cbReloadOnHotkey.Checked = Properties.Settings.Default.ReloadOnHotkey;
             VC_Static.VolumeStep = nlVolumeStep.Value = Properties.Settings.Default.VolumeStep;
-
-            cbVolumeIndicatorEnabled.CheckedChanged -= cbVolumeIndicatorEnabled_CheckedChanged!;
             cbVolumeIndicatorEnabled.Checked = Properties.Settings.Default.VolumeNotificationEnabled;
-            cbVolumeIndicatorEnabled.CheckedChanged += cbVolumeIndicatorEnabled_CheckedChanged!;
 
             nVolumeIndicatorTimeoutInterval.ValueChanged -= nVolumeIndicatorTimeoutInterval_ValueChanged!;
             nVolumeIndicatorTimeoutInterval.Value = Convert.ToDecimal(Core.Controls.Properties.Settings.Default.VolumeFormTimeoutInterval);
@@ -511,7 +508,7 @@ namespace VolumeControl
         /// Handles check/uncheck events for the toast 'Enable' checkbox
         /// </summary>
         private void cbToastEnabled_CheckedChanged(object sender, EventArgs e)
-            => nToastTimeoutInterval.Enabled = toast.Visible = toast.Enabled = cbToastEnabled.Checked;
+            => nToastTimeoutInterval.Enabled = toast.Enabled = cbToastEnabled.Checked;
         /// <summary>
         /// Handles value change events for the toast 'Timeout' number selector.
         /// </summary>
@@ -582,7 +579,7 @@ namespace VolumeControl
                 WindowState = FormWindowState.Minimized;
         }
         private void cbVolumeIndicatorEnabled_CheckedChanged(object sender, EventArgs e)
-            => volumeIndicator.Suspended = cbVolumeIndicatorEnabled.Checked;
+            => nVolumeIndicatorTimeoutInterval.Enabled = volumeIndicator.Suspended = cbVolumeIndicatorEnabled.Checked;
         private void nVolumeIndicatorTimeoutInterval_ValueChanged(object sender, EventArgs e)
             => volumeIndicator.TimeoutInterval = Convert.ToInt32(nVolumeIndicatorTimeoutInterval.Value);
         /// <summary>

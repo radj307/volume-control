@@ -17,13 +17,23 @@ namespace VolumeControl.Log
             Endpoint = endpoint;
             EventTypeFilter = eventTypeFilter;
             Endpoint.Reset();
+            LastEventType = EventType.NONE;
         }
         #endregion Constructors
 
         #region InterfaceImplementation
+        /// <summary>
+        /// Gets or sets the log endpoint object used for output.
+        /// </summary>
         public IEndpoint Endpoint { get; set; }
+        /// <summary>
+        /// Gets or sets the bitfield filter for event types.
+        /// </summary>
         public EventType EventTypeFilter { get; set; }
-
+        /// <summary>
+        /// Gets the last type of event to be printed to the log.
+        /// </summary>
+        public EventType LastEventType { get; private set; }
         public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
         public static string MakeBlankTimestamp() => Timestamp.Blank();
@@ -59,7 +69,7 @@ namespace VolumeControl.Log
         {
             if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))
                 return;
-            WriteWithTimestamp(MakeTimestamp(eventType), lines);
+            WriteWithTimestamp(MakeTimestamp(LastEventType = eventType), lines);
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> message to the log endpoint.
@@ -147,6 +157,17 @@ namespace VolumeControl.Log
         /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
         public void Followup(params object?[] lines) => Append(lines);
+        /// <summary>
+        /// Write a formatted followup message without a timestamp or event type to the log endpoint.
+        /// </summary>
+        /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
+        /// <param name="eventType">Message is only printed if this was the last event type to be printed.</param>
+        /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
+        public void FollowupIf(EventType eventType, params object?[] lines)
+        {
+            if (eventType.Equals(LastEventType))
+                Append(lines);
+        }
         #endregion Methods
     }
 }
