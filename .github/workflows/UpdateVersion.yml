@@ -12,6 +12,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref:          '${{ github.ref }}'
+          fetch-depth:  0
       - name:   Update Version Numbers and Push Changes
         run:    |
                 cd ${{github.workspace}}
