@@ -125,6 +125,7 @@ namespace VolumeControl
                     {
                         UpgradeAllSettings();
                         Properties.Settings.Default.UpgradeSettings = false; //< set to false now that we have successfully upgraded the settings
+                        Properties.Settings.Default.LastMixerVisibleState = false; //< this may fix an annoying bug that sometimes happens with new releases
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
                     }
