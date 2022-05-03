@@ -46,18 +46,26 @@ This is because Microsoft charges >$300 per year for a publishing certificate in
 
 ## VolumeControl
 Volume Control usually lives in the System Tray to keep it out of your way.  
-To show the main window, double-click on the system tray icon.  
+![Volume Control UI (v4.0.6)](https://i.imgur.com/hy25aek.png)  
 
-All of the most important settings are exposed through the user interface, however there are many more configurable options available by editing the config file located in `<USER>\AppData\Local\VolumeControl\<LONG_ASS_GUID>\<VERSION>\user.config`
+All of the most important settings are exposed through the user interface, however there are many more configurable options available by editing the config file located in `<USER>\AppData\Local\VolumeControl\<LONG_ASS_GUID>\<VERSION>\user.config`.  
 
-### Toast Notification
-The target list window is an optional toast notification that pops up when using the _Next Target_, _Previous Target_, and _Toggle Target Lock_ hotkeys. It disappears after a configurable amount of time _(Anywhere from 100ms to 1min)_.
+The main window also has its own version of the windows volume mixer, which allows you to toggle mute and adjust the volume of any process directly using the keyboard or mouse.  
+
+### Notifications
+Volume Control adds notifications to facilitate usage from the background.  
+You can turn these off, or change the amount of time that they appear for in the main window.  
 
 It shows which target is currently selected, and changes color depending on whether the target is locked.
 
 ![Toast Notification in v4.0.0](https://i.imgur.com/IiXC3Co.png)  
 Clicking on a target in the list will select that target.
 
+There is also an optional separate volume indicator as of version [4.0.4](https://github.com/radj307/volume-control/releases/tag/4.0.4) that shows the volume of the selected process.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://i.imgur.com/CBPwiFP.png)  
+The positioning of the notifications can be changed by editing the `user.config` file; a GUI method may exist in the future if people want it.  
+
+ 
 ## VolumeControlCLI
 For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
 
