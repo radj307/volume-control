@@ -689,7 +689,7 @@ namespace VolumeControl
             // 
             this.vButton1.Click += new VirtualButton.VirtualClickEventHandler(this.VbCancel_Click);
             // 
-            // Form
+            // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -700,7 +700,7 @@ namespace VolumeControl
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MdiChildrenMinimizedAnchorBottom = false;
-            this.Name = "Form";
+            this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.Shown += new System.EventHandler(this.Form_Load);
             this.Resize += new System.EventHandler(this.Form_Resize);

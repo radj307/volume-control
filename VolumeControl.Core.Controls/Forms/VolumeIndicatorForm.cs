@@ -30,7 +30,7 @@ namespace VolumeControl.Core.Controls.Forms
 
             VC_Static.HotkeyPressed += delegate (object? sender, HotkeyPressedEventArgs e)
             {
-                if (_suspended)
+                if (Suspended)
                     return;
                 if (e.Subject == Core.Enum.VolumeControlSubject.VOLUME)
                 {
@@ -160,17 +160,17 @@ namespace VolumeControl.Core.Controls.Forms
         }
         public new void Show()
         {
-            if (!_suspended)
-            {
-                Visible = true;
-                WindowState = FormWindowState.Normal;
-                User32.ShowWindow(this.Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
-                //User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
-                //    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
-                //);
-                UpdatePosition();
-                tTimeout.Start();
-            }
+            if (Suspended)
+                return;
+
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            User32.ShowWindow(this.Handle, User32.ECmdShow.SW_SHOWNOACTIVATE);
+            //User32.SetWindowPos(this.Handle, User32.HWND_TOP, Location.X, Location.Y, Size.Width, Size.Height,
+            //    User32.EUFlags.SWP_NOACTIVATE | User32.EUFlags.SWP_NOMOVE | User32.EUFlags.SWP_NOREPOSITION
+            //);
+            UpdatePosition();
+            tTimeout.Start();
         }
 
         /// <summary>
@@ -190,10 +190,11 @@ namespace VolumeControl.Core.Controls.Forms
 
         public void UpdateIndicator()
         {
+            if (Suspended)
+                return;
+
             tbLevel.ValueChanged -= tbLevel_ValueChanged!;
             cbMuted.CheckedChanged -= cbMuted_CheckedChanged!;
-
-
 
             // set the volume label and the level
             labelVolume.Text = (Level = Convert.ToInt32(TargetVolume)).ToString();
