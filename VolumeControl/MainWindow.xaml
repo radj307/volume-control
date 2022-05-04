@@ -1,0 +1,38 @@
+﻿<Window x:Name="VolumeControlWindow" x:Class="VolumeControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VolumeControl"
+        xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
+        mc:Ignorable="d"
+        Title="Volume Control" Height="479" Width="399">
+    <Window.DataContext>
+        <RelativeSource Mode="Self"/>
+    </Window.DataContext>
+    <Grid x:Name="grid">
+        <DataGrid
+            x:Name="processDataGrid"
+            d:ItemsSource="{Binding BindsDirectlyToSource=True, Path=Sessions}"
+            Margin="0,224,0,0"
+            HeadersVisibility="Column"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PID" Binding="{Binding PID}"/>
+                <DataGridTextColumn Header="Process Name" Width="*" Binding="{Binding ProcessName}"/>
+                <DataGridCheckBoxColumn Header="Muted" Width="50" Binding="{Binding Muted}"/>
+                <DataGridTextColumn Header="Volume" Width="50" Binding="{Binding Volume}"/>
+                <DataGridTemplateColumn Header="" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="HandleSelectProcess">Select</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.DataContext>
+                <core:AudioAPI x:Name="audioAPI"/>
+            </DataGrid.DataContext>
+        </DataGrid>
+    </Grid>
+</Window>

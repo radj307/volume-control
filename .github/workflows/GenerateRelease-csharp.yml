@@ -1,0 +1,72 @@
+# This is a heavily modified version of my GenerateRelease.yml script for C++, written for building windows-only C# applications using .NET
+name: Generate Release
+
+on:
+  workflow_run:
+    workflows:
+      - 'Update Version'
+    types:
+      - 'completed'
+
+# Configuration Type
+env:
+  BUILD_TYPE: 'Release'
+
+jobs:
+  build-release: # Only run on successful version update action
+    runs-on:  windows-2022
+    if:       ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      DOTNET_NOLOGO:                true
+      DOTNET_CLI_TELEMETRY_OPTOUT:  true
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref:          '${{ github.ref }}'
+        fetch-depth:  0
+    # Setup dependencies
+    - uses: actions/setup-dotnet@main
+      with:
+        dotnet-version: 6.0.x
+
+    - name:   Change Directory
+      run:    cd "${{github.workspace}}"
+
+    - name:   'Build VolumeControl Binary'
+      run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+
+    - name:   'Create Staging Directory'
+      run:    mkdir "STAGING"
+
+    - name:   Stage Files
+      run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+
+    - name:   Upload Artifacts
+      uses:   actions/upload-artifact@v2
+      with:
+        name: build-windows
+        path: '${{github.workspace}}/STAGING/*'
+        if-no-files-found: error
+        
+
+  # Create the release using the uploaded artifact on github:
+  create-release:
+    needs:    build-release
+    runs-on:  ubuntu-latest
+
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path:  ${{github.workspace}}
+        
+    - run:  ls -lAghR
+
+    - name: 'Create Release'
+      uses: softprops/action-gh-release@v1
+      with:
+        draft:                    true
+        fail_on_unmatched_files:  true
+        files:      |
+                    ${{github.workspace}}/build-windows/VolumeControl.exe
