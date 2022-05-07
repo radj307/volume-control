@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VolumeControl"
+        xmlns:Controls="clr-namespace:VolumeControl.Controls" x:Name="SettingsWindow" x:Class="VolumeControl.Settings"
+        mc:Ignorable="d"
+        Title="Settings" Height="455" Width="800">
+    <Grid>
+        <WrapPanel Margin="0,44,0,0">
+            <Controls:IntegralUpDown/>
+        </WrapPanel>
+        <Label x:Name="labelVersion" Content="v0.0.0" Margin="0,10,10,0" VerticalAlignment="Top" FontSize="10" HorizontalAlignment="Right" Width="35" HorizontalContentAlignment="Center" UseLayoutRounding="True"/>
+        <Button x:Name="bApply" Content="Apply" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="10,0,10,0" Height="23"/>
+        <Button x:Name="bApply_Copy" Content="Reset to Default" HorizontalAlignment="Left" Margin="643,10,0,0" VerticalAlignment="Top" Padding="10,0,10,0" Height="23"/>
+    </Grid>
+</Window>
