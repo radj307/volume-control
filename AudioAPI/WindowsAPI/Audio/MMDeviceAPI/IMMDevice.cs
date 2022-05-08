@@ -1,7 +1,6 @@
 ﻿using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using AudioAPI.WindowsAPI.Interfaces;
 using AudioAPI.WindowsAPI.Types;
-using System.Data;
 using System.Runtime.InteropServices;
 
 namespace AudioAPI.WindowsAPI.Audio.MMDeviceAPI

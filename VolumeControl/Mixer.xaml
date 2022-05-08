@@ -1,31 +1,116 @@
-﻿<Window x:Name="VolumeControlWindow" x:Class="VolumeControl.MainWindow"
+﻿<Window x:Class="VolumeControl.Mixer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VolumeControl"
         xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
+        xmlns:Controls="clr-namespace:VolumeControl.Core.Controls;assembly=VolumeControl.WPF"
+        xmlns:Properties="clr-namespace:VolumeControl.Properties"
         mc:Ignorable="d"
-        Title="Volume Control" Height="479" Width="399">
-    <Window.DataContext>
-        <RelativeSource Mode="Self"/>
-    </Window.DataContext>
+        Title="Volume Control"
+        Left="{Binding Source=Properties:Settings.Default, Path=WindowPosition.X, BindsDirectlyToSource=True}"
+        Top="{Binding Source=Properties:Settings.Default, Path=WindowPosition.Y, BindsDirectlyToSource=True}"
+        Height="200"
+        Width="400"
+        DataContext="{RelativeSource Self}"
+        WindowStyle="SingleBorderWindow" d:DesignWidth="394.333" TabIndex="4">
     <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="SettingsMenu"
+              UsesItemContainerTemplate="True"
+              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SettingsMenuIsOpen, BindsDirectlyToSource=True}"/>
+        <Grid x:Name="gridRow0" 
+              Grid.Row="0"
+              Margin="3">
+            <Button x:Name="bOpenSettings"
+                    Content="Open Settings"
+                    Margin="295,0,0,0"
+                    Padding="3,1,3,1"
+                    Height="23"
+                    HorizontalAlignment="Left"
+                    Width="90"
+                    VerticalAlignment="Center"
+                    Click="Handle_OpenSettingsClick" TabIndex="4"/>
+            <Button x:Name="bReload"
+                    Content="Reload"
+                    HorizontalAlignment="Left"
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Top"
+                    Padding="3,1,3,1"
+                    Height="23"
+                    Click="Handle_ReloadClick" TabIndex="0"/>
+            <CheckBox x:Name="cbReloadOnHotkey"
+                      Content="On Hotkey"
+                      HorizontalAlignment="Left"
+                      Margin="53,4,0,0"
+                      VerticalAlignment="Top"
+                      IsChecked="{Binding ElementName=audioAPI, Path=ReloadOnHotkey, BindsDirectlyToSource=True}" TabIndex="1"/>
+            <CheckBox x:Name="cbReloadOnInterval"
+                      Content="Automatic"
+                      HorizontalAlignment="Left"
+                      Margin="139,4,0,0"
+                      VerticalAlignment="Top"
+                      IsChecked="{Binding ElementName=audioAPI, Path=ReloadOnInterval, BindsDirectlyToSource=True}" TabIndex="2"/>
+            <Controls:NumericUpDown HorizontalAlignment="Left"
+                                    Margin="220,0,0,0"
+                                    VerticalAlignment="Top"
+                                    Width="64"
+                                    Height="23"
+                                    ToolTip="Reload Interval in Milliseconds"
+                                    TabIndex="3"
+                                    MaxDecimalPlaces="0"
+                                    IsEnabled="{Binding ElementName=cbReloadOnInterval, Path=IsChecked, BindsDirectlyToSource=True}"
+                                    MinValue="{Binding ElementName=audioAPI, Path=ReloadIntervalMin}"
+                                    MaxValue="{Binding ElementName=audioAPI, Path=ReloadIntervalMax}"
+                                    Value="{Binding ElementName=audioAPI, Path=ReloadInterval, BindsDirectlyToSource=True}"/>
+        </Grid>
+        <GridSplitter Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    Height="3"
+                    VerticalAlignment="Bottom"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto" UseLayoutRounding="True"/>
         <DataGrid
             x:Name="processDataGrid"
-            d:ItemsSource="{Binding BindsDirectlyToSource=True, Path=Sessions}"
-            Margin="0,224,0,0"
+            d:ItemsSource="{Binding Sessions, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True}"
+            Grid.Row="2"
             HeadersVisibility="Column"
-            AutoGenerateColumns="False">
+            AutoGenerateColumns="False"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Disabled">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="PID" Binding="{Binding PID}"/>
-                <DataGridTextColumn Header="Process Name" Width="*" Binding="{Binding ProcessName}"/>
-                <DataGridCheckBoxColumn Header="Muted" Width="50" Binding="{Binding Muted}"/>
-                <DataGridTextColumn Header="Volume" Width="50" Binding="{Binding Volume}"/>
-                <DataGridTemplateColumn Header="" Width="50">
+                <DataGridTextColumn Header="PID" Binding="{Binding PID}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Process Name" Width="*" Binding="{Binding ProcessName}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Muted" Width="Auto" Binding="{Binding Muted, BindsDirectlyToSource=True}"/>
+                <DataGridTemplateColumn Header="" Width="Auto" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="HandleSelectProcess">Select</Button>
+                            <RepeatButton Content="-"
+                                          Padding="3,1,3,1"
+                                          Click="Handle_VolumeDownClick"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Volume" Width="Auto" Binding="{Binding Volume, BindsDirectlyToSource=True}"/>
+                <DataGridTemplateColumn Header="" Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <RepeatButton Content="+"
+                                          Padding="3,1,3,1"
+                                          Click="Handle_VolumeUpClick"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="" Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Handle_ProcessSelectClick" 
+                                    Content="Select"
+                                    Padding="3,1,3,1"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -34,10 +119,5 @@
                 <core:AudioAPI x:Name="audioAPI"/>
             </DataGrid.DataContext>
         </DataGrid>
-        <Menu x:Name="SettingsMenu" UsesItemContainerTemplate="True" Visibility="Collapsed"/>
-        <Button x:Name="button" Content="Open Settings" Margin="299,10,10,430" Padding="3,1,3,1" Height="23"/>
-        <Button x:Name="button1" Content="Reload" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="3,1,3,1" Height="23"/>
-        <CheckBox x:Name="checkBox" Content="On Hotkey" HorizontalAlignment="Left" Margin="59,14,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox1" Content="Auto" HorizontalAlignment="Left" Margin="141,14,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

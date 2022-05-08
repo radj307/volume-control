@@ -11,10 +11,4 @@
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Windows.Forms.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

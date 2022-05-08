@@ -1,38 +1,42 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AudioAPI.Interfaces;
+using AudioAPI.Objects;
+using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using VolumeControl.Core;
 
 namespace VolumeControl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Mixer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Mixer : Window
     {
-        public MainWindow()
+        public Mixer()
         {
+            StepSize = 2;
             InitializeComponent();
             processDataGrid.ItemsSource = audioAPI.Sessions;
         }
 
-        private void HandleSelectProcess(object sender, RoutedEventArgs e)
+        private int StepSize { get; set; }
+        private bool SettingsMenuIsOpen { get; set; }
+        private IAudioSession CurrentlySelectedGridRow => (IAudioSession)processDataGrid.CurrentCell.Item;
+        private IProcess CurrentSession => audioAPI.SelectedSession;
+
+        private void Handle_OpenSettingsClick(object sender, RoutedEventArgs e) => SettingsMenuIsOpen = !SettingsMenuIsOpen;
+
+        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => audioAPI.RefreshSessions();
+
+        private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
-            for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
-            {
-            }
+            if (CurrentlySelectedGridRow is AudioSession session)
+                audioAPI.SelectedSession = session;
         }
+        private void Handle_VolumeDownClick(object sender, RoutedEventArgs e)
+            => CurrentlySelectedGridRow.Volume -= StepSize;
+        private void Handle_VolumeUpClick(object sender, RoutedEventArgs e)
+            => CurrentlySelectedGridRow.Volume += StepSize;
     }
 }

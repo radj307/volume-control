@@ -1,44 +1,12 @@
-﻿using AudioAPI;
+﻿using AudioAPI.API;
 using AudioAPI.Interfaces;
-using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
-using System.Collections;
+using AudioAPI.Objects;
+using AudioAPI.Objects.Virtual;
+using VolumeControl.Core.Events;
+using System.Timers;
 
 namespace VolumeControl.Core
 {
-    public class BindableAudioSessionList : ICollection<AudioSession>, IEnumerable<AudioSession>, IEnumerable, IList<AudioSession>, IReadOnlyCollection<AudioSession>, IReadOnlyList<AudioSession>, ICollection, IList
-    {
-        public List<AudioSession> List = new();
-
-        public AudioSession this[int index] { get => ((IList<AudioSession>)List)[index]; set => ((IList<AudioSession>)List)[index] = value; }
-        object? IList.this[int index] { get => ((IList)List)[index]; set => ((IList)List)[index] = value; }
-
-        public int Count => ((ICollection<AudioSession>)List).Count;
-
-        public bool IsReadOnly => ((ICollection<AudioSession>)List).IsReadOnly;
-
-        public bool IsSynchronized => ((ICollection)List).IsSynchronized;
-
-        public object SyncRoot => ((ICollection)List).SyncRoot;
-
-        public bool IsFixedSize => ((IList)List).IsFixedSize;
-
-        public void Add(AudioSession item) => ((ICollection<AudioSession>)List).Add(item);
-        public int Add(object? value) => ((IList)List).Add(value);
-        public void Clear() => ((ICollection<AudioSession>)List).Clear();
-        public bool Contains(AudioSession item) => ((ICollection<AudioSession>)List).Contains(item);
-        public bool Contains(object? value) => ((IList)List).Contains(value);
-        public void CopyTo(AudioSession[] array, int arrayIndex) => ((ICollection<AudioSession>)List).CopyTo(array, arrayIndex);
-        public void CopyTo(Array array, int index) => ((ICollection)List).CopyTo(array, index);
-        public IEnumerator<AudioSession> GetEnumerator() => ((IEnumerable<AudioSession>)List).GetEnumerator();
-        public int IndexOf(AudioSession item) => ((IList<AudioSession>)List).IndexOf(item);
-        public int IndexOf(object? value) => ((IList)List).IndexOf(value);
-        public void Insert(int index, AudioSession item) => ((IList<AudioSession>)List).Insert(index, item);
-        public void Insert(int index, object? value) => ((IList)List).Insert(index, value);
-        public bool Remove(AudioSession item) => ((ICollection<AudioSession>)List).Remove(item);
-        public void Remove(object? value) => ((IList)List).Remove(value);
-        public void RemoveAt(int index) => ((IList<AudioSession>)List).RemoveAt(index);
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => ((System.Collections.IEnumerable)List).GetEnumerator();
-    }
     public class AudioAPI
     {
         public AudioAPI()
@@ -51,11 +19,82 @@ namespace VolumeControl.Core
             RefreshDevices();
             _selectedDevice = DefaultDevice;
             RefreshSessions();
+            _selectedSession = NullSession;
+
+            ReloadTimer.Elapsed += (sender, e) =>
+            {
+                RefreshSessions();
+            };
         }
 
+        #region Events
+        /// <summary>
+        /// Triggered when the device list is refreshed.
+        /// </summary>
+        public event EventHandler DeviceListRefreshed
+        {
+            add => DeviceListRefreshEvent += value;
+            remove => DeviceListRefreshEvent -= value;
+        }
+        /// <summary>
+        /// Triggered when the session list is refreshed.
+        /// </summary>
+        public event EventHandler SessionListRefreshed
+        {
+            add => ProcessListRefreshEvent += value;
+            remove => ProcessListRefreshEvent -= value;
+        }
+        /// <summary>
+        /// Triggered when the selected device is changed.
+        /// </summary>
+        public event DeviceSwitchEventHandler SelectedDeviceSwitched
+        {
+            add => DeviceSwitchEvent += value;
+            remove => DeviceSwitchEvent -= value;
+        }
+        /// <summary>
+        /// Triggered when the selected session is changed.
+        /// </summary>
+        public event SessionSwitchEventHandler SelectedSessionSwitched
+        {
+            add => SessionSwitchEvent += value;
+            remove => SessionSwitchEvent -= value;
+        }
+
+        private event EventHandler? DeviceListRefreshEvent = null;
+        private event EventHandler? ProcessListRefreshEvent = null;
+        private event DeviceSwitchEventHandler? DeviceSwitchEvent = null;
+        private event SessionSwitchEventHandler? SessionSwitchEvent = null;
+
+        private void NotifyDeviceListRefresh(EventArgs e) => DeviceListRefreshEvent?.Invoke(this, e);
+        private void NotifyProcessListRefresh(EventArgs e) => ProcessListRefreshEvent?.Invoke(this, e);
+        private void NotifyDeviceSwitch(SwitchEventArgs<IAudioDevice> e) => DeviceSwitchEvent?.Invoke(this, e);
+        private void NotifySessionSwitch(SwitchEventArgs<IProcess> e) => SessionSwitchEvent?.Invoke(this, e);
+        #endregion Events
+
         public static readonly VirtualAudioDevice NullDevice = new();
-        public static readonly VirtualAudioProcess NullSession = new();
-        public static readonly AudioDevice DefaultDevice = new(Volume.GetDefaultDevice());
+        public static readonly VirtualAudioSession NullSession = new();
+        internal static readonly AudioDevice DefaultDevice = new(WrapperAPI.GetDefaultDevice());
+        private static readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
+
+        public static bool ReloadOnHotkey
+        {
+            get;
+            set;
+        }
+        public static bool ReloadOnInterval
+        {
+            get => ReloadTimer.Enabled;
+            set => ReloadTimer.Enabled = value;
+        }
+        /// <inheritdoc cref="Timer.Interval"/>
+        public static double ReloadInterval
+        {
+            get => ReloadTimer.Interval;
+            set => ReloadTimer.Interval = value;
+        }
+        public static int ReloadIntervalMin => 0;
+        public static int ReloadIntervalMax => 120000;
 
 
         public readonly List<AudioDevice> Devices;
@@ -63,21 +102,33 @@ namespace VolumeControl.Core
         public IAudioDevice SelectedDevice
         {
             get => _selectedDevice;
-            private set
+            set
             {
                 Sessions.Clear();
+                var prev = _selectedDevice;
                 _selectedDevice = value;
                 RefreshSessions();
+                NotifyDeviceSwitch(new(prev, _selectedDevice));
             }
         }
 
 
         public readonly BindableAudioSessionList Sessions;
-        public IProcess SelectedSession { get; private set; }
+        private IProcess _selectedSession;
+        public IProcess SelectedSession
+        {
+            get => _selectedSession;
+            set
+            {
+                var prev = _selectedSession;
+                _selectedSession = value;
+                NotifySessionSwitch(new(prev, _selectedSession));
+            }
+        }
 
         public void RefreshDevices()
         {
-            var devices = Volume.GetAllDevices();
+            var devices = WrapperAPI.GetAllDevices();
             var sel = SelectedDevice;
 
             // remove all devices that aren't in the new list. (exited/stopped)
@@ -89,22 +140,35 @@ namespace VolumeControl.Core
             {
                 SelectedDevice = NullDevice;
             }
+            NotifyDeviceListRefresh(EventArgs.Empty);
         }
 
         public void RefreshSessions()
         {
-            var sessions = Volume.GetAllSessions();
+            var sessions = WrapperAPI.GetAllSessions();
             var sel = SelectedSession;
 
-            // remove all sessions that aren't in the new list. (exited/stopped)
-            Sessions.List.RemoveAll(session => !sessions.Any(s => s.Equals(session)));
-            // add all sessions that aren't in the current list. (new)
-            Sessions.List.AddRange(sessions.Where(session => !Sessions.Any(s => s.Equals(session))));
+            foreach (var session in Sessions.List)
+            {
+                if (!sessions.Any(s => s.Equals(session)))
+                {
+                    Sessions.Remove(session); //< remove all sessions in the active list that have expired
+                }
+            }
+
+            foreach (var session in sessions)
+            {
+                if (!Sessions.List.Any(s => s.Equals(session)))
+                {
+                    Sessions.List.Add(session);
+                }
+            }
 
             if (sel != NullSession && !Sessions.Contains(sel))
             {
                 SelectedSession = NullSession;
             }
+            NotifyProcessListRefresh(EventArgs.Empty);
         }
     }
 }

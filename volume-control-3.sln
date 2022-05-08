@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Log", "Volume
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{EA71382B-1E9F-4E18-92A9-933DE01B1025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeControl\VolumeControl.csproj", "{EA71382B-1E9F-4E18-92A9-933DE01B1025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{F230C26A-3FB5-4705-95B8-BDAB7C703288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{F230C26A-3FB5-4705-95B8-BDAB7C703288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.WPF", "VolumeControl.WPF\VolumeControl.WPF.csproj", "{69A59FC1-1378-45CB-B001-5781D3E8D8D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{F230C26A-3FB5-4705-95B8-BDAB7C703288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F230C26A-3FB5-4705-95B8-BDAB7C703288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F230C26A-3FB5-4705-95B8-BDAB7C703288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A59FC1-1378-45CB-B001-5781D3E8D8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A59FC1-1378-45CB-B001-5781D3E8D8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A59FC1-1378-45CB-B001-5781D3E8D8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A59FC1-1378-45CB-B001-5781D3E8D8D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,8 @@
-﻿using AudioAPI.WindowsAPI.Audio;
+﻿using AudioAPI.WindowsAPI;
+using AudioAPI.WindowsAPI.Audio;
 using System.Runtime.InteropServices;
 
-namespace AudioAPI
+namespace AudioAPI.Implementations
 {
     /// <summary>
     /// Wrapper object for the <see cref="ISimpleAudioVolume"/> interface that handles memory cleanup. <br/>
