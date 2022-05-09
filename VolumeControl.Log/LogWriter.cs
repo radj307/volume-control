@@ -1,4 +1,5 @@
-﻿using VolumeControl.Log.Endpoints;
+﻿using System.Runtime.CompilerServices;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
@@ -64,8 +65,11 @@ namespace VolumeControl.Log
             }
         }
         public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
+
+        public string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
+
         #region WriteEvent
-        public void WriteEvent(EventType eventType, params object?[] lines)
+        public void WriteEvent(EventType eventType, object?[] lines)
         {
             if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))
                 return;
@@ -104,9 +108,9 @@ namespace VolumeControl.Log
             if (!Endpoint.Enabled)
                 return;
             if (message == null)
-                WriteEvent(ev, exception);
+                WriteEvent(ev, new[] { exception });
             else
-                WriteEvent(ev, message, exception);
+                WriteEvent(ev, new[] { message, exception });
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> exception message to the log endpoint.
@@ -166,6 +170,17 @@ namespace VolumeControl.Log
         public void FollowupIf(EventType eventType, params object?[] lines)
         {
             if (eventType.Equals(LastEventType))
+                Append(lines);
+        }
+        /// <summary>
+        /// Write a formatted followup message without a timestamp or event type to the log endpoint.
+        /// </summary>
+        /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
+        /// <param name="predicate">A predicate that accepts the <see cref="LastEventType"/> to use as the condition.</param>
+        /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
+        public void FollowupIf(Predicate<EventType> predicate, params object?[] lines)
+        {
+            if (predicate(LastEventType))
                 Append(lines);
         }
         #endregion Methods

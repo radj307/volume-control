@@ -23,8 +23,9 @@ namespace VolumeControl.Log
         {
             get
             {
-                if (!_initialized) throw new Exception("Cannot write log messages; Log wasn't initialized! (Call FLog.Initialize() first!)");
-                else return _log;
+                if (!_initialized)
+                    Initialize();
+                return _log;
             }
             internal set => _log = value;
         }
@@ -36,13 +37,15 @@ namespace VolumeControl.Log
         {
             get
             {
-                if (!_initialized) throw new Exception("Cannot check if the log is enabled; Log wasn't initialized! (Call FLog.Initialize() first!)");
-                else return _log.Endpoint.Enabled;
+                if (!_initialized)
+                    Initialize();
+                return _log.Endpoint.Enabled;
             }
             set
             {
-                if (!_initialized) throw new Exception("Cannot enable or disable log; Log wasn't initialized! (Call FLog.Initialize() first!)");
-                else _log.Endpoint.Enabled = value;
+                if (!_initialized)
+                    Initialize();
+                _log.Endpoint.Enabled = value;
             }
         }
         /// <summary>

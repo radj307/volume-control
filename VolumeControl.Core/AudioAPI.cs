@@ -6,6 +6,8 @@ using VolumeControl.Core.Events;
 using System.Timers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Log.Properties;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core
 {
@@ -24,11 +26,28 @@ namespace VolumeControl.Core
             _selectedSession = NullSession;
             _target = "";
 
+            // load settings
+            Target = Settings.Target;
+            ReloadInterval = Settings.ReloadInterval_ms > 0d ? Settings.ReloadInterval_ms : Settings.ReloadInterval_ms_Default;
+            // add an event handler to the reload timer
             ReloadTimer.Elapsed += (sender, e) =>
             {
                 RefreshSessions();
             };
         }
+        ~AudioAPI()
+        {
+            Log.Info("Saving AudioAPI settings to the configuration file...");
+            // save settings
+            Settings.ReloadInterval_ms = ReloadInterval;
+            Settings.Target = Target;
+            Settings.Save();
+            Settings.Reload();
+            Log.Followup("Done.");
+        }
+
+        private static CoreSettings Settings => CoreSettings.Default;
+        private static LogWriter Log => FLog.Log;
 
         #region Events
         /// <summary>
@@ -102,14 +121,23 @@ namespace VolumeControl.Core
             get => ReloadTimer.Enabled;
             set => ReloadTimer.Enabled = value;
         }
-        /// <inheritdoc cref="Timer.Interval"/>
+        /// <inheritdoc cref="System.Timers.Timer.Interval"/>
+        /// <remarks><b>This property automatically clamps incoming values between <see cref="ReloadIntervalMin"/> and <see cref="ReloadIntervalMax"/></b></remarks>
         public static double ReloadInterval
         {
             get => ReloadTimer.Interval;
-            set => ReloadTimer.Interval = value;
+            set
+            {
+                if (value > ReloadIntervalMax)
+                    value = ReloadIntervalMax;
+                else if (value < ReloadIntervalMin)
+                    value = ReloadIntervalMin;
+                ReloadTimer.Interval = value;
+                Log.Debug("");
+            }
         }
-        public static int ReloadIntervalMin => 0;
-        public static int ReloadIntervalMax => 120000;
+        public static int ReloadIntervalMin => Settings.ReloadInterval_ms_Min;
+        public static int ReloadIntervalMax => Settings.ReloadInterval_ms_Max;
 
 
         public readonly List<AudioDevice> Devices;
@@ -179,10 +207,10 @@ namespace VolumeControl.Core
             // add all devices that aren't in the current list. (new)
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
 
-            if (sel != null && sel != NullDevice && !Devices.Any(d => d.Equals(sel)))
-            {
+            // unset the selected device if it doesn't exist anymore:
+            if (sel != null && sel != NullDevice && !Devices.Contains(sel))
                 SelectedDevice = NullDevice;
-            }
+
             NotifyDeviceListRefresh(EventArgs.Empty);
         }
 
@@ -228,6 +256,8 @@ namespace VolumeControl.Core
 
         public IProcess FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
         {
+            if (identifier.Length == 0)
+                return NullSession;
             int i = identifier.IndexOf(':');
             if (i != -1)
             {

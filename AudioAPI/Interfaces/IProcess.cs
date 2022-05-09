@@ -22,6 +22,6 @@ namespace AudioAPI.Interfaces
         /// <summary>
         /// Gets the process identifier, which is a combination of the process ID and the process name, seperated with a colon ':'.
         /// </summary>
-        public string ProcessIdentifier => $"{PID}:{ProcessName}";
+        public string ProcessIdentifier => PID != -1 ? $"{PID}:{ProcessName}" : "";
     }
 }

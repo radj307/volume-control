@@ -17,7 +17,6 @@
 
     <!--( Static Resources )-->
     <Window.Resources>
-        <!--<core:Controller x:Name="Controller" x:Key="Controller"/>-->
         <core:AudioAPI x:Name="audioAPI" x:Key="AudioAPI"/>
         <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
             <Setter Property="ClickMode" Value="Press"/>
@@ -25,13 +24,12 @@
         </Style>
     </Window.Resources>
 
-    <!--( Data Contexts )-->
-
     <!--( Element Layout )-->
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 UseLayoutRounding="True">
+
         <!--- [Row-0] Target Selection -->
         <Grid x:Name="targetSelectionRow"
               Height="25"
@@ -106,7 +104,7 @@
             <Button x:Name="bReload"
                     Grid.Column="0"
                     Grid.Row="0"
-                    Content="Reload"
+                    Content="Refresh Sessions"
                     Padding="5,1,5,1"
                     Margin="3,0,3,0"
                     Height="21"
@@ -137,7 +135,7 @@
             <Controls:NumericUpDown HorizontalAlignment="Left"
                                     Grid.Column="3"
                                     Grid.Row="0"
-                                    Height="20"
+                                    Height="21"
                                     Width="60"
                                     Margin="3,0,3,0"
                                     ToolTip="Reload Interval in Milliseconds"
@@ -148,6 +146,10 @@
                                     MaxValue="{Binding ReloadIntervalMax}"
                                     Value="{Binding ReloadInterval, BindsDirectlyToSource=True, Mode=TwoWay}"
                                     DataContext="{StaticResource AudioAPI}"/>
+            <Button Grid.Column="4"
+                    Height="21"
+                    Content="Hotkeys..."
+                    Padding="5,1,5,1"/>
         </Grid>
 
         <!--- [Row-2] Mixer Data Grid -->
@@ -198,7 +200,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-
 
     </StackPanel>
 </Window>
