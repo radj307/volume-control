@@ -4,10 +4,12 @@ using AudioAPI.Objects;
 using AudioAPI.Objects.Virtual;
 using VolumeControl.Core.Events;
 using System.Timers;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace VolumeControl.Core
 {
-    public class AudioAPI
+    public class AudioAPI : INotifyPropertyChanged
     {
         public AudioAPI()
         {
@@ -20,6 +22,7 @@ namespace VolumeControl.Core
             _selectedDevice = DefaultDevice;
             RefreshSessions();
             _selectedSession = NullSession;
+            _target = "";
 
             ReloadTimer.Elapsed += (sender, e) =>
             {
@@ -60,16 +63,28 @@ namespace VolumeControl.Core
             add => SessionSwitchEvent += value;
             remove => SessionSwitchEvent -= value;
         }
+        /// <summary>
+        /// Triggered when the <see cref="Target"/> property is changed.
+        /// </summary>
+        public event TargetChangedEventHandler TargetChanged
+        {
+            add => TargetChangedEvent += value;
+            remove => TargetChangedEvent -= value;
+        }
 
         private event EventHandler? DeviceListRefreshEvent = null;
         private event EventHandler? ProcessListRefreshEvent = null;
         private event DeviceSwitchEventHandler? DeviceSwitchEvent = null;
         private event SessionSwitchEventHandler? SessionSwitchEvent = null;
+        private event TargetChangedEventHandler? TargetChangedEvent = null;
+        public event PropertyChangedEventHandler? PropertyChanged = null;
 
         private void NotifyDeviceListRefresh(EventArgs e) => DeviceListRefreshEvent?.Invoke(this, e);
         private void NotifyProcessListRefresh(EventArgs e) => ProcessListRefreshEvent?.Invoke(this, e);
         private void NotifyDeviceSwitch(SwitchEventArgs<IAudioDevice> e) => DeviceSwitchEvent?.Invoke(this, e);
         private void NotifySessionSwitch(SwitchEventArgs<IProcess> e) => SessionSwitchEvent?.Invoke(this, e);
+        private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChangedEvent?.Invoke(this, e);
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         public static readonly VirtualAudioDevice NullDevice = new();
@@ -104,11 +119,14 @@ namespace VolumeControl.Core
             get => _selectedDevice;
             set
             {
+                if (LockSelection)
+                    return;
                 Sessions.Clear();
                 var prev = _selectedDevice;
                 _selectedDevice = value;
                 RefreshSessions();
                 NotifyDeviceSwitch(new(prev, _selectedDevice));
+                NotifyPropertyChanged();
             }
         }
 
@@ -120,11 +138,36 @@ namespace VolumeControl.Core
             get => _selectedSession;
             set
             {
+                if (LockSelection)
+                    return;
                 var prev = _selectedSession;
                 _selectedSession = value;
+                _target = _selectedSession.ProcessIdentifier;
                 NotifySessionSwitch(new(prev, _selectedSession));
+                NotifyTargetChanged(new(_target));
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Target));
             }
         }
+
+        private string _target;
+        public string Target
+        {
+            get => _target;
+            set
+            {
+                if (LockSelection)
+                    return;
+                var prev = _selectedSession;
+                _target = (_selectedSession = FindSessionWithIdentifier(value)).ProcessIdentifier;
+                NotifySessionSwitch(new(prev, _selectedSession));
+                NotifyTargetChanged(new(_target));
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SelectedSession));
+            }
+        }
+        public bool LockSelection { get; set; }
+
 
         public void RefreshDevices()
         {
@@ -169,6 +212,35 @@ namespace VolumeControl.Core
                 SelectedSession = NullSession;
             }
             NotifyProcessListRefresh(EventArgs.Empty);
+        }
+
+        public IProcess FindSession(Predicate<AudioSession> predicate)
+        {
+            foreach (var session in Sessions)
+                if (predicate(session))
+                    return session;
+            return NullSession;
+        }
+
+        public IProcess FindSessionWithID(int pid) => FindSession(s => s.PID.Equals(pid));
+
+        public IProcess FindSessionWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession(s => s.ProcessName.Equals(name, sCompareType));
+
+        public IProcess FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        {
+            int i = identifier.IndexOf(':');
+            if (i != -1)
+            {
+                if (int.TryParse(identifier[..i], out int pid))
+                    return FindSessionWithID(pid);
+                else
+                    return FindSessionWithName(identifier[(i + 1)..]);
+            }
+            else if (identifier.All(char.IsDigit) && int.TryParse(identifier, out int pid))
+            {
+                return FindSessionWithID(pid);
+            }
+            else return FindSessionWithName(identifier);
         }
     }
 }

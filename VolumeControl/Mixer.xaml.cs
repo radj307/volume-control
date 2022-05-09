@@ -2,6 +2,7 @@
 using AudioAPI.Objects;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,28 +16,26 @@ namespace VolumeControl
     {
         public Mixer()
         {
-            StepSize = 2;
             InitializeComponent();
-            processDataGrid.ItemsSource = audioAPI.Sessions;
+            processDataGrid.ItemsSource = AudioAPI.Sessions;
         }
 
-        private int StepSize { get; set; }
-        private bool SettingsMenuIsOpen { get; set; }
+        private Core.AudioAPI AudioAPI => (Resources["AudioAPI"] as Core.AudioAPI)!;
+
         private IAudioSession CurrentlySelectedGridRow => (IAudioSession)processDataGrid.CurrentCell.Item;
-        private IProcess CurrentSession => audioAPI.SelectedSession;
 
-        private void Handle_OpenSettingsClick(object sender, RoutedEventArgs e) => SettingsMenuIsOpen = !SettingsMenuIsOpen;
-
-        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => audioAPI.RefreshSessions();
+        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => AudioAPI.RefreshSessions();
 
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
             if (CurrentlySelectedGridRow is AudioSession session)
-                audioAPI.SelectedSession = session;
+                AudioAPI.SelectedSession = session;
         }
-        private void Handle_VolumeDownClick(object sender, RoutedEventArgs e)
-            => CurrentlySelectedGridRow.Volume -= StepSize;
-        private void Handle_VolumeUpClick(object sender, RoutedEventArgs e)
-            => CurrentlySelectedGridRow.Volume += StepSize;
+
+        private void Handle_ApplyClick(object sender, RoutedEventArgs e)
+        {
+            BindingExpression bindingExpr = targetNameTextBox.GetBindingExpression(TextBox.TextProperty);
+            bindingExpr.UpdateSource();
+        }
     }
 }
