@@ -5,6 +5,7 @@ namespace VolumeControl.Core.HelperTypes.Lists
 {
     public class ObservableList<T> : ObservableCollection<T>
     {
+        /// <inheritdoc/>
         protected override void InsertItem(int index, T item)
         {
             CheckReentrancy();

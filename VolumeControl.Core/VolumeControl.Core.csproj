@@ -10,6 +10,9 @@
     <ProjectReference Include="..\AudioAPI\AudioAPI.csproj" />
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj">
+      <EmbedInteropTypes></EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

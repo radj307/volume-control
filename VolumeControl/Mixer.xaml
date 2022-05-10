@@ -203,12 +203,12 @@
 
                 <!--- [Row-1] Mixer Controls & Misc -->
                 <Grid x:Name="mixerControlsRow" 
-              Grid.Row="3"
-              Grid.Column="1"
-              Height="25"
-              Margin="3,-2,3,1"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center">
+                      Grid.Row="3"
+                      Grid.Column="1"
+                      Height="25"
+                      Margin="3,-2,3,1"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -220,6 +220,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
+<!--                    <Label Content="Device"
+                           Grid.Row="1"
+                           Grid.Column="0"/>
                     <ComboBox x:Name="DeviceSelectorBox"
                               Grid.Column="0"
                               Grid.Row="0"
@@ -229,7 +232,7 @@
                               DisplayMemberPath="DeviceID"
                               SelectedItem="{Binding SelectedDevice}"
                               DataContext="{StaticResource AudioAPI}"
-                              ToolTip="The Audio Device to bind to."/>
+                              ToolTip="The Audio Device to bind to."/>-->
                     <Button x:Name="bReload"
                             Grid.Column="1"
                             Grid.Row="0"
@@ -349,7 +352,7 @@
                           Padding="1"
                           AutoGenerateColumns="False"
                           DataContext="{StaticResource HotkeyAPI}"
-                          ItemsSource="{Binding Hotkeys, UpdateSourceTrigger=Explicit, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay, BindsDirectlyToSource=True}"
+                          ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource DataGridStyle}">
 
                     <DataGrid.Columns>

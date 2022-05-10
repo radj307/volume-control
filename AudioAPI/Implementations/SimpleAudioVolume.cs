@@ -36,6 +36,7 @@ namespace AudioAPI.Implementations
                 disposedValue = true;
             }
         }
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -53,9 +54,13 @@ namespace AudioAPI.Implementations
         #endregion Members
 
         #region Interface
+        /// <inheritdoc/>
         public int SetMasterVolume(float fLevel, ref Guid eventContext) => _control.SetMasterVolume(fLevel, ref eventContext);
+        /// <inheritdoc/>
         public int GetMasterVolume(out float pfLevel) => _control.GetMasterVolume(out pfLevel);
+        /// <inheritdoc/>
         public int SetMute(bool bMute, ref Guid eventContext) => _control.SetMute(bMute, ref eventContext);
+        /// <inheritdoc/>
         public int GetMute(out bool pbMute) => _control.GetMute(out pbMute);
         #endregion Interface
 

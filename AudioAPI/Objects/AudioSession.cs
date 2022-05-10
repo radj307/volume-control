@@ -57,6 +57,7 @@ namespace AudioAPI.Objects
         /// <inheritdoc/>
         /// <remarks>This object is never virtual.</remarks>
         public bool Virtual => false;
+        /// <inheritdoc/>
         public int Volume
         {
             get => SessionVolume.VolumeFullRange;
@@ -66,6 +67,7 @@ namespace AudioAPI.Objects
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public float NativeVolume
         {
             get => SessionVolume.Volume;
@@ -75,6 +77,7 @@ namespace AudioAPI.Objects
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Muted
         {
             get => SessionVolume.Muted;
@@ -84,7 +87,9 @@ namespace AudioAPI.Objects
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public string ProcessName => SessionProcess.ProcessName;
+        /// <inheritdoc/>
         public int PID => SessionProcess.Id;
         #endregion Properties
 
@@ -102,12 +107,15 @@ namespace AudioAPI.Objects
                 disposedValue = true;
             }
         }
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        /// <inheritdoc/>
         public bool Equals(IProcess? other) => Virtual.Equals(other?.Virtual) && PID.Equals(other?.PID);
+        /// <inheritdoc/>
         public bool Equals(IAudioSession? other) => Virtual.Equals(other?.Virtual) && PID.Equals(other?.PID);
         #endregion Methods
     }

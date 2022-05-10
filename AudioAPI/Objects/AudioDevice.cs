@@ -38,13 +38,16 @@ namespace AudioAPI.Objects
         private readonly string _devId;
         private bool disposedValue;
 
+        /// <inheritdoc/>
         public string Name => _name;
+        /// <inheritdoc/>
         public string DeviceID => _devId;
 
         /// <inheritdoc/>
         /// <remarks>This object is never virtual.</remarks>
         public bool Virtual => false;
 
+        /// <inheritdoc/>
         public List<IAudioSession> GetAudioSessions() => WrapperAPI.GetAllSessions(_device).Cast<IAudioSession>().ToList();
 
         protected virtual void Dispose(bool disposing)
@@ -58,6 +61,7 @@ namespace AudioAPI.Objects
 
         ~AudioDevice() => Dispose(disposing: false);
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);

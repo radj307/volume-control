@@ -18,7 +18,7 @@ namespace HotkeyLib
                 if (Registered)
                     Reregister();
             };
-            _id = HotkeyAPI.GetID();
+            ID = HotkeyAPI.GetID();
             Application.AddMessageFilter(this);
         }
         #endregion Constructors
@@ -34,13 +34,14 @@ namespace HotkeyLib
         private readonly IntPtr _owner;
         private readonly IKeyCombo _combo;
         private HotkeyRegistrationState _state = HotkeyRegistrationState.UNREGISTERED;
-        private readonly int _id;
+        public readonly int ID;
         private bool disposedValue;
         public event KeyEventHandler? Pressed = null;
         public event EventHandler? KeysChanged = null;
         #endregion Members
 
         #region Properties
+        /// <inheritdoc/>
         public Keys Key
         {
             get => _combo.Key;
@@ -50,6 +51,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public Modifier Mod
         {
             get => _combo.Mod;
@@ -59,6 +61,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Alt
         {
             get => _combo.Alt;
@@ -68,6 +71,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Ctrl
         {
             get => _combo.Ctrl;
@@ -77,6 +81,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Shift
         {
             get => _combo.Shift;
@@ -86,6 +91,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Win
         {
             get => _combo.Win;
@@ -95,6 +101,7 @@ namespace HotkeyLib
                 NotifyKeysChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Valid => _combo.Valid;
         public bool Registered
         {
@@ -113,24 +120,25 @@ namespace HotkeyLib
             => KeysChanged?.Invoke(this, e);
         private void NotifyKeysChanged()
             => NotifyKeysChanged(EventArgs.Empty);
+        public void NotifyPressed(HandledEventArgs e) => Pressed?.Invoke(this, e);
 
         public int? Register()
         {
             if (_state == HotkeyRegistrationState.REGISTERED)
-                return _id;
+                return ID;
 
             if (!Valid)
             {
                 FLog.Log.Warning($"Refusing to register invalid hotkey '{_combo}'");
-                return _id;
+                return ID;
             }
 
-            //_id = HotkeyAPI.GetID();
+            //ID = HotkeyAPI.GetID();
 
-            if (HotkeyAPI.RegisterHotkey(_owner, _id, _combo.Mod.ToWindowsModifier(), _combo.Key))
+            if (HotkeyAPI.RegisterHotkey(_owner, ID, _combo.Mod.ToWindowsModifier(), _combo.Key))
             {
                 _state = HotkeyRegistrationState.REGISTERED;
-                FLog.Log.Info($"Successfully registered hotkey '{_combo}' with ID '{_id}'");
+                FLog.Log.Info($"Successfully registered hotkey '{_combo}' with ID '{ID}' ({_owner})");
             }
             else // an error occurred
             {
@@ -138,14 +146,14 @@ namespace HotkeyLib
                 FLog.Log.Error(
                     $"Hotkey registration failed with code {code} ({msg})!",
                     $"Keys:       '{_combo}'",
-                    $"Hotkey ID:  '{_id}'"
+                    $"Hotkey ID:  '{ID}'"
                 );
 
                 _state = HotkeyRegistrationState.FAILED;
-                //_id = null;
+                return null;
             }
 
-            return _id;
+            return ID;
         }
         public void Unregister()
         {
@@ -153,18 +161,18 @@ namespace HotkeyLib
                 return;
             else if (_state == HotkeyRegistrationState.FAILED)
             {
-                //_id = null;
+                //ID = null;
                 _state = HotkeyRegistrationState.UNREGISTERED;
                 FLog.Log.Info($"Successfully reset the state of hotkey '{_combo}' after a failed registration attempt.");
                 return;
             }
 
-            //if (_id != null)
+            //if (ID != null)
             {
-                if (HotkeyAPI.UnregisterHotkey(_owner, _id))
+                if (HotkeyAPI.UnregisterHotkey(_owner, ID))
                 {
                     _state = HotkeyRegistrationState.UNREGISTERED;
-                    FLog.Log.Info($"Successfully unregistered hotkey '{_combo}' with ID '{_id}'");
+                    FLog.Log.Info($"Successfully unregistered hotkey '{_combo}' with ID '{ID}' ({_owner})");
                 }
                 else
                 {
@@ -172,33 +180,33 @@ namespace HotkeyLib
                     FLog.Log.Error(
                         $"Hotkey unregistration failed with code {code} ({msg})!",
                         $"Keys:       '{_combo}'",
-                        $"Hotkey ID:  '{_id}'"
+                        $"Hotkey ID:  '{ID}'"
                     );
-                    //_id = null;
+                    //ID = null;
                     _state = HotkeyRegistrationState.FAILED;
                 }
             }
 
-            //_id = null;
+            //ID = null;
         }
         public void Reregister()
         {
             if (_state == HotkeyRegistrationState.REGISTERED)
             {
-                //if (_id != null)
+                //if (ID != null)
                 {
-                    if (!HotkeyAPI.UnregisterHotkey(_owner, _id))
+                    if (!HotkeyAPI.UnregisterHotkey(_owner, ID))
                     {
                         var (code, msg) = HotkeyAPI.GetLastWin32Error();
                         FLog.Log.Error(
                             $"Hotkey re-registration failed with code {code} ({msg})!",
                             $"Keys:       '{_combo}'",
-                            $"Hotkey ID:  '{_id}'"
+                            $"Hotkey ID:  '{ID}'"
                         );
                         _state = HotkeyRegistrationState.FAILED;
-                        //_id = null;
+                        //ID = null;
                     }
-                    else if (HotkeyAPI.RegisterHotkey(_owner, _id, _combo.Mod.ToWindowsModifier(), _combo.Key))
+                    else if (HotkeyAPI.RegisterHotkey(_owner, ID, _combo.Mod.ToWindowsModifier(), _combo.Key))
                     {
                         FLog.Log.Info($"Successfully re-registered hotkey '{_combo}'");
                         // state is still correct
@@ -208,7 +216,7 @@ namespace HotkeyLib
                         var (code, msg) = HotkeyAPI.GetLastWin32Error();
                         FLog.Log.Error($"Hotkey re-registration failed with code {code} ({msg})!");
                         _state = HotkeyRegistrationState.FAILED;
-                        //_id = null;
+                        //ID = null;
                     }
                 }
                 //else FLog.Log.Error("Cannot re-register invalid hotkey!");
@@ -218,11 +226,12 @@ namespace HotkeyLib
                 FLog.Log.Warning("Cannot re-register hotkey that isn't already registered!");
             }
         }
+        /// <inheritdoc/>
         public bool PreFilterMessage(ref Message m)
         {
             if (m.Msg != HotkeyAPI.WM_HOTKEY)
                 return false;
-            else if (_state == HotkeyRegistrationState.REGISTERED && m.WParam.ToInt32() == _id)
+            else if (_state == HotkeyRegistrationState.REGISTERED && m.WParam.ToInt32() == ID)
                 return OnPressed();
             else return false;
         }
@@ -254,7 +263,7 @@ namespace HotkeyLib
                     Unregister();
                 }
 
-                //_id = null;
+                //ID = null;
                 disposedValue = true;
             }
         }

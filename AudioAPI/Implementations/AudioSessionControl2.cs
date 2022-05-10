@@ -39,6 +39,7 @@ namespace AudioAPI.Implementations
                 disposedValue = true;
             }
         }
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);

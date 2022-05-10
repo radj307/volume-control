@@ -20,13 +20,18 @@ namespace VolumeControl.Log
         }
 
         #region Properties
+        /// <inheritdoc/>
         public DateTime TimePoint { get; set; }
+        /// <inheritdoc/>
         public EventType EventType { get; set; }
+        /// <inheritdoc/>
         public int MarginTimePoint { get => MarginTimePointStatic; }
+        /// <inheritdoc/>
         public int MarginEventType { get => MarginEventTypeStatic; }
         #endregion
 
         #region Methods
+        /// <inheritdoc/>
         public override string ToString() => ITimestamp.MakeHeader(this, "U");
         #endregion Methods
 

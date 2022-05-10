@@ -35,7 +35,9 @@ namespace VolumeControl.Log
         /// Gets the last type of event to be printed to the log.
         /// </summary>
         public EventType LastEventType { get; private set; }
+        /// <inheritdoc/>
         public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
+        /// <inheritdoc/>
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
         public static string MakeBlankTimestamp() => Timestamp.Blank();
         #endregion InterfaceImplementation

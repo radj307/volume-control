@@ -470,16 +470,13 @@ namespace VolumeControl.Core.Controls
             Culture.NumberFormat.NumberDecimalDigits = DecimalPlaces;
 
             Loaded += OnLoaded;
-            foreach (var control in Controls)
-            {
-                control.Mouse
-            }
         }
 
         #endregion
 
         #region Event handlers
 
+        /// <inheritdoc/>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

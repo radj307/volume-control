@@ -1,7 +1,7 @@
 ﻿using HotkeyLib;
-using System.Windows.Forms;
 using System.ComponentModel;
 using AudioAPI.Objects;
+using System.Windows.Forms;
 
 namespace VolumeControl.Core.HelperTypes
 {
@@ -72,19 +72,17 @@ namespace VolumeControl.Core.HelperTypes
     }
 
     [TypeConverter(typeof(WindowsHotkeyConverter))]
-    public class BindableWindowsHotkey : IMessageFilter, IKeyCombo, IDisposable
+    public class BindableWindowsHotkey : IKeyCombo, IDisposable
     {
-        public BindableWindowsHotkey(string name, string keys)
+        public BindableWindowsHotkey(string name, IntPtr owner, string keys)
         {
             Name = name;
-            Hotkey = new(HotkeyManager.DefaultOwner, new KeyCombo(keys));
-            Application.AddMessageFilter(this);
+            Hotkey = new(owner, new KeyCombo(keys));
         }
-        public BindableWindowsHotkey(string name, IKeyCombo keys)
+        public BindableWindowsHotkey(string name, IntPtr owner, IKeyCombo keys)
         {
             Name = name;
-            Hotkey = new(HotkeyManager.DefaultOwner, keys);
-            Application.AddMessageFilter(this);
+            Hotkey = new(owner, keys);
         }
 
         public WindowsHotkey Hotkey { get; private set; }
@@ -97,18 +95,29 @@ namespace VolumeControl.Core.HelperTypes
         }
 
         #region InterfaceImplementation
-        public Keys Key { get => ((IKeyCombo)Hotkey).Key; set => ((IKeyCombo)Hotkey).Key = value; }
+        /// <inheritdoc/>
+        public System.Windows.Forms.Keys Key { get => ((IKeyCombo)Hotkey).Key; set => ((IKeyCombo)Hotkey).Key = value; }
+        /// <inheritdoc/>
         public Modifier Mod { get => ((IKeyCombo)Hotkey).Mod; set => ((IKeyCombo)Hotkey).Mod = value; }
+        /// <inheritdoc/>
         public bool Alt { get => ((IKeyCombo)Hotkey).Alt; set => ((IKeyCombo)Hotkey).Alt = value; }
+        /// <inheritdoc/>
         public bool Ctrl { get => ((IKeyCombo)Hotkey).Ctrl; set => ((IKeyCombo)Hotkey).Ctrl = value; }
+        /// <inheritdoc/>
         public bool Shift { get => ((IKeyCombo)Hotkey).Shift; set => ((IKeyCombo)Hotkey).Shift = value; }
+        /// <inheritdoc/>
         public bool Win { get => ((IKeyCombo)Hotkey).Win; set => ((IKeyCombo)Hotkey).Win = value; }
 
+        /// <inheritdoc/>
         public bool Valid => ((IKeyCombo)Hotkey).Valid;
 
+        System.Windows.Forms.Keys IKeyCombo.Key { get => ((IKeyCombo)Hotkey).Key; set => ((IKeyCombo)Hotkey).Key = value; }
+
+        /// <inheritdoc/>
         public void Dispose() => ((IDisposable)Hotkey).Dispose();
-        public bool PreFilterMessage(ref Message m) => ((IMessageFilter)Hotkey).PreFilterMessage(ref m);
         #endregion InterfaceImplementation
+
+        public int ID => Hotkey.ID;
 
         public event HotkeyLib.KeyEventHandler Pressed
         {
@@ -121,20 +130,24 @@ namespace VolumeControl.Core.HelperTypes
             remove => Hotkey.KeysChanged -= value;
         }
 
+        public void NotifyPressed(HandledEventArgs e) => Hotkey.NotifyPressed(e);
+        public void NotifyPressed() => NotifyPressed(new());
+
+        /// <inheritdoc/>
         public override string ToString() => $"{Name}::{base.ToString()}";
 
-        public static BindableWindowsHotkey Parse(string hkString, HotkeyActionBindings actions)
+        public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
             int div1 = hkString.IndexOf("::");
             int div2 = hkString.IndexOf("::", div1 + 2);
             if (div2 == -1)
                 div2 = hkString.Length - 1;
-            BindableWindowsHotkey hk = new(hkString[..div1], hkString[(div1 + 2)..div2]);
+            BindableWindowsHotkey hk = new(hkString[..div1], manager.OwnerHandle, hkString[(div1 + 2)..div2]);
             if (Enum.TryParse(typeof(EHotkeyAction), hkString[(div2 + 2)..], out object? actionObj) && actionObj is EHotkeyAction action)
-                hk.Pressed += actions[action];
+                hk.Pressed += manager.ActionBindings[action];
             return hk;
         }
-        public static bool TryParse(string hkString, HotkeyActionBindings actions, out BindableWindowsHotkey? hk)
+        public static bool TryParse(string hkString, HotkeyManager manager, out BindableWindowsHotkey? hk)
         {
             int div1 = hkString.IndexOf("::");
             int div2 = hkString.IndexOf("::", div1 + 2);
@@ -144,9 +157,9 @@ namespace VolumeControl.Core.HelperTypes
             if (div2 == -1)
                 div2 = hkString.Length - 1;
 
-            hk = new(hkString[..div1], new KeyCombo(hkString[(div1 + 2)..div2]));
+            hk = new(hkString[..div1], manager.OwnerHandle, new KeyCombo(hkString[(div1 + 2)..div2]));
             if (Enum.TryParse(typeof(EHotkeyAction), hkString[(div2 + 2)..], out object? actionObj) && actionObj is EHotkeyAction action)
-                hk.Pressed += actions[action];
+                hk.Pressed += manager.ActionBindings[action];
 
             return true;
         }

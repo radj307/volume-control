@@ -3,6 +3,9 @@ using AudioAPI.Objects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Interop;
+using VolumeControl.Log;
+using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -16,7 +19,8 @@ namespace VolumeControl
             InitializeComponent();
             MixerGrid.ItemsSource = AudioAPI.Sessions;
             HotkeyGrid.ItemsSource = HotkeyAPI.Hotkeys;
-            DeviceSelectorBox.ItemsSource = AudioAPI.Devices;
+
+            //DeviceSelectorBox.ItemsSource = AudioAPI.Devices;
 
             //targetNameTextBox.SourceUpdated += (s, e) =>
             //{

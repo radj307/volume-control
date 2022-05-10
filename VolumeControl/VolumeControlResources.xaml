@@ -2,8 +2,9 @@
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
-                    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib">
-    
+                    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
+                    xmlns:sys="clr-namespace:Microsoft.CSharp;assembly=System">
+
     <core:AudioAPI x:Key="AudioAPI"/>
     <core:HotkeyManager x:Key="HotkeyAPI" AudioAPI="{StaticResource AudioAPI}"/>
     <hklib:KeysList x:Key="KeyOptions"/>

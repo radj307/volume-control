@@ -14,6 +14,7 @@ namespace AudioAPI.WindowsAPI.Struct
 
         public int Height => bottom - top;
 
+        /// <inheritdoc/>
         public override string ToString() => $"{{X={left},Y={top},Width={Width},Height={Height}}}";
     }
 }

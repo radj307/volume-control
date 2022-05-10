@@ -28,6 +28,8 @@ namespace VolumeControl.Core
             _selectedSession = NullSession;
             _target = "";
 
+            VolumeStepSize = Settings.VolumeStepSize;
+
             // load settings
             Target = Settings.Target;
             ReloadInterval = Settings.ReloadInterval_ms > 0d ? Settings.ReloadInterval_ms : Settings.ReloadInterval_ms_Default;
@@ -198,6 +200,8 @@ namespace VolumeControl.Core
         }
         public bool LockSelection { get; set; }
 
+        public int VolumeStepSize { get; set; }
+
 
         public void RefreshDevices()
         {
@@ -279,23 +283,17 @@ namespace VolumeControl.Core
         internal void IncreaseVolume(object? sender, HandledEventArgs e)
         {
             if (SelectedSession is AudioSession session)
-            {
-
-            }
+                session.Volume += VolumeStepSize;
         }
         internal void DecreaseVolume(object? sender, HandledEventArgs e)
         {
             if (SelectedSession is AudioSession session)
-            {
-
-            }
+                session.Volume -= VolumeStepSize;
         }
         internal void ToggleMute(object? sender, HandledEventArgs e)
         {
             if (SelectedSession is AudioSession session)
-            {
-
-            }
+                session.Muted = !session.Muted;
         }
         private static void SendKeyboardEvent(EVirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
         internal void NextTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
@@ -303,12 +301,24 @@ namespace VolumeControl.Core
         internal void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
         private void NextTarget()
         {
-
+            if (SelectedSession is AudioSession session)
+            {
+                int index = Sessions.IndexOf(session);
+                if (index >= Sessions.Count)
+                    index = 0;
+                SelectedSession = Sessions[index];
+            }
         }
         internal void NextTarget(object? sender, HandledEventArgs e) => NextTarget();
         private void PreviousTarget()
         {
-
+            if (SelectedSession is AudioSession session)
+            {
+                int index = Sessions.IndexOf(session);
+                if (index < 0)
+                    index = Sessions.Count - 1;
+                SelectedSession = Sessions[index];
+            }
         }
         internal void PreviousTarget(object? sender, HandledEventArgs e) => PreviousTarget();
         internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelection = !LockSelection;

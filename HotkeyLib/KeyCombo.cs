@@ -117,6 +117,7 @@ namespace HotkeyLib
             get => _mod.Contains(Modifier.WIN);
             set => _mod.Apply(Modifier.WIN, value);
         }
+        /// <inheritdoc/>
         public bool Valid
         {
             get => !_key.Equals(Keys.None);

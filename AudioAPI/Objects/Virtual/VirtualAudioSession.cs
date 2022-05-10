@@ -15,8 +15,11 @@ namespace AudioAPI.Objects.Virtual
         /// <inheritdoc/>
         /// <remarks>This object is always virtual.</remarks>
         public bool Virtual => true;
+        /// <inheritdoc/>
         public string ProcessName => string.Empty;
+        /// <inheritdoc/>
         public int PID => -1;
+        /// <inheritdoc/>
         public bool Equals(IProcess? other) => Virtual.Equals(other?.Virtual) && PID.Equals(other?.PID);
     }
 }
