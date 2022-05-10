@@ -456,7 +456,10 @@ namespace VolumeControl.Core.Controls
 
         #region Constructors
 
-        static NumericUpDown() => DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown), new FrameworkPropertyMetadata(typeof(NumericUpDown)));
+        static NumericUpDown()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown), new FrameworkPropertyMetadata(typeof(NumericUpDown)));
+        }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NumericUpDown()
@@ -467,6 +470,10 @@ namespace VolumeControl.Core.Controls
             Culture.NumberFormat.NumberDecimalDigits = DecimalPlaces;
 
             Loaded += OnLoaded;
+            foreach (var control in Controls)
+            {
+                control.Mouse
+            }
         }
 
         #endregion

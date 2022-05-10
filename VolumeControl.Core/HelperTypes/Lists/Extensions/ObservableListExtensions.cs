@@ -1,6 +1,6 @@
-﻿using VolumeControl.Core.Lists;
+﻿using VolumeControl.Core.HelperTypes.Lists;
 
-namespace VolumeControl.Core.Lists.Extensions
+namespace VolumeControl.Core.HelperTypes.Lists.Extensions
 {
     public static class ObservableListExtensions
     {

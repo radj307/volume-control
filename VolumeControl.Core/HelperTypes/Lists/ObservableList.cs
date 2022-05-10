@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace VolumeControl.Core.Lists
+namespace VolumeControl.Core.HelperTypes.Lists
 {
     public class ObservableList<T> : ObservableCollection<T>
     {

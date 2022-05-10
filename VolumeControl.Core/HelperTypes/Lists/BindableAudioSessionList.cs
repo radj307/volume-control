@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace VolumeControl.Core.Lists
+namespace VolumeControl.Core.HelperTypes.Lists
 {
     public class BindableAudioSessionList : ICollection<AudioSession>, IEnumerable<AudioSession>, IEnumerable, IList<AudioSession>, IReadOnlyCollection<AudioSession>, IReadOnlyList<AudioSession>, ICollection, IList, INotifyCollectionChanged, INotifyPropertyChanged
     {

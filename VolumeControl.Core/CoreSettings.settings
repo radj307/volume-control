@@ -20,5 +20,25 @@
     <Setting Name="LockTarget" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Hotkeys" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Hotkeys_Default" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;string&gt;Volume Up::VolumeUp::VolumeUp&lt;/string&gt;
+  &lt;string&gt;Volume Down::VolumeDown::VolumeDown&lt;/string&gt;
+  &lt;string&gt;Toggle Mute::VolumeMute::ToggleMute&lt;/string&gt;
+  &lt;string&gt;Next Track::::NextTrack&lt;/string&gt;
+  &lt;string&gt;Previous Track::::PreviousTrack&lt;/string&gt;
+  &lt;string&gt;Toggle Playback::::TogglePlayback&lt;/string&gt;
+  &lt;string&gt;Next Target::CtrlShiftAlt+D::NextTarget&lt;/string&gt;
+  &lt;string&gt;Previous Target::CtrlShiftAlt+A::PreviousTarget&lt;/string&gt;
+  &lt;string&gt;Lock Target::CtrlShiftAlt+S::ToggleTargetLock&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="VK_Blacklist" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

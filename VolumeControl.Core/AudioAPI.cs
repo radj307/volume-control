@@ -2,12 +2,14 @@
 using AudioAPI.Interfaces;
 using AudioAPI.Objects;
 using AudioAPI.Objects.Virtual;
-using VolumeControl.Core.Events;
-using System.Timers;
+using AudioAPI.WindowsAPI.Enum;
+using HotkeyLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using VolumeControl.Log.Properties;
+using VolumeControl.Core.Events;
+using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Log;
+using static AudioAPI.WindowsAPI.User32;
 
 namespace VolumeControl.Core
 {
@@ -272,5 +274,44 @@ namespace VolumeControl.Core
             }
             else return FindSessionWithName(identifier);
         }
+
+        #region ActionBindEndpoints
+        internal void IncreaseVolume(object? sender, HandledEventArgs e)
+        {
+            if (SelectedSession is AudioSession session)
+            {
+
+            }
+        }
+        internal void DecreaseVolume(object? sender, HandledEventArgs e)
+        {
+            if (SelectedSession is AudioSession session)
+            {
+
+            }
+        }
+        internal void ToggleMute(object? sender, HandledEventArgs e)
+        {
+            if (SelectedSession is AudioSession session)
+            {
+
+            }
+        }
+        private static void SendKeyboardEvent(EVirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
+        internal void NextTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
+        internal void PreviousTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
+        internal void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
+        private void NextTarget()
+        {
+
+        }
+        internal void NextTarget(object? sender, HandledEventArgs e) => NextTarget();
+        private void PreviousTarget()
+        {
+
+        }
+        internal void PreviousTarget(object? sender, HandledEventArgs e) => PreviousTarget();
+        internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelection = !LockSelection;
+        #endregion ActionBindEndpoints
     }
 }

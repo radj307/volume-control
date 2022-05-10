@@ -85,5 +85,44 @@ namespace VolumeControl.Core {
                 this["LockTarget"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Hotkeys {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Hotkeys"]));
+            }
+            set {
+                this["Hotkeys"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <string>Volume Up::VolumeUp::VolumeUp</string>
+  <string>Volume Down::VolumeDown::VolumeDown</string>
+  <string>Toggle Mute::VolumeMute::ToggleMute</string>
+  <string>Next Track::::NextTrack</string>
+  <string>Previous Track::::PreviousTrack</string>
+  <string>Toggle Playback::::TogglePlayback</string>
+  <string>Next Target::CtrlShiftAlt+D::NextTarget</string>
+  <string>Previous Target::CtrlShiftAlt+A::PreviousTarget</string>
+  <string>Lock Target::CtrlShiftAlt+S::ToggleTargetLock</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection Hotkeys_Default {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Hotkeys_Default"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection VK_Blacklist {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["VK_Blacklist"]));
+            }
+        }
     }
 }
