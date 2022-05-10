@@ -37,7 +37,6 @@ namespace AudioAPI.Objects
         private readonly string _name;
         private readonly string _devId;
         private bool disposedValue;
-
         /// <inheritdoc/>
         public string Name => _name;
         /// <inheritdoc/>
@@ -47,8 +46,20 @@ namespace AudioAPI.Objects
         /// <remarks>This object is never virtual.</remarks>
         public bool Virtual => false;
 
+        /// <summary>
+        /// Gets the current state of the device.
+        /// </summary>
+        /// <returns><see cref="EDeviceState"/> with the current device state, or <see cref="EDeviceState.AccessError"/> if an error occurred.</returns>
+        public EDeviceState GetState()
+        {
+            if (_device.GetState(out uint dwState) == 0)
+                return (EDeviceState)dwState;
+            return EDeviceState.AccessError;
+        }
+
+
         /// <inheritdoc/>
-        public List<IAudioSession> GetAudioSessions() => WrapperAPI.GetAllSessions(_device).Cast<IAudioSession>().ToList();
+        public List<AudioSession> GetAudioSessions() => WrapperAPI.GetAllSessions(_device).ToList();
 
         protected virtual void Dispose(bool disposing)
         {

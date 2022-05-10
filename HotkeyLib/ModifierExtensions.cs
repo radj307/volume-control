@@ -70,6 +70,6 @@
         public static uint ToWindowsModifier(this Modifier mod)
             => (uint)mod;
         public static string? Stringify(this Modifier mod)
-            => !mod.Empty() ? $"{(mod.Contains(Modifier.ALT) ? "Alt" : "")}{(mod.Contains(Modifier.CTRL) ? "Ctrl" : "")}{(mod.Contains(Modifier.SHIFT) ? "Shift" : "")}{(mod.Contains(Modifier.WIN) ? "Win" : "")}" : null;
+            => !mod.Empty() ? $"{(mod.Contains(Modifier.ALT) ? "Alt" : "")}+{(mod.Contains(Modifier.CTRL) ? "Ctrl" : "")}+{(mod.Contains(Modifier.SHIFT) ? "Shift" : "")}+{(mod.Contains(Modifier.WIN) ? "Win" : "")}" : null;
     }
 }

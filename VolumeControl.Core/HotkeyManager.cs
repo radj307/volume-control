@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using VolumeControl.Core.HelperTypes;
@@ -11,22 +12,6 @@ namespace VolumeControl.Core
 {
     public class HotkeyManager : ISupportInitialize
     {
-        public HotkeyManager() => Hotkeys = new();
-        ~HotkeyManager()
-        {
-            HwndSource.RemoveHook(HwndHook);
-
-            // Save Hotkeys To Settings
-            StringCollection list = new();
-            foreach (var hk in Hotkeys)
-                list.Add(hk.ToString());
-            Settings.Hotkeys = list;
-            Log.Debug($"Successfully saved {nameof(Settings.Hotkeys)}: '{Settings.Hotkeys}'");
-            // Save Settings
-            Settings.Save();
-            Settings.Reload();
-        }
-
         public IntPtr OwnerHandle;
         private HwndSource HwndSource = null!;
         private static CoreSettings Settings => CoreSettings.Default;
@@ -47,17 +32,19 @@ namespace VolumeControl.Core
             get => _actionBindings ??= new(AudioAPI);
             set => _actionBindings = value;
         }
+        public bool ShowActionBindings { get; set; }
+        public Visibility ActionBindingsVisibility => ShowActionBindings ? Visibility.Visible : Visibility.Hidden;
 
-        public ObservableList<BindableWindowsHotkey> Hotkeys;
+        public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
 
         /// <inheritdoc/>
         public void BeginInit() { }
         /// <inheritdoc/>
         public void EndInit()
         {
-            var whg = new WindowHandleGetter();
-            HwndSource = whg.GetHwndSource(OwnerHandle = whg.GetWindowHandle());
+            HwndSource = WindowHandleGetter.GetHwndSource(OwnerHandle = WindowHandleGetter.GetWindowHandle());
             HwndSource.AddHook(HwndHook);
+            Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
 
             var list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
 
@@ -69,14 +56,11 @@ namespace VolumeControl.Core
                     Log.Error($"Hotkeys[{i}] wasn't a valid hotkey string!");
                     continue;
                 }
-                if (!BindableWindowsHotkey.TryParse(s, this, out BindableWindowsHotkey? hk) || hk is null)
-                {
-                    Log.Warning($"Hotkeys[{i}] ('{s}') couldn't be parsed into a valid hotkey!");
-                    continue;
-                }
-                Log.Info($"Hotkeys[{i}] ('{s}') was successfully parsed '{hk.Name}'");
-
+                
+                var hk = BindableWindowsHotkey.Parse(s, this);
                 Hotkeys.Add(hk);
+
+                Log.Debug($"Hotkeys[{i}] ('{s}') was successfully parsed: {{ Name: '{hk.Name}', KeyCombo: '{hk.Hotkey.ToString()}', Action: '{ActionBindings[hk.Action]?.Method.Name}', Registered: '{hk.Registered}' }}");
             }
         }
 
@@ -87,6 +71,8 @@ namespace VolumeControl.Core
             case (int)HotkeyLib.HotkeyAPI.WM_HOTKEY:
                 if (Hotkeys.FirstOrDefault(h => h is not null && h.ID.Equals(wParam.ToInt32()), null) is BindableWindowsHotkey hk)
                 {
+                    Log.Info($"Hotkey {hk.ID} ({hk.Name}) Pressed.",
+                        hk.Action.Equals(EHotkeyAction.None) ? " ()" : "");
                     hk.NotifyPressed();
                     handled = true;
                 }
@@ -94,5 +80,32 @@ namespace VolumeControl.Core
             }
             return IntPtr.Zero;
         }
+
+        /// <summary>
+        /// Saves all hotkeys to the settings file.
+        /// </summary>
+        public void SaveHotkeys()
+        {
+            // Save Hotkeys To Settings
+            StringCollection list = new();
+            foreach (var hk in Hotkeys)
+                list.Add(hk.Serialize());
+            Settings.Hotkeys = list;
+            Log.Debug($"Successfully saved {nameof(Settings.Hotkeys)}: '{Settings.Hotkeys}'");
+            // Save Settings
+            Settings.Save();
+            Settings.Reload();
+        }
+        public void RemoveHook()
+        {
+            HwndSource.RemoveHook(HwndHook);
+            HwndSource.Dispose();
+            Log.Debug("HotkeyManager HwndHook was removed, 'WM_HOTKEY' messages will no longer be received.");
+        }
+        ~HotkeyManager()
+        { // this doesn't get called reliably:
+            SaveHotkeys();
+            RemoveHook();
+        } // use other methods
     }
 }

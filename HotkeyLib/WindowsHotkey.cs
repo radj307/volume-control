@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VolumeControl.Log;
@@ -6,7 +7,7 @@ using VolumeControl.Log;
 namespace HotkeyLib
 {
     [TypeConverter(typeof(WindowsHotkeyConverter))]
-    public class WindowsHotkey : IMessageFilter, IKeyCombo, IDisposable
+    public class WindowsHotkey : IKeyCombo, IDisposable
     {
         #region Constructors
         public WindowsHotkey(IntPtr owner, IKeyCombo keys)
@@ -19,7 +20,19 @@ namespace HotkeyLib
                     Reregister();
             };
             ID = HotkeyAPI.GetID();
-            Application.AddMessageFilter(this);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged
+        {
+            add
+            {
+                _combo.PropertyChanged += value;
+            }
+
+            remove
+            {
+                _combo.PropertyChanged -= value;
+            }
         }
         #endregion Constructors
 
@@ -34,9 +47,20 @@ namespace HotkeyLib
         private readonly IntPtr _owner;
         private readonly IKeyCombo _combo;
         private HotkeyRegistrationState _state = HotkeyRegistrationState.UNREGISTERED;
+        /// <summary>
+        /// This is the hotkey identifier number of this hotkey.
+        /// </summary>
+        /// <remarks>Each hotkey is given an identifier when constructed, it cannot be changed later.</remarks>
         public readonly int ID;
         private bool disposedValue;
+        /// <summary>
+        /// Triggered when the hotkey is pressed.
+        /// </summary>
         public event KeyEventHandler? Pressed = null;
+        /// <summary>
+        /// Triggered when the hotkey's <see cref="KeyCombo"/> is changed.
+        /// </summary>
+        /// <remarks>This can be triggered by any of the related properties.</remarks>
         public event EventHandler? KeysChanged = null;
         #endregion Members
 
@@ -225,22 +249,6 @@ namespace HotkeyLib
             {
                 FLog.Log.Warning("Cannot re-register hotkey that isn't already registered!");
             }
-        }
-        /// <inheritdoc/>
-        public bool PreFilterMessage(ref Message m)
-        {
-            if (m.Msg != HotkeyAPI.WM_HOTKEY)
-                return false;
-            else if (_state == HotkeyRegistrationState.REGISTERED && m.WParam.ToInt32() == ID)
-                return OnPressed();
-            else return false;
-        }
-        private bool OnPressed()
-        {
-            HandledEventArgs args = new(false);
-            Pressed?.Invoke(this, args);
-            FLog.Log.Debug($"Hotkey '{_combo}' pressed.");
-            return args.Handled;
         }
         /// <summary>
         /// Converts this hotkey's key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"

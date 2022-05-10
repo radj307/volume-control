@@ -136,5 +136,29 @@ namespace VolumeControl.Core {
                 this["VolumeStepSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ReloadOnHotkey {
+            get {
+                return ((bool)(this["ReloadOnHotkey"]));
+            }
+            set {
+                this["ReloadOnHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReloadOnInterval {
+            get {
+                return ((bool)(this["ReloadOnInterval"]));
+            }
+            set {
+                this["ReloadOnInterval"] = value;
+            }
+        }
     }
 }

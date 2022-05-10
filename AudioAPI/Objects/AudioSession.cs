@@ -91,6 +91,8 @@ namespace AudioAPI.Objects
         public string ProcessName => SessionProcess.ProcessName;
         /// <inheritdoc/>
         public int PID => SessionProcess.Id;
+
+        public string ProcessIdentifier => $"{PID}:{ProcessName}";
         #endregion Properties
 
         #region Methods

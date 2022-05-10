@@ -49,7 +49,7 @@ namespace VolumeControl.Log
         /// Gets a blank string with the same length as a <see cref="Timestamp"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> entirely composed of space (' ') chars with the same length as a timestamp string.</returns>
-        public static string Blank() => new(' ', 2 + MarginTimePointStatic + MarginEventTypeStatic);
+        public static string Blank() => new(' ', 1 + MarginTimePointStatic + MarginEventTypeStatic);
         #endregion Statics
     }
 }

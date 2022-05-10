@@ -3,9 +3,6 @@ using AudioAPI.Objects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Interop;
-using VolumeControl.Log;
-using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -14,41 +11,30 @@ namespace VolumeControl
     /// </summary>
     public partial class Mixer : Window
     {
-        public Mixer()
-        {
-            InitializeComponent();
-            MixerGrid.ItemsSource = AudioAPI.Sessions;
-            HotkeyGrid.ItemsSource = HotkeyAPI.Hotkeys;
+        #region Constructors
+        public Mixer() => InitializeComponent();
+        #endregion Constructors
 
-            //DeviceSelectorBox.ItemsSource = AudioAPI.Devices;
-
-            //targetNameTextBox.SourceUpdated += (s, e) =>
-            //{
-            //    if (e.Property.Name.Equals("Content", System.StringComparison.Ordinal))
-            //    {
-            //        int cursorLen = targetNameTextBox.SelectionLength;
-            //        int cursorPos = targetNameTextBox.SelectionStart;
-
-            //        if (cursorLen > 0)
-            //        {
-
-            //        }
-            //        else
-            //        {
-
-            //        }
-
-            //        e.Handled = true;
-            //    }
-            //};
-        }
-
+        #region Properties
         private Core.AudioAPI AudioAPI => (Resources["AudioAPI"] as Core.AudioAPI)!;
         private Core.HotkeyManager HotkeyAPI => (Resources["HotkeyAPI"] as Core.HotkeyManager)!;
 
         private IAudioSession CurrentlySelectedGridRow => (IAudioSession)MixerGrid.CurrentCell.Item;
+        #endregion Properties
 
-        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => AudioAPI.RefreshSessions();
+        #region WindowEvents
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            AudioAPI.SaveSettings();
+            HotkeyAPI.SaveHotkeys();
+            HotkeyAPI.RemoveHook();
+            e.Cancel = false;
+        }
+        #endregion WindowEvents
+
+        #region EventHandlers
+        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => AudioAPI.ReloadSessionList();
+        private void Handle_ReloadDevicesClick(object sender, RoutedEventArgs e) => AudioAPI.ReloadDeviceList();
 
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
@@ -62,18 +48,8 @@ namespace VolumeControl
             bindingExpr.UpdateSource();
         }
 
-        private void Handle_HKCancelClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Handle_HKApplyClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        private void Handle_ShowActionBindingsChecked(object sender, RoutedEventArgs e) => Resources["HotkeyActionBindingVisibility"] = Visibility.Visible;
+        private void Handle_ShowActionBindingsUnchecked(object sender, RoutedEventArgs e) => Resources["HotkeyActionBindingVisibility"] = Visibility.Collapsed;
+        #endregion EventHandlers
     }
 }

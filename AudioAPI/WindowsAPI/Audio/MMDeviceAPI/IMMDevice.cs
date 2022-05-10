@@ -37,10 +37,10 @@ namespace AudioAPI.WindowsAPI.Audio.MMDeviceAPI
         /// <summary>
         /// The GetState method retrieves the current device state.
         /// </summary>
-        /// <param name="state">Output variable containing the <see cref="EDeviceState"/>.</param>
+        /// <param name="state">Output variable containing the <see cref="EDeviceState"/> as an unsigned integer (DWORD).</param>
         /// <returns>If the method succeeds, it returns 0.</returns>
         [PreserveSig]
-        public int GetState(out EDeviceState state);
+        public int GetState(out uint state);
 
         /// <summary>
         /// The friendly name of the audio adapter to which the endpoint device is attached (for example, "XYZ Audio Adapter"). PROPVARIANT member vt is set to VT_LPWSTR and member pwszVal points to a null-terminated, wide-character string that contains the friendly name.

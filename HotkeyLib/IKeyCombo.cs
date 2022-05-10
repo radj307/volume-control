@@ -1,11 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace HotkeyLib
 {
     /// <summary>
     /// Represents a combination of one keyboard key and any number of modifier keys.
     /// </summary>
-    public interface IKeyCombo
+    public interface IKeyCombo : INotifyPropertyChanged
     {
         #region Properties
         /// <summary>
@@ -51,7 +52,7 @@ namespace HotkeyLib
         #endregion Properties
 
         #region Methods
-        virtual string? ToString() { return null; }
+        string? ToString();
         #endregion Methods
     }
 }

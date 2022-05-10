@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Log;
+using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using static AudioAPI.WindowsAPI.User32;
 
 namespace VolumeControl.Core
@@ -17,18 +18,18 @@ namespace VolumeControl.Core
     {
         public AudioAPI()
         {
-            Devices = new();
-            Sessions = new();
             _selectedDevice = NullDevice;
             SelectedSession = NullSession;
 
-            RefreshDevices();
+            ReloadSessionList();
             _selectedDevice = DefaultDevice;
-            RefreshSessions();
+            ReloadSessionList();
             _selectedSession = NullSession;
             _target = "";
 
             VolumeStepSize = Settings.VolumeStepSize;
+            ReloadOnHotkey = Settings.ReloadOnHotkey;
+            ReloadOnInterval = Settings.ReloadOnInterval;
 
             // load settings
             Target = Settings.Target;
@@ -36,15 +37,20 @@ namespace VolumeControl.Core
             // add an event handler to the reload timer
             ReloadTimer.Elapsed += (sender, e) =>
             {
-                RefreshSessions();
+                ReloadSessionList();
             };
         }
-        ~AudioAPI()
+
+        public void SaveSettings()
         {
             Log.Info("Saving AudioAPI settings to the configuration file...");
             // save settings
             Settings.ReloadInterval_ms = ReloadInterval;
             Settings.Target = Target;
+            Settings.VolumeStepSize = VolumeStepSize;
+            Settings.ReloadOnHotkey = ReloadOnHotkey;
+            Settings.ReloadOnInterval = ReloadOnInterval;
+            // save to file
             Settings.Save();
             Settings.Reload();
             Log.Followup("Done.");
@@ -57,56 +63,33 @@ namespace VolumeControl.Core
         /// <summary>
         /// Triggered when the device list is refreshed.
         /// </summary>
-        public event EventHandler DeviceListRefreshed
-        {
-            add => DeviceListRefreshEvent += value;
-            remove => DeviceListRefreshEvent -= value;
-        }
+        public event EventHandler? DeviceListReloaded = null;
         /// <summary>
         /// Triggered when the session list is refreshed.
         /// </summary>
-        public event EventHandler SessionListRefreshed
-        {
-            add => ProcessListRefreshEvent += value;
-            remove => ProcessListRefreshEvent -= value;
-        }
+        public event EventHandler? SessionListReloaded = null;
         /// <summary>
         /// Triggered when the selected device is changed.
         /// </summary>
-        public event DeviceSwitchEventHandler SelectedDeviceSwitched
-        {
-            add => DeviceSwitchEvent += value;
-            remove => DeviceSwitchEvent -= value;
-        }
+        public event DeviceSwitchEventHandler? SelectedDeviceSwitched = null;
         /// <summary>
         /// Triggered when the selected session is changed.
         /// </summary>
-        public event SessionSwitchEventHandler SelectedSessionSwitched
-        {
-            add => SessionSwitchEvent += value;
-            remove => SessionSwitchEvent -= value;
-        }
+        public event SessionSwitchEventHandler? SelectedSessionSwitched = null;
         /// <summary>
         /// Triggered when the <see cref="Target"/> property is changed.
         /// </summary>
-        public event TargetChangedEventHandler TargetChanged
-        {
-            add => TargetChangedEvent += value;
-            remove => TargetChangedEvent -= value;
-        }
-
-        private event EventHandler? DeviceListRefreshEvent = null;
-        private event EventHandler? ProcessListRefreshEvent = null;
-        private event DeviceSwitchEventHandler? DeviceSwitchEvent = null;
-        private event SessionSwitchEventHandler? SessionSwitchEvent = null;
-        private event TargetChangedEventHandler? TargetChangedEvent = null;
+        public event TargetChangedEventHandler? TargetChanged = null;
+        /// <summary>
+        /// This is used by data bindings to indicate that the target should update from the source.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged = null;
 
-        private void NotifyDeviceListRefresh(EventArgs e) => DeviceListRefreshEvent?.Invoke(this, e);
-        private void NotifyProcessListRefresh(EventArgs e) => ProcessListRefreshEvent?.Invoke(this, e);
-        private void NotifyDeviceSwitch(SwitchEventArgs<IAudioDevice> e) => DeviceSwitchEvent?.Invoke(this, e);
-        private void NotifySessionSwitch(SwitchEventArgs<IProcess> e) => SessionSwitchEvent?.Invoke(this, e);
-        private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChangedEvent?.Invoke(this, e);
+        private void NotifyDeviceListRefresh(EventArgs e) => DeviceListReloaded?.Invoke(this, e);
+        private void NotifyProcessListRefresh(EventArgs e) => SessionListReloaded?.Invoke(this, e);
+        private void NotifyDeviceSwitch(SwitchEventArgs<IAudioDevice> e) => SelectedDeviceSwitched?.Invoke(this, e);
+        private void NotifySessionSwitch(SwitchEventArgs<IProcess> e) => SelectedSessionSwitched?.Invoke(this, e);
+        private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChanged?.Invoke(this, e);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
@@ -137,14 +120,13 @@ namespace VolumeControl.Core
                 else if (value < ReloadIntervalMin)
                     value = ReloadIntervalMin;
                 ReloadTimer.Interval = value;
-                Log.Debug("");
             }
         }
         public static int ReloadIntervalMin => Settings.ReloadInterval_ms_Min;
         public static int ReloadIntervalMax => Settings.ReloadInterval_ms_Max;
 
 
-        public readonly List<AudioDevice> Devices;
+        public List<AudioDevice> Devices { get; } = new();
         private IAudioDevice _selectedDevice;
         public IAudioDevice SelectedDevice
         {
@@ -154,16 +136,22 @@ namespace VolumeControl.Core
                 if (LockSelection)
                     return;
                 Sessions.Clear();
-                var prev = _selectedDevice;
                 _selectedDevice = value;
-                RefreshSessions();
-                NotifyDeviceSwitch(new(prev, _selectedDevice));
+                ReloadSessionList();
+                NotifyDeviceSwitch(new(_selectedDevice));
                 NotifyPropertyChanged();
+
+                Log.Info($"Selected device was changed to '{_selectedDevice.Name}'");
             }
         }
+        /// <summary>
+        /// When true, the session list contains sessions from all audio devices.
+        /// </summary>
+        /// <remarks>This changes the behaviour of <see cref="ReloadSessionList"/> so that it checks <i>all devices</i> instead of only the currently selected device.</remarks>
+        public bool CheckAllDevices { get; set; }
 
 
-        public readonly BindableAudioSessionList Sessions;
+        public BindableAudioSessionList Sessions { get; } = new();
         private IProcess _selectedSession;
         public IProcess SelectedSession
         {
@@ -172,13 +160,15 @@ namespace VolumeControl.Core
             {
                 if (LockSelection)
                     return;
-                var prev = _selectedSession;
                 _selectedSession = value;
                 _target = _selectedSession.ProcessIdentifier;
-                NotifySessionSwitch(new(prev, _selectedSession));
-                NotifyTargetChanged(new(_target));
+                // Trigger associated events
+                NotifySessionSwitch(new(_selectedSession)); //< SelectedSessionSwitched
+                NotifyTargetChanged(new(_target)); //< Selected
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Target));
+
+                Log.Info($"Selected session was changed to '{_selectedSession.ProcessIdentifier}'");
             }
         }
 
@@ -190,20 +180,42 @@ namespace VolumeControl.Core
             {
                 if (LockSelection)
                     return;
-                var prev = _selectedSession;
                 _target = (_selectedSession = FindSessionWithIdentifier(value)).ProcessIdentifier;
-                NotifySessionSwitch(new(prev, _selectedSession));
+                NotifySessionSwitch(new(_selectedSession));
                 NotifyTargetChanged(new(_target));
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedSession));
             }
         }
-        public bool LockSelection { get; set; }
 
-        public int VolumeStepSize { get; set; }
+        private bool _lockSelection;
 
+        public bool LockSelection
+        {
+            get => _lockSelection;
+            set
+            {
+                _lockSelection = value;
+                NotifyPropertyChanged();
 
-        public void RefreshDevices()
+                Log.Info($"Target {(_lockSelection ? "" : "un")}locked");
+            }
+        }
+
+        private int _volumeStepSize;
+        public int VolumeStepSize
+        {
+            get => _volumeStepSize;
+            set
+            {
+                _volumeStepSize = value;
+                NotifyPropertyChanged();
+
+                Log.Info($"Volume step set to {_volumeStepSize}");
+            }
+        }
+
+        public void ReloadDeviceList()
         {
             var devices = WrapperAPI.GetAllDevices();
             var sel = SelectedDevice;
@@ -218,11 +230,52 @@ namespace VolumeControl.Core
                 SelectedDevice = NullDevice;
 
             NotifyDeviceListRefresh(EventArgs.Empty);
+
+            Log.Info($"Refreshed the device list.");
         }
 
-        public void RefreshSessions()
+        /// <summary>
+        /// Performs a selective update on the <see cref="Sessions"/> list.
+        /// </summary>
+        /// <remarks><list type="number" start="1">
+        /// <item><description>Get the list of audio sessions by calling <see cref="WrapperAPI.GetAllSessions()"/> or <see cref="WrapperAPI.GetAllSessions(AudioAPI.WindowsAPI.Audio.MMDeviceAPI.IMMDevice)"/>, depending on if <see cref="CheckAllDevices"/> is set to true.</description></item>
+        /// </list></remarks>
+        public void ReloadSessionList()
         {
-            var sessions = WrapperAPI.GetAllSessions();
+            List<AudioSession> sessions = null!;
+
+            if (CheckAllDevices)
+            {
+                sessions = new();
+
+                for (int i = Devices.Count - 1; i >= 0; --i)
+                {
+                    if (Devices[i] is AudioDevice dev)
+                    {
+                        switch (Devices[i].GetState())
+                        {
+                        case EDeviceState.AccessError:
+                        case EDeviceState.NotPresent:
+                        case EDeviceState.Disabled:
+                        case EDeviceState.UnPlugged:
+                        case EDeviceState.All:
+                            continue; // skip devices that aren't active
+                        case EDeviceState.Active:
+                        default:
+                            break; // proceed if the device is active or unknown
+                        }
+
+                        // add non-duplicate sessions to the list
+                        sessions.AddRange(dev.GetAudioSessions().Where(devSession => !sessions.Any(s => s.ProcessIdentifier.Equals(devSession.ProcessIdentifier, StringComparison.Ordinal))));
+                    }
+                    else
+                    {
+                        Log.Error($"{nameof(Devices)}[{i}] contains invalid type '{Devices[i].GetType()}'!");
+                    }
+                }
+            }
+            else sessions = WrapperAPI.GetAllSessions(WrapperAPI.GetDefaultDevice());
+
             var sel = SelectedSession;
 
             foreach (var session in Sessions.List)
@@ -241,11 +294,14 @@ namespace VolumeControl.Core
                 }
             }
 
-            if (sel != NullSession && !Sessions.Contains(sel))
+            if (sel != null && sel != NullSession && !Sessions.Contains(sel))
             {
                 SelectedSession = NullSession;
             }
+
             NotifyProcessListRefresh(EventArgs.Empty);
+
+            Log.Debug("Refreshed the session list.");
         }
 
         public IProcess FindSession(Predicate<AudioSession> predicate)
@@ -301,24 +357,38 @@ namespace VolumeControl.Core
         internal void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
         private void NextTarget()
         {
+            if (LockSelection) return;
+
+            if (ReloadOnHotkey) // reload on hotkey
+                ReloadSessionList();
+
             if (SelectedSession is AudioSession session)
-            {
-                int index = Sessions.IndexOf(session);
-                if (index >= Sessions.Count)
+            { // a valid audio session is selected
+                int index = Sessions.IndexOf(session) + 1;
+                if (index == -1 || index >= Sessions.Count)
                     index = 0;
                 SelectedSession = Sessions[index];
             }
+            // nothing is selected, select the first element in the list
+            else SelectedSession = Sessions[0];
         }
         internal void NextTarget(object? sender, HandledEventArgs e) => NextTarget();
         private void PreviousTarget()
         {
+            if (LockSelection) return;
+
+            if (ReloadOnHotkey) // reload on hotkey
+                ReloadSessionList();
+
             if (SelectedSession is AudioSession session)
-            {
-                int index = Sessions.IndexOf(session);
-                if (index < 0)
+            { // a valid audio session is selected
+                int index = Sessions.IndexOf(session) - 1;
+                if (index == -1 || index < 0)
                     index = Sessions.Count - 1;
                 SelectedSession = Sessions[index];
             }
+            // nothing is selected, select the last element in the list
+            else SelectedSession = Sessions[^1];
         }
         internal void PreviousTarget(object? sender, HandledEventArgs e) => PreviousTarget();
         internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelection = !LockSelection;

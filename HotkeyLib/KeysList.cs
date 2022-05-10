@@ -11,7 +11,7 @@ namespace HotkeyLib
         /// <inheritdoc/>
         object? IList.this[int index] { get => ((IList)Keys)[index]; set => ((IList)Keys)[index] = value; }
 
-        public List<Keys> Keys { get; set; } = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+        public List<Keys> Keys { get; set; } = KeysBlacklist.GetWhitelistedKeys();
 
         /// <inheritdoc/>
         public int Count => ((ICollection<Keys>)Keys).Count;

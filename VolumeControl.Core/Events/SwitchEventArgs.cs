@@ -2,13 +2,11 @@
 {
     public class SwitchEventArgs<T> : EventArgs
     {
-        public SwitchEventArgs(T prevTarget, T newTarget)
+        public SwitchEventArgs(T newTarget)
         {
-            OldTarget = prevTarget;
-            NewTarget = newTarget;
+            Target = newTarget;
         }
         
-        public T OldTarget { get; }
-        public T NewTarget { get; }
+        public T Target { get; }
     }
 }

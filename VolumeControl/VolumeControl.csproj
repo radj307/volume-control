@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Properties\Resources\icons\icon-16x16-VC.ico" />
+    <None Remove="Properties\Resources\images\background-img.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,9 @@
 
   <ItemGroup>
     <Resource Include="Properties\Resources\icons\icon-16x16-VC.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Properties\Resources\images\background-img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

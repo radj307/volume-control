@@ -1,4 +1,6 @@
-﻿namespace AudioAPI.Interfaces
+﻿using AudioAPI.Objects;
+
+namespace AudioAPI.Interfaces
 {
     public interface IAudioDevice
     {
@@ -18,6 +20,6 @@
         /// Gets all current audio sessions on this device.
         /// </summary>
         /// <returns>A list of audio sessions.</returns>
-        List<IAudioSession> GetAudioSessions();
+        List<AudioSession> GetAudioSessions();
     }
 }

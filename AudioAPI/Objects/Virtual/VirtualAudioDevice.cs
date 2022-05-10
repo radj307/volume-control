@@ -15,6 +15,6 @@ namespace AudioAPI.Objects.Virtual
         /// <inheritdoc/>
         public string DeviceID => string.Empty;
         /// <inheritdoc/>
-        public List<IAudioSession> GetAudioSessions() => new();
+        public List<AudioSession> GetAudioSessions() => new();
     }
 }

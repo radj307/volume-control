@@ -62,13 +62,19 @@ namespace VolumeControl.Log
                     continue;
                 else if (line is Exception ex)
                     WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
+                else if (line is string s)
+                {
+                    if (s.Length == 0)
+                        continue;
+                    else WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
+                }
                 else
                     WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
             }
         }
         public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
 
-        public string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
+        public static string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
 
         #region WriteEvent
         public void WriteEvent(EventType eventType, object?[] lines)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace HotkeyLib
@@ -58,6 +59,8 @@ namespace HotkeyLib
         #region Members
         private Keys _key;
         private Modifier _mod;
+
+        public event PropertyChangedEventHandler? PropertyChanged = null;
         #endregion Members
 
         #region Properties
@@ -67,7 +70,12 @@ namespace HotkeyLib
         public Keys Key
         {
             get => _key;
-            set => _key = value;
+            set
+            {
+                _key = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Valid));
+            }
         }
         /// <summary>
         /// The modifier key bitfield.
@@ -75,7 +83,11 @@ namespace HotkeyLib
         public Modifier Mod
         {
             get => _mod;
-            set => _mod = value;
+            set
+            {
+                _mod = value;
+                NotifyPropertyChanged();
+            }
         }
         /// <summary>
         /// Get or set whether the Alt modifier key is enabled.
@@ -85,7 +97,11 @@ namespace HotkeyLib
         public bool Alt
         {
             get => _mod.Contains(Modifier.ALT);
-            set => _mod.Apply(Modifier.ALT, value);
+            set
+            {
+                _mod.Apply(Modifier.ALT, value);
+                NotifyPropertyChanged();
+            }
         }
         /// <summary>
         /// Get or set whether the Ctrl modifier key is enabled.
@@ -95,7 +111,11 @@ namespace HotkeyLib
         public bool Ctrl
         {
             get => _mod.Contains(Modifier.CTRL);
-            set => _mod.Apply(Modifier.CTRL, value);
+            set
+            {
+                _mod.Apply(Modifier.CTRL, value);
+                NotifyPropertyChanged();
+            }
         }
         /// <summary>
         /// Get or set whether the Shift modifier key is enabled.
@@ -105,7 +125,11 @@ namespace HotkeyLib
         public bool Shift
         {
             get => _mod.Contains(Modifier.SHIFT);
-            set => _mod.Apply(Modifier.SHIFT, value);
+            set
+            {
+                _mod.Apply(Modifier.SHIFT, value);
+                NotifyPropertyChanged();
+            }
         }
         /// <summary>
         /// Get or set whether the "Windows Key" (super) modifier key is enabled.
@@ -115,7 +139,11 @@ namespace HotkeyLib
         public bool Win
         {
             get => _mod.Contains(Modifier.WIN);
-            set => _mod.Apply(Modifier.WIN, value);
+            set
+            {
+                _mod.Apply(Modifier.WIN, value);
+                NotifyPropertyChanged();
+            }
         }
         /// <inheritdoc/>
         public bool Valid
@@ -125,12 +153,40 @@ namespace HotkeyLib
         #endregion Properties
 
         #region Methods
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         /// <summary>
         /// Converts this key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
         /// </summary>
         /// <returns>A valid hotkey string representation.</returns>
-        public override string? ToString()
-            => $"{(_mod.Empty() ? "" : $"{_mod.Stringify()}+")}{Enum.GetName(typeof(Keys), _key)}";
+        public override string? ToString() => $"{(_mod.Empty() ? "" : $"{_mod.Stringify()}+")}{Enum.GetName(typeof(Keys), _key)}";
+
+        /// <summary>
+        /// Parse the given string into a <see cref="KeyCombo"/>.
+        /// </summary>
+        /// <param name="keystr">Input String</param>
+        /// <param name="sCompareType">String Comparison Type</param>
+        /// <returns><see cref="KeyCombo"/></returns>
+        public static KeyCombo Parse(string keystr, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        {
+            Keys key = Keys.None;
+            Modifier mod = Modifier.NONE;
+
+            foreach (string s in keystr.Split('+', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (s.Equals("Alt", sCompareType))
+                    mod |= Modifier.ALT;
+                else if (s.Equals("Ctrl", sCompareType))
+                    mod |= Modifier.CTRL;
+                else if (s.Equals("Shift", sCompareType))
+                    mod |= Modifier.SHIFT;
+                else if (s.Equals("Win", sCompareType))
+                    mod |= Modifier.WIN;
+                else if (Enum.TryParse(typeof(Keys), s, out object? keyObj) && keyObj is Keys k)
+                    key = k;
+            }
+
+            return new(key, mod);
+        }
         #endregion Methods
     }
 

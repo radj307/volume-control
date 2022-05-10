@@ -9,11 +9,18 @@
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
-        UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Properties/Resources/icons/icon-16x16-VC.ico">
+        UseLayoutRounding="True"
+        ResizeMode="CanMinimize"
+        Icon="/Properties/Resources/icons/icon-16x16-VC.ico"
+        Closing="Window_Closing">
+    <Window.Background>
+        <ImageBrush ImageSource="/Properties/Resources/images/background-img.png" Stretch="UniformToFill"/>
+    </Window.Background>
     <Window.Style>
+        <!-- Set Window Style Properties -->
         <Style TargetType="Window">
-            <Setter Property="SizeToContent" Value="Height"/>
             <Setter Property="Background" Value="#606060"/>
+            <Setter Property="SizeToContent" Value="Height"/>
             <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
             <Setter Property="Height" Value="Auto"/>
             <Setter Property="Width" Value="440"/>
@@ -25,6 +32,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="VolumeControlResources.xaml"/>
+                <!-- Merge Resource Dictionary -->
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -51,6 +59,15 @@
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="#454545"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="SelectionBrush" Value="#569DE5"/>
+                <Setter Property="SelectionOpacity" Value="0.5"/>
+            </Style>
+            <!-- Label -->
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <!-- Mixer Volume TextBox -->
             <Style x:Key="MixerVolumeTextBoxStyle" BasedOn="{StaticResource TextBoxStyle}" TargetType="TextBox">
@@ -61,7 +78,7 @@
             <!-- Mixer Column Header -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
                 <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Height" Value="22"/>
+                <Setter Property="Height" Value="24"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
@@ -86,11 +103,12 @@
             </Style>
             <!-- Mixer -->
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
-                <Setter Property="Background" Value="#303030"/>
-                <Setter Property="AlternatingRowBackground" Value="#606060"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="RowBackground" Value="#303030"/>
+                <Setter Property="AlternatingRowBackground" Value="#454545"/>
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource MixerHeadersStyle}"/>
                 <Setter Property="CellStyle" Value="{StaticResource MixerCellStyle}"/>
-                <Setter Property="RowStyle" Value="{StaticResource MixerRowStyle}"/>
+                <!--<Setter Property="RowStyle" Value="{StaticResource MixerRowStyle}"/>-->
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
@@ -98,12 +116,16 @@
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="SelectionUnit" Value="Cell"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="GridLinesVisibility" Value="Horizontal"/>
             </Style>
             <!-- NumericUpDown -->
-            <Style TargetType="Controls:NumericUpDown" x:Key="NumericUpDownStyle">
+            <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
+
+                <Setter Property="Height" Value="23"/>
+                <Setter Property="Margin" Value="3,0,3,0"/>
             </Style>
             <!-- TabControl -->
             <Style x:Key="TabControlStyle" TargetType="TabControl">
@@ -111,21 +133,40 @@
             </Style>
             <!-- TabItem -->
             <Style x:Key="TabItemStyle" TargetType="TabItem">
-                <Setter Property="Background" Value="WhiteSmoke"/>
+                <!--<Setter Property="Background" Value="#909090"/>-->
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="Height" Value="20"/>
             </Style>
             <!-- ComboBox -->
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="AlternationCount" Value="1"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="Height" Value="21"/>
+            </Style>
+            <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+                <Setter Property="HasDropShadow" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToolTip">
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SettingsStackPanelBorderStyle" TargetType="Border">
+                <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="BorderThickness" Value="1"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
 
+
+
     <!--( Element Layout )-->
-    <TabControl Style="{StaticResource TabControlStyle}" SelectionChanged="TabControl_SelectionChanged">
-        <!-- TAB: Mixer -->
+    <TabControl Style="{StaticResource TabControlStyle}">
+        <!--▼ Mixer ▼-->
         <TabItem Header="Mixer" Name="MixerTab" Style="{StaticResource TabItemStyle}">
             <Grid HorizontalAlignment="Center"
                   VerticalAlignment="Top"
@@ -145,7 +186,7 @@
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
 
-                <!--- [Row-0] Target Selection -->
+                <!--- [Row-1] Target Selection -->
                 <Grid x:Name="targetSelectionRow"
                       Grid.Column="1"
                       Grid.Row="1"
@@ -163,44 +204,34 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="6"/>
                     </Grid.ColumnDefinitions>
-                    <!--<Button Grid.Column="1"
-                    Width="Auto"
-                    Content="Set Target"
-                    Padding="5,1,5,1"
-                    Height="21"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="Handle_ApplyClick"
-                    IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
-                    Style="{StaticResource ButtonStyle}"/>-->
                     <TextBox x:Name="targetNameTextBox"
-                     Grid.Column="1"
-                     TextWrapping="NoWrap"
-                     Margin="3,0,3,0"
-                     VerticalContentAlignment="Center"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Stretch"
-                     Height="23"
-                     TabIndex="0"
-                     ToolTip="You can enter the Process ID or Process Name of any valid audio session here. Click the 'Set Target' button to apply the changes."
-                     Text="{Binding Target, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True, IsAsync=True}"
-                     DataContext="{StaticResource AudioAPI}"
-                     IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                             Grid.Column="1"
+                             TextWrapping="NoWrap"
+                             Margin="3,0,3,0"
+                             VerticalContentAlignment="Center"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Stretch"
+                             Height="23"
+                             TabIndex="0"
+                             ToolTip="You can enter the Process ID or Process Name of any valid audio session here. Click the 'Set Target' button to apply the changes."
+                             Text="{Binding Target, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True, IsAsync=True}"
+                             DataContext="{StaticResource AudioAPI}"
+                             IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
+                             Style="{StaticResource TextBoxStyle}"/>
                     <CheckBox x:Name="cbLockTargetSelection"
-                      Grid.Row="0"
-                      Grid.Column="2"
-                      Content="Lock"
-                      Width="52"
-                      Height="Auto"
-                      TabIndex="1"
-                      Margin="2,0,0,0"
-                      DataContext="{StaticResource AudioAPI}"
-                      IsChecked="{Binding LockSelection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{StaticResource CheckBoxStyle}"/>
+                              Grid.Row="0"
+                              Grid.Column="2"
+                              Content="Lock"
+                              Width="52"
+                              Height="Auto"
+                              TabIndex="1"
+                              Margin="2,0,0,0"
+                              DataContext="{StaticResource AudioAPI}"
+                              IsChecked="{Binding LockSelection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                              Style="{StaticResource CheckBoxStyle}"/>
                 </Grid>
 
-                <!--- [Row-1] Mixer Controls & Misc -->
+                <!--- [Row-3] Mixer Controls & Misc -->
                 <Grid x:Name="mixerControlsRow" 
                       Grid.Row="3"
                       Grid.Column="1"
@@ -218,26 +249,11 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
-<!--                    <Label Content="Device"
-                           Grid.Row="1"
-                           Grid.Column="0"/>
-                    <ComboBox x:Name="DeviceSelectorBox"
-                              Grid.Column="0"
-                              Grid.Row="0"
-                              Width="80"
-                              Style="{StaticResource ComboBoxStyle}"
-                              ItemsSource="{Binding Devices, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-                              DisplayMemberPath="DeviceID"
-                              SelectedItem="{Binding SelectedDevice}"
-                              DataContext="{StaticResource AudioAPI}"
-                              ToolTip="The Audio Device to bind to."/>-->
                     <Button x:Name="bReload"
                             Grid.Column="1"
                             Grid.Row="0"
-                            Content="Refresh Sessions"
-                            Height="21"
-                            Width="100"
+                            Content="Reload"
+                            ToolTip=""
                             Click="Handle_ReloadClick"
                             TabIndex="2"
                             Style="{StaticResource ButtonStyle}"/>
@@ -246,6 +262,7 @@
                               Grid.Row="0"
                               VerticalAlignment="Center"
                               Content="On Hotkey"
+                              ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed."
                               Margin="3,0,3,0"
                               IsChecked="{Binding ReloadOnHotkey, BindsDirectlyToSource=True, Mode=TwoWay}"
                               TabIndex="3"
@@ -259,6 +276,7 @@
                               Grid.Row="0"
                               VerticalAlignment="Center"
                               Content="Automatic"
+                              ToolTip="Automatically reloads the mixer sessions on an interval."
                               IsChecked="{Binding ReloadOnInterval, BindsDirectlyToSource=True, Mode=TwoWay}"
                               TabIndex="4"
                               ClickMode="Press"
@@ -267,9 +285,8 @@
                     <Controls:NumericUpDown HorizontalAlignment="Left"
                                             Grid.Column="4"
                                             Grid.Row="0"
-                                            Height="23"
                                             Width="60"
-                                            Margin="3,0,3,0"
+                                            Margin="3,0,0,0"
                                             ToolTip="Reload Interval in Milliseconds"
                                             TabIndex="5"
                                             MaxDecimalPlaces="0"
@@ -280,9 +297,9 @@
                                             DataContext="{StaticResource AudioAPI}"/>
                 </Grid>
 
-                <!--- [Row-2] Mixer Data Grid -->
+                <!--- [Row-5] Mixer Data Grid -->
                 <DataGrid x:Name="MixerGrid"
-                  ItemsSource="{Binding Sessions, NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Sessions}"
                   Grid.Column="1"
                   Grid.Row="5"
                   AutoGenerateColumns="False"
@@ -308,10 +325,15 @@
                                     <Grid VerticalAlignment="Center" Margin="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="3"/>
+                                            <!-- Slider -->
+                                            <ColumnDefinition Width="2"/>
+                                            <!-- Divider -->
                                             <ColumnDefinition Width="Auto"/>
+                                            <!-- TextBox -->
                                         </Grid.ColumnDefinitions>
+                                        <!-- Slider -->
                                         <Slider x:Name="dgVolumeSlider" Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SmallChange="1" LargeChange="5" Style="{StaticResource MixerVolumeSliderStyle}"/>
+                                        <!-- TextBox -->
                                         <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MixerVolumeTextBoxStyle}"/>
                                     </Grid>
                                 </DataTemplate>
@@ -332,47 +354,196 @@
 
             </Grid>
         </TabItem>
+        <!--▲ Mixer ▲-->
 
-
-        <!-- TAB: Hotkeys -->
+        <!--▼ Hotkeys ▼-->
         <TabItem Header="Hotkeys" Name="HotkeysTab" Style="{StaticResource TabItemStyle}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
+            <DockPanel>
+                <Grid DockPanel.Dock="Top">
+                    <TextBox Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}"/>
+                </Grid>
                 <!-- [Row-1]: HotkeyGrid -->
                 <DataGrid x:Name="HotkeyGrid"
-                          Grid.Column="0"
-                          Grid.Row="0"
+                          DockPanel.Dock="Bottom"
                           Padding="1"
                           AutoGenerateColumns="False"
+                          CanUserAddRows="True"
                           DataContext="{StaticResource HotkeyAPI}"
-                          ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource DataGridStyle}">
 
                     <DataGrid.Columns>
                         <!-- Active -->
-                        <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Registered, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Enabled" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Visibility="{Binding Valid, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Name -->
-                        <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Name, UpdateSourceTrigger=LostFocus}"/>
+                        <DataGridTextColumn Header="Name" Width="10*" Binding="{Binding Name, UpdateSourceTrigger=LostFocus}" CellStyle="{StaticResource MixerCellStyle}"/>
                         <!-- Key -->
-                        <DataGridComboBoxColumn Header="Key" Width="*" ItemsSource="{StaticResource KeyOptions}" SelectedValueBinding="{Binding Key}"/>
+                        <DataGridTemplateColumn Header="Key" Width="6*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{StaticResource KeyOptions}" SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Alt -->
-                        <DataGridCheckBoxColumn Header="Alt" Binding="{Binding Alt, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Alt" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Ctrl -->
-                        <DataGridCheckBoxColumn Header="Ctrl" Binding="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Ctrl" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Shift -->
-                        <DataGridCheckBoxColumn Header="Shift" Binding="{Binding Shift, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Shift" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Windows -->
-                        <DataGridCheckBoxColumn Header="Win" Binding="{Binding Win, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Win" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!-- Action -->
+                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding Source={x:Reference cbShowActionBindings}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{StaticResource ActionOptions}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>
+            </DockPanel>
+        </TabItem>
+        <!--▲ Hotkeys ▲-->
+
+        <!--▼ Settings ▼-->
+        <TabItem Header="Settings" Name="SettingsTab" Style="{StaticResource TabItemStyle}">
+            <Grid VerticalAlignment="Center"
+                  Background="#454545"
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                    <!-- 1 -->
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                    <!-- 3 -->
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                    <!-- 5 -->
+                    <ColumnDefinition Width="3"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                </Grid.RowDefinitions>
+
+                <!-- Row 1: -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="2"
+                            Grid.Column="1"
+                            Grid.Row="1">
+                    <CheckBox x:Name="cbShowActionBindings"
+                              Content="Show Hotkey Action Bindings"
+                              Style="{StaticResource CheckBoxStyle}"
+                              Checked="Handle_ShowActionBindingsChecked"
+                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                </StackPanel>
+                <!-- Row 2: -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="2"
+                            Grid.Column="1"
+                            Grid.Row="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Volume Step Size:"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"/>
+                        <Controls:NumericUpDown x:Name="VolumeStep"
+                                                    Grid.Column="1"
+                                                    Width="50"
+                                                    DecimalPlaces="0"
+                                                    MinValue="0"
+                                                    MaxValue="100"
+                                                    Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{StaticResource NumericUpDownStyle}"/>
+                    </Grid>
+                </StackPanel>
+                <!-- Row 3: -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="2"
+                            Grid.Column="1"
+                            Grid.Row="5">
+                    <Label Content="Device"
+                           Style="{StaticResource LabelStyle}"
+                           IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                    <ComboBox x:Name="DeviceSelectorBox"
+                              Width="80"
+                              Style="{StaticResource ComboBoxStyle}"
+                              ItemsSource="{Binding Devices, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding SelectedDevice}"
+                              DataContext="{StaticResource AudioAPI}"
+                              ToolTip="The Audio Device to bind to."
+                              Margin="0,1,0,0"
+                              IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                    <CheckBox x:Name="cbAllDevices"
+                              Content="Check All Devices"
+                              IsChecked="{Binding CheckAllDevices, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, BindsDirectlyToSource=True}"
+                              DataContext="{StaticResource AudioAPI}"
+                              Style="{StaticResource CheckBoxStyle}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="5,0,1,0"/>
+                    <Button Content="Refresh"
+                            Click="Handle_ReloadDevicesClick"
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
             </Grid>
         </TabItem>
+        <!--▲ Settings ▲-->
     </TabControl>
 </Window>
