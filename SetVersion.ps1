@@ -78,6 +78,6 @@ function SetVersion
 $LOCATION = "$(Get-Location)"
 
 SetVersion("$LOCATION\VolumeControl\VolumeControl.csproj")
-SetVersion("$LOCATION\VolumeControl.CLI\VolumeControl.CLI.csproj")
+#SetVersion("$LOCATION\VolumeControl.CLI\VolumeControl.CLI.csproj")
 
 "SetVersion.ps1 Finished."

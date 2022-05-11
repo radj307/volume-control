@@ -15,7 +15,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl", "VolumeCont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{F230C26A-3FB5-4705-95B8-BDAB7C703288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.WPF", "VolumeControl.WPF\VolumeControl.WPF.csproj", "{69A59FC1-1378-45CB-B001-5781D3E8D8D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.WPF", "VolumeControl.WPF\VolumeControl.WPF.csproj", "{69A59FC1-1378-45CB-B001-5781D3E8D8D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}"
+	ProjectSection(SolutionItems) = preProject
+		SetVersion.ps1 = SetVersion.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActions", "{FFC976AB-3F90-4DCD-B389-78DC9A459464}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\GenerateRelease-csharp.yml = .github\workflows\GenerateRelease-csharp.yml
+		.github\workflows\UpdateVersion.yml = .github\workflows\UpdateVersion.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +65,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{837781D0-F91F-4EE0-A54B-1E5341DB160D} = {FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}
 		{C8105F8E-3D49-4897-AEA5-FA7AC7872F53} = {FDB479EE-7FDD-4A76-9BA0-E464DA42B94B}
+		{FFC976AB-3F90-4DCD-B389-78DC9A459464} = {0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCCF30EB-5FD3-4483-A469-50F52081CFE1}
