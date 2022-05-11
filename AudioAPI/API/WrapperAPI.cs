@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace AudioAPI.API
 {
     /// <summary>
-    /// Contains a wide array of static helper functions that are used by the <see cref="AudioAPI.Objects"/> namespace.<br/>
+    /// Contains a wide array of static helper functions that are used by the <see cref="Objects"/> namespace.<br/>
     /// This is public and can be used outside of <see cref="AudioAPI"/>, however it is hightly recommended that you use the objects rather than these raw API wrappers.
     /// </summary>
     public static class WrapperAPI

@@ -25,25 +25,34 @@ namespace VolumeControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point WindowPosition {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AdvancedHotkeys {
             get {
-                return ((global::System.Drawing.Point)(this["WindowPosition"]));
+                return ((bool)(this["AdvancedHotkeys"]));
             }
             set {
-                this["WindowPosition"] = value;
+                this["AdvancedHotkeys"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int WindowWidthDefault {
+            get {
+                return ((int)(this["WindowWidthDefault"]));
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("400, 200")]
-        public global::System.Drawing.Size WindowSize {
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public int WindowWidthWide {
             get {
-                return ((global::System.Drawing.Size)(this["WindowSize"]));
+                return ((int)(this["WindowWidthWide"]));
             }
             set {
-                this["WindowSize"] = value;
+                this["WindowWidthWide"] = value;
             }
         }
     }

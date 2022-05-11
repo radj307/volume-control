@@ -40,6 +40,14 @@
             {
                 EHotkeyAction.ToggleTargetLock,
                 audioAPI.ToggleTargetLock
+            },
+            {
+                EHotkeyAction.NextDevice,
+                audioAPI.NextDevice
+            },
+            {
+                EHotkeyAction.PreviousDevice,
+                audioAPI.PreviousDevice
             }
         };
 

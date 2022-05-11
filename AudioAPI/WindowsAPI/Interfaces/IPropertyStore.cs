@@ -1,4 +1,4 @@
-﻿using AudioAPI.WindowsAPI.Types;
+﻿using AudioAPI.WindowsAPI.Struct;
 using System.Runtime.InteropServices;
 
 namespace AudioAPI.WindowsAPI.Interfaces
@@ -12,7 +12,7 @@ namespace AudioAPI.WindowsAPI.Interfaces
         [PreserveSig]
         public int GetAt(int property, out PROPERTYKEY key);
         [PreserveSig]
-        public int GetValue(ref PROPERTYKEY key, out IntPtr value);
+        public int GetValue(ref PROPERTYKEY key, out PROPVARIANT value);
         [PreserveSig]
         public int SetValue(ref PROPERTYKEY key, ref IntPtr value);
         [PreserveSig]

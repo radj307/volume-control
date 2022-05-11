@@ -53,6 +53,7 @@ namespace HotkeyLib
 
         #region Methods
         string? ToString();
+        string Serialize();
         #endregion Methods
     }
 }

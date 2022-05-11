@@ -1,64 +1,82 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <StartupObject>VolumeControl.App</StartupObject>
-    <UseWindowsForms>False</UseWindowsForms>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<StartupObject>VolumeControl.App</StartupObject>
+		<UseWindowsForms>False</UseWindowsForms>
+		
+		<!-- VERSIONING INFO -->
+		<Version>4.0.6</Version>
+		<ExtendedVersion>4.0.6</ExtendedVersion>
+		<ReleaseType>NORMAL</ReleaseType>
+		<!-- VERSIONING INFO -->
+		
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Properties\Resources\icons\icon-16x16-VC.ico" />
-    <None Remove="Properties\Resources\images\background-img.png" />
-  </ItemGroup>
+	<!-- VERSIONING ATTRIBUTES -->
+	<ItemGroup>
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.ExtendedVersion">
+			<_Parameter1>$(ExtendedVersion)</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.ReleaseType">
+			<_Parameter1>$(ReleaseType)</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	<!-- VERSIONING ATTRIBUTES -->
 
-  <ItemGroup>
-    <PackageReference Include="CalcBinding" Version="2.5.2" />
-    <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Properties\Resources\icons\icon-16x16-VC.ico" />
+		<None Remove="Properties\Resources\images\background-img.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CalcBinding" Version="2.5.2" />
+		<PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Properties\Resources\icons\icon-16x16-VC.ico">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Properties\Resources\images\background-img.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Properties\Resources\icons\icon-16x16-VC.ico">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Properties\Resources\images\background-img.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
 </Project>

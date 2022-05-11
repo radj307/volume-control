@@ -4,6 +4,7 @@ using AudioAPI.Objects.Virtual;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using AudioAPI.WindowsAPI.Interfaces;
+using AudioAPI.WindowsAPI.Struct;
 using System.Runtime.InteropServices;
 
 namespace AudioAPI.Objects
@@ -27,8 +28,9 @@ namespace AudioAPI.Objects
             if (_device.OpenPropertyStore(EStorageAccess.READ, out IPropertyStore store) == 0)
             {
                 var nameKey = IMMDevice.PKEY_Device_FriendlyName;
-                store.GetValue(ref nameKey, out IntPtr value);
-                _name = value as object as string ?? string.Empty;
+                if (store.GetValue(ref nameKey, out PROPVARIANT variant) == 0 && variant.Value is string s)
+                    _name = s;
+                else _name = string.Empty;
             }
             else _name = string.Empty;
         }
@@ -37,6 +39,7 @@ namespace AudioAPI.Objects
         private readonly string _name;
         private readonly string _devId;
         private bool disposedValue;
+        public IMMDevice Interface => _device;
         /// <inheritdoc/>
         public string Name => _name;
         /// <inheritdoc/>

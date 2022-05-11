@@ -1,4 +1,4 @@
-﻿namespace AudioAPI.WindowsAPI.Types
+﻿namespace AudioAPI.WindowsAPI.Struct
 {
     public struct PROPERTYKEY
     {

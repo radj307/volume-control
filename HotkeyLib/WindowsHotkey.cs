@@ -7,7 +7,7 @@ using VolumeControl.Log;
 namespace HotkeyLib
 {
     [TypeConverter(typeof(WindowsHotkeyConverter))]
-    public class WindowsHotkey : IKeyCombo, IDisposable
+    public class WindowsHotkey : IKeyCombo, IDisposable, INotifyPropertyChanged
     {
         #region Constructors
         public WindowsHotkey(IntPtr owner, IKeyCombo keys)
@@ -20,19 +20,9 @@ namespace HotkeyLib
                     Reregister();
             };
             ID = HotkeyAPI.GetID();
-        }
 
-        public event PropertyChangedEventHandler? PropertyChanged
-        {
-            add
-            {
-                _combo.PropertyChanged += value;
-            }
-
-            remove
-            {
-                _combo.PropertyChanged -= value;
-            }
+            // bind the key combination's property changed event so it triggers our property changed event
+            _combo.PropertyChanged += (s, e) => PropertyChanged?.Invoke(s, e);
         }
         #endregion Constructors
 
@@ -62,6 +52,10 @@ namespace HotkeyLib
         /// </summary>
         /// <remarks>This can be triggered by any of the related properties.</remarks>
         public event EventHandler? KeysChanged = null;
+        /// <summary>
+        /// Triggered when any of the object's properties change.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged = null;
         #endregion Members
 
         #region Properties
@@ -73,6 +67,8 @@ namespace HotkeyLib
             {
                 _combo.Key = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Valid));
             }
         }
         /// <inheritdoc/>
@@ -83,6 +79,7 @@ namespace HotkeyLib
             {
                 _combo.Mod = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
@@ -93,6 +90,7 @@ namespace HotkeyLib
             {
                 _combo.Alt = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
@@ -103,6 +101,7 @@ namespace HotkeyLib
             {
                 _combo.Ctrl = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
@@ -113,6 +112,7 @@ namespace HotkeyLib
             {
                 _combo.Shift = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
@@ -123,6 +123,7 @@ namespace HotkeyLib
             {
                 _combo.Win = value;
                 NotifyKeysChanged();
+                NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
@@ -135,6 +136,7 @@ namespace HotkeyLib
                 if (value)
                     Register();
                 else Unregister();
+                NotifyPropertyChanged();
             }
         }
         #endregion Properties
@@ -144,20 +146,24 @@ namespace HotkeyLib
             => KeysChanged?.Invoke(this, e);
         private void NotifyKeysChanged()
             => NotifyKeysChanged(EventArgs.Empty);
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         public void NotifyPressed(HandledEventArgs e) => Pressed?.Invoke(this, e);
 
-        public int? Register()
+        /// <summary>
+        /// Registers the hotkey with the Windows API.
+        /// </summary>
+        /// <remarks>This function automatically writes errors to the log file.</remarks>
+        /// <returns>True if successful, false if an error occurred.</returns>
+        internal virtual bool Register()
         {
             if (_state == HotkeyRegistrationState.REGISTERED)
-                return ID;
+                return false;
 
             if (!Valid)
             {
                 FLog.Log.Warning($"Refusing to register invalid hotkey '{_combo}'");
-                return ID;
+                return false;
             }
-
-            //ID = HotkeyAPI.GetID();
 
             if (HotkeyAPI.RegisterHotkey(_owner, ID, _combo.Mod.ToWindowsModifier(), _combo.Key))
             {
@@ -174,90 +180,97 @@ namespace HotkeyLib
                 );
 
                 _state = HotkeyRegistrationState.FAILED;
-                return null;
+                return false;
             }
-
-            return ID;
+            return true;
         }
-        public void Unregister()
+        /// <summary>
+        /// Unregisters the hotkey with the Windows API.
+        /// </summary>
+        /// <remarks>This function automatically writes errors to the log file.</remarks>
+        /// <returns>True if successful, false if an error occurred.</returns>
+        internal virtual bool Unregister()
         {
+            // if the hotkey is already registered then there is nothing to do.
             if (_state == HotkeyRegistrationState.UNREGISTERED)
-                return;
+                return false;
+            // If the previous registration attempt failed, reset the state
             else if (_state == HotkeyRegistrationState.FAILED)
             {
-                //ID = null;
                 _state = HotkeyRegistrationState.UNREGISTERED;
                 FLog.Log.Info($"Successfully reset the state of hotkey '{_combo}' after a failed registration attempt.");
-                return;
             }
-
-            //if (ID != null)
+            // Unregister the hotkey:
+            else if (HotkeyAPI.UnregisterHotkey(_owner, ID))
             {
-                if (HotkeyAPI.UnregisterHotkey(_owner, ID))
+                _state = HotkeyRegistrationState.UNREGISTERED;
+                FLog.Log.Info($"Successfully unregistered hotkey '{_combo}' with ID '{ID}' ({_owner})");
+            }
+            else
+            {
+                var (code, msg) = HotkeyAPI.GetLastWin32Error();
+                FLog.Log.Error(
+                    $"Hotkey unregistration failed with code {code} ({msg})!",
+                    $"Keys:       '{_combo}'",
+                    $"Hotkey ID:  '{ID}'"
+                );
+
+                _state = HotkeyRegistrationState.FAILED;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Re-Registers the hotkey with the Windows API, which is useful when the key combination was changed.
+        /// </summary>
+        /// <remarks>This function automatically writes errors to the log file.</remarks>
+        /// <returns>True if successful, false if an error occurred.</returns>
+        internal virtual bool Reregister()
+        {
+            if (_state == HotkeyRegistrationState.REGISTERED)
+            {
+                if (!HotkeyAPI.UnregisterHotkey(_owner, ID))
                 {
-                    _state = HotkeyRegistrationState.UNREGISTERED;
-                    FLog.Log.Info($"Successfully unregistered hotkey '{_combo}' with ID '{ID}' ({_owner})");
+                    var (code, msg) = HotkeyAPI.GetLastWin32Error();
+                    FLog.Log.Error(
+                        $"Hotkey re-registration failed with code {code} ({msg})!",
+                        $"Keys:       '{_combo}'",
+                        $"Hotkey ID:  '{ID}'"
+                    );
+                    _state = HotkeyRegistrationState.FAILED;
+                    return false;
+                }
+                if (HotkeyAPI.RegisterHotkey(_owner, ID, _combo.Mod.ToWindowsModifier(), _combo.Key))
+                {
+                    FLog.Log.Info($"Successfully re-registered hotkey '{_combo}'");
+                    return true;
                 }
                 else
                 {
                     var (code, msg) = HotkeyAPI.GetLastWin32Error();
-                    FLog.Log.Error(
-                        $"Hotkey unregistration failed with code {code} ({msg})!",
-                        $"Keys:       '{_combo}'",
-                        $"Hotkey ID:  '{ID}'"
-                    );
-                    //ID = null;
+                    FLog.Log.Error($"Hotkey re-registration failed with code {code} ({msg})!");
                     _state = HotkeyRegistrationState.FAILED;
+                    return false;
                 }
-            }
-
-            //ID = null;
-        }
-        public void Reregister()
-        {
-            if (_state == HotkeyRegistrationState.REGISTERED)
-            {
-                //if (ID != null)
-                {
-                    if (!HotkeyAPI.UnregisterHotkey(_owner, ID))
-                    {
-                        var (code, msg) = HotkeyAPI.GetLastWin32Error();
-                        FLog.Log.Error(
-                            $"Hotkey re-registration failed with code {code} ({msg})!",
-                            $"Keys:       '{_combo}'",
-                            $"Hotkey ID:  '{ID}'"
-                        );
-                        _state = HotkeyRegistrationState.FAILED;
-                        //ID = null;
-                    }
-                    else if (HotkeyAPI.RegisterHotkey(_owner, ID, _combo.Mod.ToWindowsModifier(), _combo.Key))
-                    {
-                        FLog.Log.Info($"Successfully re-registered hotkey '{_combo}'");
-                        // state is still correct
-                    }
-                    else
-                    {
-                        var (code, msg) = HotkeyAPI.GetLastWin32Error();
-                        FLog.Log.Error($"Hotkey re-registration failed with code {code} ({msg})!");
-                        _state = HotkeyRegistrationState.FAILED;
-                        //ID = null;
-                    }
-                }
-                //else FLog.Log.Error("Cannot re-register invalid hotkey!");
             }
             else
             {
                 FLog.Log.Warning("Cannot re-register hotkey that isn't already registered!");
             }
+            return false;
         }
+        public new string? ToString() => Serialize();
         /// <summary>
-        /// Converts this hotkey's key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
+        /// Converts this hotkey to a string with a serialized representation of the key combination.
         /// </summary>
-        /// <returns>A valid hotkey string representation.</returns>
-        public new string? ToString()
-        {
-            return _combo.ToString();
-        }
+        /// <remarks>This calls <see cref="IKeyCombo.Serialize"/> internally.</remarks>
+        /// <returns><see cref="string"/> containing the serialized key representation.</returns>
+        public string Serialize() => _combo.Serialize();
+        /// <summary>
+        /// Gets a verbose description of the hotkey for use with logging functions.
+        /// </summary>
+        /// <returns><see cref="string"/> containing a verbose description of this hotkey and its current values.</returns>
+        public virtual string GetFullIdentifier() => $"{{ ID: '{ID}', Keys: '{Serialize()}' }}";
         /// <summary>
         /// Dispose of this object.
         /// </summary>

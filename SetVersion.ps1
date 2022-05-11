@@ -1,4 +1,4 @@
-$SCRIPTVERSION = "1" # The version number of this script file
+$SCRIPTVERSION = "2" # The version number of this script file
 
 #Set-Location -Path '..'
 

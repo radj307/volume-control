@@ -42,22 +42,22 @@ namespace VolumeControl.Core.HelperTypes
 
         #region InterfaceImplementation
         /// <inheritdoc/>
-        public System.Windows.Forms.Keys Key { get => ((IKeyCombo)Hotkey).Key; set => ((IKeyCombo)Hotkey).Key = value; }
+        public System.Windows.Forms.Keys Key { get => Hotkey.Key; set => Hotkey.Key = value; }
         /// <inheritdoc/>
-        public Modifier Mod { get => ((IKeyCombo)Hotkey).Mod; set => ((IKeyCombo)Hotkey).Mod = value; }
+        public Modifier Mod { get => Hotkey.Mod; set => Hotkey.Mod = value; }
         /// <inheritdoc/>
-        public bool Alt { get => ((IKeyCombo)Hotkey).Alt; set => ((IKeyCombo)Hotkey).Alt = value; }
+        public bool Alt { get => Hotkey.Alt; set => Hotkey.Alt = value; }
         /// <inheritdoc/>
-        public bool Ctrl { get => ((IKeyCombo)Hotkey).Ctrl; set => ((IKeyCombo)Hotkey).Ctrl = value; }
+        public bool Ctrl { get => Hotkey.Ctrl; set => Hotkey.Ctrl = value; }
         /// <inheritdoc/>
-        public bool Shift { get => ((IKeyCombo)Hotkey).Shift; set => ((IKeyCombo)Hotkey).Shift = value; }
+        public bool Shift { get => Hotkey.Shift; set => Hotkey.Shift = value; }
         /// <inheritdoc/>
-        public bool Win { get => ((IKeyCombo)Hotkey).Win; set => ((IKeyCombo)Hotkey).Win = value; }
+        public bool Win { get => Hotkey.Win; set => Hotkey.Win = value; }
 
         /// <inheritdoc/>
-        public bool Valid => ((IKeyCombo)Hotkey).Valid;
+        public bool Valid => Hotkey.Valid;
 
-        System.Windows.Forms.Keys IKeyCombo.Key { get => ((IKeyCombo)Hotkey).Key; set => ((IKeyCombo)Hotkey).Key = value; }
+        System.Windows.Forms.Keys IKeyCombo.Key { get => Hotkey.Key; set => Hotkey.Key = value; }
 
         /// <inheritdoc/>
         public void Dispose()
@@ -71,7 +71,7 @@ namespace VolumeControl.Core.HelperTypes
         public int ID => Hotkey.ID;
 
         /// <inheritdoc/>
-        public event HotkeyLib.KeyEventHandler Pressed
+        public event KeyEventHandler Pressed
         {
             add => Hotkey.Pressed += value;
             remove => Hotkey.Pressed -= value;
@@ -85,15 +85,8 @@ namespace VolumeControl.Core.HelperTypes
 
         public event PropertyChangedEventHandler? PropertyChanged
         {
-            add
-            {
-                ((INotifyPropertyChanged)Hotkey).PropertyChanged += value;
-            }
-
-            remove
-            {
-                ((INotifyPropertyChanged)Hotkey).PropertyChanged -= value;
-            }
+            add => Hotkey.PropertyChanged += value;
+            remove => Hotkey.PropertyChanged -= value;
         }
 
         /// <summary>
@@ -109,6 +102,7 @@ namespace VolumeControl.Core.HelperTypes
         /// <inheritdoc/>
         public override string ToString() => Serialize();
         public string Serialize() => $"{Name}::{Hotkey.ToString()}::{Enum.GetName(typeof(EHotkeyAction), Action)}::{Registered}";
+        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Enum.GetName(typeof(EHotkeyAction), Action)}', Registered: '{Registered}' }}";
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {

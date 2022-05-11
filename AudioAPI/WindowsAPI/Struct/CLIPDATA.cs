@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace AudioAPI.WindowsAPI.Types
+namespace AudioAPI.WindowsAPI.Struct
 {
     [StructLayout(LayoutKind.Explicit)]
     public struct CLIPDATA

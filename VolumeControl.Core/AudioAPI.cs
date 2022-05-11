@@ -2,14 +2,15 @@
 using AudioAPI.Interfaces;
 using AudioAPI.Objects;
 using AudioAPI.Objects.Virtual;
+using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using AudioAPI.WindowsAPI.Enum;
 using HotkeyLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Animation;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Log;
-using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
 using static AudioAPI.WindowsAPI.User32;
 
 namespace VolumeControl.Core
@@ -21,7 +22,7 @@ namespace VolumeControl.Core
             _selectedDevice = NullDevice;
             SelectedSession = NullSession;
 
-            ReloadSessionList();
+            ReloadDeviceList();
             _selectedDevice = DefaultDevice;
             ReloadSessionList();
             _selectedSession = NullSession;
@@ -30,10 +31,13 @@ namespace VolumeControl.Core
             VolumeStepSize = Settings.VolumeStepSize;
             ReloadOnHotkey = Settings.ReloadOnHotkey;
             ReloadOnInterval = Settings.ReloadOnInterval;
-
-            // load settings
+            CheckAllDevices = Settings.CheckAllDevices;
+            LockSelectedDevice = Settings.LockSelectedDevice;
+            LockSelectedSession = Settings.LockSelectedSession;
             Target = Settings.Target;
-            ReloadInterval = Settings.ReloadInterval_ms > 0d ? Settings.ReloadInterval_ms : Settings.ReloadInterval_ms_Default;
+
+            ReloadInterval = ConstrainValue(Settings.ReloadInterval_ms, Settings.ReloadInterval_ms_Min, Settings.ReloadInterval_ms_Max);
+
             // add an event handler to the reload timer
             ReloadTimer.Elapsed += (sender, e) =>
             {
@@ -50,6 +54,9 @@ namespace VolumeControl.Core
             Settings.VolumeStepSize = VolumeStepSize;
             Settings.ReloadOnHotkey = ReloadOnHotkey;
             Settings.ReloadOnInterval = ReloadOnInterval;
+            Settings.CheckAllDevices = CheckAllDevices;
+            Settings.LockSelectedDevice = LockSelectedDevice;
+            Settings.LockSelectedSession = LockSelectedSession;
             // save to file
             Settings.Save();
             Settings.Reload();
@@ -133,15 +140,41 @@ namespace VolumeControl.Core
             get => _selectedDevice;
             set
             {
-                if (LockSelection)
+                if (LockSelectedDevice)
                     return;
-                Sessions.Clear();
+
+                // clear the session list if we're changing target devices and sessions are device-specific
+                if (!CheckAllDevices)
+                    Sessions.Clear();
+
+                // change the selected device
                 _selectedDevice = value;
-                ReloadSessionList();
+
+                // reload the session list with the new device
+                if (!CheckAllDevices && SelectedDevice != NullDevice)
+                    ReloadSessionList();
+
+                // trigger events
                 NotifyDeviceSwitch(new(_selectedDevice));
                 NotifyPropertyChanged();
 
                 Log.Info($"Selected device was changed to '{_selectedDevice.Name}'");
+            }
+        }
+        private bool _lockSelectedDevice;
+        /// <summary>
+        /// Prevents <see cref="SelectedDevice"/> from being modified.
+        /// </summary>
+        public bool LockSelectedDevice
+        {
+            get => _lockSelectedDevice;
+            set
+            {
+                _lockSelectedDevice = value;
+
+                NotifyPropertyChanged();
+
+                Log.Info($"Selected device was {(value ? "" : "un")}locked");
             }
         }
         /// <summary>
@@ -158,7 +191,7 @@ namespace VolumeControl.Core
             get => _selectedSession;
             set
             {
-                if (LockSelection)
+                if (LockSelectedSession)
                     return;
                 _selectedSession = value;
                 _target = _selectedSession.ProcessIdentifier;
@@ -172,33 +205,34 @@ namespace VolumeControl.Core
             }
         }
 
+        private bool _lockSelectedSession;
+
+        public bool LockSelectedSession
+        {
+            get => _lockSelectedSession;
+            set
+            {
+                _lockSelectedSession = value;
+
+                NotifyPropertyChanged();
+
+                Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
+            }
+        }
+
         private string _target;
         public string Target
         {
             get => _target;
             set
             {
-                if (LockSelection)
+                if (LockSelectedSession)
                     return;
                 _target = (_selectedSession = FindSessionWithIdentifier(value)).ProcessIdentifier;
                 NotifySessionSwitch(new(_selectedSession));
                 NotifyTargetChanged(new(_target));
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedSession));
-            }
-        }
-
-        private bool _lockSelection;
-
-        public bool LockSelection
-        {
-            get => _lockSelection;
-            set
-            {
-                _lockSelection = value;
-                NotifyPropertyChanged();
-
-                Log.Info($"Target {(_lockSelection ? "" : "un")}locked");
             }
         }
 
@@ -274,7 +308,8 @@ namespace VolumeControl.Core
                     }
                 }
             }
-            else sessions = WrapperAPI.GetAllSessions(WrapperAPI.GetDefaultDevice());
+            else if (SelectedDevice is AudioDevice dev)
+                sessions = dev.GetAudioSessions();
 
             var sel = SelectedSession;
 
@@ -334,6 +369,24 @@ namespace VolumeControl.Core
             }
             else return FindSessionWithName(identifier);
         }
+        /// <summary>
+        /// Clamps the given value between min and max.
+        /// </summary>
+        /// <remarks>The <paramref name="min"/> and <paramref name="max"/> boundary values are <b>inclusive</b>.</remarks>
+        /// <typeparam name="T">Any numerical type.</typeparam>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The minimum allowable value.</param>
+        /// <param name="max">The maximum allowable value.</param>
+        /// <returns><paramref name="value"/> clamped between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        private static T ConstrainValue<T>(T value, T min, T max) where T : IComparable, IComparable<T>, IConvertible, IEquatable<T>, ISpanFormattable, IFormattable
+        {
+            if (value.CompareTo(min) < 0)
+                value = min;
+            else if (value.CompareTo(max) > 0)
+                value = max;
+            return value;
+        }
+
 
         #region ActionBindEndpoints
         internal void IncreaseVolume(object? sender, HandledEventArgs e)
@@ -357,41 +410,77 @@ namespace VolumeControl.Core
         internal void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
         private void NextTarget()
         {
-            if (LockSelection) return;
+            if (LockSelectedSession) return;
 
             if (ReloadOnHotkey) // reload on hotkey
                 ReloadSessionList();
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
-                int index = Sessions.IndexOf(session) + 1;
-                if (index == -1 || index >= Sessions.Count)
+                int index = Sessions.IndexOf(session);
+                if (index == -1 || (index += 1) >= Sessions.Count)
                     index = 0;
                 SelectedSession = Sessions[index];
             }
             // nothing is selected, select the first element in the list
-            else SelectedSession = Sessions[0];
+            else if (Sessions.Count > 0)
+                SelectedSession = Sessions[0];
         }
         internal void NextTarget(object? sender, HandledEventArgs e) => NextTarget();
         private void PreviousTarget()
         {
-            if (LockSelection) return;
+            if (LockSelectedSession) return;
 
             if (ReloadOnHotkey) // reload on hotkey
                 ReloadSessionList();
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
-                int index = Sessions.IndexOf(session) - 1;
-                if (index == -1 || index < 0)
+                int index = Sessions.IndexOf(session);
+                if (index == -1 || (index -= 1) < 0)
                     index = Sessions.Count - 1;
                 SelectedSession = Sessions[index];
             }
             // nothing is selected, select the last element in the list
-            else SelectedSession = Sessions[^1];
+            else if (Sessions.Count > 0)
+                SelectedSession = Sessions[^1];
         }
         internal void PreviousTarget(object? sender, HandledEventArgs e) => PreviousTarget();
-        internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelection = !LockSelection;
+        internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelectedSession = !LockSelectedSession;
+        internal void NextDevice(object? sender, HandledEventArgs e)
+        {
+            if (LockSelectedDevice) return;
+
+            if (ReloadOnHotkey)
+                ReloadDeviceList();
+
+            if (SelectedDevice is AudioDevice device)
+            {
+                int index = Devices.IndexOf(device);
+                if (index == -1 || (index += 1) >= Devices.Count)
+                    index = 0;
+                SelectedDevice = Devices[index];
+            }
+            else if (Devices.Count > 0)
+                SelectedDevice = Devices[0];
+        }
+        internal void PreviousDevice(object? sender, HandledEventArgs e)
+        {
+            if (LockSelectedDevice) return;
+
+            if (ReloadOnHotkey)
+                ReloadDeviceList();
+
+            if (SelectedDevice is AudioDevice device)
+            {
+                int index = Devices.IndexOf(device);
+                if (index == -1 || (index -= 1) < 0)
+                    index = Devices.Count - 1;
+                SelectedDevice = Devices[index];
+            }
+            else if (Devices.Count > 0)
+                SelectedDevice = Devices[^1];
+        }
         #endregion ActionBindEndpoints
     }
 }

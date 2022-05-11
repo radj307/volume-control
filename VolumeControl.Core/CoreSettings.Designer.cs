@@ -37,7 +37,7 @@ namespace VolumeControl.Core {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
         public double ReloadInterval_ms {
             get {
                 return ((double)(this["ReloadInterval_ms"]));
@@ -76,13 +76,13 @@ namespace VolumeControl.Core {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LockTarget {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LockSelectedSession {
             get {
-                return ((string)(this["LockTarget"]));
+                return ((bool)(this["LockSelectedSession"]));
             }
             set {
-                this["LockTarget"] = value;
+                this["LockSelectedSession"] = value;
             }
         }
         
@@ -114,14 +114,6 @@ namespace VolumeControl.Core {
         public global::System.Collections.Specialized.StringCollection Hotkeys_Default {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["Hotkeys_Default"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection VK_Blacklist {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["VK_Blacklist"]));
             }
         }
         
@@ -158,6 +150,39 @@ namespace VolumeControl.Core {
             }
             set {
                 this["ReloadOnInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckAllDevices {
+            get {
+                return ((bool)(this["CheckAllDevices"]));
+            }
+            set {
+                this["CheckAllDevices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LockSelectedDevice {
+            get {
+                return ((bool)(this["LockSelectedDevice"]));
+            }
+            set {
+                this["LockSelectedDevice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int VolumeStepSize_Default {
+            get {
+                return ((int)(this["VolumeStepSize_Default"]));
             }
         }
     }

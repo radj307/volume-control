@@ -158,7 +158,8 @@ namespace HotkeyLib
         /// Converts this key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
         /// </summary>
         /// <returns>A valid hotkey string representation.</returns>
-        public override string? ToString() => $"{(_mod.Empty() ? "" : $"{_mod.Stringify()}+")}{Enum.GetName(typeof(Keys), _key)}";
+        public override string? ToString() => Serialize();
+        public string Serialize() => $"{(_mod.Empty() ? "" : $"{_mod.Serialize()}+")}{Enum.GetName(typeof(Keys), _key)}";
 
         /// <summary>
         /// Parse the given string into a <see cref="KeyCombo"/>.

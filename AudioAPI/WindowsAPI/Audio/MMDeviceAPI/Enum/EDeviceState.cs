@@ -1,13 +1,13 @@
 ﻿namespace AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum
 {
     [Flags]
-    public enum EDeviceState
+    public enum EDeviceState : uint
     {
         /// <summary>
         /// This is a custom enumeration with the value 0 that indicates an error having occurred while accessing the device state.
         /// </summary>
         /// <remarks>If this is returned from a method, the device is likely invalid.</remarks>
-        AccessError = 0,
+        AccessError = 0x0,
         Active = 0x00000001,
         Disabled = 0x00000002,
         NotPresent = 0x00000004,

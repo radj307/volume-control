@@ -9,7 +9,7 @@ namespace VolumeControl.Log
     /// <summary>
     /// Basic log writer object.
     /// </summary>
-    /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="VolumeControl.Log"/> namespace.</remarks>
+    /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="Log"/> namespace.</remarks>
     public class LogWriter : ILogWriter
     {
         #region Constructors

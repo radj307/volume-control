@@ -69,7 +69,30 @@
         }
         public static uint ToWindowsModifier(this Modifier mod)
             => (uint)mod;
-        public static string? Stringify(this Modifier mod)
-            => !mod.Empty() ? $"{(mod.Contains(Modifier.ALT) ? "Alt" : "")}+{(mod.Contains(Modifier.CTRL) ? "Ctrl" : "")}+{(mod.Contains(Modifier.SHIFT) ? "Shift" : "")}+{(mod.Contains(Modifier.WIN) ? "Win" : "")}" : null;
+        public static string? Serialize(this Modifier mod)
+        {
+            if (mod.Empty())
+                return null;
+
+            string s = string.Empty;
+            var push = delegate (string text)
+            {
+                if (s.Length == 0)
+                    s += text;
+                else s += '+' + text;
+            };
+
+            if (mod.Contains(Modifier.ALT))
+                push("Alt");
+            if (mod.Contains(Modifier.CTRL))
+                push("Ctrl");
+            if (mod.Contains(Modifier.SHIFT))
+                push("Shift");
+            if (mod.Contains(Modifier.WIN))
+                push("Win");
+
+            return s;
+        }
+            
     }
 }

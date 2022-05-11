@@ -2,8 +2,9 @@
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
-                    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
                     xmlns:corel="clr-namespace:VolumeControl.Core.HelperTypes.Lists;assembly=VolumeControl.Core"
+                    xmlns:corea="clr-namespace:VolumeControl.Core.Attributes;assembly=VolumeControl.Core"
+                    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Windows="clr-namespace:System.Windows;assembly=PresentationCore"
                     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
@@ -17,6 +18,8 @@
     <corel:HotkeyActionOptions x:Key="ActionOptions"/>
     <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
     <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <!-- SettingsUpgrader -->
+    <!-- SettingsUpgrader (VolumeControl.Core.SettingsUpgrader) -->
     <core:SettingsUpgrader x:Key="{x:Type core:SettingsUpgrader}"/>
+    <!-- VersionWatermark -->
+    <core:VersionGetter x:Key="Version"/>
 </ResourceDictionary>
