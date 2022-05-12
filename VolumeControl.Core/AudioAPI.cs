@@ -3,15 +3,12 @@ using AudioAPI.Interfaces;
 using AudioAPI.Objects;
 using AudioAPI.Objects.Virtual;
 using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
-using AudioAPI.WindowsAPI.Enum;
 using HotkeyLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Animation;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Log;
-using static System.Windows.Forms.AxHost;
 
 namespace VolumeControl.Core
 {

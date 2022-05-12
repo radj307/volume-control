@@ -315,7 +315,7 @@
                                             IsEnabled="{Binding ElementName=cbReloadOnInterval, Path=IsChecked, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
                                             MinValue="{Binding ReloadIntervalMin}"
                                             MaxValue="{Binding ReloadIntervalMax}"
-                                            Value="{Binding ReloadInterval, BindsDirectlyToSource=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Value="{Binding ReloadInterval, BindsDirectlyToSource=True, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                             DataContext="{StaticResource AudioAPI}"
                                             Style="{StaticResource NumericUpDownStyle}"/>
                 </Grid>

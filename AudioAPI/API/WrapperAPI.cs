@@ -56,6 +56,7 @@ namespace AudioAPI.API
             foreach (var dev in GetAllDevicesNative())
             {
                 devices.Add(new AudioDevice(dev));
+                Marshal.ReleaseComObject(dev);
             }
             return devices;
         }
@@ -135,6 +136,7 @@ namespace AudioAPI.API
 
             Marshal.ReleaseComObject(sessionEnumerator);
             Marshal.ReleaseComObject(mgr);
+            Marshal.ReleaseComObject(device);
 #           pragma warning disable CS8603 // Possible null reference return.
             return volumeControl;
 #           pragma warning restore CS8603 // Possible null reference return.
@@ -167,6 +169,7 @@ namespace AudioAPI.API
             {
                 l.Add(new AudioSession(session));
             }
+            Marshal.ReleaseComObject(device);
             return l;
         }
         public static List<AudioSession> GetAllSessions()

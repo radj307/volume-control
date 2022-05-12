@@ -14,7 +14,7 @@ namespace AudioAPI.Objects
     /// An audio device is anything that Windows' CoreAudio APIs recognize as a device using the <see cref="IMMDevice"/> interface.
     /// </summary>
     /// <remarks>This is a wrapper for the <see cref="IMMDevice"/> interface, and implements <see cref="IAudioDevice"/> and <see cref="IDisposable"/>.</remarks>
-    public class AudioDevice : IAudioDevice, IDisposable
+    public class AudioDevice : IAudioDevice
     {
         /// <summary>
         /// Audio Device Constructor.<br/>
@@ -22,10 +22,9 @@ namespace AudioAPI.Objects
         /// <param name="device">The <see cref="IMMDevice"/> that this audio device wraps.</param>
         public AudioDevice(IMMDevice device)
         {
-            _device = device;
-            _device.GetId(out _devId);
+            device.GetId(out _devId);
             // get the device name
-            if (_device.OpenPropertyStore(EStorageAccess.READ, out IPropertyStore store) == 0)
+            if (device.OpenPropertyStore(EStorageAccess.READ, out IPropertyStore store) == 0)
             {
                 var nameKey = IMMDevice.PKEY_Device_FriendlyName;
                 if (store.GetValue(ref nameKey, out PROPVARIANT variant) == 0 && variant.Value is string s)
@@ -35,11 +34,10 @@ namespace AudioAPI.Objects
             else _name = string.Empty;
         }
 
-        private readonly IMMDevice _device;
+        private IMMDevice Device => WrapperAPI.GetDevice(DeviceID);
         private readonly string _name;
         private readonly string _devId;
-        private bool disposedValue;
-        public IMMDevice Interface => _device;
+
         /// <inheritdoc/>
         public string Name => _name;
         /// <inheritdoc/>
@@ -55,31 +53,13 @@ namespace AudioAPI.Objects
         /// <returns><see cref="EDeviceState"/> with the current device state, or <see cref="EDeviceState.AccessError"/> if an error occurred.</returns>
         public EDeviceState GetState()
         {
-            if (_device.GetState(out uint dwState) == 0)
+            if (Device.GetState(out var dwState) == 0)
                 return (EDeviceState)dwState;
             return EDeviceState.AccessError;
         }
 
 
         /// <inheritdoc/>
-        public List<AudioSession> GetAudioSessions() => WrapperAPI.GetAllSessions(_device).ToList();
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                Marshal.ReleaseComObject(_device);
-                disposedValue = true;
-            }
-        }
-
-        ~AudioDevice() => Dispose(disposing: false);
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+        public List<AudioSession> GetAudioSessions() => WrapperAPI.GetAllSessions(Device).ToList();
     }
 }
