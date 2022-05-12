@@ -17,14 +17,22 @@ namespace VolumeControl
         #region ApplicationEventHandlers
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Add a logging event handler
+            Settings.Default.SettingsSaving += (s, e) =>
+            {
+                Log.Debug("Saved current settings to the config file.");
+            };
+            // attempt to upgrade settings
             if (Settings.UpgradeSettings)
             {
+                Log.Info($"{nameof(Settings.UpgradeSettings)} was true, attempting to migrate existing settings...");
                 try
                 {
                     UpgradeAllSettings();
                     Settings.UpgradeSettings = false;
                     Settings.Save();
                     Settings.Reload();
+                    Log.Info("User settings were upgraded successfully; or there were no settings to upgrade.");
                 }
                 catch (Exception ex)
                 {
@@ -62,9 +70,9 @@ namespace VolumeControl
         /// <remarks>This works for all assemblies, and should only be called once.</remarks>
         private static void UpgradeAllSettings()
         {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Assembly? assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var type in assembly.GetTypes())
+                foreach (Type? type in assembly.GetTypes())
                 {
                     if (type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(type))
                     {

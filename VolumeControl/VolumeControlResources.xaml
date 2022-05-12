@@ -6,6 +6,7 @@
                     xmlns:corea="clr-namespace:VolumeControl.Core.Attributes;assembly=VolumeControl.Core"
                     xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:win32="clr-namespace:VolumeControl.Win32"
                     xmlns:Windows="clr-namespace:System.Windows;assembly=PresentationCore"
                     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
     <!-- AudioAPI (VolumeControl.Core.AudioAPI) -->
@@ -14,8 +15,6 @@
     <core:HotkeyManager x:Key="HotkeyAPI" AudioAPI="{StaticResource AudioAPI}"/>
     <!-- KeyOptions (HotkeyLib.KeysList) -->
     <hklib:KeysList x:Key="KeyOptions"/>
-    <!-- ActionOptions (VolumeControl.Core.HotkeyActionOptions) -->
-    <!--<corel:HotkeyActionOptions x:Key="ActionOptions"/>-->
     <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
     <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 </ResourceDictionary>

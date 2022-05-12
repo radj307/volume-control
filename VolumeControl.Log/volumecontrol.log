@@ -1,0 +1,23 @@
+May 12, 2022 5:37:22 PM       [INFO]  FLog.Initialize() Completed:
+                                      logfile   = 'volumecontrol.log'
+                                      logfilter = '31'
+May 12, 2022 5:37:22 PM       [INFO]  Refreshed the device list.
+May 12, 2022 5:37:22 PM       [DEBUG] Refreshed the session list.
+May 12, 2022 5:37:22 PM       [INFO]  Selected device was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Selected session was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Volume step set to 2
+May 12, 2022 5:37:22 PM       [INFO]  Refreshed the device list.
+May 12, 2022 5:37:22 PM       [DEBUG] Refreshed the session list.
+May 12, 2022 5:37:22 PM       [INFO]  Selected device was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Selected session was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Volume step set to 2
+May 12, 2022 5:37:22 PM       [INFO]  Refreshed the device list.
+May 12, 2022 5:37:22 PM       [DEBUG] Refreshed the session list.
+May 12, 2022 5:37:22 PM       [INFO]  Selected device was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Selected session was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Volume step set to 2
+May 12, 2022 5:37:22 PM       [INFO]  Refreshed the device list.
+May 12, 2022 5:37:22 PM       [DEBUG] Refreshed the session list.
+May 12, 2022 5:37:22 PM       [INFO]  Selected device was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Selected session was unlocked
+May 12, 2022 5:37:22 PM       [INFO]  Volume step set to 2

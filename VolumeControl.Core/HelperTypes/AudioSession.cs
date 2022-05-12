@@ -1,9 +1,4 @@
-﻿//using AudioAPI.API;
-//using AudioAPI.Interfaces;
-//using AudioAPI.Objects;
-//using AudioAPI.Objects.Virtual;
-//using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -69,7 +64,7 @@ namespace VolumeControl.Core.HelperTypes
         internal Process GetProcess() => Process.GetProcessById((int)PID);
         public void Dispose()
         {
-            ((IDisposable)_controller).Dispose();
+            _controller.Dispose();
             GC.SuppressFinalize(this);
         }
     }

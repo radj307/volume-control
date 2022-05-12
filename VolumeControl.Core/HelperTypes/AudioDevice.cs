@@ -82,7 +82,7 @@ namespace VolumeControl.Core.HelperTypes
 
         public void Dispose()
         {
-            ((IDisposable)_device).Dispose();
+            _device.Dispose();
             GC.SuppressFinalize(this);
         }
         #endregion Methods

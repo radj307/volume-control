@@ -10,7 +10,9 @@
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
         Icon="/Resources/icons/icon-16x16-VC.ico"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        Initialized="Window_Initialized"
+        Loaded="Window_Loaded">
     <Window.Background>
         <SolidColorBrush Color="#303030"/>
     </Window.Background>
@@ -40,13 +42,15 @@
                 <Setter Property="ClickMode" Value="Press"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Background" Value="WhiteSmoke"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
             <!-- Button -->
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="Background" Value="#BBBBBB"/>
                 <Setter Property="Padding" Value="5,1,5,1"/>
                 <Setter Property="Margin" Value="3,0,3,0"/>
                 <Setter Property="Height" Value="23"/>
@@ -54,7 +58,7 @@
             </Style>
             <!-- TextBox -->
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
-                <Setter Property="Background" Value="#454545"/>
+                <Setter Property="Background" Value="#303030"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="SelectionBrush" Value="#569DE5"/>
                 <Setter Property="SelectionOpacity" Value="0.5"/>
@@ -128,6 +132,11 @@
             </Style>
             <!-- ComboBox -->
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                        <Setter Property="Foreground" Value="#9A9A9A"/>
+                    </DataTrigger>
+                </Style.Triggers>
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
@@ -141,6 +150,7 @@
 
     <!--( Element Layout )-->
     <TabControl Style="{StaticResource TabControlStyle}" SelectionChanged="Handle_TabControlChange">
+        <!-- TAB CONTROL APPEARANCE: -->
         <TabControl.Resources>
             <Style TargetType="TabItem">
                 <Setter Property="Template">
@@ -156,12 +166,14 @@
                                         Margin="10,2"/>
                             </Border>
                             <ControlTemplate.Triggers>
+                                <!-- SELECTED TAB APPEARANCE: -->
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="Border" Property="Background" Value="#505055" />
-                                    <Setter TargetName="Border" Property="Margin" Value="1,-2" />
+                                    <Setter TargetName="Border" Property="Margin" Value="1,-1" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke"/>
-                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="ExtraBold"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold"/>
                                 </Trigger>
+                                <!-- UNSELECTED TAB APPEARANCE: -->
                                 <Trigger Property="IsSelected" Value="False">
                                     <Setter TargetName="Border" Property="Background" Value="#303030"/>
                                     <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray"/>
@@ -201,9 +213,9 @@
                       Grid.Row="1"
                       Height="25"
                       HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       Width="{Binding ElementName=window, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"
                       Margin="3,3,3,0">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -241,7 +253,7 @@
                               Width="52"
                               Height="Auto"
                               TabIndex="1"
-                              Margin="2,0,0,0"
+                              Margin="2,0,9,0"
                               DataContext="{StaticResource AudioAPI}"
                               IsChecked="{Binding LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                               Style="{StaticResource CheckBoxStyle}"/>
@@ -255,10 +267,6 @@
                       Margin="3,-2,3,1"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center">
-                    <Grid.Background>
-                        <SolidColorBrush Color="#454545" Opacity="0.77"/>
-
-                    </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2"/>
                         <RowDefinition Height="*"/>
@@ -318,6 +326,28 @@
                                             Value="{Binding ReloadInterval, BindsDirectlyToSource=True, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                             DataContext="{StaticResource AudioAPI}"
                                             Style="{StaticResource NumericUpDownStyle}"/>
+
+                    <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Volume Step"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource LabelStyle}"/>
+                        <Controls:NumericUpDown x:Name="VolumeStep"
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                Width="48"
+                                                DecimalPlaces="0"
+                                                MinValue="0"
+                                                MaxValue="100"
+                                                Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource NumericUpDownStyle}"/>
+                    </Grid>
                 </Grid>
 
                 <!--- [Row-5] Mixer Data Grid -->
@@ -489,48 +519,18 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="3"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <CheckBox x:Name="cbAdvancedHotkeys"
-                          Grid.Column="0"
-                          Content="Advanced Hotkeys Mode"
-                          ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
-                          Style="{StaticResource CheckBoxStyle}"
-                          Checked="Handle_ShowActionBindingsChecked"
-                          Unchecked="Handle_ShowActionBindingsUnchecked"/>
-                <Grid Grid.Column="1" ShowGridLines="False" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <Controls:GridLinesRenderer x:Key="GridLinesRenderer"/>
-                    </Grid.Resources>
-
-                    <Label Content="Volume Step Size"
-                           Grid.Column="0"
-                           HorizontalAlignment="Center"
-                           Style="{StaticResource LabelStyle}"/>
-                    <Controls:NumericUpDown x:Name="VolumeStep"
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Center"
-                                            Width="48"
-                                            DecimalPlaces="0"
-                                            MinValue="0"
-                                            MaxValue="100"
-                                            Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource NumericUpDownStyle}"/>
-                </Grid>
                 <Canvas Grid.Column="2"
+                          Grid.Row="1"
                         Width="{Binding Width, ElementName=versionLabel}"
                         Height="{Binding Height, ElementName=versionLabel}">
                     <Label x:Name="versionLabel"
-                           Canvas.Top="0"
+                           Canvas.Top="-25"
                            Canvas.Right="0"
                            HorizontalAlignment="Right"
                            Style="{StaticResource LabelStyle}"
@@ -557,13 +557,14 @@
                     <ComboBox x:Name="DeviceSelectorBox"
                               Grid.Column="1"
                               Style="{StaticResource ComboBoxStyle}"
-                              ItemsSource="{Binding Devices, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
+                              ItemsSource="{Binding Devices, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True}"
                               DisplayMemberPath="Name"
                               SelectedItem="{Binding SelectedDevice}"
                               DataContext="{StaticResource AudioAPI}"
-                              ToolTip="The Audio Device to bind to."
-                              Margin="0,1,0,0"
-                              IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                              ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown."
+                              VerticalAlignment="Center"
+                              IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"
+                              DropDownOpened="Handle_ReloadDevicesClick"/>
                     <CheckBox x:Name="cbAllDevices"
                               Grid.Column="3"
                               Content="Check All Devices"
@@ -572,13 +573,47 @@
                               DataContext="{StaticResource AudioAPI}"
                               Style="{StaticResource CheckBoxStyle}"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"/>
-                    <Button Content="Refresh"
-                            Grid.Column="2"
-                            Click="Handle_ReloadDevicesClick"
-                            Style="{StaticResource ButtonStyle}"
-                            IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                              VerticalAlignment="Center"
+                              Margin="5,0"/>
                 </Grid>
+                <!-- Row 3 -->
+                <StackPanel Grid.Column="0"
+                            Grid.Row="3"
+                            VerticalAlignment="Stretch"
+                            Margin="0,3">
+                    <CheckBox x:Name="cbAdvancedHotkeys"
+                              HorizontalAlignment="Left"
+                              Margin="3,1"
+                              Content="Advanced Hotkeys Mode"
+                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
+                              Style="{StaticResource CheckBoxStyle}"
+                              Checked="Handle_ShowActionBindingsChecked"
+                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                    <CheckBox Content="Show in Taskbar"
+                              HorizontalAlignment="Left"
+                              Margin="3,1"
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Always on Top"
+                              HorizontalAlignment="Left"
+                              Margin="3,1"
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox x:Name="cbRunAtStartup"
+                              Content="Run at Startup"
+                              HorizontalAlignment="Left"
+                              Margin="3,1"
+                              Style="{StaticResource CheckBoxStyle}"
+                              Checked="Handle_RunAtStartupChecked"
+                              Unchecked="Handle_RunAtStartupUnchecked"/>
+                    <CheckBox x:Name="cbStartMinimized"
+                              Content="Start Minimized"
+                              HorizontalAlignment="Left"
+                              Margin="3,1"
+                              Style="{StaticResource CheckBoxStyle}"
+                              Checked="Handle_StartMinimizeChecked"
+                              Unchecked="Handle_StartMinimizeUnchecked"/>
+                </StackPanel>
             </Grid>
         </TabItem>
         <!--▲ Settings ▲-->

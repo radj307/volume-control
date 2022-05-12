@@ -9,7 +9,7 @@ using VolumeControl.Log;
 
 namespace VolumeControl.Core
 {
-    public class AudioAPI : INotifyPropertyChanged
+    public class AudioAPI : INotifyPropertyChanged, IDisposable
     {
         public AudioAPI()
         {
@@ -94,21 +94,21 @@ namespace VolumeControl.Core
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
-        private static readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
+        private readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
 
         public static bool ReloadOnHotkey
         {
             get;
             set;
         }
-        public static bool ReloadOnInterval
+        public bool ReloadOnInterval
         {
             get => ReloadTimer.Enabled;
             set => ReloadTimer.Enabled = value;
         }
         /// <inheritdoc cref="System.Timers.Timer.Interval"/>
         /// <remarks><b>This property automatically clamps incoming values between <see cref="ReloadIntervalMin"/> and <see cref="ReloadIntervalMax"/></b></remarks>
-        public static double ReloadInterval
+        public double ReloadInterval
         {
             get => ReloadTimer.Interval;
             set
@@ -241,7 +241,18 @@ namespace VolumeControl.Core
             }
         }
 
+        private static readonly Mutex _mutex = new(false);
+
         public void ReloadDeviceList()
+        {
+            if (_mutex.WaitOne())
+            {
+                SelectiveUpdateDevices(GetAllDevices());
+
+                _mutex.ReleaseMutex();
+            }
+        }
+        private static List<AudioDevice> GetAllDevices()
         {
             List<AudioDevice> devices = new();
 
@@ -252,6 +263,10 @@ namespace VolumeControl.Core
             }
             enumerator.Dispose();
 
+            return devices;
+        }
+        private void SelectiveUpdateDevices(List<AudioDevice> devices)
+        {
             var sel = SelectedDevice;
 
             // remove all devices that aren't in the new list. (exited/stopped)
@@ -276,70 +291,68 @@ namespace VolumeControl.Core
         /// </list></remarks>
         public void ReloadSessionList()
         {
-            if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
-                return;
-
-            List<AudioSession> sessions = null!;
-
-            if (CheckAllDevices)
+            if (_mutex.WaitOne())
             {
-                sessions = new();
+                if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
+                    return;
 
-                for (int i = Devices.Count - 1; i >= 0; --i)
+                List<AudioSession> sessions = CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!);
+
+                if (sessions != null)
+                    SelectiveUpdateSessions(sessions);
+                else Sessions.Clear();
+
+                _mutex.ReleaseMutex();
+            }
+        }
+        private List<AudioSession> GetAllSessionsFromAllDevices()
+        {
+            List<AudioSession> sessions = new();
+
+            for (int i = Devices.Count - 1; i >= 0; --i)
+            {
+                if (Devices[i] is AudioDevice dev)
                 {
-                    if (Devices[i] is AudioDevice dev)
+                    switch (dev.State)
                     {
-                        switch (dev.State)
-                        {
-                        case DeviceState.NotPresent:
-                        case DeviceState.Disabled:
-                        case DeviceState.Unplugged:
-                        case DeviceState.All:
-                            continue; // skip devices that aren't active
-                        case DeviceState.Active:
-                        default:
-                            break; // proceed if the device is active or unknown
-                        }
+                    case DeviceState.NotPresent:
+                    case DeviceState.Disabled:
+                    case DeviceState.Unplugged:
+                    case DeviceState.All:
+                        continue; // skip devices that aren't active
+                    case DeviceState.Active:
+                    default:
+                        break; // proceed if the device is active or unknown
+                    }
 
-                        // add non-duplicate sessions to the list
-                        sessions.AddRange(dev.GetAudioSessions().Where(devSession => !sessions.Any(s => s.ProcessIdentifier.Equals(devSession.ProcessIdentifier, StringComparison.Ordinal))));
-                    }
-                    else
-                    {
-                        Log.Error($"{nameof(Devices)}[{i}] contains invalid type '{Devices[i].GetType()}'!");
-                    }
+                    // add non-duplicate sessions to the list
+                    sessions.AddRange(dev.GetAudioSessions().Where(devSession => !sessions.Any(s => s.ProcessIdentifier.Equals(devSession.ProcessIdentifier, StringComparison.Ordinal))));
+                }
+                else
+                {
+                    Log.Error($"{nameof(Devices)}[{i}] contains invalid type '{Devices[i].GetType()}'!");
                 }
             }
-            else if (SelectedDevice is AudioDevice dev)
-                sessions = dev.GetAudioSessions();
 
+            return sessions;
+        }
+        private void SelectiveUpdateSessions(List<AudioSession> sessions)
+        {
             var sel = SelectedSession;
 
-            foreach (var session in Sessions)
-            {
-                if (!sessions.Any(s => s.Equals(session)))
-                {
-                    Sessions.Remove(session); //< remove all sessions in the active list that have expired
-                }
-            }
-
-            foreach (var session in sessions)
-            {
-                if (!Sessions.Any(s => s.Equals(session)))
-                {
-                    Sessions.Add(session);
-                }
-            }
+            // remove all sessions that don't appear in the new list (expired sessions)
+            Sessions.RemoveAll(session => !sessions.Any(s => s.PID.Equals(session.PID)));
+            // add all sessions that aren't already in the current list
+            Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
 
             if (sel != null && !Sessions.Contains(sel))
-            {
-                SelectedSession = null;
-            }
+                sel = null;
 
             NotifyProcessListRefresh(EventArgs.Empty);
 
             Log.Debug("Refreshed the session list.");
         }
+
         public AudioDevice GetDefaultDevice()
         {
             MMDeviceEnumerator enumerator = new();
@@ -525,6 +538,13 @@ namespace VolumeControl.Core
             }
             else if (Devices.Count > 0)
                 SelectedDevice = Devices[^1];
+        }
+
+        public void Dispose()
+        {
+            ReloadTimer.Dispose();
+            _mutex.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
