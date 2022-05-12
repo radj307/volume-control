@@ -52,8 +52,7 @@ namespace VolumeControl.Core
         private HwndSource HwndSource = null!;
         private AudioAPI _audioAPI = null!;
         private bool _initialized = false;
-        //private HotkeyActionBindings _actionBindings = null!;
-        private HelperTypes.Experimental.ActionBindings _actionBindings = null!;
+        private ActionBindings _actionBindings = null!;
         #endregion Fields
 
         #region Properties
@@ -68,12 +67,7 @@ namespace VolumeControl.Core
                     _audioAPI = value;
             }
         }
-        //public HotkeyActionBindings ActionBindings
-        //{
-        //    get => _actionBindings ??= new(OwnerHandle, AudioAPI);
-        //    set => _actionBindings = value;
-        //}
-        public HelperTypes.Experimental.ActionBindings ActionBindings
+        public ActionBindings ActionBindings
         {
             get => _initialized ? _actionBindings ??= new(OwnerHandle, AudioAPI) : null!;
             set => _actionBindings = value;

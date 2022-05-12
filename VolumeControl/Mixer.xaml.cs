@@ -1,10 +1,10 @@
-﻿using AudioAPI.Interfaces;
-using AudioAPI.Objects;
-using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using VolumeControl.Core;
+using VolumeControl.Core.HelperTypes;
+using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl
 {
@@ -41,7 +41,7 @@ namespace VolumeControl
         private Core.HotkeyManager HotkeyAPI => (Resources["HotkeyAPI"] as Core.HotkeyManager)!;
         private static Properties.Settings Settings => Properties.Settings.Default;
 
-        private IAudioSession CurrentlySelectedGridRow => (IAudioSession)MixerGrid.CurrentCell.Item;
+        private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
         #endregion Properties
 
         #region EventHandlers
