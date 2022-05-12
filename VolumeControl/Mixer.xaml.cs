@@ -18,6 +18,8 @@ namespace VolumeControl
         {
             InitializeComponent();
             cbAdvancedHotkeys.IsChecked = Settings.AdvancedHotkeys;
+            
+            versionLabel.Content = $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -66,10 +68,10 @@ namespace VolumeControl
         {
         }
         private void Handle_HotkeyGridRemoveClick(object sender, RoutedEventArgs e)
-        { // CommandParameter is data bound to the row index, which is 1-indexed for some reason.
-            if (((Button)sender).CommandParameter is int index)
+        {
+            if (((Button)sender).CommandParameter is int id)
             {
-                HotkeyAPI.DelHotkey(HotkeyGrid.Items.GetItemAt(index - 1) as Core.HelperTypes.BindableWindowsHotkey);
+                HotkeyAPI.DelHotkey(id);
             }
         }
         private void Handle_TabControlChange(object sender, RoutedEventArgs e)

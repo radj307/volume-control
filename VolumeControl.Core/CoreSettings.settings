@@ -32,9 +32,11 @@
   &lt;string&gt;Next Track::::NextTrack&lt;/string&gt;
   &lt;string&gt;Previous Track::::PreviousTrack&lt;/string&gt;
   &lt;string&gt;Toggle Playback::::TogglePlayback&lt;/string&gt;
-  &lt;string&gt;Next Target::CtrlShiftAlt+D::NextTarget&lt;/string&gt;
-  &lt;string&gt;Previous Target::CtrlShiftAlt+A::PreviousTarget&lt;/string&gt;
-  &lt;string&gt;Lock Target::CtrlShiftAlt+S::ToggleTargetLock&lt;/string&gt;
+  &lt;string&gt;Next Target::Ctrl+Shift+Alt+D::NextTarget&lt;/string&gt;
+  &lt;string&gt;Previous Target::Ctrl+Shift+Alt+A::PreviousTarget&lt;/string&gt;
+  &lt;string&gt;Lock Target::Ctrl+Shift+Alt+S::ToggleTargetLock&lt;/string&gt;
+  &lt;string&gt;Next Device::::NextDevice&lt;/string&gt;
+  &lt;string&gt;Previous Device::::PreviousDevice&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="VolumeStepSize" Type="System.Int32" Scope="User">

@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Log;
-using static AudioAPI.WindowsAPI.User32;
+using static System.Windows.Forms.AxHost;
 
 namespace VolumeControl.Core
 {
@@ -387,28 +387,36 @@ namespace VolumeControl.Core
             return value;
         }
 
-
-        #region ActionBindEndpoints
-        internal void IncreaseVolume(object? sender, HandledEventArgs e)
+        public void IncrementSessionVolume(int amount)
         {
             if (SelectedSession is AudioSession session)
-                session.Volume += VolumeStepSize;
+                session.Volume += amount;
         }
-        internal void DecreaseVolume(object? sender, HandledEventArgs e)
+        public void IncrementSessionVolume() => IncrementSessionVolume(VolumeStepSize);
+        public void DecrementSessionVolume(int amount)
         {
             if (SelectedSession is AudioSession session)
-                session.Volume -= VolumeStepSize;
+                session.Volume -= amount;
         }
-        internal void ToggleMute(object? sender, HandledEventArgs e)
+        public void DecrementSessionVolume() => DecrementSessionVolume(VolumeStepSize);
+        public bool GetSessionMute() => SelectedSession is AudioSession session && session.Muted;
+        public void SetSessionMute(bool state)
+        {
+            if (SelectedSession is AudioSession session)
+                session.Muted = state;
+        }
+        public void ToggleSessionMute()
         {
             if (SelectedSession is AudioSession session)
                 session.Muted = !session.Muted;
         }
-        private static void SendKeyboardEvent(EVirtualKeyCode vk, byte scanCode = 0xAA, byte flags = 1) => KeyboardEvent(vk, scanCode, flags, IntPtr.Zero);
-        internal void NextTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
-        internal void PreviousTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
-        internal void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
-        private void NextTarget()
+
+        /// <summary>
+        /// Sets <see cref="SelectedSession"/> to the session occurring after this one in <see cref="Sessions"/>.
+        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// </summary>
+        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
+        public void SelectNextSession()
         {
             if (LockSelectedSession) return;
 
@@ -426,8 +434,12 @@ namespace VolumeControl.Core
             else if (Sessions.Count > 0)
                 SelectedSession = Sessions[0];
         }
-        internal void NextTarget(object? sender, HandledEventArgs e) => NextTarget();
-        private void PreviousTarget()
+        /// <summary>
+        /// Sets <see cref="SelectedSession"/> to the session occurring before this one in <see cref="Sessions"/>.
+        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// </summary>
+        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
+        public void SelectPreviousSession()
         {
             if (LockSelectedSession) return;
 
@@ -445,9 +457,12 @@ namespace VolumeControl.Core
             else if (Sessions.Count > 0)
                 SelectedSession = Sessions[^1];
         }
-        internal void PreviousTarget(object? sender, HandledEventArgs e) => PreviousTarget();
-        internal void ToggleTargetLock(object? sender, HandledEventArgs e) => LockSelectedSession = !LockSelectedSession;
-        internal void NextDevice(object? sender, HandledEventArgs e)
+        /// <summary>
+        /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
+        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// </summary>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the first element in <see cref="Devices"/> is selected.</remarks>
+        public void SelectNextDevice()
         {
             if (LockSelectedDevice) return;
 
@@ -464,7 +479,12 @@ namespace VolumeControl.Core
             else if (Devices.Count > 0)
                 SelectedDevice = Devices[0];
         }
-        internal void PreviousDevice(object? sender, HandledEventArgs e)
+        /// <summary>
+        /// Sets <see cref="SelectedDevice"/> to the device occurring before this one in <see cref="Devices"/>.
+        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// </summary>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the last element in <see cref="Devices"/> is selected.</remarks>
+        public void SelectPreviousDevice()
         {
             if (LockSelectedDevice) return;
 
@@ -481,6 +501,5 @@ namespace VolumeControl.Core
             else if (Devices.Count > 0)
                 SelectedDevice = Devices[^1];
         }
-        #endregion ActionBindEndpoints
     }
 }

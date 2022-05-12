@@ -4,20 +4,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:VolumeControl.Core.Controls;assembly=VolumeControl.WPF"
+        xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
         xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
-        Icon="/Properties/Resources/icons/icon-16x16-VC.ico"
+        Icon="/Resources/icons/icon-16x16-VC.ico"
         Closing="Window_Closing">
     <Window.Background>
-        <ImageBrush ImageSource="/Properties/Resources/images/background-img.png" Stretch="UniformToFill"/>
+        <SolidColorBrush Color="#303030"/>
     </Window.Background>
     <Window.Style>
         <!-- Set Window Style Properties -->
         <Style TargetType="Window">
-            <Setter Property="Background" Value="#606060"/>
             <Setter Property="SizeToContent" Value="Height"/>
             <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
             <Setter Property="Height" Value="Auto"/>
@@ -107,7 +106,7 @@
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
-                <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="SelectionUnit" Value="Cell"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -124,13 +123,8 @@
             </Style>
             <!-- TabControl -->
             <Style x:Key="TabControlStyle" TargetType="TabControl">
-                <Setter Property="Background" Value="Transparent"/>
-            </Style>
-            <!-- TabItem -->
-            <Style x:Key="TabItemStyle" TargetType="TabItem">
-                <!--<Setter Property="Background" Value="#909090"/>-->
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Height" Value="20"/>
+                <Setter Property="Background" Value="#505055"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
             </Style>
             <!-- ComboBox -->
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
@@ -147,8 +141,42 @@
 
     <!--( Element Layout )-->
     <TabControl Style="{StaticResource TabControlStyle}" SelectionChanged="Handle_TabControlChange">
+        <TabControl.Resources>
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" Margin="1,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        TextBlock.Foreground="WhiteSmoke"
+                                        TextBlock.FontSize="12"
+                                        Margin="10,2"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#505055" />
+                                    <Setter TargetName="Border" Property="Margin" Value="1,-2" />
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="ExtraBold"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="#303030"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Regular"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
+
+
         <!--▼ Mixer ▼-->
-        <TabItem Header="Mixer" Name="MixerTab" Style="{StaticResource TabItemStyle}">
+        <TabItem Header="Mixer" Name="MixerTab">
             <Grid HorizontalAlignment="Center"
                   VerticalAlignment="Top"
                   UseLayoutRounding="True">
@@ -351,9 +379,9 @@
         </TabItem>
         <!--▲ Mixer ▲-->
 
-        
+
         <!--▼ Hotkeys ▼-->
-        <TabItem Header="Hotkeys" Name="HotkeysTab" Style="{StaticResource TabItemStyle}">
+        <TabItem Header="Hotkeys" Name="HotkeysTab">
             <DockPanel>
                 <!-- HotkeyGrid -->
                 <DataGrid x:Name="HotkeyGrid"
@@ -420,7 +448,7 @@
                         <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox ItemsSource="{StaticResource ActionOptions}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                    <ComboBox ItemsSource="{Binding ActionNames, Source={StaticResource HotkeyAPI}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -450,62 +478,84 @@
         </TabItem>
         <!--▲ Hotkeys ▲-->
 
-        
+
         <!--▼ Settings ▼-->
-        <TabItem Header="Settings" Name="SettingsTab" Style="{StaticResource TabItemStyle}">
-            <StackPanel Orientation="Vertical">
-                <!-- Row 1: -->
-                <DockPanel Margin="2" 
-                           LastChildFill="True">
-                    <CheckBox x:Name="cbAdvancedHotkeys"
-                              DockPanel.Dock="Left"
-                              Content="Advanced Hotkeys Mode"
-                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
-                              Style="{StaticResource CheckBoxStyle}"
-                              Checked="Handle_ShowActionBindingsChecked"
-                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
-                    <Canvas>
-                        <!-- LastChildFill allows this to span the entire width of the display -->
-                        <Label x:Name="versionLabel"
-                               HorizontalAlignment="Right"
-                               Canvas.Right="-7"
-                               Canvas.Top="-9"
-                               Content="{Binding Version, Source={StaticResource Version}}"
-                               Style="{StaticResource LabelStyle}"
-                               Foreground="LightGray"
-                               FontWeight="SemiBold"
-                               FontSize="10.5"/>
-                    </Canvas>
-                </DockPanel>
-                <!-- Row 2: -->
-                <StackPanel Orientation="Horizontal"
-                            Margin="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Volume Step Size:"
-                               Grid.Column="0"
-                               Style="{StaticResource LabelStyle}"/>
-                        <Controls:NumericUpDown x:Name="VolumeStep"
-                                                    Grid.Column="1"
-                                                    Width="50"
-                                                    DecimalPlaces="0"
-                                                    MinValue="0"
-                                                    MaxValue="100"
-                                                    Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
-                                                    Style="{StaticResource NumericUpDownStyle}"/>
-                    </Grid>
-                </StackPanel>
-                <!-- Row 3: -->
-                <StackPanel Orientation="Horizontal"
-                            Margin="2">
+        <TabItem Header="Settings" Name="SettingsTab">
+            <Grid HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                </Grid.RowDefinitions>
+
+                <CheckBox x:Name="cbAdvancedHotkeys"
+                          Grid.Column="0"
+                          Content="Advanced Hotkeys Mode"
+                          ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
+                          Style="{StaticResource CheckBoxStyle}"
+                          Checked="Handle_ShowActionBindingsChecked"
+                          Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                <Grid Grid.Column="1" ShowGridLines="False" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Controls:GridLinesRenderer x:Key="GridLinesRenderer"/>
+                    </Grid.Resources>
+
+                    <Label Content="Volume Step Size"
+                           Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           Style="{StaticResource LabelStyle}"/>
+                    <Controls:NumericUpDown x:Name="VolumeStep"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            Width="48"
+                                            DecimalPlaces="0"
+                                            MinValue="0"
+                                            MaxValue="100"
+                                            Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource NumericUpDownStyle}"/>
+                </Grid>
+                <Canvas Grid.Column="2"
+                        Width="{Binding Width, ElementName=versionLabel}"
+                        Height="{Binding Height, ElementName=versionLabel}">
+                    <Label x:Name="versionLabel"
+                           Canvas.Top="0"
+                           Canvas.Right="0"
+                           HorizontalAlignment="Right"
+                           Style="{StaticResource LabelStyle}"
+                           Height="Auto"
+                           VerticalContentAlignment="Center"
+                           Foreground="LightGray"
+                           FontWeight="SemiBold"
+                           FontSize="9"
+                           ToolTip="The current version number." Content="[version]" Margin="0,-4,0,0"/>
+                </Canvas>
+
+                <Grid Grid.Row="1"
+                      Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="4"/>
+                    </Grid.ColumnDefinitions>
                     <Label Content="Device"
                            Style="{StaticResource LabelStyle}"
                            IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
                     <ComboBox x:Name="DeviceSelectorBox"
-                              Width="80"
+                              Grid.Column="1"
                               Style="{StaticResource ComboBoxStyle}"
                               ItemsSource="{Binding Devices, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
                               DisplayMemberPath="Name"
@@ -515,19 +565,21 @@
                               Margin="0,1,0,0"
                               IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
                     <CheckBox x:Name="cbAllDevices"
+                              Grid.Column="3"
                               Content="Check All Devices"
                               ToolTip="When this is checked, the device dropdown is ignored and all devices are used instead."
                               IsChecked="{Binding CheckAllDevices, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, BindsDirectlyToSource=True}"
                               DataContext="{StaticResource AudioAPI}"
                               Style="{StaticResource CheckBoxStyle}"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Margin="5,0,1,0"/>
+                              VerticalAlignment="Center"/>
                     <Button Content="Refresh"
+                            Grid.Column="2"
                             Click="Handle_ReloadDevicesClick"
-                            Style="{StaticResource ButtonStyle}"/>
-                </StackPanel>
-            </StackPanel>
+                            Style="{StaticResource ButtonStyle}"
+                            IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                </Grid>
+            </Grid>
         </TabItem>
         <!--▲ Settings ▲-->
     </TabControl>

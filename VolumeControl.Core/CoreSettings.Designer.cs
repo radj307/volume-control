@@ -13,7 +13,7 @@ namespace VolumeControl.Core {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    internal sealed partial class CoreSettings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class CoreSettings : global::System.Configuration.ApplicationSettingsBase {
         
         private static CoreSettings defaultInstance = ((CoreSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new CoreSettings())));
         
@@ -107,9 +107,11 @@ namespace VolumeControl.Core {
   <string>Next Track::::NextTrack</string>
   <string>Previous Track::::PreviousTrack</string>
   <string>Toggle Playback::::TogglePlayback</string>
-  <string>Next Target::CtrlShiftAlt+D::NextTarget</string>
-  <string>Previous Target::CtrlShiftAlt+A::PreviousTarget</string>
-  <string>Lock Target::CtrlShiftAlt+S::ToggleTargetLock</string>
+  <string>Next Target::Ctrl+Shift+Alt+D::NextTarget</string>
+  <string>Previous Target::Ctrl+Shift+Alt+A::PreviousTarget</string>
+  <string>Lock Target::Ctrl+Shift+Alt+S::ToggleTargetLock</string>
+  <string>Next Device::::NextDevice</string>
+  <string>Previous Device::::PreviousDevice</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Hotkeys_Default {
             get {

@@ -15,11 +15,7 @@
     <!-- KeyOptions (HotkeyLib.KeysList) -->
     <hklib:KeysList x:Key="KeyOptions"/>
     <!-- ActionOptions (VolumeControl.Core.HotkeyActionOptions) -->
-    <corel:HotkeyActionOptions x:Key="ActionOptions"/>
+    <!--<corel:HotkeyActionOptions x:Key="ActionOptions"/>-->
     <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
     <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <!-- SettingsUpgrader (VolumeControl.Core.SettingsUpgrader) -->
-    <core:SettingsUpgrader x:Key="{x:Type core:SettingsUpgrader}"/>
-    <!-- VersionWatermark -->
-    <core:VersionGetter x:Key="Version"/>
 </ResourceDictionary>

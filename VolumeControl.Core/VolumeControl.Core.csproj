@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <None Update="CoreSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>CoreSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

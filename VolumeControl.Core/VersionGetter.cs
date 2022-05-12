@@ -4,7 +4,7 @@ namespace VolumeControl.Core
 {
     public class VersionGetter
     {
-        public VersionGetter() => Version = $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+        public VersionGetter() => Version = string.Empty;
         public string Version { get; set; }
     }
 }

@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>VolumeControl</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>VolumeControl.App</StartupObject>
@@ -11,6 +12,20 @@
     <ExtendedVersion>5.0.0-pr1</ExtendedVersion>
     <ReleaseType>REVISION</ReleaseType>
     <!-- VERSIONING INFO -->
+    <Authors>radj307</Authors>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+    <Copyright>GPLv3</Copyright>
+    <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
+    <Company>radj307</Company>
+    <Product>Volume Control</Product>
+    <Description>Adds customizable global hotkeys for controlling the volume of specific applications, rather than the system volume.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>6.0</AnalysisLevel>
   </PropertyGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
@@ -23,8 +38,33 @@
   </ItemGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
-    <None Remove="Properties\Resources\icons\icon-16x16-VC.ico" />
-    <None Remove="Properties\Resources\images\background-img.png" />
+    <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
+    <None Remove="Resources\icons\icon-16x16-VC.ico" />
+    <None Remove="Resources\icons\icon.ico" />
+    <None Remove="Resources\images\background-img.png" />
+    <None Remove="Resources\images\background.png" />
+    <None Remove="Resources\images\banner.png" />
+    <None Remove="Resources\images\foreground.png" />
+    <None Remove="Resources\images\icon.png" />
+    <None Remove="Resources\images\iconSilvered.png" />
+    <None Remove="Resources\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\iconSilvered.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CalcBinding" Version="2.5.2" />
@@ -36,11 +76,26 @@
     <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Resources\icons\icon-16x16-VC.ico">
+    <Resource Include="Resources\icons\icon-16x16-VC.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Properties\Resources\images\background-img.png">
+    <Resource Include="Resources\images\background.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\banner.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\foreground.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\iconSilvered.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

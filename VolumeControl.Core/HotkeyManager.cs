@@ -23,6 +23,9 @@ namespace VolumeControl.Core
             HwndSource.AddHook(HwndHook);
             Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
 
+            _actionBindings = new(OwnerHandle, AudioAPI);
+            _initialized = true;
+
             // set the settings hotkeys to default if they're null
             var list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
 
@@ -40,13 +43,17 @@ namespace VolumeControl.Core
 
                 Log.Debug($"Hotkeys[{i}] ('{s}') was successfully parsed:", hk.GetFullIdentifier());
             }
+
+            ActionNames = _actionBindings.GetActionNames();
         }
 
         #region Fields
         public IntPtr OwnerHandle;
         private HwndSource HwndSource = null!;
         private AudioAPI _audioAPI = null!;
-        private HotkeyActionBindings _actionBindings = null!;
+        private bool _initialized = false;
+        //private HotkeyActionBindings _actionBindings = null!;
+        private HelperTypes.Experimental.ActionBindings _actionBindings = null!;
         #endregion Fields
 
         #region Properties
@@ -61,12 +68,18 @@ namespace VolumeControl.Core
                     _audioAPI = value;
             }
         }
-        public HotkeyActionBindings ActionBindings
+        //public HotkeyActionBindings ActionBindings
+        //{
+        //    get => _actionBindings ??= new(OwnerHandle, AudioAPI);
+        //    set => _actionBindings = value;
+        //}
+        public HelperTypes.Experimental.ActionBindings ActionBindings
         {
-            get => _actionBindings ??= new(AudioAPI);
+            get => _initialized ? _actionBindings ??= new(OwnerHandle, AudioAPI) : null!;
             set => _actionBindings = value;
         }
         public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
+        public List<string> ActionNames { get; set; } = null!;
         #endregion Properties
 
         #region Methods
@@ -77,7 +90,7 @@ namespace VolumeControl.Core
         /// <param name="keys">The key combination of the new hotkey.</param>
         /// <param name="action">The associated action of the new hotkey.</param>
         /// <param name="registerNow">When true, the new hotkey is registered immediately after construction.</param>
-        public void AddHotkey(string name, IKeyCombo keys, EHotkeyAction action, bool registerNow = false)
+        public void AddHotkey(string name, IKeyCombo keys, string action, bool registerNow = false)
         {
             var hk = new BindableWindowsHotkey(this, name, keys, action, registerNow);
             Hotkeys.Add(hk);
@@ -89,7 +102,7 @@ namespace VolumeControl.Core
         /// <remarks>
         /// <see cref="BindableWindowsHotkey.Name"/> = <see cref="string.Empty"/>
         /// </remarks>
-        public void AddHotkey() => AddHotkey(string.Empty, new KeyCombo(), EHotkeyAction.None, false);
+        public void AddHotkey() => AddHotkey(string.Empty, new KeyCombo(), "None", false);
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
         /// </summary>
@@ -101,6 +114,17 @@ namespace VolumeControl.Core
             Hotkeys.Remove(hk);
             Log.Info($"Deleted hotkey {hk.ID} '{hk.Name}'");
         }
+        /// <summary>
+        /// Remove the specified hotkey from <see cref="Hotkeys"/>.
+        /// </summary>
+        /// <param name="id">The ID number of the hotkey to delete.</param>
+        public void DelHotkey(int id)
+        {
+            for (int i = Hotkeys.Count - 1; i >= 0; --i)
+                if (Hotkeys[i].ID.Equals(id))
+                    Hotkeys.RemoveAt(i);
+        }
+        public BindableWindowsHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
         /// <summary>
         /// Saves all hotkeys to the settings file.
         /// </summary>
@@ -124,7 +148,8 @@ namespace VolumeControl.Core
             switch (msg)
             {
             case (int)HotkeyAPI.WM_HOTKEY:
-                if (Hotkeys.FirstOrDefault(h => h is not null && h.ID.Equals(wParam.ToInt32()), null) is BindableWindowsHotkey hk)
+                int pressedID = wParam.ToInt32();
+                if (GetHotkey(pressedID) is BindableWindowsHotkey hk)
                 {
                     hk.NotifyPressed(); //< trigger the associated hotkey's Pressed event
                     handled = true;

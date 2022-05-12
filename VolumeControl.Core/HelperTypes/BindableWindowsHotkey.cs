@@ -5,7 +5,7 @@ namespace VolumeControl.Core.HelperTypes
 {
     public class BindableWindowsHotkey : IKeyCombo, IDisposable
     {
-        public BindableWindowsHotkey(HotkeyManager manager, string name, IKeyCombo keys, EHotkeyAction action, bool registerNow = false)
+        public BindableWindowsHotkey(HotkeyManager manager, string name, IKeyCombo keys, string action, bool registerNow = false)
         {
             _manager = manager;
             Name = name;
@@ -24,19 +24,21 @@ namespace VolumeControl.Core.HelperTypes
             get => Hotkey.Registered;
             set => Hotkey.Registered = value;
         }
-        private EHotkeyAction _action = EHotkeyAction.None;
+
+        private string _actionName = string.Empty;
+
         /// <summary>
         /// Gets or sets the action associated with this hotkey.
         /// </summary>
         /// <remarks>This property automatically handles changing the <see cref="Pressed"/> event.</remarks>
-        public EHotkeyAction Action
+        public string Action
         {
-            get => _action;
+            get => _actionName;
             set
             {
-                Pressed -= _manager.ActionBindings[_action];
-                _action = value;
-                Pressed += _manager.ActionBindings[_action];
+                if (_actionName.Length > 0)
+                    Pressed -= _manager.ActionBindings[_actionName];
+                Pressed += _manager.ActionBindings[_actionName = value];
             }
         }
 
@@ -101,8 +103,8 @@ namespace VolumeControl.Core.HelperTypes
 
         /// <inheritdoc/>
         public override string ToString() => Serialize();
-        public string Serialize() => $"{Name}::{Hotkey.ToString()}::{Enum.GetName(typeof(EHotkeyAction), Action)}::{Registered}";
-        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Enum.GetName(typeof(EHotkeyAction), Action)}', Registered: '{Registered}' }}";
+        public string Serialize() => $"{Name}::{Hotkey.ToString()}::{Action/*Enum.GetName(typeof(EHotkeyAction), Action)*/}::{Registered}";
+        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Action/*Enum.GetName(typeof(EHotkeyAction), Action)*/}', Registered: '{Registered}' }}";
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
@@ -115,9 +117,10 @@ namespace VolumeControl.Core.HelperTypes
             var keys = split.Length > 1 ? KeyCombo.Parse(split[1]) : new KeyCombo();
 
             // Determine which action to bind to:
-            EHotkeyAction action = EHotkeyAction.None;
-            if (split.Length > 2 && Enum.TryParse(typeof(EHotkeyAction), split[2], out object? actionObj) && actionObj is EHotkeyAction a)
-                action = a;
+            string action = split.Length > 2 ? split[2] : string.Empty;
+            //EHotkeyAction action = EHotkeyAction.None;
+            //if (split.Length > 2 && Enum.TryParse(typeof(EHotkeyAction), split[2], out object? actionObj) && actionObj is EHotkeyAction a)
+            //    action = a;
 
             // Check if the hotkey was registered:
             bool register = false;

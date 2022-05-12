@@ -1,15 +1,17 @@
 ﻿<Application x:Class="VolumeControl.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VolumeControl"
-             StartupUri="Mixer.xaml">
+             StartupUri="Mixer.xaml"
+             ShutdownMode="OnMainWindowClose"
+             Startup="Application_Startup"
+             Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="VolumeControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            
         </ResourceDictionary>
-        
-        
     </Application.Resources>
 </Application>

@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace VolumeControl.Core.Controls
+namespace VolumeControl.WPF
 {
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_IncreaseButton", Type = typeof(RepeatButton))]
@@ -44,10 +44,10 @@ namespace VolumeControl.Core.Controls
                 control.CoerceValueToBounds(ref value);
 
                 // Get the text representation of Value
-                var valueString = value.ToString(control.Culture);
+                string? valueString = value.ToString(control.Culture);
 
                 // Count all decimal places
-                var decimalPlaces = control.GetDecimalPlacesCount(valueString);
+                int decimalPlaces = control.GetDecimalPlacesCount(valueString);
 
                 if (decimalPlaces > control.DecimalPlaces)
                 {
@@ -58,9 +58,7 @@ namespace VolumeControl.Core.Controls
 
                         // If the specified number of decimal places is still too much
                         if (decimalPlaces > control.DecimalPlaces)
-                        {
                             value = control.TruncateValue(valueString, control.DecimalPlaces);
-                        }
                     }
                     else
                     {
@@ -76,16 +74,12 @@ namespace VolumeControl.Core.Controls
                 if (control.IsThousandSeparatorVisible)
                 {
                     if (control.TextBox != null)
-                    {
                         control.TextBox.Text = value.ToString("N", control.Culture);
-                    }
                 }
                 else
                 {
                     if (control.TextBox != null)
-                    {
                         control.TextBox.Text = value.ToString("F", control.Culture);
-                    }
                 }
             }
             return value;
@@ -110,25 +104,19 @@ namespace VolumeControl.Core.Controls
                 decimal maxValue = Convert.ToDecimal(e.NewValue);
                 // If maxValue steps over MinValue, shift it
                 if (maxValue < control.MinValue)
-                {
                     control.MinValue = maxValue;
-                }
 
                 if (maxValue <= control.Value)
-                {
                     control.Value = maxValue;
-                }
             }
         }
 
         private static object CoerceMaxValue(DependencyObject element, object baseValue)
         {
-            var maxValue = (decimal)baseValue;
+            decimal maxValue = (decimal)baseValue;
 
             if (maxValue == decimal.MaxValue)
-            {
                 return DependencyProperty.UnsetValue;
-            }
 
             return maxValue;
         }
@@ -152,29 +140,23 @@ namespace VolumeControl.Core.Controls
         {
             if (element is NumericUpDown control)
             {
-                var minValue = (decimal)e.NewValue;
+                decimal minValue = (decimal)e.NewValue;
 
                 // If minValue steps over MaxValue, shift it
                 if (minValue > control.MaxValue)
-                {
                     control.MaxValue = minValue;
-                }
 
                 if (minValue >= control.Value)
-                {
                     control.Value = minValue;
-                }
             }
         }
 
         private static object CoerceMinValue(DependencyObject element, object baseValue)
         {
-            var minValue = (decimal)baseValue;
+            decimal minValue = (decimal)baseValue;
 
             if (minValue == decimal.MinValue)
-            {
                 return DependencyProperty.UnsetValue;
-            }
 
             return minValue;
         }
@@ -195,7 +177,7 @@ namespace VolumeControl.Core.Controls
         {
             if (element is NumericUpDown control)
             {
-                var decimalPlaces = (int)e.NewValue;
+                int decimalPlaces = (int)e.NewValue;
 
                 control.Culture.NumberFormat.NumberDecimalDigits = decimalPlaces;
 
@@ -214,7 +196,7 @@ namespace VolumeControl.Core.Controls
 
         private static object CoerceDecimalPlaces(DependencyObject element, object baseValue)
         {
-            var decimalPlaces = (int)baseValue;
+            int decimalPlaces = (int)baseValue;
             if (element is NumericUpDown control)
             {
                 if (decimalPlaces < control.MinDecimalPlaces)
@@ -245,14 +227,12 @@ namespace VolumeControl.Core.Controls
         private static void OnMaxDecimalPlacesChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
             if (element is NumericUpDown control)
-            {
                 control.InvalidateProperty(DecimalPlacesProperty);
-            }
         }
 
         private static object CoerceMaxDecimalPlaces(DependencyObject element, object baseValue)
         {
-            var maxDecimalPlaces = (int)baseValue;
+            int maxDecimalPlaces = (int)baseValue;
             if (element is NumericUpDown control)
             {
                 if (maxDecimalPlaces > 28)
@@ -286,14 +266,12 @@ namespace VolumeControl.Core.Controls
         private static void OnMinDecimalPlacesChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
             if (element is NumericUpDown control)
-            {
                 control.InvalidateProperty(DecimalPlacesProperty);
-            }
         }
 
         private static object CoerceMinDecimalPlaces(DependencyObject element, object baseValue)
         {
-            var minDecimalPlaces = (int)baseValue;
+            int minDecimalPlaces = (int)baseValue;
             if (element is NumericUpDown control)
             {
                 if (minDecimalPlaces < 0)
@@ -340,18 +318,16 @@ namespace VolumeControl.Core.Controls
         {
             if (element is NumericUpDown control)
             {
-                var minorDelta = (decimal)e.NewValue;
+                decimal minorDelta = (decimal)e.NewValue;
 
                 if (minorDelta > control.MajorDelta)
-                {
                     control.MajorDelta = minorDelta;
-                }
             }
         }
 
         private static object CoerceMinorDelta(DependencyObject element, object baseValue)
         {
-            var minorDelta = (decimal)baseValue;
+            decimal minorDelta = (decimal)baseValue;
 
             return minorDelta;
         }
@@ -372,18 +348,16 @@ namespace VolumeControl.Core.Controls
         {
             if (element is NumericUpDown control)
             {
-                var majorDelta = (decimal)e.NewValue;
+                decimal majorDelta = (decimal)e.NewValue;
 
                 if (majorDelta < control.MinorDelta)
-                {
                     control.MinorDelta = majorDelta;
-                }
             }
         }
 
         private static object CoerceMajorDelta(DependencyObject element, object baseValue)
         {
-            var majorDelta = (decimal)baseValue;
+            decimal majorDelta = (decimal)baseValue;
 
             return majorDelta;
         }
@@ -456,10 +430,7 @@ namespace VolumeControl.Core.Controls
 
         #region Constructors
 
-        static NumericUpDown()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown), new FrameworkPropertyMetadata(typeof(NumericUpDown)));
-        }
+        static NumericUpDown() => DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown), new FrameworkPropertyMetadata(typeof(NumericUpDown)));
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NumericUpDown()
@@ -484,28 +455,17 @@ namespace VolumeControl.Core.Controls
             AttachCommands();
         }
 
-        private void TextBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
-        {
-            UpdateValue();
-        }
+        private void TextBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs) => UpdateValue();
 
         private void TextBoxOnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (IsAutoSelectionActive)
-            {
                 TextBox.SelectAll();
-            }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            InvalidateProperty(ValueProperty);
-        }
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs) => InvalidateProperty(ValueProperty);
 
-        private void ButtonOnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        {
-            Value = 0;
-        }
+        private void ButtonOnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs) => Value = 0;
 
         #endregion
 
@@ -587,18 +547,14 @@ namespace VolumeControl.Core.Controls
             return value;
         }
 
-        public int GetDecimalPlacesCount(string valueString)
-        {
-            return valueString.SkipWhile(c => c.ToString(Culture)
-                                              != Culture.NumberFormat.NumberDecimalSeparator).Skip(1).Count();
-        }
+        public int GetDecimalPlacesCount(string valueString) => valueString.SkipWhile(c => c.ToString(Culture) != Culture.NumberFormat.NumberDecimalSeparator).Skip(1).Count();
 
         private decimal TruncateValue(string valueString, int decimalPlaces)
         {
-            var endPoint = valueString.Length - (decimalPlaces - DecimalPlaces);
+            int endPoint = valueString.Length - (decimalPlaces - DecimalPlaces);
             endPoint++;
 
-            var tempValueString = valueString[..endPoint];
+            string? tempValueString = valueString[..endPoint];
 
             return decimal.Parse(tempValueString, Culture);
         }
@@ -625,15 +581,9 @@ namespace VolumeControl.Core.Controls
 
         #region Methods
 
-        private void UpdateValue()
-        {
-            Value = ParseStringToDecimal(TextBox.Text);
-        }
+        private void UpdateValue() => Value = ParseStringToDecimal(TextBox.Text);
 
-        private void CancelChanges()
-        {
-            _ = TextBox.Undo();
-        }
+        private void CancelChanges() => _ = TextBox.Undo();
 
         private void RemoveFocus()
         {

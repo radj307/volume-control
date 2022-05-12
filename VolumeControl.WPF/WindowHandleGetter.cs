@@ -15,18 +15,12 @@ namespace VolumeControl.WPF
         /// </summary>
         /// <remarks>This uses <see cref="WindowInteropHelper.EnsureHandle"/> to ensure that a valid handle is always returned at any point during initialization.</remarks>
         /// <returns><see cref="IntPtr"/> set to the current WPF window's handle.</returns>
-        public static IntPtr GetWindowHandle()
-        {
-            return new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
-        }
+        public static IntPtr GetWindowHandle() => new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
         /// <summary>
         /// Gets the <see cref="HwndSource"/> associated with the given Window Handle <paramref name="hWnd"/>.
         /// </summary>
         /// <param name="hWnd">The <see cref="IntPtr"/> associated with a WPF window.</param>
         /// <returns><see cref="HwndSource"/> that can be used to receive WPF window messages.</returns>
-        public static HwndSource GetHwndSource(IntPtr hWnd)
-        {
-            return HwndSource.FromHwnd(hWnd);
-        }
+        public static HwndSource GetHwndSource(IntPtr hWnd) => HwndSource.FromHwnd(hWnd);
     }
 }
