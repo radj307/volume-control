@@ -19,11 +19,14 @@ namespace VolumeControl.Core
 
             ReloadDeviceList();
 
-            _selectedDevice = GetDefaultDevice();
+            // Set the selected device
+            if (Settings.SelectedDevice.Length > 0)
+                SelectedDevice = FindDevice(dev => dev.DeviceID.Equals(Settings.SelectedDevice, StringComparison.Ordinal));
+            else _selectedDevice = GetDefaultDevice();
 
             ReloadSessionList();
 
-            Target = Settings.Target;
+            Target = Settings.SelectedSession;
             LockSelectedDevice = Settings.LockSelectedDevice;
             LockSelectedSession = Settings.LockSelectedSession;
             VolumeStepSize = Settings.VolumeStepSize;
@@ -44,7 +47,7 @@ namespace VolumeControl.Core
             Log.Info("Saving AudioAPI settings to the configuration file...");
             // save settings
             Settings.ReloadInterval_ms = ReloadInterval;
-            Settings.Target = Target;
+            Settings.SelectedSession = Target;
             Settings.VolumeStepSize = VolumeStepSize;
             Settings.ReloadOnHotkey = ReloadOnHotkey;
             Settings.ReloadOnInterval = ReloadOnInterval;
@@ -245,7 +248,7 @@ namespace VolumeControl.Core
 
         public void ReloadDeviceList()
         {
-            if (_mutex.WaitOne())
+            if (_mutex.WaitOne(0))
             {
                 SelectiveUpdateDevices(GetAllDevices());
 
@@ -267,7 +270,7 @@ namespace VolumeControl.Core
         }
         private void SelectiveUpdateDevices(List<AudioDevice> devices)
         {
-            var sel = SelectedDevice;
+            var selID = SelectedDevice?.DeviceID;
 
             // remove all devices that aren't in the new list. (exited/stopped)
             Devices.RemoveAll(dev => !devices.Any(d => d.Equals(dev)));
@@ -275,8 +278,11 @@ namespace VolumeControl.Core
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
 
             // unset the selected device if it doesn't exist anymore:
-            if (sel != null && !Devices.Contains(sel))
+            if (!LockSelectedDevice && selID != null && !Devices.Any(dev => dev.DeviceID.Equals(selID, StringComparison.Ordinal)))
                 SelectedDevice = null;
+
+            if (SelectedDevice == null)
+                Sessions.Clear();
 
             NotifyDeviceListRefresh(EventArgs.Empty);
 
@@ -284,14 +290,12 @@ namespace VolumeControl.Core
         }
 
         /// <summary>
-        /// Performs a selective update on the <see cref="Sessions"/> list.
+        /// 
         /// </summary>
-        /// <remarks><list type="number" start="1">
-        /// <item><description>Get the list of audio sessions by calling <see cref="WrapperAPI.GetAllSessions()"/> or <see cref="WrapperAPI.GetAllSessions(AudioAPI.WindowsAPI.Audio.MMDeviceAPI.IMMDevice)"/>, depending on if <see cref="CheckAllDevices"/> is set to true.</description></item>
-        /// </list></remarks>
+        /// <remarks>This method locks the <see cref="_mutex"/> and is thread safe.<br/>Note that the mutex is shared between <see cref="ReloadDeviceList"/>, and as a result these methods should not interact with each other!</remarks>
         public void ReloadSessionList()
         {
-            if (_mutex.WaitOne())
+            if (_mutex.WaitOne(0))
             {
                 if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
                     return;
@@ -305,6 +309,10 @@ namespace VolumeControl.Core
                 _mutex.ReleaseMutex();
             }
         }
+        /// <summary>
+        /// Retrieves a list of every <see cref="AudioSession"/> from every active <see cref="AudioDevice"/>.
+        /// </summary>
+        /// <returns>List of audio sessions.</returns>
         private List<AudioSession> GetAllSessionsFromAllDevices()
         {
             List<AudioSession> sessions = new();
@@ -336,17 +344,22 @@ namespace VolumeControl.Core
 
             return sessions;
         }
+        /// <summary>
+        /// Performs a selective update of the <see cref="Sessions"/> list.
+        /// </summary>
+        /// <remarks><b>This method does not use mutexes and is not thread safe!</b><br/>Because of this, it should only be called from within the critical section of a method that <i>does</i> use mutexes, such as <see cref="ReloadSessionList"/>.</remarks>
+        /// <param name="sessions">List of sessions to update from.<br/>Any items within <see cref="Sessions"/> that are <b>not</b> present in <paramref name="sessions"/> are removed from <see cref="Sessions"/>.<br/>Any items present in <paramref name="sessions"/> that are <b>not</b> present within <see cref="Sessions"/> are added to <see cref="Sessions"/>.</param>
         private void SelectiveUpdateSessions(List<AudioSession> sessions)
         {
-            var sel = SelectedSession;
+            var selPID = SelectedSession?.PID;
 
             // remove all sessions that don't appear in the new list (expired sessions)
             Sessions.RemoveAll(session => !sessions.Any(s => s.PID.Equals(session.PID)));
             // add all sessions that aren't already in the current list
             Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
 
-            if (sel != null && !Sessions.Contains(sel))
-                sel = null;
+            if (!LockSelectedSession && selPID != null && !Sessions.Any(s => s.PID.Equals(selPID)))
+                SelectedSession = null;
 
             NotifyProcessListRefresh(EventArgs.Empty);
 
