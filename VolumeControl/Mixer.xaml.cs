@@ -7,6 +7,7 @@ using System.Windows.Data;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.Log;
 using VolumeControl.Win32;
 
 namespace VolumeControl
@@ -80,6 +81,7 @@ namespace VolumeControl
         #region Properties
         private Core.AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
         private Core.HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
+        private LogWriter Log => FLog.Log;
         private static Properties.Settings Settings => Properties.Settings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
         #endregion Properties
@@ -140,6 +142,17 @@ namespace VolumeControl
             => Settings.StartMinimized = true;
         private void Handle_StartMinimizeUnchecked(object sender, RoutedEventArgs e)
             => Settings.StartMinimized = false;
+        private void Handle_ResetSettingsClick(object sender, RoutedEventArgs e)
+        {
+            Log.Info("Reset settings button was clicked, displaying confirmation dialog.");
+            if (MessageBox.Show("Are you sure you want to reset your settings?\n\nThis cannot be undone!", "Reset Settings?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No).Equals(MessageBoxResult.Yes))
+            {
+                Settings.Reset();
+                Settings.Save();
+                Settings.Reload();
+                Log.Info("User settings were reset to default.");
+            }
+        }
         #endregion EventHandlers
     }
 }

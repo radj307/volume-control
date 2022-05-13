@@ -635,8 +635,10 @@
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_StartMinimizeChecked"
                               Unchecked="Handle_StartMinimizeUnchecked"/>
-                    <Button Content="Reset Settings to Default"
-                            Style="{StaticResource ButtonStyle}"/>
+                    <Button x:Name="bResetSettings"
+                            Content="Reset Settings to Default"
+                            Style="{StaticResource ButtonStyle}"
+                            Click="Handle_ResetSettingsClick"/>
                 </StackPanel>
             </Grid>
         </TabItem>

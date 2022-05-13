@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
+using VolumeControl.Core.HelperTypes;
 using VolumeControl.Log;
 using VolumeControl.Properties;
 
@@ -11,6 +14,11 @@ namespace VolumeControl
     {
         public App() => InitializeComponent();
 
+        #region Fields
+        private const string appMutexIdentifier = "VolumeControlSingleInstance";
+        private Mutex appMutex;
+        #endregion Fields
+
         #region Properties
         private static Settings Settings => Settings.Default;
         private static LogWriter Log => FLog.Log;
@@ -19,6 +27,15 @@ namespace VolumeControl
         #region ApplicationEventHandlers
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            bool isNewInstance = false;
+            appMutex = new(true, appMutexIdentifier, out isNewInstance);
+
+            if (!Settings.AllowMultipleInstances && !isNewInstance)
+            {
+                MessageBox.Show($"Another instance of Volume Control is already running!");
+                Current.Shutdown();
+            }
+
             // Add a logging event handler
             Settings.Default.SettingsSaving += (s, e) =>
             {
