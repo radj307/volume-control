@@ -10,8 +10,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="VolumeControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
-            
+
+            <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily> 
         </ResourceDictionary>
     </Application.Resources>
 </Application>

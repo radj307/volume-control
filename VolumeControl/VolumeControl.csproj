@@ -39,6 +39,7 @@
 	</ItemGroup>
 	<!-- VERSIONING ATTRIBUTES -->
 	<ItemGroup>
+		<None Remove="Resources\fonts\Inter.ttf" />
 		<None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
 		<None Remove="Resources\icons\icon-16x16-VC.ico" />
 		<None Remove="Resources\icons\icon.ico" />
@@ -51,6 +52,9 @@
 		<None Remove="Resources\LICENSE" />
 	</ItemGroup>
 	<ItemGroup>
+		<Resource Include="Resources\fonts\Inter.ttf">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
 		<Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
