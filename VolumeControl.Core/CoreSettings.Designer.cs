@@ -26,12 +26,12 @@ namespace VolumeControl.Core {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Target {
+        public string SelectedSession {
             get {
-                return ((string)(this["Target"]));
+                return ((string)(this["SelectedSession"]));
             }
             set {
-                this["Target"] = value;
+                this["SelectedSession"] = value;
             }
         }
         
@@ -185,6 +185,18 @@ namespace VolumeControl.Core {
         public int VolumeStepSize_Default {
             get {
                 return ((int)(this["VolumeStepSize_Default"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedDevice {
+            get {
+                return ((string)(this["SelectedDevice"]));
+            }
+            set {
+                this["SelectedDevice"] = value;
             }
         }
     }

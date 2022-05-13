@@ -240,7 +240,7 @@
                              HorizontalAlignment="Stretch"
                              Height="23"
                              TabIndex="0"
-                             ToolTip="You can enter the Process ID or Process Name of any valid audio session here. Click the 'Set Target' button to apply the changes."
+                             ToolTip="You can enter the Process ID or Process Name of any valid audio session here."
                              Text="{Binding Target, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True, IsAsync=True}"
                              DataContext="{StaticResource AudioAPI}"
                              IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
@@ -497,7 +497,10 @@
                                             Width="20"
                                             Height="Auto"
                                             Background="Transparent"
+                                            Foreground="#FF4456"
+                                            FocusVisualStyle="{x:Null}"
                                             Click="Handle_HotkeyGridRemoveClick"
+                                            BorderThickness="0"
                                             CommandParameter="{Binding ID}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -563,11 +566,11 @@
                     <ComboBox x:Name="DeviceSelectorBox"
                               Grid.Column="1"
                               Style="{StaticResource ComboBoxStyle}"
-                              ItemsSource="{Binding Devices, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True}"
+                              ItemsSource="{Binding Devices, BindsDirectlyToSource=True}"
                               DisplayMemberPath="Name"
-                              SelectedItem="{Binding SelectedDevice}"
+                              SelectedItem="{Binding SelectedDevice, UpdateSourceTrigger=LostFocus}"
                               DataContext="{StaticResource AudioAPI}"
-                              ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown."
+                              ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown in the mixer."
                               VerticalAlignment="Center"
                               IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"
                               DropDownOpened="Handle_ReloadDevicesClick"/>

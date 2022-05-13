@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VolumeControl.Core" GeneratedClassName="CoreSettings">
   <Profiles />
   <Settings>
-    <Setting Name="Target" Type="System.String" Scope="User">
+    <Setting Name="SelectedSession" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ReloadInterval_ms" Type="System.Double" Scope="User">
@@ -56,6 +56,9 @@
     </Setting>
     <Setting Name="VolumeStepSize_Default" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="SelectedDevice" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

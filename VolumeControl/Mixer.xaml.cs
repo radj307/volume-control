@@ -78,8 +78,8 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
-        private Core.AudioAPI AudioAPI => (Resources["AudioAPI"] as Core.AudioAPI)!;
-        private Core.HotkeyManager HotkeyAPI => (Resources["HotkeyAPI"] as Core.HotkeyManager)!;
+        private Core.AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
+        private Core.HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
         private static Properties.Settings Settings => Properties.Settings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
         #endregion Properties

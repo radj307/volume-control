@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Interop;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.HelperTypes.Lists;
+using VolumeControl.Core.HotkeyActions;
 using VolumeControl.Log;
 using VolumeControl.WPF;
 
@@ -23,7 +24,7 @@ namespace VolumeControl.Core
             HwndSource.AddHook(HwndHook);
             Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
 
-            _actionBindings = new(OwnerHandle, AudioAPI);
+            _actionBindings = new(new AudioAPIActions(AudioAPI), new WindowsAPIActions(OwnerHandle));
             _initialized = true;
 
             // set the settings hotkeys to default if they're null
