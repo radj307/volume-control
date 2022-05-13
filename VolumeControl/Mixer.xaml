@@ -55,6 +55,7 @@
                 <Setter Property="Margin" Value="3,0,3,0"/>
                 <Setter Property="Height" Value="23"/>
                 <Setter Property="Foreground" Value="#050505"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             <!-- TextBox -->
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
@@ -583,7 +584,7 @@
                             Margin="0,3">
                     <CheckBox x:Name="cbAdvancedHotkeys"
                               HorizontalAlignment="Left"
-                              Margin="3,1"
+                              Margin="5,2"
                               Content="Advanced Hotkeys Mode"
                               ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
                               Style="{StaticResource CheckBoxStyle}"
@@ -591,28 +592,34 @@
                               Unchecked="Handle_ShowActionBindingsUnchecked"/>
                     <CheckBox Content="Show in Taskbar"
                               HorizontalAlignment="Left"
-                              Margin="3,1"
+                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
                     <CheckBox Content="Always on Top"
                               HorizontalAlignment="Left"
-                              Margin="3,1"
+                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1"
+                            Grid.Row="3"
+                            Panel.ZIndex="98">
                     <CheckBox x:Name="cbRunAtStartup"
                               Content="Run at Startup"
                               HorizontalAlignment="Left"
-                              Margin="3,1"
+                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_RunAtStartupChecked"
                               Unchecked="Handle_RunAtStartupUnchecked"/>
                     <CheckBox x:Name="cbStartMinimized"
                               Content="Start Minimized"
                               HorizontalAlignment="Left"
-                              Margin="3,1"
+                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_StartMinimizeChecked"
                               Unchecked="Handle_StartMinimizeUnchecked"/>
+                    <Button Content="Reset Settings to Default"
+                            Style="{StaticResource ButtonStyle}"/>
                 </StackPanel>
             </Grid>
         </TabItem>
