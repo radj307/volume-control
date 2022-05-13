@@ -81,7 +81,7 @@
             </Style>
             <!-- Mixer Volume TextBox -->
             <Style x:Key="MixerVolumeTextBoxStyle" BasedOn="{StaticResource TextBoxStyle}" TargetType="TextBox">
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Width" Value="26"/>
             </Style>
@@ -94,7 +94,7 @@
             </Style>
             <!-- Mixer Cell -->
             <Style x:Key="MixerCellStyle" TargetType="DataGridCell">
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="1"/>
