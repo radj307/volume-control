@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using VolumeControl.Core.HelperTypes;
 using VolumeControl.Log;
 using VolumeControl.Properties;
 
@@ -16,7 +14,7 @@ namespace VolumeControl
 
         #region Fields
         private const string appMutexIdentifier = "VolumeControlSingleInstance";
-        private Mutex appMutex;
+        private Mutex appMutex = null!;
         #endregion Fields
 
         #region Properties
