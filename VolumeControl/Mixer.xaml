@@ -52,8 +52,6 @@
             <!-- Button -->
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="#BBBBBB"/>
-
-
                 <Setter Property="Padding" Value="5,1,5,1"/>
                 <Setter Property="Margin" Value="3,0,3,0"/>
                 <Setter Property="Height" Value="23"/>
@@ -93,6 +91,9 @@
                 <Setter Property="Height" Value="24"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Background" Value="gray"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0,0,1,0"/>
             </Style>
             <!-- Mixer Cell -->
             <Style x:Key="MixerCellStyle" TargetType="DataGridCell">
@@ -369,7 +370,7 @@
                         <!-- Process Name -->
                         <DataGridTextColumn Header="Process Name" Width="*" Binding="{Binding ProcessName, Mode=OneWay}" IsReadOnly="True"/>
                         <!-- Mute -->
-                        <DataGridTemplateColumn Header="Mute" Width="Auto">
+                        <DataGridTemplateColumn Header="Mute" Width="40">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
@@ -430,7 +431,7 @@
 
                     <DataGrid.Columns>
                         <!-- Active -->
-                        <DataGridTemplateColumn Header="Enabled" Width="Auto">
+                        <DataGridTemplateColumn Header="Enabled" Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <!-- Visibility="{Binding Valid, Converter={StaticResource BooleanToVisibilityConverter}}" -->
@@ -449,7 +450,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Alt -->
-                        <DataGridTemplateColumn Header=" Alt " Width="Auto">
+                        <DataGridTemplateColumn Header=" Alt " Width="30">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
@@ -457,7 +458,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Ctrl -->
-                        <DataGridTemplateColumn Header="Ctrl " Width="Auto">
+                        <DataGridTemplateColumn Header="Ctrl" Width="30">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
@@ -465,7 +466,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Shift -->
-                        <DataGridTemplateColumn Header="Shift" Width="Auto">
+                        <DataGridTemplateColumn Header="Shift" Width="30">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
