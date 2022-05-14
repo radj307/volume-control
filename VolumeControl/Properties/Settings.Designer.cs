@@ -136,5 +136,53 @@ namespace VolumeControl.Properties {
                 this["AllowMultipleInstances"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public double SwitchNotificationInterval {
+            get {
+                return ((double)(this["SwitchNotificationInterval"]));
+            }
+            set {
+                this["SwitchNotificationInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowSessionNotifications {
+            get {
+                return ((bool)(this["ShowSessionNotifications"]));
+            }
+            set {
+                this["ShowSessionNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowDeviceNotifications {
+            get {
+                return ((bool)(this["ShowDeviceNotifications"]));
+            }
+            set {
+                this["ShowDeviceNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public double NotificationTimeout {
+            get {
+                return ((double)(this["NotificationTimeout"]));
+            }
+            set {
+                this["NotificationTimeout"] = value;
+            }
+        }
     }
 }

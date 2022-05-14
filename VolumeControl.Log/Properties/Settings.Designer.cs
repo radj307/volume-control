@@ -98,7 +98,7 @@ namespace VolumeControl.Log.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public int LineSegmentLengthDateTime {
             get {
                 return ((int)(this["LineSegmentLengthDateTime"]));

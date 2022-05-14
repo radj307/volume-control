@@ -21,7 +21,7 @@
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="LineSegmentLengthDateTime" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">12</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="LineSegmentLengthEventType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8</Value>

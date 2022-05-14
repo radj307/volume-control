@@ -33,7 +33,18 @@ namespace VolumeControl
             if (Settings.RunAtStartup && !_startupHelper.RunAtStartup)
                 _startupHelper.RunAtStartup = true;
             cbRunAtStartup.IsChecked = _startupHelper.RunAtStartup;
+        }
 
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            trayIcon = new();
+            trayIcon.Text = $"Volume Control v{Assembly.GetExecutingAssembly().GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+            trayIcon.Click += Handle_TrayIconClick;
+            trayIcon.DoubleClick += Handle_TrayIconClick;
+            trayIcon.Icon = Properties.Resources.iconSilvered;
+
+            if (Settings.StartMinimized)
+                WindowState = WindowState.Minimized;
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -55,17 +66,6 @@ namespace VolumeControl
             HotkeyAPI.SaveHotkeys();
             HotkeyAPI.RemoveHook();
             e.Cancel = false;
-        }
-        private void Window_Initialized(object sender, EventArgs e)
-        {
-            trayIcon = new();
-            trayIcon.Text = $"Volume Control v{Assembly.GetExecutingAssembly().GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
-            trayIcon.Click += Handle_TrayIconClick;
-            trayIcon.DoubleClick += Handle_TrayIconClick;
-            trayIcon.Icon = Properties.Resources.iconSilvered;
-
-            if (Settings.StartMinimized)
-                WindowState = WindowState.Minimized;
         }
         private void Window_Loaded(object sender, EventArgs e)
         {

@@ -102,7 +102,7 @@ namespace VolumeControl.Log
 
             Log = new(endpoint, EventFilter);
 
-            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log Initialized ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }})");
+            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log Initialized ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
         }
         #endregion Methods
     }

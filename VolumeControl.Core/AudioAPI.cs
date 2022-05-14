@@ -33,11 +33,17 @@ namespace VolumeControl.Core
             ReloadOnInterval = Settings.ReloadOnInterval;
             CheckAllDevices = Settings.CheckAllDevices;
             ReloadInterval = ConstrainValue(Settings.ReloadInterval_ms, Settings.ReloadInterval_ms_Min, Settings.ReloadInterval_ms_Max);
+            ReloadOnHotkeyTimer.Interval = Settings.ReloadOnHotkey_MinInterval;
 
             // add an event handler to the reload timer
             ReloadTimer.Elapsed += (sender, e) =>
             {
                 ReloadSessionList();
+            };
+
+            ReloadOnHotkeyTimer.Elapsed += (sender, e) =>
+            {
+                _allowReloadOnHotkey = true;
             };
         }
 
@@ -45,6 +51,7 @@ namespace VolumeControl.Core
         {
             Log.Info("Saving AudioAPI settings to the configuration file...");
             // save settings
+            Settings.ReloadOnHotkey_MinInterval = ReloadOnHotkeyTimer.Interval;
             Settings.ReloadInterval_ms = ReloadInterval;
             Settings.SelectedSession = Target;
             Settings.VolumeStepSize = VolumeStepSize;
@@ -61,6 +68,12 @@ namespace VolumeControl.Core
 
         private static CoreSettings Settings => CoreSettings.Default;
         private static LogWriter Log => FLog.Log;
+        public static int ReloadIntervalMin => Settings.ReloadInterval_ms_Min;
+        public static int ReloadIntervalMax => Settings.ReloadInterval_ms_Max;
+        private readonly System.Timers.Timer ReloadOnHotkeyTimer = new() { AutoReset = false };
+        private readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
+
+        private bool _allowReloadOnHotkey = true;
 
         #region Events
         /// <summary>
@@ -96,7 +109,6 @@ namespace VolumeControl.Core
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
-        private readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
 
         public static bool ReloadOnHotkey
         {
@@ -122,8 +134,6 @@ namespace VolumeControl.Core
                 ReloadTimer.Interval = value;
             }
         }
-        public static int ReloadIntervalMin => Settings.ReloadInterval_ms_Min;
-        public static int ReloadIntervalMax => Settings.ReloadInterval_ms_Max;
 
 
         public List<AudioDevice> Devices { get; } = new();
@@ -470,8 +480,12 @@ namespace VolumeControl.Core
         {
             if (LockSelectedSession) return;
 
-            if (ReloadOnHotkey) // reload on hotkey
+            if (ReloadOnHotkey && _allowReloadOnHotkey)
+            {  // reload on hotkey
+                _allowReloadOnHotkey = false;
+                ReloadOnHotkeyTimer.Start();
                 ReloadSessionList();
+            }
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
@@ -489,12 +503,16 @@ namespace VolumeControl.Core
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
         /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
-        public void SelectPreviousSession()
+        public void SelectPreviousSession(bool isHotkey = true)
         {
             if (LockSelectedSession) return;
 
-            if (ReloadOnHotkey) // reload on hotkey
+            if (ReloadOnHotkey && _allowReloadOnHotkey)
+            { // reload on hotkey
+                _allowReloadOnHotkey = false;
+                ReloadOnHotkeyTimer.Start();
                 ReloadSessionList();
+            }
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
@@ -516,8 +534,12 @@ namespace VolumeControl.Core
         {
             if (LockSelectedDevice) return;
 
-            if (ReloadOnHotkey)
+            if (ReloadOnHotkey && _allowReloadOnHotkey)
+            {
+                _allowReloadOnHotkey = false;
+                ReloadOnHotkeyTimer.Start();
                 ReloadDeviceList();
+            }
 
             if (SelectedDevice is AudioDevice device)
             {
@@ -538,8 +560,12 @@ namespace VolumeControl.Core
         {
             if (LockSelectedDevice) return;
 
-            if (ReloadOnHotkey)
+            if (ReloadOnHotkey && _allowReloadOnHotkey)
+            {
+                _allowReloadOnHotkey = false;
+                ReloadOnHotkeyTimer.Start();
                 ReloadDeviceList();
+            }
 
             if (SelectedDevice is AudioDevice device)
             {

@@ -10,7 +10,7 @@ using VolumeControl.WPF;
 
 namespace VolumeControl.Core
 {
-    public class HotkeyManager : ISupportInitialize
+    public class HotkeyManager : ISupportInitialize, IDisposable
     {
         /// <inheritdoc/>
         public void BeginInit()
@@ -38,6 +38,7 @@ namespace VolumeControl.Core
         private AudioAPI _audioAPI = null!;
         private bool _initialized = false;
         private ActionBindings _actionBindings = null!;
+        private bool disposedValue;
         #endregion Fields
 
         #region Properties
@@ -103,6 +104,17 @@ namespace VolumeControl.Core
                 if (Hotkeys[i].ID.Equals(id))
                     Hotkeys.RemoveAt(i);
         }
+        /// <summary>
+        /// Deletes all hotkeys in the list by first disposing them, then removing them from the list.
+        /// </summary>
+        public void DelAllHotkeys()
+        {
+            for (int i = Hotkeys.Count - 1; i >= 0; --i)
+            {
+                Hotkeys[i].Dispose();
+                Hotkeys.RemoveAt(i);
+            }
+        }
         public BindableWindowsHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
         internal void LoadHotkeys()
         {
@@ -130,22 +142,23 @@ namespace VolumeControl.Core
         public void SaveHotkeys()
         {
             // Save Hotkeys To Settings
+            Log.Debug($"Saving {Hotkeys.Count} hotkeys...");
             StringCollection list = new();
             foreach (var hk in Hotkeys)
-                list.Add(hk.Serialize());
+            {
+                string serialized = hk.Serialize();
+                list.Add(serialized);
+                Log.Debug(hk.GetFullIdentifier(), $" => '{serialized}'");
+            }
             Settings.Hotkeys = list;
-            Log.Debug($"Successfully saved {nameof(Settings.Hotkeys)}: '{Settings.Hotkeys}'");
+            Log.Debug($"Successfully saved {list.Count} hotkeys.");
             // Save Settings
             Settings.Save();
             Settings.Reload();
         }
         public void ResetHotkeys()
         {
-            for (int i = Hotkeys.Count - 1; i >= 0; --i)
-            {
-                Hotkeys[i].Dispose();
-                Hotkeys.RemoveAt(i);
-            }
+            DelAllHotkeys();
             Settings.Hotkeys = null;
             Settings.Save();
             Settings.Reload();
@@ -177,6 +190,29 @@ namespace VolumeControl.Core
             HwndSource.RemoveHook(HwndHook);
             HwndSource.Dispose();
             Log.Debug("HotkeyManager HwndHook was removed, 'WM_HOTKEY' messages will no longer be received.");
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    DelAllHotkeys();
+                    HwndSource.Dispose();
+                }
+
+                OwnerHandle = IntPtr.Zero;
+                disposedValue = true;
+            }
+        }
+
+        ~HotkeyManager() { Dispose(disposing: false); }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion Methods
     }

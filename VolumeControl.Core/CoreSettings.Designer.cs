@@ -194,5 +194,17 @@ namespace VolumeControl.Core {
                 this["SelectedDevice"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public double ReloadOnHotkey_MinInterval {
+            get {
+                return ((double)(this["ReloadOnHotkey_MinInterval"]));
+            }
+            set {
+                this["ReloadOnHotkey_MinInterval"] = value;
+            }
+        }
     }
 }
