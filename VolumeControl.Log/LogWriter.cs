@@ -3,6 +3,7 @@ using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
+using VolumeControl.Log.Properties;
 
 namespace VolumeControl.Log
 {

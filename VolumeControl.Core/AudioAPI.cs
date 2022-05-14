@@ -1,5 +1,4 @@
-﻿using HotkeyLib;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Events;
@@ -553,6 +552,7 @@ namespace VolumeControl.Core
                 SelectedDevice = Devices[^1];
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             ReloadTimer.Dispose();

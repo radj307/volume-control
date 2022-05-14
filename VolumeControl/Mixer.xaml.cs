@@ -83,6 +83,7 @@ namespace VolumeControl
         private Core.HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
         private LogWriter Log => FLog.Log;
         private static Properties.Settings Settings => Properties.Settings.Default;
+        private static CoreSettings CoreSettings => CoreSettings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
         #endregion Properties
 
@@ -148,8 +149,14 @@ namespace VolumeControl
             if (MessageBox.Show("Are you sure you want to reset your settings?\n\nThis cannot be undone!", "Reset Settings?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No).Equals(MessageBoxResult.Yes))
             {
                 Settings.Reset();
+                CoreSettings.Reset();
                 Settings.Save();
+                CoreSettings.Save();
                 Settings.Reload();
+                CoreSettings.Reload();
+
+                HotkeyAPI.ResetHotkeys();
+
                 Log.Info("User settings were reset to default.");
             }
         }

@@ -19,6 +19,7 @@ namespace VolumeControl.Core.HelperTypes
         private readonly AudioSessionControl _controller;
 
         public SimpleAudioVolume VolumeController => _controller.SimpleAudioVolume;
+        /// <inheritdoc/>
         public int Volume
         {
             get => Convert.ToInt32(NativeVolume * 100f);
@@ -32,6 +33,7 @@ namespace VolumeControl.Core.HelperTypes
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public float NativeVolume
         {
             get => VolumeController.Volume;
@@ -45,6 +47,7 @@ namespace VolumeControl.Core.HelperTypes
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public bool Muted
         {
             get => VolumeController.Mute;
@@ -62,6 +65,7 @@ namespace VolumeControl.Core.HelperTypes
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
 
         internal Process GetProcess() => Process.GetProcessById((int)PID);
+        /// <inheritdoc/>
         public void Dispose()
         {
             _controller.Dispose();

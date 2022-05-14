@@ -101,17 +101,12 @@ namespace VolumeControl.Core {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-  <string>Volume Up::VolumeUp::VolumeUp</string>
-  <string>Volume Down::VolumeDown::VolumeDown</string>
-  <string>Toggle Mute::VolumeMute::ToggleMute</string>
-  <string>Next Track::::NextTrack</string>
-  <string>Previous Track::::PreviousTrack</string>
-  <string>Toggle Playback::::TogglePlayback</string>
-  <string>Next Target::Ctrl+Shift+Alt+D::NextTarget</string>
-  <string>Previous Target::Ctrl+Shift+Alt+A::PreviousTarget</string>
-  <string>Lock Target::Ctrl+Shift+Alt+S::ToggleTargetLock</string>
-  <string>Next Device::::NextDevice</string>
-  <string>Previous Device::::PreviousDevice</string>
+  <string>Volume Up::VolumeUp::Volume Up</string>
+  <string>Volume Down::VolumeDown::Volume Down</string>
+  <string>Toggle Mute::VolumeMute::Toggle Mute</string>
+  <string>Next Session::Ctrl+Shift+Alt+E::Next Session</string>
+  <string>Previous Session::Ctrl+Shift+Alt+Q::Previous Session</string>
+  <string>Lock Session::Ctrl+Shift+Alt+S::Toggle Session Lock</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Hotkeys_Default {
             get {

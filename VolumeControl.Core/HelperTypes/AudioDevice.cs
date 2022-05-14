@@ -24,7 +24,9 @@ namespace VolumeControl.Core.HelperTypes
         #endregion Fields
 
         #region Properties
+        /// <inheritdoc/>
         public string Name => FriendlyName;
+        /// <inheritdoc/>
         public string DeviceID => _device.ID;
         public string InstanceID => _device.InstanceId;
         public string IconPath => _device.IconPath;
@@ -80,6 +82,7 @@ namespace VolumeControl.Core.HelperTypes
             return l;
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             _device.Dispose();

@@ -284,7 +284,6 @@ namespace HotkeyLib
                     Unregister();
                 }
 
-                //ID = null;
                 disposedValue = true;
             }
         }

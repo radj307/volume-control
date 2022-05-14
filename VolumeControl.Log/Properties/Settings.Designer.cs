@@ -95,5 +95,50 @@ namespace VolumeControl.Log.Properties {
                 this["LogAllowedEventTypeFlag"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int LineSegmentLengthDateTime {
+            get {
+                return ((int)(this["LineSegmentLengthDateTime"]));
+            }
+            set {
+                this["LineSegmentLengthDateTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int LineSegmentLengthEventType {
+            get {
+                return ((int)(this["LineSegmentLengthEventType"]));
+            }
+            set {
+                this["LineSegmentLengthEventType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int LineSegmentLengthMargin {
+            get {
+                return ((int)(this["LineSegmentLengthMargin"]));
+            }
+            set {
+                this["LineSegmentLengthMargin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HH:mm:ss:fff")]
+        public string TimestampFormat {
+            get {
+                return ((string)(this["TimestampFormat"]));
+            }
+        }
     }
 }

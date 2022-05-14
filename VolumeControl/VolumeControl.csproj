@@ -5,7 +5,7 @@
 		<RootNamespace>VolumeControl</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<StartupObject>VolumeControl.App</StartupObject>
+		<StartupObject>VolumeControl.Program</StartupObject>
 		<UseWindowsForms>False</UseWindowsForms>
 		<!-- VERSIONING INFO -->
 		<Version>5.0.0</Version>

@@ -27,23 +27,7 @@ namespace VolumeControl.Core
             _actionBindings = new(new AudioAPIActions(AudioAPI), new WindowsAPIActions(OwnerHandle));
             _initialized = true;
 
-            // set the settings hotkeys to default if they're null
-            var list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
-
-            // Load Hotkeys From Settings
-            for (int i = 0, end = list.Count; i < end; ++i)
-            {
-                if (list[i] is not string s || s.Length < 2) //< 2 is the minimum valid length "::" (no name, null keys)
-                {
-                    Log.Error($"Hotkeys[{i}] wasn't a valid hotkey string!");
-                    continue;
-                }
-
-                var hk = BindableWindowsHotkey.Parse(s, this);
-                Hotkeys.Add(hk);
-
-                Log.Debug($"Hotkeys[{i}] ('{s}') was successfully parsed:", hk.GetFullIdentifier());
-            }
+            LoadHotkeys();
 
             ActionNames = _actionBindings.GetActionNames();
         }
@@ -120,6 +104,26 @@ namespace VolumeControl.Core
                     Hotkeys.RemoveAt(i);
         }
         public BindableWindowsHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
+        internal void LoadHotkeys()
+        {
+            // set the settings hotkeys to default if they're null
+            var list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
+
+            // Load Hotkeys From Settings
+            for (int i = 0, end = list.Count; i < end; ++i)
+            {
+                if (list[i] is not string s || s.Length < 2) //< 2 is the minimum valid length "::" (no name, null keys)
+                {
+                    Log.Error($"Hotkeys[{i}] wasn't a valid hotkey string!");
+                    continue;
+                }
+
+                var hk = BindableWindowsHotkey.Parse(s, this);
+                Hotkeys.Add(hk);
+
+                Log.Debug($"Hotkeys[{i}] ('{s}') was successfully parsed:", hk.GetFullIdentifier());
+            }
+        }
         /// <summary>
         /// Saves all hotkeys to the settings file.
         /// </summary>
@@ -134,6 +138,18 @@ namespace VolumeControl.Core
             // Save Settings
             Settings.Save();
             Settings.Reload();
+        }
+        public void ResetHotkeys()
+        {
+            for (int i = Hotkeys.Count - 1; i >= 0; --i)
+            {
+                Hotkeys[i].Dispose();
+                Hotkeys.RemoveAt(i);
+            }
+            Settings.Hotkeys = null;
+            Settings.Save();
+            Settings.Reload();
+            LoadHotkeys();
         }
         /// <summary>
         /// Handles window messages, and triggers <see cref="WindowsHotkey.Pressed"/> events.

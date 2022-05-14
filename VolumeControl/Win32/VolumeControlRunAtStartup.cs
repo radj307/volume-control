@@ -48,6 +48,7 @@ namespace VolumeControl.Win32
 
         private bool Exists() => _runKeyHelper.CheckRunAtStartup(Settings.RegistryStartupValueName);
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             _runKeyHelper.Dispose();

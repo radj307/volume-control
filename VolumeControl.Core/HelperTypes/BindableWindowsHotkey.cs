@@ -59,12 +59,13 @@ namespace VolumeControl.Core.HelperTypes
         /// <inheritdoc/>
         public bool Valid => Hotkey.Valid;
 
+        /// <inheritdoc/>
         System.Windows.Forms.Keys IKeyCombo.Key { get => Hotkey.Key; set => Hotkey.Key = value; }
 
         /// <inheritdoc/>
         public void Dispose()
         {
-            ((IDisposable)Hotkey).Dispose();
+            Hotkey.Dispose();
             GC.SuppressFinalize(this);
         }
         #endregion InterfaceImplementation

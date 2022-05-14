@@ -5,6 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Page_Hotkeys.bCancel_Click(System.Object,System.Windows.RoutedEventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Page_Hotkeys.bApply_Click(System.Object,System.Windows.RoutedEventArgs)")]
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:VolumeControl.Page_Hotkeys.bOk_Click(System.Object,System.Windows.RoutedEventArgs)")]
+[assembly: SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "<Pending>", Scope = "member", Target = "~F:VolumeControl.Program.appMutex")]

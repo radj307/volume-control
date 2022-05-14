@@ -1,4 +1,5 @@
-﻿using VolumeControl.Log.Enum;
+﻿using System.Drawing.Printing;
+using VolumeControl.Log.Enum;
 using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
@@ -25,19 +26,26 @@ namespace VolumeControl.Log
         /// <inheritdoc/>
         public EventType EventType { get; set; }
         /// <inheritdoc/>
-        public int MarginTimePoint { get => MarginTimePointStatic; }
+        public int TimePointSegmentLength => LineSegmentLengthDateTime;
         /// <inheritdoc/>
-        public int MarginEventType { get => MarginEventTypeStatic; }
+        public int EventTypeSegmentLength => LineSegmentLengthEventType;
+        /// <inheritdoc/>
+        public int MarginSegmentLength => LineSegmentLengthMargin;
         #endregion
 
         #region Methods
-        /// <inheritdoc/>
-        public override string ToString() => ITimestamp.MakeHeader(this, "U");
+        /// <inheritdoc cref="ITimestamp.MakeHeader(ITimestamp, string?)"/>
+        public override string ToString() => ITimestamp.MakeHeader(this, FormatString);
         #endregion Methods
 
         #region Statics
-        public static int MarginTimePointStatic { get => 29; }
-        public static int MarginEventTypeStatic { get => 8; }
+        private static Properties.Settings Settings => Properties.Settings.Default;
+        private static string FormatString => Settings.TimestampFormat;
+        public static int LineSegmentLengthDateTime => Settings.LineSegmentLengthDateTime;
+        public static int LineSegmentLengthEventType => Settings.LineSegmentLengthEventType;
+        public static int LineSegmentLengthMargin => Settings.LineSegmentLengthMargin;
+        public static int LineHeaderLength => LineSegmentLengthDateTime + LineSegmentLengthEventType;
+        public static int LineHeaderTotalLength => LineHeaderLength + LineSegmentLengthMargin;
 
         /// <summary>
         /// Gets a timestamp with the current time and a given <see cref="EventType"/>.
@@ -49,7 +57,8 @@ namespace VolumeControl.Log
         /// Gets a blank string with the same length as a <see cref="Timestamp"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> entirely composed of space (' ') chars with the same length as a timestamp string.</returns>
-        public static string Blank() => new(' ', 1 + MarginTimePointStatic + MarginEventTypeStatic);
+        public static string Blank() => new(' ', LineHeaderTotalLength);
+        public static string Definition() => $"";
         #endregion Statics
     }
 }

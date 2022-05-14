@@ -16,6 +16,7 @@ namespace VolumeControl.Win32
             get => _runKey ??= RegistryAPI.GetKey(RegistryAPI.Scope.HKEY_CURRENT_USER, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true)!;
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             _runKey?.Dispose();
