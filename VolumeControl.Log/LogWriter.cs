@@ -18,7 +18,6 @@ namespace VolumeControl.Log
         {
             Endpoint = endpoint;
             EventTypeFilter = eventTypeFilter;
-            Endpoint.Reset();
             LastEventType = EventType.NONE;
         }
         #endregion Constructors

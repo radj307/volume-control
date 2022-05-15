@@ -26,22 +26,34 @@ namespace VolumeControl.Core
             ReloadSessionList();
 
             Target = Settings.SelectedSession;
+            if (Target != Settings.SelectedSession)
+                _target = Settings.SelectedSession;
+
             LockSelectedDevice = Settings.LockSelectedDevice;
             LockSelectedSession = Settings.LockSelectedSession;
+
             VolumeStepSize = Settings.VolumeStepSize;
             ReloadOnHotkey = Settings.ReloadOnHotkey;
-            ReloadOnInterval = Settings.ReloadOnInterval;
             CheckAllDevices = Settings.CheckAllDevices;
-            ReloadInterval = ConstrainValue(Settings.ReloadInterval_ms, Settings.ReloadInterval_ms_Min, Settings.ReloadInterval_ms_Max);
-            ReloadOnHotkeyTimer.Interval = Settings.ReloadOnHotkey_MinInterval;
+
+            ReloadOnHotkeyTimer = new()
+            {
+                Interval = Settings.ReloadOnHotkey_MinInterval,
+            };
+
+            ReloadTimer = new()
+            {
+                Interval = ConstrainValue(Settings.ReloadInterval_ms, Settings.ReloadInterval_ms_Min, Settings.ReloadInterval_ms_Max),
+                Enabled = Settings.ReloadOnInterval,
+            };
 
             // add an event handler to the reload timer
-            ReloadTimer.Elapsed += (sender, e) =>
+            ReloadTimer.Tick += (sender, e) =>
             {
                 ReloadSessionList();
             };
 
-            ReloadOnHotkeyTimer.Elapsed += (sender, e) =>
+            ReloadOnHotkeyTimer.Tick += (sender, e) =>
             {
                 _allowReloadOnHotkey = true;
             };
@@ -52,28 +64,170 @@ namespace VolumeControl.Core
             Log.Info("Saving AudioAPI settings to the configuration file...");
             // save settings
             Settings.ReloadOnHotkey_MinInterval = ReloadOnHotkeyTimer.Interval;
-            Settings.ReloadInterval_ms = ReloadInterval;
-            Settings.SelectedSession = Target;
-            Settings.VolumeStepSize = VolumeStepSize;
             Settings.ReloadOnHotkey = ReloadOnHotkey;
+
+            Settings.ReloadInterval_ms = ReloadInterval;
             Settings.ReloadOnInterval = ReloadOnInterval;
-            Settings.CheckAllDevices = CheckAllDevices;
+
             Settings.LockSelectedDevice = LockSelectedDevice;
+            Settings.SelectedDevice = SelectedDevice.DeviceID;
+
+            Settings.SelectedSession = Target;
             Settings.LockSelectedSession = LockSelectedSession;
+
+            Settings.VolumeStepSize = VolumeStepSize;
+            Settings.CheckAllDevices = CheckAllDevices;
             // save to file
             Settings.Save();
             Settings.Reload();
             Log.Followup("Done.");
         }
 
+        #region Fields
+        private bool _allowReloadOnHotkey = true;
+
+        private IDevice? _selectedDevice = null;
+        private bool _lockSelectedDevice;
+
+        private ISession? _selectedSession;
+        private bool _lockSelectedSession;
+
+        private string _target;
+        private int _volumeStepSize;
+
+        private readonly System.Windows.Forms.Timer ReloadOnHotkeyTimer;
+        private readonly System.Windows.Forms.Timer ReloadTimer;
+        #endregion Fields
+
+        #region Properties
         private static CoreSettings Settings => CoreSettings.Default;
         private static LogWriter Log => FLog.Log;
         public static int ReloadIntervalMin => Settings.ReloadInterval_ms_Min;
         public static int ReloadIntervalMax => Settings.ReloadInterval_ms_Max;
-        private readonly System.Timers.Timer ReloadOnHotkeyTimer = new() { AutoReset = false };
-        private readonly System.Timers.Timer ReloadTimer = new() { AutoReset = true };
+        public static bool ReloadOnHotkey { get; set; }
+        public bool ReloadOnInterval
+        {
+            get => ReloadTimer.Enabled;
+            set => ReloadTimer.Enabled = value;
+        }
+        /// <inheritdoc cref="System.Timers.Timer.Interval"/>
+        /// <remarks><b>This property automatically clamps incoming values between <see cref="ReloadIntervalMin"/> and <see cref="ReloadIntervalMax"/></b></remarks>
+        public int ReloadInterval
+        {
+            get => ReloadTimer.Interval;
+            set
+            {
+                if (value > ReloadIntervalMax)
+                    value = ReloadIntervalMax;
+                else if (value < ReloadIntervalMin)
+                    value = ReloadIntervalMin;
+                ReloadTimer.Interval = value;
+            }
+        }
+        public List<AudioDevice> Devices { get; } = new();
+        public List<AudioSession> Sessions { get; } = new();
+        public IDevice? SelectedDevice
+        {
+            get => _selectedDevice;
+            set
+            {
+                if (LockSelectedDevice)
+                    return;
 
-        private bool _allowReloadOnHotkey = true;
+                // clear the session list if we're changing target devices and sessions are device-specific
+                if (!CheckAllDevices)
+                    Sessions.Clear();
+
+                // change the selected device
+                _selectedDevice = value;
+
+                // reload the session list with the new device
+                if (!CheckAllDevices && _selectedDevice != null)
+                    ReloadSessionList();
+
+                // trigger events
+                NotifyDeviceSwitch();
+                NotifyPropertyChanged();
+
+                Log.Info($"Selected device was changed to '{_selectedDevice?.Name}'");
+            }
+        }
+        public ISession? SelectedSession
+        {
+            get => _selectedSession;
+            set
+            {
+                if (LockSelectedSession)
+                    return;
+                _selectedSession = value;
+                _target = _selectedSession?.ProcessIdentifier ?? string.Empty;
+                // Trigger associated events
+                NotifySessionSwitch(); //< SelectedSessionSwitched
+                NotifyTargetChanged(new(_target)); //< Selected
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Target));
+
+                Log.Info($"Selected session was changed to '{_selectedSession?.ProcessIdentifier}'");
+            }
+        }
+        /// <summary>
+        /// Prevents <see cref="SelectedDevice"/> from being modified.
+        /// </summary>
+        public bool LockSelectedDevice
+        {
+            get => _lockSelectedDevice;
+            set
+            {
+                _lockSelectedDevice = value;
+
+                NotifyPropertyChanged();
+
+                Log.Info($"Selected device was {(value ? "" : "un")}locked");
+            }
+        }
+        public bool LockSelectedSession
+        {
+            get => _lockSelectedSession;
+            set
+            {
+                _lockSelectedSession = value;
+
+                NotifyPropertyChanged();
+
+                Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
+            }
+        }
+        public string Target
+        {
+            get => _target;
+            set
+            {
+                if (LockSelectedSession)
+                    return;
+                _target = (_selectedSession = FindSessionWithIdentifier(value))?.ProcessIdentifier ?? _target;
+                NotifySessionSwitch();
+                NotifyTargetChanged(new(_target));
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SelectedSession));
+            }
+        }
+        /// <summary>
+        /// When true, the session list contains sessions from all audio devices.
+        /// </summary>
+        /// <remarks>This changes the behaviour of <see cref="ReloadSessionList"/> so that it checks <i>all devices</i> instead of only the currently selected device.</remarks>
+        public bool CheckAllDevices { get; set; }
+        public int VolumeStepSize
+        {
+            get => _volumeStepSize;
+            set
+            {
+                _volumeStepSize = value;
+                NotifyPropertyChanged();
+
+                Log.Info($"Volume step set to {_volumeStepSize}");
+            }
+        }
+        #endregion Properties
 
         #region Events
         /// <summary>
@@ -110,159 +264,11 @@ namespace VolumeControl.Core
         #endregion Events
 
 
-        public static bool ReloadOnHotkey
-        {
-            get;
-            set;
-        }
-        public bool ReloadOnInterval
-        {
-            get => ReloadTimer.Enabled;
-            set => ReloadTimer.Enabled = value;
-        }
-        /// <inheritdoc cref="System.Timers.Timer.Interval"/>
-        /// <remarks><b>This property automatically clamps incoming values between <see cref="ReloadIntervalMin"/> and <see cref="ReloadIntervalMax"/></b></remarks>
-        public double ReloadInterval
-        {
-            get => ReloadTimer.Interval;
-            set
-            {
-                if (value > ReloadIntervalMax)
-                    value = ReloadIntervalMax;
-                else if (value < ReloadIntervalMin)
-                    value = ReloadIntervalMin;
-                ReloadTimer.Interval = value;
-            }
-        }
 
-
-        public List<AudioDevice> Devices { get; } = new();
-        public List<AudioSession> Sessions { get; } = new();
-
-        private IDevice? _selectedDevice = null;
-        public IDevice? SelectedDevice
-        {
-            get => _selectedDevice;
-            set
-            {
-                if (LockSelectedDevice)
-                    return;
-
-                // clear the session list if we're changing target devices and sessions are device-specific
-                if (!CheckAllDevices)
-                    Sessions.Clear();
-
-                // change the selected device
-                _selectedDevice = value;
-
-                // reload the session list with the new device
-                if (!CheckAllDevices && _selectedDevice != null)
-                    ReloadSessionList();
-
-                // trigger events
-                NotifyDeviceSwitch();
-                NotifyPropertyChanged();
-
-                Log.Info($"Selected device was changed to '{_selectedDevice?.Name}'");
-            }
-        }
-        private bool _lockSelectedDevice;
-        /// <summary>
-        /// Prevents <see cref="SelectedDevice"/> from being modified.
-        /// </summary>
-        public bool LockSelectedDevice
-        {
-            get => _lockSelectedDevice;
-            set
-            {
-                _lockSelectedDevice = value;
-
-                NotifyPropertyChanged();
-
-                Log.Info($"Selected device was {(value ? "" : "un")}locked");
-            }
-        }
-        /// <summary>
-        /// When true, the session list contains sessions from all audio devices.
-        /// </summary>
-        /// <remarks>This changes the behaviour of <see cref="ReloadSessionList"/> so that it checks <i>all devices</i> instead of only the currently selected device.</remarks>
-        public bool CheckAllDevices { get; set; }
-
-
-        private ISession? _selectedSession;
-        public ISession? SelectedSession
-        {
-            get => _selectedSession;
-            set
-            {
-                if (LockSelectedSession)
-                    return;
-                _selectedSession = value;
-                _target = _selectedSession?.ProcessIdentifier ?? string.Empty;
-                // Trigger associated events
-                NotifySessionSwitch(); //< SelectedSessionSwitched
-                NotifyTargetChanged(new(_target)); //< Selected
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Target));
-
-                Log.Info($"Selected session was changed to '{_selectedSession?.ProcessIdentifier}'");
-            }
-        }
-
-        private bool _lockSelectedSession;
-
-        public bool LockSelectedSession
-        {
-            get => _lockSelectedSession;
-            set
-            {
-                _lockSelectedSession = value;
-
-                NotifyPropertyChanged();
-
-                Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
-            }
-        }
-
-        private string _target;
-        public string Target
-        {
-            get => _target;
-            set
-            {
-                if (LockSelectedSession)
-                    return;
-                _target = (_selectedSession = FindSessionWithIdentifier(value))?.ProcessIdentifier ?? string.Empty;
-                NotifySessionSwitch();
-                NotifyTargetChanged(new(_target));
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SelectedSession));
-            }
-        }
-
-        private int _volumeStepSize;
-        public int VolumeStepSize
-        {
-            get => _volumeStepSize;
-            set
-            {
-                _volumeStepSize = value;
-                NotifyPropertyChanged();
-
-                Log.Info($"Volume step set to {_volumeStepSize}");
-            }
-        }
-
-        private static readonly Mutex _mutex = new(false);
 
         public void ReloadDeviceList()
         {
-            if (_mutex.WaitOne(0))
-            {
-                SelectiveUpdateDevices(GetAllDevices());
-
-                _mutex.ReleaseMutex();
-            }
+            SelectiveUpdateDevices(GetAllDevices());
         }
         private static List<AudioDevice> GetAllDevices()
         {
@@ -304,19 +310,14 @@ namespace VolumeControl.Core
         /// <remarks>This method locks the <see cref="_mutex"/> and is thread safe.<br/>Note that the mutex is shared between <see cref="ReloadDeviceList"/>, and as a result these methods should not interact with each other!</remarks>
         public void ReloadSessionList()
         {
-            if (_mutex.WaitOne(0))
-            {
-                if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
-                    return;
+            if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
+                return;
 
-                List<AudioSession> sessions = CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!);
+            List<AudioSession> sessions = CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!);
 
-                if (sessions != null)
-                    SelectiveUpdateSessions(sessions);
-                else Sessions.Clear();
-
-                _mutex.ReleaseMutex();
-            }
+            if (sessions != null)
+                SelectiveUpdateSessions(sessions);
+            else Sessions.Clear();
         }
         /// <summary>
         /// Retrieves a list of every <see cref="AudioSession"/> from every active <see cref="AudioDevice"/>.
@@ -582,7 +583,6 @@ namespace VolumeControl.Core
         public void Dispose()
         {
             ReloadTimer.Dispose();
-            _mutex.Dispose();
             GC.SuppressFinalize(this);
         }
     }

@@ -1,11 +1,11 @@
 ﻿<Window x:Name="window"
         x:Class="VolumeControl.Mixer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
         xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -65,6 +65,7 @@
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="#303030"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="SelectionBrush" Value="#569DE5"/>
                 <Setter Property="SelectionOpacity" Value="0.5"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
@@ -132,7 +133,7 @@
             </Style>
             <!-- NumericUpDown -->
             <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="Height" Value="23"/>
@@ -158,6 +159,14 @@
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="Height" Value="21"/>
             </Style>
+            <!-- Watermark TextBlock -->
+            <Style x:Key="WatermarkTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+                <Setter Property="Foreground" Value="#9A9A9A"/>
+                <Setter Property="IsHitTestVisible" Value="False"/>
+                <Setter Property="Visibility" Value="{Binding Text.Length, RelativeSource={RelativeSource Self}, Converter={StaticResource StringLengthToVisibilityConverter}}"/>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -179,7 +188,7 @@
                                                   TextBlock.Foreground="WhiteSmoke"
                                                   TextBlock.FontSize="12"
                                                   TextBlock.FontFamily="{StaticResource InterFont}"
-                                        Margin="10,2"/>
+                                                  Margin="10,2"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <!-- SELECTED TAB APPEARANCE: -->
@@ -243,32 +252,23 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="targetNameTextBox"
                              Grid.Column="1"
-                             TextWrapping="NoWrap"
                              Margin="3,0,3,0"
-                             VerticalContentAlignment="Center"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
                              Height="23"
-                             TabIndex="0"
                              ToolTip="You can enter the Process ID or Process Name of any valid audio session here."
                              Text="{Binding Target, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True, IsAsync=True}"
                              DataContext="{StaticResource AudioAPI}"
                              IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
                              Style="{StaticResource TextBoxStyle}"/>
                     <!--▲ TEXTBOX WATERMARK ▼-->
-                    <TextBlock Margin="7,3"
-                               Grid.Column="1"
+                    <TextBlock Grid.Column="1"
                                Text="Target PID or Process Name"
-                               IsHitTestVisible="False"
-                               Foreground="Gray"
-                               Visibility="{Binding Text.IsEmpty, ElementName=targetNameTextBox, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                               Style="{StaticResource WatermarkTextBlockStyle}"/>
                     <CheckBox x:Name="cbLockTargetSelection"
                               Grid.Row="0"
                               Grid.Column="2"
                               Content="Lock"
                               Width="52"
                               Height="Auto"
-                              TabIndex="1"
                               Margin="2,0,9,0"
                               DataContext="{StaticResource AudioAPI}"
                               IsChecked="{Binding LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
@@ -292,18 +292,17 @@
                         <ColumnDefinition Width="2"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="3"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="2"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="bReload"
                             Grid.Column="1"
                             Grid.Row="1"
                             Content="Reload"
-                            ToolTip=""
+                            ToolTip="Manually reloads the list of audio sessions."
                             Click="Handle_ReloadClick"
-                            TabIndex="2"
                             Style="{StaticResource ButtonStyle}"/>
                     <CheckBox x:Name="cbReloadOnHotkey"
                               Grid.Column="2"
@@ -312,56 +311,55 @@
                               Content="On Hotkey"
                               ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed."
                               Margin="3,0,3,0"
-                              IsChecked="{Binding ReloadOnHotkey, BindsDirectlyToSource=True, Mode=TwoWay}"
-                              TabIndex="3"
+                              IsChecked="{Binding ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
                               ClickMode="Press"
                               DataContext="{StaticResource AudioAPI}"
                               Style="{StaticResource CheckBoxStyle}"/>
-                    <CheckBox x:Name="cbReloadOnInterval"
-                              Grid.Column="3"
-                              Grid.Row="1"
+                    <Grid Grid.Column="4"
+                          Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <CheckBox x:Name="cbReloadOnInterval"
                               Content="Automatic"
                               ToolTip="Automatically reloads the mixer sessions on an interval."
-                              IsChecked="{Binding ReloadOnInterval, BindsDirectlyToSource=True, Mode=TwoWay}"
-                              TabIndex="4"
+                              IsChecked="{Binding ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
                               ClickMode="Press"
                               DataContext="{StaticResource AudioAPI}"
                               Style="{StaticResource CheckBoxStyle}"/>
-                    <Controls:NumericUpDown HorizontalAlignment="Left"
-                                            Grid.Column="4"
-                                            Grid.Row="1"
+                        <Controls:NumericUpDown HorizontalAlignment="Left"
+                                            Grid.Column="1"
                                             Width="60"
-                                            Height="23"
-                                            Margin="3,0,0,0"
                                             ToolTip="Reload Interval in Milliseconds"
-                                            TabIndex="5"
                                             MaxDecimalPlaces="0"
-                                            IsEnabled="{Binding ElementName=cbReloadOnInterval, Path=IsChecked, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
+                                            IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
                                             MinValue="{Binding ReloadIntervalMin}"
                                             MaxValue="{Binding ReloadIntervalMax}"
-                                            Value="{Binding ReloadInterval, BindsDirectlyToSource=True, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                            Value="{Binding ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             DataContext="{StaticResource AudioAPI}"
                                             Style="{StaticResource NumericUpDownStyle}"/>
+                    </Grid>
 
                     <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <Label Content="Volume Step"
-                               Grid.Column="1"
                                HorizontalAlignment="Center"
                                Style="{StaticResource LabelStyle}"/>
                         <Controls:NumericUpDown x:Name="VolumeStep"
-                                                Grid.Column="2"
+                                                Grid.Column="1"
                                                 HorizontalAlignment="Center"
+                                                ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
                                                 Width="48"
                                                 DecimalPlaces="0"
                                                 MinValue="0"
                                                 MaxValue="100"
-                                                Value="{Binding Source={StaticResource AudioAPI}, Path=VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
+                                                Value="{Binding VolumeStepSize, Source={StaticResource AudioAPI}, UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
                 </Grid>
@@ -533,8 +531,10 @@
         <TabItem Header="Settings" Name="SettingsTab">
             <Grid HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
+                <!-- Settings Tab Grid Column / Row Definitions-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -546,6 +546,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!-- Version Label -->
                 <Canvas Grid.Column="3"
                           Grid.Row="1"
                         Width="{Binding Width, ElementName=versionLabel}"
@@ -563,6 +564,7 @@
                            ToolTip="The current version number." Content="[version]" Margin="0,-4,0,0"/>
                 </Canvas>
 
+                <!-- Device Selection -->
                 <Grid Grid.Row="1"
                       Grid.ColumnSpan="4">
                     <Grid.ColumnDefinitions>
@@ -597,7 +599,8 @@
                               VerticalAlignment="Center"
                               Margin="5,0"/>
                 </Grid>
-                <!-- Row 3 -->
+                
+                <!-- Checkboxes 1 -->
                 <StackPanel Grid.Column="0"
                             Grid.Row="3"
                             Margin="0,3,0,3" Grid.ColumnSpan="3">
@@ -620,7 +623,9 @@
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="3"
+
+                <!-- Checkboxes 2 -->
+                <StackPanel Grid.Column="2"
                             Grid.Row="3"
                             Panel.ZIndex="98">
                     <CheckBox x:Name="cbRunAtStartup"
@@ -642,6 +647,37 @@
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetSettingsClick"/>
                 </StackPanel>
+                
+                <!-- Log Settings -->
+                <DockPanel Grid.ColumnSpan="3"
+                           Grid.Row="4">
+                    <CheckBox Content="Enable Log"
+                              Margin="5,2"
+                              VerticalAlignment="Center"
+                              IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource CheckBoxStyle}"/>
+
+                    <Button DockPanel.Dock="Right"
+                            Content="Browse"
+                            Style="{StaticResource ButtonStyle}"
+                            Click="Handle_BrowseForLogFilePathClick"/>
+
+                    <Grid>
+                        <Grid.Resources>
+                            <Style x:Key="TextBoxValidIndicatorStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+                                <Style.Triggers>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+                        <TextBox x:Name="logPath"
+                                 Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource TextBoxValidIndicatorStyle}"/>
+                        <TextBlock Text="Log FilePath"
+                                   Grid.Column="1"
+                                   Style="{StaticResource WatermarkTextBlockStyle}"/>
+                    </Grid>
+                </DockPanel>
             </Grid>
         </TabItem>
         <!--▲ Settings ▲-->

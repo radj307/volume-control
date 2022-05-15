@@ -1,4 +1,5 @@
-﻿using VolumeControl.Log.Endpoints;
+﻿using System.Net;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Properties;
@@ -82,27 +83,39 @@ namespace VolumeControl.Log
             Settings.Default.Save();
             Settings.Default.Reload();
 
+            Settings.Default.PropertyChanged += HandlePropertyChanged!;
+
             // get the full filepath to the log
-            FilePath = Path.Combine(Settings.Default.LogDir, Settings.Default.LogFileName);
+            FilePath = Settings.Default.LogPath;
             // Set the event type filter
             EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
 
             var endpoint = new FileEndpoint(FilePath, Settings.Default.EnableLogging);
 
-#           if DEBUG
-            FilePath = Settings.Default.LogFileName;//< use working directory
-            EventFilter = EventType.ALL;            //< show all log messages
-            endpoint.Enabled = true;                //< force enable logging
-#           endif
-
-            if (endpoint.Enabled)
+            if (endpoint.Enabled && Settings.Default.ClearLogOnInitialize)
             {
                 endpoint.Reset(); //< clear the log file
             }
 
+#           if DEBUG
+            EventFilter = EventType.ALL;            //< show all log messages
+            endpoint.Enabled = true;                //< force enable logging
+#           endif
+
+            CreateLog(endpoint);
+        }
+
+        private static void CreateLog(IEndpoint endpoint)
+        {
             Log = new(endpoint, EventFilter);
 
-            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log Initialized ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
+            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log Initialized @ {DateTime.UtcNow:U} ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
+        }
+        private static void HandlePropertyChanged(object sender, EventArgs e)
+        {
+            var endpoint = new FileEndpoint(Settings.Default.LogPath, Settings.Default.EnableLogging);
+
+            CreateLog(endpoint);
         }
         #endregion Methods
     }

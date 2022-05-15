@@ -63,24 +63,15 @@ namespace VolumeControl.Log.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
-        public string LogFileName {
-            get {
-                return ((string)(this["LogFileName"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LogDir {
+        [global::System.Configuration.DefaultSettingValueAttribute("volumecontrol.log")]
+        public string LogPath {
             get {
-                return ((string)(this["LogDir"]));
+                return ((string)(this["LogPath"]));
             }
             set {
-                this["LogDir"] = value;
+                this["LogPath"] = value;
             }
         }
         
@@ -122,7 +113,7 @@ namespace VolumeControl.Log.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int LineSegmentLengthMargin {
             get {
                 return ((int)(this["LineSegmentLengthMargin"]));
@@ -138,6 +129,18 @@ namespace VolumeControl.Log.Properties {
         public string TimestampFormat {
             get {
                 return ((string)(this["TimestampFormat"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClearLogOnInitialize {
+            get {
+                return ((bool)(this["ClearLogOnInitialize"]));
+            }
+            set {
+                this["ClearLogOnInitialize"] = value;
             }
         }
     }

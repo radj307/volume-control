@@ -38,9 +38,9 @@ namespace VolumeControl.Core {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public double ReloadInterval_ms {
+        public int ReloadInterval_ms {
             get {
-                return ((double)(this["ReloadInterval_ms"]));
+                return ((int)(this["ReloadInterval_ms"]));
             }
             set {
                 this["ReloadInterval_ms"] = value;
@@ -50,9 +50,9 @@ namespace VolumeControl.Core {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public double ReloadInterval_ms_Default {
+        public int ReloadInterval_ms_Default {
             get {
-                return ((double)(this["ReloadInterval_ms_Default"]));
+                return ((int)(this["ReloadInterval_ms_Default"]));
             }
         }
         
@@ -198,9 +198,9 @@ namespace VolumeControl.Core {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public double ReloadOnHotkey_MinInterval {
+        public int ReloadOnHotkey_MinInterval {
             get {
-                return ((double)(this["ReloadOnHotkey_MinInterval"]));
+                return ((int)(this["ReloadOnHotkey_MinInterval"]));
             }
             set {
                 this["ReloadOnHotkey_MinInterval"] = value;

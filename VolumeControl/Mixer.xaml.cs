@@ -1,9 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
@@ -12,6 +12,7 @@ using VolumeControl.Win32;
 
 namespace VolumeControl
 {
+
     /// <summary>
     /// Interaction logic for Mixer.xaml
     /// </summary>
@@ -61,10 +62,14 @@ namespace VolumeControl
             // Save Window Settings:
             Settings.Save();
             Settings.Reload();
+            // Save Log Settings
+            LogSettings.Save();
+            LogSettings.Reload();
             // Save CoreSettings:
             AudioAPI.SaveSettings();
             HotkeyAPI.SaveHotkeys();
             HotkeyAPI.RemoveHook();
+
             e.Cancel = false;
         }
         private void Window_Loaded(object sender, EventArgs e)
@@ -79,12 +84,24 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
-        private Core.AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
-        private Core.HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
-        private LogWriter Log => FLog.Log;
+        private AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
+        private HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
+        private static LogWriter Log => FLog.Log;
         private static Properties.Settings Settings => Properties.Settings.Default;
         private static CoreSettings CoreSettings => CoreSettings.Default;
+        private Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
+
+        public bool LogEnabled
+        {
+            get => LogSettings.EnableLogging;
+            set => LogSettings.EnableLogging = value;
+        }
+        public string LogFilePath
+        {
+            get => LogSettings.LogPath;
+            set => LogSettings.LogPath = value;
+        }
         #endregion Properties
 
         #region EventHandlers
@@ -158,6 +175,27 @@ namespace VolumeControl
                 HotkeyAPI.ResetHotkeys();
 
                 Log.Info("User settings were reset to default.");
+            }
+        }
+        private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
+        {
+            string myDir = Path.GetDirectoryName(_startupHelper.ExecutablePath) ?? string.Empty;
+            if (Path.GetDirectoryName(LogFilePath) is not string initial || initial.Length == 0)
+                initial = myDir;
+
+            var sfd = new SaveFileDialog
+            {
+                OverwritePrompt = false,
+                DefaultExt = "log",
+                InitialDirectory = initial,
+                Title = "Choose a location to save the log file.",
+                FileName = LogFilePath
+            };
+            sfd.ShowDialog(this);
+            string path = Path.GetRelativePath(myDir, sfd.FileName);
+            if (!path.Equals(logPath.Text, StringComparison.Ordinal))
+            {
+                logPath.Text = path;
             }
         }
         #endregion EventHandlers

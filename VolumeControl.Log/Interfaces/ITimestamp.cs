@@ -1,5 +1,6 @@
 ﻿using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
+using static System.Windows.Forms.DataFormats;
 
 namespace VolumeControl.Log.Interfaces
 {
@@ -32,17 +33,25 @@ namespace VolumeControl.Log.Interfaces
         /// Gets the number of space characters between line headers and their associated messages.
         /// </summary>
         int MarginSegmentLength { get; }
+
+        private string GetTimePoint(string? format)
+        {
+            string time = TimePoint.ToString(format);
+            return $"{time}{new string(' ', TimePointSegmentLength - time.Length)}";
+        }
+        private string GetEventType()
+        {
+            string head = EventType.GetHeader();
+            return $"{head}{new string(' ', EventTypeSegmentLength - head.Length)}";
+        }
+        private string GetMargin() => $"{(MarginSegmentLength > 0 ? new string(' ', MarginSegmentLength) : "")}";
+
         /// <summary>
         /// Creates a log message header from a <see cref="ITimestamp"/> source interface.
         /// </summary>
         /// <inheritdoc cref="DateTime.ToString(string?)"/>
         /// <returns>A <see cref="string"/> with the time-point and event type specified by the <see cref="ITimestamp"/>.</returns>
-        static string MakeHeader(ITimestamp timestamp, string? format)
-        {
-            string ts = timestamp.TimePoint.ToString(format);
-            string head = timestamp.EventType.GetHeader();
-            return $"{ts}{new string(' ', timestamp.TimePointSegmentLength - ts.Length)}{head}{new string(' ', timestamp.EventTypeSegmentLength - head.Length)}";
-        }
+        static string MakeHeader(ITimestamp timestamp, string? format) => $"{timestamp.GetTimePoint(format)}{timestamp.GetEventType()}{timestamp.GetMargin()}";
         /// <inheritdoc cref="MakeHeader(ITimestamp, string?)"/>
         string ToString();
     }

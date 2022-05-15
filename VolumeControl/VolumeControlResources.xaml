@@ -3,6 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
                     xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
+                    xmlns:local="clr-namespace:VolumeControl"
                     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
     <!-- AudioAPI (VolumeControl.Core.AudioAPI) -->
     <core:AudioAPI x:Key="AudioAPI"/>
@@ -12,4 +13,6 @@
     <hklib:KeysList x:Key="KeyOptions"/>
     <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
     <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <!-- StringLengthToVisibilityConverter (VolumeControl.StringLengthToVisibilityConverter) -->
+    <local:StringLengthToVisibilityConverter x:Key="StringLengthToVisibilityConverter"/>
 </ResourceDictionary>
