@@ -70,7 +70,7 @@ namespace VolumeControl.Core
             Settings.ReloadOnInterval = ReloadOnInterval;
 
             Settings.LockSelectedDevice = LockSelectedDevice;
-            Settings.SelectedDevice = SelectedDevice.DeviceID;
+            Settings.SelectedDevice = SelectedDevice?.DeviceID ?? string.Empty;
 
             Settings.SelectedSession = Target;
             Settings.LockSelectedSession = LockSelectedSession;
