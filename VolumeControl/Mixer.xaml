@@ -12,7 +12,8 @@
         Icon="/Resources/icons/icon-16x16-VC.ico"
         Closing="Window_Closing"
         Initialized="Window_Initialized"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        StateChanged="Window_StateChanged">
     <Window.Background>
         <SolidColorBrush Color="#303030"/>
     </Window.Background>

@@ -27,10 +27,13 @@ namespace VolumeControl
             InitializeComponent();
             cbAdvancedHotkeys.IsChecked = Settings.AdvancedHotkeys;
 
-            var assembly = Assembly.GetExecutingAssembly();
-            versionLabel.Content = $"v{assembly.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
-            _startupHelper.ExecutablePath = assembly.Location;
+            var assembly = Assembly.GetAssembly(typeof(Mixer));
+            versionLabel.Content = $"v{assembly?.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+            _startupHelper = new();
 
+            var appDomain = AppDomain.CurrentDomain;
+            _startupHelper.ExecutablePath = Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
+            
             ShowInTaskbar = Settings.ShowInTaskbar;
             Topmost = Settings.AlwaysOnTop;
             cbStartMinimized.IsChecked = Settings.StartMinimized;
@@ -85,7 +88,7 @@ namespace VolumeControl
 
         #region Fields
         private System.Windows.Forms.NotifyIcon trayIcon = null!;
-        private readonly VolumeControlRunAtStartup _startupHelper = new();
+        private readonly VolumeControlRunAtStartup _startupHelper;
         #endregion Fields
 
         #region Properties
@@ -94,7 +97,7 @@ namespace VolumeControl
         private static LogWriter Log => FLog.Log;
         private static Properties.Settings Settings => Properties.Settings.Default;
         private static CoreSettings CoreSettings => CoreSettings.Default;
-        private Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
+        private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
 
         public bool LogEnabled
@@ -235,6 +238,7 @@ namespace VolumeControl
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
                 LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
         }
+        private void Window_StateChanged(object sender, EventArgs e) => Visibility = (WindowState == WindowState.Minimized ? Visibility.Hidden : Visibility.Visible);
         #endregion EventHandlers
     }
 }
