@@ -1,8 +1,11 @@
 ﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.HelperTypes
 {
@@ -13,12 +16,25 @@ namespace VolumeControl.Core.HelperTypes
             _controller = controller;
             PID = Convert.ToInt64(_controller.GetProcessID);
             var proc = GetProcess();
-            ProcessName = proc.ProcessName;
+            if (proc != null)
+            {
+                ProcessName = proc.ProcessName;
+                _processValid = true;
+            }
+            else
+                ProcessName = string.Empty;
         }
 
+        private (Icon, Icon)? _icons = null;
         private readonly AudioSessionControl _controller;
+        private bool _processValid = false;
 
         public SimpleAudioVolume VolumeController => _controller.SimpleAudioVolume;
+        public AudioSessionState State => _controller.State;
+        public bool Valid => _processValid;
+        public string IconPath => _controller.IconPath;
+        public Icon? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public Icon? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
         /// <inheritdoc/>
         public int Volume
         {
@@ -64,7 +80,19 @@ namespace VolumeControl.Core.HelperTypes
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
 
-        internal Process GetProcess() => Process.GetProcessById((int)PID);
+        internal Process? GetProcess()
+        {
+            try
+            {
+                return Process.GetProcessById((int)PID);
+            }
+            catch (Exception ex)
+            {
+                FLog.Log.ErrorException(ex);
+                _processValid = false;
+                return null;
+            }
+        }
         /// <inheritdoc/>
         public void Dispose()
         {

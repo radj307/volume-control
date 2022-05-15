@@ -1,10 +1,6 @@
-﻿//using AudioAPI.API;
-//using AudioAPI.Interfaces;
-//using AudioAPI.Objects;
-//using AudioAPI.Objects.Virtual;
-//using AudioAPI.WindowsAPI.Audio.MMDeviceAPI.Enum;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Interfaces;
 
@@ -16,20 +12,25 @@ namespace VolumeControl.Core.HelperTypes
         public AudioDevice(MMDevice device)
         {
             _device = device;
+            _deviceID = _device.ID;
         }
         #endregion Constructors
 
         #region Fields
-        private readonly MMDevice _device;
+        private readonly string _deviceID;
+        private MMDevice _device;
+        private (Icon, Icon)? _icons = null;
         #endregion Fields
 
         #region Properties
         /// <inheritdoc/>
         public string Name => FriendlyName;
         /// <inheritdoc/>
-        public string DeviceID => _device.ID;
+        public string DeviceID => _deviceID;
         public string InstanceID => _device.InstanceId;
         public string IconPath => _device.IconPath;
+        public Icon? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public Icon? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
         public string DeviceFriendlyName => _device.DeviceFriendlyName;
         public string FriendlyName => _device.FriendlyName;
         public PropertyStore Properties => _device.Properties;
@@ -71,8 +72,10 @@ namespace VolumeControl.Core.HelperTypes
         #endregion Events
 
         #region Methods
+        protected virtual void Reload() => _device = new MMDeviceEnumerator().GetDevice(_deviceID);
         public List<AudioSession> GetAudioSessions()
         {
+            Reload();
             var sessions = _device.AudioSessionManager.Sessions;
             List<AudioSession> l = new();
             for (int i = 0; i < sessions.Count; ++i)

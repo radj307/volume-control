@@ -33,7 +33,7 @@ namespace VolumeControl
 
             var appDomain = AppDomain.CurrentDomain;
             _startupHelper.ExecutablePath = Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
-            
+
             ShowInTaskbar = Settings.ShowInTaskbar;
             Topmost = Settings.AlwaysOnTop;
             cbStartMinimized.IsChecked = Settings.StartMinimized;
@@ -42,25 +42,18 @@ namespace VolumeControl
             cbRunAtStartup.IsChecked = _startupHelper.RunAtStartup;
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
+
+            var notifyIcon = (FindResource("NotifyIcon") as Hardcodet.Wpf.TaskbarNotification.TaskbarIcon)!;
+            notifyIcon.Visibility = Visibility.Visible;
         }
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            trayIcon = new();
-            trayIcon.Text = $"Volume Control v{Assembly.GetExecutingAssembly().GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
-            trayIcon.Click += Handle_TrayIconClick;
-            trayIcon.DoubleClick += Handle_TrayIconClick;
-            trayIcon.Icon = Properties.Resources.iconSilvered;
-
             if (Settings.StartMinimized)
                 WindowState = WindowState.Minimized;
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            trayIcon.Visible = false;
-            trayIcon.Icon = null;
-            trayIcon.Dispose();
-
             // Apply Window Settings:
             Settings.AdvancedHotkeys = cbAdvancedHotkeys.IsChecked ?? Settings.AdvancedHotkeys;
             Settings.ShowInTaskbar = ShowInTaskbar;
@@ -80,14 +73,9 @@ namespace VolumeControl
 
             e.Cancel = false;
         }
-        private void Window_Loaded(object sender, EventArgs e)
-        {
-            trayIcon.Visible = true;
-        }
         #endregion Init
 
         #region Fields
-        private System.Windows.Forms.NotifyIcon trayIcon = null!;
         private readonly VolumeControlRunAtStartup _startupHelper;
         #endregion Fields
 
@@ -139,35 +127,23 @@ namespace VolumeControl
         }
         private void Handle_TabControlChange(object sender, RoutedEventArgs e)
         {
-            if (cbAdvancedHotkeys != null && cbAdvancedHotkeys.IsChecked.GetValueOrDefault(false) && sender is TabControl tc && tc.SelectedValue is TabItem ti)
-            { // if we're switching to the hotkey tab & advanced hotkeys mode is enabled, widen the window
+            if (sender is TabControl tc && tc.SelectedValue is TabItem ti)
+            {
                 if (ti.Equals(HotkeysTab))
                 {
-                    Width = Settings.WindowWidthWide;
+                    if (cbAdvancedHotkeys != null && cbAdvancedHotkeys.IsChecked.GetValueOrDefault(false))
+                    {
+                        MaxWidth = Settings.WindowWidthWide;
+                        return;
+                    }
                 }
-                else
-                {
-                    Width = Settings.WindowWidthDefault;
-                }
+                MaxWidth = Settings.WindowWidthDefault;
             }
         }
-        private void Handle_TrayIconClick(object? sender, EventArgs e)
-        {
-            WindowState = WindowState.Normal;
-            Focus();
-        }
-        private void Handle_RunAtStartupChecked(object sender, RoutedEventArgs e)
-        {
-            _startupHelper.RunAtStartup = true;
-        }
-        private void Handle_RunAtStartupUnchecked(object sender, RoutedEventArgs e)
-        {
-            _startupHelper.RunAtStartup = false;
-        }
-        private void Handle_StartMinimizeChecked(object sender, RoutedEventArgs e)
-            => Settings.StartMinimized = true;
-        private void Handle_StartMinimizeUnchecked(object sender, RoutedEventArgs e)
-            => Settings.StartMinimized = false;
+        private void Handle_RunAtStartupChecked(object sender, RoutedEventArgs e) => _startupHelper.RunAtStartup = true;
+        private void Handle_RunAtStartupUnchecked(object sender, RoutedEventArgs e) => _startupHelper.RunAtStartup = false;
+        private void Handle_StartMinimizeChecked(object sender, RoutedEventArgs e) => Settings.StartMinimized = true;
+        private void Handle_StartMinimizeUnchecked(object sender, RoutedEventArgs e) => Settings.StartMinimized = false;
         private void Handle_ResetSettingsClick(object sender, RoutedEventArgs e)
         {
             Log.Info("Reset settings button was clicked, displaying confirmation dialog.");
@@ -222,7 +198,7 @@ namespace VolumeControl
         {
             try
             {
-                System.Diagnostics.Process.Start(new ProcessStartInfo(Settings.UpdateURL)
+                Process.Start(new ProcessStartInfo(Settings.UpdateURL)
                 {
                     UseShellExecute = true,
                     Verb = "open"
@@ -238,7 +214,8 @@ namespace VolumeControl
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
                 LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
         }
-        private void Window_StateChanged(object sender, EventArgs e) => Visibility = (WindowState == WindowState.Minimized ? Visibility.Hidden : Visibility.Visible);
+        private void Window_StateChanged(object sender, EventArgs e)
+            => Visibility = (WindowState == WindowState.Minimized ? Visibility.Hidden : Visibility.Visible);
         #endregion EventHandlers
     }
 }

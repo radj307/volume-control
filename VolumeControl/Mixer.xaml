@@ -6,13 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+        xmlns:notify="http://www.hardcodet.net/taskbar"
+        xmlns:ctrlz="urn:controlzex"
+        xmlns:local="clr-namespace:VolumeControl"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
         Icon="/Resources/icons/icon-16x16-VC.ico"
         Closing="Window_Closing"
         Initialized="Window_Initialized"
-        Loaded="Window_Loaded"
         StateChanged="Window_StateChanged">
     <Window.Background>
         <SolidColorBrush Color="#303030"/>
@@ -20,7 +22,7 @@
     <Window.Style>
         <!-- Set Window Style Properties -->
         <Style TargetType="Window">
-            <Setter Property="SizeToContent" Value="Height"/>
+            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
             <Setter Property="WindowStyle" Value="SingleBorderWindow"/>
             <Setter Property="Height" Value="Auto"/>
             <Setter Property="Width" Value="500"/>
@@ -38,6 +40,56 @@
                 <!-- Merge Resource Dictionary -->
             </ResourceDictionary.MergedDictionaries>
 
+            <notify:TaskbarIcon x:Key="NotifyIcon"
+                                IconSource="/Resources/icons/iconSilvered.ico">
+                <notify:TaskbarIcon.TrayToolTip>
+                    <Grid>
+                        <Grid.Resources>
+                            <Style x:Key="ListBoxTextBlockStyle" TargetType="TextBlock">
+                                <Setter Property="Background" Value="#00000000"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+                            </Style>
+                            <Style x:Key="ListBoxStyle" TargetType="ListBox">
+                                <Setter Property="Background" Value="#303030"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="[version]"/>
+
+                        <ListBox ItemsSource="{Binding Sessions, Source={StaticResource AudioAPI}}"
+                                 Style="{StaticResource ListBoxStyle}"
+                                 Padding="3">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProcessName}"
+                                               ToolTip="{Binding PID}"
+                                               Style="{StaticResource ListBoxTextBlockStyle}"
+                                               Margin="0,1,0,1"
+                                               Foreground="WhiteSmoke"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Border Grid.ColumnSpan="2"
+                                Grid.RowSpan="3"
+                                Background="#303030"
+                                BorderBrush="Gainsboro"
+                                BorderThickness="2"
+                                Opacity="0.9">
+                        </Border>
+                    </Grid>
+                </notify:TaskbarIcon.TrayToolTip>
+            </notify:TaskbarIcon>
 
             <!-- CheckBox -->
             <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
@@ -92,16 +144,41 @@
                 <Setter Property="Width" Value="26"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
-            <!-- Mixer Column Header -->
+            <!-- Mixer Header Brushes -->
+            <LinearGradientBrush x:Key="MixerHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.5">
+                <GradientStop Color="#FFFFFF" Offset="-0.6"/>
+                <GradientStop Color="#606060" Offset="0.05"/>
+                <GradientStop Color="#454545" Offset="0.2"/>
+                <GradientStop Color="#303030" Offset="0.5"/>
+                <GradientStop Color="#454545" Offset="0.8"/>
+                <GradientStop Color="#606060" Offset="0.95"/>
+                <GradientStop Color="#FFFFFF" Offset="1.6"/>
+            </LinearGradientBrush>
+            <!-- Mixer Headers -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
+                <Style.Triggers>
+                    <!--
+                    <DataTrigger Binding="{Binding Content.IsEmpty, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Content.IsEmpty, RelativeSource={RelativeSource Self}}" Value="False">
+                        <Setter Property="BorderThickness" Value="1,0,0,1"/>
+                    </DataTrigger>
+                    -->
+                </Style.Triggers>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="Height" Value="24"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Background" Value="gray"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="Background" Value="{StaticResource MixerHeaderBrush}"/>
+                <Setter Property="BorderBrush" Value="Gainsboro"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Gainsboro"/>
             </Style>
             <!-- Mixer Cell -->
             <Style x:Key="MixerCellStyle" TargetType="DataGridCell">
@@ -115,7 +192,7 @@
             <Style x:Key="MixerVolumeSliderStyle" TargetType="Slider">
                 <Setter Property="Background" Value="#00000000"/>
             </Style>
-            <!-- Mixer -->
+            <!-- DataGrid -->
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="RowBackground" Value="#303030"/>
@@ -128,8 +205,8 @@
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="SelectionUnit" Value="Cell"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
             </Style>
             <!-- NumericUpDown -->
@@ -141,16 +218,263 @@
                 <Setter Property="Margin" Value="3,0,3,0"/>
             </Style>
             <!-- TabControl -->
-            <Style x:Key="TabControlStyle" TargetType="TabControl">
+            <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
                 <Setter Property="Background" Value="#505055"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
+            
+            
+            <ResourceDictionary x:Key="ComboBoxResources">
+                <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#FFF" Offset="0.0"/>
+                            <GradientStop Color="#CCC" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="HorizontalNormalBrush" StartPoint="0,0" EndPoint="1,0">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#FFF" Offset="0.0"/>
+                            <GradientStop Color="#CCC" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#FFF" Offset="0.0"/>
+                            <GradientStop Color="#EEE" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#FFF" Offset="0.0"/>
+                            <GradientStop Color="#EEE" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#FFF" Offset="0.0"/>
+                            <GradientStop Color="#AAA" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#BBB" Offset="0.0"/>
+                            <GradientStop Color="#EEE" Offset="0.1"/>
+                            <GradientStop Color="#EEE" Offset="0.9"/>
+                            <GradientStop Color="#FFF" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+
+                <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
+
+                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+
+                <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
+
+                <!-- Border Brushes -->
+
+                <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#CCC" Offset="0.0"/>
+                            <GradientStop Color="#444" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="HorizontalNormalBorderBrush" StartPoint="0,0" EndPoint="1,0">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#CCC" Offset="0.0"/>
+                            <GradientStop Color="#444" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="DefaultedBorderBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#777" Offset="0.0"/>
+                            <GradientStop Color="#000" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="#444" Offset="0.0"/>
+                            <GradientStop Color="#888" Offset="1.0"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+                <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
+
+                <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+
+                <SolidColorBrush x:Key="LightBorderBrush" Color="#AAA" />
+
+                <!-- Miscellaneous Brushes -->
+                <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
+
+                <SolidColorBrush x:Key="LightColorBrush" Color="#DDD" />
+            </ResourceDictionary>
+
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton" Resources="{StaticResource ComboBoxResources}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="Border" 
+                            Grid.ColumnSpan="2"
+                            CornerRadius="0"
+                            Background="{StaticResource NormalBrush}"
+                            BorderBrush="{StaticResource NormalBorderBrush}"
+                            BorderThickness="2,1,1,1" />        
+                    <Border Grid.Column="0"
+                            Margin="0"
+                            Background="{StaticResource WindowBackgroundBrush}" 
+                            BorderBrush="{StaticResource NormalBorderBrush}"
+                            BorderThickness="0,0,1,0" />
+                    <Path x:Name="Arrow"
+                          Grid.Column="1"     
+                          Fill="{StaticResource GlyphBrush}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />
+                    </Trigger>
+                    <Trigger Property="ToggleButton.IsChecked" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
+                        <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource DisabledForegroundBrush}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+                <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+
+            <Style x:Key="ComboBoxCustomStyle" TargetType="ComboBox" Resources="{StaticResource ComboBoxResources}">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+                <Setter Property="MinHeight" Value="20"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <ToggleButton Name="ToggleButton" 
+                                              Template="{StaticResource ComboBoxToggleButton}" 
+                                              Grid.Column="2" 
+                                              Focusable="false"
+                                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                              ClickMode="Press">
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite"
+                                                  IsHitTestVisible="False" 
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  Margin="3,3,23,3"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left" />
+                                <TextBox x:Name="PART_EditableTextBox"
+                                         Style="{x:Null}" 
+                                         Template="{StaticResource ComboBoxTextBox}" 
+                                         HorizontalAlignment="Left" 
+                                         VerticalAlignment="Center" 
+                                         Margin="3,3,23,3"
+                                         Focusable="True" 
+                                         Background="Transparent"
+                                         Visibility="Hidden"
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                <Popup Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True" 
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Grid Name="DropDown"
+                                          SnapsToDevicePixels="True"                
+                                          MinWidth="{TemplateBinding ActualWidth}"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border x:Name="DropDownBorder"
+                                                Background="{StaticResource WindowBackgroundBrush}"
+                                                BorderThickness="1"
+                                                BorderBrush="{StaticResource SolidBorderBrush}"/>
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasItems" Value="false">
+                                    <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsGrouping" Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                                </Trigger>
+                                <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                    <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                                </Trigger>
+                                <Trigger Property="IsEditable" Value="true">
+                                    <Setter Property="IsTabStop" Value="false"/>
+                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility"    Value="Visible"/>
+                                    <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                </Style.Triggers>
+            </Style>
+            
+            
             <!-- ComboBox -->
-            <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Style x:Key="ComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource ComboBoxCustomStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
                         <Setter Property="Foreground" Value="#9A9A9A"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Foreground" Value="Black"/>
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
@@ -160,9 +484,12 @@
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="Height" Value="21"/>
             </Style>
-            <!-- Watermark TextBlock -->
-            <Style x:Key="WatermarkTextBlockStyle" TargetType="TextBlock">
+            <!-- TextBlock -->
+            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <!-- Watermark TextBlock -->
+            <Style x:Key="WatermarkTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="Foreground" Value="#9A9A9A"/>
                 <Setter Property="IsHitTestVisible" Value="False"/>
@@ -173,10 +500,15 @@
         </ResourceDictionary>
     </Window.Resources>
 
-
-
     <!--( Element Layout )-->
-    <TabControl Style="{StaticResource TabControlStyle}" SelectionChanged="Handle_TabControlChange">
+    <ctrlz:TabControlEx Style="{StaticResource TabControlStyle}"
+                        SelectionChanged="Handle_TabControlChange"
+                        BorderThickness="1"
+                        BorderBrush="LightGray"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center">
         <!-- TAB CONTROL APPEARANCE: -->
         <TabControl.Resources>
             <Style TargetType="TabItem">
@@ -371,6 +703,10 @@
                 </Grid>
 
                 <!--- [Row-5] Mixer Data Grid -->
+                <Border Grid.Column="1"
+                        Grid.Row="5"
+                        Style="{StaticResource BorderStyle}"
+                        Margin="-1"/>
                 <DataGrid x:Name="MixerGrid"
                           ItemsSource="{Binding Sessions}"
                           Grid.Column="1"
@@ -380,9 +716,21 @@
                           DataContext="{StaticResource AudioAPI}">
                     <DataGrid.Columns>
                         <!-- PID -->
-                        <DataGridTextColumn Header="PID" Binding="{Binding PID, Mode=OneTime}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="PID" Width="Auto" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PID, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Process Name -->
-                        <DataGridTextColumn Header="Process Name" Width="*" Binding="{Binding ProcessName, Mode=OneWay}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Process Name" Width="*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProcessName, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <!-- Mute -->
                         <DataGridTemplateColumn Header="Mute" Width="40">
                             <DataGridTemplateColumn.CellTemplate>
@@ -435,79 +783,88 @@
         <TabItem Header="Hotkeys" Name="HotkeysTab">
             <DockPanel>
                 <!-- HotkeyGrid -->
-                <DataGrid x:Name="HotkeyGrid"
-                          DockPanel.Dock="Top"
-                          Padding="1"
-                          AutoGenerateColumns="False"
-                          DataContext="{StaticResource HotkeyAPI}"
-                          ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource DataGridStyle}">
+                <Grid>
+                    <Border Style="{StaticResource BorderStyle}"/>
+                    <DataGrid x:Name="HotkeyGrid"
+                              CanUserSortColumns="False"
+                              DockPanel.Dock="Top"
+                              Padding="1"
+                              AutoGenerateColumns="False"
+                              DataContext="{StaticResource HotkeyAPI}"
+                              ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource DataGridStyle}">
 
-                    <DataGrid.Columns>
-                        <!-- Active -->
-                        <DataGridTemplateColumn Header="Enabled" Width="50">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <!-- Visibility="{Binding Valid, Converter={StaticResource BooleanToVisibilityConverter}}" -->
-                                    <CheckBox IsEnabled="{Binding Valid}" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Name -->
-                        <DataGridTextColumn Header="Name" Width="10*" IsReadOnly="{c:Binding Path=!IsChecked, Source={x:Reference cbAdvancedHotkeys}}" Binding="{Binding Name, UpdateSourceTrigger=LostFocus}" CellStyle="{StaticResource MixerCellStyle}"/>
-                        <!-- Key -->
-                        <DataGridTemplateColumn Header="Key" Width="6*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox ItemsSource="{StaticResource KeyOptions}" SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Alt -->
-                        <DataGridTemplateColumn Header=" Alt " Width="30">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Ctrl -->
-                        <DataGridTemplateColumn Header="Ctrl" Width="30">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Shift -->
-                        <DataGridTemplateColumn Header="Shift" Width="30">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Windows -->
-                        <DataGridTemplateColumn Header=" Win " Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Action -->
-                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding ActionNames, Source={StaticResource HotkeyAPI}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <!-- Remove -->
-                        <DataGridTemplateColumn Width="Auto" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="❌"
+                        <DataGrid.Columns>
+                            <!-- Active -->
+                            <DataGridTemplateColumn Header="" Width="Auto" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!-- Visibility="{Binding Valid, Converter={StaticResource BooleanToVisibilityConverter}}" -->
+                                        <CheckBox IsEnabled="{Binding Valid}" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Name -->
+                            <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="{Binding IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource InvertConverter}}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Key -->
+                            <DataGridTemplateColumn Header="Key" Width="6*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{StaticResource KeyOptions}" SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Alt -->
+                            <DataGridTemplateColumn Header="Alt" Width="30">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Ctrl -->
+                            <DataGridTemplateColumn Header="Ctrl" Width="30">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Shift -->
+                            <DataGridTemplateColumn Header="Shift" Width="30">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Windows -->
+                            <DataGridTemplateColumn Header="Win" Width="30">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Action -->
+                            <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding ActionNames, Source={StaticResource HotkeyAPI}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!-- Remove -->
+                            <DataGridTemplateColumn Width="Auto" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="❌"
                                             FontFamily="{StaticResource InterFont}"
                                             Width="20"
                                             Height="Auto"
@@ -517,11 +874,12 @@
                                             Click="Handle_HotkeyGridRemoveClick"
                                             BorderThickness="0"
                                             CommandParameter="{Binding ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
                 <!-- Create New Hotkey -->
                 <Grid DockPanel.Dock="Bottom"
                       Visibility="{Binding Path=IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -696,6 +1054,7 @@
                               Content="Enable Log"
                               Margin="5,2"
                               VerticalAlignment="Center"
+                              IsEnabled="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}"
                               IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
                     <!-- LogPath Browse Button -->
@@ -704,15 +1063,12 @@
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_BrowseForLogFilePathClick"/>
                     <!-- Log Filter Level Setter -->
-
                     <Grid>
                         <Grid.Resources>
                             <DataTemplate x:Key="DropDownItemTemplate" DataType="wpfApplication1:ItemSourceModel">
                                 <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding IsSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
-                            <DataTemplate x:Key="SelectionBoxTemplate">
-
-                            </DataTemplate>
+                            <DataTemplate x:Key="SelectionBoxTemplate"/>
                             <DataTemplate x:Key="ComboBoxTemplate">
                                 <ContentPresenter x:Name="Presenter" Content="{Binding}" ContentTemplate="{StaticResource DropDownItemTemplate}" />
                                 <DataTemplate.Triggers>
@@ -721,17 +1077,36 @@
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
+
+                            <Style x:Key="ExtendedWatermarkTextBlockStyle" BasedOn="{StaticResource WatermarkTextBlockStyle}" TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                        <Setter Property="Foreground" Value="#9A9A9A"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
                         </Grid.Resources>
-                        <TextBlock x:Name="logFilterComboBoxWatermark" Panel.ZIndex="99" Margin="5,0,18,0" Padding="0,0,5,0" Text="Filter Level" Style="{StaticResource WatermarkTextBlockStyle}" Foreground="Black"/>
+                        <TextBlock x:Name="logFilterComboBoxWatermark"
+                                   Panel.ZIndex="1"
+                                   Margin="5,0,18,0"
+                                   Padding="0,0,5,0"
+                                   Text="Filter"
+                                   IsEnabled="{Controls:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
+                                   Style="{StaticResource ExtendedWatermarkTextBlockStyle}"/>
                         <ComboBox x:Name="logFilterComboBox"
+                                  Panel.ZIndex="0"
                                   IsEditable="False"
-                                  Width="{c:Binding ElementName=logFilterComboBoxWatermark, Path='Width + 20'}"
+                                  ToolTip="Allows you to specify which types of log messages are printed."
                                   Margin="0,0,5,0"
-                                  IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}"
+                                  IsEnabled="{Controls:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
                                   ItemsSource="{StaticResource EventTypeOptions}"
                                   Text="Filter"
                                   Style="{StaticResource ComboBoxStyle}"
-                                  ItemTemplate="{StaticResource ComboBoxTemplate}">
+                                  ItemTemplate="{StaticResource ComboBoxTemplate}"
+                                  BorderThickness="1">
                         </ComboBox>
                     </Grid>
                     <!-- Log Path Textbox -->
@@ -747,7 +1122,6 @@
                             </Style>
                         </Grid.Resources>
                         <TextBox x:Name="logPath"
-                                 ToolTip="Accepts both relative and absolute paths. Relative paths are relative to the location of the executable."
                                  Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource TextBoxValidIndicatorStyle}"/>
                         <TextBlock Text="Path to Log File"
@@ -762,5 +1136,5 @@
             </Grid>
         </TabItem>
         <!--▲ Settings ▲-->
-    </TabControl>
+    </ctrlz:TabControlEx>
 </Window>

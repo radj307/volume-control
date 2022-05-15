@@ -263,9 +263,6 @@ namespace VolumeControl.Core
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
-
-
-
         public void ReloadDeviceList()
         {
             SelectiveUpdateDevices(GetAllDevices());
@@ -289,6 +286,7 @@ namespace VolumeControl.Core
 
             // remove all devices that aren't in the new list. (exited/stopped)
             Devices.RemoveAll(dev => !devices.Any(d => d.Equals(dev)));
+
             // add all devices that aren't in the current list. (new)
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
 
@@ -300,22 +298,17 @@ namespace VolumeControl.Core
                 Sessions.Clear();
 
             NotifyDeviceListRefresh(EventArgs.Empty);
+            NotifyPropertyChanged(nameof(Devices));
 
             Log.Info($"Refreshed the device list.");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>This method locks the <see cref="_mutex"/> and is thread safe.<br/>Note that the mutex is shared between <see cref="ReloadDeviceList"/>, and as a result these methods should not interact with each other!</remarks>
         public void ReloadSessionList()
         {
             if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
                 return;
 
-            List<AudioSession> sessions = CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!);
-
-            if (sessions != null)
+            if ((CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!)) is List<AudioSession> sessions)
                 SelectiveUpdateSessions(sessions);
             else Sessions.Clear();
         }
@@ -365,6 +358,14 @@ namespace VolumeControl.Core
 
             // remove all sessions that don't appear in the new list (expired sessions)
             Sessions.RemoveAll(session => !sessions.Any(s => s.PID.Equals(session.PID)));
+
+            for (int i = Sessions.Count - 1; i >= 0; --i)
+            {
+                var session = Sessions[i];
+                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired))
+                    Sessions.RemoveAt(i);
+            }
+
             // add all sessions that aren't already in the current list
             Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
 
@@ -372,6 +373,7 @@ namespace VolumeControl.Core
                 SelectedSession = null;
 
             NotifyProcessListRefresh(EventArgs.Empty);
+            NotifyPropertyChanged(nameof(Sessions));
 
             Log.Debug("Refreshed the session list.");
         }

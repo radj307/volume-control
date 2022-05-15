@@ -10,7 +10,10 @@ namespace VolumeControl
 {
     public partial class App : Application
     {
-        public App() => InitializeComponent();
+        public App()
+        {
+            InitializeComponent();
+        }
 
         #region Properties
         private static Settings Settings => Settings.Default;
