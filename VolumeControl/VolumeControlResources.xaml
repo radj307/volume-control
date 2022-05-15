@@ -4,7 +4,9 @@
                     xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
                     xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
                     xmlns:local="clr-namespace:VolumeControl"
-                    xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
+                    xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+                    xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+                    xmlns:logEnum="clr-namespace:VolumeControl.Log;assembly=VolumeControl.Log">
     <!-- AudioAPI (VolumeControl.Core.AudioAPI) -->
     <core:AudioAPI x:Key="AudioAPI"/>
     <!-- HotkeyAPI (VolumeControl.Core.HotkeyManager) -->

@@ -78,7 +78,7 @@
                         <Setter Property="Foreground" Value="LightGray"/>
                     </DataTrigger>
                 </Style.Triggers>
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -112,11 +112,11 @@
             </Style>
             <!-- Mixer Volume Slider -->
             <Style x:Key="MixerVolumeSliderStyle" TargetType="Slider">
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
             </Style>
             <!-- Mixer -->
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="RowBackground" Value="#303030"/>
                 <Setter Property="AlternatingRowBackground" Value="#454545"/>
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource MixerHeadersStyle}"/>
@@ -165,8 +165,10 @@
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="Foreground" Value="#9A9A9A"/>
                 <Setter Property="IsHitTestVisible" Value="False"/>
-                <Setter Property="Visibility" Value="{Binding Text.Length, RelativeSource={RelativeSource Self}, Converter={StaticResource StringLengthToVisibilityConverter}}"/>
             </Style>
+
+            <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
+            <Controls:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -180,13 +182,12 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TabItem">
-                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" Margin="1,0">
+                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="LightGray" Margin="1,0">
                                 <ContentPresenter x:Name="ContentSite"
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"
                                                   ContentSource="Header"
                                                   TextBlock.Foreground="WhiteSmoke"
-                                                  TextBlock.FontSize="12"
                                                   TextBlock.FontFamily="{StaticResource InterFont}"
                                                   Margin="10,2"/>
                             </Border>
@@ -197,12 +198,14 @@
                                     <Setter TargetName="Border" Property="Margin" Value="1,-1" />
                                     <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke"/>
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="13"/>
                                 </Trigger>
                                 <!-- UNSELECTED TAB APPEARANCE: -->
                                 <Trigger Property="IsSelected" Value="False">
                                     <Setter TargetName="Border" Property="Background" Value="#303030"/>
                                     <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray"/>
                                     <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Regular"/>
+                                    <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="11"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -261,8 +264,10 @@
                              Style="{StaticResource TextBoxStyle}"/>
                     <!--▲ TEXTBOX WATERMARK ▼-->
                     <TextBlock Grid.Column="1"
+                               Margin="7,0"
                                Text="Target PID or Process Name"
-                               Style="{StaticResource WatermarkTextBlockStyle}"/>
+                               Style="{StaticResource WatermarkTextBlockStyle}"
+                               Visibility="{Binding Text.IsEmpty, Mode=OneWay, Source={x:Reference targetNameTextBox}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <CheckBox x:Name="cbLockTargetSelection"
                               Grid.Row="0"
                               Grid.Column="2"
@@ -321,7 +326,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <CheckBox x:Name="cbReloadOnInterval"
                               Content="Automatic"
                               ToolTip="Automatically reloads the mixer sessions on an interval."
@@ -502,9 +507,10 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="❌"
+                                            FontFamily="{StaticResource InterFont}"
                                             Width="20"
                                             Height="Auto"
-                                            Background="Transparent"
+                                            Background="#00000000"
                                             Foreground="#FF4456"
                                             FocusVisualStyle="{x:Null}"
                                             Click="Handle_HotkeyGridRemoveClick"
@@ -543,7 +549,6 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Version Label -->
@@ -558,15 +563,16 @@
                            Style="{StaticResource LabelStyle}"
                            Height="Auto"
                            VerticalContentAlignment="Center"
-                           Foreground="LightGray"
-                           FontWeight="SemiBold"
+                           Foreground="Gainsboro"
                            FontSize="9"
-                           ToolTip="The current version number." Content="[version]" Margin="0,-4,0,0"/>
+                           Content="[version]"
+                           Margin="0,-4,0,0"/>
                 </Canvas>
 
                 <!-- Device Selection -->
                 <Grid Grid.Row="1"
-                      Grid.ColumnSpan="4">
+                      Grid.ColumnSpan="4"
+                      Margin="0,0,-3,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -599,83 +605,157 @@
                               VerticalAlignment="Center"
                               Margin="5,0"/>
                 </Grid>
-                
-                <!-- Checkboxes 1 -->
-                <StackPanel Grid.Column="0"
-                            Grid.Row="3"
-                            Margin="0,3,0,3" Grid.ColumnSpan="3">
-                    <CheckBox x:Name="cbAdvancedHotkeys"
-                              HorizontalAlignment="Left"
-                              Margin="5,2"
-                              Content="Advanced Hotkeys Mode"
-                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
-                              Style="{StaticResource CheckBoxStyle}"
-                              Checked="Handle_ShowActionBindingsChecked"
-                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                <Border Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"/>
+
+                <Grid Grid.ColumnSpan="3"
+                      Grid.Row="3"
+                      Margin="5,3"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
                     <CheckBox Content="Show in Taskbar"
                               HorizontalAlignment="Left"
-                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
                     <CheckBox Content="Always on Top"
+                              Grid.Row="1"
                               HorizontalAlignment="Left"
-                              Margin="5,2"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
 
-                <!-- Checkboxes 2 -->
-                <StackPanel Grid.Column="2"
-                            Grid.Row="3"
-                            Panel.ZIndex="98">
+
                     <CheckBox x:Name="cbRunAtStartup"
+                              Grid.Column="1"
                               Content="Run at Startup"
                               HorizontalAlignment="Left"
-                              Margin="5,2"
+                              Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_RunAtStartupChecked"
                               Unchecked="Handle_RunAtStartupUnchecked"/>
                     <CheckBox x:Name="cbStartMinimized"
+                              Grid.Column="1"
+                              Grid.Row="1"
                               Content="Start Minimized"
                               HorizontalAlignment="Left"
-                              Margin="5,2"
+                              Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_StartMinimizeChecked"
                               Unchecked="Handle_StartMinimizeUnchecked"/>
-                    <Button x:Name="bResetSettings"
-                            Content="Reset Settings to Default"
+
+
+                    <CheckBox x:Name="cbAdvancedHotkeys"
+                              Margin="0,0,0,3"
+                              Grid.ColumnSpan="1"
+                              Grid.Row="2"
+                              HorizontalAlignment="Left"
+                              Content="Advanced Hotkeys"
+                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
+                              Style="{StaticResource CheckBoxStyle}"
+                              Checked="Handle_ShowActionBindingsChecked"
+                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                    <Button x:Name="bResetHotkeys"
+                            Margin="3,0,3,3"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
+                            Content="Reset Hotkeys"
                             Style="{StaticResource ButtonStyle}"
-                            Click="Handle_ResetSettingsClick"/>
-                </StackPanel>
-                
+                            Click="Handle_ResetHotkeysClick"/>
+                    <Button x:Name="bOpenGithub"
+                            Content="Github Repository"
+                            Margin="3,0,3,3"
+                            Grid.Column="2"
+                            Grid.Row="2"
+                            ToolTip="Opens the default web browser."
+                            Style="{StaticResource ButtonStyle}"
+                            Click="Handle_OpenGithubClick"/>
+                </Grid>
+                <Border Grid.Row="3"
+                        Grid.ColumnSpan="3"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"/>
+
                 <!-- Log Settings -->
                 <DockPanel Grid.ColumnSpan="3"
-                           Grid.Row="4">
-                    <CheckBox Content="Enable Log"
+                           Grid.Row="6" Margin="0,5,0,2">
+                    <!-- Enable Log -->
+                    <CheckBox x:Name="cbEnableLog"
+                              Content="Enable Log"
                               Margin="5,2"
                               VerticalAlignment="Center"
                               IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
-
+                    <!-- LogPath Browse Button -->
                     <Button DockPanel.Dock="Right"
                             Content="Browse"
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_BrowseForLogFilePathClick"/>
+                    <!-- Log Filter Level Setter -->
 
+                    <Grid>
+                        <Grid.Resources>
+                            <DataTemplate x:Key="DropDownItemTemplate" DataType="wpfApplication1:ItemSourceModel">
+                                <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding IsSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="SelectionBoxTemplate">
+
+                            </DataTemplate>
+                            <DataTemplate x:Key="ComboBoxTemplate">
+                                <ContentPresenter x:Name="Presenter" Content="{Binding}" ContentTemplate="{StaticResource DropDownItemTemplate}" />
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,ComboBoxItem,1}}" Value="{x:Null}">
+                                        <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource SelectionBoxTemplate}" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </Grid.Resources>
+                        <TextBlock x:Name="logFilterComboBoxWatermark" Panel.ZIndex="99" Margin="5,0,18,0" Padding="0,0,5,0" Text="Filter Level" Style="{StaticResource WatermarkTextBlockStyle}" Foreground="Black"/>
+                        <ComboBox x:Name="logFilterComboBox"
+                                  IsEditable="False"
+                                  Width="{c:Binding ElementName=logFilterComboBoxWatermark, Path='Width + 20'}"
+                                  Margin="0,0,5,0"
+                                  IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}"
+                                  ItemsSource="{StaticResource EventTypeOptions}"
+                                  Text="Filter"
+                                  Style="{StaticResource ComboBoxStyle}"
+                                  ItemTemplate="{StaticResource ComboBoxTemplate}">
+                        </ComboBox>
+                    </Grid>
+                    <!-- Log Path Textbox -->
                     <Grid>
                         <Grid.Resources>
                             <Style x:Key="TextBoxValidIndicatorStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
                                 <Style.Triggers>
-                                    
+                                    <DataTrigger Binding="{Binding Text.IsEmpty, Mode=OneWay, Source={x:Reference logPath}}" Value="True">
+                                        <Setter Property="Background" Value="#3F3030"/>
+                                        <Setter Property="ToolTip" Value="Logging is disabled because this is blank."/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Grid.Resources>
                         <TextBox x:Name="logPath"
+                                 ToolTip="Accepts both relative and absolute paths. Relative paths are relative to the location of the executable."
                                  Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource TextBoxValidIndicatorStyle}"/>
-                        <TextBlock Text="Log FilePath"
+                        <TextBlock Text="Path to Log File"
+                                   Width="{Binding Width, ElementName=logPath}"
+                                   Height="{Binding Height, ElementName=logPath}"
+                                   Margin="5,0"
                                    Grid.Column="1"
-                                   Style="{StaticResource WatermarkTextBlockStyle}"/>
+                                   Style="{StaticResource WatermarkTextBlockStyle}"
+                                   Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Grid>
                 </DockPanel>
             </Grid>

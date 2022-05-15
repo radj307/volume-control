@@ -184,5 +184,14 @@ namespace VolumeControl.Properties {
                 this["NotificationTimeout"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/radj307/volume-control/releases")]
+        public string UpdateURL {
+            get {
+                return ((string)(this["UpdateURL"]));
+            }
+        }
     }
 }

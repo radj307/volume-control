@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -9,6 +11,7 @@ using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.Win32;
+using VolumeControl.WPF;
 
 namespace VolumeControl
 {
@@ -34,6 +37,8 @@ namespace VolumeControl
             if (Settings.RunAtStartup && !_startupHelper.RunAtStartup)
                 _startupHelper.RunAtStartup = true;
             cbRunAtStartup.IsChecked = _startupHelper.RunAtStartup;
+
+            (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -167,14 +172,26 @@ namespace VolumeControl
             {
                 Settings.Reset();
                 CoreSettings.Reset();
+                LogSettings.Reset();
+
                 Settings.Save();
                 CoreSettings.Save();
+                LogSettings.Save();
+
                 Settings.Reload();
                 CoreSettings.Reload();
-
-                HotkeyAPI.ResetHotkeys();
+                LogSettings.Reload();
 
                 Log.Info("User settings were reset to default.");
+            }
+        }
+        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset your hotkeys to their default values?\n\nThis cannot be undone!", "Reset Hotkeys?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                HotkeyAPI.ResetHotkeys();
+
+                Log.Info("Hotkey definitions were reset to default.");
             }
         }
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
@@ -197,6 +214,26 @@ namespace VolumeControl
             {
                 logPath.Text = path;
             }
+        }
+        private void Handle_OpenGithubClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new ProcessStartInfo(Settings.UpdateURL)
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Couldn't open '{Settings.UpdateURL}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            }
+        }
+        private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
+                LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
         }
         #endregion EventHandlers
     }

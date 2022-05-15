@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.ComponentModel;
+using System.Net;
 using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
@@ -113,6 +114,7 @@ namespace VolumeControl.Log
         }
         private static void HandlePropertyChanged(object sender, EventArgs e)
         {
+            EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
             var endpoint = new FileEndpoint(Settings.Default.LogPath, Settings.Default.EnableLogging);
 
             CreateLog(endpoint);
