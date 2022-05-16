@@ -209,6 +209,7 @@ namespace VolumeControl.Core
 
         ~HotkeyManager() { Dispose(disposing: false); }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);
