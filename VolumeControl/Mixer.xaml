@@ -668,6 +668,7 @@
                           ItemsSource="{Binding Sessions}"
                           Grid.Column="1"
                           Grid.Row="4"
+                          Margin="1"
                           AutoGenerateColumns="False"
                           Style="{StaticResource DataGridStyle}"
                           DataContext="{StaticResource AudioAPI}">
