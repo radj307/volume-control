@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Net;
-using VolumeControl.Log.Endpoints;
+﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Properties;
@@ -43,7 +41,7 @@ namespace VolumeControl.Log
                     Initialize();
                 return _log.Endpoint.Enabled;
             }
-            set
+            internal set
             {
                 if (!_initialized)
                     Initialize();
@@ -57,7 +55,7 @@ namespace VolumeControl.Log
         public static EventType EventFilter
         {
             get => _filter;
-            set => _filter = value;
+            internal set => _filter = value;
         }
         /// <summary>
         /// Get or set the log filepath.
@@ -65,7 +63,7 @@ namespace VolumeControl.Log
         public static string FilePath
         {
             get => _filepath;
-            set => _filepath = value;
+            internal set => _filepath = value;
         }
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
@@ -83,8 +81,6 @@ namespace VolumeControl.Log
             // Add properties to the settings file
             Settings.Default.Save();
             Settings.Default.Reload();
-
-            Settings.Default.PropertyChanged += HandlePropertyChanged!;
 
             // get the full filepath to the log
             FilePath = Settings.Default.LogPath;
@@ -104,13 +100,19 @@ namespace VolumeControl.Log
 #           endif
 
             CreateLog(endpoint);
+            WriteInitMessage("Initialized");
+
+            Settings.Default.PropertyChanged += HandlePropertyChanged!;
+        }
+
+        private static void WriteInitMessage(string log_____)
+        {
+            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
         }
 
         private static void CreateLog(IEndpoint endpoint)
         {
             Log = new(endpoint, EventFilter);
-
-            Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log Initialized @ {DateTime.UtcNow:U} ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
         }
         private static void HandlePropertyChanged(object sender, EventArgs e)
         {
@@ -118,6 +120,7 @@ namespace VolumeControl.Log
             var endpoint = new FileEndpoint(Settings.Default.LogPath, Settings.Default.EnableLogging);
 
             CreateLog(endpoint);
+            WriteInitMessage("Re-Initialized");
         }
         #endregion Methods
     }

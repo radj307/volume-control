@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
@@ -15,7 +16,6 @@ using VolumeControl.WPF;
 
 namespace VolumeControl
 {
-
     /// <summary>
     /// Interaction logic for Mixer.xaml
     /// </summary>
@@ -28,7 +28,8 @@ namespace VolumeControl
             cbAdvancedHotkeys.IsChecked = Settings.AdvancedHotkeys;
 
             var assembly = Assembly.GetAssembly(typeof(Mixer));
-            versionLabel.Content = $"v{assembly?.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+            string version = $"v{assembly?.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+            versionLabel.Content = version;
             _startupHelper = new();
 
             var appDomain = AppDomain.CurrentDomain;
@@ -43,8 +44,14 @@ namespace VolumeControl
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
 
-            var notifyIcon = (FindResource("NotifyIcon") as Hardcodet.Wpf.TaskbarNotification.TaskbarIcon)!;
-            notifyIcon.Visibility = Visibility.Visible;
+            _notifyIcon = new();
+            _notifyIcon.Icon = Properties.Resources.icon_16x16_VC;
+            _notifyIcon.Visible = true;
+            _notifyIcon.Text = $"Volume Control {version}";
+            _notifyIcon.Click += (s, e) =>
+            {
+                Show();
+            };
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -54,6 +61,8 @@ namespace VolumeControl
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            _notifyIcon.Dispose();
+
             // Apply Window Settings:
             Settings.AdvancedHotkeys = cbAdvancedHotkeys.IsChecked ?? Settings.AdvancedHotkeys;
             Settings.ShowInTaskbar = ShowInTaskbar;
@@ -77,6 +86,7 @@ namespace VolumeControl
 
         #region Fields
         private readonly VolumeControlRunAtStartup _startupHelper;
+        private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
         #endregion Fields
 
         #region Properties
@@ -215,7 +225,10 @@ namespace VolumeControl
                 LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
         }
         private void Window_StateChanged(object sender, EventArgs e)
-            => Visibility = (WindowState == WindowState.Minimized ? Visibility.Hidden : Visibility.Visible);
+        {
+            if (WindowState.Equals(WindowState.Minimized))
+                Hide();
+        }
         #endregion EventHandlers
     }
 }

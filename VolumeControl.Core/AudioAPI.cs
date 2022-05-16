@@ -1,8 +1,10 @@
 ﻿using NAudio.CoreAudioApi;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Events;
 using VolumeControl.Core.HelperTypes;
+using VolumeControl.Core.HelperTypes.Lists;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 
@@ -124,8 +126,8 @@ namespace VolumeControl.Core
                 ReloadTimer.Interval = value;
             }
         }
-        public List<AudioDevice> Devices { get; } = new();
-        public List<AudioSession> Sessions { get; } = new();
+        public ObservableList<AudioDevice> Devices { get; } = new();
+        public ObservableList<AudioSession> Sessions { get; } = new();
         public IDevice? SelectedDevice
         {
             get => _selectedDevice;
@@ -285,7 +287,9 @@ namespace VolumeControl.Core
             var selID = SelectedDevice?.DeviceID;
 
             // remove all devices that aren't in the new list. (exited/stopped)
-            Devices.RemoveAll(dev => !devices.Any(d => d.Equals(dev)));
+            for (int i = Devices.Count - 1; i >= 0; --i)
+                if (!devices.Any(d => d.Equals(Devices[i])))
+                    Devices.RemoveAt(i);
 
             // add all devices that aren't in the current list. (new)
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
@@ -356,13 +360,10 @@ namespace VolumeControl.Core
         {
             var selPID = SelectedSession?.PID;
 
-            // remove all sessions that don't appear in the new list (expired sessions)
-            Sessions.RemoveAll(session => !sessions.Any(s => s.PID.Equals(session.PID)));
-
             for (int i = Sessions.Count - 1; i >= 0; --i)
             {
-                var session = Sessions[i];
-                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired))
+                AudioSession session = Sessions[i];
+                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
                     Sessions.RemoveAt(i);
             }
 
