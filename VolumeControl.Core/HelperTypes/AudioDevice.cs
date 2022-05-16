@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
 
 namespace VolumeControl.Core.HelperTypes
@@ -19,7 +20,7 @@ namespace VolumeControl.Core.HelperTypes
         #region Fields
         private readonly string _deviceID;
         private MMDevice _device;
-        private (Icon, Icon)? _icons = null;
+        private (ImageSource?, ImageSource?)? _icons = null;
         #endregion Fields
 
         #region Properties
@@ -29,8 +30,8 @@ namespace VolumeControl.Core.HelperTypes
         public string DeviceID => _deviceID;
         public string InstanceID => _device.InstanceId;
         public string IconPath => _device.IconPath;
-        public Icon? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
-        public Icon? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
+        public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
         public string DeviceFriendlyName => _device.DeviceFriendlyName;
         public string FriendlyName => _device.FriendlyName;
         public PropertyStore Properties => _device.Properties;

@@ -13,7 +13,7 @@ namespace VolumeControl.Core.HelperTypes.Lists
             base.OnPropertyChanged(new("Count"));
             base.OnPropertyChanged(new("Items[]"));
         }
-        public void AddRange(IEnumerable<T> range, NotifyCollectionChangedAction notify = NotifyCollectionChangedAction.Add)
+        public void AddRange(IEnumerable<T> range)
         {
             foreach (T item in range) Add(item);
         }

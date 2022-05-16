@@ -174,6 +174,13 @@
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
+            <!-- Image Icons -->
+            <Style x:Key="IconImageStyle" TargetType="Image">
+                <Setter Property="MaxHeight" Value="16"/>
+                <Setter Property="MaxWidth" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
 
 
             <ResourceDictionary x:Key="ComboBoxResources">
@@ -677,7 +684,15 @@
                         <DataGridTemplateColumn Header="Process Name" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ProcessName, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding ProcessName, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                        <Image Grid.Column="1" HorizontalAlignment="Right" Source="{Binding SmallIcon, Mode=OneTime}" Style="{StaticResource IconImageStyle}"
+                                               Visibility="{Binding IsChecked, Source={x:Reference cbShowIcons}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -898,13 +913,26 @@
                               Grid.Column="1"
                               Style="{StaticResource ComboBoxStyle}"
                               ItemsSource="{Binding Devices, BindsDirectlyToSource=True}"
-                              DisplayMemberPath="Name"
                               SelectedItem="{Binding SelectedDevice, UpdateSourceTrigger=LostFocus}"
                               DataContext="{StaticResource AudioAPI}"
                               ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown in the mixer."
                               VerticalAlignment="Center"
                               IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"
-                              DropDownOpened="Handle_ReloadDevicesClick"/>
+                              DropDownOpened="Handle_ReloadDevicesClick">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="20"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" Style="{StaticResource TextBlockStyle}"/>
+                                    <Image Grid.Column="1" HorizontalAlignment="Right" Source="{Binding SmallIcon, Mode=OneWay}" Style="{StaticResource IconImageStyle}"
+                                           Visibility="{Binding IsChecked, Source={x:Reference cbShowIcons}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <CheckBox x:Name="cbAllDevices"
                               Grid.Column="3"
                               Content="Check All Devices"
@@ -984,6 +1012,15 @@
                             Content="Reset Hotkeys"
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"/>
+
+
+                    <CheckBox x:Name="cbShowIcons"
+                              Grid.Column="2"
+                              HorizontalAlignment="Left"
+                              Margin="3,0,0,0"
+                              Content="Show Icons"
+                              ToolTip="Determines whether or not icons are shown for audio devices and sessions."
+                              Style="{StaticResource CheckBoxStyle}"/>
                     <Button x:Name="bOpenGithub"
                             Content="Github Repository"
                             Margin="3,0,3,3"

@@ -193,5 +193,17 @@ namespace VolumeControl.Properties {
                 return ((string)(this["UpdateURL"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowIcons {
+            get {
+                return ((bool)(this["ShowIcons"]));
+            }
+            set {
+                this["ShowIcons"] = value;
+            }
+        }
     }
 }

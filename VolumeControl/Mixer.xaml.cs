@@ -6,7 +6,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
@@ -41,11 +40,12 @@ namespace VolumeControl
             if (Settings.RunAtStartup && !_startupHelper.RunAtStartup)
                 _startupHelper.RunAtStartup = true;
             cbRunAtStartup.IsChecked = _startupHelper.RunAtStartup;
+            cbShowIcons.IsChecked = Settings.ShowIcons;
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
 
             _notifyIcon = new();
-            _notifyIcon.Icon = Properties.Resources.icon_16x16_VC;
+            _notifyIcon.Icon = Properties.Resources.iconSilvered;
             _notifyIcon.Visible = true;
             _notifyIcon.Text = $"Volume Control {version}";
             _notifyIcon.Click += (s, e) =>
@@ -69,6 +69,7 @@ namespace VolumeControl
             Settings.AlwaysOnTop = Topmost;
             Settings.StartMinimized = cbStartMinimized.IsChecked.GetValueOrDefault(false);
             Settings.RunAtStartup = cbRunAtStartup.IsChecked.GetValueOrDefault(false);
+            Settings.ShowIcons = cbShowIcons.IsChecked ?? Settings.ShowIcons;
             // Save Window Settings:
             Settings.Save();
             Settings.Reload();

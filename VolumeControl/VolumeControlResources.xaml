@@ -15,7 +15,7 @@
     <hklib:KeysList x:Key="KeyOptions"/>
     <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
     <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-
+    
     <wpf:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
     <wpf:BooleanInverter x:Key="InvertConverter"/>
 </ResourceDictionary>

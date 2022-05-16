@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
 using VolumeControl.Log;
 
@@ -25,7 +26,7 @@ namespace VolumeControl.Core.HelperTypes
                 ProcessName = string.Empty;
         }
 
-        private (Icon, Icon)? _icons = null;
+        private (ImageSource?, ImageSource?)? _icons = null;
         private readonly AudioSessionControl _controller;
         private bool _processValid = false;
 
@@ -33,8 +34,8 @@ namespace VolumeControl.Core.HelperTypes
         public AudioSessionState State => _controller.State;
         public bool Valid => _processValid;
         public string IconPath => _controller.IconPath;
-        public Icon? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
-        public Icon? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
+        public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
         /// <inheritdoc/>
         public int Volume
         {
