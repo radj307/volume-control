@@ -44,12 +44,14 @@ namespace VolumeControl
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
 
+            // Tray icon
             _notifyIcon = new();
             _notifyIcon.Icon = Properties.Resources.iconSilvered;
             _notifyIcon.Visible = true;
             _notifyIcon.Text = $"Volume Control {version}";
             _notifyIcon.Click += (s, e) =>
             {
+                WindowState = WindowState.Normal;
                 Show();
             };
         }

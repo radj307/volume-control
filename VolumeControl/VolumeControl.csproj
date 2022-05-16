@@ -49,6 +49,8 @@
     <None Remove="Resources\images\foreground.png" />
     <None Remove="Resources\images\icon.png" />
     <None Remove="Resources\images\iconSilvered.png" />
+    <None Remove="Resources\images\reload-white.png" />
+    <None Remove="Resources\images\reload.png" />
     <None Remove="Resources\LICENSE" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +100,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\images\iconSilvered.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload-white.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LICENSE">

@@ -294,9 +294,8 @@ namespace VolumeControl.Core
             // add all devices that aren't in the current list. (new)
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
 
-            // unset the selected device if it doesn't exist anymore:
-            if (!LockSelectedDevice && selID != null && !Devices.Any(dev => dev.DeviceID.Equals(selID, StringComparison.Ordinal)))
-                SelectedDevice = null;
+            if (!LockSelectedDevice && selID != null)
+                SelectedDevice = Devices.FirstOrDefault(dev => dev.DeviceID.Equals(selID, StringComparison.Ordinal));
 
             if (SelectedDevice == null)
                 Sessions.Clear();
@@ -370,8 +369,8 @@ namespace VolumeControl.Core
             // add all sessions that aren't already in the current list
             Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
 
-            if (!LockSelectedSession && selPID != null && !Sessions.Any(s => s.PID.Equals(selPID)))
-                SelectedSession = null;
+            if (!LockSelectedSession && selPID != null)
+                SelectedSession = Sessions.FirstOrDefault(s => s.PID.Equals(selPID));
 
             NotifyProcessListRefresh(EventArgs.Empty);
             NotifyPropertyChanged(nameof(Sessions));
