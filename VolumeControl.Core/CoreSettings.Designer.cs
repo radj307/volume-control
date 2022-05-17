@@ -104,8 +104,8 @@ namespace VolumeControl.Core {
   <string>Volume Up::VolumeUp::Volume Up</string>
   <string>Volume Down::VolumeDown::Volume Down</string>
   <string>Toggle Mute::VolumeMute::Toggle Mute</string>
-  <string>Next Session::Ctrl+Shift+Alt+E::Next Session</string>
-  <string>Previous Session::Ctrl+Shift+Alt+Q::Previous Session</string>
+  <string>Next Session::Ctrl+Shift+Alt+E::Select Next Session</string>
+  <string>Previous Session::Ctrl+Shift+Alt+Q::Select Previous Session</string>
   <string>Lock Session::Ctrl+Shift+Alt+S::Toggle Session Lock</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Hotkeys_Default {

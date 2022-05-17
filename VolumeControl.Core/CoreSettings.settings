@@ -29,8 +29,8 @@
   &lt;string&gt;Volume Up::VolumeUp::Volume Up&lt;/string&gt;
   &lt;string&gt;Volume Down::VolumeDown::Volume Down&lt;/string&gt;
   &lt;string&gt;Toggle Mute::VolumeMute::Toggle Mute&lt;/string&gt;
-  &lt;string&gt;Next Session::Ctrl+Shift+Alt+E::Next Session&lt;/string&gt;
-  &lt;string&gt;Previous Session::Ctrl+Shift+Alt+Q::Previous Session&lt;/string&gt;
+  &lt;string&gt;Next Session::Ctrl+Shift+Alt+E::Select Next Session&lt;/string&gt;
+  &lt;string&gt;Previous Session::Ctrl+Shift+Alt+Q::Select Previous Session&lt;/string&gt;
   &lt;string&gt;Lock Session::Ctrl+Shift+Alt+S::Toggle Session Lock&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
