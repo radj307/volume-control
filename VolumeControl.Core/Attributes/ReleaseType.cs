@@ -49,7 +49,7 @@
         public ERelease Type => _releaseType;
         public ReleaseType(string value) : base(value)
         {
-            var result = System.Enum.Parse(typeof(ERelease), String, true);
+            var result = Enum.Parse(typeof(ERelease), String, true);
             _releaseType = result != null ? (ERelease)result : ERelease.NONE;
         }
     }

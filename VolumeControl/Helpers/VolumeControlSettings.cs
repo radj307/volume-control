@@ -59,7 +59,7 @@ namespace VolumeControl.Helpers
         /// <summary>Static accessor for <see cref="Properties.Settings.Default"/>.</summary>
         private static Properties.Settings Settings => Properties.Settings.Default;
         /// <summary>Static accessor for <see cref="Core.CoreSettings.Default"/>.</summary>
-        private static Core.CoreSettings CoreSettings => Core.CoreSettings.Default;
+        private static Core.CoreSettings CoreSettings => CoreSettings.Default;
         /// <summary>Static accessor for <see cref="Log.Properties.Settings.Default"/>.</summary>
         private static Log.Properties.Settings LogSettings => global::VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => global::VolumeControl.Log.FLog.Log;

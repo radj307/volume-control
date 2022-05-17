@@ -28,7 +28,7 @@ namespace VolumeControl.Core.HelperTypes
                         (uint)Marshal.SizeOf(typeof(SHFILEINFO)),
                         flags))
             {
-                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                return Imaging.CreateBitmapSourceFromHIcon(
                             shfi.hIcon,
                             Int32Rect.Empty,
                             BitmapSizeOptions.FromEmptyOptions());
@@ -47,7 +47,7 @@ namespace VolumeControl.Core.HelperTypes
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
             public string szTypeName;
         }
-        [DllImport("shell32")]
+        [DllImport("shell32", CharSet = CharSet.Unicode)]
         private static extern int SHGetFileInfo(string pszPath, uint dwFileAttributes, out SHFILEINFO psfi, uint cbFileInfo, uint flags);
 
         private const uint FILE_ATTRIBUTE_READONLY = 0x00000001;

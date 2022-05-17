@@ -23,7 +23,7 @@ namespace VolumeControl.WPF
             {
                 _parent = parent;
                 _ev = ev;
-                Name = System.Enum.GetName(typeof(EventType), _ev) ?? string.Empty;
+                Name = Enum.GetName(typeof(EventType), _ev) ?? string.Empty;
             }
             private readonly BindableEventType _parent;
             private readonly EventType _ev;
@@ -110,7 +110,7 @@ namespace VolumeControl.WPF
         /// </summary>
         private void InitializeOptions()
         {
-            foreach (EventType e in (EventType[])System.Enum.GetValues(typeof(EventType)))
+            foreach (EventType e in (EventType[])Enum.GetValues(typeof(EventType)))
             {
                 if (e != EventType.NONE && e != EventType.ALL && e != EventType.ALL_EXCEPT_DEBUG)
                     Options.Add(new(this, e));
