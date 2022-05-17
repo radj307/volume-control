@@ -8,9 +8,10 @@ namespace VolumeControl.Log
     public static class FLog
     {
         #region Members
-        private static string _filepath = string.Empty;
-        private static EventType _filter = EventType.NONE;
         private static bool _initialized = false;
+
+        private static EventType _filter;
+        private static string? _logpath;
         private static LogWriter _log = null!;
         #endregion Members
 
@@ -62,8 +63,8 @@ namespace VolumeControl.Log
         /// </summary>
         public static string FilePath
         {
-            get => _filepath;
-            internal set => _filepath = value;
+            get => _logpath;
+            internal set => _logpath = value;
         }
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
@@ -116,11 +117,18 @@ namespace VolumeControl.Log
         }
         private static void HandlePropertyChanged(object sender, EventArgs e)
         {
-            EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
-            var endpoint = new FileEndpoint(Settings.Default.LogPath, Settings.Default.EnableLogging);
+            bool enabled = Log.Endpoint.Enabled;
+            if (enabled != Settings.Default.EnableLogging || FilePath != Settings.Default.LogPath || EventFilter != (EventType)Settings.Default.LogAllowedEventTypeFlag)
+            {
+                EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
+                FilePath = Settings.Default.LogPath;
+                enabled = Settings.Default.EnableLogging;
 
-            CreateLog(endpoint);
-            WriteInitMessage("Re-Initialized");
+                var endpoint = new FileEndpoint(FilePath, enabled);
+
+                CreateLog(endpoint);
+                WriteInitMessage("Re-Initialized");
+            }
         }
         #endregion Methods
     }

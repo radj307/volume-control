@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.Properties;
 
@@ -10,10 +11,9 @@ namespace VolumeControl
         {
             InitializeComponent();
         }
-
-        #region Properties
-        private static Settings Settings => Settings.Default;
-        private static LogWriter Log => FLog.Log;
-        #endregion Properties
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            (FindResource("Settings") as VolumeControlSettings)?.Dispose();
+        }
     }
 }

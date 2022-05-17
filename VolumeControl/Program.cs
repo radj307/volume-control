@@ -9,30 +9,6 @@ using VolumeControl.Log;
 
 namespace VolumeControl
 {
-    /// <summary>
-    /// Wrapper for the GUI portion of the program.
-    /// </summary>
-    internal class VolumeControlApplicationController
-    {
-        private readonly App vcApp;
-
-        internal VolumeControlApplicationController() => vcApp = new App();
-
-        public int Run() => vcApp.Run();
-
-        public object TryRun()
-        {
-            try
-            {
-                return Run();
-            }
-            catch (Exception ex)
-            {
-                return ex;
-            }
-        }
-    }
-
     internal static class Program
     {
         #region Statics
@@ -102,20 +78,13 @@ namespace VolumeControl
                 return;
             }
 
-            // Add a logging event handler
-            Settings.SettingsSaving += (s, e) =>
+            var app = new App();
+            try
             {
-                Log.Debug("Saved current settings to the config file.");
-            };
-
-            var app = new VolumeControlApplicationController();
-            var rv = app.TryRun();
-
-            if (rv is int rc)
-            {
+                int rc = app.Run();
                 Log.Info($"App exited with code {rc}");
             }
-            else if (rv is Exception ex)
+            catch (Exception ex)
             {
                 Log.FatalException(ex, "App exited because of an unhandled exception!");
             }

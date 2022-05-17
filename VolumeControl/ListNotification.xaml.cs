@@ -93,12 +93,7 @@ namespace VolumeControl
             set => SetValue(EnabledProperty, _enabled = value);
         }
         private static void OnEnabledChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            if (element is ListNotification lnotif)
-            {
-                lnotif._enabled = lnotif.Enabled = (bool)e.NewValue;
-            }
-        }
+            => ((ListNotification)element).Enabled = (bool)e.NewValue;
         #endregion Enabled
 
         #region SliderVisibility
@@ -109,12 +104,7 @@ namespace VolumeControl
             set => SetValue(SliderVisibilityProperty, value);
         }
         private static void OnSliderVisibilityChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            if (element is ListNotification lnotif && lnotif.sliderGrid != null)
-            {
-                lnotif.SliderVisibility = (Visibility)e.NewValue;
-            }
-        }
+            => ((ListNotification)element).SliderVisibility = (Visibility)e.NewValue;
         #endregion SliderVisibility
 
         #region SliderValue
@@ -125,12 +115,7 @@ namespace VolumeControl
             set => SetValue(SliderValueProperty, slider.Value = value);
         }
         private static void OnSliderValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            if (element is ListNotification lnotif && lnotif.slider != null)
-            {
-                lnotif.SliderValue = (double)e.NewValue;
-            }
-        }
+            => ((ListNotification)element).SliderValue = (double)e.NewValue;
         #endregion SliderValue
 
         #region ValueText
@@ -141,12 +126,7 @@ namespace VolumeControl
             set => SetValue(ValueTextProperty, value);
         }
         private static void OnValueTextChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            if (element is ListNotification lnotif && lnotif.valueBox != null)
-            {
-                lnotif.ValueText = Convert.ToString(e.NewValue);
-            }
-        }
+            => ((ListNotification)element).ValueText = Convert.ToString(e.NewValue);
         #endregion ValueText
 
         #region LockSelection
@@ -157,9 +137,7 @@ namespace VolumeControl
             set => SetValue(LockSelectionProperty, value);
         }
         private static void OnLockSelectionChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            ((ListNotification)element).LockSelection = (bool)e.NewValue;
-        }
+            => ((ListNotification)element).LockSelection = (bool)e.NewValue;
         #endregion LockSelection
 
         #region ShowIcons
@@ -170,12 +148,7 @@ namespace VolumeControl
             set => SetValue(ShowIconsProperty, value);
         }
         private static void OnShowIconsChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
-        {
-            if (element is ListNotification lnotif)
-            {
-                lnotif.ShowIcons = Convert.ToBoolean(e.NewValue);
-            }
-        }
+            => ((ListNotification)element).ShowIcons = Convert.ToBoolean(e.NewValue);
         #endregion ShowIcons
         #endregion DependencyProperties
     }

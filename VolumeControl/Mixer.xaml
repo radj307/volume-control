@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
-        xmlns:local="clr-namespace:VolumeControl"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -16,8 +15,9 @@
         StateChanged="Window_StateChanged"
         Loaded="Window_Loaded">
     <Window.Background>
-        <SolidColorBrush Color="#303030"/>
+        <SolidColorBrush Color="#EE303030"/>
     </Window.Background>
+    
     <Window.Style>
         <!-- Set Window Style Properties -->
         <Style TargetType="Window">
@@ -168,13 +168,6 @@
                 <Setter Property="Background" Value="#505055"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
-            </Style>
-            <!-- Image Icons -->
-            <Style x:Key="IconImageStyle" TargetType="Image">
-                <Setter Property="MaxHeight" Value="16"/>
-                <Setter Property="MaxWidth" Value="16"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
             </Style>
 
 

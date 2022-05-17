@@ -10,7 +10,7 @@ using VolumeControl.WPF;
 
 namespace VolumeControl.Helpers
 {
-    public class VolumeControlSettings : INotifyPropertyChanged, INotifyCollectionChanged
+    public class VolumeControlSettings : INotifyPropertyChanged, INotifyCollectionChanged, IDisposable
     {
         public VolumeControlSettings()
         {
@@ -34,27 +34,7 @@ namespace VolumeControl.Helpers
 
         ~VolumeControlSettings()
         {
-            // VolumeControl
-            Settings.ShowIcons = ShowIcons;
-            // save settings
-            Settings.Save();
-            Settings.Reload();
-
-            // VolumeControl.Core
-            // save coresettings
-            CoreSettings.Save();
-            CoreSettings.Reload();
-
-            // VolumeControl.Log
-            // save logsettings
-            LogSettings.Save();
-            LogSettings.Reload();
-
-            Log.Debug($"{nameof(VolumeControlSettings)} finished saving settings from all assemblies.");
-
-            // Dispose of objects
-            AudioAPI.Dispose();
-            HotkeyAPI.Dispose();
+            Dispose(disposing: true);
         }
 
         #region Events
@@ -64,6 +44,7 @@ namespace VolumeControl.Helpers
 
         #region Fields
         private bool _showIcons;
+        private bool disposedValue;
         private readonly AudioAPI _audioAPI;
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
@@ -114,6 +95,45 @@ namespace VolumeControl.Helpers
 
                 Log.Info("Hotkey definitions were reset to default.");
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // VolumeControl
+                    Settings.ShowIcons = ShowIcons;
+                    // save settings
+                    Settings.Save();
+                    Settings.Reload();
+
+                    // VolumeControl.Core
+                    // save coresettings
+                    CoreSettings.Save();
+                    CoreSettings.Reload();
+
+                    // VolumeControl.Log
+                    // save logsettings
+                    LogSettings.Save();
+                    LogSettings.Reload();
+
+                    Log.Debug($"{nameof(VolumeControlSettings)} finished saving settings from all assemblies.");
+
+                    // Dispose of objects
+                    AudioAPI.Dispose();
+                    HotkeyAPI.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion SettingsManipulation
         #endregion Methods

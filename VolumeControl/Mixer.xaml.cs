@@ -67,6 +67,8 @@ namespace VolumeControl
         {
             _notifyIcon.Dispose();
 
+            HotkeyAPI.Dispose();
+
             // Apply Window Settings:
             Settings.AdvancedHotkeys = cbAdvancedHotkeys.IsChecked ?? Settings.AdvancedHotkeys;
             Settings.ShowInTaskbar = ShowInTaskbar;
