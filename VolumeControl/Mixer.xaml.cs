@@ -53,8 +53,8 @@ namespace VolumeControl
             _notifyIcon.Text = $"Volume Control {version}";
             _notifyIcon.Click += (s, e) =>
             {
-                WindowState = WindowState.Normal;
                 Show();
+                WindowState = WindowState.Normal;
             };
         }
 
