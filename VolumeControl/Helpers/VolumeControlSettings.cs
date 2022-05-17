@@ -1,27 +1,37 @@
 ﻿using HotkeyLib;
+using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using VolumeControl.Core;
+using VolumeControl.Core.HotkeyActions;
+using VolumeControl.WPF;
 
 namespace VolumeControl.Helpers
 {
-    public class VolumeControlSettings : INotifyPropertyChanged
+    public class VolumeControlSettings : INotifyPropertyChanged, INotifyCollectionChanged
     {
         public VolumeControlSettings()
         {
             _audioAPI = new();
-            _hotkeyManager = new()
-            {
-                AudioAPI = _audioAPI
-            };
+            _hWndMixer = WindowHandleGetter.GetWindowHandle();
+            _hotkeyManager = new(new HotkeyActionManager(new AudioAPIActions(_audioAPI), new WindowsAPIActions(_hWndMixer)));
 
             ShowIcons = Settings.ShowIcons;
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
-            _hotkeyManager.EndInit();
+
+            _audioAPI.PropertyChanged += (s, e) => OnPropertyChanged($"AudioAPI.{e.PropertyName}");
         }
+
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        {
+            add => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
+        }
+
         ~VolumeControlSettings()
         {
             // VolumeControl
@@ -41,6 +51,10 @@ namespace VolumeControl.Helpers
             LogSettings.Reload();
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished saving settings from all assemblies.");
+
+            // Dispose of objects
+            AudioAPI.Dispose();
+            HotkeyAPI.Dispose();
         }
 
         #region Events
@@ -50,8 +64,9 @@ namespace VolumeControl.Helpers
 
         #region Fields
         private bool _showIcons;
-        private AudioAPI _audioAPI;
-        private HotkeyManager _hotkeyManager;
+        private readonly AudioAPI _audioAPI;
+        private readonly HotkeyManager _hotkeyManager;
+        private readonly IntPtr _hWndMixer;
         #endregion Fields
 
         #region Properties

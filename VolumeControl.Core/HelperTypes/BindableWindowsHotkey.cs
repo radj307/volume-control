@@ -37,8 +37,8 @@ namespace VolumeControl.Core.HelperTypes
             set
             {
                 if (_actionName.Length > 0)
-                    Pressed -= _manager.ActionBindings[_actionName];
-                Pressed += _manager.ActionBindings[_actionName = value];
+                    Pressed -= _manager.Actions[_actionName];
+                Pressed += _manager.Actions[_actionName = value];
             }
         }
 

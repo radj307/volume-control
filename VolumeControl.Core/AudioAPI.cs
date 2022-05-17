@@ -643,6 +643,8 @@ namespace VolumeControl.Core
         /// <inheritdoc/>
         public void Dispose()
         {
+            SaveSettings();
+
             ReloadTimer.Dispose();
             GC.SuppressFinalize(this);
         }

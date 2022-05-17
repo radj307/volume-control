@@ -1,16 +1,43 @@
-﻿<Application
+﻿<Application xmlns:core="clr-namespace:VolumeControl.Core;assembly=VolumeControl.Core"
+             xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
+             xmlns:local="clr-namespace:VolumeControl"
+             xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+             xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+             xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+             xmlns:logEnum="clr-namespace:VolumeControl.Log;assembly=VolumeControl.Log"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VolumeControl" x:Class="VolumeControl.App"
+             x:Class="VolumeControl.App"
              StartupUri="Mixer.xaml"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Helpers/VolumeControlResources.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
+
+            <hklib:KeysList x:Key="KeyOptions"/>
+            <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
+            <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <wpf:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
+            <wpf:BooleanInverter x:Key="InvertConverter"/>
+            <wpf:NullToBooleanConverter x:Key="IsNullConverter"/>
+
+            <wpf:ConverterChain x:Key="SessionNotificationSliderVisibilityChainConverter">
+                <wpf:NullToBooleanConverter/>
+                <wpf:BooleanInverter/>
+                <Controls:BooleanToVisibilityConverter/>
+            </wpf:ConverterChain>
+
+            <helpers:VolumeControlSettings x:Key="Settings"/>
+
+            <local:ListNotification x:Key="Notification"
+                            LockSelection="{Binding AudioAPI.LockSelectedSession, Mode=OneWay}"
+                            SliderValue="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ValueText="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            SliderVisibility="{Binding AudioAPI.SelectedSession, Converter={StaticResource SessionNotificationSliderVisibilityChainConverter}}"
+                            ShowIcons="{Binding ShowIcons}"
+                            DataContext="{StaticResource Settings}"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

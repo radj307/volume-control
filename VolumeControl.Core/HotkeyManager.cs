@@ -1,68 +1,56 @@
 ﻿using HotkeyLib;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows.Interop;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.HelperTypes.Lists;
-using VolumeControl.Core.HotkeyActions;
+using VolumeControl.Core.HotkeyActions.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.WPF;
 
 namespace VolumeControl.Core
 {
-    public class HotkeyManager : ISupportInitialize, IDisposable
+    public class HotkeyManager : INotifyCollectionChanged, IDisposable
     {
-        /// <inheritdoc/>
-        public void BeginInit()
+        public HotkeyManager(IHotkeyActionManager actionManager)
         {
+            _hotkeyActions = actionManager;
+            Initialize();
         }
-        /// <inheritdoc/>
-        /// <remarks>The <see cref="HotkeyManager"/> object uses this instead of constructors so that it can correctly load hotkeys with the action binding context needed.</remarks>
-        public void EndInit()
-        {
-            HwndSource = WindowHandleGetter.GetHwndSource(OwnerHandle = WindowHandleGetter.GetWindowHandle());
-            HwndSource.AddHook(HwndHook);
-            Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
 
-            _actionBindings = new(new AudioAPIActions(AudioAPI), new WindowsAPIActions(OwnerHandle));
-            _initialized = true;
+        protected virtual void Initialize()
+        {
+            AddHook();
+
+            ActionNames = _hotkeyActions.GetActionNames();
 
             LoadHotkeys();
-
-            ActionNames = _actionBindings.GetActionNames();
         }
 
         #region Fields
         public IntPtr OwnerHandle;
         private HwndSource HwndSource = null!;
-        private AudioAPI _audioAPI = null!;
-        private bool _initialized = false;
-        private ActionBindings _actionBindings = null!;
+        private readonly IHotkeyActionManager _hotkeyActions = null!;
         private bool disposedValue;
         #endregion Fields
+
+        #region Events
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        {
+            add => ((INotifyCollectionChanged)Hotkeys).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)Hotkeys).CollectionChanged -= value;
+        }
+        #endregion Events
 
         #region Properties
         private static CoreSettings Settings => CoreSettings.Default;
         private static LogWriter Log => FLog.Log;
-        public AudioAPI AudioAPI
-        {
-            get => _audioAPI;
-            set
-            {
-                if (_audioAPI == null)
-                    _audioAPI = value;
-            }
-        }
-        public ActionBindings ActionBindings
-        {
-            get => _initialized ? _actionBindings ??= new(OwnerHandle, AudioAPI) : null!;
-            set => _actionBindings = value;
-        }
+        public IHotkeyActionManager Actions => _hotkeyActions;
         public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
         public List<string> ActionNames { get; set; } = null!;
         #endregion Properties
 
         #region Methods
+        #region HotkeysListManipulators
         /// <summary>
         /// Create a new hotkey and add it to <see cref="Hotkeys"/>.
         /// </summary>
@@ -115,7 +103,13 @@ namespace VolumeControl.Core
                 Hotkeys.RemoveAt(i);
             }
         }
+        #endregion HotkeysListManipulators
+
+        #region HotkeysListGetters
         public BindableWindowsHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
+        #endregion HotkeysListGetters
+
+        #region HotkeysListSaveLoad
         internal void LoadHotkeys()
         {
             // set the settings hotkeys to default if they're null
@@ -164,10 +158,13 @@ namespace VolumeControl.Core
             Settings.Reload();
             LoadHotkeys();
         }
+        #endregion HotkeysListSaveLoad
+
+        #region WindowsMessageHook
         /// <summary>
         /// Handles window messages, and triggers <see cref="WindowsHotkey.Pressed"/> events.
         /// </summary>
-        private IntPtr HwndHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        protected virtual IntPtr HwndHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
@@ -183,38 +180,51 @@ namespace VolumeControl.Core
             return IntPtr.Zero;
         }
         /// <summary>
+        /// Adds a window message hook to receive hotkey press messages and route them to the associated event trigger.
+        /// </summary>
+        protected virtual void AddHook()
+        {
+            if (HwndSource == null)
+                HwndSource = WindowHandleGetter.GetHwndSource(OwnerHandle = WindowHandleGetter.GetWindowHandle());
+            HwndSource.AddHook(HwndHook);
+            Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
+        }
+        /// <summary>
         /// Removes the message hook from the application's handle.
         /// </summary>
-        public void RemoveHook()
+        protected virtual void RemoveHook()
         {
             HwndSource.RemoveHook(HwndHook);
             HwndSource.Dispose();
             Log.Debug("HotkeyManager HwndHook was removed, 'WM_HOTKEY' messages will no longer be received.");
+            HwndSource = null!;
         }
+        #endregion WindowsMessageHook
 
-        protected virtual void Dispose(bool disposing)
+        #region IDisposable
+        private void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    DelAllHotkeys();
-                    HwndSource.Dispose();
+                    SaveHotkeys(); //< this saves hotkeys to the settings file
+                    DelAllHotkeys(); //< this cleans up Windows API hotkey registrations
+                    RemoveHook(); //< this removes the message hook and disposes of HwndSource
                 }
 
                 OwnerHandle = IntPtr.Zero;
                 disposedValue = true;
             }
         }
-
         ~HotkeyManager() { Dispose(disposing: false); }
-
         /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        #endregion IDisposable
         #endregion Methods
     }
 }

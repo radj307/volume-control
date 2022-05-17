@@ -80,10 +80,6 @@ namespace VolumeControl
             // Save Log Settings
             LogSettings.Save();
             LogSettings.Reload();
-            // Save CoreSettings:
-            AudioAPI.SaveSettings();
-            HotkeyAPI.SaveHotkeys();
-            HotkeyAPI.RemoveHook();
 
             e.Cancel = false;
         }

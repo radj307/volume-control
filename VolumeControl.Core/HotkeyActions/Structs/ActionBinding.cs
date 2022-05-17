@@ -12,8 +12,8 @@ namespace VolumeControl.Core.HotkeyActions.Structs
     {
         /// <param name="mInfo">A MethodInfo object representing the target method.</param>
         /// <param name="handlerObj">The class instance that contains the method.</param>
-        /// <param name="hAttr">The <see cref="HandlerAttribute"/> belonging to the target method.</param>
-        public ActionBinding(MethodInfo mInfo, object? handlerObj, HandlerAttribute hAttr)
+        /// <param name="hAttr">The <see cref="HotkeyActionAttribute"/> belonging to the target method.</param>
+        public ActionBinding(MethodInfo mInfo, object? handlerObj, HotkeyActionAttribute hAttr)
         {
             Name = hAttr.ActionName ?? mInfo.Name;
             MethodInfo = mInfo;

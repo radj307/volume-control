@@ -11,11 +11,13 @@ namespace VolumeControl.WPF
     public static class WindowHandleGetter
     {
         /// <summary>
-        /// Gets the primary WPF window's handle.
+        /// Gets the primary WPF window's handle.<br/>This uses <see cref="WindowInteropHelper.EnsureHandle"/> to ensure that a valid handle is always returned at any point during initialization.
         /// </summary>
-        /// <remarks>This uses <see cref="WindowInteropHelper.EnsureHandle"/> to ensure that a valid handle is always returned at any point during initialization.</remarks>
         /// <returns><see cref="IntPtr"/> set to the current WPF window's handle.</returns>
-        public static IntPtr GetWindowHandle() => new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
+        public static IntPtr GetWindowHandle(Window wnd) => new WindowInteropHelper(wnd).EnsureHandle();
+        /// <inheritdoc cref="GetWindowHandle(Window)"/>
+        /// <remarks><b>Without parameters, this function uses the main window's handle using the <see cref="Application.MainWindow"/> property from <see cref="Application.Current"/>.</b></remarks>
+        public static IntPtr GetWindowHandle() => GetWindowHandle(Application.Current.MainWindow);
         /// <summary>
         /// Gets the <see cref="HwndSource"/> associated with the given Window Handle <paramref name="hWnd"/>.
         /// </summary>

@@ -34,21 +34,15 @@
     </Window.Style>
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Helpers/VolumeControlResources.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            
-            <!-- Resources -->
-            
             <!-- Border Thickness -->
             <sys:Thickness x:Key="ExteriorBorderThickness">3</sys:Thickness>
             <!-- Window Border Style -->
             <Style x:Key="WindowBorderStyle" TargetType="Border">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding LockSelection, Source={x:Reference lnotifWindow}}" Value="True">
+                    <DataTrigger Binding="{Binding Tag, Mode=OneWay, Source={x:Reference edgeBorder}}" Value="False">
                         <Setter Property="BorderBrush" Value="Green"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding LockSelection, Source={x:Reference lnotifWindow}}" Value="False">
+                    <DataTrigger Binding="{Binding Tag, Mode=OneWay, Source={x:Reference edgeBorder}}" Value="True">
                         <Setter Property="BorderBrush" Value="Red"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -108,7 +102,7 @@
                 <GridViewColumn Width="28">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            <Image Visibility="{Binding ShowIcons, Mode=OneWay, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Source="{Binding Icon}" Style="{StaticResource ImageStyle}"/>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
@@ -142,7 +136,11 @@
     </Window.Resources>
 
     <Grid>
-        <Border Style="{StaticResource WindowBorderStyle}"/>
+        <Border x:Name="edgeBorder"
+                Style="{StaticResource WindowBorderStyle}"
+                Tag="{Binding AudioAPI.LockSelectedSession, Source={StaticResource Settings}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+        </Border>
         <Grid Style="{StaticResource InteriorGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

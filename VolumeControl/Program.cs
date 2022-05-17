@@ -18,9 +18,6 @@ namespace VolumeControl
 
         internal VolumeControlApplicationController() => vcApp = new App();
 
-        public AudioAPI AudioAPI => (vcApp.FindResource("AudioAPI") as AudioAPI)!;
-        public HotkeyManager HotkeyManager => (vcApp.FindResource("HotkeyAPI") as HotkeyManager)!;
-
         public int Run() => vcApp.Run();
 
         public object TryRun()

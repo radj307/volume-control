@@ -34,11 +34,6 @@
     <!--( Static Resources )-->
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Helpers/VolumeControlResources.xaml"/>
-                <!-- Merge Resource Dictionary -->
-            </ResourceDictionary.MergedDictionaries>
-
             <!-- CheckBox -->
             <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
                 <Setter Property="ClickMode" Value="Press"/>

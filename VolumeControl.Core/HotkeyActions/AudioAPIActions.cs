@@ -16,15 +16,15 @@ namespace VolumeControl.Core.HotkeyActions
         private AudioAPI AudioAPI { get; }
 
         #region Actions
-        [Handler("Volume Up")] public void VolumeUp(object? sender, HandledEventArgs e) => AudioAPI.IncrementSessionVolume();
-        [Handler("Volume Down")] public void VolumeDown(object? sender, HandledEventArgs e) => AudioAPI.DecrementSessionVolume();
-        [Handler("Toggle Mute")] public void ToggleMute(object? sender, HandledEventArgs e) => AudioAPI.ToggleSessionMute();
-        [Handler("Next Session")] public void SelectNextSession(object? sender, HandledEventArgs e) => AudioAPI.SelectNextSession();
-        [Handler("Previous Session")] public void SelectPreviousSession(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousSession();
-        [Handler("Toggle Session Lock")] public void ToggleSessionLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
-        [Handler("Next Device")] public void SelectNextDevice(object? sender, HandledEventArgs e) => AudioAPI.SelectNextDevice();
-        [Handler("Previous Device")] public void SelectPreviousDevice(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousDevice();
-        [Handler("Toggle Device Lock")] public void ToggleDeviceLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedDevice = !AudioAPI.LockSelectedDevice;
+        [HotkeyAction] public void VolumeUp(object? sender, HandledEventArgs e) => AudioAPI.IncrementSessionVolume();
+        [HotkeyAction] public void VolumeDown(object? sender, HandledEventArgs e) => AudioAPI.DecrementSessionVolume();
+        [HotkeyAction] public void ToggleMute(object? sender, HandledEventArgs e) => AudioAPI.ToggleSessionMute();
+        [HotkeyAction] public void SelectNextSession(object? sender, HandledEventArgs e) => AudioAPI.SelectNextSession();
+        [HotkeyAction] public void SelectPreviousSession(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousSession();
+        [HotkeyAction] public void ToggleSessionLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
+        [HotkeyAction] public void SelectNextDevice(object? sender, HandledEventArgs e) => AudioAPI.SelectNextDevice();
+        [HotkeyAction] public void SelectPreviousDevice(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousDevice();
+        [HotkeyAction] public void ToggleDeviceLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedDevice = !AudioAPI.LockSelectedDevice;
         #endregion Actions
     }
 }
