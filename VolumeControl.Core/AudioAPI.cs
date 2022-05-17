@@ -164,7 +164,6 @@ namespace VolumeControl.Core
                 _selectedSession = value;
                 _target = _selectedSession?.ProcessIdentifier ?? string.Empty;
                 // Trigger associated events
-                NotifySessionSwitch(); //< SelectedSessionSwitched
                 NotifyTargetChanged(new(_target)); //< Selected
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Target));
@@ -183,6 +182,7 @@ namespace VolumeControl.Core
                 _lockSelectedDevice = value;
 
                 NotifyPropertyChanged();
+                NotifyLockSelectedDeviceChanged();
 
                 Log.Info($"Selected device was {(value ? "" : "un")}locked");
             }
@@ -195,6 +195,7 @@ namespace VolumeControl.Core
                 _lockSelectedSession = value;
 
                 NotifyPropertyChanged();
+                NotifyLockSelectedSessionChanged();
 
                 Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
             }
@@ -247,9 +248,17 @@ namespace VolumeControl.Core
         /// </summary>
         public event EventHandler? SelectedDeviceSwitched;
         /// <summary>
+        /// Triggered when the value of the <see cref="LockSelectedDevice"/> property is changed.
+        /// </summary>
+        public event EventHandler? LockSelectedDeviceChanged;
+        /// <summary>
         /// Triggered when the selected session is changed.
         /// </summary>
         public event EventHandler? SelectedSessionSwitched;
+        /// <summary>
+        /// Triggered when the value of the <see cref="LockSelectedSession"/> property is changed.
+        /// </summary>
+        public event EventHandler? LockSelectedSessionChanged;
         /// <summary>
         /// Triggered when the <see cref="Target"/> property is changed.
         /// </summary>
@@ -262,7 +271,9 @@ namespace VolumeControl.Core
         private void NotifyDeviceListRefresh(EventArgs e) => DeviceListReloaded?.Invoke(this, e);
         private void NotifyProcessListRefresh(EventArgs e) => SessionListReloaded?.Invoke(this, e);
         private void NotifyDeviceSwitch() => SelectedDeviceSwitched?.Invoke(this, new());
+        private void NotifyLockSelectedDeviceChanged() => LockSelectedDeviceChanged?.Invoke(this, new());
         private void NotifySessionSwitch() => SelectedSessionSwitched?.Invoke(this, new());
+        private void NotifyLockSelectedSessionChanged() => LockSelectedSessionChanged?.Invoke(this, new());
         private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChanged?.Invoke(this, e);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events

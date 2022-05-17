@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using VolumeControl.Core.Extensions;
 
 namespace VolumeControl
 {
@@ -10,36 +9,80 @@ namespace VolumeControl
     /// </summary>
     public partial class ListNotification : Window
     {
+        #region Initializers
         public ListNotification()
         {
             InitializeComponent();
-            _timeoutTimer.Tick += Handle_TimeoutTimerTick!;
+
+            // Apply settings
+            _enabled = Settings.NotificationEnabled;
+            TimeoutTimer.Interval = Settings.NotificationTimeoutInterval;
+
+            // Add an event handler
+            TimeoutTimer.Tick += Handle_TimeoutTimerTick!;
         }
+        #endregion Initializers
 
-        private readonly System.Windows.Forms.Timer _timeoutTimer = new() { Enabled = false };
+        #region Finalizers
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Apply settings
+            Settings.NotificationEnabled = _enabled;
+            Settings.NotificationTimeoutInterval = TimeoutTimer.Interval;
+            // Save settings
+            Settings.Save();
+            Settings.Reload();
+        }
+        #endregion Finalizers
+
+        #region Fields
+        public readonly System.Windows.Forms.Timer TimeoutTimer = new() { Enabled = false };
         private bool _enabled = false;
+        #endregion Fields
 
+        #region Properties
+        private static Properties.Settings Settings => Properties.Settings.Default;
+        public decimal TimeoutInterval
+        {
+            get => TimeoutTimer.Interval;
+            set => TimeoutTimer.Interval = Convert.ToInt32(value);
+        }
+        #endregion Properties
+
+        #region Methods
         public new void Show()
         {
             if (!_enabled)
                 return;
 
             base.Show();
-            _timeoutTimer.Start();
+            TimeoutTimer.StartOrReset();
         }
         public new void Hide()
         {
-            _timeoutTimer.Stop();
+            TimeoutTimer.Stop();
             base.Hide();
         }
+        #endregion Methods
 
+        #region EventHandlers
         private void Handle_TimeoutTimerTick(object sender, EventArgs e) => Hide();
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) => e.Cancel = true;
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var rect = SystemParameters.WorkArea;
             Left = rect.Right - ActualWidth - 10;
             Top = rect.Bottom - ActualHeight - 10;
         }
+        private void ControlGotFocus(object sender, RoutedEventArgs e) => TimeoutTimer.Stop();
+        private void ControlLostFocus(object sender, RoutedEventArgs e) => TimeoutTimer.Start();
+        private void ControlMouseEnter(object sender, System.Windows.Input.MouseEventArgs e) => TimeoutTimer.Stop();
+        private void ControlMouseLeave(object sender, System.Windows.Input.MouseEventArgs e) => TimeoutTimer.Start();
+        private void ControlDragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) => TimeoutTimer.Stop();
+        private void ControlDragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) => TimeoutTimer.Start();
+        private void ControlGotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) => TimeoutTimer.Stop();
+        private void ControlLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) => TimeoutTimer.Start();
+        #endregion EventHandlers
 
         #region DependencyProperties
         #region Enabled
@@ -78,8 +121,8 @@ namespace VolumeControl
         public static readonly DependencyProperty SliderValueProperty = DependencyProperty.Register("SliderValue", typeof(double), typeof(ListNotification), new(0.0, OnSliderValueChanged));
         public double SliderValue
         {
-            get => System.Convert.ToDouble(GetValue(SliderValueProperty));
-            set => SetValue(SliderValueProperty, value);
+            get => slider.Value = Convert.ToDouble(GetValue(SliderValueProperty));
+            set => SetValue(SliderValueProperty, slider.Value = value);
         }
         private static void OnSliderValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
@@ -94,14 +137,14 @@ namespace VolumeControl
         public static readonly DependencyProperty ValueTextProperty = DependencyProperty.Register("ValueText", typeof(string), typeof(ListNotification), new(string.Empty, OnValueTextChanged));
         public string? ValueText
         {
-            get => System.Convert.ToString(GetValue(ValueTextProperty));
+            get => Convert.ToString(GetValue(ValueTextProperty));
             set => SetValue(ValueTextProperty, value);
         }
         private static void OnValueTextChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
             if (element is ListNotification lnotif && lnotif.valueBox != null)
             {
-                lnotif.ValueText = System.Convert.ToString(e.NewValue);
+                lnotif.ValueText = Convert.ToString(e.NewValue);
             }
         }
         #endregion ValueText
@@ -110,33 +153,30 @@ namespace VolumeControl
         public static readonly DependencyProperty LockSelectionProperty = DependencyProperty.Register("LockSelection", typeof(bool), typeof(ListNotification), new(false, OnLockSelectionChanged));
         public bool LockSelection
         {
-            get => System.Convert.ToBoolean(GetValue(LockSelectionProperty));
+            get => Convert.ToBoolean(GetValue(LockSelectionProperty));
             set => SetValue(LockSelectionProperty, value);
         }
         private static void OnLockSelectionChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
-            if (element is ListNotification lnotif)
-            {
-                lnotif.LockSelection = System.Convert.ToBoolean(e.NewValue);
-            }
+            ((ListNotification)element).LockSelection = (bool)e.NewValue;
         }
         #endregion LockSelection
 
-        #region Timeout
-        public static readonly DependencyProperty TimeoutProperty = DependencyProperty.Register("Timeout", typeof(int), typeof(ListNotification), new(3000, OnTimeoutChanged));
-        public int Timeout
+        #region ShowIcons
+        public static readonly DependencyProperty ShowIconsProperty = DependencyProperty.Register("ShowIcons", typeof(bool), typeof(ListNotification), new(Settings.ShowIcons, OnShowIconsChanged));
+        public bool ShowIcons
         {
-            get => System.Convert.ToInt32(GetValue(TimeoutProperty));
-            set => SetValue(TimeoutProperty, value);
+            get => Convert.ToBoolean(GetValue(ShowIconsProperty));
+            set => SetValue(ShowIconsProperty, value);
         }
-        private static void OnTimeoutChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
+        private static void OnShowIconsChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
         {
             if (element is ListNotification lnotif)
             {
-                lnotif.Timeout = lnotif._timeoutTimer.Interval = System.Convert.ToInt32(e.NewValue);
+                lnotif.ShowIcons = Convert.ToBoolean(e.NewValue);
             }
         }
-        #endregion Timeout
+        #endregion ShowIcons
         #endregion DependencyProperties
     }
 }

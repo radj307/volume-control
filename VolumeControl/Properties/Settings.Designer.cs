@@ -137,54 +137,6 @@ namespace VolumeControl.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public double SwitchNotificationInterval {
-            get {
-                return ((double)(this["SwitchNotificationInterval"]));
-            }
-            set {
-                this["SwitchNotificationInterval"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowSessionNotifications {
-            get {
-                return ((bool)(this["ShowSessionNotifications"]));
-            }
-            set {
-                this["ShowSessionNotifications"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowDeviceNotifications {
-            get {
-                return ((bool)(this["ShowDeviceNotifications"]));
-            }
-            set {
-                this["ShowDeviceNotifications"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public double NotificationTimeout {
-            get {
-                return ((double)(this["NotificationTimeout"]));
-            }
-            set {
-                this["NotificationTimeout"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/radj307/volume-control/releases")]
@@ -203,6 +155,30 @@ namespace VolumeControl.Properties {
             }
             set {
                 this["ShowIcons"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int NotificationTimeoutInterval {
+            get {
+                return ((int)(this["NotificationTimeoutInterval"]));
+            }
+            set {
+                this["NotificationTimeoutInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NotificationEnabled {
+            get {
+                return ((bool)(this["NotificationEnabled"]));
+            }
+            set {
+                this["NotificationEnabled"] = value;
             }
         }
     }

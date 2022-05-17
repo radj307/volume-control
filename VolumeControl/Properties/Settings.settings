@@ -32,22 +32,16 @@
     <Setting Name="AllowMultipleInstances" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SwitchNotificationInterval" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">3000</Value>
-    </Setting>
-    <Setting Name="ShowSessionNotifications" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ShowDeviceNotifications" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="NotificationTimeout" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">3000</Value>
-    </Setting>
     <Setting Name="UpdateURL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://github.com/radj307/volume-control/releases</Value>
     </Setting>
     <Setting Name="ShowIcons" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="NotificationTimeoutInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3000</Value>
+    </Setting>
+    <Setting Name="NotificationEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

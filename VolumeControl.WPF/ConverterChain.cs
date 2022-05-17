@@ -8,6 +8,7 @@ namespace VolumeControl.WPF
 {
     public class ConverterChain : List<IValueConverter>, IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             foreach (var item in this)
@@ -19,6 +20,7 @@ namespace VolumeControl.WPF
             }
             return value;
         }
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException(nameof(ConverterChain.ConvertBack));
     }
 }

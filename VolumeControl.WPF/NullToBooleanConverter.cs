@@ -10,7 +10,9 @@ namespace VolumeControl.WPF
     /// <remarks>Returns true when the object is null.</remarks>
     public class NullToBooleanConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value == null;
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value == null;
     }
 }

@@ -4,9 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
-        xmlns:notify="http://www.hardcodet.net/taskbar"
         xmlns:ctrlz="urn:controlzex"
         xmlns:local="clr-namespace:VolumeControl"
         mc:Ignorable="d"
@@ -37,7 +35,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="VolumeControlResources.xaml"/>
+                <ResourceDictionary Source="Helpers/VolumeControlResources.xaml"/>
                 <!-- Merge Resource Dictionary -->
             </ResourceDictionary.MergedDictionaries>
 
@@ -551,9 +549,9 @@
                              Margin="3,0,3,0"
                              Height="23"
                              ToolTip="You can enter the Process ID or Process Name of any valid audio session here."
-                             Text="{Binding Target, UpdateSourceTrigger=LostFocus}"
-                             DataContext="{StaticResource AudioAPI}"
-                             IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
+                             Text="{Binding AudioAPI.Target, UpdateSourceTrigger=LostFocus}"
+                             DataContext="{StaticResource Settings}"
+                             IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
                              Style="{StaticResource TextBoxStyle}"/>
                     <!--▲ TEXTBOX WATERMARK ▼-->
                     <TextBlock Grid.Column="1"
@@ -568,8 +566,8 @@
                               Width="52"
                               Height="Auto"
                               Margin="2,0,9,0"
-                              DataContext="{StaticResource AudioAPI}"
-                              IsChecked="{Binding LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                              DataContext="{StaticResource Settings}"
+                              IsChecked="{Binding AudioAPI.LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                               Style="{StaticResource CheckBoxStyle}"/>
                 </Grid>
 
@@ -609,9 +607,9 @@
                               Content="On Hotkey"
                               ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed."
                               Margin="3,0,3,0"
-                              IsChecked="{Binding ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
+                              IsChecked="{Binding AudioAPI.ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
                               ClickMode="Press"
-                              DataContext="{StaticResource AudioAPI}"
+                              DataContext="{StaticResource Settings}"
                               Style="{StaticResource CheckBoxStyle}"/>
                     <Grid Grid.Column="4"
                           Grid.Row="1">
@@ -623,9 +621,9 @@
                         <CheckBox x:Name="cbReloadOnInterval"
                               Content="Automatic"
                               ToolTip="Automatically reloads the mixer sessions on an interval."
-                              IsChecked="{Binding ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
+                              IsChecked="{Binding AudioAPI.ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
                               ClickMode="Press"
-                              DataContext="{StaticResource AudioAPI}"
+                              DataContext="{StaticResource Settings}"
                               Style="{StaticResource CheckBoxStyle}"/>
                         <Controls:NumericUpDown HorizontalAlignment="Left"
                                             Grid.Column="1"
@@ -633,10 +631,10 @@
                                             ToolTip="Reload Interval in Milliseconds"
                                             MaxDecimalPlaces="0"
                                             IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
-                                            MinValue="{Binding ReloadIntervalMin}"
-                                            MaxValue="{Binding ReloadIntervalMax}"
-                                            Value="{Binding ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            DataContext="{StaticResource AudioAPI}"
+                                            MinValue="{Binding AudioAPI.ReloadIntervalMin}"
+                                            MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
+                                            Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DataContext="{StaticResource Settings}"
                                             Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
 
@@ -657,7 +655,7 @@
                                                 DecimalPlaces="0"
                                                 MinValue="0"
                                                 MaxValue="100"
-                                                Value="{Binding VolumeStepSize, Source={StaticResource AudioAPI}, UpdateSourceTrigger=PropertyChanged}"
+                                                Value="{Binding AudioAPI.VolumeStepSize, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
                 </Grid>
@@ -667,13 +665,13 @@
                         Grid.Row="4"
                         Style="{StaticResource BorderStyle}"/>
                 <DataGrid x:Name="MixerGrid"
-                          ItemsSource="{Binding Sessions}"
+                          ItemsSource="{Binding AudioAPI.Sessions}"
                           Grid.Column="1"
                           Grid.Row="4"
                           Margin="1"
                           AutoGenerateColumns="False"
                           Style="{StaticResource DataGridStyle}"
-                          DataContext="{StaticResource AudioAPI}">
+                          DataContext="{StaticResource Settings}">
                     <DataGrid.Columns>
                         <!-- PID -->
                         <DataGridTemplateColumn Header="PID" Width="Auto" IsReadOnly="True">
@@ -689,12 +687,12 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding ProcessName, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                        <Image Grid.Column="1" HorizontalAlignment="Right" Source="{Binding SmallIcon, Mode=OneTime}" Style="{StaticResource IconImageStyle}"
-                                               Visibility="{Binding IsChecked, Source={x:Reference cbShowIcons}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                        <Image HorizontalAlignment="Left" Source="{Binding Icon, Mode=OneTime}" Style="{StaticResource IconImageStyle}"
+                                               Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding ProcessName, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -761,8 +759,8 @@
                           CanUserReorderColumns="False"
                           Padding="1"
                           AutoGenerateColumns="False"
-                          DataContext="{StaticResource HotkeyAPI}"
-                          ItemsSource="{Binding Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                          DataContext="{StaticResource Settings}"
+                          ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource DataGridStyle}">
 
                     <DataGrid.Columns>
@@ -827,7 +825,7 @@
                         <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding ActionNames, Source={StaticResource HotkeyAPI}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                    <ComboBox ItemsSource="{Binding HotkeyAPI.ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -911,16 +909,16 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Device"
                            Style="{StaticResource LabelStyle}"
-                           IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}"/>
+                           IsEnabled="{Binding IsChecked, ElementName=cbAllDevices, Converter={StaticResource InvertConverter}}"/>
                     <ComboBox x:Name="DeviceSelectorBox"
                               Grid.Column="1"
                               Style="{StaticResource ComboBoxStyle}"
-                              ItemsSource="{Binding Devices, BindsDirectlyToSource=True}"
-                              SelectedItem="{Binding SelectedDevice, UpdateSourceTrigger=LostFocus}"
-                              DataContext="{StaticResource AudioAPI}"
+                              ItemsSource="{Binding AudioAPI.Devices, BindsDirectlyToSource=True}"
+                              SelectedItem="{Binding AudioAPI.SelectedDevice, UpdateSourceTrigger=LostFocus}"
+                              DataContext="{StaticResource Settings}"
                               ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown in the mixer."
                               VerticalAlignment="Center"
-                              IsEnabled="{c:Binding !IsChecked, ElementName=cbAllDevices}">
+                              IsEnabled="{Binding IsChecked, ElementName=cbAllDevices, Converter={StaticResource InvertConverter}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -929,8 +927,8 @@
                                         <ColumnDefinition Width="20"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Name, Mode=OneWay}" Style="{StaticResource TextBlockStyle}"/>
-                                    <Image Grid.Column="1" HorizontalAlignment="Right" Source="{Binding SmallIcon, Mode=OneWay}" Style="{StaticResource IconImageStyle}"
-                                           Visibility="{Binding IsChecked, Source={x:Reference cbShowIcons}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <Image Grid.Column="1" HorizontalAlignment="Right" Source="{Binding Icon, Mode=OneWay}" Style="{StaticResource IconImageStyle}"
+                                           Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -952,8 +950,8 @@
                               Grid.Column="4"
                               Content="Check All Devices"
                               ToolTip="When this is checked, the device dropdown is ignored and all devices are used instead."
-                              IsChecked="{Binding CheckAllDevices, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, BindsDirectlyToSource=True}"
-                              DataContext="{StaticResource AudioAPI}"
+                              IsChecked="{Binding AudioAPI.CheckAllDevices, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, BindsDirectlyToSource=True}"
+                              DataContext="{StaticResource Settings}"
                               Style="{StaticResource CheckBoxStyle}"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
@@ -968,6 +966,7 @@
                       Grid.Row="3"
                       Margin="5,3,2,3"
                       VerticalAlignment="Center">
+                    <!-- Main Column & Row Definitions -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3.8*"/>
                         <ColumnDefinition Width="5*"/>
@@ -979,10 +978,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Show in Taskbar Cell -->
                     <CheckBox Content="Show in Taskbar"
                               HorizontalAlignment="Left"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!-- Always On Top Cell -->
                     <CheckBox Content="Always on Top"
                               Grid.Row="1"
                               HorizontalAlignment="Left"
@@ -990,6 +991,7 @@
                               IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+                    <!-- Run At Startup Cell -->
                     <CheckBox x:Name="cbRunAtStartup"
                               Grid.Column="1"
                               Content="Run at Startup"
@@ -998,6 +1000,7 @@
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_RunAtStartupChecked"
                               Unchecked="Handle_RunAtStartupUnchecked"/>
+                    <!-- Start Minimized Cell -->
                     <CheckBox x:Name="cbStartMinimized"
                               Grid.Column="1"
                               Grid.Row="1"
@@ -1008,7 +1011,7 @@
                               Checked="Handle_StartMinimizeChecked"
                               Unchecked="Handle_StartMinimizeUnchecked"/>
 
-
+                    <!-- Advanced Hotkeys Cell -->
                     <CheckBox x:Name="cbAdvancedHotkeys"
                               Margin="0,0,0,3"
                               Grid.ColumnSpan="1"
@@ -1019,6 +1022,7 @@
                               Style="{StaticResource CheckBoxStyle}"
                               Checked="Handle_ShowActionBindingsChecked"
                               Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                    <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
                             Margin="3,0,3,3"
                             Grid.Column="1"
@@ -1028,6 +1032,7 @@
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"/>
 
+                    <!-- Notifications Cell -->
                     <Grid Grid.Row="1" 
                           Grid.Column="2">
                         <Grid.ColumnDefinitions>
@@ -1035,11 +1040,14 @@
                             <ColumnDefinition Width="3"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Content="Notifications"
+                        <!-- Enable Notifications Checkbox Control -->
+                        <CheckBox x:Name="cbEnableNotifications"
+                                  Content="Notifications"
                                   ToolTip="The notification appears when switching target sessions using hotkeys."
                                   IsChecked="{Binding Enabled, Source={StaticResource Notification}}"
                                   Margin="3,0,0,0"
                                   Style="{StaticResource CheckBoxStyle}"/>
+                        <!-- Timeout Numeric Up Down Control -->
                         <Controls:NumericUpDown Grid.Column="2"
                                                 Style="{StaticResource NumericUpDownStyle}"
                                                 Width="66"
@@ -1049,17 +1057,19 @@
                                                 DecimalPlaces="0"
                                                 MinValue="250"
                                                 MaxValue="60000"
-                                                d:Value="60000"
-                                                Value="{Binding Timeout, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Value="{Binding TimeoutInterval, Mode=TwoWay, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
 
+                    <!-- Show Icons Cell -->
                     <CheckBox x:Name="cbShowIcons"
                               Grid.Column="2"
                               HorizontalAlignment="Left"
                               Margin="3,0,0,0"
                               Content="Show Icons"
                               ToolTip="Determines whether or not icons are shown for audio devices and sessions."
+                              IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
+                    <!-- Open Github Cell -->
                     <Button x:Name="bOpenGithub"
                             Content="Github Repository"
                             Margin="3,0,3,3"

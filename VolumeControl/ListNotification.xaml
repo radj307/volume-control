@@ -15,7 +15,11 @@
         WindowStartupLocation="Manual"
         SizeChanged="Window_SizeChanged"
         DataContext="{RelativeSource Self}"
-        d:LockSelection="True">
+        Closing="Window_Closing"
+        Unloaded="Window_Unloaded"
+        ResizeMode="NoResize"
+        Focusable="False"
+        ShowActivated="False">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="Background">
@@ -31,16 +35,14 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="VolumeControlResources.xaml"/>
+                <ResourceDictionary Source="Helpers/VolumeControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <!-- Resources -->
-            <sys:Thickness x:Key="ExteriorBorderThickness">3</sys:Thickness>
             
-            <Style x:Key="DividerStyle" TargetType="Border">
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="BorderBrush" Value="#55FFFFFF"/>
-            </Style>
+            <!-- Border Thickness -->
+            <sys:Thickness x:Key="ExteriorBorderThickness">3</sys:Thickness>
+            <!-- Window Border Style -->
             <Style x:Key="WindowBorderStyle" TargetType="Border">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding LockSelection, Source={x:Reference lnotifWindow}}" Value="True">
@@ -52,53 +54,87 @@
                 </Style.Triggers>
                 <Setter Property="BorderThickness" Value="{StaticResource ExteriorBorderThickness}"/>
             </Style>
+            <!-- Grid Style -->
             <Style x:Key="InteriorGridStyle" TargetType="Grid">
                 <Setter Property="Margin" Value="{StaticResource ExteriorBorderThickness}"/>
             </Style>
+            <!-- Section Divider Style -->
+            <Style x:Key="DividerStyle" TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#55FFFFFF"/>
+            </Style>
+            <!-- ListView Hidden Headers Style -->
             <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
                 <Setter Property="Visibility" Value="Collapsed"/>
             </Style>
+            <!-- ListView Style -->
             <Style x:Key="ListViewStyle" TargetType="ListView">
                 <Setter Property="SelectionMode" Value="Single"/>
-                <Setter Property="Background" Value="#55000000"/>
-                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style>
-
-            <Style x:Key="SliderGridStyle" TargetType="Grid">
-                <Setter Property="Background" Value="#55000000"/>
-            </Style>
-            <Style x:Key="SliderStyle" TargetType="Slider">
-                <Setter Property="IsSnapToTickEnabled" Value="True"/>
-            </Style>
-
-            <Style x:Key="ValueboxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
+            <!-- Session Control Panel Style -->
+            <Style x:Key="SliderGridStyle" TargetType="Grid">
+                <Setter Property="Background" Value="#55000000"/>
+            </Style>
+            <!-- Session Control Panel Slider Style -->
+            <Style x:Key="SliderStyle" TargetType="Slider">
+                <Setter Property="IsSnapToTickEnabled" Value="True"/>
+            </Style>
+            <!-- Session Control Panel TextBox Style -->
+            <Style x:Key="ValueboxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="#00000000"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            </Style>
+            <!-- TextBlock Style -->
+            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Background" Value="#00000000"/>
+                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            </Style>
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Stretch" Value="UniformToFill"/>
+                <Setter Property="MaxHeight" Value="16"/>
+                <Setter Property="MaxWidth" Value="16"/>
+            </Style>
 
+            <!-- Session GridView -->
             <GridView x:Key="GridViewAudioAPISessions" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
-                <GridViewColumn Width="60" Header="PID">
+                <!-- Icon Column -->
+                <GridViewColumn Width="28">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding PID}"/>
+                            <Image Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   Source="{Binding Icon}" Style="{StaticResource ImageStyle}"/>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
+                <!-- PID Column -->
+                <GridViewColumn Width="60" Header="PID">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding PID}" Style="{StaticResource TextBlockStyle}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <!-- ProcessName Column -->
                 <GridViewColumn Width="80" Header="Process Name">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ProcessName}"/>
+                            <TextBlock Text="{Binding ProcessName}" Style="{StaticResource TextBlockStyle}"/>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
             </GridView>
-
+            <!-- Devices GridView -->
             <GridView x:Key="GridViewAudioAPIDevices" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
                 <GridViewColumn>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockStyle}"/>
                     </DataTemplate>
                 </GridViewColumn>
             </GridView>
@@ -116,38 +152,42 @@
 
             <!-- Column 0: Slider -->
             <Grid x:Name="sliderGrid"
-              Visibility="{Binding SliderVisibility, ElementName=lnotifWindow}"
-              Style="{StaticResource SliderGridStyle}">
+                  Visibility="{Binding SliderVisibility, ElementName=lnotifWindow, Mode=OneWay}"
+                  Style="{StaticResource SliderGridStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="26"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBox x:Name="valueBox"
-                     Text="{Binding ValueText, ElementName=lnotifWindow}"
-                     Style="{StaticResource ValueboxStyle}"
-                     VerticalAlignment="Stretch"
-                     VerticalContentAlignment="Center"/>
+                         Text="{Binding AudioAPI.SelectedSession.Volume, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ValueboxStyle}"
+                         VerticalAlignment="Stretch"
+                         VerticalContentAlignment="Center"
+                         GotKeyboardFocus="ControlGotKeyboardFocus"
+                         LostKeyboardFocus="ControlLostKeyboardFocus"/>
                 <Slider x:Name="slider"
-                    Margin="1"
-                    Grid.Column="1"
-                    Orientation="Horizontal"
-                    Minimum="0"
-                    Maximum="100"
-                    VerticalAlignment="Stretch"
-                    VerticalContentAlignment="Center"
-                    Value="{Binding SliderValue, ElementName=lnotifWindow}"
-                    Style="{StaticResource SliderStyle}"/>
+                        Margin="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Minimum="0"
+                        Maximum="100"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Value="{Binding AudioAPI.SelectedSession.Volume, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource SliderStyle}"
+                        Thumb.DragStarted="ControlDragStarted"
+                        Thumb.DragCompleted="ControlDragCompleted"/>
             </Grid>
 
             <Border Grid.Row="1" Style="{StaticResource DividerStyle}"/>
 
             <!-- Column 1: ListView -->
             <ListView x:Name="listView"
-                  Grid.Row="2"
-                  Style="{StaticResource ListViewStyle}"
-                  ItemsSource="{Binding Sessions, Source={StaticResource AudioAPI}}"
-                  View="{StaticResource GridViewAudioAPISessions}"/>
+                      Grid.Row="2"
+                      Style="{StaticResource ListViewStyle}"
+                      ItemsSource="{Binding AudioAPI.Sessions, Source={StaticResource Settings}}"
+                      View="{StaticResource GridViewAudioAPISessions}"/>
         </Grid>
     </Grid>
 </Window>

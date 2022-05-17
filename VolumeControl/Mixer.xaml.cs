@@ -6,10 +6,10 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
+using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.Win32;
 using VolumeControl.WPF;
@@ -42,6 +42,7 @@ namespace VolumeControl
                 _startupHelper.RunAtStartup = true;
             cbRunAtStartup.IsChecked = _startupHelper.RunAtStartup;
             cbShowIcons.IsChecked = Settings.ShowIcons;
+            cbEnableNotifications.IsChecked = Settings.NotificationEnabled;
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
 
@@ -95,8 +96,9 @@ namespace VolumeControl
 
         #region Properties
         private ListNotification ListNotification => (FindResource("Notification") as ListNotification)!;
-        private AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
-        private HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
+        private VolumeControlSettings VCSettings => (FindResource("Settings") as VolumeControlSettings)!;
+        private AudioAPI AudioAPI => VCSettings.AudioAPI;
+        private HotkeyManager HotkeyAPI => VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Properties.Settings Settings => Properties.Settings.Default;
         private static CoreSettings CoreSettings => CoreSettings.Default;
@@ -238,10 +240,8 @@ namespace VolumeControl
             var lnotif = ListNotification;
             lnotif.Owner = this;
 
-            AudioAPI.SelectedSessionSwitched += (s, e) =>
-            {
-                ListNotification.Show();
-            };
+            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.Show();
+            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.Show();
         }
         #endregion EventHandlers
     }

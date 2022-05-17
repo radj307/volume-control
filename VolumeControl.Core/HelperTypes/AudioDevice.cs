@@ -1,6 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
@@ -32,6 +31,7 @@ namespace VolumeControl.Core.HelperTypes
         public string IconPath => _device.IconPath;
         public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
         public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
+        public ImageSource? Icon => SmallIcon ?? LargeIcon;
         public string DeviceFriendlyName => _device.DeviceFriendlyName;
         public string FriendlyName => _device.FriendlyName;
         public PropertyStore Properties => _device.Properties;

@@ -2,7 +2,6 @@
 using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Core.Interfaces;
@@ -36,6 +35,11 @@ namespace VolumeControl.Core.HelperTypes
         public string IconPath => _controller.IconPath;
         public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
         public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
+        /// <summary>
+        /// Gets the large or small icon, depending on whether they are null or not.
+        /// </summary>
+        /// <remarks>Checks and returns <see cref="LargeIcon"/> first, if that is null then it checks and returns <see cref="SmallIcon"/>.<br/>If both are null, returns null.</remarks>
+        public ImageSource? Icon => SmallIcon ?? LargeIcon;
         /// <inheritdoc/>
         public int Volume
         {
