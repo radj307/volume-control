@@ -7,6 +7,7 @@ namespace VolumeControl.WPF
     /// <summary>
     /// <see cref="Binding"/> converter for boolean types that negates the expression.
     /// </summary>
+    [ValueConversion(typeof(bool), typeof(bool))]
     public class BooleanInverter : IValueConverter
     {
         /// <inheritdoc/>

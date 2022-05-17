@@ -15,7 +15,8 @@
         Icon="/Resources/icons/icon-16x16-VC.ico"
         Closing="Window_Closing"
         Initialized="Window_Initialized"
-        StateChanged="Window_StateChanged">
+        StateChanged="Window_StateChanged"
+        Loaded="Window_Loaded">
     <Window.Background>
         <SolidColorBrush Color="#303030"/>
     </Window.Background>
@@ -150,6 +151,7 @@
                 <Setter Property="AlternatingRowBackground" Value="#454545"/>
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource MixerHeadersStyle}"/>
                 <Setter Property="CellStyle" Value="{StaticResource MixerCellStyle}"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
@@ -506,7 +508,7 @@
         </TabControl.Resources>
 
 
-        <!--▼ Mixer ▼-->
+        <!--▼ Mixer Tab ▼-->
         <TabItem Header="Mixer" Name="MixerTab">
             <Grid HorizontalAlignment="Center"
                   VerticalAlignment="Top"
@@ -549,7 +551,7 @@
                              Margin="3,0,3,0"
                              Height="23"
                              ToolTip="You can enter the Process ID or Process Name of any valid audio session here."
-                             Text="{Binding Target, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, BindsDirectlyToSource=True, IsAsync=True}"
+                             Text="{Binding Target, UpdateSourceTrigger=LostFocus}"
                              DataContext="{StaticResource AudioAPI}"
                              IsEnabled="{c:Binding ElementName=cbLockTargetSelection, Path=!IsChecked}"
                              Style="{StaticResource TextBoxStyle}"/>
@@ -677,7 +679,7 @@
                         <DataGridTemplateColumn Header="PID" Width="Auto" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding PID, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock Margin="3,0" Text="{Binding PID, Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -732,7 +734,6 @@
                                 <DataTemplate>
                                     <Button Click="Handle_ProcessSelectClick" 
                                             Content="Select"
-                                            Padding="3,1,3,1"
                                             Style="{StaticResource ButtonStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -742,10 +743,10 @@
 
             </Grid>
         </TabItem>
-        <!--▲ Mixer ▲-->
+        <!--▲ Mixer Tab ▲-->
 
 
-        <!--▼ Hotkeys ▼-->
+        <!--▼ Hotkeys Tab ▼-->
         <TabItem Header="Hotkeys" Name="HotkeysTab">
             <!-- HotkeyGrid -->
             <Grid Margin="2">
@@ -857,10 +858,10 @@
                         Style="{StaticResource ButtonStyle}"/>
             </Grid>
         </TabItem>
-        <!--▲ Hotkeys ▲-->
+        <!--▲ Hotkeys Tab ▲-->
 
 
-        <!--▼ Settings ▼-->
+        <!--▼ Settings Tab ▼-->
         <TabItem Header="Settings" Name="SettingsTab">
             <Grid HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
@@ -965,12 +966,12 @@
 
                 <Grid Grid.ColumnSpan="3"
                       Grid.Row="3"
-                      Margin="5,3"
+                      Margin="5,3,2,3"
                       VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3.8*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -1027,6 +1028,30 @@
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"/>
 
+                    <Grid Grid.Row="1" 
+                          Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Content="Notifications"
+                                  ToolTip="The notification appears when switching target sessions using hotkeys."
+                                  IsChecked="{Binding Enabled, Source={StaticResource Notification}}"
+                                  Margin="3,0,0,0"
+                                  Style="{StaticResource CheckBoxStyle}"/>
+                        <Controls:NumericUpDown Grid.Column="2"
+                                                Style="{StaticResource NumericUpDownStyle}"
+                                                Width="66"
+                                                Height="22"
+                                                Margin="0,1,0,1"
+                                                ToolTip="The time in milliseconds before the notification disappears after being displayed."
+                                                DecimalPlaces="0"
+                                                MinValue="250"
+                                                MaxValue="60000"
+                                                d:Value="60000"
+                                                Value="{Binding Timeout, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
 
                     <CheckBox x:Name="cbShowIcons"
                               Grid.Column="2"
@@ -1138,6 +1163,6 @@
                 </DockPanel>
             </Grid>
         </TabItem>
-        <!--▲ Settings ▲-->
+        <!--▲ Settings Tab ▲-->
     </ctrlz:TabControlEx>
 </Window>

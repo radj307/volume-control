@@ -1,0 +1,153 @@
+﻿<Window x:Name="lnotifWindow"
+        x:Class="VolumeControl.ListNotification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VolumeControl"
+        xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
+        mc:Ignorable="d"
+        Title="ListNotification"
+        SizeToContent="WidthAndHeight"
+        Topmost="True"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        WindowStartupLocation="Manual"
+        SizeChanged="Window_SizeChanged"
+        DataContext="{RelativeSource Self}"
+        d:LockSelection="True">
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" SpreadMethod="Reflect">
+                        <GradientStop Offset="0" Color="#454545"/>
+                        <GradientStop Offset="1" Color="#606060"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="VolumeControlResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Resources -->
+            <sys:Thickness x:Key="ExteriorBorderThickness">3</sys:Thickness>
+            
+            <Style x:Key="DividerStyle" TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#55FFFFFF"/>
+            </Style>
+            <Style x:Key="WindowBorderStyle" TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding LockSelection, Source={x:Reference lnotifWindow}}" Value="True">
+                        <Setter Property="BorderBrush" Value="Green"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding LockSelection, Source={x:Reference lnotifWindow}}" Value="False">
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="BorderThickness" Value="{StaticResource ExteriorBorderThickness}"/>
+            </Style>
+            <Style x:Key="InteriorGridStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="{StaticResource ExteriorBorderThickness}"/>
+            </Style>
+            <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+            <Style x:Key="ListViewStyle" TargetType="ListView">
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="Background" Value="#55000000"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <Style x:Key="SliderGridStyle" TargetType="Grid">
+                <Setter Property="Background" Value="#55000000"/>
+            </Style>
+            <Style x:Key="SliderStyle" TargetType="Slider">
+                <Setter Property="IsSnapToTickEnabled" Value="True"/>
+            </Style>
+
+            <Style x:Key="ValueboxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="#00000000"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <GridView x:Key="GridViewAudioAPISessions" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                <GridViewColumn Width="60" Header="PID">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding PID}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Width="80" Header="Process Name">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ProcessName}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+            </GridView>
+
+            <GridView x:Key="GridViewAudioAPIDevices" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                <GridViewColumn>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </GridViewColumn>
+            </GridView>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource WindowBorderStyle}"/>
+        <Grid Style="{StaticResource InteriorGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Column 0: Slider -->
+            <Grid x:Name="sliderGrid"
+              Visibility="{Binding SliderVisibility, ElementName=lnotifWindow}"
+              Style="{StaticResource SliderGridStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="valueBox"
+                     Text="{Binding ValueText, ElementName=lnotifWindow}"
+                     Style="{StaticResource ValueboxStyle}"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Center"/>
+                <Slider x:Name="slider"
+                    Margin="1"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Minimum="0"
+                    Maximum="100"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Value="{Binding SliderValue, ElementName=lnotifWindow}"
+                    Style="{StaticResource SliderStyle}"/>
+            </Grid>
+
+            <Border Grid.Row="1" Style="{StaticResource DividerStyle}"/>
+
+            <!-- Column 1: ListView -->
+            <ListView x:Name="listView"
+                  Grid.Row="2"
+                  Style="{StaticResource ListViewStyle}"
+                  ItemsSource="{Binding Sessions, Source={StaticResource AudioAPI}}"
+                  View="{StaticResource GridViewAudioAPISessions}"/>
+        </Grid>
+    </Grid>
+</Window>

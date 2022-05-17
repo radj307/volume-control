@@ -206,11 +206,13 @@ namespace VolumeControl.Core
             {
                 if (LockSelectedSession)
                     return;
-                _target = (_selectedSession = FindSessionWithIdentifier(value))?.ProcessIdentifier ?? _target;
-                NotifySessionSwitch();
+
+                if (FindSessionWithIdentifier(value) is ISession session)
+                    SelectedSession = session;
+                else _target = value;
+
                 NotifyTargetChanged(new(_target));
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SelectedSession));
             }
         }
         /// <summary>
@@ -235,27 +237,27 @@ namespace VolumeControl.Core
         /// <summary>
         /// Triggered when the device list is refreshed.
         /// </summary>
-        public event EventHandler? DeviceListReloaded = null;
+        public event EventHandler? DeviceListReloaded;
         /// <summary>
         /// Triggered when the session list is refreshed.
         /// </summary>
-        public event EventHandler? SessionListReloaded = null;
+        public event EventHandler? SessionListReloaded;
         /// <summary>
         /// Triggered when the selected device is changed.
         /// </summary>
-        public event EventHandler? SelectedDeviceSwitched = null;
+        public event EventHandler? SelectedDeviceSwitched;
         /// <summary>
         /// Triggered when the selected session is changed.
         /// </summary>
-        public event EventHandler? SelectedSessionSwitched = null;
+        public event EventHandler? SelectedSessionSwitched;
         /// <summary>
         /// Triggered when the <see cref="Target"/> property is changed.
         /// </summary>
-        public event TargetChangedEventHandler? TargetChanged = null;
+        public event TargetChangedEventHandler? TargetChanged;
         /// <summary>
         /// This is used by data bindings to indicate that the target should update from the source.
         /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged = null;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyDeviceListRefresh(EventArgs e) => DeviceListReloaded?.Invoke(this, e);
         private void NotifyProcessListRefresh(EventArgs e) => SessionListReloaded?.Invoke(this, e);
@@ -500,6 +502,8 @@ namespace VolumeControl.Core
             // nothing is selected, select the first element in the list
             else if (Sessions.Count > 0)
                 SelectedSession = Sessions[0];
+
+            NotifySessionSwitch(); //< SelectedSessionSwitched
         }
         /// <summary>
         /// Sets <see cref="SelectedSession"/> to the session occurring before this one in <see cref="Sessions"/>.
@@ -527,6 +531,8 @@ namespace VolumeControl.Core
             // nothing is selected, select the last element in the list
             else if (Sessions.Count > 0)
                 SelectedSession = Sessions[^1];
+
+            NotifySessionSwitch(); //< SelectedSessionSwitched
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
@@ -553,6 +559,8 @@ namespace VolumeControl.Core
             }
             else if (Devices.Count > 0)
                 SelectedDevice = Devices[0];
+
+            NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring before this one in <see cref="Devices"/>.
@@ -579,6 +587,8 @@ namespace VolumeControl.Core
             }
             else if (Devices.Count > 0)
                 SelectedDevice = Devices[^1];
+
+            NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
 
         /// <inheritdoc/>

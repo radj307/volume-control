@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using VolumeControl.Core;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.Interfaces;
@@ -61,7 +62,7 @@ namespace VolumeControl
             if (Settings.StartMinimized)
                 WindowState = WindowState.Minimized;
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             _notifyIcon.Dispose();
 
@@ -89,10 +90,11 @@ namespace VolumeControl
 
         #region Fields
         private readonly VolumeControlRunAtStartup _startupHelper;
-        private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
+        private readonly System.Windows.Forms.NotifyIcon _notifyIcon = null!;
         #endregion Fields
 
         #region Properties
+        private ListNotification ListNotification => (FindResource("Notification") as ListNotification)!;
         private AudioAPI AudioAPI => (FindResource("AudioAPI") as AudioAPI)!;
         private HotkeyManager HotkeyAPI => (FindResource("HotkeyAPI") as HotkeyManager)!;
         private static LogWriter Log => FLog.Log;
@@ -100,13 +102,12 @@ namespace VolumeControl
         private static CoreSettings CoreSettings => CoreSettings.Default;
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private ISession CurrentlySelectedGridRow => (ISession)MixerGrid.CurrentCell.Item;
-
-        public bool LogEnabled
+        public static bool LogEnabled
         {
             get => LogSettings.EnableLogging;
             set => LogSettings.EnableLogging = value;
         }
-        public string LogFilePath
+        public static string LogFilePath
         {
             get => LogSettings.LogPath;
             set => LogSettings.LogPath = value;
@@ -231,6 +232,16 @@ namespace VolumeControl
         {
             if (WindowState.Equals(WindowState.Minimized))
                 Hide();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var lnotif = ListNotification;
+            lnotif.Owner = this;
+
+            AudioAPI.SelectedSessionSwitched += (s, e) =>
+            {
+                ListNotification.Show();
+            };
         }
         #endregion EventHandlers
     }

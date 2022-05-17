@@ -7,6 +7,7 @@
                     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
                     xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
                     xmlns:logEnum="clr-namespace:VolumeControl.Log;assembly=VolumeControl.Log">
+
     <!-- AudioAPI (VolumeControl.Core.AudioAPI) -->
     <core:AudioAPI x:Key="AudioAPI"/>
     <!-- HotkeyAPI (VolumeControl.Core.HotkeyManager) -->
@@ -18,4 +19,17 @@
     
     <wpf:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
     <wpf:BooleanInverter x:Key="InvertConverter"/>
+    <wpf:NullToBooleanConverter x:Key="IsNullConverter"/>
+
+    <wpf:ConverterChain x:Key="SessionNotificationSliderVisibilityChainConverter">
+        <wpf:NullToBooleanConverter/>
+        <wpf:BooleanInverter/>
+        <Controls:BooleanToVisibilityConverter/>
+    </wpf:ConverterChain>
+
+    <local:ListNotification x:Key="Notification"
+                            LockSelection="{Binding LockSelectedSession, Source={StaticResource AudioAPI}}"
+                            SliderValue="{Binding SelectedSession.Volume, Source={StaticResource AudioAPI}}"
+                            ValueText="{Binding SelectedSession.Volume, Source={StaticResource AudioAPI}}"
+                            SliderVisibility="{Binding SelectedSession, Source={StaticResource AudioAPI}, Converter={StaticResource SessionNotificationSliderVisibilityChainConverter}}"/>
 </ResourceDictionary>
