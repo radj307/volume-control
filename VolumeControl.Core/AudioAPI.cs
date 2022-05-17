@@ -1,5 +1,4 @@
 ﻿using NAudio.CoreAudioApi;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core.Events;
@@ -12,6 +11,7 @@ namespace VolumeControl.Core
 {
     public class AudioAPI : INotifyPropertyChanged, IDisposable
     {
+        #region Initializers
         public AudioAPI()
         {
             _selectedDevice = null;
@@ -60,7 +60,6 @@ namespace VolumeControl.Core
                 _allowReloadOnHotkey = true;
             };
         }
-
         public void SaveSettings()
         {
             Log.Info("Saving AudioAPI settings to the configuration file...");
@@ -84,6 +83,7 @@ namespace VolumeControl.Core
             Settings.Reload();
             Log.Followup("Done.");
         }
+        #endregion Initializers
 
         #region Fields
         private bool _allowReloadOnHotkey = true;
@@ -267,22 +267,11 @@ namespace VolumeControl.Core
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
+        #region Methods
+        #region UpdateDevices
         public void ReloadDeviceList()
         {
             SelectiveUpdateDevices(GetAllDevices());
-        }
-        private static List<AudioDevice> GetAllDevices()
-        {
-            List<AudioDevice> devices = new();
-
-            MMDeviceEnumerator enumerator = new();
-            foreach (MMDevice endpoint in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
-            {
-                devices.Add(new AudioDevice(endpoint));
-            }
-            enumerator.Dispose();
-
-            return devices;
         }
         private void SelectiveUpdateDevices(List<AudioDevice> devices)
         {
@@ -307,7 +296,53 @@ namespace VolumeControl.Core
 
             Log.Info($"Refreshed the device list.");
         }
+        #endregion UpdateDevices
+        #region Device
+        /// <summary>Gets the current default audio endpoint.</summary>
+        /// <returns><see cref="AudioDevice"/></returns>
+        public AudioDevice GetDefaultDevice()
+        {
+            MMDeviceEnumerator enumerator = new();
+            var defaultDev = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var defaultDevID = defaultDev.ID;
+            enumerator.Dispose();
 
+            foreach (var dev in Devices)
+            {
+                if (dev.DeviceID.Equals(defaultDevID, StringComparison.Ordinal))
+                    return dev;
+            }
+
+            return new AudioDevice(defaultDev);
+        }
+        /// <summary>Enumerates audio endpoints using the Core Audio API to get a list of all devices with the specified modes.</summary>
+        /// <returns>A list of devices that are currently active.</returns>
+        private static List<AudioDevice> GetAllDevices(DataFlow flow = DataFlow.Render, DeviceState state = DeviceState.Active)
+        {
+            List<AudioDevice> devices = new();
+
+            MMDeviceEnumerator enumerator = new();
+            foreach (MMDevice endpoint in enumerator.EnumerateAudioEndPoints(flow, state))
+            {
+                devices.Add(new AudioDevice(endpoint));
+            }
+            enumerator.Dispose();
+
+            return devices;
+        }
+        /// <summary>Gets a device from <see cref="Devices"/> using the given <paramref name="predicate"/> function.</summary>
+        /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> types.</param>
+        /// <returns><see cref="IDevice"/> if successful, or null if no matching devices were found.</returns>
+        public IDevice? FindDevice(Predicate<AudioDevice> predicate)
+        {
+            foreach (var device in Devices)
+                if (predicate(device))
+                    return device;
+            return null;
+        }
+        #endregion Device
+
+        #region ReloadSessions
         public void ReloadSessionList()
         {
             if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
@@ -317,6 +352,88 @@ namespace VolumeControl.Core
                 SelectiveUpdateSessions(sessions);
             else Sessions.Clear();
         }
+        /// <summary>
+        /// Performs a selective update of the <see cref="Sessions"/> list.
+        /// </summary>
+        /// <remarks><b>This method does not use mutexes and is not thread safe!</b><br/>Because of this, it should only be called from within the critical section of a method that <i>does</i> use mutexes, such as <see cref="ReloadSessionList"/>.</remarks>
+        /// <param name="sessions">List of sessions to update from.<br/>Any items within <see cref="Sessions"/> that are <b>not</b> present in <paramref name="sessions"/> are removed from <see cref="Sessions"/>.<br/>Any items present in <paramref name="sessions"/> that are <b>not</b> present within <see cref="Sessions"/> are added to <see cref="Sessions"/>.</param>
+        private void SelectiveUpdateSessions(List<AudioSession> sessions)
+        {
+            var selPID = SelectedSession?.PID;
+
+            for (int i = Sessions.Count - 1; i >= 0; --i)
+            {
+                AudioSession session = Sessions[i];
+                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
+                    Sessions.RemoveAt(i);
+            }
+
+            // add all sessions that aren't already in the current list
+            Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
+
+            if (!LockSelectedSession && selPID != null)
+                SelectedSession = Sessions.FirstOrDefault(s => s.PID.Equals(selPID));
+
+            NotifyProcessListRefresh(EventArgs.Empty);
+            NotifyPropertyChanged(nameof(Sessions));
+
+            Log.Debug("Refreshed the session list.");
+        }
+
+        #endregion ReloadSessions
+        #region Session
+        /// <summary>Gets a session from <see cref="Sessions"/> by applying <paramref name="predicate"/> to each element and returning the first occurrence.</summary>
+        /// <param name="predicate">A predicate function to apply to each element of <see cref="Sessions"/> that can accept <see cref="AudioSession"/> types.</param>
+        /// <returns><see cref="ISession"/> if a session was found, or null if <paramref name="predicate"/> didn't return true for any elements.</returns>
+        public ISession? FindSession(Predicate<AudioSession> predicate)
+        {
+            foreach (var session in Sessions)
+                if (predicate(session))
+                    return session;
+            return null;
+        }
+        /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process id <paramref name="pid"/></summary>
+        /// <remarks>It is recommended to use <see cref="FindSessionWithIdentifier(string, StringComparison)"/> when searching the <see cref="Sessions"/> list.</remarks>
+        /// <param name="pid"><b><see cref="AudioSession.PID"/></b></param>
+        /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found with <paramref name="pid"/>.</returns>
+        public ISession? FindSessionWithID(int pid) => FindSession(s => s.PID.Equals(pid));
+        /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process name <paramref name="name"/></summary>
+        /// <remarks>It is recommended to use <see cref="FindSessionWithIdentifier(string, StringComparison)"/> when searching the <see cref="Sessions"/> list.</remarks>
+        /// <param name="name"><see cref="AudioSession.ProcessName"/></param>
+        /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names.</param>
+        /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found named <paramref name="name"/> using <paramref name="sCompareType"/> string comparison.</returns>
+        public ISession? FindSessionWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession(s => s.ProcessName.Equals(name, sCompareType));
+        /// <summary>Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(int)"/>, <see cref="FindSessionWithName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.</summary>
+        /// <param name="identifier">
+        /// This can match any of the following properties:<br/>
+        /// <list type="bullet">
+        /// <item><description><b><see cref="AudioSession.PID"/></b></description></item>
+        /// <item><term><b><see cref="AudioSession.ProcessName"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
+        /// <item><term><b><see cref="AudioSession.ProcessIdentifier"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
+        /// </list>
+        /// </param>
+        /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
+        /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
+        public ISession? FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (identifier.Length == 0)
+                return null;
+
+            int i = identifier.IndexOf(':');
+            if (!i.Equals(-1))
+            {
+                if (int.TryParse(identifier[..i], out int pid))
+                    return FindSessionWithID(pid);
+                else
+                    return FindSessionWithName(identifier[(i + 1)..]);
+            }
+            else if (identifier.All(char.IsDigit) && int.TryParse(identifier, out int pid))
+            {
+                return FindSessionWithID(pid);
+            }
+            else return FindSessionWithName(identifier);
+        }
+        #region GetAllSessionsFromAllDevices
         /// <summary>
         /// Retrieves a list of every <see cref="AudioSession"/> from every active <see cref="AudioDevice"/>.
         /// </summary>
@@ -352,106 +469,10 @@ namespace VolumeControl.Core
 
             return sessions;
         }
-        /// <summary>
-        /// Performs a selective update of the <see cref="Sessions"/> list.
-        /// </summary>
-        /// <remarks><b>This method does not use mutexes and is not thread safe!</b><br/>Because of this, it should only be called from within the critical section of a method that <i>does</i> use mutexes, such as <see cref="ReloadSessionList"/>.</remarks>
-        /// <param name="sessions">List of sessions to update from.<br/>Any items within <see cref="Sessions"/> that are <b>not</b> present in <paramref name="sessions"/> are removed from <see cref="Sessions"/>.<br/>Any items present in <paramref name="sessions"/> that are <b>not</b> present within <see cref="Sessions"/> are added to <see cref="Sessions"/>.</param>
-        private void SelectiveUpdateSessions(List<AudioSession> sessions)
-        {
-            var selPID = SelectedSession?.PID;
+        #endregion GetAllSessionsFromAllDevices
+        #endregion Session
 
-            for (int i = Sessions.Count - 1; i >= 0; --i)
-            {
-                AudioSession session = Sessions[i];
-                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
-                    Sessions.RemoveAt(i);
-            }
-
-            // add all sessions that aren't already in the current list
-            Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
-
-            if (!LockSelectedSession && selPID != null)
-                SelectedSession = Sessions.FirstOrDefault(s => s.PID.Equals(selPID));
-
-            NotifyProcessListRefresh(EventArgs.Empty);
-            NotifyPropertyChanged(nameof(Sessions));
-
-            Log.Debug("Refreshed the session list.");
-        }
-
-        public AudioDevice GetDefaultDevice()
-        {
-            MMDeviceEnumerator enumerator = new();
-            var defaultDev = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            var defaultDevID = defaultDev.ID;
-            enumerator.Dispose();
-
-            foreach (var dev in Devices)
-            {
-                if (dev.DeviceID.Equals(defaultDevID, StringComparison.Ordinal))
-                    return dev;
-            }
-
-            return new AudioDevice(defaultDev);
-        }
-
-        public IDevice? FindDevice(Predicate<AudioDevice> predicate)
-        {
-            foreach (var device in Devices)
-                if (predicate(device))
-                    return device;
-            return null;
-        }
-
-        public ISession? FindSession(Predicate<AudioSession> predicate)
-        {
-            foreach (var session in Sessions)
-                if (predicate(session))
-                    return session;
-            return null;
-        }
-
-        public ISession? FindSessionWithID(int pid) => FindSession(s => s.PID.Equals(pid));
-
-        public ISession? FindSessionWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => FindSession(s => s.ProcessName.Equals(name, sCompareType));
-
-        public ISession? FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
-        {
-            if (identifier.Length == 0)
-                return null;
-            int i = identifier.IndexOf(':');
-            if (i != -1)
-            {
-                if (int.TryParse(identifier[..i], out int pid))
-                    return FindSessionWithID(pid);
-                else
-                    return FindSessionWithName(identifier[(i + 1)..]);
-            }
-            else if (identifier.All(char.IsDigit) && int.TryParse(identifier, out int pid))
-            {
-                return FindSessionWithID(pid);
-            }
-            else return FindSessionWithName(identifier);
-        }
-        /// <summary>
-        /// Clamps the given value between min and max.
-        /// </summary>
-        /// <remarks>The <paramref name="min"/> and <paramref name="max"/> boundary values are <b>inclusive</b>.</remarks>
-        /// <typeparam name="T">Any numerical type.</typeparam>
-        /// <param name="value">The value to clamp.</param>
-        /// <param name="min">The minimum allowable value.</param>
-        /// <param name="max">The maximum allowable value.</param>
-        /// <returns><paramref name="value"/> clamped between <paramref name="min"/> and <paramref name="max"/>.</returns>
-        private static T ConstrainValue<T>(T value, T min, T max) where T : IComparable, IComparable<T>, IConvertible, IEquatable<T>, ISpanFormattable, IFormattable
-        {
-            if (value.CompareTo(min) < 0)
-                value = min;
-            else if (value.CompareTo(max) > 0)
-                value = max;
-            return value;
-        }
-
+        #region Selection
         public void IncrementSessionVolume(int amount)
         {
             if (SelectedSession is AudioSession session)
@@ -590,12 +611,31 @@ namespace VolumeControl.Core
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
+        #endregion Selection
 
+        #region Other
+        /// <summary>Clamps the given value between <paramref name="min"/> and <paramref name="max"/>.</summary>
+        /// <remarks>The <paramref name="min"/> and <paramref name="max"/> boundary values are <b>inclusive</b>.</remarks>
+        /// <typeparam name="T">Any numerical type.</typeparam>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The minimum allowable value.</param>
+        /// <param name="max">The maximum allowable value.</param>
+        /// <returns><paramref name="value"/> clamped between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        private static T ConstrainValue<T>(T value, T min, T max) where T : IComparable, IComparable<T>, IConvertible, IEquatable<T>, ISpanFormattable, IFormattable
+        {
+            if (value.CompareTo(min) < 0)
+                value = min;
+            else if (value.CompareTo(max) > 0)
+                value = max;
+            return value;
+        }
         /// <inheritdoc/>
         public void Dispose()
         {
             ReloadTimer.Dispose();
             GC.SuppressFinalize(this);
         }
+        #endregion Other
+        #endregion Methods
     }
 }
