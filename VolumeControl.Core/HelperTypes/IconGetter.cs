@@ -144,8 +144,19 @@ namespace VolumeControl.Core.HelperTypes
     public static class GetIconsExtensions
     {
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public static (ImageSource?, ImageSource?)? GetIcons(this AudioDevice device) => device.IconPath.Length > 0 ? IconGetter.GetIcons(device.IconPath) : null;
+        public static (ImageSource?, ImageSource?)? GetIcons(this AudioDevice device)
+        {
+            return device.IconPath.Length > 0 ? IconGetter.GetIcons(device.IconPath) : null;
+        }
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public static (ImageSource?, ImageSource?)? GetIcons(this AudioSession session) => session.IconPath.Length > 0 ? IconGetter.GetIcons(session.IconPath) : null;
+        public static (ImageSource?, ImageSource?)? GetIcons(this AudioSession session)
+        {
+            if (session.IconPath.Length > 0)
+                return IconGetter.GetIcons(session.IconPath);
+            string? path = session.GetProcess()?.MainModule?.FileName;
+            if (path != null)
+                return IconGetter.GetIcons(path);
+            return null;
+        }
     }
 }
