@@ -75,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="5.0.1" />
+    <PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />

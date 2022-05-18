@@ -104,5 +104,33 @@ namespace VolumeControl.Core.HelperTypes
             _controller.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        /// <summary>
+        /// Parses the given process identifier string into a PID and ProcessName.
+        /// </summary>
+        /// <param name="identifier">A process identifier, PID, or ProcessName to split.</param>
+        /// <returns>
+        /// Returns a pair where the first item is the PID and the second is the ProcessName.
+        /// </returns>
+        /// <exception cref="FormatException">Thrown when there is a colon in the string, but the characters before it are invalid as an integral.</exception>
+        public static (int, string) ParseProcessIdentifier(string identifier)
+        {
+            int delim = identifier.Trim(':', ' ').IndexOf(':');
+
+            if (delim == -1)
+            {
+                if (identifier.All(char.IsDigit) && int.TryParse(identifier, out int result))
+                    // pid
+                    return (result, string.Empty);
+                else // process name
+                    return (-1, identifier);
+            }
+            else // both
+            {
+                if (!int.TryParse(identifier[..delim], out int result))
+                    throw new FormatException($"Invalid process identifier string '{identifier}'");
+                return (result, identifier[(delim + 1)..]);
+            }
+        }
     }
 }

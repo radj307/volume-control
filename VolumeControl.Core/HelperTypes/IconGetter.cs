@@ -1,16 +1,17 @@
-﻿using System.Drawing;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-using VolumeControl.Log;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.HelperTypes
 {
     public static class IconGetter
     {
+        private static LogWriter Log => FLog.Log;
+
+
         public static ImageSource? GetIcon(string path, bool smallIcon, bool isDirectory)
         {
             // SHGFI_USEFILEATTRIBUTES takes the file name and attributes into account if it doesn't exist
@@ -22,11 +23,7 @@ namespace VolumeControl.Core.HelperTypes
             if (isDirectory)
                 attributes |= FILE_ATTRIBUTE_DIRECTORY;
 
-            if (0 != SHGetFileInfo(path,
-                        attributes,
-                        out SHFILEINFO shfi,
-                        (uint)Marshal.SizeOf(typeof(SHFILEINFO)),
-                        flags))
+            if (0 != SHGetFileInfo(path, attributes, out SHFILEINFO shfi, (uint)Marshal.SizeOf(typeof(SHFILEINFO)), flags))
             {
                 return Imaging.CreateBitmapSourceFromHIcon(
                             shfi.hIcon,
@@ -83,28 +80,38 @@ namespace VolumeControl.Core.HelperTypes
         private const uint SHGFI_PIDL = 0x000000008;     // pszPath is a pidl
         private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
 
+        private const int PARSER_NULL_INDEX = -1;
+
         /// <summary>
         /// Gets the large and small variants of the specified icon from the specified DLL.
         /// </summary>
         /// <param name="path">The location of the target icon DLL.</param>
         /// <param name="number">The icon index number to retrieve.</param>
         /// <returns>A pair of icons where Item1 is the small icon, Item2 is the large icon; or null if the icons couldn't be loaded.</returns>
-        public static (ImageSource?, ImageSource?)? GetIcons(string path, int number)
+        public static (ImageSource?, ImageSource?)? GetIcons(string path, int index)
         {
-            path = Environment.ExpandEnvironmentVariables(path.Trim('@'));
-            if (!File.Exists(path))
+            string target = Environment.ExpandEnvironmentVariables(path.Trim('@'));
+            Log.Debug($"{nameof(GetIcons)} called with path '{path}'{(target.Equals(path, StringComparison.Ordinal) ? "" : $" => '{target}'")}");
+            if (!File.Exists(target))
                 return null;
             try
             {
-                if (number == -1)
+                if (index.Equals(PARSER_NULL_INDEX))
                 {
-                    var fAttr = File.GetAttributes(path);
+                    var fAttr = File.GetAttributes(target);
                     bool isDir = fAttr.HasFlag(FileAttributes.Directory);
 
-                    return (GetIcon(path, true, isDir), GetIcon(path, false, isDir));
+                    var small = GetIcon(target, true, isDir);
+                    var large = GetIcon(target, false, isDir);
+
+                    if (small == null && large == null)
+                        Log.Warning($"Failed to locate any icons at path '{target}' ; This is likely a permissions issue and is safe to ignore.");
+
+                    return (small, large);
                 }
-                else if (path.Contains(".dll", StringComparison.OrdinalIgnoreCase) && ExtractIconEx(path, number, out IntPtr large, out IntPtr small, 1) != -1)
+                else if (target.Contains(".dll", StringComparison.OrdinalIgnoreCase) && ExtractIconEx(target, index, out IntPtr large, out IntPtr small, 1) != -1)
                 {
+                    Log.Followup($"- Retrieving Icon {index} from DLL source.");
                     return (Imaging.CreateBitmapSourceFromHIcon(small, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()), Imaging.CreateBitmapSourceFromHIcon(large, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
                 }
             }
@@ -118,8 +125,8 @@ namespace VolumeControl.Core.HelperTypes
         /// <param name="iconPath">Specifies the location and index number of the target icon. See the output of <see cref="AudioDevice.IconPath"/> or <see cref="AudioSession.IconPath"/></param>
         public static (ImageSource?, ImageSource?)? GetIcons(string iconPath)
         {
-            if (ParseIconPath(iconPath) is (string, int) result)
-                return GetIcons(result.Item1, result.Item2);
+            if (ParseIconPath(iconPath) is (string path, int index))
+                return GetIcons(path, index);
             return null;
         }
         /// <summary>
@@ -135,7 +142,7 @@ namespace VolumeControl.Core.HelperTypes
             {
                 return (iconPath[..pos], iconNumber);
             }
-            else return (iconPath, -1);
+            else return (iconPath, PARSER_NULL_INDEX);
         }
 
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]

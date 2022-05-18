@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Interop;
 using VolumeControl.Core.HelperTypes;
 using VolumeControl.Core.HelperTypes.Enum;
 using VolumeControl.Core.HotkeyActions.Attributes;
@@ -32,7 +34,16 @@ namespace VolumeControl.Core.HotkeyActions
         [HotkeyAction] public void BringToForeground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_TOP, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         [HotkeyAction] public void SendToBackground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_BOTTOM, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         [HotkeyAction] public void Minimize(object? sender, HandledEventArgs e) => User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_MINIMIZE);
-        [HotkeyAction] public void UnMinimize(object? sender, HandledEventArgs e) => User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_RESTORE);
+        [HotkeyAction]
+        public void Unminimize(object? sender, HandledEventArgs e)
+        {
+            if (HwndSource.FromHwnd(MainHWnd).RootVisual is Window w)
+            {
+                User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_RESTORE);
+                w.Visibility = Visibility.Visible;
+                w.BringIntoView();
+            }
+        }
         #endregion Actions
 
         #region Statics

@@ -27,9 +27,10 @@ namespace VolumeControl.Core
 
             ReloadSessionList();
 
-            Target = Settings.SelectedSession;
-            if (Target != Settings.SelectedSession)
-                _target = Settings.SelectedSession;
+            var targetSession = FindSessionWithIdentifier(Settings.SelectedSession, false);
+            if (targetSession != null)
+                Target = targetSession.ProcessIdentifier;
+            else Target = Settings.SelectedSession;
 
             LockSelectedDevice = Settings.LockSelectedDevice;
             LockSelectedSession = Settings.LockSelectedSession;
@@ -96,6 +97,7 @@ namespace VolumeControl.Core
 
         private string _target;
         private int _volumeStepSize;
+        private IEnumerable<string>? _targetAutoCompleteSource = null;
 
         private readonly System.Windows.Forms.Timer ReloadOnHotkeyTimer;
         private readonly System.Windows.Forms.Timer ReloadTimer;
@@ -232,6 +234,11 @@ namespace VolumeControl.Core
                 Log.Info($"Volume step set to {_volumeStepSize}");
             }
         }
+
+        public IEnumerable<string> TargetAutoCompleteSource
+        {
+            get => _targetAutoCompleteSource ??= (Target.Length == 0 || char.IsDigit(Target.First())) ? GetSessionIdentifiers(SessionIdentifierFormat.Both) : GetSessionIdentifiers(SessionIdentifierFormat.Name);
+        }
         #endregion Properties
 
         #region Events
@@ -354,14 +361,19 @@ namespace VolumeControl.Core
         #endregion Device
 
         #region ReloadSessions
-        public void ReloadSessionList()
+        public void ReloadSessionList(bool reloadDevicesFirst = false)
         {
+            if (reloadDevicesFirst)
+                ReloadDeviceList();
+
             if (Devices.Count == 0 || (!CheckAllDevices && SelectedDevice == null))
                 return;
 
             if ((CheckAllDevices ? GetAllSessionsFromAllDevices() : (SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!)) is List<AudioSession> sessions)
                 SelectiveUpdateSessions(sessions);
             else Sessions.Clear();
+            // reset autocomplete for target
+            _targetAutoCompleteSource = null;
         }
         /// <summary>
         /// Performs a selective update of the <see cref="Sessions"/> list.
@@ -425,26 +437,39 @@ namespace VolumeControl.Core
         /// </param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
         /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
-        public ISession? FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        public ISession? FindSessionWithIdentifier(string identifier, bool requireMatchingPID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
         {
+            /* TEST INPUTS:
+             * 
+             * 10:Process                   => 10:Process
+             * 11:PRocessWithOldID          => 10:Process
+             * 11:processwitholdid          => 10:Process
+             * 10:pRoCeSs                   => 10:Process
+             * 999:                         => 999:ProcessNine
+             * :Processnine                 => 999:ProcessNine
+             * ProcessNine                  => 999:ProcessNine
+             */
+
             if (identifier.Length == 0)
                 return null;
 
-            int i = identifier.IndexOf(':');
-            if (!i.Equals(-1))
+            var (pid, name) = AudioSession.ParseProcessIdentifier(identifier);
+
+            List<ISession> potentialMatches = requireMatchingPID ? null! : new();
+
+            for (int i = 0; i < Sessions.Count - 1; ++i)
             {
-                if (int.TryParse(identifier[..i], out int pid))
-                    return FindSessionWithID(pid);
-                else
-                    return FindSessionWithName(identifier[(i + 1)..]);
+                var session = Sessions[i];
+                if (session.ProcessIdentifier.Equals(identifier, sCompareType) || session.PID.Equals(pid))
+                    return session;
+                else if (!requireMatchingPID && session.ProcessName.Equals(name, sCompareType))
+                    potentialMatches.Add(session);
             }
-            else if (identifier.All(char.IsDigit) && int.TryParse(identifier, out int pid))
-            {
-                return FindSessionWithID(pid);
-            }
-            else return FindSessionWithName(identifier);
+
+            if (requireMatchingPID)
+                return null;
+            return potentialMatches.FirstOrDefault((ISession?)null);
         }
-        #region GetAllSessionsFromAllDevices
         /// <summary>
         /// Retrieves a list of every <see cref="AudioSession"/> from every active <see cref="AudioDevice"/>.
         /// </summary>
@@ -480,7 +505,32 @@ namespace VolumeControl.Core
 
             return sessions;
         }
-        #endregion GetAllSessionsFromAllDevices
+        public enum SessionIdentifierFormat
+        {
+            /// <summary>
+            /// Just the Process ID number of the session.
+            /// </summary>
+            PID,
+            /// <summary>
+            /// Just the Process name of the session.
+            /// </summary>
+            Name,
+            /// <summary>
+            /// Both the PID and the Process Name of the session, seperated with a colon <b>:</b>
+            /// </summary>
+            Both,
+        }
+        /// <summary>
+        /// Gets a list of strings representing each of the sessions in <see cref="Sessions"/>.
+        /// </summary>
+        /// <param name="fmt">This corresponds to the target property in <see cref="Sessions"/></param>
+        /// <returns>List of strings for autocomplete.</returns>
+        public List<string> GetSessionIdentifiers(SessionIdentifierFormat fmt = SessionIdentifierFormat.Both) => fmt switch
+        {
+            SessionIdentifierFormat.PID => Sessions.Select(s => s.PID.ToString()).ToList(),
+            SessionIdentifierFormat.Name => Sessions.Select(s => s.ProcessName).ToList(),
+            _ => Sessions.Select(s => s.ProcessIdentifier).ToList(),
+        };
         #endregion Session
 
         #region Selection
@@ -568,10 +618,6 @@ namespace VolumeControl.Core
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
-        public void SelectOffsetSession(int offset)
-        {
-            
-        }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
@@ -652,8 +698,17 @@ namespace VolumeControl.Core
         public void Dispose()
         {
             SaveSettings();
-
             ReloadTimer.Dispose();
+
+            for (int i = Sessions.Count - 1; i >= 0; --i)
+            {
+                Sessions[i].Dispose();
+            }
+            for (int i = Devices.Count - 1; i >= 0; --i)
+            {
+                Devices[i].Dispose();
+            }
+
             GC.SuppressFinalize(this);
         }
         #endregion Other

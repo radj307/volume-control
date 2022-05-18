@@ -126,10 +126,6 @@ namespace VolumeControl
                 AudioAPI.SelectedSession = session;
             }
         }
-        private void Handle_ShowActionBindingsChecked(object sender, RoutedEventArgs e)
-            => Resources["HotkeyActionBindingVisibility"] = Visibility.Visible;
-        private void Handle_ShowActionBindingsUnchecked(object sender, RoutedEventArgs e)
-            => Resources["HotkeyActionBindingVisibility"] = Visibility.Collapsed;
         private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
             => HotkeyAPI.AddHotkey();
         private void Handle_HotkeyGridRemoveClick(object sender, RoutedEventArgs e)

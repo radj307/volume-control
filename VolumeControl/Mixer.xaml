@@ -6,6 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
+        xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:sys="clr-namespace:System.Runtime;assembly=netstandard"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -532,19 +534,24 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="6"/>
                     </Grid.ColumnDefinitions>
+
                     <TextBox x:Name="targetNameTextBox"
                              Grid.Column="1"
                              Margin="3,0,3,0"
                              Height="23"
-                             ToolTip="You can enter the Process ID or Process Name of any valid audio session here."
+                             ToolTip="This determines which audio session will receive hotkey input."
+                             tbBehaviour:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding AudioAPI.TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                             tbBehaviour:AutoCompleteBehavior.AutoCompleteIndicator=""
+                             tbBehaviour:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
                              Text="{Binding AudioAPI.Target, UpdateSourceTrigger=LostFocus}"
                              DataContext="{StaticResource Settings}"
                              IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
                              Style="{StaticResource TextBoxStyle}"/>
+
                     <!--▲ TEXTBOX WATERMARK ▼-->
                     <TextBlock Grid.Column="1"
                                Margin="7,0"
-                               Text="Target PID or Process Name"
+                               Text="Target Process ID or Name"
                                Style="{StaticResource WatermarkTextBlockStyle}"
                                Visibility="{Binding Text.IsEmpty, Mode=OneWay, Source={x:Reference targetNameTextBox}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <CheckBox x:Name="cbLockTargetSelection"
@@ -756,16 +763,15 @@
                         <DataGridTemplateColumn Header="" Width="Auto" CanUserResize="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <!-- Visibility="{Binding Valid, Converter={StaticResource BooleanToVisibilityConverter}}" -->
                                     <CheckBox IsEnabled="{Binding Valid}" IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Name -->
-                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="{Binding IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource InvertConverter}}">
+                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Background="#00000000" Style="{StaticResource TextBoxStyle}" BorderThickness="0"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -810,7 +816,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Action -->
-                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding HotkeyAPI.ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
@@ -818,7 +824,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Remove -->
-                        <DataGridTemplateColumn Width="Auto" Visibility="{Binding Source={x:Reference cbAdvancedHotkeys}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <DataGridTemplateColumn Width="Auto" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="❌"
@@ -840,7 +846,7 @@
                         Margin="2,2"
                         Content="Create New Hotkey"
                         Click="Handle_CreateNewHotkeyClick"
-                        Visibility="{Binding IsChecked, Source={x:Reference cbAdvancedHotkeys}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Style="{StaticResource ButtonStyle}"/>
             </Grid>
         </TabItem>
@@ -986,8 +992,7 @@
                               HorizontalAlignment="Left"
                               Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
-                              Checked="Handle_RunAtStartupChecked"
-                              Unchecked="Handle_RunAtStartupUnchecked"/>
+                              IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Start Minimized Cell -->
                     <CheckBox x:Name="cbStartMinimized"
                               Grid.Column="1"
@@ -996,8 +1001,7 @@
                               HorizontalAlignment="Left"
                               Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
-                              Checked="Handle_StartMinimizeChecked"
-                              Unchecked="Handle_StartMinimizeUnchecked"/>
+                              IsChecked="{Binding StartMinimized, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Advanced Hotkeys Cell -->
                     <CheckBox x:Name="cbAdvancedHotkeys"
@@ -1008,8 +1012,7 @@
                               Content="Advanced Hotkeys"
                               ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
                               Style="{StaticResource CheckBoxStyle}"
-                              Checked="Handle_ShowActionBindingsChecked"
-                              Unchecked="Handle_ShowActionBindingsUnchecked"/>
+                              IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
                             Margin="3,0,3,3"
@@ -1032,7 +1035,7 @@
                         <CheckBox x:Name="cbEnableNotifications"
                                   Content="Notifications"
                                   ToolTip="The notification appears when switching target sessions using hotkeys."
-                                  IsChecked="{Binding Enabled, Source={StaticResource Notification}}"
+                                  IsChecked="{Binding Enabled, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"
                                   Margin="3,0,0,0"
                                   Style="{StaticResource CheckBoxStyle}"/>
                         <!-- Timeout Numeric Up Down Control -->
@@ -1055,8 +1058,8 @@
                               Margin="3,0,0,0"
                               Content="Show Icons"
                               ToolTip="Determines whether or not icons are shown for audio devices and sessions."
-                              IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource CheckBoxStyle}"/>
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Open Github Cell -->
                     <Button x:Name="bOpenGithub"
                             Content="Github Repository"
