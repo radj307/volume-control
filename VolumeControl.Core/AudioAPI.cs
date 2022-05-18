@@ -515,14 +515,15 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectNextSession()
         {
-            if (LockSelectedSession) return;
-
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             {  // reload on hotkey
                 _allowReloadOnHotkey = false;
                 ReloadOnHotkeyTimer.Start();
                 ReloadSessionList();
             }
+
+            // if the selected session is locked, return
+            if (LockSelectedSession) return;
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
@@ -542,16 +543,17 @@ namespace VolumeControl.Core
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
         /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
-        public void SelectPreviousSession(bool isHotkey = true)
+        public void SelectPreviousSession()
         {
-            if (LockSelectedSession) return;
-
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;
                 ReloadOnHotkeyTimer.Start();
                 ReloadSessionList();
             }
+
+            // if the selected session is locked, return
+            if (LockSelectedSession) return;
 
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
@@ -566,6 +568,10 @@ namespace VolumeControl.Core
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
+        public void SelectOffsetSession(int offset)
+        {
+            
+        }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
@@ -573,14 +579,15 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the first element in <see cref="Devices"/> is selected.</remarks>
         public void SelectNextDevice()
         {
-            if (LockSelectedDevice) return;
-
             if (ReloadOnHotkey && _allowReloadOnHotkey)
-            {
+            { // reload on hotkey
                 _allowReloadOnHotkey = false;
                 ReloadOnHotkeyTimer.Start();
                 ReloadDeviceList();
             }
+
+            // if the selected device is locked, return
+            if (LockSelectedDevice) return;
 
             if (SelectedDevice is AudioDevice device)
             {
@@ -601,14 +608,15 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the last element in <see cref="Devices"/> is selected.</remarks>
         public void SelectPreviousDevice()
         {
-            if (LockSelectedDevice) return;
-
             if (ReloadOnHotkey && _allowReloadOnHotkey)
-            {
+            { // reload on hotkey
                 _allowReloadOnHotkey = false;
                 ReloadOnHotkeyTimer.Start();
                 ReloadDeviceList();
             }
+
+            // if the selected device is locked, return
+            if (LockSelectedDevice) return;
 
             if (SelectedDevice is AudioDevice device)
             {
