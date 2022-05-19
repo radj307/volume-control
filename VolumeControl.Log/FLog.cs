@@ -9,9 +9,6 @@ namespace VolumeControl.Log
     {
         #region Members
         private static bool _initialized = false;
-
-        private static EventType _filter;
-        private static string? _logpath;
         private static LogWriter _log = null!;
         #endregion Members
 
@@ -53,19 +50,11 @@ namespace VolumeControl.Log
         /// Gets or sets the event type filter that determines which event types are allowed to be written to the log endpoint.
         /// </summary>
         /// <remarks><b>Messages with an <see cref="EventType"/> that isn't present in this bitflag are discarded!</b></remarks>
-        public static EventType EventFilter
-        {
-            get => _filter;
-            internal set => _filter = value;
-        }
+        public static EventType EventFilter { get; internal set; }
         /// <summary>
         /// Get or set the log filepath.
         /// </summary>
-        public static string FilePath
-        {
-            get => _logpath;
-            internal set => _logpath = value;
-        }
+        public static string? FilePath { get; internal set; }
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
         /// </summary>
