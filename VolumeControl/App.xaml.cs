@@ -30,15 +30,23 @@ namespace VolumeControl
         {
             TrayIcon.Click -= HandleTrayIconClick!;
             (FindResource("Settings") as VolumeControlSettings)?.Dispose();
-            TrayIcon.Visible = false;
-            TrayIcon.Dispose();
-            TrayIcon = null!;
+            CleanupTrayIcon();
         }
 
         private void HandleTrayIconClick(object sender, EventArgs e)
         {
             Current.MainWindow.Show();
             Current.MainWindow.WindowState = WindowState.Normal;
+        }
+
+        public void CleanupTrayIcon()
+        {
+            if (TrayIcon != null)
+            {
+                TrayIcon.Visible = false;
+                TrayIcon.Dispose();
+                TrayIcon = null!;
+            }
         }
     }
 }

@@ -41,7 +41,7 @@
         {
             if (!Enabled || Path.Length == 0)
                 return null;
-            return GetWriter(new() { Mode = FileMode.OpenOrCreate, Access = FileAccess.Write, Share = FileShare.ReadWrite });
+            return GetWriter(new() { Mode = FileMode.Append, Access = FileAccess.Write, Share = FileShare.ReadWrite });
         }
 
         /// <inheritdoc/>

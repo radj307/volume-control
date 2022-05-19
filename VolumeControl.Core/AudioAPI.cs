@@ -63,7 +63,6 @@ namespace VolumeControl.Core
         }
         public void SaveSettings()
         {
-            Log.Info("Saving AudioAPI settings to the configuration file...");
             // save settings
             Settings.ReloadOnHotkey_MinInterval = ReloadOnHotkeyTimer.Interval;
             Settings.ReloadOnHotkey = ReloadOnHotkey;
@@ -82,7 +81,6 @@ namespace VolumeControl.Core
             // save to file
             Settings.Save();
             Settings.Reload();
-            Log.Followup("Done.");
         }
         #endregion Initializers
 
@@ -545,17 +543,35 @@ namespace VolumeControl.Core
                 return l;
             }
         }
+        /// <summary>
+        /// Attempts to resolve the <see cref="SelectedSession"/> using the current <see cref="Target"/> string.<br/>
+        /// This doesn't do anything unless SelectedSession is null and Target is not empty.
+        /// </summary>
+        /// <remarks>It is recommended to call this function first inside of methods intended to be called using hotkeys.</remarks>
+        private void ResolveTarget()
+        {
+            if (SelectedSession == null && Target.Length > 0)
+            {
+                if (FindSessionWithIdentifier(Target) is ISession target)
+                {
+                    SelectedSession = target;
+                    Log.Debug($"Successfully resolved selected session '{target.ProcessIdentifier}' from string '{Target}'.");
+                }
+            }
+        }
         #endregion Session
 
         #region Selection
         public void IncrementSessionVolume(int amount)
         {
+            ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Volume += amount;
         }
         public void IncrementSessionVolume() => IncrementSessionVolume(VolumeStepSize);
         public void DecrementSessionVolume(int amount)
         {
+            ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Volume -= amount;
         }
@@ -563,11 +579,13 @@ namespace VolumeControl.Core
         public bool GetSessionMute() => SelectedSession is AudioSession session && session.Muted;
         public void SetSessionMute(bool state)
         {
+            ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Muted = state;
         }
         public void ToggleSessionMute()
         {
+            ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Muted = !session.Muted;
         }
@@ -579,6 +597,7 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectNextSession()
         {
+            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             {  // reload on hotkey
                 _allowReloadOnHotkey = false;
@@ -609,6 +628,7 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectPreviousSession()
         {
+            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;
@@ -639,6 +659,7 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the first element in <see cref="Devices"/> is selected.</remarks>
         public void SelectNextDevice()
         {
+            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;
@@ -668,6 +689,7 @@ namespace VolumeControl.Core
         /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the last element in <see cref="Devices"/> is selected.</remarks>
         public void SelectPreviousDevice()
         {
+            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;

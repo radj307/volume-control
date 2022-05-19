@@ -52,7 +52,9 @@ namespace VolumeControl.Log
         {
             if (!Endpoint.Enabled || lines.Length == 0)
                 return;
-            Write(ts);
+            using StreamWriter w = Endpoint.GetWriter()!;
+            w.AutoFlush = false;
+            w.Write(ts);
             string tsBlank = MakeBlankTimestamp();
             for (int i = 0, end = lines.Length; i < end; ++i)
             {
@@ -61,16 +63,18 @@ namespace VolumeControl.Log
                 if (line is null)
                     continue;
                 else if (line is Exception ex)
-                    WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
+                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
                 else if (line is string s)
                 {
                     if (s.Length == 0)
                         continue;
-                    else WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
+                    else w.WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
                 }
                 else
-                    WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
             }
+            w.Flush();
+            w.Close();
         }
         public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
 

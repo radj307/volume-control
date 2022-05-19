@@ -62,7 +62,7 @@ namespace VolumeControl.Log
         #endregion Properties
 
         #region Methods
-        public static void Initialize()
+        private static void Initialize()
         {
             if (_initialized)
                 throw new Exception("Cannot call FLog.Initialize() multiple times!");
@@ -94,12 +94,10 @@ namespace VolumeControl.Log
 
             Settings.Default.PropertyChanged += HandlePropertyChanged!;
         }
-
         private static void WriteInitMessage(string log_____)
         {
             Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
         }
-
         private static void CreateLog(IEndpoint endpoint)
         {
             Log = new(endpoint, EventFilter);

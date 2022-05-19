@@ -87,7 +87,13 @@ namespace VolumeControl
             catch (Exception ex)
             {
                 Log.FatalException(ex, "App exited because of an unhandled exception!");
+                app.CleanupTrayIcon();
             }
+
+            GC.WaitForPendingFinalizers();
+
+            appMutex.ReleaseMutex();
+            appMutex.Dispose();
         }
 
         /// <summary>
