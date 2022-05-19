@@ -27,7 +27,7 @@ namespace VolumeControl.Core
 
             ReloadSessionList();
 
-            var targetSession = FindSessionWithIdentifier(Settings.SelectedSession, false);
+            var targetSession = FindSessionWithIdentifier(Settings.SelectedSession);
             if (targetSession != null)
                 Target = targetSession.ProcessIdentifier;
             else Target = Settings.SelectedSession;
@@ -237,7 +237,7 @@ namespace VolumeControl.Core
 
         public IEnumerable<string> TargetAutoCompleteSource
         {
-            get => _targetAutoCompleteSource ??= (Target.Length == 0 || char.IsDigit(Target.First())) ? GetSessionIdentifiers(SessionIdentifierFormat.Both) : GetSessionIdentifiers(SessionIdentifierFormat.Name);
+            get => _targetAutoCompleteSource ??= GetSessionIdentifiers(SessionIdentifierFormat.IdentifierAndName);
         }
         #endregion Properties
 
@@ -437,26 +437,33 @@ namespace VolumeControl.Core
         /// </param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
         /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
-        public ISession? FindSessionWithIdentifier(string identifier, bool requireMatchingPID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
+        public ISession? FindSessionWithIdentifier(string identifier, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
         {
             if (identifier.Length == 0)
                 return null;
 
             var (pid, name) = AudioSession.ParseProcessIdentifier(identifier);
 
-            List<ISession> potentialMatches = requireMatchingPID ? null! : new();
+            List<ISession> potentialMatches = new();
 
             for (int i = 0; i < Sessions.Count - 1; ++i)
             {
                 var session = Sessions[i];
-                if (session.ProcessIdentifier.Equals(identifier, sCompareType) || session.PID.Equals(pid))
-                    return session;
-                else if (!requireMatchingPID && session.ProcessName.Equals(name, sCompareType))
+                if (session.ProcessIdentifier.Equals(identifier, sCompareType) || session.PID.Equals(pid) || session.ProcessName.Equals(name, sCompareType))
                     potentialMatches.Add(session);
             }
 
-            if (requireMatchingPID)
+            if (potentialMatches.Count == 0)
                 return null;
+            else if (potentialMatches.Count == 1)
+                return potentialMatches[0];
+
+            foreach (var session in potentialMatches)
+            {
+                if (session.PID.Equals(pid))
+                    return session;
+            }
+
             return potentialMatches.FirstOrDefault((ISession?)null);
         }
         /// <summary>
@@ -505,21 +512,39 @@ namespace VolumeControl.Core
             /// </summary>
             Name,
             /// <summary>
-            /// Both the PID and the Process Name of the session, seperated with a colon <b>:</b>
+            /// Only includes process identifiers, which are both the PID and the Process Name of the session seperated with a colon <b>:</b>
             /// </summary>
-            Both,
+            Identifier,
+            /// <summary>
+            /// Includes process identifiers and process names for the full autocomplete experience.
+            /// </summary>
+            IdentifierAndName,
         }
         /// <summary>
         /// Gets a list of strings representing each of the sessions in <see cref="Sessions"/>.
         /// </summary>
         /// <param name="fmt">This corresponds to the target property in <see cref="Sessions"/></param>
         /// <returns>List of strings for autocomplete.</returns>
-        public List<string> GetSessionIdentifiers(SessionIdentifierFormat fmt = SessionIdentifierFormat.Both) => fmt switch
+        public List<string> GetSessionIdentifiers(SessionIdentifierFormat fmt = SessionIdentifierFormat.IdentifierAndName)
         {
-            SessionIdentifierFormat.PID => Sessions.Select(s => s.PID.ToString()).ToList(),
-            SessionIdentifierFormat.Name => Sessions.Select(s => s.ProcessName).ToList(),
-            _ => Sessions.Select(s => s.ProcessIdentifier).ToList(),
-        };
+            switch (fmt)
+            {
+            case SessionIdentifierFormat.PID:
+                return Sessions.Select(s => s.PID.ToString()).ToList();
+            case SessionIdentifierFormat.Name:
+                return Sessions.Select(s => s.ProcessName).ToList();
+            case SessionIdentifierFormat.Identifier:
+                return Sessions.Select(s => s.ProcessIdentifier).ToList();
+            default:
+                List<string> l = new();
+                foreach (var s in Sessions)
+                {
+                    l.Add(s.ProcessIdentifier);
+                    l.Add(s.ProcessName);
+                }
+                return l;
+            }
+        }
         #endregion Session
 
         #region Selection
@@ -688,6 +713,7 @@ namespace VolumeControl.Core
         {
             SaveSettings();
             ReloadTimer.Dispose();
+            ReloadOnHotkeyTimer.Dispose();
 
             for (int i = Sessions.Count - 1; i >= 0; --i)
             {

@@ -768,10 +768,10 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Name -->
-                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="False">
+                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Background="#00000000" Style="{StaticResource TextBoxStyle}" BorderThickness="0"/>
+                                    <TextBox IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Background="#00000000" Style="{StaticResource TextBoxStyle}" BorderThickness="0"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
