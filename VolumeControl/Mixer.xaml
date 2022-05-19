@@ -1083,6 +1083,7 @@
                               Content="Enable Log"
                               Margin="5,2"
                               VerticalAlignment="Center"
+                              d:IsEnabled="True"
                               IsEnabled="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}"
                               IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
@@ -1159,6 +1160,7 @@
                                    Margin="5,0"
                                    Grid.Column="1"
                                    Style="{StaticResource WatermarkTextBlockStyle}"
+                                   d:Visibility="Collapsed"
                                    Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Grid>
                 </DockPanel>

@@ -439,17 +439,6 @@ namespace VolumeControl.Core
         /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
         public ISession? FindSessionWithIdentifier(string identifier, bool requireMatchingPID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
         {
-            /* TEST INPUTS:
-             * 
-             * 10:Process                   => 10:Process
-             * 11:PRocessWithOldID          => 10:Process
-             * 11:processwitholdid          => 10:Process
-             * 10:pRoCeSs                   => 10:Process
-             * 999:                         => 999:ProcessNine
-             * :Processnine                 => 999:ProcessNine
-             * ProcessNine                  => 999:ProcessNine
-             */
-
             if (identifier.Length == 0)
                 return null;
 

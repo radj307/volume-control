@@ -46,16 +46,6 @@ namespace VolumeControl
 
             (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
 
-            // Tray icon
-            _notifyIcon = new();
-            _notifyIcon.Icon = Properties.Resources.iconSilvered;
-            _notifyIcon.Visible = true;
-            _notifyIcon.Text = $"Volume Control {version}";
-            _notifyIcon.Click += (s, e) =>
-            {
-                Show();
-                WindowState = WindowState.Normal;
-            };
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -65,8 +55,6 @@ namespace VolumeControl
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            _notifyIcon.Dispose();
-
             HotkeyAPI.Dispose();
 
             // Apply Window Settings:
@@ -89,7 +77,6 @@ namespace VolumeControl
 
         #region Fields
         private readonly VolumeControlRunAtStartup _startupHelper;
-        private readonly System.Windows.Forms.NotifyIcon _notifyIcon = null!;
         #endregion Fields
 
         #region Properties

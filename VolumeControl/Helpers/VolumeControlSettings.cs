@@ -85,7 +85,15 @@ namespace VolumeControl.Helpers
             }
         }
         private bool _showIcons;
-
+        /// <summary>
+        /// Gets or sets the hotkey editor mode, which can be either false (basic mode) or true (advanced mode).
+        /// </summary>
+        /// <remarks>Advanced mode allows the user to perform additional actions in the hotkey editor:
+        /// <list type="bullet">
+        /// <item><description>Create and delete hotkeys.</description></item>
+        /// <item><description>Change the action bindings of hotkeys.</description></item>
+        /// <item><description>Rename hotkeys.</description></item>
+        /// </list></remarks>
         public bool AdvancedHotkeyMode
         {
             get => _advancedHotkeyMode;
@@ -96,7 +104,9 @@ namespace VolumeControl.Helpers
             }
         }
         private bool _advancedHotkeyMode;
-
+        /// <summary>
+        /// Gets or sets whether the application automatically starts on boot.<br/>This uses the <see cref="RegistryAPI"/> object to create and delete the relevant registry key.
+        /// </summary>
         public bool RunAtStartup
         {
             get => _runAtStartup;
@@ -112,7 +122,10 @@ namespace VolumeControl.Helpers
             }
         }
         private bool _runAtStartup;
-
+        /// <summary>
+        /// Gets or sets whether the window should be minimized during startup.<br/>
+        /// The window can be shown again later using the tray icon.
+        /// </summary>
         public bool StartMinimized
         {
             get => _startMinimized;

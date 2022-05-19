@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reflection;
+using System.Windows;
 using VolumeControl.Helpers;
-using VolumeControl.Log;
-using VolumeControl.Properties;
 
 namespace VolumeControl
 {
@@ -10,10 +10,35 @@ namespace VolumeControl
         public App()
         {
             InitializeComponent();
+
+            var assembly = Assembly.GetAssembly(typeof(Mixer));
+            string version = $"v{assembly?.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+
+            // Tray icon
+            TrayIcon = new()
+            {
+                Icon = VolumeControl.Properties.Resources.iconSilvered,
+                Visible = true,
+                Text = $"Volume Control {version}"
+            };
+            TrayIcon.Click += HandleTrayIconClick!;
         }
+
+        private System.Windows.Forms.NotifyIcon TrayIcon;
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            TrayIcon.Click -= HandleTrayIconClick!;
             (FindResource("Settings") as VolumeControlSettings)?.Dispose();
+            TrayIcon.Visible = false;
+            TrayIcon.Dispose();
+            TrayIcon = null!;
+        }
+
+        private void HandleTrayIconClick(object sender, EventArgs e)
+        {
+            Current.MainWindow.Show();
+            Current.MainWindow.WindowState = WindowState.Normal;
         }
     }
 }
