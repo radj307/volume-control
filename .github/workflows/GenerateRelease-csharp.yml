@@ -33,10 +33,13 @@ jobs:
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
 
-    - name:   'Build VolumeControl Binary'
+    - name:   Build Update Utility Binary
+      run:    dotnet publish VolumeControl.UpdateUtility -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl.UpdateUtility/Properties/PublishProfiles/FolderProfile.pubxml"
+
+    - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
-    - name:   'Create Staging Directory'
+    - name:   Create Staging Directory
       run:    mkdir "STAGING"
 
     - name:   Stage Files
