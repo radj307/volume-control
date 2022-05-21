@@ -26,13 +26,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.WPF.Tests", "VolumeControl.WPF.Tests\VolumeControl.WPF.Tests.csproj", "{82E45A9B-DF50-4C6B-96CD-FFDC29841E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Audio", "VolumeControl.Audio\VolumeControl.Audio.csproj", "{A2353F74-54F6-4F28-AEB0-7BD75E299522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Audio", "VolumeControl.Audio\VolumeControl.Audio.csproj", "{A2353F74-54F6-4F28-AEB0-7BD75E299522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Hotkeys", "VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj", "{4D1B1380-EFB7-402E-B940-99350E9718AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Hotkeys", "VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj", "{4D1B1380-EFB7-402E-B940-99350E9718AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Hotkeys.Addons", "VolumeControl.Hotkeys.Addons\VolumeControl.Hotkeys.Addons.csproj", "{CE689E08-FE2D-4314-B287-420248A1BBC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.UpdateUtility", "VolumeControl.UpdateUtility\VolumeControl.UpdateUtility.csproj", "{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.UpdateUtility", "VolumeControl.UpdateUtility\VolumeControl.UpdateUtility.csproj", "{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.API", "VolumeControl.API\VolumeControl.API.csproj", "{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +80,14 @@ Global
 		{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

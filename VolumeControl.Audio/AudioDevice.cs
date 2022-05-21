@@ -38,7 +38,8 @@ namespace VolumeControl.Audio
         public DeviceState State => _device.State;
         public AudioSessionManager SessionManager => _device.AudioSessionManager;
         public AudioEndpointVolume EndpointVolumeObject => _device.AudioEndpointVolume;
-        public float EndpointNativeVolume
+        /// <inheritdoc/>
+        public float NativeEndpointVolume
         {
             get => EndpointVolumeObject.MasterVolumeLevel;
             set
@@ -51,20 +52,30 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
             }
         }
+        /// <inheritdoc/>
         public int EndpointVolume
         {
-            get => Convert.ToInt32(EndpointNativeVolume * 100f);
+            get => Convert.ToInt32(NativeEndpointVolume * 100f);
             set
             {
                 if (value > 100)
                     value = 100;
                 else if (value < 0)
                     value = 0;
-                EndpointNativeVolume = (float)(Convert.ToDouble(value) / 100.0);
+                NativeEndpointVolume = (float)(Convert.ToDouble(value) / 100.0);
                 NotifyPropertyChanged();
             }
         }
-        public bool EndpointMuted => EndpointVolumeObject.Mute;
+        /// <inheritdoc/>
+        public bool EndpointMuted
+        {
+            get => EndpointVolumeObject.Mute;
+            set
+            {
+                EndpointVolumeObject.Mute = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Events
@@ -85,7 +96,6 @@ namespace VolumeControl.Audio
             }
             return l;
         }
-
         /// <inheritdoc/>
         public void Dispose()
         {

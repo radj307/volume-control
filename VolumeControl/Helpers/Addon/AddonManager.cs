@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Semver;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using VolumeControl.Core;
 using VolumeControl.Hotkeys.Attributes;
+using VolumeControl.Log;
 
 namespace VolumeControl.Helpers.Addon
 {
@@ -14,21 +16,30 @@ namespace VolumeControl.Helpers.Addon
     public class AddonManager
     {
         #region Initializers
-        public AddonManager()
+        public AddonManager(SemVersion version)
         {
+            _currentVersion = version;
             _rootAddonPath = GetAddonPath();
+            Log.Debug($"Checking for addon assemblies located in directory: '{_rootAddonPath}'.");
             AddonAssemblies = new();
             // load addon assemblies
             GetAddonAssemblyPaths().ForEach(p => AddonAssemblies.Add(Assembly.LoadFrom(p)));
+            // log
+            if (AddonAssemblies.Count == 0)
+                Log.Debug($"No addon assemblies were found.");
+            else
+                Log.Debug($"Found {AddonAssemblies.Count} addon assemblies.");
         }
         #endregion Initializers
 
         #region Fields
+        private readonly SemVersion _currentVersion;
         private readonly string _rootAddonPath;
         private List<Type>? _actionAddonTypes = null;
         #endregion Fields
 
         #region Properties
+        private static LogWriter Log => FLog.Log;
         public readonly List<Assembly> AddonAssemblies;
         public List<Type> ActionAddonTypes => _actionAddonTypes ??= GetTypesWithAttribute<ActionAddonAttribute>();
         #endregion Properties
@@ -69,19 +80,25 @@ namespace VolumeControl.Helpers.Addon
             }
             return string.Empty;
         }
-        private static List<Type> GetTypesWithAttribute<T>(Assembly asm) where T : Attribute
+        private static List<Type> GetTypesWithAttribute<T>(Assembly asm, SemVersion currentVersion) where T : BaseAddonAttribute
         {
+            Log.Debug($"Enumerating Classes from Addon: {{ Name: '{asm.FullName}', Path: '{asm.Location}' }}");
             List<Type> l = new();
             foreach (Type type in asm.GetTypes())
-                if (type.GetCustomAttribute<T>() != null)
+            {
+                if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr && bAttr.CanLoadAddon(currentVersion))
+                {
+                    Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{typeof(T).Name}' }}");
                     l.Add(type);
+                }
+            }
             return l;
         }
-        private List<Type> GetTypesWithAttribute<T>() where T : Attribute
+        private List<Type> GetTypesWithAttribute<T>() where T : BaseAddonAttribute
         {
             List<Type> l = new();
             foreach (Assembly asm in AddonAssemblies)
-                l.AddRange(GetTypesWithAttribute<T>(asm));
+                l.AddRange(GetTypesWithAttribute<T>(asm, _currentVersion));
             return l;
         }
         #endregion Methods

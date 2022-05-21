@@ -8,6 +8,7 @@ namespace VolumeControl.WPF.Converters
     /// Converts from any object type to bool depending on whether or not that object is null.
     /// </summary>
     /// <remarks>Returns true when the object is null.</remarks>
+    [ValueConversion(typeof(Nullable), typeof(bool))]
     public class NullToBooleanConverter : IValueConverter
     {
         /// <inheritdoc/>

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
+using VolumeControl.Core;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
@@ -33,7 +34,12 @@ namespace VolumeControl.Helpers
             _audioAPI = new();
             _hWndMixer = WindowHandleGetter.GetWindowHandle();
 
-            AddonManager = new();
+            var assembly = Assembly.GetAssembly(typeof(VolumeControlSettings));
+            VersionNumber = assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
+            ReleaseType = assembly?.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
+
+            Version = VersionNumber.GetSemVer() ?? new(0, 0, 0);
+            AddonManager = new(Version);
             // load actions, including addons:
             List<object> objects = new();
             List<Type> l = AddonManager.ActionAddonTypes;
@@ -46,9 +52,8 @@ namespace VolumeControl.Helpers
                 objects
             ));
 
-            var assembly = Assembly.GetAssembly(typeof(VolumeControlSettings));
-            VersionNumber = assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
-            ReleaseType = assembly?.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
+            // Initialize the addon API
+            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, _hWndMixer);
 
             Log.Info($"Volume Control v{VersionNumber} Initializing...");
 
@@ -109,6 +114,8 @@ namespace VolumeControl.Helpers
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
         private readonly RunKeyHelper _registryRunKeyHelper;
+        private const string _updateUtilityFilename = "VolumeControl.UpdateUtility.exe";
+        private const string _updateUtilityResourcePath = $"VolumeControl.Resources.{_updateUtilityFilename}";
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
         public readonly string ExecutablePath;
@@ -130,6 +137,7 @@ namespace VolumeControl.Helpers
         #endregion PrivateStatics
 
         public string VersionNumber { get; private set; }
+        public SemVersion Version { get; private set; }
         #endregion Statics
 
         #region ParentObjects
@@ -222,9 +230,9 @@ namespace VolumeControl.Helpers
                 if ((_checkForUpdates = value) && !_hasCheckedForUpdates)
                 {
                     var updateTask = CheckForUpdatesHttps();
-                    updateTask.Wait(-1);
+                    updateTask.Wait(-1); // wait asynchronously for the update check to complete
                     if (updateTask.Result)
-                    {
+                    { // user wants to use the auto-updater, shutdown now.
                         Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                         Application.Current.Shutdown();
                     }
@@ -237,6 +245,10 @@ namespace VolumeControl.Helpers
         #endregion Properties
 
         #region Methods
+        /// <summary>
+        /// Retrieves the list of releases from the Github API, and if a newer version is found a message box is shown prompting the user to update.
+        /// </summary>
+        /// <returns>True when the autoupdater is ready & waiting for the program to shutdown, otherwise false.</returns>
         private async Task<bool> CheckForUpdatesHttps()
         {
             _hasCheckedForUpdates = true;
@@ -283,25 +295,60 @@ namespace VolumeControl.Helpers
             }
             return false;
         }
+        /// <summary>
+        /// Writes the update client from the embedded resource dictionary to the local disk.
+        /// </summary>
+        /// <param name="asyncTimeout">This method uses asynchronous stream operations, setting this to any value other than -1 will set a timeout in milliseconds before throwing an error and returning.</param>
+        /// <returns>The absolute filepath of the updater utility's executable.</returns>
         internal string? SetupUpdateUtility(int asyncTimeout = -1)
         {
             var asm = Assembly.GetEntryAssembly();
             if (asm == null)
                 return null;
 
-            string path = Path.Combine(Path.GetDirectoryName(ExecutablePath) ?? string.Empty, "VolumeControl.UpdateUtility.exe");
+            try
+            {
 
-            if (File.Exists(path))
+            }
+            catch (Exception ex)
+            {
+                Log.Error(
+                    "An exception was thrown while creating the update utility!",
+                   $"{{ Resource: '{_updateUtilityResourcePath}' }}",
+                    ex);
+            }
+            string path = Path.Combine(Path.GetDirectoryName(ExecutablePath) ?? string.Empty, _updateUtilityFilename);
+
+            if (File.Exists(path)) // if the file already exists, delete it
+            {
+                Log.Warning($"Deleted update utility from a previous update located at '{path}'");
                 File.Delete(path);
+            }
 
-            using Stream s = asm.GetManifestResourceStream("VolumeControl.Resources.VolumeControl.UpdateUtility.exe")!;
+            using Stream? s = asm.GetManifestResourceStream(_updateUtilityResourcePath);
+
+            if (s == null)
+            {
+                Log.Error($"Failed to get a stream containing resource '{_updateUtilityResourcePath}'!", "This indicates that something may have gone wrong during the build process!", "Please attach a copy of this log file and report this at https://github.com/radj307/volume-control/issues");
+                return null;
+            }
+            else if (s.Length <= 0)
+            {
+                Log.Error("Failed to retrieve the embedded update utility resource file!", "This indicates that something may have gone wrong during the build process!", "Please attach a copy of this log file and report this at https://github.com/radj307/volume-control/issues");
+                s.Close();
+                s.Dispose();
+                return null;
+            }
+
             using Stream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
-            s.CopyToAsync(fs).Wait(asyncTimeout);
-            fs.FlushAsync().Wait(asyncTimeout);
-            fs.Close();
-            fs.Dispose();
+            fs.SetLength(s.Length);
+            s.CopyTo(fs);
             s.Close();
             s.Dispose();
+
+            fs.Flush(); //< idk if this is required, but it's probably a good idea
+            fs.Close();
+            fs.Dispose();
 
             if (!File.Exists(path))
                 return null;

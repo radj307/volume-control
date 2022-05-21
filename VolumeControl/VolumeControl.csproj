@@ -83,7 +83,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />
     <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
     <ProjectReference Include="..\VolumeControl.Hotkeys.Addons\VolumeControl.Hotkeys.Addons.csproj" />
     <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />

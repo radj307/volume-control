@@ -38,9 +38,9 @@ namespace VolumeControl.Hotkeys {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-  <string>Volume Up::VolumeUp::Volume Up</string>
-  <string>Volume Down::VolumeDown::Volume Down</string>
-  <string>Toggle Mute::VolumeMute::Toggle Mute</string>
+  <string>Volume Up::VolumeUp::Increase Session Volume</string>
+  <string>Volume Down::VolumeDown::Decrease Session Volume</string>
+  <string>Toggle Mute::VolumeMute::Toggle Session Mute</string>
   <string>Next Session::Ctrl+Shift+Alt+E::Select Next Session</string>
   <string>Previous Session::Ctrl+Shift+Alt+Q::Select Previous Session</string>
   <string>Lock Session::Ctrl+Shift+Alt+S::Toggle Session Lock</string>

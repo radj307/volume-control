@@ -80,7 +80,7 @@ namespace VolumeControl.Audio
         #region Fields
         private bool _allowReloadOnHotkey = true;
 
-        private IDevice? _selectedDevice = null;
+        private IDevice? _selectedDevice;
         private bool _lockSelectedDevice;
 
         private ISession? _selectedSession;
@@ -123,7 +123,7 @@ namespace VolumeControl.Audio
         public ObservableList<AudioSession> Sessions { get; } = new();
         public IDevice? SelectedDevice
         {
-            get => _selectedDevice;
+            get => CheckAllDevices ? GetDefaultDevice() : _selectedDevice;
             set
             {
                 if (LockSelectedDevice)
@@ -206,7 +206,7 @@ namespace VolumeControl.Audio
 
                 if (eventArgs.Cancel)
                     return; // handle change cancelled
-                
+
                 value = eventArgs.Incoming; // update value to validated one
 
                 if (FindSessionWithIdentifier(value) is ISession session)
@@ -324,6 +324,7 @@ namespace VolumeControl.Audio
         #endregion UpdateDevices
         #region Device
         /// <summary>Gets the current default audio endpoint.</summary>
+        /// <remarks>This method checks <see cref="Devices"/> first and only creates a new device if it wasn't found.</remarks>
         /// <returns><see cref="AudioDevice"/></returns>
         public AudioDevice GetDefaultDevice()
         {
@@ -571,6 +572,7 @@ namespace VolumeControl.Audio
         #endregion Session
 
         #region Selection
+        #region SessionSelection
         public void IncrementSessionVolume(int amount)
         {
             ResolveTarget();
@@ -603,7 +605,7 @@ namespace VolumeControl.Audio
         /// Sets <see cref="SelectedSession"/> to the session occurring after this one in <see cref="Sessions"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
-        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="null"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectNextSession()
         {
             ResolveTarget();
@@ -634,7 +636,7 @@ namespace VolumeControl.Audio
         /// Sets <see cref="SelectedSession"/> to the session occurring before this one in <see cref="Sessions"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
-        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="NullSession"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="null"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectPreviousSession()
         {
             ResolveTarget();
@@ -662,13 +664,56 @@ namespace VolumeControl.Audio
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
         /// <summary>
-        /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
-        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// Sets the selected session to null.
         /// </summary>
-        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the first element in <see cref="Devices"/> is selected.</remarks>
+        public void DeselectSession() => SelectedSession = null;
+        #endregion SessionSelection
+        #region DeviceSelection
+        /// <summary>
+        /// Increments the endpoint volume of the currently selected device.<br/>
+        /// This affects the maximum volume of all sessions using this endpoint.
+        /// </summary>
+        /// <param name="amount">The amount to increase the volume by.</param>
+        public void IncrementDeviceVolume(int amount)
+        {
+            if (SelectedDevice is AudioDevice dev)
+                dev.EndpointVolume += amount;
+        }
+        /// <remarks>This calls <see cref="IncrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
+        /// <inheritdoc cref="IncrementDeviceVolume(int)"/>
+        public void IncrementDeviceVolume() => IncrementDeviceVolume(VolumeStepSize);
+        /// <summary>
+        /// Decrements the endpoint volume of the currently selected device.<br/>
+        /// This affects the maximum volume of all sessions using this endpoint.
+        /// </summary>
+        /// <param name="amount">The amount to decrease the volume by.</param>
+        public void DecrementDeviceVolume(int amount)
+        {
+            if (SelectedDevice is AudioDevice dev)
+                dev.EndpointVolume += amount;
+        }
+        /// <remarks>This calls <see cref="DecrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
+        /// <inheritdoc cref="DecrementDeviceVolume(int)"/>
+        public void DecrementDeviceVolume() => DecrementDeviceVolume(VolumeStepSize);
+        public bool GetDeviceMute() => SelectedDevice?.EndpointMuted ?? false;
+        public void SetDeviceMute(bool state)
+        {
+            if (SelectedDevice is AudioDevice dev)
+                dev.EndpointMuted = state;
+        }
+        public void ToggleDeviceMute()
+        {
+            if (SelectedDevice is AudioDevice dev)
+                dev.EndpointMuted = !dev.EndpointMuted;
+        }
+        /// <summary>
+        /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
+        /// <br/>Automatically loops back around if the selection index goes out of range.<br/>
+        /// Does nothing unless device selection is unlocked.
+        /// </summary>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="null"/>, the first element in <see cref="Devices"/> is selected.</remarks>
         public void SelectNextDevice()
         {
-            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;
@@ -693,12 +738,12 @@ namespace VolumeControl.Audio
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring before this one in <see cref="Devices"/>.
-        /// <br/>Automatically loops back around if the selection index goes out of range.
+        /// <br/>Automatically loops back around if the selection index goes out of range.<br/>
+        /// Does nothing unless device selection is unlocked.
         /// </summary>
-        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="NullDevice"/>, the last element in <see cref="Devices"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="null"/>, the last element in <see cref="Devices"/> is selected.</remarks>
         public void SelectPreviousDevice()
         {
-            ResolveTarget();
             if (ReloadOnHotkey && _allowReloadOnHotkey)
             { // reload on hotkey
                 _allowReloadOnHotkey = false;
@@ -721,6 +766,30 @@ namespace VolumeControl.Audio
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
+        /// <summary>
+        /// Sets the selected device to null, unless the selection is locked.
+        /// </summary>
+        public void DeselectDevice()
+        {
+            if (LockSelectedDevice)
+                return;
+
+            SelectedDevice = null;
+            NotifyDeviceSwitch();
+        }
+        /// <summary>
+        /// Sets the selected device to the default device, unless the selection is locked.
+        /// </summary>
+        public void SelectDefaultDevice()
+        {
+            if (LockSelectedDevice)
+                return;
+            var defaultDevice = GetDefaultDevice();
+
+            if (SelectedDevice != defaultDevice)
+                SelectedDevice = defaultDevice;
+        }
+        #endregion DeviceSelection
         #endregion Selection
 
         #region Other

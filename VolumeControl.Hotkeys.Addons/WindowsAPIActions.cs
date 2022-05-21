@@ -10,7 +10,7 @@ namespace VolumeControl.Hotkeys.Addons
     /// <summary>
     /// Contains hotkey action handlers that use windows API functions.
     /// </summary>
-    [ActionAddon]
+    [ActionAddon(nameof(WindowsAPIActions))]
     public class WindowsAPIActions
     {
         /// <summary>

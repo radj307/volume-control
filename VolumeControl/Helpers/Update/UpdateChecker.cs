@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using VolumeControl.Core;
 
 namespace VolumeControl.Helpers.Update
 {
@@ -52,12 +53,6 @@ namespace VolumeControl.Helpers.Update
             }
             if (newest is (SemVersion, GithubReleaseHttpResponse) newestReleasePair && newestReleasePair.Item1.CompareByPrecedence(currentVersion) > 0)
                 return newest;
-            return null;
-        }
-        private static SemVersion? GetSemVer(this string s)
-        {
-            if (SemVersion.TryParse(s.Trim(), SemVersionStyles.OptionalPatch, out SemVersion result))
-                return result;
             return null;
         }
         /// <summary>Opens the specified link in the default web browser.</summary>

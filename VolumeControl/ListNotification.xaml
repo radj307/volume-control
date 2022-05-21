@@ -4,9 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VolumeControl"
         xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
-        xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+        xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
         mc:Ignorable="d"
         Title="ListNotification"
         SizeToContent="WidthAndHeight"
@@ -20,15 +19,18 @@
         Unloaded="Window_Unloaded"
         ResizeMode="NoResize"
         Focusable="False"
-        ShowActivated="False">
+        ShowActivated="False"
+        AllowsTransparency="True">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="Background">
                 <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" SpreadMethod="Reflect">
-                        <GradientStop Offset="0" Color="#454545"/>
-                        <GradientStop Offset="1" Color="#606060"/>
-                    </LinearGradientBrush>
+                    <RadialGradientBrush SpreadMethod="Reflect" Opacity="0.1">
+                        <GradientStop Offset="0" Color="#303030"/>
+                        <GradientStop Offset="0.2" Color="#303035"/>
+                        <GradientStop Offset="0.4" Color="#35353A"/>
+                        <GradientStop Offset="0.6" Color="#40404E"/>
+                    </RadialGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -60,7 +62,7 @@
             <!-- Section Divider Style -->
             <Style x:Key="DividerStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="BorderBrush" Value="#55FFFFFF"/>
+                <Setter Property="BorderBrush" Value="#22FFFFFF"/>
             </Style>
             <!-- ListView Hidden Headers Style -->
             <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
@@ -73,9 +75,19 @@
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
-            <!-- Session Control Panel Style -->
+            <!-- Volume Adjustment Panel Style -->
             <Style x:Key="SliderGridStyle" TargetType="Grid">
+                <Style.Resources>
+                    <ResourceDictionary>
+                        <conv:ConverterChain x:Key="VolumeAdjusterVisibilityChainConverter">
+                            <conv:NullToBooleanConverter/>
+                            <conv:BooleanInverter/>
+                            <BooleanToVisibilityConverter/>
+                        </conv:ConverterChain>
+                    </ResourceDictionary>
+                </Style.Resources>
                 <Setter Property="Background" Value="#55000000"/>
+                <Setter Property="Visibility" Value="{Binding AudioAPI.SelectedSession, Source={StaticResource Settings}, Converter={StaticResource VolumeAdjusterVisibilityChainConverter}}"/>
             </Style>
             <!-- Session Control Panel Slider Style -->
             <Style x:Key="SliderStyle" TargetType="Slider">
@@ -127,16 +139,6 @@
 
             <!-- Session GridView -->
             <GridView x:Key="GridViewAudioAPISessions" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
-                <!-- PID Column -->
-                <!--
-                <GridViewColumn Width="Auto" Header="PID">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Name="pidBlock" Text="{Binding PID}" Style="{StaticResource TextBlockStyle}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
-                -->
                 <!-- Icon Column -->
                 <GridViewColumn Width="32">
                     <GridViewColumn.CellTemplate>
@@ -168,10 +170,12 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <!-- Outer Layout Grid Control -->
     <Grid>
+        <!-- Edge Border Control -->
         <Border x:Name="edgeBorder"
-                Style="{StaticResource WindowBorderStyle}">
-        </Border>
+                Style="{StaticResource WindowBorderStyle}"/>
+        <!-- Inner Layout Grid Control -->
         <Grid Style="{StaticResource InteriorGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -179,10 +183,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Column 0: Slider -->
+            <!-- ListView Row -->
+            <ListView x:Name="listView"
+                      Style="{StaticResource ListViewStyle}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding AudioAPI.SelectedSession, Source={StaticResource Settings}}"
+                      ItemsSource="{Binding AudioAPI.Sessions, Source={StaticResource Settings}}"
+                      View="{StaticResource GridViewAudioAPISessions}"
+                      MouseEnter="ControlMouseEnter"
+                      MouseLeave="ControlMouseLeave"/>
+
+            <!-- Divider Border Control -->
+            <Border Grid.Row="1" Style="{StaticResource DividerStyle}"/>
+
+            <!-- Slider Row -->
             <Grid x:Name="sliderGrid"
-                  Visibility="{Binding SliderVisibility, ElementName=lnotifWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Row="2"
+                  
                   Style="{StaticResource SliderGridStyle}">
+                <!--Visibility="{Binding SliderVisibility, ElementName=lnotifWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="26"/>
                     <ColumnDefinition Width="*"/>
@@ -209,18 +228,6 @@
                         Thumb.DragCompleted="ControlDragCompleted"/>
             </Grid>
 
-            <Border Grid.Row="1" Style="{StaticResource DividerStyle}"/>
-
-            <!-- Column 1: ListView -->
-            <ListView x:Name="listView"
-                      Grid.Row="2"
-                      Style="{StaticResource ListViewStyle}"
-                      SelectionMode="Single"
-                      SelectedItem="{Binding AudioAPI.SelectedSession, Source={StaticResource Settings}}"
-                      ItemsSource="{Binding AudioAPI.Sessions, Source={StaticResource Settings}}"
-                      View="{StaticResource GridViewAudioAPISessions}"
-                      MouseEnter="ControlMouseEnter"
-                      MouseLeave="ControlMouseLeave"/>
         </Grid>
     </Grid>
 </Window>

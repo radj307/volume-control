@@ -53,6 +53,7 @@
             w.Write(str);
             w.Close();
         }
+        /// <inheritdoc/>
         public void WriteRaw(string? str) => WriteRaw(str, FileMode.Append);
         /// <inheritdoc/>
         public void WriteRawLine(string? str, FileMode mode)
@@ -63,6 +64,7 @@
             w.WriteLine(str);
             w.Close();
         }
+        /// <inheritdoc/>
         public void WriteRawLine(string? str) => WriteRawLine(str, FileMode.Append);
         /// <inheritdoc/>
         public int? ReadRaw(FileMode mode)
@@ -88,7 +90,9 @@
             File.Open(Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
         }
 
+        /// <inheritdoc/>
         public int? ReadRaw() => ReadRaw(FileMode.Open);
+        /// <inheritdoc/>
         public string? ReadRawLine() => ReadRawLine(FileMode.Open);
 
         #endregion Methods

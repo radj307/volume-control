@@ -109,7 +109,7 @@ namespace VolumeControl.Hotkeys
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
-            var split = hkString.Split("::", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            var split = hkString.Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             // Set the hotkey name:
             string name = split[0];

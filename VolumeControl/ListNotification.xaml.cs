@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using VolumeControl.Extensions;
 
 namespace VolumeControl
@@ -38,10 +40,35 @@ namespace VolumeControl
         #region Fields
         public readonly System.Windows.Forms.Timer TimeoutTimer = new() { Enabled = false };
         private bool _enabled = false;
+        private ListNotificationDisplayTarget _displayMode = ListNotificationDisplayTarget.None;
         #endregion Fields
 
         #region Properties
         private static Properties.Settings Settings => Properties.Settings.Default;
+        /// <summary>Determines what is shown in the list area, if anything.</summary>
+        public ListNotificationDisplayTarget DisplayMode
+        {
+            get => _displayMode;
+            set
+            {
+                switch (_displayMode = value)
+                {
+                case ListNotificationDisplayTarget.Sessions: // show sessions
+
+                    break;
+                case ListNotificationDisplayTarget.Devices: // show devices
+                    slider.SetBinding(Slider.ValueProperty, new Binding("AudioAPI.SelectedDevice.Volume")
+                    {
+                        Source = FindResource("Settings"),
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    });
+                    break;
+                case ListNotificationDisplayTarget.None:
+                default: break;
+                }
+            }
+        }
+        /// <summary>Controls the amount of time <i>(in milliseconds)</i> that the list notification is visible for before disappearing.</summary>
         public decimal TimeoutInterval
         {
             get => TimeoutTimer.Interval;

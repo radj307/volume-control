@@ -21,7 +21,11 @@ namespace VolumeControl.Hotkeys
         {
             AddHook();
 
-            ActionNames = _hotkeyActions.GetActionNames();
+            ActionNames = _hotkeyActions
+                .GetActionNames()
+                .Where(s => s.Length > 0)
+                .OrderBy(s => s[0])
+                .ToList();
 
             LoadHotkeys();
         }
