@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using VolumeControl.Helpers;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -37,7 +35,7 @@ namespace VolumeControl
             // this means we're starting back up after the update util completed
             if (args.Contains("--autoupdated"))
             { // delete updater file
-                var appDomain = AppDomain.CurrentDomain;
+                AppDomain? appDomain = AppDomain.CurrentDomain;
                 string path = System.IO.Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, "VolumeControl.UpdateUtility.exe");
                 System.IO.File.Delete(path);
             }

@@ -3,11 +3,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
-using VolumeControl.Audio.Interfaces;
 using VolumeControl.Helpers;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
@@ -35,7 +33,9 @@ namespace VolumeControl
         private void Window_Initialized(object sender, EventArgs e)
         {
             if (Settings.StartMinimized)
+            {
                 WindowState = WindowState.Minimized;
+            }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -77,22 +77,38 @@ namespace VolumeControl
 
         #region EventHandlers
         /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadClick(object sender, RoutedEventArgs e) => AudioAPI.ReloadSessionList();
+        private void Handle_ReloadClick(object sender, RoutedEventArgs e)
+        {
+            AudioAPI.ReloadSessionList();
+        }
+
         /// <summary>Handles the reload device list button's click event.</summary>
-        private void Handle_ReloadDevicesClick(object sender, EventArgs e) => AudioAPI.ReloadDeviceList();
+        private void Handle_ReloadDevicesClick(object sender, EventArgs e)
+        {
+            AudioAPI.ReloadDeviceList();
+        }
+
         /// <summary>Handles the Select process button's click event.</summary>
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
             if (MixerGrid.CurrentCell.Item is AudioSession session)
+            {
                 AudioAPI.SelectedSession = session;
+            }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
-        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e) => HotkeyAPI.AddHotkey();
+        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
+        {
+            HotkeyAPI.AddHotkey();
+        }
+
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_HotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.CommandParameter is int id)
+            {
                 HotkeyAPI.DelHotkey(id);
+            }
         }
         /// <summary>Ensures there is enough space to display the hotkeys data grid when advanced mode is enabled.</summary>
         private void Handle_TabControlChange(object sender, RoutedEventArgs e)
@@ -111,12 +127,18 @@ namespace VolumeControl
             }
         }
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
-        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => VCSettings.ResetHotkeySettings();
+        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
+        {
+            VCSettings.ResetHotkeySettings();
+        }
+
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
             string myDir = Path.GetDirectoryName(VCSettings.ExecutablePath) ?? string.Empty;
             if (Path.GetDirectoryName(LogFilePath) is not string initial || initial.Length == 0)
+            {
                 initial = myDir;
+            }
 
             var sfd = new SaveFileDialog
             {
@@ -151,16 +173,20 @@ namespace VolumeControl
         private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
+            {
                 LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
+            }
         }
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (WindowState.Equals(WindowState.Minimized))
+            {
                 Hide();
+            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var lnotif = ListNotification;
+            ListNotification? lnotif = ListNotification;
             lnotif.Owner = this;
 
             AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.Show();

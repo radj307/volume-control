@@ -26,7 +26,7 @@ namespace VolumeControl.Audio
 
             ReloadSessionList();
 
-            var targetSession = FindSessionWithIdentifier(Settings.SelectedSession);
+            ISession? targetSession = FindSessionWithIdentifier(Settings.SelectedSession);
             if (targetSession != null)
                 Target = targetSession.ProcessIdentifier;
             else Target = Settings.SelectedSession;
@@ -236,10 +236,7 @@ namespace VolumeControl.Audio
             }
         }
 
-        public IEnumerable<string> TargetAutoCompleteSource
-        {
-            get => _targetAutoCompleteSource ??= GetSessionIdentifiers(SessionIdentifierFormat.IdentifierAndName);
-        }
+        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= GetSessionIdentifiers(SessionIdentifierFormat.IdentifierAndName);
         #endregion Properties
 
         #region Events
@@ -296,18 +293,17 @@ namespace VolumeControl.Audio
 
         #region Methods
         #region UpdateDevices
-        public void ReloadDeviceList()
-        {
-            SelectiveUpdateDevices(GetAllDevices());
-        }
+        public void ReloadDeviceList() => SelectiveUpdateDevices(GetAllDevices());
         private void SelectiveUpdateDevices(List<AudioDevice> devices)
         {
-            var selID = SelectedDevice?.DeviceID;
+            string? selID = SelectedDevice?.DeviceID;
 
             // remove all devices that aren't in the new list. (exited/stopped)
             for (int i = Devices.Count - 1; i >= 0; --i)
+            {
                 if (!devices.Any(d => d.Equals(Devices[i])))
                     Devices.RemoveAt(i);
+            }
 
             // add all devices that aren't in the current list. (new)
             Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
@@ -331,11 +327,11 @@ namespace VolumeControl.Audio
         public AudioDevice GetDefaultDevice()
         {
             MMDeviceEnumerator enumerator = new();
-            var defaultDev = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            var defaultDevID = defaultDev.ID;
+            MMDevice? defaultDev = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            string? defaultDevID = defaultDev.ID;
             enumerator.Dispose();
 
-            foreach (var dev in Devices)
+            foreach (AudioDevice? dev in Devices)
             {
                 if (dev.DeviceID.Equals(defaultDevID, StringComparison.Ordinal))
                     return dev;
@@ -363,9 +359,12 @@ namespace VolumeControl.Audio
         /// <returns><see cref="IDevice"/> if successful, or null if no matching devices were found.</returns>
         public IDevice? FindDevice(Predicate<AudioDevice> predicate)
         {
-            foreach (var device in Devices)
+            foreach (AudioDevice? device in Devices)
+            {
                 if (predicate(device))
                     return device;
+            }
+
             return null;
         }
         #endregion Device
@@ -392,7 +391,7 @@ namespace VolumeControl.Audio
         /// <param name="sessions">List of sessions to update from.<br/>Any items within <see cref="Sessions"/> that are <b>not</b> present in <paramref name="sessions"/> are removed from <see cref="Sessions"/>.<br/>Any items present in <paramref name="sessions"/> that are <b>not</b> present within <see cref="Sessions"/> are added to <see cref="Sessions"/>.</param>
         private void SelectiveUpdateSessions(List<AudioSession> sessions)
         {
-            var selPID = SelectedSession?.PID;
+            long? selPID = SelectedSession?.PID;
 
             for (int i = Sessions.Count - 1; i >= 0; --i)
             {
@@ -420,9 +419,12 @@ namespace VolumeControl.Audio
         /// <returns><see cref="ISession"/> if a session was found, or null if <paramref name="predicate"/> didn't return true for any elements.</returns>
         public ISession? FindSession(Predicate<AudioSession> predicate)
         {
-            foreach (var session in Sessions)
+            foreach (AudioSession? session in Sessions)
+            {
                 if (predicate(session))
                     return session;
+            }
+
             return null;
         }
         /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process id <paramref name="pid"/></summary>
@@ -452,13 +454,13 @@ namespace VolumeControl.Audio
             if (identifier.Length == 0)
                 return null;
 
-            var (pid, name) = AudioSession.ParseProcessIdentifier(identifier);
+            (int pid, string name) = AudioSession.ParseProcessIdentifier(identifier);
 
             List<ISession> potentialMatches = new();
 
             for (int i = 0; i < Sessions.Count - 1; ++i)
             {
-                var session = Sessions[i];
+                AudioSession? session = Sessions[i];
                 if (session.ProcessIdentifier.Equals(identifier, sCompareType) || session.PID.Equals(pid) || session.ProcessName.Equals(name, sCompareType))
                     potentialMatches.Add(session);
             }
@@ -468,7 +470,7 @@ namespace VolumeControl.Audio
             else if (potentialMatches.Count == 1)
                 return potentialMatches[0];
 
-            foreach (var session in potentialMatches)
+            foreach (ISession? session in potentialMatches)
             {
                 if (session.PID.Equals(pid))
                     return session;
@@ -547,7 +549,7 @@ namespace VolumeControl.Audio
                 return Sessions.Select(s => s.ProcessIdentifier).ToList();
             default:
                 List<string> l = new();
-                foreach (var s in Sessions)
+                foreach (AudioSession? s in Sessions)
                 {
                     l.Add(s.ProcessIdentifier);
                     l.Add(s.ProcessName);
@@ -630,7 +632,9 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the first element in the list
             else if (Sessions.Count > 0)
+            {
                 SelectedSession = Sessions[0];
+            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
@@ -661,7 +665,9 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the last element in the list
             else if (Sessions.Count > 0)
+            {
                 SelectedSession = Sessions[^1];
+            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
@@ -734,7 +740,9 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
+            {
                 SelectedDevice = Devices[0];
+            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
@@ -764,7 +772,9 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
+            {
                 SelectedDevice = Devices[^1];
+            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
@@ -786,7 +796,7 @@ namespace VolumeControl.Audio
         {
             if (LockSelectedDevice)
                 return;
-            var defaultDevice = GetDefaultDevice();
+            AudioDevice? defaultDevice = GetDefaultDevice();
 
             if (SelectedDevice != defaultDevice)
                 SelectedDevice = defaultDevice;

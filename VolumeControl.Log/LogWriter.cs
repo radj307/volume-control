@@ -57,12 +57,16 @@ namespace VolumeControl.Log
             string tsBlank = MakeBlankTimestamp();
             for (int i = 0, end = lines.Length; i < end; ++i)
             {
-                var line = lines[i];
+                object? line = lines[i];
 
                 if (line is null)
+                {
                     continue;
+                }
                 else if (line is Exception ex)
+                {
                     w.WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
+                }
                 else if (line is string s)
                 {
                     if (s.Length > 0)
@@ -70,12 +74,16 @@ namespace VolumeControl.Log
                 }
                 else if (line is IEnumerable enumerable)
                 {
-                    foreach (var item in enumerable)
+                    foreach (object? item in enumerable)
+                    {
                         if (item != null)
                             w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
+                    }
                 }
                 else
+                {
                     w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+                }
             }
             w.Flush();
             w.Close();
@@ -111,7 +119,7 @@ namespace VolumeControl.Log
         {
             for (int i = 0; i < messages.Length; ++i)
             {
-                var (type, message) = messages[i];
+                (EventType type, IEnumerable message) = messages[i];
                 if (FilterEventType(type))
                 {
                     WriteEvent(type, message);

@@ -15,14 +15,16 @@ namespace VolumeControl.Audio
         {
             _controller = controller;
             PID = Convert.ToInt64(_controller.GetProcessID);
-            var proc = GetProcess();
+            Process? proc = GetProcess();
             if (proc != null)
             {
                 ProcessName = proc.ProcessName;
                 _processValid = true;
             }
             else
+            {
                 ProcessName = string.Empty;
+            }
         }
 
         private (ImageSource?, ImageSource?)? _icons = null;

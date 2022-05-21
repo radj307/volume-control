@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
-using VolumeControl.Core;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
@@ -27,7 +27,7 @@ namespace VolumeControl.Helpers
     {
         public VolumeControlSettings()
         {
-            var appDomain = AppDomain.CurrentDomain;
+            AppDomain? appDomain = AppDomain.CurrentDomain;
             ExecutablePath = Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
             _registryRunKeyHelper = new();
 
@@ -44,7 +44,9 @@ namespace VolumeControl.Helpers
             List<object> objects = new();
             List<Type> l = AddonManager.ActionAddonTypes;
             foreach (Type type in l)
+            {
                 objects.Add(Activator.CreateInstance(type)!);
+            }
 
             _hotkeyManager = new(new HotkeyActionManager(
                 new AudioAPIActions(_audioAPI),
@@ -109,7 +111,10 @@ namespace VolumeControl.Helpers
             remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new(propertyName));
+        }
         #endregion Events
 
         #region Fields
@@ -234,7 +239,7 @@ namespace VolumeControl.Helpers
             {
                 if ((_checkForUpdates = value) && !_hasCheckedForUpdates)
                 {
-                    var updateTask = CheckForUpdatesHttps();
+                    Task<bool>? updateTask = CheckForUpdatesHttps();
                     updateTask.Wait(-1); // wait asynchronously for the update check to complete
                     if (updateTask.Result)
                     { // user wants to use the auto-updater, shutdown now.
@@ -282,7 +287,7 @@ namespace VolumeControl.Helpers
             _hasCheckedForUpdates = true;
             if (await UpdateChecker.CheckForUpdates(VersionNumber, ReleaseType.Equals(ERelease.PRERELEASE)).ConfigureAwait(false) is (SemVersion, GithubReleaseHttpResponse) update)
             {
-                var (newVersion, response) = update;
+                (SemVersion newVersion, GithubReleaseHttpResponse response) = update;
                 switch (MessageBox.Show(
                     $"Current Version:  {VersionNumber}\n" +
                     $"Newest Version:   {newVersion}\n" +
@@ -332,7 +337,9 @@ namespace VolumeControl.Helpers
         {
             var asm = Assembly.GetEntryAssembly();
             if (asm == null)
+            {
                 return null;
+            }
 
             try
             {
@@ -379,7 +386,9 @@ namespace VolumeControl.Helpers
             fs.Dispose();
 
             if (!File.Exists(path))
+            {
                 return null;
+            }
 
             return path;
         }

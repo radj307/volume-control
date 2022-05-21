@@ -1,5 +1,4 @@
 ﻿using CommandLine;
-using System;
 using System.Diagnostics;
 using VolumeControl.Log;
 using VolumeControl.Log.Endpoints;
@@ -7,25 +6,35 @@ using VolumeControl.Log.Enum;
 
 namespace VolumeControl.UpdateUtility;
 
-static class Program
+internal static class Program
 {
     private static LogWriter Log => FLog.Log;
     private static Mutex appMutex = null!;
+    private static Options Args;
+
+    /// <summary>
+    /// Options object
+    /// </summary>
     private class Options
     {
         [Option('p', "path", Required = true)]
         public string ExecutablePath { get; set; }
+
         [Option('u', "url", Required = true)]
         public string UpdateURL { get; set; }
-        public EventType LogFilter { get; set; } = EventType.ALL_EXCEPT_DEBUG;
+
         [Option("deletebackup", Default = true)]
         public bool DeleteBackup { get; set; }
+
         [Option('t', "timeout", Default = -1)]
         public int Timeout { get; set; }
+
         [Option('m', "mutex", Default = "VolumeControlSingleInstance")]
         public string MutexIdentifier { get; set; }
+
         [Option('d', "dry-run", Default = false)]
         public bool DryRun { get; set; }
+
         [Option('r', "restart-main", Default = true)]
         public bool RestartVolumeControl { get; set; }
     }
@@ -33,53 +42,63 @@ static class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
-
-        var argParser = Parser.Default.ParseArguments<Options>(args);
-        appMutex = new Mutex(true, argParser.Value.MutexIdentifier, out bool acquiredMutexWithoutDelay);
-
-        if (!acquiredMutexWithoutDelay)
-            User32.ShowWindow(hWnd, User32.ECmdShow.SW_HIDE);
-
-        if (appMutex.WaitOne(argParser.Value.Timeout))
+        FLog.CustomInitialize(new ConsoleEndpoint(), EventType.ALL);
+        try
         {
-            if (!acquiredMutexWithoutDelay)
-                User32.ShowWindow(hWnd, User32.ECmdShow.SW_SHOW);
+            IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
 
-            Console.WriteLine($"Successfully acquired mutex lock, beginning update.");
-            try
+            ParserResult<Options>? argParser = Parser.Default.ParseArguments<Options>(args);
+            Args = argParser.Value;
+
+            appMutex = new(true, Args.MutexIdentifier, out bool acquiredMutexWithoutDelay);
+
+            if (!acquiredMutexWithoutDelay) // hide the window until the mutex unlocks
+                User32.ShowWindow(hWnd, User32.ECmdShow.SW_HIDE);
+
+            if (appMutex.WaitOne(Args.Timeout))
             {
-                argParser.WithParsed(Run).WithNotParsed(HandleParseError);
+                if (!acquiredMutexWithoutDelay) // show the window now that we own the mutex
+                    User32.ShowWindow(hWnd, User32.ECmdShow.SW_SHOW);
+
+                Console.WriteLine($"Successfully acquired mutex lock, beginning update.");
+                try
+                {
+                    argParser.WithParsed(Run).WithNotParsed(HandleParseError);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal($"The update utility crashed because of an unhandled exception!", ex);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                PrintError($"The update utility crashed because of an unhandled exception!", ex.Message, ex.InnerException, ex.StackTrace);
+                Console.WriteLine("Failed to acquire mutex lock! Volume control didn't exit correctly.");
+            }
+
+            appMutex.ReleaseMutex();
+            appMutex.Dispose();
+
+            if (Args.RestartVolumeControl)
+            {
+                ProcessStartInfo psi = new(Args.ExecutablePath, "--autoupdated")
+                {
+                    UseShellExecute = true,
+                };
+                Log.Info("Restarting Volume Control...");
+                Process.Start(psi);
+            }
+            else
+            {
+                Log.Info("Skipping restarting Volume Control.");
             }
         }
-        else Console.WriteLine("Failed to acquire mutex lock! Volume control didn't exit correctly.");
-
-        appMutex.ReleaseMutex();
-        appMutex.Dispose();
-
-        if (argParser.Value.RestartVolumeControl)
+        catch (Exception ex)
         {
-            ProcessStartInfo psi = new(argParser.Value.ExecutablePath, "--autoupdated")
-            {
-                UseShellExecute = true,
-            };
-            Log.Info("Restarting Volume Control...");
-            Process.Start(psi);
+            Log.Fatal(ex);
         }
-        else Log.Info("Skipping restarting Volume Control.");
-
-        Console.WriteLine();
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
     }
     private static void Run(Options args)
     {
-        FLog.CustomInitialize(new ConsoleEndpoint(), args.LogFilter);
-
         Log.Info($"Target: {args.ExecutablePath}", $"URL:  {args.UpdateURL}");
 
         bool alreadyExists = File.Exists(args.ExecutablePath);
@@ -146,32 +165,9 @@ static class Program
     }
     private static void HandleParseError(IEnumerable<Error> errors)
     {
-        foreach (var error in errors)
+        foreach (Error? error in errors)
         {
-            PrintError(error.ToString());
-        }
-    }
-    private static void PrintError(params object?[] lines)
-    {
-        if (lines.Length == 0 || (lines[0] == null && lines.Length == 1))
-            return;
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("[ERROR]");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("  ");
-        Console.WriteLine(lines[0]);
-
-        const int margin = 9;
-        string padding = new(' ', margin);
-
-        if (lines.Length > 1)
-        {
-            foreach (var line in lines[1..])
-            {
-                if (line == null)
-                    continue;
-                Console.WriteLine($"{padding}{line}");
-            }
+            Log.Error(error.ToString());
         }
     }
 }

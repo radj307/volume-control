@@ -1,6 +1,6 @@
 ﻿using Semver;
 
-namespace VolumeControl.Core
+namespace VolumeControl.Core.Extensions
 {
     public static class StringExtensions
     {
@@ -19,8 +19,11 @@ namespace VolumeControl.Core
         public static string RemoveIf(this string s, Predicate<char> pred)
         {
             for (int i = s.Length - 1; i >= 0; --i)
+            {
                 if (pred(s[i]))
                     s = s.Remove(i, i);
+            }
+
             return s;
         }
     }

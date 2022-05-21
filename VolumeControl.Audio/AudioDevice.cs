@@ -88,7 +88,7 @@ namespace VolumeControl.Audio
         public List<AudioSession> GetAudioSessions()
         {
             Reload();
-            var sessions = _device.AudioSessionManager.Sessions;
+            SessionCollection? sessions = _device.AudioSessionManager.Sessions;
             List<AudioSession> l = new();
             for (int i = 0; i < sessions.Count; ++i)
             {

@@ -98,11 +98,11 @@ namespace VolumeControl.Audio
             {
                 if (index.Equals(PARSER_NULL_INDEX))
                 {
-                    var fAttr = File.GetAttributes(target);
+                    FileAttributes fAttr = File.GetAttributes(target);
                     bool isDir = fAttr.HasFlag(FileAttributes.Directory);
 
-                    var small = GetIcon(target, true, isDir);
-                    var large = GetIcon(target, false, isDir);
+                    ImageSource? small = GetIcon(target, true, isDir);
+                    ImageSource? large = GetIcon(target, false, isDir);
 
                     if (small == null && large == null)
                         Log.Warning($"Failed to locate any icons at path '{target}' ; This is likely a permissions issue and is safe to ignore.");
@@ -149,10 +149,7 @@ namespace VolumeControl.Audio
     public static class GetIconsExtensions
     {
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public static (ImageSource?, ImageSource?)? GetIcons(this AudioDevice device)
-        {
-            return device.IconPath.Length > 0 ? IconGetter.GetIcons(device.IconPath) : null;
-        }
+        public static (ImageSource?, ImageSource?)? GetIcons(this AudioDevice device) => device.IconPath.Length > 0 ? IconGetter.GetIcons(device.IconPath) : null;
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
         public static (ImageSource?, ImageSource?)? GetIcons(this AudioSession session)
         {

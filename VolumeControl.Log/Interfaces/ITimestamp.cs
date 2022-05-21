@@ -1,6 +1,5 @@
 ﻿using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
-using static System.Windows.Forms.DataFormats;
 
 namespace VolumeControl.Log.Interfaces
 {

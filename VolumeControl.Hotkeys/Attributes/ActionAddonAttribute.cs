@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using VolumeControl.Core;
+﻿using VolumeControl.Core;
+using VolumeControl.Core.Extensions;
 
 namespace VolumeControl.Hotkeys.Attributes
 {

@@ -26,9 +26,13 @@ namespace VolumeControl.Helpers.Addon
             GetAddonAssemblyPaths().ForEach(p => AddonAssemblies.Add(Assembly.LoadFrom(p)));
             // log
             if (AddonAssemblies.Count == 0)
+            {
                 Log.Debug($"No addon assemblies were found.");
+            }
             else
+            {
                 Log.Debug($"Found {AddonAssemblies.Count} addon assemblies.");
+            }
         }
         #endregion Initializers
 
@@ -54,7 +58,9 @@ namespace VolumeControl.Helpers.Addon
             List<string> l = new();
 
             if (!Directory.Exists(_rootAddonPath))
+            {
                 return l;
+            }
 
             foreach (string path in Directory.EnumerateFiles(_rootAddonPath, "*.dll", new EnumerationOptions()
             {
@@ -75,7 +81,10 @@ namespace VolumeControl.Helpers.Addon
                 const string searchString = "VolumeControl";
                 int pos = dir.IndexOf(searchString);
                 if (pos == -1)
+                {
                     return string.Empty;
+                }
+
                 return Path.Combine(dir[..(pos + searchString.Length)], "Addons");
             }
             return string.Empty;
@@ -98,7 +107,10 @@ namespace VolumeControl.Helpers.Addon
         {
             List<Type> l = new();
             foreach (Assembly asm in AddonAssemblies)
+            {
                 l.AddRange(GetTypesWithAttribute<T>(asm, _currentVersion));
+            }
+
             return l;
         }
         #endregion Methods

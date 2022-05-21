@@ -146,10 +146,7 @@ namespace HotkeyLib
             }
         }
         /// <inheritdoc/>
-        public bool Valid
-        {
-            get => !_key.Equals(Keys.None);
-        }
+        public bool Valid => !_key.Equals(Keys.None);
         #endregion Properties
 
         #region Methods

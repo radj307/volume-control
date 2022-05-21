@@ -2,7 +2,7 @@
 using VolumeControl.WPF.Converters;
 using Xunit;
 
-namespace VolumeControl.WPF.Tests
+namespace VolumeControl.WPF.Tests.Converters
 {
     /// <summary>Unit Tests for <see cref="BooleanInverter"/></summary>
     public class BooleanInverter_Tests

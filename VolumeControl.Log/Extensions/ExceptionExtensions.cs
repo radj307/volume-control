@@ -40,7 +40,7 @@
             {
                 s += $"\n{indent}Exception Data: {{";
                 string innerIndent = new(' ', indentSize + indentStep);
-                foreach (var it in ex.Data)
+                foreach (object? it in ex.Data)
                 {
                     string? itStr = it.ToString();
                     if (itStr != null && itStr.Length > 0)

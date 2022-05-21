@@ -94,8 +94,10 @@ namespace VolumeControl.Hotkeys
         public void DelHotkey(int id)
         {
             for (int i = Hotkeys.Count - 1; i >= 0; --i)
+            {
                 if (Hotkeys[i].ID.Equals(id))
                     Hotkeys.RemoveAt(i);
+            }
         }
         /// <summary>
         /// Deletes all hotkeys in the list by first disposing them, then removing them from the list.
@@ -118,7 +120,7 @@ namespace VolumeControl.Hotkeys
         internal void LoadHotkeys()
         {
             // set the settings hotkeys to default if they're null
-            var list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
+            StringCollection? list = Settings.Hotkeys ??= Settings.Hotkeys_Default;
 
             // Load Hotkeys From Settings
             for (int i = 0, end = list.Count; i < end; ++i)
@@ -143,7 +145,7 @@ namespace VolumeControl.Hotkeys
             // Save Hotkeys To Settings
             Log.Debug($"Saving {Hotkeys.Count} hotkeys...");
             StringCollection list = new();
-            foreach (var hk in Hotkeys)
+            foreach (BindableWindowsHotkey? hk in Hotkeys)
             {
                 string serialized = hk.Serialize();
                 list.Add(serialized);

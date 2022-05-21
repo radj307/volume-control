@@ -17,7 +17,10 @@
                 timer.Enabled = false;
                 timer.Enabled = true;
             }
-            else timer.Enabled = true;
+            else
+            {
+                timer.Enabled = true;
+            }
         }
     }
 }

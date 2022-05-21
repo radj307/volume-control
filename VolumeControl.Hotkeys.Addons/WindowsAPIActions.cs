@@ -18,10 +18,7 @@ namespace VolumeControl.Hotkeys.Addons
         /// </summary>
         /// <param name="mainWindowHandle">The handle of the main WPF window.</param>
         /// <param name="audioAPI">The <see cref="AudioAPI"/> instance to use for volume-related hotkeys.</param>
-        public WindowsAPIActions(IntPtr mainWindowHandle)
-        {
-            MainHWnd = mainWindowHandle;
-        }
+        public WindowsAPIActions(IntPtr mainWindowHandle) => MainHWnd = mainWindowHandle;
 
         /// <summary>
         /// The handle of the main WPF window.

@@ -5,10 +5,7 @@
     /// </summary>
     public class ConsoleEndpoint : IEndpoint
     {
-        public ConsoleEndpoint()
-        {
-            Enabled = true;
-        }
+        public ConsoleEndpoint() => Enabled = true;
 
         /// <inheritdoc/>
         public bool Enabled { get; set; }

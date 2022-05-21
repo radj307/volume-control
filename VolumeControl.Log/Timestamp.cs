@@ -1,5 +1,4 @@
-﻿using System.Drawing.Printing;
-using VolumeControl.Log.Enum;
+﻿using VolumeControl.Log.Enum;
 using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log

@@ -25,7 +25,7 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         private void GetActionMethods(IEnumerable<object?> enumerableObjects)
         {
-            foreach (var hObj in enumerableObjects)
+            foreach (object? hObj in enumerableObjects)
             {
                 if (hObj == null)
                     continue;
@@ -74,9 +74,10 @@ namespace VolumeControl.Hotkeys
         /// <exception cref="Exception">An action with the same name already exists.</exception>
         protected virtual void MergeActionBindingsList(List<IActionBinding> list, NameConflictResolution resolutionType = NameConflictResolution.Throw)
         {
-            foreach (var action in list)
+            foreach (IActionBinding? action in list)
             {
                 if (Bindings.Any(b => b.Name.Equals(action.Name, StringComparison.OrdinalIgnoreCase)))
+                {
                     switch (resolutionType)
                     {
                     case NameConflictResolution.Throw:
@@ -86,6 +87,8 @@ namespace VolumeControl.Hotkeys
                     case NameConflictResolution.Overwrite:
                         break; //< break to add action
                     }
+                }
+
                 Bindings.Add(action);
             }
         }

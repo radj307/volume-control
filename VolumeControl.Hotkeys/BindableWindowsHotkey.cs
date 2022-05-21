@@ -110,13 +110,13 @@ namespace VolumeControl.Hotkeys
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
-            var split = hkString.Split(Settings.HotkeyNameSeperatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            string[]? split = hkString.Split(Settings.HotkeyNameSeperatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             // Set the hotkey name:
             string name = split[0];
 
             // Parse the key combination:
-            var keys = split.Length > 1 ? KeyCombo.Parse(split[1]) : new KeyCombo();
+            KeyCombo keys = split.Length > 1 ? KeyCombo.Parse(split[1]) : new KeyCombo();
 
             // Determine which action to bind to:
             string action = split.Length > 2 ? split[2] : string.Empty;

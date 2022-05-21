@@ -51,7 +51,7 @@ namespace VolumeControl.Attributes
         public ERelease Type => _releaseType;
         public ReleaseType(string value) : base(value)
         {
-            var result = System.Enum.Parse(typeof(ERelease), Value, true);
+            object? result = System.Enum.Parse(typeof(ERelease), Value, true);
             _releaseType = result != null ? (ERelease)result : ERelease.NONE;
         }
     }

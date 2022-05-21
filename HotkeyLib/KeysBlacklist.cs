@@ -56,7 +56,6 @@ namespace HotkeyLib
             Keys.Menu,
             Keys.Play,
             Keys.Zoom,
-            Keys.Prior,
             Keys.LaunchApplication1,
             Keys.LaunchApplication2,
             Keys.LaunchMail,
@@ -117,8 +116,11 @@ namespace HotkeyLib
         {
             List<Keys> l = new();
             foreach (Keys key in Enum.GetValues(typeof(Keys)).Cast<Keys>())
+            {
                 if (!l.Contains(key) && !Blacklist.Contains(key))
                     l.Add(key);
+            }
+
             return l;
         }
     }

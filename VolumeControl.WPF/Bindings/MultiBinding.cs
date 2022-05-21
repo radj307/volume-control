@@ -2,10 +2,12 @@
 
 namespace VolumeControl.WPF.Bindings
 {
+    /// <summary>
+    /// Easy multibinding object.
+    /// </summary>
     public class MultiBinding : System.Windows.Data.MultiBinding
     {
         public MultiBinding() : base() { }
-
         public MultiBinding(params BindingBase[] bindings) : base()
         {
             foreach (BindingBase b in bindings)
