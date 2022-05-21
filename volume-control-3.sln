@@ -34,9 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Hotkeys.Addon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.UpdateUtility", "VolumeControl.UpdateUtility\VolumeControl.UpdateUtility.csproj", "{7F6722E0-0858-42D6-8ABB-CEA4E179A5B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.API", "VolumeControl.API\VolumeControl.API.csproj", "{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.API", "VolumeControl.API\VolumeControl.API.csproj", "{0F5606D4-76A1-4CCC-B39F-DC65DB2F62A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "VolumeControl.Core\VolumeControl.Core.csproj", "{116DECA2-D41D-4D6E-83AD-3D33AA8EFD54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
