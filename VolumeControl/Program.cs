@@ -34,6 +34,7 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            // this means we're starting back up after the update util completed
             if (args.Contains("--autoupdated"))
             { // delete updater file
                 var appDomain = AppDomain.CurrentDomain;
