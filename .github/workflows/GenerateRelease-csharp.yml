@@ -38,10 +38,6 @@ jobs:
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
 
-    - name:   Build Update Utility Binary
-      run:    dotnet publish VolumeControl.UpdateUtility -c Release /p:PublishProfile="VolumeControl.UpdateUtility/Properties/PublishProfiles/FolderProfile.pubxml"
-      #               Force Release mode so the link works  ^^^^^^^
-
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
