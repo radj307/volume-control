@@ -52,7 +52,21 @@
             </Style>
             <!-- Button -->
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#BBBBBB"/>
+                <Setter Property="Background" Value="#909090"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="ButtonMouseOver" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#B0B0B0" TargetName="ButtonMouseOver"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Padding" Value="5,1,5,1"/>
                 <Setter Property="Margin" Value="3,0,3,0"/>
                 <Setter Property="Height" Value="23"/>
@@ -93,13 +107,11 @@
             </Style>
             <!-- Mixer Header Brushes -->
             <LinearGradientBrush x:Key="MixerHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.5">
-                <GradientStop Color="#FFFFFF" Offset="-0.6"/>
-                <GradientStop Color="#606060" Offset="0.05"/>
-                <GradientStop Color="#454545" Offset="0.2"/>
-                <GradientStop Color="#303030" Offset="0.5"/>
-                <GradientStop Color="#454545" Offset="0.8"/>
-                <GradientStop Color="#606060" Offset="0.95"/>
-                <GradientStop Color="#FFFFFF" Offset="1.6"/>
+                <GradientStop Color="#454545" Offset="0.1"/>
+                <GradientStop Color="#353535" Offset="0.2"/>
+                <GradientStop Color="#202020" Offset="0.5"/>
+                <GradientStop Color="#353535" Offset="0.8"/>
+                <GradientStop Color="#454545" Offset="0.9"/>
             </LinearGradientBrush>
             <!-- Mixer Headers -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
@@ -600,7 +612,7 @@
                     <Button x:Name="bReload"
                             Grid.Column="1"
                             Grid.Row="1"
-                            Content="Reload"
+                            Content=" Reload "
                             ToolTip="Manually reloads the list of audio sessions."
                             Click="Handle_ReloadClick"
                             Style="{StaticResource ButtonStyle}"/>
@@ -777,7 +789,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Name -->
-                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="100" IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
+                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Background="#00000000" Style="{StaticResource TextBoxStyle}" BorderThickness="0"/>
@@ -785,7 +797,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Key -->
-                        <DataGridTemplateColumn Header="Key" Width="*">
+                        <DataGridTemplateColumn Header="Key" Width="6*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{StaticResource KeyOptions}" SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
@@ -825,7 +837,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Action -->
-                        <DataGridTemplateColumn Header="Action" Width="*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding HotkeyAPI.ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
@@ -1027,10 +1039,11 @@
                     <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
                             Margin="3,0,3,3"
+                            HorizontalAlignment="Center"
                             Grid.Column="1"
                             Grid.Row="2"
                             ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
-                            Content="Reset Hotkeys"
+                            Content=" Reset Hotkeys "
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"/>
 
@@ -1074,6 +1087,7 @@
                     <!-- Check for Updates Cell -->
                     <CheckBox x:Name="cbCheckForUpdates"
                               Margin="3,0,0,0"
+                              HorizontalAlignment="Left"
                               Grid.Column="2"
                               Grid.Row="2"
                               Content="Check for Updates"
@@ -1100,7 +1114,7 @@
                               Style="{StaticResource CheckBoxStyle}"/>
                     <!-- LogPath Browse Button -->
                     <Button DockPanel.Dock="Right"
-                            Content="Browse"
+                            Content=" Browse "
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_BrowseForLogFilePathClick"/>
                     <!-- Log Filter Level Setter -->
