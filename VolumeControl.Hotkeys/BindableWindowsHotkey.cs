@@ -105,8 +105,8 @@ namespace VolumeControl.Hotkeys
 
         /// <inheritdoc/>
         public override string ToString() => Serialize();
-        public string Serialize() => $"{Name}::{Hotkey.ToString()}::{Action/*Enum.GetName(typeof(EHotkeyAction), Action)*/}::{Registered}";
-        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Action/*Enum.GetName(typeof(EHotkeyAction), Action)*/}', Registered: '{Registered}' }}";
+        public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{Action}{Settings.HotkeyNameSeperatorChar}{Registered}";
+        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Action}', Registered: '{Registered}' }}";
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {

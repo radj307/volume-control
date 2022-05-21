@@ -770,7 +770,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Name -->
-                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="130" IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
+                        <DataGridTemplateColumn Header="Name" Width="Auto" MinWidth="100" IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Background="#00000000" Style="{StaticResource TextBoxStyle}" BorderThickness="0"/>
@@ -778,7 +778,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Key -->
-                        <DataGridTemplateColumn Header="Key" Width="6*">
+                        <DataGridTemplateColumn Header="Key" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{StaticResource KeyOptions}" SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
@@ -818,7 +818,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <!-- Action -->
-                        <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <DataGridTemplateColumn Header="Action" Width="*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding HotkeyAPI.ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
