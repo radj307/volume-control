@@ -1039,7 +1039,7 @@
                         <CheckBox x:Name="cbEnableNotifications"
                                   Content="Notifications"
                                   ToolTip="The notification appears when switching target sessions using hotkeys."
-                                  IsChecked="{Binding Enabled, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"
+                                  IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                   Margin="3,0,0,0"
                                   Style="{StaticResource CheckBoxStyle}"/>
                         <!-- Timeout Numeric Up Down Control -->
@@ -1052,7 +1052,7 @@
                                                 DecimalPlaces="0"
                                                 MinValue="250"
                                                 MaxValue="60000"
-                                                Value="{Binding TimeoutInterval, Mode=TwoWay, Source={StaticResource Notification}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
 
                     <!-- Show Icons Cell -->

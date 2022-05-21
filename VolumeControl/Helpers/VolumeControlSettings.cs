@@ -63,6 +63,8 @@ namespace VolumeControl.Helpers
             RunAtStartup = Settings.RunAtStartup;
             StartMinimized = Settings.StartMinimized;
             CheckForUpdates = Settings.CheckForUpdatesOnStartup;
+            NotificationEnabled = Settings.NotificationEnabled;
+            NotificationTimeout = Settings.NotificationTimeoutInterval;
             // ^ Load Settings ^ //
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
@@ -71,13 +73,17 @@ namespace VolumeControl.Helpers
         }
         private void SaveSettings()
         {
-            // VolumeControl
+            // v Save Settings v //
             Settings.ShowIcons = ShowIcons;
             Settings.AdvancedHotkeys = AdvancedHotkeyMode;
             Settings.RunAtStartup = RunAtStartup;
             Settings.StartMinimized = StartMinimized;
             Settings.CheckForUpdatesOnStartup = CheckForUpdates;
-            // save settings
+            Settings.NotificationEnabled = NotificationEnabled;
+            Settings.NotificationTimeoutInterval = NotificationTimeout;
+            // ^ Save Settings ^ //
+
+            // VolumeControl
             Settings.Save();
             Settings.Reload();
 
@@ -90,7 +96,6 @@ namespace VolumeControl.Helpers
             HotkeySettings.Reload();
 
             // VolumeControl.Log
-            // save logsettings
             LogSettings.Save();
             LogSettings.Reload();
 
@@ -241,6 +246,29 @@ namespace VolumeControl.Helpers
             }
         }
         private bool _checkForUpdates, _hasCheckedForUpdates = false;
+        /// <summary>
+        /// Gets or sets whether notifications are enabled or not.
+        /// </summary>
+        public bool NotificationEnabled
+        {
+            get => _notificationEnabled;
+            set
+            {
+                _notificationEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _notificationEnabled;
+        public int NotificationTimeout
+        {
+            get => _notificationTimeout;
+            set
+            {
+                _notificationTimeout = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _notificationTimeout;
         #endregion Settings
         #endregion Properties
 

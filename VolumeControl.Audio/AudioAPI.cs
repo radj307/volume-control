@@ -209,7 +209,9 @@ namespace VolumeControl.Audio
 
                 value = eventArgs.Incoming; // update value to validated one
 
-                if (FindSessionWithIdentifier(value) is ISession session)
+                if (value.Length == 0)
+                    SelectedSession = null;
+                else if (FindSessionWithIdentifier(value) is ISession session)
                     SelectedSession = session;
                 else _target = value;
 
