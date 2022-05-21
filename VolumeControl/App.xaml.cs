@@ -12,7 +12,7 @@ namespace VolumeControl
             InitializeComponent();
 
             var assembly = Assembly.GetAssembly(typeof(Mixer));
-            string version = $"v{assembly?.GetCustomAttribute<Core.Attributes.ExtendedVersion>()?.Version}";
+            string version = $"v{assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version}";
 
             // Tray icon
             TrayIcon = new()

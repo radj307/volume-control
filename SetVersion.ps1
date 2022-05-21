@@ -1,4 +1,4 @@
-$SCRIPTVERSION = "2" # The version number of this script file
+$SCRIPTVERSION = "3" # The version number of this script file
 
 #Set-Location -Path '..'
 
@@ -24,7 +24,7 @@ $global:TAG = $Matches.MAJOR + '.' + $Matches.MINOR + '.' + $Matches.PATCH
 $EXTRA = $Matches.EXTRA
 if ($EXTRA)
 {
-    if ($EXTRA -like "*pre*")
+    if ($EXTRA -like "*pre*" -or $EXTRA -like "*pr*")
     {
         "Is a prerelease."
         $global:TYPE = 'PRERELEASE'

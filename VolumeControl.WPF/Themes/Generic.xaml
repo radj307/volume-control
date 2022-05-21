@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:VolumeControl.WPF">
+                    xmlns:local="clr-namespace:VolumeControl.WPF.Controls">
     <Style TargetType="{x:Type local:NumericUpDown}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />

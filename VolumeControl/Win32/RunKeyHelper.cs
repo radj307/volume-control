@@ -6,6 +6,7 @@ namespace VolumeControl.Win32
     public class RunKeyHelper : IDisposable
     {
         public bool CheckRunAtStartup(string valueName) => RunKey.GetValue(valueName) != null;
+        public bool CheckRunAtStartup(string valueName, string executablePath) => RunKey.GetValue(valueName)?.Equals(executablePath) ?? false;
         public void EnableRunAtStartup(string valueName, string executablePath) => RunKey.SetValue(valueName, executablePath);
         public void DisableRunAtStartup(string valueName) => RunKey.DeleteValue(valueName);
 

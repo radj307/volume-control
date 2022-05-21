@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using VolumeControl.Core.Extensions;
+using VolumeControl.Extensions;
 
 namespace VolumeControl
 {

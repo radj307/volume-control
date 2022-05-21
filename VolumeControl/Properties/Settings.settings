@@ -44,5 +44,14 @@
     <Setting Name="NotificationEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="CheckForUpdatesOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UpdateUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://api.github.com/repos/radj307/volume-control/releases</Value>
+    </Setting>
+    <Setting Name="UpdateTimeout" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:00:10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

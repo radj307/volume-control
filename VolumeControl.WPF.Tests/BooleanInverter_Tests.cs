@@ -1,4 +1,5 @@
 ﻿using System;
+using VolumeControl.WPF.Converters;
 using Xunit;
 
 namespace VolumeControl.WPF.Tests

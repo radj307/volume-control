@@ -3,7 +3,7 @@
              xmlns:local="clr-namespace:VolumeControl"
              xmlns:helpers="clr-namespace:VolumeControl.Helpers"
              xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
-             xmlns:wpf="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+             xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Mixer.xaml"
@@ -17,9 +17,9 @@
             <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
             <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-            <wpf:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
-            <wpf:BooleanInverter x:Key="InvertConverter"/>
-            <wpf:NullToBooleanConverter x:Key="IsNullConverter"/>
+            <Converters:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
+            <Converters:BooleanInverter x:Key="InvertConverter"/>
+            <Converters:NullToBooleanConverter x:Key="IsNullConverter"/>
             
             <!-- Image Icons -->
             <Style x:Key="IconImageStyle" TargetType="Image">

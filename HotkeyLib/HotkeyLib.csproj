@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <DebugType>full</DebugType>
+    <Configurations>Debug;Release;SDK-Debug;SDK-Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

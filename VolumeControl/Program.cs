@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using VolumeControl.Core;
+using VolumeControl.Helpers;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -17,7 +19,6 @@ namespace VolumeControl
         [DllImport("Kernel32")]
         private static extern void FreeConsole();
         private static Properties.Settings Settings => Properties.Settings.Default;
-        private static CoreSettings CoreSettings => CoreSettings.Default;
         private static LogWriter Log => FLog.Log;
         #endregion Statics
 
@@ -31,8 +32,15 @@ namespace VolumeControl
         /// Program entry point
         /// </summary>
         [STAThread]
-        public static void Main()
+        public static void Main(string[] args)
         {
+            if (args.Contains("--autoupdated"))
+            { // delete updater file
+                var appDomain = AppDomain.CurrentDomain;
+                string path = System.IO.Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, "VolumeControl.UpdateUtility.exe");
+                System.IO.File.Delete(path);
+            }
+
             // attempt to upgrade settings
             if (Settings.UpgradeSettings)
             {
@@ -41,10 +49,6 @@ namespace VolumeControl
                 {
                     UpgradeAllSettings();
                     Settings.UpgradeSettings = false;
-                    Settings.Save();
-                    CoreSettings.Save();
-                    Settings.Reload();
-                    CoreSettings.Reload();
                     Log.Info("User settings were upgraded successfully; or there were no settings to upgrade.");
                 }
                 catch (Exception ex)
@@ -74,7 +78,7 @@ namespace VolumeControl
 
             if (!Settings.AllowMultipleInstances && !isNewInstance)
             {
-                MessageBox.Show("Another instance of Volume Control is already running!", "Volume Control is already running!");
+                MessageBox.Show("Another instance of Volume Control is already running!");
                 return;
             }
 

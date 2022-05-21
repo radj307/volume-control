@@ -181,5 +181,35 @@ namespace VolumeControl.Properties {
                 this["NotificationEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckForUpdatesOnStartup {
+            get {
+                return ((bool)(this["CheckForUpdatesOnStartup"]));
+            }
+            set {
+                this["CheckForUpdatesOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/radj307/volume-control/releases")]
+        public string UpdateUri {
+            get {
+                return ((string)(this["UpdateUri"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:10")]
+        public global::System.TimeSpan UpdateTimeout {
+            get {
+                return ((global::System.TimeSpan)(this["UpdateTimeout"]));
+            }
+        }
     }
 }

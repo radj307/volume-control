@@ -1,9 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
 using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
-using VolumeControl.Log.Properties;
 
 namespace VolumeControl.Log
 {
@@ -52,8 +52,7 @@ namespace VolumeControl.Log
         {
             if (!Endpoint.Enabled || lines.Length == 0)
                 return;
-            using StreamWriter w = Endpoint.GetWriter()!;
-            w.AutoFlush = false;
+            using TextWriter w = Endpoint.GetWriter()!;
             w.Write(ts);
             string tsBlank = MakeBlankTimestamp();
             for (int i = 0, end = lines.Length; i < end; ++i)
@@ -66,9 +65,14 @@ namespace VolumeControl.Log
                     w.WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
                 else if (line is string s)
                 {
-                    if (s.Length == 0)
-                        continue;
-                    else w.WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
+                    if (s.Length > 0)
+                        w.WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
+                }
+                else if (line is IEnumerable enumerable)
+                {
+                    foreach (var item in enumerable)
+                        if (item != null)
+                            w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
                 }
                 else
                     w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
@@ -80,7 +84,50 @@ namespace VolumeControl.Log
 
         public static string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
 
+        public struct ConditionalMessage
+        {
+            public ConditionalMessage(EventType type, params object?[] message)
+            {
+                EventType = type;
+                Message = message;
+            }
+            public ConditionalMessage(EventType type, IEnumerable enumerable)
+            {
+                EventType = type;
+                Message = enumerable;
+            }
+            public EventType EventType { get; set; }
+            public IEnumerable Message { get; set; }
+
+            public void Deconstruct(out EventType type, out IEnumerable enumerable)
+            {
+                type = EventType;
+                enumerable = Message;
+            }
+        }
+        /// <summary>Conditional log message, allows you to write different messages depending on the current log filter level.</summary>
+        /// <param name="messages">EventType-IEnumerable pairs. Only the message assoicated with the first pair whose event type is considered valid by <see cref="FilterEventType(EventType)"/> is printed.<br/>If none of the given event types are allowed, nothing happens.</param>
+        public void Conditional(params ConditionalMessage[] messages)
+        {
+            for (int i = 0; i < messages.Length; ++i)
+            {
+                var (type, message) = messages[i];
+                if (FilterEventType(type))
+                {
+                    WriteEvent(type, message);
+                    return;
+                }
+            }
+        }
+
         #region WriteEvent
+        public void WriteEvent(EventType eventType, IEnumerable lines)
+        {
+            if (!Endpoint.Enabled || !FilterEventType(eventType))
+                return;
+            WriteWithTimestamp(MakeTimestamp(LastEventType = eventType), lines);
+        }
+        public void WriteEvent((EventType, IEnumerable) pair) => WriteEvent(pair.Item1, pair.Item2);
         public void WriteEvent(EventType eventType, object?[] lines)
         {
             if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))

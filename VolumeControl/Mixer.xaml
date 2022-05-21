@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:VolumeControl.WPF;assembly=VolumeControl.WPF"
+        xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
+        xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
+        xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
         xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         xmlns:sys="clr-namespace:System.Runtime;assembly=netstandard"
@@ -444,7 +446,7 @@
             </Style>
 
             <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
-            <Controls:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
+            <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -878,14 +880,16 @@
                         Height="{Binding Height, ElementName=versionLabel}">
                     <Label x:Name="versionLabel"
                            Canvas.Top="-25"
-                           Canvas.Right="0"
+                           Canvas.Right="-3"
                            HorizontalAlignment="Right"
                            Style="{StaticResource LabelStyle}"
+                           FontFamily="Verdana"
+                           FontWeight="SemiBold"
                            Height="Auto"
                            VerticalContentAlignment="Center"
-                           Foreground="Gainsboro"
+                           Foreground="LightGray"
                            FontSize="9"
-                           Content="[version]"
+                           Content="{Binding VersionNumber, Source={StaticResource Settings}}"
                            Margin="0,-4,0,0"/>
                 </Canvas>
 
@@ -1060,15 +1064,15 @@
                               ToolTip="Determines whether or not icons are shown for audio devices and sessions."
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Open Github Cell -->
-                    <Button x:Name="bOpenGithub"
-                            Content="Github Repository"
-                            Margin="3,0,3,3"
-                            Grid.Column="2"
-                            Grid.Row="2"
-                            ToolTip="Opens the default web browser."
-                            Style="{StaticResource ButtonStyle}"
-                            Click="Handle_OpenGithubClick"/>
+                    <!-- Check for Updates Cell -->
+                    <CheckBox x:Name="cbCheckForUpdates"
+                              Margin="3,0,0,0"
+                              Grid.Column="2"
+                              Grid.Row="2"
+                              Content="Check for Updates"
+                              ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
+                              IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource CheckBoxStyle}"/>
                 </Grid>
                 <Border Grid.Row="3"
                         Grid.ColumnSpan="3"
@@ -1094,6 +1098,7 @@
                             Click="Handle_BrowseForLogFilePathClick"/>
                     <!-- Log Filter Level Setter -->
                     <Grid>
+                        <!-- Log Filter Level Resources -->
                         <Grid.Resources>
                             <DataTemplate x:Key="DropDownItemTemplate" DataType="wpfApplication1:ItemSourceModel">
                                 <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding IsSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -1119,19 +1124,21 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Resources>
+                        <!-- 'Filter' Watermark Control -->
                         <TextBlock x:Name="logFilterComboBoxWatermark"
                                    Panel.ZIndex="1"
                                    Margin="5,0,24,0"
                                    Padding="0,0,5,0"
                                    Text="Filter"
-                                   IsEnabled="{Controls:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
+                                   IsEnabled="{b:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
                                    Style="{StaticResource ExtendedWatermarkTextBlockStyle}"/>
+                        <!-- Log Filter ComboBox Control -->
                         <ComboBox x:Name="logFilterComboBox"
                                   Panel.ZIndex="0"
                                   IsEditable="False"
-                                  ToolTip="Allows you to specify which types of log messages are printed."
+                                  ToolTip="Controls which types of log messages may be printed to the log file."
                                   Margin="0,0,5,0"
-                                  IsEnabled="{Controls:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
+                                  IsEnabled="{b:MultiBinding {Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}, {Binding IsChecked, ElementName=cbEnableLog}, Converter={StaticResource MultiBindingBooleanConverter}}"
                                   ItemsSource="{StaticResource EventTypeOptions}"
                                   Text="Filter"
                                   Style="{StaticResource ComboBoxStyle}"
@@ -1152,6 +1159,7 @@
                             </Style>
                         </Grid.Resources>
                         <TextBox x:Name="logPath"
+                                 ToolTip="Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
                                  Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource TextBoxValidIndicatorStyle}"/>
                         <TextBlock Text="Path to Log File"

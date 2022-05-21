@@ -17,27 +17,27 @@
         #endregion Properties
 
         #region Methods
-        internal StreamReader? GetReader(FileStreamOptions open)
+        internal TextReader? GetReader(FileStreamOptions open)
         {
             if (!Enabled || Path.Length == 0)
                 return null;
-            return new(File.Open(Path, open));
+            return new StreamReader(File.Open(Path, open));
         }
-        internal StreamWriter? GetWriter(FileStreamOptions open)
+        internal TextWriter? GetWriter(FileStreamOptions open)
         {
             if (!Enabled || Path.Length == 0)
                 return null;
-            return new(File.Open(Path, open)) { AutoFlush = true };
+            return new StreamWriter(File.Open(Path, open)) { AutoFlush = true };
         }
         /// <inheritdoc/>
-        public StreamReader? GetReader()
+        public TextReader? GetReader()
         {
             if (!Enabled || Path.Length == 0)
                 return null;
             return GetReader(new() { Mode = FileMode.Open, Access = FileAccess.Read, Share = FileShare.ReadWrite });
         }
         /// <inheritdoc/>
-        public StreamWriter? GetWriter()
+        public TextWriter? GetWriter()
         {
             if (!Enabled || Path.Length == 0)
                 return null;
@@ -45,7 +45,7 @@
         }
 
         /// <inheritdoc/>
-        public void WriteRaw(string? str, FileMode mode = FileMode.Append)
+        public void WriteRaw(string? str, FileMode mode)
         {
             if (!Enabled || Path.Length == 0)
                 return;
@@ -53,8 +53,9 @@
             w.Write(str);
             w.Close();
         }
+        public void WriteRaw(string? str) => WriteRaw(str, FileMode.Append);
         /// <inheritdoc/>
-        public void WriteRawLine(string? str = null, FileMode mode = FileMode.Append)
+        public void WriteRawLine(string? str, FileMode mode)
         {
             if (!Enabled || Path.Length == 0)
                 return;
@@ -62,8 +63,9 @@
             w.WriteLine(str);
             w.Close();
         }
+        public void WriteRawLine(string? str) => WriteRawLine(str, FileMode.Append);
         /// <inheritdoc/>
-        public int? ReadRaw(FileMode mode = FileMode.Open)
+        public int? ReadRaw(FileMode mode)
         {
             if (!Enabled || Path.Length == 0)
                 return null;
@@ -71,7 +73,7 @@
             return r.Read();
         }
         /// <inheritdoc/>
-        public string? ReadRawLine(FileMode mode = FileMode.Open)
+        public string? ReadRawLine(FileMode mode)
         {
             if (!Enabled || Path.Length == 0)
                 return null;
@@ -85,6 +87,9 @@
                 return;
             File.Open(Path, FileMode.Truncate, FileAccess.Write, FileShare.ReadWrite).Close();
         }
+
+        public int? ReadRaw() => ReadRaw(FileMode.Open);
+        public string? ReadRawLine() => ReadRawLine(FileMode.Open);
 
         #endregion Methods
     }

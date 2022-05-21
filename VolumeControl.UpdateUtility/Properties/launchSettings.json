@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "test": {
+      "commandName": "Project",
+      "commandLineArgs": "--path \"VolumeControl.exe\" --url \"https://github.com/radj307/volume-control/releases/download/5.0.0-pr4.4/VolumeControl.exe",
+      "
+    }
+  }
+}
