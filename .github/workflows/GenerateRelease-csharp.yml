@@ -8,6 +8,11 @@ on:
     types:
       - 'completed'
 
+defaults:
+  run:
+    shell:  |
+            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+
 # Configuration Type
 env:
   BUILD_TYPE: 'Release'
