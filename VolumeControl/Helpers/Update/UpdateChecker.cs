@@ -50,15 +50,6 @@ namespace VolumeControl.Helpers.Update
                         newest = (relVer, rel);
                 }
             }
-
-
-
-            // DEBUG
-            return newest;
-            // DEBUG
-
-
-
             if (newest is (SemVersion, GithubReleaseHttpResponse) newestReleasePair && newestReleasePair.Item1.CompareByPrecedence(currentVersion) > 0)
                 return newest;
             return null;
