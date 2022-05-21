@@ -73,7 +73,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <EmbeddedResource Include="..\VolumeControl.UpdateUtility\bin\Release\net6.0-windows\VolumeControl.UpdateUtility.exe" Link="Resources\VolumeControl.UpdateUtility.exe" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AssemblyAttribute" Version="0.0.0" />
@@ -88,7 +87,6 @@
     <ProjectReference Include="..\VolumeControl.Hotkeys.Addons\VolumeControl.Hotkeys.Addons.csproj" />
     <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
     <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-    <ProjectReference Include="..\VolumeControl.UpdateUtility\VolumeControl.UpdateUtility.csproj" />
     <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
   </ItemGroup>
   <ItemGroup>

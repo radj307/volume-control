@@ -1,6 +1,5 @@
 ﻿using Semver;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -9,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
@@ -242,7 +240,7 @@ namespace VolumeControl.Helpers
         private async Task<bool> CheckForUpdatesHttps()
         {
             _hasCheckedForUpdates = true;
-            if (await UpdateChecker.CheckForUpdates(VersionNumber, ReleaseType.Equals(ERelease.PRE)).ConfigureAwait(false) is (SemVersion, GithubReleaseHttpResponse) update)
+            if (await UpdateChecker.CheckForUpdates(VersionNumber, ReleaseType.Equals(ERelease.PRERELEASE)).ConfigureAwait(false) is (SemVersion, GithubReleaseHttpResponse) update)
             {
                 var (newVersion, response) = update;
                 switch (MessageBox.Show(

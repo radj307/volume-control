@@ -18,7 +18,7 @@ namespace VolumeControl.Attributes
         /// <summary>
         /// Pre-release (unfinished) version.
         /// </summary>
-        PRE,
+        PRERELEASE,
         /// <summary>
         /// Release candidate version.
         /// These are almost ready to be released, but haven't been extensively tested yet.
