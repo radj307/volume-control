@@ -17,8 +17,7 @@
         Closing="Window_Closing"
         Initialized="Window_Initialized"
         StateChanged="Window_StateChanged"
-        Loaded="Window_Loaded"
-        AllowsTransparency="True">
+        Loaded="Window_Loaded">
     <Window.Background>
         <SolidColorBrush Color="#EE303030"/>
     </Window.Background>

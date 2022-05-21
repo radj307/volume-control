@@ -72,6 +72,7 @@ namespace VolumeControl.Hotkeys
 
         /// <inheritdoc/>
         public int ID => Hotkey.ID;
+        private static HotkeyManagerSettings Settings => HotkeyManagerSettings.Default;
 
         /// <inheritdoc/>
         public event KeyEventHandler Pressed
@@ -109,7 +110,7 @@ namespace VolumeControl.Hotkeys
 
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
-            var split = hkString.Split(";", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            var split = hkString.Split(Settings.HotkeyNameSeperatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             // Set the hotkey name:
             string name = split[0];
