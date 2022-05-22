@@ -3,14 +3,20 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Audio
 {
-    public class AudioAPI : INotifyPropertyChanged, IDisposable
+    /// <summary>
+    /// Contains methods related to audio devices, sessions, and the underlying selection mechanics responsible for providing context to actions.<br/>
+    /// You can use this object to manipulate any audio session on the system.
+    /// </summary>
+    public class AudioAPI : INotifyPropertyChanged, INotifyPropertyChanging, IDisposable
     {
         #region Initializers
+        /// <inheritdoc cref="AudioAPI"/>
         public AudioAPI()
         {
             _selectedDevice = null;
@@ -40,21 +46,19 @@ namespace VolumeControl.Audio
 
             ReloadOnHotkeyTimer = new()
             {
-                Interval = Settings.ReloadOnHotkeyMinInterval,
+                Interval = MathExt.ClampValue(Settings.ReloadOnHotkeyMinInterval, 1, 120000),
                 Enabled = !_allowReloadOnHotkey, //< this should always start as the inverse of _allowReloadOnHotkey
             };
+            ReloadOnHotkeyTimer.Tick += Handle_ReloadOnHotkeyTick!;
 
             ReloadTimer = new()
             {
-                Interval = ConstrainValue(Settings.AutoReloadInterval, Settings.AutoReloadIntervalMin, Settings.AutoReloadIntervalMax),
+                Interval = MathExt.ClampValue(Settings.AutoReloadInterval, Settings.AutoReloadIntervalMin, Settings.AutoReloadIntervalMax),
                 Enabled = Settings.ReloadOnInterval,
             };
-
-            // Add event handlers to the timers
             ReloadTimer.Tick += Handle_ReloadTimerTick!;
-            ReloadOnHotkeyTimer.Tick += Handle_ReloadOnHotkeyTick!;
         }
-        public void SaveSettings()
+        private void SaveSettings()
         {
             // save settings
             Settings.ReloadOnHotkeyMinInterval = ReloadOnHotkeyTimer.Interval;
@@ -88,7 +92,7 @@ namespace VolumeControl.Audio
 
         private string _target;
         private int _volumeStepSize;
-        private IEnumerable<string>? _targetAutoCompleteSource = null;
+        private bool _reloadOnHotkey;
 
         private readonly System.Windows.Forms.Timer ReloadOnHotkeyTimer;
         private readonly System.Windows.Forms.Timer ReloadTimer;
@@ -97,30 +101,64 @@ namespace VolumeControl.Audio
         #region Properties
         private static AudioAPISettings Settings => AudioAPISettings.Default;
         private static LogWriter Log => FLog.Log;
+        /// <summary>
+        /// The minimum allowable automatic reload interval, in milliseconds.
+        /// </summary>
         public static int ReloadIntervalMin => Settings.AutoReloadIntervalMin;
+        /// <summary>
+        /// The maximum allowable automatic reload interval, in milliseconds.
+        /// </summary>
         public static int ReloadIntervalMax => Settings.AutoReloadIntervalMax;
-        public static bool ReloadOnHotkey { get; set; }
+        /// <summary>
+        /// When true, automatic reloads are enabled.
+        /// </summary>
         public bool ReloadOnInterval
         {
             get => ReloadTimer.Enabled;
-            set => ReloadTimer.Enabled = value;
+            set
+            {
+                NotifyPropertyChanging();
+                ReloadTimer.Enabled = value;
+                NotifyPropertyChanged();
+            }
         }
-        /// <inheritdoc cref="System.Timers.Timer.Interval"/>
+        /// <inheritdoc cref="System.Windows.Forms.Timer.Interval"/>
         /// <remarks><b>This property automatically clamps incoming values between <see cref="ReloadIntervalMin"/> and <see cref="ReloadIntervalMax"/></b></remarks>
         public int ReloadInterval
         {
             get => ReloadTimer.Interval;
             set
             {
-                if (value > ReloadIntervalMax)
-                    value = ReloadIntervalMax;
-                else if (value < ReloadIntervalMin)
-                    value = ReloadIntervalMin;
-                ReloadTimer.Interval = value;
+                NotifyPropertyChanging();
+                ReloadTimer.Interval = MathExt.ClampValue(value, ReloadIntervalMin, ReloadIntervalMax);
+                NotifyPropertyChanged();
             }
         }
+        /// <summary>
+        /// When true, the 'Reload on Hotkey' feature is enabled; causing the session list to be refreshed when a relevant hotkey is pressed.<br/>Note that this is only triggered every few seconds, as it uses an internal timer mechanism to prevent spam.
+        /// </summary>
+        public bool ReloadOnHotkey
+        {
+            get => _reloadOnHotkey;
+            set
+            {
+                NotifyPropertyChanging();
+                _reloadOnHotkey = value;
+                NotifyPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// An observable list of all known audio devices.
+        /// </summary>
         public ObservableList<AudioDevice> Devices { get; } = new();
+        /// <summary>
+        /// An observable list of all known audio sessions.
+        /// </summary>
         public ObservableList<AudioSession> Sessions { get; } = new();
+        /// <summary>
+        /// The currently selected <see cref="AudioDevice"/>, or null if nothing is selected.
+        /// </summary>
+        /// <remarks><see cref="LockSelectedDevice"/> must be false in order to change this.</remarks>
         public IDevice? SelectedDevice
         {
             get => CheckAllDevices ? GetDefaultDevice() : _selectedDevice;
@@ -128,6 +166,8 @@ namespace VolumeControl.Audio
             {
                 if (LockSelectedDevice)
                     return;
+
+                NotifyPropertyChanging();
 
                 // clear the session list if we're changing target devices and sessions are device-specific
                 if (!CheckAllDevices)
@@ -147,6 +187,10 @@ namespace VolumeControl.Audio
                 Log.Info($"Selected device was changed to '{_selectedDevice?.Name}'");
             }
         }
+        /// <summary>
+        /// The currently selected <see cref="AudioSession"/>, or null if nothing is selected.
+        /// </summary>
+        /// <remarks><see cref="LockSelectedSession"/> must be false in order to change this.</remarks>
         public ISession? SelectedSession
         {
             get => _selectedSession;
@@ -154,8 +198,12 @@ namespace VolumeControl.Audio
             {
                 if (LockSelectedSession)
                     return;
+
+                NotifyPropertyChanging();
+
                 _selectedSession = value;
                 _target = _selectedSession?.ProcessIdentifier ?? string.Empty;
+
                 // Trigger associated events
                 NotifyTargetChanged(new(_target)); //< Selected
                 NotifyPropertyChanged();
@@ -172,6 +220,8 @@ namespace VolumeControl.Audio
             get => _lockSelectedDevice;
             set
             {
+                NotifyPropertyChanging();
+
                 _lockSelectedDevice = value;
 
                 NotifyPropertyChanged();
@@ -180,11 +230,16 @@ namespace VolumeControl.Audio
                 Log.Info($"Selected device was {(value ? "" : "un")}locked");
             }
         }
+        /// <summary>
+        /// Prevents <see cref="SelectedSession"/> from being modified.
+        /// </summary>
         public bool LockSelectedSession
         {
             get => _lockSelectedSession;
             set
             {
+                NotifyPropertyChanging();
+
                 _lockSelectedSession = value;
 
                 NotifyPropertyChanged();
@@ -193,6 +248,10 @@ namespace VolumeControl.Audio
                 Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
             }
         }
+        /// <summary>
+        /// Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated string representation of <see cref="SelectedSession"/>'s <see cref="AudioSession.ProcessIdentifier"/> property.
+        /// </summary>
+        /// <remarks>This is automatically updated by, and automatically updates, <see cref="SelectedSession"/>.</remarks>
         public string Target
         {
             get => _target;
@@ -206,6 +265,8 @@ namespace VolumeControl.Audio
 
                 if (eventArgs.Cancel)
                     return; // handle change cancelled
+
+                NotifyPropertyChanging();
 
                 value = eventArgs.Incoming; // update value to validated one
 
@@ -224,6 +285,9 @@ namespace VolumeControl.Audio
         /// </summary>
         /// <remarks>This changes the behaviour of <see cref="ReloadSessionList"/> so that it checks <i>all devices</i> instead of only the currently selected device.</remarks>
         public bool CheckAllDevices { get; set; }
+        /// <summary>
+        /// The amount to increment or decrement volume when no direct value is provided, such as when triggering methods with hotkeys.
+        /// </summary>
         public int VolumeStepSize
         {
             get => _volumeStepSize;
@@ -235,8 +299,6 @@ namespace VolumeControl.Audio
                 Log.Info($"Volume step set to {_volumeStepSize}");
             }
         }
-
-        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= GetSessionIdentifiers(SessionIdentifierFormat.IdentifierAndName);
         #endregion Properties
 
         #region Events
@@ -267,15 +329,20 @@ namespace VolumeControl.Audio
         /// <summary>
         /// Triggered before the <see cref="Target"/> property is changed, allowing for target validation.
         /// </summary>
+        /// <remarks>Note that this is triggered <b>before</b> the <see cref="PropertyChanging"/> event for <see cref="Target"/>.<br/>If this event cancels the change, the <see cref="PropertyChanging"/> event is not fired.</remarks>
         public event TargetChangingEventHandler? TargetChanging;
         /// <summary>
         /// Triggered when the <see cref="Target"/> property is changed.
         /// </summary>
         public event TargetChangedEventHandler? TargetChanged;
         /// <summary>
-        /// This is used by data bindings to indicate that the target should update from the source.
+        /// Triggered when a member property's value is changed.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>
+        /// Triggered before a member property's value is changed.
+        /// </summary>
+        public event PropertyChangingEventHandler? PropertyChanging;
 
         private void NotifyDeviceListRefresh(EventArgs e) => DeviceListReloaded?.Invoke(this, e);
         private void NotifyProcessListRefresh(EventArgs e) => SessionListReloaded?.Invoke(this, e);
@@ -286,6 +353,7 @@ namespace VolumeControl.Audio
         private void NotifyTargetChanging(ref TargetChangingEventArgs e) => TargetChanging?.Invoke(this, e);
         private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChanged?.Invoke(this, e);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
 
         private void Handle_ReloadTimerTick(object sender, EventArgs e) => ReloadSessionList();
         private void Handle_ReloadOnHotkeyTick(object sender, EventArgs e) => _allowReloadOnHotkey = true;
@@ -293,6 +361,9 @@ namespace VolumeControl.Audio
 
         #region Methods
         #region UpdateDevices
+        /// <summary>
+        /// Performs a selective update on the <see cref="Devices"/> list property by removing old/disabled/unplugged entries and adding newly detected ones.
+        /// </summary>
         public void ReloadDeviceList() => SelectiveUpdateDevices(GetAllDevices());
         private void SelectiveUpdateDevices(List<AudioDevice> devices)
         {
@@ -370,6 +441,10 @@ namespace VolumeControl.Audio
         #endregion Device
 
         #region ReloadSessions
+        /// <summary>
+        /// Performs a selective update on the <see cref="Sessions"/> list property by removing old/exited entries and adding new/started entries.
+        /// </summary>
+        /// <param name="reloadDevicesFirst">When true, <see cref="ReloadDeviceList"/> is called before getting the updated sessions from the CoreAudio API.</param>
         public void ReloadSessionList(bool reloadDevicesFirst = false)
         {
             if (reloadDevicesFirst)
@@ -381,8 +456,6 @@ namespace VolumeControl.Audio
             if ((CheckAllDevices ? GetAllSessionsFromAllDevices() : SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!) is List<AudioSession> sessions)
                 SelectiveUpdateSessions(sessions);
             else Sessions.Clear();
-            // reset autocomplete for target
-            _targetAutoCompleteSource = null;
         }
         /// <summary>
         /// Performs a selective update of the <see cref="Sessions"/> list.
@@ -396,7 +469,7 @@ namespace VolumeControl.Audio
             for (int i = Sessions.Count - 1; i >= 0; --i)
             {
                 AudioSession session = Sessions[i];
-                if (!session.Valid || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
+                if (!session.IsRunning || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
                     Sessions.RemoveAt(i);
             }
 
@@ -513,49 +586,41 @@ namespace VolumeControl.Audio
 
             return sessions;
         }
-        public enum SessionIdentifierFormat
+        /// <summary>Bitfield flag that is used to specify which properties to include for the <see cref="GetSessionNames(SessionNameFormat)"/> method.</summary>
+        [Flags]
+        public enum SessionNameFormat
         {
-            /// <summary>
-            /// Just the Process ID number of the session.
-            /// </summary>
-            PID,
-            /// <summary>
-            /// Just the Process name of the session.
-            /// </summary>
-            Name,
-            /// <summary>
-            /// Only includes process identifiers, which are both the PID and the Process Name of the session seperated with a colon <b>:</b>
-            /// </summary>
-            Identifier,
-            /// <summary>
-            /// Includes process identifiers and process names for the full autocomplete experience.
-            /// </summary>
-            IdentifierAndName,
+            /// <summary>Null</summary>
+            None = 0,
+            /// <summary>Includes <see cref="AudioSession.PID"/>, as a string.</summary>
+            PID = 1,
+            /// <summary>Includes <see cref="AudioSession.ProcessName"/></summary>
+            ProcessName = 2,
+            /// <summary>Includes <see cref="AudioSession.ProcessIdentifier"/></summary>
+            ProcessIdentifier = 4,
         }
         /// <summary>
-        /// Gets a list of strings representing each of the sessions in <see cref="Sessions"/>.
+        /// Gets a list of strings containing various properties from each element present in <see cref="Sessions"/>.<br/>
+        /// This is implemented as a faster alternative to using LINQ statements as it only loops through the list once.
         /// </summary>
-        /// <param name="fmt">This corresponds to the target property in <see cref="Sessions"/></param>
-        /// <returns>List of strings for autocomplete.</returns>
-        public List<string> GetSessionIdentifiers(SessionIdentifierFormat fmt = SessionIdentifierFormat.IdentifierAndName)
+        /// <param name="format">Bitfield flag that determines which properties to include in the list.</param>
+        /// <returns>A list of <see cref="string"/> types containing the requested properties from each session.</returns>
+        public List<string> GetSessionNames(SessionNameFormat format = SessionNameFormat.ProcessIdentifier | SessionNameFormat.ProcessName)
         {
-            switch (fmt)
-            {
-            case SessionIdentifierFormat.PID:
-                return Sessions.Select(s => s.PID.ToString()).ToList();
-            case SessionIdentifierFormat.Name:
-                return Sessions.Select(s => s.ProcessName).ToList();
-            case SessionIdentifierFormat.Identifier:
-                return Sessions.Select(s => s.ProcessIdentifier).ToList();
-            default:
-                List<string> l = new();
-                foreach (AudioSession? s in Sessions)
-                {
-                    l.Add(s.ProcessIdentifier);
-                    l.Add(s.ProcessName);
-                }
+            List<string> l = new();
+            if (format.Equals(SessionNameFormat.None))
                 return l;
+            for (int i = 0; i < Sessions.Count - 1; ++i)
+            {
+                var session = Sessions[i];
+                if (format.HasFlag(SessionNameFormat.PID))
+                    l.Add(session.PID.ToString());
+                if (format.HasFlag(SessionNameFormat.ProcessName))
+                    l.Add(session.ProcessName);
+                if (format.HasFlag(SessionNameFormat.ProcessIdentifier))
+                    l.Add(session.ProcessIdentifier);
             }
+            return l;
         }
         /// <summary>
         /// Attempts to resolve the <see cref="SelectedSession"/> using the current <see cref="Target"/> string.<br/>
@@ -577,27 +642,52 @@ namespace VolumeControl.Audio
 
         #region Selection
         #region SessionSelection
+        /// <summary>
+        /// Increments the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
+        /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void IncrementSessionVolume(int amount)
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Volume += amount;
         }
+        /// <summary>
+        /// Increments the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
         public void IncrementSessionVolume() => IncrementSessionVolume(VolumeStepSize);
+        /// <summary>
+        /// Decrements the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
+        /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void DecrementSessionVolume(int amount)
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Volume -= amount;
         }
+        /// <summary>
+        /// Decrements the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
         public void DecrementSessionVolume() => DecrementSessionVolume(VolumeStepSize);
+        /// <summary>
+        /// Gets whether the <see cref="SelectedSession"/> is currently muted.
+        /// </summary>
+        /// <returns>True if <see cref="SelectedSession"/> is not null and is muted; otherwise false.</returns>
         public bool GetSessionMute() => SelectedSession is AudioSession session && session.Muted;
+        /// <summary>
+        /// Sets the mute state of <see cref="SelectedSession"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
+        /// <param name="state">When true, the session will be muted; when false, the session will be unmuted.</param>
         public void SetSessionMute(bool state)
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
                 session.Muted = state;
         }
+        /// <summary>
+        /// Toggles the mute state of <see cref="SelectedSession"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
         public void ToggleSessionMute()
         {
             ResolveTarget();
@@ -609,7 +699,7 @@ namespace VolumeControl.Audio
         /// Sets <see cref="SelectedSession"/> to the session occurring after this one in <see cref="Sessions"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
-        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="null"/>, the first element in <see cref="Sessions"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedSession"/> is set to null, the first element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectNextSession()
         {
             ResolveTarget();
@@ -632,9 +722,7 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the first element in the list
             else if (Sessions.Count > 0)
-            {
                 SelectedSession = Sessions[0];
-            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
@@ -642,7 +730,7 @@ namespace VolumeControl.Audio
         /// Sets <see cref="SelectedSession"/> to the session occurring before this one in <see cref="Sessions"/>.
         /// <br/>Automatically loops back around if the selection index goes out of range.
         /// </summary>
-        /// <remarks>If <see cref="SelectedSession"/> is set to <see cref="null"/>, the last element in <see cref="Sessions"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedSession"/> is set to null, the last element in <see cref="Sessions"/> is selected.</remarks>
         public void SelectPreviousSession()
         {
             ResolveTarget();
@@ -665,16 +753,21 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the last element in the list
             else if (Sessions.Count > 0)
-            {
                 SelectedSession = Sessions[^1];
-            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
         /// <summary>
-        /// Sets the selected session to null.
+        /// Sets the selected session to null.<br/>Does nothing if <see cref="SelectedSession"/> is already null.
         /// </summary>
-        public void DeselectSession() => SelectedSession = null;
+        public void DeselectSession()
+        {
+            if (LockSelectedSession)
+                return;
+
+            SelectedSession = null;
+            NotifySessionSwitch(); //< SelectedSessionSwitched
+        }
         #endregion SessionSelection
         #region DeviceSelection
         /// <summary>
@@ -703,12 +796,25 @@ namespace VolumeControl.Audio
         /// <remarks>This calls <see cref="DecrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
         /// <inheritdoc cref="DecrementDeviceVolume(int)"/>
         public void DecrementDeviceVolume() => DecrementDeviceVolume(VolumeStepSize);
+        /// <summary>
+        /// Gets whether the <see cref="SelectedDevice"/> is currently muted.
+        /// </summary>
+        /// <returns>True if <see cref="SelectedDevice"/> is not null and is muted; otherwise false.</returns>
         public bool GetDeviceMute() => SelectedDevice?.EndpointMuted ?? false;
+        /// <summary>
+        /// Sets the mute state of <see cref="SelectedDevice"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
+        /// <remarks>Note that this affects all sessions using this device.</remarks>
+        /// <param name="state">When true, the device will be muted; when false, the device will be unmuted.</param>
         public void SetDeviceMute(bool state)
         {
             if (SelectedDevice is AudioDevice dev)
                 dev.EndpointMuted = state;
         }
+        /// <summary>
+        /// Toggles the mute state of <see cref="SelectedDevice"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// </summary>
+        /// <remarks>Note that this affects all sessions using this device.</remarks>
         public void ToggleDeviceMute()
         {
             if (SelectedDevice is AudioDevice dev)
@@ -719,7 +825,7 @@ namespace VolumeControl.Audio
         /// <br/>Automatically loops back around if the selection index goes out of range.<br/>
         /// Does nothing unless device selection is unlocked.
         /// </summary>
-        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="null"/>, the first element in <see cref="Devices"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to null, the first element in <see cref="Devices"/> is selected.</remarks>
         public void SelectNextDevice()
         {
             if (ReloadOnHotkey && _allowReloadOnHotkey)
@@ -740,9 +846,7 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
-            {
                 SelectedDevice = Devices[0];
-            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
@@ -751,7 +855,7 @@ namespace VolumeControl.Audio
         /// <br/>Automatically loops back around if the selection index goes out of range.<br/>
         /// Does nothing unless device selection is unlocked.
         /// </summary>
-        /// <remarks>If <see cref="SelectedDevice"/> is set to <see cref="null"/>, the last element in <see cref="Devices"/> is selected.</remarks>
+        /// <remarks>If <see cref="SelectedDevice"/> is set to null, the last element in <see cref="Devices"/> is selected.</remarks>
         public void SelectPreviousDevice()
         {
             if (ReloadOnHotkey && _allowReloadOnHotkey)
@@ -772,14 +876,12 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
-            {
                 SelectedDevice = Devices[^1];
-            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
         /// <summary>
-        /// Sets the selected device to null, unless the selection is locked.
+        /// Sets the selected device to null, unless the selection is locked.<br/>Does nothing if <see cref="SelectedDevice"/> is already null.
         /// </summary>
         public void DeselectDevice()
         {
@@ -805,21 +907,6 @@ namespace VolumeControl.Audio
         #endregion Selection
 
         #region Other
-        /// <summary>Clamps the given value between <paramref name="min"/> and <paramref name="max"/>.</summary>
-        /// <remarks>The <paramref name="min"/> and <paramref name="max"/> boundary values are <b>inclusive</b>.</remarks>
-        /// <typeparam name="T">Any numerical type.</typeparam>
-        /// <param name="value">The value to clamp.</param>
-        /// <param name="min">The minimum allowable value.</param>
-        /// <param name="max">The maximum allowable value.</param>
-        /// <returns><paramref name="value"/> clamped between <paramref name="min"/> and <paramref name="max"/>.</returns>
-        private static T ConstrainValue<T>(T value, T min, T max) where T : IComparable, IComparable<T>, IConvertible, IEquatable<T>, ISpanFormattable, IFormattable
-        {
-            if (value.CompareTo(min) < 0)
-                value = min;
-            else if (value.CompareTo(max) > 0)
-                value = max;
-            return value;
-        }
         /// <inheritdoc/>
         public void Dispose()
         {

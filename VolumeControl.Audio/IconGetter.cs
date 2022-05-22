@@ -7,12 +7,12 @@ using VolumeControl.Log;
 
 namespace VolumeControl.Audio
 {
+    /// <summary>This is a helper class used to retrieve icons using multiple different context-sensitive methods from the Windows API.</summary>
     public static class IconGetter
     {
         private static LogWriter Log => FLog.Log;
 
-
-        public static ImageSource? GetIcon(string path, bool smallIcon, bool isDirectory)
+        internal static ImageSource? GetIcon(string path, bool smallIcon, bool isDirectory)
         {
             // SHGFI_USEFILEATTRIBUTES takes the file name and attributes into account if it doesn't exist
             uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
@@ -86,7 +86,7 @@ namespace VolumeControl.Audio
         /// Gets the large and small variants of the specified icon from the specified DLL.
         /// </summary>
         /// <param name="path">The location of the target icon DLL.</param>
-        /// <param name="number">The icon index number to retrieve.</param>
+        /// <param name="index">The icon index number to retrieve.</param>
         /// <returns>A pair of icons where Item1 is the small icon, Item2 is the large icon; or null if the icons couldn't be loaded.</returns>
         public static (ImageSource?, ImageSource?)? GetIcons(string path, int index)
         {
@@ -146,6 +146,9 @@ namespace VolumeControl.Audio
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern int ExtractIconEx(string sFile, int iIndex, out IntPtr piLargeVersion, out IntPtr piSmallVersion, int amountIcons);
     }
+    /// <summary>
+    /// Extension methods for <see cref="AudioDevice"/> and <see cref="AudioSession"/> types.
+    /// </summary>
     public static class GetIconsExtensions
     {
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>

@@ -97,16 +97,23 @@ namespace VolumeControl.Helpers.Addon
             {
                 if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr)
                 {
+                    Log.Debug($"Loading Addon: {{", 
+                              $"    Name: {type.FullName}",
+                              $"    Type: {typeof(T).Name}",
+                              $"}}"
+                              );
+
                     Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{typeof(T).Name}' }}");
-                    if (bAttr.CanLoadAddon(currentVersion))
+                    if (bAttr.CompatibleVersions.Contains(currentVersion))
                     {
                         Log.Debug($"Successfully loaded addon class {type.FullName}");
                         l.Add(type);
                     }
                     else
                     {
-                        Log.Warning($"Cannot load {type.FullName} because it depends on an incompatible version of Volume Control!",
-                            $"{{ Current: '{currentVersion}', Minimum: '{bAttr.MinimumVersion}', Maximum: '{bAttr.MaximumVersion}' }}");
+#                       pragma warning disable CS0618 // Type or member is obsolete
+                        Log.Debug($"Ignoring incompatible addon '{type.FullName}': ( {bAttr.CompatibleVersions.Minimum ?? "*"} <= {currentVersion} <= {bAttr.CompatibleVersions.Maximum ?? "*"} )");
+#                       pragma warning restore CS0618 // Type or member is obsolete
                     }
                 }
             }

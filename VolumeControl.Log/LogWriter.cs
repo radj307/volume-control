@@ -48,6 +48,11 @@ namespace VolumeControl.Log
         public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
         #endregion WriteRaw
 
+        /// <summary>
+        /// Writes a log message with a given timestamp.
+        /// </summary>
+        /// <param name="ts">The full timestamp as a string.</param>
+        /// <param name="lines">Any number of lines of any object type.</param>
         public void WriteWithTimestamp(string ts, params object?[] lines)
         {
             if (!Endpoint.Enabled || lines.Length == 0)
@@ -79,6 +84,10 @@ namespace VolumeControl.Log
                         if (item != null)
                             w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
                     }
+                }
+                else if (line is ILogWriter logWriter)
+                {
+
                 }
                 else
                 {

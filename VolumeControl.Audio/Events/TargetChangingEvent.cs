@@ -4,6 +4,10 @@
     /// 
     public class TargetChangingEventArgs : EventArgs
     {
+        /// <inheritdoc cref="TargetChangingEventArgs"/>
+        /// <param name="outgoing">The current target name.</param>
+        /// <param name="incoming">The incoming target name.</param>
+        /// <param name="defaultCancel">Determines the default value of the <see cref="Cancel"/> property.</param>
         public TargetChangingEventArgs(string outgoing, string incoming, bool defaultCancel = false)
         {
             Outgoing = outgoing;

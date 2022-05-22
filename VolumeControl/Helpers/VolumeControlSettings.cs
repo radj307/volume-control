@@ -20,6 +20,7 @@ using VolumeControl.Hotkeys.Addons;
 using VolumeControl.Log.Enum;
 using VolumeControl.Win32;
 using VolumeControl.WPF;
+using static VolumeControl.Audio.AudioAPI;
 
 namespace VolumeControl.Helpers
 {
@@ -71,7 +72,7 @@ namespace VolumeControl.Helpers
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
-            _audioAPI.PropertyChanged += (s, e) => OnPropertyChanged($"AudioAPI.{e.PropertyName}");
+            _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
         }
         private void SaveSettings()
         {
@@ -124,8 +125,15 @@ namespace VolumeControl.Helpers
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
         private readonly RunKeyHelper _registryRunKeyHelper;
+        /// <summary>
+        /// The filename of the Update Utility, including extensions but not qualifiers.<br/>See <see cref="_updateUtilityResourcePath"/>
+        /// </summary>
         private const string _updateUtilityFilename = "VolumeControl.UpdateUtility.exe";
+        /// <summary>
+        /// The fully qualified name of the Update Utility as an embedded resource.
+        /// </summary>
         private const string _updateUtilityResourcePath = $"VolumeControl.Resources.{_updateUtilityFilename}";
+        private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
         public readonly string ExecutablePath;
@@ -133,6 +141,13 @@ namespace VolumeControl.Helpers
         #endregion Fields
 
         #region Properties
+        #region Other
+        /// <summary>
+        /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
+        /// </summary>
+        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(SessionNameFormat.ProcessIdentifier | SessionNameFormat.ProcessName);
+        #endregion Other
+
         #region Statics
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Properties.Settings.Default"/>.</summary>
@@ -276,6 +291,22 @@ namespace VolumeControl.Helpers
         private int _notificationTimeout;
         #endregion Settings
         #endregion Properties
+
+        #region EventHandlers
+        protected virtual void Handle_AudioAPI_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == null)
+                return;
+
+            if (e.PropertyName.Equals("Sessions"))
+            { // reset autocomplete suggestions
+                _targetAutoCompleteSource = null;
+                OnPropertyChanged(nameof(TargetAutoCompleteSource));
+            }
+
+            OnPropertyChanged($"AudioAPI.{e.PropertyName}");
+        }
+        #endregion EventHandlers
 
         #region Methods
         /// <summary>

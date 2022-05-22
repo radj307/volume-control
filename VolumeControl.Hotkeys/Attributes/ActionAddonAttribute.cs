@@ -9,7 +9,10 @@ namespace VolumeControl.Hotkeys.Attributes
     public sealed class ActionAddonAttribute : BaseAddonAttribute
     {
         /// <inheritdoc cref="ActionAddonAttribute"/>
-        /// <param name="addonName">A string identifier that refers to this addon.<br/>Cannot contain punctuation, as determined by <see cref="char.IsPunctuation(char)"/>.<br/>This can safely be set to the name of your class using the nameof keyword.</param>
+        /// <inheritdoc/>
+        public ActionAddonAttribute(string addonName, CompatibleVersions compatibleVersions) : base(addonName.RemoveIf(char.IsPunctuation)) { }
+        /// <inheritdoc cref="ActionAddonAttribute"/>
+        /// <inheritdoc/>
         public ActionAddonAttribute(string addonName) : base(addonName.RemoveIf(char.IsPunctuation)) { }
     }
 }

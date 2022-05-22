@@ -1,7 +1,4 @@
-﻿using Semver;
-using System.Runtime.CompilerServices;
-
-namespace VolumeControl.Core
+﻿namespace VolumeControl.Core
 {
     /// <summary>Abstract base class that all other addon attributes inherit from.<br/><b>Unless you're implementing a new addon type, this isn't the attribute you're looking for.</b></summary>
     /// <remarks>An addon type for the Volume Control program.</remarks>
@@ -9,25 +6,23 @@ namespace VolumeControl.Core
     public abstract class BaseAddonAttribute : Attribute, IBaseAddonAttribute
     {
         /// <inheritdoc cref="BaseAddonAttribute"/>
-        /// <param name="className">The string to set the <see cref="AddonName"/> property to. It is recommended to use the <see cref="CallerMemberNameAttribute"/> attribute to retrieve this.</param>
-        protected BaseAddonAttribute(string addonName) => AddonName = addonName;
-        /// <summary>This is used when indexing this addon, as well as in the log.</summary>
-        /// <remarks>It is recommended to let this set itself using the class name provided by <see cref="CallerMemberNameAttribute"/>, however you can change this to something consistent if you want.</remarks>
+        /// <param name="addonName">The string to set the <see cref="AddonName"/> property to.</param>
+        /// <param name="compatibleVersions">A <see cref="CompatibleVersions"/> object that specifies which versions of Volume Control this addon supports.</param>
+        protected BaseAddonAttribute(string addonName, CompatibleVersions compatibleVersions)
+        {
+            AddonName = addonName;
+            CompatibleVersions = compatibleVersions;
+        }
+        /// <inheritdoc cref="BaseAddonAttribute"/>
+        /// <param name="addonName">The string to set the <see cref="AddonName"/> property to.</param>
+        protected BaseAddonAttribute(string addonName)
+        {
+            AddonName = addonName;
+            CompatibleVersions = new();
+        }
+        /// <inheritdoc/>
         public string AddonName { get; }
-        /// <summary>
-        /// Specifies the minimum version of Volume Control that this addon is compatible with.<br/>
-        /// <br/>
-        /// <br/>
-        /// When this is set to null, no minimum version limit is applied.<br/>
-        /// Note that only versions from 5.0.0 and up will actually load addons, so that is the absolute minimum version.
-        /// </summary>
-        /// <remarks>Defaults to null.</remarks>
-        public SemVersion? MinimumVersion { get; set; }
-        /// <summary>
-        /// <br/>
-        /// When this is set to null, no maximum version limit is applied.
-        /// </summary>
-        /// <remarks>Defaults to null.</remarks>
-        public SemVersion? MaximumVersion { get; set; }
+        /// <inheritdoc/> 
+        public CompatibleVersions CompatibleVersions { get; }
     }
 }

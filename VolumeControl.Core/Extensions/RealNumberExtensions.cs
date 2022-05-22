@@ -1,5 +1,8 @@
 ﻿namespace VolumeControl.Core.Extensions
 {
+    /// <summary>
+    /// Extensions for floating-point number types.
+    /// </summary>
     public static class RealNumberExtensions
     {
         /// <summary>

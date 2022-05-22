@@ -5,6 +5,7 @@ using VolumeControl.Log;
 namespace VolumeControl.API
 {
     /// <summary>Struct containing various useful object references.<br/>Cannot be directly instantiated, use the <see cref="Default"/> static property.</summary>
+    /// <remarks>Have an idea for extending the Volume Control API?  <see href="https://github.com/radj307/volume-control/issues/new?assignees=&amp;labels=&amp;template=feature-request.md&amp;title=%5BREQUEST%5D">Request a Feature</see> or <see href="https://github.com/radj307/volume-control/compare">Submit a Pull Request</see></remarks>
     public struct VCAPI
     {
         #region Statics
@@ -20,11 +21,11 @@ namespace VolumeControl.API
 
         #region Properties
         /// <summary>
-        /// This is the global <see cref="AudioAPI"/>.
+        /// This is the global <see cref="Audio.AudioAPI"/>.
         /// </summary>
         public AudioAPI AudioAPI { get; internal set; }
         /// <summary>
-        /// This is the global <see cref="HotkeyManager"/>.
+        /// This is the global <see cref="Hotkeys.HotkeyManager"/>.
         /// </summary>
         public HotkeyManager HotkeyManager { get; internal set; }
         /// <summary>

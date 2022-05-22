@@ -3,6 +3,9 @@ using VolumeControl.Log.Enum;
 
 namespace VolumeControl.Log.Interfaces
 {
+    /// <summary>
+    /// Represents a log writer object, which is responsible for exposing logging methods, formatting the input, and writing it to an endpoint.
+    /// </summary>
     public interface ILogWriter
     {
         /// <summary>

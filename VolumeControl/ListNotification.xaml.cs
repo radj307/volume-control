@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using VolumeControl.Extensions;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers;
 
 namespace VolumeControl

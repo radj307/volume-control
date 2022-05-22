@@ -2,6 +2,9 @@
 
 namespace VolumeControl.Core.Extensions
 {
+    /// <summary>
+    /// Extensions for string types.
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>

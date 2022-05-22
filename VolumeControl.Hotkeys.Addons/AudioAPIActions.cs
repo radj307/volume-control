@@ -37,6 +37,7 @@ namespace VolumeControl.Hotkeys.Addons
         [HotkeyAction] public void MuteDevice(object? sender, HandledEventArgs e) => AudioAPI.SetDeviceMute(true);
         [HotkeyAction] public void UnmuteDevice(object? sender, HandledEventArgs e) => AudioAPI.SetDeviceMute(false);
         [HotkeyAction] public void ToggleDeviceMute(object? sender, HandledEventArgs e) => AudioAPI.ToggleDeviceMute();
+        [HotkeyAction] public void ReloadDevices(object? sender, HandledEventArgs e) => AudioAPI.ReloadDeviceList();
         #endregion Actions
     }
 }
