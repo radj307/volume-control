@@ -4,7 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <Configurations>Debug;Release;SDK-Debug;SDK-Release</Configurations>
+    <Configurations>Debug;Release;SDK</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

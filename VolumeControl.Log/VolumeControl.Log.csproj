@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <UseWindowsForms>True</UseWindowsForms>
-    <Configurations>Debug;Release;SDK-Debug;SDK-Release</Configurations>
+    <Configurations>Debug;Release;SDK</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

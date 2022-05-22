@@ -6,7 +6,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <Configurations>Debug;Release;SDK-Debug;SDK-Release</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -12,6 +12,7 @@
 		<Deterministic>True</Deterministic>
 		<DebugType>none</DebugType>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

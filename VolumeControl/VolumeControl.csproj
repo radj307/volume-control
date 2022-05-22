@@ -29,7 +29,7 @@
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <Optimize>true</Optimize>
     <Deterministic>true</Deterministic>
-    <Configurations>Debug;Release;SDK-Debug;SDK-Release</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
