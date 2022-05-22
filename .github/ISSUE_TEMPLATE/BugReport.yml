@@ -23,7 +23,6 @@ body:
     id: version-is-extended
     attributes:
       label:        Status
-      description:  This is especially relevant when considering the version number field.
       options:
         - label: Can you launch the program?
           required: false
@@ -40,7 +39,6 @@ body:
     id: actual
     attributes:
       label: Actual Behaviour
-      description: What actually happened? Be specific!
       placeholder: What actually happened?
     validations:
       required: true
