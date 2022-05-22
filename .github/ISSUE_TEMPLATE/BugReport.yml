@@ -14,7 +14,9 @@ body:
     id: version
     attributes:
       label: Version
-      description: The version of Volume Control the bug occurred in. You can find this on the settings tab in the top-right corner. If you are unable to access the application, R+Click on the executable, click Properties, and find the version number on the details tab.
+      description: |
+                  The version of Volume Control the bug occurred in.
+                  You can find this on the settings tab in the top-right corner. If you are unable to access the application, R+Click on the executable, click Properties, and find the version number on the details tab.
       placeholder: Version Number found in the top-right corner of the settings tab.
     validations:
       required: true
