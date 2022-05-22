@@ -31,6 +31,14 @@ body:
           required: false
       
   - type: textarea
+    id: description
+    attributes:
+      label:  Bug Description
+      placeholder: Describe the bug; you can include screenshots here.
+    validations:
+      required: true
+      
+  - type: textarea
     id: expected
     attributes:
       label: Expected Behaviour
