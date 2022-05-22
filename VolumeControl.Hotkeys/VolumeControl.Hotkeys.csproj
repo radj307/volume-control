@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;SDK</Configurations>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +30,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;$(SolutionDir)publish\SDK\&quot;" />
+    <Exec Command="xcopy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;publish\SDK\&quot;" />
   </Target>
 
 </Project>

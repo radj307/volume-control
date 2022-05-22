@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;$(SolutionDir)publish\SDK\&quot;" />
+    <Exec Command="copy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;publish\SDK\&quot;" />
   </Target>
 
 </Project>
