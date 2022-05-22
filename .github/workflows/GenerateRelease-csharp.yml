@@ -47,13 +47,19 @@ jobs:
     - name:   Stage Files
       run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
-    - name:   Upload Artifacts
+    - name:   Upload Executable Artifact
       uses:   actions/upload-artifact@v2
       with:
         name: build-windows
         path: '${{github.workspace}}/STAGING/*'
         if-no-files-found: error
-        
+
+    - name:   Upload SDK DLLs
+      uses:   actions/upload-artifact@v2
+      with:
+        name: sdk
+        path: '${{github.workspace}}/publish/SDK/*'
+        if-no-files-found: error
 
   # Create the release using the uploaded artifact on github:
   create-release:
