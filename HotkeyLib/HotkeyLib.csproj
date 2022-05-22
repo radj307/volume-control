@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <DebugType>full</DebugType>
     <Configurations>Debug;Release;SDK</Configurations>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;$(SolutionDir)publish\SDK\&quot;" />
+    <Exec Command="xcopy &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;" />
   </Target>
 
 </Project>
