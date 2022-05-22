@@ -25,8 +25,9 @@ body:
       label:        Can you launch the program?
       description:  This is especially relevant when considering the version number field.
       options:
-      - required: false
-        value: true
+        - label: Can you launch the program?
+          required: false
+          value: true
       
   - type: textarea
     id: expected
