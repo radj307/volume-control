@@ -22,7 +22,7 @@ body:
   - type: checkboxes
     id: version-is-extended
     attributes:
-      label:        Can you launch the program?
+      label:        
       description:  This is especially relevant when considering the version number field.
       options:
         - label: Can you launch the program?
