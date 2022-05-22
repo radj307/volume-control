@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;SDK</Configurations>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)\$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;" />
+    <Exec Command="xcopy &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;" />
   </Target>
 
 </Project>
