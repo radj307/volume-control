@@ -27,7 +27,6 @@ body:
       options:
         - label: Can you launch the program?
           required: false
-          default: true
       
   - type: textarea
     id: expected
