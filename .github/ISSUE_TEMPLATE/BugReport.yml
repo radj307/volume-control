@@ -40,7 +40,7 @@ body:
     id: actual
     attributes:
       label: Actual Behaviour
-      description: What actually happened? Be specific
+      description: What actually happened? Be specific!
       placeholder: What actually happened?
     validations:
       required: true
