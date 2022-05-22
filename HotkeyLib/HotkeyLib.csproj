@@ -7,6 +7,7 @@
     <DebugType>full</DebugType>
     <Configurations>Debug;Release;SDK</Configurations>
     <SignAssembly>False</SignAssembly>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;" />
+    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;" />
   </Target>
 
 </Project>
