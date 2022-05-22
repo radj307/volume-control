@@ -29,20 +29,5 @@ namespace VolumeControl.Core
         /// </summary>
         /// <remarks>Defaults to null.</remarks>
         public SemVersion? MaximumVersion { get; set; }
-
-        /// <inheritdoc/>
-        /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
-        public int CompareTo(SemVersion? other)
-        {
-            if (other == null) throw new ArgumentNullException(nameof(other));
-            int compMin = other.CompareByPrecedence(MinimumVersion);
-            int compMax = other.CompareByPrecedence(MaximumVersion);
-            if (compMin >= 0 && compMax <= 0)
-                return 0;
-            else if (compMin < 0)
-                return -1;
-            else
-                return 1;
-        }
     }
 }

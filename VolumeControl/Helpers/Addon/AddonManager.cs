@@ -95,10 +95,19 @@ namespace VolumeControl.Helpers.Addon
             List<Type> l = new();
             foreach (Type type in asm.GetTypes())
             {
-                if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr && bAttr.CanLoadAddon(currentVersion))
+                if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr)
                 {
                     Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{typeof(T).Name}' }}");
-                    l.Add(type);
+                    if (bAttr.CanLoadAddon(currentVersion))
+                    {
+                        Log.Debug($"Successfully loaded addon class {type.FullName}");
+                        l.Add(type);
+                    }
+                    else
+                    {
+                        Log.Warning($"Cannot load {type.FullName} because it depends on an incompatible version of Volume Control!",
+                            $"{{ Current: '{currentVersion}', Minimum: '{bAttr.MinimumVersion}', Maximum: '{bAttr.MaximumVersion}' }}");
+                    }
                 }
             }
             return l;
