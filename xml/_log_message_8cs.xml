@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_log_message_8cs" kind="file" language="C#">
+    <compoundname>LogMessage.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_log_1_1_log_message" prot="public">VolumeControl::Log::LogMessage</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log">VolumeControl::Log</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>.<ref refid="namespace_volume_control_1_1_log" kindref="compound">Log</ref>.<ref refid="namespace_volume_control_1_1_log_1_1_endpoints" kindref="compound">Endpoints</ref>;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>.<ref refid="namespace_volume_control_1_1_log" kindref="compound">Log</ref>.<ref refid="namespace_volume_control_1_1_log_1_1_enum" kindref="compound">Enum</ref>;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>.<ref refid="namespace_volume_control_1_1_log" kindref="compound">Log</ref>.<ref refid="namespace_volume_control_1_1_log_1_1_interfaces" kindref="compound">Interfaces</ref>;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_log" kindref="compound">VolumeControl.Log</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12" refid="class_volume_control_1_1_log_1_1_log_message" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_log_1_1_log_message" kindref="compound">LogMessage</ref><sp/>:<sp/><ref refid="class_volume_control_1_1_log_1_1_log_writer" kindref="compound">LogWriter</ref>,<sp/><ref refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" kindref="compound">ILogWriter</ref></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="16" refid="class_volume_control_1_1_log_1_1_log_message_1a6575ca4bff9f848f0676c52c6153066c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_log_1_1_log_message_1a6575ca4bff9f848f0676c52c6153066c" kindref="member">LogMessage</ref>(<ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref><sp/>filter<sp/>=<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref>.ALL)<sp/>:<sp/>base(new<sp/><ref refid="class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" kindref="compound">MemoryEndpoint</ref>(true),<sp/>filter)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>Add<sp/>the<sp/>ability<sp/>to<sp/>write<sp/>log<sp/>messages<sp/>without<sp/>appending<sp/>a<sp/>newline<sp/>so<sp/>that<sp/>messages<sp/>can<sp/>be<sp/>followed<sp/>up<sp/>directly.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>feature<sp/>may<sp/>only<sp/>be<sp/>available<sp/>in<sp/>LogMessage<sp/>since<sp/>it<sp/>(must<sp/>be)<sp/>accessed<sp/>synchronously</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/LogMessage.cs"/>
+  </compounddef>
+</doxygen>

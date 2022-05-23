@@ -1,0 +1,91 @@
+\hypertarget{interface_volume_control_1_1_core_1_1_i_base_addon}{}\doxysection{Volume\+Control.\+Core.\+IBase\+Addon Interface Reference}
+\label{interface_volume_control_1_1_core_1_1_i_base_addon}\index{VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}}
+
+
+Represents an addon object.~\newline
+~\newline
+You can\textquotesingle{}t directly implement this interface; inherit from the {\ttfamily abstract} {\ttfamily class} \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon}{Base\+Addon}} instead.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Core.\+IBase\+Addon\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_core_1_1_i_base_addon__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Core.\+IBase\+Addon\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{interface_volume_control_1_1_core_1_1_i_base_addon__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_a48e595ea1bdea7bfded23e1bbcbe09c1}{Load\+From\+Types}} ()
+\begin{DoxyCompactList}\small\item\em Performs initialization using the \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_a5db3801a97f2c6bc6f4b46719deac6e5}{Types}} property. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Type \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_a8cfea345870058ef126f4c663f87ab27}{Attribute}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The attribute type used by this addon. \end{DoxyCompactList}\item 
+List$<$ Type $>$ \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_a5db3801a97f2c6bc6f4b46719deac6e5}{Types}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em A list of every type belonging to this addon manager instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an addon object.~\newline
+~\newline
+You can\textquotesingle{}t directly implement this interface; inherit from the {\ttfamily abstract} {\ttfamily class} \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon}{Base\+Addon}} instead. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_core_1_1_i_base_addon_a48e595ea1bdea7bfded23e1bbcbe09c1}\label{interface_volume_control_1_1_core_1_1_i_base_addon_a48e595ea1bdea7bfded23e1bbcbe09c1}} 
+\index{VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}!LoadFromTypes@{LoadFromTypes}}
+\index{LoadFromTypes@{LoadFromTypes}!VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}}
+\doxysubsubsection{\texorpdfstring{LoadFromTypes()}{LoadFromTypes()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Core.\+IBase\+Addon.\+Load\+From\+Types (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Performs initialization using the \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_a5db3801a97f2c6bc6f4b46719deac6e5}{Types}} property. 
+
+This is called by the addon manager once all types have been loaded.
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon_a4b10c2ef72990a1946de903c5f146f4c}{Volume\+Control.\+Core.\+Base\+Addon}}.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_core_1_1_i_base_addon_a8cfea345870058ef126f4c663f87ab27}\label{interface_volume_control_1_1_core_1_1_i_base_addon_a8cfea345870058ef126f4c663f87ab27}} 
+\index{VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}!Attribute@{Attribute}}
+\index{Attribute@{Attribute}!VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}}
+\doxysubsubsection{\texorpdfstring{Attribute}{Attribute}}
+{\footnotesize\ttfamily Type Volume\+Control.\+Core.\+IBase\+Addon.\+Attribute\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The attribute type used by this addon. 
+
+\mbox{\Hypertarget{interface_volume_control_1_1_core_1_1_i_base_addon_a5db3801a97f2c6bc6f4b46719deac6e5}\label{interface_volume_control_1_1_core_1_1_i_base_addon_a5db3801a97f2c6bc6f4b46719deac6e5}} 
+\index{VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}!Types@{Types}}
+\index{Types@{Types}!VolumeControl.Core.IBaseAddon@{VolumeControl.Core.IBaseAddon}}
+\doxysubsubsection{\texorpdfstring{Types}{Types}}
+{\footnotesize\ttfamily List$<$Type$>$ Volume\+Control.\+Core.\+IBase\+Addon.\+Types\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+A list of every type belonging to this addon manager instance. 
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Core/IBase\+Addon.\+cs\end{DoxyCompactItemize}

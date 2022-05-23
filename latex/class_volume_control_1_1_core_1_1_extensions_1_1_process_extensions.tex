@@ -1,0 +1,61 @@
+\hypertarget{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions}{}\doxysection{Volume\+Control.\+Core.\+Extensions.\+Process\+Extensions Class Reference}
+\label{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions}\index{VolumeControl.Core.Extensions.ProcessExtensions@{VolumeControl.Core.Extensions.ProcessExtensions}}
+
+
+Extension methods for the Process class.  
+
+
+
+
+Collaboration diagram for Volume\+Control.\+Core.\+Extensions.\+Process\+Extensions\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions_a85d8ca3e21a1bd93193e5299872b1173}{Has\+Exited}} (this Process p)
+\begin{DoxyCompactList}\small\item\em This fixes a bug that microsoft hasn\textquotesingle{}t fixed since at least Windows Vista that occurs when calling Process.\+Has\+Exited.~\newline
+ {\bfseries{DO NOT USE THE Process.\+Has\+Exited PROPERTY, USE THIS INSTEAD!}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Extension methods for the Process class. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions_a85d8ca3e21a1bd93193e5299872b1173}\label{class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions_a85d8ca3e21a1bd93193e5299872b1173}} 
+\index{VolumeControl.Core.Extensions.ProcessExtensions@{VolumeControl.Core.Extensions.ProcessExtensions}!HasExited@{HasExited}}
+\index{HasExited@{HasExited}!VolumeControl.Core.Extensions.ProcessExtensions@{VolumeControl.Core.Extensions.ProcessExtensions}}
+\doxysubsubsection{\texorpdfstring{HasExited()}{HasExited()}}
+{\footnotesize\ttfamily static bool Volume\+Control.\+Core.\+Extensions.\+Process\+Extensions.\+Has\+Exited (\begin{DoxyParamCaption}\item[{this Process}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This fixes a bug that microsoft hasn\textquotesingle{}t fixed since at least Windows Vista that occurs when calling Process.\+Has\+Exited.~\newline
+ {\bfseries{DO NOT USE THE Process.\+Has\+Exited PROPERTY, USE THIS INSTEAD!}} 
+
+Sources\+:~\newline
+ \href{https://www.giorgi.dev/net/access-denied-process-bugs/}{\texttt{ https\+://www.\+giorgi.\+dev/net/access-\/denied-\/process-\/bugs/}} ~\newline
+ \href{https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/windows/win32/api/processthreadsapi/nf-\/processthreadsapi-\/openprocess}} ~\newline
+ \href{https://docs.microsoft.com/en-ca/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocesstimes}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/ca/windows/win32/api/processthreadsapi/nf-\/processthreadsapi-\/getprocesstimes}} ~\newline
+ \href{https://docs.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle}{\texttt{ https\+://docs.\+microsoft.\+com/en-\/us/windows/win32/api/handleapi/nf-\/handleapi-\/closehandle}} ~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Process instance.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the process has exited, false if the process is still running.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Core/\+Extensions/Process\+Extensions.\+cs\end{DoxyCompactItemize}

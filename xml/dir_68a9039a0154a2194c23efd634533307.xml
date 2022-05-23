@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_68a9039a0154a2194c23efd634533307" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj</compoundname>
+    <innerdir refid="dir_870cbdaaaae066f5cba38b25a5385375">X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/Debug</innerdir>
+    <innerdir refid="dir_154374854a0d8d3280c5eda401844bcc">X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/Release</innerdir>
+    <innerdir refid="dir_95a0128706771d589d1021f4e49e8adb">X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/SDK</innerdir>
+    <innerdir refid="dir_40d6c1823e87aeddf84cd1fb26bcfe22">X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/SDK-Debug</innerdir>
+    <innerdir refid="dir_bc8cfe224509eb797efe66a90b016bee">X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/SDK-Release</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/"/>
+  </compounddef>
+</doxygen>

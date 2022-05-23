@@ -1,0 +1,8 @@
+<map id="VolumeControl.Helpers.VolumeControlSettings" name="VolumeControl.Helpers.VolumeControlSettings">
+<area shape="rect" id="node1" title=" " alt="" coords="345,99,548,141"/>
+<area shape="rect" id="node2" title=" " alt="" coords="26,5,185,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="25,56,186,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="22,107,189,133"/>
+<area shape="rect" id="node5" title=" " alt="" coords="61,157,150,184"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_helpers_1_1_addon_1_1_addon_manager.html" title="Manager object for runtime DLL addons." alt="" coords="5,209,205,250"/>
+</map>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_window_handle_getter_8cs" kind="file" language="C#">
+    <compoundname>WindowHandleGetter.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter" prot="public">VolumeControl::WPF::WindowHandleGetter</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_w_p_f">VolumeControl::WPF</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Windows;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Windows.Interop;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_w_p_f" kindref="compound">VolumeControl.WPF</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11" refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter" kindref="compound">WindowHandleGetter</ref></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="17" refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1af3958c64d6b5bae2bcf558dacacba07a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>IntPtr<sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1af3958c64d6b5bae2bcf558dacacba07a" kindref="member">GetWindowHandle</ref>(Window<sp/>wnd)<sp/>=&gt;<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>WindowInteropHelper(wnd).EnsureHandle();</highlight></codeline>
+<codeline lineno="20" refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1a2a93ca4faed21f0aac1d791a781e396a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>IntPtr<sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1a2a93ca4faed21f0aac1d791a781e396a" kindref="member">GetWindowHandle</ref>()<sp/>=&gt;<sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1a2a93ca4faed21f0aac1d791a781e396a" kindref="member">GetWindowHandle</ref>(Application.Current.MainWindow);</highlight></codeline>
+<codeline lineno="26" refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1ae1d05b0322c8ff6efcef70a2538ba1fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>HwndSource<sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_window_handle_getter_1ae1d05b0322c8ff6efcef70a2538ba1fb" kindref="member">GetHwndSource</ref>(IntPtr<sp/>hWnd)<sp/>=&gt;<sp/>HwndSource.FromHwnd(hWnd);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/WindowHandleGetter.cs"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,5 @@
+<map id="VolumeControl.Audio.Interfaces.IProcess" name="VolumeControl.Audio.Interfaces.IProcess">
+<area shape="rect" id="node1" title="Represents read&#45;only information about a process running on the local system." alt="" coords="5,5,213,127"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="5,175,213,296"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="19,344,200,656"/>
+</map>

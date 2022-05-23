@@ -1,0 +1,1277 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::WPF::Controls::NumericUpDown</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Control</basecompoundref>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a676a0b178368d8a0ea1067c7c7528538" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.ValueProperty</definition>
+        <argsstring></argsstring>
+        <name>ValueProperty</name>
+        <initializer>=
+            DependencyProperty.Register(&quot;Value&quot;, typeof(decimal), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>),
+                                        new PropertyMetadata(0m, OnValueChanged, CoerceValue))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="20" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af08e84aa28fd77a692cb49be7e67f967" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MaxValueProperty</definition>
+        <argsstring></argsstring>
+        <name>MaxValueProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;MaxValue&quot;, typeof(decimal), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(100000000m, OnMaxValueChanged, CoerceMaxValue))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="92" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a0f6263ef668964d58ef0adbbb89221d8" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MinValueProperty</definition>
+        <argsstring></argsstring>
+        <name>MinValueProperty</name>
+        <initializer>=
+            DependencyProperty.Register(&quot;MinValue&quot;, typeof(decimal), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>),
+                                        new PropertyMetadata(0m, OnMinValueChanged,
+                                                             CoerceMinValue))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="128" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a65ecf5796ef75e55065018d9e30ed23b" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.DecimalPlacesProperty</definition>
+        <argsstring></argsstring>
+        <name>DecimalPlacesProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;DecimalPlaces&quot;, typeof(int), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(0, OnDecimalPlacesChanged, CoerceDecimalPlaces))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="168" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae27bf98bc58c98fef3fbbfaa00316b10" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MaxDecimalPlacesProperty</definition>
+        <argsstring></argsstring>
+        <name>MaxDecimalPlacesProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;MaxDecimalPlaces&quot;, typeof(int), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(28, OnMaxDecimalPlacesChanged, CoerceMaxDecimalPlaces))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="219" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab4572b838144167c2130836cad647f85" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MinDecimalPlacesProperty</definition>
+        <argsstring></argsstring>
+        <name>MinDecimalPlacesProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;MinDecimalPlaces&quot;, typeof(int), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(0, OnMinDecimalPlacesChanged, CoerceMinDecimalPlaces))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="258" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a5ccd9a642a7a1fc1c21c2ae4deaff758" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.IsDecimalPointDynamicProperty</definition>
+        <argsstring></argsstring>
+        <name>IsDecimalPointDynamicProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;IsDecimalPointDynamic&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(false))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="297" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a95dd5d548e2ed959e96086aa6f788577" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MinorDeltaProperty</definition>
+        <argsstring></argsstring>
+        <name>MinorDeltaProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;MinorDelta&quot;, typeof(decimal), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(1m, OnMinorDeltaChanged, CoerceMinorDelta))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="309" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4fe5f4e6761fd0497d6843233bc38bfb" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.MajorDeltaProperty</definition>
+        <argsstring></argsstring>
+        <name>MajorDeltaProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;MajorDelta&quot;, typeof(decimal), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(10m, OnMajorDeltaChanged, CoerceMajorDelta))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="339" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4ead98089ff231075f2d50172f10b032" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.IsThousandSeparatorVisibleProperty</definition>
+        <argsstring></argsstring>
+        <name>IsThousandSeparatorVisibleProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;IsThousandSeparatorVisible&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(false, OnIsThousandSeparatorVisibleChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="369" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a6f2867f27645f06dc3ffd3b80f13a406" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.IsAutoSelectionActiveProperty</definition>
+        <argsstring></argsstring>
+        <name>IsAutoSelectionActiveProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;IsAutoSelectionActive&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(false))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="387" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad8797351121de6804fe8aa1972cf66fb" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.WPF.Controls.NumericUpDown.IsValueWrapAllowedProperty</definition>
+        <argsstring></argsstring>
+        <name>IsValueWrapAllowedProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;IsValueWrapAllowed&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>), new PropertyMetadata(false))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="399" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4d6c628226262e07f30b74cafc4f3070" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="24" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1afed043feb62574bfbbf7cf54878727b6" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.MaxValue</definition>
+        <argsstring></argsstring>
+        <name>MaxValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="94" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1afe281040719b27871bbd2682df1618d0" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.MinValue</definition>
+        <argsstring></argsstring>
+        <name>MinValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="133" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aca91a6c7b29f309cd1a594c2502a510a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.WPF.Controls.NumericUpDown.DecimalPlaces</definition>
+        <argsstring></argsstring>
+        <name>DecimalPlaces</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="170" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="171" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a28da55a731da7df3aeed33d42bc12393" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.WPF.Controls.NumericUpDown.MaxDecimalPlaces</definition>
+        <argsstring></argsstring>
+        <name>MaxDecimalPlaces</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="221" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="222" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aea78e8da1ab39b183cdaff88ef41432c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.WPF.Controls.NumericUpDown.MinDecimalPlaces</definition>
+        <argsstring></argsstring>
+        <name>MinDecimalPlaces</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="260" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="261" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a03438acfb90585f31542409f4a0a173d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.WPF.Controls.NumericUpDown.IsDecimalPointDynamic</definition>
+        <argsstring></argsstring>
+        <name>IsDecimalPointDynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="299" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="300" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a855a7714cb24e2b7527ae8b33958f3e9" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.MinorDelta</definition>
+        <argsstring></argsstring>
+        <name>MinorDelta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="311" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="312" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a2bd1a85fb0461b46c38c24a4a0c7655d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.MajorDelta</definition>
+        <argsstring></argsstring>
+        <name>MajorDelta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="341" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="342" bodyend="345"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a30274d186a28257c8e5383ab8b9d1fde" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.WPF.Controls.NumericUpDown.IsThousandSeparatorVisible</definition>
+        <argsstring></argsstring>
+        <name>IsThousandSeparatorVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="371" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="372" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a39199d75d51d70d76f01769ed5a82696" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.WPF.Controls.NumericUpDown.IsAutoSelectionActive</definition>
+        <argsstring></argsstring>
+        <name>IsAutoSelectionActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="389" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="390" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1abf493ea5b35d48e2d2bfbf769420544d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.WPF.Controls.NumericUpDown.IsValueWrapAllowed</definition>
+        <argsstring></argsstring>
+        <name>IsValueWrapAllowed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="401" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="402" bodyend="405"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a498c80c7a9dda89685c5523f02c9fa49" prot="protected" static="no" mutable="no">
+        <type>readonly CultureInfo</type>
+        <definition>readonly CultureInfo VolumeControl.WPF.Controls.NumericUpDown.Culture</definition>
+        <argsstring></argsstring>
+        <name>Culture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="413" column="40" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a657aeb49fbfca67272231f2cdb42a752" prot="protected" static="no" mutable="no">
+        <type>RepeatButton</type>
+        <definition>RepeatButton VolumeControl.WPF.Controls.NumericUpDown.DecreaseButton</definition>
+        <argsstring></argsstring>
+        <name>DecreaseButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="414" column="32" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4f506b82d6c382e436d8d41ce135fbc7" prot="protected" static="no" mutable="no">
+        <type>RepeatButton</type>
+        <definition>RepeatButton VolumeControl.WPF.Controls.NumericUpDown.IncreaseButton</definition>
+        <argsstring></argsstring>
+        <name>IncreaseButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="415" column="32" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a29cf4ae55e2e635331e4da6e9833b6dd" prot="protected" static="no" mutable="no">
+        <type>TextBox</type>
+        <definition>TextBox VolumeControl.WPF.Controls.NumericUpDown.TextBox</definition>
+        <argsstring></argsstring>
+        <name>TextBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="416" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a9753d2991b5ff53299827fdb2fde8d45" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._minorDecreaseValueCommand</definition>
+        <argsstring></argsstring>
+        <name>_minorDecreaseValueCommand</name>
+        <initializer>= new(&quot;MinorDecreaseValue&quot;, &quot;MinorDecreaseValue&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="422" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad6e0d18a1e7000abb9b3dcb2e1f934aa" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._minorIncreaseValueCommand</definition>
+        <argsstring></argsstring>
+        <name>_minorIncreaseValueCommand</name>
+        <initializer>= new(&quot;MinorIncreaseValue&quot;, &quot;MinorIncreaseValue&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="423" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a131d080ee428c98d75135a7c1d0eaa59" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._majorDecreaseValueCommand</definition>
+        <argsstring></argsstring>
+        <name>_majorDecreaseValueCommand</name>
+        <initializer>= new(&quot;MajorDecreaseValue&quot;, &quot;MajorDecreaseValue&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="424" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a61237b7b2ddad036acdb98e8121f502f" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._majorIncreaseValueCommand</definition>
+        <argsstring></argsstring>
+        <name>_majorIncreaseValueCommand</name>
+        <initializer>= new(&quot;MajorIncreaseValue&quot;, &quot;MajorIncreaseValue&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="425" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a52f61c525e43e2833a9ca70f23dd2731" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._updateValueStringCommand</definition>
+        <argsstring></argsstring>
+        <name>_updateValueStringCommand</name>
+        <initializer>= new(&quot;UpdateValueString&quot;, &quot;UpdateValueString&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="426" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ac14b48b89677956ba3f83e42a1e057a7" prot="private" static="no" mutable="no">
+        <type>readonly RoutedUICommand</type>
+        <definition>readonly RoutedUICommand VolumeControl.WPF.Controls.NumericUpDown._cancelChangesCommand</definition>
+        <argsstring></argsstring>
+        <name>_cancelChangesCommand</name>
+        <initializer>= new(&quot;CancelChanges&quot;, &quot;CancelChanges&quot;, typeof(<ref refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down" kindref="compound">NumericUpDown</ref>))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="427" column="42" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a047019a0731833071ec7e720f43b1448" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnValueChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnValueChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="30" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="30" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa569899674b9481aecd7af43d4960bbc" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceValue</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceValue</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="39" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="39" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a6fabe078c8de5a497ce3a10d667bbedd" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMaxValueChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMaxValueChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="100" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="100" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af1747bfedffe578ce088e847f981e1eb" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMaxValue</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMaxValue</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="114" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="114" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa5030cdc64c6dabbc38c41640cd61c7f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMinValueChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMinValueChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="139" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="139" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a7df70ad6b9eba7ec743efb01693109ea" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMinValue</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMinValue</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="154" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="154" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a21f1b345ec126684b7674baeabbf1979" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnDecimalPlacesChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnDecimalPlacesChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="176" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="176" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af2d5859d0436e14b427b7ae6dbdb2ff6" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceDecimalPlaces</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceDecimalPlaces</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="197" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="197" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab869cfbd269cab5901083f06ac6edf01" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMaxDecimalPlacesChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMaxDecimalPlacesChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="227" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="227" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a34d0a8717cc1812fe57e7c4c71d6ff5b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMaxDecimalPlaces</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMaxDecimalPlaces</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="233" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="233" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad3c53a829d64c2245bdb99c78047e4d8" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMinDecimalPlacesChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMinDecimalPlacesChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="266" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="266" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a937dd2229656007be30082438ec54de0" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMinDecimalPlaces</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMinDecimalPlaces</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="272" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="272" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aceb8b3ee685712afa5ad6e26abe5e491" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMinorDeltaChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMinorDeltaChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="317" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="317" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aed8275e323af78ab8a8bb412af333ada" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMinorDelta</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMinorDelta</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="328" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="328" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa4546e334b4f4295f97110a2f474c2b7" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnMajorDeltaChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnMajorDeltaChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="347" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="347" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a9baac2fe6e6de3887d8065d029aa57ed" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>static object VolumeControl.WPF.Controls.NumericUpDown.CoerceMajorDelta</definition>
+        <argsstring>(DependencyObject element, object baseValue)</argsstring>
+        <name>CoerceMajorDelta</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>baseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="358" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="358" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a3aeb7522938a3a2cc2aca8670f725c4f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Controls.NumericUpDown.OnIsThousandSeparatorVisibleChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnIsThousandSeparatorVisibleChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="377" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="377" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a0e8624403ecad2e063e5cc136e99a092" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static VolumeControl.WPF.Controls.NumericUpDown.NumericUpDown</definition>
+        <argsstring>()</argsstring>
+        <name>NumericUpDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="433" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a19903a330ee5503efd6eaf4275f4fe91" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>decimal</type>
+        <definition>static decimal VolumeControl.WPF.Controls.NumericUpDown.ParseStringToDecimal</definition>
+        <argsstring>(string source)</argsstring>
+        <name>ParseStringToDecimal</name>
+        <param>
+          <type>string</type>
+          <declname>source</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="543" column="32" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="543" bodyend="548"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad25e8f6f6811b61f9f59d60439b40426" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.WPF.Controls.NumericUpDown.NumericUpDown</definition>
+        <argsstring>()</argsstring>
+        <name>NumericUpDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="436" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="436" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa0dd69698d1f71a78635025d4cd78c0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void VolumeControl.WPF.Controls.NumericUpDown.OnApplyTemplate</definition>
+        <argsstring>()</argsstring>
+        <name>OnApplyTemplate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="451" column="30" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="451" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a7848d8d0a99c04a070f65951891cd88f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VolumeControl.WPF.Controls.NumericUpDown.GetDecimalPlacesCount</definition>
+        <argsstring>(string valueString)</argsstring>
+        <name>GetDecimalPlacesCount</name>
+        <param>
+          <type>string</type>
+          <declname>valueString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="550" column="20"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aab5c8c6ecc5c15ecaa30cc8990ab2dda" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.TextBoxOnLostFocus</definition>
+        <argsstring>(object sender, RoutedEventArgs routedEventArgs)</argsstring>
+        <name>TextBoxOnLostFocus</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>RoutedEventArgs</type>
+          <declname>routedEventArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="458" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab003ae02c0a90972a4c9a90f81344f6c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.TextBoxOnPreviewMouseLeftButtonUp</definition>
+        <argsstring>(object sender, MouseButtonEventArgs mouseButtonEventArgs)</argsstring>
+        <name>TextBoxOnPreviewMouseLeftButtonUp</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>MouseButtonEventArgs</type>
+          <declname>mouseButtonEventArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="460" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="460" bodyend="464"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a47b01ed84737a722304c724300f1a52d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.OnLoaded</definition>
+        <argsstring>(object sender, RoutedEventArgs routedEventArgs)</argsstring>
+        <name>OnLoaded</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>RoutedEventArgs</type>
+          <declname>routedEventArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="466" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae99ea70f639b620da15d6a894f3980ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.ButtonOnPreviewMouseRightButtonDown</definition>
+        <argsstring>(object sender, MouseButtonEventArgs mouseButtonEventArgs)</argsstring>
+        <name>ButtonOnPreviewMouseRightButtonDown</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>MouseButtonEventArgs</type>
+          <declname>mouseButtonEventArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="468" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aedcc076d5c6b8eff9e5ba213ba7e432e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.AttachToVisualTree</definition>
+        <argsstring>()</argsstring>
+        <name>AttachToVisualTree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="476" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="476" bodyend="481"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a990cc32f846cd039f6ed166795a5859d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.AttachTextBox</definition>
+        <argsstring>()</argsstring>
+        <name>AttachTextBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="483" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="483" bodyend="495"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a2baef1af88ce0a1a0594572edd1c794b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.AttachIncreaseButton</definition>
+        <argsstring>()</argsstring>
+        <name>AttachIncreaseButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="497" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="497" bodyend="507"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a5a2d454ee11e77bfb134a27c4180ee8a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.AttachDecreaseButton</definition>
+        <argsstring>()</argsstring>
+        <name>AttachDecreaseButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="509" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="509" bodyend="519"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a96aa9807d968c3d465cdb01442e25a1b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.AttachCommands</definition>
+        <argsstring>()</argsstring>
+        <name>AttachCommands</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="521" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="521" bodyend="537"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a89986bb1df55ced5057c736a00d343b7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.WPF.Controls.NumericUpDown.TruncateValue</definition>
+        <argsstring>(string valueString, int decimalPlaces)</argsstring>
+        <name>TruncateValue</name>
+        <param>
+          <type>string</type>
+          <declname>valueString</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>decimalPlaces</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="552" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="552" bodyend="560"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a18950fc62cc856af026225fd3ffd1179" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.CoerceValueToBounds</definition>
+        <argsstring>(ref decimal value)</argsstring>
+        <name>CoerceValueToBounds</name>
+        <param>
+          <type>ref decimal</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="566" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="566" bodyend="576"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a8ca4835b12d836ddc96e9c0ce936d5b0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.UpdateValue</definition>
+        <argsstring>()</argsstring>
+        <name>UpdateValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="584" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a765c8325052483e21d3f5bf83e21c411" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.CancelChanges</definition>
+        <argsstring>()</argsstring>
+        <name>CancelChanges</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="586" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a38cb29d13f68699993f2ed8c97cfd274" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.RemoveFocus</definition>
+        <argsstring>()</argsstring>
+        <name>RemoveFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="588" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="588" bodyend="594"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a1b163863aa91cc99aeecd5f0ac95f245" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.IncreaseValue</definition>
+        <argsstring>(bool minor)</argsstring>
+        <name>IncreaseValue</name>
+        <param>
+          <type>bool</type>
+          <declname>minor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="596" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="596" bodyend="632"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae895eebcfae71a8c0d1287f80e716912" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Controls.NumericUpDown.DecreaseValue</definition>
+        <argsstring>(bool minor)</argsstring>
+        <name>DecreaseValue</name>
+        <param>
+          <type>bool</type>
+          <declname>minor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="634" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="634" bodyend="670"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>VolumeControl.WPF.Controls.NumericUpDown</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Control</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.WPF.Controls.NumericUpDown</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Control</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" line="14" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls/NumericUpDown.cs" bodystart="15" bodyend="673"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ac14b48b89677956ba3f83e42a1e057a7" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_cancelChangesCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a131d080ee428c98d75135a7c1d0eaa59" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_majorDecreaseValueCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a61237b7b2ddad036acdb98e8121f502f" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_majorIncreaseValueCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a9753d2991b5ff53299827fdb2fde8d45" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_minorDecreaseValueCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad6e0d18a1e7000abb9b3dcb2e1f934aa" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_minorIncreaseValueCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a52f61c525e43e2833a9ca70f23dd2731" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>_updateValueStringCommand</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a96aa9807d968c3d465cdb01442e25a1b" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>AttachCommands</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a5a2d454ee11e77bfb134a27c4180ee8a" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>AttachDecreaseButton</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a2baef1af88ce0a1a0594572edd1c794b" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>AttachIncreaseButton</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a990cc32f846cd039f6ed166795a5859d" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>AttachTextBox</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aedcc076d5c6b8eff9e5ba213ba7e432e" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>AttachToVisualTree</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae99ea70f639b620da15d6a894f3980ab" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>ButtonOnPreviewMouseRightButtonDown</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a765c8325052483e21d3f5bf83e21c411" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CancelChanges</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af2d5859d0436e14b427b7ae6dbdb2ff6" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceDecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a9baac2fe6e6de3887d8065d029aa57ed" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMajorDelta</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a34d0a8717cc1812fe57e7c4c71d6ff5b" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMaxDecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af1747bfedffe578ce088e847f981e1eb" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMaxValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a937dd2229656007be30082438ec54de0" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMinDecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aed8275e323af78ab8a8bb412af333ada" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMinorDelta</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a7df70ad6b9eba7ec743efb01693109ea" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceMinValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa569899674b9481aecd7af43d4960bbc" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a18950fc62cc856af026225fd3ffd1179" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>CoerceValueToBounds</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a498c80c7a9dda89685c5523f02c9fa49" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>Culture</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aca91a6c7b29f309cd1a594c2502a510a" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>DecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a65ecf5796ef75e55065018d9e30ed23b" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>DecimalPlacesProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a657aeb49fbfca67272231f2cdb42a752" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>DecreaseButton</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae895eebcfae71a8c0d1287f80e716912" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>DecreaseValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a7848d8d0a99c04a070f65951891cd88f" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>GetDecimalPlacesCount</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4f506b82d6c382e436d8d41ce135fbc7" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IncreaseButton</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a1b163863aa91cc99aeecd5f0ac95f245" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IncreaseValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a39199d75d51d70d76f01769ed5a82696" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsAutoSelectionActive</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a6f2867f27645f06dc3ffd3b80f13a406" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsAutoSelectionActiveProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a03438acfb90585f31542409f4a0a173d" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsDecimalPointDynamic</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a5ccd9a642a7a1fc1c21c2ae4deaff758" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsDecimalPointDynamicProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a30274d186a28257c8e5383ab8b9d1fde" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsThousandSeparatorVisible</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4ead98089ff231075f2d50172f10b032" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsThousandSeparatorVisibleProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1abf493ea5b35d48e2d2bfbf769420544d" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsValueWrapAllowed</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad8797351121de6804fe8aa1972cf66fb" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>IsValueWrapAllowedProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a2bd1a85fb0461b46c38c24a4a0c7655d" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MajorDelta</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4fe5f4e6761fd0497d6843233bc38bfb" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MajorDeltaProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a28da55a731da7df3aeed33d42bc12393" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MaxDecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ae27bf98bc58c98fef3fbbfaa00316b10" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MaxDecimalPlacesProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1afed043feb62574bfbbf7cf54878727b6" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MaxValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1af08e84aa28fd77a692cb49be7e67f967" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MaxValueProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aea78e8da1ab39b183cdaff88ef41432c" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinDecimalPlaces</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab4572b838144167c2130836cad647f85" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinDecimalPlacesProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a855a7714cb24e2b7527ae8b33958f3e9" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinorDelta</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a95dd5d548e2ed959e96086aa6f788577" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinorDeltaProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1afe281040719b27871bbd2682df1618d0" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a0f6263ef668964d58ef0adbbb89221d8" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>MinValueProperty</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a0e8624403ecad2e063e5cc136e99a092" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>NumericUpDown</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad25e8f6f6811b61f9f59d60439b40426" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>NumericUpDown</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa0dd69698d1f71a78635025d4cd78c0e" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnApplyTemplate</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a21f1b345ec126684b7674baeabbf1979" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnDecimalPlacesChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a3aeb7522938a3a2cc2aca8670f725c4f" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnIsThousandSeparatorVisibleChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a47b01ed84737a722304c724300f1a52d" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnLoaded</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa4546e334b4f4295f97110a2f474c2b7" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMajorDeltaChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab869cfbd269cab5901083f06ac6edf01" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMaxDecimalPlacesChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a6fabe078c8de5a497ce3a10d667bbedd" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMaxValueChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ad3c53a829d64c2245bdb99c78047e4d8" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMinDecimalPlacesChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aceb8b3ee685712afa5ad6e26abe5e491" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMinorDeltaChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aa5030cdc64c6dabbc38c41640cd61c7f" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnMinValueChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a047019a0731833071ec7e720f43b1448" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>OnValueChanged</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a19903a330ee5503efd6eaf4275f4fe91" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>ParseStringToDecimal</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a38cb29d13f68699993f2ed8c97cfd274" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>RemoveFocus</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a29cf4ae55e2e635331e4da6e9833b6dd" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>TextBox</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1aab5c8c6ecc5c15ecaa30cc8990ab2dda" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>TextBoxOnLostFocus</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1ab003ae02c0a90972a4c9a90f81344f6c" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>TextBoxOnPreviewMouseLeftButtonUp</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a89986bb1df55ced5057c736a00d343b7" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>TruncateValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a8ca4835b12d836ddc96e9c0ce936d5b0" prot="private" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>UpdateValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a4d6c628226262e07f30b74cafc4f3070" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>Value</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down_1a676a0b178368d8a0ea1067c7c7528538" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Controls::NumericUpDown</scope><name>ValueProperty</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

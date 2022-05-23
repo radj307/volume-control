@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_volume_control_1_1_core_1_1_compatible_versions" kind="struct" language="C#" prot="public">
+    <compoundname>VolumeControl::Core::CompatibleVersions</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="struct_volume_control_1_1_core_1_1_compatible_versions_1a3f2deda9da37cfc4cae9aa822ea211fd" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>SemVersion?</type>
+        <definition>SemVersion? VolumeControl.Core.CompatibleVersions.Minimum</definition>
+        <argsstring></argsstring>
+        <name>Minimum</name>
+        <briefdescription>
+<para>Specifies the minimum version of Volume Control that this addon is compatible with.<linebreak/>
+ <linebreak/>
+ <linebreak/>
+ When this is set to null, no minimum version limit is applied.<linebreak/>
+ Note that only versions from 5.0.0 and up will actually load addons, so that is the absolute minimum version. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Defaults to null.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="63" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="63" bodyend="63"/>
+        <referencedby refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a658b440f6864493bbda5befae9b2a869" compoundref="_compatible_versions_8cs" startline="13" endline="18">VolumeControl.Core.CompatibleVersions.CompatibleVersions</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_core_1_1_compatible_versions_1a271a6f542e69b953987e543fe3b1fb63" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>SemVersion?</type>
+        <definition>SemVersion? VolumeControl.Core.CompatibleVersions.Maximum</definition>
+        <argsstring></argsstring>
+        <name>Maximum</name>
+        <briefdescription>
+<para><linebreak/>
+ When this is set to null, no maximum version limit is applied. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Defaults to null.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="69" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="69" bodyend="69"/>
+        <referencedby refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a658b440f6864493bbda5befae9b2a869" compoundref="_compatible_versions_8cs" startline="13" endline="18">VolumeControl.Core.CompatibleVersions.CompatibleVersions</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_core_1_1_compatible_versions_1aacd5c8109d31d6789b951df74ca5bfa1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>IEnumerable&lt; SemVersion &gt;?</type>
+        <definition>IEnumerable&lt;SemVersion&gt;? VolumeControl.Core.CompatibleVersions.Additional</definition>
+        <argsstring></argsstring>
+        <name>Additional</name>
+        <briefdescription>
+<para>An option enumerable type </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="73" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="73" bodyend="73"/>
+        <referencedby refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a658b440f6864493bbda5befae9b2a869" compoundref="_compatible_versions_8cs" startline="13" endline="18">VolumeControl.Core.CompatibleVersions.CompatibleVersions</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_volume_control_1_1_core_1_1_compatible_versions_1a658b440f6864493bbda5befae9b2a869" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Core.CompatibleVersions.CompatibleVersions</definition>
+        <argsstring>()</argsstring>
+        <name>CompatibleVersions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This empty constructor sets all properties to null.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="13" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="13" bodyend="18"/>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1aacd5c8109d31d6789b951df74ca5bfa1" compoundref="_compatible_versions_8cs" startline="73" endline="73">VolumeControl.Core.CompatibleVersions.Additional</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a271a6f542e69b953987e543fe3b1fb63" compoundref="_compatible_versions_8cs" startline="69" endline="69">VolumeControl.Core.CompatibleVersions.Maximum</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a3f2deda9da37cfc4cae9aa822ea211fd" compoundref="_compatible_versions_8cs" startline="63" endline="63">VolumeControl.Core.CompatibleVersions.Minimum</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_volume_control_1_1_core_1_1_compatible_versions_1a3866b04121867d7b0a50afdfe49681b1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Core.CompatibleVersions.CompatibleVersions</definition>
+        <argsstring>(SemVersion? min, SemVersion? max, params SemVersion[]? additional)</argsstring>
+        <name>CompatibleVersions</name>
+        <param>
+          <type>SemVersion?</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>SemVersion?</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>params SemVersion?[]</type>
+          <declname>additional</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum allowable version, or null for unlimited.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum allowable version, or null for unlimited.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>additional</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional list of specific versions to always consider compatible.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="23" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="23" bodyend="28"/>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1aacd5c8109d31d6789b951df74ca5bfa1" compoundref="_compatible_versions_8cs" startline="73" endline="73">VolumeControl.Core.CompatibleVersions.Additional</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a271a6f542e69b953987e543fe3b1fb63" compoundref="_compatible_versions_8cs" startline="69" endline="69">VolumeControl.Core.CompatibleVersions.Maximum</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a3f2deda9da37cfc4cae9aa822ea211fd" compoundref="_compatible_versions_8cs" startline="63" endline="63">VolumeControl.Core.CompatibleVersions.Minimum</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_volume_control_1_1_core_1_1_compatible_versions_1aa2d98c8f26875dd69864757c1585501b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Core.CompatibleVersions.CompatibleVersions</definition>
+        <argsstring>(string? min, string? max, params string[]? additional)</argsstring>
+        <name>CompatibleVersions</name>
+        <param>
+          <type>string?</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>string?</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>params string?[]</type>
+          <declname>additional</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This constructor accepts nullable strings rather than premade version objects.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum allowable version, or null for unlimited.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum allowable version, or null for unlimited.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>additional</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional list of specific versions to always consider compatible.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="34" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="34" bodyend="53"/>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1aacd5c8109d31d6789b951df74ca5bfa1" compoundref="_compatible_versions_8cs" startline="73" endline="73">VolumeControl.Core.CompatibleVersions.Additional</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a271a6f542e69b953987e543fe3b1fb63" compoundref="_compatible_versions_8cs" startline="69" endline="69">VolumeControl.Core.CompatibleVersions.Maximum</references>
+        <references refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a3f2deda9da37cfc4cae9aa822ea211fd" compoundref="_compatible_versions_8cs" startline="63" endline="63">VolumeControl.Core.CompatibleVersions.Minimum</references>
+      </memberdef>
+      <memberdef kind="function" id="struct_volume_control_1_1_core_1_1_compatible_versions_1a551c6992cc1fd2996602835d900ec146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VolumeControl.Core.CompatibleVersions.Contains</definition>
+        <argsstring>(SemVersion version)</argsstring>
+        <name>Contains</name>
+        <param>
+          <type>SemVersion</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+<para>This method is responsible for comparing version numbers between addons. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The version number to compare.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if <emphasis>version</emphasis>  is within this range, otherwise false.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="80" column="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A range of version numbers that abstracts away the need for direct interaction with the SemVersion type.<linebreak/>
+If you want to directly interact with SemVersion objects, you will need the &apos;Semver&apos; nuget package. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Core.CompatibleVersions</label>
+        <link refid="struct_volume_control_1_1_core_1_1_compatible_versions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" line="9" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/CompatibleVersions.cs" bodystart="10" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1aacd5c8109d31d6789b951df74ca5bfa1" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>Additional</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a658b440f6864493bbda5befae9b2a869" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>CompatibleVersions</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a3866b04121867d7b0a50afdfe49681b1" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>CompatibleVersions</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1aa2d98c8f26875dd69864757c1585501b" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>CompatibleVersions</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a551c6992cc1fd2996602835d900ec146" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>Contains</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a271a6f542e69b953987e543fe3b1fb63" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>Maximum</name></member>
+      <member refid="struct_volume_control_1_1_core_1_1_compatible_versions_1a3f2deda9da37cfc4cae9aa822ea211fd" prot="public" virt="non-virtual"><scope>VolumeControl::Core::CompatibleVersions</scope><name>Minimum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

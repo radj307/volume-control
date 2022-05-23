@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_726f717fa08d9110c2fc18c0f2c8eb11" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/obj/Debug/net5.0</compoundname>
+    <innerfile refid="_debug_2net5_80_2_volume_control_8_log_8_global_usings_8g_8cs">VolumeControl.Log.GlobalUsings.g.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/obj/Debug/net5.0/"/>
+  </compounddef>
+</doxygen>

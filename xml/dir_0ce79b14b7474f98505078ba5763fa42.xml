@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_0ce79b14b7474f98505078ba5763fa42" kind="dir">
+    <compoundname>doxygen-awesome-css/include</compoundname>
+    <innerdir refid="dir_5e713c29260093ef0a6eee0c2b4eaaef">doxygen-awesome-css/include/MyLibrary</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="doxygen-awesome-css/include/"/>
+  </compounddef>
+</doxygen>

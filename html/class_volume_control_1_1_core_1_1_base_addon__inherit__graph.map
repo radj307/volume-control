@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.BaseAddon" name="VolumeControl.Core.BaseAddon">
+<area shape="rect" id="node1" title="abstract base class for an object that manages an addon." alt="" coords="5,145,215,252"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="43,5,177,97"/>
+</map>

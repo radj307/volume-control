@@ -1,0 +1,112 @@
+\hypertarget{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}{}\doxysection{Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager Interface Reference}
+\label{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}\index{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}}
+
+
+Represents a hotkey action manager object, which contains the list of \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding}{IAction\+Binding}}s used in the hotkey system.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ string $>$ \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a81f2829ac1b95ba4ffa9a83adddd4187}{Get\+Action\+Names}} ()
+\begin{DoxyCompactList}\small\item\em Gets a list of all of the \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_a0539f24445f96fcffe953ba6d5019074}{IAction\+Binding.\+Name}} properties currently contained within the \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a03c5f4b40ed4b81f4ec77122e2c7a973}{Bindings}} list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static readonly Key\+Event\+Handler \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a35b6c464cbb69bb1062da9d38fc28f5a}{Null\+Action}} = delegate \{ \}
+\begin{DoxyCompactList}\small\item\em This is the default action, which does nothing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding}{IAction\+Binding}} $>$ \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a03c5f4b40ed4b81f4ec77122e2c7a973}{Bindings}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The list of known hotkey action bindings. \end{DoxyCompactList}\item 
+Key\+Event\+Handler \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_addaac83e30bd524569cbbcba56697bfa}{this\mbox{[}string action\+Name\mbox{]}}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the Key\+Event\+Handler associated with {\itshape action\+Name} . \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a hotkey action manager object, which contains the list of \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding}{IAction\+Binding}}s used in the hotkey system. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a81f2829ac1b95ba4ffa9a83adddd4187}\label{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a81f2829ac1b95ba4ffa9a83adddd4187}} 
+\index{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}!GetActionNames@{GetActionNames}}
+\index{GetActionNames@{GetActionNames}!VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}}
+\doxysubsubsection{\texorpdfstring{GetActionNames()}{GetActionNames()}}
+{\footnotesize\ttfamily List$<$string$>$ Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager.\+Get\+Action\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets a list of all of the \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_a0539f24445f96fcffe953ba6d5019074}{IAction\+Binding.\+Name}} properties currently contained within the \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a03c5f4b40ed4b81f4ec77122e2c7a973}{Bindings}} list. 
+
+\begin{DoxyReturn}{Returns}
+List of \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_a0539f24445f96fcffe953ba6d5019074}{IAction\+Binding.\+Name}} properties.
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a35b6c464cbb69bb1062da9d38fc28f5a}\label{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a35b6c464cbb69bb1062da9d38fc28f5a}} 
+\index{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}!NullAction@{NullAction}}
+\index{NullAction@{NullAction}!VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}}
+\doxysubsubsection{\texorpdfstring{NullAction}{NullAction}}
+{\footnotesize\ttfamily readonly Key\+Event\+Handler Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager.\+Null\+Action = delegate \{ \}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This is the default action, which does nothing. 
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a03c5f4b40ed4b81f4ec77122e2c7a973}\label{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a03c5f4b40ed4b81f4ec77122e2c7a973}} 
+\index{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}!Bindings@{Bindings}}
+\index{Bindings@{Bindings}!VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}}
+\doxysubsubsection{\texorpdfstring{Bindings}{Bindings}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding}{IAction\+Binding}}$>$ Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager.\+Bindings\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The list of known hotkey action bindings. 
+
+\mbox{\Hypertarget{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_addaac83e30bd524569cbbcba56697bfa}\label{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_addaac83e30bd524569cbbcba56697bfa}} 
+\index{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}!this\mbox{[}string actionName\mbox{]}@{this[string actionName]}}
+\index{this\mbox{[}string actionName\mbox{]}@{this[string actionName]}!VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager@{VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager}}
+\doxysubsubsection{\texorpdfstring{this[string actionName]}{this[string actionName]}}
+{\footnotesize\ttfamily Key\+Event\+Handler Volume\+Control.\+Hotkeys.\+Interfaces.\+IHotkey\+Action\+Manager.\+this\mbox{[}string action\+Name\mbox{]}\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the Key\+Event\+Handler associated with {\itshape action\+Name} . 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Name} & The name of the target action.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Key\+Event\+Handler associated with the specified name, or \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager_a35b6c464cbb69bb1062da9d38fc28f5a}{Null\+Action}} if no actions by that name were found.
+\end{DoxyReturn}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Hotkeys/\+Interfaces/IHotkey\+Action\+Manager.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::API::Internal::Initializer</compoundname>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer_1a8f4e708314c9f092b6e23e5c47a94f1d" prot="private" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.API.Internal.Initializer._initialized</definition>
+        <argsstring></argsstring>
+        <name>_initialized</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" line="9" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer_1a363ef6f3917e6d937fbbfa7b95c2b2f5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.API.Internal.Initializer.Initialize</definition>
+        <argsstring>(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd)</argsstring>
+        <name>Initialize</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">AudioAPI</ref></type>
+          <declname>audioAPI</declname>
+        </param>
+        <param>
+          <type><ref refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager" kindref="compound">HotkeyManager</ref></type>
+          <declname>mgr</declname>
+        </param>
+        <param>
+          <type>IntPtr</type>
+          <declname>mainWindowHWnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>audioAPI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The audio <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> object.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mgr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The hotkey manager object.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mainWindowHWnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mixer window&apos;s handle</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>InvalidOperationException</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initialize was already called previously.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" line="16" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" bodystart="16" bodyend="28"/>
+        <references refid="struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i_1abd9da95d452fbc4effbacfbc4f3faf61" compoundref="_v_c_a_p_i_8cs" startline="15" endline="15">VolumeControl.API.VCAPI.Default</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Initializes <ref refid="struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i_1abd9da95d452fbc4effbacfbc4f3faf61" kindref="member">VCAPI.Default</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.API.Internal.Initializer</label>
+        <link refid="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" line="7" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal/Initializer.cs" bodystart="8" bodyend="29"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer_1a8f4e708314c9f092b6e23e5c47a94f1d" prot="private" virt="non-virtual"><scope>VolumeControl::API::Internal::Initializer</scope><name>_initialized</name></member>
+      <member refid="class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer_1a363ef6f3917e6d937fbbfa7b95c2b2f5" prot="public" virt="non-virtual"><scope>VolumeControl::API::Internal::Initializer</scope><name>Initialize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

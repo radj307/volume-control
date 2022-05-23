@@ -1,0 +1,4 @@
+<map id="VolumeControl.Win32.RegistryAPI.DeleteValue" name="VolumeControl.Win32.RegistryAPI.DeleteValue">
+<area shape="rect" id="node1" title="Deletes a value in the specified key in the Windows Registry." alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_win32_1_1_registry_a_p_i.html#a0daac356df2fb007764ac733a6434f3b" title="Gets a RegistryKey object from the Windows Registry." alt="" coords="253,5,453,47"/>
+</map>

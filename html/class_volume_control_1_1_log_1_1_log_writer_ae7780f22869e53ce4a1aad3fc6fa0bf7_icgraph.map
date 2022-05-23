@@ -1,0 +1,7 @@
+<map id="VolumeControl.Log.LogWriter.Error" name="VolumeControl.Log.LogWriter.Error">
+<area shape="rect" id="node1" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="509,35,705,76"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_session.html#aeb56d8f5f6a97fde371c4795473c1f7a" title=" " alt="" coords="17,5,198,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da" title="Gets the process associated with this audio session instance." alt="" coords="269,35,450,76"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a2109e5e62f1d469c63acc9c6fd832f61" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="257,100,461,141"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ac4e52046790fdd5d2e75a1c50510da22" title=" " alt="" coords="5,100,209,141"/>
+</map>

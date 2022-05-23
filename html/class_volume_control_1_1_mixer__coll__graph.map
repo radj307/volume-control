@@ -1,0 +1,9 @@
+<map id="VolumeControl.Mixer" name="VolumeControl.Mixer">
+<area shape="rect" id="node1" title="Interaction logic for Mixer.xaml" alt="" coords="355,252,497,279"/>
+<area shape="rect" id="node2" title=" " alt="" coords="63,5,131,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,99,188,125"/>
+<area shape="rect" id="node4" title=" " alt="" coords="7,245,186,286"/>
+<area shape="rect" id="node5" title=" " alt="" coords="7,398,186,439"/>
+<area shape="rect" id="node6" title=" " alt="" coords="43,515,150,541"/>
+<area shape="rect" id="node7" title=" " alt="" coords="63,707,130,733"/>
+</map>

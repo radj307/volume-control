@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_2c14f07990a2c03f8d47214b2653e6c0" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions</compoundname>
+    <innerfile refid="_date_time_extensions_8cs">DateTimeExtensions.cs</innerfile>
+    <innerfile refid="_event_type_extensions_8cs">EventTypeExtensions.cs</innerfile>
+    <innerfile refid="_exception_extensions_8cs">ExceptionExtensions.cs</innerfile>
+    <innerfile refid="_volume_control_8_log_2_extensions_2_string_extensions_8cs">StringExtensions.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/"/>
+  </compounddef>
+</doxygen>

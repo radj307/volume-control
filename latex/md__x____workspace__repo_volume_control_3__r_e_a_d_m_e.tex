@@ -1,0 +1,92 @@
+
+
+\href{https://github.com/radj307/volume-control}{\texttt{ }}~\newline
+ \href{https://github.com/radj307/volume-control/releases}{\texttt{ }}~~~\href{https://github.com/radj307/volume-control/releases}{\texttt{ }} 
+
+\DoxyHorRuler{0}
+
+
+Simple, universal application-\/specific volume hotkeys \& more. ~\newline
+ Designed for adjusting the volume of your music independently of other programs, such as games and Vo\+IP. ~\newline
+\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md0}{}\doxysubsubsection{What it does}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md0}
+
+\begin{DoxyItemize}
+\item Adds completely user-\/configurable global hotkeys to Windows.
+\begin{DoxyItemize}
+\item You can add, remove, and rename hotkeys, as well as configure the \textquotesingle{}action\textquotesingle{} that they perform. ~\newline
+ This requires enabling $\ast$\textquotesingle{}Advanced Hotkey Mode\textquotesingle{}$\ast$, which is a fancy way of saying $\ast$\textquotesingle{}Check the box labelled with \textquotesingle{}{\bfseries{Advanced Hotkeys}}\textquotesingle{}, which is located in the {\bfseries{Settings}} tab\textquotesingle{}$\ast$
+\item The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of \href{https://github.com/radj307/volume-control/wiki}{\texttt{ user-\/created plugins}}.
+\end{DoxyItemize}
+\item Integrates a functionally superior alternative to the Windows Audio Mixer. ~\newline
+
+\begin{DoxyItemize}
+\item Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.
+\begin{DoxyItemize}
+\item Like the Windows Audio Mixer, you can do this with any running process independently at any time.
+\end{DoxyItemize}
+\item Allows you to specify the \textquotesingle{}target\textquotesingle{} application using the mixer, in addition to the target switching hotkeys.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md1}{}\doxyparagraph{Addon Development}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md1}
+Want to develop an addon for Volume Control? ~\newline
+ See the \href{https://github.com/radj307/volume-control/wiki}{\texttt{ wiki}} for more information.\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md2}{}\doxysubsubsection{Requirements}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Windows 7 or newer.
+\item A keyboard.
+\end{DoxyItemize}\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md3}{}\doxysection{Getting Started}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md3}
+\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md4}{}\doxysubsection{Installation}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md4}
+
+\begin{DoxyItemize}
+\item Download the \href{https://github.com/radj307/volume-control/releases}{\texttt{ latest release}}
+\item Save {\ttfamily Volume\+Control.\+exe} to a location of your choice. ~\newline
+ If you\textquotesingle{}re unsure about where to choose as a location, create a directory in your user folder and place it inside of that\+: {\ttfamily C\+:\textbackslash{}Users\textbackslash{}$<$USERNAME$>$\textbackslash{}\mbox{\hyperlink{namespace_volume_control}{Volume\+Control}}\textbackslash{}Volume\+Control.\+exe}
+\end{DoxyItemize}\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md5}{}\doxysubsection{Setup}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md5}
+Before starting the program for the first time, you have to unblock the executable from the properties menu. ~\newline
+ This is necessary because Windows Defender requires a paying {\itshape $>$\$300} a year for a \href{https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate}{\texttt{ Microsoft-\/approved publishing certificate}} in order to prevent Windows Defender from blocking it. ~\newline
+ {\itshape If you\textquotesingle{}re unsure, you\textquotesingle{}re can always run it through \href{https://www.virustotal.com/gui/home/upload}{\texttt{ Virus\+Total}} first, or check the source code yourself.}
+
+
+\begin{DoxyEnumerate}
+\item R+\+Click on {\ttfamily Volume\+Control.\+exe} in the file explorer and select {\itshape Properties} in the context menu. ~\newline
+
+\item Check the box next to {\itshape Unblock\+:} ~\newline
+  ~\newline
+
+\item Click {\bfseries{Ok}} to save the changes. ~\newline
+
+\end{DoxyEnumerate}\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md6}{}\doxysubsection{Usage}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md6}
+First, enable the {\bfseries{Volume Up}} \& {\bfseries{Volume Down}} hotkeys from the {\bfseries{Hotkeys}} tab by checking the box to the left of the hotkey name. If you don\textquotesingle{}t have a volume slider, change the key from the dropdown.
+
+{\bfseries{NOTE\+:}} Hotkeys cannot be enabled if their associated key is set to {\ttfamily None}.
+
+Next, let\textquotesingle{}s set a target application to test the hotkeys with. ~\newline
+ Start playing some audio from any application, then return to the {\bfseries{Mixer}} tab, click {\bfseries{Reload}}, then click the {\bfseries{Select}} button next to the test application, and try using the volume hotkeys. ~\newline
+\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md7}{}\doxysubsection{Volume\+Control\+CLI}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md7}
+$\ast$(This section is for people who want to adjust application volumes from the commandline or with shell scripts.)$\ast$
+
+For best results, place {\ttfamily Volume\+Control\+CLI.\+exe} in a directory on your PATH. If you don\textquotesingle{}t know how to do that, see \href{https://stackoverflow.com/a/44272417/8705305}{\texttt{ here}}. ~\newline
+
+
+Use {\ttfamily Volume\+Control\+CLI -\/h} or {\ttfamily Volume\+Control\+CLI -\/-\/help} to see more up-\/to-\/date usage instructions. ~\newline
+ {\itshape Note\+: The CLI version accepts PID numbers or Process Names.}\hypertarget{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsection{Commandline Options}\label{md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_autotoc_md8}
+{\itshape This list was last updated as of {\ttfamily 3.\+3.\+0-\/pr4}}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Option   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Option   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily -\/h} {\ttfamily -\/-\/help}   &Shows a brief description of each option, then exits.    \\\cline{1-2}
+{\ttfamily -\/V} {\ttfamily -\/-\/version}   &Shows the current version number, then exits.    \\\cline{1-2}
+{\ttfamily -\/p $<$Name/\+PID$>$} {\ttfamily -\/-\/process $<$Name/\+PID$>$}   &Selects the target process. This option is required.    \\\cline{1-2}
+{\ttfamily -\/v $<$0-\/100$>$} {\ttfamily -\/-\/volume $<$0-\/100$>$}   &Specify a volume level to apply to the target process.    \\\cline{1-2}
+{\ttfamily -\/-\/mute}   &Mute the target application.    \\\cline{1-2}
+{\ttfamily -\/-\/unmute}   &Unmute the target application.    \\\cline{1-2}
+{\ttfamily -\/s} {\ttfamily -\/-\/set}   &Implicit when {\ttfamily -\/v} or {\ttfamily -\/-\/volume} is specified.    \\\cline{1-2}
+{\ttfamily -\/g} {\ttfamily -\/-\/get}   &Implicit when {\ttfamily -\/v}/{\ttfamily -\/-\/volume} isn\textquotesingle{}t specified.   \\\cline{1-2}
+\end{longtabu}

@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_properties_1_1_resources" kind="class" language="C#" prot="package">
+    <compoundname>VolumeControl::Properties::Resources</compoundname>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_properties_1_1_resources_1af40da05c8731b344d19a4ab07dc4b0ab" prot="private" static="yes" mutable="no">
+        <type>global::System.Resources.ResourceManager</type>
+        <definition>global::System.Resources.ResourceManager VolumeControl.Properties.Resources.resourceMan</definition>
+        <argsstring></argsstring>
+        <name>resourceMan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="27" column="63" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_properties_1_1_resources_1a4796787e25f8293d0a7fd2bc5e0695c5" prot="private" static="yes" mutable="no">
+        <type>global::System.Globalization.CultureInfo</type>
+        <definition>global::System.Globalization.CultureInfo VolumeControl.Properties.Resources.resourceCulture</definition>
+        <argsstring></argsstring>
+        <name>resourceCulture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="29" column="63" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a9a6496078c46eae0ac9e266161894779" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>global::System.Resources.ResourceManager</type>
+        <definition>global::System.Resources.ResourceManager VolumeControl.Properties.Resources.ResourceManager</definition>
+        <argsstring></argsstring>
+        <name>ResourceManager</name>
+        <briefdescription>
+<para>Returns the cached ResourceManager instance used by this class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="39" column="64" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="39" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a3d3e0534a5aa77a8c175b171d9ca9486" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>global::System.Globalization.CultureInfo</type>
+        <definition>global::System.Globalization.CultureInfo VolumeControl.Properties.Resources.Culture</definition>
+        <argsstring></argsstring>
+        <name>Culture</name>
+        <briefdescription>
+<para>Overrides the current thread&apos;s CurrentUICulture property for all resource lookups using this strongly typed resource class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="54" column="64" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="54" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a18e3009de465759468db5edd83338416" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.background</definition>
+        <argsstring></argsstring>
+        <name>background</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="66" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="66" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a7eb1f274da82e7868b675f257b692629" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.banner</definition>
+        <argsstring></argsstring>
+        <name>banner</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="76" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="76" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a317bd3bd96d6f161374b451b770d713c" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.foreground</definition>
+        <argsstring></argsstring>
+        <name>foreground</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="86" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="86" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a10547c0057c41946f4a11ea32ac621f2" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Icon</type>
+        <definition>System.Drawing.Icon VolumeControl.Properties.Resources.icon</definition>
+        <argsstring></argsstring>
+        <name>icon</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Icon similar to (Icon). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="96" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="96" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a2869a3d35302e383f2c7e05f344143aa" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Icon</type>
+        <definition>System.Drawing.Icon VolumeControl.Properties.Resources.icon_16x16_VC</definition>
+        <argsstring></argsstring>
+        <name>icon_16x16_VC</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Icon similar to (Icon). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="106" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="106" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a9cd5c6af6a811b17dec9b2eec406a827" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Icon</type>
+        <definition>System.Drawing.Icon VolumeControl.Properties.Resources.icon_16x16_VC_inverted</definition>
+        <argsstring></argsstring>
+        <name>icon_16x16_VC_inverted</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Icon similar to (Icon). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="116" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="116" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1aa79c7a40b4a2ca98bed80215e2c3297f" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.icon1</definition>
+        <argsstring></argsstring>
+        <name>icon1</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="126" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="126" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a18f1caa3cbd5587ca88952fd6fbe1ca1" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Icon</type>
+        <definition>System.Drawing.Icon VolumeControl.Properties.Resources.iconSilvered</definition>
+        <argsstring></argsstring>
+        <name>iconSilvered</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Icon similar to (Icon). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="136" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="136" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a6465c7ac223d925afaee069018cfaf5c" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.iconSilvered1</definition>
+        <argsstring></argsstring>
+        <name>iconSilvered1</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="146" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="146" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1ab372c512b0b97c6a06e206a1f772cdec" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>byte[]</type>
+        <definition>byte [] VolumeControl.Properties.Resources.LICENSE</definition>
+        <argsstring></argsstring>
+        <name>LICENSE</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Byte[]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="156" column="30" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="156" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1a5624d2234e17a374b38fc8eeb3b16cc8" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.reload</definition>
+        <argsstring></argsstring>
+        <name>reload</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="166" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="166" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_resources_1abeab3bc9c17dba283209739a538bd2d7" prot="package" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>System.Drawing.Bitmap</type>
+        <definition>System.Drawing.Bitmap VolumeControl.Properties.Resources.reload_white</definition>
+        <argsstring></argsstring>
+        <name>reload_white</name>
+        <briefdescription>
+<para>Looks up a localized resource of type System.Drawing.Bitmap. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="176" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="176" bodyend="181"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_volume_control_1_1_properties_1_1_resources_1a5c66274ba322401d55b4c93ab9c4f17b" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Properties.Resources.Resources</definition>
+        <argsstring>()</argsstring>
+        <name>Resources</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="32" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="32" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A strongly-typed resource class, for looking up localized strings, etc. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" line="25" column="13" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Resources.Designer.cs" bodystart="25" bodyend="182"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a18e3009de465759468db5edd83338416" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>background</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a7eb1f274da82e7868b675f257b692629" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>banner</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a3d3e0534a5aa77a8c175b171d9ca9486" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>Culture</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a317bd3bd96d6f161374b451b770d713c" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>foreground</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a10547c0057c41946f4a11ea32ac621f2" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>icon</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1aa79c7a40b4a2ca98bed80215e2c3297f" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>icon1</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a2869a3d35302e383f2c7e05f344143aa" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>icon_16x16_VC</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a9cd5c6af6a811b17dec9b2eec406a827" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>icon_16x16_VC_inverted</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a18f1caa3cbd5587ca88952fd6fbe1ca1" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>iconSilvered</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a6465c7ac223d925afaee069018cfaf5c" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>iconSilvered1</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1ab372c512b0b97c6a06e206a1f772cdec" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>LICENSE</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a5624d2234e17a374b38fc8eeb3b16cc8" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>reload</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1abeab3bc9c17dba283209739a538bd2d7" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>reload_white</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a4796787e25f8293d0a7fd2bc5e0695c5" prot="private" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>resourceCulture</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1af40da05c8731b344d19a4ab07dc4b0ab" prot="private" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>resourceMan</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a9a6496078c46eae0ac9e266161894779" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>ResourceManager</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_resources_1a5c66274ba322401d55b4c93ab9c4f17b" prot="package" virt="non-virtual"><scope>VolumeControl::Properties::Resources</scope><name>Resources</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

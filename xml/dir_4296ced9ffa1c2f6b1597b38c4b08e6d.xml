@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_4296ced9ffa1c2f6b1597b38c4b08e6d" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/HotkeyLib/obj/Debug/net6.0</compoundname>
+    <innerfile refid="_8_n_e_t_core_app_00_version_0av6_80_8_assembly_attributes_01_072_08_8cs">.NETCoreApp,Version=v6.0.AssemblyAttributes (2).cs</innerfile>
+    <innerfile refid="_hotkey_lib_2obj_2_debug_2net6_80_2_8_n_e_t_core_app_00_version_0av6_80_8_assembly_attributes_8cs">.NETCoreApp,Version=v6.0.AssemblyAttributes.cs</innerfile>
+    <innerfile refid="_hotkey_lib_8_assembly_info_01_072_08_8cs">HotkeyLib.AssemblyInfo (2).cs</innerfile>
+    <innerfile refid="_debug_2net6_80_2_hotkey_lib_8_assembly_info_8cs">HotkeyLib.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_hotkey_lib_8_global_usings_8g_01_072_08_8cs">HotkeyLib.GlobalUsings.g (2).cs</innerfile>
+    <innerfile refid="_debug_2net6_80_2_hotkey_lib_8_global_usings_8g_8cs">HotkeyLib.GlobalUsings.g.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/obj/Debug/net6.0/"/>
+  </compounddef>
+</doxygen>

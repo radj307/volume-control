@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_i_base_addon_attribute_8cs" kind="file" language="C#">
+    <compoundname>IBaseAddonAttribute.cs</compoundname>
+    <innerclass refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute" prot="public">VolumeControl::Core::IBaseAddonAttribute</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_core">VolumeControl::Core</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_core" kindref="compound">VolumeControl.Core</ref></highlight></codeline>
+<codeline lineno="2"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6" refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal"><ref refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute" kindref="compound">IBaseAddonAttribute</ref></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="9" refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute_1a2eb982e301c7983fc2d7cb02eb1862f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute_1a2eb982e301c7983fc2d7cb02eb1862f1" kindref="member">AddonName</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="12" refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute_1a191e3e8af5f6eff4fce83a789409a391" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/IBaseAddonAttribute.cs"/>
+  </compounddef>
+</doxygen>

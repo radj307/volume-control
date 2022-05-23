@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response" kind="struct" language="C#" prot="package">
+    <compoundname>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a587339967b86101fc9548c41e6f9658e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.url</definition>
+        <argsstring></argsstring>
+        <name>url</name>
+        <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> url. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="7" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="7" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a0732bddab868b7e06b31e97066c470e4" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.assets_url</definition>
+        <argsstring></argsstring>
+        <name>assets_url</name>
+        <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> assets url. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="9" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="9" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a5af95b3d3e68b0a3f795b37cb14f4503" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.upload_url</definition>
+        <argsstring></argsstring>
+        <name>upload_url</name>
+        <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> target url for uploading assets. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="11" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="11" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1afbf62849ed26ce3ec0d5d971ddc54b4d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.html_url</definition>
+        <argsstring></argsstring>
+        <name>html_url</name>
+        <briefdescription>
+<para>URL of the regular HTML release page. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This should be the url passed to the user.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="14" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1af373771d3b4a15cc953449ba83850e76" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.Helpers.Update.GithubReleaseHttpResponse.id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>Release ID </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="16" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a63a9f7d95a0902485318bee4ae8f6ac5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>object?</type>
+        <definition>object? VolumeControl.Helpers.Update.GithubReleaseHttpResponse.author</definition>
+        <argsstring></argsstring>
+        <name>author</name>
+        <briefdescription>
+<para>Information about the author of the release. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="18" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a08351c6e8e5f637a1ed87bc5d0f50139" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.node_id</definition>
+        <argsstring></argsstring>
+        <name>node_id</name>
+        <briefdescription>
+<para>? </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="20" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1aa8cb4c7d9765eca5d76d3981fa571e13" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.tag_name</definition>
+        <argsstring></argsstring>
+        <name>tag_name</name>
+        <briefdescription>
+<para>Git tag that this release is attached to. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="22" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a4d5f53514d40444dbe3d3c2c07a48c2c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.target_commitish</definition>
+        <argsstring></argsstring>
+        <name>target_commitish</name>
+        <briefdescription>
+<para>Git commitish that this release is attached to. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="24" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a9034c14bf9cead5fecc19f529e550f30" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>The title/name of this release, as seen on github.com </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="26" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a99e8d45e0cd90eb51abcd31cf4151517" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Helpers.Update.GithubReleaseHttpResponse.draft</definition>
+        <argsstring></argsstring>
+        <name>draft</name>
+        <briefdescription>
+<para>True when this is a draft release, otherwise false. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="28" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ae11fe680c259b977cedb734640568613" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Helpers.Update.GithubReleaseHttpResponse.prerelease</definition>
+        <argsstring></argsstring>
+        <name>prerelease</name>
+        <briefdescription>
+<para>True when this is marked as a prerelease, otherwise false. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="30" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ae3c6ff3e93d1fafb50890bee02485a9d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.created_at</definition>
+        <argsstring></argsstring>
+        <name>created_at</name>
+        <briefdescription>
+<para>Timestamp from when this release was created. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses sortable UTC format.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="33" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a0e127ecf07c82c81072fc8877f43fe04" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.published_at</definition>
+        <argsstring></argsstring>
+        <name>published_at</name>
+        <briefdescription>
+<para>Timestamp from when this release was published. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses sortable UTC format.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="36" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ad3ef2787000dd88ea3664fa866870ad5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_asset_http_response" kindref="compound">GithubAssetHttpResponse</ref>[]</type>
+        <definition>GithubAssetHttpResponse [] VolumeControl.Helpers.Update.GithubReleaseHttpResponse.assets</definition>
+        <argsstring></argsstring>
+        <name>assets</name>
+        <briefdescription>
+<para>List of URLs pointing towards this release&apos;s attached assets; including the executable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="38" column="40" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1aa5df8de548bfe195a683fad7b0628f50" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.tarball_url</definition>
+        <argsstring></argsstring>
+        <name>tarball_url</name>
+        <briefdescription>
+<para>URL of the source code tarball asset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="40" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a4a54d17284906d3bd8e355133be6fe60" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.zipball_url</definition>
+        <argsstring></argsstring>
+        <name>zipball_url</name>
+        <briefdescription>
+<para>URL of the source code zipball asset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="42" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="property" id="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a1f3fdee347af929f64c730eca825f0c7" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Helpers.Update.GithubReleaseHttpResponse.body</definition>
+        <argsstring></argsstring>
+        <name>body</name>
+        <briefdescription>
+<para>The release body. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="44" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="44" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Wrapper object used when deserializing JSON responses from the github <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" line="4" column="13" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubReleasesHttpResponse.cs" bodystart="5" bodyend="45"/>
+    <listofallmembers>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ad3ef2787000dd88ea3664fa866870ad5" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>assets</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a0732bddab868b7e06b31e97066c470e4" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>assets_url</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a63a9f7d95a0902485318bee4ae8f6ac5" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>author</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a1f3fdee347af929f64c730eca825f0c7" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>body</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ae3c6ff3e93d1fafb50890bee02485a9d" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>created_at</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a99e8d45e0cd90eb51abcd31cf4151517" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>draft</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1afbf62849ed26ce3ec0d5d971ddc54b4d" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>html_url</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1af373771d3b4a15cc953449ba83850e76" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>id</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a9034c14bf9cead5fecc19f529e550f30" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>name</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a08351c6e8e5f637a1ed87bc5d0f50139" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>node_id</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1ae11fe680c259b977cedb734640568613" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>prerelease</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a0e127ecf07c82c81072fc8877f43fe04" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>published_at</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1aa8cb4c7d9765eca5d76d3981fa571e13" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>tag_name</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1aa5df8de548bfe195a683fad7b0628f50" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>tarball_url</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a4d5f53514d40444dbe3d3c2c07a48c2c" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>target_commitish</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a5af95b3d3e68b0a3f795b37cb14f4503" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>upload_url</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a587339967b86101fc9548c41e6f9658e" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>url</name></member>
+      <member refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response_1a4a54d17284906d3bd8e355133be6fe60" prot="public" virt="non-virtual"><scope>VolumeControl::Helpers::Update::GithubReleaseHttpResponse</scope><name>zipball_url</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

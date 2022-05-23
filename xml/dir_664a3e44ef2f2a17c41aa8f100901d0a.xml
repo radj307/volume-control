@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_664a3e44ef2f2a17c41aa8f100901d0a" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF</compoundname>
+    <innerdir refid="dir_f3fceef7ef2392cf921a36ff96ee570d">X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Bindings</innerdir>
+    <innerdir refid="dir_e32eeeeda73970094a607a0b09c789f1">X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections</innerdir>
+    <innerdir refid="dir_1390645b0b6447a00235d14a220ec615">X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Controls</innerdir>
+    <innerdir refid="dir_c8faa01943b2df236b00d6a9a62f8daf">X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters</innerdir>
+    <innerfile refid="_assembly_info_8cs">AssemblyInfo.cs</innerfile>
+    <innerfile refid="_window_handle_getter_8cs">WindowHandleGetter.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/"/>
+  </compounddef>
+</doxygen>

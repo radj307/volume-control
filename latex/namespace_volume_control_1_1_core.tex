@@ -1,0 +1,21 @@
+\hypertarget{namespace_volume_control_1_1_core}{}\doxysection{Volume\+Control.\+Core Namespace Reference}
+\label{namespace_volume_control_1_1_core}\index{VolumeControl.Core@{VolumeControl.Core}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon}{Base\+Addon}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily abstract} base class for an object that manages an addon. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon_attribute}{Base\+Addon\+Attribute}}
+\begin{DoxyCompactList}\small\item\em Abstract base class that all other addon attributes inherit from.~\newline
+{\bfseries{Unless you\textquotesingle{}re implementing a new addon type, this isn\textquotesingle{}t the attribute you\textquotesingle{}re looking for.}} \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions}{Compatible\+Versions}}
+\begin{DoxyCompactList}\small\item\em A range of version numbers that abstracts away the need for direct interaction with the Sem\+Version type.~\newline
+If you want to directly interact with Sem\+Version objects, you will need the \textquotesingle{}Semver\textquotesingle{} nuget package. \end{DoxyCompactList}\item 
+interface \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon}{IBase\+Addon}}
+\begin{DoxyCompactList}\small\item\em Represents an addon object.~\newline
+~\newline
+You can\textquotesingle{}t directly implement this interface; inherit from the {\ttfamily abstract} {\ttfamily class} \mbox{\hyperlink{class_volume_control_1_1_core_1_1_base_addon}{Base\+Addon}} instead. \end{DoxyCompactList}\item 
+interface \mbox{\hyperlink{interface_volume_control_1_1_core_1_1_i_base_addon_attribute}{IBase\+Addon\+Attribute}}
+\begin{DoxyCompactList}\small\item\em Represents an addon attribute of any type. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_volume_control_1_1_core_1_1_math_ext}{Math\+Ext}}
+\begin{DoxyCompactList}\small\item\em Methods for various mathematics operations not covered by Math \end{DoxyCompactList}\end{DoxyCompactItemize}

@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e" kind="page">
+    <compoundname>md_X___Workspace__repo_volume_control_3_README</compoundname>
+    <title>README</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para></para>
+<para><ulink url="https://github.com/radj307/volume-control"><image type="html" name="https://i.imgur.com/rMbNIhU.png" alt="[Volume Control Banner]" inline="yes"></image>
+</ulink><linebreak/>
+ <ulink url="https://github.com/radj307/volume-control/releases"><image type="html" name="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&amp;label=Latest%20Version&amp;logo=github&amp;logoColor=e8e8e7&amp;style=for-the-badge" alt="GitHub tag (latest by date)" inline="yes"></image>
+</ulink><nonbreakablespace/><nonbreakablespace/><nonbreakablespace/><ulink url="https://github.com/radj307/volume-control/releases"><image type="html" name="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;style=for-the-badge" alt="Downloads" inline="yes"></image>
+</ulink> </para>
+<para><hruler/>
+</para>
+<para>Simple, universal application-specific volume hotkeys &amp; more. <linebreak/>
+ Designed for adjusting the volume of your music independently of other programs, such as games and VoIP. <linebreak/>
+</para>
+<sect3 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md0">
+<title>What it does</title>
+<para><itemizedlist>
+<listitem><para>Adds completely user-configurable global hotkeys to Windows.<itemizedlist>
+<listitem><para>You can add, remove, and rename hotkeys, as well as configure the &apos;action&apos; that they perform. <linebreak/>
+ This requires enabling *&apos;Advanced Hotkey Mode&apos;*, which is a fancy way of saying *&apos;Check the box labelled with &apos;<bold>Advanced Hotkeys</bold>&apos;, which is located in the <bold>Settings</bold> tab&apos;*</para>
+</listitem><listitem><para>The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of <ulink url="https://github.com/radj307/volume-control/wiki">user-created plugins</ulink>.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Integrates a functionally superior alternative to the Windows Audio Mixer. <linebreak/>
+<itemizedlist>
+<listitem><para>Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.<itemizedlist>
+<listitem><para>Like the Windows Audio Mixer, you can do this with any running process independently at any time.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Allows you to specify the &apos;target&apos; application using the mixer, in addition to the target switching hotkeys.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<sect4 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md1">
+<title>Addon Development</title>
+<para>Want to develop an addon for Volume Control? <linebreak/>
+ See the <ulink url="https://github.com/radj307/volume-control/wiki">wiki</ulink> for more information.</para>
+</sect4>
+</sect3>
+<sect3 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md2">
+<title>Requirements</title>
+<para><itemizedlist>
+<listitem><para>Windows 7 or newer.</para>
+</listitem><listitem><para>A keyboard.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect1 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md3">
+<title>Getting Started</title>
+<sect2 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md4">
+<title>Installation</title>
+<para><itemizedlist>
+<listitem><para>Download the <ulink url="https://github.com/radj307/volume-control/releases">latest release</ulink></para>
+</listitem><listitem><para>Save <computeroutput>VolumeControl.exe</computeroutput> to a location of your choice. <linebreak/>
+ If you&apos;re unsure about where to choose as a location, create a directory in your user folder and place it inside of that: <computeroutput>C:\Users\&lt;USERNAME&gt;\<ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>\VolumeControl.exe</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md5">
+<title>Setup</title>
+<para>Before starting the program for the first time, you have to unblock the executable from the properties menu. <linebreak/>
+ This is necessary because Windows Defender requires a paying <emphasis>&gt;$300</emphasis> a year for a <ulink url="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate">Microsoft-approved publishing certificate</ulink> in order to prevent Windows Defender from blocking it. <linebreak/>
+ <emphasis>If you&apos;re unsure, you&apos;re can always run it through <ulink url="https://www.virustotal.com/gui/home/upload">VirusTotal</ulink> first, or check the source code yourself.</emphasis></para>
+<para><orderedlist>
+<listitem><para>R+Click on <computeroutput>VolumeControl.exe</computeroutput> in the file explorer and select <emphasis>Properties</emphasis> in the context menu. <linebreak/>
+</para>
+</listitem><listitem><para>Check the box next to <emphasis>Unblock:</emphasis> <linebreak/>
+ <image type="html" name="https://i.imgur.com/NMI4m4F.png" inline="yes"></image>
+ <linebreak/>
+</para>
+</listitem><listitem><para>Click <bold>Ok</bold> to save the changes. <linebreak/>
+</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+<sect2 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md6">
+<title>Usage</title>
+<para>First, enable the <bold>Volume Up</bold> &amp; <bold>Volume Down</bold> hotkeys from the <bold>Hotkeys</bold> tab by checking the box to the left of the hotkey name. If you don&apos;t have a volume slider, change the key from the dropdown.</para>
+<para><bold>NOTE:</bold> Hotkeys cannot be enabled if their associated key is set to <computeroutput>None</computeroutput>.</para>
+<para>Next, let&apos;s set a target application to test the hotkeys with. <linebreak/>
+ Start playing some audio from any application, then return to the <bold>Mixer</bold> tab, click <bold>Reload</bold>, then click the <bold>Select</bold> button next to the test application, and try using the volume hotkeys. <linebreak/>
+</para>
+</sect2>
+<sect2 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md7">
+<title>VolumeControlCLI</title>
+<para>*(This section is for people who want to adjust application volumes from the commandline or with shell scripts.)*</para>
+<para>For best results, place <computeroutput>VolumeControlCLI.exe</computeroutput> in a directory on your PATH. If you don&apos;t know how to do that, see <ulink url="https://stackoverflow.com/a/44272417/8705305">here</ulink>. <linebreak/>
+</para>
+<para>Use <computeroutput>VolumeControlCLI -h</computeroutput> or <computeroutput>VolumeControlCLI --help</computeroutput> to see more up-to-date usage instructions. <linebreak/>
+ <emphasis>Note: The CLI version accepts PID numbers or Process Names.</emphasis></para>
+<sect3 id="md__x____workspace__repo_volume_control_3__r_e_a_d_m_e_1autotoc_md8">
+<title>Commandline Options</title>
+<para><emphasis>This list was last updated as of <computeroutput>3.3.0-pr4</computeroutput></emphasis></para>
+<para><table rows="9" cols="2"><row>
+<entry thead="yes"><para>Option   </para>
+</entry><entry thead="yes"><para>Description    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-h</computeroutput> <computeroutput>--help</computeroutput>   </para>
+</entry><entry thead="no"><para>Shows a brief description of each option, then exits.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-V</computeroutput> <computeroutput>--version</computeroutput>   </para>
+</entry><entry thead="no"><para>Shows the current version number, then exits.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-p &lt;Name/PID&gt;</computeroutput> <computeroutput>--process &lt;Name/PID&gt;</computeroutput>   </para>
+</entry><entry thead="no"><para>Selects the target process. This option is required.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-v &lt;0-100&gt;</computeroutput> <computeroutput>--volume &lt;0-100&gt;</computeroutput>   </para>
+</entry><entry thead="no"><para>Specify a volume level to apply to the target process.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>--mute</computeroutput>   </para>
+</entry><entry thead="no"><para>Mute the target application.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>--unmute</computeroutput>   </para>
+</entry><entry thead="no"><para>Unmute the target application.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-s</computeroutput> <computeroutput>--set</computeroutput>   </para>
+</entry><entry thead="no"><para>Implicit when <computeroutput>-v</computeroutput> or <computeroutput>--volume</computeroutput> is specified.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>-g</computeroutput> <computeroutput>--get</computeroutput>   </para>
+</entry><entry thead="no"><para>Implicit when <computeroutput>-v</computeroutput>/<computeroutput>--volume</computeroutput> isn&apos;t specified.   </para>
+</entry></row>
+</table>
+</para>
+</sect3>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/README.md"/>
+  </compounddef>
+</doxygen>

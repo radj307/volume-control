@@ -1,0 +1,751 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_audio_1_1_icon_getter" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::IconGetter</compoundname>
+    <innerclass refid="struct_volume_control_1_1_audio_1_1_icon_getter_1_1_s_h_f_i_l_e_i_n_f_o" prot="private">VolumeControl::Audio::IconGetter::SHFILEINFO</innerclass>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_icon_getter_1ae546053a697b57ee49ac053e6dc79624" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_log_1_1_log_writer" kindref="compound">LogWriter</ref></type>
+        <definition>LogWriter VolumeControl.Audio.IconGetter.Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="13" column="34" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1aaaa2b6eceaa13531ba2f166973ebeacf" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_READONLY</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_READONLY</name>
+        <initializer>= 0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="50" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ab702f747e1b916064c854b5dfdeddbcd" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_HIDDEN</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_HIDDEN</name>
+        <initializer>= 0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="51" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a2202342de013ce324e59b3b3b98d059e" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_SYSTEM</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_SYSTEM</name>
+        <initializer>= 0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="52" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a93794eb6955c755f8bc9c945a1304f26" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_DIRECTORY</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_DIRECTORY</name>
+        <initializer>= 0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="53" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a1045bad8d866c4049cc94767fa0ec62a" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_ARCHIVE</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_ARCHIVE</name>
+        <initializer>= 0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="54" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a268a9327be967c1b193fa379d4abfe05" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_DEVICE</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_DEVICE</name>
+        <initializer>= 0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="55" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ac98b6c192e625f76876eea839972c42f" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_NORMAL</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_NORMAL</name>
+        <initializer>= 0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="56" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a6c81d064bcf4d8fed826a21c69142d8f" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_TEMPORARY</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_TEMPORARY</name>
+        <initializer>= 0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="57" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a0fe253c42bbeebf5e8ae6f771ff2608e" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_SPARSE_FILE</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_SPARSE_FILE</name>
+        <initializer>= 0x00000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="58" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a022414ab0d8acb568f02da76d4880833" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_REPARSE_POINT</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_REPARSE_POINT</name>
+        <initializer>= 0x00000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="59" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a0f86363e5072ee9a01bcb20905de8b73" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_COMPRESSED</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_COMPRESSED</name>
+        <initializer>= 0x00000800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="60" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a6ceeed6d6707cbfdbcda3b0a28803c7e" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_OFFLINE</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_OFFLINE</name>
+        <initializer>= 0x00001000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="61" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a0020ad3d7ca1b11ac845303ba263b309" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</name>
+        <initializer>= 0x00002000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="62" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a2d9a8bf1299eb7116f0c49e86d8d3060" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_ENCRYPTED</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_ENCRYPTED</name>
+        <initializer>= 0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="63" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ad5bfaec5fdbe706ae6313561bc432e1a" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.FILE_ATTRIBUTE_VIRTUAL</definition>
+        <argsstring></argsstring>
+        <name>FILE_ATTRIBUTE_VIRTUAL</name>
+        <initializer>= 0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="64" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a9320dfd1b07c6bb1e06cd61e44045c75" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_ICON</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_ICON</name>
+        <initializer>= 0x000000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="66" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1acf7963676a336542d628c44d3a9599e2" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_DISPLAYNAME</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_DISPLAYNAME</name>
+        <initializer>= 0x000000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="67" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ad8c3c5d2f3f5d5acd496362b2f02d949" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_TYPENAME</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_TYPENAME</name>
+        <initializer>= 0x000000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="68" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a2603f7a59cd0a3b4539901b6f5f87662" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_ATTRIBUTES</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_ATTRIBUTES</name>
+        <initializer>= 0x000000800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="69" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a8f7846921325e8ba26718e84596da45f" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_ICONLOCATION</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_ICONLOCATION</name>
+        <initializer>= 0x000001000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="70" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1af58f7e45f5d6417200bbbf3b1d4692cb" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_EXETYPE</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_EXETYPE</name>
+        <initializer>= 0x000002000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="71" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a09e6c650052e7e000deb1353124ab1d5" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_SYSICONINDEX</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_SYSICONINDEX</name>
+        <initializer>= 0x000004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="72" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a59683ce9dc5ab21d5e325e3438f21639" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_LINKOVERLAY</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_LINKOVERLAY</name>
+        <initializer>= 0x000008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="73" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a9fb32a8a122f3c3a4fcf0cd264a2bfa2" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_SELECTED</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_SELECTED</name>
+        <initializer>= 0x000010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="74" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a13c3761932c30b3f95f83b1c78e206d9" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_ATTR_SPECIFIED</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_ATTR_SPECIFIED</name>
+        <initializer>= 0x000020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="75" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a64de67a3d2f4c5d3937afb73ade4fed4" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_LARGEICON</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_LARGEICON</name>
+        <initializer>= 0x000000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="76" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ad6a39b4436641b71a26e87e3115a1c8f" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_SMALLICON</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_SMALLICON</name>
+        <initializer>= 0x000000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="77" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a19a0be8b14b392f75d1071e7bfc4b030" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_OPENICON</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_OPENICON</name>
+        <initializer>= 0x000000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="78" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a07fa664fa89c145ab242246470f43425" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_SHELLICONSIZE</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_SHELLICONSIZE</name>
+        <initializer>= 0x000000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="79" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a5e7a0950d3a607c107ffdfd246da05af" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_PIDL</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_PIDL</name>
+        <initializer>= 0x000000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="80" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a894d7e897df6a0be083857ca8b2bc3a9" prot="private" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint VolumeControl.Audio.IconGetter.SHGFI_USEFILEATTRIBUTES</definition>
+        <argsstring></argsstring>
+        <name>SHGFI_USEFILEATTRIBUTES</name>
+        <initializer>= 0x000000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="81" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a1c85fd78ffea9f56b4cecd1783f818f1" prot="private" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int VolumeControl.Audio.IconGetter.PARSER_NULL_INDEX</definition>
+        <argsstring></argsstring>
+        <name>PARSER_NULL_INDEX</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="83" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1a479dab721cde8c78ffbc67270a2b63b7" prot="public" static="yes" mutable="no">
+        <type>?</type>
+        <definition>static VolumeControl.Audio.IconGetter::ImageSource</definition>
+        <argsstring></argsstring>
+        <name>ImageSource</name>
+        <briefdescription>
+<para>Gets the large and small variants of the specified icon from the specified DLL. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The location of the target icon DLL.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The icon index number to retrieve.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pair of icons where Item1 is the small icon, Item2 is the large icon; or null if the icons couldn&apos;t be loaded.</para>
+</simplesect>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iconPath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the location and index number of the target icon. See the output of <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" kindref="member">AudioDevice.IconPath</ref> or <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1ae18e0e01b019d4047c8bbe12f5244504" kindref="member">AudioSession.IconPath</ref></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="91" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" prot="public" static="yes" mutable="no">
+        <type>static</type>
+        <definition>VolumeControl.Audio.IconGetter.string</definition>
+        <argsstring></argsstring>
+        <name>string</name>
+        <briefdescription>
+<para>Parses the given icon path from <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" kindref="member">AudioDevice.IconPath</ref> or <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1ae18e0e01b019d4047c8bbe12f5244504" kindref="member">AudioSession.IconPath</ref> into a path and index number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iconPath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the location and index number of the target icon. See the output of <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" kindref="member">AudioDevice.IconPath</ref> or <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1ae18e0e01b019d4047c8bbe12f5244504" kindref="member">AudioSession.IconPath</ref></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pair where the Item1 is the filepath and Item2 is the index number, or null if <emphasis>iconPath</emphasis>  was invalid.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="137" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1acd181c63b28cf58de9a390e763aab28c" prot="package" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>? <ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1a479dab721cde8c78ffbc67270a2b63b7" kindref="member">ImageSource</ref></type>
+        <definition>static ? ImageSource VolumeControl.Audio.IconGetter.GetIcon</definition>
+        <argsstring>(string path, bool smallIcon, bool isDirectory)</argsstring>
+        <name>GetIcon</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>smallIcon</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isDirectory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="15" column="37" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="15" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1a3fbe67d0c52eab327f0acc85d89e2091" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VolumeControl.Audio.IconGetter.SHGetFileInfo</definition>
+        <argsstring>(string pszPath, uint dwFileAttributes, out SHFILEINFO psfi, uint cbFileInfo, uint flags)</argsstring>
+        <name>SHGetFileInfo</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>pszPath</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>dwFileAttributes</declname>
+        </param>
+        <param>
+          <type>out SHFILEINFO</type>
+          <declname>psfi</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>cbFileInfo</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="48" column="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1a55a2d59153b9b0312b962835847f8044" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VolumeControl.Audio.IconGetter.ExtractIconEx</definition>
+        <argsstring>(string sFile, int iIndex, out IntPtr piLargeVersion, out IntPtr piSmallVersion, int amountIcons)</argsstring>
+        <name>ExtractIconEx</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>sFile</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iIndex</declname>
+        </param>
+        <param>
+          <type>out IntPtr</type>
+          <declname>piLargeVersion</declname>
+        </param>
+        <param>
+          <type>out IntPtr</type>
+          <declname>piSmallVersion</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amountIcons</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="147" column="35"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1adf7c4b123052de004b99e6c31ee44135" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>??? <ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1a479dab721cde8c78ffbc67270a2b63b7" kindref="member">ImageSource</ref></type>
+        <definition>static ??? ImageSource VolumeControl.Audio.IconGetter.GetIcons</definition>
+        <argsstring>(string path, int index)</argsstring>
+        <name>GetIcons</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="91" column="47" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="91" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1a121d411c5070bf0ff807fdacc5f1c71d" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>??? <ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1a479dab721cde8c78ffbc67270a2b63b7" kindref="member">ImageSource</ref></type>
+        <definition>static ??? ImageSource VolumeControl.Audio.IconGetter.GetIcons</definition>
+        <argsstring>(string iconPath)</argsstring>
+        <name>GetIcons</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>iconPath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="126" column="47" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="126" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_icon_getter_1a86e72b1124c1facc0d0742cbb2a82298" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>static? int</type>
+        <definition>static? int VolumeControl.Audio.IconGetter.ParseIconPath</definition>
+        <argsstring>(string iconPath)</argsstring>
+        <name>ParseIconPath</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" kindref="member">string</ref></type>
+          <declname>iconPath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="137" column="34" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="137" bodyend="144"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is a helper class used to retrieve icons using multiple different context-sensitive methods from the Windows <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Audio.IconGetter</label>
+        <link refid="class_volume_control_1_1_audio_1_1_icon_getter"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" line="11" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/IconGetter.cs" bodystart="12" bodyend="148"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a55a2d59153b9b0312b962835847f8044" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>ExtractIconEx</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a1045bad8d866c4049cc94767fa0ec62a" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_ARCHIVE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a0f86363e5072ee9a01bcb20905de8b73" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_COMPRESSED</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a268a9327be967c1b193fa379d4abfe05" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_DEVICE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a93794eb6955c755f8bc9c945a1304f26" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_DIRECTORY</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a2d9a8bf1299eb7116f0c49e86d8d3060" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_ENCRYPTED</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ab702f747e1b916064c854b5dfdeddbcd" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_HIDDEN</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ac98b6c192e625f76876eea839972c42f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_NORMAL</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a0020ad3d7ca1b11ac845303ba263b309" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a6ceeed6d6707cbfdbcda3b0a28803c7e" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_OFFLINE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1aaaa2b6eceaa13531ba2f166973ebeacf" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_READONLY</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a022414ab0d8acb568f02da76d4880833" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_REPARSE_POINT</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a0fe253c42bbeebf5e8ae6f771ff2608e" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_SPARSE_FILE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a2202342de013ce324e59b3b3b98d059e" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_SYSTEM</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a6c81d064bcf4d8fed826a21c69142d8f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_TEMPORARY</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ad5bfaec5fdbe706ae6313561bc432e1a" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>FILE_ATTRIBUTE_VIRTUAL</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1acd181c63b28cf58de9a390e763aab28c" prot="package" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>GetIcon</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1adf7c4b123052de004b99e6c31ee44135" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>GetIcons</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a121d411c5070bf0ff807fdacc5f1c71d" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>GetIcons</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a479dab721cde8c78ffbc67270a2b63b7" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>ImageSource</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ae546053a697b57ee49ac053e6dc79624" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>Log</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a86e72b1124c1facc0d0742cbb2a82298" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>ParseIconPath</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a1c85fd78ffea9f56b4cecd1783f818f1" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>PARSER_NULL_INDEX</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a3fbe67d0c52eab327f0acc85d89e2091" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGetFileInfo</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a13c3761932c30b3f95f83b1c78e206d9" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_ATTR_SPECIFIED</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a2603f7a59cd0a3b4539901b6f5f87662" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_ATTRIBUTES</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1acf7963676a336542d628c44d3a9599e2" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_DISPLAYNAME</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1af58f7e45f5d6417200bbbf3b1d4692cb" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_EXETYPE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a9320dfd1b07c6bb1e06cd61e44045c75" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_ICON</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a8f7846921325e8ba26718e84596da45f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_ICONLOCATION</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a64de67a3d2f4c5d3937afb73ade4fed4" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_LARGEICON</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a59683ce9dc5ab21d5e325e3438f21639" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_LINKOVERLAY</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a19a0be8b14b392f75d1071e7bfc4b030" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_OPENICON</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a5e7a0950d3a607c107ffdfd246da05af" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_PIDL</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a9fb32a8a122f3c3a4fcf0cd264a2bfa2" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_SELECTED</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a07fa664fa89c145ab242246470f43425" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_SHELLICONSIZE</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ad6a39b4436641b71a26e87e3115a1c8f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_SMALLICON</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a09e6c650052e7e000deb1353124ab1d5" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_SYSICONINDEX</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ad8c3c5d2f3f5d5acd496362b2f02d949" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_TYPENAME</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1a894d7e897df6a0be083857ca8b2bc3a9" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>SHGFI_USEFILEATTRIBUTES</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_icon_getter_1ade41ffb4c2b4e199781aa2df47169150" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::IconGetter</scope><name>string</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

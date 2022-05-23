@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kind="interface" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::Interfaces::ISession</compoundname>
+    <basecompoundref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" prot="public" virt="non-virtual">VolumeControl.Audio.Interfaces.IProcess</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">INotifyPropertyChanged</basecompoundref>
+    <derivedcompoundref refid="class_volume_control_1_1_audio_1_1_audio_session" prot="public" virt="non-virtual">VolumeControl.Audio.AudioSession</derivedcompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1aa442f6d99d21fa63c98d5eb6908bdb6f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.Interfaces.ISession.Volume</definition>
+        <argsstring></argsstring>
+        <name>Volume</name>
+        <briefdescription>
+<para>Gets or sets the volume of this process using the int type in the range <bold>( 0 - 100 )</bold> </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Values are clamped before actually being applied, so out-of-bounds values are allowed.</para>
+<para><parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>InvalidOperationException</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cannot perform operations on a disposed-of object!</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" line="15" column="13" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1a56b3d1c103abe2f65a586f763b146b89" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>float</type>
+        <definition>float VolumeControl.Audio.Interfaces.ISession.NativeVolume</definition>
+        <argsstring></argsstring>
+        <name>NativeVolume</name>
+        <briefdescription>
+<para>Gets or sets the volume of this process using the native float type, in the range <bold>( 0.0 <emphasis>(0%)</emphasis> - 1.0 <emphasis>(100%)</emphasis> )</bold> </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Values are clamped before actually being applied, so out-of-bounds values are allowed.</para>
+<para><parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>InvalidOperationException</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cannot perform operations on a disposed-of object!</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" line="21" column="15" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1ac049c7c862ed83061b35a4112f9f390a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.Interfaces.ISession.Muted</definition>
+        <argsstring></argsstring>
+        <name>Muted</name>
+        <briefdescription>
+<para>Gets or sets whether the session is muted or not. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" line="25" column="14" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" bodystart="25" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents an audio session. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="4">
+        <label>VolumeControl.Audio.AudioSession</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_session"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IProcess</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.Interfaces.ISession</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="2">
+        <label>IProcess</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.Interfaces.ISession</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" line="8" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs" bodystart="9" bodyend="26"/>
+    <listofallmembers>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1ac049c7c862ed83061b35a4112f9f390a" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>Muted</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1a56b3d1c103abe2f65a586f763b146b89" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>NativeVolume</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a91dbdafc9d79e361e177c684ff1fb6e1" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>PID</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>ProcessIdentifier</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a0a9dfc7fcf79b174718023d850314825" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>ProcessName</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1aa442f6d99d21fa63c98d5eb6908bdb6f" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::ISession</scope><name>Volume</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

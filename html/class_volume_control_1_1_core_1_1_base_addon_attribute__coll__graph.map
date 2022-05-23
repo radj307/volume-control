@@ -1,0 +1,5 @@
+<map id="VolumeControl.Core.BaseAddonAttribute" name="VolumeControl.Core.BaseAddonAttribute">
+<area shape="rect" id="node1" title="Abstract base class that all other addon attributes inherit from. Unless you&#39;re implementing a new ad..." alt="" coords="5,145,215,267"/>
+<area shape="rect" id="node2" title=" " alt="" coords="8,13,79,90"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_core_1_1_i_base_addon_attribute.html" title="Represents an addon attribute of any type." alt="" coords="103,5,253,97"/>
+</map>

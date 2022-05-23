@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_f9538c984ad656b042c5452ce79bc4bb" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints</compoundname>
+    <innerfile refid="_console_endpoint_8cs">ConsoleEndpoint.cs</innerfile>
+    <innerfile refid="_file_endpoint_8cs">FileEndpoint.cs</innerfile>
+    <innerfile refid="_i_endpoint_8cs">IEndpoint.cs</innerfile>
+    <innerfile refid="_memory_endpoint_8cs">MemoryEndpoint.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/"/>
+  </compounddef>
+</doxygen>

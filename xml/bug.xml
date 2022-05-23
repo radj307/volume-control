@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="bug" kind="page">
+    <compoundname>bug</compoundname>
+    <title>Bug List</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term>Member <ref refid="class_my_library_1_1_example_1a1c0046b0674eb4cad09c5d3e943912b8" kindref="member">MyLibrary::Example::test</ref>  (const std::string &amp;test)</term></varlistentry>
+<listitem><para><anchor id="bug_1_bug000001"/>example bug </para>
+</listitem>
+<varlistentry><term>Member <ref refid="class_my_library_1_1_subclass_example_1a6c1b7e5c6e56d31a169ddd42e8992300" kindref="member">MyLibrary::SubclassExample::virtualfunc</ref>  () override</term></varlistentry>
+<listitem><para><anchor id="bug_1_bug000002"/>second bug </para>
+</listitem>
+</variablelist>
+</para>
+    </detaileddescription>
+    <location file="bug"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Converters.NullToBooleanConverter" name="VolumeControl.WPF.Converters.NullToBooleanConverter">
+<area shape="rect" id="node1" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="5,131,216,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="55,5,167,83"/>
+</map>

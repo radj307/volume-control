@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.Endpoints.IEndpoint.GetReader" name="VolumeControl.Log.Endpoints.IEndpoint.GetReader">
+<area shape="rect" id="node1" title="Retrieve a StreamReader object for reading from the endpoint. &#160;Using this is only recommended for rep..." alt="" coords="249,5,448,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a1945fc8f37b7d1b0b156693cd616ffb7" title="Writes a LogMessage or similar." alt="" coords="5,5,201,47"/>
+</map>

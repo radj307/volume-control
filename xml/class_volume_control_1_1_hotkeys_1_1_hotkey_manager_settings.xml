@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Hotkeys::HotkeyManagerSettings</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">global.SystemConfiguration.ApplicationSettingsBase</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1adb93613ae20cad9c970ebd4713c575fe" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings" kindref="compound">HotkeyManagerSettings</ref></type>
+        <definition>HotkeyManagerSettings VolumeControl.Hotkeys.HotkeyManagerSettings.defaultInstance</definition>
+        <argsstring></argsstring>
+        <name>defaultInstance</name>
+        <initializer>= ((<ref refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings" kindref="compound">HotkeyManagerSettings</ref>)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new <ref refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings" kindref="compound">HotkeyManagerSettings</ref>())))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="18" column="46" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a2313c94d2606e5a886bee8f2b5337388" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings" kindref="compound">HotkeyManagerSettings</ref></type>
+        <definition>HotkeyManagerSettings VolumeControl.Hotkeys.HotkeyManagerSettings.Default</definition>
+        <argsstring></argsstring>
+        <name>Default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="20" column="45" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a4c975e4c6f2700a6e311b610f33e3f5c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>global::System.Collections.Specialized.StringCollection</type>
+        <definition>global::System.Collections.Specialized.StringCollection VolumeControl.Hotkeys.HotkeyManagerSettings.Hotkeys</definition>
+        <argsstring></argsstring>
+        <name>Hotkeys</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="28" column="69" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="28" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1ae92beaa68b6cf6922d0ba8c3ec680b8a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>global::System.Collections.Specialized.StringCollection</type>
+        <definition>global::System.Collections.Specialized.StringCollection VolumeControl.Hotkeys.HotkeyManagerSettings.Hotkeys_Default</definition>
+        <argsstring></argsstring>
+        <name>Hotkeys_Default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="48" column="69" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="48" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a1a936da65a14d0cbff2fbe34b5315ec2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Hotkeys.HotkeyManagerSettings.ReloadOnHotkey</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnHotkey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="57" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="57" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a2a903fd0457b325a85ef574360487867" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Hotkeys.HotkeyManagerSettings.ReloadOnInterval</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="69" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="69" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a37b622f64b8b6824355e6a146f83ad82" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>char</type>
+        <definition>char VolumeControl.Hotkeys.HotkeyManagerSettings.HotkeyNameSeperatorChar</definition>
+        <argsstring></argsstring>
+        <name>HotkeyNameSeperatorChar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="81" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="81" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.HotkeyManagerSettings</label>
+        <link refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.HotkeyManagerSettings</label>
+        <link refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" line="16" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/HotkeyManagerSettings.Designer.cs" bodystart="16" bodyend="86"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a2313c94d2606e5a886bee8f2b5337388" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>Default</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1adb93613ae20cad9c970ebd4713c575fe" prot="private" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>defaultInstance</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a37b622f64b8b6824355e6a146f83ad82" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>HotkeyNameSeperatorChar</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a4c975e4c6f2700a6e311b610f33e3f5c" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>Hotkeys</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1ae92beaa68b6cf6922d0ba8c3ec680b8a" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>Hotkeys_Default</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a1a936da65a14d0cbff2fbe34b5315ec2" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>ReloadOnHotkey</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings_1a2a903fd0457b325a85ef574360487867" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::HotkeyManagerSettings</scope><name>ReloadOnInterval</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

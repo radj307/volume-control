@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::AudioAPISettings</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">global.SystemConfiguration.ApplicationSettingsBase</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a4a15a06516bb7a3b8d68619a4466e3bc" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kindref="compound">AudioAPISettings</ref></type>
+        <definition>AudioAPISettings VolumeControl.Audio.AudioAPISettings.defaultInstance</definition>
+        <argsstring></argsstring>
+        <name>defaultInstance</name>
+        <initializer>= ((<ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kindref="compound">AudioAPISettings</ref>)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kindref="compound">AudioAPISettings</ref>())))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="18" column="41" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a1d1c8de740c3b2cf31ead1401f4e834b" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kindref="compound">AudioAPISettings</ref></type>
+        <definition>AudioAPISettings VolumeControl.Audio.AudioAPISettings.Default</definition>
+        <argsstring></argsstring>
+        <name>Default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="20" column="40" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a69b050d9341f0e371244d13710d3c402" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPISettings.AutoReloadInterval</definition>
+        <argsstring></argsstring>
+        <name>AutoReloadInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="29" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="29" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1aab31a4d2968cb33d5fb92539c037300d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPISettings.AutoReloadIntervalMin</definition>
+        <argsstring></argsstring>
+        <name>AutoReloadIntervalMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="41" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1af57f5caa128c1849ea72cdd726c8d145" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPISettings.AutoReloadIntervalMax</definition>
+        <argsstring></argsstring>
+        <name>AutoReloadIntervalMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="50" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="50" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a1d0a9cc3d03ffabdd276d6ba288e7aa3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPISettings.LockSelectedSession</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedSession</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="59" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="59" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1ad222bdffcf186b1a140b0c9a8a3f38b0" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPISettings.LockSelectedDevice</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="71" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="71" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a72da7ea8212c76d62ce037952dac2a05" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioAPISettings.SelectedSession</definition>
+        <argsstring></argsstring>
+        <name>SelectedSession</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="83" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a5b7dfcac5c700752fceff7f709b228d8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioAPISettings.SelectedDevice</definition>
+        <argsstring></argsstring>
+        <name>SelectedDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="95" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="95" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1afb5981f0ee903d2a9db91966a131f165" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPISettings.VolumeStepSize</definition>
+        <argsstring></argsstring>
+        <name>VolumeStepSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="107" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="107" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a3cde4b4a2034d1c6cd0cf85c0a358dab" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPISettings.CheckAllDevices</definition>
+        <argsstring></argsstring>
+        <name>CheckAllDevices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="119" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="119" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1af0f7daea4e68a91964ac41651b3e47f3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPISettings.ReloadOnHotkey</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnHotkey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="131" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="131" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a6f627ff2bf25d9115615fce7e339d8be" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPISettings.ReloadOnHotkeyMinInterval</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnHotkeyMinInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="143" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="143" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a12477b1e201bac302405bb341c5af3b3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPISettings.ReloadOnInterval</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="155" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="155" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioAPISettings</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioAPISettings</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" line="16" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPISettings.Designer.cs" bodystart="16" bodyend="163"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a69b050d9341f0e371244d13710d3c402" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>AutoReloadInterval</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1af57f5caa128c1849ea72cdd726c8d145" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>AutoReloadIntervalMax</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1aab31a4d2968cb33d5fb92539c037300d" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>AutoReloadIntervalMin</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a3cde4b4a2034d1c6cd0cf85c0a358dab" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>CheckAllDevices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a1d1c8de740c3b2cf31ead1401f4e834b" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>Default</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a4a15a06516bb7a3b8d68619a4466e3bc" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>defaultInstance</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1ad222bdffcf186b1a140b0c9a8a3f38b0" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>LockSelectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a1d0a9cc3d03ffabdd276d6ba288e7aa3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>LockSelectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1af0f7daea4e68a91964ac41651b3e47f3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>ReloadOnHotkey</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a6f627ff2bf25d9115615fce7e339d8be" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>ReloadOnHotkeyMinInterval</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a12477b1e201bac302405bb341c5af3b3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>ReloadOnInterval</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a5b7dfcac5c700752fceff7f709b228d8" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>SelectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1a72da7ea8212c76d62ce037952dac2a05" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>SelectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings_1afb5981f0ee903d2a9db91966a131f165" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPISettings</scope><name>VolumeStepSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

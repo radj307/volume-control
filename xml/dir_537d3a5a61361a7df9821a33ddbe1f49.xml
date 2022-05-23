@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_537d3a5a61361a7df9821a33ddbe1f49" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug</compoundname>
+    <innerdir refid="dir_49ea7dbd6e290d4aa9680a36a56ac7a6">X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/"/>
+  </compounddef>
+</doxygen>

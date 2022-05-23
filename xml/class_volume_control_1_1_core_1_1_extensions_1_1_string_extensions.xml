@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Core::Extensions::StringExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions_1aa90184f85aa9184642363742aa0d80e6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>? SemVersion</type>
+        <definition>static ? SemVersion VolumeControl.Core.Extensions.StringExtensions.GetSemVer</definition>
+        <argsstring>(this string s)</argsstring>
+        <name>GetSemVer</name>
+        <param>
+          <type>this string</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Parses a string containing a version number in semantic versioning 2 format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" line="13" column="34" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions_1ab31c683da31bff8e2ef71da876195feb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string</type>
+        <definition>static string VolumeControl.Core.Extensions.StringExtensions.RemoveIf</definition>
+        <argsstring>(this string s, Predicate&lt; char &gt; pred)</argsstring>
+        <name>RemoveIf</name>
+        <param>
+          <type>this string</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Predicate&lt; char &gt;</type>
+          <declname>pred</declname>
+        </param>
+        <briefdescription>
+<para>Removes all chars that <emphasis>pred</emphasis>  returns true for. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" line="22" column="30" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" bodystart="22" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_core_1_1_extensions" kindref="compound">Extensions</ref> for string types. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Core.Extensions.StringExtensions</label>
+        <link refid="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" line="8" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/StringExtensions.cs" bodystart="9" bodyend="32"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions_1aa90184f85aa9184642363742aa0d80e6" prot="public" virt="non-virtual"><scope>VolumeControl::Core::Extensions::StringExtensions</scope><name>GetSemVer</name></member>
+      <member refid="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions_1ab31c683da31bff8e2ef71da876195feb" prot="public" virt="non-virtual"><scope>VolumeControl::Core::Extensions::StringExtensions</scope><name>RemoveIf</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" kind="interface" language="C#" prot="public">
+    <compoundname>VolumeControl::Log::Interfaces::ILogWriter</compoundname>
+    <derivedcompoundref refid="class_volume_control_1_1_log_1_1_log_message" prot="public" virt="non-virtual">VolumeControl.Log.LogMessage</derivedcompoundref>
+    <derivedcompoundref refid="class_volume_control_1_1_log_1_1_log_writer" prot="public" virt="non-virtual">VolumeControl.Log.LogWriter</derivedcompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1accbd1aa41b70c24192c9566be3863fee" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" kindref="compound">IEndpoint</ref></type>
+        <definition>IEndpoint VolumeControl.Log.Interfaces.ILogWriter.Endpoint</definition>
+        <argsstring></argsstring>
+        <name>Endpoint</name>
+        <briefdescription>
+<para>Gets or sets the endpoint for data written to the log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a wrapper for the raw I/O functions used by the logging functions.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" line="15" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" bodystart="15" bodyend="15"/>
+        <referencedby refid="class_volume_control_1_1_log_1_1_log_writer_1a1945fc8f37b7d1b0b156693cd616ffb7" compoundref="_log_writer_8cs" startline="165" endline="175">VolumeControl.Log.LogWriter.WriteMessage</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1a423b396eec8b2c8d57881414daae8f86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" kindref="compound">ITimestamp</ref></type>
+        <definition>ITimestamp VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp</definition>
+        <argsstring>(EventType eventType)</argsstring>
+        <name>MakeTimestamp</name>
+        <reimplementedby refid="class_volume_control_1_1_log_1_1_log_writer_1ac1a570a8d00bacba3a71dd8e442cfd31">MakeTimestamp</reimplementedby>
+        <param>
+          <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+          <declname>eventType</declname>
+        </param>
+        <briefdescription>
+<para>Gets a timestamp in the correct format for this log writer instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>An <ref refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" kindref="compound">ITimestamp</ref> representing the current time.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" line="20" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1acd8d92c934af1a6645069ecf9616a389" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VolumeControl.Log.Interfaces.ILogWriter.FilterEventType</definition>
+        <argsstring>(EventType eventType)</argsstring>
+        <name>FilterEventType</name>
+        <reimplementedby refid="class_volume_control_1_1_log_1_1_log_writer_1a927e2b5b79ae2c3a0b243246bb2e5a3d">FilterEventType</reimplementedby>
+        <param>
+          <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+          <declname>eventType</declname>
+        </param>
+        <briefdescription>
+<para>Determines whether the given EventType should be written to the <ref refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1accbd1aa41b70c24192c9566be3863fee" kindref="member">Endpoint</ref> or not. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eventType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event type to filter.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><table rows="2" cols="2"><row>
+<entry thead="no"><para>true</para>
+</entry><entry thead="no"><para>The message should be written to the log endpoint. </para>
+</entry></row>
+<row>
+<entry thead="no"><para>false</para>
+</entry><entry thead="no"><para>The message should be discarded. </para>
+</entry></row>
+</table>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" line="29" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents a log writer object, which is responsible for exposing logging methods, formatting the input, and writing it to an endpoint. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>VolumeControl.Log.LogMessage</label>
+        <link refid="class_volume_control_1_1_log_1_1_log_message"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>VolumeControl.Log.LogWriter</label>
+        <link refid="class_volume_control_1_1_log_1_1_log_writer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Log.Interfaces.ILogWriter</label>
+        <link refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Log.Interfaces.ILogWriter</label>
+        <link refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" line="9" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" bodystart="10" bodyend="30"/>
+    <listofallmembers>
+      <member refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1accbd1aa41b70c24192c9566be3863fee" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Interfaces::ILogWriter</scope><name>Endpoint</name></member>
+      <member refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1acd8d92c934af1a6645069ecf9616a389" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Interfaces::ILogWriter</scope><name>FilterEventType</name></member>
+      <member refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer_1a423b396eec8b2c8d57881414daae8f86" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Interfaces::ILogWriter</scope><name>MakeTimestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

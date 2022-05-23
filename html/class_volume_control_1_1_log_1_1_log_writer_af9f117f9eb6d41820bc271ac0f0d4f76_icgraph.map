@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.LogWriter.WriteEvent" name="VolumeControl.Log.LogWriter.WriteEvent">
+<area shape="rect" id="node1" title="Writes a log message with a timestamp and log level header." alt="" coords="249,5,445,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a23589efc4aa886f386e9d8645338a395" title="Conditional log message, allows you to write different messages depending on the current log filter l..." alt="" coords="5,5,201,47"/>
+</map>

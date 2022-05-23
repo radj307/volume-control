@@ -1,0 +1,4 @@
+<map id="VolumeControl.App.Main" name="VolumeControl.App.Main">
+<area shape="rect" id="node1" title="Application Entry Point." alt="" coords="5,13,172,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_app.html#a9224ecc6f1b58d07e7a34f3faceb8865" title="InitializeComponent" alt="" coords="220,5,405,47"/>
+</map>

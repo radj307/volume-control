@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::WPF::Collections::ObservableList</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ObservableCollection&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_1acd7bb0229279199360a91e5e836e3144" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void VolumeControl.WPF.Collections.ObservableList&lt; T &gt;.InsertItem</definition>
+        <argsstring>(int index, T item)</argsstring>
+        <name>InsertItem</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" line="9" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" bodystart="9" bodyend="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_1a353cf3755b0ef35e33574a22bd7ade1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.WPF.Collections.ObservableList&lt; T &gt;.AddRange</definition>
+        <argsstring>(IEnumerable&lt; T &gt; range)</argsstring>
+        <name>AddRange</name>
+        <param>
+          <type>IEnumerable&lt; T &gt;</type>
+          <declname>range</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" line="16" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" bodystart="16" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>VolumeControl.WPF.Collections.ObservableList&lt; T &gt;</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ObservableCollection&lt; T &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.WPF.Collections.ObservableList&lt; T &gt;</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ObservableCollection&lt; T &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" line="6" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableList.cs" bodystart="7" bodyend="20"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_1a353cf3755b0ef35e33574a22bd7ade1b" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Collections::ObservableList</scope><name>AddRange</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_1acd7bb0229279199360a91e5e836e3144" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Collections::ObservableList</scope><name>InsertItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

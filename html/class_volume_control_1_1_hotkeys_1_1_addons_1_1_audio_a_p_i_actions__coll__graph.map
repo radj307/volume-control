@@ -1,0 +1,3 @@
+<map id="VolumeControl.Hotkeys.Addons.AudioAPIActions" name="VolumeControl.Hotkeys.Addons.AudioAPIActions">
+<area shape="rect" id="node1" title="Contains hotkey action handlers that interact with the Audio.AudioAPI object." alt="" coords="5,5,216,244"/>
+</map>

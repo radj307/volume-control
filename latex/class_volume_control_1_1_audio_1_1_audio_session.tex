@@ -1,0 +1,292 @@
+\hypertarget{class_volume_control_1_1_audio_1_1_audio_session}{}\doxysection{Volume\+Control.\+Audio.\+Audio\+Session Class Reference}
+\label{class_volume_control_1_1_audio_1_1_audio_session}\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+
+
+Represents an audio session playing on the system.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Audio.\+Audio\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_audio_1_1_audio_session__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Audio.\+Audio\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_audio_1_1_audio_session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_aeb56d8f5f6a97fde371c4795473c1f7a}{Audio\+Session}} (Audio\+Session\+Control controller)
+\item 
+Process? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a59a3626b8a1cde96c65a68b65d5182da}{Get\+Process}} ()
+\begin{DoxyCompactList}\small\item\em Gets the process associated with this audio session instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a13f918b85f4b1281f9e5ecb5fb7d5583}\label{class_volume_control_1_1_audio_1_1_audio_session_a13f918b85f4b1281f9e5ecb5fb7d5583}} 
+void \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a13f918b85f4b1281f9e5ecb5fb7d5583}{Dispose}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a6b2e52691965a8840591964da0bb8295}{int}}
+\begin{DoxyCompactList}\small\item\em Parses the given process identifier string into a PID and Process\+Name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Simple\+Audio\+Volume \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a47b4dac491e85bfa34b16d876b9774d2}{Volume\+Controller}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the Simple\+Audio\+Volume object from the underlying Audio\+Session\+Control type. \end{DoxyCompactList}\item 
+Audio\+Session\+State \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a7d0a0803254aee7bce75cb6df2307c2b}{State}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the current state of the audio session.~\newline
+ See Audio\+Session\+State. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}{Icon\+Path}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This is the location of this sessions icon on the system and may or may not actually be set.~\newline
+{\bfseries{Do not rely on this being available, many third-\/party programs do not provide it!}} \end{DoxyCompactList}\item 
+Image\+Source? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae72ec6880a2eb08bd8d6a00824713199}{Small\+Icon}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The small icon located at the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}{Icon\+Path}}, or null if no icon was found. \end{DoxyCompactList}\item 
+Image\+Source? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_aefdede45b3e8f48fdb89b70dcc2c1159}{Large\+Icon}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The large icon located at the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}{Icon\+Path}}, or null if no icon was found. \end{DoxyCompactList}\item 
+Image\+Source? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a1cdcccdbeab9a8364824211253903328}{Icon}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the large or small icon, depending on whether they are null or not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a961f3e23e0ad0db762c1884a91b4aef5}\label{class_volume_control_1_1_audio_1_1_audio_session_a961f3e23e0ad0db762c1884a91b4aef5}} 
+\mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a6b2e52691965a8840591964da0bb8295}{int}} \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a961f3e23e0ad0db762c1884a91b4aef5}{Volume}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a9cf56bbb3fb96a826b38c5d5a94168ed}\label{class_volume_control_1_1_audio_1_1_audio_session_a9cf56bbb3fb96a826b38c5d5a94168ed}} 
+float \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a9cf56bbb3fb96a826b38c5d5a94168ed}{Native\+Volume}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a0352c733c7ac9f3b1631bfeccd7f8ec0}\label{class_volume_control_1_1_audio_1_1_audio_session_a0352c733c7ac9f3b1631bfeccd7f8ec0}} 
+bool \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a0352c733c7ac9f3b1631bfeccd7f8ec0}{Muted}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a30cfd4a7b3a77615294787e6c3cb2c35}\label{class_volume_control_1_1_audio_1_1_audio_session_a30cfd4a7b3a77615294787e6c3cb2c35}} 
+string \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a30cfd4a7b3a77615294787e6c3cb2c35}{Process\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a569d4fb917a60bc03f8861e8f9cb0fc7}\label{class_volume_control_1_1_audio_1_1_audio_session_a569d4fb917a60bc03f8861e8f9cb0fc7}} 
+long \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a569d4fb917a60bc03f8861e8f9cb0fc7}{PID}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a356c261a4c345fc0c739c5e66e4e66ea}\label{class_volume_control_1_1_audio_1_1_audio_session_a356c261a4c345fc0c739c5e66e4e66ea}} 
+string \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a356c261a4c345fc0c739c5e66e4e66ea}{Process\+Identifier}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a51d7fa029652f8b3bc08a502f5b540e9}{Is\+Running}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Checks if the process that owns this session is still running. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Property\+Changed\+Event\+Handler? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a634d0a5e08d141e120a1c3990faef6d7}{Property\+Changed}}
+\begin{DoxyCompactList}\small\item\em Triggered after one of this instance\textquotesingle{}s properties have been set. \end{DoxyCompactList}\item 
+Property\+Changing\+Event\+Handler? \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a1c6d4d4ccf66a058b4f89a833c7e33c4}{Property\+Changing}}
+\begin{DoxyCompactList}\small\item\em Triggered before one of this instance\textquotesingle{}s properties is being set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an audio session playing on the system. 
+
+Some properties in this object require the NAudio library.~\newline
+If you\textquotesingle{}re writing an addon, install the \textquotesingle{}NAudio\textquotesingle{} nuget package if you need to be able to use them.
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_aeb56d8f5f6a97fde371c4795473c1f7a}\label{class_volume_control_1_1_audio_1_1_audio_session_aeb56d8f5f6a97fde371c4795473c1f7a}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!AudioSession@{AudioSession}}
+\index{AudioSession@{AudioSession}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{AudioSession()}{AudioSession()}}
+{\footnotesize\ttfamily Volume\+Control.\+Audio.\+Audio\+Session.\+Audio\+Session (\begin{DoxyParamCaption}\item[{Audio\+Session\+Control}]{controller }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em controller} & The underlying session controller instance to create this audio session object for.~\newline
+This object is from NAudio.~\newline
+If you\textquotesingle{}re writing an addon, install the \textquotesingle{}NAudio\textquotesingle{} nuget package to be able to use this.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Audio.\+Audio\+Session.\+Dispose(), Volume\+Control.\+Log.\+Log\+Writer.\+Error(), Volume\+Control.\+Audio.\+Audio\+Session.\+Get\+Process(), Volume\+Control.\+Log.\+FLog.\+Log, Volume\+Control.\+Audio.\+Audio\+Session.\+PID, and Volume\+Control.\+Audio.\+Audio\+Session.\+Process\+Name.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_audio_1_1_audio_session_aeb56d8f5f6a97fde371c4795473c1f7a_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a59a3626b8a1cde96c65a68b65d5182da}\label{class_volume_control_1_1_audio_1_1_audio_session_a59a3626b8a1cde96c65a68b65d5182da}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!GetProcess@{GetProcess}}
+\index{GetProcess@{GetProcess}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{GetProcess()}{GetProcess()}}
+{\footnotesize\ttfamily Process? Volume\+Control.\+Audio.\+Audio\+Session.\+Get\+Process (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the process associated with this audio session instance. 
+
+\begin{DoxyReturn}{Returns}
+The Process instance that owns the audio session represented by this instance.
+\end{DoxyReturn}
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Error(), Volume\+Control.\+Log.\+FLog.\+Log, and Volume\+Control.\+Audio.\+Audio\+Session.\+PID.
+
+
+
+Referenced by Volume\+Control.\+Audio.\+Audio\+Session.\+Audio\+Session().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_audio_1_1_audio_session_a59a3626b8a1cde96c65a68b65d5182da_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_audio_1_1_audio_session_a59a3626b8a1cde96c65a68b65d5182da_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a6b2e52691965a8840591964da0bb8295}\label{class_volume_control_1_1_audio_1_1_audio_session_a6b2e52691965a8840591964da0bb8295}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!int@{int}}
+\index{int@{int}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{int}{int}}
+{\footnotesize\ttfamily Volume\+Control.\+Audio.\+Audio\+Session.\+int\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the given process identifier string into a PID and Process\+Name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em identifier} & A process identifier, PID, or Process\+Name to split.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a tuple where the first item is the PID and the second is the Process\+Name. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Format\+Exception} & Thrown when there is a colon in the string, but the characters before it are invalid as an integral.\\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a1cdcccdbeab9a8364824211253903328}\label{class_volume_control_1_1_audio_1_1_audio_session_a1cdcccdbeab9a8364824211253903328}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!Icon@{Icon}}
+\index{Icon@{Icon}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{Icon}{Icon}}
+{\footnotesize\ttfamily Image\+Source? Volume\+Control.\+Audio.\+Audio\+Session.\+Icon\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the large or small icon, depending on whether they are null or not. 
+
+Checks and returns \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_aefdede45b3e8f48fdb89b70dcc2c1159}{Large\+Icon}} first, if that is null then it checks and returns \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae72ec6880a2eb08bd8d6a00824713199}{Small\+Icon}}.~\newline
+If both are null, returns null.\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}\label{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!IconPath@{IconPath}}
+\index{IconPath@{IconPath}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{IconPath}{IconPath}}
+{\footnotesize\ttfamily string Volume\+Control.\+Audio.\+Audio\+Session.\+Icon\+Path\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+This is the location of this sessions icon on the system and may or may not actually be set.~\newline
+{\bfseries{Do not rely on this being available, many third-\/party programs do not provide it!}} 
+
+This can point to nothing, one icon in a DLL package, an executable, or all sorts of other formats.~\newline
+Do not use this for retrieving icon images directly, instead use \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae72ec6880a2eb08bd8d6a00824713199}{Small\+Icon}}/\mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_aefdede45b3e8f48fdb89b70dcc2c1159}{Large\+Icon}}.~\newline
+You can also use \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_a1cdcccdbeab9a8364824211253903328}{Icon}} directly if you don\textquotesingle{}t care about the icon size.\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a51d7fa029652f8b3bc08a502f5b540e9}\label{class_volume_control_1_1_audio_1_1_audio_session_a51d7fa029652f8b3bc08a502f5b540e9}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!IsRunning@{IsRunning}}
+\index{IsRunning@{IsRunning}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{IsRunning}{IsRunning}}
+{\footnotesize\ttfamily bool Volume\+Control.\+Audio.\+Audio\+Session.\+Is\+Running\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Checks if the process that owns this session is still running. 
+
+\begin{DoxyReturn}{Returns}
+True when the process is still running, otherwise false.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_aefdede45b3e8f48fdb89b70dcc2c1159}\label{class_volume_control_1_1_audio_1_1_audio_session_aefdede45b3e8f48fdb89b70dcc2c1159}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!LargeIcon@{LargeIcon}}
+\index{LargeIcon@{LargeIcon}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{LargeIcon}{LargeIcon}}
+{\footnotesize\ttfamily Image\+Source? Volume\+Control.\+Audio.\+Audio\+Session.\+Large\+Icon\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The large icon located at the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}{Icon\+Path}}, or null if no icon was found. 
+
+Note that the icon properties all use internal caching; you don\textquotesingle{}t need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_ae72ec6880a2eb08bd8d6a00824713199}\label{class_volume_control_1_1_audio_1_1_audio_session_ae72ec6880a2eb08bd8d6a00824713199}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!SmallIcon@{SmallIcon}}
+\index{SmallIcon@{SmallIcon}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{SmallIcon}{SmallIcon}}
+{\footnotesize\ttfamily Image\+Source? Volume\+Control.\+Audio.\+Audio\+Session.\+Small\+Icon\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The small icon located at the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_audio_session_ae18e0e01b019d4047c8bbe12f5244504}{Icon\+Path}}, or null if no icon was found. 
+
+Note that the icon properties all use internal caching; you don\textquotesingle{}t need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a7d0a0803254aee7bce75cb6df2307c2b}\label{class_volume_control_1_1_audio_1_1_audio_session_a7d0a0803254aee7bce75cb6df2307c2b}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!State@{State}}
+\index{State@{State}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily Audio\+Session\+State Volume\+Control.\+Audio.\+Audio\+Session.\+State\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the current state of the audio session.~\newline
+ See Audio\+Session\+State. 
+
+This object is from NAudio.~\newline
+If you\textquotesingle{}re writing an addon, install the \textquotesingle{}NAudio\textquotesingle{} nuget package to be able to use this.\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a47b4dac491e85bfa34b16d876b9774d2}\label{class_volume_control_1_1_audio_1_1_audio_session_a47b4dac491e85bfa34b16d876b9774d2}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!VolumeController@{VolumeController}}
+\index{VolumeController@{VolumeController}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{VolumeController}{VolumeController}}
+{\footnotesize\ttfamily Simple\+Audio\+Volume Volume\+Control.\+Audio.\+Audio\+Session.\+Volume\+Controller\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the Simple\+Audio\+Volume object from the underlying Audio\+Session\+Control type. 
+
+This object is from NAudio.~\newline
+If you\textquotesingle{}re writing an addon, install the \textquotesingle{}NAudio\textquotesingle{} nuget package to be able to use this.
+
+\doxysubsection{Event Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a634d0a5e08d141e120a1c3990faef6d7}\label{class_volume_control_1_1_audio_1_1_audio_session_a634d0a5e08d141e120a1c3990faef6d7}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!PropertyChanged@{PropertyChanged}}
+\index{PropertyChanged@{PropertyChanged}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{PropertyChanged}{PropertyChanged}}
+{\footnotesize\ttfamily Property\+Changed\+Event\+Handler? Volume\+Control.\+Audio.\+Audio\+Session.\+Property\+Changed}
+
+
+
+Triggered after one of this instance\textquotesingle{}s properties have been set. 
+
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_audio_session_a1c6d4d4ccf66a058b4f89a833c7e33c4}\label{class_volume_control_1_1_audio_1_1_audio_session_a1c6d4d4ccf66a058b4f89a833c7e33c4}} 
+\index{VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}!PropertyChanging@{PropertyChanging}}
+\index{PropertyChanging@{PropertyChanging}!VolumeControl.Audio.AudioSession@{VolumeControl.Audio.AudioSession}}
+\doxysubsubsection{\texorpdfstring{PropertyChanging}{PropertyChanging}}
+{\footnotesize\ttfamily Property\+Changing\+Event\+Handler? Volume\+Control.\+Audio.\+Audio\+Session.\+Property\+Changing}
+
+
+
+Triggered before one of this instance\textquotesingle{}s properties is being set. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Audio/Audio\+Session.\+cs\end{DoxyCompactItemize}

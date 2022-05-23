@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_i_key_combo_8cs" kind="file" language="C#">
+    <compoundname>IKeyCombo.cs</compoundname>
+    <innerclass refid="interface_hotkey_lib_1_1_i_key_combo" prot="public">HotkeyLib::IKeyCombo</innerclass>
+    <innernamespace refid="namespace_hotkey_lib">HotkeyLib</innernamespace>
+    <innernamespace refid="namespace_system_1_1_component_model">System::ComponentModel</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.ComponentModel;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Windows.Forms;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_hotkey_lib" kindref="compound">HotkeyLib</ref></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="9" refid="interface_hotkey_lib_1_1_i_key_combo" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal"><ref refid="interface_hotkey_lib_1_1_i_key_combo" kindref="compound">IKeyCombo</ref><sp/>:<sp/>INotifyPropertyChanged</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#region<sp/>Properties</highlight></codeline>
+<codeline lineno="15" refid="interface_hotkey_lib_1_1_i_key_combo_1af5183f57558c2f7cf69d24ed92931655" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Keys<sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1af5183f57558c2f7cf69d24ed92931655" kindref="member">Key</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="19" refid="interface_hotkey_lib_1_1_i_key_combo_1a26654b3c70c5c37895e9ec5c9dde5df4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_hotkey_lib_1a0ee197083bcd7c48bc94a25ec4eb78e4" kindref="member">Modifier</ref><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1a26654b3c70c5c37895e9ec5c9dde5df4" kindref="member">Mod</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="25" refid="interface_hotkey_lib_1_1_i_key_combo_1a8a22366603446db14e80ad6fb9c9417e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1a8a22366603446db14e80ad6fb9c9417e" kindref="member">Alt</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="31" refid="interface_hotkey_lib_1_1_i_key_combo_1ad8e6219a7a27aba553e19f73da4af71d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1ad8e6219a7a27aba553e19f73da4af71d" kindref="member">Ctrl</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="37" refid="interface_hotkey_lib_1_1_i_key_combo_1a672e2fef953f9c53626652ffdd1d9cdd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1a672e2fef953f9c53626652ffdd1d9cdd" kindref="member">Shift</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="43" refid="interface_hotkey_lib_1_1_i_key_combo_1a5eecb90e5c862cddd24adb19960321de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1a5eecb90e5c862cddd24adb19960321de" kindref="member">Win</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="51" refid="interface_hotkey_lib_1_1_i_key_combo_1ab3ce0858678000582b00d99050bd4ff4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_hotkey_lib_1_1_i_key_combo_1ab3ce0858678000582b00d99050bd4ff4" kindref="member">Valid</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endregion<sp/>Properties</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#region<sp/>Methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">?<sp/>ToString();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>Serialize();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endregion<sp/>Methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/IKeyCombo.cs"/>
+  </compounddef>
+</doxygen>

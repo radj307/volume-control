@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.Interfaces.ILogWriter" name="VolumeControl.Log.Interfaces.ILogWriter">
+<area shape="rect" id="node1" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="13,5,209,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_message.html" title="This is an entirely optional object that maintains an internal MemoryStream and emulates the LogWrite..." alt="" coords="5,505,216,583"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html" title="Basic log writer object." alt="" coords="81,160,273,457"/>
+</map>

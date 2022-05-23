@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_unit_tests" kind="namespace" language="C#">
+    <compoundname>VolumeControl::UnitTests</compoundname>
+    <innernamespace refid="namespace_volume_control_1_1_unit_tests_1_1_volume_control">VolumeControl::UnitTests::VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_unit_tests_1_1_w_p_f">VolumeControl::UnitTests::WPF</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.UnitTests/AudioAPI_Tests.cs" line="9" column="1"/>
+  </compounddef>
+</doxygen>

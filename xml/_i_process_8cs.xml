@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_i_process_8cs" kind="file" language="C#">
+    <compoundname>IProcess.cs</compoundname>
+    <innerclass refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" prot="public">VolumeControl::Audio::Interfaces::IProcess</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_audio">VolumeControl::Audio</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_audio_1_1_interfaces">VolumeControl::Audio::Interfaces</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_audio_1_1_interfaces" kindref="compound">VolumeControl.Audio.Interfaces</ref></highlight></codeline>
+<codeline lineno="2"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal"><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" kindref="compound">IProcess</ref></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a0a9dfc7fcf79b174718023d850314825" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a0a9dfc7fcf79b174718023d850314825" kindref="member">ProcessName</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="15" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a91dbdafc9d79e361e177c684ff1fb6e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a91dbdafc9d79e361e177c684ff1fb6e1" kindref="member">PID</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="20" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" kindref="member">ProcessIdentifier</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs"/>
+  </compounddef>
+</doxygen>

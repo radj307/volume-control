@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_i_session_8cs" kind="file" language="C#">
+    <compoundname>ISession.cs</compoundname>
+    <innerclass refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" prot="public">VolumeControl::Audio::Interfaces::ISession</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_audio">VolumeControl::Audio</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_audio_1_1_interfaces">VolumeControl::Audio::Interfaces</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.ComponentModel;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_audio_1_1_interfaces" kindref="compound">VolumeControl.Audio.Interfaces</ref></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="8" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal"><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref><sp/>:<sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" kindref="compound">IProcess</ref>,<sp/>INotifyPropertyChanged</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="15" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1aa442f6d99d21fa63c98d5eb6908bdb6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1aa442f6d99d21fa63c98d5eb6908bdb6f" kindref="member">Volume</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="21" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1a56b3d1c103abe2f65a586f763b146b89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1a56b3d1c103abe2f65a586f763b146b89" kindref="member">NativeVolume</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="25" refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1ac049c7c862ed83061b35a4112f9f390a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_1ac049c7c862ed83061b35a4112f9f390a" kindref="member">Muted</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/ISession.cs"/>
+  </compounddef>
+</doxygen>

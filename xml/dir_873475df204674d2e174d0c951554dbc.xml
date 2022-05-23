@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_873475df204674d2e174d0c951554dbc" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows</compoundname>
+    <innerdir refid="dir_efc641ffcb777ec162e1ee8bb8f8e672">X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86</innerdir>
+    <innerfile refid="_volume_control_2obj_2_release_2net6_80-windows_2_8_n_e_t_core_app_00_version_0av6_80_8_assembly_attributes_8cs">.NETCoreApp,Version=v6.0.AssemblyAttributes.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_app_8g_8cs">App.g.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_app_8g_8i_8cs">App.g.i.cs</innerfile>
+    <innerfile refid="_volume_control_2obj_2_release_2net6_80-windows_2_generated_internal_type_helper_8g_8cs">GeneratedInternalTypeHelper.g.cs</innerfile>
+    <innerfile refid="_volume_control_2obj_2_release_2net6_80-windows_2_generated_internal_type_helper_8g_8i_8cs">GeneratedInternalTypeHelper.g.i.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_list_notification_8g_8cs">ListNotification.g.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_list_notification_8g_8i_8cs">ListNotification.g.i.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_mixer_8g_8cs">Mixer.g.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_mixer_8g_8i_8cs">Mixer.g.i.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_volume_control_8_assembly_info_8cs">VolumeControl.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__2k3sdyxl__wpftmp_8_assembly_info_8cs">VolumeControl_2k3sdyxl_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__3uxbvwjz__wpftmp_8_assembly_info_8cs">VolumeControl_3uxbvwjz_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__5d2mfxm2__wpftmp_8_assembly_info_8cs">VolumeControl_5d2mfxm2_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__enmtkmqh__wpftmp_8_assembly_info_8cs">VolumeControl_enmtkmqh_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__erlmg23y__wpftmp_8_assembly_info_8cs">VolumeControl_erlmg23y_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__fd0spsbf__wpftmp_8_assembly_info_8cs">VolumeControl_fd0spsbf_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__gmhuxipm__wpftmp_8_assembly_info_8cs">VolumeControl_gmhuxipm_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__gsugwty0__wpftmp_8_assembly_info_8cs">VolumeControl_gsugwty0_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__inqsfe3o__wpftmp_8_assembly_info_8cs">VolumeControl_inqsfe3o_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__lndqlx5m__wpftmp_8_assembly_info_8cs">VolumeControl_lndqlx5m_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__pvdsgor5__wpftmp_8_assembly_info_8cs">VolumeControl_pvdsgor5_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__qfftv2ag__wpftmp_8_assembly_info_8cs">VolumeControl_qfftv2ag_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__qsjvnfiu__wpftmp_8_assembly_info_8cs">VolumeControl_qsjvnfiu_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__s1mi12wl__wpftmp_8_assembly_info_8cs">VolumeControl_s1mi12wl_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__wg2kprlt__wpftmp_8_assembly_info_8cs">VolumeControl_wg2kprlt_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__wxkgpkxe__wpftmp_8_assembly_info_8cs">VolumeControl_wxkgpkxe_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__xsjgd0g5__wpftmp_8_assembly_info_8cs">VolumeControl_xsjgd0g5_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__y13d0zvt__wpftmp_8_assembly_info_8cs">VolumeControl_y13d0zvt_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__yvamb1v3__wpftmp_8_assembly_info_8cs">VolumeControl_yvamb1v3_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control__yxnsycqz__wpftmp_8_assembly_info_8cs">VolumeControl_yxnsycqz_wpftmp.AssemblyInfo.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/"/>
+  </compounddef>
+</doxygen>

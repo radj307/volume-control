@@ -1,0 +1,6 @@
+<map id="VolumeControl.Audio.AudioAPI.ReloadSessionList" name="VolumeControl.Audio.AudioAPI.ReloadSessionList">
+<area shape="rect" id="node1" title="Performs a selective update on the Sessions list property by removing old/exited entries and adding n..." alt="" coords="235,71,416,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4" title=" " alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac4d6652e0c43e1e6ad382e7ee27aa852" title="Sets SelectedSession to the session occurring after this one in Sessions. &#160;Automatically loops back a..." alt="" coords="5,71,187,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a26b47e154c1d12a394a95a5bea66047d" title="Sets SelectedSession to the session occurring before this one in Sessions. &#160;Automatically loops back ..." alt="" coords="5,136,187,177"/>
+</map>

@@ -1,0 +1,391 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Log::Endpoints::FileEndpoint</compoundname>
+    <basecompoundref refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" prot="public" virt="non-virtual">VolumeControl.Log.Endpoints.IEndpoint</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Log.Endpoints.FileEndpoint.Enabled</definition>
+        <argsstring></argsstring>
+        <name>Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="21" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="21" bodyend="21"/>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2a2880e3025e43a01797aca4b0cb3b75" compoundref="_file_endpoint_8cs" startline="12" endline="16">VolumeControl.Log.Endpoints.FileEndpoint.FileEndpoint</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2f9fa484851efc87f264f6619aa8be7b" compoundref="_file_endpoint_8cs" startline="42" endline="47">VolumeControl.Log.Endpoints.FileEndpoint.GetReader</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8e290ff57ab36aaf944c453de9b07c2b" compoundref="_file_endpoint_8cs" startline="49" endline="54">VolumeControl.Log.Endpoints.FileEndpoint.GetWriter</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a166648be6b9fc34c6bd565cd4fd7e982" compoundref="_file_endpoint_8cs" startline="79" endline="85">VolumeControl.Log.Endpoints.FileEndpoint.ReadRaw</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ae012105d04a825b2181a4903f87b78bd" compoundref="_file_endpoint_8cs" startline="87" endline="93">VolumeControl.Log.Endpoints.FileEndpoint.ReadRawLine</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a6fc46286e63a591aebbc7738cbc6edef" compoundref="_file_endpoint_8cs" startline="95" endline="100">VolumeControl.Log.Endpoints.FileEndpoint.Reset</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ab93425dcee0bbf3bf668e57861256e90" compoundref="_file_endpoint_8cs" startline="57" endline="64">VolumeControl.Log.Endpoints.FileEndpoint.WriteRaw</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a669a66426858a3397a0aa9348f655fe4" compoundref="_file_endpoint_8cs" startline="68" endline="75">VolumeControl.Log.Endpoints.FileEndpoint.WriteRawLine</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Log.Endpoints.FileEndpoint.Path</definition>
+        <argsstring></argsstring>
+        <name>Path</name>
+        <briefdescription>
+<para>The location of the log file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="25" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="25" bodyend="25"/>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2a2880e3025e43a01797aca4b0cb3b75" compoundref="_file_endpoint_8cs" startline="12" endline="16">VolumeControl.Log.Endpoints.FileEndpoint.FileEndpoint</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2f9fa484851efc87f264f6619aa8be7b" compoundref="_file_endpoint_8cs" startline="42" endline="47">VolumeControl.Log.Endpoints.FileEndpoint.GetReader</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8e290ff57ab36aaf944c453de9b07c2b" compoundref="_file_endpoint_8cs" startline="49" endline="54">VolumeControl.Log.Endpoints.FileEndpoint.GetWriter</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a166648be6b9fc34c6bd565cd4fd7e982" compoundref="_file_endpoint_8cs" startline="79" endline="85">VolumeControl.Log.Endpoints.FileEndpoint.ReadRaw</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ae012105d04a825b2181a4903f87b78bd" compoundref="_file_endpoint_8cs" startline="87" endline="93">VolumeControl.Log.Endpoints.FileEndpoint.ReadRawLine</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a6fc46286e63a591aebbc7738cbc6edef" compoundref="_file_endpoint_8cs" startline="95" endline="100">VolumeControl.Log.Endpoints.FileEndpoint.Reset</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ab93425dcee0bbf3bf668e57861256e90" compoundref="_file_endpoint_8cs" startline="57" endline="64">VolumeControl.Log.Endpoints.FileEndpoint.WriteRaw</referencedby>
+        <referencedby refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a669a66426858a3397a0aa9348f655fe4" compoundref="_file_endpoint_8cs" startline="68" endline="75">VolumeControl.Log.Endpoints.FileEndpoint.WriteRawLine</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2a2880e3025e43a01797aca4b0cb3b75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Log.Endpoints.FileEndpoint.FileEndpoint</definition>
+        <argsstring>(string path, bool enabled)</argsstring>
+        <name>FileEndpoint</name>
+        <param>
+          <type>string</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enabled</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The location of the log file.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enabled</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether the endpoint is already enabled when constructed or not.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="12" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="12" bodyend="16"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2f9fa484851efc87f264f6619aa8be7b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TextReader?</type>
+        <definition>TextReader? VolumeControl.Log.Endpoints.FileEndpoint.GetReader</definition>
+        <argsstring>()</argsstring>
+        <name>GetReader</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1a60af0f9d41c722343efedc38320afe57">GetReader</reimplements>
+        <briefdescription>
+<para><para>Retrieve a StreamReader object for reading from the endpoint.<linebreak/>
+ Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="42" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="42" bodyend="47"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8e290ff57ab36aaf944c453de9b07c2b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TextWriter?</type>
+        <definition>TextWriter? VolumeControl.Log.Endpoints.FileEndpoint.GetWriter</definition>
+        <argsstring>()</argsstring>
+        <name>GetWriter</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1aff4d1758c814322b5474fa95c9863ce8">GetWriter</reimplements>
+        <briefdescription>
+<para><para>Retrieve a StreamWriter object for writing to the endpoint.<linebreak/>
+ Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="49" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="49" bodyend="54"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ab93425dcee0bbf3bf668e57861256e90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Log.Endpoints.FileEndpoint.WriteRaw</definition>
+        <argsstring>(string? str, FileMode mode)</argsstring>
+        <name>WriteRaw</name>
+        <param>
+          <type>string?</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>FileMode</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="57" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="57" bodyend="64"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8f4af91f9620b421d789add17299d393" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Log.Endpoints.FileEndpoint.WriteRaw</definition>
+        <argsstring>(string? str)</argsstring>
+        <name>WriteRaw</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1a74b825acaf5e2abcdf1d5f575271ce88">WriteRaw</reimplements>
+        <param>
+          <type>string?</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para><para>Write to the filestream. It is highly recommended that you do not use this function, as it doesn&apos;t conform to formatting rules.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="66" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a669a66426858a3397a0aa9348f655fe4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Log.Endpoints.FileEndpoint.WriteRawLine</definition>
+        <argsstring>(string? str, FileMode mode)</argsstring>
+        <name>WriteRawLine</name>
+        <param>
+          <type>string?</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>FileMode</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="68" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="68" bodyend="75"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1aa9cd109a0e20e357239b4d08a6b7e970" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Log.Endpoints.FileEndpoint.WriteRawLine</definition>
+        <argsstring>(string? str)</argsstring>
+        <name>WriteRawLine</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1a75f9066167539480deb69d35bfbfa07d">WriteRawLine</reimplements>
+        <param>
+          <type>string?</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para><para>Write to the filestream, and append a newline. It is highly recommended that you do not use this function, as it doesn&apos;t conform to formatting rules.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="77" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a166648be6b9fc34c6bd565cd4fd7e982" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int?</type>
+        <definition>int? VolumeControl.Log.Endpoints.FileEndpoint.ReadRaw</definition>
+        <argsstring>(FileMode mode)</argsstring>
+        <name>ReadRaw</name>
+        <param>
+          <type>FileMode</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="79" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="79" bodyend="85"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ae012105d04a825b2181a4903f87b78bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string?</type>
+        <definition>string? VolumeControl.Log.Endpoints.FileEndpoint.ReadRawLine</definition>
+        <argsstring>(FileMode mode)</argsstring>
+        <name>ReadRawLine</name>
+        <param>
+          <type>FileMode</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="87" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="87" bodyend="93"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a6fc46286e63a591aebbc7738cbc6edef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Log.Endpoints.FileEndpoint.Reset</definition>
+        <argsstring>()</argsstring>
+        <name>Reset</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1a3b3c2e8e67ea6c871d38649a3238bb2f">Reset</reimplements>
+        <briefdescription>
+<para><para>Reset the contents of the log endpoint, leaving it empty.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="95" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="95" bodyend="100"/>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" compoundref="_file_endpoint_8cs" startline="21" endline="21">VolumeControl.Log.Endpoints.FileEndpoint.Enabled</references>
+        <references refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" compoundref="_file_endpoint_8cs" startline="25" endline="25">VolumeControl.Log.Endpoints.FileEndpoint.Path</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1aa216525ae4f7a5370a0881bcc2969f2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int?</type>
+        <definition>int? VolumeControl.Log.Endpoints.FileEndpoint.ReadRaw</definition>
+        <argsstring>()</argsstring>
+        <name>ReadRaw</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1a0beeb6721ae6927f40baa9a65f549c0c">ReadRaw</reimplements>
+        <briefdescription>
+<para><para>Read a character from the log endpoint.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="103" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a602edf062d23216c025adacaf1d6c804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string?</type>
+        <definition>string? VolumeControl.Log.Endpoints.FileEndpoint.ReadRawLine</definition>
+        <argsstring>()</argsstring>
+        <name>ReadRawLine</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_1aa57f5124ce86829424cc6498ed97d4fb">ReadRawLine</reimplements>
+        <briefdescription>
+<para><para>Read a line from the log endpoint.</para>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="105" column="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1af22286873a34a1d094dbf7a1bd8425a8" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TextReader?</type>
+        <definition>TextReader? VolumeControl.Log.Endpoints.FileEndpoint.GetReader</definition>
+        <argsstring>(FileStreamOptions open)</argsstring>
+        <name>GetReader</name>
+        <param>
+          <type>FileStreamOptions</type>
+          <declname>open</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="29" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="29" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a5ec89b2ea5b733d8927820e78cd37aa6" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TextWriter?</type>
+        <definition>TextWriter? VolumeControl.Log.Endpoints.FileEndpoint.GetWriter</definition>
+        <argsstring>(FileStreamOptions open)</argsstring>
+        <name>GetWriter</name>
+        <param>
+          <type>FileStreamOptions</type>
+          <declname>open</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="35" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="35" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_log" kindref="compound">Log</ref> endpoint that allows writing logs directly to a file on disk. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>IEndpoint</label>
+        <link refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Log.Endpoints.FileEndpoint</label>
+        <link refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>IEndpoint</label>
+        <link refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Log.Endpoints.FileEndpoint</label>
+        <link refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" line="6" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/FileEndpoint.cs" bodystart="7" bodyend="108"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a3d9bdcc2f48be0b40776f30b3fc6a982" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>Enabled</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2a2880e3025e43a01797aca4b0cb3b75" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>FileEndpoint</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1af22286873a34a1d094dbf7a1bd8425a8" prot="package" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>GetReader</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a2f9fa484851efc87f264f6619aa8be7b" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>GetReader</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a5ec89b2ea5b733d8927820e78cd37aa6" prot="package" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>GetWriter</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8e290ff57ab36aaf944c453de9b07c2b" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>GetWriter</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1afbcf4aa07e0e7575eb327a34039a052a" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>Path</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a166648be6b9fc34c6bd565cd4fd7e982" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>ReadRaw</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1aa216525ae4f7a5370a0881bcc2969f2e" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>ReadRaw</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ae012105d04a825b2181a4903f87b78bd" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>ReadRawLine</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a602edf062d23216c025adacaf1d6c804" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>ReadRawLine</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a6fc46286e63a591aebbc7738cbc6edef" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>Reset</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1ab93425dcee0bbf3bf668e57861256e90" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>WriteRaw</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a8f4af91f9620b421d789add17299d393" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>WriteRaw</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1a669a66426858a3397a0aa9348f655fe4" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>WriteRawLine</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_1aa9cd109a0e20e357239b4d08a6b7e970" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Endpoints::FileEndpoint</scope><name>WriteRawLine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

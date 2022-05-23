@@ -1,0 +1,1881 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_audio_1_1_audio_a_p_i" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::AudioAPI</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">INotifyPropertyChanged</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">INotifyPropertyChanging</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">IDisposable</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>SessionNameFormat</name>
+        <enumvalue id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a6adf97f83acf6453d4a6a4b1070f3754" prot="public">
+          <name>None</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Null </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a2d73559f294204a42bda2e926d094612" prot="public">
+          <name>PID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Includes <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a569d4fb917a60bc03f8861e8f9cb0fc7" kindref="member">AudioSession.PID</ref>, as a string. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148" prot="public">
+          <name>ProcessName</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Includes <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a30cfd4a7b3a77615294787e6c3cb2c35" kindref="member">AudioSession.ProcessName</ref> </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05" prot="public">
+          <name>ProcessIdentifier</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Includes <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" kindref="member">AudioSession.ProcessIdentifier</ref> </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Bitfield flag that is used to specify which properties to include for the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a24bae87813a39da4ec9ccf19fb7b888e" kindref="member">GetSessionNames(SessionNameFormat)</ref> method. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="591" column="15" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="592" bodyend="601"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab4c0af86481bcd1b14b091bb4b8824e2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI._allowReloadOnHotkey</definition>
+        <argsstring></argsstring>
+        <name>_allowReloadOnHotkey</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="85" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab1d1c5323d7f6756cf24d58987d61d55" prot="private" static="no" mutable="no">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" kindref="compound">IDevice</ref>?</type>
+        <definition>IDevice? VolumeControl.Audio.AudioAPI._selectedDevice</definition>
+        <argsstring></argsstring>
+        <name>_selectedDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="87" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8cc140b552446d373d2a0134daa90f8f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI._lockSelectedDevice</definition>
+        <argsstring></argsstring>
+        <name>_lockSelectedDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="88" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a07e31eb02420d22c280ca820858c3868" prot="private" static="no" mutable="no">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?</type>
+        <definition>ISession? VolumeControl.Audio.AudioAPI._selectedSession</definition>
+        <argsstring></argsstring>
+        <name>_selectedSession</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="90" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9c403698089c3291438be0e464a3d660" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI._lockSelectedSession</definition>
+        <argsstring></argsstring>
+        <name>_lockSelectedSession</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="91" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1d951ef92eee6d4340fa87cab4891284" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioAPI._target</definition>
+        <argsstring></argsstring>
+        <name>_target</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="93" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abbf9eca0d2d785b47ba4f868a8cdd20f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPI._volumeStepSize</definition>
+        <argsstring></argsstring>
+        <name>_volumeStepSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="94" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a95555636a2abe786e717f40e872aeada" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI._reloadOnHotkey</definition>
+        <argsstring></argsstring>
+        <name>_reloadOnHotkey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="95" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac05386cd77c14b70b7aae7182b841fad" prot="private" static="no" mutable="no">
+        <type>readonly System.Windows.Forms.Timer</type>
+        <definition>readonly System.Windows.Forms.Timer VolumeControl.Audio.AudioAPI.ReloadOnHotkeyTimer</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnHotkeyTimer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="97" column="50" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a73fe946d961f063ba6c97ec4dd45e714" prot="private" static="no" mutable="no">
+        <type>readonly System.Windows.Forms.Timer</type>
+        <definition>readonly System.Windows.Forms.Timer VolumeControl.Audio.AudioAPI.ReloadTimer</definition>
+        <argsstring></argsstring>
+        <name>ReloadTimer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="98" column="50" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5a0c6653421cdb06c681cf5d4932e622" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" kindref="compound">AudioAPISettings</ref></type>
+        <definition>AudioAPISettings VolumeControl.Audio.AudioAPI.Settings</definition>
+        <argsstring></argsstring>
+        <name>Settings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="102" column="41" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af2fc944cf5a292a252bd643fa0163e17" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_log_1_1_log_writer" kindref="compound">LogWriter</ref></type>
+        <definition>LogWriter VolumeControl.Audio.AudioAPI.Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="103" column="34" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ad9bce97f155718c0d200739ddbf6ef8a" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPI.ReloadIntervalMin</definition>
+        <argsstring></argsstring>
+        <name>ReloadIntervalMin</name>
+        <briefdescription>
+<para>The minimum allowable automatic reload interval, in milliseconds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="107" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aaf5119ad4edb256a7ebec9040654d7f1" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPI.ReloadIntervalMax</definition>
+        <argsstring></argsstring>
+        <name>ReloadIntervalMax</name>
+        <briefdescription>
+<para>The maximum allowable automatic reload interval, in milliseconds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="111" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adf034b290b66a5f2204529edb2642d6b" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI.ReloadOnInterval</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnInterval</name>
+        <briefdescription>
+<para>When true, automatic reloads are enabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="115" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="116" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26774030359163316d170bfe603f3f5d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPI.ReloadInterval</definition>
+        <argsstring></argsstring>
+        <name>ReloadInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><bold>This property automatically clamps incoming values between <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ad9bce97f155718c0d200739ddbf6ef8a" kindref="member">ReloadIntervalMin</ref> and <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aaf5119ad4edb256a7ebec9040654d7f1" kindref="member">ReloadIntervalMax</ref></bold></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="127" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="128" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI.ReloadOnHotkey</definition>
+        <argsstring></argsstring>
+        <name>ReloadOnHotkey</name>
+        <briefdescription>
+<para>When true, the &apos;Reload on Hotkey&apos; feature is enabled; causing the session list to be refreshed when a relevant hotkey is pressed.<linebreak/>
+Note that this is only triggered every few seconds, as it uses an internal timer mechanism to prevent spam. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="140" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="141" bodyend="149"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" compoundref="_audio_a_p_i_8cs" startline="833" endline="858">VolumeControl.Audio.AudioAPI.SelectNextDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" compoundref="_audio_a_p_i_8cs" startline="703" endline="730">VolumeControl.Audio.AudioAPI.SelectNextSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" compoundref="_audio_a_p_i_8cs" startline="865" endline="890">VolumeControl.Audio.AudioAPI.SelectPreviousDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" compoundref="_audio_a_p_i_8cs" startline="736" endline="763">VolumeControl.Audio.AudioAPI.SelectPreviousSession</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" kindref="compound">ObservableList</ref>&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref> &gt;</type>
+        <definition>ObservableList&lt;AudioDevice&gt; VolumeControl.Audio.AudioAPI.Devices</definition>
+        <argsstring></argsstring>
+        <name>Devices</name>
+        <initializer>= new()</initializer>
+        <briefdescription>
+<para>An observable list of all known audio devices. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="153" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="153" bodyend="153"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac99c8b993766c8017b2de80106a8b2c5" compoundref="_audio_a_p_i_8cs" startline="919" endline="935">VolumeControl.Audio.AudioAPI.Dispose</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a289acf1ee6d1e399aac63d57bb2848b2" compoundref="_audio_a_p_i_8cs" startline="431" endline="440">VolumeControl.Audio.AudioAPI.FindDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" compoundref="_audio_a_p_i_8cs" startline="398" endline="412">VolumeControl.Audio.AudioAPI.GetDefaultDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" compoundref="_audio_a_p_i_8cs" startline="833" endline="858">VolumeControl.Audio.AudioAPI.SelectNextDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" compoundref="_audio_a_p_i_8cs" startline="865" endline="890">VolumeControl.Audio.AudioAPI.SelectPreviousDevice</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" kindref="compound">ObservableList</ref>&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> &gt;</type>
+        <definition>ObservableList&lt;AudioSession&gt; VolumeControl.Audio.AudioAPI.Sessions</definition>
+        <argsstring></argsstring>
+        <name>Sessions</name>
+        <initializer>= new()</initializer>
+        <briefdescription>
+<para>An observable list of all known audio sessions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="157" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="157" bodyend="157"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac99c8b993766c8017b2de80106a8b2c5" compoundref="_audio_a_p_i_8cs" startline="919" endline="935">VolumeControl.Audio.AudioAPI.Dispose</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a17cef05813c029d46140602a25754125" compoundref="_audio_a_p_i_8cs" startline="493" endline="502">VolumeControl.Audio.AudioAPI.FindSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" compoundref="_audio_a_p_i_8cs" startline="525" endline="553">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a24bae87813a39da4ec9ccf19fb7b888e" compoundref="_audio_a_p_i_8cs" startline="608" endline="624">VolumeControl.Audio.AudioAPI.GetSessionNames</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" compoundref="_audio_a_p_i_8cs" startline="703" endline="730">VolumeControl.Audio.AudioAPI.SelectNextSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" compoundref="_audio_a_p_i_8cs" startline="736" endline="763">VolumeControl.Audio.AudioAPI.SelectPreviousSession</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" kindref="compound">IDevice</ref>???</type>
+        <definition>IDevice??? VolumeControl.Audio.AudioAPI.SelectedDevice</definition>
+        <argsstring></argsstring>
+        <name>SelectedDevice</name>
+        <briefdescription>
+<para>The currently selected <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref>, or null if nothing is selected. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" kindref="member">LockSelectedDevice</ref> must be false in order to change this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="162" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="163" bodyend="189"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35157b17e75306e2250b99025604b565" compoundref="_audio_a_p_i_8cs" startline="795" endline="799">VolumeControl.Audio.AudioAPI.DecrementDeviceVolume</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5ea9dfb08c170626a248d2d7ec231a34" compoundref="_audio_a_p_i_8cs" startline="894" endline="901">VolumeControl.Audio.AudioAPI.DeselectDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a58abf3f007b9492696a45128fe1eacdd" compoundref="_audio_a_p_i_8cs" startline="782" endline="786">VolumeControl.Audio.AudioAPI.IncrementDeviceVolume</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0b018d5163e864ded15579e7b8addd7" compoundref="_audio_a_p_i_8cs" startline="905" endline="913">VolumeControl.Audio.AudioAPI.SelectDefaultDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" compoundref="_audio_a_p_i_8cs" startline="833" endline="858">VolumeControl.Audio.AudioAPI.SelectNextDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" compoundref="_audio_a_p_i_8cs" startline="865" endline="890">VolumeControl.Audio.AudioAPI.SelectPreviousDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a90504ea8b714b8362542b70f66c2f33c" compoundref="_audio_a_p_i_8cs" startline="813" endline="817">VolumeControl.Audio.AudioAPI.SetDeviceMute</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adcf7e64001add054347502793edb8eca" compoundref="_audio_a_p_i_8cs" startline="822" endline="826">VolumeControl.Audio.AudioAPI.ToggleDeviceMute</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?????</type>
+        <definition>ISession????? VolumeControl.Audio.AudioAPI.SelectedSession</definition>
+        <argsstring></argsstring>
+        <name>SelectedSession</name>
+        <briefdescription>
+<para>The currently selected <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref>, or null if nothing is selected. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" kindref="member">LockSelectedSession</ref> must be false in order to change this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="194" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="195" bodyend="214"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa46d72e89d39934c027cc2c5a35dcb6c" compoundref="_audio_a_p_i_8cs" startline="663" endline="668">VolumeControl.Audio.AudioAPI.DecrementSessionVolume</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4790576c0cef55b7118ad8a495788489" compoundref="_audio_a_p_i_8cs" startline="767" endline="774">VolumeControl.Audio.AudioAPI.DeselectSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a50b8cee9f87a461c68910c60cd9657b4" compoundref="_audio_a_p_i_8cs" startline="649" endline="654">VolumeControl.Audio.AudioAPI.IncrementSessionVolume</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" compoundref="_audio_a_p_i_8cs" startline="703" endline="730">VolumeControl.Audio.AudioAPI.SelectNextSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" compoundref="_audio_a_p_i_8cs" startline="736" endline="763">VolumeControl.Audio.AudioAPI.SelectPreviousSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1edc8dbe623ac2a79f060ad031c20b02" compoundref="_audio_a_p_i_8cs" startline="682" endline="687">VolumeControl.Audio.AudioAPI.SetSessionMute</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a931b7d7c1109196d5c61238f75365e34" compoundref="_audio_a_p_i_8cs" startline="691" endline="696">VolumeControl.Audio.AudioAPI.ToggleSessionMute</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool?</type>
+        <definition>bool? VolumeControl.Audio.AudioAPI.LockSelectedDevice</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedDevice</name>
+        <briefdescription>
+<para>Prevents <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> from being modified. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="218" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="219" bodyend="232"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5ea9dfb08c170626a248d2d7ec231a34" compoundref="_audio_a_p_i_8cs" startline="894" endline="901">VolumeControl.Audio.AudioAPI.DeselectDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0b018d5163e864ded15579e7b8addd7" compoundref="_audio_a_p_i_8cs" startline="905" endline="913">VolumeControl.Audio.AudioAPI.SelectDefaultDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" compoundref="_audio_a_p_i_8cs" startline="833" endline="858">VolumeControl.Audio.AudioAPI.SelectNextDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" compoundref="_audio_a_p_i_8cs" startline="865" endline="890">VolumeControl.Audio.AudioAPI.SelectPreviousDevice</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool?</type>
+        <definition>bool? VolumeControl.Audio.AudioAPI.LockSelectedSession</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedSession</name>
+        <briefdescription>
+<para>Prevents <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> from being modified. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="236" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="237" bodyend="250"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4790576c0cef55b7118ad8a495788489" compoundref="_audio_a_p_i_8cs" startline="767" endline="774">VolumeControl.Audio.AudioAPI.DeselectSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" compoundref="_audio_a_p_i_8cs" startline="703" endline="730">VolumeControl.Audio.AudioAPI.SelectNextSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" compoundref="_audio_a_p_i_8cs" startline="736" endline="763">VolumeControl.Audio.AudioAPI.SelectPreviousSession</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioAPI.Target</definition>
+        <argsstring></argsstring>
+        <name>Target</name>
+        <briefdescription>
+<para>Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated string representation of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref>&apos;s <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" kindref="member">AudioSession.ProcessIdentifier</ref> property. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is automatically updated by, and automatically updates, <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref>.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="255" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="256" bodyend="282"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a15ab58c9cd3a0d7058582b707bc06c70" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI.CheckAllDevices</definition>
+        <argsstring></argsstring>
+        <name>CheckAllDevices</name>
+        <briefdescription>
+<para>When true, the session list contains sessions from all audio devices. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This changes the behaviour of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" kindref="member">ReloadSessionList</ref> so that it checks <emphasis>all devices</emphasis> instead of only the currently selected device.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="287" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="287" bodyend="287"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioAPI.VolumeStepSize</definition>
+        <argsstring></argsstring>
+        <name>VolumeStepSize</name>
+        <briefdescription>
+<para>The amount to increment or decrement volume when no direct value is provided, such as when triggering methods with hotkeys. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="291" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="292" bodyend="301"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="event">
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ae49867a16c70353136a1061305edfcc4" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.DeviceListReloaded</definition>
+        <argsstring></argsstring>
+        <name>DeviceListReloaded</name>
+        <briefdescription>
+<para>Triggered when the device list is refreshed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="308" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ad13dc20dcbce062e791f4172008d4a59" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.SessionListReloaded</definition>
+        <argsstring></argsstring>
+        <name>SessionListReloaded</name>
+        <briefdescription>
+<para>Triggered when the session list is refreshed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="312" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ae757cb6d2930d508fed741232672acfc" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.SelectedDeviceSwitched</definition>
+        <argsstring></argsstring>
+        <name>SelectedDeviceSwitched</name>
+        <briefdescription>
+<para>Triggered when the selected device is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="316" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab5ddd3f052c97cd952451cd8cf4fe58c" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.LockSelectedDeviceChanged</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedDeviceChanged</name>
+        <briefdescription>
+<para>Triggered when the value of the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" kindref="member">LockSelectedDevice</ref> property is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="320" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4dcbe00763f4141a6ed630a01dba2265" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.SelectedSessionSwitched</definition>
+        <argsstring></argsstring>
+        <name>SelectedSessionSwitched</name>
+        <briefdescription>
+<para>Triggered when the selected session is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="324" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab0c481ba302f60152c00bd4665556cfe" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>EventHandler?</type>
+        <definition>EventHandler? VolumeControl.Audio.AudioAPI.LockSelectedSessionChanged</definition>
+        <argsstring></argsstring>
+        <name>LockSelectedSessionChanged</name>
+        <briefdescription>
+<para>Triggered when the value of the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" kindref="member">LockSelectedSession</ref> property is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="328" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a17dc69fa9029c87f4d825c3041f7bbc3" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>TargetChangingEventHandler?</type>
+        <definition>TargetChangingEventHandler? VolumeControl.Audio.AudioAPI.TargetChanging</definition>
+        <argsstring></argsstring>
+        <name>TargetChanging</name>
+        <briefdescription>
+<para>Triggered before the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" kindref="member">Target</ref> property is changed, allowing for target validation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that this is triggered <bold>before</bold> the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8bd47020f22e6cab1bb34a51ca1d4621" kindref="member">PropertyChanging</ref> event for <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" kindref="member">Target</ref>.<linebreak/>
+If this event cancels the change, the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8bd47020f22e6cab1bb34a51ca1d4621" kindref="member">PropertyChanging</ref> event is not fired.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="333" column="49" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a788b3edaac6615122bb8ddff658c9994" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>TargetChangedEventHandler?</type>
+        <definition>TargetChangedEventHandler? VolumeControl.Audio.AudioAPI.TargetChanged</definition>
+        <argsstring></argsstring>
+        <name>TargetChanged</name>
+        <briefdescription>
+<para>Triggered when the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" kindref="member">Target</ref> property is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="337" column="48" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab74d94d0bcbcbb04c911ca90b07a4c65" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>PropertyChangedEventHandler?</type>
+        <definition>PropertyChangedEventHandler? VolumeControl.Audio.AudioAPI.PropertyChanged</definition>
+        <argsstring></argsstring>
+        <name>PropertyChanged</name>
+        <briefdescription>
+<para>Triggered when a member property&apos;s value is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="341" column="50" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8bd47020f22e6cab1bb34a51ca1d4621" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>PropertyChangingEventHandler?</type>
+        <definition>PropertyChangingEventHandler? VolumeControl.Audio.AudioAPI.PropertyChanging</definition>
+        <argsstring></argsstring>
+        <name>PropertyChanging</name>
+        <briefdescription>
+<para>Triggered before a member property&apos;s value is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="345" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Audio.AudioAPI.AudioAPI</definition>
+        <argsstring>()</argsstring>
+        <name>AudioAPI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="20" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="20" bodyend="60"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a15ab58c9cd3a0d7058582b707bc06c70" compoundref="_audio_a_p_i_8cs" startline="287" endline="287">VolumeControl.Audio.AudioAPI.CheckAllDevices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a289acf1ee6d1e399aac63d57bb2848b2" compoundref="_audio_a_p_i_8cs" startline="431" endline="440">VolumeControl.Audio.AudioAPI.FindDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" compoundref="_audio_a_p_i_8cs" startline="525" endline="553">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" compoundref="_audio_a_p_i_8cs" startline="398" endline="412">VolumeControl.Audio.AudioAPI.GetDefaultDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" compoundref="_audio_a_p_i_8cs" startline="219" endline="232">VolumeControl.Audio.AudioAPI.LockSelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" compoundref="_audio_a_p_i_8cs" startline="237" endline="250">VolumeControl.Audio.AudioAPI.LockSelectedSession</references>
+        <references refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" compoundref="_i_process_8cs" startline="20" endline="20">VolumeControl.Audio.Interfaces.IProcess.ProcessIdentifier</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c">VolumeControl.Audio.AudioAPI.ReloadDeviceList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" compoundref="_audio_a_p_i_8cs" startline="141" endline="149">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" compoundref="_audio_a_p_i_8cs" startline="256" endline="282">VolumeControl.Audio.AudioAPI.Target</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" compoundref="_audio_a_p_i_8cs" startline="292" endline="301">VolumeControl.Audio.AudioAPI.VolumeStepSize</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.ReloadDeviceList</definition>
+        <argsstring>()</argsstring>
+        <name>ReloadDeviceList</name>
+        <briefdescription>
+<para>Performs a selective update on the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref> list property by removing old/disabled/unplugged entries and adding newly detected ones. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="367" column="21"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" compoundref="_audio_a_p_i_8cs" startline="833" endline="858">VolumeControl.Audio.AudioAPI.SelectNextDevice</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" compoundref="_audio_a_p_i_8cs" startline="865" endline="890">VolumeControl.Audio.AudioAPI.SelectPreviousDevice</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref></type>
+        <definition>AudioDevice VolumeControl.Audio.AudioAPI.GetDefaultDevice</definition>
+        <argsstring>()</argsstring>
+        <name>GetDefaultDevice</name>
+        <briefdescription>
+<para>Gets the current default audio endpoint. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method checks <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref> first and only creates a new device if it wasn&apos;t found.</para>
+<para><simplesect kind="return"><para><ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref></para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="398" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="398" bodyend="412"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_device_1a84d1002126a6c731549117b683356efd" compoundref="_audio_device_8cs" startline="41">VolumeControl.Audio.AudioDevice.DeviceID</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_device_1ac833fb1a273429d1aeb6402791ae5575" compoundref="_audio_device_8cs" startline="162" endline="167">VolumeControl.Audio.AudioDevice.Dispose</references>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0b018d5163e864ded15579e7b8addd7" compoundref="_audio_a_p_i_8cs" startline="905" endline="913">VolumeControl.Audio.AudioAPI.SelectDefaultDevice</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a289acf1ee6d1e399aac63d57bb2848b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" kindref="compound">IDevice</ref>?</type>
+        <definition>IDevice? VolumeControl.Audio.AudioAPI.FindDevice</definition>
+        <argsstring>(Predicate&lt; AudioDevice &gt; predicate)</argsstring>
+        <name>FindDevice</name>
+        <param>
+          <type>Predicate&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref> &gt;</type>
+          <declname>predicate</declname>
+        </param>
+        <briefdescription>
+<para>Gets a device from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref> using the given <emphasis>predicate</emphasis>  function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>predicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A predicate function that accepts <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref> types.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IDevice if successful, or null if no matching devices were found.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="431" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="431" bodyend="440"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.ReloadSessionList</definition>
+        <argsstring>(bool reloadDevicesFirst=false)</argsstring>
+        <name>ReloadSessionList</name>
+        <param>
+          <type>bool</type>
+          <declname>reloadDevicesFirst</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Performs a selective update on the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> list property by removing old/exited entries and adding new/started entries. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reloadDevicesFirst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When true, <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c" kindref="member">ReloadDeviceList</ref> is called before getting the updated sessions from the CoreAudio <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="448" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="448" bodyend="459"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a15ab58c9cd3a0d7058582b707bc06c70" compoundref="_audio_a_p_i_8cs" startline="287" endline="287">VolumeControl.Audio.AudioAPI.CheckAllDevices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_device_1ad7fd6cb6c5130e974b69714e291aaf44" compoundref="_audio_device_8cs" startline="150" endline="160">VolumeControl.Audio.AudioDevice.GetAudioSessions</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c">VolumeControl.Audio.AudioAPI.ReloadDeviceList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" compoundref="_audio_a_p_i_8cs" startline="703" endline="730">VolumeControl.Audio.AudioAPI.SelectNextSession</referencedby>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" compoundref="_audio_a_p_i_8cs" startline="736" endline="763">VolumeControl.Audio.AudioAPI.SelectPreviousSession</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a17cef05813c029d46140602a25754125" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?</type>
+        <definition>ISession? VolumeControl.Audio.AudioAPI.FindSession</definition>
+        <argsstring>(Predicate&lt; AudioSession &gt; predicate)</argsstring>
+        <name>FindSession</name>
+        <param>
+          <type>Predicate&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> &gt;</type>
+          <declname>predicate</declname>
+        </param>
+        <briefdescription>
+<para>Gets a session from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> by applying <emphasis>predicate</emphasis>  to each element and returning the first occurrence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>predicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A predicate function to apply to each element of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> that can accept <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> types.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ISession if a session was found, or null if <emphasis>predicate</emphasis>  didn&apos;t return true for any elements.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="493" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="493" bodyend="502"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4338b7302c7203f79a22d23286438205" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?</type>
+        <definition>ISession? VolumeControl.Audio.AudioAPI.FindSessionWithID</definition>
+        <argsstring>(int pid)</argsstring>
+        <name>FindSessionWithID</name>
+        <param>
+          <type>int</type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+<para>Gets a session from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> by searching for a session with the process id <emphasis>pid</emphasis>  </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is recommended to use <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" kindref="member">FindSessionWithIdentifier(string, StringComparison)</ref> when searching the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> list.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><bold><ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a569d4fb917a60bc03f8861e8f9cb0fc7" kindref="member">AudioSession.PID</ref></bold></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ISession if a session was found, or null if no processes were found with <emphasis>pid</emphasis> .</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="507" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6ef7eaa80d123dde506b2735fc3de419" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?</type>
+        <definition>ISession? VolumeControl.Audio.AudioAPI.FindSessionWithName</definition>
+        <argsstring>(string name, StringComparison sCompareType=StringComparison.OrdinalIgnoreCase)</argsstring>
+        <name>FindSessionWithName</name>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>StringComparison</type>
+          <declname>sCompareType</declname>
+          <defval>StringComparison.OrdinalIgnoreCase</defval>
+        </param>
+        <briefdescription>
+<para>Gets a session from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> by searching for a session with the process name <emphasis>name</emphasis>  </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is recommended to use <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" kindref="member">FindSessionWithIdentifier(string, StringComparison)</ref> when searching the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> list.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a30cfd4a7b3a77615294787e6c3cb2c35" kindref="member">AudioSession.ProcessName</ref></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sCompareType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A StringComparison enum value to use when matching process names.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ISession if a session was found, or null if no processes were found named <emphasis>name</emphasis>  using <emphasis>sCompareType</emphasis>  string comparison.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="513" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" kindref="compound">ISession</ref>?</type>
+        <definition>ISession? VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier</definition>
+        <argsstring>(string identifier, StringComparison sCompareType=StringComparison.OrdinalIgnoreCase)</argsstring>
+        <name>FindSessionWithIdentifier</name>
+        <param>
+          <type>string</type>
+          <declname>identifier</declname>
+        </param>
+        <param>
+          <type>StringComparison</type>
+          <declname>sCompareType</declname>
+          <defval>StringComparison.OrdinalIgnoreCase</defval>
+        </param>
+        <briefdescription>
+<para>Gets a session from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> by parsing <emphasis>identifier</emphasis>  to determine whether to pass it to <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4338b7302c7203f79a22d23286438205" kindref="member">FindSessionWithID(int)</ref>, <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6ef7eaa80d123dde506b2735fc3de419" kindref="member">FindSessionWithName(string, StringComparison)</ref>, or directly comparing it to the <ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" kindref="member">AudioSession.ProcessIdentifier</ref> property. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>identifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This can match any of the following properties:<linebreak/>
+ <itemizedlist>
+<listitem>
+<para><bold><ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a569d4fb917a60bc03f8861e8f9cb0fc7" kindref="member">AudioSession.PID</ref></bold> </para>
+</listitem>
+<listitem>
+<para><bold><ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a30cfd4a7b3a77615294787e6c3cb2c35" kindref="member">AudioSession.ProcessName</ref></bold>Uses <emphasis>sCompareType</emphasis>  </para>
+</listitem>
+<listitem>
+<para><bold><ref refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" kindref="member">AudioSession.ProcessIdentifier</ref></bold>Uses <emphasis>sCompareType</emphasis>  </para>
+</listitem>
+</itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sCompareType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A StringComparison enum value to use when matching process names or full identifiers.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ISession if a session was found.<linebreak/>
+Returns null if nothing was found.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="525" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="525" bodyend="553"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a569d4fb917a60bc03f8861e8f9cb0fc7" compoundref="_audio_session_8cs" startline="108" endline="108">VolumeControl.Audio.AudioSession.PID</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" compoundref="_audio_session_8cs" startline="110">VolumeControl.Audio.AudioSession.ProcessIdentifier</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a30cfd4a7b3a77615294787e6c3cb2c35" compoundref="_audio_session_8cs" startline="106" endline="106">VolumeControl.Audio.AudioSession.ProcessName</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a24bae87813a39da4ec9ccf19fb7b888e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; string &gt;</type>
+        <definition>List&lt;string&gt; VolumeControl.Audio.AudioAPI.GetSessionNames</definition>
+        <argsstring>(SessionNameFormat format=SessionNameFormat.ProcessIdentifier|SessionNameFormat.ProcessName)</argsstring>
+        <name>GetSessionNames</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02" kindref="member">SessionNameFormat</ref></type>
+          <declname>format</declname>
+          <defval><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05" kindref="member">SessionNameFormat.ProcessIdentifier</ref>|<ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148" kindref="member">SessionNameFormat.ProcessName</ref></defval>
+        </param>
+        <briefdescription>
+<para>Gets a list of strings containing various properties from each element present in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref>.<linebreak/>
+ This is implemented as a faster alternative to using LINQ statements as it only loops through the list once. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitfield flag that determines which properties to include in the list.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A list of string types containing the requested properties from each session.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="608" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="608" bodyend="624"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a569d4fb917a60bc03f8861e8f9cb0fc7" compoundref="_audio_session_8cs" startline="108" endline="108">VolumeControl.Audio.AudioSession.PID</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a356c261a4c345fc0c739c5e66e4e66ea" compoundref="_audio_session_8cs" startline="110">VolumeControl.Audio.AudioSession.ProcessIdentifier</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_session_1a30cfd4a7b3a77615294787e6c3cb2c35" compoundref="_audio_session_8cs" startline="106" endline="106">VolumeControl.Audio.AudioSession.ProcessName</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a50b8cee9f87a461c68910c60cd9657b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.IncrementSessionVolume</definition>
+        <argsstring>(int amount)</argsstring>
+        <name>IncrementSessionVolume</name>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+<para>Increments the volume of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> by <emphasis>amount</emphasis> .<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to change the session&apos;s volume by.<linebreak/>
+Session volume can be any value from 0 to 100, and is <bold>automatically</bold> clamped if the final value exceeds this range.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="649" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="649" bodyend="654"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe303d9e998a8725f953942df7815ed1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.IncrementSessionVolume</definition>
+        <argsstring>()</argsstring>
+        <name>IncrementSessionVolume</name>
+        <briefdescription>
+<para>Increments the volume of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> by <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" kindref="member">VolumeStepSize</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="658" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa46d72e89d39934c027cc2c5a35dcb6c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DecrementSessionVolume</definition>
+        <argsstring>(int amount)</argsstring>
+        <name>DecrementSessionVolume</name>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+<para>Decrements the volume of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> by <emphasis>amount</emphasis> .<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to change the session&apos;s volume by.<linebreak/>
+Session volume can be any value from 0 to 100, and is <bold>automatically</bold> clamped if the final value exceeds this range.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="663" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="663" bodyend="668"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1affda1121a9bc36bf0633d72b43708fe9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DecrementSessionVolume</definition>
+        <argsstring>()</argsstring>
+        <name>DecrementSessionVolume</name>
+        <briefdescription>
+<para>Decrements the volume of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> by <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" kindref="member">VolumeStepSize</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="672" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5e9597481227e2989b0aa6f8dca72a19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI.GetSessionMute</definition>
+        <argsstring>()</argsstring>
+        <name>GetSessionMute</name>
+        <briefdescription>
+<para>Gets whether the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> is currently muted. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> is not null and is muted; otherwise false.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="677" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1edc8dbe623ac2a79f060ad031c20b02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SetSessionMute</definition>
+        <argsstring>(bool state)</argsstring>
+        <name>SetSessionMute</name>
+        <param>
+          <type>bool</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>Sets the mute state of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When true, the session will be muted; when false, the session will be unmuted.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="682" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="682" bodyend="687"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a931b7d7c1109196d5c61238f75365e34" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.ToggleSessionMute</definition>
+        <argsstring>()</argsstring>
+        <name>ToggleSessionMute</name>
+        <briefdescription>
+<para>Toggles the mute state of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="691" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="691" bodyend="696"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectNextSession</definition>
+        <argsstring>()</argsstring>
+        <name>SelectNextSession</name>
+        <briefdescription>
+<para>Sets <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> to the session occurring after this one in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref>. <linebreak/>
+Automatically loops back around if the selection index goes out of range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> is set to null, the first element in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> is selected.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="703" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="703" bodyend="730"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" compoundref="_audio_a_p_i_8cs" startline="237" endline="250">VolumeControl.Audio.AudioAPI.LockSelectedSession</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" compoundref="_audio_a_p_i_8cs" startline="141" endline="149">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectPreviousSession</definition>
+        <argsstring>()</argsstring>
+        <name>SelectPreviousSession</name>
+        <briefdescription>
+<para>Sets <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> to the session occurring before this one in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref>. <linebreak/>
+Automatically loops back around if the selection index goes out of range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> is set to null, the last element in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> is selected.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="736" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="736" bodyend="763"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" compoundref="_audio_a_p_i_8cs" startline="237" endline="250">VolumeControl.Audio.AudioAPI.LockSelectedSession</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" compoundref="_audio_a_p_i_8cs" startline="141" endline="149">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4790576c0cef55b7118ad8a495788489" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DeselectSession</definition>
+        <argsstring>()</argsstring>
+        <name>DeselectSession</name>
+        <briefdescription>
+<para>Sets the selected session to null.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> is already null. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="767" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="767" bodyend="774"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" compoundref="_audio_a_p_i_8cs" startline="237" endline="250">VolumeControl.Audio.AudioAPI.LockSelectedSession</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" compoundref="_audio_a_p_i_8cs" startline="195" endline="214">VolumeControl.Audio.AudioAPI.SelectedSession</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a58abf3f007b9492696a45128fe1eacdd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.IncrementDeviceVolume</definition>
+        <argsstring>(int amount)</argsstring>
+        <name>IncrementDeviceVolume</name>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+<para>Increments the endpoint volume of the currently selected device.<linebreak/>
+ This affects the maximum volume of all sessions using this endpoint. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to increase the volume by.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="782" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="782" bodyend="786"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a57b10b848cadd712fc374ad4c2878305" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.IncrementDeviceVolume</definition>
+        <argsstring>()</argsstring>
+        <name>IncrementDeviceVolume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This calls <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a58abf3f007b9492696a45128fe1eacdd" kindref="member">IncrementDeviceVolume(int)</ref> using <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" kindref="member">VolumeStepSize</ref>.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="789" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35157b17e75306e2250b99025604b565" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DecrementDeviceVolume</definition>
+        <argsstring>(int amount)</argsstring>
+        <name>DecrementDeviceVolume</name>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+<para>Decrements the endpoint volume of the currently selected device.<linebreak/>
+ This affects the maximum volume of all sessions using this endpoint. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to decrease the volume by.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="795" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="795" bodyend="799"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4d01c495d46695b7f762ee8497ad8758" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DecrementDeviceVolume</definition>
+        <argsstring>()</argsstring>
+        <name>DecrementDeviceVolume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This calls <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35157b17e75306e2250b99025604b565" kindref="member">DecrementDeviceVolume(int)</ref> using <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" kindref="member">VolumeStepSize</ref>.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="802" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aded538c941ecee549a1aae654f84f80c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioAPI.GetDeviceMute</definition>
+        <argsstring>()</argsstring>
+        <name>GetDeviceMute</name>
+        <briefdescription>
+<para>Gets whether the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is currently muted. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is not null and is muted; otherwise false.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="807" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a90504ea8b714b8362542b70f66c2f33c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SetDeviceMute</definition>
+        <argsstring>(bool state)</argsstring>
+        <name>SetDeviceMute</name>
+        <param>
+          <type>bool</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>Sets the mute state of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that this affects all sessions using this device.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When true, the device will be muted; when false, the device will be unmuted.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="813" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="813" bodyend="817"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adcf7e64001add054347502793edb8eca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.ToggleDeviceMute</definition>
+        <argsstring>()</argsstring>
+        <name>ToggleDeviceMute</name>
+        <briefdescription>
+<para>Toggles the mute state of <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref>.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that this affects all sessions using this device.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="822" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="822" bodyend="826"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectNextDevice</definition>
+        <argsstring>()</argsstring>
+        <name>SelectNextDevice</name>
+        <briefdescription>
+<para>Sets <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> to the device occurring after this one in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref>. <linebreak/>
+Automatically loops back around if the selection index goes out of range.<linebreak/>
+ Does nothing unless device selection is unlocked. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is set to null, the first element in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref> is selected.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="833" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="833" bodyend="858"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" compoundref="_audio_a_p_i_8cs" startline="219" endline="232">VolumeControl.Audio.AudioAPI.LockSelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c">VolumeControl.Audio.AudioAPI.ReloadDeviceList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" compoundref="_audio_a_p_i_8cs" startline="141" endline="149">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectPreviousDevice</definition>
+        <argsstring>()</argsstring>
+        <name>SelectPreviousDevice</name>
+        <briefdescription>
+<para>Sets <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> to the device occurring before this one in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref>. <linebreak/>
+Automatically loops back around if the selection index goes out of range.<linebreak/>
+ Does nothing unless device selection is unlocked. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is set to null, the last element in <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" kindref="member">Devices</ref> is selected.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="865" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="865" bodyend="890"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" compoundref="_audio_a_p_i_8cs" startline="219" endline="232">VolumeControl.Audio.AudioAPI.LockSelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c">VolumeControl.Audio.AudioAPI.ReloadDeviceList</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" compoundref="_audio_a_p_i_8cs" startline="141" endline="149">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5ea9dfb08c170626a248d2d7ec231a34" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.DeselectDevice</definition>
+        <argsstring>()</argsstring>
+        <name>DeselectDevice</name>
+        <briefdescription>
+<para>Sets the selected device to null, unless the selection is locked.<linebreak/>
+Does nothing if <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" kindref="member">SelectedDevice</ref> is already null. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="894" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="894" bodyend="901"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" compoundref="_audio_a_p_i_8cs" startline="219" endline="232">VolumeControl.Audio.AudioAPI.LockSelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0b018d5163e864ded15579e7b8addd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectDefaultDevice</definition>
+        <argsstring>()</argsstring>
+        <name>SelectDefaultDevice</name>
+        <briefdescription>
+<para>Sets the selected device to the default device, unless the selection is locked. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="905" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="905" bodyend="913"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" compoundref="_audio_a_p_i_8cs" startline="398" endline="412">VolumeControl.Audio.AudioAPI.GetDefaultDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" compoundref="_audio_a_p_i_8cs" startline="219" endline="232">VolumeControl.Audio.AudioAPI.LockSelectedDevice</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" compoundref="_audio_a_p_i_8cs" startline="163" endline="189">VolumeControl.Audio.AudioAPI.SelectedDevice</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac99c8b993766c8017b2de80106a8b2c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.Dispose</definition>
+        <argsstring>()</argsstring>
+        <name>Dispose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="919" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="919" bodyend="935"/>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" compoundref="_audio_a_p_i_8cs" startline="153" endline="153">VolumeControl.Audio.AudioAPI.Devices</references>
+        <references refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" compoundref="_audio_a_p_i_8cs" startline="157" endline="157">VolumeControl.Audio.AudioAPI.Sessions</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a7c5206f05654634c1332314bfefc3383" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SaveSettings</definition>
+        <argsstring>()</argsstring>
+        <name>SaveSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="61" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="61" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80e873f8c99fc600fe9dffc4a4fb18b0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyDeviceListRefresh</definition>
+        <argsstring>(EventArgs e)</argsstring>
+        <name>NotifyDeviceListRefresh</name>
+        <param>
+          <type>EventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="347" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adb4cf4c83c213748b950a20d3b52a8da" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyProcessListRefresh</definition>
+        <argsstring>(EventArgs e)</argsstring>
+        <name>NotifyProcessListRefresh</name>
+        <param>
+          <type>EventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="348" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9e8af07ff61ba0ab0d1f2ff67807e68a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyDeviceSwitch</definition>
+        <argsstring>()</argsstring>
+        <name>NotifyDeviceSwitch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="349" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aad829a890845258e163f7c31bb38a009" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyLockSelectedDeviceChanged</definition>
+        <argsstring>()</argsstring>
+        <name>NotifyLockSelectedDeviceChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="350" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3d6e0e246e95b4813a8282baa126b46" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifySessionSwitch</definition>
+        <argsstring>()</argsstring>
+        <name>NotifySessionSwitch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="351" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35167059937039180e5dbcebb89f9201" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyLockSelectedSessionChanged</definition>
+        <argsstring>()</argsstring>
+        <name>NotifyLockSelectedSessionChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="352" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4cc4bb2b2a2c32cc47f23367a3926484" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyTargetChanging</definition>
+        <argsstring>(ref TargetChangingEventArgs e)</argsstring>
+        <name>NotifyTargetChanging</name>
+        <param>
+          <type>ref <ref refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args" kindref="compound">TargetChangingEventArgs</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="353" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adedb20f20ceff1d2b6402f12910620e5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyTargetChanged</definition>
+        <argsstring>(TargetChangedEventArgs e)</argsstring>
+        <name>NotifyTargetChanged</name>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args" kindref="compound">TargetChangedEventArgs</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="354" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1acf40558b74d9a46483cad69ddceeab4b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyPropertyChanged</definition>
+        <argsstring>([CallerMemberName] string propertyName=&quot;&quot;)</argsstring>
+        <name>NotifyPropertyChanged</name>
+        <param>
+          <attributes>[CallerMemberName]</attributes>
+          <type>string</type>
+          <declname>propertyName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="355" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a72ee0fabc60e92a4c6d6786ba71e7d92" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.NotifyPropertyChanging</definition>
+        <argsstring>([CallerMemberName] string propertyName=&quot;&quot;)</argsstring>
+        <name>NotifyPropertyChanging</name>
+        <param>
+          <attributes>[CallerMemberName]</attributes>
+          <type>string</type>
+          <declname>propertyName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="356" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a70550bdcf3b201c861661b9fe3f84254" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.Handle_ReloadTimerTick</definition>
+        <argsstring>(object sender, EventArgs e)</argsstring>
+        <name>Handle_ReloadTimerTick</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>EventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="358" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d5b91cc40af78ff29da8f527e3fd7fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.Handle_ReloadOnHotkeyTick</definition>
+        <argsstring>(object sender, EventArgs e)</argsstring>
+        <name>Handle_ReloadOnHotkeyTick</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>EventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="359" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a37d7b1613be61e898856806f108ca27d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectiveUpdateDevices</definition>
+        <argsstring>(List&lt; AudioDevice &gt; devices)</argsstring>
+        <name>SelectiveUpdateDevices</name>
+        <param>
+          <type>List&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref> &gt;</type>
+          <declname>devices</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="368" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="368" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af64c44f7fffa9ef99829320c4b774b80" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.SelectiveUpdateSessions</definition>
+        <argsstring>(List&lt; AudioSession &gt; sessions)</argsstring>
+        <name>SelectiveUpdateSessions</name>
+        <param>
+          <type>List&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> &gt;</type>
+          <declname>sessions</declname>
+        </param>
+        <briefdescription>
+<para>Performs a selective update of the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><bold>This method does not use mutexes and is not thread safe!</bold><linebreak/>
+Because of this, it should only be called from within the critical section of a method that <emphasis>does</emphasis> use mutexes, such as <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" kindref="member">ReloadSessionList</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sessions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of sessions to update from.<linebreak/>
+Any items within <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> that are <bold>not</bold> present in <emphasis>sessions</emphasis>  are removed from <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref>.<linebreak/>
+Any items present in <emphasis>sessions</emphasis>  that are <bold>not</bold> present within <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref> are added to <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" kindref="member">Sessions</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="465" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="465" bodyend="486"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0933923f8a9bee38f3b461c97133bc8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> &gt;</type>
+        <definition>List&lt;AudioSession&gt; VolumeControl.Audio.AudioAPI.GetAllSessionsFromAllDevices</definition>
+        <argsstring>()</argsstring>
+        <name>GetAllSessionsFromAllDevices</name>
+        <briefdescription>
+<para>Retrieves a list of every <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> from every active <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>List of audio sessions.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="558" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="558" bodyend="588"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1bc2e81aaed44ce62775114ac9a7c58e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioAPI.ResolveTarget</definition>
+        <argsstring>()</argsstring>
+        <name>ResolveTarget</name>
+        <briefdescription>
+<para>Attempts to resolve the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" kindref="member">SelectedSession</ref> using the current <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" kindref="member">Target</ref> string.<linebreak/>
+ This doesn&apos;t do anything unless SelectedSession is null and Target is not empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is recommended to call this function first inside of methods intended to be called using hotkeys.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="630" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="630" bodyend="640"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab6561993d81aa12016c63ea790d0bb40" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_device" kindref="compound">AudioDevice</ref> &gt;</type>
+        <definition>static List&lt;AudioDevice&gt; VolumeControl.Audio.AudioAPI.GetAllDevices</definition>
+        <argsstring>(DataFlow flow=DataFlow.Render, DeviceState state=DeviceState.Active)</argsstring>
+        <name>GetAllDevices</name>
+        <param>
+          <type>DataFlow</type>
+          <declname>flow</declname>
+          <defval>DataFlow.Render</defval>
+        </param>
+        <param>
+          <type>DeviceState</type>
+          <declname>state</declname>
+          <defval>DeviceState.Active</defval>
+        </param>
+        <briefdescription>
+<para>Enumerates audio endpoints using the <ref refid="namespace_volume_control_1_1_core" kindref="compound">Core</ref> <ref refid="namespace_volume_control_1_1_audio" kindref="compound">Audio</ref> <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> to get a list of all devices with the specified modes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of devices that are currently active.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="415" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="415" bodyend="427"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains methods related to audio devices, sessions, and the underlying selection mechanics responsible for providing context to actions.<linebreak/>
+ You can use this object to manipulate any audio session on the system. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="4">
+        <label>IDisposable</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioAPI</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_a_p_i"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>INotifyPropertyChanging</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="4">
+        <label>IDisposable</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioAPI</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_a_p_i"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>INotifyPropertyChanging</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" line="16" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioAPI.cs" bodystart="17" bodyend="938"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab4c0af86481bcd1b14b091bb4b8824e2" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_allowReloadOnHotkey</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8cc140b552446d373d2a0134daa90f8f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_lockSelectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9c403698089c3291438be0e464a3d660" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_lockSelectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a95555636a2abe786e717f40e872aeada" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_reloadOnHotkey</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab1d1c5323d7f6756cf24d58987d61d55" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_selectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a07e31eb02420d22c280ca820858c3868" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_selectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1d951ef92eee6d4340fa87cab4891284" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_target</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abbf9eca0d2d785b47ba4f868a8cdd20f" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>_volumeStepSize</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>AudioAPI</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a15ab58c9cd3a0d7058582b707bc06c70" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>CheckAllDevices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35157b17e75306e2250b99025604b565" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DecrementDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4d01c495d46695b7f762ee8497ad8758" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DecrementDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa46d72e89d39934c027cc2c5a35dcb6c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DecrementSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1affda1121a9bc36bf0633d72b43708fe9" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DecrementSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5ea9dfb08c170626a248d2d7ec231a34" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DeselectDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4790576c0cef55b7118ad8a495788489" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DeselectSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ae49867a16c70353136a1061305edfcc4" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>DeviceListReloaded</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe6f12a6b0015c28ef3431eac696dcc4" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Devices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac99c8b993766c8017b2de80106a8b2c5" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Dispose</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a289acf1ee6d1e399aac63d57bb2848b2" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>FindDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a17cef05813c029d46140602a25754125" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>FindSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4338b7302c7203f79a22d23286438205" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>FindSessionWithID</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a235bf56d5ab86e28765f7d8c7e198a45" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>FindSessionWithIdentifier</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6ef7eaa80d123dde506b2735fc3de419" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>FindSessionWithName</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab6561993d81aa12016c63ea790d0bb40" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetAllDevices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0933923f8a9bee38f3b461c97133bc8" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetAllSessionsFromAllDevices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetDefaultDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aded538c941ecee549a1aae654f84f80c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetDeviceMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5e9597481227e2989b0aa6f8dca72a19" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetSessionMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a24bae87813a39da4ec9ccf19fb7b888e" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>GetSessionNames</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d5b91cc40af78ff29da8f527e3fd7fb" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Handle_ReloadOnHotkeyTick</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a70550bdcf3b201c861661b9fe3f84254" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Handle_ReloadTimerTick</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a58abf3f007b9492696a45128fe1eacdd" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>IncrementDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a57b10b848cadd712fc374ad4c2878305" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>IncrementDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a50b8cee9f87a461c68910c60cd9657b4" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>IncrementSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1abe303d9e998a8725f953942df7815ed1" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>IncrementSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a146e2a6719ea0e35d78819bb1964f858" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>LockSelectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab5ddd3f052c97cd952451cd8cf4fe58c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>LockSelectedDeviceChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80a6b6c040d2fb453aa62b128a00265a" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>LockSelectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab0c481ba302f60152c00bd4665556cfe" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>LockSelectedSessionChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af2fc944cf5a292a252bd643fa0163e17" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Log</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a80e873f8c99fc600fe9dffc4a4fb18b0" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyDeviceListRefresh</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9e8af07ff61ba0ab0d1f2ff67807e68a" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyDeviceSwitch</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aad829a890845258e163f7c31bb38a009" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyLockSelectedDeviceChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a35167059937039180e5dbcebb89f9201" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyLockSelectedSessionChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adb4cf4c83c213748b950a20d3b52a8da" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyProcessListRefresh</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1acf40558b74d9a46483cad69ddceeab4b" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyPropertyChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a72ee0fabc60e92a4c6d6786ba71e7d92" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyPropertyChanging</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3d6e0e246e95b4813a8282baa126b46" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifySessionSwitch</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adedb20f20ceff1d2b6402f12910620e5" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyTargetChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4cc4bb2b2a2c32cc47f23367a3926484" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>NotifyTargetChanging</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ab74d94d0bcbcbb04c911ca90b07a4c65" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>PropertyChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8bd47020f22e6cab1bb34a51ca1d4621" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>PropertyChanging</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a8d19c0221ba207742894182d97ef863c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadDeviceList</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26774030359163316d170bfe603f3f5d" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadInterval</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aaf5119ad4edb256a7ebec9040654d7f1" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadIntervalMax</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ad9bce97f155718c0d200739ddbf6ef8a" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadIntervalMin</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa79dba1f09b2a64f4220ebe96b6ca72b" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadOnHotkey</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac05386cd77c14b70b7aae7182b841fad" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadOnHotkeyTimer</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adf034b290b66a5f2204529edb2642d6b" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadOnInterval</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadSessionList</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a73fe946d961f063ba6c97ec4dd45e714" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ReloadTimer</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1bc2e81aaed44ce62775114ac9a7c58e" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ResolveTarget</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a7c5206f05654634c1332314bfefc3383" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SaveSettings</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af0b018d5163e864ded15579e7b8addd7" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectDefaultDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac7e1723e0664f35e43c48a1ec51c7175" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectedDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ae757cb6d2930d508fed741232672acfc" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectedDeviceSwitched</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac55f0f083eeac1b4cc1c561caa2982a2" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectedSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a4dcbe00763f4141a6ed630a01dba2265" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectedSessionSwitched</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a37d7b1613be61e898856806f108ca27d" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectiveUpdateDevices</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1af64c44f7fffa9ef99829320c4b774b80" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectiveUpdateSessions</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1aa690fde5b4d6e42488899e644143606a" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectNextDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac4d6652e0c43e1e6ad382e7ee27aa852" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectNextSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a9b72b7ddf1e303e35f3b60c507c10943" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectPreviousDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a26b47e154c1d12a394a95a5bea66047d" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SelectPreviousSession</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ad13dc20dcbce062e791f4172008d4a59" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SessionListReloaded</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac704c2041e69677649b892c1f8fbbb02" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SessionNameFormat</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5414b442307f6ffd0c2aa4d8cfa0ccd3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Sessions</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a90504ea8b714b8362542b70f66c2f33c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SetDeviceMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a1edc8dbe623ac2a79f060ad031c20b02" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>SetSessionMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5a0c6653421cdb06c681cf5d4932e622" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Settings</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>Target</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a788b3edaac6615122bb8ddff658c9994" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>TargetChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a17dc69fa9029c87f4d825c3041f7bbc3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>TargetChanging</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1adcf7e64001add054347502793edb8eca" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ToggleDeviceMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a931b7d7c1109196d5c61238f75365e34" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>ToggleSessionMute</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5b716d48a1745c28a9d5ae88009200b2" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioAPI</scope><name>VolumeStepSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

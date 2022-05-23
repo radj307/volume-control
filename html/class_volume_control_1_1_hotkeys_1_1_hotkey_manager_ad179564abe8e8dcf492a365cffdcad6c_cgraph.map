@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.SaveHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.SaveHotkeys">
+<area shape="rect" id="node1" title="Saves all hotkeys to the settings file." alt="" coords="5,5,209,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="257,5,453,47"/>
+</map>

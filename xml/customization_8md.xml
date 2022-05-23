@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="customization_8md" kind="file" language="Markdown">
+    <compoundname>customization.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Customization</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[TOC]</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>CSS-Variables</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>theme<sp/>is<sp/>highly<sp/>customizable<sp/>because<sp/>a<sp/>lot<sp/>of<sp/>things<sp/>are<sp/>parameterized<sp/>with<sp/>CSS<sp/>variables.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Just<sp/>to<sp/>give<sp/>you<sp/>an<sp/>idea<sp/>on<sp/>how<sp/>flexible<sp/>the<sp/>styling<sp/>is,<sp/>click<sp/>this<sp/>button:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;div<sp/>class=&quot;alter-theme-button&quot;<sp/>onclick=&quot;toggle_alternative_theme()&quot;<sp/>onkeypress=&quot;if<sp/>(event.keyCode<sp/>==<sp/>13)<sp/>toggle_alternative_theme()&quot;<sp/>tabindex=0&gt;Alter<sp/>theme&lt;/div&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Setup</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>recommended<sp/>to<sp/>add<sp/>your<sp/>own<sp/>`custom.css`<sp/>and<sp/>overwrite<sp/>the<sp/>variables<sp/>there:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">HTML_EXTRA_STYLESHEET<sp/><sp/>=<sp/>doxygen-awesome.css<sp/>custom.css</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Make<sp/>sure<sp/>to<sp/>override<sp/>the<sp/>variables<sp/>in<sp/>the<sp/>correct<sp/>spot.<sp/>All<sp/>variables<sp/>should<sp/>be<sp/>customized<sp/>where<sp/>they<sp/>have<sp/>been<sp/>defined,<sp/>in<sp/>the<sp/>`html`<sp/>tag<sp/>selector:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```css</highlight></codeline>
+<codeline><highlight class="normal">html<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>/*<sp/>override<sp/>light-mode<sp/>variables<sp/>here<sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>dark-mode<sp/>overrides<sp/>you<sp/>have<sp/>to<sp/>choose<sp/>where<sp/>to<sp/>put<sp/>them,<sp/>depending<sp/>on<sp/>wether<sp/>the<sp/>dark-mode<sp/>toggle<sp/>extension<sp/>is<sp/>installed<sp/>or<sp/>not:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>dark-mode<sp/>toggle<sp/>is<sp/>installed:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```css</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>html.dark-mode<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>define<sp/>dark-mode<sp/>variable<sp/>overrides<sp/>here<sp/>if<sp/>you<sp/>DO<sp/>use<sp/>doxygen-awesome-darkmode-toggle.js<sp/>*/</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>dark-mode<sp/>toggle<sp/>is<sp/>**NOT**<sp/>installed.<sp/>The<sp/>dark-mode<sp/>is<sp/>enabled<sp/>automatically<sp/>depending<sp/>on<sp/>the<sp/>system<sp/>preference:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```css</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>@media<sp/>(prefers-color-scheme:<sp/>dark)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>html:not(.light-mode)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>define<sp/>dark-mode<sp/>variable<sp/>overrides<sp/>here<sp/>if<sp/>you<sp/>DON&apos;T<sp/>use<sp/>doxygen-awesome-darkmode-toggle.js<sp/>*/</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Available<sp/>variables</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>list<sp/>gives<sp/>an<sp/>overview<sp/>of<sp/>the<sp/>variables<sp/>defined<sp/>in<sp/>[`doxygen-awesome.css`](https://github.com/jothepro/doxygen-awesome-css/blob/main/doxygen-awesome.css).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>list<sp/>is<sp/>not<sp/>complete.<sp/>To<sp/>explore<sp/>all<sp/>available<sp/>variables,<sp/>have<sp/>a<sp/>look<sp/>at<sp/>the<sp/>CSS<sp/>starting<sp/>from<sp/>[here](https://github.com/jothepro/doxygen-awesome-css/blob/main/doxygen-awesome.css#L30).</highlight></codeline>
+<codeline><highlight class="normal">All<sp/>variables<sp/>are<sp/>defined<sp/>at<sp/>the<sp/>beginning<sp/>of<sp/>the<sp/>stylesheet.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Parameter<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Default<sp/>(Light)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Default<sp/>(Dark)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>:--------------------------------<sp/>|<sp/>:----------------------------------------------------------<sp/>|<sp/>-----------------------------------------------------------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Color<sp/>Scheme**:&lt;br&gt;primary<sp/>theme<sp/>colors.<sp/>This<sp/>will<sp/>affect<sp/>the<sp/>entire<sp/>websites<sp/>color<sp/>scheme:<sp/>links,<sp/>arrows,<sp/>labels,<sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--primary-color`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#1779c4;color:white&quot;&gt;#1779c4&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#1982d2;color:white&quot;&gt;#1982d2&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--primary-dark-color`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#335c80;color:white&quot;&gt;#335c80&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#5ca8e2;color:white&quot;&gt;#5ca8e2&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--primary-light-color`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#70b1e9;color:black&quot;&gt;#70b1e9&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#4779ac;color:white&quot;&gt;#4779ac&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Page<sp/>Colors**:&lt;br&gt;background<sp/>and<sp/>foreground<sp/>(text-color)<sp/>of<sp/>the<sp/>documentation.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--page-background-color`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:white;color:black&quot;&gt;white&lt;/span&gt;<sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#1C1D1F;color:white&quot;&gt;#1C1D1F&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--page-foreground-color`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#2f4153;color:white&quot;&gt;#2f4153&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#d2dbde;color:black&quot;&gt;#d2dbde&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--page-secondary-foreground-color`|<sp/>&lt;span<sp/>style=&quot;background:#637485;color:white&quot;&gt;#637485&lt;/span&gt;|<sp/>&lt;span<sp/>style=&quot;background:#859399;color:black&quot;&gt;#859399&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Spacing:**&lt;br&gt;default<sp/>spacings.<sp/>Most<sp/>ui<sp/>components<sp/>reference<sp/>these<sp/>values<sp/>for<sp/>spacing,<sp/>to<sp/>provide<sp/>uniform<sp/>spacing<sp/>on<sp/>the<sp/>page.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--spacing-small`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`5px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--spacing-medium`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`10px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--spacing-large`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`16px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Border<sp/>Radius**:&lt;br&gt;border<sp/>radius<sp/>for<sp/>all<sp/>rounded<sp/>ui<sp/>components.<sp/>Will<sp/>affect<sp/>many<sp/>components,<sp/>like<sp/>dropdowns,<sp/>memitems,<sp/>codeblocks,<sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--border-radius-small`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`4px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--border-radius-medium`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`6px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--border-radius-large`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`8px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Content<sp/>Width**:&lt;br&gt;The<sp/>content<sp/>is<sp/>centered<sp/>and<sp/>constrained<sp/>in<sp/>its<sp/>width.<sp/>To<sp/>make<sp/>the<sp/>content<sp/>fill<sp/>the<sp/>whole<sp/>page,<sp/>set<sp/>the<sp/>following<sp/>variable<sp/>to<sp/>`auto`.<sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--content-maxwidth`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`1000px`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Code<sp/>Fragment<sp/>Colors**:&lt;br&gt;Color-Scheme<sp/>of<sp/>multiline<sp/>codeblocks<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--fragment-background`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#F8F9FA;color:black&quot;&gt;#F8F9FA&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#282c34;color:white&quot;&gt;#282c34&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--fragment-foreground`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;span<sp/>style=&quot;background:#37474F;color:white&quot;&gt;#37474F&lt;/span&gt;<sp/>|<sp/>&lt;span<sp/>style=&quot;background:#dbe4eb;color:black&quot;&gt;#dbe4eb&lt;/span&gt;<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Arrow<sp/>Opacity**:&lt;br&gt;By<sp/>default<sp/>the<sp/>arrows<sp/>in<sp/>the<sp/>sidebar<sp/>are<sp/>only<sp/>visible<sp/>on<sp/>hover.<sp/>You<sp/>can<sp/>override<sp/>this<sp/>behaviour<sp/>so<sp/>they<sp/>are<sp/>visible<sp/>all<sp/>the<sp/>time.<sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--side-nav-arrow-opacity`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`0`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`--side-nav-arrow-hover-opacity`<sp/><sp/>|<sp/>`0.9`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>...and<sp/>many<sp/>more<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|||</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>miss<sp/>a<sp/>configuration<sp/>option<sp/>or<sp/>find<sp/>a<sp/>bug,<sp/>please<sp/>consider<sp/>[opening<sp/>an<sp/>issue](https://github.com/jothepro/doxygen-awesome-css/issues)!</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Doxygen<sp/>generator</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>theme<sp/>overrides<sp/>most<sp/>colors<sp/>with<sp/>the<sp/>`--primary-color-*`<sp/>variables.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">But<sp/>there<sp/>is<sp/>a<sp/>few<sp/>small<sp/>images<sp/>and<sp/>graphics<sp/>that<sp/>the<sp/>theme<sp/>cannot<sp/>adjust<sp/>or<sp/>replace.<sp/>To<sp/>make<sp/>these<sp/>blend<sp/>in<sp/>better<sp/>with</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>rest,<sp/>it<sp/>is<sp/>recommended<sp/>to<sp/>adjust<sp/>the<sp/>[doxygen<sp/>color<sp/>settings](https://www.doxygen.nl/manual/customize.html#minor_tweaks_colors)<sp/></highlight></codeline>
+<codeline><highlight class="normal">to<sp/>something<sp/>that<sp/>matches<sp/>the<sp/>chosen<sp/>color-scheme.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>the<sp/>default<sp/>color-scheme,<sp/>these<sp/>values<sp/>work<sp/>out<sp/>quite<sp/>well:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Doxyfile</highlight></codeline>
+<codeline><highlight class="normal">HTML_COLORSTYLE_HUE<sp/><sp/><sp/><sp/>=<sp/>209</highlight></codeline>
+<codeline><highlight class="normal">HTML_COLORSTYLE_SAT<sp/><sp/><sp/><sp/>=<sp/>255</highlight></codeline>
+<codeline><highlight class="normal">HTML_COLORSTYLE_GAMMA<sp/><sp/>=<sp/>113</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Share<sp/>your<sp/>customizations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>customized<sp/>the<sp/>theme<sp/>with<sp/>custom<sp/>colors,<sp/>spacings,<sp/>font-sizes,<sp/>etc.<sp/>and<sp/>you<sp/>want<sp/>to<sp/>share<sp/>your<sp/>creation<sp/>with<sp/>others,<sp/>you<sp/>can<sp/>to<sp/>this<sp/>[here](https://github.com/jothepro/doxygen-awesome-css/discussions/13).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">I<sp/>am<sp/>always<sp/>curious<sp/>to<sp/>learn<sp/>about<sp/>how<sp/>you<sp/>made<sp/>the<sp/>theme<sp/>look<sp/>even<sp/>better!</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;span<sp/>class=&quot;next_section_button&quot;&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Read<sp/>Next:<sp/>[Tips<sp/>&amp;<sp/>Tricks](tricks.md)</highlight></codeline>
+<codeline><highlight class="normal">&lt;/span&gt;</highlight></codeline>
+    </programlisting>
+    <location file="doxygen-awesome-css/docs/customization.md"/>
+  </compounddef>
+</doxygen>

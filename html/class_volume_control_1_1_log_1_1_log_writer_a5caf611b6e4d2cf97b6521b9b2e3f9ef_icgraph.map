@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.LogWriter.Warning" name="VolumeControl.Log.LogWriter.Warning">
+<area shape="rect" id="node1" title="Write a formatted EventType.WARN message to the log endpoint." alt="" coords="253,5,449,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_helpers_1_1_addon_1_1_addon_manager.html#ad9488b6cc9823ac1b7f7c8586b7cc780" title="Loads assemblies into the given addon types." alt="" coords="5,5,205,47"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="VolumeControl.Log.Endpoints.IEndpoint" name="VolumeControl.Log.Endpoints.IEndpoint">
+<area shape="rect" id="node1" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="228,5,427,185"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="5,285,204,479"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="228,233,427,531"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpoint and uses a MemoryStream as an endpoint." alt="" coords="451,277,649,487"/>
+</map>

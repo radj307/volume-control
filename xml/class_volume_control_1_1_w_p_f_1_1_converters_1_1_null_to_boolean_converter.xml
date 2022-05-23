@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::WPF::Converters::NullToBooleanConverter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">IValueConverter</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a30b3947ade248738e9dc1435f01bf458" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>object</type>
+        <definition>object VolumeControl.WPF.Converters.NullToBooleanConverter.Convert</definition>
+        <argsstring>(object value, Type targetType, object parameter, CultureInfo culture)</argsstring>
+        <name>Convert</name>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>targetType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/NullToBooleanConverter.cs" line="15" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a27badc8bf3c35453ae766f18984c965c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>object</type>
+        <definition>object VolumeControl.WPF.Converters.NullToBooleanConverter.ConvertBack</definition>
+        <argsstring>(object value, Type targetType, object parameter, CultureInfo culture)</argsstring>
+        <name>ConvertBack</name>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>targetType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/NullToBooleanConverter.cs" line="17" column="23"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Converts from any object type to bool depending on whether or not that object is null. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Returns true when the object is null.</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>IValueConverter</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.WPF.Converters.NullToBooleanConverter</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>IValueConverter</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.WPF.Converters.NullToBooleanConverter</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/NullToBooleanConverter.cs" line="12" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/NullToBooleanConverter.cs" bodystart="13" bodyend="18"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a30b3947ade248738e9dc1435f01bf458" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::NullToBooleanConverter</scope><name>Convert</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a27badc8bf3c35453ae766f18984c965c" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::NullToBooleanConverter</scope><name>ConvertBack</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

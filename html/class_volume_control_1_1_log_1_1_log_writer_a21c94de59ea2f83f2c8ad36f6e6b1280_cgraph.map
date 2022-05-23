@@ -1,0 +1,7 @@
+<map id="VolumeControl.Log.LogWriter.FollowupIf" name="VolumeControl.Log.LogWriter.FollowupIf">
+<area shape="rect" id="node1" title="Write a formatted followup message without a timestamp or event type to the log endpoint." alt="" coords="5,35,201,76"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90" title="Appends the given lines to the log with a blank timestamp." alt="" coords="249,35,445,76"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e" title="Gets a blank timestamp to use as indentation." alt="" coords="739,5,935,47"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf" title="Writes a log message with a given timestamp." alt="" coords="493,64,689,105"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#aff4d1758c814322b5474fa95c9863ce8" title="Retrieve a StreamWriter object for writing to the endpoint. &#160;Using this is only recommended for repea..." alt="" coords="737,71,936,112"/>
+</map>

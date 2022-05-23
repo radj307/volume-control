@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_hotkey_lib_1_1_windows_hotkey_converter" kind="class" language="C#" prot="public">
+    <compoundname>HotkeyLib::WindowsHotkeyConverter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypeConverter</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_hotkey_lib_1_1_windows_hotkey_converter_1a471a5c88c4bd68a3a8b78bb918a057f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override? object</type>
+        <definition>override? object HotkeyLib.WindowsHotkeyConverter.ConvertTo</definition>
+        <argsstring>(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)</argsstring>
+        <name>ConvertTo</name>
+        <param>
+          <type>ITypeDescriptorContext?</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>CultureInfo?</type>
+          <declname>culture</declname>
+        </param>
+        <param>
+          <type>object?</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>destinationType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" line="9" column="32" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" bodystart="9" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_windows_hotkey_converter_1a27d6b8489a21b21b0b281aedd4f73071" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>override bool</type>
+        <definition>override bool HotkeyLib.WindowsHotkeyConverter.CanConvertFrom</definition>
+        <argsstring>(ITypeDescriptorContext? context, Type sourceType)</argsstring>
+        <name>CanConvertFrom</name>
+        <param>
+          <type>ITypeDescriptorContext?</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>sourceType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" line="16" column="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_windows_hotkey_converter_1a16c4c68bb757564ab2df83c8679898e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>override? object</type>
+        <definition>override? object HotkeyLib.WindowsHotkeyConverter.ConvertFrom</definition>
+        <argsstring>(ITypeDescriptorContext? context, CultureInfo? culture, object value)</argsstring>
+        <name>ConvertFrom</name>
+        <param>
+          <type>ITypeDescriptorContext?</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>CultureInfo?</type>
+          <declname>culture</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" line="18" column="32"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>HotkeyLib.WindowsHotkeyConverter</label>
+        <link refid="class_hotkey_lib_1_1_windows_hotkey_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypeConverter</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>HotkeyLib.WindowsHotkeyConverter</label>
+        <link refid="class_hotkey_lib_1_1_windows_hotkey_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypeConverter</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" line="6" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/WindowsHotkeyConverter.cs" bodystart="7" bodyend="19"/>
+    <listofallmembers>
+      <member refid="class_hotkey_lib_1_1_windows_hotkey_converter_1a27d6b8489a21b21b0b281aedd4f73071" prot="public" virt="non-virtual"><scope>HotkeyLib::WindowsHotkeyConverter</scope><name>CanConvertFrom</name></member>
+      <member refid="class_hotkey_lib_1_1_windows_hotkey_converter_1a16c4c68bb757564ab2df83c8679898e0" prot="public" virt="non-virtual"><scope>HotkeyLib::WindowsHotkeyConverter</scope><name>ConvertFrom</name></member>
+      <member refid="class_hotkey_lib_1_1_windows_hotkey_converter_1a471a5c88c4bd68a3a8b78bb918a057f8" prot="public" virt="non-virtual"><scope>HotkeyLib::WindowsHotkeyConverter</scope><name>ConvertTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

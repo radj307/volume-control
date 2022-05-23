@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_release_type_8cs" kind="file" language="C#">
+    <compoundname>ReleaseType.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_attributes_1_1_release_type" prot="public">VolumeControl::Attributes::ReleaseType</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_attributes">VolumeControl::Attributes</innernamespace>
+    <innernamespace refid="namespace_assembly_attribute">AssemblyAttribute</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>AssemblyAttribute;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="namespace_volume_control_1_1_attributes" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_attributes" kindref="compound">VolumeControl.Attributes</ref></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="8" refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref><sp/>:<sp/></highlight><highlight class="keywordtype">byte</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NONE,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4" kindref="member">TESTING</ref>,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea2161719489b49327e84b39596ff55b38" kindref="member">PRERELEASE</ref>,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430eabea4821516973214973a70aea8337c38" kindref="member">CANDIDATE</ref>,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea1e23852820b9154316c7c06e2b7ba051" kindref="member">NORMAL</ref>,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430eaf4d0a32d402155bb31bb15767688fecf" kindref="member">REVISION</ref>,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="class_volume_control_1_1_attributes_1_1_release_type" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>sealed<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_attributes_1_1_release_type" kindref="compound">ReleaseType</ref><sp/>:<sp/>BaseAssemblyAttribute</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/>readonly<sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref><sp/>_releaseType;</highlight></codeline>
+<codeline lineno="51" refid="class_volume_control_1_1_attributes_1_1_release_type_1afe861121cdf89dc2fb42799b03faf160" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref><sp/><ref refid="class_volume_control_1_1_attributes_1_1_release_type_1afe861121cdf89dc2fb42799b03faf160" kindref="member">Type</ref><sp/>=&gt;<sp/>_releaseType;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_attributes_1_1_release_type" kindref="compound">ReleaseType</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>value)<sp/>:<sp/>base(value)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">?<sp/>result<sp/>=<sp/>System.Enum.Parse(typeof(<ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref>),<sp/>Value,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_releaseType<sp/>=<sp/>result<sp/>!=<sp/></highlight><highlight class="keyword">null</highlight><highlight class="normal"><sp/>?<sp/>(<ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref>)result<sp/>:<sp/><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref>.NONE;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs"/>
+  </compounddef>
+</doxygen>

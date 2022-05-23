@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Log::Extensions::DateTimeExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions_1a8d8495552842e4b7d562afd08d0d7fdd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref></type>
+        <definition>static Timestamp VolumeControl.Log.Extensions.DateTimeExtensions.ToTimestamp</definition>
+        <argsstring>(this DateTime dateTime, EventType eventType)</argsstring>
+        <name>ToTimestamp</name>
+        <param>
+          <type>this DateTime</type>
+          <declname>dateTime</declname>
+        </param>
+        <param>
+          <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+          <declname>eventType</declname>
+        </param>
+        <briefdescription>
+<para>Create a <ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref> from a DateTime object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dateTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The timepoint to use for the timestamp.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref> object that acts as a convenience wrapper when creating log messages.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/DateTimeExtensions.cs" line="12" column="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Log.Extensions.DateTimeExtensions</label>
+        <link refid="class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/DateTimeExtensions.cs" line="5" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/DateTimeExtensions.cs" bodystart="6" bodyend="13"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions_1a8d8495552842e4b7d562afd08d0d7fdd" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Extensions::DateTimeExtensions</scope><name>ToTimestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

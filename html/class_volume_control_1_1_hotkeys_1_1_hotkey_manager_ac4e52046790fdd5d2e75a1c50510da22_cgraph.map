@@ -1,0 +1,10 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.HotkeyManager" name="VolumeControl.Hotkeys.HotkeyManager.HotkeyManager">
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,209,211"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="257,136,461,177"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a2109e5e62f1d469c63acc9c6fd832f61" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="257,201,461,243"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="516,201,712,243"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#ae1d05b0322c8ff6efcef70a2538ba1fb" title="Gets the HwndSource associated with the given Window Handle hWnd ." alt="" coords="516,5,712,47"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_window_handle_getter.html#af3958c64d6b5bae2bcf558dacacba07a" title="Gets the primary WPF window&#39;s handle. This uses WindowInteropHelper.EnsureHandle to ensure that a val..." alt="" coords="509,71,719,112"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a82111b1efcdec01dbb49ee185094c677" title="Handles window messages, and triggers WindowsHotkey.Pressed events." alt="" coords="512,136,716,177"/>
+<area shape="rect" id="node8" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="516,267,712,308"/>
+</map>

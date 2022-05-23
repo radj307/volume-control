@@ -1,0 +1,5 @@
+<map id="VolumeControl.Audio.AudioAPI.ReloadSessionList" name="VolumeControl.Audio.AudioAPI.ReloadSessionList">
+<area shape="rect" id="node1" title="Performs a selective update on the Sessions list property by removing old/exited entries and adding n..." alt="" coords="5,39,187,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_device.html#ad7fd6cb6c5130e974b69714e291aaf44" title="Gets the list of audio sessions currently using this device." alt="" coords="235,5,416,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8d19c0221ba207742894182d97ef863c" title="Performs a selective update on the Devices list property by removing old/disabled/unplugged entries a..." alt="" coords="235,71,416,112"/>
+</map>

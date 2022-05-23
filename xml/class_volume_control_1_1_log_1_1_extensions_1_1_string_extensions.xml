@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Log::Extensions::StringExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions_1a24006ea9edde9cefbc749550140af978" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>static string VolumeControl.Log.Extensions.StringExtensions.Trim</definition>
+        <argsstring>(this string s, string trimChars)</argsstring>
+        <name>Trim</name>
+        <param>
+          <type>this string</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>trimChars</declname>
+        </param>
+        <briefdescription>
+<para>Removes all preceeding/trailing occurrences of the specified characters from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input string.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>trimChars</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Any number of characters in a string.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>String with all preceeding/trailing characters from trimChars removed.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/StringExtensions.cs" line="11" column="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Log.Extensions.StringExtensions</label>
+        <link refid="class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/StringExtensions.cs" line="3" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/StringExtensions.cs" bodystart="4" bodyend="13"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions_1a24006ea9edde9cefbc749550140af978" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Extensions::StringExtensions</scope><name>Trim</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

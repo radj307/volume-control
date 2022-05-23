@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_attributes_1_1_release_type" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Attributes::ReleaseType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseAssemblyAttribute</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_attributes_1_1_release_type_1a09ea50f7320100323247f4295f9012cc" prot="private" static="no" mutable="no">
+        <type>readonly <ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref></type>
+        <definition>readonly ERelease VolumeControl.Attributes.ReleaseType._releaseType</definition>
+        <argsstring></argsstring>
+        <name>_releaseType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="46" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_attributes_1_1_release_type_1afe861121cdf89dc2fb42799b03faf160" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" kindref="member">ERelease</ref></type>
+        <definition>ERelease VolumeControl.Attributes.ReleaseType.Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+<para>Gets the &apos;Release&apos; type of the given assembly attribute. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The release type currently set in the assembly.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="51" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_attributes_1_1_release_type_1add822136ad1ea10106b41a9b88cc27b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Attributes.ReleaseType.ReleaseType</definition>
+        <argsstring>(string value)</argsstring>
+        <name>ReleaseType</name>
+        <param>
+          <type>string</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="52" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" bodystart="52" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Allows easier management of version self-identification for use with CI scripts. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>To retrieve the release type, use the <ref refid="class_volume_control_1_1_attributes_1_1_release_type_1afe861121cdf89dc2fb42799b03faf160" kindref="member">Type</ref> property. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>BaseAssemblyAttribute</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Attributes.ReleaseType</label>
+        <link refid="class_volume_control_1_1_attributes_1_1_release_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>BaseAssemblyAttribute</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Attributes.ReleaseType</label>
+        <link refid="class_volume_control_1_1_attributes_1_1_release_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="44" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" bodystart="45" bodyend="57"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_attributes_1_1_release_type_1a09ea50f7320100323247f4295f9012cc" prot="private" virt="non-virtual"><scope>VolumeControl::Attributes::ReleaseType</scope><name>_releaseType</name></member>
+      <member refid="class_volume_control_1_1_attributes_1_1_release_type_1add822136ad1ea10106b41a9b88cc27b0" prot="public" virt="non-virtual"><scope>VolumeControl::Attributes::ReleaseType</scope><name>ReleaseType</name></member>
+      <member refid="class_volume_control_1_1_attributes_1_1_release_type_1afe861121cdf89dc2fb42799b03faf160" prot="public" virt="non-virtual"><scope>VolumeControl::Attributes::ReleaseType</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.Converters.BooleanInverter" name="VolumeControl.WPF.Converters.BooleanInverter">
+<area shape="rect" id="node1" title="Binding converter for boolean types that negates the expression." alt="" coords="5,131,216,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="55,5,167,83"/>
+</map>

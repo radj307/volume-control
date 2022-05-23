@@ -1,0 +1,874 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xaml_generated_namespace_1_1_generated_internal_type_helper" kind="class" language="C#" prot="public">
+    <compoundname>XamlGeneratedNamespace::GeneratedInternalTypeHelper</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.InternalTypeHelper</basecompoundref>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Debug/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance</definition>
+        <argsstring>(System.Type type, System.Globalization.CultureInfo culture)</argsstring>
+        <name>CreateInstance</name>
+        <param>
+          <type>System.Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>CreateInstance </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="25" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture)</argsstring>
+        <name>GetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>GetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="33" column="35" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue</definition>
+        <argsstring>(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture)</argsstring>
+        <name>SetPropertyValue</name>
+        <param>
+          <type>System.Reflection.PropertyInfo</type>
+          <declname>propertyInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>System.Globalization.CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+<para>SetPropertyValue </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="40" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override System.Delegate</type>
+        <definition>override System.Delegate XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate</definition>
+        <argsstring>(System.Type delegateType, object target, string handler)</argsstring>
+        <name>CreateDelegate</name>
+        <param>
+          <type>System.Type</type>
+          <declname>delegateType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>CreateDelegate </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="47" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>override void</type>
+        <definition>override void XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler</definition>
+        <argsstring>(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler)</argsstring>
+        <name>AddEventHandler</name>
+        <param>
+          <type>System.Reflection.EventInfo</type>
+          <declname>eventInfo</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>System.Delegate</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>AddEventHandler </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" line="57" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK-Release/net6.0-windows/GeneratedInternalTypeHelper.g.i.cs" bodystart="57" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper" kindref="compound">GeneratedInternalTypeHelper</ref> </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>XamlGeneratedNamespace.GeneratedInternalTypeHelper</label>
+        <link refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>System::Windows::Markup::InternalTypeHelper</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>XamlGeneratedNamespace.GeneratedInternalTypeHelper</label>
+        <link refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>System::Windows::Markup::InternalTypeHelper</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" line="20" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/Debug/net6.0-windows/GeneratedInternalTypeHelper.g.cs" bodystart="20" bodyend="60"/>
+    <listofallmembers>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a73471f4a6d1ca4c4fceec9ad8610f0c8" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>AddEventHandler</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1a8ec4c37e82d9f4e867e9655f4eac3a78" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateDelegate</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1aefb7a98fceb9c287cef4756942f441d1" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>CreateInstance</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1afdc9fe15b56607d02082908d934480c6" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>GetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+      <member refid="class_xaml_generated_namespace_1_1_generated_internal_type_helper_1ade0f04c0f7b18dd5b170e071d5534d38" prot="protected" virt="non-virtual"><scope>XamlGeneratedNamespace::GeneratedInternalTypeHelper</scope><name>SetPropertyValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

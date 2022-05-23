@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_log_1_1_timestamp" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Log::Timestamp</compoundname>
+    <basecompoundref refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" prot="public" virt="non-virtual">VolumeControl.Log.Interfaces.ITimestamp</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a76f5651de4394fde03036132bf202b81" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>DateTime</type>
+        <definition>DateTime VolumeControl.Log.Timestamp.TimePoint</definition>
+        <argsstring></argsstring>
+        <name>TimePoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="24" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="24" bodyend="24"/>
+        <referencedby refid="class_volume_control_1_1_log_1_1_timestamp_1a7e0a68c3f24a8238baecedf6b2c286ca" compoundref="_timestamp_8cs" startline="16" endline="20">VolumeControl.Log.Timestamp.Timestamp</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a75288916083725d5119c7f58c23da9f2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+        <definition>EventType VolumeControl.Log.Timestamp.EventType</definition>
+        <argsstring></argsstring>
+        <name>EventType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="26" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a69c3508e1c1ebecec72da8ed052663b3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.TimePointSegmentLength</definition>
+        <argsstring></argsstring>
+        <name>TimePointSegmentLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="28" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a1e1be0f5b8083747f9fcfef5c2a9481a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.EventTypeSegmentLength</definition>
+        <argsstring></argsstring>
+        <name>EventTypeSegmentLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="30" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1aab5170b33b0f54a3dc3fc426485fdd38" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.MarginSegmentLength</definition>
+        <argsstring></argsstring>
+        <name>MarginSegmentLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="32" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a070c395504c81f085ad1c22a3f19c81f" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_log_1_1_properties_1_1_settings" kindref="compound">Properties.Settings</ref></type>
+        <definition>Properties.Settings VolumeControl.Log.Timestamp.Settings</definition>
+        <argsstring></argsstring>
+        <name>Settings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="41" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1ac61e477d71b56ac32ed8f174e3c3e60e" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Log.Timestamp.FormatString</definition>
+        <argsstring></argsstring>
+        <name>FormatString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="42" column="31" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a827874db10b1036fa2fd95b4b83fd3a4" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.LineSegmentLengthDateTime</definition>
+        <argsstring></argsstring>
+        <name>LineSegmentLengthDateTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="43" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1ad98a622acfedc0a6af97ebd4aea1faf4" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.LineSegmentLengthEventType</definition>
+        <argsstring></argsstring>
+        <name>LineSegmentLengthEventType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="44" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a0e8adacebb4dbb02458454f50c2e47e2" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.LineSegmentLengthMargin</definition>
+        <argsstring></argsstring>
+        <name>LineSegmentLengthMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="45" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1adf9294c3c811d75f9c23dd0a60b95357" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.LineHeaderLength</definition>
+        <argsstring></argsstring>
+        <name>LineHeaderLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="46" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_log_1_1_timestamp_1a41902f5cb92439766a3d8a74c1ad9f3d" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Log.Timestamp.LineHeaderTotalLength</definition>
+        <argsstring></argsstring>
+        <name>LineHeaderTotalLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="47" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_timestamp_1a7e0a68c3f24a8238baecedf6b2c286ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Log.Timestamp.Timestamp</definition>
+        <argsstring>(DateTime dateTime, EventType eventType)</argsstring>
+        <name>Timestamp</name>
+        <param>
+          <type>DateTime</type>
+          <declname>dateTime</declname>
+        </param>
+        <param>
+          <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+          <declname>eventType</declname>
+        </param>
+        <briefdescription>
+<para>Default Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dateTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The time-point that this timestamp represents.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eventType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event type that this timestamp represents.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="16" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="16" bodyend="20"/>
+        <references refid="class_volume_control_1_1_log_1_1_timestamp_1a76f5651de4394fde03036132bf202b81" compoundref="_timestamp_8cs" startline="24" endline="24">VolumeControl.Log.Timestamp.TimePoint</references>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_timestamp_1a35a95bbbc163f70f91d3658b03456802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>override string</type>
+        <definition>override string VolumeControl.Log.Timestamp.ToString</definition>
+        <argsstring>()</argsstring>
+        <name>ToString</name>
+        <reimplements refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp_1a11d2fbea34296739eea2ee9fefd08cc4">ToString</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="37" column="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_timestamp_1aa61e2bb487aa250e2c1d290ec0e3d981" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref></type>
+        <definition>static Timestamp VolumeControl.Log.Timestamp.Now</definition>
+        <argsstring>(EventType eventType)</argsstring>
+        <name>Now</name>
+        <param>
+          <type><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref></type>
+          <declname>eventType</declname>
+        </param>
+        <briefdescription>
+<para>Gets a timestamp with the current time and a given <ref refid="class_volume_control_1_1_log_1_1_timestamp_1a75288916083725d5119c7f58c23da9f2" kindref="member">EventType</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eventType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event type header to show at the end of the timestamp.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref> object with the current time and given type.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="54" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_timestamp_1a17674d5dc5d93b90ec85e381859c2152" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>static string VolumeControl.Log.Timestamp.Blank</definition>
+        <argsstring>()</argsstring>
+        <name>Blank</name>
+        <briefdescription>
+<para>Gets a blank string with the same length as a <ref refid="class_volume_control_1_1_log_1_1_timestamp" kindref="compound">Timestamp</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A string entirely composed of space (&apos; &apos;) chars with the same length as a timestamp string.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="59" column="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_log_1_1_timestamp_1aa7cb21b69bb494ed92d1b50019f9c4f1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>static string VolumeControl.Log.Timestamp.Definition</definition>
+        <argsstring>()</argsstring>
+        <name>Definition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="60" column="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements ITimestamp using UTC format with (MarginTimePoint = 29, MarginEventType = 8) </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ITimestamp</label>
+        <link refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Log.Timestamp</label>
+        <link refid="class_volume_control_1_1_log_1_1_timestamp"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ITimestamp</label>
+        <link refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp"/>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Log.Timestamp</label>
+        <link refid="class_volume_control_1_1_log_1_1_timestamp"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" line="9" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Timestamp.cs" bodystart="10" bodyend="62"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a17674d5dc5d93b90ec85e381859c2152" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>Blank</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1aa7cb21b69bb494ed92d1b50019f9c4f1" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>Definition</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a75288916083725d5119c7f58c23da9f2" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>EventType</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a1e1be0f5b8083747f9fcfef5c2a9481a" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>EventTypeSegmentLength</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1ac61e477d71b56ac32ed8f174e3c3e60e" prot="private" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>FormatString</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1adf9294c3c811d75f9c23dd0a60b95357" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>LineHeaderLength</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a41902f5cb92439766a3d8a74c1ad9f3d" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>LineHeaderTotalLength</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a827874db10b1036fa2fd95b4b83fd3a4" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>LineSegmentLengthDateTime</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1ad98a622acfedc0a6af97ebd4aea1faf4" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>LineSegmentLengthEventType</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a0e8adacebb4dbb02458454f50c2e47e2" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>LineSegmentLengthMargin</name></member>
+      <member refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp_1a00f0833bfb8f8ca3e9bcdf6db4fd669b" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>MakeHeader</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1aab5170b33b0f54a3dc3fc426485fdd38" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>MarginSegmentLength</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1aa61e2bb487aa250e2c1d290ec0e3d981" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>Now</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a070c395504c81f085ad1c22a3f19c81f" prot="private" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>Settings</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a76f5651de4394fde03036132bf202b81" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>TimePoint</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a69c3508e1c1ebecec72da8ed052663b3" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>TimePointSegmentLength</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a7e0a68c3f24a8238baecedf6b2c286ca" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>Timestamp</name></member>
+      <member refid="class_volume_control_1_1_log_1_1_timestamp_1a35a95bbbc163f70f91d3658b03456802" prot="public" virt="non-virtual"><scope>VolumeControl::Log::Timestamp</scope><name>ToString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

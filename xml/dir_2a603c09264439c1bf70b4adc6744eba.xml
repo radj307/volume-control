@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_2a603c09264439c1bf70b4adc6744eba" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.API/obj/Release</compoundname>
+    <innerdir refid="dir_c7559ae10c4d9c3132861dff37c7b7b3">X:/_Workspace/_repo/volume-control-3/VolumeControl.API/obj/Release/net6.0-windows</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/obj/Release/"/>
+  </compounddef>
+</doxygen>

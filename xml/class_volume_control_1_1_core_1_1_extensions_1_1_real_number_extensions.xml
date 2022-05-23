@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Core::Extensions::RealNumberExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions_1ad720d48dad00133bfc62288174ee1f54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool VolumeControl.Core.Extensions.RealNumberExtensions.EqualsWithin</definition>
+        <argsstring>(this double n, double other, double epsilon=double.Epsilon)</argsstring>
+        <name>EqualsWithin</name>
+        <param>
+          <type>this double</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>epsilon</declname>
+          <defval>double.Epsilon</defval>
+        </param>
+        <briefdescription>
+<para>Compares two double types for equality using double.Epsilon. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This number.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A number to compare this number to.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>epsilon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The epsilon comparsion threshold value.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True when <emphasis>n</emphasis>  and <emphasis>other</emphasis>  are less than <emphasis>epsilon</emphasis>  apart.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/RealNumberExtensions.cs" line="15" column="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions_1ac2b69d33899c89074886080643312fda" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool VolumeControl.Core.Extensions.RealNumberExtensions.EqualsWithin</definition>
+        <argsstring>(this float n, float other, float epsilon=float.Epsilon)</argsstring>
+        <name>EqualsWithin</name>
+        <param>
+          <type>this float</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>epsilon</declname>
+          <defval>float.Epsilon</defval>
+        </param>
+        <briefdescription>
+<para>Compares two float types for equality using float.Epsilon. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This number.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A number to compare this number to.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>epsilon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The epsilon comparsion threshold value.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True when <emphasis>n</emphasis>  and <emphasis>other</emphasis>  are less than <emphasis>epsilon</emphasis>  apart.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/RealNumberExtensions.cs" line="23" column="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="namespace_volume_control_1_1_core_1_1_extensions" kindref="compound">Extensions</ref> for floating-point number types. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Core.Extensions.RealNumberExtensions</label>
+        <link refid="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/RealNumberExtensions.cs" line="6" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/RealNumberExtensions.cs" bodystart="7" bodyend="24"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions_1ad720d48dad00133bfc62288174ee1f54" prot="public" virt="non-virtual"><scope>VolumeControl::Core::Extensions::RealNumberExtensions</scope><name>EqualsWithin</name></member>
+      <member refid="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions_1ac2b69d33899c89074886080643312fda" prot="public" virt="non-virtual"><scope>VolumeControl::Core::Extensions::RealNumberExtensions</scope><name>EqualsWithin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

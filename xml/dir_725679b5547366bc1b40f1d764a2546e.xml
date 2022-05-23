@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_725679b5547366bc1b40f1d764a2546e" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/obj/Release/net6.0-windows</compoundname>
+    <innerfile refid="_volume_control_8_log_2obj_2_release_2net6_80-windows_2_8_n_e_t_core_app_00_version_0av6_80_8_assembly_attributes_8cs">.NETCoreApp,Version=v6.0.AssemblyAttributes.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_volume_control_8_log_8_assembly_info_8cs">VolumeControl.Log.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_release_2net6_80-windows_2_volume_control_8_log_8_global_usings_8g_8cs">VolumeControl.Log.GlobalUsings.g.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/obj/Release/net6.0-windows/"/>
+  </compounddef>
+</doxygen>

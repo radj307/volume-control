@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_0a8108734b6c367ac1ebbc5521dc6703" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/SDK-Debug/net6.0-windows</compoundname>
+    <innerfile refid="_volume_control_8_hotkeys_8_addons_2obj_2_s_d_k-_debug_2net6_80-windows_2_8_n_e_t_core_app_00_ve0e3d331a8072db2c8251ac19e6f7b7fc">.NETCoreApp,Version=v6.0.AssemblyAttributes.cs</innerfile>
+    <innerfile refid="_s_d_k-_debug_2net6_80-windows_2_volume_control_8_s_d_k_8_assembly_info_8cs">VolumeControl.SDK.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_s_d_k-_debug_2net6_80-windows_2_volume_control_8_s_d_k_8_global_usings_8g_8cs">VolumeControl.SDK.GlobalUsings.g.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/obj/SDK-Debug/net6.0-windows/"/>
+  </compounddef>
+</doxygen>

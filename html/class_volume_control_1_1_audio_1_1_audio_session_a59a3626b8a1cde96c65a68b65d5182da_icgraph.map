@@ -1,0 +1,4 @@
+<map id="VolumeControl.Audio.AudioSession.GetProcess" name="VolumeControl.Audio.AudioSession.GetProcess">
+<area shape="rect" id="node1" title="Gets the process associated with this audio session instance." alt="" coords="235,5,416,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_session.html#aeb56d8f5f6a97fde371c4795473c1f7a" title=" " alt="" coords="5,5,187,47"/>
+</map>

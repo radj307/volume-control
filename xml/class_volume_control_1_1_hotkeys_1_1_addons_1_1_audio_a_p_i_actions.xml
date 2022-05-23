@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Hotkeys::Addons::AudioAPIActions</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a69e9e57ce99046445d869710fe8f9c12" prot="private" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">AudioAPI</ref></type>
+        <definition>AudioAPI VolumeControl.Hotkeys.Addons.AudioAPIActions.AudioAPI</definition>
+        <argsstring></argsstring>
+        <name>AudioAPI</name>
+        <briefdescription>
+<para>The <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">Audio.AudioAPI</ref> instance to use for volume-related events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="19" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aca15162b70ba99715d4ed7849f59116e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.IncreaseSessionVolume</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>IncreaseSessionVolume</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="22" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a559ad39e002173a5162336fa804ce4a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.DecreaseSessionVolume</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>DecreaseSessionVolume</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="23" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a7ac3bfc68b6af9e25462b2122051ebb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.MuteSession</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>MuteSession</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="24" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a745c0b164698a45e1afbcd9f551aa94a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.UnmuteSession</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>UnmuteSession</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="25" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4977d5dca989c5b71a8b6214d6210f36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.ToggleSessionMute</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>ToggleSessionMute</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="26" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a2046e4aebfd7412c22fd4ce68f5b6b54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectNextSession</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SelectNextSession</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="27" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a889a7ef25e5da9045efeee3338af264c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectPreviousSession</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SelectPreviousSession</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="28" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aa872bf86c56f8509f37a35aa10c7a2de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.ToggleSessionLock</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>ToggleSessionLock</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="29" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1ab9c38338f1f978a2e4403c73f9919029" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.DeselectSession</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>DeselectSession</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="30" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aa143e1d9d3148234ba8bbcd2cc3d5819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectNextDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SelectNextDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="31" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1ac7f5c804d751c4611bd647db0796c8bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectPreviousDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SelectPreviousDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="32" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a34225842fe081af243058200f53a5e19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.ToggleDeviceLock</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>ToggleDeviceLock</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="33" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4eeb2aa23edd16e75ca8c8425a5b2455" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.DeselectDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>DeselectDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="34" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a1bcde71bbe33df987a575eabba6a16c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectDefaultDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SelectDefaultDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="35" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a8c8a98ce76464092c8702d374bc39c13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.IncreaseDeviceVolume</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>IncreaseDeviceVolume</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="36" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a555ddd8c08f51908da2cc57621a1405e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.DecreaseDeviceVolume</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>DecreaseDeviceVolume</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="37" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a7c697a7f39ab08733bcefa96c956ade0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.MuteDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>MuteDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="38" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4250bd7c447d8f1a8249f31673c8ae8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.UnmuteDevice</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>UnmuteDevice</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="39" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a2c1a09954e1a169fab009bdef546e0bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.ToggleDeviceMute</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>ToggleDeviceMute</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="40" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a396fe79839ec0f0dff7f46f97a054a6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.AudioAPIActions.ReloadDevices</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>ReloadDevices</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="41" column="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains hotkey action handlers that interact with the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">Audio.AudioAPI</ref> object. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.Addons.AudioAPIActions</label>
+        <link refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" line="12" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/AudioAPIActions.cs" bodystart="13" bodyend="43"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a69e9e57ce99046445d869710fe8f9c12" prot="private" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>AudioAPI</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a555ddd8c08f51908da2cc57621a1405e" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>DecreaseDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a559ad39e002173a5162336fa804ce4a1" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>DecreaseSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4eeb2aa23edd16e75ca8c8425a5b2455" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>DeselectDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1ab9c38338f1f978a2e4403c73f9919029" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>DeselectSession</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a8c8a98ce76464092c8702d374bc39c13" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>IncreaseDeviceVolume</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aca15162b70ba99715d4ed7849f59116e" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>IncreaseSessionVolume</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a7c697a7f39ab08733bcefa96c956ade0" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>MuteDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a7ac3bfc68b6af9e25462b2122051ebb9" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>MuteSession</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a396fe79839ec0f0dff7f46f97a054a6c" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>ReloadDevices</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a1bcde71bbe33df987a575eabba6a16c2" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>SelectDefaultDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aa143e1d9d3148234ba8bbcd2cc3d5819" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>SelectNextDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a2046e4aebfd7412c22fd4ce68f5b6b54" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>SelectNextSession</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1ac7f5c804d751c4611bd647db0796c8bd" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>SelectPreviousDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a889a7ef25e5da9045efeee3338af264c" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>SelectPreviousSession</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a34225842fe081af243058200f53a5e19" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>ToggleDeviceLock</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a2c1a09954e1a169fab009bdef546e0bb" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>ToggleDeviceMute</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1aa872bf86c56f8509f37a35aa10c7a2de" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>ToggleSessionLock</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4977d5dca989c5b71a8b6214d6210f36" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>ToggleSessionMute</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a4250bd7c447d8f1a8249f31673c8ae8b" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>UnmuteDevice</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions_1a745c0b164698a45e1afbcd9f551aa94a" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::AudioAPIActions</scope><name>UnmuteSession</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,122 @@
+\hypertarget{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute}{}\doxysection{Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute Class Reference}
+\label{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute}\index{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}}
+
+
+Indicates that a method is a valid hotkey action.~\newline
+If you don\textquotesingle{}t specify a name parameter, it is parsed from the name of the method it is attached to.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a20f6ab2fd5bc4116be39d99991c60668}{Hotkey\+Action\+Attribute}} (\mbox{[}Caller\+Member\+Name\mbox{]} string action\+Name=\char`\"{}\char`\"{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static string \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aaeec4819acc467015f35bddeda6582f2}{Parse\+Action\+Name}} (string name)
+\begin{DoxyCompactList}\small\item\em Parses the given string using regular expressions to insert spaces between words in a method name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aa867af8f90065dc11185fbd728294193}{Action\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The name shown in the GUI when selecting a hotkey action.~\newline
+This cannot be changed directly post-\/construction time, but may be influenced by \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a7f023f84dff110703326734fe836e085}{Interpolate\+Name}} after construction.~\newline
+If this is set to an empty string, the action is always ignored and will never be selectable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a7f023f84dff110703326734fe836e085}{Interpolate\+Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets whether the action name is interpolated by inserting spaces between each of the uppercase letters to split the name by words.~\newline
+ If your action is named using abbreviations or you don\textquotesingle{}t want this behaviour to occur, set this to false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Indicates that a method is a valid hotkey action.~\newline
+If you don\textquotesingle{}t specify a name parameter, it is parsed from the name of the method it is attached to. 
+
+To create a hotkey action, attach this attribute to the owning method.
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a20f6ab2fd5bc4116be39d99991c60668}\label{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a20f6ab2fd5bc4116be39d99991c60668}} 
+\index{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}!HotkeyActionAttribute@{HotkeyActionAttribute}}
+\index{HotkeyActionAttribute@{HotkeyActionAttribute}!VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}}
+\doxysubsubsection{\texorpdfstring{HotkeyActionAttribute()}{HotkeyActionAttribute()}}
+{\footnotesize\ttfamily Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute.\+Hotkey\+Action\+Attribute (\begin{DoxyParamCaption}\item[{\mbox{[}\+Caller\+Member\+Name\mbox{]} string}]{action\+Name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Name} & The name of the action being called.\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aaeec4819acc467015f35bddeda6582f2}\label{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aaeec4819acc467015f35bddeda6582f2}} 
+\index{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}!ParseActionName@{ParseActionName}}
+\index{ParseActionName@{ParseActionName}!VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}}
+\doxysubsubsection{\texorpdfstring{ParseActionName()}{ParseActionName()}}
+{\footnotesize\ttfamily static string Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute.\+Parse\+Action\+Name (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the given string using regular expressions to insert spaces between words in a method name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Input string.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\itshape name}  where each camel cased word is separated by a space character.
+\end{DoxyReturn}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aa867af8f90065dc11185fbd728294193}\label{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aa867af8f90065dc11185fbd728294193}} 
+\index{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}!ActionName@{ActionName}}
+\index{ActionName@{ActionName}!VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}}
+\doxysubsubsection{\texorpdfstring{ActionName}{ActionName}}
+{\footnotesize\ttfamily string Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute.\+Action\+Name\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The name shown in the GUI when selecting a hotkey action.~\newline
+This cannot be changed directly post-\/construction time, but may be influenced by \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a7f023f84dff110703326734fe836e085}{Interpolate\+Name}} after construction.~\newline
+If this is set to an empty string, the action is always ignored and will never be selectable. 
+
+{\bfseries{Note that this is also the name used when saving hotkeys to the config file.}}
+
+Referenced by Volume\+Control.\+Hotkeys.\+Structs.\+Action\+Binding.\+Action\+Binding().
+
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a7f023f84dff110703326734fe836e085}\label{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_a7f023f84dff110703326734fe836e085}} 
+\index{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}!InterpolateName@{InterpolateName}}
+\index{InterpolateName@{InterpolateName}!VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute@{VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute}}
+\doxysubsubsection{\texorpdfstring{InterpolateName}{InterpolateName}}
+{\footnotesize\ttfamily bool Volume\+Control.\+Hotkeys.\+Attributes.\+Hotkey\+Action\+Attribute.\+Interpolate\+Name\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Gets or sets whether the action name is interpolated by inserting spaces between each of the uppercase letters to split the name by words.~\newline
+ If your action is named using abbreviations or you don\textquotesingle{}t want this behaviour to occur, set this to false. 
+
+{\bfseries{Note that when this property changes, the \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute_aa867af8f90065dc11185fbd728294193}{Action\+Name}} property is invalidated causing it to be regenerated the next time it is requested.}}
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Hotkeys/\+Attributes/Hotkey\+Action\+Attribute.\+cs\end{DoxyCompactItemize}

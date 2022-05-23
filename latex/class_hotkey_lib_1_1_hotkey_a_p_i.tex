@@ -1,0 +1,123 @@
+\hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i}{}\doxysection{Hotkey\+Lib.\+Hotkey\+API Class Reference}
+\label{class_hotkey_lib_1_1_hotkey_a_p_i}\index{HotkeyLib.HotkeyAPI@{HotkeyLib.HotkeyAPI}}
+
+
+Collaboration diagram for Hotkey\+Lib.\+Hotkey\+API\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{class_hotkey_lib_1_1_hotkey_a_p_i__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_af499b1a683719b830c149c2d7c783c98}\label{class_hotkey_lib_1_1_hotkey_a_p_i_af499b1a683719b830c149c2d7c783c98}} 
+enum class {\bfseries FORMAT\+\_\+\+MESSAGE} \+: uint \{ \newline
+{\bfseries ALLOCATE\+\_\+\+BUFFER} = 0x00000100
+, {\bfseries IGNORE\+\_\+\+INSERTS} = 0x00000200
+, {\bfseries FROM\+\_\+\+SYSTEM} = 0x00001000
+, {\bfseries ARGUMENT\+\_\+\+ARRAY} = 0x00002000
+, \newline
+{\bfseries FROM\+\_\+\+HMODULE} = 0x00000800
+, {\bfseries FROM\+\_\+\+STRING} = 0x00000400
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a765750a897f60d6c9d02d82952625420}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a765750a897f60d6c9d02d82952625420}} 
+static int {\bfseries Get\+ID} ()
+\item 
+static bool \mbox{\hyperlink{class_hotkey_lib_1_1_hotkey_a_p_i_a8d26cddc24dee458a2577ab76c582922}{Register\+Hotkey}} (Int\+Ptr h\+Wnd, int id, uint fs\+Modifiers, Keys vk)
+\begin{DoxyCompactList}\small\item\em This is a wrapper function for the \textquotesingle{}Register\+Hot\+Key\textquotesingle{} function from user32.\+dll \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_hotkey_lib_1_1_hotkey_a_p_i_a7b5980e9ead87a33816535ee28a23dad}{Unregister\+Hotkey}} (Int\+Ptr h\+Wnd, int id)
+\begin{DoxyCompactList}\small\item\em This is a wrapper function for the \textquotesingle{}Unregister\+Hot\+Key\textquotesingle{} function from user32.\+dll. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_af0741479a309c8634bf7e4b3ec4ab4ba}\label{class_hotkey_lib_1_1_hotkey_a_p_i_af0741479a309c8634bf7e4b3ec4ab4ba}} 
+static int {\bfseries Get\+Last\+Error} ()
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_af1cdd4d8c070d84549c398139f0a721e}\label{class_hotkey_lib_1_1_hotkey_a_p_i_af1cdd4d8c070d84549c398139f0a721e}} 
+static string {\bfseries Format\+Error} (int err)
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_af1f3fefe9e21d961633dee883f51f634}\label{class_hotkey_lib_1_1_hotkey_a_p_i_af1f3fefe9e21d961633dee883f51f634}} 
+static string {\bfseries Get\+Last\+Error\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a5da83e2f187d900eff144084c2d9a430}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a5da83e2f187d900eff144084c2d9a430}} 
+const int {\bfseries Min\+ID} = 0x0000
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_ab6a8011c760f5b936a4a40fc380b46ee}\label{class_hotkey_lib_1_1_hotkey_a_p_i_ab6a8011c760f5b936a4a40fc380b46ee}} 
+static {\bfseries int}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_ad797706962b1c5d2f01a74151add983a}\label{class_hotkey_lib_1_1_hotkey_a_p_i_ad797706962b1c5d2f01a74151add983a}} 
+const uint {\bfseries WM\+\_\+\+HOTKEY} = 0x312
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_ae76dbc3381b40afedac47069bb44047b}\label{class_hotkey_lib_1_1_hotkey_a_p_i_ae76dbc3381b40afedac47069bb44047b}} 
+const uint {\bfseries MOD\+\_\+\+ALT} = 0x1
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a3d0880bb67b403f8b7f68aad9b3b3507}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a3d0880bb67b403f8b7f68aad9b3b3507}} 
+const uint {\bfseries MOD\+\_\+\+CONTROL} = 0x2
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a8a1cddd026a1997254404d456a4f0dfc}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a8a1cddd026a1997254404d456a4f0dfc}} 
+const uint {\bfseries MOD\+\_\+\+SHIFT} = 0x4
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a66db0c2a2eca62113e8eb71944a47138}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a66db0c2a2eca62113e8eb71944a47138}} 
+const uint {\bfseries MOD\+\_\+\+WIN} = 0x8
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a8d26cddc24dee458a2577ab76c582922}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a8d26cddc24dee458a2577ab76c582922}} 
+\index{HotkeyLib.HotkeyAPI@{HotkeyLib.HotkeyAPI}!RegisterHotkey@{RegisterHotkey}}
+\index{RegisterHotkey@{RegisterHotkey}!HotkeyLib.HotkeyAPI@{HotkeyLib.HotkeyAPI}}
+\doxysubsubsection{\texorpdfstring{RegisterHotkey()}{RegisterHotkey()}}
+{\footnotesize\ttfamily static bool Hotkey\+Lib.\+Hotkey\+API.\+Register\+Hotkey (\begin{DoxyParamCaption}\item[{Int\+Ptr}]{h\+Wnd,  }\item[{int}]{id,  }\item[{uint}]{fs\+Modifiers,  }\item[{Keys}]{vk }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This is a wrapper function for the \textquotesingle{}Register\+Hot\+Key\textquotesingle{} function from user32.\+dll 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+Wnd} & The owner window\textquotesingle{}s handle.\\
+\hline
+{\em id} & The hotkeys ID.\\
+\hline
+{\em fs\+Modifiers} & A bitfield defining which (if any) modifiers are required by the hotkey.\\
+\hline
+{\em vk} & The primary keyboard key.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True when registration was successful.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_hotkey_a_p_i_a7b5980e9ead87a33816535ee28a23dad}\label{class_hotkey_lib_1_1_hotkey_a_p_i_a7b5980e9ead87a33816535ee28a23dad}} 
+\index{HotkeyLib.HotkeyAPI@{HotkeyLib.HotkeyAPI}!UnregisterHotkey@{UnregisterHotkey}}
+\index{UnregisterHotkey@{UnregisterHotkey}!HotkeyLib.HotkeyAPI@{HotkeyLib.HotkeyAPI}}
+\doxysubsubsection{\texorpdfstring{UnregisterHotkey()}{UnregisterHotkey()}}
+{\footnotesize\ttfamily static bool Hotkey\+Lib.\+Hotkey\+API.\+Unregister\+Hotkey (\begin{DoxyParamCaption}\item[{Int\+Ptr}]{h\+Wnd,  }\item[{int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This is a wrapper function for the \textquotesingle{}Unregister\+Hot\+Key\textquotesingle{} function from user32.\+dll. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+Wnd} & The owner window\textquotesingle{}s handle.\\
+\hline
+{\em id} & The hotkey\textquotesingle{}s ID.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True when unregistration was successful.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Hotkey\+Lib/Hotkey\+API.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,8 @@
+<map id="VolumeControl.Log.Endpoints.IEndpoint.GetWriter" name="VolumeControl.Log.Endpoints.IEndpoint.GetWriter">
+<area shape="rect" id="node1" title="Retrieve a StreamWriter object for writing to the endpoint. &#160;Using this is only recommended for repea..." alt="" coords="737,39,936,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf" title="Writes a log message with a given timestamp." alt="" coords="493,39,689,80"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a84f2a4a818ded391050345b3962adc90" title="Appends the given lines to the log with a blank timestamp." alt="" coords="249,5,445,47"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_log_writer.html#af9f117f9eb6d41820bc271ac0f0d4f76" title="Writes a log message with a timestamp and log level header." alt="" coords="249,71,445,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_log_writer.html#a21c94de59ea2f83f2c8ad36f6e6b1280" title="Write a formatted followup message without a timestamp or event type to the log endpoint." alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_log_1_1_log_writer.html#a23589efc4aa886f386e9d8645338a395" title="Conditional log message, allows you to write different messages depending on the current log filter l..." alt="" coords="5,71,201,112"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier" name="VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier">
+<area shape="rect" id="node1" title="Gets a session from Sessions by parsing identifier &#160;to determine whether to pass it to FindSessionWit..." alt="" coords="235,5,429,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4" title=" " alt="" coords="5,5,187,47"/>
+</map>

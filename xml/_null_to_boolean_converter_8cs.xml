@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_null_to_boolean_converter_8cs" kind="file" language="C#">
+    <compoundname>NullToBooleanConverter.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" prot="public">VolumeControl::WPF::Converters::NullToBooleanConverter</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_w_p_f">VolumeControl::WPF</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_w_p_f_1_1_converters">VolumeControl::WPF::Converters</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Globalization;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Windows.Data;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_w_p_f_1_1_converters" kindref="compound">VolumeControl.WPF.Converters</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>[ValueConversion(typeof(Nullable),<sp/>typeof(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">))]</highlight></codeline>
+<codeline lineno="12" refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter" kindref="compound">NullToBooleanConverter</ref><sp/>:<sp/>IValueConverter</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="15" refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a30b3947ade248738e9dc1435f01bf458" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a30b3947ade248738e9dc1435f01bf458" kindref="member">Convert</ref>(</highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/>value,<sp/>Type<sp/>targetType,<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/>parameter,<sp/>CultureInfo<sp/>culture)<sp/>=&gt;<sp/>value<sp/>==<sp/></highlight><highlight class="keyword">null</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17" refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a27badc8bf3c35453ae766f18984c965c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter_1a27badc8bf3c35453ae766f18984c965c" kindref="member">ConvertBack</ref>(</highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/>value,<sp/>Type<sp/>targetType,<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/>parameter,<sp/>CultureInfo<sp/>culture)<sp/>=&gt;<sp/>value<sp/>==<sp/></highlight><highlight class="keyword">null</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/NullToBooleanConverter.cs"/>
+  </compounddef>
+</doxygen>

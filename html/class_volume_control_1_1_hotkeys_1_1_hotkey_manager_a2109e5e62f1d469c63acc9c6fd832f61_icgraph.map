@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys">
+<area shape="rect" id="node1" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="257,5,461,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ac4e52046790fdd5d2e75a1c50510da22" title=" " alt="" coords="5,5,209,47"/>
+</map>

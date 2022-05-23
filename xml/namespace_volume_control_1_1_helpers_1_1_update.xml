@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_helpers_1_1_update" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Helpers::Update</compoundname>
+    <innerclass refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_asset_http_response" prot="public">VolumeControl::Helpers::Update::GithubAssetHttpResponse</innerclass>
+    <innerclass refid="struct_volume_control_1_1_helpers_1_1_update_1_1_github_release_http_response" prot="package">VolumeControl::Helpers::Update::GithubReleaseHttpResponse</innerclass>
+    <innerclass refid="class_volume_control_1_1_helpers_1_1_update_1_1_update_checker" prot="package">VolumeControl::Helpers::Update::UpdateChecker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/GithubAssetHttpResponse.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

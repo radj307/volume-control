@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.LogWriter.WriteMessage" name="VolumeControl.Log.LogWriter.WriteMessage">
+<area shape="rect" id="node1" title="Writes a LogMessage or similar." alt="" coords="5,39,201,80"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a60af0f9d41c722343efedc38320afe57" title="Retrieve a StreamReader object for reading from the endpoint. &#160;Using this is only recommended for rep..." alt="" coords="249,5,448,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a06ef763c23a68f61dbd347e76098c151" title="Writes some text to the log file." alt="" coords="251,71,447,112"/>
+</map>

@@ -1,0 +1,116 @@
+\hypertarget{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args}{}\doxysection{Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args Class Reference}
+\label{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args}\index{VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}}
+
+
+Event arguments for the \mbox{\hyperlink{namespace_volume_control_1_1_audio_1_1_events_a7d745fa8f64d584c7950b88f1fd859c0}{Target\+Changed\+Event\+Handler}} event.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a2ce2e64f0b2214cdfde3fc055c40635f}{Target\+Changing\+Event\+Args}} (string outgoing, string incoming, bool default\+Cancel=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a3439bff8cbcb7f3a15e78e09c23d74f9}{Outgoing}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This is the outgoing target, which will be replaced by the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a42f035df7d613f82200fde5c46355003}{Incoming}} target, unless \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}} is set to true. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a42f035df7d613f82200fde5c46355003}{Incoming}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This is the incoming target, which will replace the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a3439bff8cbcb7f3a15e78e09c23d74f9}{Outgoing}} target, unless \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}} is set to true. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em When true, the incoming changes are rejected, and the outgoing changes are used exclusively instead. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Event arguments for the \mbox{\hyperlink{namespace_volume_control_1_1_audio_1_1_events_a7d745fa8f64d584c7950b88f1fd859c0}{Target\+Changed\+Event\+Handler}} event. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a2ce2e64f0b2214cdfde3fc055c40635f}\label{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a2ce2e64f0b2214cdfde3fc055c40635f}} 
+\index{VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}!TargetChangingEventArgs@{TargetChangingEventArgs}}
+\index{TargetChangingEventArgs@{TargetChangingEventArgs}!VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}}
+\doxysubsubsection{\texorpdfstring{TargetChangingEventArgs()}{TargetChangingEventArgs()}}
+{\footnotesize\ttfamily Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Target\+Changing\+Event\+Args (\begin{DoxyParamCaption}\item[{string}]{outgoing,  }\item[{string}]{incoming,  }\item[{bool}]{default\+Cancel = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em outgoing} & The current target name.\\
+\hline
+{\em incoming} & The incoming target name.\\
+\hline
+{\em default\+Cancel} & Determines the default value of the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}} property.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Cancel, Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Incoming, and Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Outgoing.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}\label{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}} 
+\index{VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}!Cancel@{Cancel}}
+\index{Cancel@{Cancel}!VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}}
+\doxysubsubsection{\texorpdfstring{Cancel}{Cancel}}
+{\footnotesize\ttfamily bool Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Cancel\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+When true, the incoming changes are rejected, and the outgoing changes are used exclusively instead. 
+
+
+
+Referenced by Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Target\+Changing\+Event\+Args().
+
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a42f035df7d613f82200fde5c46355003}\label{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a42f035df7d613f82200fde5c46355003}} 
+\index{VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}!Incoming@{Incoming}}
+\index{Incoming@{Incoming}!VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}}
+\doxysubsubsection{\texorpdfstring{Incoming}{Incoming}}
+{\footnotesize\ttfamily string Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Incoming\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This is the incoming target, which will replace the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a3439bff8cbcb7f3a15e78e09c23d74f9}{Outgoing}} target, unless \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}} is set to true. 
+
+This can be modified in event handlers, which allows you to validate target names.
+
+Referenced by Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Target\+Changing\+Event\+Args().
+
+\mbox{\Hypertarget{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a3439bff8cbcb7f3a15e78e09c23d74f9}\label{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a3439bff8cbcb7f3a15e78e09c23d74f9}} 
+\index{VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}!Outgoing@{Outgoing}}
+\index{Outgoing@{Outgoing}!VolumeControl.Audio.Events.TargetChangingEventArgs@{VolumeControl.Audio.Events.TargetChangingEventArgs}}
+\doxysubsubsection{\texorpdfstring{Outgoing}{Outgoing}}
+{\footnotesize\ttfamily string Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Outgoing\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+This is the outgoing target, which will be replaced by the \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a42f035df7d613f82200fde5c46355003}{Incoming}} target, unless \mbox{\hyperlink{class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args_a663580fe72880d813fec0c4753a3a386}{Cancel}} is set to true. 
+
+This is read-\/only to event handlers.
+
+Referenced by Volume\+Control.\+Audio.\+Events.\+Target\+Changing\+Event\+Args.\+Target\+Changing\+Event\+Args().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Audio/\+Events/Target\+Changing\+Event.\+cs\end{DoxyCompactItemize}

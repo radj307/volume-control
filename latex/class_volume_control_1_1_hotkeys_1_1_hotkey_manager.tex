@@ -1,0 +1,353 @@
+\hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager}{}\doxysection{Volume\+Control.\+Hotkeys.\+Hotkey\+Manager Class Reference}
+\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager}\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+
+
+This object is responsible for managing hotkeys at runtime.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Hotkeys.\+Hotkey\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Hotkeys.\+Hotkey\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ac4e52046790fdd5d2e75a1c50510da22}{Hotkey\+Manager}} (\mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}{IHotkey\+Action\+Manager}} action\+Manager, bool load\+Now=false)
+\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ab9308e90e3fb6ef452aa7e17587c675b}{Add\+Hotkey}} (string name, \mbox{\hyperlink{interface_hotkey_lib_1_1_i_key_combo}{IKey\+Combo}} keys, string action, bool register\+Now=false)
+\begin{DoxyCompactList}\small\item\em Create a new hotkey and add it to \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a1cc11e4a4169628cd91c04f36f75f384}{Add\+Hotkey}} ()
+\begin{DoxyCompactList}\small\item\em Create a new blank hotkey and add it to \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a66277b242d576b541f7bffb1f570c214}{Del\+Hotkey}} (\mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey}{Bindable\+Windows\+Hotkey}}? hk)
+\begin{DoxyCompactList}\small\item\em Remove the specified hotkey from \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0895b21d810d82b4b44b42ea0b65a28a}{Del\+Hotkey}} (int id)
+\begin{DoxyCompactList}\small\item\em Remove the specified hotkey from \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_aeaec8f00f4219e2e72b1d7438b413f76}{Del\+All\+Hotkeys}} ()
+\begin{DoxyCompactList}\small\item\em Deletes all hotkeys in the list by first disposing them, then removing them from the list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a1a02a5f040925d2abd938deea3eb4d49}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a1a02a5f040925d2abd938deea3eb4d49}} 
+\mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey}{Bindable\+Windows\+Hotkey}}? {\bfseries Get\+Hotkey} (int id)
+\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61}{Load\+Hotkeys}} ()
+\begin{DoxyCompactList}\small\item\em Loads hotkeys from the settings file and binds them to the associated actions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ad179564abe8e8dcf492a365cffdcad6c}{Save\+Hotkeys}} ()
+\begin{DoxyCompactList}\small\item\em Saves all hotkeys to the settings file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a4c1092556d6a7c93638c37d256fb9edb}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a4c1092556d6a7c93638c37d256fb9edb}} 
+void {\bfseries Reset\+Hotkeys} ()
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_af9c366af249ab048619db4a2366f247f}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_af9c366af249ab048619db4a2366f247f}} 
+void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_af9c366af249ab048619db4a2366f247f}{Dispose}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a4956a5030fdd80487df645b42459e569}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a4956a5030fdd80487df645b42459e569}} 
+Int\+Ptr {\bfseries Owner\+Handle}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Int\+Ptr \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a82111b1efcdec01dbb49ee185094c677}{Hwnd\+Hook}} (Int\+Ptr h\+Wnd, int msg, Int\+Ptr w\+Param, Int\+Ptr l\+Param, ref bool handled)
+\begin{DoxyCompactList}\small\item\em Handles window messages, and triggers Windows\+Hotkey.\+Pressed events. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a57c8d96dc5d4178d5b6d15a5df8fa374}{Add\+Hook}} ()
+\begin{DoxyCompactList}\small\item\em Adds a window message hook to receive hotkey press messages and route them to the associated event trigger. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a43f5e3e31ab161cd9e8701fe39d1114e}{Remove\+Hook}} ()
+\begin{DoxyCompactList}\small\item\em Removes the message hook from the application\textquotesingle{}s handle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_aeae3b24e598a0653279fc93e0cd5644f}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_aeae3b24e598a0653279fc93e0cd5644f}} 
+Notify\+Collection\+Changed\+Event\+Handler? {\bfseries Collection\+Changed}
+\item 
+\mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}{IHotkey\+Action\+Manager}} \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0ce84311e2ea57730ca1075f8b15c416}{Actions}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Action manager object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a572ad221030bdfab13d9fc09835b25d2}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a572ad221030bdfab13d9fc09835b25d2}} 
+\mbox{\hyperlink{class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list}{Observable\+List}}$<$ \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey}{Bindable\+Windows\+Hotkey}} $>$ {\bfseries Hotkeys} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This object is responsible for managing hotkeys at runtime. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ac4e52046790fdd5d2e75a1c50510da22}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ac4e52046790fdd5d2e75a1c50510da22}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!HotkeyManager@{HotkeyManager}}
+\index{HotkeyManager@{HotkeyManager}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{HotkeyManager()}{HotkeyManager()}}
+{\footnotesize\ttfamily Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hotkey\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}{IHotkey\+Action\+Manager}}}]{action\+Manager,  }\item[{bool}]{load\+Now = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Manager} & The action manager to use.\\
+\hline
+{\em load\+Now} & When true, the \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61}{Load\+Hotkeys}} method is called from the constructor. Set this to false if you want to do it yourself.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hook(), and Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Load\+Hotkeys().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ac4e52046790fdd5d2e75a1c50510da22_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a57c8d96dc5d4178d5b6d15a5df8fa374}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a57c8d96dc5d4178d5b6d15a5df8fa374}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!AddHook@{AddHook}}
+\index{AddHook@{AddHook}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{AddHook()}{AddHook()}}
+{\footnotesize\ttfamily virtual void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hook (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Adds a window message hook to receive hotkey press messages and route them to the associated event trigger. 
+
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Debug(), Volume\+Control.\+WPF.\+Window\+Handle\+Getter.\+Get\+Hwnd\+Source(), Volume\+Control.\+WPF.\+Window\+Handle\+Getter.\+Get\+Window\+Handle(), and Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hwnd\+Hook().
+
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hotkey\+Manager().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a57c8d96dc5d4178d5b6d15a5df8fa374_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a57c8d96dc5d4178d5b6d15a5df8fa374_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a1cc11e4a4169628cd91c04f36f75f384}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a1cc11e4a4169628cd91c04f36f75f384}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!AddHotkey@{AddHotkey}}
+\index{AddHotkey@{AddHotkey}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{AddHotkey()}{AddHotkey()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hotkey (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Create a new blank hotkey and add it to \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. 
+
+Bindable\+Windows\+Hotkey.\+Name = string.\+Empty \mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ab9308e90e3fb6ef452aa7e17587c675b}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ab9308e90e3fb6ef452aa7e17587c675b}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!AddHotkey@{AddHotkey}}
+\index{AddHotkey@{AddHotkey}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{AddHotkey()}{AddHotkey()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hotkey (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{\mbox{\hyperlink{interface_hotkey_lib_1_1_i_key_combo}{IKey\+Combo}}}]{keys,  }\item[{string}]{action,  }\item[{bool}]{register\+Now = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Create a new hotkey and add it to \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the new hotkey.\\
+\hline
+{\em keys} & The key combination of the new hotkey.\\
+\hline
+{\em action} & The associated action of the new hotkey.\\
+\hline
+{\em register\+Now} & When true, the new hotkey is registered immediately after construction.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Info().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ab9308e90e3fb6ef452aa7e17587c675b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_aeaec8f00f4219e2e72b1d7438b413f76}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_aeaec8f00f4219e2e72b1d7438b413f76}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!DelAllHotkeys@{DelAllHotkeys}}
+\index{DelAllHotkeys@{DelAllHotkeys}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{DelAllHotkeys()}{DelAllHotkeys()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Del\+All\+Hotkeys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Deletes all hotkeys in the list by first disposing them, then removing them from the list. 
+
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a66277b242d576b541f7bffb1f570c214}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a66277b242d576b541f7bffb1f570c214}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!DelHotkey@{DelHotkey}}
+\index{DelHotkey@{DelHotkey}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{DelHotkey()}{DelHotkey()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Del\+Hotkey (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey}{Bindable\+Windows\+Hotkey}}?}]{hk }\end{DoxyParamCaption})}
+
+
+
+Remove the specified hotkey from \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hk} & The \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey}{Bindable\+Windows\+Hotkey}} object to remove.~\newline
+If this is null, nothing happens.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Info().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a66277b242d576b541f7bffb1f570c214_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0895b21d810d82b4b44b42ea0b65a28a}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0895b21d810d82b4b44b42ea0b65a28a}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!DelHotkey@{DelHotkey}}
+\index{DelHotkey@{DelHotkey}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{DelHotkey()}{DelHotkey()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Del\+Hotkey (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Remove the specified hotkey from \mbox{\hyperlink{namespace_volume_control_1_1_hotkeys}{Hotkeys}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID number of the hotkey to delete.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a82111b1efcdec01dbb49ee185094c677}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a82111b1efcdec01dbb49ee185094c677}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!HwndHook@{HwndHook}}
+\index{HwndHook@{HwndHook}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{HwndHook()}{HwndHook()}}
+{\footnotesize\ttfamily virtual Int\+Ptr Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hwnd\+Hook (\begin{DoxyParamCaption}\item[{Int\+Ptr}]{h\+Wnd,  }\item[{int}]{msg,  }\item[{Int\+Ptr}]{w\+Param,  }\item[{Int\+Ptr}]{l\+Param,  }\item[{ref bool}]{handled }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Handles window messages, and triggers Windows\+Hotkey.\+Pressed events. 
+
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hook(), and Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Remove\+Hook().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a82111b1efcdec01dbb49ee185094c677_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!LoadHotkeys@{LoadHotkeys}}
+\index{LoadHotkeys@{LoadHotkeys}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{LoadHotkeys()}{LoadHotkeys()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Load\+Hotkeys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Loads hotkeys from the settings file and binds them to the associated actions. 
+
+{\bfseries{Make sure that the \mbox{\hyperlink{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0ce84311e2ea57730ca1075f8b15c416}{Actions}} property is set and initialized before calling this!}}
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Debug(), and Volume\+Control.\+Log.\+Log\+Writer.\+Error().
+
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hotkey\+Manager().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a2109e5e62f1d469c63acc9c6fd832f61_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a43f5e3e31ab161cd9e8701fe39d1114e}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a43f5e3e31ab161cd9e8701fe39d1114e}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!RemoveHook@{RemoveHook}}
+\index{RemoveHook@{RemoveHook}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{RemoveHook()}{RemoveHook()}}
+{\footnotesize\ttfamily virtual void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Remove\+Hook (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Removes the message hook from the application\textquotesingle{}s handle. 
+
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Debug(), and Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Hwnd\+Hook().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a43f5e3e31ab161cd9e8701fe39d1114e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ad179564abe8e8dcf492a365cffdcad6c}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ad179564abe8e8dcf492a365cffdcad6c}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!SaveHotkeys@{SaveHotkeys}}
+\index{SaveHotkeys@{SaveHotkeys}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{SaveHotkeys()}{SaveHotkeys()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Save\+Hotkeys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Saves all hotkeys to the settings file. 
+
+
+
+References Volume\+Control.\+Log.\+Log\+Writer.\+Debug().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_ad179564abe8e8dcf492a365cffdcad6c_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0ce84311e2ea57730ca1075f8b15c416}\label{class_volume_control_1_1_hotkeys_1_1_hotkey_manager_a0ce84311e2ea57730ca1075f8b15c416}} 
+\index{VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}!Actions@{Actions}}
+\index{Actions@{Actions}!VolumeControl.Hotkeys.HotkeyManager@{VolumeControl.Hotkeys.HotkeyManager}}
+\doxysubsubsection{\texorpdfstring{Actions}{Actions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager}{IHotkey\+Action\+Manager}} Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Actions\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Action manager object 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Hotkeys/Hotkey\+Manager.\+cs\end{DoxyCompactItemize}

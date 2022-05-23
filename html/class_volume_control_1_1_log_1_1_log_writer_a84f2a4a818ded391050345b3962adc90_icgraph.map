@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.LogWriter.Append" name="VolumeControl.Log.LogWriter.Append">
+<area shape="rect" id="node1" title="Appends the given lines to the log with a blank timestamp." alt="" coords="249,5,445,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a21c94de59ea2f83f2c8ad36f6e6b1280" title="Write a formatted followup message without a timestamp or event type to the log endpoint." alt="" coords="5,5,201,47"/>
+</map>

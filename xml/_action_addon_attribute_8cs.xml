@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_action_addon_attribute_8cs" kind="file" language="C#">
+    <compoundname>ActionAddonAttribute.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute" prot="public">VolumeControl::Hotkeys::Attributes::ActionAddonAttribute</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_hotkeys">VolumeControl::Hotkeys</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_hotkeys_1_1_attributes">VolumeControl::Hotkeys::Attributes</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>.<ref refid="namespace_volume_control_1_1_core" kindref="compound">Core</ref>;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref>.<ref refid="namespace_volume_control_1_1_core" kindref="compound">Core</ref>.<ref refid="namespace_volume_control_1_1_core_1_1_extensions" kindref="compound">Extensions</ref>;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="namespace_volume_control_1_1_hotkeys" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_hotkeys_1_1_attributes" kindref="compound">VolumeControl.Hotkeys.Attributes</ref></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>[AttributeUsage(AttributeTargets.Class,<sp/>AllowMultiple<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>Inherited<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)]</highlight></codeline>
+<codeline lineno="9" refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>sealed<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute" kindref="compound">ActionAddonAttribute</ref><sp/>:<sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute" kindref="compound">BaseAddonAttribute</ref></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="13" refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute_1a49b4cccb657c827419a40cbc260a7e47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute_1a49b4cccb657c827419a40cbc260a7e47" kindref="member">ActionAddonAttribute</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>addonName,<sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>compatibleVersions)<sp/>:<sp/>base(addonName.RemoveIf(char.IsPunctuation),<sp/>compatibleVersions)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="16" refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute_1a76fbd1e486db30c175770d772f1af77f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute_1a76fbd1e486db30c175770d772f1af77f" kindref="member">ActionAddonAttribute</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>addonName)<sp/>:<sp/>base(addonName.RemoveIf(char.IsPunctuation))<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Attributes/ActionAddonAttribute.cs"/>
+  </compounddef>
+</doxygen>

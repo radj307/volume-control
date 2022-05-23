@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_properties_1_1_settings" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Properties::Settings</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">global.SystemConfiguration.ApplicationSettingsBase</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_properties_1_1_settings_1af93ff35bdf711cd316a242a6fbcf5344" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_volume_control_1_1_properties_1_1_settings" kindref="compound">Settings</ref></type>
+        <definition>Settings VolumeControl.Properties.Settings.defaultInstance</definition>
+        <argsstring></argsstring>
+        <name>defaultInstance</name>
+        <initializer>= ((<ref refid="class_volume_control_1_1_properties_1_1_settings" kindref="compound">Settings</ref>)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new <ref refid="class_volume_control_1_1_properties_1_1_settings" kindref="compound">Settings</ref>())))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="18" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a31aa51b3ad9c80d65f15239ab2a010f0" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_properties_1_1_settings" kindref="compound">Settings</ref></type>
+        <definition>Settings VolumeControl.Properties.Settings.Default</definition>
+        <argsstring></argsstring>
+        <name>Default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="20" column="32" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1af42c42a78b410ef11ef369afce109691" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.AdvancedHotkeys</definition>
+        <argsstring></argsstring>
+        <name>AdvancedHotkeys</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="29" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="29" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1ac7ffd13ea6200b6d4b6c5764e662e5ee" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Properties.Settings.WindowWidthDefault</definition>
+        <argsstring></argsstring>
+        <name>WindowWidthDefault</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="41" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a5f4dd567660b8d4dd78940815d858439" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Properties.Settings.WindowWidthWide</definition>
+        <argsstring></argsstring>
+        <name>WindowWidthWide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="50" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="50" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a576dad319e73200123c8f0ddcbc30bb5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.UpgradeSettings</definition>
+        <argsstring></argsstring>
+        <name>UpgradeSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="62" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="62" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1ac87798cdf643c71b70eeff21a4439787" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Properties.Settings.RegistryStartupValueName</definition>
+        <argsstring></argsstring>
+        <name>RegistryStartupValueName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="74" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a794883c34e5c89064df47f6c1d746aff" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.ShowInTaskbar</definition>
+        <argsstring></argsstring>
+        <name>ShowInTaskbar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="83" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a351ece347f1d3596d6bdc45235d5c0a0" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.AlwaysOnTop</definition>
+        <argsstring></argsstring>
+        <name>AlwaysOnTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="95" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="95" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1abcbebf65d6192cd782305d496337109b" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.StartMinimized</definition>
+        <argsstring></argsstring>
+        <name>StartMinimized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="107" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="107" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1afd0ea0345067b6cef99f685af87358a1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.RunAtStartup</definition>
+        <argsstring></argsstring>
+        <name>RunAtStartup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="119" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="119" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a7777b8934266bfa6e2823a94b7da860f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.AllowMultipleInstances</definition>
+        <argsstring></argsstring>
+        <name>AllowMultipleInstances</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="131" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="131" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a491786d4b86474e321e7f78d0f39fdb5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Properties.Settings.UpdateURL</definition>
+        <argsstring></argsstring>
+        <name>UpdateURL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="143" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="143" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a05c8791937eaa04fbc550129454be5b8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.ShowIcons</definition>
+        <argsstring></argsstring>
+        <name>ShowIcons</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="152" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="152" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1af1e852717f0ca7d0746de714b97737fa" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Properties.Settings.NotificationTimeoutInterval</definition>
+        <argsstring></argsstring>
+        <name>NotificationTimeoutInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="164" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="164" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a2bbe217e17726b3035e8c6da84129422" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.NotificationEnabled</definition>
+        <argsstring></argsstring>
+        <name>NotificationEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="176" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="176" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a582edd211ffeab5bd21bfa33e8bde19e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Properties.Settings.CheckForUpdatesOnStartup</definition>
+        <argsstring></argsstring>
+        <name>CheckForUpdatesOnStartup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="188" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="188" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a61e00c033859b9f2ce115ceab73e82fb" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Properties.Settings.UpdateUri</definition>
+        <argsstring></argsstring>
+        <name>UpdateUri</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="200" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="200" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_properties_1_1_settings_1a651f32c4157e53e90d528d2b23dc0c5d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>global::System.TimeSpan</type>
+        <definition>global::System.TimeSpan VolumeControl.Properties.Settings.UpdateTimeout</definition>
+        <argsstring></argsstring>
+        <name>UpdateTimeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="209" column="39" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="209" bodyend="213"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Properties.Settings</label>
+        <link refid="class_volume_control_1_1_properties_1_1_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>global::SystemConfiguration::ApplicationSettingsBase</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Properties.Settings</label>
+        <link refid="class_volume_control_1_1_properties_1_1_settings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" line="16" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/Settings.Designer.cs" bodystart="16" bodyend="214"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1af42c42a78b410ef11ef369afce109691" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>AdvancedHotkeys</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a7777b8934266bfa6e2823a94b7da860f" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>AllowMultipleInstances</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a351ece347f1d3596d6bdc45235d5c0a0" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>AlwaysOnTop</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a582edd211ffeab5bd21bfa33e8bde19e" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>CheckForUpdatesOnStartup</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a31aa51b3ad9c80d65f15239ab2a010f0" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>Default</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1af93ff35bdf711cd316a242a6fbcf5344" prot="private" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>defaultInstance</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a2bbe217e17726b3035e8c6da84129422" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>NotificationEnabled</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1af1e852717f0ca7d0746de714b97737fa" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>NotificationTimeoutInterval</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1ac87798cdf643c71b70eeff21a4439787" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>RegistryStartupValueName</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1afd0ea0345067b6cef99f685af87358a1" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>RunAtStartup</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a05c8791937eaa04fbc550129454be5b8" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>ShowIcons</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a794883c34e5c89064df47f6c1d746aff" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>ShowInTaskbar</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1abcbebf65d6192cd782305d496337109b" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>StartMinimized</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a651f32c4157e53e90d528d2b23dc0c5d" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>UpdateTimeout</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a61e00c033859b9f2ce115ceab73e82fb" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>UpdateUri</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a491786d4b86474e321e7f78d0f39fdb5" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>UpdateURL</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a576dad319e73200123c8f0ddcbc30bb5" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>UpgradeSettings</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1ac7ffd13ea6200b6d4b6c5764e662e5ee" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>WindowWidthDefault</name></member>
+      <member refid="class_volume_control_1_1_properties_1_1_settings_1a5f4dd567660b8d4dd78940815d858439" prot="public" virt="non-virtual"><scope>VolumeControl::Properties::Settings</scope><name>WindowWidthWide</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

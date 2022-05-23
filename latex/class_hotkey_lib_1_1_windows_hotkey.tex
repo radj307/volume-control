@@ -1,0 +1,209 @@
+\hypertarget{class_hotkey_lib_1_1_windows_hotkey}{}\doxysection{Hotkey\+Lib.\+Windows\+Hotkey Class Reference}
+\label{class_hotkey_lib_1_1_windows_hotkey}\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+
+
+Inheritance diagram for Hotkey\+Lib.\+Windows\+Hotkey\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_hotkey_lib_1_1_windows_hotkey__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Hotkey\+Lib.\+Windows\+Hotkey\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_hotkey_lib_1_1_windows_hotkey__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a95a3bc98d7a4c85018e609371b940ff8}\label{class_hotkey_lib_1_1_windows_hotkey_a95a3bc98d7a4c85018e609371b940ff8}} 
+{\bfseries Windows\+Hotkey} (Int\+Ptr owner, \mbox{\hyperlink{interface_hotkey_lib_1_1_i_key_combo}{IKey\+Combo}} keys)
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a65c702c11a26297fa9e9ad62cb654f73}\label{class_hotkey_lib_1_1_windows_hotkey_a65c702c11a26297fa9e9ad62cb654f73}} 
+void {\bfseries Notify\+Pressed} (Handled\+Event\+Args e)
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a108498ac1272bf598bfb56af65e1e9d2}\label{class_hotkey_lib_1_1_windows_hotkey_a108498ac1272bf598bfb56af65e1e9d2}} 
+new? string {\bfseries To\+String} ()
+\item 
+string \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_acb2f8fe30c9c61abb3d140569907a40d}{Serialize}} ()
+\begin{DoxyCompactList}\small\item\em Converts this hotkey to a string with a serialized representation of the key combination. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a693ede1d9f32bc3effc4d3496adfcc63}{Get\+Full\+Identifier}} ()
+\begin{DoxyCompactList}\small\item\em Gets a verbose description of the hotkey for use with logging functions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_ab8decca754446822af2d885dfba78ee1}{Dispose}} ()
+\begin{DoxyCompactList}\small\item\em Dispose of this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+readonly int \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a3d40134e5f4806b8d07bff50db27dc80}{ID}}
+\begin{DoxyCompactList}\small\item\em This is the hotkey identifier number of this hotkey. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_aae35aa0a6c81245ce29e2bf762e10b21}{Dispose}} (bool disposing)
+\begin{DoxyCompactList}\small\item\em Dispose of this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a9c746b7c5be2ef5bdb99c3b9e9b7a8d2}\label{class_hotkey_lib_1_1_windows_hotkey_a9c746b7c5be2ef5bdb99c3b9e9b7a8d2}} 
+Keys \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a9c746b7c5be2ef5bdb99c3b9e9b7a8d2}{Key}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a38120f38af9ab5650fdae944a6e11ef5}\label{class_hotkey_lib_1_1_windows_hotkey_a38120f38af9ab5650fdae944a6e11ef5}} 
+\mbox{\hyperlink{namespace_hotkey_lib_a0ee197083bcd7c48bc94a25ec4eb78e4}{Modifier}} \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a38120f38af9ab5650fdae944a6e11ef5}{Mod}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_ae83de19e3e771ad858a33780796f07c7}\label{class_hotkey_lib_1_1_windows_hotkey_ae83de19e3e771ad858a33780796f07c7}} 
+bool \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_ae83de19e3e771ad858a33780796f07c7}{Alt}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_aedba351f40d77e36d2ddc7f37e1e49b8}\label{class_hotkey_lib_1_1_windows_hotkey_aedba351f40d77e36d2ddc7f37e1e49b8}} 
+bool \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_aedba351f40d77e36d2ddc7f37e1e49b8}{Ctrl}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_ade0414d59fddc74e7790a0ffd79c78fa}\label{class_hotkey_lib_1_1_windows_hotkey_ade0414d59fddc74e7790a0ffd79c78fa}} 
+bool \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_ade0414d59fddc74e7790a0ffd79c78fa}{Shift}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a1efd8f5eb355e09d898822c1a6c6f8d1}\label{class_hotkey_lib_1_1_windows_hotkey_a1efd8f5eb355e09d898822c1a6c6f8d1}} 
+bool \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a1efd8f5eb355e09d898822c1a6c6f8d1}{Win}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a2a3efa66034174f9ccd1d86c260042ef}\label{class_hotkey_lib_1_1_windows_hotkey_a2a3efa66034174f9ccd1d86c260042ef}} 
+bool \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a2a3efa66034174f9ccd1d86c260042ef}{Valid}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_ab1b73356a0ff8472858e21f6bc6c73d9}\label{class_hotkey_lib_1_1_windows_hotkey_ab1b73356a0ff8472858e21f6bc6c73d9}} 
+bool {\bfseries Registered}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_hotkey_lib_aa4120157d6c9f133900c20f047b5f3a7}{Key\+Event\+Handler}}? \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_adfe0362c47303ebb4927d6517fe747f0}{Pressed}} = null
+\begin{DoxyCompactList}\small\item\em Triggered when the hotkey is pressed. \end{DoxyCompactList}\item 
+Event\+Handler? \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a7e61c30ddf3e077b02e95b875074b3a9}{Keys\+Changed}} = null
+\begin{DoxyCompactList}\small\item\em Triggered when the hotkey\textquotesingle{}s \mbox{\hyperlink{struct_hotkey_lib_1_1_key_combo}{Key\+Combo}} is changed. \end{DoxyCompactList}\item 
+Property\+Changed\+Event\+Handler? \mbox{\hyperlink{class_hotkey_lib_1_1_windows_hotkey_a20cbdb9c4ff3855aaab1d80ea3fe8e2e}{Property\+Changed}} = null
+\begin{DoxyCompactList}\small\item\em Triggered when any of the object\textquotesingle{}s properties change. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_ab8decca754446822af2d885dfba78ee1}\label{class_hotkey_lib_1_1_windows_hotkey_ab8decca754446822af2d885dfba78ee1}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Hotkey\+Lib.\+Windows\+Hotkey.\+Dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dispose of this object. 
+
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_aae35aa0a6c81245ce29e2bf762e10b21}\label{class_hotkey_lib_1_1_windows_hotkey_aae35aa0a6c81245ce29e2bf762e10b21}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void Hotkey\+Lib.\+Windows\+Hotkey.\+Dispose (\begin{DoxyParamCaption}\item[{bool}]{disposing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Dispose of this object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em disposing} & When true, any hotkeys are unregistered before disposal.\\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Bindable\+Windows\+Hotkey.\+Dispose().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_hotkey_lib_1_1_windows_hotkey_aae35aa0a6c81245ce29e2bf762e10b21_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a693ede1d9f32bc3effc4d3496adfcc63}\label{class_hotkey_lib_1_1_windows_hotkey_a693ede1d9f32bc3effc4d3496adfcc63}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!GetFullIdentifier@{GetFullIdentifier}}
+\index{GetFullIdentifier@{GetFullIdentifier}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{GetFullIdentifier()}{GetFullIdentifier()}}
+{\footnotesize\ttfamily virtual string Hotkey\+Lib.\+Windows\+Hotkey.\+Get\+Full\+Identifier (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets a verbose description of the hotkey for use with logging functions. 
+
+\begin{DoxyReturn}{Returns}
+string containing a verbose description of this hotkey and its current values.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_acb2f8fe30c9c61abb3d140569907a40d}\label{class_hotkey_lib_1_1_windows_hotkey_acb2f8fe30c9c61abb3d140569907a40d}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!Serialize@{Serialize}}
+\index{Serialize@{Serialize}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{Serialize()}{Serialize()}}
+{\footnotesize\ttfamily string Hotkey\+Lib.\+Windows\+Hotkey.\+Serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Converts this hotkey to a string with a serialized representation of the key combination. 
+
+This calls IKey\+Combo.\+Serialize internally.
+
+\begin{DoxyReturn}{Returns}
+string containing the serialized key representation.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_hotkey_lib_1_1_i_key_combo}{Hotkey\+Lib.\+IKey\+Combo}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a3d40134e5f4806b8d07bff50db27dc80}\label{class_hotkey_lib_1_1_windows_hotkey_a3d40134e5f4806b8d07bff50db27dc80}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!ID@{ID}}
+\index{ID@{ID}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{ID}{ID}}
+{\footnotesize\ttfamily readonly int Hotkey\+Lib.\+Windows\+Hotkey.\+ID}
+
+
+
+This is the hotkey identifier number of this hotkey. 
+
+Each hotkey is given an identifier when constructed, it cannot be changed later.
+
+\doxysubsection{Event Documentation}
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a7e61c30ddf3e077b02e95b875074b3a9}\label{class_hotkey_lib_1_1_windows_hotkey_a7e61c30ddf3e077b02e95b875074b3a9}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!KeysChanged@{KeysChanged}}
+\index{KeysChanged@{KeysChanged}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{KeysChanged}{KeysChanged}}
+{\footnotesize\ttfamily Event\+Handler? Hotkey\+Lib.\+Windows\+Hotkey.\+Keys\+Changed = null}
+
+
+
+Triggered when the hotkey\textquotesingle{}s \mbox{\hyperlink{struct_hotkey_lib_1_1_key_combo}{Key\+Combo}} is changed. 
+
+This can be triggered by any of the related properties.\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_adfe0362c47303ebb4927d6517fe747f0}\label{class_hotkey_lib_1_1_windows_hotkey_adfe0362c47303ebb4927d6517fe747f0}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!Pressed@{Pressed}}
+\index{Pressed@{Pressed}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{Pressed}{Pressed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_hotkey_lib_aa4120157d6c9f133900c20f047b5f3a7}{Key\+Event\+Handler}}? Hotkey\+Lib.\+Windows\+Hotkey.\+Pressed = null}
+
+
+
+Triggered when the hotkey is pressed. 
+
+\mbox{\Hypertarget{class_hotkey_lib_1_1_windows_hotkey_a20cbdb9c4ff3855aaab1d80ea3fe8e2e}\label{class_hotkey_lib_1_1_windows_hotkey_a20cbdb9c4ff3855aaab1d80ea3fe8e2e}} 
+\index{HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}!PropertyChanged@{PropertyChanged}}
+\index{PropertyChanged@{PropertyChanged}!HotkeyLib.WindowsHotkey@{HotkeyLib.WindowsHotkey}}
+\doxysubsubsection{\texorpdfstring{PropertyChanged}{PropertyChanged}}
+{\footnotesize\ttfamily Property\+Changed\+Event\+Handler? Hotkey\+Lib.\+Windows\+Hotkey.\+Property\+Changed = null}
+
+
+
+Triggered when any of the object\textquotesingle{}s properties change. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Hotkey\+Lib/Windows\+Hotkey.\+cs\end{DoxyCompactItemize}

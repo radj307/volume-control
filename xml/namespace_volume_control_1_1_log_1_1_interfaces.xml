@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_log_1_1_interfaces" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Log::Interfaces</compoundname>
+    <innerclass refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer" prot="public">VolumeControl::Log::Interfaces::ILogWriter</innerclass>
+    <innerclass refid="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp" prot="public">VolumeControl::Log::Interfaces::ITimestamp</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Interfaces/ILogWriter.cs" line="4" column="1"/>
+  </compounddef>
+</doxygen>

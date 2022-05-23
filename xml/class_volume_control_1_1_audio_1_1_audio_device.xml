@@ -1,0 +1,512 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_audio_1_1_audio_device" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::AudioDevice</compoundname>
+    <basecompoundref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device" prot="public" virt="non-virtual">VolumeControl.Audio.Interfaces.IDevice</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">INotifyPropertyChanged</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">IDisposable</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_device_1aaaf3a35739210dfd117a0e75d3bafd16" prot="private" static="no" mutable="no">
+        <type>readonly string</type>
+        <definition>readonly string VolumeControl.Audio.AudioDevice._deviceID</definition>
+        <argsstring></argsstring>
+        <name>_deviceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="32" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_device_1a1adaa33243a81b4de09f153e37c2b4e0" prot="private" static="no" mutable="no">
+        <type>MMDevice</type>
+        <definition>MMDevice VolumeControl.Audio.AudioDevice._device</definition>
+        <argsstring></argsstring>
+        <name>_device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="33" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_device_1a1f2d34e1f351a0e76bde3557495218b6" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>VolumeControl.Audio.AudioDevice.ImageSource?</definition>
+        <argsstring></argsstring>
+        <name>ImageSource?</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="34" column="17" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_audio_1_1_audio_device_1a61546a897a3aa60e418607c8d094f35b" prot="private" static="no" mutable="no">
+        <type>ImageSource??</type>
+        <definition>ImageSource?? VolumeControl.Audio.AudioDevice._icons</definition>
+        <argsstring></argsstring>
+        <name>_icons</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="34" column="41" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a3797abd3ea1f20fa9bdebee0b296d9b3" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="39" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a84d1002126a6c731549117b683356efd" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.DeviceID</definition>
+        <argsstring></argsstring>
+        <name>DeviceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="41" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="41" bodyend="-1"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" compoundref="_audio_a_p_i_8cs" startline="398" endline="412">VolumeControl.Audio.AudioAPI.GetDefaultDevice</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a82c68b912ea78bea0600a85fdf52fe4d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.InstanceID</definition>
+        <argsstring></argsstring>
+        <name>InstanceID</name>
+        <briefdescription>
+<para>The instance ID. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="43" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.IconPath</definition>
+        <argsstring></argsstring>
+        <name>IconPath</name>
+        <briefdescription>
+<para>This is the location of this device&apos;s icon on the system and may or may not actually be set. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This can point to nothing, one icon in a DLL package, an executable, or all sorts of other formats.<linebreak/>
+Do not use this for retrieving icon images directly, instead use <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a3803e74ec9ed9fb239d100cefdc012af" kindref="member">SmallIcon</ref>/<ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a38ac6102accbc2d6802d009d025bde1d" kindref="member">LargeIcon</ref>.<linebreak/>
+You can also use <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1ac4c8464264fd1df3ad978cb644c981f8" kindref="member">Icon</ref> directly if you don&apos;t care about the icon size.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="46" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a3803e74ec9ed9fb239d100cefdc012af" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>ImageSource?</type>
+        <definition>ImageSource? VolumeControl.Audio.AudioDevice.SmallIcon</definition>
+        <argsstring></argsstring>
+        <name>SmallIcon</name>
+        <briefdescription>
+<para>The small icon located at the <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" kindref="member">IconPath</ref>, or null if no icon was found. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that the icon properties all use internal caching; you don&apos;t need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="51" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a38ac6102accbc2d6802d009d025bde1d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>ImageSource?</type>
+        <definition>ImageSource? VolumeControl.Audio.AudioDevice.LargeIcon</definition>
+        <argsstring></argsstring>
+        <name>LargeIcon</name>
+        <briefdescription>
+<para>The large icon located at the <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" kindref="member">IconPath</ref>, or null if no icon was found. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that the icon properties all use internal caching; you don&apos;t need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="56" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1ac4c8464264fd1df3ad978cb644c981f8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>ImageSource?</type>
+        <definition>ImageSource? VolumeControl.Audio.AudioDevice.Icon</definition>
+        <argsstring></argsstring>
+        <name>Icon</name>
+        <briefdescription>
+<para>Returns <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a3803e74ec9ed9fb239d100cefdc012af" kindref="member">SmallIcon</ref> or if it is set to null, <ref refid="class_volume_control_1_1_audio_1_1_audio_device_1a38ac6102accbc2d6802d009d025bde1d" kindref="member">LargeIcon</ref> is returned instead.<linebreak/>
+ If both icons are set to null, this returns null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Note that the icon properties all use internal caching; you don&apos;t need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="62" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a6a9655f50d04f49a7c71e93eb383d1e6" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.DeviceFriendlyName</definition>
+        <argsstring></argsstring>
+        <name>DeviceFriendlyName</name>
+        <briefdescription>
+<para>Gets the friendly name of the endpoint device, including the name of the adapter.<linebreak/>
+Example: &quot;Speakers (XYZ Audio Adapter)&quot; </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For more information on this property, see MSDN: PKEY_Device_FriendlyName</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="67" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1ae9c4febcd7f193d2561f74b7827120dc" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.AudioDevice.FriendlyName</definition>
+        <argsstring></argsstring>
+        <name>FriendlyName</name>
+        <briefdescription>
+<para>Gets the friendly name of the endpoint adapter, excluding the name of the device.<linebreak/>
+Example: &quot;Speakers (XYZ Audio Adapter)&quot; </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For more information on this property, see MSDN: PKEY_Device_FriendlyName</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="72" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1acad01f956760d0a9cf7dfbf14bb20f7f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>PropertyStore</type>
+        <definition>PropertyStore VolumeControl.Audio.AudioDevice.Properties</definition>
+        <argsstring></argsstring>
+        <name>Properties</name>
+        <briefdescription>
+<para>Gets the underlying PropertyStore object for this endpoint. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This object is from NAudio.<linebreak/>
+If you&apos;re writing an addon, install the &apos;NAudio&apos; nuget package to be able to use this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="77" column="30" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1abdf90179bb0479d6226ac11832a52460" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>DeviceState</type>
+        <definition>DeviceState VolumeControl.Audio.AudioDevice.State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Gets the current DeviceState of this endpoint.<linebreak/>
+For more information, see the MSDN page: DEVICE_STATE_XXX Constants</para>
+        </briefdescription>
+        <detaileddescription>
+<para>This object is from NAudio.<linebreak/>
+If you&apos;re writing an addon, install the &apos;NAudio&apos; nuget package to be able to use this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="82" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a5bddcf66d81495a6fb90ab113893c862" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>AudioSessionManager</type>
+        <definition>AudioSessionManager VolumeControl.Audio.AudioDevice.SessionManager</definition>
+        <argsstring></argsstring>
+        <name>SessionManager</name>
+        <briefdescription>
+<para>Gets the AudioSessionManager object from the underlying MMDevice. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This object is from NAudio.<linebreak/>
+If you&apos;re writing an addon, install the &apos;NAudio&apos; nuget package to be able to use this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="87" column="36" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a775d911a510e8ec451bdd062fb7bbbe5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>AudioEndpointVolume</type>
+        <definition>AudioEndpointVolume VolumeControl.Audio.AudioDevice.EndpointVolumeObject</definition>
+        <argsstring></argsstring>
+        <name>EndpointVolumeObject</name>
+        <briefdescription>
+<para>Gets the AudioEndpointVolume object from the underlying MMDevice. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This object is from NAudio.<linebreak/>
+If you&apos;re writing an addon, install the &apos;NAudio&apos; nuget package to be able to use this.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="92" column="36" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a1fa68238cc3651eb11db790167276e7b" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>float</type>
+        <definition>float VolumeControl.Audio.AudioDevice.NativeEndpointVolume</definition>
+        <argsstring></argsstring>
+        <name>NativeEndpointVolume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="94" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="95" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1a993cbfb0015d83fd5b50fa9502c89b5e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int VolumeControl.Audio.AudioDevice.EndpointVolume</definition>
+        <argsstring></argsstring>
+        <name>EndpointVolume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="108" column="20" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="109" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_audio_1_1_audio_device_1ab5906d3597e2b45832d803abd5c3ed70" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.Audio.AudioDevice.EndpointMuted</definition>
+        <argsstring></argsstring>
+        <name>EndpointMuted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="122" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="123" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="event">
+      <memberdef kind="event" id="class_volume_control_1_1_audio_1_1_audio_device_1a9fc336d0314947c250ac61df798b9d91" prot="public" static="no" add="no" remove="no" raise="no">
+        <type>PropertyChangedEventHandler?</type>
+        <definition>PropertyChangedEventHandler? VolumeControl.Audio.AudioDevice.PropertyChanged</definition>
+        <argsstring></argsstring>
+        <name>PropertyChanged</name>
+        <briefdescription>
+<para>Triggered when a property is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="135" column="50" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_device_1a888c4ca31d7edeb68c6c4624edf6553c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.Audio.AudioDevice.AudioDevice</definition>
+        <argsstring>(MMDevice device)</argsstring>
+        <name>AudioDevice</name>
+        <param>
+          <type>MMDevice</type>
+          <declname>device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An enumerated MMDevice instance from NAudio.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="24" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="24" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_device_1ad7fd6cb6c5130e974b69714e291aaf44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> &gt;</type>
+        <definition>List&lt;AudioSession&gt; VolumeControl.Audio.AudioDevice.GetAudioSessions</definition>
+        <argsstring>()</argsstring>
+        <name>GetAudioSessions</name>
+        <briefdescription>
+<para>Gets the list of audio sessions currently using this device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of new <ref refid="class_volume_control_1_1_audio_1_1_audio_session" kindref="compound">AudioSession</ref> instances.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="150" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="150" bodyend="160"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1ac3e7afbc0735865b41053dca511119b3" compoundref="_audio_a_p_i_8cs" startline="448" endline="459">VolumeControl.Audio.AudioAPI.ReloadSessionList</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_device_1ac833fb1a273429d1aeb6402791ae5575" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioDevice.Dispose</definition>
+        <argsstring>()</argsstring>
+        <name>Dispose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="162" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="162" bodyend="167"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a5007215c50125859c0ed3806e98ffa81" compoundref="_audio_a_p_i_8cs" startline="398" endline="412">VolumeControl.Audio.AudioAPI.GetDefaultDevice</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_device_1ac86db74e9a74206b6d721bf5b8b8e01b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioDevice.NotifyPropertyChanged</definition>
+        <argsstring>([CallerMemberName] string propertyName=&quot;&quot;)</argsstring>
+        <name>NotifyPropertyChanged</name>
+        <param>
+          <attributes>[CallerMemberName]</attributes>
+          <type>string</type>
+          <declname>propertyName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="136" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_audio_1_1_audio_device_1a5003759f5d61ee2227b914871d7cea81" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Audio.AudioDevice.Reload</definition>
+        <argsstring>()</argsstring>
+        <name>Reload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="140" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="140" bodyend="145"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents an audio device endpoint. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This object uses the MMDevice <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> from NAudio, and implements the following interfaces:<itemizedlist>
+<listitem>
+<para>IDevice </para>
+</listitem>
+<listitem>
+<para>INotifyPropertyChanged </para>
+</listitem>
+<listitem>
+<para>IDisposable </para>
+</listitem>
+</itemizedlist>
+Some properties in this object require the NAudio library.<linebreak/>
+If you&apos;re writing an addon, install the &apos;NAudio&apos; nuget package if you need to be able to use them. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="4">
+        <label>IDisposable</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioDevice</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_device"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IDevice</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>INotifyPropertyChanged</label>
+      </node>
+      <node id="4">
+        <label>IDisposable</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.AudioDevice</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_device"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IDevice</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" line="19" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/AudioDevice.cs" bodystart="20" bodyend="169"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a1adaa33243a81b4de09f153e37c2b4e0" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>_device</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1aaaf3a35739210dfd117a0e75d3bafd16" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>_deviceID</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a61546a897a3aa60e418607c8d094f35b" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>_icons</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a888c4ca31d7edeb68c6c4624edf6553c" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>AudioDevice</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a6a9655f50d04f49a7c71e93eb383d1e6" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>DeviceFriendlyName</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a84d1002126a6c731549117b683356efd" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>DeviceID</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ac833fb1a273429d1aeb6402791ae5575" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>Dispose</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ab5906d3597e2b45832d803abd5c3ed70" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>EndpointMuted</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a993cbfb0015d83fd5b50fa9502c89b5e" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>EndpointVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a775d911a510e8ec451bdd062fb7bbbe5" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>EndpointVolumeObject</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ae9c4febcd7f193d2561f74b7827120dc" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>FriendlyName</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ad7fd6cb6c5130e974b69714e291aaf44" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>GetAudioSessions</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ac4c8464264fd1df3ad978cb644c981f8" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>Icon</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a32b585bf990ae5cee6f825ea2da8e124" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>IconPath</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a1f2d34e1f351a0e76bde3557495218b6" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>ImageSource?</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a82c68b912ea78bea0600a85fdf52fe4d" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>InstanceID</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a38ac6102accbc2d6802d009d025bde1d" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>LargeIcon</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a3797abd3ea1f20fa9bdebee0b296d9b3" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>Name</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a1fa68238cc3651eb11db790167276e7b" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>NativeEndpointVolume</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1ac86db74e9a74206b6d721bf5b8b8e01b" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>NotifyPropertyChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1acad01f956760d0a9cf7dfbf14bb20f7f" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>Properties</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a9fc336d0314947c250ac61df798b9d91" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>PropertyChanged</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a5003759f5d61ee2227b914871d7cea81" prot="private" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>Reload</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a5bddcf66d81495a6fb90ab113893c862" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>SessionManager</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1a3803e74ec9ed9fb239d100cefdc012af" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>SmallIcon</name></member>
+      <member refid="class_volume_control_1_1_audio_1_1_audio_device_1abdf90179bb0479d6226ac11832a52460" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::AudioDevice</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

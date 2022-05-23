@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::WPF::Converters::BoolToValueConverter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MarkupExtension</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">IValueConverter</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a12cca27754de6c82ad01a1b7db3832b7" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>T</type>
+        <definition>T VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.FalseValue</definition>
+        <argsstring></argsstring>
+        <name>FalseValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="27" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a4a98ab9897d8c5f357b7e2947f770dc5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>T</type>
+        <definition>T VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.TrueValue</definition>
+        <argsstring></argsstring>
+        <name>TrueValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="29" column="18" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" bodystart="29" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a5a43fb7b44753a437ec4785d44195236" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.BoolToValueConverter</definition>
+        <argsstring>()</argsstring>
+        <name>BoolToValueConverter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="17" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" bodystart="17" bodyend="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a0463446d4f05ddf27e5d7a5d024ec1c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>object</type>
+        <definition>object VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.Convert</definition>
+        <argsstring>(object value, Type targetType, object parameter, CultureInfo culture)</argsstring>
+        <name>Convert</name>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>targetType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="36" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a87a23dfe038068b2ef586be833f2fc28" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>object</type>
+        <definition>virtual object VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.ConvertBack</definition>
+        <argsstring>(object value, Type targetType, object parameter, CultureInfo culture)</argsstring>
+        <name>ConvertBack</name>
+        <param>
+          <type>object</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>Type</type>
+          <declname>targetType</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>CultureInfo</type>
+          <declname>culture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="41" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a831e54a717cb3a9445833b32a8bc35a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>override object</type>
+        <definition>override object VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;.ProvideValue</definition>
+        <argsstring>(IServiceProvider serviceProvider)</argsstring>
+        <name>ProvideValue</name>
+        <param>
+          <type>IServiceProvider</type>
+          <declname>serviceProvider</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="45" column="32"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Use as the base class for BoolToXXX style converters </para>
+    </briefdescription>
+    <detaileddescription>
+<para>From </para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<linebreak/>
+ </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>IValueConverter</label>
+      </node>
+      <node id="2">
+        <label>MarkupExtension</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>IValueConverter</label>
+      </node>
+      <node id="2">
+        <label>MarkupExtension</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.WPF.Converters.BoolToValueConverter&lt; T &gt;</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" line="13" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/BoolToValueConverter.cs" bodystart="14" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a5a43fb7b44753a437ec4785d44195236" prot="protected" virt="non-virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>BoolToValueConverter</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a0463446d4f05ddf27e5d7a5d024ec1c7" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>Convert</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a87a23dfe038068b2ef586be833f2fc28" prot="public" virt="virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>ConvertBack</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a12cca27754de6c82ad01a1b7db3832b7" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>FalseValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a831e54a717cb3a9445833b32a8bc35a9" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>ProvideValue</name></member>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter_1a4a98ab9897d8c5f357b7e2947f770dc5" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Converters::BoolToValueConverter</scope><name>TrueValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

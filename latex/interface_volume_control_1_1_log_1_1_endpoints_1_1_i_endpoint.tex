@@ -1,0 +1,235 @@
+\hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint}{}\doxysection{Volume\+Control.\+Log.\+Endpoints.\+IEndpoint Interface Reference}
+\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint}\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+
+
+Represents an endpoint output target for a log writer, and exposes helper methods for interacting with it.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Log.\+Endpoints.\+IEndpoint\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Log.\+Endpoints.\+IEndpoint\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Text\+Reader? \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a60af0f9d41c722343efedc38320afe57}{Get\+Reader}} ()
+\begin{DoxyCompactList}\small\item\em Retrieve a Stream\+Reader object for reading from the endpoint.~\newline
+ Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations. \end{DoxyCompactList}\item 
+Text\+Writer? \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aff4d1758c814322b5474fa95c9863ce8}{Get\+Writer}} ()
+\begin{DoxyCompactList}\small\item\em Retrieve a Stream\+Writer object for writing to the endpoint.~\newline
+ Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a74b825acaf5e2abcdf1d5f575271ce88}{Write\+Raw}} (string? str)
+\begin{DoxyCompactList}\small\item\em Write to the filestream. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a75f9066167539480deb69d35bfbfa07d}{Write\+Raw\+Line}} (string? str=null)
+\begin{DoxyCompactList}\small\item\em Write to the filestream, and append a newline. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. \end{DoxyCompactList}\item 
+int? \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a0beeb6721ae6927f40baa9a65f549c0c}{Read\+Raw}} ()
+\begin{DoxyCompactList}\small\item\em Read a character from the log endpoint. \end{DoxyCompactList}\item 
+string? \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aa57f5124ce86829424cc6498ed97d4fb}{Read\+Raw\+Line}} ()
+\begin{DoxyCompactList}\small\item\em Read a line from the log endpoint. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a3b3c2e8e67ea6c871d38649a3238bb2f}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Reset the contents of the log endpoint, leaving it empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a6912d3851cf42b2017d164c08d073c8e}{Enabled}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Return true when the endpoint is enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an endpoint output target for a log writer, and exposes helper methods for interacting with it. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a60af0f9d41c722343efedc38320afe57}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a60af0f9d41c722343efedc38320afe57}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!GetReader@{GetReader}}
+\index{GetReader@{GetReader}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{GetReader()}{GetReader()}}
+{\footnotesize\ttfamily Text\+Reader? Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Get\+Reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieve a Stream\+Reader object for reading from the endpoint.~\newline
+ Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations. 
+
+\begin{DoxyReturn}{Returns}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+null&The endpoint isn\textquotesingle{}t enabled. \\\cline{1-2}
+Stream\+Reader&A reader using this endpoint\textquotesingle{}s output target. \\\cline{1-2}
+\end{longtabu}
+
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a43b3b7b371f3ccffc7ada5c0d15c1944}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_a2f9fa484851efc87f264f6619aa8be7b}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_a65d6356b69032a097acb4083fe305f53}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+
+
+Referenced by Volume\+Control.\+Log.\+Log\+Writer.\+Write\+Message().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a60af0f9d41c722343efedc38320afe57_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aff4d1758c814322b5474fa95c9863ce8}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aff4d1758c814322b5474fa95c9863ce8}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!GetWriter@{GetWriter}}
+\index{GetWriter@{GetWriter}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{GetWriter()}{GetWriter()}}
+{\footnotesize\ttfamily Text\+Writer? Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Get\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieve a Stream\+Writer object for writing to the endpoint.~\newline
+ Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations. 
+
+\begin{DoxyReturn}{Returns}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+null&The endpoint isn\textquotesingle{}t enabled. \\\cline{1-2}
+Stream\+Writer&A writer using this endpoint\textquotesingle{}s output target. \\\cline{1-2}
+\end{longtabu}
+
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aa93393608ae22f701eae706272b9c0f8}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_a8e290ff57ab36aaf944c453de9b07c2b}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_aec0792677f28c72382b0ebda7799753a}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+
+
+Referenced by Volume\+Control.\+Log.\+Log\+Writer.\+Write\+With\+Timestamp().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aff4d1758c814322b5474fa95c9863ce8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a0beeb6721ae6927f40baa9a65f549c0c}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a0beeb6721ae6927f40baa9a65f549c0c}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!ReadRaw@{ReadRaw}}
+\index{ReadRaw@{ReadRaw}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{ReadRaw()}{ReadRaw()}}
+{\footnotesize\ttfamily int? Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Read\+Raw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read a character from the log endpoint. 
+
+\begin{DoxyReturn}{Returns}
+Integer (4-\/byte) representation of a single character.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a07f919aa268f8b2d51d1db0752d9ca9d}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_aa216525ae4f7a5370a0881bcc2969f2e}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_a3d73af7ec75df29ee6d1e1087764d7d8}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aa57f5124ce86829424cc6498ed97d4fb}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_aa57f5124ce86829424cc6498ed97d4fb}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!ReadRawLine@{ReadRawLine}}
+\index{ReadRawLine@{ReadRawLine}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{ReadRawLine()}{ReadRawLine()}}
+{\footnotesize\ttfamily string? Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Read\+Raw\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read a line from the log endpoint. 
+
+\begin{DoxyReturn}{Returns}
+A string containing one line from the log endpoint.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_ad99410e9294ced575ec1cf30dddf75a6}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_a602edf062d23216c025adacaf1d6c804}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_a2658d079ebd23e2ff98d2ab890d10b7b}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a3b3c2e8e67ea6c871d38649a3238bb2f}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a3b3c2e8e67ea6c871d38649a3238bb2f}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!Reset@{Reset}}
+\index{Reset@{Reset}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset the contents of the log endpoint, leaving it empty. 
+
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a451a080b551993718c7738c0a8d9fc54}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_a6fc46286e63a591aebbc7738cbc6edef}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_ad3b2a5e4ba220551b7d13900983a766f}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a74b825acaf5e2abcdf1d5f575271ce88}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a74b825acaf5e2abcdf1d5f575271ce88}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!WriteRaw@{WriteRaw}}
+\index{WriteRaw@{WriteRaw}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{WriteRaw()}{WriteRaw()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Write\+Raw (\begin{DoxyParamCaption}\item[{string?}]{str }\end{DoxyParamCaption})}
+
+
+
+Write to the filestream. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A string to write.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a1ff4a1d555740b1294ba3e0e55655d71}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_a8f4af91f9620b421d789add17299d393}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_aa95f704e98c3f1895bbb99beaea119b0}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}.
+
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a75f9066167539480deb69d35bfbfa07d}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a75f9066167539480deb69d35bfbfa07d}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!WriteRawLine@{WriteRawLine}}
+\index{WriteRawLine@{WriteRawLine}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{WriteRawLine()}{WriteRawLine()}}
+{\footnotesize\ttfamily void Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Write\+Raw\+Line (\begin{DoxyParamCaption}\item[{string?}]{str = {\ttfamily null} }\end{DoxyParamCaption})}
+
+
+
+Write to the filestream, and append a newline. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A string to write.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_af90d7d71fdc8c3fc5ae89e5e2c863969}{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint}}, \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint_aec8f1802aeff37aa5ea56d32afa186bc}{Volume\+Control.\+Log.\+Endpoints.\+Console\+Endpoint}}, and \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint_aa9cd109a0e20e357239b4d08a6b7e970}{Volume\+Control.\+Log.\+Endpoints.\+File\+Endpoint}}.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a6912d3851cf42b2017d164c08d073c8e}\label{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint_a6912d3851cf42b2017d164c08d073c8e}} 
+\index{VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}!Enabled@{Enabled}}
+\index{Enabled@{Enabled}!VolumeControl.Log.Endpoints.IEndpoint@{VolumeControl.Log.Endpoints.IEndpoint}}
+\doxysubsubsection{\texorpdfstring{Enabled}{Enabled}}
+{\footnotesize\ttfamily bool Volume\+Control.\+Log.\+Endpoints.\+IEndpoint.\+Enabled\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Return true when the endpoint is enabled. 
+
+
+
+Referenced by Volume\+Control.\+Log.\+Log\+Writer.\+Append(), Volume\+Control.\+Log.\+Log\+Writer.\+Write\+Event(), and Volume\+Control.\+Log.\+Log\+Writer.\+Write\+With\+Timestamp().
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Log/\+Endpoints/IEndpoint.\+cs\end{DoxyCompactItemize}

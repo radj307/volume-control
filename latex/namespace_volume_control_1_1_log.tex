@@ -1,0 +1,14 @@
+\hypertarget{namespace_volume_control_1_1_log}{}\doxysection{Volume\+Control.\+Log Namespace Reference}
+\label{namespace_volume_control_1_1_log}\index{VolumeControl.Log@{VolumeControl.Log}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_volume_control_1_1_log_1_1_f_log}{FLog}}
+\item 
+class \mbox{\hyperlink{class_volume_control_1_1_log_1_1_log_message}{Log\+Message}}
+\begin{DoxyCompactList}\small\item\em This is an entirely optional object that maintains an internal Memory\+Stream and emulates the \mbox{\hyperlink{class_volume_control_1_1_log_1_1_log_writer}{Log\+Writer}} object with a twist.~\newline
+ This object can\textquotesingle{}t flush the buffer to any endpoint directly, but can be passed to a \mbox{\hyperlink{class_volume_control_1_1_log_1_1_log_writer}{Log\+Writer}} that will print the entire message in one operation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_volume_control_1_1_log_1_1_log_writer}{Log\+Writer}}
+\begin{DoxyCompactList}\small\item\em Basic log writer object. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_volume_control_1_1_log_1_1_timestamp}{Timestamp}}
+\begin{DoxyCompactList}\small\item\em Implements ITimestamp using UTC format with (Margin\+Time\+Point = 29, Margin\+Event\+Type = 8) \end{DoxyCompactList}\end{DoxyCompactItemize}

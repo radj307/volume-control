@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_c8faa01943b2df236b00d6a9a62f8daf" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters</compoundname>
+    <innerfile refid="_boolean_inverter_8cs">BooleanInverter.cs</innerfile>
+    <innerfile refid="_bool_to_value_converter_8cs">BoolToValueConverter.cs</innerfile>
+    <innerfile refid="_converter_chain_8cs">ConverterChain.cs</innerfile>
+    <innerfile refid="_multi_binding_boolean_converter_8cs">MultiBindingBooleanConverter.cs</innerfile>
+    <innerfile refid="_null_to_boolean_converter_8cs">NullToBooleanConverter.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Converters/"/>
+  </compounddef>
+</doxygen>

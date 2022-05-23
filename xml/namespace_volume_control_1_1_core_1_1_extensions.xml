@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_core_1_1_extensions" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Core::Extensions</compoundname>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_int32_extensions" prot="public">VolumeControl::Core::Extensions::Int32Extensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_list_extensions" prot="public">VolumeControl::Core::Extensions::ListExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions" prot="public">VolumeControl::Core::Extensions::ProcessExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions" prot="public">VolumeControl::Core::Extensions::RealNumberExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions" prot="public">VolumeControl::Core::Extensions::StringExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_core_1_1_extensions_1_1_timer_extensions" prot="public">VolumeControl::Core::Extensions::TimerExtensions</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/Extensions/Int32Extensions.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

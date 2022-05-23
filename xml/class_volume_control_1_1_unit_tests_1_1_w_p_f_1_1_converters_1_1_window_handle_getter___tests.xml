@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_unit_tests_1_1_w_p_f_1_1_converters_1_1_window_handle_getter___tests" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::UnitTests::WPF::Converters::WindowHandleGetter_Tests</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_unit_tests_1_1_w_p_f_1_1_converters_1_1_window_handle_getter___tests_1acc8c18933a89155b77a693cfc0bcd523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.UnitTests.WPF.Converters.WindowHandleGetter_Tests.GetWindowHandle_Test</definition>
+        <argsstring>()</argsstring>
+        <name>GetWindowHandle_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.UnitTests/WPF/Converters/WindowHandleGetter_Tests.cs" line="11" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_unit_tests_1_1_w_p_f_1_1_converters_1_1_window_handle_getter___tests_1a1c7878886a8e2c42004952602a32f09a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.UnitTests.WPF.Converters.WindowHandleGetter_Tests.GetHwndSource_Test</definition>
+        <argsstring>()</argsstring>
+        <name>GetHwndSource_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.UnitTests/WPF/Converters/WindowHandleGetter_Tests.cs" line="14" column="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.UnitTests/WPF/Converters/WindowHandleGetter_Tests.cs" line="8" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.UnitTests/WPF/Converters/WindowHandleGetter_Tests.cs" bodystart="9" bodyend="15"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_unit_tests_1_1_w_p_f_1_1_converters_1_1_window_handle_getter___tests_1a1c7878886a8e2c42004952602a32f09a" prot="public" virt="non-virtual"><scope>VolumeControl::UnitTests::WPF::Converters::WindowHandleGetter_Tests</scope><name>GetHwndSource_Test</name></member>
+      <member refid="class_volume_control_1_1_unit_tests_1_1_w_p_f_1_1_converters_1_1_window_handle_getter___tests_1acc8c18933a89155b77a693cfc0bcd523" prot="public" virt="non-virtual"><scope>VolumeControl::UnitTests::WPF::Converters::WindowHandleGetter_Tests</scope><name>GetWindowHandle_Test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

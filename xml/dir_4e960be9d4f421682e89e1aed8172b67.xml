@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_4e960be9d4f421682e89e1aed8172b67" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties</compoundname>
+    <innerfile refid="_resources_8_designer_8cs">Resources.Designer.cs</innerfile>
+    <innerfile refid="_volume_control_2_properties_2_settings_8_designer_8cs">Settings.Designer.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Properties/"/>
+  </compounddef>
+</doxygen>

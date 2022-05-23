@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_7fe4aeeb0abc4c2a4adaff7a8caa36db" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.API</compoundname>
+    <innerdir refid="dir_735f87dbe2743f80fb59bd3573375a9f">X:/_Workspace/_repo/volume-control-3/VolumeControl.API/Internal</innerdir>
+    <innerfile refid="_v_c_a_p_i_8cs">VCAPI.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.API/"/>
+  </compounddef>
+</doxygen>

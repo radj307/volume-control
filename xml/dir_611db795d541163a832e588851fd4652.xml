@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_611db795d541163a832e588851fd4652" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows</compoundname>
+    <innerfile refid="_volume_control_8_w_p_f_2obj_2_s_d_k_2net6_80-windows_2_8_n_e_t_core_app_00_version_0av6_80_8_assembly_attributes_8cs">.NETCoreApp,Version=v6.0.AssemblyAttributes.cs</innerfile>
+    <innerfile refid="_s_d_k_2net6_80-windows_2_generated_internal_type_helper_8g_8cs">GeneratedInternalTypeHelper.g.cs</innerfile>
+    <innerfile refid="_s_d_k_2net6_80-windows_2_generated_internal_type_helper_8g_8i_8cs">GeneratedInternalTypeHelper.g.i.cs</innerfile>
+    <innerfile refid="_s_d_k_2net6_80-windows_2_volume_control_8_w_p_f_8_assembly_info_8cs">VolumeControl.WPF.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__2yqkzejc__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_2yqkzejc_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__apzjb20m__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_apzjb20m_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__byuvcd3c__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_byuvcd3c_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__dhynwp2h__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_dhynwp2h_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__epu2ntwb__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_epu2ntwb_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__gozo5hov__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_gozo5hov_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__jhybduok__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_jhybduok_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__klcc3zbp__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_klcc3zbp_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__mg3of2ob__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_mg3of2ob_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__qk0odzms__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_qk0odzms_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__sm3rwj3g__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_sm3rwj3g_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__thcx4l1g__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_thcx4l1g_wpftmp.AssemblyInfo.cs</innerfile>
+    <innerfile refid="_volume_control_8_w_p_f__w502nst1__wpftmp_8_assembly_info_8cs">VolumeControl.WPF_w502nst1_wpftmp.AssemblyInfo.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/obj/SDK/net6.0-windows/"/>
+  </compounddef>
+</doxygen>

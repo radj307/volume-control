@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding" kind="interface" language="C#" prot="public">
+    <compoundname>VolumeControl::Hotkeys::Interfaces::IActionBinding</compoundname>
+    <derivedcompoundref refid="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding" prot="public" virt="non-virtual">VolumeControl.Hotkeys.Structs.ActionBinding</derivedcompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_1a0539f24445f96fcffe953ba6d5019074" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Hotkeys.Interfaces.IActionBinding.Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>The display name of this action. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" line="13" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" bodystart="13" bodyend="13"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_1aec6823f093a65c7fd3944db7b35dd58e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Interfaces.IActionBinding.HandleKeyEvent</definition>
+        <argsstring>(object? sender, HandledEventArgs? e)</argsstring>
+        <name>HandleKeyEvent</name>
+        <reimplementedby refid="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding_1a29506739a342cef3972e56ccac80b5e1">HandleKeyEvent</reimplementedby>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs?</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>This is the event handler for this action binding. It calls MethodBase.Invoke(object?, object?[]?) on the bound method. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" line="17" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents an action binding object, which is a container for reflective method information used to call the actual target. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>VolumeControl.Hotkeys.Structs.ActionBinding</label>
+        <link refid="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.Interfaces.IActionBinding</label>
+        <link refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.Interfaces.IActionBinding</label>
+        <link refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" line="8" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" bodystart="9" bodyend="18"/>
+    <listofallmembers>
+      <member refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_1aec6823f093a65c7fd3944db7b35dd58e" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Interfaces::IActionBinding</scope><name>HandleKeyEvent</name></member>
+      <member refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding_1a0539f24445f96fcffe953ba6d5019074" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Interfaces::IActionBinding</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

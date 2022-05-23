@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_core_1_1_math_ext" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Core::MathExt</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_math_ext_1a5f9b270f650324f8340ff8cfc0129adf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>static T VolumeControl.Core.MathExt.ClampValue&lt; T &gt;</definition>
+        <argsstring>(T value, T min, T max)</argsstring>
+        <name>ClampValue&lt; T &gt;</name>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+<para>Clamps the given value between <emphasis>min</emphasis>  and <emphasis>max</emphasis> . </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The <emphasis>min</emphasis>  and <emphasis>max</emphasis>  boundary values are <bold>inclusive</bold>.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Any numerical type.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to clamp.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum allowable value.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum allowable value.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><emphasis>value</emphasis>  clamped between <emphasis>min</emphasis>  and <emphasis>max</emphasis> .</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" line="15" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" bodystart="15" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_math_ext_1a5fcedd7775bbc61f2093431e4a80e649" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VolumeControl.Core.MathExt.Scale</definition>
+        <argsstring>(int input, int inRangeMin, int inRangeMax, int outRangeMin, int outRangeMax)</argsstring>
+        <name>Scale</name>
+        <param>
+          <type>int</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inRangeMin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inRangeMax</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>outRangeMin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>outRangeMax</declname>
+        </param>
+        <briefdescription>
+<para>Accepts <emphasis>input</emphasis> , a number in the range ( <emphasis>inRangeMin</emphasis>  - <emphasis>inRangeMax</emphasis>  ), and translates it to be within the range ( <emphasis>outRangeMin</emphasis>  - <emphasis>outRangeMax</emphasis>  ). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input number</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inRangeMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum boundary of the range that <emphasis>input</emphasis>  is within.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inRangeMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum boundary of the range that <emphasis>input</emphasis>  is within.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outRangeMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum boundary of the output range.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outRangeMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum boundary of the output range.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><emphasis>input</emphasis>  scaled to be within the range <emphasis>outRangeMin</emphasis>  - <emphasis>outRangeMax</emphasis> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" line="32" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_core_1_1_math_ext_1a47b4d2cb016d25dd7f2429c1f818e061" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VolumeControl.Core.MathExt.Scale</definition>
+        <argsstring>(int input,(int, int) inRange,(int, int) outRange)</argsstring>
+        <name>Scale</name>
+        <param>
+          <type>int</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>(int, int)</type>
+          <declname>inRange</declname>
+        </param>
+        <param>
+          <type>(int, int)</type>
+          <declname>outRange</declname>
+        </param>
+        <briefdescription>
+<para>Accepts <emphasis>input</emphasis> , a number in the range ( <emphasis>inRange</emphasis> .Item1 - <emphasis>inRange</emphasis> .Item2 ), and translates it to be within the range ( <emphasis>outRange</emphasis> .Item1 - <emphasis>outRange</emphasis> .Item2 ). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="class_volume_control_1_1_core_1_1_math_ext_1a5fcedd7775bbc61f2093431e4a80e649" kindref="member">Scale(int, int, int, int, int)</ref> if you&apos;re having trouble with the tuples.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input number</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>inRange</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The range that <emphasis>input</emphasis>  is within.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outRange</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The range to translate <emphasis>input</emphasis>  to.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><emphasis>input</emphasis>  scaled to be within the range <emphasis>outRange</emphasis> .Item1 - <emphasis>outRange</emphasis> .Item2</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" line="42" column="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Methods for various mathematics operations not covered by Math </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Core.MathExt</label>
+        <link refid="class_volume_control_1_1_core_1_1_math_ext"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" line="6" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/MathExt.cs" bodystart="7" bodyend="43"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_core_1_1_math_ext_1a5f9b270f650324f8340ff8cfc0129adf" prot="public" virt="non-virtual"><scope>VolumeControl::Core::MathExt</scope><name>ClampValue&lt; T &gt;</name></member>
+      <member refid="class_volume_control_1_1_core_1_1_math_ext_1a5fcedd7775bbc61f2093431e4a80e649" prot="public" virt="non-virtual"><scope>VolumeControl::Core::MathExt</scope><name>Scale</name></member>
+      <member refid="class_volume_control_1_1_core_1_1_math_ext_1a47b4d2cb016d25dd7f2429c1f818e061" prot="public" virt="non-virtual"><scope>VolumeControl::Core::MathExt</scope><name>Scale</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

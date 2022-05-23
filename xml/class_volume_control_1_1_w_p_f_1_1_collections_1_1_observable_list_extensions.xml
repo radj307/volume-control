@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::WPF::Collections::ObservableListExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions_1abc40052c359b3afd230acdacc17f4088" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.WPF.Collections.ObservableListExtensions.RemoveAll&lt; T &gt;</definition>
+        <argsstring>(this ObservableList&lt; T &gt; collection, Predicate&lt; T &gt; predicate)</argsstring>
+        <name>RemoveAll&lt; T &gt;</name>
+        <param>
+          <type>this <ref refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list" kindref="compound">ObservableList</ref>&lt; T &gt;</type>
+          <declname>collection</declname>
+        </param>
+        <param>
+          <type>Predicate&lt; T &gt;</type>
+          <declname>predicate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableListExtensions.cs" line="7" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableListExtensions.cs" bodystart="7" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.WPF.Collections.ObservableListExtensions</label>
+        <link refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableListExtensions.cs" line="5" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/ObservableListExtensions.cs" bodystart="6" bodyend="15"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions_1abc40052c359b3afd230acdacc17f4088" prot="public" virt="non-virtual"><scope>VolumeControl::WPF::Collections::ObservableListExtensions</scope><name>RemoveAll&lt; T &gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_list_notification_display_target_8cs" kind="file" language="C#">
+    <compoundname>ListNotificationDisplayTarget.cs</compoundname>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control" kindref="compound">VolumeControl</ref></highlight></codeline>
+<codeline lineno="2"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6" refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930" kindref="member">ListNotificationDisplayTarget</ref></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930a6adf97f83acf6453d4a6a4b1070f3754" kindref="member">None</ref>,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930aa9c4b6c9fbd990849d1f128dfc4ed3e7" kindref="member">Sessions</ref>,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930ac03ca67dda321195d74c951097f240c6" kindref="member">Devices</ref>,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotificationDisplayTarget.cs"/>
+  </compounddef>
+</doxygen>

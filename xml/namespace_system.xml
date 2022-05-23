@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_system" kind="namespace" language="C#">
+    <compoundname>System</compoundname>
+    <innernamespace refid="namespace_system_1_1_windows">System::Windows</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.WPF/Collections/BindableEventType.cs" line="1" column="13"/>
+  </compounddef>
+</doxygen>

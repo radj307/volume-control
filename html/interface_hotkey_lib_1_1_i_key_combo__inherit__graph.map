@@ -1,0 +1,7 @@
+<map id="HotkeyLib.IKeyCombo" name="HotkeyLib.IKeyCombo">
+<area shape="rect" id="node1" title="Represents a combination of one keyboard key and any number of modifier keys." alt="" coords="192,131,343,311"/>
+<area shape="rect" id="node3" href="$struct_hotkey_lib_1_1_key_combo.html" title="Represents a combination of one keyboard key and any number of modifier keys." alt="" coords="5,410,153,649"/>
+<area shape="rect" id="node4" href="$class_hotkey_lib_1_1_windows_hotkey.html" title=" " alt="" coords="178,366,357,693"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html" title=" " alt="" coords="381,359,594,700"/>
+<area shape="rect" id="node2" title=" " alt="" coords="188,5,347,83"/>
+</map>

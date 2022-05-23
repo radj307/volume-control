@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_hotkeys_1_1_interfaces" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Hotkeys::Interfaces</compoundname>
+    <innerclass refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding" prot="public">VolumeControl::Hotkeys::Interfaces::IActionBinding</innerclass>
+    <innerclass refid="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager" prot="public">VolumeControl::Hotkeys::Interfaces::IHotkeyActionManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys/Interfaces/IActionBinding.cs" line="3" column="1"/>
+  </compounddef>
+</doxygen>

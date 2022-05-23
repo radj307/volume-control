@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::Hotkeys::Addons::WindowsAPIActions</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a51c0f0f2ba65a571c0a84d784991cf90" prot="private" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>IntPtr</type>
+        <definition>IntPtr VolumeControl.Hotkeys.Addons.WindowsAPIActions.MainHWnd</definition>
+        <argsstring></argsstring>
+        <name>MainHWnd</name>
+        <briefdescription>
+<para>ActionHandlers constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mainWindowHandle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle of the main <ref refid="namespace_volume_control_1_1_w_p_f" kindref="compound">WPF</ref> window.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>audioAPI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The AudioAPI instance to use for volume-related hotkeys.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+<para>The handle of the main <ref refid="namespace_volume_control_1_1_w_p_f" kindref="compound">WPF</ref> window.</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="27" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a5ab892d22a03357cf97e32886d81ba3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.NextTrack</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>NextTrack</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="30" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a77b64ac233b9432a6a5ae9aab97eea53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.PreviousTrack</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>PreviousTrack</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="31" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a08f4708c183a7a138d69ea20835c2c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.TogglePlayback</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>TogglePlayback</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="32" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a1a4c8869f3c7330933aabac74e86b222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.BringToForeground</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>BringToForeground</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="33" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ab395ebf2f57f6f3c9d5347c752c68cbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.SendToBackground</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>SendToBackground</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="34" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ad7ec9c03b4d82524be38583bccd0a79f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.Minimize</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>Minimize</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="35" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ae1b0d99185180a4bf1f59add3f0a81f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.Hotkeys.Addons.WindowsAPIActions.Unminimize</definition>
+        <argsstring>(object? sender, HandledEventArgs e)</argsstring>
+        <name>Unminimize</name>
+        <param>
+          <type>object?</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>HandledEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="37" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" bodystart="37" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a6c60b7ce6eaa8b4e650c3eb316302745" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.Hotkeys.Addons.WindowsAPIActions.SendKeyboardEvent</definition>
+        <argsstring>(EVirtualKeyCode vk, byte scanCode=0xAA, byte flags=1)</argsstring>
+        <name>SendKeyboardEvent</name>
+        <param>
+          <type>EVirtualKeyCode</type>
+          <declname>vk</declname>
+        </param>
+        <param>
+          <type>byte</type>
+          <declname>scanCode</declname>
+          <defval>0xAA</defval>
+        </param>
+        <param>
+          <type>byte</type>
+          <declname>flags</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Helper function for sending virtual key presses. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="53" column="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains hotkey action handlers that use windows <ref refid="namespace_volume_control_1_1_a_p_i" kindref="compound">API</ref> functions. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Hotkeys.Addons.WindowsAPIActions</label>
+        <link refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" line="15" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Hotkeys.Addons/WindowsAPIActions.cs" bodystart="16" bodyend="55"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a1a4c8869f3c7330933aabac74e86b222" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>BringToForeground</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a51c0f0f2ba65a571c0a84d784991cf90" prot="private" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>MainHWnd</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ad7ec9c03b4d82524be38583bccd0a79f" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>Minimize</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a5ab892d22a03357cf97e32886d81ba3d" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>NextTrack</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a77b64ac233b9432a6a5ae9aab97eea53" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>PreviousTrack</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a6c60b7ce6eaa8b4e650c3eb316302745" prot="private" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>SendKeyboardEvent</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ab395ebf2f57f6f3c9d5347c752c68cbb" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>SendToBackground</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1a08f4708c183a7a138d69ea20835c2c27" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>TogglePlayback</name></member>
+      <member refid="class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions_1ae1b0d99185180a4bf1f59add3f0a81f1" prot="public" virt="non-virtual"><scope>VolumeControl::Hotkeys::Addons::WindowsAPIActions</scope><name>Unminimize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,177 @@
+\hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions}{}\doxysection{Volume\+Control.\+Core.\+Compatible\+Versions Struct Reference}
+\label{struct_volume_control_1_1_core_1_1_compatible_versions}\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+
+
+A range of version numbers that abstracts away the need for direct interaction with the Sem\+Version type.~\newline
+If you want to directly interact with Sem\+Version objects, you will need the \textquotesingle{}Semver\textquotesingle{} nuget package.  
+
+
+
+
+Collaboration diagram for Volume\+Control.\+Core.\+Compatible\+Versions\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{struct_volume_control_1_1_core_1_1_compatible_versions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_a658b440f6864493bbda5befae9b2a869}{Compatible\+Versions}} ()
+\item 
+\mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_a3866b04121867d7b0a50afdfe49681b1}{Compatible\+Versions}} (Sem\+Version? min, Sem\+Version? max, params Sem\+Version\mbox{[}$\,$\mbox{]}? additional)
+\item 
+\mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_aa2d98c8f26875dd69864757c1585501b}{Compatible\+Versions}} (string? min, string? max, params string\mbox{[}$\,$\mbox{]}? additional)
+\item 
+bool \mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_a551c6992cc1fd2996602835d900ec146}{Contains}} (Sem\+Version version)
+\begin{DoxyCompactList}\small\item\em This method is responsible for comparing version numbers between addons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Sem\+Version? \mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_a3f2deda9da37cfc4cae9aa822ea211fd}{Minimum}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Specifies the minimum version of Volume Control that this addon is compatible with.~\newline
+ ~\newline
+ ~\newline
+ When this is set to null, no minimum version limit is applied.~\newline
+ Note that only versions from 5.\+0.\+0 and up will actually load addons, so that is the absolute minimum version. \end{DoxyCompactList}\item 
+Sem\+Version? \mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_a271a6f542e69b953987e543fe3b1fb63}{Maximum}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em ~\newline
+ When this is set to null, no maximum version limit is applied. \end{DoxyCompactList}\item 
+IEnumerable$<$ Sem\+Version $>$? \mbox{\hyperlink{struct_volume_control_1_1_core_1_1_compatible_versions_aacd5c8109d31d6789b951df74ca5bfa1}{Additional}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em An option enumerable type \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A range of version numbers that abstracts away the need for direct interaction with the Sem\+Version type.~\newline
+If you want to directly interact with Sem\+Version objects, you will need the \textquotesingle{}Semver\textquotesingle{} nuget package. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_a658b440f6864493bbda5befae9b2a869}\label{struct_volume_control_1_1_core_1_1_compatible_versions_a658b440f6864493bbda5befae9b2a869}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!CompatibleVersions@{CompatibleVersions}}
+\index{CompatibleVersions@{CompatibleVersions}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{CompatibleVersions()}{CompatibleVersions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This empty constructor sets all properties to null.
+
+References Volume\+Control.\+Core.\+Compatible\+Versions.\+Additional, Volume\+Control.\+Core.\+Compatible\+Versions.\+Maximum, and Volume\+Control.\+Core.\+Compatible\+Versions.\+Minimum.
+
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_a3866b04121867d7b0a50afdfe49681b1}\label{struct_volume_control_1_1_core_1_1_compatible_versions_a3866b04121867d7b0a50afdfe49681b1}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!CompatibleVersions@{CompatibleVersions}}
+\index{CompatibleVersions@{CompatibleVersions}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{CompatibleVersions()}{CompatibleVersions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions (\begin{DoxyParamCaption}\item[{Sem\+Version?}]{min,  }\item[{Sem\+Version?}]{max,  }\item[{params Sem\+Version?\mbox{[}$\,$\mbox{]}}]{additional }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & The minimum allowable version, or null for unlimited.\\
+\hline
+{\em max} & The maximum allowable version, or null for unlimited.\\
+\hline
+{\em additional} & Optional list of specific versions to always consider compatible.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Core.\+Compatible\+Versions.\+Additional, Volume\+Control.\+Core.\+Compatible\+Versions.\+Maximum, and Volume\+Control.\+Core.\+Compatible\+Versions.\+Minimum.
+
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_aa2d98c8f26875dd69864757c1585501b}\label{struct_volume_control_1_1_core_1_1_compatible_versions_aa2d98c8f26875dd69864757c1585501b}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!CompatibleVersions@{CompatibleVersions}}
+\index{CompatibleVersions@{CompatibleVersions}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{CompatibleVersions()}{CompatibleVersions()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions (\begin{DoxyParamCaption}\item[{string?}]{min,  }\item[{string?}]{max,  }\item[{params string?\mbox{[}$\,$\mbox{]}}]{additional }\end{DoxyParamCaption})}
+
+This constructor accepts nullable strings rather than premade version objects.
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & The minimum allowable version, or null for unlimited.\\
+\hline
+{\em max} & The maximum allowable version, or null for unlimited.\\
+\hline
+{\em additional} & Optional list of specific versions to always consider compatible.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Core.\+Compatible\+Versions.\+Additional, Volume\+Control.\+Core.\+Compatible\+Versions.\+Maximum, and Volume\+Control.\+Core.\+Compatible\+Versions.\+Minimum.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_a551c6992cc1fd2996602835d900ec146}\label{struct_volume_control_1_1_core_1_1_compatible_versions_a551c6992cc1fd2996602835d900ec146}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!Contains@{Contains}}
+\index{Contains@{Contains}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{Contains()}{Contains()}}
+{\footnotesize\ttfamily bool Volume\+Control.\+Core.\+Compatible\+Versions.\+Contains (\begin{DoxyParamCaption}\item[{Sem\+Version}]{version }\end{DoxyParamCaption})}
+
+
+
+This method is responsible for comparing version numbers between addons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em version} & The version number to compare.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if {\itshape version}  is within this range, otherwise false.
+\end{DoxyReturn}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_aacd5c8109d31d6789b951df74ca5bfa1}\label{struct_volume_control_1_1_core_1_1_compatible_versions_aacd5c8109d31d6789b951df74ca5bfa1}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!Additional@{Additional}}
+\index{Additional@{Additional}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{Additional}{Additional}}
+{\footnotesize\ttfamily IEnumerable$<$Sem\+Version$>$? Volume\+Control.\+Core.\+Compatible\+Versions.\+Additional\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+An option enumerable type 
+
+
+
+Referenced by Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions().
+
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_a271a6f542e69b953987e543fe3b1fb63}\label{struct_volume_control_1_1_core_1_1_compatible_versions_a271a6f542e69b953987e543fe3b1fb63}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!Maximum@{Maximum}}
+\index{Maximum@{Maximum}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{Maximum}{Maximum}}
+{\footnotesize\ttfamily Sem\+Version? Volume\+Control.\+Core.\+Compatible\+Versions.\+Maximum\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+~\newline
+ When this is set to null, no maximum version limit is applied. 
+
+Defaults to null.
+
+Referenced by Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions().
+
+\mbox{\Hypertarget{struct_volume_control_1_1_core_1_1_compatible_versions_a3f2deda9da37cfc4cae9aa822ea211fd}\label{struct_volume_control_1_1_core_1_1_compatible_versions_a3f2deda9da37cfc4cae9aa822ea211fd}} 
+\index{VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}!Minimum@{Minimum}}
+\index{Minimum@{Minimum}!VolumeControl.Core.CompatibleVersions@{VolumeControl.Core.CompatibleVersions}}
+\doxysubsubsection{\texorpdfstring{Minimum}{Minimum}}
+{\footnotesize\ttfamily Sem\+Version? Volume\+Control.\+Core.\+Compatible\+Versions.\+Minimum\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Specifies the minimum version of Volume Control that this addon is compatible with.~\newline
+ ~\newline
+ ~\newline
+ When this is set to null, no minimum version limit is applied.~\newline
+ Note that only versions from 5.\+0.\+0 and up will actually load addons, so that is the absolute minimum version. 
+
+Defaults to null.
+
+Referenced by Volume\+Control.\+Core.\+Compatible\+Versions.\+Compatible\+Versions().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Core/Compatible\+Versions.\+cs\end{DoxyCompactItemize}

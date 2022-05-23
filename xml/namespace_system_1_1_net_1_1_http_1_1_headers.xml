@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_system_1_1_net_1_1_http_1_1_headers" kind="namespace" language="C#">
+    <compoundname>System::Net::Http::Headers</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Helpers/Update/UpdateChecker.cs" line="5" column="30"/>
+  </compounddef>
+</doxygen>

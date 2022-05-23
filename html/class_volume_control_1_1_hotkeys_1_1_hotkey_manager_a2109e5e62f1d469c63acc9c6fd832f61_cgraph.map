@@ -1,0 +1,5 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.LoadHotkeys">
+<area shape="rect" id="node1" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="5,39,209,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="257,5,453,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="257,71,453,112"/>
+</map>

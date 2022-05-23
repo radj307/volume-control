@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_4c2d0993bc52f7916e2906ed98705a51" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/obj</compoundname>
+    <innerdir refid="dir_1903d4058542c4ea00835214661cdb04">X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/obj/Debug</innerdir>
+    <innerdir refid="dir_78c89ed79498dcab513d2b18dc83dce1">X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/obj/Release</innerdir>
+    <innerdir refid="dir_048f4590264e4caddda42a00f902c904">X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/obj/SDK</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/obj/"/>
+  </compounddef>
+</doxygen>

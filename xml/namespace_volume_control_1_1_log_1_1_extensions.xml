@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_log_1_1_extensions" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Log::Extensions</compoundname>
+    <innerclass refid="class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions" prot="public">VolumeControl::Log::Extensions::DateTimeExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions" prot="public">VolumeControl::Log::Extensions::EventTypeExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_extensions_1_1_exception_extensions" prot="public">VolumeControl::Log::Extensions::ExceptionExtensions</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions" prot="public">VolumeControl::Log::Extensions::StringExtensions</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Extensions/DateTimeExtensions.cs" line="3" column="1"/>
+  </compounddef>
+</doxygen>

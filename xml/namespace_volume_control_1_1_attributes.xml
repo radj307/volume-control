@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_attributes" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Attributes</compoundname>
+    <innerclass refid="class_volume_control_1_1_attributes_1_1_release_type" prot="public">VolumeControl::Attributes::ReleaseType</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430e" prot="public" static="no" strong="yes">
+        <type>byte</type>
+        <name>ERelease</name>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430eab50339a10e1de285ac99d4c3990b8693" prot="public">
+          <name>NONE</name>
+          <briefdescription>
+<para>Null type / Error Type. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4" prot="public">
+          <name>TESTING</name>
+          <briefdescription>
+<para>Testing build, not meant for release. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea2161719489b49327e84b39596ff55b38" prot="public">
+          <name>PRERELEASE</name>
+          <briefdescription>
+<para>Pre-release (unfinished) version. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430eabea4821516973214973a70aea8337c38" prot="public">
+          <name>CANDIDATE</name>
+          <briefdescription>
+<para>Release candidate version. These are almost ready to be released, but haven&apos;t been extensively tested yet. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430ea1e23852820b9154316c7c06e2b7ba051" prot="public">
+          <name>NORMAL</name>
+          <briefdescription>
+<para>A normal release. This does not include revisions! </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_attributes_1a14fb40f5a02ed711d160a70b8dfb430eaf4d0a32d402155bb31bb15767688fecf" prot="public">
+          <name>REVISION</name>
+          <briefdescription>
+<para>This is a slight modification to an existing release that doesn&apos;t qualify as a whole new version. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Release types, for use with version self-identification CI scripts with the <ref refid="class_volume_control_1_1_attributes_1_1_release_type" kindref="compound">ReleaseType</ref> assembly attribute. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="8" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" bodystart="9" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Attributes/ReleaseType.cs" line="3" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_event_type_8cs" kind="file" language="C#">
+    <compoundname>EventType.cs</compoundname>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log">VolumeControl::Log</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_enum">VolumeControl::Log::Enum</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespace_volume_control_1_1_log_1_1_enum" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_log_1_1_enum" kindref="compound">VolumeControl.Log.Enum</ref></highlight></codeline>
+<codeline lineno="2"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>[Flags]</highlight></codeline>
+<codeline lineno="7" refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" kindref="member">EventType</ref><sp/>:<sp/></highlight><highlight class="keywordtype">byte</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NONE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327adc30ec20708ef7b0f641ef78b7880a15" kindref="member">DEBUG</ref><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a551b723eafd6a31d444fcb2f5920fbd3" kindref="member">INFO</ref><sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a32bd8a1db2275458673903bdb84cb277" kindref="member">WARN</ref><sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327abb1ca97ec761fc37101737ba0aa2e7c5" kindref="member">ERROR</ref><sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a19da7170bea36556dde582519795f3fc" kindref="member">FATAL</ref><sp/>=<sp/>16,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a" kindref="member">ALL_EXCEPT_DEBUG</ref><sp/>=<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a551b723eafd6a31d444fcb2f5920fbd3" kindref="member">INFO</ref><sp/>|<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a32bd8a1db2275458673903bdb84cb277" kindref="member">WARN</ref><sp/>|<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327abb1ca97ec761fc37101737ba0aa2e7c5" kindref="member">ERROR</ref><sp/>|<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a19da7170bea36556dde582519795f3fc" kindref="member">FATAL</ref>,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a5fb1f955b45e38e31789286a1790398d" kindref="member">ALL</ref><sp/>=<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a" kindref="member">ALL_EXCEPT_DEBUG</ref><sp/>|<sp/><ref refid="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327adc30ec20708ef7b0f641ef78b7880a15" kindref="member">DEBUG</ref>,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Enum/EventType.cs"/>
+  </compounddef>
+</doxygen>

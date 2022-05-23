@@ -1,0 +1,6 @@
+<map id="VolumeControl.Win32.RegistryAPI.GetKey" name="VolumeControl.Win32.RegistryAPI.GetKey">
+<area shape="rect" id="node1" title="Gets a RegistryKey object from the Windows Registry." alt="" coords="253,71,453,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_win32_1_1_registry_a_p_i.html#a70c19e7ea5c0ca6ee984f4d64d482a7d" title="Deletes a value in the specified key in the Windows Registry." alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_win32_1_1_registry_a_p_i.html#a0020e4892a8b261ac4ca7f5f6269fbe3" title="Gets a value from the specified key in the Windows Registry." alt="" coords="5,71,205,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_win32_1_1_registry_a_p_i.html#acfc6286cf6c3adc81a8318293f341264" title="Sets a value in the specified key in the Windows Registry." alt="" coords="5,136,205,177"/>
+</map>

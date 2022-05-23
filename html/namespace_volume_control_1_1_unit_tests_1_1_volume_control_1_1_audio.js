@@ -1,0 +1,4 @@
+var namespace_volume_control_1_1_unit_tests_1_1_volume_control_1_1_audio =
+[
+    [ "AudioAPI_Tests", "class_volume_control_1_1_unit_tests_1_1_volume_control_1_1_audio_1_1_audio_a_p_i___tests.html", "class_volume_control_1_1_unit_tests_1_1_volume_control_1_1_audio_1_1_audio_a_p_i___tests" ]
+];

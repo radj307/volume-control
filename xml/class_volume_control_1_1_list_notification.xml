@@ -1,0 +1,1260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_volume_control_1_1_list_notification" kind="class" language="C#" prot="public">
+    <compoundname>VolumeControl::ListNotification</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Window</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">System.Windows.Markup.IComponentConnector</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a1814070ac868adae42192460d2152c82" prot="public" static="no" mutable="no">
+        <type>readonly System.Windows.Forms.Timer</type>
+        <definition>readonly System.Windows.Forms.Timer VolumeControl.ListNotification.TimeoutTimer</definition>
+        <argsstring></argsstring>
+        <name>TimeoutTimer</name>
+        <initializer>= new() { Enabled = false }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="56" column="49" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1ae596044967359bf457a9e26ed967593d" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.ListNotification._mouseOver</definition>
+        <argsstring></argsstring>
+        <name>_mouseOver</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="57" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1af1da107eaf0a3fd3f7ffa891b7e0fc29" prot="private" static="no" mutable="no">
+        <type><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930" kindref="member">ListNotificationDisplayTarget</ref></type>
+        <definition>ListNotificationDisplayTarget VolumeControl.ListNotification._displayMode</definition>
+        <argsstring></argsstring>
+        <name>_displayMode</name>
+        <initializer>= <ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930a6adf97f83acf6453d4a6a4b1070f3754" kindref="member">ListNotificationDisplayTarget.None</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="58" column="47" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a3f249d3690b9ad6c25e078c755696246" prot="private" static="no" mutable="no">
+        <type><ref refid="class_volume_control_1_1_helpers_1_1_volume_control_settings" kindref="compound">VolumeControlSettings</ref>?</type>
+        <definition>VolumeControlSettings? VolumeControl.ListNotification._vcSettings</definition>
+        <argsstring></argsstring>
+        <name>_vcSettings</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="64" column="39" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a6ef9e8a28f8110bc85f41eb2bf73b310" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.ListNotification::_contentLoaded</definition>
+        <argsstring></argsstring>
+        <name>_contentLoaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="92" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a41906aab73e6219001274768a418f849" prot="private" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_properties_1_1_settings" kindref="compound">Properties.Settings</ref></type>
+        <definition>Properties.Settings VolumeControl.ListNotification.Settings</definition>
+        <argsstring></argsstring>
+        <name>Settings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="62" column="43" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1aea967ecd30773967ab475a2bf0e6ca6c" prot="private" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_volume_control_1_1_helpers_1_1_volume_control_settings" kindref="compound">VolumeControlSettings</ref></type>
+        <definition>VolumeControlSettings VolumeControl.ListNotification.VCSettings</definition>
+        <argsstring></argsstring>
+        <name>VCSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="63" column="39" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1ad99b50ff2d524588825b85187d9b7ece" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="namespace_volume_control_1ad4c4f180e72de04b31c8563a84f3e930" kindref="member">ListNotificationDisplayTarget</ref></type>
+        <definition>ListNotificationDisplayTarget VolumeControl.ListNotification.DisplayMode</definition>
+        <argsstring></argsstring>
+        <name>DisplayMode</name>
+        <briefdescription>
+<para>Determines what is shown in the list area, if anything. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="66" column="46" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="67" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a6453da36fef5a6e162b3f58c51a99a68" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>decimal</type>
+        <definition>decimal VolumeControl.ListNotification.TimeoutInterval</definition>
+        <argsstring></argsstring>
+        <name>TimeoutInterval</name>
+        <briefdescription>
+<para>Controls the amount of time <emphasis>(in milliseconds)</emphasis> that the list notification is visible for before disappearing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="90" column="24" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="91" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a38611060169a672f76e01f0d01b2d7cd" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.ListNotification.Enabled</definition>
+        <argsstring></argsstring>
+        <name>Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="95" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1aa2e0ff14c7dd9ad17b2f04dc351f967a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>Visibility</type>
+        <definition>Visibility VolumeControl.ListNotification.SliderVisibility</definition>
+        <argsstring></argsstring>
+        <name>SliderVisibility</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="184" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a9d2bf36f38247a9b3cebb4378e648d23" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double VolumeControl.ListNotification.SliderValue</definition>
+        <argsstring></argsstring>
+        <name>SliderValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="197" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="198" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a66721c2aa982fd9728467df36d569d08" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string?</type>
+        <definition>string? VolumeControl.ListNotification.ValueText</definition>
+        <argsstring></argsstring>
+        <name>ValueText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="210" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="211" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1a4e5ec436623245897f523045a2278118" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.ListNotification.LockSelection</definition>
+        <argsstring></argsstring>
+        <name>LockSelection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="223" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="224" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="property" id="class_volume_control_1_1_list_notification_1ae36f59d9678bdfbc93518ca0eb95cd4c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool VolumeControl.ListNotification.ShowIcons</definition>
+        <argsstring></argsstring>
+        <name>ShowIcons</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="236" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="237" bodyend="240"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1ac1ebc4148968543158a9e7a38c8d6de7" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.ListNotification.SliderVisibilityProperty</definition>
+        <argsstring></argsstring>
+        <name>SliderVisibilityProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;SliderVisibility&quot;, typeof(Visibility), typeof(<ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref>), new(Visibility.Visible, OnSliderVisibilityChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="183" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a861365b7a1d8609cebe1258b2ddd8aad" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.ListNotification.SliderValueProperty</definition>
+        <argsstring></argsstring>
+        <name>SliderValueProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;SliderValue&quot;, typeof(double), typeof(<ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref>), new(0.0, OnSliderValueChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="196" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1ac1e126041d2cc6987706f278b793266d" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.ListNotification.ValueTextProperty</definition>
+        <argsstring></argsstring>
+        <name>ValueTextProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;ValueText&quot;, typeof(string), typeof(<ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref>), new(string.Empty, OnValueTextChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="209" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a625a2e2b716bb74d7a180358db5f2fb8" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.ListNotification.LockSelectionProperty</definition>
+        <argsstring></argsstring>
+        <name>LockSelectionProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;LockSelection&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref>), new(false, OnLockSelectionChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="222" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a808f825422547cbc4cadef1590ff2a74" prot="public" static="yes" mutable="no">
+        <type>readonly DependencyProperty</type>
+        <definition>readonly DependencyProperty VolumeControl.ListNotification.ShowIconsProperty</definition>
+        <argsstring></argsstring>
+        <name>ShowIconsProperty</name>
+        <initializer>= DependencyProperty.Register(&quot;ShowIcons&quot;, typeof(bool), typeof(<ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref>), new(Settings.ShowIcons, OnShowIconsChanged))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="235" column="51" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a850afc5ef3f0fbb2f5ada0f4a8228880" prot="package" static="no" mutable="no">
+        <type><ref refid="class_volume_control_1_1_list_notification" kindref="compound">VolumeControl.ListNotification</ref></type>
+        <definition>VolumeControl ListNotification VolumeControl.ListNotification::lnotifWindow</definition>
+        <argsstring></argsstring>
+        <name>lnotifWindow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="47" column="48" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a608a55e5206f253a4b5babda6fe2f169" prot="package" static="no" mutable="no">
+        <type>System.Windows.Controls.Border</type>
+        <definition>System Windows Controls Border VolumeControl.ListNotification::edgeBorder</definition>
+        <argsstring></argsstring>
+        <name>edgeBorder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="55" column="46" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1accc9e60a1dcde6bb15375d0102766c8a" prot="package" static="no" mutable="no">
+        <type>System.Windows.Controls.ListView</type>
+        <definition>System Windows Controls ListView VolumeControl.ListNotification::listView</definition>
+        <argsstring></argsstring>
+        <name>listView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="63" column="48" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a05aaecb4f3350646eaf2009bfe25311a" prot="package" static="no" mutable="no">
+        <type>System.Windows.Controls.Grid</type>
+        <definition>System Windows Controls Grid VolumeControl.ListNotification::sliderGrid</definition>
+        <argsstring></argsstring>
+        <name>sliderGrid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="71" column="44" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a34d0262ed48d73c3fec68a1149fb03ee" prot="package" static="no" mutable="no">
+        <type>System.Windows.Controls.TextBox</type>
+        <definition>System Windows Controls TextBox VolumeControl.ListNotification::valueBox</definition>
+        <argsstring></argsstring>
+        <name>valueBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="79" column="47" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_volume_control_1_1_list_notification_1a77733e98da95824aa1f1f50f6cbd1c89" prot="package" static="no" mutable="no">
+        <type>System.Windows.Controls.Slider</type>
+        <definition>System Windows Controls Slider VolumeControl.ListNotification::slider</definition>
+        <argsstring></argsstring>
+        <name>slider</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="87" column="46" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a095ae15895f69b1e3988603dd9f59b42" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VolumeControl.ListNotification.ListNotification</definition>
+        <argsstring>()</argsstring>
+        <name>ListNotification</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="16" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="16" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a9251282c8a2e546b89677a41bd86a338" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>new void</type>
+        <definition>new void VolumeControl.ListNotification.Show</definition>
+        <argsstring>()</argsstring>
+        <name>Show</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="99" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="99" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a82d1fb68b8e01dde08d8c7df25354158" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>new void</type>
+        <definition>new void VolumeControl.ListNotification.Hide</definition>
+        <argsstring>()</argsstring>
+        <name>Hide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="109" column="25" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="109" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.i.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.i.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.i.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.i.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.i.cs" line="99" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.i.cs" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Debug/net6.0-windows/ListNotification.g.i.cs" line="102" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Debug/net6.0-windows/ListNotification.g.i.cs" bodystart="102" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.InitializeComponent</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeComponent</name>
+        <briefdescription>
+<para>InitializeComponent </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Release/net6.0-windows/ListNotification.g.i.cs" line="102" column="21" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Release/net6.0-windows/ListNotification.g.i.cs" bodystart="102" bodyend="114"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ab38ca04cc2ec7fd2e48335103167da7d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.Window_Unloaded</definition>
+        <argsstring>(object sender, RoutedEventArgs e)</argsstring>
+        <name>Window_Unloaded</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>RoutedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="45" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="45" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ad0445a579769fbcf87e80da79a02fabe" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.Handle_TimeoutTimerTick</definition>
+        <argsstring>(object sender, EventArgs e)</argsstring>
+        <name>Handle_TimeoutTimerTick</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>EventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="124" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a2a5084a7080644512be7b7adebf9a84e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.Window_Closing</definition>
+        <argsstring>(object sender, System.ComponentModel.CancelEventArgs e)</argsstring>
+        <name>Window_Closing</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.ComponentModel.CancelEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="129" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a3d166460a2075de901daaf7c0256c885" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.Window_SizeChanged</definition>
+        <argsstring>(object sender, SizeChangedEventArgs e)</argsstring>
+        <name>Window_SizeChanged</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>SizeChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="134" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="134" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a6492b7d9afc1fac5a2a352a8476faeae" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlGotFocus</definition>
+        <argsstring>(object sender, RoutedEventArgs e)</argsstring>
+        <name>ControlGotFocus</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>RoutedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="140" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="140" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ad4069f4fed8251595a20969c3dd325d9" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlLostFocus</definition>
+        <argsstring>(object sender, RoutedEventArgs e)</argsstring>
+        <name>ControlLostFocus</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>RoutedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="145" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="145" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a34ef420e8964d15261d94fd7b432b866" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlMouseEnter</definition>
+        <argsstring>(object sender, System.Windows.Input.MouseEventArgs e)</argsstring>
+        <name>ControlMouseEnter</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Input.MouseEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="150" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="150" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ab851ca9789e7c8f49d0abb7f077366f8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlMouseLeave</definition>
+        <argsstring>(object sender, System.Windows.Input.MouseEventArgs e)</argsstring>
+        <name>ControlMouseLeave</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Input.MouseEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="155" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="155" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a056e98657e4993e1964cd4667e4a041c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlDragStarted</definition>
+        <argsstring>(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)</argsstring>
+        <name>ControlDragStarted</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Controls.Primitives.DragStartedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="160" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a3a569e3f52c95e203387208879d8580d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlDragCompleted</definition>
+        <argsstring>(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)</argsstring>
+        <name>ControlDragCompleted</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Controls.Primitives.DragCompletedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="165" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="165" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ab460418b509522ccf28c199747c441df" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlGotKeyboardFocus</definition>
+        <argsstring>(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)</argsstring>
+        <name>ControlGotKeyboardFocus</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Input.KeyboardFocusChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="170" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="170" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1aa373764b91de56d0f9d0798a6debfb89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VolumeControl.ListNotification.ControlLostKeyboardFocus</definition>
+        <argsstring>(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)</argsstring>
+        <name>ControlLostKeyboardFocus</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type>System.Windows.Input.KeyboardFocusChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="175" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="175" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.i.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Debug/net6.0-windows/ListNotification.g.i.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.i.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/ListNotification.g.i.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.i.cs" line="119" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/Release/net6.0-windows/win-x86/ListNotification.g.i.cs" bodystart="119" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Debug/net6.0-windows/ListNotification.g.i.cs" line="122" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Debug/net6.0-windows/ListNotification.g.i.cs" bodystart="122" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void System.Windows.Markup.IComponentConnector.</type>
+        <definition>void System.Windows.Markup.IComponentConnector. VolumeControl.ListNotification.Connect</definition>
+        <argsstring>(int connectionId, object target)</argsstring>
+        <name>Connect</name>
+        <param>
+          <type>int</type>
+          <declname>connectionId</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Release/net6.0-windows/ListNotification.g.i.cs" line="122" column="52" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/obj/SDK-Release/net6.0-windows/ListNotification.g.i.cs" bodystart="122" bodyend="199"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1adbfa967ec63b3d8fc55294c53ee0c583" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.ListNotification.OnSliderVisibilityChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnSliderVisibilityChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="189" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="189" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a22c973b871b1a5c69ad3745450a0e859" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.ListNotification.OnSliderValueChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnSliderValueChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="202" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="202" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a1d2c2179ffcd7be16205c32ff99918e9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.ListNotification.OnValueTextChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnValueTextChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="215" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="215" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1ac5bad1f9f486895b46ee406a0f4865f5" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.ListNotification.OnLockSelectionChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnLockSelectionChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="228" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="228" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="class_volume_control_1_1_list_notification_1a31b850ae34e72e3c0092f410f3950329" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VolumeControl.ListNotification.OnShowIconsChanged</definition>
+        <argsstring>(DependencyObject element, DependencyPropertyChangedEventArgs e)</argsstring>
+        <name>OnShowIconsChanged</name>
+        <param>
+          <type>DependencyObject</type>
+          <declname>element</declname>
+        </param>
+        <param>
+          <type>DependencyPropertyChangedEventArgs</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="241" column="29" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="241" bodyend="244"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interaction logic for ListNotification.xaml </para>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_volume_control_1_1_list_notification" kindref="compound">ListNotification</ref></para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>System::Windows::Window</label>
+      </node>
+      <node id="2">
+        <label>Window</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.ListNotification</label>
+        <link refid="class_volume_control_1_1_list_notification"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>System::Windows::Markup::IComponentConnector</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>VolumeControl</label>
+      </node>
+      <node id="3">
+        <label>System::Windows::Window</label>
+      </node>
+      <node id="2">
+        <label>Window</label>
+      </node>
+      <node id="1">
+        <label>VolumeControl.ListNotification</label>
+        <link refid="class_volume_control_1_1_list_notification"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>LockSelectionProperty</edgelabel>
+          <edgelabel>ShowIconsProperty</edgelabel>
+          <edgelabel>SliderValueProperty</edgelabel>
+          <edgelabel>SliderVisibilityProperty</edgelabel>
+          <edgelabel>ValueTextProperty</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>lnotifWindow</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>TimeoutTimer</edgelabel>
+          <edgelabel>edgeBorder</edgelabel>
+          <edgelabel>listView</edgelabel>
+          <edgelabel>slider</edgelabel>
+          <edgelabel>sliderGrid</edgelabel>
+          <edgelabel>valueBox</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>System</label>
+      </node>
+      <node id="4">
+        <label>System::Windows::Markup::IComponentConnector</label>
+      </node>
+      <node id="5">
+        <label>static</label>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" line="13" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl/ListNotification.xaml.cs" bodystart="14" bodyend="247"/>
+    <listofallmembers>
+      <member refid="class_volume_control_1_1_list_notification_1a6ef9e8a28f8110bc85f41eb2bf73b310" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>_contentLoaded</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1af1da107eaf0a3fd3f7ffa891b7e0fc29" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>_displayMode</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ae596044967359bf457a9e26ed967593d" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>_mouseOver</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a3f249d3690b9ad6c25e078c755696246" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>_vcSettings</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1acc7ac2e346896f12eb6a2b64c63acf89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Connect</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a3a569e3f52c95e203387208879d8580d" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlDragCompleted</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a056e98657e4993e1964cd4667e4a041c" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlDragStarted</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a6492b7d9afc1fac5a2a352a8476faeae" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlGotFocus</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ab460418b509522ccf28c199747c441df" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlGotKeyboardFocus</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ad4069f4fed8251595a20969c3dd325d9" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlLostFocus</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1aa373764b91de56d0f9d0798a6debfb89" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlLostKeyboardFocus</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a34ef420e8964d15261d94fd7b432b866" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlMouseEnter</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ab851ca9789e7c8f49d0abb7f077366f8" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ControlMouseLeave</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ad99b50ff2d524588825b85187d9b7ece" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>DisplayMode</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a608a55e5206f253a4b5babda6fe2f169" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>edgeBorder</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a38611060169a672f76e01f0d01b2d7cd" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Enabled</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ad0445a579769fbcf87e80da79a02fabe" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Handle_TimeoutTimerTick</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a82d1fb68b8e01dde08d8c7df25354158" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Hide</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1464a0fb67826fc87348c28f0349824e" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>InitializeComponent</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a095ae15895f69b1e3988603dd9f59b42" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ListNotification</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1accc9e60a1dcde6bb15375d0102766c8a" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>listView</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a850afc5ef3f0fbb2f5ada0f4a8228880" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>lnotifWindow</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a4e5ec436623245897f523045a2278118" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>LockSelection</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a625a2e2b716bb74d7a180358db5f2fb8" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>LockSelectionProperty</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ac5bad1f9f486895b46ee406a0f4865f5" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>OnLockSelectionChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a31b850ae34e72e3c0092f410f3950329" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>OnShowIconsChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a22c973b871b1a5c69ad3745450a0e859" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>OnSliderValueChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1adbfa967ec63b3d8fc55294c53ee0c583" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>OnSliderVisibilityChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1d2c2179ffcd7be16205c32ff99918e9" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>OnValueTextChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a41906aab73e6219001274768a418f849" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Settings</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a9251282c8a2e546b89677a41bd86a338" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Show</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ae36f59d9678bdfbc93518ca0eb95cd4c" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ShowIcons</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a808f825422547cbc4cadef1590ff2a74" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ShowIconsProperty</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a77733e98da95824aa1f1f50f6cbd1c89" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>slider</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a05aaecb4f3350646eaf2009bfe25311a" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>sliderGrid</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a9d2bf36f38247a9b3cebb4378e648d23" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>SliderValue</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a861365b7a1d8609cebe1258b2ddd8aad" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>SliderValueProperty</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1aa2e0ff14c7dd9ad17b2f04dc351f967a" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>SliderVisibility</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ac1ebc4148968543158a9e7a38c8d6de7" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>SliderVisibilityProperty</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a6453da36fef5a6e162b3f58c51a99a68" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>TimeoutInterval</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a1814070ac868adae42192460d2152c82" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>TimeoutTimer</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a34d0262ed48d73c3fec68a1149fb03ee" prot="package" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>valueBox</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a66721c2aa982fd9728467df36d569d08" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ValueText</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ac1e126041d2cc6987706f278b793266d" prot="public" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>ValueTextProperty</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1aea967ecd30773967ab475a2bf0e6ca6c" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>VCSettings</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a2a5084a7080644512be7b7adebf9a84e" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Window_Closing</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1a3d166460a2075de901daaf7c0256c885" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Window_SizeChanged</name></member>
+      <member refid="class_volume_control_1_1_list_notification_1ab38ca04cc2ec7fd2e48335103167da7d" prot="private" virt="non-virtual"><scope>VolumeControl::ListNotification</scope><name>Window_Unloaded</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

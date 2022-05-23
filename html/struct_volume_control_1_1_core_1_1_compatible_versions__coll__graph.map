@@ -1,0 +1,3 @@
+<map id="VolumeControl.Core.CompatibleVersions" name="VolumeControl.Core.CompatibleVersions">
+<area shape="rect" id="node1" title="A range of version numbers that abstracts away the need for direct interaction with the SemVersion ty..." alt="" coords="5,5,212,171"/>
+</map>

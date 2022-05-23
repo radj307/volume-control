@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_registry_a_p_i_8cs" kind="file" language="C#">
+    <compoundname>RegistryAPI.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_win32_1_1_registry_a_p_i" prot="public">VolumeControl::Win32::RegistryAPI</innerclass>
+    <innerclass refid="struct_volume_control_1_1_win32_1_1_registry_a_p_i_1_1_scope" prot="public">VolumeControl::Win32::RegistryAPI::Scope</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_win32">VolumeControl::Win32</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Microsoft.Win32;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="namespace_volume_control_1_1_win32" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_win32" kindref="compound">VolumeControl.Win32</ref></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="5" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i" kindref="compound">RegistryAPI</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="7" refid="struct_volume_control_1_1_win32_1_1_registry_a_p_i_1_1_scope" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_volume_control_1_1_win32_1_1_registry_a_p_i_1_1_scope" kindref="compound">Scope</ref></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>readonly<sp/>RegistryKey<sp/>HKEY_CURRENT_USER<sp/>=<sp/>Registry.CurrentUser;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0daac356df2fb007764ac733a6434f3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>RegistryKey?<sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0daac356df2fb007764ac733a6434f3b" kindref="member">GetKey</ref>(RegistryKey<sp/>scope,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>path,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>writable<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>scope.OpenSubKey(path,<sp/>writable);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a5fa2aa5ddf3606189ad26b7b1f23a7f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a5fa2aa5ddf3606189ad26b7b1f23a7f0" kindref="member">DeleteKey</ref>(RegistryKey<sp/>scope,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>path)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scope.DeleteSubKey(path);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0020e4892a8b261ac4ca7f5f6269fbe3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">?<sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0020e4892a8b261ac4ca7f5f6269fbe3" kindref="member">GetValue</ref>(RegistryKey<sp/>scope,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>path,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>valueName)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0daac356df2fb007764ac733a6434f3b" kindref="member">GetKey</ref>(scope,<sp/>path,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)?.GetValue(valueName);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1acfc6286cf6c3adc81a8318293f341264" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1acfc6286cf6c3adc81a8318293f341264" kindref="member">SetValue</ref>(RegistryKey<sp/>scope,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>path,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>valueName,<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal"><sp/>value)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0daac356df2fb007764ac733a6434f3b" kindref="member">GetKey</ref>(scope,<sp/>path,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)?.SetValue(valueName,<sp/>value);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a70c19e7ea5c0ca6ee984f4d64d482a7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a70c19e7ea5c0ca6ee984f4d64d482a7d" kindref="member">DeleteValue</ref>(RegistryKey<sp/>scope,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>path,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>valueName)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_volume_control_1_1_win32_1_1_registry_a_p_i_1a0daac356df2fb007764ac733a6434f3b" kindref="member">GetKey</ref>(scope,<sp/>path,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)?.DeleteValue(valueName);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl/Win32/RegistryAPI.cs"/>
+  </compounddef>
+</doxygen>

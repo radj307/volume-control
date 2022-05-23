@@ -1,0 +1,63 @@
+\hypertarget{namespace_volume_control_1_1_attributes}{}\doxysection{Volume\+Control.\+Attributes Namespace Reference}
+\label{namespace_volume_control_1_1_attributes}\index{VolumeControl.Attributes@{VolumeControl.Attributes}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_volume_control_1_1_attributes_1_1_release_type}{Release\+Type}}
+\begin{DoxyCompactList}\small\item\em Allows easier management of version self-\/identification for use with CI scripts. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430e}{ERelease}} \+: byte \{ \newline
+\mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eab50339a10e1de285ac99d4c3990b8693}{NONE}}
+, \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4}{TESTING}}
+, \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea2161719489b49327e84b39596ff55b38}{PRERELEASE}}
+, \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eabea4821516973214973a70aea8337c38}{CANDIDATE}}
+, \newline
+\mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea1e23852820b9154316c7c06e2b7ba051}{NORMAL}}
+, \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eaf4d0a32d402155bb31bb15767688fecf}{REVISION}}
+ \}
+\begin{DoxyCompactList}\small\item\em Release types, for use with version self-\/identification CI scripts with the Release\+Type assembly attribute. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430e}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430e}} 
+\index{VolumeControl.Attributes@{VolumeControl.Attributes}!ERelease@{ERelease}}
+\index{ERelease@{ERelease}!VolumeControl.Attributes@{VolumeControl.Attributes}}
+\doxysubsubsection{\texorpdfstring{ERelease}{ERelease}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430e}{Volume\+Control.\+Attributes.\+ERelease}} \+: byte\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Release types, for use with version self-\/identification CI scripts with the \mbox{\hyperlink{class_volume_control_1_1_attributes_1_1_release_type}{Release\+Type}} assembly attribute. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!NONE@{NONE}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eab50339a10e1de285ac99d4c3990b8693}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eab50339a10e1de285ac99d4c3990b8693}} 
+NONE&Null type / Error Type. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TESTING@{TESTING}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!TESTING@{TESTING}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4}} 
+TESTING&Testing build, not meant for release. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRERELEASE@{PRERELEASE}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!PRERELEASE@{PRERELEASE}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea2161719489b49327e84b39596ff55b38}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea2161719489b49327e84b39596ff55b38}} 
+PRERELEASE&Pre-\/release (unfinished) version. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CANDIDATE@{CANDIDATE}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!CANDIDATE@{CANDIDATE}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eabea4821516973214973a70aea8337c38}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eabea4821516973214973a70aea8337c38}} 
+CANDIDATE&Release candidate version. These are almost ready to be released, but haven\textquotesingle{}t been extensively tested yet. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL@{NORMAL}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!NORMAL@{NORMAL}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea1e23852820b9154316c7c06e2b7ba051}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430ea1e23852820b9154316c7c06e2b7ba051}} 
+NORMAL&A normal release. This does not include revisions! \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REVISION@{REVISION}!VolumeControl.Attributes@{VolumeControl.Attributes}}\index{VolumeControl.Attributes@{VolumeControl.Attributes}!REVISION@{REVISION}}}\mbox{\Hypertarget{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eaf4d0a32d402155bb31bb15767688fecf}\label{namespace_volume_control_1_1_attributes_a14fb40f5a02ed711d160a70b8dfb430eaf4d0a32d402155bb31bb15767688fecf}} 
+REVISION&This is a slight modification to an existing release that doesn\textquotesingle{}t qualify as a whole new version. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 8 of file Release\+Type.\+cs.
+

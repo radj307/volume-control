@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_log_1_1_enum" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Log::Enum</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327" prot="public" static="no" strong="yes">
+        <type>byte</type>
+        <name>EventType</name>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327ab50339a10e1de285ac99d4c3990b8693" prot="public">
+          <name>NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No event types. This is the 0 value for the EventType flagset. This EventType does not have an associated header, and may only be used for type filtering. If used anyway, it produces this header: &quot;[????]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327adc30ec20708ef7b0f641ef78b7880a15" prot="public">
+          <name>DEBUG</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>A debugging message that should only be shown when in debug mode. Produces header: &quot;[DEBUG]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a551b723eafd6a31d444fcb2f5920fbd3" prot="public">
+          <name>INFO</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>An informational message. Produces header: &quot;[INFO]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a32bd8a1db2275458673903bdb84cb277" prot="public">
+          <name>WARN</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>A warning message. Produces header: &quot;[WARN]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327abb1ca97ec761fc37101737ba0aa2e7c5" prot="public">
+          <name>ERROR</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+<para>An error message. Produces header: &quot;[ERROR]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a19da7170bea36556dde582519795f3fc" prot="public">
+          <name>FATAL</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+<para>A fatal error message. Produces header: &quot;[FATAL]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a" prot="public">
+          <name>ALL_EXCEPT_DEBUG</name>
+          <initializer>= INFO | WARN | ERROR | FATAL</initializer>
+          <briefdescription>
+<para>All event types, except for DEBUG. This EventType does not have an associated header, and may only be used for type filtering. If used anyway, it produces this header: &quot;[????]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_volume_control_1_1_log_1_1_enum_1a3cd077137af59fc500ebf35ecfdc4327a5fb1f955b45e38e31789286a1790398d" prot="public">
+          <name>ALL</name>
+          <initializer>= ALL_EXCEPT_DEBUG | DEBUG</initializer>
+          <briefdescription>
+<para>All event types, including DEBUG. This EventType does not have an associated header, and may only be used for type filtering. If used anyway, it produces this header: &quot;[????]&quot; </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Determines the header used to print formatted log messages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Enum/EventType.cs" line="7" column="11" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Enum/EventType.cs" bodystart="8" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Enum/EventType.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

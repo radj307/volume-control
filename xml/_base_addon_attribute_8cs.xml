@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_base_addon_attribute_8cs" kind="file" language="C#">
+    <compoundname>BaseAddonAttribute.cs</compoundname>
+    <innerclass refid="class_volume_control_1_1_core_1_1_base_addon_attribute" prot="public">VolumeControl::Core::BaseAddonAttribute</innerclass>
+    <innernamespace refid="namespace_volume_control">VolumeControl</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_core">VolumeControl::Core</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_volume_control_1_1_core" kindref="compound">VolumeControl.Core</ref></highlight></codeline>
+<codeline lineno="2"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>[AttributeUsage(AttributeTargets.Class,<sp/>AllowMultiple<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>Inherited<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)]</highlight></codeline>
+<codeline lineno="6" refid="class_volume_control_1_1_core_1_1_base_addon_attribute" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">abstract</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute" kindref="compound">BaseAddonAttribute</ref><sp/>:<sp/>Attribute,<sp/><ref refid="interface_volume_control_1_1_core_1_1_i_base_addon_attribute" kindref="compound">IBaseAddonAttribute</ref></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11" refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a2eec4e0cc3d53e8dbcfc30450d301e3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a2eec4e0cc3d53e8dbcfc30450d301e3a" kindref="member">BaseAddonAttribute</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>addonName,<sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>compatibleVersions)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a0401b0535799fc1a28e524437b09665c" kindref="member">AddonName</ref><sp/>=<sp/>addonName;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>=<sp/>compatibleVersions;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18" refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a2b07109e02afb99f2509f19409bfcc11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a2b07109e02afb99f2509f19409bfcc11" kindref="member">BaseAddonAttribute</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>addonName)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a0401b0535799fc1a28e524437b09665c" kindref="member">AddonName</ref><sp/>=<sp/>addonName;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal">();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24" refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a0401b0535799fc1a28e524437b09665c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a0401b0535799fc1a28e524437b09665c" kindref="member">AddonName</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="26" refid="class_volume_control_1_1_core_1_1_base_addon_attribute_1a94fdff33e2700dc21c44911a397b82f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/><ref refid="struct_volume_control_1_1_core_1_1_compatible_versions" kindref="compound">CompatibleVersions</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Core/BaseAddonAttribute.cs"/>
+  </compounddef>
+</doxygen>

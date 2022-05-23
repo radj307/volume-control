@@ -1,0 +1,90 @@
+\hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint}{}\doxysection{Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint Class Reference}
+\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint}\index{VolumeControl.Log.Endpoints.MemoryEndpoint@{VolumeControl.Log.Endpoints.MemoryEndpoint}}
+
+
+A log endpoint that implements \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint}{IEndpoint}} and uses a Memory\+Stream as an endpoint.  
+
+
+
+
+Inheritance diagram for Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a6b9ae3daea499586fefb89c4bd08eaf6}{Memory\+Endpoint}} (bool enabled=true, int kilobytes=10)
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a43b3b7b371f3ccffc7ada5c0d15c1944}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a43b3b7b371f3ccffc7ada5c0d15c1944}} 
+Text\+Reader? \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a43b3b7b371f3ccffc7ada5c0d15c1944}{Get\+Reader}} ()
+\begin{DoxyCompactList}\small\item\em Retrieve a Stream\+Reader object for reading from the endpoint.~\newline
+ Using this is only recommended for repeated read operations, such as in a loop; There is no benefit to using this for single read operations. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aa93393608ae22f701eae706272b9c0f8}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aa93393608ae22f701eae706272b9c0f8}} 
+Text\+Writer? \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aa93393608ae22f701eae706272b9c0f8}{Get\+Writer}} ()
+\begin{DoxyCompactList}\small\item\em Retrieve a Stream\+Writer object for writing to the endpoint.~\newline
+ Using this is only recommended for repeated write operations, such as in a loop; There is no benefit to using this for single write operations. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a07f919aa268f8b2d51d1db0752d9ca9d}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a07f919aa268f8b2d51d1db0752d9ca9d}} 
+int? \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a07f919aa268f8b2d51d1db0752d9ca9d}{Read\+Raw}} ()
+\begin{DoxyCompactList}\small\item\em Read a character from the log endpoint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_ad99410e9294ced575ec1cf30dddf75a6}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_ad99410e9294ced575ec1cf30dddf75a6}} 
+string? \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_ad99410e9294ced575ec1cf30dddf75a6}{Read\+Raw\+Line}} ()
+\begin{DoxyCompactList}\small\item\em Read a line from the log endpoint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a451a080b551993718c7738c0a8d9fc54}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a451a080b551993718c7738c0a8d9fc54}} 
+void \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a451a080b551993718c7738c0a8d9fc54}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Reset the contents of the log endpoint, leaving it empty. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a1ff4a1d555740b1294ba3e0e55655d71}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a1ff4a1d555740b1294ba3e0e55655d71}} 
+void \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a1ff4a1d555740b1294ba3e0e55655d71}{Write\+Raw}} (string? str)
+\begin{DoxyCompactList}\small\item\em Write to the filestream. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_af90d7d71fdc8c3fc5ae89e5e2c863969}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_af90d7d71fdc8c3fc5ae89e5e2c863969}} 
+void \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_af90d7d71fdc8c3fc5ae89e5e2c863969}{Write\+Raw\+Line}} (string? str=null)
+\begin{DoxyCompactList}\small\item\em Write to the filestream, and append a newline. It is highly recommended that you do not use this function, as it doesn\textquotesingle{}t conform to formatting rules. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aaf98f13c2ed329d9fb2395573dfcd97d}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aaf98f13c2ed329d9fb2395573dfcd97d}} 
+void \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_aaf98f13c2ed329d9fb2395573dfcd97d}{Dispose}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a433c594a46c188a6d05c9d1431cce2b0}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a433c594a46c188a6d05c9d1431cce2b0}} 
+bool \mbox{\hyperlink{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a433c594a46c188a6d05c9d1431cce2b0}{Enabled}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A log endpoint that implements \mbox{\hyperlink{interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint}{IEndpoint}} and uses a Memory\+Stream as an endpoint. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a6b9ae3daea499586fefb89c4bd08eaf6}\label{class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint_a6b9ae3daea499586fefb89c4bd08eaf6}} 
+\index{VolumeControl.Log.Endpoints.MemoryEndpoint@{VolumeControl.Log.Endpoints.MemoryEndpoint}!MemoryEndpoint@{MemoryEndpoint}}
+\index{MemoryEndpoint@{MemoryEndpoint}!VolumeControl.Log.Endpoints.MemoryEndpoint@{VolumeControl.Log.Endpoints.MemoryEndpoint}}
+\doxysubsubsection{\texorpdfstring{MemoryEndpoint()}{MemoryEndpoint()}}
+{\footnotesize\ttfamily Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint.\+Memory\+Endpoint (\begin{DoxyParamCaption}\item[{bool}]{enabled = {\ttfamily true},  }\item[{int}]{kilobytes = {\ttfamily 10} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em enabled} & When true, the endpoint starts enabled.\\
+\hline
+\end{DoxyParams}
+
+
+References Volume\+Control.\+Log.\+Endpoints.\+Memory\+Endpoint.\+Enabled.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+Log/\+Endpoints/Memory\+Endpoint.\+cs\end{DoxyCompactItemize}

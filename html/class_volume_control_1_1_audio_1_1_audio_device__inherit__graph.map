@@ -1,0 +1,6 @@
+<map id="VolumeControl.Audio.AudioDevice" name="VolumeControl.Audio.AudioDevice">
+<area shape="rect" id="node1" title="Represents an audio device endpoint." alt="" coords="54,315,235,583"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="63,131,227,267"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,164,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="251,160,340,237"/>
+</map>

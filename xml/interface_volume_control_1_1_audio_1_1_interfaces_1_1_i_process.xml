@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process" kind="interface" language="C#" prot="public">
+    <compoundname>VolumeControl::Audio::Interfaces::IProcess</compoundname>
+    <derivedcompoundref refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session" prot="public" virt="non-virtual">VolumeControl.Audio.Interfaces.ISession</derivedcompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a0a9dfc7fcf79b174718023d850314825" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.Interfaces.IProcess.ProcessName</definition>
+        <argsstring></argsstring>
+        <name>ProcessName</name>
+        <briefdescription>
+<para>Gets the process name of this process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" line="11" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" bodystart="11" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a91dbdafc9d79e361e177c684ff1fb6e1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>long</type>
+        <definition>long VolumeControl.Audio.Interfaces.IProcess.PID</definition>
+        <argsstring></argsstring>
+        <name>PID</name>
+        <briefdescription>
+<para>Gets the process ID number of this process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" line="15" column="14" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="property" id="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string VolumeControl.Audio.Interfaces.IProcess.ProcessIdentifier</definition>
+        <argsstring></argsstring>
+        <name>ProcessIdentifier</name>
+        <briefdescription>
+<para>Gets the process identifier of this process. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses this format:<linebreak/>
+<bold>&lt;PID&gt;:&lt;ProcessName&gt;</bold></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" line="20" column="16" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" bodystart="20" bodyend="20"/>
+        <referencedby refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a853939c68f8d75d087dd7a14819604c4" compoundref="_audio_a_p_i_8cs" startline="20" endline="60">VolumeControl.Audio.AudioAPI.AudioAPI</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents read-only information about a process running on the local system. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>VolumeControl.Audio.AudioSession</label>
+        <link refid="class_volume_control_1_1_audio_1_1_audio_session"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>VolumeControl.Audio.Interfaces.ISession</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>VolumeControl.Audio.Interfaces.IProcess</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>VolumeControl.Audio.Interfaces.IProcess</label>
+        <link refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" line="6" column="22" bodyfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces/IProcess.cs" bodystart="7" bodyend="21"/>
+    <listofallmembers>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a91dbdafc9d79e361e177c684ff1fb6e1" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::IProcess</scope><name>PID</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1afb40cfc9b042c8ad56c089a24ff7acc0" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::IProcess</scope><name>ProcessIdentifier</name></member>
+      <member refid="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process_1a0a9dfc7fcf79b174718023d850314825" prot="public" virt="non-virtual"><scope>VolumeControl::Audio::Interfaces::IProcess</scope><name>ProcessName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

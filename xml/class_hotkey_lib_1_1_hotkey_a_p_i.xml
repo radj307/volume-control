@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_hotkey_lib_1_1_hotkey_a_p_i" kind="class" language="C#" prot="public">
+    <compoundname>HotkeyLib::HotkeyAPI</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98" prot="public" static="no" strong="yes">
+        <type>uint</type>
+        <name>FORMAT_MESSAGE</name>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98a895462a226710631374f323092bef575" prot="public">
+          <name>ALLOCATE_BUFFER</name>
+          <initializer>= 0x00000100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98a04e87e3e42386deee7deccce41324741" prot="public">
+          <name>IGNORE_INSERTS</name>
+          <initializer>= 0x00000200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98a1cf17d6a0681a4aa548cae81717abc89" prot="public">
+          <name>FROM_SYSTEM</name>
+          <initializer>= 0x00001000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98ae5ff9b27908fba93955bcb7464f10360" prot="public">
+          <name>ARGUMENT_ARRAY</name>
+          <initializer>= 0x00002000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98ac86dc367affb9e72b13cf512a2431aea" prot="public">
+          <name>FROM_HMODULE</name>
+          <initializer>= 0x00000800</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98ad4a3a333b028be84c53e8a32a1acd8a8" prot="public">
+          <name>FROM_STRING</name>
+          <initializer>= 0x00000400</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="50" column="15" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="51" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a5da83e2f187d900eff144084c2d9a430" prot="public" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int HotkeyLib.HotkeyAPI.MinID</definition>
+        <argsstring></argsstring>
+        <name>MinID</name>
+        <initializer>= 0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="10" column="26" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1ab6a8011c760f5b936a4a40fc380b46ee" prot="public" static="yes" mutable="no">
+        <type>static</type>
+        <definition>HotkeyLib.HotkeyAPI.int</definition>
+        <argsstring></argsstring>
+        <name>int</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="89" column="23" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1ad797706962b1c5d2f01a74151add983a" prot="public" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint HotkeyLib.HotkeyAPI.WM_HOTKEY</definition>
+        <argsstring></argsstring>
+        <name>WM_HOTKEY</name>
+        <initializer>= 0x312</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="97" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1ae76dbc3381b40afedac47069bb44047b" prot="public" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint HotkeyLib.HotkeyAPI.MOD_ALT</definition>
+        <argsstring></argsstring>
+        <name>MOD_ALT</name>
+        <initializer>= 0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="99" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a3d0880bb67b403f8b7f68aad9b3b3507" prot="public" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint HotkeyLib.HotkeyAPI.MOD_CONTROL</definition>
+        <argsstring></argsstring>
+        <name>MOD_CONTROL</name>
+        <initializer>= 0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="100" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a8a1cddd026a1997254404d456a4f0dfc" prot="public" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint HotkeyLib.HotkeyAPI.MOD_SHIFT</definition>
+        <argsstring></argsstring>
+        <name>MOD_SHIFT</name>
+        <initializer>= 0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="101" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a66db0c2a2eca62113e8eb71944a47138" prot="public" static="yes" mutable="no">
+        <type>const uint</type>
+        <definition>const uint HotkeyLib.HotkeyAPI.MOD_WIN</definition>
+        <argsstring></argsstring>
+        <name>MOD_WIN</name>
+        <initializer>= 0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="102" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a85783c956fcca7fa1819641b485b5374" prot="private" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int HotkeyLib.HotkeyAPI.MaxID</definition>
+        <argsstring></argsstring>
+        <name>MaxID</name>
+        <initializer>= 0xBFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="10" column="33" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a8a2a9338253696ca0461e9c2d47292b8" prot="private" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int HotkeyLib.HotkeyAPI._currentID</definition>
+        <argsstring></argsstring>
+        <name>_currentID</name>
+        <initializer>= MinID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="11" column="28" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a765750a897f60d6c9d02d82952625420" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HotkeyLib.HotkeyAPI.GetID</definition>
+        <argsstring>()</argsstring>
+        <name>GetID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="15" column="27" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="15" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a8d26cddc24dee458a2577ab76c582922" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool HotkeyLib.HotkeyAPI.RegisterHotkey</definition>
+        <argsstring>(IntPtr hWnd, int id, uint fsModifiers, Keys vk)</argsstring>
+        <name>RegisterHotkey</name>
+        <param>
+          <type>IntPtr</type>
+          <declname>hWnd</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>fsModifiers</declname>
+        </param>
+        <param>
+          <type>Keys</type>
+          <declname>vk</declname>
+        </param>
+        <briefdescription>
+<para>This is a wrapper function for the &apos;RegisterHotKey&apos; function from user32.dll </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hWnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The owner window&apos;s handle.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The hotkeys ID.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fsModifiers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A bitfield defining which (if any) modifiers are required by the hotkey.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The primary keyboard key.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True when registration was successful.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="35" column="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a7b5980e9ead87a33816535ee28a23dad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool HotkeyLib.HotkeyAPI.UnregisterHotkey</definition>
+        <argsstring>(IntPtr hWnd, int id)</argsstring>
+        <name>UnregisterHotkey</name>
+        <param>
+          <type>IntPtr</type>
+          <declname>hWnd</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>This is a wrapper function for the &apos;UnregisterHotKey&apos; function from user32.dll. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hWnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The owner window&apos;s handle.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The hotkey&apos;s ID.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True when unregistration was successful.</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="46" column="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1af0741479a309c8634bf7e4b3ec4ab4ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HotkeyLib.HotkeyAPI.GetLastError</definition>
+        <argsstring>()</argsstring>
+        <name>GetLastError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="71" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1af1cdd4d8c070d84549c398139f0a721e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string</type>
+        <definition>static string HotkeyLib.HotkeyAPI.FormatError</definition>
+        <argsstring>(int err)</argsstring>
+        <name>FormatError</name>
+        <param>
+          <type>int</type>
+          <declname>err</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="73" column="30" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="73" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1af1f3fefe9e21d961633dee883f51f634" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>static string HotkeyLib.HotkeyAPI.GetLastErrorString</definition>
+        <argsstring>()</argsstring>
+        <name>GetLastErrorString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="88" column="30"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a53f18c3b874b3d0fe0573326dd4b63bd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HotkeyLib.HotkeyAPI.RegisterHotKey</definition>
+        <argsstring>(IntPtr hWnd, int id, uint fsModifiers, uint vk)</argsstring>
+        <name>RegisterHotKey</name>
+        <param>
+          <type>IntPtr</type>
+          <declname>hWnd</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>fsModifiers</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>vk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="26" column="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1aab058c9cd024d60598edaaedbeb14764" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HotkeyLib.HotkeyAPI.UnregisterHotKey</definition>
+        <argsstring>(IntPtr hWnd, int id)</argsstring>
+        <name>UnregisterHotKey</name>
+        <param>
+          <type>IntPtr</type>
+          <declname>hWnd</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="39" column="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1ac856498754046c1b95bee51a5a1971f5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HotkeyLib.HotkeyAPI.FormatMessage</definition>
+        <argsstring>(FORMAT_MESSAGE dwFlags, IntPtr lpSource, int dwMessageId, uint dwLanguageId, out StringBuilder msgOut, int nSize, IntPtr Arguments)</argsstring>
+        <name>FormatMessage</name>
+        <param>
+          <type>FORMAT_MESSAGE</type>
+          <declname>dwFlags</declname>
+        </param>
+        <param>
+          <type>IntPtr</type>
+          <declname>lpSource</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dwMessageId</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>dwLanguageId</declname>
+        </param>
+        <param>
+          <type>out StringBuilder</type>
+          <declname>msgOut</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nSize</declname>
+        </param>
+        <param>
+          <type>IntPtr</type>
+          <declname>Arguments</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="61" column="35"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_hotkey_lib_1_1_hotkey_a_p_i_1a3e818ba8b5b0560192a5fbb3587d54f9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string</type>
+        <definition>static string HotkeyLib.HotkeyAPI.GetLastWin32Error</definition>
+        <argsstring>()</argsstring>
+        <name>GetLastWin32Error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="89" column="34" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="89" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>HotkeyLib.HotkeyAPI</label>
+        <link refid="class_hotkey_lib_1_1_hotkey_a_p_i"/>
+      </node>
+    </collaborationgraph>
+    <location file="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" line="7" column="19" bodyfile="X:/_Workspace/_repo/volume-control-3/HotkeyLib/HotkeyAPI.cs" bodystart="8" bodyend="104"/>
+    <listofallmembers>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a8a2a9338253696ca0461e9c2d47292b8" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>_currentID</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1af499b1a683719b830c149c2d7c783c98" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>FORMAT_MESSAGE</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1af1cdd4d8c070d84549c398139f0a721e" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>FormatError</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1ac856498754046c1b95bee51a5a1971f5" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>FormatMessage</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a765750a897f60d6c9d02d82952625420" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>GetID</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1af0741479a309c8634bf7e4b3ec4ab4ba" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>GetLastError</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1af1f3fefe9e21d961633dee883f51f634" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>GetLastErrorString</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a3e818ba8b5b0560192a5fbb3587d54f9" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>GetLastWin32Error</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1ab6a8011c760f5b936a4a40fc380b46ee" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>int</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a85783c956fcca7fa1819641b485b5374" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MaxID</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a5da83e2f187d900eff144084c2d9a430" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MinID</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1ae76dbc3381b40afedac47069bb44047b" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MOD_ALT</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a3d0880bb67b403f8b7f68aad9b3b3507" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MOD_CONTROL</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a8a1cddd026a1997254404d456a4f0dfc" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MOD_SHIFT</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a66db0c2a2eca62113e8eb71944a47138" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>MOD_WIN</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a53f18c3b874b3d0fe0573326dd4b63bd" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>RegisterHotKey</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a8d26cddc24dee458a2577ab76c582922" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>RegisterHotkey</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1aab058c9cd024d60598edaaedbeb14764" prot="private" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>UnregisterHotKey</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1a7b5980e9ead87a33816535ee28a23dad" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>UnregisterHotkey</name></member>
+      <member refid="class_hotkey_lib_1_1_hotkey_a_p_i_1ad797706962b1c5d2f01a74151add983a" prot="public" virt="non-virtual"><scope>HotkeyLib::HotkeyAPI</scope><name>WM_HOTKEY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

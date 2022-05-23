@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_audio_1_1_events" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Audio::Events</compoundname>
+    <innerclass refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args" prot="public">VolumeControl::Audio::Events::TargetChangedEventArgs</innerclass>
+    <innerclass refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args" prot="public">VolumeControl::Audio::Events::TargetChangingEventArgs</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_volume_control_1_1_audio_1_1_events_1a7d745fa8f64d584c7950b88f1fd859c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>delegate void</type>
+        <definition>delegate void VolumeControl.Audio.Events.TargetChangedEventHandler</definition>
+        <argsstring>(object sender, TargetChangedEventArgs e)</argsstring>
+        <name>TargetChangedEventHandler</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args" kindref="compound">TargetChangedEventArgs</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>Event handler triggered after a target has been changed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The object that fired this event.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The arguments associated with this event.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events/TargetChangedEvent.cs" line="23" column="26" declfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events/TargetChangedEvent.cs" declline="23" declcolumn="26"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_volume_control_1_1_audio_1_1_events_1a2378ad05ca4a7a6d53605bbdc2eb927e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>delegate void</type>
+        <definition>delegate void VolumeControl.Audio.Events.TargetChangingEventHandler</definition>
+        <argsstring>(object sender, TargetChangingEventArgs e)</argsstring>
+        <name>TargetChangingEventHandler</name>
+        <param>
+          <type>object</type>
+          <declname>sender</declname>
+        </param>
+        <param>
+          <type><ref refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args" kindref="compound">TargetChangingEventArgs</ref></type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>Event handler used by <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">AudioAPI</ref> when the <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i_1a6d4d30f49330cfb39e24200dbcdfb82e" kindref="member">AudioAPI.Target</ref> property is changed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The object who triggered this event. In most cases, this is <ref refid="class_volume_control_1_1_audio_1_1_audio_a_p_i" kindref="compound">AudioAPI</ref>.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event arguments associated with this event type.<linebreak/>
+See the <ref refid="class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args" kindref="compound">TargetChangedEventArgs</ref> documentation for more information.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events/TargetChangingEvent.cs" line="30" column="26" declfile="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events/TargetChangingEvent.cs" declline="30" declcolumn="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events/TargetChangedEvent.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

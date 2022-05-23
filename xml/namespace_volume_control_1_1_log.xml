@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_log" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Log</compoundname>
+    <innerclass refid="class_volume_control_1_1_log_1_1_f_log" prot="public">VolumeControl::Log::FLog</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_log_message" prot="public">VolumeControl::Log::LogMessage</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_log_writer" prot="public">VolumeControl::Log::LogWriter</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_timestamp" prot="public">VolumeControl::Log::Timestamp</innerclass>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_endpoints">VolumeControl::Log::Endpoints</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_enum">VolumeControl::Log::Enum</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_extensions">VolumeControl::Log::Extensions</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_interfaces">VolumeControl::Log::Interfaces</innernamespace>
+    <innernamespace refid="namespace_volume_control_1_1_log_1_1_properties">VolumeControl::Log::Properties</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/ConsoleEndpoint.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

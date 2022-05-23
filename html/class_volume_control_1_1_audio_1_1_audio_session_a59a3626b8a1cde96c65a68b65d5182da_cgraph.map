@@ -1,0 +1,4 @@
+<map id="VolumeControl.Audio.AudioSession.GetProcess" name="VolumeControl.Audio.AudioSession.GetProcess">
+<area shape="rect" id="node1" title="Gets the process associated with this audio session instance." alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="235,5,431,47"/>
+</map>

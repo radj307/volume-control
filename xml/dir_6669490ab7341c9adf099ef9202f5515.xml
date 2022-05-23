@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_6669490ab7341c9adf099ef9202f5515" kind="dir">
+    <compoundname>X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio</compoundname>
+    <innerdir refid="dir_87aaff9cea39337729ddd5747ae7afa4">X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Events</innerdir>
+    <innerdir refid="dir_e1e5cbe574e60f6b6bbe95e5220aa778">X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/Interfaces</innerdir>
+    <innerfile refid="_audio_a_p_i_8cs">AudioAPI.cs</innerfile>
+    <innerfile refid="_audio_a_p_i_settings_8_designer_8cs">AudioAPISettings.Designer.cs</innerfile>
+    <innerfile refid="_audio_device_8cs">AudioDevice.cs</innerfile>
+    <innerfile refid="_audio_session_8cs">AudioSession.cs</innerfile>
+    <innerfile refid="_icon_getter_8cs">IconGetter.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Audio/"/>
+  </compounddef>
+</doxygen>

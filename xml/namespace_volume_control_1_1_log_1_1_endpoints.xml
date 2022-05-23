@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_volume_control_1_1_log_1_1_endpoints" kind="namespace" language="C#">
+    <compoundname>VolumeControl::Log::Endpoints</compoundname>
+    <innerclass refid="class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint" prot="public">VolumeControl::Log::Endpoints::ConsoleEndpoint</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint" prot="public">VolumeControl::Log::Endpoints::FileEndpoint</innerclass>
+    <innerclass refid="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint" prot="public">VolumeControl::Log::Endpoints::IEndpoint</innerclass>
+    <innerclass refid="class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint" prot="public">VolumeControl::Log::Endpoints::MemoryEndpoint</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="X:/_Workspace/_repo/volume-control-3/VolumeControl.Log/Endpoints/ConsoleEndpoint.cs" line="1" column="1"/>
+  </compounddef>
+</doxygen>

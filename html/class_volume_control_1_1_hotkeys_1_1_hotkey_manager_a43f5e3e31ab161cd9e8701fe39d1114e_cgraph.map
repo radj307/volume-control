@@ -1,0 +1,5 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.RemoveHook" name="VolumeControl.Hotkeys.HotkeyManager.RemoveHook">
+<area shape="rect" id="node1" title="Removes the message hook from the application&#39;s handle." alt="" coords="5,39,209,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="261,5,457,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a82111b1efcdec01dbb49ee185094c677" title="Handles window messages, and triggers WindowsHotkey.Pressed events." alt="" coords="257,71,461,112"/>
+</map>

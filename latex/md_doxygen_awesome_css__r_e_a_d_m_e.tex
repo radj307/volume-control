@@ -1,0 +1,91 @@
+\href{https://github.com/jothepro/doxygen-awesome-css/releases/latest}{\texttt{ }} \href{https://github.com/jothepro/doxygen-awesome-css/blob/main/LICENSE}{\texttt{ }} 
+
+
+
+
+
+
+
+{\bfseries{Doxygen Awesome}} is a custom {\bfseries{CSS theme for Doxygen HTML-\/documentation}} with lots of customization parameters.\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md24}{}\doxysection{Motivation}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md24}
+I really like how the Doxygen HTML-\/documentation is structured! But IMHO it looks a bit outdated.
+
+This theme is an attempt to update the visuals of Doxygen without changing its overall layout too much.\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md25}{}\doxysection{Features}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md25}
+
+\begin{DoxyItemize}
+\item 🌈 Clean, modern design
+\item 🚀 Heavily customizable by adjusting CSS-\/variables
+\item 🧩 No changes to the HTML structure of Doxygen required
+\item 📱 Improved mobile usability
+\item 🌘 Dark mode support!
+\item 🥇 Works best with {\bfseries{doxygen 1.\+9.\+1}} -\/ {\bfseries{1.\+9.\+3}}
+\end{DoxyItemize}\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md26}{}\doxysection{Examples}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md26}
+
+\begin{DoxyItemize}
+\item Sidebar-\/\+Only theme\+: \href{https://jothepro.github.io/doxygen-awesome-css/}{\texttt{ Documentation of this repository}}
+\item Base theme\+: \href{https://a4z.github.io/libsl3/}{\texttt{ libsl3}}
+\end{DoxyItemize}\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md27}{}\doxysection{Installation}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md27}
+Copy the file {\ttfamily doxygen-\/awesome.\+css} from this repository into your project or add this repository as submodule and check out the latest release\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git submodule add https://github.com/jothepro/doxygen-\/awesome-\/css.git}
+\DoxyCodeLine{cd doxygen-\/awesome-\/css}
+\DoxyCodeLine{git checkout v2.0.3}
+
+\end{DoxyCode}
+
+
+Choose one of the theme variants and configure Doxygen accordingly\+:
+
+
+
+
+
+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Base theme}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Doxyfile}
+\DoxyCodeLine{GENERATE\_TREEVIEW      = YES \# optional. Also works without treeview}
+\DoxyCodeLine{HTML\_EXTRA\_STYLESHEET  = doxygen-\/awesome-\/css/doxygen-\/awesome.css}
+
+\end{DoxyCode}
+
+\item {\bfseries{Sidebar-\/only theme}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Doxyfile}
+\DoxyCodeLine{GENERATE\_TREEVIEW      = YES \# required!}
+\DoxyCodeLine{HTML\_EXTRA\_STYLESHEET  = doxygen-\/awesome-\/css/doxygen-\/awesome.css \(\backslash\)}
+\DoxyCodeLine{                         doxygen-\/awesome-\/css/doxygen-\/awesome-\/sidebar-\/only.css}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+
+Further installation instructions\+:
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{md_doxygen_awesome_css_docs_extensions}{How to install extensions}}
+\item \mbox{\hyperlink{md_doxygen_awesome_css_docs_customization}{How to customize the theme (colors, spacing, border-\/radius, ...)}}
+\item \mbox{\hyperlink{md_doxygen_awesome_css_docs_tricks}{Tips and Tricks for further configuration}}
+\end{DoxyItemize}\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md28}{}\doxysection{Browser support}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md28}
+Tested with
+
+
+\begin{DoxyItemize}
+\item Chrome 98, Chrome 98 for Android, Chrome 87 for i\+OS
+\item Safari 15, Safari for i\+OS 15
+\item Firefox 97, Firefox Daylight 97 for Android, Firefox Daylight 96 for i\+OS
+\end{DoxyItemize}\hypertarget{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md29}{}\doxysection{Credits}\label{md_doxygen_awesome_css__r_e_a_d_m_e_autotoc_md29}
+
+\begin{DoxyItemize}
+\item This theme is inspired by the \href{https://vuepress.vuejs.org/}{\texttt{ vuepress}} static site generator default theme.
+\item Thank you for all the feedback on github!
+\end{DoxyItemize}
+
+
+
+Read Next\+: \mbox{\hyperlink{md_doxygen_awesome_css_docs_extensions}{Extensions}}  

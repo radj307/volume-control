@@ -1,0 +1,99 @@
+\hypertarget{class_volume_control_1_1_w_p_f_1_1_window_handle_getter}{}\doxysection{Volume\+Control.\+WPF.\+Window\+Handle\+Getter Class Reference}
+\label{class_volume_control_1_1_w_p_f_1_1_window_handle_getter}\index{VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}}
+
+
+Helper object for C\# Class Libraries being unable to get the current \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window handle.  
+
+
+
+
+Collaboration diagram for Volume\+Control.\+WPF.\+Window\+Handle\+Getter\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_volume_control_1_1_w_p_f_1_1_window_handle_getter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Int\+Ptr \mbox{\hyperlink{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_af3958c64d6b5bae2bcf558dacacba07a}{Get\+Window\+Handle}} (Window wnd)
+\begin{DoxyCompactList}\small\item\em Gets the primary \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window\textquotesingle{}s handle.~\newline
+This uses Window\+Interop\+Helper.\+Ensure\+Handle to ensure that a valid handle is always returned at any point during initialization. \end{DoxyCompactList}\item 
+static Int\+Ptr \mbox{\hyperlink{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_a2a93ca4faed21f0aac1d791a781e396a}{Get\+Window\+Handle}} ()
+\item 
+static Hwnd\+Source \mbox{\hyperlink{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_ae1d05b0322c8ff6efcef70a2538ba1fb}{Get\+Hwnd\+Source}} (Int\+Ptr h\+Wnd)
+\begin{DoxyCompactList}\small\item\em Gets the Hwnd\+Source associated with the given Window Handle {\itshape h\+Wnd} . \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper object for C\# Class Libraries being unable to get the current \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window handle. 
+
+This can be used to receive window messages for the current window even from within non-\/\+WPF projects.
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_ae1d05b0322c8ff6efcef70a2538ba1fb}\label{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_ae1d05b0322c8ff6efcef70a2538ba1fb}} 
+\index{VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}!GetHwndSource@{GetHwndSource}}
+\index{GetHwndSource@{GetHwndSource}!VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}}
+\doxysubsubsection{\texorpdfstring{GetHwndSource()}{GetHwndSource()}}
+{\footnotesize\ttfamily static Hwnd\+Source Volume\+Control.\+WPF.\+Window\+Handle\+Getter.\+Get\+Hwnd\+Source (\begin{DoxyParamCaption}\item[{Int\+Ptr}]{h\+Wnd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets the Hwnd\+Source associated with the given Window Handle {\itshape h\+Wnd} . 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+Wnd} & The Int\+Ptr associated with a \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hwnd\+Source that can be used to receive \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window messages.
+\end{DoxyReturn}
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hook().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_ae1d05b0322c8ff6efcef70a2538ba1fb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_a2a93ca4faed21f0aac1d791a781e396a}\label{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_a2a93ca4faed21f0aac1d791a781e396a}} 
+\index{VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}!GetWindowHandle@{GetWindowHandle}}
+\index{GetWindowHandle@{GetWindowHandle}!VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}}
+\doxysubsubsection{\texorpdfstring{GetWindowHandle()}{GetWindowHandle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static Int\+Ptr Volume\+Control.\+WPF.\+Window\+Handle\+Getter.\+Get\+Window\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries{Without parameters, this function uses the main window\textquotesingle{}s handle using the Application.\+Main\+Window property from Application.\+Current.}}\mbox{\Hypertarget{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_af3958c64d6b5bae2bcf558dacacba07a}\label{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_af3958c64d6b5bae2bcf558dacacba07a}} 
+\index{VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}!GetWindowHandle@{GetWindowHandle}}
+\index{GetWindowHandle@{GetWindowHandle}!VolumeControl.WPF.WindowHandleGetter@{VolumeControl.WPF.WindowHandleGetter}}
+\doxysubsubsection{\texorpdfstring{GetWindowHandle()}{GetWindowHandle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static Int\+Ptr Volume\+Control.\+WPF.\+Window\+Handle\+Getter.\+Get\+Window\+Handle (\begin{DoxyParamCaption}\item[{Window}]{wnd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets the primary \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window\textquotesingle{}s handle.~\newline
+This uses Window\+Interop\+Helper.\+Ensure\+Handle to ensure that a valid handle is always returned at any point during initialization. 
+
+\begin{DoxyReturn}{Returns}
+Int\+Ptr set to the current \mbox{\hyperlink{namespace_volume_control_1_1_w_p_f}{WPF}} window\textquotesingle{}s handle.
+\end{DoxyReturn}
+
+
+Referenced by Volume\+Control.\+Hotkeys.\+Hotkey\+Manager.\+Add\+Hook().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_volume_control_1_1_w_p_f_1_1_window_handle_getter_af3958c64d6b5bae2bcf558dacacba07a_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+X\+:/\+\_\+\+Workspace/\+\_\+repo/volume-\/control-\/3/\+Volume\+Control.\+WPF/Window\+Handle\+Getter.\+cs\end{DoxyCompactItemize}
