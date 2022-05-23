@@ -46,13 +46,13 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Background" Value="WhiteSmoke"/>
+                <Setter Property="Background" Value="#B0B0B0"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
             <!-- Button -->
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#909090"/>
+                <Setter Property="Background" Value="#A0A0A0"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -62,6 +62,9 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#B0B0B0" TargetName="ButtonMouseOver"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#C0C0C0" TargetName="ButtonMouseOver"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -95,13 +98,6 @@
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
-            </Style>
-            <!-- Mixer Volume TextBox -->
-            <Style x:Key="MixerVolumeTextBoxStyle" BasedOn="{StaticResource TextBoxStyle}" TargetType="TextBox">
-                <Setter Property="Background" Value="#00000000"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Width" Value="26"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
             <!-- Mixer Header Brushes -->
@@ -174,7 +170,6 @@
             <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="Height" Value="23"/>
                 <Setter Property="Margin" Value="3,0,3,0"/>
             </Style>
@@ -182,7 +177,6 @@
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
                 <Setter Property="Background" Value="#505055"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
 
 
@@ -247,7 +241,7 @@
 
                 <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
 
-                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Gray" />
 
                 <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
 
@@ -438,7 +432,7 @@
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource ComboBoxCustomStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="#9A9A9A"/>
+                        <Setter Property="Foreground" Value="#404040"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Foreground" Value="Black"/>
@@ -722,17 +716,17 @@
                                 <DataTemplate>
                                     <Grid VerticalAlignment="Center" Margin="1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
                                             <!-- Slider -->
-                                            <ColumnDefinition Width="2"/>
+                                            <ColumnDefinition Width="*"/>
                                             <!-- Divider -->
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="2"/>
                                             <!-- TextBox -->
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <!-- Slider -->
                                         <Slider x:Name="dgVolumeSlider" Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SmallChange="1" LargeChange="5" Style="{StaticResource MixerVolumeSliderStyle}"/>
                                         <!-- TextBox -->
-                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MixerVolumeTextBoxStyle}"/>
+                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="#00000000" BorderThickness="0" FontFamily="{StaticResource InterFont}" Style="{StaticResource TextBoxStyle}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -987,8 +981,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="3*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="10*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
                     </Grid.RowDefinitions>
 
                     <!-- Show in Taskbar Cell -->

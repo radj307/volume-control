@@ -28,6 +28,7 @@
 
                             <TextBox x:Name="PART_TextBox"
                                      VerticalAlignment="Center"
+                                     Background="#A0A0A0"
                                      VerticalContentAlignment="Center"
                                      Height="{TemplateBinding Height}"
                                      HorizontalContentAlignment="Right" />

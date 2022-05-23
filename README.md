@@ -1,7 +1,6 @@
 <p align="center">
 <a href="https://github.com/radj307/volume-control"><img alt="[Volume Control Banner]" src="https://i.imgur.com/rMbNIhU.png"></a><br/>
 <a href="https://github.com/radj307/volume-control/releases"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&label=Latest%20Version&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/radj307/volume-control/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&logo=github&logoColor=e8e8e7&style=for-the-badge"></a>
- <br /> 
 </p>
 
 ***
@@ -20,6 +19,10 @@ Designed for adjusting the volume of your music independently of other programs,
   - Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.
     - Like the Windows Audio Mixer, you can do this with any running process independently at any time.
   - Allows you to specify the 'target' application using the mixer, in addition to the target switching hotkeys.
+
+#### Addon Development
+Want to develop an addon for Volume Control?  
+See the [wiki](https://github.com/radj307/volume-control/wiki) for more information.
 
 ### Requirements
 
