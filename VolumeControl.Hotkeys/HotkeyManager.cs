@@ -8,26 +8,19 @@ using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Hotkeys
 {
+    /// <summary>This object is responsible for managing hotkeys at runtime.</summary>
     public class HotkeyManager : INotifyCollectionChanged, IDisposable
     {
         #region Initializers
-        public HotkeyManager(IHotkeyActionManager actionManager)
+        /// <inheritdoc cref="HotkeyManager"/>
+        /// <param name="actionManager">The action manager to use.</param>
+        /// <param name="loadNow">When true, the <see cref="LoadHotkeys"/> method is called from the constructor. Set this to false if you want to do it yourself.</param>
+        public HotkeyManager(IHotkeyActionManager actionManager, bool loadNow = false)
         {
             _hotkeyActions = actionManager;
-            Initialize();
-        }
-
-        protected virtual void Initialize()
-        {
             AddHook();
-
-            ActionNames = _hotkeyActions
-                .GetActionNames()
-                .Where(s => s.Length > 0)
-                .OrderBy(s => s[0])
-                .ToList();
-
-            LoadHotkeys();
+            if (loadNow)
+                LoadHotkeys();
         }
         #endregion Initializers
 
@@ -49,9 +42,11 @@ namespace VolumeControl.Hotkeys
         #region Properties
         private static HotkeyManagerSettings Settings => HotkeyManagerSettings.Default;
         private static LogWriter Log => FLog.Log;
+        /// <summary>
+        /// Action manager object
+        /// </summary>
         public IHotkeyActionManager Actions => _hotkeyActions;
         public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
-        public List<string> ActionNames { get; set; } = null!;
         #endregion Properties
 
         #region Methods
@@ -117,7 +112,11 @@ namespace VolumeControl.Hotkeys
         #endregion HotkeysListGetters
 
         #region HotkeysListSaveLoad
-        internal void LoadHotkeys()
+        /// <summary>
+        /// Loads hotkeys from the settings file and binds them to the associated actions.
+        /// </summary>
+        /// <remarks><b>Make sure that the <see cref="Actions"/> property is set and initialized before calling this!</b></remarks>
+        public void LoadHotkeys()
         {
             // set the settings hotkeys to default if they're null
             StringCollection? list = Settings.Hotkeys ??= Settings.Hotkeys_Default;

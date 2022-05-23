@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Interop;
+using VolumeControl.API;
 using VolumeControl.Audio;
 using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Hotkeys.Enum;
@@ -18,12 +19,12 @@ namespace VolumeControl.Hotkeys.Addons
         /// </summary>
         /// <param name="mainWindowHandle">The handle of the main WPF window.</param>
         /// <param name="audioAPI">The <see cref="AudioAPI"/> instance to use for volume-related hotkeys.</param>
-        public WindowsAPIActions(IntPtr mainWindowHandle) => MainHWnd = mainWindowHandle;
+       // public WindowsAPIActions(IntPtr mainWindowHandle) => MainHWnd = mainWindowHandle;
 
         /// <summary>
         /// The handle of the main WPF window.
         /// </summary>
-        private IntPtr MainHWnd { get; }
+        private IntPtr MainHWnd => VCAPI.Default.MainWindowHWnd;
 
         #region Actions
         [HotkeyAction] public void NextTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);

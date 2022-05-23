@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using VolumeControl.Core;
-using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Log;
 
 namespace VolumeControl.Helpers.Addon
@@ -16,117 +16,132 @@ namespace VolumeControl.Helpers.Addon
     public class AddonManager
     {
         #region Initializers
-        public AddonManager(SemVersion version)
+        public AddonManager(VolumeControlSettings settings)
         {
-            _currentVersion = version;
-            _rootAddonPath = GetAddonPath();
-            Log.Debug($"Checking for addon assemblies located in directory: '{_rootAddonPath}'.");
-            AddonAssemblies = new();
-            // load addon assemblies
-            GetAddonAssemblyPaths().ForEach(p => AddonAssemblies.Add(Assembly.LoadFrom(p)));
-            // log
-            if (AddonAssemblies.Count == 0)
-            {
-                Log.Debug($"No addon assemblies were found.");
-            }
-            else
-            {
-                Log.Debug($"Found {AddonAssemblies.Count} addon assemblies.");
-            }
+            _settings = settings;
+            _currentVersion = _settings.Version;
+            AddonDirectories = GetAddonDirectories().Where(d => Directory.Exists(d)).ToList();
         }
         #endregion Initializers
 
         #region Fields
+        private readonly VolumeControlSettings _settings;
         private readonly SemVersion _currentVersion;
-        private readonly string _rootAddonPath;
-        private List<Type>? _actionAddonTypes = null;
         #endregion Fields
 
         #region Properties
         private static LogWriter Log => FLog.Log;
-        public readonly List<Assembly> AddonAssemblies;
-        public List<Type> ActionAddonTypes => _actionAddonTypes ??= GetTypesWithAttribute<ActionAddonAttribute>();
+        public List<string> AddonDirectories { get; set; }
+        public static EnumerationOptions DirectoryEnumerationOptions { get; set; } = new()
+        {
+            MatchCasing = MatchCasing.CaseInsensitive,
+            MatchType = MatchType.Simple,
+            RecurseSubdirectories = true
+        };
         #endregion Properties
 
         #region Methods
         /// <summary>
-        /// Gets the filepaths to all valid addon assemblies.
+        /// Loads assemblies into the given addon types.
         /// </summary>
-        /// <returns>List of the absolute filepaths of all detected addon assemblies.</returns>
-        public List<string> GetAddonAssemblyPaths()
+        /// <param name="addons">Any enumerable type containing <see cref="BaseAddon"/>-derived types.</param>
+        public void LoadAddons(ref List<IBaseAddon> addons)
         {
-            List<string> l = new();
+            if (AddonDirectories.Count == 0) return;
+            Log.Debug($"Searching for addon assemblies in {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}.");
+            int asmCount = 0,
+                totalCount = 0;
+            foreach (string dir in AddonDirectories)
+            {
+                if (!Directory.Exists(dir))
+                {
+                    Log.Warning($"Addon directory '{dir}' doesn't exist.");
+                    continue;
+                }
 
-            if (!Directory.Exists(_rootAddonPath))
-            {
-                return l;
-            }
+                Log.Debug($"Searching for Addon Assemblies in '{dir}'");
 
-            foreach (string path in Directory.EnumerateFiles(_rootAddonPath, "*.dll", new EnumerationOptions()
-            {
-                MatchCasing = MatchCasing.CaseInsensitive,
-                MatchType = MatchType.Simple,
-                RecurseSubdirectories = true
-            }))
-            {
-                l.Add(path);
+                foreach (string path in Directory.EnumerateFiles(dir, "*.dll", DirectoryEnumerationOptions))
+                {
+                    string prefix = $"  [{++totalCount}] ";
+                    var asm = Assembly.LoadFrom(path);
+
+                    int typeCount = LoadAddonTypes(ref addons, asm, _currentVersion);
+
+                    if (typeCount == 0)
+                    {
+                        Log.Debug($"{prefix}No classes found in assembly '{asm.FullName}'");
+                        continue;
+                    }
+                    Log.Debug($"{prefix}Loaded {typeCount} classes from assembly '{asm.FullName}'.");
+                    prefix = new(' ', prefix.Length);
+
+                    ++asmCount;
+                    Log.Debug($"{prefix}Cached addon '{asm.FullName}'");
+                }
             }
-            return l;
+            Log.Debug($"Loaded {asmCount} out of {totalCount} assemblies from {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}");
+            // initialize addons
+            foreach (var addon in addons)
+            {
+                addon.LoadFromTypes();
+                Log.Debug($"Initialized {addon.Attribute.Name}");
+            }
         }
-
-        private static string GetAddonPath()
+        /// <summary>
+        /// Searches an assembly for addon classes.
+        /// </summary>
+        /// <returns>The number of types loaded into all addons.</returns>
+        private static int LoadAddonTypes(ref List<IBaseAddon> addons, Assembly asm, SemVersion currentVersion)
         {
+            int counter = 0;
+            Log.Debug($"Enumerating Classes from Assembly: {{ Name: '{asm.FullName}', Path: '{asm.Location}' }}");
+            foreach (Type type in asm.GetTypes())
+            {
+                foreach (var addon in addons)
+                {
+                    if (type.GetCustomAttribute(addon.Attribute) is IBaseAddonAttribute bAttr)
+                    {
+                        Log.Debug($"Loading Class: {{",
+                                  $"    Name: {type.FullName}",
+                                  $"    Type: {addon.Attribute.Name}",
+                                  $"}}"
+                                  );
+
+                        Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{addon.Attribute.Name}' }}");
+                        if (bAttr.CompatibleVersions.Contains(currentVersion))
+                        {
+                            Log.Debug($"Successfully loaded addon class {type.FullName}");
+                            addon.Types.Add(type);
+                            ++counter;
+                        }
+                        else
+                        {
+#                           pragma warning disable CS0618 // Type or member is obsolete
+                            Log.Debug($"Ignoring incompatible addon '{type.FullName}': ( {bAttr.CompatibleVersions.Minimum ?? "*"} <= {currentVersion} <= {bAttr.CompatibleVersions.Maximum ?? "*"} )");
+#                           pragma warning restore CS0618 // Type or member is obsolete
+                        }
+                    }
+                }
+            }
+            return counter;
+        }
+        /// <summary>
+        /// Gets the root addon directory path.
+        /// </summary>
+        /// <returns>The absolute path to the Addons root directory.</returns>
+        private static List<string> GetAddonDirectories()
+        {
+            // TODO: Add other directories here somehow?
+            List<string> l = new();
             if (Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath) is string dir)
             {
                 const string searchString = "radj307";
                 int pos = dir.IndexOf(searchString);
-                if (pos == -1)
-                {
-                    return string.Empty;
-                }
+                if (pos == -1) return l;
 
-                return Path.Combine(dir[..(pos + searchString.Length)], "Addons");
+                l.Add(Path.Combine(dir[..(pos + searchString.Length)], "Addons"));
             }
-            return string.Empty;
-        }
-        private static List<Type> GetTypesWithAttribute<T>(Assembly asm, SemVersion currentVersion) where T : BaseAddonAttribute
-        {
-            Log.Debug($"Enumerating Classes from Addon: {{ Name: '{asm.FullName}', Path: '{asm.Location}' }}");
-            List<Type> l = new();
-            foreach (Type type in asm.GetTypes())
-            {
-                if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr)
-                {
-                    Log.Debug($"Loading Addon: {{",
-                              $"    Name: {type.FullName}",
-                              $"    Type: {typeof(T).Name}",
-                              $"}}"
-                              );
-
-                    Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{typeof(T).Name}' }}");
-                    if (bAttr.CompatibleVersions.Contains(currentVersion))
-                    {
-                        Log.Debug($"Successfully loaded addon class {type.FullName}");
-                        l.Add(type);
-                    }
-                    else
-                    {
-#                       pragma warning disable CS0618 // Type or member is obsolete
-                        Log.Debug($"Ignoring incompatible addon '{type.FullName}': ( {bAttr.CompatibleVersions.Minimum ?? "*"} <= {currentVersion} <= {bAttr.CompatibleVersions.Maximum ?? "*"} )");
-#                       pragma warning restore CS0618 // Type or member is obsolete
-                    }
-                }
-            }
-            return l;
-        }
-        private List<Type> GetTypesWithAttribute<T>() where T : BaseAddonAttribute
-        {
-            List<Type> l = new();
-            foreach (Assembly asm in AddonAssemblies)
-            {
-                l.AddRange(GetTypesWithAttribute<T>(asm, _currentVersion));
-            }
-
             return l;
         }
         #endregion Methods

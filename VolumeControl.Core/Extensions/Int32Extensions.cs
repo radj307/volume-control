@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core
+﻿namespace VolumeControl.Core.Extensions
 {
     /// <summary>
     /// Extensions for the <see cref="int"/> integral type.

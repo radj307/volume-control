@@ -8,9 +8,9 @@
         #region Constructor
         /// <inheritdoc cref="MemoryEndpoint"/>
         /// <param name="enabled">When true, the endpoint starts enabled.</param>
-        public MemoryEndpoint(bool enabled = true)
+        public MemoryEndpoint(bool enabled = true, int kilobytes = 10)
         {
-            _stream = new();
+            _stream = new(new byte[1024 * kilobytes], true);
             Enabled = enabled;
         }
         #endregion Constructor

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
+    <ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />
     <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
     <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
   </ItemGroup>

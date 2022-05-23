@@ -96,7 +96,7 @@ namespace VolumeControl.Log
                 else if (line is string s)
                 {
                     if (s.Length > 0)
-                        w.WriteLine($"{(i == 0 ? "" : tsBlank)}{s}");
+                        w.WriteLine($"{Regex.Replace(s, "\\B\\r*\\n", $"\n{tsBlank}")}");
                 }
                 else if (line is IEnumerable enumerable)
                 {
@@ -105,17 +105,6 @@ namespace VolumeControl.Log
                         if (item != null)
                             w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
                     }
-                }
-                else if (line is ILogWriter logWriter)
-                {
-                    using TextReader? r = logWriter.Endpoint.GetReader();
-                    if (r == null)
-                        break;
-                    string logBuffer = Regex.Replace(r.ReadToEnd().Trim(), "\\r*\\n", $"\n{tsBlank}");
-                    r.Dispose();
-                    if (logBuffer.Length == 0)
-                        break;
-                    w.Write(logBuffer);
                 }
                 else
                 {
@@ -168,6 +157,21 @@ namespace VolumeControl.Log
                     return;
                 }
             }
+        }
+        /// <summary>
+        /// Writes a <see cref="LogMessage"/> or similar.
+        /// </summary>
+        /// <param name="msg">Any type that implements <see cref="ILogWriter"/>.</param>
+        public void WriteMessage(ILogWriter msg)
+        {
+            using TextReader? r = msg.Endpoint.GetReader();
+            if (r == null)
+                return;
+            string logBuffer = r.ReadToEnd().Trim();
+            r.Dispose();
+            if (logBuffer.Length == 0)
+                return;
+            Write(logBuffer);
         }
 
         #region WriteEvent

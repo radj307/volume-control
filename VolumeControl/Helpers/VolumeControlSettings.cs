@@ -12,11 +12,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
+using VolumeControl.Core;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
+using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Log.Enum;
 using VolumeControl.Win32;
 using VolumeControl.WPF;
@@ -24,7 +26,7 @@ using static VolumeControl.Audio.AudioAPI;
 
 namespace VolumeControl.Helpers
 {
-    public class VolumeControlSettings : INotifyPropertyChanged, INotifyCollectionChanged, IDisposable
+    public class VolumeControlSettings : INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, IDisposable
     {
         public VolumeControlSettings()
         {
@@ -40,20 +42,28 @@ namespace VolumeControl.Helpers
             ReleaseType = assembly?.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
 
             Version = VersionNumber.GetSemVer() ?? new(0, 0, 0);
-            AddonManager = new(Version);
-            // load actions, including addons:
-            List<object> objects = new();
-            List<Type> l = AddonManager.ActionAddonTypes;
-            foreach (Type type in l)
-            {
-                objects.Add(Activator.CreateInstance(type)!);
-            }
+            AddonManager = new(this);
 
-            _hotkeyManager = new(new HotkeyActionManager(
-                new AudioAPIActions(_audioAPI),
-                new WindowsAPIActions(_hWndMixer),
-                objects
-            ));
+            HotkeyActionManager actionManager = new();
+            // Add premade actions
+            actionManager.Types.Add(typeof(AudioAPIActions));
+            actionManager.Types.Add(typeof(WindowsAPIActions));
+
+            List<IBaseAddon> addons = new()
+            {
+                actionManager
+            };
+            // Load addons
+            AddonManager.LoadAddons(ref addons);
+            // Retrieve a list of all loaded action names
+            ActionNames = actionManager
+                .GetActionNames()
+                .Where(s => s.Length > 0)
+                .OrderBy(s => s[0])
+                .ToList();
+            // Create the hotkey manager
+            _hotkeyManager = new(actionManager);
+            _hotkeyManager.LoadHotkeys();
 
             // Initialize the addon API
             API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, _hWndMixer);
@@ -112,10 +122,10 @@ namespace VolumeControl.Helpers
             remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new(propertyName));
-        }
+        public event PropertyChangingEventHandler? PropertyChanging;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        protected virtual void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Fields
@@ -146,6 +156,16 @@ namespace VolumeControl.Helpers
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
         public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(SessionNameFormat.ProcessIdentifier | SessionNameFormat.ProcessName);
+        public IEnumerable<string> ActionNames
+        {
+            get => _actionNames;
+            internal set
+            {
+                _actionNames = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private IEnumerable<string> _actionNames = null!;
         #endregion Other
 
         #region Statics
@@ -180,7 +200,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _showIcons = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private bool _showIcons;
@@ -199,7 +219,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _advancedHotkeyMode = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private bool _advancedHotkeyMode;
@@ -221,7 +241,7 @@ namespace VolumeControl.Helpers
                         Log.Info("Disabled Run at Startup.");
                     }
 
-                    OnPropertyChanged();
+                    NotifyPropertyChanged();
                 }
                 catch (Exception ex)
                 {
@@ -239,7 +259,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _startMinimized = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private bool _startMinimized;
@@ -262,7 +282,7 @@ namespace VolumeControl.Helpers
                         Application.Current.Shutdown();
                     }
                 }
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private bool _checkForUpdates, _hasCheckedForUpdates = false;
@@ -275,7 +295,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _notificationEnabled = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private bool _notificationEnabled;
@@ -285,7 +305,7 @@ namespace VolumeControl.Helpers
             set
             {
                 _notificationTimeout = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
         }
         private int _notificationTimeout;
@@ -303,10 +323,10 @@ namespace VolumeControl.Helpers
             if (e.PropertyName.Equals("Sessions"))
             { // reset autocomplete suggestions
                 _targetAutoCompleteSource = null;
-                OnPropertyChanged(nameof(TargetAutoCompleteSource));
+                NotifyPropertyChanged(nameof(TargetAutoCompleteSource));
             }
 
-            OnPropertyChanged($"AudioAPI.{e.PropertyName}");
+            NotifyPropertyChanged($"AudioAPI.{e.PropertyName}");
         }
         #endregion EventHandlers
 
@@ -374,17 +394,6 @@ namespace VolumeControl.Helpers
                 return null;
             }
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(
-                    "An exception was thrown while creating the update utility!",
-                   $"{{ Resource: '{_updateUtilityResourcePath}' }}",
-                    ex);
-            }
             string path = Path.Combine(Path.GetDirectoryName(ExecutablePath) ?? string.Empty, _updateUtilityFilename);
 
             if (File.Exists(path)) // if the file already exists, delete it
@@ -393,8 +402,19 @@ namespace VolumeControl.Helpers
                 File.Delete(path);
             }
 
-            using Stream? s = asm.GetManifestResourceStream(_updateUtilityResourcePath);
+            Stream? s = null;
 
+            try
+            {
+                s = asm.GetManifestResourceStream(_updateUtilityResourcePath);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(
+                    "An exception was thrown while creating the update utility!",
+                   $"{{ Resource: '{_updateUtilityResourcePath}' }}",
+                    ex);
+            }
             if (s == null)
             {
                 Log.Error($"Failed to get a stream containing resource '{_updateUtilityResourcePath}'!", "This indicates that something may have gone wrong during the build process!", "Please attach a copy of this log file and report this at https://github.com/radj307/volume-control/issues");
@@ -413,6 +433,7 @@ namespace VolumeControl.Helpers
             s.CopyTo(fs);
             s.Close();
             s.Dispose();
+            s = null;
 
             fs.Flush(); //< idk if this is required, but it's probably a good idea
             fs.Close();

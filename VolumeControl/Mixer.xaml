@@ -835,7 +835,7 @@
                         <DataGridTemplateColumn Header="Action" Width="6*" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding HotkeyAPI.ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
+                                    <ComboBox ItemsSource="{Binding ActionNames, Source={StaticResource Settings}}" SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ComboBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

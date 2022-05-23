@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using VolumeControl.API;
 using VolumeControl.Audio;
 using VolumeControl.Hotkeys.Attributes;
 
@@ -10,12 +11,12 @@ namespace VolumeControl.Hotkeys.Addons
     [ActionAddon(nameof(AudioAPIActions))]
     public class AudioAPIActions
     {
-        public AudioAPIActions(AudioAPI audioAPI) => AudioAPI = audioAPI;
+        //public AudioAPIActions(AudioAPI audioAPI) => AudioAPI = audioAPI;
 
         /// <summary>
-        /// The <see cref="AudioAPI"/> instance to use for volume-related events.
+        /// The <see cref="Audio.AudioAPI"/> instance to use for volume-related events.
         /// </summary>
-        private AudioAPI AudioAPI { get; }
+        private AudioAPI AudioAPI => VCAPI.Default.AudioAPI;
 
         #region Actions
         [HotkeyAction] public void IncreaseSessionVolume(object? sender, HandledEventArgs e) => AudioAPI.IncrementSessionVolume();
