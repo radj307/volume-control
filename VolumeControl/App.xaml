@@ -4,6 +4,7 @@
              xmlns:helpers="clr-namespace:VolumeControl.Helpers"
              xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
              xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Mixer.xaml"
@@ -12,6 +13,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
+            <sys:Double x:Key="GlobalFontSize">13.3</sys:Double>
 
             <hklib:KeysList x:Key="KeyOptions"/>
             <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->

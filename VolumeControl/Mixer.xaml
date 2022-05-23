@@ -9,7 +9,8 @@
         xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
         xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
-        xmlns:sys="clr-namespace:System.Runtime;assembly=netstandard"
+        xmlns:sys="clr-namespace:System;assembly=netstandard"
+        xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -31,7 +32,7 @@
             <Setter Property="Width" Value="500"/>
             <Setter Property="UseLayoutRounding" Value="True"/>
             <Setter Property="ResizeMode" Value="CanMinimize"/>
-            <Setter Property="FontSize" Value="13.3"/>
+            <Setter Property="FontSize" Value="{StaticResource GlobalFontSize}"/>
             <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
         </Style>
     </Window.Style>
@@ -720,7 +721,7 @@
                                         <!-- Slider -->
                                         <Slider x:Name="dgVolumeSlider" Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SmallChange="1" LargeChange="5" Style="{StaticResource MixerVolumeSliderStyle}"/>
                                         <!-- TextBox -->
-                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="#00000000" BorderThickness="0" Style="{StaticResource TextBoxStyle}"/>
+                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Width="30" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="#00000000" BorderThickness="0" Style="{StaticResource TextBoxStyle}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
