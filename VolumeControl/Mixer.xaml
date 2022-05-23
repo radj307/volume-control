@@ -46,7 +46,7 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Background" Value="WhiteSmoke"/>
+                <Setter Property="Background" Value="#B0B0B0"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
@@ -241,7 +241,7 @@
 
                 <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
 
-                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Gray" />
 
                 <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
 
@@ -432,7 +432,7 @@
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource ComboBoxCustomStyle}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Foreground" Value="#9A9A9A"/>
+                        <Setter Property="Foreground" Value="#404040"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Foreground" Value="Black"/>
@@ -981,8 +981,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="3*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="10*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
                     </Grid.RowDefinitions>
 
                     <!-- Show in Taskbar Cell -->
