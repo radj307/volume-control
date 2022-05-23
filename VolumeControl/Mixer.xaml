@@ -231,7 +231,7 @@
 
                 <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
 
-                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Gray" />
+                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#303030" />
 
                 <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
 
@@ -326,7 +326,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
-                <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+                <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}"/>
             </ControlTemplate>
 
             <Style x:Key="ComboBoxCustomStyle" TargetType="ComboBox" Resources="{StaticResource ComboBoxResources}">
@@ -425,7 +425,7 @@
                         <Setter Property="Foreground" Value="#404040"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Foreground" Value="WhiteSmoke"/>
                     </DataTrigger>
                 </Style.Triggers>
                 <Setter Property="AlternationCount" Value="1"/>
@@ -1112,7 +1112,7 @@
                         <!-- Log Filter Level Resources -->
                         <Grid.Resources>
                             <DataTemplate x:Key="DropDownItemTemplate" DataType="wpfApplication1:ItemSourceModel">
-                                <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding IsSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding IsSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}"/>
                             </DataTemplate>
                             <DataTemplate x:Key="SelectionBoxTemplate"/>
                             <DataTemplate x:Key="ComboBoxTemplate">
@@ -1130,7 +1130,7 @@
                                         <Setter Property="Foreground" Value="#9A9A9A"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True">
-                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Foreground" Value="WhiteSmoke"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
