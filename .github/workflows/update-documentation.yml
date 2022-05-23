@@ -1,0 +1,45 @@
+name: Update Documentation
+
+on:
+  push:
+    tags: [ '*.*.*' ]
+  workflow_dispatch:
+  
+jobs:
+  update-documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Clone the repository
+      - name: Clone the Main Branch
+        uses: actions/checkout@v3
+        with:
+          ref:        main
+          
+      - name: Clone the Documentation Branch
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          ref:        gh-pages
+          path:       gh-pages
+      
+      - name: List Directory Structure
+        run:  |
+              cd ${{github.workspace}}
+              ls -lAghR
+      
+      - name: Install Doxygen & Graphviz
+        run:  sudo apt-get update && sudo apt-get install -y doxygen graphviz
+        
+      - name: Run Doxygen
+        run:  |
+              cd "${{github.workspace}}/gh-pages"
+              doxygen ./Doxyfile
+              
+      - name: Commit Changes
+        run:  |
+              cd "${{github.workspace}}/gh-pages"
+              git config user.name github-actions
+              git config user.email github-actions@github.com
+              git add -A && git commit -m "Generated Documentation"
+              git push
