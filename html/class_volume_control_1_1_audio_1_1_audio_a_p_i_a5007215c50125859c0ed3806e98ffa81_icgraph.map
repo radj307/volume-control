@@ -1,5 +1,4 @@
 <map id="VolumeControl.Audio.AudioAPI.GetDefaultDevice" name="VolumeControl.Audio.AudioAPI.GetDefaultDevice">
-<area shape="rect" id="node1" title="Gets the current default audio endpoint." alt="" coords="235,39,416,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4" title=" " alt="" coords="5,5,187,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#af0b018d5163e864ded15579e7b8addd7" title="Sets the selected device to the default device, unless the selection is locked." alt="" coords="5,71,187,112"/>
+<area shape="rect" id="node1" title="Gets the current default audio endpoint." alt="" coords="253,5,453,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#af0b018d5163e864ded15579e7b8addd7" title="Sets the selected device to the default device, unless the selection is locked." alt="" coords="5,5,205,47"/>
 </map>

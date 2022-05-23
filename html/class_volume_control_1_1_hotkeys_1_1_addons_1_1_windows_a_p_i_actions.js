@@ -6,6 +6,5 @@ var class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions =
     [ "PreviousTrack", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a77b64ac233b9432a6a5ae9aab97eea53", null ],
     [ "SendToBackground", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ab395ebf2f57f6f3c9d5347c752c68cbb", null ],
     [ "TogglePlayback", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a08f4708c183a7a138d69ea20835c2c27", null ],
-    [ "Unminimize", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ae1b0d99185180a4bf1f59add3f0a81f1", null ],
-    [ "MainHWnd", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a51c0f0f2ba65a571c0a84d784991cf90", null ]
+    [ "Unminimize", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ae1b0d99185180a4bf1f59add3f0a81f1", null ]
 ];

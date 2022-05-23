@@ -14,10 +14,8 @@ var class_volume_control_1_1_hotkeys_1_1_hotkey_manager =
     [ "RemoveHook", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a43f5e3e31ab161cd9e8701fe39d1114e", null ],
     [ "ResetHotkeys", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb", null ],
     [ "SaveHotkeys", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c", null ],
-    [ "OwnerHandle", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4956a5030fdd80487df645b42459e569", null ],
     [ "Actions", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a0ce84311e2ea57730ca1075f8b15c416", null ],
+    [ "OwnerHandle", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4956a5030fdd80487df645b42459e569", null ],
     [ "CollectionChanged", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#aeae3b24e598a0653279fc93e0cd5644f", null ],
-    [ "Hotkeys", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a572ad221030bdfab13d9fc09835b25d2", null ],
-    [ "Log", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a73370ecb2a0dfb9feac98515eca8c62b", null ],
-    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#aadd4bb341f0d3e6cdffe92b3168b794a", null ]
+    [ "Hotkeys", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a572ad221030bdfab13d9fc09835b25d2", null ]
 ];

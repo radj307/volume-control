@@ -1,9 +1,5 @@
 <map id="VolumeControl.Log.LogWriter.Conditional" name="VolumeControl.Log.LogWriter.Conditional">
-<area shape="rect" id="node1" title="Conditional log message, allows you to write different messages depending on the current log filter l..." alt="" coords="5,39,201,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="493,5,689,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#af9f117f9eb6d41820bc271ac0f0d4f76" title="Writes a log message with a timestamp and log level header." alt="" coords="249,68,445,109"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31" title="Gets a timestamp in the correct format for this log writer instance." alt="" coords="493,71,689,112"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf" title="Writes a log message with a given timestamp." alt="" coords="493,136,689,177"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#aff4d1758c814322b5474fa95c9863ce8" title="Retrieve a StreamWriter object for writing to the endpoint. &#160;Using this is only recommended for repea..." alt="" coords="737,103,936,144"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e" title="Gets a blank timestamp to use as indentation." alt="" coords="739,168,935,209"/>
+<area shape="rect" id="node1" title="Conditional log message, allows you to write different messages depending on the current log filter l..." alt="" coords="5,39,220,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d" title="Determines whether the given EventType should be written to the Endpoint or not." alt="" coords="268,5,483,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#af9f117f9eb6d41820bc271ac0f0d4f76" title="Writes a log message with a timestamp and log level header." alt="" coords="268,71,483,112"/>
 </map>

@@ -1,8 +1,6 @@
 <map id="VolumeControl.Log.LogWriter.Debug" name="VolumeControl.Log.LogWriter.Debug">
-<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="509,104,705,145"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="257,5,461,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a2109e5e62f1d469c63acc9c6fd832f61" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="257,71,461,112"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a43f5e3e31ab161cd9e8701fe39d1114e" title="Removes the message hook from the application&#39;s handle." alt="" coords="257,136,461,177"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="257,201,461,243"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ac4e52046790fdd5d2e75a1c50510da22" title=" " alt="" coords="5,39,209,80"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="279,71,493,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a43f5e3e31ab161cd9e8701fe39d1114e" title="Removes the message hook from the application&#39;s handle." alt="" coords="5,71,231,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="5,136,231,177"/>
 </map>

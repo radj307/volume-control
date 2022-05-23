@@ -1,12 +1,12 @@
 <map id="VolumeControl.WPF.Collections.BindableEventType" name="VolumeControl.WPF.Collections.BindableEventType">
-<area shape="rect" id="node1" title="Provides the source for a WPF list component&#39;s ItemsSource property to expose a readable and writable..." alt="" coords="763,160,977,531"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,13,207,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="231,13,432,105"/>
-<area shape="rect" id="node4" title=" " alt="" coords="456,20,551,97"/>
-<area shape="rect" id="node5" title=" " alt="" coords="575,13,747,105"/>
-<area shape="rect" id="node6" title=" " alt="" coords="771,5,969,112"/>
-<area shape="rect" id="node7" title=" " alt="" coords="993,13,1195,105"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1219,20,1302,97"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1327,20,1373,97"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1397,20,1556,97"/>
+<area shape="rect" id="node1" title="Provides the source for a WPF list component&#39;s ItemsSource property to expose a readable and writable..." alt="" coords="841,160,1070,531"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,13,228,105"/>
+<area shape="rect" id="node3" title=" " alt="" coords="252,13,475,105"/>
+<area shape="rect" id="node4" title=" " alt="" coords="499,20,603,97"/>
+<area shape="rect" id="node5" title=" " alt="" coords="627,13,819,105"/>
+<area shape="rect" id="node6" title=" " alt="" coords="844,5,1067,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="1091,13,1313,105"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1338,20,1429,97"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1453,20,1503,97"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1527,20,1704,97"/>
 </map>

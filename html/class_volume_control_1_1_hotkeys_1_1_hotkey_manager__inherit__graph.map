@@ -1,5 +1,5 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager" name="VolumeControl.Hotkeys.HotkeyManager">
-<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="63,131,267,487"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,172,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="196,5,285,83"/>
+<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="69,131,294,457"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,192,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="216,5,315,83"/>
 </map>

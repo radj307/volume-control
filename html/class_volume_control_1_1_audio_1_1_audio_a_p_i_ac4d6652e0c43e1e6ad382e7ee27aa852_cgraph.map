@@ -1,6 +1,4 @@
 <map id="VolumeControl.Audio.AudioAPI.SelectNextSession" name="VolumeControl.Audio.AudioAPI.SelectNextSession">
-<area shape="rect" id="node1" title="Sets SelectedSession to the session occurring after this one in Sessions. &#160;Automatically loops back a..." alt="" coords="5,39,187,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac3e7afbc0735865b41053dca511119b3" title="Performs a selective update on the Sessions list property by removing old/exited entries and adding n..." alt="" coords="235,39,416,80"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html#ad7fd6cb6c5130e974b69714e291aaf44" title="Gets the list of audio sessions currently using this device." alt="" coords="464,5,645,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8d19c0221ba207742894182d97ef863c" title="Performs a selective update on the Devices list property by removing old/disabled/unplugged entries a..." alt="" coords="464,71,645,112"/>
+<area shape="rect" id="node1" title="Sets SelectedSession to the session occurring after this one in Sessions. &#160;Automatically loops back a..." alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac3e7afbc0735865b41053dca511119b3" title="Performs a selective update on the Sessions list property by removing old/exited entries and adding n..." alt="" coords="253,5,453,47"/>
 </map>

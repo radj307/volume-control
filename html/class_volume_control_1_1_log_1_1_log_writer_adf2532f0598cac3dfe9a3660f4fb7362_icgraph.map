@@ -1,5 +1,4 @@
 <map id="VolumeControl.Log.LogWriter.Info" name="VolumeControl.Log.LogWriter.Info">
-<area shape="rect" id="node1" title="Write a formatted EventType.INFO message to the log endpoint." alt="" coords="257,46,473,73"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ab9308e90e3fb6ef452aa7e17587c675b" title="Create a new hotkey and add it to Hotkeys." alt="" coords="5,5,209,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a66277b242d576b541f7bffb1f570c214" title="Remove the specified hotkey from Hotkeys." alt="" coords="5,71,209,112"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.INFO message to the log endpoint." alt="" coords="279,13,519,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a66277b242d576b541f7bffb1f570c214" title="Remove the specified hotkey from Hotkeys." alt="" coords="5,5,231,47"/>
 </map>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nullaction_603',['NullAction',['../interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a35b6c464cbb69bb1062da9d38fc28f5a',1,'VolumeControl::Hotkeys::Interfaces::IHotkeyActionManager']]]
+  ['devicefriendlyname_590',['DeviceFriendlyName',['../class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6',1,'VolumeControl::Audio::AudioDevice']]],
+  ['deviceid_591',['DeviceID',['../class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd',1,'VolumeControl::Audio::AudioDevice']]]
 ];
