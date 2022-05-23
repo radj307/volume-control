@@ -25,16 +25,32 @@
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md3", [
-      [ "Installation", "index.html#autotoc_md4", null ],
-      [ "Setup", "index.html#autotoc_md5", null ],
-      [ "Usage", "index.html#autotoc_md6", null ],
-      [ "VolumeControlCLI", "index.html#autotoc_md7", [
-        [ "What it does", "index.html#autotoc_md0", [
-          [ "Addon Development", "index.html#autotoc_md1", null ]
-        ] ],
-        [ "Requirements", "index.html#autotoc_md2", null ],
-        [ "Commandline Options", "index.html#autotoc_md8", null ]
+    [ "Addon Development", "index.html", [
+      [ "Pre-Requisites", "index.html#autotoc_md1", [
+        [ "Volume Control SDK", "index.html#autotoc_md2", [
+          [ "A Note on File Extensions", "index.html#autotoc_md3", null ]
+        ] ]
+      ] ],
+      [ "Environment Setup", "index.html#autotoc_md4", null ],
+      [ "Writing an Addon", "index.html#autotoc_md5", null ],
+      [ "Building Your Addon", "index.html#autotoc_md6", null ],
+      [ "Loading Your Addon", "index.html#autotoc_md7", null ],
+      [ "Publishing Addons", "index.html#autotoc_md10", null ]
+    ] ],
+    [ "README", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html", [
+      [ "Getting Started", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md14", [
+        [ "Installation", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md15", null ],
+        [ "Setup", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md16", null ],
+        [ "Usage", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md17", null ],
+        [ "VolumeControlCLI", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md18", [
+          [ "Using Hotkey Action Addons", "index.html#autotoc_md8", null ],
+          [ "What about the SDK DLLs?", "index.html#autotoc_md9", null ],
+          [ "What it does", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md11", [
+            [ "Addon Development", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md12", null ]
+          ] ],
+          [ "Requirements", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md13", null ],
+          [ "Commandline Options", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md19", null ]
+        ] ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
@@ -66,10 +82,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"class_volume_control_1_1_audio_1_1_audio_device.html#a5bddcf66d81495a6fb90ab113893c862",
-"class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html",
-"functions_func_s.html"
+"annotated.html",
+"class_volume_control_1_1_core_1_1_math_ext.html#a5f9b270f650324f8340ff8cfc0129adf",
+"class_volume_control_1_1_log_1_1_timestamp.html#a41902f5cb92439766a3d8a74c1ad9f3d",
+"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['geticonsextensions_386',['GetIconsExtensions',['../class_volume_control_1_1_audio_1_1_get_icons_extensions.html',1,'VolumeControl::Audio']]]
+  ['geticonsextensions_388',['GetIconsExtensions',['../class_volume_control_1_1_audio_1_1_get_icons_extensions.html',1,'VolumeControl::Audio']]]
 ];

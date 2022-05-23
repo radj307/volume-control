@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fileendpoint_384',['FileEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
-  ['flog_385',['FLog',['../class_volume_control_1_1_log_1_1_f_log.html',1,'VolumeControl::Log']]]
+  ['fileendpoint_386',['FileEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
+  ['flog_387',['FLog',['../class_volume_control_1_1_log_1_1_f_log.html',1,'VolumeControl::Log']]]
 ];
