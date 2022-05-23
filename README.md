@@ -20,10 +20,6 @@ Designed for adjusting the volume of your music independently of other programs,
     - Like the Windows Audio Mixer, you can do this with any running process independently at any time.
   - Allows you to specify the 'target' application using the mixer, in addition to the target switching hotkeys.
 
-#### Addon Development
-Want to develop an addon for Volume Control?  
-See the [wiki](https://github.com/radj307/volume-control/wiki) for more information.
-
 ### Requirements
 
 - Windows 7 or newer.
@@ -55,6 +51,10 @@ First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** t
 
 Next, let's set a target application to test the hotkeys with.  
 Start playing some audio from any application, then return to the **Mixer** tab, click **Reload**, then click the **Select** button next to the test application, and try using the volume hotkeys.  
+
+## Addon Development
+Want to develop an addon for Volume Control?  
+**See the [github pages site](https://radj307.github.io/volume-control) for instructions and API documentation.**
 
 
 ## VolumeControlCLI
