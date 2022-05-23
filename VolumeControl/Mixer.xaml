@@ -975,8 +975,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="3*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="10*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
                     </Grid.RowDefinitions>
 
                     <!-- Show in Taskbar Cell -->
