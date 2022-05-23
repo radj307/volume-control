@@ -4,13 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
         xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
         xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
         xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoCompleteDerivative"
-        xmlns:sys="clr-namespace:System;assembly=netstandard"
-        xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
+        xmlns:ssui="clr-namespace:SolidShineUi;assembly=SolidShineUi"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -156,13 +154,13 @@
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
             </Style>
-            <!-- NumericUpDown -->
-            <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
+            <!-- NumericUpDown
+            <Style x:Key="NumericUpDownStyle" TargetType="ssui:IntegerSpinner">
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="Height" Value="23"/>
                 <Setter Property="Margin" Value="3,0,3,0"/>
-            </Style>
+            </Style> -->
             <!-- TabControl -->
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
                 <Setter Property="Background" Value="#505055"/>
@@ -450,6 +448,13 @@
                 <Setter Property="Foreground" Value="#9A9A9A"/>
                 <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
+            <!-- Integer Spinner Style -->
+            <Style x:Key="IntegerSpinnerStyle" TargetType="ssui:IntegerSpinner">
+                <Setter Property="ButtonBackground" Value="LightGray"/>
+                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Background" Value="#303030"/>
+                <Setter Property="Foreground" Value="#00000000"/>
+            </Style>
 
             <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
             <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
@@ -624,17 +629,15 @@
                               ClickMode="Press"
                               DataContext="{StaticResource Settings}"
                               Style="{StaticResource CheckBoxStyle}"/>
-                        <Controls:NumericUpDown HorizontalAlignment="Left"
-                                            Grid.Column="1"
-                                            Width="60"
-                                            ToolTip="Reload Interval in Milliseconds"
-                                            MaxDecimalPlaces="0"
-                                            IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
-                                            MinValue="{Binding AudioAPI.ReloadIntervalMin}"
-                                            MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
-                                            Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            DataContext="{StaticResource Settings}"
-                                            Style="{StaticResource NumericUpDownStyle}"/>
+                        <ssui:IntegerSpinner HorizontalAlignment="Left"
+                                             Grid.Column="1"
+                                             ToolTip="Reload interval in milliseconds."
+                                             IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
+                                             MinValue="{Binding AudioAPI.ReloadIntervalMin}"
+                                             MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
+                                             Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             DataContext="{StaticResource Settings}"
+                                             Style="{StaticResource IntegerSpinnerStyle}"/>
                     </Grid>
 
                     <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
@@ -646,16 +649,13 @@
                         <Label Content="Volume Step"
                                HorizontalAlignment="Center"
                                Style="{StaticResource LabelStyle}"/>
-                        <Controls:NumericUpDown x:Name="VolumeStep"
-                                                Grid.Column="1"
-                                                HorizontalAlignment="Center"
-                                                ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
-                                                Width="48"
-                                                DecimalPlaces="0"
-                                                MinValue="0"
-                                                MaxValue="100"
-                                                Value="{Binding AudioAPI.VolumeStepSize, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                                Style="{StaticResource NumericUpDownStyle}"/>
+                        <ssui:IntegerSpinner Grid.Column="1"
+                                             HorizontalAlignment="Center"
+                                             ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+                                             Value="{Binding AudioAPI.VolumeStepSize, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                             MinValue="0"
+                                             MaxValue="100"
+                                             Style="{StaticResource IntegerSpinnerStyle}" />
                     </Grid>
                 </Grid>
 
@@ -1066,16 +1066,12 @@
                                   Margin="3,0,0,0"
                                   Style="{StaticResource CheckBoxStyle}"/>
                         <!-- Timeout Numeric Up Down Control -->
-                        <Controls:NumericUpDown Grid.Column="2"
-                                                Style="{StaticResource NumericUpDownStyle}"
-                                                Width="66"
-                                                Height="22"
-                                                Margin="0,1,0,1"
-                                                ToolTip="The time in milliseconds before the notification disappears after being displayed."
-                                                DecimalPlaces="0"
-                                                MinValue="250"
-                                                MaxValue="60000"
-                                                Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ssui:IntegerSpinner Grid.Column="2"
+                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
+                                             MinValue="250"
+                                             MaxValue="60000"
+                                             Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource IntegerSpinnerStyle}"/>
                     </Grid>
 
                 </Grid>
