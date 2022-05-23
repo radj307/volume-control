@@ -1,10 +1,11 @@
 ﻿namespace VolumeControl.Log.Endpoints
 {
     /// <summary>
-    /// Wrapper endpoint for <see cref="Console"/>.
+    /// Allows using the <see cref="Console"/> as a logging endpoint.
     /// </summary>
     public class ConsoleEndpoint : IEndpoint
     {
+        /// <inheritdoc cref="ConsoleEndpoint"/>
         public ConsoleEndpoint() => Enabled = true;
 
         /// <inheritdoc/>

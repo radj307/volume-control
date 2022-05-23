@@ -74,7 +74,7 @@ namespace VolumeControl.Core.Extensions
         {
             if (p.Id == 0)
                 return false;
-            var handle = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, 0, p.Id);
+            IntPtr handle = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, 0, p.Id);
             if (handle == IntPtr.Zero)
                 return false;
             GetProcessTimes(handle, out DateTime? _, out DateTime? exitTime, out DateTime? _, out DateTime? _);

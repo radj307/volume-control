@@ -1,7 +1,7 @@
 ﻿namespace VolumeControl.Core
 {
     /// <summary>
-    /// Extensions for the <see cref="Int32"/> integral type.
+    /// Extensions for the <see cref="int"/> integral type.
     /// </summary>
     public static class Int32Extensions
     {

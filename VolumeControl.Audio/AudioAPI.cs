@@ -612,7 +612,7 @@ namespace VolumeControl.Audio
                 return l;
             for (int i = 0; i < Sessions.Count - 1; ++i)
             {
-                var session = Sessions[i];
+                AudioSession? session = Sessions[i];
                 if (format.HasFlag(SessionNameFormat.PID))
                     l.Add(session.PID.ToString());
                 if (format.HasFlag(SessionNameFormat.ProcessName))
@@ -722,7 +722,9 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the first element in the list
             else if (Sessions.Count > 0)
+            {
                 SelectedSession = Sessions[0];
+            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
@@ -753,7 +755,9 @@ namespace VolumeControl.Audio
             }
             // nothing is selected, select the last element in the list
             else if (Sessions.Count > 0)
+            {
                 SelectedSession = Sessions[^1];
+            }
 
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
@@ -846,7 +850,9 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
+            {
                 SelectedDevice = Devices[0];
+            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
@@ -876,7 +882,9 @@ namespace VolumeControl.Audio
                 SelectedDevice = Devices[index];
             }
             else if (Devices.Count > 0)
+            {
                 SelectedDevice = Devices[^1];
+            }
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }

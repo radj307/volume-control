@@ -10,7 +10,7 @@ namespace VolumeControl.Hotkeys.Attributes
     {
         /// <inheritdoc cref="ActionAddonAttribute"/>
         /// <inheritdoc/>
-        public ActionAddonAttribute(string addonName, CompatibleVersions compatibleVersions) : base(addonName.RemoveIf(char.IsPunctuation)) { }
+        public ActionAddonAttribute(string addonName, CompatibleVersions compatibleVersions) : base(addonName.RemoveIf(char.IsPunctuation), compatibleVersions) { }
         /// <inheritdoc cref="ActionAddonAttribute"/>
         /// <inheritdoc/>
         public ActionAddonAttribute(string addonName) : base(addonName.RemoveIf(char.IsPunctuation)) { }

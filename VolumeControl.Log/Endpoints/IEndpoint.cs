@@ -1,5 +1,8 @@
 ﻿namespace VolumeControl.Log.Endpoints
 {
+    /// <summary>
+    /// Represents an endpoint output target for a log writer, and exposes helper methods for interacting with it.
+    /// </summary>
     public interface IEndpoint
     {
         /// <summary>

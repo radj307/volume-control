@@ -97,7 +97,7 @@ namespace VolumeControl.Helpers.Addon
             {
                 if (type.GetCustomAttribute<T>() is IBaseAddonAttribute bAttr)
                 {
-                    Log.Debug($"Loading Addon: {{", 
+                    Log.Debug($"Loading Addon: {{",
                               $"    Name: {type.FullName}",
                               $"    Type: {typeof(T).Name}",
                               $"}}"

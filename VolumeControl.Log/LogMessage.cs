@@ -1,4 +1,5 @@
-﻿using VolumeControl.Log.Enum;
+﻿using VolumeControl.Log.Endpoints;
+using VolumeControl.Log.Enum;
 using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
@@ -11,7 +12,7 @@ namespace VolumeControl.Log
     {
         /// <inheritdoc cref="LogMessage"/>
         /// <param name="filter">Bitfield flags that determine which types of log messages may be shown.</param>
-        public LogMessage(EventType filter) : base(new MemoryEndpoint(true), filter)
+        public LogMessage(EventType filter = EventType.ALL) : base(new MemoryEndpoint(true), filter)
         {
         }
     }

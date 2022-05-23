@@ -1,51 +1,77 @@
-﻿using VolumeControl.Log.Endpoints;
-
-namespace VolumeControl.Log
+﻿namespace VolumeControl.Log.Endpoints
 {
-    public class MemoryEndpoint : IEndpoint
+    /// <summary>
+    /// A log endpoint that implements <see cref="IEndpoint"/> and uses a <see cref="MemoryStream"/> as an endpoint.
+    /// </summary>
+    public class MemoryEndpoint : IEndpoint, IDisposable
     {
+        #region Constructor
+        /// <inheritdoc cref="MemoryEndpoint"/>
+        /// <param name="enabled">When true, the endpoint starts enabled.</param>
         public MemoryEndpoint(bool enabled = true)
         {
             _stream = new();
             Enabled = enabled;
         }
+        #endregion Constructor
 
+        #region Fields
         private MemoryStream _stream;
+        #endregion Fields
 
+        #region Properties
+        /// <inheritdoc/>
         public bool Enabled { get; set; }
+        #endregion Properties
 
+        #region Methods
+        /// <inheritdoc/>
         public TextReader? GetReader() => Enabled ? new StreamReader(_stream) : null;
+        /// <inheritdoc/>
         public TextWriter? GetWriter() => Enabled ? new StreamWriter(_stream) : null;
+        /// <inheritdoc/>
         public int? ReadRaw()
         {
             if (!Enabled)
                 return null;
-            using var r = GetReader();
+            using TextReader? r = GetReader();
             int? ch = r?.Read();
             r?.Dispose();
             return ch;
         }
+        /// <inheritdoc/>
         public string? ReadRawLine()
         {
             if (!Enabled)
                 return null;
-            using var r = GetReader();
+            using TextReader? r = GetReader();
             string? line = r?.ReadLine();
             r?.Dispose();
             return line;
         }
+        /// <inheritdoc/>
         public void Reset() => _stream = new();
+        /// <inheritdoc/>
         public void WriteRaw(string? str)
         {
             if (!Enabled || str == null)
                 return;
             _stream.Write(new Span<byte>(str.ToCharArray().Cast<byte>().ToArray()));
         }
+        /// <inheritdoc/>
         public void WriteRawLine(string? str = null)
         {
             if (!Enabled)
                 return;
-            WriteRaw((str == null) ? "\n" : $"{str}\n");
+            WriteRaw(str == null ? "\n" : $"{str}\n");
         }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            ((IDisposable)_stream).Dispose();
+            GC.SuppressFinalize(this);
+        }
+        #endregion Methods
     }
 }

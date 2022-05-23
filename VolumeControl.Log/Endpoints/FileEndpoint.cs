@@ -1,8 +1,14 @@
 ﻿namespace VolumeControl.Log.Endpoints
 {
+    /// <summary>
+    /// Log endpoint that allows writing logs directly to a file on disk.
+    /// </summary>
     public class FileEndpoint : IEndpoint
     {
         #region Constructors
+        /// <inheritdoc cref="FileEndpoint"/>
+        /// <param name="path">The location of the log file.</param>
+        /// <param name="enabled">Whether the endpoint is already enabled when constructed or not.</param>
         public FileEndpoint(string path, bool enabled)
         {
             Path = path;
@@ -13,6 +19,9 @@
         #region Properties
         /// <inheritdoc/>
         public bool Enabled { get; set; }
+        /// <summary>
+        /// The location of the log file.
+        /// </summary>
         public string Path { get; set; }
         #endregion Properties
 

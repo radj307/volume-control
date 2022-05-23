@@ -28,7 +28,10 @@ namespace VolumeControl.Audio
                 Dispose();
                 ProcessName = string.Empty;
             }
-            else ProcessName = proc.ProcessName;
+            else
+            {
+                ProcessName = proc.ProcessName;
+            }
         }
 
         #region Fields
@@ -114,7 +117,9 @@ namespace VolumeControl.Audio
             get
             {
                 if (GetProcess() is not Process proc)
+                {
                     return false;
+                }
                 else
                 {
                     try

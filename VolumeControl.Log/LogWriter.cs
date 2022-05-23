@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Extensions;
@@ -11,9 +12,13 @@ namespace VolumeControl.Log
     /// Basic log writer object.
     /// </summary>
     /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="Log"/> namespace.</remarks>
-    public class LogWriter : ILogWriter
+    public class LogWriter : ILogWriter, IDisposable
     {
+        private bool disposedValue;
         #region Constructors
+        /// <inheritdoc cref="LogWriter"/>
+        /// <param name="endpoint">An endpoint to use.</param>
+        /// <param name="eventTypeFilter">An event type filter to use. This may be a combination of bitfield flags.</param>
         public LogWriter(IEndpoint endpoint, EventType eventTypeFilter)
         {
             Endpoint = endpoint;
@@ -39,14 +44,30 @@ namespace VolumeControl.Log
         public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
         /// <inheritdoc/>
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
+        /// <summary>Gets a blank timestamp to use as indentation.</summary>
+        /// <returns>A string of the same length as a timestamp, filled entirely with space characters.</returns>
         public static string MakeBlankTimestamp() => Timestamp.Blank();
         #endregion InterfaceImplementation
 
         #region Methods
         #region WriteRaw
+        /// <summary>Writes some text to the log file.</summary>
+        /// <remarks>Using this method is very inefficient as it re-creates a <see cref="StreamWriter"/> each time; see the obsoletion warning.</remarks>
+        /// <param name="text">Object to write.</param>
+        [Obsolete($"Use the {nameof(Debug)}, {nameof(Info)}, {nameof(Warning)}, {nameof(Error)}, and {nameof(Fatal)} methods instead.")]
         public void Write(object text) => Endpoint.WriteRaw(text.ToString());
+        /// <summary>Writes a line to the log file.</summary>
+        /// <remarks>Using this method is very inefficient as it re-creates a <see cref="StreamWriter"/> each time; see the obsoletion warning.</remarks>
+        /// <param name="line">Object to write.</param>
+        [Obsolete($"Use the {nameof(Debug)}, {nameof(Info)}, {nameof(Warning)}, {nameof(Error)}, and {nameof(Fatal)} methods instead.")]
         public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
         #endregion WriteRaw
+
+        /// <summary>
+        /// Creates and returns a log message object using this log writer as a base.
+        /// </summary>
+        /// <returns><see cref="LogMessage"/> class.</returns>
+        public LogMessage GetMessage() => new(EventTypeFilter) { LastEventType = LastEventType };
 
         /// <summary>
         /// Writes a log message with a given timestamp.
@@ -87,7 +108,14 @@ namespace VolumeControl.Log
                 }
                 else if (line is ILogWriter logWriter)
                 {
-
+                    using TextReader? r = logWriter.Endpoint.GetReader();
+                    if (r == null)
+                        break;
+                    string logBuffer = Regex.Replace(r.ReadToEnd().Trim(), "\\r*\\n", $"\n{tsBlank}");
+                    r.Dispose();
+                    if (logBuffer.Length == 0)
+                        break;
+                    w.Write(logBuffer);
                 }
                 else
                 {
@@ -97,10 +125,15 @@ namespace VolumeControl.Log
             w.Flush();
             w.Close();
         }
+        /// <param name="ts">The timestamp object.</param>
+        /// <param name="lines">Any number of lines of any object type.</param>
+        /// <inheritdoc cref="WriteWithTimestamp(string, object?[])"/>
         public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
-
+        /// <summary>Gets a stack trace message using attributes.</summary>
+        /// <remarks>Don't provide parameters.</remarks>
         public static string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
 
+        /// <summary>Wrapper object for the <see cref="Conditional(ConditionalMessage[])"/> method.</summary>
         public struct ConditionalMessage
         {
             public ConditionalMessage(EventType type, params object?[] message)
@@ -138,13 +171,21 @@ namespace VolumeControl.Log
         }
 
         #region WriteEvent
+        /// <summary>Writes a log message with a timestamp and log level header.</summary>
+        /// <param name="eventType">An event type. Do not provide combinations of event type flags!</param>
+        /// <param name="lines">Any enumerable type.</param>
         public void WriteEvent(EventType eventType, IEnumerable lines)
         {
             if (!Endpoint.Enabled || !FilterEventType(eventType))
                 return;
             WriteWithTimestamp(MakeTimestamp(LastEventType = eventType), lines);
         }
+        /// <summary>Writes a log message with a timestamp and log level header.</summary>
+        /// <param name="pair">An event type, and any enumerable type.</param>
         public void WriteEvent((EventType, IEnumerable) pair) => WriteEvent(pair.Item1, pair.Item2);
+        /// <summary>Writes a log message with a timestamp and log level header.</summary>
+        /// <param name="eventType">An event type. Do not provide combinations of event type flags!</param>
+        /// <param name="lines">Any enumerable type.</param>
         public void WriteEvent(EventType eventType, object?[] lines)
         {
             if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))
@@ -179,6 +220,8 @@ namespace VolumeControl.Log
         #endregion WriteEvent
 
         #region WriteException
+        ///
+        [Obsolete($"Use {nameof(WriteEvent)} instead, it supports exceptions.")]
         public void WriteException(EventType ev, Exception exception, object? message = null)
         {
             if (!Endpoint.Enabled)
@@ -258,6 +301,27 @@ namespace VolumeControl.Log
         {
             if (predicate(LastEventType))
                 Append(lines);
+        }
+
+        /// <inheritdoc cref="Dispose()"/>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (Endpoint is IDisposable disp)
+                        disp.Dispose();
+                }
+                disposedValue = true;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
         #endregion Methods
     }

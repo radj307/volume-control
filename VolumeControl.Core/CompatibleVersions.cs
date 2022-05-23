@@ -36,13 +36,18 @@ namespace VolumeControl.Core
             Minimum = min?.GetSemVer();
             Maximum = max?.GetSemVer();
             if (additional == null)
+            {
                 Additional = null;
+            }
             else
             {
                 List<SemVersion> l = new();
-                foreach (var item in additional)
+                foreach (string? item in additional)
+                {
                     if (item.GetSemVer() is SemVersion version)
                         l.Add(version);
+                }
+
                 Additional = l.ToArray();
             }
         }

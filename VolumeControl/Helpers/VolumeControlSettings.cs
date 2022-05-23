@@ -296,7 +296,9 @@ namespace VolumeControl.Helpers
         protected virtual void Handle_AudioAPI_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == null)
+            {
                 return;
+            }
 
             if (e.PropertyName.Equals("Sessions"))
             { // reset autocomplete suggestions
