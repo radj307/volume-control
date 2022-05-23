@@ -111,14 +111,6 @@
             <!-- Mixer Headers -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
                 <Style.Triggers>
-                    <!--
-                    <DataTrigger Binding="{Binding Content.IsEmpty, RelativeSource={RelativeSource Self}}" Value="True">
-                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Content.IsEmpty, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="BorderThickness" Value="1,0,0,1"/>
-                    </DataTrigger>
-                    -->
                 </Style.Triggers>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="Height" Value="24"/>
@@ -415,7 +407,7 @@
                                 </Trigger>
                                 <Trigger Property="IsEditable" Value="true">
                                     <Setter Property="IsTabStop" Value="false"/>
-                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility"    Value="Visible"/>
+                                    <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
                                     <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -444,6 +436,11 @@
             </Style>
             <!-- TextBlock -->
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                        <Setter Property="Foreground" Value="LightGray"/>
+                    </DataTrigger>
+                </Style.Triggers>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <!-- Watermark TextBlock -->
