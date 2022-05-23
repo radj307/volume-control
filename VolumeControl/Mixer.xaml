@@ -98,7 +98,6 @@
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
             <!-- Mixer Header Brushes -->
             <LinearGradientBrush x:Key="MixerHeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.5">
@@ -128,7 +127,6 @@
                 <Setter Property="Background" Value="{StaticResource MixerHeaderBrush}"/>
                 <Setter Property="BorderBrush" Value="Gainsboro"/>
                 <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1"/>
@@ -140,7 +138,6 @@
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="1"/>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
             <!-- Mixer Volume Slider -->
             <Style x:Key="MixerVolumeSliderStyle" TargetType="Slider">
@@ -438,7 +435,6 @@
                         <Setter Property="Foreground" Value="Black"/>
                     </DataTrigger>
                 </Style.Triggers>
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
@@ -451,7 +447,6 @@
             </Style>
             <!-- Watermark TextBlock -->
             <Style x:Key="WatermarkTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
                 <Setter Property="Foreground" Value="#9A9A9A"/>
                 <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
@@ -482,7 +477,6 @@
                                                   HorizontalAlignment="Center"
                                                   ContentSource="Header"
                                                   TextBlock.Foreground="WhiteSmoke"
-                                                  TextBlock.FontFamily="{StaticResource InterFont}"
                                                   Margin="10,2"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -726,7 +720,7 @@
                                         <!-- Slider -->
                                         <Slider x:Name="dgVolumeSlider" Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SmallChange="1" LargeChange="5" Style="{StaticResource MixerVolumeSliderStyle}"/>
                                         <!-- TextBox -->
-                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="#00000000" BorderThickness="0" FontFamily="{StaticResource InterFont}" Style="{StaticResource TextBoxStyle}"/>
+                                        <TextBox x:Name="dgVolumeTextBox" Grid.Column="2" Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="#00000000" BorderThickness="0" Style="{StaticResource TextBoxStyle}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -838,7 +832,6 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="❌"
-                                            FontFamily="{StaticResource InterFont}"
                                             Width="20"
                                             Height="Auto"
                                             Background="#00000000"
