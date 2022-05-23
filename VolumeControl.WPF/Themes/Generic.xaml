@@ -6,7 +6,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="Gray" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
         <Setter Property="Width" Value="150" />
        <!-- <Setter Property="Height" Value="26" /> -->
         <Setter Property="Focusable" Value="False" />
@@ -28,7 +28,7 @@
 
                             <TextBox x:Name="PART_TextBox"
                                      VerticalAlignment="Center"
-                                     Background="#A0A0A0"
+                                     Background="#00000000"
                                      VerticalContentAlignment="Center"
                                      Height="{TemplateBinding Height}"
                                      HorizontalContentAlignment="Right" />
@@ -41,7 +41,7 @@
                                 <RepeatButton x:Name="PART_IncreaseButton"
                                               Grid.Row="0"
                                               Width="20"
-                                              Margin="0, 1, 2, 0">
+                                              Margin="1,1,2,0">
                                     <Path Margin="1"
                                           Data="M 0 20 L 35 -20 L 70 20 Z"
                                           Fill="#FF202020"
@@ -50,7 +50,7 @@
                                 <RepeatButton x:Name="PART_DecreaseButton"
                                               Grid.Row="1"
                                               Width="20"
-                                              Margin="0, 0, 2, 1">
+                                              Margin="1,0,2,1">
                                     <Path Margin="1"
                                           Data="M 0 0 L 35 40 L 70 0 Z"
                                           Fill="#FF202020"

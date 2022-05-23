@@ -8,7 +8,7 @@
         xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
         xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
-        xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoCompleteDerivative"
         xmlns:sys="clr-namespace:System;assembly=netstandard"
         xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
         mc:Ignorable="d"
@@ -428,6 +428,8 @@
                         <Setter Property="Foreground" Value="WhiteSmoke"/>
                     </DataTrigger>
                 </Style.Triggers>
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="BorderBrush" Value="Gainsboro"/>
                 <Setter Property="AlternationCount" Value="1"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
@@ -542,9 +544,9 @@
                     <TextBox x:Name="targetNameTextBox"
                              Grid.Column="1"
                              ToolTip="This determines which audio session will receive hotkey input."
-                             tbBehaviour:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
-                             tbBehaviour:AutoCompleteBehavior.AutoCompleteIndicator=""
-                             tbBehaviour:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
+                             tbBehaviour:AutoComplete.ItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                             tbBehaviour:AutoComplete.Prefix=""
+                             tbBehaviour:AutoComplete.StringComparisonMode="OrdinalIgnoreCase"
                              Text="{Binding AudioAPI.Target, UpdateSourceTrigger=LostFocus}"
                              DataContext="{StaticResource Settings}"
                              IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
@@ -915,7 +917,7 @@
                               SelectedItem="{Binding AudioAPI.SelectedDevice, UpdateSourceTrigger=LostFocus}"
                               DataContext="{StaticResource Settings}"
                               ToolTip="Selects the target audio device. If this is set, only sessions playing on the selected device are shown in the mixer."
-                              Margin="0,3"
+                              Margin="0,5"
                               IsEnabled="{Binding IsChecked, ElementName=cbAllDevices, Converter={StaticResource InvertConverter}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -966,14 +968,14 @@
                       VerticalAlignment="Center">
                     <!-- Main Column & Row Definitions -->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3.8*"/>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
-                        <RowDefinition Height="*" SharedSizeGroup="settingsTabMiscSettingsRowHeightSync"/>
+                        <RowDefinition Height="20" MinHeight="20"/>
+                        <RowDefinition Height="20" MinHeight="20"/>
+                        <RowDefinition Height="20" MinHeight="20"/>
                     </Grid.RowDefinitions>
 
                     <!-- Show in Taskbar Cell -->
@@ -994,7 +996,6 @@
                               Grid.Column="1"
                               Content="Run at Startup"
                               HorizontalAlignment="Left"
-                              Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Start Minimized Cell -->
@@ -1003,13 +1004,11 @@
                               Grid.Row="1"
                               Content="Start Minimized"
                               HorizontalAlignment="Left"
-                              Margin="5,3"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding StartMinimized, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Advanced Hotkeys Cell -->
                     <CheckBox x:Name="cbAdvancedHotkeys"
-                              Margin="0,0,0,3"
                               Grid.ColumnSpan="1"
                               Grid.Row="2"
                               HorizontalAlignment="Left"
@@ -1019,7 +1018,6 @@
                               IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
-                            Margin="3,0,3,0"
                             Padding="5,1,5,1"
                             HorizontalAlignment="Center"
                             Height="Auto"
@@ -1030,8 +1028,28 @@
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"/>
 
+                    <!-- Show Icons Cell -->
+                    <CheckBox x:Name="cbShowIcons"
+                              Grid.Column="2"
+                              HorizontalAlignment="Left"
+                              Margin="3,0,0,0"
+                              Content="Show Icons"
+                              ToolTip="Determines whether or not icons are shown for audio devices and sessions."
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!-- Check for Updates Cell -->
+                    <CheckBox x:Name="cbCheckForUpdates"
+                              Margin="3,0,0,0"
+                              HorizontalAlignment="Left"
+                              Grid.Column="2"
+                              Grid.Row="1"
+                              Content="Check for Updates"
+                              ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
+                              IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource CheckBoxStyle}"/>
+
                     <!-- Notifications Cell -->
-                    <Grid Grid.Row="1" 
+                    <Grid Grid.Row="2" 
                           Grid.Column="2"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Center">
@@ -1060,25 +1078,6 @@
                                                 Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
 
-                    <!-- Show Icons Cell -->
-                    <CheckBox x:Name="cbShowIcons"
-                              Grid.Column="2"
-                              HorizontalAlignment="Left"
-                              Margin="3,0,0,0"
-                              Content="Show Icons"
-                              ToolTip="Determines whether or not icons are shown for audio devices and sessions."
-                              Style="{StaticResource CheckBoxStyle}"
-                              IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Check for Updates Cell -->
-                    <CheckBox x:Name="cbCheckForUpdates"
-                              Margin="3,0,0,0"
-                              HorizontalAlignment="Left"
-                              Grid.Column="2"
-                              Grid.Row="2"
-                              Content="Check for Updates"
-                              ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
-                              IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource CheckBoxStyle}"/>
                 </Grid>
 
                 <!-- Divider -->
