@@ -1,5 +1,4 @@
 <map id="VolumeControl.WPF.WindowHandleGetter.GetWindowHandle" name="VolumeControl.WPF.WindowHandleGetter.GetWindowHandle">
-<area shape="rect" id="node1" title="Gets the primary WPF window&#39;s handle. This uses WindowInteropHelper.EnsureHandle to ensure that a val..." alt="" coords="509,5,719,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="257,5,461,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ac4e52046790fdd5d2e75a1c50510da22" title=" " alt="" coords="5,5,209,47"/>
+<area shape="rect" id="node1" title="Gets the primary WPF window&#39;s handle. This uses WindowInteropHelper.EnsureHandle to ensure that a val..." alt="" coords="279,5,512,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="5,5,231,47"/>
 </map>

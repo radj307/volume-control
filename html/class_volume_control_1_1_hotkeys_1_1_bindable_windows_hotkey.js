@@ -8,11 +8,12 @@ var class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey =
     [ "Parse", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a514260cb0708b1fa8f1653743c5ad4cc", null ],
     [ "Serialize", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a1c7af5d6a0957de3ddb9033625ddb51b", null ],
     [ "ToString", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ad116957e5ed244efbe4c143468aff790", null ],
+    [ "ID", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#afe87d50fea7cbedf3235704b30128662", null ],
+    [ "Valid", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ad97f085ff7721ad0f928af1b6ac82d3a", null ],
     [ "Action", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a083e149d186312e34cfe1e07a92771d4", null ],
     [ "Alt", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a2c6370e9e1cb697e256da23b89523300", null ],
     [ "Ctrl", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a57eba902ad6c98b889d112895c7e904c", null ],
     [ "Hotkey", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a0bf0ea90eeb7f3441448cab8461a04dc", null ],
-    [ "ID", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#afe87d50fea7cbedf3235704b30128662", null ],
     [ "Key", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a80300dccd10045e6e548ad722e9fdcbb", null ],
     [ "Key", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ac28fbee89e6ff11288208efc3206915e", null ],
     [ "KeysChanged", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#aed3798e3ed9073a98320da11a1d974a0", null ],
@@ -21,8 +22,6 @@ var class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey =
     [ "Pressed", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a4c152f785c2294371913e679fd3f5c33", null ],
     [ "PropertyChanged", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ac03b11c8e5ddef2625cfd4374b188d90", null ],
     [ "Registered", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ab59b23fe25e0cf72333aea3c5a231d84", null ],
-    [ "Settings", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#af7e0f223cc2fffa7d9537d4c155d355a", null ],
     [ "Shift", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#af7da0ac041078b3ee57e1d6de0f0ed2e", null ],
-    [ "Valid", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ad97f085ff7721ad0f928af1b6ac82d3a", null ],
     [ "Win", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a835efb3c9d6b296f85a489bb6bb564ba", null ]
 ];

@@ -1,6 +1,6 @@
 <map id="VolumeControl.Audio.AudioSession.AudioSession" name="VolumeControl.Audio.AudioSession.AudioSession">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,187,105"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583" title=" " alt="" coords="235,5,416,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="464,93,660,135"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da" title="Gets the process associated with this audio session instance." alt="" coords="235,123,416,164"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,205,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583" title=" " alt="" coords="261,5,461,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7" title="Write a formatted EventType.ERROR message to the log endpoint." alt="" coords="253,71,468,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da" title="Gets the process associated with this audio session instance." alt="" coords="261,136,461,177"/>
 </map>

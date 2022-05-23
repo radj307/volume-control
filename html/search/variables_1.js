@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['id_600',['ID',['../class_hotkey_lib_1_1_windows_hotkey.html#a3d40134e5f4806b8d07bff50db27dc80',1,'HotkeyLib::WindowsHotkey']]],
-  ['imagesource_601',['ImageSource',['../class_volume_control_1_1_audio_1_1_icon_getter.html#a479dab721cde8c78ffbc67270a2b63b7',1,'VolumeControl.Audio.IconGetter.ImageSource()'],['../class_volume_control_1_1_audio_1_1_get_icons_extensions.html#a58f0049efbcefd4d6aba028bb4f9e861',1,'VolumeControl.Audio.GetIconsExtensions.ImageSource()']]],
-  ['int_602',['int',['../class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295',1,'VolumeControl::Audio::AudioSession']]]
+  ['count_589',['Count',['../class_hotkey_lib_1_1_keys_list.html#a75e2807e69ee9511d9da2a4f52e802fa',1,'HotkeyLib.KeysList.Count()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af200181a11df9f5b57e29f21fea26f03',1,'VolumeControl.WPF.Collections.BindableEventType.Count()']]]
 ];

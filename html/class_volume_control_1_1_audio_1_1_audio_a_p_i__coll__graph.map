@@ -1,6 +1,6 @@
 <map id="VolumeControl.Audio.AudioAPI" name="VolumeControl.Audio.AudioAPI">
-<area shape="rect" id="node1" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="167,131,370,501"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,164,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="188,5,349,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="373,5,463,83"/>
+<area shape="rect" id="node1" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="187,131,409,545"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,183,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="207,5,389,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="413,5,511,83"/>
 </map>

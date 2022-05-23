@@ -19,8 +19,8 @@ var class_hotkey_lib_1_1_keys_list =
     [ "IsFixedSize", "class_hotkey_lib_1_1_keys_list.html#aa224e1c7187456daa90d960b90743237", null ],
     [ "IsReadOnly", "class_hotkey_lib_1_1_keys_list.html#a400b6bc588e7291e203da352f7652399", null ],
     [ "IsSynchronized", "class_hotkey_lib_1_1_keys_list.html#acaba2a0925018181cc5d42de2cb4f5e7", null ],
-    [ "Keys", "class_hotkey_lib_1_1_keys_list.html#a12e627e01e28581956e860301350b9f3", null ],
     [ "SyncRoot", "class_hotkey_lib_1_1_keys_list.html#a4a45171f284e0dc687af9f7049a215d7", null ],
+    [ "Keys", "class_hotkey_lib_1_1_keys_list.html#a12e627e01e28581956e860301350b9f3", null ],
     [ "this[int index]", "class_hotkey_lib_1_1_keys_list.html#ad8847895318442bcfde17c9910cc99a2", null ],
     [ "this[int index]", "class_hotkey_lib_1_1_keys_list.html#a4a5f17f6d89f768e377380803f893ce3", null ]
 ];

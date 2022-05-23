@@ -1,9 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="11,110,123,137"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html" title="Use as the base class for BoolToXXX style converters" alt="" coords="176,5,387,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html" title="Binding converter for boolean types that negates the expression." alt="" coords="176,71,387,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html" title=" " alt="" coords="176,201,387,243"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="176,136,387,177"/>
-<area shape="rect" id="node6" title=" " alt="" coords="45,209,88,235"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,13,128,39"/>
+<area shape="rect" id="node1" title=" " alt="" coords="9,110,136,137"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html" title="Binding converter for boolean types that negates the expression." alt="" coords="188,71,416,112"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html" title="Use as the base class for BoolToXXX style converters" alt="" coords="188,5,416,47"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html" title=" " alt="" coords="188,201,416,243"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="188,136,416,177"/>
+<area shape="rect" id="node6" title=" " alt="" coords="50,209,95,235"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,13,140,39"/>
 </map>

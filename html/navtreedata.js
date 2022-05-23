@@ -1,26 +1,24 @@
 /*
- @licstart  The following is the entire license notice for the JavaScript code in this file.
+@licstart  The following is the entire license notice for the
+JavaScript code in this file.
 
- The MIT License (MIT)
+Copyright (C) 1997-2019 by Dimitri van Heesch
 
- Copyright (C) 1997-2020 by Dimitri van Heesch
+This program is free software; you can redistribute it and/or modify
+it under the terms of version 2 of the GNU General Public License as published by
+the Free Software Foundation
 
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software
- and associated documentation files (the "Software"), to deal in the Software without restriction,
- including without limitation the rights to use, copy, modify, merge, publish, distribute,
- sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
- The above copyright notice and this permission notice shall be included in all copies or
- substantial portions of the Software.
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
- BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
- @licend  The above is the entire license notice for the JavaScript code in this file
+@licend  The above is the entire license notice
+for the JavaScript code in this file
 */
 var NAVTREE =
 [
@@ -37,19 +35,19 @@ var NAVTREE =
       [ "Loading Your Addon", "index.html#autotoc_md7", null ],
       [ "Publishing Addons", "index.html#autotoc_md10", null ]
     ] ],
-    [ "README", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html", [
-      [ "Getting Started", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md14", [
-        [ "Installation", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md15", null ],
-        [ "Setup", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md16", null ],
-        [ "Usage", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md17", null ],
-        [ "VolumeControlCLI", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md18", [
+    [ "README", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html", [
+      [ "Getting Started", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md14", [
+        [ "Installation", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md15", null ],
+        [ "Setup", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md16", null ],
+        [ "Usage", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md17", null ],
+        [ "VolumeControlCLI", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md18", [
           [ "Using Hotkey Action Addons", "index.html#autotoc_md8", null ],
           [ "What about the SDK DLLs?", "index.html#autotoc_md9", null ],
-          [ "What it does", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md11", [
-            [ "Addon Development", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md12", null ]
+          [ "What it does", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md11", [
+            [ "Addon Development", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md12", null ]
           ] ],
-          [ "Requirements", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md13", null ],
-          [ "Commandline Options", "md__x____workspace__repo_volume_control_3__r_e_a_d_m_e.html#autotoc_md19", null ]
+          [ "Requirements", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md13", null ],
+          [ "Commandline Options", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md19", null ]
         ] ]
       ] ]
     ] ],
@@ -82,10 +80,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"class_volume_control_1_1_core_1_1_math_ext.html#a5f9b270f650324f8340ff8cfc0129adf",
-"class_volume_control_1_1_log_1_1_timestamp.html#a41902f5cb92439766a3d8a74c1ad9f3d",
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e"
+".html",
+"class_volume_control_1_1_audio_1_1_audio_device.html#a775d911a510e8ec451bdd062fb7bbbe5",
+"class_volume_control_1_1_log_1_1_extensions_1_1_exception_extensions.html#a9ab390a4ae5bdf668ff93dabb8159553",
+"functions_p.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

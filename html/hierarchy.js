@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "global.SystemConfiguration.ApplicationSettingsBase", null, [
+    [ "ApplicationSettingsBase", null, [
       [ "VolumeControl.Audio.AudioAPISettings", "class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html", null ],
       [ "VolumeControl.Hotkeys.HotkeyManagerSettings", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html", null ],
       [ "VolumeControl.Log.Properties.Settings", "class_volume_control_1_1_log_1_1_properties_1_1_settings.html", null ]
@@ -125,8 +125,8 @@ var hierarchy =
       [ "VolumeControl.Log.Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html", null ]
     ] ],
     [ "IValueConverter", null, [
-      [ "VolumeControl.WPF.Converters.BoolToValueConverter< T >", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BooleanInverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html", null ],
+      [ "VolumeControl.WPF.Converters.BoolToValueConverter< T >", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html", null ],
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ],
       [ "VolumeControl.WPF.Converters.NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", null ]
     ] ],
@@ -140,7 +140,7 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Core.MathExt", "class_volume_control_1_1_core_1_1_math_ext.html", null ],
     [ "HotkeyLib.ModifierExtensions", "class_hotkey_lib_1_1_modifier_extensions.html", null ],
-    [ "System.Windows.Data.MultiBinding", null, [
+    [ "MultiBinding", null, [
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
     [ "ObservableCollection", null, [
@@ -149,8 +149,8 @@ var hierarchy =
     [ "VolumeControl.WPF.Collections.ObservableListExtensions", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions.html", null ],
     [ "VolumeControl.Core.Extensions.ProcessExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions.html", null ],
     [ "VolumeControl.Core.Extensions.RealNumberExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions.html", null ],
-    [ "VolumeControl.Core.Extensions.StringExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.Log.Extensions.StringExtensions", "class_volume_control_1_1_log_1_1_extensions_1_1_string_extensions.html", null ],
+    [ "VolumeControl.Core.Extensions.StringExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.Core.Extensions.TimerExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_timer_extensions.html", null ],
     [ "TypeConverter", null, [
       [ "HotkeyLib.WindowsHotkeyConverter", "class_hotkey_lib_1_1_windows_hotkey_converter.html", null ]
