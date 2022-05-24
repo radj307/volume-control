@@ -54,6 +54,10 @@
     <None Remove="Resources\images\reload-white.png" />
     <None Remove="Resources\images\reload.png" />
     <None Remove="Resources\LICENSE" />
+    <None Remove="Resources\VolumeControl.UpdateUtility.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\VolumeControl.UpdateUtility.exe" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fonts\Inter.ttf">
@@ -80,7 +84,6 @@
     <PackageReference Include="ControlzEx" Version="5.0.1" />
     <PackageReference Include="Semver" Version="2.1.0" />
     <PackageReference Include="SolidShineUi" Version="1.9.1" />
-    <PackageReference Include="WPFTextBoxAutoCompleteDerivative" Version="0.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />

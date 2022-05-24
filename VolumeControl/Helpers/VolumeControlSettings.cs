@@ -135,14 +135,6 @@ namespace VolumeControl.Helpers
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
         private readonly RunKeyHelper _registryRunKeyHelper;
-        /// <summary>
-        /// The filename of the Update Utility, including extensions but not qualifiers.<br/>See <see cref="_updateUtilityResourcePath"/>
-        /// </summary>
-        private const string _updateUtilityFilename = "VolumeControl.UpdateUtility.exe";
-        /// <summary>
-        /// The fully qualified name of the Update Utility as an embedded resource.
-        /// </summary>
-        private const string _updateUtilityResourcePath = $"VolumeControl.Resources.{_updateUtilityFilename}";
         private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
@@ -272,20 +264,11 @@ namespace VolumeControl.Helpers
             get => _checkForUpdates;
             set
             {
-                if ((_checkForUpdates = value) && !_hasCheckedForUpdates)
-                {
-                    Task<bool>? updateTask = CheckForUpdatesHttps();
-                    updateTask.Wait(-1); // wait asynchronously for the update check to complete
-                    if (updateTask.Result)
-                    { // user wants to use the auto-updater, shutdown now.
-                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                        Application.Current.Shutdown();
-                    }
-                }
+                _checkForUpdates = value;
                 NotifyPropertyChanged();
             }
         }
-        private bool _checkForUpdates, _hasCheckedForUpdates = false;
+        private bool _checkForUpdates;
         /// <summary>
         /// Gets or sets whether notifications are enabled or not.
         /// </summary>
@@ -331,121 +314,6 @@ namespace VolumeControl.Helpers
         #endregion EventHandlers
 
         #region Methods
-        /// <summary>
-        /// Retrieves the list of releases from the Github API, and if a newer version is found a message box is shown prompting the user to update.
-        /// </summary>
-        /// <returns>True when the autoupdater is ready & waiting for the program to shutdown, otherwise false.</returns>
-        private async Task<bool> CheckForUpdatesHttps()
-        {
-            _hasCheckedForUpdates = true;
-            if (await UpdateChecker.CheckForUpdates(VersionNumber, ReleaseType.Equals(ERelease.PRERELEASE)).ConfigureAwait(false) is (SemVersion, GithubReleaseHttpResponse) update)
-            {
-                (SemVersion newVersion, GithubReleaseHttpResponse response) = update;
-                switch (MessageBox.Show(
-                    $"Current Version:  {VersionNumber}\n" +
-                    $"Newest Version:   {newVersion}\n" +
-                    "\nDo you want to update now?\n\nClick 'Yes' to update now.\nClick 'No' to update later.\nClick 'Cancel' to disable update checking."
-                    , "Update Available", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No))
-                {
-                case MessageBoxResult.Yes: // open browser
-                    string asset_url = response.assets.First(a => a.name.Equals("VolumeControl.exe", StringComparison.OrdinalIgnoreCase)).browser_download_url;
-                    Log.Info($"Updating to version {newVersion}: '{asset_url}'");
-
-                    if (SetupUpdateUtility() is string path)
-                    {
-                        Log.Info($"Automatic update utility was created at {path}");
-                        ProcessStartInfo psi = new(path, $"--url \"{asset_url}\" --path {ExecutablePath}")
-                        {
-                            ErrorDialog = true,
-                            UseShellExecute = true,
-                        };
-                        Process.Start(psi);
-                        return true;
-                    }
-                    else
-                    {
-                        Log.Error("Failed to setup automatic update utility, falling back to the default web browser.");
-                        UpdateChecker.OpenBrowser(response.html_url);
-                    }
-                    break;
-                case MessageBoxResult.No: // do nothing
-                    Log.Info($"Version {newVersion} is available, but was temporarily ignored.");
-                    break;
-                case MessageBoxResult.Cancel: // disable
-                    Settings.CheckForUpdatesOnStartup = false;
-                    Log.Info("Disabled automatic updates");
-                    Settings.Save();
-                    Settings.Reload();
-                    break;
-                }
-            }
-            return false;
-        }
-        /// <summary>
-        /// Writes the update client from the embedded resource dictionary to the local disk.
-        /// </summary>
-        /// <param name="asyncTimeout">This method uses asynchronous stream operations, setting this to any value other than -1 will set a timeout in milliseconds before throwing an error and returning.</param>
-        /// <returns>The absolute filepath of the updater utility's executable.</returns>
-        internal string? SetupUpdateUtility(int asyncTimeout = -1)
-        {
-            var asm = Assembly.GetEntryAssembly();
-            if (asm == null)
-            {
-                return null;
-            }
-
-            string path = Path.Combine(Path.GetDirectoryName(ExecutablePath) ?? string.Empty, _updateUtilityFilename);
-
-            if (File.Exists(path)) // if the file already exists, delete it
-            {
-                Log.Warning($"Deleted update utility from a previous update located at '{path}'");
-                File.Delete(path);
-            }
-
-            Stream? s = null;
-
-            try
-            {
-                s = asm.GetManifestResourceStream(_updateUtilityResourcePath);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(
-                    "An exception was thrown while creating the update utility!",
-                   $"{{ Resource: '{_updateUtilityResourcePath}' }}",
-                    ex);
-            }
-            if (s == null)
-            {
-                Log.Error($"Failed to get a stream containing resource '{_updateUtilityResourcePath}'!", "This indicates that something may have gone wrong during the build process!", "Please attach a copy of this log file and report this at https://github.com/radj307/volume-control/issues");
-                return null;
-            }
-            else if (s.Length <= 0)
-            {
-                Log.Error("Failed to retrieve the embedded update utility resource file!", "This indicates that something may have gone wrong during the build process!", "Please attach a copy of this log file and report this at https://github.com/radj307/volume-control/issues");
-                s.Close();
-                s.Dispose();
-                return null;
-            }
-
-            using Stream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
-            fs.SetLength(s.Length);
-            s.CopyTo(fs);
-            s.Close();
-            s.Dispose();
-            s = null;
-
-            fs.Flush(); //< idk if this is required, but it's probably a good idea
-            fs.Close();
-            fs.Dispose();
-
-            if (!File.Exists(path))
-            {
-                return null;
-            }
-
-            return path;
-        }
         /// <summary>Displays a message box prompting the user for confirmation, and if confirmation is given, resets all hotkeys to their default settings using <see cref="HotkeyManager.ResetHotkeys"/>.</summary>
         public void ResetHotkeySettings()
         {

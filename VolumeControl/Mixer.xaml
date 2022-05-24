@@ -7,7 +7,6 @@
         xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
         xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
-        xmlns:tbBehaviour="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoCompleteDerivative"
         xmlns:ssui="clr-namespace:SolidShineUi;assembly=SolidShineUi"
         mc:Ignorable="d"
         Title="Volume Control"
@@ -70,7 +69,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Margin" Value="3,1,3,1"/>
-                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Height" Value="22"/>
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="Foreground" Value="#050505"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
@@ -119,6 +118,7 @@
                 <Setter Property="BorderBrush" Value="Gainsboro"/>
                 <Setter Property="BorderThickness" Value="0,0,0,1"/>
             </Style>
+            <!-- Border Style -->
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="Gainsboro"/>
@@ -154,20 +154,12 @@
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
             </Style>
-            <!-- NumericUpDown
-            <Style x:Key="NumericUpDownStyle" TargetType="ssui:IntegerSpinner">
-                <Setter Property="Background" Value="#00000000"/>
-                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="Height" Value="23"/>
-                <Setter Property="Margin" Value="3,0,3,0"/>
-            </Style> -->
             <!-- TabControl -->
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
                 <Setter Property="Background" Value="#505055"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
             </Style>
-
-
+            
             <ResourceDictionary x:Key="ComboBoxResources">
                 <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
                     <GradientBrush.GradientStops>
@@ -458,6 +450,17 @@
 
             <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
             <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
+
+            <!-- ColorScheme -->
+            <ssui:ColorScheme x:Key="ColorSchemeControl_Dark"
+                              BackgroundColor="#303030"
+                              ForegroundColor="WhiteSmoke"
+                              BorderColor="LightGray"
+                              DarkDisabledColor="LightGray"
+                              AccentBackgroundColor="#303030"
+                              AccentBorderColor="Gainsboro"
+                              AccentHighlightColor="#404040"
+                              />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -549,9 +552,8 @@
                     <TextBox x:Name="targetNameTextBox"
                              Grid.Column="1"
                              ToolTip="This determines which audio session will receive hotkey input."
-                             tbBehaviour:AutoComplete.ItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
-                             tbBehaviour:AutoComplete.Prefix=""
-                             tbBehaviour:AutoComplete.StringComparisonMode="OrdinalIgnoreCase"
+                             ssui:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                             ssui:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
                              Text="{Binding AudioAPI.Target, UpdateSourceTrigger=LostFocus}"
                              DataContext="{StaticResource Settings}"
                              IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
@@ -600,7 +602,7 @@
                     <Button x:Name="bReload"
                             Grid.Column="1"
                             Grid.Row="1"
-                            Content=" Reload "
+                            Content="  Reload  "
                             ToolTip="Manually reloads the list of audio sessions."
                             Click="Handle_ReloadClick"
                             Style="{StaticResource ButtonStyle}"/>
@@ -616,28 +618,30 @@
                               DataContext="{StaticResource Settings}"
                               Style="{StaticResource CheckBoxStyle}"/>
                     <Grid Grid.Column="4"
-                          Grid.Row="1">
+                          Grid.Row="1"
+                          HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="5"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <CheckBox x:Name="cbReloadOnInterval"
-                              Content="Automatic"
-                              ToolTip="Automatically reloads the mixer sessions on an interval."
-                              IsChecked="{Binding AudioAPI.ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
-                              ClickMode="Press"
-                              DataContext="{StaticResource Settings}"
-                              Style="{StaticResource CheckBoxStyle}"/>
+                                  Content="Automatic"
+                                  ToolTip="Automatically reloads the mixer sessions on an interval."
+                                  IsChecked="{Binding AudioAPI.ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
+                                  ClickMode="Press"
+                                  DataContext="{StaticResource Settings}"
+                                  Style="{StaticResource CheckBoxStyle}"/>
                         <ssui:IntegerSpinner HorizontalAlignment="Left"
-                                             Grid.Column="1"
+                                             Grid.Column="2"
                                              ToolTip="Reload interval in milliseconds."
                                              IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
                                              MinValue="{Binding AudioAPI.ReloadIntervalMin}"
                                              MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
                                              Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              DataContext="{StaticResource Settings}"
-                                             Style="{StaticResource IntegerSpinnerStyle}"/>
+                                             ColorScheme="{StaticResource ColorSchemeControl_Dark}"/>
                     </Grid>
 
                     <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
@@ -655,7 +659,7 @@
                                              Value="{Binding AudioAPI.VolumeStepSize, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                              MinValue="0"
                                              MaxValue="100"
-                                             Style="{StaticResource IntegerSpinnerStyle}" />
+                                             ColorScheme="{StaticResource ColorSchemeControl_Dark}"/>
                     </Grid>
                 </Grid>
 
@@ -934,11 +938,12 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <Button Content="🗘"
+                            ToolTip="Reload the device list."
                             Grid.Column="3"
                             BorderThickness="0"
                             Background="#00000000"
                             Foreground="WhiteSmoke"
-                            FontSize="17.6"
+                            Width="15"
                             Margin="2,3"
                             FontFamily="Lucida Sans Unicode"
                             Style="{StaticResource ButtonStyle}"
@@ -960,23 +965,12 @@
                         BorderBrush="LightGray"
                         BorderThickness="0,0,0,1"/>
 
-                <!-- Misc Settings -->
-                <Grid Grid.ColumnSpan="3"
-                      Grid.Row="1"
-                      Margin="5"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center">
-                    <!-- Main Column & Row Definitions -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20" MinHeight="20"/>
-                        <RowDefinition Height="20" MinHeight="20"/>
-                        <RowDefinition Height="20" MinHeight="20"/>
-                    </Grid.RowDefinitions>
+                <!-- Misc Settings UniformGrid -->
+                <UniformGrid Columns="3" Rows="3"
+                             Grid.Row="1" Grid.ColumnSpan="3"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             Margin="5,3">
 
                     <!-- Show in Taskbar Cell -->
                     <CheckBox Content="Show in Taskbar"
@@ -985,7 +979,6 @@
                               IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Always On Top Cell -->
                     <CheckBox Content="Always on Top"
-                              Grid.Row="1"
                               HorizontalAlignment="Left"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
@@ -993,15 +986,12 @@
 
                     <!-- Run At Startup Cell -->
                     <CheckBox x:Name="cbRunAtStartup"
-                              Grid.Column="1"
                               Content="Run at Startup"
                               HorizontalAlignment="Left"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Start Minimized Cell -->
                     <CheckBox x:Name="cbStartMinimized"
-                              Grid.Column="1"
-                              Grid.Row="1"
                               Content="Start Minimized"
                               HorizontalAlignment="Left"
                               Style="{StaticResource CheckBoxStyle}"
@@ -1009,8 +999,6 @@
 
                     <!-- Advanced Hotkeys Cell -->
                     <CheckBox x:Name="cbAdvancedHotkeys"
-                              Grid.ColumnSpan="1"
-                              Grid.Row="2"
                               HorizontalAlignment="Left"
                               Content="Advanced Hotkeys"
                               ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
@@ -1018,40 +1006,29 @@
                               IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
-                            Padding="5,1,5,1"
-                            HorizontalAlignment="Center"
-                            Height="Auto"
-                            Grid.Column="1"
-                            Grid.Row="2"
                             ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
                             Content=" Reset Hotkeys "
                             Style="{StaticResource ButtonStyle}"
-                            Click="Handle_ResetHotkeysClick"/>
+                            Click="Handle_ResetHotkeysClick"
+                            Margin="0,1"/>
 
                     <!-- Show Icons Cell -->
                     <CheckBox x:Name="cbShowIcons"
-                              Grid.Column="2"
                               HorizontalAlignment="Left"
-                              Margin="3,0,0,0"
                               Content="Show Icons"
                               ToolTip="Determines whether or not icons are shown for audio devices and sessions."
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Check for Updates Cell -->
                     <CheckBox x:Name="cbCheckForUpdates"
-                              Margin="3,0,0,0"
                               HorizontalAlignment="Left"
-                              Grid.Column="2"
-                              Grid.Row="1"
                               Content="Check for Updates"
                               ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
                               IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
 
                     <!-- Notifications Cell -->
-                    <Grid Grid.Row="2" 
-                          Grid.Column="2"
-                          HorizontalAlignment="Stretch"
+                    <Grid HorizontalAlignment="Stretch"
                           VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -1063,7 +1040,6 @@
                                   Content="Notifications"
                                   ToolTip="The notification appears when switching target sessions using hotkeys."
                                   IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                  Margin="3,0,0,0"
                                   Style="{StaticResource CheckBoxStyle}"/>
                         <!-- Timeout Numeric Up Down Control -->
                         <ssui:IntegerSpinner Grid.Column="2"
@@ -1073,8 +1049,8 @@
                                              Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                              Style="{StaticResource IntegerSpinnerStyle}"/>
                     </Grid>
-
-                </Grid>
+                    
+                </UniformGrid>
 
                 <!-- Divider -->
                 <Border Grid.Row="2"

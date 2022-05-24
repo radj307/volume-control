@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
+using VolumeControl.Helpers.Update;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -80,6 +81,10 @@ namespace VolumeControl
                 MessageBox.Show("Another instance of Volume Control is already running!");
                 return;
             }
+            if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
+            {
+                return;
+            }
 
             var app = new App();
             try
@@ -91,6 +96,9 @@ namespace VolumeControl
             {
                 Log.FatalException(ex, "App exited because of an unhandled exception!");
                 app.CleanupTrayIcon();
+#               if DEBUG
+                throw; //< rethrow exception
+#               endif
             }
 
             GC.WaitForPendingFinalizers();
