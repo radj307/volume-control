@@ -81,10 +81,16 @@ namespace VolumeControl
                 MessageBox.Show("Another instance of Volume Control is already running!");
                 return;
             }
-            if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
-            {
-                return;
-            }
+            //
+            // TODO: REIMPLEMENT 'CHECK FOR UPDATES' FEATURE ONCE C# STOPS FUCKING ITSELF UP
+            //         How tf do you decide to forget that you're supposed to be targetting an .exe internally?
+            //         Maybe fix your shit MS and stop randomly fucking with things?
+            //
+            //if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
+            //{
+            //    return;
+            //}
+            //
 
             var app = new App();
             try
