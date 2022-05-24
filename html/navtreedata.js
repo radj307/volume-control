@@ -36,7 +36,7 @@ var NAVTREE =
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
       [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
-        [ "Volume Control SDK", "md_docs__addon_development.html#autotoc_md2", [
+        [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md2", [
           [ "A Note on File Extensions", "md_docs__addon_development.html#autotoc_md3", null ]
         ] ]
       ] ],
