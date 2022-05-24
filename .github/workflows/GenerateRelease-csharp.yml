@@ -41,7 +41,8 @@ jobs:
     - name:   Stage Update Utility
       run:    gh release download --repo https://github.com/radj307/VolumeControl.UpdateUtility -D "${{github.workspace}}/Resources/"
       env:
-        GITHUB_TOKEN:            ${{github.GITHUB_TOKEN}}
+        GH_TOKEN: $
+       #^^^^^^^^^^^ From here: https://cli.github.com/manual/gh_auth_login
 
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
@@ -61,7 +62,7 @@ jobs:
         path: '${{github.workspace}}/STAGING/*'
         if-no-files-found: error
 
-    - name:   Upload SDK DLLs
+    - name:   Upload SDK Artifact
       uses:   actions/upload-artifact@v2
       with:
         name: sdk
@@ -75,10 +76,15 @@ jobs:
 
     steps:
     - name: Download Artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path:  ${{github.workspace}}
         
+    - name: Stage Artifacts
+      run:  |
+            cd ${{github.workspace}}
+            zip -T9 SDK.zip sdk/*
+
     - run:  ls -lAghR
 
     - name: 'Create Release'
@@ -88,3 +94,5 @@ jobs:
         fail_on_unmatched_files:  true
         files:      |
                     ${{github.workspace}}/build-windows/VolumeControl.exe
+                    ${{github.workspace}}/SDK.zip
+                    
