@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_core_1_1_math_ext.html" title="Methods for various mathematics operations not covered by Math" alt="" coords="5,5,196,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="62,74,141,101"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_base_addon_attribute.html" title="Abstract base class that all other addon attributes inherit from. Unless you&#39;re implementing a new ad..." alt="" coords="254,5,483,47"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html" title="Indicates that a method is a valid hotkey action. If you don&#39;t specify a name parameter,..." alt="" coords="245,71,492,112"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute.html" title="Marks the attached class type as a Hotkey Actions addon type." alt="" coords="540,5,787,47"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_core_1_1_i_base_addon_attribute.html" title="Represents an addon attribute of any type." alt="" coords="5,5,197,47"/>
 </map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Volume Control: Addon Development</title>
+<title>Volume Control: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,131 +86,105 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Addon Development </div>  </div>
+<div class="title">Volume Control Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Addons are written in C# with .NET Core 6 - you don't need any previous experience with C# in order to create addons, but this is not a tutorial for learning C#. <br  />
- You are legally allowed to create and redistribute addons so long as you comply with the terms of the <a href="https://github.com/radj307/volume-control/blob/main/LICENSE">GPLv3</a> license - You must make the full source code available along with any redistributed binaries (<code>.dll</code>s in this case) without any terms or conditions. <br  />
+<div class="textblock"><p align="center"></p>
+<p><a href="https://github.com/radj307/volume-control"><img src="https://i.imgur.com/rMbNIhU.png" alt="[Volume Control Banner]" class="inline"/></a><br  />
+ <a href="https://github.com/radj307/volume-control/releases"><img src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&amp;label=Latest%20Version&amp;logo=github&amp;logoColor=e8e8e7&amp;style=for-the-badge" alt="GitHub tag (latest by date)" class="inline"/></a>&#160;&#160;&#160;<a href="https://github.com/radj307/volume-control/releases"><img src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;style=for-the-badge" alt="Downloads" class="inline"/></a> </p>
+<hr  />
+<p>Simple, universal application-specific volume hotkeys &amp; more. <br  />
+ Designed for adjusting the volume of your music independently of other programs, such as games and VoIP. <br  />
 </p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Pre-Requisites</h1>
-<p>While the only actual requirement for making addons is the SDK, specific types, methods, and functions will require additional packages from nuget. <br  />
-</p>
-<h2><a class="anchor" id="autotoc_md2"></a>
-Volume Control SDK</h2>
-<p>The SDK is primarily distributed through the <em>artifacts</em> system in github actions workflows. <br  />
-</p><ol type="1">
-<li>On the <a href="https://github.com/radj307/volume-control/actions">Actions</a> tab and find the most recent successful run of the 'Generate Release' action. <img src="https://user-images.githubusercontent.com/1927798/169680680-a3c318b6-0de1-4f0b-b5ce-f7f553103af1.png" alt="image" class="inline"/> <br  />
- Click on the title: <img src="https://user-images.githubusercontent.com/1927798/169680696-895c2cc2-711b-47d8-a522-483a0fe30435.png" alt="image" class="inline"/></li>
-<li>At the bottom of the page, click on the 'sdk' artifact to download it. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169680760-13e79e2c-5161-4217-90c3-5bac5f5afc67.png" alt="image" class="inline"/></li>
-<li>Extract the archive to a location of your choice; keep the filepath handy for later. <br  />
- You should now have these files *(this may or may not be accurate in future versions)* located somewhere: <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169680790-d383dc96-983c-4b1d-94e5-a77507bda1a5.png" alt="image" class="inline"/> <br  />
+<h3><a class="anchor" id="autotoc_md11"></a>
+What it does</h3>
+<ul>
+<li>Adds completely user-configurable global hotkeys to Windows.<ul>
+<li>You can add, remove, and rename hotkeys, as well as configure the 'action' that they perform. <br  />
+ This requires enabling *'Advanced Hotkey Mode'*, which is a fancy way of saying *'Check the box labelled with '<b>Advanced Hotkeys</b>', which is located in the <b>Settings</b> tab'*</li>
+<li>The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of <a href="https://github.com/radj307/volume-control/wiki">user-created plugins</a>.</li>
+</ul>
+</li>
+<li>Integrates a functionally superior alternative to the Windows Audio Mixer. <br  />
+<ul>
+<li>Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.<ul>
+<li>Like the Windows Audio Mixer, you can do this with any running process independently at any time.</li>
+</ul>
+</li>
+<li>Allows you to specify the 'target' application using the mixer, in addition to the target switching hotkeys.</li>
+</ul>
+</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md12"></a>
+Requirements</h3>
+<ul>
+<li>Windows 7 or newer.</li>
+<li>A keyboard.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md13"></a>
+Getting Started</h1>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Installation</h2>
+<ul>
+<li>Download the <a href="https://github.com/radj307/volume-control/releases">latest release</a></li>
+<li>Save <code>VolumeControl.exe</code> to a location of your choice. <br  />
+ If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that: <code>C:\Users\&lt;USERNAME&gt;\<a class="el" href="namespace_volume_control.html">VolumeControl</a>\VolumeControl.exe</code></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Setup</h2>
+<p>Before starting the program for the first time, you have to unblock the executable from the properties menu. <br  />
+ This is necessary because Windows Defender requires a paying <em>&gt;$300</em> a year for a <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate">Microsoft-approved publishing certificate</a> in order to prevent Windows Defender from blocking it. <br  />
+ <em>If you're unsure, you're can always run it through <a href="https://www.virustotal.com/gui/home/upload">VirusTotal</a> first, or check the source code yourself.</em></p>
+<ol type="1">
+<li>R+Click on <code>VolumeControl.exe</code> in the file explorer and select <em>Properties</em> in the context menu. <br  />
+</li>
+<li>Check the box next to <em>Unblock:</em> <br  />
+ <img src="https://i.imgur.com/NMI4m4F.png" alt="" class="inline"/> <br  />
+</li>
+<li>Click <b>Ok</b> to save the changes. <br  />
 </li>
 </ol>
-<h3><a class="anchor" id="autotoc_md3"></a>
-A Note on File Extensions</h3>
-<p>The actual files included in the SDK may change from version to version as code is organized and re-organized. <br  />
+<h2><a class="anchor" id="autotoc_md16"></a>
+Usage</h2>
+<p>First, enable the <b>Volume Up</b> &amp; <b>Volume Down</b> hotkeys from the <b>Hotkeys</b> tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown.</p>
+<p><b>NOTE:</b> Hotkeys cannot be enabled if their associated key is set to <code>None</code>.</p>
+<p>Next, let's set a target application to test the hotkeys with. <br  />
+ Start playing some audio from any application, then return to the <b>Mixer</b> tab, click <b>Reload</b>, then click the <b>Select</b> button next to the test application, and try using the volume hotkeys. <br  />
 </p>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Addon Development</h2>
+<p>Want to develop an addon for Volume Control? <br  />
+ <b>See the <a href="https://radj307.github.io/volume-control">github pages site</a> for instructions and API documentation.</b></p>
+<h2><a class="anchor" id="autotoc_md18"></a>
+VolumeControlCLI</h2>
+<p>*(This section is for people who want to adjust application volumes from the commandline or with shell scripts.)*</p>
+<p>For best results, place <code>VolumeControlCLI.exe</code> in a directory on your PATH. If you don't know how to do that, see <a href="https://stackoverflow.com/a/44272417/8705305">here</a>. <br  />
+</p>
+<p>Use <code>VolumeControlCLI -h</code> or <code>VolumeControlCLI --help</code> to see more up-to-date usage instructions. <br  />
+ <em>Note: The CLI version accepts PID numbers or Process Names.</em></p>
+<h3><a class="anchor" id="autotoc_md19"></a>
+Commandline Options</h3>
+<p><em>This list was last updated as of <code>3.3.0-pr4</code></em></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Extension </th><th class="markdownTableHeadNone">Purpose  </th></tr>
+<th class="markdownTableHeadNone">Option </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>.dll</code> </td><td class="markdownTableBodyNone">Contains the source code and references needed to use it.<br  />
-This is the bare minimum required to make addons.  </td></tr>
+<td class="markdownTableBodyNone"><code>-h</code> <code>--help</code> </td><td class="markdownTableBodyNone">Shows a brief description of each option, then exits.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>.pdb</code> </td><td class="markdownTableBodyNone">Contains debugging symbols, which allow you to use the debugger to step through code contained within the DLL.  </td></tr>
+<td class="markdownTableBodyNone"><code>-V</code> <code>--version</code> </td><td class="markdownTableBodyNone">Shows the current version number, then exits.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>.xml</code> </td><td class="markdownTableBodyNone">Contains API documentation used by Visual Studio intellisense to provide inline documentation &amp; suggestions.  </td></tr>
+<td class="markdownTableBodyNone"><code>-p &lt;Name/PID&gt;</code> <code>--process &lt;Name/PID&gt;</code> </td><td class="markdownTableBodyNone">Selects the target process. This option is required.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>-v &lt;0-100&gt;</code> <code>--volume &lt;0-100&gt;</code> </td><td class="markdownTableBodyNone">Specify a volume level to apply to the target process.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>--mute</code> </td><td class="markdownTableBodyNone">Mute the target application.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>--unmute</code> </td><td class="markdownTableBodyNone">Unmute the target application.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>-s</code> <code>--set</code> </td><td class="markdownTableBodyNone">Implicit when <code>-v</code> or <code>--volume</code> is specified.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>-g</code> <code>--get</code> </td><td class="markdownTableBodyNone">Implicit when <code>-v</code>/<code>--volume</code> isn't specified.  </td></tr>
 </table>
-<p>When using the SDK, keep files with the same filename *(not extension, somewhat obviously)* in the same directory to receive the benefits from each.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
-Environment Setup</h1>
-<p>This assumes you're using Visual Studio with the .NET/C# workload installed. <br  />
-</p>
-<ol type="1">
-<li>Create a new .NET Core 6 Class Library type solution, and name it whatever you want. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169677073-716d9c3b-5928-4414-8985-3dc22a79c160.png" alt="image" class="inline"/> <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169677083-622c7461-11bb-4b57-8eeb-664ced0fde6f.png" alt="image" class="inline"/> <br  />
-</li>
-<li>In the solution explorer, expand your new project and R+Click on the <b>Dependencies</b> entry, then select any of the <b>Add ... Reference</b> options. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169680877-f5a0b8dc-153b-46bd-b566-3e25c6af01b4.png" alt="image" class="inline"/></li>
-<li>Click on the <b>Browse</b> tab &amp; add the DLLs from the sdk you downloaded earlier using the <b>Browse</b> button at the bottom. <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169681046-b9b1d092-8500-42d7-a587-3f75a5f3698c.png" alt="image" class="inline"/> <br  />
- Once you're done, click <b>OK</b>.</li>
-<li>R+Click on your <code>.csproj</code> file and click <b>Properties</b>. In the property pages, change the <b>Target OS</b> to <b>Windows</b>: <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169683966-573f9c1c-4971-4304-a8b5-c01c931af5c2.png" alt="image" class="inline"/> <br  />
- Press <em>Ctrl+S</em> to save the project file, then close the tab.</li>
-<li>You are now able to create custom addons for Volume Control. <br  />
- Add <code>using <a class="el" href="namespace_volume_control.html">VolumeControl</a>;</code> to the first line, and you'll be able to use Visual Studio's autocomplete for the rest.</li>
-</ol>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Writing an Addon</h1>
-<p>Here's an example of an addon that adds a hotkey action named 'Custom Action' that writes a message to the log when triggered. <br  />
- </p><div class="fragment"><div class="line">using System.ComponentModel;</div>
-<div class="line">using VolumeControl.API;</div>
-<div class="line">using VolumeControl.Hotkeys.Attributes;</div>
-<div class="line">using VolumeControl.Log;</div>
-<div class="line"> </div>
-<div class="line">namespace VolumeControl.TestAddon</div>
-<div class="line">{</div>
-<div class="line">    [ActionAddon(nameof(TestActionAddon))] //&lt; This is required for all addon classes that should be loaded.</div>
-<div class="line">    public class TestActionAddon</div>
-<div class="line">    {</div>
-<div class="line">        // Here we use a static property to shorten the </div>
-<div class="line">        private static VCAPI API =&gt; VCAPI.Default;</div>
-<div class="line"> </div>
-<div class="line">        // This is the global logging object, which can be accessed through the static VCAPI.Log property.</div>
-<div class="line">        //  Here, we do the same as above so we can write log messages with shorter syntax.</div>
-<div class="line">        private static LogWriter Log =&gt; VCAPI.Log;</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line">        // Now let&#39;s create a hotkey action named &#39;CustomAction&#39;, using the action event handler signature.</div>
-<div class="line">        // All hotkey actions must return void, and accept 2 parameters of types object? &amp; HandledEventArgs.</div>
-<div class="line">        [HotkeyAction] //&lt; this is required for all hotkey action methods</div>
-<div class="line">        public void CustomAction(object? sender, HandledEventArgs e)</div>
-<div class="line">        {</div>
-<div class="line">            Log.Debug($&quot;Successfully triggered addon method {nameof(CustomAction)}!&quot;,</div>
-<div class="line">                      $&quot;Currently selected session name: &#39;{API.AudioAPI.SelectedSession?.ProcessName}&#39;&quot;);</div>
-<div class="line">        }</div>
-<div class="line"> </div>
-<div class="line">        [HotkeyAction(&quot;My Action Name&quot;)]</div>
-<div class="line">        public void CustomAction2(object? sender, Handled)</div>
-<div class="line">    }</div>
-<div class="line">}</div>
-</div><!-- fragment --><p>You can find the full code example <a href="https://github.com/radj307/volume-control.TestAddon">here</a>.</p>
-<p><b><a href="https://github.com/radj307/volume-control/wiki/API-Documentation">API Documentation</a></b></p>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Building Your Addon</h1>
-<p>Change the VS Configuration to <b>Release</b>, then build the solution. *(Ctrl+Shift+B)* <br  />
- You'll be able to find your <code>.dll</code> in the <code>&lt;SOLUTION&gt;/&lt;PROJECT&gt;/bin/Release/net6.0-windows/&lt;PROJECT&gt;.dll</code></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Loading Your Addon</h1>
-<p>Addons must be located within this directory, or in a subdirectory of this directory: <br  />
- <code>C:\Users\&lt;USERNAME&gt;\AppData\Local\radj307\Addons</code> <br  />
-</p>
-<p>To check if your addon was loaded, launch <a class="el" href="namespace_volume_control.html">VolumeControl</a> and click on the <b>Settings</b> tab. Find the <b>Filter</b> dropdown in the log settings area, and enable <code>DEBUG</code> messages by checking the box. <br  />
- Assuming you have logging enabled, you will now be able to see messages related to addons in the log file. *(by default, this is named <code>volumecontrol.log</code> and is located next to the executable)* <br  />
- <img src="https://user-images.githubusercontent.com/1927798/169681684-f41649d3-49c0-4c33-aaf3-5454de4dfdad.png" alt="image" class="inline"/></p>
-<p>Note that any users of your redistributed addons must also place this file in the same location, so if you're writing installation instructions be sure to include that. <br  />
-</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
-Using Hotkey Action Addons</h3>
-<ol type="1">
-<li>Enable <em>Advanced Hotkeys</em> on the <b>Settings</b> tab.</li>
-<li>On the <b>Hotkeys</b> tab, open the dropdown box under the <em>Action</em> column of any hotkey.</li>
-<li>You can now select your custom action in the list.</li>
-</ol>
-<h3><a class="anchor" id="autotoc_md9"></a>
-What about the SDK DLLs?</h3>
-<p>The main program has these integrated inside of the <code>.exe</code> to facilitate a single-file release; all this is to say, once your addon is complete you don't need to include them anywhere, they are simply to allow Visual Studio to 'see' them.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
-Publishing Addons</h1>
-<p>Once you've got your shiny new addon, you may want to distribute it to share your work. <br  />
- To encourage this, I've created an official repository for third-party addons <a href="https://github.com/radj307/volume-control.Addons">here</a>. <br  />
-</p>
-<p><b>Note: When uploading your addon to github, be sure to use the GPLv3 license, or a legally compatible alternative.</b> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

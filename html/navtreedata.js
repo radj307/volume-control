@@ -23,33 +23,28 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Addon Development", "index.html", [
-      [ "Pre-Requisites", "index.html#autotoc_md1", [
-        [ "Volume Control SDK", "index.html#autotoc_md2", [
-          [ "A Note on File Extensions", "index.html#autotoc_md3", null ]
+    [ "Getting Started", "index.html#autotoc_md13", [
+      [ "Installation", "index.html#autotoc_md14", null ],
+      [ "Setup", "index.html#autotoc_md15", null ],
+      [ "Usage", "index.html#autotoc_md16", null ],
+      [ "Addon Development", "index.html#autotoc_md17", null ],
+      [ "VolumeControlCLI", "index.html#autotoc_md18", [
+        [ "What it does", "index.html#autotoc_md11", null ],
+        [ "Requirements", "index.html#autotoc_md12", null ],
+        [ "Commandline Options", "index.html#autotoc_md19", null ]
+      ] ]
+    ] ],
+    [ "Addon Development", "md_docs__addon_development.html", [
+      [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
+        [ "Volume Control SDK", "md_docs__addon_development.html#autotoc_md2", [
+          [ "A Note on File Extensions", "md_docs__addon_development.html#autotoc_md3", null ]
         ] ]
       ] ],
-      [ "Environment Setup", "index.html#autotoc_md4", null ],
-      [ "Writing an Addon", "index.html#autotoc_md5", null ],
-      [ "Building Your Addon", "index.html#autotoc_md6", null ],
-      [ "Loading Your Addon", "index.html#autotoc_md7", null ],
-      [ "Publishing Addons", "index.html#autotoc_md10", null ]
-    ] ],
-    [ "README", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html", [
-      [ "Getting Started", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md14", [
-        [ "Installation", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md15", null ],
-        [ "Setup", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md16", null ],
-        [ "Usage", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md17", null ],
-        [ "VolumeControlCLI", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md18", [
-          [ "Using Hotkey Action Addons", "index.html#autotoc_md8", null ],
-          [ "What about the SDK DLLs?", "index.html#autotoc_md9", null ],
-          [ "What it does", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md11", [
-            [ "Addon Development", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md12", null ]
-          ] ],
-          [ "Requirements", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md13", null ],
-          [ "Commandline Options", "md__home_runner_work_volume-control_volume-control__r_e_a_d_m_e.html#autotoc_md19", null ]
-        ] ]
-      ] ]
+      [ "Environment Setup", "md_docs__addon_development.html#autotoc_md4", null ],
+      [ "Writing an Addon", "md_docs__addon_development.html#autotoc_md5", null ],
+      [ "Building Your Addon", "md_docs__addon_development.html#autotoc_md6", null ],
+      [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md7", null ],
+      [ "Publishing Addons", "md_docs__addon_development.html#autotoc_md10", null ]
     ] ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ],
@@ -82,8 +77,8 @@ var NAVTREEINDEX =
 [
 ".html",
 "class_volume_control_1_1_audio_1_1_audio_device.html#a775d911a510e8ec451bdd062fb7bbbe5",
-"class_volume_control_1_1_log_1_1_extensions_1_1_exception_extensions.html#a9ab390a4ae5bdf668ff93dabb8159553",
-"functions_p.html"
+"class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html#a9d877f3802a42e5e66d497a1bc1fa0bb",
+"interface_hotkey_lib_1_1_i_key_combo.html#af550de1abed16c86508cec73769ae3a5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -20,5 +20,5 @@ var searchData=
   ['audioapisettings_17',['AudioAPISettings',['../class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html',1,'VolumeControl::Audio']]],
   ['audiodevice_18',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl.Audio.AudioDevice'],['../class_volume_control_1_1_audio_1_1_audio_device.html#a888c4ca31d7edeb68c6c4624edf6553c',1,'VolumeControl.Audio.AudioDevice.AudioDevice()']]],
   ['audiosession_19',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl.Audio.AudioSession'],['../class_volume_control_1_1_audio_1_1_audio_session.html#aeb56d8f5f6a97fde371c4795473c1f7a',1,'VolumeControl.Audio.AudioSession.AudioSession()']]],
-  ['addon_20development_20',['Addon Development',['../index.html',1,'']]]
+  ['addon_20development_20',['Addon Development',['../md_docs__addon_development.html',1,'']]]
 ];
