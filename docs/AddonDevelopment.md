@@ -4,18 +4,16 @@ You are legally allowed to create and redistribute addons so long as you comply 
 
 ## Pre-Requisites
 
-While the only actual requirement for making addons is the SDK, specific types, methods, and functions will require additional packages from nuget.  
+- [Volume Control SDK](https://github.com/radj307/volume-control/releases)  
+  Download `SDK.zip` from the latest release.
+  
+### Other Dependencies
 
-### Volume Control SDK
-The SDK is primarily distributed through the *artifacts* system in github actions workflows.  
- 1. On the [Actions](https://github.com/radj307/volume-control/actions) tab and find the most recent successful run of the 'Generate Release' action.
-    ![image](https://user-images.githubusercontent.com/1927798/169680680-a3c318b6-0de1-4f0b-b5ce-f7f553103af1.png)  
-    Click on the title: ![image](https://user-images.githubusercontent.com/1927798/169680696-895c2cc2-711b-47d8-a522-483a0fe30435.png)
- 2. At the bottom of the page, click on the 'sdk' artifact to download it.  
-    ![image](https://user-images.githubusercontent.com/1927798/169680760-13e79e2c-5161-4217-90c3-5bac5f5afc67.png)
- 3. Extract the archive to a location of your choice; keep the filepath handy for later.  
-    You should now have these files *(this may or may not be accurate in future versions)* located somewhere:  
-    ![image](https://user-images.githubusercontent.com/1927798/169680790-d383dc96-983c-4b1d-94e5-a77507bda1a5.png)  
+**These are not required unless you want to use types/methods that depend on them.**  
+In most cases, you won't need any of these; if you do need them, use Nuget to install them.  
+
+- NAudio
+- Semver
 
 #### A Note on File Extensions
 
