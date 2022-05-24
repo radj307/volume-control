@@ -40,11 +40,13 @@ jobs:
 
     - name:   Stage Update Utility
       run:    gh release download --repo https://github.com/radj307/VolumeControl.UpdateUtility -D "${{github.workspace}}/Resources/"
+      env:
+        GITHUB_TOKEN:            ${{github.GITHUB_TOKEN}}
 
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
       env:
-        VCUpdateUtilityResource: "${{github.workspace}}/VolumeControl/Resources/VCUpdateUtility.exe"
+        VCUpdateUtilityResource: ${{github.workspace}}/VolumeControl/Resources/VCUpdateUtility.exe
 
     - name:   Create Staging Directory
       run:    mkdir "STAGING"
