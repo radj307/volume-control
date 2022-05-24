@@ -26,7 +26,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT:  true
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         ref:          '${{ github.ref }}'
         fetch-depth:  0
@@ -38,8 +38,13 @@ jobs:
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
 
+    - name:   Stage Update Utility
+      run:    gh release download --repo https://github.com/radj307/VolumeControl.UpdateUtility -D "${{github.workspace}}/Resources/"
+
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
+      env:
+        VCUpdateUtilityResource: "${{github.workspace}}/VolumeControl/Resources/VCUpdateUtility.exe"
 
     - name:   Create Staging Directory
       run:    mkdir "STAGING"

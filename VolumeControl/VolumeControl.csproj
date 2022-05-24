@@ -54,10 +54,10 @@
     <None Remove="Resources\images\reload-white.png" />
     <None Remove="Resources\images\reload.png" />
     <None Remove="Resources\LICENSE" />
-    <None Remove="Resources\VolumeControl.UpdateUtility.exe" />
+    <None Remove="$(VCUpdateUtilityResource)" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\VolumeControl.UpdateUtility.exe" />
+    <EmbeddedResource Include="$(VCUpdateUtilityResource)" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fonts\Inter.ttf">

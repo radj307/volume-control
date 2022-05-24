@@ -86,10 +86,10 @@ namespace VolumeControl
             //         How tf do you decide to forget that you're supposed to be targetting an .exe internally?
             //         Maybe fix your shit MS and stop randomly fucking with things?
             //
-            //if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
-            //{
-            //    return;
-            //}
+            if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
+            {
+                return;
+            }
             //
 
             var app = new App();

@@ -37,7 +37,7 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// The filename of the Update Utility, including extensions but not qualifiers.<br/>See <see cref="_updateUtilityResourcePath"/>
         /// </summary>
-        private const string _updateUtilityFilename = "VolumeControl.UpdateUtility.exe";
+        private const string _updateUtilityFilename = "VCUpdateUtility.exe";
         /// <summary>
         /// The fully qualified name of the Update Utility as an embedded resource.
         /// </summary>
@@ -219,6 +219,7 @@ namespace VolumeControl.Helpers.Update
                 File.Delete(path);
             }
 
+            // Attempt to read the embedded update utility
             using Stream? s = asm.GetManifestResourceStream(_updateUtilityResourcePath);
 
             if (s == null)
