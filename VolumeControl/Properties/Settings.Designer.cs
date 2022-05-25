@@ -211,5 +211,14 @@ namespace VolumeControl.Properties {
                 return ((global::System.TimeSpan)(this["UpdateTimeout"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-r")]
+        public string UpdateUtilityExtraArguments {
+            get {
+                return ((string)(this["UpdateUtilityExtraArguments"]));
+            }
+        }
     }
 }

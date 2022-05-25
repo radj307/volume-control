@@ -141,7 +141,7 @@ namespace VolumeControl.Helpers.Update
                     if (SetupUpdateUtility() is string path)
                     {
                         Log.Info($"Automatic update utility was created at {path}");
-                        ProcessStartInfo psi = new(path, $"-u \"{asset.browser_download_url}\" -o {_executablePath} -s {asset.size} -r --redirect=vcupdateutility.log")
+                        ProcessStartInfo psi = new(path, $"-u \"{asset.browser_download_url}\" -o {_executablePath} -s {asset.size} {Settings.UpdateUtilityExtraArguments}")
                         {
                             ErrorDialog = true,
                             UseShellExecute = true,
