@@ -32,7 +32,6 @@ namespace VolumeControl.Helpers.Update
         /// Set this to true using the Immediate Window to skip checking if the version number is actually newer.
         /// </summary>
         public static bool TEST_UPDATE = false;
-        public static bool TEST_PROMPT = false;
 #       endif
 
         /// <summary>
@@ -125,7 +124,7 @@ namespace VolumeControl.Helpers.Update
 #           if DEBUG
             if (TEST_UPDATE)
 #           else
-            if (newVersion >= _currentVersion)
+            if (newVersion > _currentVersion)
 #           endif
             {
                 switch (MessageBox.Show(
