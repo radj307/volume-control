@@ -8,6 +8,7 @@
         xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
         xmlns:ctrlz="urn:controlzex"
         xmlns:ssui="clr-namespace:SolidShineUi;assembly=SolidShineUi"
+        xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
         mc:Ignorable="d"
         Title="Volume Control"
         DataContext="{RelativeSource Self}"
@@ -441,26 +442,14 @@
                 <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
             <!-- Integer Spinner Style -->
-            <Style x:Key="IntegerSpinnerStyle" TargetType="ssui:IntegerSpinner">
-                <Setter Property="ButtonBackground" Value="LightGray"/>
-                <Setter Property="Height" Value="Auto"/>
+            <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
                 <Setter Property="Background" Value="#303030"/>
                 <Setter Property="Foreground" Value="#00000000"/>
+                <Setter Property="MaxDecimalPlaces" Value="0"/>
             </Style>
 
             <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
             <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
-
-            <!-- ColorScheme -->
-            <ssui:ColorScheme x:Key="ColorSchemeControl_Dark"
-                              BackgroundColor="#303030"
-                              ForegroundColor="WhiteSmoke"
-                              BorderColor="LightGray"
-                              DarkDisabledColor="LightGray"
-                              AccentBackgroundColor="#303030"
-                              AccentBorderColor="Gainsboro"
-                              AccentHighlightColor="#404040"
-                              />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -633,15 +622,15 @@
                                   ClickMode="Press"
                                   DataContext="{StaticResource Settings}"
                                   Style="{StaticResource CheckBoxStyle}"/>
-                        <ssui:IntegerSpinner HorizontalAlignment="Left"
-                                             Grid.Column="2"
-                                             ToolTip="Reload interval in milliseconds."
-                                             IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
-                                             MinValue="{Binding AudioAPI.ReloadIntervalMin}"
-                                             MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
-                                             Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             DataContext="{StaticResource Settings}"
-                                             ColorScheme="{StaticResource ColorSchemeControl_Dark}"/>
+                        <Controls:NumericUpDown Grid.Column="2"
+                                                HorizontalAlignment="Left"
+                                                ToolTip="Reload interval in milliseconds."
+                                                IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
+                                                MinValue="{Binding AudioAPI.ReloadIntervalMin}"
+                                                MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
+                                                Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                DataContext="{StaticResource Settings}"
+                                                Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
 
                     <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
@@ -653,13 +642,14 @@
                         <Label Content="Volume Step"
                                HorizontalAlignment="Center"
                                Style="{StaticResource LabelStyle}"/>
-                        <ssui:IntegerSpinner Grid.Column="1"
-                                             HorizontalAlignment="Center"
-                                             ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
-                                             Value="{Binding AudioAPI.VolumeStepSize, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                             MinValue="0"
-                                             MaxValue="100"
-                                             ColorScheme="{StaticResource ColorSchemeControl_Dark}"/>
+                        <Controls:NumericUpDown Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+                                                MinValue="0"
+                                                MaxValue="100"
+                                                Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
+                                                DataContext="{StaticResource Settings}"
+                                                Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
                 </Grid>
 
@@ -1041,15 +1031,13 @@
                                   ToolTip="The notification appears when switching target sessions using hotkeys."
                                   IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource CheckBoxStyle}"/>
-                        <!-- Timeout Numeric Up Down Control -->
-                        <ssui:IntegerSpinner Grid.Column="2"
-                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
-                                             MinValue="250"
-                                             MaxValue="60000"
-                                             Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource IntegerSpinnerStyle}"/>
+                        <Controls:NumericUpDown Grid.Column="2"
+                                                ToolTip="The time in milliseconds before the notification disappears after being displayed."
+                                                MinValue="250"
+                                                MaxValue="60000"
+                                                Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource NumericUpDownStyle}"/>
                     </Grid>
-                    
                 </UniformGrid>
 
                 <!-- Divider -->
