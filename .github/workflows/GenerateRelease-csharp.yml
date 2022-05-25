@@ -19,7 +19,7 @@ env:
 
 jobs:
   build-release: # Only run on successful version update action
-    runs-on:  windows-2022
+    runs-on:  windows-latest
     if:       ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       DOTNET_NOLOGO:                true
@@ -41,10 +41,9 @@ jobs:
     - name:   Stage Update Utility
       run:    |
               echo ${{secrets.PAT}} | gh auth login --with-token
-              gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe" -D "${{github.workspace}}/Resources"
-      #env:
-       # GH_TOKEN: $
-       #^^^^^^^^^^^ From here: https://cli.github.com/manual/gh_auth_login
+              cd '${{github.workspace}}/VolumeControl/Resources'
+              gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe"
+              cd '${{github.workspace}}'
 
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
@@ -58,14 +57,14 @@ jobs:
       run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
     - name:   Upload Executable Artifact
-      uses:   actions/upload-artifact@v2
+      uses:   actions/upload-artifact@v3
       with:
         name: build-windows
         path: '${{github.workspace}}/STAGING/*'
         if-no-files-found: error
 
     - name:   Upload SDK Artifact
-      uses:   actions/upload-artifact@v2
+      uses:   actions/upload-artifact@v3
       with:
         name: sdk
         path: '${{github.workspace}}/publish/SDK/*'
