@@ -32,6 +32,7 @@ namespace VolumeControl.Helpers.Update
         /// Set this to true using the Immediate Window to skip checking if the version number is actually newer.
         /// </summary>
         public static bool TEST_UPDATE = false;
+        public static bool TEST_PROMPT = false;
 #       endif
 
         /// <summary>
@@ -134,13 +135,14 @@ namespace VolumeControl.Helpers.Update
                     , "Update Available", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No))
                 {
                 case MessageBoxResult.Yes: // open browser
-                    string asset_url = response.assets.First(a => a.name.Equals("VolumeControl.exe", StringComparison.OrdinalIgnoreCase)).browser_download_url;
-                    Log.Info($"Updating to version {newVersion}: '{asset_url}'");
+                    var asset = response.assets.First(a => a.name.Equals("VolumeControl.exe", StringComparison.OrdinalIgnoreCase));
+
+                    Log.Info($"Updating to version {newVersion}: '{asset.browser_download_url}'");
 
                     if (SetupUpdateUtility() is string path)
                     {
                         Log.Info($"Automatic update utility was created at {path}");
-                        ProcessStartInfo psi = new(path, $"--url \"{asset_url}\" --path {_executablePath}")
+                        ProcessStartInfo psi = new(path, $"-u \"{asset.browser_download_url}\" -o {_executablePath} -s {asset.size} -r --redirect=vcupdateutility.log")
                         {
                             ErrorDialog = true,
                             UseShellExecute = true,
@@ -198,7 +200,6 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// Writes the update client from the embedded resource dictionary to the local disk.
         /// </summary>
-        /// <param name="asyncTimeout">This method uses asynchronous stream operations, setting this to any value other than -1 will set a timeout in milliseconds before throwing an error and returning.</param>
         /// <returns>The absolute filepath of the updater utility's executable.</returns>
         private static string? SetupUpdateUtility()
         {

@@ -34,7 +34,7 @@ namespace VolumeControl
         public static void Main(string[] args)
         {
             // this means we're starting back up after the update util completed
-            if (args.Contains("--autoupdated"))
+            if (args.Contains("--cleanup"))
             { // delete updater file
                 AppDomain? appDomain = AppDomain.CurrentDomain;
                 string path = System.IO.Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, "VolumeControl.UpdateUtility.exe");
