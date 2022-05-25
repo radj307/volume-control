@@ -40,7 +40,7 @@ jobs:
 
     - name:   Stage Update Utility
       run:    |
-              gh auth login --with-token ${{secrets.PAT}}
+              echo ${{secrets.PAT}} | gh auth login --with-token
               gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe" -D "${{github.workspace}}/Resources"
       env:
         GH_TOKEN: $
