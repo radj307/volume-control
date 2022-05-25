@@ -866,19 +866,22 @@
                   VerticalAlignment="Stretch">
                 <!-- Settings Tab Grid Column / Row Definitions-->
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="1"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="1"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="1"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Version Label -->
-                <Canvas Grid.Column="3"
+                <Canvas Grid.Column="2"
                         Width="{Binding Width, ElementName=versionLabel}"
                         Height="{Binding Height, ElementName=versionLabel}">
                     <Label x:Name="versionLabel"
@@ -895,9 +898,8 @@
                            Content="{Binding VersionNumber, Source={StaticResource Settings}}"
                            Margin="0,-4,0,0"/>
                 </Canvas>
-
                 <!-- Device Selection -->
-                <Grid Grid.ColumnSpan="4"
+                <Grid Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
@@ -960,14 +962,45 @@
                 </Grid>
 
                 <!-- Divider -->
-                <Border Grid.Row="0"
+                <Border Grid.Row="1"
                         Grid.ColumnSpan="3"
                         BorderBrush="LightGray"
                         BorderThickness="0,0,0,1"/>
 
+                <!-- Notifications Cell -->
+                <Grid Grid.Row="2"
+                      Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Enable Notifications Checkbox Control -->
+                    <CheckBox x:Name="cbEnableNotifications"
+                              Content="Notifications"
+                              ToolTip="The notification appears when switching target sessions using hotkeys."
+                              IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource CheckBoxStyle}"/>
+                    <!-- Timeout Numeric Up Down Control -->
+                    <ssui:IntegerSpinner Grid.Column="2"
+                                         ToolTip="The time in milliseconds before the notification disappears after being displayed."
+                                         MinValue="250"
+                                         MaxValue="60000"
+                                         Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource IntegerSpinnerStyle}"/>
+                </Grid>
+
+                <!-- Divider -->
+                <Border Grid.Row="3"
+                        Grid.ColumnSpan="3"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"/>
+                
                 <!-- Misc Settings UniformGrid -->
-                <UniformGrid Columns="3" Rows="3"
-                             Grid.Row="1" Grid.ColumnSpan="3"
+                <UniformGrid Grid.Row="4" Grid.Column="1"
+                             Columns="3" Rows="3"                             
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Center"
                              Margin="5,3">
@@ -1027,40 +1060,18 @@
                               IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource CheckBoxStyle}"/>
 
-                    <!-- Notifications Cell -->
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="3"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <!-- Enable Notifications Checkbox Control -->
-                        <CheckBox x:Name="cbEnableNotifications"
-                                  Content="Notifications"
-                                  ToolTip="The notification appears when switching target sessions using hotkeys."
-                                  IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                  Style="{StaticResource CheckBoxStyle}"/>
-                        <!-- Timeout Numeric Up Down Control -->
-                        <ssui:IntegerSpinner Grid.Column="2"
-                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
-                                             MinValue="250"
-                                             MaxValue="60000"
-                                             Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource IntegerSpinnerStyle}"/>
-                    </Grid>
-                    
+
                 </UniformGrid>
 
                 <!-- Divider -->
-                <Border Grid.Row="2"
+                <Border Grid.Row="5"
                         Grid.ColumnSpan="3"
                         BorderBrush="LightGray"
                         BorderThickness="0,0,0,1"/>
 
                 <!-- Log Settings -->
-                <DockPanel Grid.ColumnSpan="3"
-                           Grid.Row="3"
+                <DockPanel Grid.Row="6"
+                           Grid.Column="1"
                            Margin="0,3,0,3"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Center">
