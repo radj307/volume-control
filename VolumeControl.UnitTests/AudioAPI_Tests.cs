@@ -115,7 +115,7 @@ namespace VolumeControl.UnitTests.VolumeControl.Audio
         }
         public static void False(bool expression, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
         {
-            if (!(!expression))
+            if (expression)
                 Assert.Fail($"'{nameof(expression)}' is true!\n[{path}:{ln}]");
         }
 
