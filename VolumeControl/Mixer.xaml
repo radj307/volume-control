@@ -968,7 +968,8 @@
                               Style="{StaticResource CheckBoxStyle}"/>
                     <ComboBox Grid.Column="1"
                               ItemsSource="{Binding NotificationModes, Source={StaticResource Settings}}"
-                              SelectedItem="{Binding NotificationMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                              SelectedItem="{Binding NotificationMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource ComboBoxCustomStyle}">
                     </ComboBox>
                     <Controls:NumericUpDown Grid.Column="3"
                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
