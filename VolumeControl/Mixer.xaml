@@ -974,8 +974,7 @@
                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
                                             MinValue="250"
                                             MaxValue="60000"
-                                            Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource NumericUpDownStyle}"/>
+                                            Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <!-- Divider -->
