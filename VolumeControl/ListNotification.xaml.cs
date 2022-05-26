@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,7 +12,7 @@ namespace VolumeControl
     /// <summary>
     /// Interaction logic for ListNotification.xaml
     /// </summary>
-    public partial class ListNotification : Window
+    public partial class ListNotification : Window, ISupportInitialize
     {
         #region Initializers
         public ListNotification()
@@ -39,6 +41,11 @@ namespace VolumeControl
             // Add an event handler
             TimeoutTimer.Tick += Handle_TimeoutTimerTick!;
         }
+        public override void EndInit()
+        {
+            base.EndInit();
+            listView.Style = FindResource("ListViewStyle") as Style;
+        }
         #endregion Initializers
 
         #region Finalizers
@@ -55,37 +62,12 @@ namespace VolumeControl
         #region Fields
         public readonly System.Windows.Forms.Timer TimeoutTimer = new() { Enabled = false };
         private bool _mouseOver = false;
-        private ListNotificationDisplayTarget _displayMode = ListNotificationDisplayTarget.None;
         #endregion Fields
 
         #region Properties
         private static Properties.Settings Settings => Properties.Settings.Default;
         private VolumeControlSettings VCSettings => _vcSettings ??= (FindResource("Settings") as VolumeControlSettings)!;
         private VolumeControlSettings? _vcSettings = null;
-        /// <summary>Determines what is shown in the list area, if anything.</summary>
-        public ListNotificationDisplayTarget DisplayMode
-        {
-            get => _displayMode;
-            set
-            {
-                switch (_displayMode = value)
-                {
-                case ListNotificationDisplayTarget.Sessions: // show sessions
-
-                    break;
-                case ListNotificationDisplayTarget.Devices: // show devices
-                    slider.SetBinding(Slider.ValueProperty, new Binding("AudioAPI.SelectedDevice.Volume")
-                    {
-                        Source = FindResource("Settings"),
-                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-                    });
-
-                    break;
-                case ListNotificationDisplayTarget.None:
-                default: break;
-                }
-            }
-        }
         /// <summary>Controls the amount of time <i>(in milliseconds)</i> that the list notification is visible for before disappearing.</summary>
         public decimal TimeoutInterval
         {
@@ -96,6 +78,11 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
+        public void HandleShow(ListNotificationDisplayTarget type)
+        {
+            if (VCSettings.NotificationMode.Equals(type))
+                Show();
+        }
         public new void Show()
         {
             if (!Enabled)

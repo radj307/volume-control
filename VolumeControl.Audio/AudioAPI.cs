@@ -914,7 +914,7 @@ namespace VolumeControl.Audio
         /// <returns><see langword="true"/> when the selected device was set to null &amp; the <see cref="SelectedDeviceSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
         public bool DeselectDevice()
         {
-            if (LockSelectedDevice || SelectedDevice == null)
+            if (SelectedDevice == null || LockSelectedDevice)
                 return false;
 
             SelectedDevice = null;

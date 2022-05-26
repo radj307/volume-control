@@ -3,22 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers.Addon;
-using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
-using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Log.Enum;
 using VolumeControl.Win32;
 using VolumeControl.WPF;
@@ -36,7 +32,7 @@ namespace VolumeControl.Helpers
 
             _audioAPI = new();
             _hWndMixer = WindowHandleGetter.GetWindowHandle();
-
+            
             var assembly = Assembly.GetAssembly(typeof(VolumeControlSettings));
             VersionNumber = assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
             ReleaseType = assembly?.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
@@ -82,7 +78,7 @@ namespace VolumeControl.Helpers
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
-            _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
+            _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;            
         }
         private void SaveSettings()
         {
@@ -153,11 +149,23 @@ namespace VolumeControl.Helpers
             get => _actionNames;
             internal set
             {
+                NotifyPropertyChanging();
                 _actionNames = value;
                 NotifyPropertyChanged();
             }
         }
         private IEnumerable<string> _actionNames = null!;
+        public IEnumerable<string> NotificationModes
+        {
+            get => _notificationModes;
+            set
+            {
+                NotifyPropertyChanging();
+                _notificationModes = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private IEnumerable<string> _notificationModes = Enum.GetNames(typeof(ListNotificationDisplayTarget));
         #endregion Other
 
         #region Statics
@@ -191,6 +199,7 @@ namespace VolumeControl.Helpers
             get => _showIcons;
             set
             {
+                NotifyPropertyChanging();
                 _showIcons = value;
                 NotifyPropertyChanged();
             }
@@ -210,6 +219,7 @@ namespace VolumeControl.Helpers
             get => _advancedHotkeyMode;
             set
             {
+                NotifyPropertyChanging();
                 _advancedHotkeyMode = value;
                 NotifyPropertyChanged();
             }
@@ -222,6 +232,8 @@ namespace VolumeControl.Helpers
             {
                 try
                 {
+                    NotifyPropertyChanging();
+
                     if (value)
                     {
                         _registryRunKeyHelper.EnableRunAtStartup(Settings.RegistryStartupValueName, ExecutablePath);
@@ -250,6 +262,7 @@ namespace VolumeControl.Helpers
             get => _startMinimized;
             set
             {
+                NotifyPropertyChanging();
                 _startMinimized = value;
                 NotifyPropertyChanged();
             }
@@ -264,6 +277,7 @@ namespace VolumeControl.Helpers
             get => _checkForUpdates;
             set
             {
+                NotifyPropertyChanging();
                 _checkForUpdates = value;
                 NotifyPropertyChanged();
             }
@@ -277,6 +291,7 @@ namespace VolumeControl.Helpers
             get => _notificationEnabled;
             set
             {
+                NotifyPropertyChanging();
                 _notificationEnabled = value;
                 NotifyPropertyChanged();
             }
@@ -287,11 +302,23 @@ namespace VolumeControl.Helpers
             get => _notificationTimeout;
             set
             {
+                NotifyPropertyChanging();
                 _notificationTimeout = value;
                 NotifyPropertyChanged();
             }
         }
         private int _notificationTimeout;
+        public ListNotificationDisplayTarget NotificationMode
+        {
+            get => _notificationMode;
+            set
+            {
+                NotifyPropertyChanging();
+                _notificationMode = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ListNotificationDisplayTarget _notificationMode = ListNotificationDisplayTarget.Sessions;
         #endregion Settings
         #endregion Properties
 
@@ -307,6 +334,10 @@ namespace VolumeControl.Helpers
             { // reset autocomplete suggestions
                 _targetAutoCompleteSource = null;
                 NotifyPropertyChanged(nameof(TargetAutoCompleteSource));
+            }
+            else if (e.PropertyName.Equals("Devices"))
+            {
+
             }
 
             NotifyPropertyChanged($"AudioAPI.{e.PropertyName}");

@@ -189,8 +189,10 @@ namespace VolumeControl
             ListNotification? lnotif = ListNotification;
             lnotif.Owner = this;
 
-            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.Show();
-            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.Show();
+            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Sessions);
+            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Sessions);
+            AudioAPI.SelectedDeviceSwitched += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
+            AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
         }
         #endregion EventHandlers
     }

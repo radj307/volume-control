@@ -14,7 +14,7 @@ Designed for adjusting the volume of your music independently of other programs,
 - Adds completely user-configurable global hotkeys to Windows.
   - You can add, remove, and rename hotkeys, as well as configure the 'action' that they perform.  
     This requires enabling *'Advanced Hotkey Mode'*, which is a fancy way of saying *'Check the box labelled with '**Advanced Hotkeys**', which is located in the **Settings** tab'*
-  - The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of [user-created plugins](https://github.com/radj307/volume-control/wiki).
+  - The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of [user-created plugins](https://radj307.github.io/volume-control).
 - Integrates a functionally superior alternative to the Windows Audio Mixer.  
   - Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.
     - Like the Windows Audio Mixer, you can do this with any running process independently at any time.

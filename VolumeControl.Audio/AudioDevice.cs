@@ -36,7 +36,7 @@ namespace VolumeControl.Audio
 
         #region Properties
         /// <inheritdoc/>
-        public string Name => DeviceFriendlyName;
+        public string Name => FriendlyName;
         /// <inheritdoc/>
         public string DeviceID => _deviceID;
         /// <summary>The instance ID.</summary>
@@ -61,12 +61,12 @@ namespace VolumeControl.Audio
         /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
         public ImageSource? Icon => SmallIcon ?? LargeIcon;
         /// <summary>
-        /// Gets the friendly name of the endpoint device, including the name of the adapter.<br/>Example: "Speakers (XYZ Audio Adapter)"
+        /// Gets the friendly name of the endpoint adapter, excluding the name of the device.<br/>Example: "Speakers (XYZ Audio Adapter)"
         /// </summary>
         /// <remarks>For more information on this property, see MSDN: <see href="https://docs.microsoft.com/en-us/windows/win32/coreaudio/pkey-device-friendlyname">PKEY_Device_FriendlyName</see></remarks>
         public string DeviceFriendlyName => _device.DeviceFriendlyName;
         /// <summary>
-        /// Gets the friendly name of the endpoint adapter, excluding the name of the device.<br/>Example: "Speakers (XYZ Audio Adapter)"
+        /// Gets the friendly name of the endpoint device, including the name of the adapter.<br/>Example: "Speakers (XYZ Audio Adapter)"
         /// </summary>
         /// <remarks>For more information on this property, see MSDN: <see href="https://docs.microsoft.com/en-us/windows/win32/coreaudio/pkey-device-friendlyname">PKEY_Device_FriendlyName</see></remarks>
         public string FriendlyName => _device.FriendlyName;
