@@ -194,6 +194,11 @@ namespace VolumeControl
             AudioAPI.SelectedDeviceSwitched += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
             AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
         }
+        private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            targetNameTextBox.SelectionStart = 0;
+            targetNameTextBox.SelectionLength = targetNameTextBox.Text.Length;
+        }
         #endregion EventHandlers
     }
 }

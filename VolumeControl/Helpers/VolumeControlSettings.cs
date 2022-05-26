@@ -335,10 +335,6 @@ namespace VolumeControl.Helpers
                 _targetAutoCompleteSource = null;
                 NotifyPropertyChanged(nameof(TargetAutoCompleteSource));
             }
-            else if (e.PropertyName.Equals("Devices"))
-            {
-
-            }
 
             NotifyPropertyChanged($"AudioAPI.{e.PropertyName}");
         }

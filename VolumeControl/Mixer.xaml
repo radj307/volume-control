@@ -55,7 +55,8 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="ButtonMouseOver" Background="{TemplateBinding Background}">
+                            <Border x:Name="ButtonMouseOver"
+                                    Background="{TemplateBinding Background}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -80,6 +81,7 @@
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="#303030"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="BorderBrush" Value="#AAA"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="SelectionBrush" Value="#569DE5"/>
                 <Setter Property="SelectionOpacity" Value="0.5"/>
@@ -338,14 +340,16 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ComboBox">
                             <Grid>
-                                <ToggleButton Name="ToggleButton" 
+                                <Border BorderThickness="1" BorderBrush="#AAA"/>
+                                <Grid Margin="1">
+                                    <ToggleButton Name="ToggleButton"
                                               Template="{StaticResource ComboBoxToggleButton}" 
                                               Grid.Column="2" 
                                               Focusable="false"
                                               IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
                                               ClickMode="Press">
-                                </ToggleButton>
-                                <ContentPresenter Name="ContentSite"
+                                    </ToggleButton>
+                                    <ContentPresenter Name="ContentSite"
                                                   IsHitTestVisible="False" 
                                                   Content="{TemplateBinding SelectionBoxItem}"
                                                   ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -353,7 +357,7 @@
                                                   Margin="3,3,23,3"
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Left" />
-                                <TextBox x:Name="PART_EditableTextBox"
+                                    <TextBox x:Name="PART_EditableTextBox"
                                          Style="{x:Null}" 
                                          Template="{StaticResource ComboBoxTextBox}" 
                                          HorizontalAlignment="Left" 
@@ -363,25 +367,26 @@
                                          Background="#00000000"
                                          Visibility="Hidden"
                                          IsReadOnly="{TemplateBinding IsReadOnly}"/>
-                                <Popup Name="Popup"
+                                    <Popup Name="Popup"
                                        Placement="Bottom"
                                        IsOpen="{TemplateBinding IsDropDownOpen}"
                                        AllowsTransparency="True" 
                                        Focusable="False"
                                        PopupAnimation="Slide">
-                                    <Grid Name="DropDown"
+                                        <Grid Name="DropDown"
                                           SnapsToDevicePixels="True"                
                                           MinWidth="{TemplateBinding ActualWidth}"
                                           MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                        <Border x:Name="DropDownBorder"
+                                            <Border x:Name="DropDownBorder"
                                                 Background="{StaticResource WindowBackgroundBrush}"
                                                 BorderThickness="1"
                                                 BorderBrush="{StaticResource SolidBorderBrush}"/>
-                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
-                                        </ScrollViewer>
-                                    </Grid>
-                                </Popup>
+                                            <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </Popup>
+                                </Grid>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="HasItems" Value="false">
@@ -540,7 +545,8 @@
                              Text="{Binding AudioAPI.Target, UpdateSourceTrigger=LostFocus}"
                              DataContext="{StaticResource Settings}"
                              IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
-                             Style="{StaticResource TextBoxStyle}"/>
+                             Style="{StaticResource TextBoxStyle}"
+                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"/>
 
                     <!--▲ TEXTBOX WATERMARK ▼-->
                     <TextBlock Grid.Column="1"
@@ -992,46 +998,20 @@
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Center"
                              Margin="5,3">
-
-                    <!-- Show in Taskbar Cell -->
-                    <CheckBox Content="Show in Taskbar"
+                    
+                    <!-- Check for Updates Cell -->
+                    <CheckBox x:Name="cbCheckForUpdates"
                               HorizontalAlignment="Left"
-                              Style="{StaticResource CheckBoxStyle}"
-                              IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Always On Top Cell -->
-                    <CheckBox Content="Always on Top"
-                              HorizontalAlignment="Left"
-                              Style="{StaticResource CheckBoxStyle}"
-                              IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
-
-
+                              Content="Check for Updates"
+                              ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
+                              IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource CheckBoxStyle}"/>
                     <!-- Run At Startup Cell -->
                     <CheckBox x:Name="cbRunAtStartup"
                               Content="Run at Startup"
                               HorizontalAlignment="Left"
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Start Minimized Cell -->
-                    <CheckBox x:Name="cbStartMinimized"
-                              Content="Start Minimized"
-                              HorizontalAlignment="Left"
-                              Style="{StaticResource CheckBoxStyle}"
-                              IsChecked="{Binding StartMinimized, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <!-- Advanced Hotkeys Cell -->
-                    <CheckBox x:Name="cbAdvancedHotkeys"
-                              HorizontalAlignment="Left"
-                              Content="Advanced Hotkeys"
-                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
-                              Style="{StaticResource CheckBoxStyle}"
-                              IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Reset Hotkeys Cell -->
-                    <Button x:Name="bResetHotkeys"
-                            ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
-                            Content=" Reset Hotkeys "
-                            Style="{StaticResource ButtonStyle}"
-                            Click="Handle_ResetHotkeysClick"
-                            Margin="0,1"/>
 
                     <!-- Show Icons Cell -->
                     <CheckBox x:Name="cbShowIcons"
@@ -1040,13 +1020,40 @@
                               ToolTip="Determines whether or not icons are shown for audio devices and sessions."
                               Style="{StaticResource CheckBoxStyle}"
                               IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!-- Check for Updates Cell -->
-                    <CheckBox x:Name="cbCheckForUpdates"
+                    <!-- Advanced Hotkeys Cell -->
+                    <CheckBox x:Name="cbAdvancedHotkeys"
                               HorizontalAlignment="Left"
-                              Content="Check for Updates"
-                              ToolTip="When enabled, the program checks for updates when it first starts, and notifies you if there is a new version available."
-                              IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource CheckBoxStyle}"/>
+                              Content="Advanced Hotkeys"
+                              ToolTip="This allows you to add, remove, and rename hotkeys &amp; their action bindings."
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!-- Start Minimized Cell -->
+                    <CheckBox x:Name="cbStartMinimized"
+                              Content="Start Minimized"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding StartMinimized, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!-- Show in Taskbar Cell -->
+                    <CheckBox Content="Show in Taskbar"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <!-- Reset Hotkeys Cell -->
+                    <Button x:Name="bResetHotkeys"
+                            ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
+                            Content="  Reset Hotkeys  "
+                            Style="{StaticResource ButtonStyle}"
+                            Click="Handle_ResetHotkeysClick"
+                            Width="Auto"
+                            HorizontalAlignment="Left"
+                            Margin="5,0"/>
+
+                    <!-- Always On Top Cell -->
+                    <CheckBox Content="Always on Top"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource CheckBoxStyle}"
+                              IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"/>
                 </UniformGrid>
 
                 <!-- Divider -->

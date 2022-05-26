@@ -32,7 +32,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="#AAA" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="25" />
