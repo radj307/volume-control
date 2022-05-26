@@ -713,6 +713,11 @@ namespace VolumeControl.Audio
             // if the selected session is locked, return
             if (LockSelectedSession) return;
 
+            if (Sessions.Count == 0)
+            {
+                if (SelectedSession == null) return;
+                SelectedSession = null;
+            }
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
                 int index = Sessions.IndexOf(session);
@@ -746,6 +751,11 @@ namespace VolumeControl.Audio
             // if the selected session is locked, return
             if (LockSelectedSession) return;
 
+            if (Sessions.Count == 0)
+            {
+                if (SelectedSession == null) return;
+                SelectedSession = null;
+            }
             if (SelectedSession is AudioSession session)
             { // a valid audio session is selected
                 int index = Sessions.IndexOf(session);
@@ -762,15 +772,18 @@ namespace VolumeControl.Audio
             NotifySessionSwitch(); //< SelectedSessionSwitched
         }
         /// <summary>
-        /// Sets the selected session to null.<br/>Does nothing if <see cref="SelectedSession"/> is already null.
+        /// Sets <see cref="SelectedSession"/> to <see langword="null"/>.<br/>
+        /// Does nothing if <see cref="SelectedSession"/> is already null or if the selected session is locked.
         /// </summary>
-        public void DeselectSession()
+        /// <returns><see langword="true"/> when <see cref="SelectedSession"/> was set to <see langword="null"/> &amp; the <see cref="SelectedSessionSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
+        public bool DeselectSession()
         {
-            if (LockSelectedSession)
-                return;
+            if (LockSelectedSession || SelectedSession == null)
+                return false;
 
             SelectedSession = null;
             NotifySessionSwitch(); //< SelectedSessionSwitched
+            return true;
         }
         #endregion SessionSelection
         #region DeviceSelection
@@ -840,19 +853,22 @@ namespace VolumeControl.Audio
             }
 
             // if the selected device is locked, return
-            if (LockSelectedDevice) return;
+            if (LockSelectedDevice)
+                return;
 
-            if (SelectedDevice is AudioDevice device)
+            if (Devices.Count == 0)
+            {
+                if (SelectedDevice == null) return;
+                SelectedDevice = null;
+            }
+            else if (SelectedDevice is AudioDevice device)
             {
                 int index = Devices.IndexOf(device);
                 if (index == -1 || (index += 1) >= Devices.Count)
                     index = 0;
                 SelectedDevice = Devices[index];
             }
-            else if (Devices.Count > 0)
-            {
-                SelectedDevice = Devices[0];
-            }
+            else SelectedDevice = Devices[0];
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
@@ -874,42 +890,53 @@ namespace VolumeControl.Audio
             // if the selected device is locked, return
             if (LockSelectedDevice) return;
 
-            if (SelectedDevice is AudioDevice device)
+            if (Devices.Count == 0)
+            {
+                if (SelectedDevice == null) return;
+                SelectedDevice = null;
+            }
+            else if (SelectedDevice is AudioDevice device)
             {
                 int index = Devices.IndexOf(device);
                 if (index == -1 || (index -= 1) < 0)
                     index = Devices.Count - 1;
                 SelectedDevice = Devices[index];
             }
-            else if (Devices.Count > 0)
-            {
-                SelectedDevice = Devices[^1];
-            }
+            else SelectedDevice = Devices[^1];
 
             NotifyDeviceSwitch(); //< SelectedDeviceSwitched
         }
         /// <summary>
-        /// Sets the selected device to null, unless the selection is locked.<br/>Does nothing if <see cref="SelectedDevice"/> is already null.
+        /// Sets <see cref="SelectedDevice"/> to <see langword="null"/>.<br/>
+        /// This does nothing if 
+        /// <br/>Does nothing if <see cref="SelectedDevice"/> is already null, or if the selected device is locked.
         /// </summary>
-        public void DeselectDevice()
+        /// <returns><see langword="true"/> when the selected device was set to null &amp; the <see cref="SelectedDeviceSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
+        public bool DeselectDevice()
         {
-            if (LockSelectedDevice)
-                return;
+            if (LockSelectedDevice || SelectedDevice == null)
+                return false;
 
             SelectedDevice = null;
             NotifyDeviceSwitch();
+            return true;
         }
         /// <summary>
-        /// Sets the selected device to the default device, unless the selection is locked.
+        /// Sets <see cref="SelectedDevice"/> to the result of <see cref="GetDefaultDevice()"/>.<br/>
+        /// Does nothing if the selected device is locked, or if the selected device is already set to the default device.
         /// </summary>
-        public void SelectDefaultDevice()
+        /// <returns><see langword="true"/> when <see cref="SelectedDevice"/> was changed &amp; the <see cref="SelectedDeviceSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
+        public bool SelectDefaultDevice()
         {
             if (LockSelectedDevice)
-                return;
-            AudioDevice? defaultDevice = GetDefaultDevice();
-
-            if (SelectedDevice != defaultDevice)
-                SelectedDevice = defaultDevice;
+                return false;
+            else if (GetDefaultDevice() is AudioDevice device && SelectedDevice != device)
+            {
+                SelectedDevice = device;
+                NotifyDeviceSwitch();
+                return true;
+            }
+            return false;
         }
         #endregion DeviceSelection
         #endregion Selection
