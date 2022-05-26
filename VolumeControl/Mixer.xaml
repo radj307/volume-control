@@ -1042,12 +1042,12 @@
                     <!-- Reset Hotkeys Cell -->
                     <Button x:Name="bResetHotkeys"
                             ToolTip="Resets all Hotkeys to their default values. (Requires confirmation)"
-                            Content="  Reset Hotkeys  "
+                            Content="   Reset Hotkeys   "
                             Style="{StaticResource ButtonStyle}"
                             Click="Handle_ResetHotkeysClick"
                             Width="Auto"
-                            HorizontalAlignment="Left"
-                            Margin="5,0"/>
+                            HorizontalAlignment="Center"
+                            Margin="5,0,16,0"/>
 
                     <!-- Always On Top Cell -->
                     <CheckBox Content="Always on Top"
