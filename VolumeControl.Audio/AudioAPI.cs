@@ -177,7 +177,7 @@ namespace VolumeControl.Audio
                 _selectedDevice = value;
 
                 // reload the session list with the new device
-                if (!CheckAllDevices && _selectedDevice != null)
+                if (!CheckAllDevices)
                     ReloadSessionList();
 
                 // trigger events
