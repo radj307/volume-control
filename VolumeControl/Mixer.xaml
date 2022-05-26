@@ -554,7 +554,7 @@
                               Content="Lock"
                               Width="52"
                               Height="Auto"
-                              Margin="2,0,9,0"
+                              Margin="3,0,9,0"
                               DataContext="{StaticResource Settings}"
                               IsChecked="{Binding AudioAPI.LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                               Style="{StaticResource CheckBoxStyle}"/>
@@ -950,15 +950,16 @@
                         BorderThickness="0,0,0,1"/>
 
                 <!-- Notifications Cell -->
-                <Grid HorizontalAlignment="Stretch"
+                <Grid HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Grid.Column="1"
-                      Grid.Row="2">
+                      Grid.Row="2"
+                      Margin="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <!--<ColumnDefinition Width="*"/>-->
                         <ColumnDefinition Width="3"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <!-- Enable Notifications Checkbox Control -->
                     <CheckBox x:Name="cbEnableNotifications"
@@ -969,7 +970,8 @@
                     <ComboBox Grid.Column="1"
                               ItemsSource="{Binding NotificationModes, Source={StaticResource Settings}}"
                               SelectedItem="{Binding NotificationMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource ComboBoxCustomStyle}">
+                              Style="{StaticResource ComboBoxCustomStyle}"
+                              Visibility="Collapsed">
                     </ComboBox>
                     <Controls:NumericUpDown Grid.Column="3"
                                             ToolTip="The time in milliseconds before the notification disappears after being displayed."
