@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['hotkeyactionattribute_380',['HotkeyActionAttribute',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html',1,'VolumeControl::Hotkeys::Attributes']]],
-  ['hotkeyapi_381',['HotkeyAPI',['../class_hotkey_lib_1_1_hotkey_a_p_i.html',1,'HotkeyLib']]],
-  ['hotkeymanager_382',['HotkeyManager',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html',1,'VolumeControl::Hotkeys']]],
-  ['hotkeymanagersettings_383',['HotkeyManagerSettings',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html',1,'VolumeControl::Hotkeys']]]
+  ['hotkeyactionattribute_383',['HotkeyActionAttribute',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html',1,'VolumeControl::Hotkeys::Attributes']]],
+  ['hotkeyapi_384',['HotkeyAPI',['../class_hotkey_lib_1_1_hotkey_a_p_i.html',1,'HotkeyLib']]],
+  ['hotkeymanager_385',['HotkeyManager',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html',1,'VolumeControl::Hotkeys']]],
+  ['hotkeymanagersettings_386',['HotkeyManagerSettings',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html',1,'VolumeControl::Hotkeys']]]
 ];

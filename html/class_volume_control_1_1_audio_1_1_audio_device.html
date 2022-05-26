@@ -123,7 +123,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a3797abd3ea1f20fa9bdebee0b296d9b3"><td class="memItemLeft" align="right" valign="top"><a id="a3797abd3ea1f20fa9bdebee0b296d9b3"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a3797abd3ea1f20fa9bdebee0b296d9b3">Name</a> =&gt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6">DeviceFriendlyName</a></td></tr>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a3797abd3ea1f20fa9bdebee0b296d9b3">Name</a> =&gt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ae9c4febcd7f193d2561f74b7827120dc">FriendlyName</a></td></tr>
 <tr class="separator:a3797abd3ea1f20fa9bdebee0b296d9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84d1002126a6c731549117b683356efd"><td class="memItemLeft" align="right" valign="top"><a id="a84d1002126a6c731549117b683356efd"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd">DeviceID</a> =&gt; _deviceID</td></tr>
@@ -145,11 +145,11 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
  If both icons are set to null, this returns null.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#ac4c8464264fd1df3ad978cb644c981f8">More...</a><br /></td></tr>
 <tr class="separator:ac4c8464264fd1df3ad978cb644c981f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a9655f50d04f49a7c71e93eb383d1e6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6">DeviceFriendlyName</a> =&gt; _device.DeviceFriendlyName</td></tr>
-<tr class="memdesc:a6a9655f50d04f49a7c71e93eb383d1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the friendly name of the endpoint device, including the name of the adapter.<br  />
+<tr class="memdesc:a6a9655f50d04f49a7c71e93eb383d1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the friendly name of the endpoint adapter, excluding the name of the device.<br  />
 Example: "Speakers (XYZ Audio Adapter)"  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6">More...</a><br /></td></tr>
 <tr class="separator:a6a9655f50d04f49a7c71e93eb383d1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9c4febcd7f193d2561f74b7827120dc"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ae9c4febcd7f193d2561f74b7827120dc">FriendlyName</a> =&gt; _device.FriendlyName</td></tr>
-<tr class="memdesc:ae9c4febcd7f193d2561f74b7827120dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the friendly name of the endpoint adapter, excluding the name of the device.<br  />
+<tr class="memdesc:ae9c4febcd7f193d2561f74b7827120dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the friendly name of the endpoint device, including the name of the adapter.<br  />
 Example: "Speakers (XYZ Audio Adapter)"  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#ae9c4febcd7f193d2561f74b7827120dc">More...</a><br /></td></tr>
 <tr class="separator:ae9c4febcd7f193d2561f74b7827120dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acad01f956760d0a9cf7dfbf14bb20f7f"><td class="memItemLeft" align="right" valign="top">PropertyStore&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f">Properties</a> =&gt; _device.Properties</td></tr>
@@ -271,7 +271,7 @@ If you're writing an addon, install the 'NAudio' nuget package if you need to be
       </table>
 </div><div class="memdoc">
 
-<p>Gets the friendly name of the endpoint device, including the name of the adapter.<br  />
+<p>Gets the friendly name of the endpoint adapter, excluding the name of the device.<br  />
 Example: "Speakers (XYZ Audio Adapter)" </p>
 <p>For more information on this property, see MSDN: PKEY_Device_FriendlyName</p>
 
@@ -307,7 +307,7 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
       </table>
 </div><div class="memdoc">
 
-<p>Gets the friendly name of the endpoint adapter, excluding the name of the device.<br  />
+<p>Gets the friendly name of the endpoint device, including the name of the adapter.<br  />
 Example: "Speakers (XYZ Audio Adapter)" </p>
 <p>For more information on this property, see MSDN: PKEY_Device_FriendlyName</p>
 

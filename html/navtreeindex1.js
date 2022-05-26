@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6":[3,0,1,1,4,3],
 "class_volume_control_1_1_audio_1_1_audio_device.html#a775d911a510e8ec451bdd062fb7bbbe5":[3,0,1,1,4,5],
 "class_volume_control_1_1_audio_1_1_audio_device.html#a82c68b912ea78bea0600a85fdf52fe4d":[3,0,1,1,4,9],
 "class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd":[3,0,1,1,4,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions.html":[3,0,1,4,1,0],
 "class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions.html#a8d8495552842e4b7d562afd08d0d7fdd":[3,0,1,4,1,0,0],
 "class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html":[3,0,1,4,1,1],
-"class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html#a59e9514741a2b5e365943d677bfb2a69":[3,0,1,4,1,1,3],
-"class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html#a95a5e4724c22238696c00ef3f0285b55":[3,0,1,4,1,1,4]
+"class_volume_control_1_1_log_1_1_extensions_1_1_event_type_extensions.html#a59e9514741a2b5e365943d677bfb2a69":[3,0,1,4,1,1,3]
 };

@@ -8,5 +8,6 @@ var searchData=
   ['notifypressed_201',['NotifyPressed',['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#aabd6b1d340cd547c9af21b1b1220bbd0',1,'VolumeControl.Hotkeys.BindableWindowsHotkey.NotifyPressed(HandledEventArgs e)'],['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a0712cdbcdcfc644a4b3a8717986c4806',1,'VolumeControl.Hotkeys.BindableWindowsHotkey.NotifyPressed()']]],
   ['now_202',['Now',['../class_volume_control_1_1_log_1_1_timestamp.html#aa61e2bb487aa250e2c1d290ec0e3d981',1,'VolumeControl::Log::Timestamp']]],
   ['nullaction_203',['NullAction',['../interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a35b6c464cbb69bb1062da9d38fc28f5a',1,'VolumeControl::Hotkeys::Interfaces::IHotkeyActionManager']]],
-  ['nulltobooleanconverter_204',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]]
+  ['nulltobooleanconverter_204',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['numericupdown_205',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
 ];

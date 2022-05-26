@@ -14,6 +14,9 @@ var hierarchy =
     [ "VolumeControl.Hotkeys.Addons.AudioAPIActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html", null ],
     [ "VolumeControl.Core.CompatibleVersions", "struct_volume_control_1_1_core_1_1_compatible_versions.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
+    [ "Control", null, [
+      [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
+    ] ],
     [ "VolumeControl.Log.Extensions.DateTimeExtensions", "class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions.html", null ],
     [ "VolumeControl.Core.Extensions.EnumExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_enum_extensions.html", null ],
     [ "EventArgs", null, [
