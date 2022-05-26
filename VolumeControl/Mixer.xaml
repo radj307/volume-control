@@ -441,12 +441,6 @@
                 <Setter Property="Foreground" Value="#9A9A9A"/>
                 <Setter Property="IsHitTestVisible" Value="False"/>
             </Style>
-            <!-- Integer Spinner Style -->
-            <Style x:Key="NumericUpDownStyle" TargetType="Controls:NumericUpDown">
-                <Setter Property="Background" Value="#303030"/>
-                <Setter Property="Foreground" Value="#00000000"/>
-                <Setter Property="MaxDecimalPlaces" Value="0"/>
-            </Style>
 
             <!-- EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions) -->
             <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged"/>
@@ -629,8 +623,7 @@
                                                 MinValue="{Binding AudioAPI.ReloadIntervalMin}"
                                                 MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
                                                 Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                DataContext="{StaticResource Settings}"
-                                                Style="{StaticResource NumericUpDownStyle}"/>
+                                                DataContext="{StaticResource Settings}"/>
                     </Grid>
 
                     <Grid Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Center">
@@ -648,8 +641,7 @@
                                                 MinValue="0"
                                                 MaxValue="100"
                                                 Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}"
-                                                DataContext="{StaticResource Settings}"
-                                                Style="{StaticResource NumericUpDownStyle}"/>
+                                                DataContext="{StaticResource Settings}"/>
                     </Grid>
                 </Grid>
 
