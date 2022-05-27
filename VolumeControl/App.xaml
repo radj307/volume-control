@@ -1,44 +1,46 @@
-﻿<Application x:Class="VolumeControl.App"
-             xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
-             xmlns:local="clr-namespace:VolumeControl"
-             xmlns:helpers="clr-namespace:VolumeControl.Helpers"
-             xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
-             xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
-             xmlns:sys="clr-namespace:System;assembly=netstandard"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Mixer.xaml"
-             ShutdownMode="OnMainWindowClose"
-             Exit="Application_Exit">
+﻿<Application
+    x:Class="VolumeControl.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+    xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
+    xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
+    xmlns:local="clr-namespace:VolumeControl"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    Exit="Application_Exit"
+    ShutdownMode="OnMainWindowClose"
+    StartupUri="Mixer.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
             <sys:Double x:Key="GlobalFontSize">13.3</sys:Double>
 
-            <hklib:KeysList x:Key="KeyOptions"/>
-            <!-- BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter) -->
-            <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <hklib:KeysList x:Key="KeyOptions" />
+            <!--  BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter)  -->
+            <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-            <Converters:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter"/>
-            <Converters:BooleanInverter x:Key="InvertConverter"/>
-            <Converters:NullToBooleanConverter x:Key="IsNullConverter"/>
-            
-            <!-- Image Icons -->
+            <Converters:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter" />
+            <Converters:BooleanInverter x:Key="InvertConverter" />
+            <Converters:NullToBooleanConverter x:Key="IsNullConverter" />
+
+            <!--  Image Icons  -->
             <Style x:Key="IconImageStyle" TargetType="Image">
-                <Setter Property="MaxHeight" Value="16"/>
-                <Setter Property="MaxWidth" Value="16"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="MaxHeight" Value="16" />
+                <Setter Property="MaxWidth" Value="16" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
 
-            <helpers:VolumeControlSettings x:Key="Settings"/>
+            <helpers:VolumeControlSettings x:Key="Settings" />
 
-            <local:ListNotification x:Key="Notification"
-                            LockSelection="{Binding AudioAPI.LockSelectedSession, Mode=OneWay}"
-                            SliderValue="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            ValueText="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                            ShowIcons="{Binding ShowIcons}"
-                            DataContext="{StaticResource Settings}"/>
+            <local:ListNotification
+                x:Key="Notification"
+                DataContext="{StaticResource Settings}"
+                LockSelection="{Binding AudioAPI.LockSelectedSession, Mode=OneWay}"
+                ShowIcons="{Binding ShowIcons}"
+                SliderValue="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ValueText="{Binding AudioAPI.SelectedSession.Volume, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
