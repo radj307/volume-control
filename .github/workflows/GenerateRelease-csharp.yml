@@ -83,8 +83,9 @@ jobs:
         
     - name: Stage Artifacts
       run:  |
+            cd ${{github.workspace}}/sdk
+            zip -T9 ../SDK.zip ./*
             cd ${{github.workspace}}
-            zip -T9 SDK.zip sdk/*
 
     - run:  ls -lAghR
 
