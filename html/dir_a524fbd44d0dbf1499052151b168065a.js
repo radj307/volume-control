@@ -2,12 +2,9 @@ var dir_a524fbd44d0dbf1499052151b168065a =
 [
     [ "Endpoints", "dir_f9538c984ad656b042c5452ce79bc4bb.html", "dir_f9538c984ad656b042c5452ce79bc4bb" ],
     [ "Enum", "dir_dfee6aaf6fde6236538c0995ea829e09.html", "dir_dfee6aaf6fde6236538c0995ea829e09" ],
-    [ "Extensions", "dir_2c14f07990a2c03f8d47214b2653e6c0.html", "dir_2c14f07990a2c03f8d47214b2653e6c0" ],
     [ "Interfaces", "dir_2f455077dc522c3d8f500259362a99bc.html", "dir_2f455077dc522c3d8f500259362a99bc" ],
     [ "Properties", "dir_dfd2132286a029f47d055cf27da306d6.html", "dir_dfd2132286a029f47d055cf27da306d6" ],
     [ "FLog.cs", null, null ],
-    [ "GlobalSuppressions.cs", null, null ],
-    [ "LogMessage.cs", null, null ],
     [ "LogWriter.cs", null, null ],
     [ "Settings.cs", null, null ],
     [ "Timestamp.cs", null, null ]

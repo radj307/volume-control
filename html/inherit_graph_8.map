@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,93,73"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args.html" title="Event arguments for the TargetChangedEventHandler event type. &#160;This simply includes the TargetName pr..." alt="" coords="141,5,352,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html" title="Event arguments for the TargetChangedEventHandler event." alt="" coords="141,71,352,112"/>
+<area shape="rect" id="node1" href="$class_volume_control_1_1_audio_1_1_get_icons_extensions.html" title="Extension methods for AudioDevice and AudioSession types." alt="" coords="5,5,225,47"/>
 </map>

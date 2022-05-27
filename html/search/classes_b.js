@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['mathext_407',['MathExt',['../class_volume_control_1_1_core_1_1_math_ext.html',1,'VolumeControl::Core']]],
-  ['memoryendpoint_408',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
-  ['modifierextensions_409',['ModifierExtensions',['../class_hotkey_lib_1_1_modifier_extensions.html',1,'HotkeyLib']]],
-  ['multibinding_410',['MultiBinding',['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html',1,'VolumeControl::WPF::Bindings']]],
-  ['multibindingbooleanconverter_411',['MultiBindingBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html',1,'VolumeControl::WPF::Converters']]]
+  ['nulltobooleanconverter_432',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['numericupdown_433',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
 ];

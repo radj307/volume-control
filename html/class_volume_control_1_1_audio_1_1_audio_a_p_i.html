@@ -313,6 +313,10 @@ Events</h2></td></tr>
 <tr class="memitem:a788b3edaac6615122bb8ddff658c9994"><td class="memItemLeft" align="right" valign="top">TargetChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a788b3edaac6615122bb8ddff658c9994">TargetChanged</a></td></tr>
 <tr class="memdesc:a788b3edaac6615122bb8ddff658c9994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a788b3edaac6615122bb8ddff658c9994">More...</a><br /></td></tr>
 <tr class="separator:a788b3edaac6615122bb8ddff658c9994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0530f44ab497bff516cf33feaf00d3b3"><td class="memItemLeft" align="right" valign="top">VolumeEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a0530f44ab497bff516cf33feaf00d3b3">VolumeChanged</a></td></tr>
+<tr class="memdesc:a0530f44ab497bff516cf33feaf00d3b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the volume level or mute state of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac7e1723e0664f35e43c48a1ec51c7175" title="The currently selected AudioDevice, or null if nothing is selected.">SelectedDevice</a> or <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac55f0f083eeac1b4cc1c561caa2982a2" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> is changed.<br  />
+ To differentiate between devices and sessions, see the VolumeEventArgs.Target property.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a0530f44ab497bff516cf33feaf00d3b3">More...</a><br /></td></tr>
+<tr class="separator:a0530f44ab497bff516cf33feaf00d3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab74d94d0bcbcbb04c911ca90b07a4c65"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab74d94d0bcbcbb04c911ca90b07a4c65">PropertyChanged</a></td></tr>
 <tr class="memdesc:ab74d94d0bcbcbb04c911ca90b07a4c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when a member property's value is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab74d94d0bcbcbb04c911ca90b07a4c65">More...</a><br /></td></tr>
 <tr class="separator:ab74d94d0bcbcbb04c911ca90b07a4c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -633,7 +637,7 @@ Does nothing if <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p
 <dl class="section return"><dt>Returns</dt><dd>ISession if a session was found.<br  />
 Returns null if nothing was found.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00015">VolumeControl.Audio.Interfaces.IProcess.PID</a>, <a class="el" href="#l00108">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00110">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, <a class="el" href="#l00106">VolumeControl.Audio.AudioSession.ProcessName</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00015">VolumeControl.Audio.Interfaces.IProcess.PID</a>, <a class="el" href="#l00107">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00109">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, <a class="el" href="#l00105">VolumeControl.Audio.AudioSession.ProcessName</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
 
 </div>
 </div>
@@ -695,12 +699,11 @@ Returns null if nothing was found.</dd></dl>
 <p>This method checks <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#abe6f12a6b0015c28ef3431eac696dcc4" title="An observable list of all known audio devices.">Devices</a> first and only creates a new device if it wasn't found.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint.">AudioDevice</a></dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00929">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00972">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i_a5007215c50125859c0ed3806e98ffa81_icgraph.svg" width="459" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i_a5007215c50125859c0ed3806e98ffa81_icgraph.svg" width="459" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -771,7 +774,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of string types containing the requested properties from each session.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00108">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00110">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, <a class="el" href="#l00106">VolumeControl.Audio.AudioSession.ProcessName</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00107">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00109">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, <a class="el" href="#l00105">VolumeControl.Audio.AudioSession.ProcessName</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
 
 </div>
 </div>
@@ -885,7 +888,7 @@ Session volume can be any value from 0 to 100, and is <b>automatically</b> clamp
 
 <p>Performs a selective update on the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#abe6f12a6b0015c28ef3431eac696dcc4" title="An observable list of all known audio devices.">Devices</a> list property by removing old/disabled/unplugged entries and adding newly detected ones. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00846">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00881">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00889">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00924">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -918,7 +921,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00703">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00741">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00734">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00772">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -946,12 +949,11 @@ Here is the caller graph for this function:</div>
  Does nothing if the selected device is locked, or if the selected device is already set to the default device. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac7e1723e0664f35e43c48a1ec51c7175" title="The currently selected AudioDevice, or null if nothing is selected.">SelectedDevice</a> was changed &amp; the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ae757cb6d2930d508fed741232672acfc" title="Triggered when the selected device is changed.">SelectedDeviceSwitched</a> event was fired; otherwise <code>false</code>.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00398">VolumeControl.Audio.AudioAPI.GetDefaultDevice()</a>, <a class="el" href="#l00219">VolumeControl.Audio.AudioAPI.LockSelectedDevice</a>, and <a class="el" href="#l00163">VolumeControl.Audio.AudioAPI.SelectedDevice</a>.</p>
+<p class="reference">References <a class="el" href="#l00417">VolumeControl.Audio.AudioAPI.GetDefaultDevice()</a>, <a class="el" href="#l00219">VolumeControl.Audio.AudioAPI.LockSelectedDevice</a>, and <a class="el" href="#l00163">VolumeControl.Audio.AudioAPI.SelectedDevice</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i_a4fd0455dc520b98bf4ff3b55ad6c46e4_cgraph.svg" width="459" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i_a4fd0455dc520b98bf4ff3b55ad6c46e4_cgraph.svg" width="459" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1004,7 +1006,7 @@ Here is the call graph for this function:</div>
 Automatically loops back around if the selection index goes out of range. </p>
 <p>If <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac55f0f083eeac1b4cc1c561caa2982a2" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> is set to null, the first element in <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5414b442307f6ffd0c2aa4d8cfa0ccd3" title="An observable list of all known audio sessions.">Sessions</a> is selected.</p>
 
-<p class="reference">References <a class="el" href="#l00237">VolumeControl.Audio.AudioAPI.LockSelectedSession</a>, <a class="el" href="#l00141">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</a>, <a class="el" href="#l00448">VolumeControl.Audio.AudioAPI.ReloadSessionList()</a>, <a class="el" href="#l00195">VolumeControl.Audio.AudioAPI.SelectedSession</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00237">VolumeControl.Audio.AudioAPI.LockSelectedSession</a>, <a class="el" href="#l00141">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</a>, <a class="el" href="#l00467">VolumeControl.Audio.AudioAPI.ReloadSessionList()</a>, <a class="el" href="#l00195">VolumeControl.Audio.AudioAPI.SelectedSession</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1061,7 +1063,7 @@ Here is the call graph for this function:</div>
 Automatically loops back around if the selection index goes out of range. </p>
 <p>If <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac55f0f083eeac1b4cc1c561caa2982a2" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> is set to null, the last element in <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5414b442307f6ffd0c2aa4d8cfa0ccd3" title="An observable list of all known audio sessions.">Sessions</a> is selected.</p>
 
-<p class="reference">References <a class="el" href="#l00237">VolumeControl.Audio.AudioAPI.LockSelectedSession</a>, <a class="el" href="#l00141">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</a>, <a class="el" href="#l00448">VolumeControl.Audio.AudioAPI.ReloadSessionList()</a>, <a class="el" href="#l00195">VolumeControl.Audio.AudioAPI.SelectedSession</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00237">VolumeControl.Audio.AudioAPI.LockSelectedSession</a>, <a class="el" href="#l00141">VolumeControl.Audio.AudioAPI.ReloadOnHotkey</a>, <a class="el" href="#l00467">VolumeControl.Audio.AudioAPI.ReloadSessionList()</a>, <a class="el" href="#l00195">VolumeControl.Audio.AudioAPI.SelectedSession</a>, and <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.Sessions</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1271,7 +1273,7 @@ Does nothing if <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p
 
 <p>An observable list of all known audio devices. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00431">VolumeControl.Audio.AudioAPI.FindDevice()</a>, <a class="el" href="#l00846">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00881">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00450">VolumeControl.Audio.AudioAPI.FindDevice()</a>, <a class="el" href="#l00889">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00924">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
 
 </div>
 </div>
@@ -1297,7 +1299,7 @@ Does nothing if <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p
 
 <p>Prevents <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac7e1723e0664f35e43c48a1ec51c7175" title="The currently selected AudioDevice, or null if nothing is selected.">SelectedDevice</a> from being modified. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00915">VolumeControl.Audio.AudioAPI.DeselectDevice()</a>, <a class="el" href="#l00929">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>, <a class="el" href="#l00846">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00881">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00958">VolumeControl.Audio.AudioAPI.DeselectDevice()</a>, <a class="el" href="#l00972">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>, <a class="el" href="#l00889">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, and <a class="el" href="#l00924">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>.</p>
 
 </div>
 </div>
@@ -1323,7 +1325,7 @@ Does nothing if <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p
 
 <p>Prevents <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac55f0f083eeac1b4cc1c561caa2982a2" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> from being modified. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00779">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00703">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00741">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00810">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00734">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00772">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
@@ -1373,7 +1375,7 @@ Does nothing if <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p
 <p>When true, the 'Reload on Hotkey' feature is enabled; causing the session list to be refreshed when a relevant hotkey is pressed.<br  />
 Note that this is only triggered every few seconds, as it uses an internal timer mechanism to prevent spam. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00846">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, <a class="el" href="#l00703">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00881">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>, and <a class="el" href="#l00741">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00889">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, <a class="el" href="#l00734">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00924">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>, and <a class="el" href="#l00772">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
@@ -1424,7 +1426,7 @@ Note that this is only triggered every few seconds, as it uses an internal timer
 <p>The currently selected <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint.">AudioDevice</a>, or null if nothing is selected. </p>
 <p><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a146e2a6719ea0e35d78819bb1964f858" title="Prevents SelectedDevice from being modified.">LockSelectedDevice</a> must be false in order to change this.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00808">VolumeControl.Audio.AudioAPI.DecrementDeviceVolume()</a>, <a class="el" href="#l00915">VolumeControl.Audio.AudioAPI.DeselectDevice()</a>, <a class="el" href="#l00929">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>, <a class="el" href="#l00846">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, <a class="el" href="#l00881">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>, <a class="el" href="#l00826">VolumeControl.Audio.AudioAPI.SetDeviceMute()</a>, and <a class="el" href="#l00835">VolumeControl.Audio.AudioAPI.ToggleDeviceMute()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00842">VolumeControl.Audio.AudioAPI.DecrementDeviceVolume()</a>, <a class="el" href="#l00958">VolumeControl.Audio.AudioAPI.DeselectDevice()</a>, <a class="el" href="#l00972">VolumeControl.Audio.AudioAPI.SelectDefaultDevice()</a>, <a class="el" href="#l00889">VolumeControl.Audio.AudioAPI.SelectNextDevice()</a>, <a class="el" href="#l00924">VolumeControl.Audio.AudioAPI.SelectPreviousDevice()</a>, <a class="el" href="#l00863">VolumeControl.Audio.AudioAPI.SetDeviceMute()</a>, and <a class="el" href="#l00875">VolumeControl.Audio.AudioAPI.ToggleDeviceMute()</a>.</p>
 
 </div>
 </div>
@@ -1451,7 +1453,7 @@ Note that this is only triggered every few seconds, as it uses an internal timer
 <p>The currently selected <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>, or null if nothing is selected. </p>
 <p><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a" title="Prevents SelectedSession from being modified.">LockSelectedSession</a> must be false in order to change this.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00663">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00779">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00703">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00741">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00682">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, and <a class="el" href="#l00691">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00685">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00810">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00734">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00772">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00707">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, and <a class="el" href="#l00719">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
 
 </div>
 </div>
@@ -1477,7 +1479,7 @@ Note that this is only triggered every few seconds, as it uses an internal timer
 
 <p>An observable list of all known audio sessions. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00525">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier()</a>, <a class="el" href="#l00608">VolumeControl.Audio.AudioAPI.GetSessionNames()</a>, <a class="el" href="#l00703">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00741">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00544">VolumeControl.Audio.AudioAPI.FindSessionWithIdentifier()</a>, <a class="el" href="#l00627">VolumeControl.Audio.AudioAPI.GetSessionNames()</a>, <a class="el" href="#l00734">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00772">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
@@ -1690,6 +1692,42 @@ Note that this is only triggered every few seconds, as it uses an internal timer
 <p>Triggered before the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed, allowing for target validation. </p>
 <p>Note that this is triggered <b>before</b> the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621" title="Triggered before a member property&#39;s value is changed.">PropertyChanging</a> event for <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a>.<br  />
 If this event cancels the change, the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621" title="Triggered before a member property&#39;s value is changed.">PropertyChanging</a> event is not fired.</p>
+
+</div>
+</div>
+<a id="a0530f44ab497bff516cf33feaf00d3b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0530f44ab497bff516cf33feaf00d3b3">&#9670;&nbsp;</a></span>VolumeChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VolumeEventHandler? VolumeControl.Audio.AudioAPI.VolumeChanged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggered when the volume level or mute state of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac7e1723e0664f35e43c48a1ec51c7175" title="The currently selected AudioDevice, or null if nothing is selected.">SelectedDevice</a> or <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac55f0f083eeac1b4cc1c561caa2982a2" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> is changed.<br  />
+ To differentiate between devices and sessions, see the VolumeEventArgs.Target property. </p>
+<p>Note that this event is only triggered by <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">AudioAPI</a> methods, and as a result <b>does not trigger when the volume is changed using the UI or by any other means!</b><br  />
+ A non-exhaustive list of methods that trigger this event:</p><ul>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a58abf3f007b9492696a45128fe1eacdd" title="Increments the endpoint volume of the currently selected device.  This affects the maximum volume of ...">IncrementDeviceVolume(int)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a35157b17e75306e2250b99025604b565" title="Decrements the endpoint volume of the currently selected device.  This affects the maximum volume of ...">DecrementDeviceVolume(int)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a90504ea8b714b8362542b70f66c2f33c" title="Sets the mute state of SelectedDevice. Does nothing if SelectedDevice is null.">SetDeviceMute(bool)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#adcf7e64001add054347502793edb8eca" title="Toggles the mute state of SelectedDevice. Does nothing if SelectedDevice is null.">ToggleDeviceMute()</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a50b8cee9f87a461c68910c60cd9657b4" title="Increments the volume of SelectedSession by amount . Does nothing if SelectedDevice is null.">IncrementSessionVolume(int)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aa46d72e89d39934c027cc2c5a35dcb6c" title="Decrements the volume of SelectedSession by amount . Does nothing if SelectedDevice is null.">DecrementSessionVolume(int)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a90504ea8b714b8362542b70f66c2f33c" title="Sets the mute state of SelectedDevice. Does nothing if SelectedDevice is null.">SetDeviceMute(bool)</a> </li>
+<li>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#adcf7e64001add054347502793edb8eca" title="Toggles the mute state of SelectedDevice. Does nothing if SelectedDevice is null.">ToggleDeviceMute()</a> </li>
+</ul>
 
 </div>
 </div>

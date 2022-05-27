@@ -4,5 +4,6 @@ var struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i =
     [ "AudioAPI", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#a2cf7a2357f50515b05796fc45f5fa511", null ],
     [ "Default", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#abd9da95d452fbc4effbacfbc4f3faf61", null ],
     [ "HotkeyManager", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#aa708dfb1824e840a56dcdd596683bacc", null ],
-    [ "MainWindowHWnd", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#ac96c7aa79a8cddc415f6f700c58c96eb", null ]
+    [ "MainWindowHWnd", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#ac96c7aa79a8cddc415f6f700c58c96eb", null ],
+    [ "Settings", "struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#a30acf23cbca763ba54defe0d109353f7", null ]
 ];

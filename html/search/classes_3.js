@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datetimeextensions_376',['DateTimeExtensions',['../class_volume_control_1_1_log_1_1_extensions_1_1_date_time_extensions.html',1,'VolumeControl::Log::Extensions']]]
+  ['enumextensions_399',['EnumExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_enum_extensions.html',1,'VolumeControl::Core::Extensions']]]
 ];

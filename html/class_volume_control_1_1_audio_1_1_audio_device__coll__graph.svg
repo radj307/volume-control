@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 286;
+var viewWidth = 278;
 var viewHeight = 496;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,30 +58,30 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Represents an audio device endpoint.">
-<polygon fill="#bfbfbf" stroke="black" points="40.5,-0.5 40.5,-255.5 190.5,-255.5 190.5,-0.5 40.5,-0.5"/>
-<text text-anchor="start" x="48.5" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
-<text text-anchor="middle" x="115.5" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>
-<polyline fill="none" stroke="black" points="40.5,-225.5 190.5,-225.5 "/>
-<text text-anchor="start" x="48.5" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="48.5" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceID</text>
-<text text-anchor="start" x="48.5" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ InstanceID</text>
-<text text-anchor="start" x="48.5" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPath</text>
-<text text-anchor="start" x="48.5" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SmallIcon</text>
-<text text-anchor="start" x="48.5" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LargeIcon</text>
-<text text-anchor="start" x="48.5" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Icon</text>
-<text text-anchor="start" x="48.5" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceFriendlyName</text>
-<text text-anchor="start" x="48.5" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FriendlyName</text>
-<text text-anchor="start" x="48.5" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Properties</text>
-<text text-anchor="start" x="48.5" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ State</text>
-<text text-anchor="start" x="48.5" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SessionManager</text>
-<text text-anchor="start" x="48.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolumeObject</text>
-<text text-anchor="start" x="48.5" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeEndpointVolume</text>
-<text text-anchor="start" x="48.5" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolume</text>
-<text text-anchor="start" x="48.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointMuted</text>
-<polyline fill="none" stroke="black" points="40.5,-41.5 190.5,-41.5 "/>
-<text text-anchor="start" x="48.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioDevice()</text>
-<text text-anchor="start" x="48.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetAudioSessions()</text>
-<text text-anchor="start" x="48.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
+<polygon fill="#bfbfbf" stroke="black" points="93,-0.5 93,-255.5 243,-255.5 243,-0.5 93,-0.5"/>
+<text text-anchor="start" x="101" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
+<text text-anchor="middle" x="168" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>
+<polyline fill="none" stroke="black" points="93,-225.5 243,-225.5 "/>
+<text text-anchor="start" x="101" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="101" y="-202.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceID</text>
+<text text-anchor="start" x="101" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ InstanceID</text>
+<text text-anchor="start" x="101" y="-180.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IconPath</text>
+<text text-anchor="start" x="101" y="-169.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SmallIcon</text>
+<text text-anchor="start" x="101" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LargeIcon</text>
+<text text-anchor="start" x="101" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Icon</text>
+<text text-anchor="start" x="101" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceFriendlyName</text>
+<text text-anchor="start" x="101" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ FriendlyName</text>
+<text text-anchor="start" x="101" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Properties</text>
+<text text-anchor="start" x="101" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ State</text>
+<text text-anchor="start" x="101" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SessionManager</text>
+<text text-anchor="start" x="101" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolumeObject</text>
+<text text-anchor="start" x="101" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeEndpointVolume</text>
+<text text-anchor="start" x="101" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolume</text>
+<text text-anchor="start" x="101" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointMuted</text>
+<polyline fill="none" stroke="black" points="93,-41.5 243,-41.5 "/>
+<text text-anchor="start" x="101" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AudioDevice()</text>
+<text text-anchor="start" x="101" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetAudioSessions()</text>
+<text text-anchor="start" x="101" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Dispose()</text>
 </a>
 </g>
 </g>
@@ -89,68 +89,87 @@ var sectionId = 'dynsection-1';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" target="_top" xlink:title="Represents an audio device.">
-<polygon fill="none" stroke="black" points="45.5,-292.5 45.5,-393.5 185.5,-393.5 185.5,-292.5 45.5,-292.5"/>
-<text text-anchor="middle" x="115.5" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDevice</text>
-<polyline fill="none" stroke="black" points="45.5,-374.5 185.5,-374.5 "/>
-<text text-anchor="start" x="53.5" y="-362.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="53.5" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceID</text>
-<text text-anchor="start" x="53.5" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeEndpointVolume</text>
-<text text-anchor="start" x="53.5" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolume</text>
-<text text-anchor="start" x="53.5" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointMuted</text>
-<polyline fill="none" stroke="black" points="45.5,-311.5 185.5,-311.5 "/>
-<text text-anchor="middle" x="115.5" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="0,-292.5 0,-393.5 140,-393.5 140,-292.5 0,-292.5"/>
+<text text-anchor="middle" x="70" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDevice</text>
+<polyline fill="none" stroke="black" points="0,-374.5 140,-374.5 "/>
+<text text-anchor="start" x="8" y="-362.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="8" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ DeviceID</text>
+<text text-anchor="start" x="8" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NativeEndpointVolume</text>
+<text text-anchor="start" x="8" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointVolume</text>
+<text text-anchor="start" x="8" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EndpointMuted</text>
+<polyline fill="none" stroke="black" points="0,-311.5 140,-311.5 "/>
+<text text-anchor="middle" x="70" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M115.5,-282.24C115.5,-273.75 115.5,-264.76 115.5,-255.57"/>
-<polygon fill="none" stroke="midnightblue" points="112,-282.33 115.5,-292.33 119,-282.33 112,-282.33"/>
+<path fill="none" stroke="midnightblue" d="M97.11,-283.08C101.13,-274.34 105.4,-265.07 109.76,-255.57"/>
+<polygon fill="none" stroke="midnightblue" points="93.85,-281.78 92.85,-292.33 100.21,-284.71 93.85,-281.78"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="0,-430.5 0,-487.5 133,-487.5 133,-430.5 0,-430.5"/>
-<text text-anchor="middle" x="66.5" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">INotifyPropertyChanged</text>
-<polyline fill="none" stroke="#bfbfbf" points="0,-468.5 133,-468.5 "/>
-<text text-anchor="middle" x="66.5" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="0,-449.5 133,-449.5 "/>
-<text text-anchor="middle" x="66.5" y="-437.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_node3"><a xlink:href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" target="_top" xlink:title="Base interface type for IDevice and IProcess/ISession.">
+<polygon fill="none" stroke="black" points="12.5,-430.5 12.5,-487.5 83.5,-487.5 83.5,-430.5 12.5,-430.5"/>
+<text text-anchor="middle" x="48" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">ITargetable</text>
+<polyline fill="none" stroke="black" points="12.5,-468.5 83.5,-468.5 "/>
+<text text-anchor="middle" x="48" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="12.5,-449.5 83.5,-449.5 "/>
+<text text-anchor="middle" x="48" y="-437.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
-</g>
-<!-- Node3&#45;&gt;Node1 -->
-<g id="edge3" class="edge">
-<title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M45.93,-421.2C42.03,-412.53 38.54,-403.15 36.5,-394 26.64,-349.75 26.36,-336.18 36.5,-292 39.28,-279.89 43.08,-267.64 47.53,-255.58"/>
-<polygon fill="none" stroke="midnightblue" points="42.8,-422.77 50.27,-430.28 49.11,-419.75 42.8,-422.77"/>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M82.32,-421.2C86.1,-412.4 90.19,-402.87 94.18,-393.61"/>
-<polygon fill="none" stroke="midnightblue" points="79.09,-419.83 78.36,-430.4 85.53,-422.6 79.09,-419.83"/>
+<path fill="none" stroke="midnightblue" d="M55.27,-420.35C56.92,-411.8 58.7,-402.58 60.43,-393.61"/>
+<polygon fill="none" stroke="midnightblue" points="51.78,-419.92 53.33,-430.4 58.66,-421.25 51.78,-419.92"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="203.5,-314.5 203.5,-371.5 277.5,-371.5 277.5,-314.5 203.5,-314.5"/>
-<text text-anchor="middle" x="240.5" y="-359.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDisposable</text>
-<polyline fill="none" stroke="#bfbfbf" points="203.5,-352.5 277.5,-352.5 "/>
-<text text-anchor="middle" x="240.5" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="203.5,-333.5 277.5,-333.5 "/>
-<text text-anchor="middle" x="240.5" y="-321.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="#bfbfbf" points="101.5,-430.5 101.5,-487.5 234.5,-487.5 234.5,-430.5 101.5,-430.5"/>
+<text text-anchor="middle" x="168" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">INotifyPropertyChanged</text>
+<polyline fill="none" stroke="#bfbfbf" points="101.5,-468.5 234.5,-468.5 "/>
+<text text-anchor="middle" x="168" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="101.5,-449.5 234.5,-449.5 "/>
+<text text-anchor="middle" x="168" y="-437.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M218.92,-305.23C210.55,-290.96 200.43,-273.72 189.84,-255.67"/>
-<polygon fill="none" stroke="midnightblue" points="216.08,-307.3 224.16,-314.15 222.12,-303.76 216.08,-307.3"/>
+<path fill="none" stroke="midnightblue" d="M168,-420.1C168,-379.96 168,-314.4 168,-255.64"/>
+<polygon fill="none" stroke="midnightblue" points="164.5,-420.23 168,-430.23 171.5,-420.23 164.5,-420.23"/>
+</g>
+<!-- Node4&#45;&gt;Node2 -->
+<g id="edge3" class="edge">
+<title>Node4&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M137.56,-422.59C129.68,-413.42 121.03,-403.37 112.65,-393.61"/>
+<polygon fill="none" stroke="midnightblue" points="135.1,-425.1 144.28,-430.4 140.41,-420.54 135.1,-425.1"/>
+</g>
+<!-- Node5 -->
+<g id="node5" class="node">
+<title>Node5</title>
+<g id="a_node5"><a xlink:title=" ">
+<polygon fill="none" stroke="#bfbfbf" points="196,-314.5 196,-371.5 270,-371.5 270,-314.5 196,-314.5"/>
+<text text-anchor="middle" x="233" y="-359.5" font-family="Helvetica,sans-Serif" font-size="10.00">IDisposable</text>
+<polyline fill="none" stroke="#bfbfbf" points="196,-352.5 270,-352.5 "/>
+<text text-anchor="middle" x="233" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="196,-333.5 270,-333.5 "/>
+<text text-anchor="middle" x="233" y="-321.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node1 -->
+<g id="edge5" class="edge">
+<title>Node5&#45;&gt;Node1</title>
+<path fill="none" stroke="midnightblue" d="M221.53,-304.41C217.22,-290.31 212.06,-273.37 206.65,-255.67"/>
+<polygon fill="none" stroke="midnightblue" points="218.24,-305.61 224.5,-314.15 224.93,-303.57 218.24,-305.61"/>
 </g>
 </g>
 </svg>

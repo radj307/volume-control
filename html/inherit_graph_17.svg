@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions.html" target="_top" xlink:title="Extensions for string types.">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions.html" target="_top" xlink:title="Extensions for floating&#45;point number types.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 173,-30.5 173,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Extensions.</text>
-<text text-anchor="middle" x="86.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">StringExtensions</text>
+<text text-anchor="middle" x="86.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RealNumberExtensions</text>
 </a>
 </g>
 </g>

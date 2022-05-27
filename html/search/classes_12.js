@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['user32_424',['User32',['../class_volume_control_1_1_hotkeys_1_1_user32.html',1,'VolumeControl::Hotkeys']]]
+  ['vcapi_446',['VCAPI',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html',1,'VolumeControl::API']]],
+  ['vcsettingscontainer_447',['VCSettingsContainer',['../class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html',1,'VolumeControl::Core::Helpers']]],
+  ['volumeeventargs_448',['VolumeEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_volume_event_args.html',1,'VolumeControl::Audio::Events']]]
 ];

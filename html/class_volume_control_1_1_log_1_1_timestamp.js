@@ -2,7 +2,6 @@ var class_volume_control_1_1_log_1_1_timestamp =
 [
     [ "Timestamp", "class_volume_control_1_1_log_1_1_timestamp.html#a7e0a68c3f24a8238baecedf6b2c286ca", null ],
     [ "Blank", "class_volume_control_1_1_log_1_1_timestamp.html#a17674d5dc5d93b90ec85e381859c2152", null ],
-    [ "Definition", "class_volume_control_1_1_log_1_1_timestamp.html#aa7cb21b69bb494ed92d1b50019f9c4f1", null ],
     [ "Now", "class_volume_control_1_1_log_1_1_timestamp.html#aa61e2bb487aa250e2c1d290ec0e3d981", null ],
     [ "ToString", "class_volume_control_1_1_log_1_1_timestamp.html#a35a95bbbc163f70f91d3658b03456802", null ],
     [ "EventTypeSegmentLength", "class_volume_control_1_1_log_1_1_timestamp.html#a1e1be0f5b8083747f9fcfef5c2a9481a", null ],

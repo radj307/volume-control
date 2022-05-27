@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nulltobooleanconverter_412',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['numericupdown_413',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
+  ['observablelist_434',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]],
+  ['observablelistextensions_435',['ObservableListExtensions',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions.html',1,'VolumeControl::WPF::Collections']]]
 ];

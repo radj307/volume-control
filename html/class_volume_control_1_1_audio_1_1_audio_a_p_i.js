@@ -61,5 +61,6 @@ var class_volume_control_1_1_audio_1_1_audio_a_p_i =
     [ "SelectedSessionSwitched", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a4dcbe00763f4141a6ed630a01dba2265", null ],
     [ "SessionListReloaded", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ad13dc20dcbce062e791f4172008d4a59", null ],
     [ "TargetChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a788b3edaac6615122bb8ddff658c9994", null ],
-    [ "TargetChanging", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3", null ]
+    [ "TargetChanging", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3", null ],
+    [ "VolumeChanged", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a0530f44ab497bff516cf33feaf00d3b3", null ]
 ];

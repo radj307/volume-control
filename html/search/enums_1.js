@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['modifier_634',['Modifier',['../namespace_hotkey_lib.html#a0ee197083bcd7c48bc94a25ec4eb78e4',1,'HotkeyLib']]]
+  ['ecmdshow_669',['ECmdShow',['../class_volume_control_1_1_hotkeys_1_1_user32.html#ab3fadec7acffb6d7c2a6880f0bef2379',1,'VolumeControl::Hotkeys::User32']]],
+  ['euflags_670',['EUFlags',['../class_volume_control_1_1_hotkeys_1_1_user32.html#a8b40099f64ceeae9bf21c6ea7bd24c4c',1,'VolumeControl::Hotkeys::User32']]],
+  ['eventtype_671',['EventType',['../namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327',1,'VolumeControl::Log::Enum']]]
 ];

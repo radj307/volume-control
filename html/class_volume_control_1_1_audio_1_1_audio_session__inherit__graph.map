@@ -1,8 +1,9 @@
 <map id="VolumeControl.Audio.AudioSession" name="VolumeControl.Audio.AudioSession">
-<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="227,315,427,627"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="96,160,225,267"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="5,5,151,112"/>
-<area shape="rect" id="node4" title=" " alt="" coords="175,20,352,97"/>
-<area shape="rect" id="node5" title=" " alt="" coords="301,175,482,252"/>
-<area shape="rect" id="node6" title=" " alt="" coords="506,175,605,252"/>
+<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="237,440,437,752"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="85,285,215,392"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="36,131,181,237"/>
+<area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
+<area shape="rect" id="node5" title=" " alt="" coords="205,145,383,223"/>
+<area shape="rect" id="node6" title=" " alt="" coords="310,300,491,377"/>
+<area shape="rect" id="node7" title=" " alt="" coords="515,300,614,377"/>
 </map>
