@@ -22,14 +22,17 @@ jobs:
           submodules: recursive
           ref:        gh-pages
           path:       gh-pages
-      
+  
       - name: List Directory Structure
         run:  |
               cd ${{github.workspace}}
               ls -lAghR
-      
+              
       - name: Install Doxygen & Graphviz
-        run:  sudo apt-get update && sudo apt-get install -y doxygen graphviz
+        run:  sudo apt-get update && sudo apt-get install -y doxygen graphviz global
+        # doxygen   - For doxygen
+        # graphviz  - For dot
+        # global    - For htags
         
       - name: Run Doxygen
         run:  |
