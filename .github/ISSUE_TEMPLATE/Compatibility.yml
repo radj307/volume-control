@@ -10,10 +10,13 @@ body:
       value:  |
               Thanks for taking the time to fill out a compatibility report!  
               Your contribution lets us know how to improve Volume Control by improving compatibility with your version of Windows.
+              
+              
   - type: dropdown
     id:   version
     attributes:
       label:  Which Windows Version are you reporting?
+      description: Only unconfirmed versions of Windows are listed here.
       options:
         - Windows Vista
         - Windows 7
@@ -24,9 +27,7 @@ body:
     id:   state
     attributes:
       label:        Support Status
-      description:  |
-                    Major issues are any issues that prevent you from using core features of Volume Control, such as: hotkeys not working, UI doesn't appear, etc.
-                    Minor issues are defined as anything that impacts the usefulness of Volume Control but does not prevent you from using core features.
+      description:  Select the option that best describes the current level of support for your OS.
       options:
         - Fully Compatible  (No Perceivable Issues)
         - Mostly Compatible (Minor Issues; Hotkeys and UI are functional)
@@ -41,8 +42,8 @@ body:
     id:   log
     attributes:
       label:       Log
-      description: |
-                   Even logs that don't include anything relevant are useful, because it lets us know where to improve our logging system.
+      description: Please attach a copy of the log file.
+      placeholder: By default, the log file is named `volumecontrol.log` and is located in the same directory as the executable.
   - type: textarea
     id:   details
     attributes:
