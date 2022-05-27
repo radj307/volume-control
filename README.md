@@ -22,8 +22,23 @@ Designed for adjusting the volume of your music independently of other programs,
 
 ### Requirements
 
-- Windows 7 or newer.
-- A keyboard.
+- Any version of Windows since Vista.
+
+#### Compatibility
+
+##### Confirmed
+
+- Windows 10
+
+##### Unconfirmed
+
+If you use one of these operating systems, please fill out a [compatibility report](https://github.com/radj307/volume-control/issues/new?assignees=radj307&labels=os-support&template=Compatibility.yml&title=Windows+Version+Compatibility+Report&version=Windows+Vista) form.  
+*(If everything works it should take less than 30 seconds. If there is an issue, we'll fix it ASAP)*
+- Windows Vista
+- Windows 7
+- Windows 8
+- Windows 8.1
+- Windows 11
 
 # Getting Started
 
