@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core.Extensions;
 
 namespace VolumeControl.Audio
 {
@@ -90,17 +91,25 @@ namespace VolumeControl.Audio
         /// </summary>
         /// <remarks>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</remarks>
         public AudioEndpointVolume EndpointVolumeObject => _device.AudioEndpointVolume;
+        /// <summary>
+        /// Gets the minimum and maximum boundary values of this device's endpoint volume.<br/>
+        /// This is used in conjunction with <see cref="MathExt.Scale(float,float,float,float,float)"/> by the <see cref="NativeEndpointVolume"/> property, &amp; by extension the <see cref="EndpointVolume"/> property as well.
+        /// </summary>
+        internal (float, float) VolumeRange
+        {
+            get
+            {
+                var range = EndpointVolumeObject.VolumeRange;
+                return (range.MinDecibels, range.MaxDecibels);
+            }
+        }
         /// <inheritdoc/>
         public float NativeEndpointVolume
         {
-            get => EndpointVolumeObject.MasterVolumeLevel;
+            get => MathExt.Scale(EndpointVolumeObject.MasterVolumeLevel, VolumeRange, (0f, 1f));
             set
             {
-                if (value > 1f)
-                    value = 1f;
-                else if (value < 0f)
-                    value = 0f;
-                EndpointVolumeObject.MasterVolumeLevel = value;
+                EndpointVolumeObject.MasterVolumeLevel = MathExt.Scale(MathExt.Clamp(value, 0f, 1f), (0f, 1f), VolumeRange);
                 NotifyPropertyChanged();
             }
         }
@@ -110,11 +119,7 @@ namespace VolumeControl.Audio
             get => Convert.ToInt32(NativeEndpointVolume * 100f);
             set
             {
-                if (value > 100)
-                    value = 100;
-                else if (value < 0)
-                    value = 0;
-                NativeEndpointVolume = (float)(Convert.ToDouble(value) / 100.0);
+                NativeEndpointVolume = (float)(Convert.ToDouble(MathExt.Clamp(value, 0, 100)) / 100.0);
                 NotifyPropertyChanged();
             }
         }
@@ -128,9 +133,25 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
             }
         }
+        /// <summary>
+        /// GUID to pass to AudioEndpointVolumeCallback
+        /// </summary>
+        public Guid NotificationGuid
+        {
+            get => EndpointVolumeObject.NotificationGuid;
+            set => EndpointVolumeObject.NotificationGuid = value;
+        }
         #endregion Properties
 
         #region Events
+        /// <summary>
+        /// Triggered when the endpoint volume changes from any source.
+        /// </summary>
+        public event AudioEndpointVolumeNotificationDelegate OnVolumeNotification
+        {
+            add => EndpointVolumeObject.OnVolumeNotification += value;
+            remove => EndpointVolumeObject.OnVolumeNotification -= value;
+        }
         /// <summary>Triggered when a property is set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));

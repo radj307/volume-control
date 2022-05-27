@@ -46,14 +46,14 @@ namespace VolumeControl.Audio
 
             ReloadOnHotkeyTimer = new()
             {
-                Interval = MathExt.ClampValue(Settings.ReloadOnHotkeyMinInterval, 1, 120000),
+                Interval = MathExt.Clamp(Settings.ReloadOnHotkeyMinInterval, 1, 120000),
                 Enabled = !_allowReloadOnHotkey, //< this should always start as the inverse of _allowReloadOnHotkey
             };
             ReloadOnHotkeyTimer.Tick += Handle_ReloadOnHotkeyTick!;
 
             ReloadTimer = new()
             {
-                Interval = MathExt.ClampValue(Settings.AutoReloadInterval, Settings.AutoReloadIntervalMin, Settings.AutoReloadIntervalMax),
+                Interval = MathExt.Clamp(Settings.AutoReloadInterval, Settings.AutoReloadIntervalMin, Settings.AutoReloadIntervalMax),
                 Enabled = Settings.ReloadOnInterval,
             };
             ReloadTimer.Tick += Handle_ReloadTimerTick!;
@@ -130,7 +130,7 @@ namespace VolumeControl.Audio
             set
             {
                 NotifyPropertyChanging();
-                ReloadTimer.Interval = MathExt.ClampValue(value, ReloadIntervalMin, ReloadIntervalMax);
+                ReloadTimer.Interval = MathExt.Clamp(value, ReloadIntervalMin, ReloadIntervalMax);
                 NotifyPropertyChanged();
             }
         }

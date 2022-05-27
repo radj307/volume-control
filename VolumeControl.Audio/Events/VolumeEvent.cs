@@ -10,6 +10,7 @@ namespace VolumeControl.Audio.Events
         /// <inheritdoc cref="VolumeEventArgs"/>
         /// <param name="target">The subject of the volume event.</param>
         /// <param name="volume">The volume level of the <paramref name="target"/>.</param>
+        /// <param name="muted">The mute state of the <paramref name="target"/>.</param>
         public VolumeEventArgs(ITargetable target, int volume, bool muted)
         {
             Target = target;

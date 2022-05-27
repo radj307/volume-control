@@ -75,7 +75,7 @@ namespace VolumeControl.Audio
             set
             {
                 NotifyPropertyChanging();
-                NativeVolume = (float)MathExt.ClampValue(Convert.ToDouble(value) / 100f, 0.0, 1.0);
+                NativeVolume = (float)MathExt.Clamp(Convert.ToDouble(value) / 100f, 0.0, 1.0);
                 NotifyPropertyChanged();
             }
         }
@@ -86,7 +86,7 @@ namespace VolumeControl.Audio
             set
             {
                 NotifyPropertyChanging();
-                VolumeController.Volume = MathExt.ClampValue(value, 0f, 1f);
+                VolumeController.Volume = MathExt.Clamp(value, 0f, 1f);
                 NotifyPropertyChanged();
             }
         }
