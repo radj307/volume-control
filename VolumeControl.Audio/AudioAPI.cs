@@ -867,7 +867,7 @@ namespace VolumeControl.Audio
         {
             if (SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointVolume += amount;
+                dev.EndpointVolume -= amount;
                 NotifyVolumeChanged(dev, dev.EndpointVolume, dev.EndpointMuted);
             }
         }
