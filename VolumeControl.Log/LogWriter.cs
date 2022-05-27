@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
-using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
@@ -63,11 +62,77 @@ namespace VolumeControl.Log
         public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
         #endregion WriteRaw
 
-        /// <summary>
-        /// Creates and returns a log message object using this log writer as a base.
-        /// </summary>
-        /// <returns><see cref="LogMessage"/> class.</returns>
-        public LogMessage GetMessage() => new(EventTypeFilter) { LastEventType = LastEventType };
+        private static List<DictionaryEntry>? UnpackExceptionData(IDictionary data)
+        {
+            if (data != null && data.Count > 0)
+            {
+                List<DictionaryEntry> l = new();
+                foreach (DictionaryEntry kvp in data)
+                    l.Add(kvp);
+                return l;
+            }
+            return null;
+        }
+
+        /// <summary>Creates a formatted string representation of the <see cref="Exception"/> <paramref name="ex"/>.</summary>
+        /// <param name="ex">An exception object.</param>
+        /// <param name="linePrefix">An optional <see langword="string"/> to prepend to each line.</param>
+        /// <param name="lineSuffix">An optional <see langword="string"/> to append to each line.</param>
+        /// <param name="tabString">The string to use as a single tab. This is used when indenting subsequent lines.</param>
+        /// <returns>A <see langword="string"/> representation of <paramref name="ex"/>.</returns>
+        public static string FormatExceptionMessage(Exception ex, string? linePrefix = null, string lineSuffix = "\n", string tabString = "  ")
+        {
+            string m = string.Empty;
+            string tabPrefix = linePrefix + tabString;
+
+            m += $"{{{lineSuffix}";
+
+            // Message
+            m += $"{tabPrefix}'Message': '{ex.Message}'{lineSuffix}";
+            m += $"{tabPrefix}'HResult': '{ex.HResult}'{lineSuffix}";
+
+            // Source
+            if (ex.Source != null)
+                m += $"{tabPrefix}'Source': '{ex.Source}'{lineSuffix}";
+
+            // TargetSite
+            if (ex.TargetSite != null)
+            {
+                m += $"{tabPrefix}'TargetSite': {{{lineSuffix}";
+                m += $"{tabPrefix}{tabString}'Name': '{ex.TargetSite.Name}'{lineSuffix}";
+                if (ex.TargetSite.DeclaringType != null)
+                    m += $"{tabPrefix}{tabString}'DeclaringType': '{ex.TargetSite.DeclaringType.FullName}'{lineSuffix}";
+                m += $"{tabPrefix}{tabString}'Attributes': '{ex.TargetSite.Attributes:G}'{lineSuffix}";
+                m += $"{tabPrefix}{tabString}'CallingConvention': '{ex.TargetSite.CallingConvention:G}'{lineSuffix}";
+                m += $"{tabPrefix}}}{lineSuffix}";
+            }
+
+            // Data
+            if (UnpackExceptionData(ex.Data) is List<DictionaryEntry> data)
+            { // exception has data entries, include them
+                m += $"{tabPrefix}'Data':{{{lineSuffix}";
+                foreach (var (key, val) in data)
+                    m += $"{tabPrefix}{tabString}'{key}': '{val}'{lineSuffix}";
+                m += $"{tabPrefix}}}{lineSuffix}";
+            }
+
+            // Stack Trace
+            if (ex.StackTrace != null)
+            {
+                m += $"{tabPrefix}'StackTrace': {{{lineSuffix}";
+                int i = 0;
+                foreach (string s in ex.StackTrace.Split('\n'))
+                    m += $"{tabPrefix}{tabString}[{i++}] {s}{lineSuffix}";
+                m += $"{tabPrefix}}}{lineSuffix}";
+            }
+
+            // InnerException
+            if (ex.InnerException != null)
+                m += $"{tabPrefix}'InnerException': {FormatExceptionMessage(ex.InnerException, tabPrefix, lineSuffix, tabString)}{lineSuffix}";
+
+            m += $"{linePrefix}}}";
+            return m;
+        }
 
         /// <summary>
         /// Writes a log message with a given timestamp.
@@ -86,13 +151,9 @@ namespace VolumeControl.Log
                 object? line = lines[i];
 
                 if (line is null)
-                {
                     continue;
-                }
                 else if (line is Exception ex)
-                {
-                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{ex.ToString(tsBlank.Length)}");
-                }
+                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}'Exception': {FormatExceptionMessage(ex, tsBlank)}");
                 else if (line is string s)
                 {
                     if (s.Length > 0)
@@ -101,15 +162,10 @@ namespace VolumeControl.Log
                 else if (line is IEnumerable enumerable)
                 {
                     foreach (object? item in enumerable)
-                    {
                         if (item != null)
                             w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
-                    }
                 }
-                else
-                {
-                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
-                }
+                else w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
             }
             w.Flush();
             w.Close();
@@ -118,32 +174,51 @@ namespace VolumeControl.Log
         /// <param name="lines">Any number of lines of any object type.</param>
         /// <inheritdoc cref="WriteWithTimestamp(string, object?[])"/>
         public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
-        /// <summary>Gets a stack trace message using attributes.</summary>
-        /// <remarks>Don't provide parameters.</remarks>
+
+        /// <summary>Creates a trace message for the calling method using the <see cref="CallerMemberNameAttribute"/>, <see cref="CallerFilePathAttribute"/>, &amp; <see cref="CallerLineNumberAttribute"/> attributes.</summary>
+        /// <remarks>Don't provide parameters or the attributes won't work.</remarks>
+        /// <returns>A <see langword="string"/> containing the caller's name, filepath, and line number.</returns>
         public static string GetTrace([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = -1) => $"{{ {callerMemberName}@'{callerFilePath}':{callerLineNumber} }}";
 
         /// <summary>Wrapper object for the <see cref="Conditional(ConditionalMessage[])"/> method.</summary>
         public struct ConditionalMessage
         {
+            /// <inheritdoc cref="ConditionalMessage"/>
+            /// <param name="type">The event type of this message.</param>
+            /// <param name="message">Any number of objects to use as the message contents.</param>
             public ConditionalMessage(EventType type, params object?[] message)
             {
                 EventType = type;
                 Message = message;
             }
+            /// <inheritdoc cref="ConditionalMessage"/>
+            /// <param name="type">The event type of this message.</param>
+            /// <param name="enumerable">Any enumerable type to use as the message contents.</param>
             public ConditionalMessage(EventType type, IEnumerable enumerable)
             {
                 EventType = type;
                 Message = enumerable;
             }
+            /// <summary>
+            /// The event type of this message.
+            /// </summary>
             public EventType EventType { get; set; }
+            /// <summary>
+            /// The message contents.
+            /// </summary>
             public IEnumerable Message { get; set; }
-
+            /// <summary>
+            /// Allows this object to be 'deconstructed' like a tuple.
+            /// </summary>
+            /// <param name="type">The event type.</param>
+            /// <param name="enumerable">The message.</param>
             public void Deconstruct(out EventType type, out IEnumerable enumerable)
             {
                 type = EventType;
                 enumerable = Message;
             }
         }
+
         /// <summary>Conditional log message, allows you to write different messages depending on the current log filter level.</summary>
         /// <param name="messages">EventType-IEnumerable pairs. Only the message assoicated with the first pair whose event type is considered valid by <see cref="FilterEventType(EventType)"/> is printed.<br/>If none of the given event types are allowed, nothing happens.</param>
         public void Conditional(params ConditionalMessage[] messages)
@@ -157,21 +232,6 @@ namespace VolumeControl.Log
                     return;
                 }
             }
-        }
-        /// <summary>
-        /// Writes a <see cref="LogMessage"/> or similar.
-        /// </summary>
-        /// <param name="msg">Any type that implements <see cref="ILogWriter"/>.</param>
-        public void WriteMessage(ILogWriter msg)
-        {
-            using TextReader? r = msg.Endpoint.GetReader();
-            if (r == null)
-                return;
-            string logBuffer = r.ReadToEnd().Trim();
-            r.Dispose();
-            if (logBuffer.Length == 0)
-                return;
-            Write(logBuffer);
         }
 
         #region WriteEvent
@@ -240,31 +300,31 @@ namespace VolumeControl.Log
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        public void DebugException(Exception exception, object? message = null) => WriteException(EventType.DEBUG, exception, message);
+        [Obsolete($"Use {nameof(Debug)} instead.")] public void DebugException(Exception exception, object? message = null) => WriteException(EventType.DEBUG, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.INFO"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        public void InfoException(Exception exception, object? message = null) => WriteException(EventType.INFO, exception, message);
+        [Obsolete($"Use {nameof(Info)} instead.")] public void InfoException(Exception exception, object? message = null) => WriteException(EventType.INFO, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.WARN"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        public void WarningException(Exception exception, object? message = null) => WriteException(EventType.WARN, exception, message);
+        [Obsolete($"Use {nameof(Warning)} instead.")] public void WarningException(Exception exception, object? message = null) => WriteException(EventType.WARN, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.ERROR"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        public void ErrorException(Exception exception, object? message = null) => WriteException(EventType.ERROR, exception, message);
+        [Obsolete($"Use {nameof(Error)} instead.")] public void ErrorException(Exception exception, object? message = null) => WriteException(EventType.ERROR, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.FATAL"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        public void FatalException(Exception exception, object? message = null) => WriteException(EventType.FATAL, exception, message);
+        [Obsolete($"Use {nameof(Fatal)} instead.")] public void FatalException(Exception exception, object? message = null) => WriteException(EventType.FATAL, exception, message);
         #endregion WriteException
 
         /// <summary>

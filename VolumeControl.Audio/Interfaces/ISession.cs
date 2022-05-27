@@ -5,7 +5,7 @@ namespace VolumeControl.Audio.Interfaces
     /// <summary>
     /// Represents an audio session.
     /// </summary>
-    public interface ISession : IProcess, INotifyPropertyChanged
+    public interface ISession : IProcess, ITargetable, INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the volume of this process using the <see cref="int"/> type in the range <b>( 0 - 100 )</b>

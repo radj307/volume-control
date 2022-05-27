@@ -31,6 +31,7 @@ namespace VolumeControl.Core.Extensions
         [DllImport("Kernel32.dll")]
         private static extern int GetProcessTimes(IntPtr hProcess, out long lpCreationTime, out long lpExitTime, out long lpKernelTime, out long lpUserTime);
         /// <inheritdoc cref="GetProcessTimes(IntPtr, out long, out long, out long, out long)"/>
+        /// <param name="hProcess">A process handle.</param>
         /// <param name="creationTime">A pointer to a FILETIME structure that receives the creation time of the process.</param>
         /// <param name="exitTime">A pointer to a FILETIME structure that receives the exit time of the process. If the process has not exited, the content of this structure is undefined.</param>
         /// <param name="kernelTime">A pointer to a FILETIME structure that receives the amount of time that the process has executed in kernel mode. The time that each of the threads of the process has executed in kernel mode is determined, and then all of those times are summed together to obtain this value.</param>

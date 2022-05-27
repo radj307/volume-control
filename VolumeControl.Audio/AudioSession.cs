@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Audio.Interfaces;
-using VolumeControl.Core;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 

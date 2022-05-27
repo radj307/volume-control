@@ -117,7 +117,7 @@ namespace VolumeControl.Audio
             }
             catch (Exception ex)
             {
-                FLog.Log.WarningException(ex);
+                Log.Warning(ex);
             }
             return null;
         }

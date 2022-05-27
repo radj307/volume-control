@@ -2,11 +2,13 @@
 using System.Reflection;
 using System.Windows;
 using VolumeControl.Helpers;
+using VolumeControl.Log;
 
 namespace VolumeControl
 {
     public partial class App : Application
     {
+        #region Constructors
         public App()
         {
             InitializeComponent();
@@ -15,38 +17,40 @@ namespace VolumeControl
             string version = $"v{assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version}";
 
             // Tray icon
-            TrayIcon = new()
-            {
-                Icon = VolumeControl.Properties.Resources.iconSilvered,
-                Visible = true,
-                Text = $"Volume Control {version}"
-            };
-            TrayIcon.Click += HandleTrayIconClick!;
+            TrayIcon = new($"Volume Control {version}", (s, e) => MainWindow.Visibility == Visibility.Visible);
+            TrayIcon.Clicked += HandleTrayIconClick;
+            TrayIcon.BringToFrontClicked += HandleTrayIconClick;
+            TrayIcon.SendToBackClicked += (s, e) => HideMainWindow();
+            TrayIcon.CloseButtonClicked += (s, e) => HandleApplicationExit();
+
+            DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
         }
+        #endregion Constructors
 
-        private System.Windows.Forms.NotifyIcon TrayIcon;
+        #region Fields
+        public readonly NotifyIcon TrayIcon;
+        #endregion Fields
 
-        private void Application_Exit(object sender, ExitEventArgs e)
+        #region Properties
+        private static LogWriter Log => FLog.Log;
+        #endregion Properties
+
+        #region Methods
+        private void HandleApplicationExit()
         {
-            TrayIcon.Click -= HandleTrayIconClick!;
+            TrayIcon.Clicked -= HandleTrayIconClick!;
             (FindResource("Settings") as VolumeControlSettings)?.Dispose();
-            CleanupTrayIcon();
+            TrayIcon.Dispose();
         }
+        private void Application_Exit(object sender, ExitEventArgs e) => HandleApplicationExit();
 
-        private void HandleTrayIconClick(object sender, EventArgs e)
+        private void HideMainWindow() => MainWindow.Hide();
+        private void ShowMainWindow()
         {
-            Current.MainWindow.Show();
-            Current.MainWindow.WindowState = WindowState.Normal;
+            MainWindow.Show();
+            MainWindow.WindowState = WindowState.Normal;
         }
-
-        public void CleanupTrayIcon()
-        {
-            if (TrayIcon != null)
-            {
-                TrayIcon.Visible = false;
-                TrayIcon.Dispose();
-                TrayIcon = null!;
-            }
-        }
+        private void HandleTrayIconClick(object? sender, EventArgs e) => ShowMainWindow();
+        #endregion Methods
     }
 }

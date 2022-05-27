@@ -6,8 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
         xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
-        xmlns:local="clr-namespace:VolumeControl"
-        xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
+        xmlns:coreEnum="clr-namespace:VolumeControl.Core.Enum;assembly=VolumeControl.Core"
+        xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+        d:DataContext="{d:DesignInstance Type=helpers:VolumeControlSettings}"
         mc:Ignorable="d"
         Title="ListNotification"
         SizeToContent="WidthAndHeight"
@@ -41,8 +42,31 @@
         <ResourceDictionary>
             <!-- Border Thickness -->
             <sys:Thickness x:Key="ExteriorBorderThickness">5</sys:Thickness>
-            <SolidColorBrush x:Key="UnlockedBrush" Color="#1A721A"/>
-            <SolidColorBrush x:Key="LockedBrush" Color="#A81414"/>
+            <!-- Unlocked Colors: -->
+            <Color x:Key="UnlockedColor">
+                #496D49
+            </Color>
+            <Color x:Key="UnlockedAccentColor">
+                #1A721A
+            </Color>
+            <!-- Locked Colors: -->
+            <Color x:Key="LockedColor">
+                #A32828
+            </Color>
+            <Color x:Key="LockedAccentColor">
+                #A81414
+            </Color>
+
+            <LinearGradientBrush x:Key="UnlockedBrush" StartPoint="0,0" EndPoint="1,1" Opacity="0.95">
+                <GradientStop Offset="0.2" Color="{StaticResource UnlockedColor}"/>
+                <GradientStop Offset="0.8" Color="{StaticResource UnlockedAccentColor}"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="LockedBrush" StartPoint="0,0" EndPoint="1,1" Opacity="0.95">
+                <GradientStop Offset="0.2" Color="{StaticResource LockedColor}"/>
+                <GradientStop Offset="0.8" Color="{StaticResource LockedAccentColor}"/>
+            </LinearGradientBrush>
+            <!--<SolidColorBrush x:Key="UnlockedBrush" Color="#1A721A"/>-->
+            <!--<SolidColorBrush x:Key="LockedBrush" Color="#A81414"/>-->
 
             <Binding x:Key="IsLockedBinding" Path="AudioAPI.LockSelectedSession" Source="{StaticResource Settings}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
             <!-- Window Border Style -->
@@ -66,18 +90,14 @@
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="#22FFFFFF"/>
             </Style>
-            <!-- ListView Hidden Headers Style -->
-            <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
-                <Setter Property="Visibility" Value="Collapsed"/>
-            </Style>
             <!-- TextBlock Style -->
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             </Style>
-            
-            
-            
+
+
+
             <!-- Volume Adjustment Panel Style -->
             <Style x:Key="SliderGridStyle" TargetType="Grid">
                 <Style.Resources>
@@ -108,26 +128,22 @@
             <Style TargetType="{x:Type ListViewItem}">
                 <!-- Conditional Style Setters -->
                 <Style.Triggers>
-                    <!-- IsSelection && LockSelectedSession Trigger -->
+                    <!-- Locked: -->
                     <MultiDataTrigger>
-                        <!-- Conditions -->
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True"/>
                             <Condition Binding="{Binding AudioAPI.LockSelectedSession, Source={StaticResource Settings}}" Value="True"/>
                         </MultiDataTrigger.Conditions>
-                        <!-- Setters -->
                         <Setter Property="Background" Value="{StaticResource LockedBrush}"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="BorderThickness" Value="0"/>
                     </MultiDataTrigger>
-                    <!-- IsSelection && !LockSelectedSession Trigger -->
+                    <!-- Unlocked: -->
                     <MultiDataTrigger>
-                        <!-- Conditions -->
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True"/>
                             <Condition Binding="{Binding AudioAPI.LockSelectedSession, Source={StaticResource Settings}}" Value="False"/>
                         </MultiDataTrigger.Conditions>
-                        <!-- Setters -->
                         <Setter Property="Background" Value="{StaticResource UnlockedBrush}"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="BorderThickness" Value="0"/>
@@ -135,10 +151,19 @@
                 </Style.Triggers>
                 <!-- Global Style Setters -->
                 <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <GridViewRowPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <!-- Session GridView -->
-            <GridView x:Key="GridViewAudioAPISessions" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+            <GridView x:Key="GridViewAudioAPISessions">
                 <!-- Icon Column -->
                 <GridViewColumn Width="32">
                     <GridViewColumn.CellTemplate>
@@ -160,7 +185,7 @@
                 </GridViewColumn>
             </GridView>
             <!-- Devices GridView -->
-            <GridView x:Key="GridViewAudioAPIDevices" ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+            <GridView x:Key="GridViewAudioAPIDevices">
                 <GridViewColumn>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockStyle}"/>
@@ -168,17 +193,21 @@
                 </GridViewColumn>
             </GridView>
 
+            <!-- ListView Hidden Headers Style -->
+            <Style x:Key="{x:Type GridViewColumnHeader}" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
             <!-- ListView Style -->
             <Style x:Key="ListViewStyle" TargetType="ListView">
                 <Style.Triggers>
                     <!-- Sessions: -->
-                    <DataTrigger Binding="{Binding NotificationMode, Source={StaticResource Settings}}" Value="{x:Static local:ListNotificationDisplayTarget.Sessions}">
+                    <DataTrigger Binding="{Binding NotificationMode, Source={StaticResource Settings}}" Value="{x:Static coreEnum:DisplayTarget.Sessions}">
                         <Setter Property="ItemsSource" Value="{Binding AudioAPI.Sessions, Source={StaticResource Settings}, Mode=OneWay}"/>
                         <Setter Property="SelectedItem" Value="{Binding AudioAPI.SelectedSession, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                         <Setter Property="View" Value="{StaticResource GridViewAudioAPISessions}"/>
                     </DataTrigger>
                     <!-- Devices: -->
-                    <DataTrigger Binding="{Binding NotificationMode, Source={StaticResource Settings}}" Value="{x:Static local:ListNotificationDisplayTarget.Devices}">
+                    <DataTrigger Binding="{Binding NotificationMode, Source={StaticResource Settings}}" Value="{x:Static coreEnum:DisplayTarget.Devices}">
                         <Setter Property="ItemsSource" Value="{Binding AudioAPI.Devices, Source={StaticResource Settings}, Mode=OneWay}"/>
                         <Setter Property="SelectedItem" Value="{Binding AudioAPI.SelectedDevice, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"/>
                         <Setter Property="View" Value="{StaticResource GridViewAudioAPIDevices}"/>
@@ -187,7 +216,8 @@
                 <Setter Property="SelectionMode" Value="Single"/>
                 <Setter Property="Background" Value="#00000000"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="BorderThickness" Value="0"/>                
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="1"/>
             </Style>
             <!--<DataTrigger Binding="{Binding DisplayMode, Source={x:Reference lnotifWindow}}" Value="{x:Static local:ListNotificationDisplayTarget.Sessions}">-->
         </ResourceDictionary>

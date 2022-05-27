@@ -1,10 +1,10 @@
 ﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
-using VolumeControl.Log.Extensions;
 using VolumeControl.Log.Properties;
 
 namespace VolumeControl.Log
 {
+    /// <summary>Global static log manager object.</summary>
     public static class FLog
     {
         #region Members
@@ -62,32 +62,6 @@ namespace VolumeControl.Log
         #endregion Properties
 
         #region Methods
-        public static void CustomInitialize(IEndpoint endpoint, EventType filter, bool skipReset = true, bool skipHookPropertyChanged = true)
-        {
-            if (_initialized)
-                throw new Exception("Cannot call FLog.Initialize() or FLog.CustomInitialize() multiple times!");
-            _initialized = true;
-
-            Settings.Default.Save();
-            Settings.Default.Reload();
-
-            FilePath = null;
-            EventFilter = filter;
-
-            if (!skipReset && endpoint.Enabled && Settings.Default.ClearLogOnInitialize)
-                endpoint.Reset();
-
-#           if DEBUG
-            EventFilter = EventType.ALL;
-            endpoint.Enabled = true;
-#           endif
-
-            CreateLog(endpoint);
-            WriteInitMessage("Initialized");
-
-            if (!skipHookPropertyChanged)
-                Settings.Default.PropertyChanged += HandlePropertyChanged!;
-        }
         private static void Initialize()
         {
             if (_initialized)
@@ -120,7 +94,7 @@ namespace VolumeControl.Log
 
             Settings.Default.PropertyChanged += HandlePropertyChanged!;
         }
-        private static void WriteInitMessage(string log_____) => Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {EventFilter.ID()} ({EventFilter:G}) }}");
+        private static void WriteInitMessage(string log_____) => Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)EventFilter} ({EventFilter:G}) }}");
         private static void CreateLog(IEndpoint endpoint) => Log = new(endpoint, EventFilter);
         private static void HandlePropertyChanged(object sender, EventArgs e)
         {

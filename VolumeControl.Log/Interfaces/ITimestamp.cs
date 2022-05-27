@@ -1,5 +1,4 @@
 ﻿using VolumeControl.Log.Enum;
-using VolumeControl.Log.Extensions;
 
 namespace VolumeControl.Log.Interfaces
 {
@@ -40,7 +39,15 @@ namespace VolumeControl.Log.Interfaces
         }
         private string GetEventType()
         {
-            string head = EventType.GetHeader();
+            string head = EventType switch
+            {
+                EventType.DEBUG => "[DEBUG]",
+                EventType.INFO => "[INFO]",
+                EventType.WARN => "[WARN]",
+                EventType.ERROR => "[ERROR]",
+                EventType.FATAL => "[FATAL]",
+                _ => "[????]",
+            };
             return $"{head}{new string(' ', EventTypeSegmentLength - head.Length)}";
         }
         private string GetMargin() => $"{(MarginSegmentLength > 0 ? new string(' ', MarginSegmentLength) : "")}";

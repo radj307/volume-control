@@ -1,9 +1,7 @@
-﻿namespace VolumeControl
+﻿namespace VolumeControl.Core.Enum
 {
-    /// <summary>
-    /// Defines the possible display modes for the <see cref="ListNotification"/> window.
-    /// </summary>
-    public enum ListNotificationDisplayTarget
+    /// <summary>Defines the possible display modes for the notification window.</summary>
+    public enum DisplayTarget
     {
         /// <summary>
         /// Doesn't show anything in the list panel.

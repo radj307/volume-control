@@ -125,18 +125,6 @@ namespace VolumeControl.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AllowMultipleInstances {
-            get {
-                return ((bool)(this["AllowMultipleInstances"]));
-            }
-            set {
-                this["AllowMultipleInstances"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/radj307/volume-control/releases")]

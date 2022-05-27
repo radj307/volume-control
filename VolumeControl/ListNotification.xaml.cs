@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using System.Windows.Media.Animation;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers;
 
@@ -78,9 +77,9 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
-        public void HandleShow(ListNotificationDisplayTarget type)
+        public void HandleShow(DisplayTarget type, bool isSwitchEventType = true)
         {
-            if (VCSettings.NotificationMode.Equals(type))
+            if (VCSettings.NotificationMode.Equals(type) && (isSwitchEventType || VCSettings.NotificationShowsVolumeChange))
                 Show();
         }
         public new void Show()

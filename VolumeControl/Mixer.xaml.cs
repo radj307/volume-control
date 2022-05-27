@@ -6,6 +6,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
+using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
@@ -22,12 +24,9 @@ namespace VolumeControl
         public Mixer()
         {
             InitializeComponent();
-            cbAdvancedHotkeys.IsChecked = Settings.AdvancedHotkeys;
 
             ShowInTaskbar = Settings.ShowInTaskbar;
             Topmost = Settings.AlwaysOnTop;
-
-            (logFilterComboBox.ItemsSource as BindableEventType)!.Value = FLog.EventFilter;
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -115,22 +114,14 @@ namespace VolumeControl
         {
             if (sender is TabControl tc && tc.SelectedValue is TabItem ti)
             {
-                if (ti.Equals(HotkeysTab))
-                {
-                    if (cbAdvancedHotkeys != null && cbAdvancedHotkeys.IsChecked.GetValueOrDefault(false))
-                    {
-                        MaxWidth = Settings.WindowWidthWide;
-                        return;
-                    }
-                }
-                MaxWidth = Settings.WindowWidthDefault;
+                if (ti.Equals(HotkeysTab) && VCSettings.AdvancedHotkeyMode)
+                    MaxWidth = Settings.WindowWidthWide;
+                else if (MaxWidth != Settings.WindowWidthDefault)
+                    MaxWidth = Settings.WindowWidthDefault;
             }
         }
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
-        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e)
-        {
-            VCSettings.ResetHotkeySettings();
-        }
+        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => VCSettings.ResetHotkeySettings();
 
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
@@ -180,19 +171,24 @@ namespace VolumeControl
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (WindowState.Equals(WindowState.Minimized))
-            {
                 Hide();
-            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ListNotification? lnotif = ListNotification;
             lnotif.Owner = this;
 
-            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Sessions);
-            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Sessions);
-            AudioAPI.SelectedDeviceSwitched += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
-            AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(ListNotificationDisplayTarget.Devices);
+            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
+            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
+            AudioAPI.SelectedDeviceSwitched += (s, e) => ListNotification.HandleShow(DisplayTarget.Devices);
+            AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Devices);
+            AudioAPI.VolumeChanged += (s, e) =>
+            {
+                if (e.Target is ISession)
+                    ListNotification.HandleShow(DisplayTarget.Sessions, false);
+                else if (e.Target is IDevice)
+                    ListNotification.HandleShow(DisplayTarget.Devices, false);
+            };
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

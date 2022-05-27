@@ -4,7 +4,7 @@ using VolumeControl.Log.Interfaces;
 namespace VolumeControl.Log
 {
     /// <summary>
-    /// Implements <see cref="ITimestamp"/> using UTC format with (<see cref="MarginTimePoint"/> = 29, <see cref="MarginEventType"/> = 8)
+    /// Implements <see cref="ITimestamp"/> using UTC format.
     /// </summary>
     public class Timestamp : ITimestamp
     {
@@ -40,10 +40,15 @@ namespace VolumeControl.Log
         #region Statics
         private static Properties.Settings Settings => Properties.Settings.Default;
         private static string FormatString => Settings.TimestampFormat;
+        /// <summary>The length of the time/date segment of the haeder.</summary>
         public static int LineSegmentLengthDateTime => Settings.LineSegmentLengthDateTime;
+        /// <summary>The length of the event type segment of the header.</summary>
         public static int LineSegmentLengthEventType => Settings.LineSegmentLengthEventType;
+        /// <summary>The length of the margin segment of the header.</summary>
         public static int LineSegmentLengthMargin => Settings.LineSegmentLengthMargin;
+        /// <summary><see cref="LineSegmentLengthDateTime"/> + <see cref="LineSegmentLengthEventType"/></summary>
         public static int LineHeaderLength => LineSegmentLengthDateTime + LineSegmentLengthEventType;
+        /// <summary><see cref="LineHeaderLength"/> + <see cref="LineSegmentLengthMargin"/></summary>
         public static int LineHeaderTotalLength => LineHeaderLength + LineSegmentLengthMargin;
 
         /// <summary>
@@ -57,7 +62,6 @@ namespace VolumeControl.Log
         /// </summary>
         /// <returns>A <see cref="string"/> entirely composed of space (' ') chars with the same length as a timestamp string.</returns>
         public static string Blank() => new(' ', LineHeaderTotalLength);
-        public static string Definition() => $"";
         #endregion Statics
     }
 }

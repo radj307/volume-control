@@ -6,30 +6,26 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
 using VolumeControl.Core;
+using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
+using VolumeControl.Core.Helpers;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
-using VolumeControl.Log.Enum;
-using VolumeControl.Win32;
 using VolumeControl.WPF;
 using static VolumeControl.Audio.AudioAPI;
 
 namespace VolumeControl.Helpers
 {
-    public class VolumeControlSettings : INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, IDisposable
+    /// <summary>Inherits from the <see cref="VCSettingsContainer"/> object.</summary>
+    public class VolumeControlSettings : VCSettingsContainer, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged, IDisposable
     {
-        public VolumeControlSettings()
+        public VolumeControlSettings() : base(GetExecutablePath())
         {
-            AppDomain? appDomain = AppDomain.CurrentDomain;
-            ExecutablePath = Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
-            _registryRunKeyHelper = new();
-
             _audioAPI = new();
             _hWndMixer = WindowHandleGetter.GetWindowHandle();
             
@@ -62,7 +58,7 @@ namespace VolumeControl.Helpers
             _hotkeyManager.LoadHotkeys();
 
             // Initialize the addon API
-            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, _hWndMixer);
+            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, _hWndMixer, this);
 
             Log.Info($"Volume Control v{VersionNumber} Initializing...");
 
@@ -117,11 +113,6 @@ namespace VolumeControl.Helpers
             add => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged += value;
             remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public event PropertyChangingEventHandler? PropertyChanging;
-
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-        protected virtual void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Fields
@@ -130,11 +121,9 @@ namespace VolumeControl.Helpers
         private readonly AudioAPI _audioAPI;
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
-        private readonly RunKeyHelper _registryRunKeyHelper;
         private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
-        public readonly string ExecutablePath;
         public readonly ERelease ReleaseType;
         #endregion Fields
 
@@ -165,7 +154,7 @@ namespace VolumeControl.Helpers
                 NotifyPropertyChanged();
             }
         }
-        private IEnumerable<string> _notificationModes = Enum.GetNames(typeof(ListNotificationDisplayTarget));
+        private IEnumerable<string> _notificationModes = Enum.GetNames(typeof(DisplayTarget));
         #endregion Other
 
         #region Statics
@@ -189,137 +178,6 @@ namespace VolumeControl.Helpers
         public AudioAPI AudioAPI => _audioAPI;
         public HotkeyManager HotkeyAPI => _hotkeyManager;
         #endregion ParentObjects
-
-        #region Settings
-        /// <summary>
-        /// Gets or sets a boolean that determines whether or not device/session icons are shown in the UI.
-        /// </summary>
-        public bool ShowIcons
-        {
-            get => _showIcons;
-            set
-            {
-                NotifyPropertyChanging();
-                _showIcons = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _showIcons;
-        /// <summary>
-        /// Gets or sets the hotkey editor mode, which can be either false (basic mode) or true (advanced mode).
-        /// </summary>
-        /// <remarks>Advanced mode allows the user to perform additional actions in the hotkey editor:
-        /// <list type="bullet">
-        /// <item><description>Create and delete hotkeys.</description></item>
-        /// <item><description>Change the action bindings of hotkeys.</description></item>
-        /// <item><description>Rename hotkeys.</description></item>
-        /// </list></remarks>
-        public bool AdvancedHotkeyMode
-        {
-            get => _advancedHotkeyMode;
-            set
-            {
-                NotifyPropertyChanging();
-                _advancedHotkeyMode = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _advancedHotkeyMode;
-        public bool RunAtStartup
-        {
-            get => _registryRunKeyHelper.CheckRunAtStartup(Settings.RegistryStartupValueName, ExecutablePath);
-            set
-            {
-                try
-                {
-                    NotifyPropertyChanging();
-
-                    if (value)
-                    {
-                        _registryRunKeyHelper.EnableRunAtStartup(Settings.RegistryStartupValueName, ExecutablePath);
-                        Log.Conditional(new(EventType.DEBUG, $"Enabled Run at Startup: {{ Value: {Settings.RegistryStartupValueName}, Path: {ExecutablePath} }}"), new(EventType.INFO, "Enabled Run at Startup."));
-                    }
-                    else
-                    {
-                        _registryRunKeyHelper.DisableRunAtStartup(Settings.RegistryStartupValueName);
-                        Log.Info("Disabled Run at Startup.");
-                    }
-
-                    NotifyPropertyChanged();
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Failed to create run at startup registry key!", $"{{ Value: '{Settings.RegistryStartupValueName}', Path: '{ExecutablePath}' }}", ex);
-                }
-            }
-        }
-        /// <summary>
-        /// Gets or sets whether the window should be minimized during startup.<br/>
-        /// The window can be shown again later using the tray icon.
-        /// </summary>
-        public bool StartMinimized
-        {
-            get => _startMinimized;
-            set
-            {
-                NotifyPropertyChanging();
-                _startMinimized = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _startMinimized;
-        /// <summary>
-        /// Gets or sets whether the program should check for updates.<br/>
-        /// 
-        /// </summary>
-        public bool CheckForUpdates
-        {
-            get => _checkForUpdates;
-            set
-            {
-                NotifyPropertyChanging();
-                _checkForUpdates = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _checkForUpdates;
-        /// <summary>
-        /// Gets or sets whether notifications are enabled or not.
-        /// </summary>
-        public bool NotificationEnabled
-        {
-            get => _notificationEnabled;
-            set
-            {
-                NotifyPropertyChanging();
-                _notificationEnabled = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _notificationEnabled;
-        public int NotificationTimeout
-        {
-            get => _notificationTimeout;
-            set
-            {
-                NotifyPropertyChanging();
-                _notificationTimeout = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private int _notificationTimeout;
-        public ListNotificationDisplayTarget NotificationMode
-        {
-            get => _notificationMode;
-            set
-            {
-                NotifyPropertyChanging();
-                _notificationMode = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private ListNotificationDisplayTarget _notificationMode = ListNotificationDisplayTarget.Sessions;
-        #endregion Settings
         #endregion Properties
 
         #region EventHandlers
@@ -341,6 +199,11 @@ namespace VolumeControl.Helpers
         #endregion EventHandlers
 
         #region Methods
+        public static string GetExecutablePath()
+        {
+            AppDomain? appDomain = AppDomain.CurrentDomain;
+            return Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, Path.ChangeExtension(appDomain.FriendlyName, ".exe"));
+        }
         /// <summary>Displays a message box prompting the user for confirmation, and if confirmation is given, resets all hotkeys to their default settings using <see cref="HotkeyManager.ResetHotkeys"/>.</summary>
         public void ResetHotkeySettings()
         {

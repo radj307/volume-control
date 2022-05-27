@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssemblyAttribute;
+using System;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
@@ -33,13 +34,12 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            AppDomain? appDomain = AppDomain.CurrentDomain;
+            string path = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+
             // this means we're starting back up after the update util completed
-            if (args.Contains("--cleanup"))
-            { // delete updater file
-                AppDomain? appDomain = AppDomain.CurrentDomain;
-                string path = System.IO.Path.Combine(appDomain.RelativeSearchPath ?? appDomain.BaseDirectory, "VolumeControl.UpdateUtility.exe");
-                System.IO.File.Delete(path);
-            }
+            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
+                System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
 
             // attempt to upgrade settings
             if (Settings.UpgradeSettings)
@@ -53,7 +53,7 @@ namespace VolumeControl
                 }
                 catch (Exception ex)
                 {
-                    Log.ErrorException(ex);
+                    Log.Error(ex);
                     if (MessageBox.Show($"Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
                                         "Invalid User Configuration File",
                                         MessageBoxButton.YesNo,
@@ -76,8 +76,9 @@ namespace VolumeControl
             bool isNewInstance = false;
             appMutex = new(true, appMutexIdentifier, out isNewInstance);
 
-            if (!Settings.AllowMultipleInstances && !isNewInstance)
+            if (!isNewInstance)
             {
+                Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
                 MessageBox.Show("Another instance of Volume Control is already running!");
                 return;
             }
@@ -94,8 +95,8 @@ namespace VolumeControl
             }
             catch (Exception ex)
             {
-                Log.FatalException(ex, "App exited because of an unhandled exception!");
-                app.CleanupTrayIcon();
+                Log.Fatal("App exited because of an unhandled exception!", ex);
+                app.TrayIcon.Dispose();
 #               if DEBUG
                 throw; //< rethrow exception
 #               endif
@@ -103,6 +104,7 @@ namespace VolumeControl
 
             GC.WaitForPendingFinalizers();
 
+            Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
         }

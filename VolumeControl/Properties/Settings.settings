@@ -29,9 +29,6 @@
     <Setting Name="RunAtStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AllowMultipleInstances" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="UpdateURL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://github.com/radj307/volume-control/releases</Value>
     </Setting>

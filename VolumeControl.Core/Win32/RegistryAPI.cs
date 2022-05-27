@@ -1,11 +1,17 @@
 ﻿using Microsoft.Win32;
 
-namespace VolumeControl.Win32
+namespace VolumeControl.Core.Win32
 {
-    public class RegistryAPI
+    internal class RegistryAPI
     {
+        /// <summary>
+        /// A static list of root registry keys.
+        /// </summary>
         public struct Scope
         {
+            /// <summary>
+            /// The current user registry key.
+            /// </summary>
             public static readonly RegistryKey HKEY_CURRENT_USER = Registry.CurrentUser;
         }
 

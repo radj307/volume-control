@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
-using VolumeControl.Core;
+using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 
@@ -336,6 +336,23 @@ namespace VolumeControl.Audio
         /// </summary>
         public event TargetChangedEventHandler? TargetChanged;
         /// <summary>
+        /// Triggered when the volume level or mute state of <see cref="SelectedDevice"/> or <see cref="SelectedSession"/> is changed.<br/>
+        /// To differentiate between devices and sessions, see the <see cref="VolumeEventArgs.Target"/> property.
+        /// </summary>
+        /// <remarks>Note that this event is only triggered by <see cref="AudioAPI"/> methods, and as a result <b>does not trigger when the volume is changed using the UI or by any other means!</b><br/>
+        /// A non-exhaustive list of methods that trigger this event:<list type="bullet">
+        /// <item><description><see cref="IncrementDeviceVolume(int)"/></description></item>
+        /// <item><description><see cref="DecrementDeviceVolume(int)"/></description></item>
+        /// <item><description><see cref="SetDeviceMute(bool)"/></description></item>
+        /// <item><description><see cref="ToggleDeviceMute()"/></description></item>
+        /// <item><description><see cref="IncrementSessionVolume(int)"/></description></item>
+        /// <item><description><see cref="DecrementSessionVolume(int)"/></description></item>
+        /// <item><description><see cref="SetDeviceMute(bool)"/></description></item>
+        /// <item><description><see cref="ToggleDeviceMute()"/></description></item>
+        /// </list>
+        /// </remarks>
+        public event VolumeEventHandler? VolumeChanged;
+        /// <summary>
         /// Triggered when a member property's value is changed.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -352,6 +369,8 @@ namespace VolumeControl.Audio
         private void NotifyLockSelectedSessionChanged() => LockSelectedSessionChanged?.Invoke(this, new());
         private void NotifyTargetChanging(ref TargetChangingEventArgs e) => TargetChanging?.Invoke(this, e);
         private void NotifyTargetChanged(TargetChangedEventArgs e) => TargetChanged?.Invoke(this, e);
+        private void NotifyVolumeChanged(VolumeEventArgs e) => VolumeChanged?.Invoke(this, e);
+        private void NotifyVolumeChanged(ITargetable target, int volume, bool muted) => NotifyVolumeChanged(new(target, volume, muted));
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
 
@@ -650,7 +669,10 @@ namespace VolumeControl.Audio
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
+            {
                 session.Volume += amount;
+                NotifyVolumeChanged(session, session.Volume, session.Muted);
+            }
         }
         /// <summary>
         /// Increments the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
@@ -664,7 +686,10 @@ namespace VolumeControl.Audio
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
+            {
                 session.Volume -= amount;
+                NotifyVolumeChanged(session, session.Volume, session.Muted);
+            }
         }
         /// <summary>
         /// Decrements the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
@@ -683,7 +708,10 @@ namespace VolumeControl.Audio
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
+            {
                 session.Muted = state;
+                NotifyVolumeChanged(session, session.Volume, session.Muted);
+            }
         }
         /// <summary>
         /// Toggles the mute state of <see cref="SelectedSession"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
@@ -692,7 +720,10 @@ namespace VolumeControl.Audio
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
+            {
                 session.Muted = !session.Muted;
+                NotifyVolumeChanged(session, session.Volume, session.Muted);
+            }
         }
 
         /// <summary>
@@ -795,7 +826,10 @@ namespace VolumeControl.Audio
         public void IncrementDeviceVolume(int amount)
         {
             if (SelectedDevice is AudioDevice dev)
+            {
                 dev.EndpointVolume += amount;
+                NotifyVolumeChanged(dev, dev.EndpointVolume, dev.EndpointMuted);
+            }
         }
         /// <remarks>This calls <see cref="IncrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
         /// <inheritdoc cref="IncrementDeviceVolume(int)"/>
@@ -808,7 +842,10 @@ namespace VolumeControl.Audio
         public void DecrementDeviceVolume(int amount)
         {
             if (SelectedDevice is AudioDevice dev)
+            {
                 dev.EndpointVolume += amount;
+                NotifyVolumeChanged(dev, dev.EndpointVolume, dev.EndpointMuted);
+            }
         }
         /// <remarks>This calls <see cref="DecrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
         /// <inheritdoc cref="DecrementDeviceVolume(int)"/>
@@ -826,7 +863,10 @@ namespace VolumeControl.Audio
         public void SetDeviceMute(bool state)
         {
             if (SelectedDevice is AudioDevice dev)
+            {
                 dev.EndpointMuted = state;
+                NotifyVolumeChanged(dev, dev.EndpointVolume, dev.EndpointMuted);
+            }
         }
         /// <summary>
         /// Toggles the mute state of <see cref="SelectedDevice"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
@@ -835,7 +875,10 @@ namespace VolumeControl.Audio
         public void ToggleDeviceMute()
         {
             if (SelectedDevice is AudioDevice dev)
+            {
                 dev.EndpointMuted = !dev.EndpointMuted;
+                NotifyVolumeChanged(dev, dev.EndpointVolume, dev.EndpointMuted);
+            }
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring after this one in <see cref="Devices"/>.
