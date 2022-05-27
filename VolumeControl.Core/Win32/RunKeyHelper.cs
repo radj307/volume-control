@@ -11,8 +11,7 @@ namespace VolumeControl.Core.Win32
             {
                 return RunKey.GetValue(valueName, defaultValue, RegistryValueOptions.None);
             }
-            catch (Exception) { }
-            return defaultValue;
+            catch (Exception) { return defaultValue; }
         }
         /// <summary>
         /// Checks if the registry value named <paramref name="valueName"/> exists.
@@ -37,7 +36,11 @@ namespace VolumeControl.Core.Win32
         /// Deletes a registry value named <paramref name="valueName"/>.
         /// </summary>
         /// <param name="valueName">The name of the target registry value within <see cref="RunKey"/>.</param>
-        public void DisableRunAtStartup(string valueName) => RunKey.DeleteValue(valueName);
+        public void DisableRunAtStartup(string valueName)
+        {
+            if (CheckRunAtStartup(valueName))
+                RunKey.DeleteValue(valueName);
+        }
 
         /// <summary>
         /// Lazily-initialized <see cref="RegistryKey"/> object set to: <b>HKEY_CURRENT_USER => SOFTWARE\Microsoft\Windows\CurrentVersion\Run</b>

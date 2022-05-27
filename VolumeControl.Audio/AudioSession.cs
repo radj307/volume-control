@@ -197,6 +197,8 @@ namespace VolumeControl.Audio
                 return (result, identifier[(delim + 1)..]);
             }
         }
+        /// <inheritdoc/>
+        public bool Equals(ISession? other) => other != null && other.PID.Equals(PID);
         #endregion Methods
     }
 }

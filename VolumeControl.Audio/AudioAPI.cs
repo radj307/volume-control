@@ -383,7 +383,7 @@ namespace VolumeControl.Audio
         /// <summary>
         /// Performs a selective update on the <see cref="Devices"/> list property by removing old/disabled/unplugged entries and adding newly detected ones.
         /// </summary>
-        public void ReloadDeviceList() => SelectiveUpdateDevices(GetAllDevices());
+        public void ReloadDeviceList() => SelectiveUpdateDevices(GetAllDevices()); //< Don't reload sessions here!
         private void SelectiveUpdateDevices(List<AudioDevice> devices)
         {
             string? selID = SelectedDevice?.DeviceID;
@@ -391,14 +391,17 @@ namespace VolumeControl.Audio
             // remove all devices that aren't in the new list. (exited/stopped)
             for (int i = Devices.Count - 1; i >= 0; --i)
             {
-                if (!devices.Any(d => d.Equals(Devices[i])))
+                if (!devices.Any(d => d.DeviceID.Equals(Devices[i].DeviceID, StringComparison.Ordinal)))
+                {
+                    Devices[i].Dispose();
                     Devices.RemoveAt(i);
+                }
             }
 
             // add all devices that aren't in the current list. (new)
-            Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.Equals(dev))));
+            Devices.AddRange(devices.Where(dev => !Devices.Any(d => d.DeviceID.Equals(dev.DeviceID, StringComparison.Ordinal))));
 
-            if (!LockSelectedDevice && selID != null)
+            if (selID != null && SelectedDevice == null)
                 SelectedDevice = Devices.FirstOrDefault(dev => dev.DeviceID.Equals(selID, StringComparison.Ordinal));
 
             if (SelectedDevice == null)
@@ -475,6 +478,8 @@ namespace VolumeControl.Audio
             if ((CheckAllDevices ? GetAllSessionsFromAllDevices() : SelectedDevice is AudioDevice dev ? dev.GetAudioSessions() : null!) is List<AudioSession> sessions)
                 SelectiveUpdateSessions(sessions);
             else Sessions.Clear();
+
+            ResolveTarget();
         }
         /// <summary>
         /// Performs a selective update of the <see cref="Sessions"/> list.
@@ -502,6 +507,8 @@ namespace VolumeControl.Audio
             NotifyPropertyChanged(nameof(Sessions));
 
             Log.Debug("Refreshed the session list.");
+
+            ResolveTarget();
         }
 
         #endregion ReloadSessions

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace VolumeControl.UnitTests
 {
@@ -221,9 +222,164 @@ namespace VolumeControl.UnitTests
 
         #region Event
         /// <summary>Causes an assertion failure if triggered by an event.<br/>This can be used as an event handler for any event with a signature similar to <see cref="EventHandler"/>.</summary>
-        /// <param name="s">Sender Parameter.</param>
-        /// <param name="e">Event Arguments Parameter.</param>
-        public static void OnEvent(object? _, object? _1) => Assert.Fail("Event Triggered!");
+        /// <remarks>Usage:<code language="cs">
+        /// myEvent += Assertx.EventNotTriggered;
+        /// 
+        /// //&lt; If `myEvent` is triggered here, an assertion failure occurs.
+        /// 
+        /// myEvent -= Assertx.EventNotTriggered;
+        /// </code></remarks>
+        /// <param name="_">Sender Parameter.</param>
+        /// <param name="_1">Event Arguments Parameter.</param>
+        public static void NoEvent(object? _, object? _1) => Assert.Fail("Event Was Triggered!");
+
+        /// <summary>
+        /// A helper object for unit testing events, this class acts like an event trigger counter.<br/>
+        /// See the <see cref="Armed"/> &amp; <see cref="Count"/> properties for more information.
+        /// </summary>
+        /// <remarks>Note that this object's finalizer sets <see cref="Armed"/> to <see langword="false"/>!</remarks>
+        public class EventTrigger
+        {
+            public EventTrigger(bool arm = true, string? message = null)
+            {
+                _armed = arm;
+                Message = message;
+            }
+            ~EventTrigger() => Armed = false;
+
+            /// <summary>
+            /// Optional message to include with the assertion failure.
+            /// </summary>
+            public string? Message { get; set; }
+            /// <summary>
+            /// When true, assertion failures are first caught to retrieve their stack trace which is parsed to find the name of the method that triggered the event; the built-in message's '[Method]' substring is replaced with the method name.
+            /// </summary>
+            public bool ResolveEventNameFromStackTrace { get; set; } = true;
+
+            /// <summary>
+            /// Gets or sets whether the event trigger is armed.<br/>
+            /// <b>Note that setting this to <see langword="false"/> triggers the assertion check.</b><br/>
+            /// Defaults to false unless set in the constructor.
+            /// </summary>
+            /// <remarks>Nothing happens if the underlying value doesn't actually change!<br/><i>(Setting this to <see langword="false"/> when it is already <see langword="false"/> cannot trigger assertion failures.)</i></remarks>
+            public bool Armed
+            {
+                get => _armed;
+                set
+                {
+                    if (_armed == value)
+                        return;
+                    if (value)
+                    {
+                        _armed = true;
+                    }
+                    else
+                    {
+                        _armed = false;
+
+                        try
+                        {
+                            if (MinCount == -1)
+                            {
+                                if (Count > 0)
+                                    Assert.Fail($"{Message}{(Message == null ? "" : "\n")}The event triggered by [Method] was triggered {Count} times!");
+                            }
+                            else if (Count < MinCount)
+                                Assert.Fail($"{Message}{(Message == null ? "" : "\n")}The event triggered by [Method] was triggered {Count} times, but was expected to have been triggered at least {MinCount} times!");
+                        }
+                        catch (AssertFailedException ex)
+                        {
+                            if (!ResolveEventNameFromStackTrace)
+                                throw;
+
+                            string[] stackTrace = ex.StackTrace!.Split('\n');
+                            foreach (string callsite in stackTrace)
+                            {
+                                var match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
+                                if (!match.Success)
+                                    continue;
+                                string method = match.Groups[0].Value;
+                                if (method.Length > 0)
+                                    throw new AssertFailedException(ex.Message.Replace("[Method]", method), ex);
+                            }
+                        }
+                    }
+                }
+            }
+            private bool _armed = false;
+            /// <summary>The number of times that the event has been called.</summary>
+            /// <remarks>This does not directly throw assertion failures unless <see cref="AutoAssert"/> is <see langword="true"/>.<br/>When <see cref="Armed"/> is set to <see langword="false"/> and the counter is greater or equal to <see cref="MinCount"/>, an assertion failure occurs.</remarks>
+            public int Count
+            {
+                get => _count;
+                private set
+                {
+                    _count = value;
+                    try
+                    {
+                        if (AutoAssert && Count >= AutoAssertWhenCountIs)
+                            Assert.Fail($"{Message}{(Message == null ? "" : "\n")}[{nameof(AutoAssert)}]:  The event triggered by [Method] was triggered {Count}/{AutoAssertWhenCountIs} times!");
+                    }
+                    catch (AssertFailedException ex)
+                    {
+                        if (!ResolveEventNameFromStackTrace)
+                            throw;
+
+                        string[] stackTrace = ex.StackTrace!.Split('\n');
+                        foreach (string callsite in stackTrace)
+                        {
+                            var match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
+                            if (!match.Success)
+                                continue;
+                            string method = match.Groups[0].Value;
+                            if (method.Length > 0)
+                                throw new AssertFailedException(ex.Message.Replace("[Method]", method, StringComparison.Ordinal), ex);
+                        }
+                    }
+                }
+            }
+            private int _count = 0;
+            /// <summary>Sets the minimum value that <see cref="Count"/> must reach to prevent an assertion from being thrown when disarmed.<br/>If this is set to -1, an assertion failure occurs when <see cref="Count"/> is any number greater than 0.<br/>Defaults to -1.</summary>
+            /// <remarks>This is checked when <see cref="Armed"/> is set to false.</remarks>
+            public int MinCount { get; set; } = -1;
+            /// <summary>
+            /// When this is true, an assertion is automatically thrown when the value of <see cref="Count"/> reaches <i>(or exceeds)</i> the value of <see cref="AutoAssertWhenCountIs"/>.<br/>
+            /// This is in contrast to setting the <see cref="Armed"/> property to false, which is the manual way to trigger the assertion check.<br/>
+            /// Defaults to false.
+            /// </summary>
+            public bool AutoAssert { get; set; } = false;
+            /// <summary>
+            /// Sets the maximum value that <see cref="Count"/> can reach before an assertion is thrown automatically.<br/>
+            /// Defaults to 1.
+            /// </summary>
+            /// <remarks>Does nothing if <see cref="AutoAssert"/> is set to <see langword="false"/>.</remarks>
+            public int AutoAssertWhenCountIs { get; set; } = 1;
+
+            /// <summary>
+            /// Increments <see cref="Count"/> by 1 if <see cref="Armed"/> is set to <see langword="true"/>.
+            /// </summary>
+            public void Trigger()
+            {
+                if (Armed) ++Count;
+            }
+            /// <summary>Calls the <see cref="Trigger()"/> method.</summary>
+            /// <param name="_"></param>
+            /// <param name="_1"></param>
+            public void Handler(object? _, object? _1) => Trigger();
+
+            /// <summary>Disarms the trigger without any assertion checks.</summary>
+            public void Defuse()
+            {
+                _armed = false;
+            }
+            /// <summary>Resets <see cref="Count"/> to 0.</summary>
+            /// <remarks>Does not trigger any assertion checks.</remarks>
+            public void Reset()
+            {
+                _count = 0;
+            }
+        }
+
         /// <summary>
         /// This event may be used as the source for an event handler to test.<br/>
         /// Use <see cref="NotifyFromEvent"/> to trigger this event.

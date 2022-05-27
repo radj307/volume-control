@@ -68,8 +68,7 @@ namespace VolumeControl.Hotkeys
         /// Sets the specified window's show state.
         /// </summary>
         /// <remarks>
-        /// The first time this function is called, the <paramref name="eCmdShow"/> parameter is ignored in order to initialize with <paramref name="hWnd"/>.<br/>
-        /// In most cases, you can get this out of the way in the <see cref="Form"/>'s constructor by calling: <code>ShowWindow(<paramref name="hWnd"/>, <see cref="ECmdShow.SW_HIDE"/>)</code>
+        /// The first time this function is called, the <paramref name="eCmdShow"/> parameter is ignored in order to initialize with <paramref name="hWnd"/>.
         /// </remarks>
         /// <param name="hWnd">A handle to the window.<br/>This can be acquired with: <code>Form.Handle</code></param>
         /// <param name="eCmdShow">Controls how the window is to be shown.</param>
@@ -220,7 +219,13 @@ namespace VolumeControl.Hotkeys
             /// </summary>
             SWP_SHOWWINDOW = 0x0040,
         }
-
+        /// <summary>
+        /// Triggers a key press.
+        /// </summary>
+        /// <param name="virtualKey"></param>
+        /// <param name="scanCode"></param>
+        /// <param name="flags"></param>
+        /// <param name="extraInfo"></param>
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
         public static extern void KeyboardEvent(EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
     }
