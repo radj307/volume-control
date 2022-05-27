@@ -1,0 +1,51 @@
+name:         'Compatibility Report'
+description:  'Provide Operating System Support Feedback'
+title:        'Windows Version Compatibility Report'
+labels:       ['os-support']
+assignees:
+  - radj307
+body:
+  - type: markdown
+    attributes:
+      value:  |
+              Thanks for taking the time to fill out a compatibility report!  
+              Your contribution lets us know how to improve Volume Control by improving compatibility with your version of Windows.
+  - type: dropdown
+    id:   version
+    attributes:
+      label:  Which Windows Version are you reporting?
+      options:
+        - Windows Vista
+        - Windows 7
+        - Windows 8
+        - Windows 8.1
+        - Windows 11      
+  - type: dropdown
+    id:   state
+    attributes:
+      label:        Support Status
+      description:  |
+                    Major issues are any issues that prevent you from using core features of Volume Control, such as: hotkeys not working, UI doesn't appear, etc.
+                    Minor issues are defined as anything that impacts the usefulness of Volume Control but does not prevent you from using core features.
+      options:
+        - Fully Compatible  (No Perceivable Issues)
+        - Mostly Compatible (Minor Issues; Hotkeys and UI are functional)
+        - Barely Compatible (Major Issues; Essential features are non-functional)
+        - Not Compatible    (Cannot launch Volume Control, or it is entirely non-functional)
+  - type: markdown
+    attributes:
+      value:  |
+              If you selected the ***Fully Compatible*** option above, you can skip the rest of the form.  
+              If you selected any other options, please fill in the rest of the form.
+  - type: textarea
+    id:   log
+    attributes:
+      label:       Log
+      description: |
+                   Even logs that don't include anything relevant are useful, because it lets us know where to improve our logging system.
+  - type: textarea
+    id:   details
+    attributes:
+      label:        Additional Details (Optional)
+      description:  If you have any other information to provide, you can do so here.  
+      placeholder:  Descriptions and/or images of the problem.
