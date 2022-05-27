@@ -22,13 +22,10 @@ Designed for adjusting the volume of your music independently of other programs,
 
 ### Requirements
 
-- Any version of Windows since Vista.
+- A mouse & keyboard.
 
-#### Compatibility
-
-##### Confirmed
-
-- Windows 10
+#### Windows Version Compatibility
+We've tested Volume Control on **Windows 10**, however it should be compatible with any version of Windows since Vista however this is untested.  
 
 ##### Unconfirmed
 
