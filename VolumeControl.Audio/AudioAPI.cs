@@ -661,6 +661,18 @@ namespace VolumeControl.Audio
 
         #region Selection
         #region SessionSelection
+        /// <summary>Gets the current session volume of <see cref="SelectedSession"/>.</summary>
+        /// <returns>An <see cref="Int32"/> in the range ( 0 - 100 ) if <see cref="SelectedSession"/> is not <see langword="null"/>; otherwise ( -1 ).</returns>
+        public int GetSessionVolume() => SelectedSession?.Volume ?? -1;
+        /// <summary>Sets the current session volume of <see cref="SelectedSession"/>.</summary>
+        /// <param name="volume">The desired session volume level in the range ( 0 - 100 )</param>
+        public void SetSessionVolume(int volume)
+        {
+            if (SelectedSession is AudioSession session)
+            {
+                session.Volume = volume;
+            }
+        }
         /// <summary>
         /// Increments the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
         /// </summary>
@@ -818,6 +830,18 @@ namespace VolumeControl.Audio
         }
         #endregion SessionSelection
         #region DeviceSelection
+        /// <summary>Gets the current endpoint volume of <see cref="SelectedDevice"/>.</summary>
+        /// <returns>An <see cref="Int32"/> in the range ( 0 - 100 ) if <see cref="SelectedDevice"/> is not <see langword="null"/>; otherwise ( -1 ).</returns>
+        public int GetDeviceVolume() => SelectedDevice?.EndpointVolume ?? -1;
+        /// <summary>Sets the current endpoint volume of <see cref="SelectedDevice"/>.</summary>
+        /// <param name="volume">The desired endpoint volume level in the range ( 0 - 100 )</param>
+        public void SetDeviceVolume(int volume)
+        {
+            if (SelectedDevice is AudioDevice dev)
+            {
+                dev.EndpointVolume = volume;
+            }
+        }
         /// <summary>
         /// Increments the endpoint volume of the currently selected device.<br/>
         /// This affects the maximum volume of all sessions using this endpoint.
