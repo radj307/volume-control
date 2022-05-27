@@ -75,9 +75,6 @@ namespace VolumeControl.Helpers.Update
         /// <returns>The latest version applicable to the current release channel. (Normal/PreRelease)</returns>
         private static async Task<(SemVersion, GithubReleaseHttpResponse)> GetLatestVersionMetadataAsync()
         {
-            if (!_initialized)
-                Initialize();
-
             using HttpClient client = new();
             // clear the HTTP request header
             client.DefaultRequestHeaders.Accept.Clear();
@@ -111,10 +108,8 @@ namespace VolumeControl.Helpers.Update
         /// Retrieves the list of releases from the Github API, and if a newer version is found a message box is shown prompting the user to update.
         /// </summary>
         /// <returns>True when the autoupdater is ready & waiting for the program to shutdown, otherwise false.</returns>
-        private static async Task<bool> CheckForUpdatesAsync()
+        private static async Task<bool> CheckForUpdatesAsync(bool forceUpdate = false)
         {
-            if (!_initialized)
-                Initialize();
             if (_hasCheckedForUpdates || _currentVersion == null)
                 return false;
             _hasCheckedForUpdates = true;
@@ -122,9 +117,9 @@ namespace VolumeControl.Helpers.Update
             (SemVersion newVersion, GithubReleaseHttpResponse response) = await updateTask.ConfigureAwait(false);
 
 #           if DEBUG
-            if (TEST_UPDATE)
+            if (forceUpdate || TEST_UPDATE)
 #           else
-            if (newVersion > _currentVersion)
+            if (forceUpdate || newVersion > _currentVersion)
 #           endif
             {
                 switch (MessageBox.Show(
@@ -190,9 +185,11 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// Checks for updates, and automatically installs them depending on user interaction via <see cref="MessageBox"/>.
         /// </summary>
-        public static bool CheckForUpdates()
+        public static bool CheckForUpdates(bool forceUpdate = false)
         {
-            Task<bool> updateTask = CheckForUpdatesAsync();
+            if (!_initialized)
+                Initialize();
+            Task<bool> updateTask = CheckForUpdatesAsync(forceUpdate);
             updateTask.Wait(-1);
             return updateTask.Result;
         }
@@ -202,9 +199,6 @@ namespace VolumeControl.Helpers.Update
         /// <returns>The absolute filepath of the updater utility's executable.</returns>
         private static string? SetupUpdateUtility()
         {
-            if (!_initialized)
-                Initialize();
-
             var asm = Assembly.GetEntryAssembly();
             if (asm == null)
             {
