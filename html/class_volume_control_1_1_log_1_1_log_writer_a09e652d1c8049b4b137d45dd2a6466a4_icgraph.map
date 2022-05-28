@@ -1,6 +1,7 @@
 <map id="VolumeControl.Log.LogWriter.Debug" name="VolumeControl.Log.LogWriter.Debug">
-<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="279,71,493,112"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="5,5,231,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a43f5e3e31ab161cd9e8701fe39d1114e" title="Removes the message hook from the application&#39;s handle." alt="" coords="5,71,231,112"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="5,136,231,177"/>
+<area shape="rect" id="node1" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="307,116,521,157"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a57c8d96dc5d4178d5b6d15a5df8fa374" title="Adds a window message hook to receive hotkey press messages and route them to the associated event tr..." alt="" coords="19,5,245,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#aa8da953cf652bcf19a11825223535ae3" title="Triggers the PropertyChanged event." alt="" coords="5,71,259,127"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a43f5e3e31ab161cd9e8701fe39d1114e" title="Removes the message hook from the application&#39;s handle." alt="" coords="19,152,245,193"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="19,217,245,259"/>
 </map>

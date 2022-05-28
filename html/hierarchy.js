@@ -25,7 +25,6 @@ var hierarchy =
       [ "VolumeControl.Audio.Events.VolumeEventArgs", "class_volume_control_1_1_audio_1_1_events_1_1_volume_event_args.html", null ]
     ] ],
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
-    [ "VolumeControl.Audio.GetIconsExtensions", "class_volume_control_1_1_audio_1_1_get_icons_extensions.html", null ],
     [ "HotkeyLib.HotkeyAPI", "class_hotkey_lib_1_1_hotkey_a_p_i.html", null ],
     [ "VolumeControl.Hotkeys.Interfaces.IActionBinding", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html", [
       [ "VolumeControl.Hotkeys.Structs.ActionBinding", "struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html", null ]
@@ -152,6 +151,7 @@ var hierarchy =
     [ "MultiBinding", null, [
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
+    [ "VolumeControl.Core.Extensions.NullableBoolExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_nullable_bool_extensions.html", null ],
     [ "ObservableCollection", null, [
       [ "VolumeControl.WPF.Collections.ObservableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", null ]
     ] ],

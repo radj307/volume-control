@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['makeblanktimestamp_595',['MakeBlankTimestamp',['../class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e',1,'VolumeControl::Log::LogWriter']]],
-  ['makeheader_596',['MakeHeader',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a00f0833bfb8f8ca3e9bcdf6db4fd669b',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
-  ['maketimestamp_597',['MakeTimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a423b396eec8b2c8d57881414daae8f86',1,'VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp()'],['../class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31',1,'VolumeControl.Log.LogWriter.MakeTimestamp()']]],
-  ['memoryendpoint_598',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a6b9ae3daea499586fefb89c4bd08eaf6',1,'VolumeControl::Log::Endpoints::MemoryEndpoint']]]
+  ['makeblanktimestamp_600',['MakeBlankTimestamp',['../class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e',1,'VolumeControl::Log::LogWriter']]],
+  ['makeheader_601',['MakeHeader',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a00f0833bfb8f8ca3e9bcdf6db4fd669b',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
+  ['maketimestamp_602',['MakeTimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a423b396eec8b2c8d57881414daae8f86',1,'VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp()'],['../class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31',1,'VolumeControl.Log.LogWriter.MakeTimestamp()']]],
+  ['memoryendpoint_603',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a6b9ae3daea499586fefb89c4bd08eaf6',1,'VolumeControl::Log::Endpoints::MemoryEndpoint']]]
 ];

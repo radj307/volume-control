@@ -78,9 +78,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_device.html",
-"class_volume_control_1_1_hotkeys_1_1_user32.html#ab3fadec7acffb6d7c2a6880f0bef2379a824c16f26d24c0f2caeb55dc31034b60",
-"dir_dfd2132286a029f47d055cf27da306d6.html"
+"class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html#afb5981f0ee903d2a9db91966a131f165",
+"class_volume_control_1_1_hotkeys_1_1_user32.html#ab3fadec7acffb6d7c2a6880f0bef2379a48ece36e3dbd0c5542936470840244ab",
+"dir_c8faa01943b2df236b00d6a9a62f8daf.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['keycombo_445',['KeyCombo',['../struct_hotkey_lib_1_1_key_combo.html',1,'HotkeyLib']]],
-  ['keysblacklist_446',['KeysBlacklist',['../class_hotkey_lib_1_1_keys_blacklist.html',1,'HotkeyLib']]],
-  ['keyslist_447',['KeysList',['../class_hotkey_lib_1_1_keys_list.html',1,'HotkeyLib']]]
+  ['listextensions_452',['ListExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_list_extensions.html',1,'VolumeControl::Core::Extensions']]],
+  ['logwriter_453',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html',1,'VolumeControl::Log']]]
 ];

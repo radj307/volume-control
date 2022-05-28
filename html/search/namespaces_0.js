@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hotkeylib_476',['HotkeyLib',['../namespace_hotkey_lib.html',1,'']]]
+  ['hotkeylib_481',['HotkeyLib',['../namespace_hotkey_lib.html',1,'']]]
 ];

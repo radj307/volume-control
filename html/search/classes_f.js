@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['scope_461',['Scope',['../struct_volume_control_1_1_core_1_1_win32_1_1_registry_a_p_i_1_1_scope.html',1,'VolumeControl::Core::Win32::RegistryAPI']]],
-  ['settings_462',['Settings',['../class_volume_control_1_1_log_1_1_properties_1_1_settings.html',1,'VolumeControl::Log::Properties']]],
-  ['stringextensions_463',['StringExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions.html',1,'VolumeControl::Core::Extensions']]]
+  ['targetchangedeventargs_469',['TargetChangedEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args.html',1,'VolumeControl::Audio::Events']]],
+  ['targetchangingeventargs_470',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
+  ['timerextensions_471',['TimerExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_timer_extensions.html',1,'VolumeControl::Core::Extensions']]],
+  ['timestamp_472',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]]
 ];

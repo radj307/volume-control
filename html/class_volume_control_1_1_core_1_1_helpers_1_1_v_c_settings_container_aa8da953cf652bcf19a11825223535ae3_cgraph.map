@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Helpers.VCSettingsContainer.NotifyPropertyChanged" name="VolumeControl.Core.Helpers.VCSettingsContainer.NotifyPropertyChanged">
+<area shape="rect" id="node1" title="Triggers the PropertyChanged event." alt="" coords="5,5,259,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="307,13,521,54"/>
+</map>

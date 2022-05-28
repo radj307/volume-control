@@ -5,6 +5,5 @@ var dir_6669490ab7341c9adf099ef9202f5515 =
     [ "AudioAPI.cs", null, null ],
     [ "AudioAPISettings.Designer.cs", null, null ],
     [ "AudioDevice.cs", null, null ],
-    [ "AudioSession.cs", null, null ],
-    [ "IconGetter.cs", null, null ]
+    [ "AudioSession.cs", null, null ]
 ];

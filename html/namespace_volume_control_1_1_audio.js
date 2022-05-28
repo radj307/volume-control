@@ -6,6 +6,5 @@ var namespace_volume_control_1_1_audio =
     [ "AudioAPISettings", "class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html", "class_volume_control_1_1_audio_1_1_audio_a_p_i_settings" ],
     [ "AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", "class_volume_control_1_1_audio_1_1_audio_device" ],
     [ "AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", "class_volume_control_1_1_audio_1_1_audio_session" ],
-    [ "GetIconsExtensions", "class_volume_control_1_1_audio_1_1_get_icons_extensions.html", "class_volume_control_1_1_audio_1_1_get_icons_extensions" ],
     [ "IconGetter", "class_volume_control_1_1_audio_1_1_icon_getter.html", "class_volume_control_1_1_audio_1_1_icon_getter" ]
 ];
