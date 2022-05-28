@@ -219,7 +219,7 @@
             </Style>
             <!--  TabControl  -->
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
-                <Setter Property="Background" Value="#505055" />
+                <Setter Property="Background" Value="#535255" />
                 <Setter Property="Foreground" Value="WhiteSmoke" />
             </Style>
 
@@ -618,6 +618,7 @@
                     FontSize="10"
                     FontWeight="Regular"
                     Foreground="Yellow"
+                    MouseDown="Handle_CaptionUpdateClick"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="▲"
                     ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}"
@@ -675,7 +676,7 @@
                                     <ControlTemplate.Triggers>
                                         <!--  SELECTED TAB APPEARANCE:  -->
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#505055" />
+                                            <Setter TargetName="Border" Property="Background" Value="#535255" />
                                             <Setter TargetName="Border" Property="Margin" Value="1,-1" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="SemiBold" />
@@ -703,9 +704,9 @@
                             x:Key="SectionStyle"
                             BasedOn="{StaticResource BorderStyle}"
                             TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="#404040" />
+                            <Setter Property="Background" Value="#80404040" />
                             <Setter Property="BorderThickness" Value="2" />
-                            <Setter Property="BorderBrush" Value="#303030" />
+                            <Setter Property="BorderBrush" Value="#80303030" />
                             <Setter Property="Margin" Value="1,0" />
                             <Setter Property="Padding" Value="2" />
                         </Style>

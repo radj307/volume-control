@@ -156,6 +156,8 @@
                 </Style.Triggers>
                 <!--  Global Style Setters  -->
                 <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+                <Setter Property="TextOptions.TextHintingMode" Value="Auto" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -190,6 +192,7 @@
                         <DataTemplate>
                             <TextBlock
                                 Grid.Column="1"
+                                Margin="-3,0,0,0"
                                 Style="{StaticResource TextBlockStyle}"
                                 Text="{Binding ProcessName}" />
                         </DataTemplate>

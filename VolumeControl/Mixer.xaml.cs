@@ -210,7 +210,12 @@ namespace VolumeControl
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => Hide();
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => Close();
-        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => UpdateChecker.CheckForUpdates(VCSettings.AllowUpdateToPreRelease);
+        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.Update();
+        private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (VCSettings.Updater.ShowUpdatePrompt())
+                VCSettings.Updater.Update(true);
+        }
         #endregion EventHandlers
     }
 }

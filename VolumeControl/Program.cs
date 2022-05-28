@@ -41,7 +41,8 @@ namespace VolumeControl
             if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
                 System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
             else if (args.Contains("--update"))
-                UpdateChecker.CheckForUpdates(true);
+                
+//                UpdateChecker.CheckForUpdates(true);
 
             // attempt to upgrade settings
             if (Settings.UpgradeSettings)
@@ -84,10 +85,10 @@ namespace VolumeControl
                 MessageBox.Show("Another instance of Volume Control is already running!");
                 return;
             }
-            if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
-            {
-                return;
-            }
+            //if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
+            //{
+            //    return;
+            //}
 
             var app = new App();
             try

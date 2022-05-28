@@ -1,7 +1,7 @@
 ﻿namespace VolumeControl.Helpers.Update
 {
     /// <summary>Wrapper object used when deserializing JSON responses from the github API.</summary>
-    internal struct GithubReleaseHttpResponse
+    public struct GithubReleaseHttpResponse
     {
         /// <summary>API url.</summary>
         public string url { get; set; }

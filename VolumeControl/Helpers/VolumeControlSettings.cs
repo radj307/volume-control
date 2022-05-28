@@ -14,6 +14,7 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Helpers.Addon;
+using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
 using VolumeControl.WPF;
@@ -69,6 +70,7 @@ namespace VolumeControl.Helpers
             StartMinimized = Settings.StartMinimized;
             CheckForUpdates = Settings.CheckForUpdatesOnStartup;
             AllowUpdateToPreRelease = Settings.AllowUpdateToPreRelease.ToBoolean();
+            ShowUpdateMessageBox = Settings.ShowUpdateMessageBox;
             NotificationEnabled = Settings.NotificationEnabled;
             NotificationTimeout = Settings.NotificationTimeoutInterval;
             NotificationShowsVolumeChange = Settings.NotificationShowsVolumeChange;
@@ -77,6 +79,13 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
             _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
+
+            Updater = new(this);
+
+            if (Settings.CheckForUpdatesOnStartup)
+            {
+                Updater.Update();
+            }
         }
         private void SaveSettings()
         {
@@ -87,6 +96,7 @@ namespace VolumeControl.Helpers
             Settings.StartMinimized = StartMinimized;
             Settings.CheckForUpdatesOnStartup = CheckForUpdates;
             Settings.AllowUpdateToPreRelease = AllowUpdateToPreRelease.ToThreeStateNumber();
+            Settings.ShowUpdateMessageBox = ShowUpdateMessageBox;
             Settings.NotificationEnabled = NotificationEnabled;
             Settings.NotificationTimeoutInterval = NotificationTimeout;
             Settings.NotificationShowsVolumeChange = NotificationShowsVolumeChange;
@@ -128,6 +138,7 @@ namespace VolumeControl.Helpers
         private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
+        public readonly Updater Updater;
         public readonly ERelease ReleaseType;
         #endregion Fields
 
@@ -173,8 +184,28 @@ namespace VolumeControl.Helpers
         private static Log.Properties.Settings LogSettings => global::VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => global::VolumeControl.Log.FLog.Log;
         #endregion PrivateStatics
-        public static bool UpdateAvailable { get; internal set; } = false;
-        public static string UpdateVersion { get; internal set; } = "";
+        public bool UpdateAvailable
+        {
+            get => _updateAvailable;
+            internal set
+            {
+                NotifyPropertyChanging();
+                _updateAvailable = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _updateAvailable = false;
+        public string UpdateVersion
+        {
+            get => _updateVersion;
+            internal set
+            {
+                NotifyPropertyChanging();
+                _updateVersion = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string _updateVersion = string.Empty;
         public string VersionNumber { get; private set; }
         public SemVersion Version { get; private set; }
         #endregion Statics

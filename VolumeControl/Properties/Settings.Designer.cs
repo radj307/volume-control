@@ -277,5 +277,26 @@ namespace VolumeControl.Properties {
                 this["AllowUpdateToPreRelease"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowUpdateMessageBox {
+            get {
+                return ((bool)(this["ShowUpdateMessageBox"]));
+            }
+            set {
+                this["ShowUpdateMessageBox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/radj307/volume-control/releases/latest")]
+        public string UpdateUriLatest {
+            get {
+                return ((string)(this["UpdateUriLatest"]));
+            }
+        }
     }
 }
