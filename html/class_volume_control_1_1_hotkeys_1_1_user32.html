@@ -161,8 +161,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab2fcd4324d48169858891a765aadd8ec"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab2fcd4324d48169858891a765aadd8ec">ShowWindow</a> (IntPtr hWnd, int nCmdShow)</td></tr>
 <tr class="memdesc:ab2fcd4324d48169858891a765aadd8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the specified window's show state.  <a href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab2fcd4324d48169858891a765aadd8ec">More...</a><br /></td></tr>
 <tr class="separator:ab2fcd4324d48169858891a765aadd8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab82e4b7c8794d49273d816edc89d5807"><td class="memItemLeft" align="right" valign="top"><a id="ab82e4b7c8794d49273d816edc89d5807"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>KeyboardEvent</b> (EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo)</td></tr>
+<tr class="memitem:ab82e4b7c8794d49273d816edc89d5807"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab82e4b7c8794d49273d816edc89d5807">KeyboardEvent</a> (EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo)</td></tr>
+<tr class="memdesc:ab82e4b7c8794d49273d816edc89d5807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers a key press.  <a href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab82e4b7c8794d49273d816edc89d5807">More...</a><br /></td></tr>
 <tr class="separator:ab82e4b7c8794d49273d816edc89d5807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -302,6 +302,57 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab82e4b7c8794d49273d816edc89d5807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab82e4b7c8794d49273d816edc89d5807">&#9670;&nbsp;</a></span>KeyboardEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void VolumeControl.Hotkeys.User32.KeyboardEvent </td>
+          <td>(</td>
+          <td class="paramtype">EVirtualKeyCode&#160;</td>
+          <td class="paramname"><em>virtualKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">byte&#160;</td>
+          <td class="paramname"><em>scanCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>flags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>extraInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers a key press. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">virtualKey</td><td></td></tr>
+    <tr><td class="paramname">scanCode</td><td></td></tr>
+    <tr><td class="paramname">flags</td><td></td></tr>
+    <tr><td class="paramname">extraInfo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aa2e3e801484035a0248f9ddca1c78e26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa2e3e801484035a0248f9ddca1c78e26">&#9670;&nbsp;</a></span>SetActiveWindow()</h2>
 
@@ -523,9 +574,8 @@ If the function fails, the return value is zero.To get extended error informatio
 </div><div class="memdoc">
 
 <p>Sets the specified window's show state. </p>
-<p>The first time this function is called, the <em>eCmdShow</em>  parameter is ignored in order to initialize with <em>hWnd</em> .<br  />
- In most cases, you can get this out of the way in the Form's constructor by calling: </p><div class="fragment"><div class="line"><a class="code" href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab2fcd4324d48169858891a765aadd8ec">ShowWindow</a>(&lt;paramref name=<span class="stringliteral">&quot;hWnd&quot;</span>/&gt;, &lt;see cref=<span class="stringliteral">&quot;ECmdShow.SW_HIDE&quot;</span>/&gt;)</div>
-</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+<p>The first time this function is called, the <em>eCmdShow</em>  parameter is ignored in order to initialize with <em>hWnd</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hWnd</td><td>A handle to the window.<br  />
 This can be acquired with: <div class="fragment"><div class="line">Form.Handle</div>
@@ -696,7 +746,6 @@ Applications create their main window by calling CreateWindow with the WS_VISIBL
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_volume_control_1_1_hotkeys_1_1_user32_html_ab2fcd4324d48169858891a765aadd8ec"><div class="ttname"><a href="class_volume_control_1_1_hotkeys_1_1_user32.html#ab2fcd4324d48169858891a765aadd8ec">VolumeControl.Hotkeys.User32.ShowWindow</a></div><div class="ttdeci">static bool ShowWindow(IntPtr hWnd, int nCmdShow)</div><div class="ttdoc">Sets the specified window's show state.</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

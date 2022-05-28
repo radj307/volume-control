@@ -179,6 +179,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="memitem:ab5906d3597e2b45832d803abd5c3ed70"><td class="memItemLeft" align="right" valign="top"><a id="ab5906d3597e2b45832d803abd5c3ed70"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ab5906d3597e2b45832d803abd5c3ed70">EndpointMuted</a><code> [get, set]</code></td></tr>
 <tr class="separator:ab5906d3597e2b45832d803abd5c3ed70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab678f7194da23331f50e61b3cc13bda3"><td class="memItemLeft" align="right" valign="top">Guid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ab678f7194da23331f50e61b3cc13bda3">NotificationGuid</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab678f7194da23331f50e61b3cc13bda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">GUID to pass to AudioEndpointVolumeCallback  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#ab678f7194da23331f50e61b3cc13bda3">More...</a><br /></td></tr>
+<tr class="separator:ab678f7194da23331f50e61b3cc13bda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee2e190338606df228eb1e3dd24b1428"><td class="memItemLeft" align="right" valign="top">AudioEndpointVolumeNotificationDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428">OnVolumeNotification</a></td></tr>
+<tr class="memdesc:aee2e190338606df228eb1e3dd24b1428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the endpoint volume changes from any source.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428">More...</a><br /></td></tr>
+<tr class="separator:aee2e190338606df228eb1e3dd24b1428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html">VolumeControl.Audio.Interfaces.IDevice</a></td></tr>
 <tr class="memitem:a25bca1de84fc91adb09d1de657485c91 inherit properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html#a25bca1de84fc91adb09d1de657485c91">Name</a><code> [get]</code></td></tr>
 <tr class="memdesc:a25bca1de84fc91adb09d1de657485c91 inherit properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the device name.  <a href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html#a25bca1de84fc91adb09d1de657485c91">More...</a><br /></td></tr>
@@ -454,6 +460,55 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 For more information, see the MSDN page: DEVICE_STATE_XXX Constants</p>
 <p>This object is from NAudio.<br  />
 If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="ab678f7194da23331f50e61b3cc13bda3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab678f7194da23331f50e61b3cc13bda3">&#9670;&nbsp;</a></span>NotificationGuid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Guid VolumeControl.Audio.AudioDevice.NotificationGuid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>GUID to pass to AudioEndpointVolumeCallback </p>
+
+</div>
+</div>
+<a id="aee2e190338606df228eb1e3dd24b1428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee2e190338606df228eb1e3dd24b1428">&#9670;&nbsp;</a></span>OnVolumeNotification</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AudioEndpointVolumeNotificationDelegate VolumeControl.Audio.AudioDevice.OnVolumeNotification</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">add</span><span class="mlabel">remove</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Triggered when the endpoint volume changes from any source. </p>
 
 </div>
 </div>

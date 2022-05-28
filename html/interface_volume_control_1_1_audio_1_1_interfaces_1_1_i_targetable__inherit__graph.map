@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="261,5,493,97"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="5,145,237,296"/>
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="261,160,493,281"/>
-<area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="337,454,569,575"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint." alt="" coords="21,344,221,685"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="353,733,553,1045"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="337,483,569,605"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint." alt="" coords="21,344,221,744"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="353,792,553,1119"/>
 </map>

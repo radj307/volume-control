@@ -20,8 +20,8 @@ var class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey =
     [ "Mod", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a55ed58d02ecacffeec6e9a1b63d953f4", null ],
     [ "Name", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a998fec8a578deb0d546ddb02e6b2afb0", null ],
     [ "Pressed", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a4c152f785c2294371913e679fd3f5c33", null ],
-    [ "PropertyChanged", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ac03b11c8e5ddef2625cfd4374b188d90", null ],
     [ "Registered", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ab59b23fe25e0cf72333aea3c5a231d84", null ],
     [ "Shift", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#af7da0ac041078b3ee57e1d6de0f0ed2e", null ],
-    [ "Win", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a835efb3c9d6b296f85a489bb6bb564ba", null ]
+    [ "Win", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a835efb3c9d6b296f85a489bb6bb564ba", null ],
+    [ "PropertyChanged", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ac03b11c8e5ddef2625cfd4374b188d90", null ]
 ];

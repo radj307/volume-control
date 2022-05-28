@@ -23,15 +23,17 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md13", [
-      [ "Installation", "index.html#autotoc_md14", null ],
-      [ "Setup", "index.html#autotoc_md15", null ],
-      [ "Usage", "index.html#autotoc_md16", null ],
-      [ "Addon Development", "index.html#autotoc_md17", null ],
-      [ "VolumeControlCLI", "index.html#autotoc_md18", [
+    [ "Getting Started", "index.html#autotoc_md15", [
+      [ "Installation", "index.html#autotoc_md16", null ],
+      [ "Setup", "index.html#autotoc_md17", null ],
+      [ "Usage", "index.html#autotoc_md18", null ],
+      [ "Addon Development", "index.html#autotoc_md19", null ],
+      [ "VolumeControlCLI", "index.html#autotoc_md20", [
         [ "What it does", "index.html#autotoc_md11", null ],
-        [ "Requirements", "index.html#autotoc_md12", null ],
-        [ "Commandline Options", "index.html#autotoc_md19", null ]
+        [ "Requirements", "index.html#autotoc_md12", [
+          [ "Windows Version Compatibility", "index.html#autotoc_md13", null ]
+        ] ],
+        [ "Commandline Options", "index.html#autotoc_md21", null ]
       ] ]
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
@@ -76,9 +78,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_device.html#a5bddcf66d81495a6fb90ab113893c862",
-"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a6fc46286e63a591aebbc7738cbc6edef",
-"functions_func_r.html"
+"class_volume_control_1_1_audio_1_1_audio_device.html",
+"class_volume_control_1_1_hotkeys_1_1_user32.html#ab3fadec7acffb6d7c2a6880f0bef2379a824c16f26d24c0f2caeb55dc31034b60",
+"dir_dfd2132286a029f47d055cf27da306d6.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

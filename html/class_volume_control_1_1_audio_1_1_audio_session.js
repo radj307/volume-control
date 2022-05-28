@@ -2,6 +2,7 @@ var class_volume_control_1_1_audio_1_1_audio_session =
 [
     [ "AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html#aeb56d8f5f6a97fde371c4795473c1f7a", null ],
     [ "Dispose", "class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583", null ],
+    [ "Equals", "class_volume_control_1_1_audio_1_1_audio_session.html#a02a63ff3ce76759238b2c19740ff65a5", null ],
     [ "GetProcess", "class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da", null ],
     [ "Icon", "class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328", null ],
     [ "IconPath", "class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504", null ],

@@ -19,5 +19,8 @@ var class_volume_control_1_1_audio_1_1_audio_device =
     [ "EndpointMuted", "class_volume_control_1_1_audio_1_1_audio_device.html#ab5906d3597e2b45832d803abd5c3ed70", null ],
     [ "EndpointVolume", "class_volume_control_1_1_audio_1_1_audio_device.html#a993cbfb0015d83fd5b50fa9502c89b5e", null ],
     [ "NativeEndpointVolume", "class_volume_control_1_1_audio_1_1_audio_device.html#a1fa68238cc3651eb11db790167276e7b", null ],
+    [ "NotificationGuid", "class_volume_control_1_1_audio_1_1_audio_device.html#ab678f7194da23331f50e61b3cc13bda3", null ],
+    [ "OnVolumeNotification", "class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428", null ],
+    [ "VolumeRange", "class_volume_control_1_1_audio_1_1_audio_device.html#abf751b1c50ada747aefdc837958f6c5b", null ],
     [ "PropertyChanged", "class_volume_control_1_1_audio_1_1_audio_device.html#a9fc336d0314947c250ac61df798b9d91", null ]
 ];

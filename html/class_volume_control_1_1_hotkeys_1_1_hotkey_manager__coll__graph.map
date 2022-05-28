@@ -1,9 +1,9 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager" name="VolumeControl.Hotkeys.HotkeyManager">
-<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="153,331,378,643"/>
+<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="167,331,393,687"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,169,192,246"/>
-<area shape="rect" id="node3" title=" " alt="" coords="216,169,315,246"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="339,147,587,268"/>
-<area shape="rect" id="node5" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="202,5,350,97"/>
-<area shape="rect" id="node6" title=" " alt="" coords="374,13,551,90"/>
-<area shape="rect" id="node7" title=" " alt="" coords="576,13,757,90"/>
+<area shape="rect" id="node3" title=" " alt="" coords="127,13,305,90"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="267,147,515,268"/>
+<area shape="rect" id="node4" title=" " alt="" coords="539,169,637,246"/>
+<area shape="rect" id="node6" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="329,5,477,97"/>
+<area shape="rect" id="node7" title=" " alt="" coords="501,13,683,90"/>
 </map>
