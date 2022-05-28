@@ -1,5 +1,7 @@
 ﻿using HotkeyLib;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Interop;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
@@ -9,7 +11,7 @@ using VolumeControl.WPF.Collections;
 namespace VolumeControl.Hotkeys
 {
     /// <summary>This object is responsible for managing hotkeys at runtime.</summary>
-    public class HotkeyManager : INotifyCollectionChanged, IDisposable
+    public class HotkeyManager : INotifyCollectionChanged, INotifyPropertyChanged, IDisposable
     {
         #region Initializers
         /// <inheritdoc cref="HotkeyManager"/>
@@ -21,6 +23,16 @@ namespace VolumeControl.Hotkeys
             AddHook();
             if (loadNow)
                 LoadHotkeys();
+            CollectionChanged += (s, e) =>
+            {
+                if (e.NewItems == null)
+                    return;
+                foreach (BindableWindowsHotkey item in e.NewItems)
+                {
+                    item.PropertyChanged += HotkeyOnPropertyChanged;
+                    item.PropertyChanged += NotifyPropertyChanged;
+                }
+            };
         }
         #endregion Initializers
 
@@ -29,6 +41,8 @@ namespace VolumeControl.Hotkeys
         private HwndSource HwndSource = null!;
         private readonly IHotkeyActionManager _hotkeyActions = null!;
         private bool disposedValue;
+        private bool _allSelectedChanging;
+        private bool? _allSelected;
         #endregion Fields
 
         #region Events
@@ -37,6 +51,10 @@ namespace VolumeControl.Hotkeys
             add => ((INotifyCollectionChanged)Hotkeys).CollectionChanged += value;
             remove => ((INotifyCollectionChanged)Hotkeys).CollectionChanged -= value;
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Properties
@@ -46,11 +64,36 @@ namespace VolumeControl.Hotkeys
         /// Action manager object
         /// </summary>
         public IHotkeyActionManager Actions => _hotkeyActions;
+        /// <summary>
+        /// List of hotkeys.
+        /// </summary>
         public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
+        public bool? AllSelected
+        {
+            get => _allSelected;
+            set
+            {
+                if (value == _allSelected) return;
+                _allSelected = value;
+
+                // Set all other CheckBoxes
+                AllSelectedChanged();
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Methods
         #region HotkeysListManipulators
+        /// <summary>
+        /// Create a new hotkey and add it to <see cref="Hotkeys"/>.
+        /// </summary>
+        public void AddHotkey(BindableWindowsHotkey hk)
+        {
+            hk.PropertyChanged += NotifyPropertyChanged;
+            Hotkeys.Add(hk);
+            Log.Info($"Created a new hotkey entry:", hk.GetFullIdentifier());
+        }
         /// <summary>
         /// Create a new hotkey and add it to <see cref="Hotkeys"/>.
         /// </summary>
@@ -231,6 +274,64 @@ namespace VolumeControl.Hotkeys
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable
+
+        private void HotkeyOnPropertyChanged(object? sender, PropertyChangedEventArgs args)
+        {
+            // Only re-check if the IsChecked property changed
+            if (args.PropertyName == nameof(BindableWindowsHotkey.Registered))
+                RecheckAllSelected();
+        }
+
+        private void AllSelectedChanged()
+        {
+            // Has this change been caused by some other change?
+            // return so we don't mess things up
+            if (_allSelectedChanging) return;
+
+            try
+            {
+                _allSelectedChanging = true;
+
+                // this can of course be simplified
+                if (AllSelected == true)
+                {
+                    foreach (BindableWindowsHotkey hk in Hotkeys)
+                        hk.Registered = true;
+                }
+                else if (AllSelected == false)
+                {
+                    foreach (BindableWindowsHotkey hk in Hotkeys)
+                        hk.Registered = false;
+                }
+            }
+            finally
+            {
+                _allSelectedChanging = false;
+            }
+        }
+
+        private void RecheckAllSelected()
+        {
+            // Has this change been caused by some other change?
+            // return so we don't mess things up
+            if (_allSelectedChanging) return;
+
+            try
+            {
+                _allSelectedChanging = true;
+
+                if (Hotkeys.All(e => e.Registered))
+                    AllSelected = true;
+                else if (Hotkeys.All(e => !e.Registered))
+                    AllSelected = false;
+                else
+                    AllSelected = null;
+            }
+            finally
+            {
+                _allSelectedChanging = false;
+            }
+        }
         #endregion Methods
     }
 }

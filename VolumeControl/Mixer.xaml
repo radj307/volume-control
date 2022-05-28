@@ -5,8 +5,10 @@
     xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
     xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
+    xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ssui="clr-namespace:SolidShineUi;assembly=SolidShineUi"
     x:Name="window"
@@ -47,10 +49,14 @@
                         <Setter Property="Foreground" Value="LightGray" />
                     </DataTrigger>
                 </Style.Triggers>
+                <Style.Resources>
+                    <conv:BoolToThicknessConverter x:Key="ThreeStateConverter" />
+                    <conv:BoolToCheckVisibleConverter x:Key="ThreeStateVisibilityConverter" />
+                </Style.Resources>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
-                            <BulletDecorator Background="#00000000">
+                            <BulletDecorator Name="BulletDecorator" Background="#00000000">
                                 <BulletDecorator.Bullet>
                                     <Border
                                         Width="12"
@@ -58,13 +64,31 @@
                                         Background="#00000000"
                                         BorderBrush="{TemplateBinding Background}"
                                         BorderThickness="1">
+                                        <!--  USE TAG TO PASS INDETERMINATE STATE  -->
                                         <Border
                                             Width="8"
                                             Height="8"
                                             Background="{TemplateBinding Background}"
-                                            BorderBrush="#00000000"
-                                            BorderThickness="0"
-                                            Visibility="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            BorderBrush="#00000000">
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                                                            <Setter Property="BorderThickness" Value="2" />
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                            <Setter Property="BorderThickness" Value="0" />
+                                                            <Setter Property="Visibility" Value="Hidden" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                                            <Setter Property="BorderThickness" Value="0" />
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
                                     </Border>
                                 </BulletDecorator.Bullet>
                                 <ContentPresenter Margin="3,0,0,0" />
@@ -852,6 +876,9 @@
 
         <!--  ▼ Hotkeys Tab ▼  -->
         <TabItem Name="HotkeysTab" Header="Hotkeys">
+            <TabItem.Resources>
+                <helpers:CheckBoxColumnHeaderConverter x:Key="RegisteredColumnAllConverter" />
+            </TabItem.Resources>
             <!--  HotkeyGrid  -->
             <Grid Margin="2">
                 <Grid.RowDefinitions>
@@ -868,13 +895,16 @@
                     DataContext="{StaticResource Settings}"
                     ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource DataGridStyle}">
-
                     <DataGrid.Columns>
                         <!--  Active  -->
-                        <DataGridTemplateColumn
-                            Width="Auto"
-                            CanUserResize="False"
-                            Header="">
+                        <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                            <DataGridTemplateColumn.Header>
+                                <CheckBox
+                                    Click="Handle_ThreeStateCheckboxClick"
+                                    IsChecked="{Binding HotkeyAPI.AllSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                    IsThreeState="True"
+                                    Style="{StaticResource CheckBoxStyle}" />
+                            </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox
@@ -980,7 +1010,6 @@
                 </DataGrid>
                 <Button
                     Grid.Row="1"
-                    Margin="2,2"
                     Click="Handle_CreateNewHotkeyClick"
                     Content="Create New Hotkey"
                     Style="{StaticResource ButtonStyle}"

@@ -1,5 +1,6 @@
 ﻿using HotkeyLib;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace VolumeControl.Hotkeys
 {
@@ -8,24 +9,39 @@ namespace VolumeControl.Hotkeys
         public BindableWindowsHotkey(HotkeyManager manager, string name, IKeyCombo keys, string action, bool registerNow = false)
         {
             _manager = manager;
-            Name = name;
+            _name = name;
             Hotkey = new(_manager.OwnerHandle, keys);
             Action = action;
             if (registerNow) //< only trigger when true
                 Registered = registerNow;
+            Hotkey.PropertyChanged += ForwardPropertyChanged;
         }
 
         private readonly HotkeyManager _manager;
         public WindowsHotkey Hotkey { get; private set; }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string _name;
         public bool Registered
         {
             get => Hotkey.Registered;
-            set => Hotkey.Registered = value;
+            set
+            {
+                Hotkey.Registered = value;
+                NotifyPropertyChanged();
+            }
         }
 
         private string _actionName = string.Empty;
+
 
         /// <summary>
         /// Gets or sets the action associated with this hotkey.
@@ -39,6 +55,7 @@ namespace VolumeControl.Hotkeys
                 if (_actionName.Length > 0)
                     Pressed -= _manager.Actions[_actionName];
                 Pressed += _manager.Actions[_actionName = value];
+                NotifyPropertyChanged();
             }
         }
 
@@ -87,11 +104,11 @@ namespace VolumeControl.Hotkeys
             remove => Hotkey.KeysChanged -= value;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged
-        {
-            add => Hotkey.PropertyChanged += value;
-            remove => Hotkey.PropertyChanged -= value;
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+
+        private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
 
         /// <summary>
         /// Triggers a <see cref="Pressed"/> event.

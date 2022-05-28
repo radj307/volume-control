@@ -9,23 +9,27 @@ namespace VolumeControl.WPF.Converters
     /// Use as the base class for BoolToXXX style converters
     /// </summary>
     /// <remarks>From <see href="https://stackoverflow.com/a/17290508/8705305"/></remarks>
-    /// <typeparam name="T"></typeparam>    
+    /// <typeparam name="T"></typeparam>
     public abstract class BoolToValueConverter<T> : MarkupExtension, IValueConverter
     {
         #region Constructors and Destructors
-
-        protected BoolToValueConverter()
+        /// <inheritdoc cref="BoolToValueConverter{T}"/>
+        protected BoolToValueConverter(T whenTrue = default!, T whenFalse = default!)
         {
-            TrueValue = default!;
-            FalseValue = default!;
+            TrueValue = whenTrue;
+            FalseValue = whenFalse;
         }
 
         #endregion
 
         #region Public Properties
-
+        /// <summary>
+        /// The value to return when the input is false.
+        /// </summary>
         public T FalseValue { get; set; }
-
+        /// <summary>
+        /// The value to return when the input is true.
+        /// </summary>
         public T TrueValue { get; set; }
 
         #endregion

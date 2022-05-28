@@ -157,7 +157,7 @@ namespace VolumeControl.Log
                 else if (line is string s)
                 {
                     if (s.Length > 0)
-                        w.WriteLine($"{Regex.Replace(s, "\\B\\r*\\n", $"\n{tsBlank}")}");
+                        w.WriteLine($"{(i == 0 ? "" : tsBlank)}{Regex.Replace(s, "\\r{0,1}\\n", $"\n{tsBlank}")}");
                 }
                 else if (line is IEnumerable enumerable)
                 {

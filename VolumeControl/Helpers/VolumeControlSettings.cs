@@ -28,7 +28,7 @@ namespace VolumeControl.Helpers
         {
             _audioAPI = new();
             _hWndMixer = WindowHandleGetter.GetWindowHandle();
-            
+
             var assembly = Assembly.GetAssembly(typeof(VolumeControlSettings));
             VersionNumber = assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
             ReleaseType = assembly?.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
@@ -74,7 +74,7 @@ namespace VolumeControl.Helpers
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
-            _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;            
+            _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
         }
         private void SaveSettings()
         {

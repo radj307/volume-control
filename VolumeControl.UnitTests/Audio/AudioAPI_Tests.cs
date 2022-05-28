@@ -43,24 +43,18 @@ namespace VolumeControl.UnitTests.Audio
                 MinCount = 1,
                 ResolveEventNameFromStackTrace = false,
             };
-            var ses = new Assertx.EventTrigger(true)
-            {
-                MinCount = 1,
-                ResolveEventNameFromStackTrace = false,
-            };
 
             // when CheckAllDevices is false && LockSelectedDevice is true:
             aAPI.CheckAllDevices = false;
             aAPI.LockSelectedDevice = true;
             aAPI.DeviceListReloaded += dev.Handler; //< devices
-            aAPI.SessionListReloaded += ses.Handler; //< sessions
+            aAPI.SessionListReloaded += Assertx.NoEvent; //< sessions
             aAPI.SelectedDeviceSwitched += Assertx.NoEvent; //< devices
             aAPI.SelectedSessionSwitched += Assertx.NoEvent; //< and sessions, since CheckAllDevices is false
             Assertx.NoThrows(() => aAPI.ReloadDeviceList());
             dev.Armed = false; //< check count
-            ses.Armed = false; //< check count
             aAPI.DeviceListReloaded -= dev.Handler;
-            aAPI.SessionListReloaded -= ses.Handler;
+            aAPI.SessionListReloaded -= Assertx.NoEvent;
             aAPI.SelectedDeviceSwitched -= Assertx.NoEvent;
             aAPI.SelectedSessionSwitched -= Assertx.NoEvent;
 
@@ -98,6 +92,8 @@ namespace VolumeControl.UnitTests.Audio
 
             var def = aAPI.GetDefaultDevice();
             Assertx.NotNull(def);
+
+            
         }
 
         [TestMethod()]
