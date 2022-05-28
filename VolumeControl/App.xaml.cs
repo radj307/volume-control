@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.Helpers.Controls;
 
 namespace VolumeControl
 {

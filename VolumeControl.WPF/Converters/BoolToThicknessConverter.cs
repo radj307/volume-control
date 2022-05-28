@@ -11,12 +11,14 @@ namespace VolumeControl.WPF.Converters
     /// </summary>
     public class BoolToThicknessConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return new Thickness(2);
             return new Thickness(0);
         }
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
     /// <summary>
@@ -24,12 +26,14 @@ namespace VolumeControl.WPF.Converters
     /// </summary>
     public class BoolToCheckVisibleConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || (value is bool b && b))
                 return Visibility.Visible;
             return Visibility.Hidden;
         }
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

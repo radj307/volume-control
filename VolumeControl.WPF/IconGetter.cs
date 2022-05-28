@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -122,7 +124,7 @@ namespace VolumeControl.Audio
             return null;
         }
         /// <inheritdoc cref="GetIcons(string, int)"/>
-        /// <param name="iconPath">Specifies the location and index number of the target icon. See the output of <see cref="AudioDevice.IconPath"/> or <see cref="AudioSession.IconPath"/></param>
+        /// <param name="iconPath">Specifies the location and index number of the target icon.</param>
         public static (ImageSource?, ImageSource?)? GetIcons(string iconPath)
         {
             if (ParseIconPath(iconPath) is (string path, int index))
@@ -130,9 +132,9 @@ namespace VolumeControl.Audio
             return null;
         }
         /// <summary>
-        /// Parses the given icon path from <see cref="AudioDevice.IconPath"/> or <see cref="AudioSession.IconPath"/> into a path and index number.
+        /// Parses the given icon path into a usable path string with an optional index number indicating which icon to retrieve from a package..
         /// </summary>
-        /// <param name="iconPath">Specifies the location and index number of the target icon. See the output of <see cref="AudioDevice.IconPath"/> or <see cref="AudioSession.IconPath"/></param>
+        /// <param name="iconPath">Specifies the location and index number of the target icon.</param>
         /// <returns>A pair where the Item1 is the filepath and Item2 is the index number, or null if <paramref name="iconPath"/> was invalid.</returns>
         public static (string, int)? ParseIconPath(string iconPath)
         {
@@ -145,23 +147,5 @@ namespace VolumeControl.Audio
 
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern int ExtractIconEx(string sFile, int iIndex, out IntPtr piLargeVersion, out IntPtr piSmallVersion, int amountIcons);
-    }
-    /// <summary>
-    /// Extension methods for <see cref="AudioDevice"/> and <see cref="AudioSession"/> types.
-    /// </summary>
-    public static class GetIconsExtensions
-    {
-        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public static (ImageSource?, ImageSource?)? GetIcons(this AudioDevice device) => device.IconPath.Length > 0 ? IconGetter.GetIcons(device.IconPath) : null;
-        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public static (ImageSource?, ImageSource?)? GetIcons(this AudioSession session)
-        {
-            if (session.IconPath.Length > 0)
-                return IconGetter.GetIcons(session.IconPath);
-            string? path = session.GetProcess()?.MainModule?.FileName;
-            if (path != null)
-                return IconGetter.GetIcons(path);
-            return null;
-        }
     }
 }

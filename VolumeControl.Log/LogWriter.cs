@@ -122,7 +122,7 @@ namespace VolumeControl.Log
                 m += $"{tabPrefix}'StackTrace': {{{lineSuffix}";
                 int i = 0;
                 foreach (string s in ex.StackTrace.Split('\n'))
-                    m += $"{tabPrefix}{tabString}[{i++}] {s}{lineSuffix}";
+                    m += $"{tabPrefix}{tabString}[{i++}] {s.Trim()}{lineSuffix}";
                 m += $"{tabPrefix}}}{lineSuffix}";
             }
 

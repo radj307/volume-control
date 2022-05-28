@@ -68,6 +68,7 @@ namespace VolumeControl.Helpers
             RunAtStartup = Settings.RunAtStartup;
             StartMinimized = Settings.StartMinimized;
             CheckForUpdates = Settings.CheckForUpdatesOnStartup;
+            AllowUpdateToPreRelease = Settings.AllowUpdateToPreRelease.ToBoolean();
             NotificationEnabled = Settings.NotificationEnabled;
             NotificationTimeout = Settings.NotificationTimeoutInterval;
             NotificationShowsVolumeChange = Settings.NotificationShowsVolumeChange;
@@ -85,6 +86,7 @@ namespace VolumeControl.Helpers
             Settings.RunAtStartup = RunAtStartup;
             Settings.StartMinimized = StartMinimized;
             Settings.CheckForUpdatesOnStartup = CheckForUpdates;
+            Settings.AllowUpdateToPreRelease = AllowUpdateToPreRelease.ToThreeStateNumber();
             Settings.NotificationEnabled = NotificationEnabled;
             Settings.NotificationTimeoutInterval = NotificationTimeout;
             Settings.NotificationShowsVolumeChange = NotificationShowsVolumeChange;
@@ -171,7 +173,8 @@ namespace VolumeControl.Helpers
         private static Log.Properties.Settings LogSettings => global::VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => global::VolumeControl.Log.FLog.Log;
         #endregion PrivateStatics
-
+        public static bool UpdateAvailable { get; internal set; } = false;
+        public static string UpdateVersion { get; internal set; } = "";
         public string VersionNumber { get; private set; }
         public SemVersion Version { get; private set; }
         #endregion Statics

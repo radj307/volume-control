@@ -6,6 +6,7 @@
     xmlns:coreEnum="clr-namespace:VolumeControl.Core.Enum;assembly=VolumeControl.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+    xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
     x:Name="lnotifWindow"
@@ -44,27 +45,27 @@
             <!--  Border Thickness  -->
             <sys:Thickness x:Key="ExteriorBorderThickness">5</sys:Thickness>
             <!--  Unlocked Colors:  -->
-            <Color x:Key="UnlockedColor">
+            <Color x:Key="UnlockedColorBegin">
                 #496D49
             </Color>
-            <Color x:Key="UnlockedAccentColor">
+            <Color x:Key="UnlockedColorEnd">
                 #1A721A
             </Color>
             <!--  Locked Colors:  -->
-            <Color x:Key="LockedColor">
+            <Color x:Key="LockedColorBegin">
                 #A32828
             </Color>
-            <Color x:Key="LockedAccentColor">
+            <Color x:Key="LockedColorEnd">
                 #A81414
             </Color>
 
             <LinearGradientBrush x:Key="UnlockedBrush" Opacity="0.95" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0.2" Color="{StaticResource UnlockedColor}" />
-                <GradientStop Offset="0.8" Color="{StaticResource UnlockedAccentColor}" />
+                <GradientStop Offset="0.2" Color="{StaticResource UnlockedColorBegin}" />
+                <GradientStop Offset="0.8" Color="{StaticResource UnlockedColorEnd}" />
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="LockedBrush" Opacity="0.95" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0.2" Color="{StaticResource LockedColor}" />
-                <GradientStop Offset="0.8" Color="{StaticResource LockedAccentColor}" />
+                <GradientStop Offset="0.2" Color="{StaticResource LockedColorBegin}" />
+                <GradientStop Offset="0.8" Color="{StaticResource LockedColorEnd}" />
             </LinearGradientBrush>
 
             <Binding

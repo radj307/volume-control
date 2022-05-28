@@ -3,12 +3,14 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
+using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
@@ -171,7 +173,10 @@ namespace VolumeControl
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (WindowState.Equals(WindowState.Minimized))
+            {
                 Hide();
+                ShowInTaskbar = true;
+            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -184,11 +189,13 @@ namespace VolumeControl
             AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Devices);
             AudioAPI.VolumeChanged += (s, e) =>
             {
-                if (e.Target is ISession)
+                if (e.Target is ISession) // session volume changed
                     ListNotification.HandleShow(DisplayTarget.Sessions, false);
-                else if (e.Target is IDevice)
+                else if (e.Target is IDevice) // device volume changed
                     ListNotification.HandleShow(DisplayTarget.Devices, false);
             };
+
+            Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {AudioAPI} events.");
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -201,6 +208,9 @@ namespace VolumeControl
                 if (!cb.IsChecked.HasValue)
                     cb.IsChecked = false;
         }
+        private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => Hide();
+        private void Handle_CloseClick(object sender, RoutedEventArgs e) => Close();
+        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => UpdateChecker.CheckForUpdates(VCSettings.AllowUpdateToPreRelease);
         #endregion EventHandlers
     }
 }

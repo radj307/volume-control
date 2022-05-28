@@ -70,6 +70,9 @@ namespace VolumeControl.Hotkeys
         /// List of hotkeys.
         /// </summary>
         public ObservableList<BindableWindowsHotkey> Hotkeys { get; } = new();
+        /// <summary>
+        /// This is used as the binding source for the (un)register all checkbox in the column header.
+        /// </summary>
         public bool? AllSelected
         {
             get => _allSelected;

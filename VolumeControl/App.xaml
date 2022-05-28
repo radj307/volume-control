@@ -5,7 +5,6 @@
     xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
     xmlns:Converters="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
-    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     Exit="Application_Exit"
@@ -16,10 +15,8 @@
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
             <sys:Double x:Key="GlobalFontSize">13.3</sys:Double>
 
-            <hklib:KeysList x:Key="KeyOptions" />
-            <!--  BooleanToVisibilityConverter (System.Windows.Controls.BooleanToVisibilityConverter)  -->
+            <!--  Converters:  -->
             <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
             <Converters:MultiBindingBooleanConverter x:Key="MultiBindingBooleanConverter" />
             <Converters:BooleanInverter x:Key="InvertConverter" />
             <Converters:NullToBooleanConverter x:Key="IsNullConverter" />
@@ -32,8 +29,10 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
 
+            <!--  Global Settings Object  -->
             <helpers:VolumeControlSettings x:Key="Settings" />
 
+            <!--  List Notification Definition  -->
             <local:ListNotification
                 x:Key="Notification"
                 DataContext="{StaticResource Settings}"

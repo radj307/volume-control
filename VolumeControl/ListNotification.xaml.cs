@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media.Animation;
+using System.Windows.Media;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers;
@@ -40,6 +40,7 @@ namespace VolumeControl
             // Add an event handler
             TimeoutTimer.Tick += Handle_TimeoutTimerTick!;
         }
+        /// <inheritdoc/>
         public override void EndInit()
         {
             base.EndInit();

@@ -49,7 +49,7 @@ namespace VolumeControl
                 Log.Info($"{nameof(Settings.UpgradeSettings)} was true, attempting to migrate existing settings...");
                 try
                 {
-                    UpgradeAllSettings();
+                    UpgradeAllSettings(AppDomain.CurrentDomain.GetAssemblies().Where(asm => asm.FullName?.Contains("VolumeControl", StringComparison.Ordinal) ?? false).ToArray());
                     Settings.UpgradeSettings = false;
                     Log.Info("User settings were upgraded successfully; or there were no settings to upgrade.");
                 }
@@ -115,21 +115,17 @@ namespace VolumeControl
         /// Attempts to upgrade the settings from previous versions.
         /// </summary>
         /// <remarks>This works for all assemblies, and should only be called once.</remarks>
-        private static void UpgradeAllSettings()
+        private static void UpgradeAllSettings(params Assembly[] assemblies)
         {
-            foreach (Assembly? assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Assembly? assembly in assemblies)
             {
-                foreach (Type? type in assembly.GetTypes())
+                foreach (var type in assembly.GetTypes())
                 {
-                    if (type.Name == "Settings" && typeof(SettingsBase).IsAssignableFrom(type))
+                    if (type.GetProperty("Default")?.GetValue(null, null) is global::System.Configuration.ApplicationSettingsBase cfg)
                     {
-                        var cfg = (ApplicationSettingsBase?)type.GetProperty("Default")?.GetValue(null, null);
-                        if (cfg != null)
-                        {
-                            cfg.Upgrade();
-                            cfg.Reload();
-                            cfg.Save();
-                        }
+                        cfg.Upgrade();
+                        cfg.Reload();
+                        cfg.Save();
                     }
                 }
             }

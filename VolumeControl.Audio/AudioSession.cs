@@ -145,6 +145,16 @@ namespace VolumeControl.Audio
         #endregion Events
 
         #region Methods
+        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
+        public (ImageSource?, ImageSource?)? GetIcons()
+        {
+            if (IconPath.Length > 0)
+                return IconGetter.GetIcons(IconPath);
+            string? path = GetProcess()?.MainModule?.FileName;
+            if (path != null)
+                return IconGetter.GetIcons(path);
+            return null;
+        }
         /// <summary>
         /// Gets the process associated with this audio session instance.
         /// </summary>

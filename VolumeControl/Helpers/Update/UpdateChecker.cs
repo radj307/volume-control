@@ -1,6 +1,8 @@
 ﻿using AssemblyAttribute;
 using Semver;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,12 +23,88 @@ namespace VolumeControl.Helpers.Update
     /// </summary>
     internal static class UpdateChecker
     {
+        /// <summary>
+        /// Helper object for managing and comparing release query response packets.
+        /// </summary>
+        public class Release : IEquatable<SemVersion>, IComparable<SemVersion>, IEnumerable<Release.Asset>, IEquatable<Release>, IComparable<Release>, IComparable
+        {
+            /// <summary>Helper object for managing release assets (files).</summary>
+            public struct Asset
+            {
+                /// <summary>The name of the asset file.</summary>
+                public string FileName { get; set; }
+                /// <summary>The size of the asset file in bytes.</summary>
+                public int Size { get; set; }
+                /// <summary>The download URL of the asset file.</summary>
+                public string DownloadURL { get; set; }
+            }
+
+            #region Constructor
+            public Release(GithubReleaseHttpResponse packet)
+            {
+                Version = packet.tag_name.GetSemVer() ?? new SemVersion(0);
+                URL = packet.html_url;
+                Assets = new();
+                foreach (var asset in packet.assets)
+                {
+                    Assets.Add(new()
+                    {
+                        FileName = asset.name,
+                        Size = asset.size,
+                        DownloadURL = asset.browser_download_url
+                    });
+                }
+            }
+            #endregion Constructor
+
+            #region Properties
+            public SemVersion Version { get; set; }
+            public string URL { get; set; }
+            public List<Asset> Assets { get; set; }
+
+            public Asset? this[string name] => Assets.FirstOrDefault(a => a.FileName.Equals(name, StringComparison.OrdinalIgnoreCase));
+            #endregion Properties
+
+            #region Methods
+            /// <inheritdoc/>
+            public int CompareTo(SemVersion? other) => ((IComparable<SemVersion>)Version).CompareTo(other);
+            /// <inheritdoc/>
+            public int CompareTo(object? obj) => ((IComparable)Version).CompareTo(obj);
+            /// <inheritdoc/>
+            public int CompareTo(Release? other) => Version.CompareTo(other?.Version);
+            /// <inheritdoc/>
+            public bool Equals(SemVersion? other) => ((IEquatable<SemVersion>)Version).Equals(other);
+            /// <inheritdoc/>
+            public bool Equals(Release? other) => other != null && Version.Equals(other.Version);
+            /// <inheritdoc/>
+            public IEnumerator<Asset> GetEnumerator() => ((IEnumerable<Asset>)Assets).GetEnumerator();
+            /// <inheritdoc/>
+            IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Assets).GetEnumerator();
+            /// <inheritdoc/>
+            public override bool Equals(object? obj) => obj != null && obj is Release release && Equals(release);
+            /// <inheritdoc/>
+            public override int GetHashCode() => Version.GetHashCode();
+            /// <summary>
+            /// Checks if this release version is newer than <paramref name="other"/>.
+            /// </summary>
+            /// <param name="other">Another release version.</param>
+            /// <returns><see langword="true"/> when this release is newer than <paramref name="other"/> or <see langword="false"/> when this release is older than or equal to <paramref name="other"/>.</returns>
+            public bool IsNewerThan(Release other) => Version.CompareByPrecedence(other.Version) > 0;
+            /// <summary>
+            /// Checks if this release version is newer than version <paramref name="other"/>.
+            /// </summary>
+            /// <param name="other">Any <see cref="SemVersion"/> type.</param>
+            /// <returns><see langword="true"/> when this release is newer than <paramref name="other"/> or <see langword="false"/> when this release is older than or equal to <paramref name="other"/>.</returns>
+            public bool IsNewerThan(SemVersion other) => Version.CompareByPrecedence(other) > 0;
+            #endregion Methods
+        }
+
         #region Fields
         private static bool _initialized = false;
-        private static bool _hasCheckedForUpdates = false;
         private static SemVersion? _currentVersion;
         private static ERelease _releaseType;
         private static string? _executablePath;
+        private const string _targetAssetName = "VolumeControl.exe";
 #       if DEBUG
         /// <summary>
         /// Set this to true using the Immediate Window to skip checking if the version number is actually newer.
@@ -47,7 +125,7 @@ namespace VolumeControl.Helpers.Update
         #region Properties
         private static Properties.Settings Settings => Properties.Settings.Default;
         private static LogWriter Log => FLog.Log;
-        private static bool AllowPreReleases => _releaseType.EqualsAny(ERelease.PRERELEASE, ERelease.TESTING, ERelease.CANDIDATE);
+        private static bool ImplicitIncludePreRelease => _releaseType.EqualsAny(ERelease.PRERELEASE, ERelease.TESTING, ERelease.CANDIDATE);
         #endregion Properties
 
         #region Methods
@@ -71,9 +149,13 @@ namespace VolumeControl.Helpers.Update
 
             _initialized = true;
         }
-        /// <summary>Sends an HTTP GET request to the default update url.</summary>
-        /// <returns>The latest version applicable to the current release channel. (Normal/PreRelease)</returns>
-        private static async Task<(SemVersion, GithubReleaseHttpResponse)> GetLatestVersionMetadataAsync()
+        /// <summary>Sends an HTTP GET request to the default update uri.</summary>
+        /// <param name="includePreReleases">Possible values:<list type="table">
+        /// <item><term><see langword="true"/></term><description> Pre-Release versions are included.</description></item>
+        /// <item><term><see langword="false"/></term><description> Pre-Release versions are not included.</description></item>
+        /// <item><term><see langword="null"/></term><description> Pre-Release versions are included only when the current version is a pre-release or release candidate.</description></item>
+        /// </list></param>
+        private static async Task<Release> GetLatestVersionMetadataAsync(bool? includePreReleases = null)
         {
             using HttpClient client = new();
             // clear the HTTP request header
@@ -91,15 +173,14 @@ namespace VolumeControl.Helpers.Update
             client.Dispose();
 
             // find the newest release in the list
-            (SemVersion, GithubReleaseHttpResponse) newest = (null!, new());
+            Release newest = null!;
             if (result is GithubReleaseHttpResponse[] releases)
             {
-                foreach (GithubReleaseHttpResponse rel in releases)
+                foreach (GithubReleaseHttpResponse packet in releases.Where(r => !r.draft && (!r.prerelease || (includePreReleases == null && ImplicitIncludePreRelease) || (includePreReleases != null && includePreReleases.Value))))
                 {
-                    if (rel.draft || (rel.prerelease && !AllowPreReleases))
-                        continue;
-                    else if (rel.tag_name.GetSemVer() is SemVersion relVer && (relVer.CompareByPrecedence(newest.Item1) > 0))
-                        newest = (relVer, rel);
+                    var rel = new Release(packet);
+                    if (newest == null || rel.IsNewerThan(newest))
+                        newest = rel;
                 }
             }
             return newest;
@@ -107,51 +188,61 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// Retrieves the list of releases from the Github API, and if a newer version is found a message box is shown prompting the user to update.
         /// </summary>
+        /// <param name="includePreReleases">Possible values:<list type="table">
+        /// <item><term><see langword="true"/></term><description> Pre-Release versions are included.</description></item>
+        /// <item><term><see langword="false"/></term><description> Pre-Release versions are not included.</description></item>
+        /// <item><term><see langword="null"/></term><description> Pre-Release versions are included only when the current version is a pre-release or release candidate.</description></item>
+        /// </list></param>
         /// <returns>True when the autoupdater is ready & waiting for the program to shutdown, otherwise false.</returns>
-        private static async Task<bool> CheckForUpdatesAsync(bool forceUpdate = false)
+        private static async Task<bool> CheckForUpdatesAsync(bool? includePreReleases = null, bool forceUpdate = false)
         {
-            if (_hasCheckedForUpdates || _currentVersion == null)
+            if (_currentVersion == null)
                 return false;
-            _hasCheckedForUpdates = true;
-            var updateTask = GetLatestVersionMetadataAsync();
-            (SemVersion newVersion, GithubReleaseHttpResponse response) = await updateTask.ConfigureAwait(false);
+            var updateTask = GetLatestVersionMetadataAsync(includePreReleases);
 
-#           if DEBUG
-            if (forceUpdate || TEST_UPDATE)
-#           else
-            if (forceUpdate || newVersion > _currentVersion)
-#           endif
+            Release? release = await updateTask.ConfigureAwait(false);
+
+            if (forceUpdate || release.IsNewerThan(_currentVersion))
             {
+                VolumeControlSettings.UpdateAvailable = true;
+                VolumeControlSettings.UpdateVersion = $"Update Available: {release.Version}";
+
                 switch (MessageBox.Show(
                     $"Current Version:  {_currentVersion}\n" +
-                    $"Newest Version:   {newVersion}\n" +
+                    $"Newest Version:   {release.Version}\n" +
                     "\nDo you want to update now?\n\nClick 'Yes' to update now.\nClick 'No' to update later.\nClick 'Cancel' to disable update checking."
                     , "Update Available", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No))
                 {
                 case MessageBoxResult.Yes: // open browser
-                    var asset = response.assets.First(a => a.name.Equals("VolumeControl.exe", StringComparison.OrdinalIgnoreCase));
-
-                    Log.Info($"Updating to version {newVersion}: '{asset.browser_download_url}'");
-
-                    if (SetupUpdateUtility() is string path)
+                    if (release[_targetAssetName] is Release.Asset asset)
                     {
-                        Log.Info($"Automatic update utility was created at {path}");
-                        ProcessStartInfo psi = new(path, $"-u \"{asset.browser_download_url}\" -o {_executablePath} -s {asset.size} {Settings.UpdateUtilityExtraArguments}")
+                        Log.Info($"Setting up {_updateUtilityFilename}.");
+
+                        if (SetupUpdateUtility() is string path)
                         {
-                            ErrorDialog = true,
-                            UseShellExecute = true,
-                        };
-                        Process.Start(psi);
-                        return true;
+                            Log.Info($"{_updateUtilityFilename} was created at {path}");
+                            ProcessStartInfo psi = new(path, $"-u {asset.DownloadURL} -o \"{_executablePath}\" -s {asset.Size} {Settings.UpdateUtilityExtraArguments}")
+                            {
+                                ErrorDialog = true,
+                                UseShellExecute = true,
+                            };
+                            Process.Start(psi);
+                            return true;
+                        }
+                        else
+                        {
+                            Log.Error("Failed to setup automatic update utility, falling back to the default web browser.");
+                            OpenBrowser(release.URL);
+                        }
                     }
                     else
                     {
-                        Log.Error("Failed to setup automatic update utility, falling back to the default web browser.");
-                        OpenBrowser(response.html_url);
+                        Log.Error($"Failed to find a release asset named {_targetAssetName}!", $"Opening the default web browser to '{Settings.UpdateURL}' instead.");
+                        OpenBrowser(Settings.UpdateURL);
                     }
                     break;
                 case MessageBoxResult.No: // do nothing
-                    Log.Info($"Version {newVersion} is available, but was temporarily ignored.");
+                    Log.Info($"Version {release.Version} is available, but was temporarily ignored.");
                     break;
                 case MessageBoxResult.Cancel: // disable
                     Settings.CheckForUpdatesOnStartup = false;
@@ -185,11 +276,17 @@ namespace VolumeControl.Helpers.Update
         /// <summary>
         /// Checks for updates, and automatically installs them depending on user interaction via <see cref="MessageBox"/>.
         /// </summary>
-        public static bool CheckForUpdates(bool forceUpdate = false)
+        /// <param name="includePreReleases">Possible values:<list type="table">
+        /// <item><term><see langword="true"/></term><description> Pre-Release versions are included.</description></item>
+        /// <item><term><see langword="false"/></term><description> Pre-Release versions are not included.</description></item>
+        /// <item><term><see langword="null"/></term><description> Pre-Release versions are included only when the current version is a pre-release or release candidate.</description></item>
+        /// </list></param>
+        /// <param name="forceUpdate">When true, the update prompt is shown regardless of whether the newest version on github is actually newer than the current one.</param>
+        public static bool CheckForUpdates(bool? includePreReleases = null, bool forceUpdate = false)
         {
             if (!_initialized)
                 Initialize();
-            Task<bool> updateTask = CheckForUpdatesAsync(forceUpdate);
+            Task<bool> updateTask = CheckForUpdatesAsync(includePreReleases, forceUpdate);
             updateTask.Wait(-1);
             return updateTask.Result;
         }

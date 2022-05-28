@@ -112,7 +112,7 @@ namespace VolumeControl.Core.Helpers
         }
         private bool _startMinimized;
         /// <summary>
-        /// Gets or sets whether the program should check for updates on startup.<br/>
+        /// Gets or sets whether the program should check for updates on startup.
         /// </summary>
         public bool CheckForUpdates
         {
@@ -125,6 +125,35 @@ namespace VolumeControl.Core.Helpers
             }
         }
         private bool _checkForUpdates;
+        /// <summary>
+        /// Gets or sets whether the program should include pre-release versions when checking for updates.
+        /// </summary>
+        public bool? AllowUpdateToPreRelease
+        {
+            get => _allowUpdateToPreRelease;
+            set
+            {
+                NotifyPropertyChanging();
+                _allowUpdateToPreRelease = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool? _allowUpdateToPreRelease;
+        /// <summary>
+        /// Gets or sets whether a message box prompt is shown informing the user of an available update.
+        /// </summary>
+        /// <remarks>When this is disabled, updates are notified through the caption bar.</remarks>
+        public bool ShowUpdateMessageBox
+        {
+            get => _showUpdateMessageBox;
+            set
+            {
+                NotifyPropertyChanging();
+                _showUpdateMessageBox = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _showUpdateMessageBox;
         /// <summary>
         /// Gets or sets whether notifications are enabled or not.
         /// </summary>
@@ -189,7 +218,11 @@ namespace VolumeControl.Core.Helpers
 
         /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
         /// <param name="propertyName">The name of the property that was changed; or leave blank to automatically fill this in using the <see cref="CallerMemberNameAttribute"/> attribute.</param>
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new(propertyName));
+            Log.Debug($"{GetType().FullName}::{propertyName} was changed to {GetType().GetProperty(propertyName)?.GetValue(this)}");
+        }
         /// <summary>Triggers the <see cref="PropertyChanging"/> event.</summary>
         /// <param name="propertyName">The name of the property that is changing; or leave blank to automatically fill this in using the <see cref="CallerMemberNameAttribute"/> attribute.</param>
         protected virtual void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));

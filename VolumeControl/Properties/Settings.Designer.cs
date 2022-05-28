@@ -208,5 +208,74 @@ namespace VolumeControl.Properties {
                 return ((string)(this["UpdateUtilityExtraArguments"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("73, 109, 73")]
+        public global::System.Drawing.Color NotificationUnlockedColorBegin {
+            get {
+                return ((global::System.Drawing.Color)(this["NotificationUnlockedColorBegin"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("26, 114, 26")]
+        public global::System.Drawing.Color NotificationUnlockedColorEnd {
+            get {
+                return ((global::System.Drawing.Color)(this["NotificationUnlockedColorEnd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("163, 40, 40")]
+        public global::System.Drawing.Color NotificationLockedColorBegin {
+            get {
+                return ((global::System.Drawing.Color)(this["NotificationLockedColorBegin"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("168, 20, 20")]
+        public global::System.Drawing.Color NotificationLockedColorEnd {
+            get {
+                return ((global::System.Drawing.Color)(this["NotificationLockedColorEnd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 48, 48, 48")]
+        public global::System.Drawing.Color NotificationBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["NotificationBackgroundColor"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NotificationShowsVolumeChange {
+            get {
+                return ((bool)(this["NotificationShowsVolumeChange"]));
+            }
+            set {
+                this["NotificationShowsVolumeChange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public byte AllowUpdateToPreRelease {
+            get {
+                return ((byte)(this["AllowUpdateToPreRelease"]));
+            }
+            set {
+                this["AllowUpdateToPreRelease"] = value;
+            }
+        }
     }
 }

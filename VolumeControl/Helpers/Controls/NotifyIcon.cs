@@ -1,7 +1,7 @@
 ﻿using System;
 using VolumeControl.Properties;
 
-namespace VolumeControl
+namespace VolumeControl.Helpers.Controls
 {
     public class NotifyIcon : IDisposable
     {
@@ -128,6 +128,7 @@ namespace VolumeControl
                 _contextMenu.Dispose();
                 _contextMenu = null!;
             }
+            GC.SuppressFinalize(this);
         }
         #endregion Methods
     }

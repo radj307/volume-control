@@ -158,6 +158,8 @@ namespace VolumeControl.Audio
         #endregion Events
 
         #region Methods
+        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
+        public (ImageSource?, ImageSource?)? GetIcons() => IconPath.Length > 0 ? IconGetter.GetIcons(IconPath) : null;
         private void Reload()
         {
             using MMDeviceEnumerator enm = new();
