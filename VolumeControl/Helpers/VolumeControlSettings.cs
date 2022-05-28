@@ -70,6 +70,7 @@ namespace VolumeControl.Helpers
             CheckForUpdates = Settings.CheckForUpdatesOnStartup;
             NotificationEnabled = Settings.NotificationEnabled;
             NotificationTimeout = Settings.NotificationTimeoutInterval;
+            NotificationShowsVolumeChange = Settings.NotificationShowsVolumeChange;
             // ^ Load Settings ^ //
 
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
@@ -86,6 +87,7 @@ namespace VolumeControl.Helpers
             Settings.CheckForUpdatesOnStartup = CheckForUpdates;
             Settings.NotificationEnabled = NotificationEnabled;
             Settings.NotificationTimeoutInterval = NotificationTimeout;
+            Settings.NotificationShowsVolumeChange = NotificationShowsVolumeChange;
             // ^ Save Settings ^ //
 
             // VolumeControl
