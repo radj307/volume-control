@@ -196,10 +196,10 @@ namespace VolumeControl
             targetNameTextBox.SelectionLength = targetNameTextBox.Text.Length;
         }
         private void Handle_ThreeStateCheckboxClick(object sender, RoutedEventArgs e)
-        {
-            var cb = e.Source as CheckBox;
-            if (!cb.IsChecked.HasValue)
-                cb.IsChecked = false;
+        { // this prevents the user from being able to set the checkbox to indeterminate directly
+            if (e.Source is CheckBox cb)
+                if (!cb.IsChecked.HasValue)
+                    cb.IsChecked = false;
         }
         #endregion EventHandlers
     }
