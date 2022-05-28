@@ -21,8 +21,7 @@ namespace VolumeControl.Hotkeys
         {
             _hotkeyActions = actionManager;
             AddHook();
-            if (loadNow)
-                LoadHotkeys();
+
             CollectionChanged += (s, e) =>
             {
                 if (e.NewItems == null)
@@ -33,6 +32,9 @@ namespace VolumeControl.Hotkeys
                     item.PropertyChanged += NotifyPropertyChanged;
                 }
             };
+
+            if (loadNow)
+                LoadHotkeys();
         }
         #endregion Initializers
 
@@ -178,6 +180,8 @@ namespace VolumeControl.Hotkeys
 
                 Log.Debug($"Hotkeys[{i}] ('{s}') was successfully parsed:", hk.GetFullIdentifier());
             }
+
+            RecheckAllSelected();
         }
         /// <summary>
         /// Saves all hotkeys to the settings file.
@@ -320,12 +324,23 @@ namespace VolumeControl.Hotkeys
             {
                 _allSelectedChanging = true;
 
-                if (Hotkeys.All(e => e.Registered))
-                    AllSelected = true;
-                else if (Hotkeys.All(e => !e.Registered))
-                    AllSelected = false;
-                else
-                    AllSelected = null;
+                if (Hotkeys.Count > 0)
+                {
+                    bool prev = Hotkeys.First().Registered;
+                    bool fullLoop = true;
+                    for (int i = 1; i < Hotkeys.Count; ++i)
+                    {
+                        if (Hotkeys[i].Registered != prev)
+                        {
+                            fullLoop = false;
+                            AllSelected = null;
+                            break;
+                        }
+                    }
+                    if (fullLoop)
+                        AllSelected = prev;
+                }
+                else AllSelected = false;
             }
             finally
             {
