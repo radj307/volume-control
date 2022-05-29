@@ -23,17 +23,17 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md15", [
-      [ "Installation", "index.html#autotoc_md16", null ],
-      [ "Setup", "index.html#autotoc_md17", null ],
-      [ "Usage", "index.html#autotoc_md18", null ],
-      [ "Addon Development", "index.html#autotoc_md19", null ],
-      [ "VolumeControlCLI", "index.html#autotoc_md20", [
-        [ "What it does", "index.html#autotoc_md11", null ],
-        [ "Requirements", "index.html#autotoc_md12", [
-          [ "Windows Version Compatibility", "index.html#autotoc_md13", null ]
+    [ "Getting Started", "index.html#autotoc_md16", [
+      [ "Installation", "index.html#autotoc_md17", null ],
+      [ "Setup", "index.html#autotoc_md18", null ],
+      [ "Usage", "index.html#autotoc_md19", null ],
+      [ "Addon Development", "index.html#autotoc_md20", null ],
+      [ "VolumeControlCLI", "index.html#autotoc_md21", [
+        [ "What it does", "index.html#autotoc_md12", null ],
+        [ "Requirements", "index.html#autotoc_md13", [
+          [ "Windows Version Compatibility", "index.html#autotoc_md14", null ]
         ] ],
-        [ "Commandline Options", "index.html#autotoc_md21", null ]
+        [ "Commandline Options", "index.html#autotoc_md22", null ]
       ] ]
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
@@ -48,6 +48,7 @@ var NAVTREE =
       [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md7", null ],
       [ "Publishing Addons", "md_docs__addon_development.html#autotoc_md10", null ]
     ] ],
+    [ "Building From Source", "md_docs__building_from_source.html", null ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ],
       [ "Package Functions", "namespacemembers.html", [
