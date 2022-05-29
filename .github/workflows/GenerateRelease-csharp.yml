@@ -43,6 +43,7 @@ jobs:
               echo ${{secrets.PAT}} | gh auth login --with-token
               cd '${{github.workspace}}/VolumeControl/Resources'
               gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe"
+              ls
               cd '${{github.workspace}}'
 
     - name:   Build VolumeControl Binary
