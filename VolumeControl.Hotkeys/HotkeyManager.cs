@@ -98,6 +98,7 @@ namespace VolumeControl.Hotkeys
             hk.PropertyChanged += NotifyPropertyChanged;
             Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", hk.GetFullIdentifier());
+            RecheckAllSelected();
         }
         /// <summary>
         /// Create a new hotkey and add it to <see cref="Hotkeys"/>.
@@ -111,6 +112,7 @@ namespace VolumeControl.Hotkeys
             var hk = new BindableWindowsHotkey(this, name, keys, action, registerNow);
             Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", hk.GetFullIdentifier());
+            RecheckAllSelected();
         }
         /// <summary>
         /// Create a new blank hotkey and add it to <see cref="Hotkeys"/>.
@@ -129,6 +131,7 @@ namespace VolumeControl.Hotkeys
                 return;
             Hotkeys.Remove(hk);
             Log.Info($"Deleted hotkey {hk.ID} '{hk.Name}'");
+            RecheckAllSelected();
         }
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
@@ -139,8 +142,11 @@ namespace VolumeControl.Hotkeys
             for (int i = Hotkeys.Count - 1; i >= 0; --i)
             {
                 if (Hotkeys[i].ID.Equals(id))
+                {
                     Hotkeys.RemoveAt(i);
+                }
             }
+            RecheckAllSelected();
         }
         /// <summary>
         /// Deletes all hotkeys in the list by first disposing them, then removing them from the list.
@@ -152,6 +158,7 @@ namespace VolumeControl.Hotkeys
                 Hotkeys[i].Dispose();
                 Hotkeys.RemoveAt(i);
             }
+            RecheckAllSelected();
         }
         #endregion HotkeysListManipulators
 

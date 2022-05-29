@@ -47,6 +47,10 @@
     <Window.Resources>
         <ResourceDictionary>
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
+
+            <SolidColorBrush x:Key="TabBackgroundBrush">#535255</SolidColorBrush>
+
+
             <hklib:KeysList x:Key="KeyOptions" />
             <!--  CheckBox  -->
             <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
@@ -219,7 +223,7 @@
             </Style>
             <!--  TabControl  -->
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
-                <Setter Property="Background" Value="#535255" />
+                <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                 <Setter Property="Foreground" Value="WhiteSmoke" />
             </Style>
 
@@ -676,7 +680,7 @@
                                     <ControlTemplate.Triggers>
                                         <!--  SELECTED TAB APPEARANCE:  -->
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#535255" />
+                                            <Setter TargetName="Border" Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                                             <Setter TargetName="Border" Property="Margin" Value="1,-1" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="SemiBold" />
@@ -704,11 +708,13 @@
                             x:Key="SectionStyle"
                             BasedOn="{StaticResource BorderStyle}"
                             TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="#80404040" />
-                            <Setter Property="BorderThickness" Value="2" />
-                            <Setter Property="BorderBrush" Value="#80303030" />
-                            <Setter Property="Margin" Value="1,0" />
+                            <Setter Property="Background" Value="#EE383838" />
+                            <Setter Property="BorderThickness" Value="3" />
+                            <Setter Property="BorderBrush" Value="#EE404040" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="Padding" Value="2" />
+                            <Setter Property="Margin" Value="0,1,0,4" />
                         </Style>
                     </TabItem.Resources>
 
@@ -757,23 +763,20 @@
                                 Style="{StaticResource CheckBoxStyle}" />
                         </Grid>
 
-                        <!--  - [Row-3] Mixer Controls & Misc  -->
-                        <VirtualizingStackPanel
-                            Grid.Row="1"
-                            Margin="0,0,0,5"
-                            HorizontalAlignment="Center"
-                            FlowDirection="LeftToRight"
-                            Orientation="Horizontal">
-                            <Border Style="{StaticResource SectionStyle}">
+                        <Border Style="{StaticResource SectionStyle}">
+                            <!--  - [Row-3] Mixer Controls & Misc  -->
+                            <StackPanel
+                                Grid.Row="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                FlowDirection="LeftToRight"
+                                Orientation="Horizontal">
                                 <Button
                                     x:Name="bReload"
                                     Click="Handle_ReloadClick"
                                     Content="  Reload  "
                                     Style="{StaticResource ButtonStyle}"
                                     ToolTip="Manually reloads the list of audio sessions." />
-                            </Border>
-
-                            <Border Style="{StaticResource SectionStyle}">
                                 <CheckBox
                                     x:Name="cbReloadOnHotkey"
                                     Margin="3,0"
@@ -782,9 +785,7 @@
                                     IsChecked="{Binding AudioAPI.ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource CheckBoxStyle}"
                                     ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed." />
-                            </Border>
 
-                            <Border Style="{StaticResource SectionStyle}">
                                 <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
                                     <CheckBox
                                         x:Name="cbReloadOnInterval"
@@ -802,8 +803,8 @@
                                         ToolTip="Reload interval in milliseconds."
                                         Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </VirtualizingStackPanel>
-                            </Border>
-                        </VirtualizingStackPanel>
+                            </StackPanel>
+                        </Border>
 
                         <!--  - [Row-5] Mixer Data Grid  -->
                         <Border
@@ -1515,7 +1516,7 @@
                                             Content="Show Prompt"
                                             IsChecked="{Binding ShowUpdateMessageBox, Source={StaticResource Settings}}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="When this is checked, you'll be prompted to update in the form of a message box." />
+                                            ToolTip="When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner." />
                                     </VirtualizingStackPanel>
                                 </Grid>
                             </Border>
