@@ -149,13 +149,23 @@ namespace VolumeControl.Helpers.Update
 
                 if (force || ShowPrompt && ShowUpdatePrompt())
                 {
-                    if (StartAutomatedUpdate(LatestRelease, SetupUpdateUtility()))
+                    string dir = Path.GetDirectoryName(VCSettings.ExecutablePath)!;
+                    if (SetupUpdateUtility(dir) is string updateUtilityPath)
                     {
-                        Log.Info($"Successfully prepared {_updateUtilityFilename}, shutting down...");
-                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                        Application.Current.Shutdown();
+                        Log.Debug($"Successfully set up update utility in directory '{dir}'");
+                        Log.Debug($"Starting update utility with commandline: ''");
+                        if (StartAutomatedUpdate(LatestRelease, updateUtilityPath, VCSettings.ExecutablePath))
+                        {
+                            Log.Info($"Successfully prepared {_updateUtilityFilename}, shutting down...");
+                            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                            Application.Current.Shutdown();
+                        }
+                        else Log.Error("Update failed!");
                     }
-                    else Log.Error("Update failed!");
+                    else
+                    {
+                        Log.Error($"Failed to set up the update utility in directory '{dir}'!");
+                    }
                 }
                 else
                 {
@@ -164,16 +174,15 @@ namespace VolumeControl.Helpers.Update
             }
             else Log.Info($"Already up-to-date. ({CurrentVersion})");
         }
-        private static bool StartAutomatedUpdate(Release release, string? path)
+        private static bool StartAutomatedUpdate(Release release, string? updateUtilityPath, string outpath)
         {
-            if (path == null)
+            if (updateUtilityPath == null)
                 return false;
             if (release[_targetAssetName] is Release.Asset asset)
             {
-                Log.Info($"Setting up {_updateUtilityFilename}.");
-
-                Log.Info($"{_updateUtilityFilename} was created at {path}");
-                ProcessStartInfo psi = new(path, $"-u {asset.DownloadURL} -o \"{asset.FileName}\" -s {asset.Size} {Settings.UpdateUtilityExtraArguments}")
+                string commandline = $"-u {asset.DownloadURL} -o \"{outpath}\" -s {asset.Size} {Settings.UpdateUtilityExtraArguments}";
+                Log.Debug($"Starting {updateUtilityPath} with commandline:", $"'{commandline}'");
+                ProcessStartInfo psi = new(updateUtilityPath, commandline)
                 {
                     ErrorDialog = true,
                     UseShellExecute = true,
@@ -192,7 +201,7 @@ namespace VolumeControl.Helpers.Update
         /// Writes the update client from the embedded resource dictionary to the local disk.
         /// </summary>
         /// <returns>The absolute filepath of the updater utility's executable.</returns>
-        private static string? SetupUpdateUtility()
+        private static string? SetupUpdateUtility(string directory)
         {
             var asm = Assembly.GetEntryAssembly();
             if (asm == null)
@@ -200,7 +209,7 @@ namespace VolumeControl.Helpers.Update
                 return null;
             }
 
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _updateUtilityFilename);
+            string path = Path.Combine(directory, _updateUtilityFilename);
 
             if (File.Exists(path)) // if the file already exists, delete it
             {
