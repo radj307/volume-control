@@ -146,7 +146,7 @@ namespace VolumeControl.Helpers.Update
             if (force || LatestRelease.IsNewerThan(CurrentVersion))
             {
                 VCSettings.UpdateAvailable = true;
-                VCSettings.UpdateVersion = $"Version {LatestRelease.Version.ToString()} is available!";
+                VCSettings.UpdateVersion = $"Version {LatestRelease.Version} is available!";
 
                 if (force || ShowPrompt && ShowUpdatePrompt())
                 {
@@ -209,6 +209,7 @@ namespace VolumeControl.Helpers.Update
         private static string? SetupUpdateUtility(string directory)
         {
             var asm = Assembly.GetEntryAssembly();
+
             if (asm == null)
             {
                 return null;
