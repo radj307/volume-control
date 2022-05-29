@@ -40,10 +40,7 @@ namespace VolumeControl
             // this means we're starting back up after the update util completed
             if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
                 System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
-            else if (args.Contains("--update"))
-                
-//                UpdateChecker.CheckForUpdates(true);
-
+            
             // attempt to upgrade settings
             if (Settings.UpgradeSettings)
             {

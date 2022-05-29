@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Attributes;
@@ -152,6 +153,10 @@ namespace VolumeControl.Helpers.Update
                     string dir = Path.GetDirectoryName(VCSettings.ExecutablePath)!;
                     if (SetupUpdateUtility(dir) is string updateUtilityPath)
                     {
+                        if (Regex.Match(dir, "AppData[/\\\\]Local[/\\\\]Temp").Success)
+                        {
+                            throw new Exception($"Temp directory is an illegal output location! '{dir}'");
+                        }
                         Log.Debug($"Successfully set up update utility in directory '{dir}'");
                         Log.Debug($"Starting update utility with commandline: ''");
                         if (StartAutomatedUpdate(LatestRelease, updateUtilityPath, VCSettings.ExecutablePath))
