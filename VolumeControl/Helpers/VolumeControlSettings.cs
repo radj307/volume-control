@@ -81,11 +81,14 @@ namespace VolumeControl.Helpers
             _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
 
             Updater = new(this);
-
+#if DEBUG
+            Updater.Update(true);
+#else
             if (Settings.CheckForUpdatesOnStartup)
             {
                 Updater.Update();
             }
+#endif
         }
         private void SaveSettings()
         {
@@ -121,29 +124,29 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VolumeControlSettings)} finished saving settings from all assemblies.");
         }
 
-        #region Events
+#region Events
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {
             add => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged += value;
             remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
         }
-        #endregion Events
+#endregion Events
 
-        #region Fields
-        #region PrivateFields
+#region Fields
+#region PrivateFields
         private bool disposedValue;
         private readonly AudioAPI _audioAPI;
         private readonly HotkeyManager _hotkeyManager;
         private readonly IntPtr _hWndMixer;
         private IEnumerable<string>? _targetAutoCompleteSource;
-        #endregion PrivateFields
+#endregion PrivateFields
         public readonly AddonManager AddonManager;
         public readonly Updater Updater;
         public readonly ERelease ReleaseType;
-        #endregion Fields
+#endregion Fields
 
-        #region Properties
-        #region Other
+#region Properties
+#region Other
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
@@ -170,10 +173,10 @@ namespace VolumeControl.Helpers
             }
         }
         private IEnumerable<string> _notificationModes = Enum.GetNames(typeof(DisplayTarget));
-        #endregion Other
+#endregion Other
 
-        #region Statics
-        #region PrivateStatics
+#region Statics
+#region PrivateStatics
         /// <summary>Static accessor for <see cref="Properties.Settings.Default"/>.</summary>
         private static Properties.Settings Settings => Properties.Settings.Default;
         /// <summary>Static accessor for <see cref="HotkeyManagerSettings.Default"/>.</summary>
@@ -183,7 +186,7 @@ namespace VolumeControl.Helpers
         /// <summary>Static accessor for <see cref="Log.Properties.Settings.Default"/>.</summary>
         private static Log.Properties.Settings LogSettings => global::VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => global::VolumeControl.Log.FLog.Log;
-        #endregion PrivateStatics
+#endregion PrivateStatics
         public bool UpdateAvailable
         {
             get => _updateAvailable;
@@ -208,15 +211,15 @@ namespace VolumeControl.Helpers
         private string _updateVersion = string.Empty;
         public string VersionNumber { get; private set; }
         public SemVersion Version { get; private set; }
-        #endregion Statics
+#endregion Statics
 
-        #region ParentObjects
+#region ParentObjects
         public AudioAPI AudioAPI => _audioAPI;
         public HotkeyManager HotkeyAPI => _hotkeyManager;
-        #endregion ParentObjects
-        #endregion Properties
+#endregion ParentObjects
+#endregion Properties
 
-        #region EventHandlers
+#region EventHandlers
         protected virtual void Handle_AudioAPI_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == null)
@@ -232,9 +235,9 @@ namespace VolumeControl.Helpers
 
             NotifyPropertyChanged($"AudioAPI.{e.PropertyName}");
         }
-        #endregion EventHandlers
+#endregion EventHandlers
 
-        #region Methods
+#region Methods
         public static string GetExecutablePath()
         {
             AppDomain? appDomain = AppDomain.CurrentDomain;
@@ -275,6 +278,6 @@ namespace VolumeControl.Helpers
         {
             Dispose(disposing: true);
         }
-        #endregion Methods
+#endregion Methods
     }
 }

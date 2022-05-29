@@ -142,7 +142,7 @@ namespace VolumeControl.Helpers.Update
         #region AutoUpdater
         public void Update(bool force = false)
         {
-            if (LatestRelease.IsNewerThan(CurrentVersion))
+            if (force || LatestRelease.IsNewerThan(CurrentVersion))
             {
                 VCSettings.UpdateAvailable = true;
                 VCSettings.UpdateVersion = $"Version {LatestRelease.Version.ToString()} is available!";
@@ -173,7 +173,7 @@ namespace VolumeControl.Helpers.Update
                 Log.Info($"Setting up {_updateUtilityFilename}.");
 
                 Log.Info($"{_updateUtilityFilename} was created at {path}");
-                ProcessStartInfo psi = new(path, $"-u {asset.DownloadURL} -o \"{path}\" -s {asset.Size} {Settings.UpdateUtilityExtraArguments}")
+                ProcessStartInfo psi = new(path, $"-u {asset.DownloadURL} -o \"{asset.FileName}\" -s {asset.Size} {Settings.UpdateUtilityExtraArguments}")
                 {
                     ErrorDialog = true,
                     UseShellExecute = true,

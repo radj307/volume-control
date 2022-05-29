@@ -1,0 +1,16 @@
+HH:mm:ss:fff           === Log Initialized @ May 29, 2022 5:01:46 AM ===  { Filter: 31 (ALL) }
+01:01:46:079  [INFO]   Refreshed the device list.
+01:01:46:118  [DEBUG]  Refreshed the session list.
+01:01:46:149  [INFO]   Selected device was changed to 'UMC22 (DT 770 Pro) (USB Audio CODEC )'
+01:01:46:166  [DEBUG]  Refreshed the session list.
+01:01:46:168  [INFO]   Selected session was changed to ''
+01:01:46:168  [INFO]   Selected device was unlocked
+01:01:46:169  [INFO]   Selected session was unlocked
+01:01:46:169  [INFO]   Volume step set to 2
+HH:mm:ss:fff           === Log Re-Initialized @ May 29, 2022 5:01:46 AM ===  { Filter: 30 (ALL_EXCEPT_DEBUG) }
+01:01:46:322  [INFO]   Refreshed the device list.
+01:01:46:381  [INFO]   Selected device was changed to 'UMC22 (DT 770 Pro) (USB Audio CODEC )'
+01:01:46:425  [INFO]   Selected session was changed to ''
+01:01:46:425  [INFO]   Selected device was unlocked
+01:01:46:425  [INFO]   Selected session was unlocked
+01:01:46:425  [INFO]   Volume step set to 2

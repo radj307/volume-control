@@ -54,9 +54,11 @@
 		<None Remove="Resources\images\reload.png" />
 		<None Remove="Resources\LICENSE" />
 		<None Remove="$(VCUpdateUtilityResource)" />
+		<None Remove="Resources\VCUpdateUtility.exe" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="$(VCUpdateUtilityResource)" />
+		<EmbeddedResource Include="Resources\VCUpdateUtility.exe" />
 	</ItemGroup>
 	<ItemGroup>
 		<Resource Include="Resources\fonts\Inter.ttf">
