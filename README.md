@@ -57,12 +57,19 @@ This is necessary because Windows Defender requires a paying *&gt;$300* a year f
 
 
 ## Usage
-First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown.
+First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown. 
 
 **NOTE:** Hotkeys cannot be enabled if their associated key is set to `None`.
+![](https://i.imgur.com/FA06Pt9.png)
 
 Next, let's set a target application to test the hotkeys with.  
 Start playing some audio from any application, then return to the **Mixer** tab, click **Reload**, then click the **Select** button next to the test application, and try using the volume hotkeys.  
+
+![](https://i.imgur.com/Pjym4A7.png)
+
+In the settings tab, you can change how the application behaves such as which output device is controlled, enable or disable the toast notification, enable advanced hotkeys, set the volume step (how much the volume will increase on decrease when the hotkeys are pressed), tell the application to run on startup, and more!
+
+![](https://i.imgur.com/fUWAlqj.png)
 
 ## Addon Development
 Want to develop an addon for Volume Control?  

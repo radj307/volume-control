@@ -9,6 +9,12 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+		<FrameworkReference
+			Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
+			TargetingPackVersion="6.0.0" />
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
     <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />

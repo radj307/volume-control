@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <StartupObject>VolumeControl.Program</StartupObject>
     <!-- VERSIONING INFO -->
-    <Version>5.0.2</Version>
-    <ExtendedVersion>5.0.2</ExtendedVersion>
+    <Version>5.0.3</Version>
+    <ExtendedVersion>5.0.3</ExtendedVersion>
     <ReleaseType>NORMAL</ReleaseType>
     <!-- VERSIONING INFO -->
     <Authors>radj307</Authors>
@@ -29,6 +29,13 @@
     <Deterministic>true</Deterministic>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
+	
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+	    <FrameworkReference
+		    Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
+		    TargetingPackVersion="6.0.0" />
+    </ItemGroup>
+	
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
     <AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
