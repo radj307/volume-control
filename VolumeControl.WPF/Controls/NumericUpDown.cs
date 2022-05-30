@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using VolumeControl.WPF.Converters;
 
 namespace VolumeControl.WPF.Controls
 {
@@ -405,6 +406,18 @@ namespace VolumeControl.WPF.Controls
         }
 
         #endregion
+
+        #region CornerRadius
+
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(NumericUpDown), new(new CornerRadius(0)));
+
+        public CornerRadius CornerRadius
+        {
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
+        #endregion CornerRadius
 
         #endregion
 

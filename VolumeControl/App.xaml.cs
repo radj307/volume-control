@@ -20,9 +20,10 @@ namespace VolumeControl
             // Tray icon
             TrayIcon = new($"Volume Control {version}", (s, e) => MainWindow.Visibility == Visibility.Visible);
             TrayIcon.Clicked += HandleTrayIconClick;
-            TrayIcon.BringToFrontClicked += HandleTrayIconClick;
-            TrayIcon.SendToBackClicked += (s, e) => HideMainWindow();
-            TrayIcon.CloseButtonClicked += (s, e) => HandleApplicationExit();
+            TrayIcon.ShowClicked += HandleTrayIconClick;
+            TrayIcon.HideClicked += (s, e) => HideMainWindow();
+            TrayIcon.BringToFrontClicked += (s, e) => ActivateMainWindow();
+            TrayIcon.CloseClicked += (s, e) => Shutdown();
 
             DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
         }
@@ -37,13 +38,12 @@ namespace VolumeControl
         #endregion Properties
 
         #region Methods
-        private void HandleApplicationExit()
+        private void Application_Exit(object sender, ExitEventArgs e)
         {
-            TrayIcon.Clicked -= HandleTrayIconClick!;
-            (FindResource("Settings") as VolumeControlSettings)?.Dispose();
+            (TryFindResource("Settings") as VolumeControlSettings)?.Dispose();
+            // delete the tray icon
             TrayIcon.Dispose();
         }
-        private void Application_Exit(object sender, ExitEventArgs e) => HandleApplicationExit();
 
         private void HideMainWindow() => MainWindow.Hide();
         private void ShowMainWindow()
@@ -51,6 +51,7 @@ namespace VolumeControl
             MainWindow.Show();
             MainWindow.WindowState = WindowState.Normal;
         }
+        private void ActivateMainWindow() => MainWindow.Activate();
         private void HandleTrayIconClick(object? sender, EventArgs e) => ShowMainWindow();
         #endregion Methods
     }

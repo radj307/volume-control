@@ -209,6 +209,7 @@ namespace VolumeControl
                     cb.IsChecked = false;
         }
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => Hide();
+        private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => WindowState = WindowState.Maximized;
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => Close();
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.Update();
         private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

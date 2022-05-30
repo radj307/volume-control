@@ -9,7 +9,6 @@
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:handy="https://handyorg.github.io/handycontrol"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,10 +26,6 @@
     StateChanged="Window_StateChanged"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Background>
-        <SolidColorBrush Color="#E0303030" />
-    </Window.Background>
-
     <Window.Style>
         <!--  Set Window Style Properties  -->
         <Style TargetType="Window">
@@ -51,9 +46,32 @@
 
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
-            <SolidColorBrush x:Key="TabBackgroundBrush">#535255</SolidColorBrush>
-            <SolidColorBrush x:Key="BorderBrush" Color="DarkGray" />
-            <SolidColorBrush x:Key="UpdateIconBrush" Color="Yellow" />
+            <CornerRadius x:Key="RoundedControlCorner">4</CornerRadius>
+
+            <!--  Window Colors  -->
+            <Color x:Key="WindowBackgroundColor">#D222</Color>
+            <SolidColorBrush x:Key="WindowBorderBrush">#D0252525</SolidColorBrush>
+            <Thickness x:Key="WindowBorderThickness">2</Thickness>
+            <SolidColorBrush x:Key="UpdateIconBrush">Yellow</SolidColorBrush>
+
+            <!--  Tabs  -->
+            <SolidColorBrush x:Key="TabBackgroundBrush">#E03d3d3d</SolidColorBrush>
+
+            <!--  Misc Colors  -->
+            <SolidColorBrush x:Key="HeaderForegroundBrush">LightGray</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderBrush">#3d3d3d</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
+            <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
+
+            <!--  Data Grid Colors  -->
+            <SolidColorBrush x:Key="HeaderBackgroundBrush">#222</SolidColorBrush>
+            <SolidColorBrush x:Key="GridRowBrush">#444</SolidColorBrush>
+            <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
+            <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
+
+            <!--  Scroll Bar Colors  -->
+            <SolidColorBrush x:Key="ScrollBarBackgroundBrush">#444</SolidColorBrush>
+            <SolidColorBrush x:Key="ScrollBarForegroundBrush">#999</SolidColorBrush>
 
             <!--
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
@@ -84,16 +102,20 @@
             </LinearGradientBrush>
             -->
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#A2A2A2" />
-                <GradientStop Offset="1" Color="#AFAFAF" />
+                <GradientStop Offset="0" Color="#AFAFAF" />
+                <GradientStop Offset="1" Color="#9E9E9E" />
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="AccentGradientMouseOver" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#B2B2B2" />
-                <GradientStop Offset="1" Color="#BFBFBF" />
+                <GradientStop Offset="0" Color="#CCC" />
+                <GradientStop Offset="1" Color="#DDD" />
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="AccentGradientIsPressed" StartPoint="0.05,0" EndPoint="0.95,1">
-                <GradientStop Offset="0" Color="#C2C2C2" />
-                <GradientStop Offset="1" Color="#CFCFCF" />
+                <GradientStop Offset="0" Color="#EEE" />
+                <GradientStop Offset="1" Color="#FFF" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientDisabled" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#666" />
+                <GradientStop Offset="1" Color="#777" />
             </LinearGradientBrush>
 
             <SolidColorBrush x:Key="AccentForeground" Color="#222" />
@@ -101,13 +123,27 @@
             <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
             <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
-            <hklib:KeysList x:Key="KeyOptions" />
+
+            <!--  Scrollbars  -->
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="Background" Value="{StaticResource ScrollBarBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ScrollBarForegroundBrush}" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
             <!--  CheckBox  -->
             <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
                         <Setter Property="Background" Value="#808080" />
                         <Setter Property="Foreground" Value="LightGray" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
                     </DataTrigger>
                 </Style.Triggers>
                 <Style.Resources>
@@ -175,7 +211,17 @@
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
             <!--  Button  -->
-            <Style x:Key="ButtonStyle" TargetType="Button">
+            <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+                <Style.Triggers>
+                    <!--  Mouse Over  -->
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                    </DataTrigger>
+                    <!--  Pressed  -->
+                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
+                    </DataTrigger>
+                </Style.Triggers>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -185,23 +231,12 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
+                                CornerRadius="{StaticResource RoundedControlCorner}">
                                 <ContentPresenter
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Content="{TemplateBinding Content}" />
                             </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -215,15 +250,47 @@
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
+            <!--  RepeatButton  -->
+            <Style x:Key="{x:Type RepeatButton}" TargetType="{x:Type RepeatButton}">
+                <Style.Triggers>
+                    <!--  Mouse Over  -->
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                    </DataTrigger>
+                    <!--  Pressed  -->
+                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
+                <Setter Property="Width" Value="20" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
             <!--  TextBox  -->
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
-                <Setter Property="Background" Value="#303030" />
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="BorderBrush" Value="#AAA" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="SelectionBrush" Value="#569DE5" />
                 <Setter Property="SelectionOpacity" Value="0.5" />
-                <Setter Property="Padding" Value="3" />
+                <Setter Property="Padding" Value="3,2" />
             </Style>
             <!--  Label  -->
             <Style x:Key="LabelStyle" TargetType="Label">
@@ -238,14 +305,6 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <!--  Mixer Header Brushes  -->
-            <LinearGradientBrush x:Key="MixerHeaderBrush" Opacity="0.5" StartPoint="0.5,0" EndPoint="0.5,1">
-                <GradientStop Offset="0.1" Color="#454545" />
-                <GradientStop Offset="0.2" Color="#353535" />
-                <GradientStop Offset="0.5" Color="#202020" />
-                <GradientStop Offset="0.8" Color="#353535" />
-                <GradientStop Offset="0.9" Color="#454545" />
-            </LinearGradientBrush>
             <!--  Mixer Headers  -->
             <Style x:Key="MixerHeadersStyle" TargetType="DataGridColumnHeader">
                 <Setter Property="FontWeight" Value="SemiBold" />
@@ -253,14 +312,17 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="Background" Value="{StaticResource MixerHeaderBrush}" />
-                <Setter Property="BorderBrush" Value="Gainsboro" />
-                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="Background" Value="{StaticResource HeaderBackgroundBrush}" />
             </Style>
             <!--  Border Style  -->
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="BorderBrush" Value="Gainsboro" />
+            </Style>
+            <!--  Rounded Mask Style  -->
+            <Style x:Key="RoundBorderMaskStyle" TargetType="{x:Type Border}">
+                <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
+                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
             </Style>
             <!--  Mixer Cell  -->
             <Style x:Key="MixerCellStyle" TargetType="DataGridCell">
@@ -279,20 +341,19 @@
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Background" Value="#00000000" />
-                <Setter Property="RowBackground" Value="#303030" />
-                <Setter Property="AlternatingRowBackground" Value="#404040" />
+                <Setter Property="RowBackground" Value="{StaticResource GridRowBrush}" />
+                <Setter Property="AlternatingRowBackground" Value="{StaticResource GridRowAltBrush}" />
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource MixerHeadersStyle}" />
                 <Setter Property="CellStyle" Value="{StaticResource MixerCellStyle}" />
-                <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
                 <Setter Property="AlternationCount" Value="1" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="HeadersVisibility" Value="Column" />
                 <Setter Property="SelectionUnit" Value="Cell" />
-                <Setter Property="GridLinesVisibility" Value="Horizontal" />
-                <Setter Property="HorizontalGridLinesBrush" Value="#202020" />
-                <Setter Property="Margin" Value="0,0,0,1" />
+                <Setter Property="GridLinesVisibility" Value="None" />
+                <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridHorizontalLineBrush}" />
+                <Setter Property="Margin" Value="5" />
             </Style>
             <!--  TabControl  -->
             <Style x:Key="TabControlStyle" TargetType="ctrlz:TabControlEx">
@@ -300,178 +361,52 @@
                 <Setter Property="Foreground" Value="WhiteSmoke" />
             </Style>
 
-            <ResourceDictionary x:Key="ComboBoxResources">
-                <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#EEE" />
-                            <GradientStop Offset="1.0" Color="#CCC" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="HorizontalNormalBrush" StartPoint="0,0" EndPoint="1,0">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#FFF" />
-                            <GradientStop Offset="1.0" Color="#CCC" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#FFF" />
-                            <GradientStop Offset="1.0" Color="#EEE" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#FFF" />
-                            <GradientStop Offset="1.0" Color="#EEE" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#FFF" />
-                            <GradientStop Offset="1.0" Color="#AAA" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#BBB" />
-                            <GradientStop Offset="0.1" Color="#EEE" />
-                            <GradientStop Offset="0.9" Color="#EEE" />
-                            <GradientStop Offset="1.0" Color="#FFF" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-
-                <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
-
-                <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#303030" />
-
-                <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
-
-                <!--  Border Brushes  -->
-
-                <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#CCC" />
-                            <GradientStop Offset="1.0" Color="#444" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="HorizontalNormalBorderBrush" StartPoint="0,0" EndPoint="1,0">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#CCC" />
-                            <GradientStop Offset="1.0" Color="#444" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="DefaultedBorderBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#777" />
-                            <GradientStop Offset="1.0" Color="#000" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
-                    <GradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#444" />
-                            <GradientStop Offset="1.0" Color="#888" />
-                        </GradientStopCollection>
-                    </GradientBrush.GradientStops>
-                </LinearGradientBrush>
-
-                <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
-
-                <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
-
-                <SolidColorBrush x:Key="LightBorderBrush" Color="#AAA" />
-
-                <!--  Miscellaneous Brushes  -->
-                <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-
-                <SolidColorBrush x:Key="LightColorBrush" Color="#DDD" />
-            </ResourceDictionary>
-
-            <ControlTemplate
-                x:Key="ComboBoxToggleButton"
-                Resources="{StaticResource ComboBoxResources}"
-                TargetType="ToggleButton">
-                <Grid>
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+                <Grid Name="cmbGrid">
+                    <Grid.Resources>
+                        <Style x:Key="{x:Type Path}" TargetType="{x:Type Path}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientDisabled}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientMouseOver}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentGradientIsPressed}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="20" />
                     </Grid.ColumnDefinitions>
+                    <!--  Having this border here allows the dropdown to be triggered by clicking anywhere on the control  -->
                     <Border
-                        x:Name="Border"
                         Grid.ColumnSpan="2"
-                        Background="{StaticResource NormalBrush}"
-                        BorderBrush="{StaticResource NormalBorderBrush}"
-                        BorderThickness="2,1,1,1"
-                        CornerRadius="0" />
-                    <Border
-                        Grid.Column="0"
-                        Margin="0"
-                        Background="{StaticResource WindowBackgroundBrush}"
-                        BorderBrush="{StaticResource NormalBorderBrush}"
-                        BorderThickness="0,0,1,0" />
+                        Background="Transparent"
+                        BorderThickness="0" />
                     <Path
                         x:Name="Arrow"
                         Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Data="M 0 0 L 4 4 L 8 0 Z"
-                        Fill="{StaticResource GlyphBrush}" />
+                        Data="M 0 0 L 4 5 L 8 0 Z"
+                        Fill="{StaticResource AccentGradient}"
+                        IsEnabled="{Binding IsMouseOver, ElementName=cmbGrid}" />
                 </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                        <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />
-                    </Trigger>
-                    <Trigger Property="ToggleButton.IsChecked" Value="true">
-                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />
-                    </Trigger>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
-                        <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
-                        <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource DisabledForegroundBrush}" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
                 <Border
                     x:Name="PART_ContentHost"
                     Background="{TemplateBinding Background}"
+                    BorderThickness="0"
                     Focusable="False" />
             </ControlTemplate>
 
-            <Style
-                x:Key="ComboBoxCustomStyle"
-                Resources="{StaticResource ComboBoxResources}"
-                TargetType="ComboBox">
+            <Style x:Key="ComboBoxCustomStyle" TargetType="ComboBox">
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -487,9 +422,13 @@
                 </Setter>
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="ComboBox">
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
                             <Grid>
-                                <Border BorderBrush="#AAA" BorderThickness="1" />
+                                <Border
+                                    Background="{StaticResource TextBoxBackground}"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="{StaticResource RoundedControlCorner}" />
                                 <Grid Margin="1">
                                     <ToggleButton
                                         Name="ToggleButton"
@@ -532,8 +471,8 @@
                                             SnapsToDevicePixels="True">
                                             <Border
                                                 x:Name="DropDownBorder"
-                                                Background="{StaticResource WindowBackgroundBrush}"
-                                                BorderBrush="{StaticResource SolidBorderBrush}"
+                                                Background="{StaticResource TabBackgroundBrush}"
+                                                BorderBrush="{StaticResource BorderBrush}"
                                                 BorderThickness="1" />
                                             <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                                 <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -612,6 +551,17 @@
                 <Setter Property="IsHitTestVisible" Value="False" />
             </Style>
 
+            <!--  NumericUpDown  -->
+            <Style x:Key="{x:Type Controls:NumericUpDown}" TargetType="{x:Type Controls:NumericUpDown}">
+                <!--  Use an even number for height so that the buttons are the same size  -->
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
+            </Style>
+
             <!--  EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions)  -->
             <Collections:BindableEventType x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged" />
         </ResourceDictionary>
@@ -621,13 +571,20 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="{StaticResource CaptionHeight}" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
+    <!--  ( Window Background )  -->
+    <Window.Background>
+        <SolidColorBrush Color="{StaticResource WindowBackgroundColor}" />
+    </Window.Background>
 
     <!--  ( Element Layout )  -->
-    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="2">
+    <!--  Window Border  -->
+    <Border BorderBrush="{StaticResource WindowBorderBrush}" BorderThickness="{StaticResource WindowBorderThickness}">
         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
             <!--  v Caption Bar v  -->
-            <Grid Height="{StaticResource CaptionHeight}" Background="#00FFFFFF">
+            <Grid Height="{StaticResource CaptionHeight}">
+                <!--  RESOURCES  -->
                 <Grid.Resources>
+                    <!--  Caption Button Style:  -->
                     <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
                         <Setter Property="Template">
                             <Setter.Value>
@@ -673,6 +630,7 @@
                         <Setter Property="HorizontalAlignment" Value="Right" />
                     </Style>
                 </Grid.Resources>
+                <!--  COLUMN DEFINITIONS  -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -681,10 +639,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <!--  LAYOUT  -->
                 <TextBlock
                     Grid.Column="1"
-                    Margin="5,0"
+                    Margin="7,0"
                     VerticalAlignment="Center"
                     FontWeight="SemiBold"
                     Foreground="LightGray"
@@ -700,7 +660,6 @@
                     Text="▲"
                     ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}"
                     Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
                 <Label
                     x:Name="versionLabel"
                     Grid.Column="4"
@@ -718,6 +677,12 @@
                     Style="{StaticResource CaptionButtonStyle}" />
                 <Button
                     Grid.Column="6"
+                    Click="Handle_MaximizeClick"
+                    Content="□"
+                    Style="{StaticResource CaptionButtonStyle}"
+                    Visibility="Collapsed" />
+                <Button
+                    Grid.Column="7"
                     Click="Handle_CloseClick"
                     Content="❌"
                     Style="{StaticResource CaptionButtonStyle}" />
@@ -731,12 +696,11 @@
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                BorderBrush="{StaticResource BorderBrush}"
-                BorderThickness="0,1,0,0"
                 SelectionChanged="Handle_TabControlChange"
                 Style="{StaticResource TabControlStyle}">
                 <!--  TAB CONTROL APPEARANCE:  -->
                 <TabControl.Resources>
+                    <!--  Tab Item Appearance  -->
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
                             <Setter.Value>
@@ -744,36 +708,35 @@
                                     <Border
                                         Name="Border"
                                         Margin="1,0"
-                                        BorderBrush="{StaticResource BorderBrush}"
-                                        BorderThickness="1,1,1,0">
+                                        BorderThickness="0">
                                         <ContentPresenter
                                             x:Name="ContentSite"
                                             Margin="10,2"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             ContentSource="Header"
-                                            TextBlock.Foreground="WhiteSmoke" />
+                                            TextBlock.Foreground="{TemplateBinding Foreground}" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <!--  SELECTED TAB APPEARANCE:  -->
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Border" Property="Background" Value="{StaticResource TabBackgroundBrush}" />
                                             <Setter TargetName="Border" Property="Margin" Value="1,-1" />
-                                            <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="WhiteSmoke" />
-                                            <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="SemiBold" />
+                                            <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="13" />
                                         </Trigger>
                                         <!--  UNSELECTED TAB APPEARANCE:  -->
                                         <Trigger Property="IsSelected" Value="False">
                                             <Setter TargetName="Border" Property="Background" Value="#303030" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.Foreground" Value="LightGray" />
-                                            <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Regular" />
+                                            <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Medium" />
                                             <Setter TargetName="ContentSite" Property="TextBlock.FontSize" Value="11" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
                     </Style>
                 </TabControl.Resources>
 
@@ -812,6 +775,7 @@
 
                             <TextBox
                                 x:Name="targetNameTextBox"
+                                Height="24"
                                 Margin="3,0"
                                 behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
                                 behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
@@ -851,7 +815,6 @@
                                 Margin="5,0"
                                 Click="Handle_ReloadClick"
                                 Content="  Reload  "
-                                Style="{StaticResource ButtonStyle}"
                                 ToolTip="Manually reloads the list of audio sessions." />
                             <CheckBox
                                 x:Name="cbReloadOnHotkey"
@@ -887,117 +850,121 @@
 
                         <!--  Mixer Data Grid Row  -->
                         <Border
-                            BorderBrush="{StaticResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            x:Name="MixerDataGridOuterBorder"
+                            Padding="0"
+                            BorderThickness="0"
                             Style="{StaticResource BorderStyle}">
-                            <DataGrid
-                                x:Name="MixerGrid"
-                                AutoGenerateColumns="False"
-                                DataContext="{StaticResource Settings}"
-                                ItemsSource="{Binding AudioAPI.Sessions}"
-                                Style="{StaticResource DataGridStyle}">
-                                <DataGrid.Columns>
-                                    <!--  PID  -->
-                                    <DataGridTemplateColumn
-                                        Width="Auto"
-                                        Header="PID"
-                                        IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    Margin="3,0"
-                                                    VerticalAlignment="Center"
-                                                    Style="{StaticResource TextBlockStyle}"
-                                                    Text="{Binding PID, Mode=OneWay}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Process Name  -->
-                                    <DataGridTemplateColumn
-                                        Width="*"
-                                        Header="Process Name"
-                                        IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="20" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Image
-                                                        HorizontalAlignment="Left"
-                                                        Source="{Binding Icon, Mode=OneTime}"
-                                                        Style="{StaticResource IconImageStyle}"
-                                                        Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Grid>
+                                <Border Name="MixerGridMask" Style="{StaticResource RoundBorderMaskStyle}" />
+                                <DataGrid
+                                    x:Name="MixerGrid"
+                                    AutoGenerateColumns="False"
+                                    DataContext="{StaticResource Settings}"
+                                    ItemsSource="{Binding AudioAPI.Sessions}"
+                                    Style="{StaticResource DataGridStyle}">
+                                    <DataGrid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=MixerGridMask}" />
+                                    </DataGrid.OpacityMask>
+                                    <DataGrid.Columns>
+                                        <!--  PID  -->
+                                        <DataGridTemplateColumn
+                                            Width="Auto"
+                                            Header="PID"
+                                            IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
                                                     <TextBlock
-                                                        Grid.Column="1"
+                                                        Margin="3,0"
                                                         VerticalAlignment="Center"
                                                         Style="{StaticResource TextBlockStyle}"
-                                                        Text="{Binding ProcessName, Mode=OneWay}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Mute  -->
-                                    <DataGridTemplateColumn Width="40" Header="Mute">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Volume  -->
-                                    <DataGridTemplateColumn Width="*" Header="Volume">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Grid Margin="1" VerticalAlignment="Center">
-                                                    <Grid.ColumnDefinitions>
+                                                        Text="{Binding PID, Mode=OneWay}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Process Name  -->
+                                        <DataGridTemplateColumn
+                                            Width="*"
+                                            Header="Process Name"
+                                            IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="20" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image
+                                                            HorizontalAlignment="Left"
+                                                            Source="{Binding Icon, Mode=OneTime}"
+                                                            Style="{StaticResource IconImageStyle}"
+                                                            Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            VerticalAlignment="Center"
+                                                            Style="{StaticResource TextBlockStyle}"
+                                                            Text="{Binding ProcessName, Mode=OneWay}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Mute  -->
+                                        <DataGridTemplateColumn Width="40" Header="Mute">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Volume  -->
+                                        <DataGridTemplateColumn Width="*" Header="Volume">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="1" VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <!--  Slider  -->
+                                                            <ColumnDefinition Width="*" />
+                                                            <!--  Divider  -->
+                                                            <ColumnDefinition Width="2" />
+                                                            <!--  TextBox  -->
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
                                                         <!--  Slider  -->
-                                                        <ColumnDefinition Width="*" />
-                                                        <!--  Divider  -->
-                                                        <ColumnDefinition Width="2" />
+                                                        <Slider
+                                                            x:Name="dgVolumeSlider"
+                                                            Grid.Column="0"
+                                                            LargeChange="5"
+                                                            Maximum="100"
+                                                            Minimum="0"
+                                                            SmallChange="1"
+                                                            Style="{StaticResource MixerVolumeSliderStyle}"
+                                                            Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                         <!--  TextBox  -->
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <!--  Slider  -->
-                                                    <Slider
-                                                        x:Name="dgVolumeSlider"
-                                                        Grid.Column="0"
-                                                        LargeChange="5"
-                                                        Maximum="100"
-                                                        Minimum="0"
-                                                        SmallChange="1"
-                                                        Style="{StaticResource MixerVolumeSliderStyle}"
-                                                        Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                    <!--  TextBox  -->
-                                                    <TextBox
-                                                        x:Name="dgVolumeTextBox"
-                                                        Grid.Column="2"
-                                                        Width="30"
-                                                        Background="#00000000"
-                                                        BorderThickness="0"
-                                                        Style="{StaticResource TextBoxStyle}"
-                                                        Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Select  -->
-                                    <DataGridTemplateColumn
-                                        Width="60"
-                                        Header=""
-                                        IsReadOnly="True">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Click="Handle_ProcessSelectClick"
-                                                    Content="Select"
-                                                    Style="{StaticResource ButtonStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                                        <TextBox
+                                                            x:Name="dgVolumeTextBox"
+                                                            Grid.Column="2"
+                                                            Width="30"
+                                                            Background="#00000000"
+                                                            BorderThickness="0"
+                                                            Style="{StaticResource TextBoxStyle}"
+                                                            Text="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Select  -->
+                                        <DataGridTemplateColumn
+                                            Width="60"
+                                            Header=""
+                                            IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Click="Handle_ProcessSelectClick" Content="Select" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </Border>
 
                     </VirtualizingStackPanel>
@@ -1014,139 +981,151 @@
                             BorderBrush="LightGray"
                             BorderThickness="0"
                             Style="{StaticResource BorderStyle}">
-                            <!--  BorderThickness="1,0,1,1"  -->
-                            <DataGrid
-                                x:Name="HotkeyGrid"
-                                AutoGenerateColumns="False"
-                                BorderThickness="0"
-                                CanUserReorderColumns="False"
-                                CanUserSortColumns="False"
-                                DataContext="{StaticResource Settings}"
-                                ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                Style="{StaticResource DataGridStyle}">
-                                <DataGrid.Columns>
-                                    <!--  Active  -->
-                                    <DataGridTemplateColumn Width="Auto" CanUserResize="False">
-                                        <DataGridTemplateColumn.Header>
-                                            <CheckBox
-                                                Margin="3,0,0,0"
-                                                Click="Handle_ThreeStateCheckboxClick"
-                                                IsChecked="{Binding HotkeyAPI.AllSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                                IsThreeState="True"
-                                                Style="{StaticResource CheckBoxStyle}"
-                                                ToolTip="This (un)registers all hotkeys in the list." />
-                                        </DataGridTemplateColumn.Header>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <hklib:KeysList x:Key="KeyOptions" />
+                                </Grid.Resources>
+                                <Border
+                                    Name="HotkeyGridMask"
+                                    Padding="3"
+                                    Style="{StaticResource RoundBorderMaskStyle}" />
+
+                                <!--  BorderThickness="1,0,1,1"  -->
+                                <DataGrid
+                                    x:Name="HotkeyGrid"
+                                    AutoGenerateColumns="False"
+                                    BorderThickness="0"
+                                    CanUserReorderColumns="False"
+                                    CanUserSortColumns="False"
+                                    DataContext="{StaticResource Settings}"
+                                    ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource DataGridStyle}">
+                                    <DataGrid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
+                                    </DataGrid.OpacityMask>
+                                    <DataGrid.Columns>
+                                        <!--  Active  -->
+                                        <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                                            <DataGridTemplateColumn.Header>
                                                 <CheckBox
                                                     Margin="3,0,0,0"
-                                                    IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsEnabled="{Binding Valid}"
-                                                    Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Name  -->
-                                    <DataGridTemplateColumn
-                                        Width="Auto"
-                                        MinWidth="130"
-                                        Header="Name"
-                                        IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox
-                                                    VerticalAlignment="Center"
-                                                    Background="#00000000"
-                                                    BorderThickness="0"
-                                                    IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}"
-                                                    Style="{StaticResource TextBoxStyle}"
-                                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Key  -->
-                                    <DataGridTemplateColumn Width="6*" Header="Key">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox
-                                                    ItemsSource="{StaticResource KeyOptions}"
-                                                    SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
-                                                    Style="{StaticResource ComboBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Alt  -->
-                                    <DataGridTemplateColumn Width="30" Header="Alt">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Ctrl  -->
-                                    <DataGridTemplateColumn Width="30" Header="Ctrl">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Shift  -->
-                                    <DataGridTemplateColumn Width="30" Header="Shift">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Windows  -->
-                                    <DataGridTemplateColumn Width="30" Header="Win">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Action  -->
-                                    <DataGridTemplateColumn
-                                        Width="6*"
-                                        Header="Action"
-                                        Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox
-                                                    ItemsSource="{Binding ActionNames, Source={StaticResource Settings}}"
-                                                    SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
-                                                    Style="{StaticResource ComboBoxStyle}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <!--  Remove  -->
-                                    <DataGridTemplateColumn Width="Auto" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Width="20"
-                                                    Height="Auto"
-                                                    Background="#00000000"
-                                                    BorderThickness="0"
-                                                    Click="Handle_HotkeyGridRemoveClick"
-                                                    CommandParameter="{Binding ID}"
-                                                    Content="❌"
-                                                    FocusVisualStyle="{x:Null}"
-                                                    Foreground="#FF4456" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                                    Click="Handle_ThreeStateCheckboxClick"
+                                                    IsChecked="{Binding HotkeyAPI.AllSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsThreeState="True"
+                                                    Style="{StaticResource CheckBoxStyle}"
+                                                    ToolTip="This (un)registers all hotkeys in the list." />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox
+                                                        Margin="3,0,0,0"
+                                                        IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}"
+                                                        IsEnabled="{Binding Valid}"
+                                                        Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Name  -->
+                                        <DataGridTemplateColumn
+                                            Width="Auto"
+                                            MinWidth="130"
+                                            Header="Name"
+                                            IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBox
+                                                        VerticalAlignment="Center"
+                                                        Background="#00000000"
+                                                        BorderThickness="0"
+                                                        IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}"
+                                                        Style="{StaticResource TextBoxStyle}"
+                                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Key  -->
+                                        <DataGridTemplateColumn Width="6*" Header="Key">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ComboBox
+                                                        ItemsSource="{StaticResource KeyOptions}"
+                                                        SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{StaticResource ComboBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Alt  -->
+                                        <DataGridTemplateColumn Width="30" Header="Alt">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Ctrl  -->
+                                        <DataGridTemplateColumn Width="30" Header="Ctrl">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Shift  -->
+                                        <DataGridTemplateColumn Width="30" Header="Shift">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Windows  -->
+                                        <DataGridTemplateColumn Width="30" Header="Win">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Action  -->
+                                        <DataGridTemplateColumn
+                                            Width="6*"
+                                            Header="Action"
+                                            Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ComboBox
+                                                        ItemsSource="{Binding ActionNames, Source={StaticResource Settings}}"
+                                                        SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{StaticResource ComboBoxStyle}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--  Remove  -->
+                                        <DataGridTemplateColumn Width="Auto" Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Width="20"
+                                                        Height="Auto"
+                                                        Background="#00000000"
+                                                        BorderThickness="0"
+                                                        Click="Handle_HotkeyGridRemoveClick"
+                                                        CommandParameter="{Binding ID}"
+                                                        Content="❌"
+                                                        FocusVisualStyle="{x:Null}"
+                                                        Foreground="#FF4456" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </Border>
                         <Button
                             Margin="1"
                             VerticalAlignment="Center"
                             Click="Handle_CreateNewHotkeyClick"
                             Content="Create New Hotkey"
-                            Style="{StaticResource ButtonStyle}"
                             Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </VirtualizingStackPanel>
                 </TabItem>
@@ -1162,11 +1141,10 @@
                             BasedOn="{StaticResource LabelStyle}"
                             TargetType="{x:Type Label}">
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
-                            <Setter Property="FontSize" Value="12" />
-                            <Setter Property="FontWeight" Value="DemiBold" />
-                            <Setter Property="Foreground" Value="LightGray" />
-                            <Setter Property="Canvas.Left" Value="-3" />
-                            <Setter Property="Canvas.Top" Value="-3" />
+                            <Setter Property="FontSize" Value="13" />
+                            <!--<Setter Property="FontFamily" Value="Verdana" />-->
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Foreground" Value="{StaticResource HeaderForegroundBrush}" />
                         </Style>
                         <Style x:Key="SectionSubGridStyle" TargetType="{x:Type Grid}">
                             <Setter Property="Margin" Value="5,3" />
@@ -1180,24 +1158,24 @@
                             <Setter Property="HorizontalAlignment" Value="Left" />
                             <Setter Property="Margin" Value="10,3" />
                         </Style>
-                        <Style
-                            x:Key="ApplicationSettingsButtonStyle"
-                            BasedOn="{StaticResource ButtonStyle}"
-                            TargetType="{x:Type Button}">
+                        <Style x:Key="ApplicationSettingsButtonStyle" TargetType="{x:Type Button}">
                             <Setter Property="Margin" Value="10,3,30,0" />
                         </Style>
                         <Style
                             x:Key="SectionStyle"
                             BasedOn="{StaticResource BorderStyle}"
                             TargetType="{x:Type Border}">
-                            <Setter Property="Background" Value="#60101010" />
-                            <Setter Property="BorderThickness" Value="2" />
-                            <Setter Property="BorderBrush" Value="#707070" />
+                            <Setter Property="Margin" Value="3" />
+                            <Setter Property="Background" Value="#5111" />
+                            <Setter Property="Padding" Value="2" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="BorderBrush" Value="{StaticResource AccentForeground}" />
+                            <Setter Property="CornerRadius" Value="9" />
                         </Style>
                     </TabItem.Resources>
 
                     <!--  Settings Tab Layout  -->
-                    <Border BorderBrush="Gainsboro" BorderThickness="0">
+                    <Border BorderBrush="{StaticResource TabBackgroundBrush}" BorderThickness="2">
                         <!--  BorderThickness="1,0,1,1"  -->
                         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
                             <!--  ▼ Device Selection ▼  -->
@@ -1253,15 +1231,13 @@
                                         </ComboBox>
                                         <Button
                                             Grid.Column="2"
-                                            Width="15"
+                                            Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                                             Margin="2,3"
                                             Background="#00000000"
                                             BorderThickness="0"
                                             Click="Handle_ReloadDevicesClick"
                                             Content="🗘"
-                                            FontFamily="Lucida Sans Unicode"
                                             Foreground="WhiteSmoke"
-                                            Style="{StaticResource ButtonStyle}"
                                             ToolTip="Reload the device list." />
                                     </Grid>
                                 </Grid>
@@ -1355,7 +1331,6 @@
                                         <Button
                                             Click="Handle_ResetHotkeysClick"
                                             Content="  Reset Hotkeys  "
-                                            Style="{StaticResource ButtonStyle}"
                                             ToolTip="Resets all hotkeys to their default values. ( Requires confirmation! )" />
                                         <Label
                                             HorizontalAlignment="Center"
@@ -1363,6 +1338,7 @@
                                             Style="{StaticResource LabelStyle}"
                                             ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
                                         <Controls:NumericUpDown
+                                            MinWidth="30"
                                             HorizontalAlignment="Center"
                                             DataContext="{StaticResource Settings}"
                                             MaxValue="100"
@@ -1435,17 +1411,17 @@
                                                 <Style
                                                     x:Key="TextBoxValidIndicatorStyle"
                                                     BasedOn="{StaticResource TextBoxStyle}"
-                                                    TargetType="TextBox">
+                                                    TargetType="{x:Type TextBox}">
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Text.IsEmpty, Mode=OneWay, Source={x:Reference logPath}}" Value="True">
                                                             <Setter Property="Background" Value="#3F3030" />
-                                                            <Setter Property="ToolTip" Value="Logging is disabled because this is blank." />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Grid.Resources>
                                             <TextBox
                                                 x:Name="logPath"
+                                                BorderThickness="0"
                                                 Style="{StaticResource TextBoxValidIndicatorStyle}"
                                                 Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
                                                 ToolTip="Specifies the location and name of the log file. Relative paths are relative to the location of the executable." />
@@ -1464,8 +1440,7 @@
                                             Grid.Column="3"
                                             Click="Handle_BrowseForLogFilePathClick"
                                             Content=" Browse "
-                                            IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}"
-                                            Style="{StaticResource ButtonStyle}" />
+                                            IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -1556,7 +1531,6 @@
                                         <Button
                                             Click="Handle_CheckForUpdatesClick"
                                             Content="  Check Now  "
-                                            Style="{StaticResource ButtonStyle}"
                                             ToolTip="Manually check for new versions of Volume Control." />
                                         <CheckBox
                                             x:Name="cbCheckForUpdatesOnStartup"

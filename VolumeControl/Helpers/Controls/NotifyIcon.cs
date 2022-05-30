@@ -18,12 +18,18 @@ namespace VolumeControl.Helpers.Controls
                 ShowImageMargin = false,
                 ShowItemToolTips = false,
                 BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
-                ForeColor = System.Drawing.Color.WhiteSmoke
+                ForeColor = System.Drawing.Color.WhiteSmoke,
+                DropShadowEnabled = true,
             };
 
-            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Temp", Resources.reload)); //< this is a placeholder
+            DynamicButton = new System.Windows.Forms.ToolStripButton("Temp", Resources.reload)
+            {
+                
+            };//< this is a placeholder that is dynamically swapped out later
+            _contextMenu.Items.Add(DynamicButton);
+            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Bring to Front", Resources.bringtofront, ForwardBringToFrontClicked));
             _contextMenu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Close", Resources.X, HandleCloseButtonClick));
+            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Close", Resources.X, ForwardCloseButtonClicked));
 
             _notifyIcon = new()
             {
@@ -33,31 +39,9 @@ namespace VolumeControl.Helpers.Controls
                 ContextMenuStrip = _contextMenu,
             };
 
-            _notifyIcon.MouseUp += HandleClicked;
+            _notifyIcon.MouseUp += ForwardClicked;
 
-            _contextMenu.VisibleChanged += (s, e) =>
-            {
-                if (_queryMainWindowVisibleHandler(this, EventArgs.Empty))
-                { // window is visible
-                    _contextMenu.SuspendLayout();
-                    DynamicButton.Text = "Hide";
-                    DynamicButton.Image = Resources.background;
-                    DynamicButton.Click -= HandleBringToFrontClicked;
-                    DynamicButton.Click += HandleSendToBackClicked;
-                    _contextMenu.Refresh();
-                    _contextMenu.ResumeLayout();
-                }
-                else
-                { // window is hidden
-                    _contextMenu.SuspendLayout();
-                    DynamicButton.Text = "Show";
-                    DynamicButton.Image = Resources.foreground;
-                    DynamicButton.Click -= HandleSendToBackClicked;
-                    DynamicButton.Click += HandleBringToFrontClicked;
-                    _contextMenu.Refresh();
-                    _contextMenu.ResumeLayout();
-                }
-            };
+            _contextMenu.VisibleChanged += HandleContextMenuVisibleChanged;
         }
         #endregion Constructors
 
@@ -78,20 +62,23 @@ namespace VolumeControl.Helpers.Controls
 
         #region Events
         public event EventHandler? Clicked;
-        private void HandleClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
+        private void ForwardClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button.HasFlag(System.Windows.Forms.MouseButtons.Left))
                 Clicked?.Invoke(sender, e);
         }
         /// <summary>Triggered when the close button is clicked.</summary>
-        public event EventHandler? CloseButtonClicked;
-        private void HandleCloseButtonClick(object? sender, EventArgs e) => CloseButtonClicked?.Invoke(sender, e);
+        public event EventHandler? CloseClicked;
+        private void ForwardCloseButtonClicked(object? sender, EventArgs e) => CloseClicked?.Invoke(sender, e);
+        /// <summary>Triggered when the show button is clicked.</summary>
+        public event EventHandler? ShowClicked;
+        private void ForwardShowClicked(object? sender, EventArgs e) => ShowClicked?.Invoke(sender, e);
+        /// <summary>Triggered when the hide button is clicked.</summary>
+        public event EventHandler? HideClicked;
+        private void ForwardHideClicked(object? sender, EventArgs e) => HideClicked?.Invoke(sender, e);
         /// <summary>Triggered when the bring to front button is clicked.</summary>
         public event EventHandler? BringToFrontClicked;
-        private void HandleBringToFrontClicked(object? sender, EventArgs e) => BringToFrontClicked?.Invoke(sender, e);
-        /// <summary>Triggered when the send to back button is clicked.</summary>
-        public event EventHandler? SendToBackClicked;
-        private void HandleSendToBackClicked(object? sender, EventArgs e) => SendToBackClicked?.Invoke(sender, e);
+        private void ForwardBringToFrontClicked(object? sender, EventArgs e) => BringToFrontClicked?.Invoke(sender, e);
         #endregion Events
 
         #region Properties
@@ -107,10 +94,33 @@ namespace VolumeControl.Helpers.Controls
             get => _notifyIcon.Icon;
             set => _notifyIcon.Icon = value;
         }
-        private System.Windows.Forms.ToolStripItem DynamicButton => _contextMenu.Items[0];
+        private readonly System.Windows.Forms.ToolStripItem DynamicButton;
         #endregion Properties
 
         #region Methods
+        private void HandleContextMenuVisibleChanged(object? sender, EventArgs e)
+        {
+            if (_queryMainWindowVisibleHandler(this, EventArgs.Empty))
+            { // window is visible
+                _contextMenu.SuspendLayout();
+                DynamicButton.Text = "Hide";
+                DynamicButton.Image = Resources.background;
+                DynamicButton.Click -= ForwardShowClicked;
+                DynamicButton.Click += ForwardHideClicked;
+                _contextMenu.Refresh();
+                _contextMenu.ResumeLayout();
+            }
+            else
+            { // window is hidden
+                _contextMenu.SuspendLayout();
+                DynamicButton.Text = "Show";
+                DynamicButton.Image = Resources.foreground;
+                DynamicButton.Click -= ForwardHideClicked;
+                DynamicButton.Click += ForwardShowClicked;
+                _contextMenu.Refresh();
+                _contextMenu.ResumeLayout();
+            }
+        }
         /// <inheritdoc/>
         public void Dispose()
         {
