@@ -9,6 +9,12 @@
 		<UseWindowsForms>True</UseWindowsForms>
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+		<FrameworkReference
+			Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
+			TargetingPackVersion="6.0.0" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Semver" Version="2.1.0" />
 	</ItemGroup>

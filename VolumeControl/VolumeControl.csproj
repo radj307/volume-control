@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -29,6 +29,13 @@
     <Deterministic>true</Deterministic>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
+	
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+	    <FrameworkReference
+		    Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
+		    TargetingPackVersion="6.0.0" />
+    </ItemGroup>
+	
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
     <AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
