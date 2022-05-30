@@ -7,7 +7,6 @@ on:
       - 'Update Version'
     types:
       - 'completed'
-  workflow_dispatch:
 
 defaults:
   run:
