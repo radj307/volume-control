@@ -1316,7 +1316,10 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <Label Content="Timeout" Style="{StaticResource LabelStyle}" />
+                                            <Label
+                                                Content="Timeout"
+                                                Style="{StaticResource LabelStyle}"
+                                                ToolTip="The time in milliseconds before the notification disappears after being displayed." />
                                             <Controls:NumericUpDown
                                                 Grid.Column="1"
                                                 Width="88"
@@ -1357,7 +1360,8 @@
                                         <Label
                                             HorizontalAlignment="Center"
                                             Content="Volume Step"
-                                            Style="{StaticResource LabelStyle}" />
+                                            Style="{StaticResource LabelStyle}"
+                                            ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
                                         <Controls:NumericUpDown
                                             HorizontalAlignment="Center"
                                             DataContext="{StaticResource Settings}"
