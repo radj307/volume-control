@@ -5,10 +5,14 @@ using VolumeControl.Log;
 
 namespace HotkeyLib
 {
+    /// <summary>A simple Windows hotkey.</summary>
     [TypeConverter(typeof(WindowsHotkeyConverter))]
-    public class WindowsHotkey : IKeyCombo, IDisposable, INotifyPropertyChanged
+    public class WindowsHotkey : IKeyCombo, IDisposable, INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region Constructors
+        /// <inheritdoc cref="WindowsHotkey"/>
+        /// <param name="owner">The owning window's handle.</param>
+        /// <param name="keys">The key &amp; modifiers used by this hotkey.</param>
         public WindowsHotkey(IntPtr owner, IKeyCombo keys)
         {
             _owner = owner;
@@ -26,6 +30,7 @@ namespace HotkeyLib
         #endregion Constructors
 
         #region Finalizers
+        /// <summary>Finalizer</summary>
         ~WindowsHotkey()
         {
             Dispose(true); // unregister
@@ -54,7 +59,11 @@ namespace HotkeyLib
         /// <summary>
         /// Triggered when any of the object's properties change.
         /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged = null;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>
+        /// Triggered when any of the object's properties are about to change.
+        /// </summary>
+        public event PropertyChangingEventHandler? PropertyChanging;
         #endregion Members
 
         #region Properties
@@ -64,6 +73,7 @@ namespace HotkeyLib
             get => _combo.Key;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Key = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -76,6 +86,7 @@ namespace HotkeyLib
             get => _combo.Mod;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Mod = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -87,6 +98,7 @@ namespace HotkeyLib
             get => _combo.Alt;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Alt = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -98,6 +110,7 @@ namespace HotkeyLib
             get => _combo.Ctrl;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Ctrl = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -109,6 +122,7 @@ namespace HotkeyLib
             get => _combo.Shift;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Shift = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -120,6 +134,7 @@ namespace HotkeyLib
             get => _combo.Win;
             set
             {
+                NotifyPropertyChanging();
                 _combo.Win = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();
@@ -127,11 +142,15 @@ namespace HotkeyLib
         }
         /// <inheritdoc/>
         public bool Valid => _combo.Valid;
+        /// <summary>
+        /// Gets or sets whether this hotkey is registered (enabled) or not.
+        /// </summary>
         public bool Registered
         {
             get => _state == HotkeyRegistrationState.REGISTERED;
             set
             {
+                NotifyPropertyChanging();
                 if (value)
                     Register();
                 else Unregister();
@@ -146,6 +165,9 @@ namespace HotkeyLib
         private void NotifyKeysChanged()
             => NotifyKeysChanged(EventArgs.Empty);
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
+        /// <summary>Triggers the <see cref="Pressed"/> event.</summary>
+        /// <param name="e">The event arguments to send with the event invocation.</param>
         public void NotifyPressed(HandledEventArgs e) => Pressed?.Invoke(this, e);
 
         /// <summary>
@@ -260,6 +282,8 @@ namespace HotkeyLib
             }
             return false;
         }
+        /// <summary>Calls the <see cref="Serialize()"/> method and returns the result.</summary>
+        /// <returns>The serialized hotkey string.</returns>
         public new string? ToString() => Serialize();
         /// <summary>
         /// Converts this hotkey to a string with a serialized representation of the key combination.

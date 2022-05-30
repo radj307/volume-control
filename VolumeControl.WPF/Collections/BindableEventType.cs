@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Log.Enum;
@@ -10,7 +11,7 @@ namespace VolumeControl.WPF.Collections
     /// <summary>
     /// Provides the source for a WPF list component's ItemsSource property to expose a readable and writable interface for enum types with <see cref="FlagsAttribute"/>.
     /// </summary>
-    public class BindableEventType : ICollection<BindableEventType.BindableEventTypeFlag>, IEnumerable<BindableEventType.BindableEventTypeFlag>, IEnumerable, IList<BindableEventType.BindableEventTypeFlag>, IReadOnlyCollection<BindableEventType.BindableEventTypeFlag>, IReadOnlyList<BindableEventType.BindableEventTypeFlag>, ICollection, IList, INotifyPropertyChanged
+    public class BindableEventType : ICollection<BindableEventType.BindableEventTypeFlag>, IEnumerable<BindableEventType.BindableEventTypeFlag>, IEnumerable, IList<BindableEventType.BindableEventTypeFlag>, IReadOnlyCollection<BindableEventType.BindableEventTypeFlag>, IReadOnlyList<BindableEventType.BindableEventTypeFlag>, ICollection, IList, INotifyPropertyChanged, INotifyCollectionChanged
     {
         #region SubObject
         /// <summary>
@@ -19,19 +20,34 @@ namespace VolumeControl.WPF.Collections
         /// <remarks>This is used by <see cref="BindableEventType"/> to provide a bindable <b>ItemsSource</b> list.</remarks>
         public class BindableEventTypeFlag : INotifyPropertyChanged
         {
+            #region Constructor
+            /// <inheritdoc cref="BindableEventTypeFlag"/>
+            /// <param name="parent">The parent <see cref="BindableEventType"/> container.</param>
+            /// <param name="ev">The event type.</param>
             public BindableEventTypeFlag(BindableEventType parent, EventType ev)
             {
                 _parent = parent;
                 _ev = ev;
                 Name = Enum.GetName(typeof(EventType), _ev) ?? string.Empty;
             }
+            #endregion Constructor
+
+            #region Fields
             private readonly BindableEventType _parent;
             private readonly EventType _ev;
+            #endregion Fields
 
+            #region Events
+            /// <summary>Triggered when a property's setting is called, after the value has changed.</summary>
             public event PropertyChangedEventHandler? PropertyChanged;
+            /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
             protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+            #endregion Events
 
+            #region Properties
+            /// <summary>The plaintext name of this enumeration.</summary>
             public string Name { get; }
+            /// <summary>Gets or sets whether this flag is set in the underlying bitfield.</summary>
             public bool IsSet
             {
                 get => (_parent.Value & _ev) != 0;
@@ -44,15 +60,18 @@ namespace VolumeControl.WPF.Collections
                     NotifyPropertyChanged();
                 }
             }
+            #endregion Properties
         }
         #endregion SubObject
 
         #region Constructors
+        /// <inheritdoc cref="BindableEventType"/>
         public BindableEventType()
         {
             _value = EventType.NONE;
             InitializeOptions();
         }
+        /// <inheritdoc cref="BindableEventType"/>
         public BindableEventType(EventType ev)
         {
             _value = ev;
@@ -61,7 +80,15 @@ namespace VolumeControl.WPF.Collections
         #endregion Constructors
 
         #region Events
+        /// <summary>Triggered when a property's setting is called, after the value has changed.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>Triggered when the options list is changed.</summary>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        {
+            add => ((INotifyCollectionChanged)Options).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)Options).CollectionChanged -= value;
+        }
+        /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
@@ -77,6 +104,10 @@ namespace VolumeControl.WPF.Collections
         #endregion Fields
 
         #region Properties
+        /// <summary>Gets the formatted name of the current bitfield combination.</summary>
+        /// <remarks>This may include <see cref="EventType.NONE"/>, <see cref="EventType.ALL_EXCEPT_DEBUG"/>, <see cref="EventType.ALL"/>, or a combination of other values.</remarks>
+        public string Name => $"{Value:G}";
+        /// <summary>Gets or sets the bitfield flag value.</summary>
         public EventType Value
         {
             get => _value;
@@ -86,7 +117,10 @@ namespace VolumeControl.WPF.Collections
                 NotifyPropertyChanged();
             }
         }
-        public List<BindableEventTypeFlag> Options { get; } = new();
+        /// <summary>
+        /// Gets the list of bindable enum types.
+        /// </summary>
+        public ObservableList<BindableEventTypeFlag> Options { get; } = new();
 
         /// <inheritdoc/>
         public int Count => ((ICollection<BindableEventTypeFlag>)Options).Count;

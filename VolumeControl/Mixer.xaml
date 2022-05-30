@@ -5,6 +5,7 @@
     xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
     xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
+    xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,14 +13,15 @@
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ssui="clr-namespace:SolidShineUi;assembly=SolidShineUi"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
     Title="Volume Control"
+    ctrlz:KeyboardNavigationEx.AlwaysShowFocusVisual="False"
     AllowsTransparency="True"
     Closing="Window_Closing"
     DataContext="{RelativeSource Self}"
-    Icon="/Resources/icons/icon-16x16-VC.ico"
+    FocusVisualStyle="{x:Null}"
+    Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
     Loaded="Window_Loaded"
     StateChanged="Window_StateChanged"
@@ -46,10 +48,43 @@
     <!--  ( Static Resources )  -->
     <Window.Resources>
         <ResourceDictionary>
+
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
             <SolidColorBrush x:Key="TabBackgroundBrush">#535255</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderBrush" Color="DarkGray" />
 
+            <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#DD00C46A" />
+                <GradientStop Offset="1" Color="#DD00C06E" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientMouseOver" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#DD00D47A" />
+                <GradientStop Offset="1" Color="#DD00D07E" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientIsPressed" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#DD00E47A" />
+                <GradientStop Offset="1" Color="#DD00E07E" />
+            </LinearGradientBrush>
+
+            <!--
+            <LinearGradientBrush x:Key="AccentGradient" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
+                <GradientStop Offset="0" Color="#5DB3D8" />
+                <GradientStop Offset="1" Color="#56A0D8" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientMouseOver" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
+                <GradientStop Offset="0" Color="#DD00D47A" />
+                <GradientStop Offset="1" Color="#DD00D07E" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientIsPressed" SpreadMethod="Reflect" StartPoint="0.15,-0.1" EndPoint="0.7, 1.1">
+                <GradientStop Offset="0" Color="#DD00E47A" />
+                <GradientStop Offset="1" Color="#DD00E07E" />
+            </LinearGradientBrush>
+            -->
+            <SolidColorBrush x:Key="AccentForeground" Color="#222" />
+
+            <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
+            <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
             <hklib:KeysList x:Key="KeyOptions" />
             <!--  CheckBox  -->
@@ -73,23 +108,26 @@
                                         Width="12"
                                         Height="12"
                                         Background="#00000000"
-                                        BorderBrush="{TemplateBinding Background}"
-                                        BorderThickness="1">
-                                        <!--  USE TAG TO PASS INDETERMINATE STATE  -->
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="2">
                                         <Border
                                             Width="8"
                                             Height="8"
                                             Background="{TemplateBinding Background}"
-                                            BorderBrush="#00000000">
+                                            BorderBrush="#00000000"
+                                            CornerRadius="1">
                                             <Border.Style>
                                                 <Style TargetType="{x:Type Border}">
                                                     <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                                                        </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
                                                             <Setter Property="BorderThickness" Value="2" />
                                                             <Setter Property="Visibility" Value="Visible" />
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="BorderThickness" Value="0" />
                                                             <Setter Property="Visibility" Value="Hidden" />
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
@@ -112,34 +150,53 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Background" Value="#B0B0B0" />
+                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource GrayForegroundFocusedColor}" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Foreground" Value="WhiteSmoke" />
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
             <!--  Button  -->
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#A0A0A0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="ButtonMouseOver" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border
+                                x:Name="ButtonMouseOver"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}" />
                             </Border>
                             <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
+                                </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="#B0B0B0" />
+                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientMouseOver}" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="#C0C0C0" />
+                                    <Setter TargetName="ButtonMouseOver" Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="Background" Value="{StaticResource AccentGradient}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
                 <Setter Property="Margin" Value="3,1,3,1" />
                 <Setter Property="Height" Value="22" />
                 <Setter Property="Width" Value="Auto" />
-                <Setter Property="Foreground" Value="#050505" />
+                <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
@@ -205,6 +262,7 @@
             </Style>
             <!--  DataGrid  -->
             <Style x:Key="DataGridStyle" TargetType="DataGrid">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Background" Value="#00000000" />
                 <Setter Property="RowBackground" Value="#303030" />
                 <Setter Property="AlternatingRowBackground" Value="#404040" />
@@ -231,7 +289,7 @@
                 <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
                     <GradientBrush.GradientStops>
                         <GradientStopCollection>
-                            <GradientStop Offset="0.0" Color="#FFF" />
+                            <GradientStop Offset="0.0" Color="#EEE" />
                             <GradientStop Offset="1.0" Color="#CCC" />
                         </GradientStopCollection>
                     </GradientBrush.GradientStops>
@@ -550,9 +608,9 @@
     </WindowChrome.WindowChrome>
 
     <!--  ( Element Layout )  -->
-    <Border BorderBrush="DarkGray" BorderThickness="1">
+    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="2">
         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-            <!--  Caption Bar  -->
+            <!--  v Caption Bar v  -->
             <Grid Height="{StaticResource CaptionHeight}" Background="#00FFFFFF">
                 <Grid.Resources>
                     <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
@@ -621,12 +679,12 @@
                     HorizontalAlignment="Right"
                     FontSize="10"
                     FontWeight="Regular"
-                    Foreground="Yellow"
+                    Foreground="{StaticResource AccentGradient}"
                     MouseDown="Handle_CaptionUpdateClick"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="▲"
-                    ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}"
-                    Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
+                    ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}" />
+
                 <Label
                     x:Name="versionLabel"
                     Grid.Column="4"
@@ -648,13 +706,16 @@
                     Content="❌"
                     Style="{StaticResource CaptionButtonStyle}" />
             </Grid>
+            <!--  ^ Caption Bar ^  -->
+
+
             <!--  Tab Controller  -->
             <ctrlz:TabControlEx
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                BorderBrush="LightGray"
+                BorderBrush="{StaticResource BorderBrush}"
                 BorderThickness="0,1,0,0"
                 SelectionChanged="Handle_TabControlChange"
                 Style="{StaticResource TabControlStyle}">
@@ -667,7 +728,7 @@
                                     <Border
                                         Name="Border"
                                         Margin="1,0"
-                                        BorderBrush="DarkGray"
+                                        BorderBrush="{StaticResource BorderBrush}"
                                         BorderThickness="1,1,1,0">
                                         <ContentPresenter
                                             x:Name="ContentSite"
@@ -719,10 +780,9 @@
                     </TabItem.Resources>
 
                     <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-                        <!--  [Row-1] Target Selection  -->
+                        <!--  Target Selection Row  -->
                         <Grid
                             x:Name="targetSelectionRow"
-                            Grid.Row="0"
                             Margin="3,5,3,3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center">
@@ -737,8 +797,8 @@
                             <TextBox
                                 x:Name="targetNameTextBox"
                                 Margin="3,0"
-                                ssui:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
-                                ssui:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
+                                behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
+                                behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
                                 DataContext="{StaticResource Settings}"
                                 IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
                                 MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
@@ -763,64 +823,79 @@
                                 Style="{StaticResource CheckBoxStyle}" />
                         </Grid>
 
-                        <Border Style="{StaticResource SectionStyle}">
-                            <!--  - [Row-3] Mixer Controls & Misc  -->
-                            <StackPanel
-                                Grid.Row="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
+                        <!--  Mixer Controls Row  -->
+                        <StackPanel
+                            Margin="0,2,0,4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FlowDirection="LeftToRight"
+                            Orientation="Horizontal">
+                            <Button
+                                x:Name="bReload"
+                                Margin="5,0"
+                                Click="Handle_ReloadClick"
+                                Content="  Reload  "
+                                Style="{StaticResource ButtonStyle}"
+                                ToolTip="Manually reloads the list of audio sessions." />
+                            <CheckBox
+                                x:Name="cbReloadOnHotkey"
+                                Margin="5,0"
+                                Content="On Hotkey"
+                                DataContext="{StaticResource Settings}"
+                                IsChecked="{Binding AudioAPI.ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource CheckBoxStyle}"
+                                ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed." />
+
+                            <VirtualizingStackPanel
+                                Margin="5,0"
                                 FlowDirection="LeftToRight"
                                 Orientation="Horizontal">
-                                <Button
-                                    x:Name="bReload"
-                                    Click="Handle_ReloadClick"
-                                    Content="  Reload  "
-                                    Style="{StaticResource ButtonStyle}"
-                                    ToolTip="Manually reloads the list of audio sessions." />
                                 <CheckBox
-                                    x:Name="cbReloadOnHotkey"
-                                    Margin="3,0"
-                                    Content="On Hotkey"
+                                    x:Name="cbReloadOnInterval"
+                                    Margin="5,0"
+                                    Content="Automatic"
                                     DataContext="{StaticResource Settings}"
-                                    IsChecked="{Binding AudioAPI.ReloadOnHotkey, UpdateSourceTrigger=PropertyChanged}"
+                                    IsChecked="{Binding AudioAPI.ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource CheckBoxStyle}"
-                                    ToolTip="Reloads the mixer sessions when the 'Next Target'/'Previous Target' hotkeys are pressed." />
+                                    ToolTip="Automatically reloads the mixer sessions on an interval." />
+                                <Controls:NumericUpDown
+                                    Margin="3,0,5,0"
+                                    DataContext="{StaticResource Settings}"
+                                    IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
+                                    MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
+                                    MinValue="{Binding AudioAPI.ReloadIntervalMin}"
+                                    ToolTip="Reload interval in milliseconds."
+                                    Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </VirtualizingStackPanel>
+                        </StackPanel>
 
-                                <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
-                                    <CheckBox
-                                        x:Name="cbReloadOnInterval"
-                                        Margin="3,0"
-                                        Content="Automatic"
-                                        DataContext="{StaticResource Settings}"
-                                        IsChecked="{Binding AudioAPI.ReloadOnInterval, UpdateSourceTrigger=PropertyChanged}"
-                                        Style="{StaticResource CheckBoxStyle}"
-                                        ToolTip="Automatically reloads the mixer sessions on an interval." />
-                                    <Controls:NumericUpDown
-                                        DataContext="{StaticResource Settings}"
-                                        IsEnabled="{Binding IsChecked, ElementName=cbReloadOnInterval, UpdateSourceTrigger=PropertyChanged, FallbackValue=3000}"
-                                        MaxValue="{Binding AudioAPI.ReloadIntervalMax}"
-                                        MinValue="{Binding AudioAPI.ReloadIntervalMin}"
-                                        ToolTip="Reload interval in milliseconds."
-                                        Value="{Binding AudioAPI.ReloadInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </VirtualizingStackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <!--  - [Row-5] Mixer Data Grid  -->
+                        <!--  Mixer Data Grid Row  -->
                         <Border
-                            Grid.Row="2"
-                            BorderBrush="LightGray"
+                            BorderBrush="{StaticResource BorderBrush}"
                             BorderThickness="0,1,0,0"
                             Style="{StaticResource BorderStyle}">
                             <DataGrid
                                 x:Name="MixerGrid"
-                                Grid.Row="2"
-                                Grid.Column="1"
                                 AutoGenerateColumns="False"
                                 DataContext="{StaticResource Settings}"
                                 ItemsSource="{Binding AudioAPI.Sessions}"
                                 Style="{StaticResource DataGridStyle}">
                                 <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Background="#00000000"
+                                                    BorderThickness="0"
+                                                    Content="⦻⛒⦾"
+                                                    FontSize="18"
+                                                    FontWeight="ExtraLight"
+                                                    Foreground="WhiteSmoke" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <!--  PID  -->
                                     <DataGridTemplateColumn
                                         Width="Auto"
@@ -1092,15 +1167,6 @@
                             <Setter Property="Canvas.Left" Value="-3" />
                             <Setter Property="Canvas.Top" Value="-3" />
                         </Style>
-                        <Style
-                            x:Key="DividerStyle"
-                            BasedOn="{StaticResource BorderStyle}"
-                            TargetType="{x:Type Border}">
-                            <Setter Property="Grid.ColumnSpan" Value="3" />
-                            <Setter Property="BorderBrush" Value="DarkGray" />
-                            <Setter Property="BorderThickness" Value="0,1,0,0" />
-                            <Setter Property="Margin" Value="0,0,0,0" />
-                        </Style>
                         <Style x:Key="SectionSubGridStyle" TargetType="{x:Type Grid}">
                             <Setter Property="Margin" Value="5,3" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -1201,8 +1267,6 @@
                             </Border>
                             <!--  ▲ Device Selection ▲  -->
 
-                            <Border Style="{StaticResource DividerStyle}" />
-
                             <!--  ▼ Notifications ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
                                 <Grid>
@@ -1264,8 +1328,6 @@
                             </Border>
                             <!--  ▲ Notifications ▲  -->
 
-                            <Border Style="{StaticResource DividerStyle}" />
-
                             <!--  ▼ Hotkeys ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
                                 <Grid>
@@ -1306,8 +1368,6 @@
                                 </Grid>
                             </Border>
                             <!--  ▲ Hotkeys ▲  -->
-
-                            <Border Style="{StaticResource DividerStyle}" />
 
                             <!--  ▼ Log Settings ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
@@ -1352,7 +1412,7 @@
                                                                            {Binding IsChecked, ElementName=cbEnableLog},
                                                                            Converter={StaticResource MultiBindingBooleanConverter}}"
                                                 ItemsSource="{StaticResource EventTypeOptions}"
-                                                SelectedItem="{x:Null}"
+                                                SelectedItem=""
                                                 Style="{StaticResource ComboBoxStyle}">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1405,8 +1465,6 @@
                                 </Grid>
                             </Border>
                             <!--  ▲ Log Settings ▲  -->
-
-                            <Border Style="{StaticResource DividerStyle}" />
 
                             <!--  ▼ Application Settings ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
@@ -1476,8 +1534,6 @@
                             </Border>
                             <!--  ▲ Application Settings ▲  -->
 
-                            <Border Style="{StaticResource DividerStyle}" />
-
                             <!--  ▼ Updates ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
                                 <Grid>
@@ -1508,7 +1564,6 @@
                                             Margin="5,0"
                                             Content="Pre-Releases"
                                             IsChecked="{Binding AllowUpdateToPreRelease, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            IsEnabled="{Binding IsChecked, ElementName=cbCheckForUpdatesOnStartup}"
                                             IsThreeState="True"
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="When this is checked (filled) pre-release versions are always included in the results; When this is partially checked (dot) pre-release versions are only included when you're already using a pre-release version." />

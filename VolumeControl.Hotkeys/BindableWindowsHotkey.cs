@@ -4,8 +4,15 @@ using System.Runtime.CompilerServices;
 
 namespace VolumeControl.Hotkeys
 {
-    public class BindableWindowsHotkey : IKeyCombo, IDisposable
+    /// <summary>This is a wrapper object around <see cref="HotkeyLib.WindowsHotkey"/> that is designed for data binding.</summary>
+    public class BindableWindowsHotkey : IKeyCombo, IDisposable, INotifyPropertyChanged, INotifyPropertyChanging
     {
+        /// <inheritdoc cref="BindableWindowsHotkey"/>
+        /// <param name="manager">The hotkey manager to bind to.</param>
+        /// <param name="name">The name of this hotkey.</param>
+        /// <param name="keys">The key &amp; modifiers of this hotkey.</param>
+        /// <param name="action">The action that this hotkey is bound to.</param>
+        /// <param name="registerNow">When <see langword="true"/>, the hotkey is registered in the constructor; otherwise, the hotkey starts as unregistered.</param>
         public BindableWindowsHotkey(HotkeyManager manager, string name, IKeyCombo keys, string action, bool registerNow = false)
         {
             _manager = manager;
@@ -15,34 +22,37 @@ namespace VolumeControl.Hotkeys
             if (registerNow) //< only trigger when true
                 Registered = registerNow;
             Hotkey.PropertyChanged += ForwardPropertyChanged;
+            Hotkey.PropertyChanging += ForwardPropertyChanging;
         }
 
         private readonly HotkeyManager _manager;
+        /// <summary>The underlying <see cref="WindowsHotkey"/> instance.<br/>This shouldn't be used when data binding.</summary>
         public WindowsHotkey Hotkey { get; private set; }
-
+        /// <summary>
+        /// Gets or sets this hotkey's name.
+        /// </summary>
         public string Name
         {
             get => _name;
             set
             {
+                NotifyPropertyChanging();
                 _name = value;
                 NotifyPropertyChanged();
             }
         }
         private string _name;
+        /// <inheritdoc/>
         public bool Registered
         {
             get => Hotkey.Registered;
             set
             {
+                NotifyPropertyChanging();
                 Hotkey.Registered = value;
                 NotifyPropertyChanged();
             }
         }
-
-        private string _actionName = string.Empty;
-
-
         /// <summary>
         /// Gets or sets the action associated with this hotkey.
         /// </summary>
@@ -52,12 +62,14 @@ namespace VolumeControl.Hotkeys
             get => _actionName;
             set
             {
+                NotifyPropertyChanging();
                 if (_actionName.Length > 0)
                     Pressed -= _manager.Actions[_actionName];
                 Pressed += _manager.Actions[_actionName = value];
                 NotifyPropertyChanged();
             }
         }
+        private string _actionName = string.Empty;
 
         #region InterfaceImplementation
         /// <inheritdoc/>
@@ -91,6 +103,7 @@ namespace VolumeControl.Hotkeys
         public int ID => Hotkey.ID;
         private static HotkeyManagerSettings Settings => HotkeyManagerSettings.Default;
 
+        #region Events
         /// <inheritdoc/>
         public event KeyEventHandler Pressed
         {
@@ -103,12 +116,16 @@ namespace VolumeControl.Hotkeys
             add => Hotkey.KeysChanged += value;
             remove => Hotkey.KeysChanged -= value;
         }
-
+        /// <summary>Triggered after a property has been set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>Triggered before a property is about to be set.</summary>
+        public event PropertyChangingEventHandler? PropertyChanging;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-
         private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
+        private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
+        private void ForwardPropertyChanging(object? sender, PropertyChangingEventArgs e) => PropertyChanging?.Invoke(sender, e);
+        #endregion Events
 
         /// <summary>
         /// Triggers a <see cref="Pressed"/> event.
@@ -122,9 +139,22 @@ namespace VolumeControl.Hotkeys
 
         /// <inheritdoc/>
         public override string ToString() => Serialize();
+        /// <summary>
+        /// Serializes this hotkey into a string format.<br/>
+        /// This is used when saving the hotkey to the configuration file.
+        /// </summary>
+        /// <returns>A string containing this hotkey in serialized form.</returns>
         public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{Action}{Settings.HotkeyNameSeperatorChar}{Registered}";
+        /// <summary>Gets all properties in a pseudo-json format for dumping them to the log.</summary>
+        /// <returns>A human-readable, single-line string that includes all of this hotkey's current values.</returns>
         public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Action}', Registered: '{Registered}' }}";
-
+        /// <summary>
+        /// Parse a serialized hotkey string <i>(<paramref name="hkString"/>)</i> into a usable <see cref="BindableWindowsHotkey"/>.<br/>
+        /// This is used when loading hotkeys from the configuration file.
+        /// </summary>
+        /// <param name="hkString">A serialized hotkey string.</param>
+        /// <param name="manager">The <see cref="HotkeyManager"/> instance to use when looking up action definitions.</param>
+        /// <returns>A <see cref="BindableWindowsHotkey"/> class.</returns>
         public static BindableWindowsHotkey Parse(string hkString, HotkeyManager manager)
         {
             string[]? split = hkString.Split(Settings.HotkeyNameSeperatorChar, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -137,12 +167,10 @@ namespace VolumeControl.Hotkeys
 
             // Determine which action to bind to:
             string action = split.Length > 2 ? split[2] : string.Empty;
-            //EHotkeyAction action = EHotkeyAction.None;
-            //if (split.Length > 2 && Enum.TryParse(typeof(EHotkeyAction), split[2], out object? actionObj) && actionObj is EHotkeyAction a)
-            //    action = a;
 
             // Check if the hotkey was registered:
             bool register = false;
+
             if (split.Length > 3)
                 _ = bool.TryParse(split[3], out register);
 

@@ -3,13 +3,16 @@ using System.Windows.Forms;
 
 namespace HotkeyLib
 {
+    /// <summary>
+    /// This is a simple list wrapper that is available as an items source for data bindings.
+    /// </summary>
     public class KeysList : ICollection<Keys>, IEnumerable<Keys>, IEnumerable, IList<Keys>, IReadOnlyCollection<Keys>, IReadOnlyList<Keys>, ICollection, IList
     {
         /// <inheritdoc/>
         public Keys this[int index] { get => ((IList<Keys>)Keys)[index]; set => ((IList<Keys>)Keys)[index] = value; }
         /// <inheritdoc/>
         object? IList.this[int index] { get => ((IList)Keys)[index]; set => ((IList)Keys)[index] = value; }
-
+        /// <inheritdoc cref="KeysBlacklist.GetWhitelistedKeys()"/>
         public List<Keys> Keys { get; set; } = KeysBlacklist.GetWhitelistedKeys();
 
         /// <inheritdoc/>

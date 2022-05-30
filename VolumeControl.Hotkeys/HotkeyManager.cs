@@ -16,11 +16,15 @@ namespace VolumeControl.Hotkeys
         #region Initializers
         /// <inheritdoc cref="HotkeyManager"/>
         /// <param name="actionManager">The action manager to use.</param>
+        /// <param name="hook">The <see cref="HWndHook"/> instance to use.</param>
         /// <param name="loadNow">When true, the <see cref="LoadHotkeys"/> method is called from the constructor. Set this to false if you want to do it yourself.</param>
-        public HotkeyManager(IHotkeyActionManager actionManager, bool loadNow = false)
+        public HotkeyManager(IHotkeyActionManager actionManager, HWndHook hook, bool loadNow = false)
         {
             _hotkeyActions = actionManager;
-            AddHook();
+            _hook = hook;
+            _hook.AddHook(HwndHook);
+
+            OwnerHandle = _hook.Handle;
 
             CollectionChanged += (s, e) =>
             {
@@ -39,8 +43,9 @@ namespace VolumeControl.Hotkeys
         #endregion Initializers
 
         #region Fields
-        public IntPtr OwnerHandle;
-        private HwndSource HwndSource = null!;
+        private readonly HWndHook _hook;
+        /// <summary>This is the handle used to register hotkeys with the Win32 API.</summary>
+        public readonly IntPtr OwnerHandle;
         private readonly IHotkeyActionManager _hotkeyActions = null!;
         private bool disposedValue;
         private bool _allSelectedChanging;
@@ -48,14 +53,18 @@ namespace VolumeControl.Hotkeys
         #endregion Fields
 
         #region Events
+        /// <summary>Forwards all collection changed events from <see cref="Hotkeys"/>.</summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {
             add => ((INotifyCollectionChanged)Hotkeys).CollectionChanged += value;
             remove => ((INotifyCollectionChanged)Hotkeys).CollectionChanged -= value;
         }
 
+        /// <summary>Triggered after the value changes when a property's setter is called.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
+        /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
+        /// <param name="propertyName">This is automatically retrieved using reflection; it is the name of the property that was changed.</param>
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
@@ -163,6 +172,11 @@ namespace VolumeControl.Hotkeys
         #endregion HotkeysListManipulators
 
         #region HotkeysListGetters
+        /// <summary>
+        /// Gets a single <see cref="BindableWindowsHotkey"/> from the list by checking for matching <paramref name="id"/> numbers.
+        /// </summary>
+        /// <param name="id">The ID number of the target hotkey.<br/><i>(This is compared to the <see cref="BindableWindowsHotkey.ID"/> property.)</i></param>
+        /// <returns>The target <see cref="BindableWindowsHotkey"/> instance if successful; otherwise <see langword="null"/>.</returns>
         public BindableWindowsHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
         #endregion HotkeysListGetters
 
@@ -213,6 +227,7 @@ namespace VolumeControl.Hotkeys
             Settings.Save();
             Settings.Reload();
         }
+        /// <summary>Resets the current hotkey list by replacing it with <see cref="HotkeyManagerSettings.Hotkeys_Default"/>.</summary>
         public void ResetHotkeys()
         {
             DelAllHotkeys();
@@ -229,9 +244,10 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         protected virtual IntPtr HwndHook(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            const int WM_HOTKEY = (int)HotkeyAPI.WM_HOTKEY;
             switch (msg)
             {
-            case (int)HotkeyAPI.WM_HOTKEY:
+            case WM_HOTKEY:
                 int pressedID = wParam.ToInt32();
                 if (GetHotkey(pressedID) is BindableWindowsHotkey hk)
                 {
@@ -241,26 +257,6 @@ namespace VolumeControl.Hotkeys
                 break;
             }
             return IntPtr.Zero;
-        }
-        /// <summary>
-        /// Adds a window message hook to receive hotkey press messages and route them to the associated event trigger.
-        /// </summary>
-        protected virtual void AddHook()
-        {
-            if (HwndSource == null)
-                HwndSource = WindowHandleGetter.GetHwndSource(OwnerHandle = WindowHandleGetter.GetWindowHandle());
-            HwndSource.AddHook(HwndHook);
-            Log.Debug("HotkeyManager HwndHook was added, ready to receive 'WM_HOTKEY' messages.");
-        }
-        /// <summary>
-        /// Removes the message hook from the application's handle.
-        /// </summary>
-        protected virtual void RemoveHook()
-        {
-            HwndSource.RemoveHook(HwndHook);
-            HwndSource.Dispose();
-            Log.Debug("HotkeyManager HwndHook was removed, 'WM_HOTKEY' messages will no longer be received.");
-            HwndSource = null!;
         }
         #endregion WindowsMessageHook
 
@@ -273,13 +269,13 @@ namespace VolumeControl.Hotkeys
                 {
                     SaveHotkeys(); //< this saves hotkeys to the settings file
                     DelAllHotkeys(); //< this cleans up Windows API hotkey registrations
-                    RemoveHook(); //< this removes the message hook and disposes of HwndSource
+                    _hook.RemoveHook(HwndHook);
                 }
 
-                OwnerHandle = IntPtr.Zero;
                 disposedValue = true;
             }
         }
+        /// <summary>Finalizer</summary>
         ~HotkeyManager() { Dispose(disposing: false); }
         /// <inheritdoc/>
         public void Dispose()

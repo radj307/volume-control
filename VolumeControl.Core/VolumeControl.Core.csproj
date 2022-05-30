@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+	  <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

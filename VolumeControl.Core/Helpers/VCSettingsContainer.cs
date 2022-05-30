@@ -4,6 +4,7 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Win32;
 using VolumeControl.Log;
 using VolumeControl.Log.Enum;
+using VolumeControl.WPF;
 
 namespace VolumeControl.Core.Helpers
 {
@@ -18,6 +19,7 @@ namespace VolumeControl.Core.Helpers
         {
             _registryRunKeyHelper = new();
             ExecutablePath = executablePath;
+            Hook = new();
         }
         #endregion Constructors
 
@@ -28,6 +30,13 @@ namespace VolumeControl.Core.Helpers
         public readonly string ExecutablePath;
         private static LogWriter Log => FLog.Log;
         #endregion Helpers
+
+        #region Fields
+        /// <summary>
+        /// The window message hook handler object.
+        /// </summary>
+        public readonly HWndHook Hook;
+        #endregion Fields
 
         #region Settings
         /// <summary>

@@ -40,11 +40,11 @@ namespace VolumeControl
             // this means we're starting back up after the update util completed
             if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
                 System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
-            
+
             // attempt to upgrade settings
             if (Settings.UpgradeSettings)
             {
-                Log.Info($"{nameof(Settings.UpgradeSettings)} was true, attempting to migrate existing settings...");
+                Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
                 try
                 {
                     UpgradeAllSettings(AppDomain.CurrentDomain.GetAssemblies().Where(asm => asm.FullName?.Contains("VolumeControl", StringComparison.Ordinal) ?? false).ToArray());
@@ -54,7 +54,7 @@ namespace VolumeControl
                 catch (Exception ex)
                 {
                     Log.Error(ex);
-                    if (MessageBox.Show($"Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
+                    if (MessageBox.Show("Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
                                         "Invalid User Configuration File",
                                         MessageBoxButton.YesNo,
                                         MessageBoxImage.Error,

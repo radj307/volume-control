@@ -28,7 +28,9 @@ namespace VolumeControl.Helpers
         public VolumeControlSettings() : base(GetExecutablePath())
         {
             _audioAPI = new();
-            _hWndMixer = WindowHandleGetter.GetWindowHandle();
+
+            Hook.SetSource(WindowHandleGetter.GetHwndSource(_hWndMixer = WindowHandleGetter.GetWindowHandle()));
+            Hook.AddMaximizeBugFixHandler();
 
             var assembly = Assembly.GetAssembly(typeof(VolumeControlSettings));
             VersionNumber = assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
@@ -55,8 +57,7 @@ namespace VolumeControl.Helpers
                 .OrderBy(s => s[0])
                 .ToList();
             // Create the hotkey manager
-            _hotkeyManager = new(actionManager);
-            _hotkeyManager.LoadHotkeys();
+            _hotkeyManager = new(actionManager, Hook, true);
 
             // Initialize the addon API
             API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, _hWndMixer, this);
@@ -81,14 +82,10 @@ namespace VolumeControl.Helpers
             _audioAPI.PropertyChanged += Handle_AudioAPI_PropertyChanged;
 
             Updater = new(this);
-#if DEBUG
-            Updater.Update(true);
-#else
             if (Settings.CheckForUpdatesOnStartup)
             {
                 Updater.Update();
             }
-#endif
         }
         private void SaveSettings()
         {

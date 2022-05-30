@@ -81,9 +81,9 @@
   <ItemGroup>
     <PackageReference Include="AssemblyAttribute" Version="0.0.0" />
     <PackageReference Include="ControlzEx" Version="5.0.1" />
-    <PackageReference Include="HandyControls" Version="3.3.11" />
-    <PackageReference Include="Semver" Version="2.1.0" />
-    <PackageReference Include="SolidShineUi" Version="1.9.0" />
+    <PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />

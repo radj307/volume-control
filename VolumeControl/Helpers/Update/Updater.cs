@@ -77,14 +77,14 @@ namespace VolumeControl.Helpers.Update
                     if (!packet.prerelease || (includePreReleases == null && onPreReleaseChannel) || (includePreReleases != null && includePreReleases.Value))
                     {
                         var rel = new Release(packet);
-                        if (latest == null || rel.IsNewerThan(latest))
+                        if (latest is null || rel.IsNewerThan(latest))
                             latest = rel;
                     }
                 }
             }
             else throw new Exception("Failed to retrieve the latest version from the github API! (Malformed packet)");
 
-            if (latest == null)
+            if (latest is null)
                 throw new Exception($"Failed to retrieve the latest version from the github API! ({nameof(latest)} was null!)");
 
             client.Dispose();

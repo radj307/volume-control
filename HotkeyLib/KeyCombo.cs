@@ -13,7 +13,7 @@ namespace HotkeyLib
         /// <summary>
         /// String Constructor.
         /// </summary>
-        /// <param name="keystr">A string in the format "<KEY>[+<MOD>...]"</param>
+        /// <param name="keystr">A string in the format "&lt;KEY&gt;[+&lt;MOD&gt;...]"</param>
         public KeyCombo(string keystr)
         {
             int div = keystr.IndexOf('+');
@@ -60,6 +60,9 @@ namespace HotkeyLib
         private Keys _key;
         private Modifier _mod;
 
+        /// <summary>
+        /// Triggered when one of the properties is changed.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged = null;
         #endregion Members
 
@@ -151,11 +154,9 @@ namespace HotkeyLib
 
         #region Methods
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-        /// <summary>
-        /// Converts this key combination into a readable/writable string, formatted as "<KEY>[+<MOD>...]"
-        /// </summary>
-        /// <returns>A valid hotkey string representation.</returns>
+        /// <inheritdoc/>
         public override string? ToString() => Serialize();
+        /// <inheritdoc/>
         public string Serialize() => $"{(_mod.Empty() ? "" : $"{_mod.Serialize()}+")}{Enum.GetName(typeof(Keys), _key)}";
 
         /// <summary>

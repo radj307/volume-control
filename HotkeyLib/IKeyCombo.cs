@@ -52,7 +52,12 @@ namespace HotkeyLib
         #endregion Properties
 
         #region Methods
+        /// <inheritdoc cref="Serialize"/>
         string? ToString();
+        /// <summary>
+        /// Converts this key combination into a readable/writable string, formatted as "&lt;KEY&gt;[+&lt;MOD&gt;...]"
+        /// </summary>
+        /// <returns>A valid hotkey string representation.</returns>
         string Serialize();
         #endregion Methods
     }

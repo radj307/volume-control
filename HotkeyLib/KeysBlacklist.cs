@@ -9,26 +9,22 @@ namespace HotkeyLib
     /// <remarks>Call <see cref="GetWhitelistedKeys"/> to get the list of valid keys.</remarks>
     public static class KeysBlacklist
     {
+        /// <summary>The list of <see cref="Keys"/> that should never be allowed to be used for hotkeys.<br/>This list is comprised of keys that don't actually function at all, so don't go fucking with this or you may break something.</summary>
         public static readonly List<Keys> Blacklist = new()
         {
             Keys.Alt,
-
             Keys.Shift,
             Keys.ShiftKey,
             Keys.LShiftKey,
             Keys.RShiftKey,
-
             Keys.Control,
             Keys.ControlKey,
             Keys.LControlKey,
             Keys.RControlKey,
-
             Keys.LWin,
             Keys.RWin,
-
             Keys.Modifiers,
             Keys.NoName,
-
             Keys.Cancel,
             Keys.LineFeed,
             Keys.Clear,
@@ -112,15 +108,16 @@ namespace HotkeyLib
             Keys.Separator,
         };
 
+        /// <summary>
+        /// Gets the list of keys that aren't present on the blacklist.
+        /// </summary>
+        /// <returns>List of <see cref="Keys"/> that are <b>not blacklisted.</b><br/>That is; the list of <b>valid</b> keys.</returns>
         public static List<Keys> GetWhitelistedKeys()
         {
             List<Keys> l = new();
             foreach (Keys key in Enum.GetValues(typeof(Keys)).Cast<Keys>())
-            {
                 if (!l.Contains(key) && !Blacklist.Contains(key))
                     l.Add(key);
-            }
-
             return l;
         }
     }

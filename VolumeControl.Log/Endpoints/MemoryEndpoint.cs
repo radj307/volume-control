@@ -8,6 +8,7 @@
         #region Constructor
         /// <inheritdoc cref="MemoryEndpoint"/>
         /// <param name="enabled">When true, the endpoint starts enabled.</param>
+        /// <param name="kilobytes">The size of the endpoint's buffer in kilobytes.</param>
         public MemoryEndpoint(bool enabled = true, int kilobytes = 10)
         {
             _stream = new(new byte[1024 * kilobytes], true);

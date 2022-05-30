@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace HotkeyLib
 {
+    /// <summary>
+    /// <see cref="TypeConverter"/> for <see cref="WindowsHotkey"/> classes.
+    /// </summary>
     public class WindowsHotkeyConverter : TypeConverter
     {
         /// <inheritdoc/>

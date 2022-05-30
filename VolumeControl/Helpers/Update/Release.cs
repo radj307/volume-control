@@ -61,7 +61,7 @@ namespace VolumeControl.Helpers.Update
         /// <inheritdoc/>
         public bool Equals(SemVersion? other) => ((IEquatable<SemVersion>)Version).Equals(other);
         /// <inheritdoc/>
-        public bool Equals(Release? other) => other != null && Version.Equals(other.Version);
+        public bool Equals(Release? other) => other is not null && Version.Equals(other.Version);
         /// <inheritdoc/>
         public IEnumerator<Asset> GetEnumerator() => ((IEnumerable<Asset>)Assets).GetEnumerator();
         /// <inheritdoc/>
@@ -82,38 +82,14 @@ namespace VolumeControl.Helpers.Update
         /// <param name="other">Any <see cref="SemVersion"/> type.</param>
         /// <returns><see langword="true"/> when this release is newer than <paramref name="other"/> or <see langword="false"/> when this release is older than or equal to <paramref name="other"/>.</returns>
         public bool IsNewerThan(SemVersion other) => Version.CompareByPrecedence(other) > 0;
-
-        public static bool operator ==(Release left, Release right)
-        {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Release left, Release right)
-        {
-            return !(left == right);
-        }
-
-        public static bool operator <(Release left, Release right)
-        {
-            return ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right) < 0;
-        }
-
-        public static bool operator <=(Release left, Release right)
-        {
-            return ReferenceEquals(left, null) || left.CompareTo(right) <= 0;
-        }
-
-        public static bool operator >(Release left, Release right)
-        {
-            return !ReferenceEquals(left, null) && left.CompareTo(right) > 0;
-        }
-
-        public static bool operator >=(Release left, Release right)
-        {
-            return ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
-        }
+        #region Operators
+        public static bool operator ==(Release left, Release right) => left is null ? right is null : left.Equals(right);
+        public static bool operator !=(Release left, Release right) => !(left == right);
+        public static bool operator <(Release left, Release right) => left is null ? right is not null : left.CompareTo(right) < 0;
+        public static bool operator <=(Release left, Release right) => left is null || left.CompareTo(right) <= 0;
+        public static bool operator >(Release left, Release right) => left is not null && left.CompareTo(right) > 0;
+        public static bool operator >=(Release left, Release right) => left is null ? right is null : left.CompareTo(right) >= 0;
+        #endregion Operators
         #endregion Methods
     }
 }
