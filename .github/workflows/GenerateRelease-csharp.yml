@@ -33,7 +33,7 @@ jobs:
     # Setup dependencies
     - uses: actions/setup-dotnet@main
       with:
-        dotnet-version: 6.0.0
+        dotnet-version: 6.0.x
 
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
