@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.BindableWindowsHotkey.GetFullIdentifier" name="VolumeControl.Hotkeys.BindableWindowsHotkey.GetFullIdentifier">
+<area shape="rect" id="node1" title="Gets all properties in a pseudo&#45;json format for dumping them to the log." alt="" coords="279,5,515,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="5,5,231,47"/>
+</map>

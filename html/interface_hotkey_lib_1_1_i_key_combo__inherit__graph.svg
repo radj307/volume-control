@@ -107,7 +107,7 @@ var sectionId = 'dynsection-0';
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_hotkey_lib_1_1_windows_hotkey.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_hotkey_lib_1_1_windows_hotkey.html" target="_top" xlink:title="A simple Windows hotkey.">
 <polygon fill="none" stroke="black" points="139,-28 139,-272 286,-272 286,-28 139,-28"/>
 <text text-anchor="middle" x="212.5" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyLib.WindowsHotkey</text>
 <polyline fill="none" stroke="black" points="139,-253 286,-253 "/>
@@ -143,7 +143,7 @@ var sectionId = 'dynsection-0';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html" target="_top" xlink:title="This is a wrapper object around HotkeyLib.WindowsHotkey that is designed for data binding.">
 <polygon fill="none" stroke="black" points="304,-0.5 304,-299.5 481,-299.5 481,-0.5 304,-0.5"/>
 <text text-anchor="start" x="312" y="-287.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Bindable</text>
 <text text-anchor="middle" x="392.5" y="-276.5" font-family="Helvetica,sans-Serif" font-size="10.00">WindowsHotkey</text>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.BindableWindowsHotkey.Parse" name="VolumeControl.Hotkeys.BindableWindowsHotkey.Parse">
+<area shape="rect" id="node1" title="Parse a serialized hotkey string (hkString ) into a usable BindableWindowsHotkey. &#160;This is used when ..." alt="" coords="5,5,241,47"/>
+<area shape="rect" id="node2" href="$struct_hotkey_lib_1_1_key_combo.html#a1b9e4caa671533619b3b058358f36df7" title="Parse the given string into a KeyCombo." alt="" coords="289,13,489,39"/>
+</map>

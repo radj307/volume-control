@@ -1,5 +1,7 @@
 <map id="VolumeControl.Core.Helpers.VCSettingsContainer" name="VolumeControl.Core.Helpers.VCSettingsContainer">
-<area shape="rect" id="node1" title="Responsible for containing the runtime state settings." alt="" coords="69,131,321,413"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,183,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="207,5,389,83"/>
+<area shape="rect" id="node1" title="Responsible for containing the runtime state settings." alt="" coords="172,360,424,643"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,176,183,253"/>
+<area shape="rect" id="node3" title=" " alt="" coords="207,176,389,253"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html" title="Handles receiving windows event messages." alt="" coords="413,132,639,297"/>
+<area shape="rect" id="node5" title=" " alt="" coords="477,5,575,83"/>
 </map>

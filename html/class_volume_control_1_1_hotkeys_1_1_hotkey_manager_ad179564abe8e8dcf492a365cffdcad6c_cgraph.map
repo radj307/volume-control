@@ -1,4 +1,6 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager.SaveHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.SaveHotkeys">
-<area shape="rect" id="node1" title="Saves all hotkeys to the settings file." alt="" coords="5,5,209,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="257,5,453,47"/>
+<area shape="rect" id="node1" title="Saves all hotkeys to the settings file." alt="" coords="5,71,231,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="289,5,504,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#aa4fbd47c57a4f7d236bf59fefc8e5f4e" title="Gets all properties in a pseudo&#45;json format for dumping them to the log." alt="" coords="279,71,515,112"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a1c7af5d6a0957de3ddb9033625ddb51b" title="Serializes this hotkey into a string format. &#160;This is used when saving the hotkey to the configuratio..." alt="" coords="279,136,515,177"/>
 </map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['devicefriendlyname_669',['DeviceFriendlyName',['../class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6',1,'VolumeControl::Audio::AudioDevice']]],
-  ['deviceid_670',['DeviceID',['../class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd',1,'VolumeControl::Audio::AudioDevice']]]
+  ['cbsize_775',['cbSize',['../class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a4eaa8d99f3ec73d4f2777dbd5e6a810c',1,'VolumeControl::WPF::MONITORINFO']]],
+  ['count_776',['Count',['../class_hotkey_lib_1_1_keys_list.html#a75e2807e69ee9511d9da2a4f52e802fa',1,'HotkeyLib.KeysList.Count()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af200181a11df9f5b57e29f21fea26f03',1,'VolumeControl.WPF.Collections.BindableEventType.Count()']]]
 ];

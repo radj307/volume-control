@@ -1,5 +1,5 @@
 <map id="HotkeyLib.KeysList" name="HotkeyLib.KeysList">
-<area shape="rect" id="node1" title=" " alt="" coords="560,145,707,531"/>
+<area shape="rect" id="node1" title="This is a simple list wrapper that is available as an items source for data bindings." alt="" coords="560,145,707,531"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,13,157,90"/>
 <area shape="rect" id="node3" title=" " alt="" coords="181,13,347,90"/>
 <area shape="rect" id="node4" title=" " alt="" coords="371,13,475,90"/>

@@ -105,21 +105,82 @@ Collaboration diagram for HotkeyLib.KeysBlacklist:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae0a5e426a13ff81e8adef1c34360c442"><td class="memItemLeft" align="right" valign="top"><a id="ae0a5e426a13ff81e8adef1c34360c442"></a>
-static List&lt; Keys &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetWhitelistedKeys</b> ()</td></tr>
+<tr class="memitem:ae0a5e426a13ff81e8adef1c34360c442"><td class="memItemLeft" align="right" valign="top">static List&lt; Keys &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_keys_blacklist.html#ae0a5e426a13ff81e8adef1c34360c442">GetWhitelistedKeys</a> ()</td></tr>
+<tr class="memdesc:ae0a5e426a13ff81e8adef1c34360c442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of keys that aren't present on the blacklist.  <a href="class_hotkey_lib_1_1_keys_blacklist.html#ae0a5e426a13ff81e8adef1c34360c442">More...</a><br /></td></tr>
 <tr class="separator:ae0a5e426a13ff81e8adef1c34360c442"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:abe578c90e955bf1c948348dcabd08767"><td class="memItemLeft" align="right" valign="top"><a id="abe578c90e955bf1c948348dcabd08767"></a>
-static readonly List&lt; Keys &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Blacklist</b></td></tr>
+<tr class="memitem:abe578c90e955bf1c948348dcabd08767"><td class="memItemLeft" align="right" valign="top">static readonly List&lt; Keys &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_keys_blacklist.html#abe578c90e955bf1c948348dcabd08767">Blacklist</a></td></tr>
+<tr class="memdesc:abe578c90e955bf1c948348dcabd08767"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of Keys that should never be allowed to be used for hotkeys.<br  />
+This list is comprised of keys that don't actually function at all, so don't go fucking with this or you may break something.  <a href="class_hotkey_lib_1_1_keys_blacklist.html#abe578c90e955bf1c948348dcabd08767">More...</a><br /></td></tr>
 <tr class="separator:abe578c90e955bf1c948348dcabd08767"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Static object that maintains the list of keys that aren't considered valid.<br  />
  This includes modifier keys and certain utility keys. </p>
-<p>Call GetWhitelistedKeys to get the list of valid keys.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<p>Call <a class="el" href="class_hotkey_lib_1_1_keys_blacklist.html#ae0a5e426a13ff81e8adef1c34360c442" title="Gets the list of keys that aren&#39;t present on the blacklist.">GetWhitelistedKeys</a> to get the list of valid keys.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae0a5e426a13ff81e8adef1c34360c442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a5e426a13ff81e8adef1c34360c442">&#9670;&nbsp;</a></span>GetWhitelistedKeys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static List&lt;Keys&gt; HotkeyLib.KeysBlacklist.GetWhitelistedKeys </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the list of keys that aren't present on the blacklist. </p>
+<dl class="section return"><dt>Returns</dt><dd>List of Keys that are <b>not blacklisted.</b><br  />
+That is; the list of <b>valid</b> keys.</dd></dl>
+
+<p class="reference">References <a class="el" href="#l00013">HotkeyLib.KeysBlacklist.Blacklist</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abe578c90e955bf1c948348dcabd08767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe578c90e955bf1c948348dcabd08767">&#9670;&nbsp;</a></span>Blacklist</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly List&lt;Keys&gt; HotkeyLib.KeysBlacklist.Blacklist</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The list of Keys that should never be allowed to be used for hotkeys.<br  />
+This list is comprised of keys that don't actually function at all, so don't go fucking with this or you may break something. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00115">HotkeyLib.KeysBlacklist.GetWhitelistedKeys()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/volume-control/volume-control/HotkeyLib/<a class="el" href="">KeysBlacklist.cs</a></li>
 </ul>
 </div><!-- contents -->

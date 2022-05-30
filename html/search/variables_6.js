@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['icon_680',['Icon',['../class_volume_control_1_1_audio_1_1_audio_device.html#ac4c8464264fd1df3ad978cb644c981f8',1,'VolumeControl.Audio.AudioDevice.Icon()'],['../class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328',1,'VolumeControl.Audio.AudioSession.Icon()']]],
-  ['iconpath_681',['IconPath',['../class_volume_control_1_1_audio_1_1_audio_device.html#a32b585bf990ae5cee6f825ea2da8e124',1,'VolumeControl.Audio.AudioDevice.IconPath()'],['../class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504',1,'VolumeControl.Audio.AudioSession.IconPath()']]],
-  ['id_682',['ID',['../class_hotkey_lib_1_1_windows_hotkey.html#a3d40134e5f4806b8d07bff50db27dc80',1,'HotkeyLib.WindowsHotkey.ID()'],['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#afe87d50fea7cbedf3235704b30128662',1,'VolumeControl.Hotkeys.BindableWindowsHotkey.ID()']]],
-  ['imagesource_683',['ImageSource',['../class_volume_control_1_1_audio_1_1_icon_getter.html#a479dab721cde8c78ffbc67270a2b63b7',1,'VolumeControl::Audio::IconGetter']]],
-  ['initialized_684',['Initialized',['../class_volume_control_1_1_log_1_1_f_log.html#aff75d36b9195776ec6391bc490b6abbb',1,'VolumeControl::Log::FLog']]],
-  ['instanceid_685',['InstanceID',['../class_volume_control_1_1_audio_1_1_audio_device.html#a82c68b912ea78bea0600a85fdf52fe4d',1,'VolumeControl::Audio::AudioDevice']]],
-  ['int_686',['int',['../class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295',1,'VolumeControl::Audio::AudioSession']]],
-  ['isfixedsize_687',['IsFixedSize',['../class_hotkey_lib_1_1_keys_list.html#aa224e1c7187456daa90d960b90743237',1,'HotkeyLib.KeysList.IsFixedSize()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a82c3028193f904ca125a3d3ff75fa1c9',1,'VolumeControl.WPF.Collections.BindableEventType.IsFixedSize()']]],
-  ['isreadonly_688',['IsReadOnly',['../class_hotkey_lib_1_1_keys_list.html#a400b6bc588e7291e203da352f7652399',1,'HotkeyLib.KeysList.IsReadOnly()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af7196cd9cf964c7a210c01781d1ea6c9',1,'VolumeControl.WPF.Collections.BindableEventType.IsReadOnly()']]],
-  ['issynchronized_689',['IsSynchronized',['../class_hotkey_lib_1_1_keys_list.html#acaba2a0925018181cc5d42de2cb4f5e7',1,'HotkeyLib.KeysList.IsSynchronized()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#ab008635aacfc590549eff3a840f5e179',1,'VolumeControl.WPF.Collections.BindableEventType.IsSynchronized()']]]
+  ['handle_785',['Handle',['../class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a6eead053f85e8a938d3631cde4919d56',1,'VolumeControl::WPF::HWndHook']]],
+  ['height_786',['Height',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#a778ef55426f48fe0edca915c21653d77',1,'VolumeControl::WPF::RECT']]],
+  ['hkey_5fcurrent_5fuser_787',['HKEY_CURRENT_USER',['../struct_volume_control_1_1_core_1_1_win32_1_1_registry_a_p_i_1_1_scope.html#ace3cf3a0f58139ef185c051fcbea0bfe',1,'VolumeControl::Core::Win32::RegistryAPI::Scope']]],
+  ['hook_788',['Hook',['../class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#a8fed4903674fa2789e0e164358c20784',1,'VolumeControl::Core::Helpers::VCSettingsContainer']]],
+  ['hresult_789',['hresult',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a22b95fb0cea91b7cfa41d2f5c7a420cc',1,'HotkeyLib::HotkeyAPI']]],
+  ['hwnd_5fbottom_790',['HWND_BOTTOM',['../class_volume_control_1_1_hotkeys_1_1_user32.html#ab95f948c1f4afae738a2786a0f50f787',1,'VolumeControl::Hotkeys::User32']]],
+  ['hwnd_5fnotopmost_791',['HWND_NOTOPMOST',['../class_volume_control_1_1_hotkeys_1_1_user32.html#ac7be2bb7487437bf60fb185329143b60',1,'VolumeControl::Hotkeys::User32']]],
+  ['hwnd_5ftop_792',['HWND_TOP',['../class_volume_control_1_1_hotkeys_1_1_user32.html#a71b5cefcf3856069477cb7a979da29bc',1,'VolumeControl::Hotkeys::User32']]],
+  ['hwnd_5ftopmost_793',['HWND_TOPMOST',['../class_volume_control_1_1_hotkeys_1_1_user32.html#a0a1957e95f16d2fa6f3027f52d044066',1,'VolumeControl::Hotkeys::User32']]]
 ];

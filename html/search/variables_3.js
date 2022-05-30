@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['endpointvolumeobject_671',['EndpointVolumeObject',['../class_volume_control_1_1_audio_1_1_audio_device.html#a775d911a510e8ec451bdd062fb7bbbe5',1,'VolumeControl::Audio::AudioDevice']]],
-  ['eventtypesegmentlength_672',['EventTypeSegmentLength',['../class_volume_control_1_1_log_1_1_timestamp.html#a1e1be0f5b8083747f9fcfef5c2a9481a',1,'VolumeControl::Log::Timestamp']]],
-  ['executablepath_673',['ExecutablePath',['../class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#af4a0ce5387072b4c750a3fe59bcecd20',1,'VolumeControl::Core::Helpers::VCSettingsContainer']]]
+  ['devicefriendlyname_777',['DeviceFriendlyName',['../class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6',1,'VolumeControl::Audio::AudioDevice']]],
+  ['deviceid_778',['DeviceID',['../class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd',1,'VolumeControl::Audio::AudioDevice']]],
+  ['dwflags_779',['dwFlags',['../class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a3c9a0b4f6bdca754f199019ff78abbde',1,'VolumeControl::WPF::MONITORINFO']]]
 ];

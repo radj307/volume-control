@@ -1,3 +1,3 @@
 <map id="HotkeyLib.HotkeyAPI" name="HotkeyLib.HotkeyAPI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,156,244"/>
+<area shape="rect" id="node1" title="Contains all of the raw windows API calls and types, and exposes convenience methods for usage." alt="" coords="5,5,172,259"/>
 </map>

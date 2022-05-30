@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['count_668',['Count',['../class_hotkey_lib_1_1_keys_list.html#a75e2807e69ee9511d9da2a4f52e802fa',1,'HotkeyLib.KeysList.Count()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af200181a11df9f5b57e29f21fea26f03',1,'VolumeControl.WPF.Collections.BindableEventType.Count()']]]
+  ['blacklist_773',['Blacklist',['../class_hotkey_lib_1_1_keys_blacklist.html#abe578c90e955bf1c948348dcabd08767',1,'HotkeyLib::KeysBlacklist']]],
+  ['bottom_774',['bottom',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#aa775b423ffba15abc7fadd680ccd5967',1,'VolumeControl::WPF::RECT']]]
 ];

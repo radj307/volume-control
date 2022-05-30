@@ -20,7 +20,7 @@
 <!-- Node0 -->
 <g id="node2" class="node">
 <title>Node0</title>
-<g id="a_node2"><a xlink:href="class_hotkey_lib_1_1_windows_hotkey_converter.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_hotkey_lib_1_1_windows_hotkey_converter.html" target="_top" xlink:title="TypeConverter for WindowsHotkey classes.">
 <polygon fill="none" stroke="black" points="123,-0.5 123,-19.5 318,-19.5 318,-0.5 123,-0.5"/>
 <text text-anchor="middle" x="220.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">HotkeyLib.WindowsHotkeyConverter</text>
 </a>

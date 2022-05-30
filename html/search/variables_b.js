@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['reloadintervalmax_702',['ReloadIntervalMax',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aaf5119ad4edb256a7ebec9040654d7f1',1,'VolumeControl::Audio::AudioAPI']]],
-  ['reloadintervalmin_703',['ReloadIntervalMin',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ad9bce97f155718c0d200739ddbf6ef8a',1,'VolumeControl::Audio::AudioAPI']]]
+  ['ownerhandle_822',['OwnerHandle',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a33c113454d0245886f2c59abe7fe10f2',1,'VolumeControl::Hotkeys::HotkeyManager']]]
 ];

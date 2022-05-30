@@ -18,5 +18,6 @@ var class_hotkey_lib_1_1_windows_hotkey =
     [ "Win", "class_hotkey_lib_1_1_windows_hotkey.html#a1efd8f5eb355e09d898822c1a6c6f8d1", null ],
     [ "KeysChanged", "class_hotkey_lib_1_1_windows_hotkey.html#a7e61c30ddf3e077b02e95b875074b3a9", null ],
     [ "Pressed", "class_hotkey_lib_1_1_windows_hotkey.html#adfe0362c47303ebb4927d6517fe747f0", null ],
-    [ "PropertyChanged", "class_hotkey_lib_1_1_windows_hotkey.html#a20cbdb9c4ff3855aaab1d80ea3fe8e2e", null ]
+    [ "PropertyChanged", "class_hotkey_lib_1_1_windows_hotkey.html#a20cbdb9c4ff3855aaab1d80ea3fe8e2e", null ],
+    [ "PropertyChanging", "class_hotkey_lib_1_1_windows_hotkey.html#a46a8727fad12e296422ca716f0d9b6ee", null ]
 ];

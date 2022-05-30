@@ -94,30 +94,36 @@ $(document).ready(function(){initNavTree('class_hotkey_lib_1_1_hotkey_a_p_i.html
 <div class="title">HotkeyLib.HotkeyAPI Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains all of the raw windows API calls and types, and exposes convenience methods for usage.  
+ <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for HotkeyLib.HotkeyAPI:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_hotkey_lib_1_1_hotkey_a_p_i__coll__graph.svg" width="162" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_hotkey_lib_1_1_hotkey_a_p_i__coll__graph.svg" width="178" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af499b1a683719b830c149c2d7c783c98"><td class="memItemLeft" align="right" valign="top"><a id="af499b1a683719b830c149c2d7c783c98"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>FORMAT_MESSAGE</b> : uint { <br />
-&#160;&#160;<b>ALLOCATE_BUFFER</b> = 0x00000100, 
-<b>IGNORE_INSERTS</b> = 0x00000200, 
-<b>FROM_SYSTEM</b> = 0x00001000, 
-<b>ARGUMENT_ARRAY</b> = 0x00002000, 
+<tr class="memitem:af499b1a683719b830c149c2d7c783c98"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98">FORMAT_MESSAGE</a> : uint { <br />
+&#160;&#160;<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98a895462a226710631374f323092bef575">FORMAT_MESSAGE.ALLOCATE_BUFFER</a> = 0x00000100, 
+<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98a04e87e3e42386deee7deccce41324741">FORMAT_MESSAGE.IGNORE_INSERTS</a> = 0x00000200, 
+<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98a1cf17d6a0681a4aa548cae81717abc89">FORMAT_MESSAGE.FROM_SYSTEM</a> = 0x00001000, 
+<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98ae5ff9b27908fba93955bcb7464f10360">FORMAT_MESSAGE.ARGUMENT_ARRAY</a> = 0x00002000, 
 <br />
-&#160;&#160;<b>FROM_HMODULE</b> = 0x00000800, 
-<b>FROM_STRING</b> = 0x00000400
+&#160;&#160;<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98ac86dc367affb9e72b13cf512a2431aea">FORMAT_MESSAGE.FROM_HMODULE</a> = 0x00000800, 
+<a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98ad4a3a333b028be84c53e8a32a1acd8a8">FORMAT_MESSAGE.FROM_STRING</a> = 0x00000400
 <br />
  }</td></tr>
+<tr class="memdesc:af499b1a683719b830c149c2d7c783c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible flags to pass to the FormatMessage(FORMAT_MESSAGE, IntPtr, int, uint, out StringBuilder, int, IntPtr) method.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98">More...</a><br /></td></tr>
 <tr class="separator:af499b1a683719b830c149c2d7c783c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a765750a897f60d6c9d02d82952625420"><td class="memItemLeft" align="right" valign="top"><a id="a765750a897f60d6c9d02d82952625420"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetID</b> ()</td></tr>
+<tr class="memitem:a765750a897f60d6c9d02d82952625420"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a765750a897f60d6c9d02d82952625420">GetID</a> ()</td></tr>
+<tr class="memdesc:a765750a897f60d6c9d02d82952625420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a <em>mostly unique</em> ID number.<br  />
+ IDs will only repeat once <a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a85783c956fcca7fa1819641b485b5374" title="The maximum allowable hotkey ID number.">MaxID</a> is reached; this is a limit of the Windows API.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a765750a897f60d6c9d02d82952625420">More...</a><br /></td></tr>
 <tr class="separator:a765750a897f60d6c9d02d82952625420"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d26cddc24dee458a2577ab76c582922"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a8d26cddc24dee458a2577ab76c582922">RegisterHotkey</a> (IntPtr hWnd, int id, uint fsModifiers, Keys vk)</td></tr>
 <tr class="memdesc:a8d26cddc24dee458a2577ab76c582922"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a wrapper function for the 'RegisterHotKey' function from user32.dll  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a8d26cddc24dee458a2577ab76c582922">More...</a><br /></td></tr>
@@ -125,42 +131,201 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetID</b> ()</t
 <tr class="memitem:a7b5980e9ead87a33816535ee28a23dad"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a7b5980e9ead87a33816535ee28a23dad">UnregisterHotkey</a> (IntPtr hWnd, int id)</td></tr>
 <tr class="memdesc:a7b5980e9ead87a33816535ee28a23dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a wrapper function for the 'UnregisterHotKey' function from user32.dll.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a7b5980e9ead87a33816535ee28a23dad">More...</a><br /></td></tr>
 <tr class="separator:a7b5980e9ead87a33816535ee28a23dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0741479a309c8634bf7e4b3ec4ab4ba"><td class="memItemLeft" align="right" valign="top"><a id="af0741479a309c8634bf7e4b3ec4ab4ba"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> ()</td></tr>
+<tr class="memitem:af0741479a309c8634bf7e4b3ec4ab4ba"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af0741479a309c8634bf7e4b3ec4ab4ba">GetLastError</a> ()</td></tr>
+<tr class="memdesc:af0741479a309c8634bf7e4b3ec4ab4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the last error to have occurred from within the unmanaged C++ Windows API.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af0741479a309c8634bf7e4b3ec4ab4ba">More...</a><br /></td></tr>
 <tr class="separator:af0741479a309c8634bf7e4b3ec4ab4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1cdd4d8c070d84549c398139f0a721e"><td class="memItemLeft" align="right" valign="top"><a id="af1cdd4d8c070d84549c398139f0a721e"></a>
-static string&#160;</td><td class="memItemRight" valign="bottom"><b>FormatError</b> (int err)</td></tr>
+<tr class="memitem:af1cdd4d8c070d84549c398139f0a721e"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af1cdd4d8c070d84549c398139f0a721e">FormatError</a> (int err)</td></tr>
+<tr class="memdesc:af1cdd4d8c070d84549c398139f0a721e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an error message from the given <em>err</em>  HResult.<br  />
+ This is a convenience method that calls FormatMessage(FORMAT_MESSAGE, IntPtr, int, uint, out StringBuilder, int, IntPtr).  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af1cdd4d8c070d84549c398139f0a721e">More...</a><br /></td></tr>
 <tr class="separator:af1cdd4d8c070d84549c398139f0a721e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1f3fefe9e21d961633dee883f51f634"><td class="memItemLeft" align="right" valign="top"><a id="af1f3fefe9e21d961633dee883f51f634"></a>
-static string&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastErrorString</b> ()</td></tr>
+<tr class="memitem:af1f3fefe9e21d961633dee883f51f634"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af1f3fefe9e21d961633dee883f51f634">GetLastErrorString</a> ()</td></tr>
+<tr class="memdesc:af1f3fefe9e21d961633dee883f51f634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the last error message to have occurred from within the unmanaged C++ Windows API, as a string.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af1f3fefe9e21d961633dee883f51f634">More...</a><br /></td></tr>
 <tr class="separator:af1f3fefe9e21d961633dee883f51f634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a5da83e2f187d900eff144084c2d9a430"><td class="memItemLeft" align="right" valign="top"><a id="a5da83e2f187d900eff144084c2d9a430"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinID</b> = 0x0000</td></tr>
+<tr class="memitem:a5da83e2f187d900eff144084c2d9a430"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a5da83e2f187d900eff144084c2d9a430">MinID</a> = 0x0000</td></tr>
+<tr class="memdesc:a5da83e2f187d900eff144084c2d9a430"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minimum allowable hotkey ID number.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a5da83e2f187d900eff144084c2d9a430">More...</a><br /></td></tr>
 <tr class="separator:a5da83e2f187d900eff144084c2d9a430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6a8011c760f5b936a4a40fc380b46ee"><td class="memItemLeft" align="right" valign="top"><a id="ab6a8011c760f5b936a4a40fc380b46ee"></a>
-static&#160;</td><td class="memItemRight" valign="bottom"><b>int</b></td></tr>
-<tr class="separator:ab6a8011c760f5b936a4a40fc380b46ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad797706962b1c5d2f01a74151add983a"><td class="memItemLeft" align="right" valign="top"><a id="ad797706962b1c5d2f01a74151add983a"></a>
-const uint&#160;</td><td class="memItemRight" valign="bottom"><b>WM_HOTKEY</b> = 0x312</td></tr>
+<tr class="memitem:a85783c956fcca7fa1819641b485b5374"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a85783c956fcca7fa1819641b485b5374">MaxID</a> = 0xBFFF</td></tr>
+<tr class="memdesc:a85783c956fcca7fa1819641b485b5374"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum allowable hotkey ID number.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a85783c956fcca7fa1819641b485b5374">More...</a><br /></td></tr>
+<tr class="separator:a85783c956fcca7fa1819641b485b5374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22b95fb0cea91b7cfa41d2f5c7a420cc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a22b95fb0cea91b7cfa41d2f5c7a420cc">hresult</a></td></tr>
+<tr class="memdesc:a22b95fb0cea91b7cfa41d2f5c7a420cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets both the last HResult error ID and the associated string error message for the last error message to have occurred from within the unmanaged C++ Windows API.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a22b95fb0cea91b7cfa41d2f5c7a420cc">More...</a><br /></td></tr>
+<tr class="separator:a22b95fb0cea91b7cfa41d2f5c7a420cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad797706962b1c5d2f01a74151add983a"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#ad797706962b1c5d2f01a74151add983a">WM_HOTKEY</a> = 0x312</td></tr>
+<tr class="memdesc:ad797706962b1c5d2f01a74151add983a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Windows Message Hotkey  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#ad797706962b1c5d2f01a74151add983a">More...</a><br /></td></tr>
 <tr class="separator:ad797706962b1c5d2f01a74151add983a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76dbc3381b40afedac47069bb44047b"><td class="memItemLeft" align="right" valign="top"><a id="ae76dbc3381b40afedac47069bb44047b"></a>
-const uint&#160;</td><td class="memItemRight" valign="bottom"><b>MOD_ALT</b> = 0x1</td></tr>
+<tr class="memitem:ae76dbc3381b40afedac47069bb44047b"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#ae76dbc3381b40afedac47069bb44047b">MOD_ALT</a> = 0x1</td></tr>
+<tr class="memdesc:ae76dbc3381b40afedac47069bb44047b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alt Modifier bitfield flag value.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#ae76dbc3381b40afedac47069bb44047b">More...</a><br /></td></tr>
 <tr class="separator:ae76dbc3381b40afedac47069bb44047b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d0880bb67b403f8b7f68aad9b3b3507"><td class="memItemLeft" align="right" valign="top"><a id="a3d0880bb67b403f8b7f68aad9b3b3507"></a>
-const uint&#160;</td><td class="memItemRight" valign="bottom"><b>MOD_CONTROL</b> = 0x2</td></tr>
+<tr class="memitem:a3d0880bb67b403f8b7f68aad9b3b3507"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a3d0880bb67b403f8b7f68aad9b3b3507">MOD_CONTROL</a> = 0x2</td></tr>
+<tr class="memdesc:a3d0880bb67b403f8b7f68aad9b3b3507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ctrl modifier bitfield flag value.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a3d0880bb67b403f8b7f68aad9b3b3507">More...</a><br /></td></tr>
 <tr class="separator:a3d0880bb67b403f8b7f68aad9b3b3507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a1cddd026a1997254404d456a4f0dfc"><td class="memItemLeft" align="right" valign="top"><a id="a8a1cddd026a1997254404d456a4f0dfc"></a>
-const uint&#160;</td><td class="memItemRight" valign="bottom"><b>MOD_SHIFT</b> = 0x4</td></tr>
+<tr class="memitem:a8a1cddd026a1997254404d456a4f0dfc"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a8a1cddd026a1997254404d456a4f0dfc">MOD_SHIFT</a> = 0x4</td></tr>
+<tr class="memdesc:a8a1cddd026a1997254404d456a4f0dfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift modifier bitfield flag value.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a8a1cddd026a1997254404d456a4f0dfc">More...</a><br /></td></tr>
 <tr class="separator:a8a1cddd026a1997254404d456a4f0dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66db0c2a2eca62113e8eb71944a47138"><td class="memItemLeft" align="right" valign="top"><a id="a66db0c2a2eca62113e8eb71944a47138"></a>
-const uint&#160;</td><td class="memItemRight" valign="bottom"><b>MOD_WIN</b> = 0x8</td></tr>
+<tr class="memitem:a66db0c2a2eca62113e8eb71944a47138"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a66db0c2a2eca62113e8eb71944a47138">MOD_WIN</a> = 0x8</td></tr>
+<tr class="memdesc:a66db0c2a2eca62113e8eb71944a47138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Windows modifier bitfield flag value.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a66db0c2a2eca62113e8eb71944a47138">More...</a><br /></td></tr>
 <tr class="separator:a66db0c2a2eca62113e8eb71944a47138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"></div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>Contains all of the raw windows API calls and types, and exposes convenience methods for usage. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="af499b1a683719b830c149c2d7c783c98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af499b1a683719b830c149c2d7c783c98">&#9670;&nbsp;</a></span>FORMAT_MESSAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98">HotkeyLib.HotkeyAPI.FORMAT_MESSAGE</a> : uint</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible flags to pass to the FormatMessage(FORMAT_MESSAGE, IntPtr, int, uint, out StringBuilder, int, IntPtr) method. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98a895462a226710631374f323092bef575"></a>ALLOCATE_BUFFER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98a04e87e3e42386deee7deccce41324741"></a>IGNORE_INSERTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98a1cf17d6a0681a4aa548cae81717abc89"></a>FROM_SYSTEM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98ae5ff9b27908fba93955bcb7464f10360"></a>ARGUMENT_ARRAY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98ac86dc367affb9e72b13cf512a2431aea"></a>FROM_HMODULE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af499b1a683719b830c149c2d7c783c98ad4a3a333b028be84c53e8a32a1acd8a8"></a>FROM_STRING&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af1cdd4d8c070d84549c398139f0a721e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1cdd4d8c070d84549c398139f0a721e">&#9670;&nbsp;</a></span>FormatError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string HotkeyLib.HotkeyAPI.FormatError </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets an error message from the given <em>err</em>  HResult.<br  />
+ This is a convenience method that calls FormatMessage(FORMAT_MESSAGE, IntPtr, int, uint, out StringBuilder, int, IntPtr). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>The HResult error ID to format into a string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string error message associated with HResult <em>err</em> .</dd></dl>
+
+</div>
+</div>
+<a id="a765750a897f60d6c9d02d82952625420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765750a897f60d6c9d02d82952625420">&#9670;&nbsp;</a></span>GetID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HotkeyLib.HotkeyAPI.GetID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a <em>mostly unique</em> ID number.<br  />
+ IDs will only repeat once <a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html#a85783c956fcca7fa1819641b485b5374" title="The maximum allowable hotkey ID number.">MaxID</a> is reached; this is a limit of the Windows API. </p>
+<dl class="section return"><dt>Returns</dt><dd>A hotkey ID number ready for use.</dd></dl>
+
+</div>
+</div>
+<a id="af0741479a309c8634bf7e4b3ec4ab4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0741479a309c8634bf7e4b3ec4ab4ba">&#9670;&nbsp;</a></span>GetLastError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HotkeyLib.HotkeyAPI.GetLastError </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the last error to have occurred from within the unmanaged C++ Windows API. </p>
+<dl class="section return"><dt>Returns</dt><dd>An Int32 representing the HResult of the last error.</dd></dl>
+
+</div>
+</div>
+<a id="af1f3fefe9e21d961633dee883f51f634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f3fefe9e21d961633dee883f51f634">&#9670;&nbsp;</a></span>GetLastErrorString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string HotkeyLib.HotkeyAPI.GetLastErrorString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the last error message to have occurred from within the unmanaged C++ Windows API, as a string. </p>
+<dl class="section return"><dt>Returns</dt><dd>A string error message.</dd></dl>
+
+</div>
+</div>
 <a id="a8d26cddc24dee458a2577ab76c582922"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d26cddc24dee458a2577ab76c582922">&#9670;&nbsp;</a></span>RegisterHotkey()</h2>
 
@@ -264,6 +429,200 @@ const uint&#160;</td><td class="memItemRight" valign="bottom"><b>MOD_WIN</b> = 0
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True when unregistration was successful.</dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a22b95fb0cea91b7cfa41d2f5c7a420cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22b95fb0cea91b7cfa41d2f5c7a420cc">&#9670;&nbsp;</a></span>hresult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int HotkeyLib.HotkeyAPI.hresult</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets both the last HResult error ID and the associated string error message for the last error message to have occurred from within the unmanaged C++ Windows API. </p>
+<dl class="section return"><dt>Returns</dt><dd>HResult and string error message as a tuple.</dd></dl>
+
+</div>
+</div>
+<a id="a85783c956fcca7fa1819641b485b5374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85783c956fcca7fa1819641b485b5374">&#9670;&nbsp;</a></span>MaxID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int HotkeyLib.HotkeyAPI.MaxID = 0xBFFF</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The maximum allowable hotkey ID number. </p>
+
+</div>
+</div>
+<a id="a5da83e2f187d900eff144084c2d9a430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5da83e2f187d900eff144084c2d9a430">&#9670;&nbsp;</a></span>MinID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int HotkeyLib.HotkeyAPI.MinID = 0x0000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The minimum allowable hotkey ID number. </p>
+
+</div>
+</div>
+<a id="ae76dbc3381b40afedac47069bb44047b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76dbc3381b40afedac47069bb44047b">&#9670;&nbsp;</a></span>MOD_ALT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint HotkeyLib.HotkeyAPI.MOD_ALT = 0x1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Alt Modifier bitfield flag value. </p>
+
+</div>
+</div>
+<a id="a3d0880bb67b403f8b7f68aad9b3b3507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0880bb67b403f8b7f68aad9b3b3507">&#9670;&nbsp;</a></span>MOD_CONTROL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint HotkeyLib.HotkeyAPI.MOD_CONTROL = 0x2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ctrl modifier bitfield flag value. </p>
+
+</div>
+</div>
+<a id="a8a1cddd026a1997254404d456a4f0dfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a1cddd026a1997254404d456a4f0dfc">&#9670;&nbsp;</a></span>MOD_SHIFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint HotkeyLib.HotkeyAPI.MOD_SHIFT = 0x4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shift modifier bitfield flag value. </p>
+
+</div>
+</div>
+<a id="a66db0c2a2eca62113e8eb71944a47138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66db0c2a2eca62113e8eb71944a47138">&#9670;&nbsp;</a></span>MOD_WIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint HotkeyLib.HotkeyAPI.MOD_WIN = 0x8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Windows modifier bitfield flag value. </p>
+
+</div>
+</div>
+<a id="ad797706962b1c5d2f01a74151add983a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad797706962b1c5d2f01a74151add983a">&#9670;&nbsp;</a></span>WM_HOTKEY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint HotkeyLib.HotkeyAPI.WM_HOTKEY = 0x312</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Windows Message Hotkey </p>
 
 </div>
 </div>

@@ -1,0 +1,4 @@
+<map id="VolumeControl.WPF.HWndHook.SetSource" name="VolumeControl.WPF.HWndHook.SetSource">
+<area shape="rect" id="node1" title="Sets the HwndSource used to add and remove hooks." alt="" coords="5,5,236,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="284,5,499,47"/>
+</map>

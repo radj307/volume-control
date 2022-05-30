@@ -4,6 +4,7 @@ var class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container =
     [ "NotifyPropertyChanged", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#aa8da953cf652bcf19a11825223535ae3", null ],
     [ "NotifyPropertyChanging", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#a45afbb1e2a048dbe0171f3768c8a052a", null ],
     [ "ExecutablePath", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#af4a0ce5387072b4c750a3fe59bcecd20", null ],
+    [ "Hook", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#a8fed4903674fa2789e0e164358c20784", null ],
     [ "AdvancedHotkeyMode", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#a3d36960d4dd7d2aa601d0f300d58077b", null ],
     [ "AllowUpdateToPreRelease", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#afd38ffbc6d453ef62ab13c6f20fd2d79", null ],
     [ "CheckForUpdates", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html#a7fb6bf1398a8045a68102eb3ccb4adff", null ],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['testing_761',['TESTING',['../namespace_volume_control_1_1_attributes.html#a14fb40f5a02ed711d160a70b8dfb430ea907953dcbd01ad68db1f19be286936f4',1,'VolumeControl::Attributes']]],
-  ['throw_762',['Throw',['../class_volume_control_1_1_helpers_1_1_hotkey_action_manager.html#a82f9d3b023ed58f67237432ca9cd1ad1a8ce61dd2505effd96f937fa743b6491f',1,'VolumeControl::Helpers::HotkeyActionManager']]]
+  ['warn_903',['WARN',['../namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a32bd8a1db2275458673903bdb84cb277',1,'VolumeControl::Log::Enum']]],
+  ['win_904',['WIN',['../namespace_hotkey_lib.html#a0ee197083bcd7c48bc94a25ec4eb78e4a92e56d8195a9dd45a9b90aacf82886b1',1,'HotkeyLib']]]
 ];

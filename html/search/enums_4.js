@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sessionnameformat_709',['SessionNameFormat',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02',1,'VolumeControl::Audio::AudioAPI']]]
+  ['modifier_849',['Modifier',['../namespace_hotkey_lib.html#a0ee197083bcd7c48bc94a25ec4eb78e4',1,'HotkeyLib']]]
 ];
