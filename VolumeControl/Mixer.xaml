@@ -152,6 +152,7 @@
                     <conv:BoolToThicknessConverter x:Key="ThreeStateConverter" />
                     <conv:BoolToCheckVisibleConverter x:Key="ThreeStateVisibilityConverter" />
                 </Style.Resources>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -1016,7 +1017,8 @@
                                     CanUserSortColumns="False"
                                     DataContext="{StaticResource Settings}"
                                     ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource DataGridStyle}">
+                                    Style="{StaticResource DataGridStyle}"
+                                    >
                                     <DataGrid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
                                     </DataGrid.OpacityMask>
@@ -1037,7 +1039,6 @@
                                                     <CheckBox
                                                         Margin="3,0,0,0"
                                                         IsChecked="{Binding Registered, UpdateSourceTrigger=PropertyChanged}"
-                                                        IsEnabled="{Binding Valid}"
                                                         Style="{StaticResource CheckBoxStyle}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
