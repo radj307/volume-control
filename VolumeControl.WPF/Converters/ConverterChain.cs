@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace VolumeControl.WPF.Converters
 {
+    /// <summary>
+    /// Any number of <see cref="IValueConverter"/> objects that are used in assembly-line fashion on a given value.
+    /// </summary>
     public class ConverterChain : List<IValueConverter>, IValueConverter
     {
         /// <inheritdoc/>

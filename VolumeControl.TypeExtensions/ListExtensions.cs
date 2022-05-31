@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace VolumeControl.Core.Extensions
+namespace VolumeControl.TypeExtensions
 {
     /// <summary>Extensions for the generic <see cref="List{T}"/> object.</summary>
     public static class ListExtensions

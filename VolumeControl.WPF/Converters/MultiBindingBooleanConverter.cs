@@ -5,6 +5,10 @@ using System.Windows.Data;
 
 namespace VolumeControl.WPF.Converters
 {
+    /// <summary>
+    /// <see cref="IMultiValueConverter"/> for multiple boolean inputs that accepts and returns a list of booleans.<br/>
+    /// Any non-boolean types are converted using <see cref="System.Convert.ToBoolean(object)"/>.
+    /// </summary>
     public class MultiBindingBooleanConverter : IMultiValueConverter
     {
         /// <inheritdoc/>

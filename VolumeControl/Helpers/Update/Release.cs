@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using VolumeControl.Core.Extensions;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Update
 {

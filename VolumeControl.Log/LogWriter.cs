@@ -153,7 +153,7 @@ namespace VolumeControl.Log
                 if (line is null)
                     continue;
                 else if (line is Exception ex)
-                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}'Exception': {FormatExceptionMessage(ex, tsBlank)}");
+                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}: {FormatExceptionMessage(ex, tsBlank)}");
                 else if (line is string s)
                 {
                     if (s.Length > 0)

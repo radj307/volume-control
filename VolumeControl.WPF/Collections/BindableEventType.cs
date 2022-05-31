@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Log.Enum;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.WPF.Collections
 {
@@ -70,12 +71,14 @@ namespace VolumeControl.WPF.Collections
         {
             _value = EventType.NONE;
             InitializeOptions();
+            Options.CollectionChanged += ForwardCollectionChanged;
         }
         /// <inheritdoc cref="BindableEventType"/>
         public BindableEventType(EventType ev)
         {
             _value = ev;
             InitializeOptions();
+            Options.CollectionChanged += ForwardCollectionChanged;
         }
         #endregion Constructors
 
@@ -83,13 +86,12 @@ namespace VolumeControl.WPF.Collections
         /// <summary>Triggered when a property's setting is called, after the value has changed.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>Triggered when the options list is changed.</summary>
-        public event NotifyCollectionChangedEventHandler? CollectionChanged
-        {
-            add => ((INotifyCollectionChanged)Options).CollectionChanged += value;
-            remove => ((INotifyCollectionChanged)Options).CollectionChanged -= value;
-        }
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
         /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <summary>Triggers the <see cref="CollectionChanged"/> event.</summary>
+        protected virtual void NotifyCollectionChanged(NotifyCollectionChangedEventArgs e) => CollectionChanged?.Invoke(this, e);
+        private void ForwardCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => CollectionChanged?.Invoke(sender, e);
         #endregion Events
 
         #region Indexers
@@ -115,6 +117,7 @@ namespace VolumeControl.WPF.Collections
             {
                 _value = value;
                 NotifyPropertyChanged();
+                NotifyCollectionChanged(new(NotifyCollectionChangedAction.Replace));
             }
         }
         /// <summary>
@@ -146,8 +149,13 @@ namespace VolumeControl.WPF.Collections
         {
             foreach (EventType e in (EventType[])Enum.GetValues(typeof(EventType)))
             {
-                if (e != EventType.NONE && e != EventType.ALL && e != EventType.ALL_EXCEPT_DEBUG)
-                    Options.Add(new(this, e));
+                int eval = (int)e;
+                if (eval != 0 && eval % 2 == 0)
+                {
+                    double exponent = Math.Log2(eval);
+                    if (exponent.EqualsWithin((int)exponent))
+                        Options.Add(new(this, e));
+                }
             }
         }
         /// <inheritdoc/>

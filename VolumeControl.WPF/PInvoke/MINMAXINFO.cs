@@ -3,6 +3,7 @@
 namespace VolumeControl.WPF
 {
     [StructLayout(LayoutKind.Sequential)]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public struct MINMAXINFO
     {
         public POINT ptReserved;
@@ -11,4 +12,5 @@ namespace VolumeControl.WPF
         public POINT ptMinTrackSize;
         public POINT ptMaxTrackSize;
     };
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

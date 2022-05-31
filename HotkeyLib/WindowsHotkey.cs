@@ -74,6 +74,7 @@ namespace HotkeyLib
             set
             {
                 NotifyPropertyChanging();
+                NotifyPropertyChanging(nameof(Valid));
                 _combo.Key = value;
                 NotifyKeysChanged();
                 NotifyPropertyChanged();

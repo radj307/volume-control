@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
-using VolumeControl.Core.Extensions;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Audio
 {

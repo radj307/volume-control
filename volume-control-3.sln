@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "Volum
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.UnitTests", "VolumeControl.UnitTests\VolumeControl.UnitTests.csproj", "{43DBEEA7-0175-4E40-B161-69A435E59CE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.TypeExtensions", "VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj", "{ACF596C4-8598-47AA-A182-5F2253AF885B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,12 @@ Global
 		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.SDK|Any CPU.ActiveCfg = Debug|Any CPU
 		{43DBEEA7-0175-4E40-B161-69A435E59CE8}.SDK|Any CPU.Build.0 = Debug|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.SDK|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF596C4-8598-47AA-A182-5F2253AF885B}.SDK|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

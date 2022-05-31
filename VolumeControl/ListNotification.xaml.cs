@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Extensions;
 using VolumeControl.Helpers;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
 {

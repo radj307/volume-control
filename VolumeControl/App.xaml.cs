@@ -17,6 +17,9 @@ namespace VolumeControl
             var assembly = Assembly.GetAssembly(typeof(Mixer));
             string version = $"v{assembly?.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version}";
 
+            // Add a log handler to the dispatcher's unhandled exception event
+            DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
+
             // Tray icon
             TrayIcon = new($"Volume Control {version}", (s, e) => MainWindow.Visibility == Visibility.Visible);
             TrayIcon.Clicked += HandleTrayIconClick;
@@ -24,8 +27,6 @@ namespace VolumeControl
             TrayIcon.HideClicked += (s, e) => HideMainWindow();
             TrayIcon.BringToFrontClicked += (s, e) => ActivateMainWindow();
             TrayIcon.CloseClicked += (s, e) => Shutdown();
-
-            DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
         }
         #endregion Constructors
 
@@ -44,7 +45,6 @@ namespace VolumeControl
             // delete the tray icon
             TrayIcon.Dispose();
         }
-
         private void HideMainWindow() => MainWindow.Hide();
         private void ShowMainWindow()
         {

@@ -1,5 +1,5 @@
 ﻿using VolumeControl.Core;
-using VolumeControl.Core.Extensions;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Hotkeys.Attributes
 {

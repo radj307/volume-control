@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Extensions
+﻿namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extensions for floating-point number types.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VolumeControl.Core.Extensions
+namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extends nullable boolean and byte types with conversion methods.

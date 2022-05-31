@@ -12,6 +12,7 @@ namespace VolumeControl.WPF.Controls
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_IncreaseButton", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_DecreaseButton", Type = typeof(RepeatButton))]
+#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NumericUpDown : Control
     {
         #region Properties
@@ -445,9 +446,9 @@ namespace VolumeControl.WPF.Controls
 
         static NumericUpDown() => DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown), new FrameworkPropertyMetadata(typeof(NumericUpDown)));
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#       pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NumericUpDown()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#       pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
 
@@ -684,4 +685,5 @@ namespace VolumeControl.WPF.Controls
 
         #endregion
     }
+#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

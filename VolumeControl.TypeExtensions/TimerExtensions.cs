@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Extensions
+﻿namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extensions for the <see cref="System.Windows.Forms.Timer"/> timer object.

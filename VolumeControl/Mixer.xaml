@@ -43,6 +43,7 @@
     <!--  ( Static Resources )  -->
     <Window.Resources>
         <ResourceDictionary>
+            <conv:SquaredCornerRadiusConverter x:Key="SquaredCornerRadiusConverter" Squared="All" />
 
             <sys:Double x:Key="CaptionHeight">22</sys:Double>
 
@@ -60,6 +61,8 @@
             <!--  Misc Colors  -->
             <SolidColorBrush x:Key="HeaderForegroundBrush">LightGray</SolidColorBrush>
             <SolidColorBrush x:Key="BorderBrush">#3d3d3d</SolidColorBrush>
+
+            <!--  TextBox Colors  -->
             <SolidColorBrush x:Key="TextBoxBackground">#1F1F1F</SolidColorBrush>
             <SolidColorBrush x:Key="TextBoxForeground">WhiteSmoke</SolidColorBrush>
 
@@ -70,8 +73,8 @@
             <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
 
             <!--  Scroll Bar Colors  -->
-            <SolidColorBrush x:Key="ScrollBarBackgroundBrush">#444</SolidColorBrush>
-            <SolidColorBrush x:Key="ScrollBarForegroundBrush">#999</SolidColorBrush>
+            <SolidColorBrush x:Key="ScrollBarBackgroundBrush">#0000</SolidColorBrush>
+            <SolidColorBrush x:Key="ScrollBarForegroundBrush" Color="{Binding Color, Source={StaticResource TextBoxForeground}}" />
 
             <!--
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
@@ -139,8 +142,7 @@
             <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                        <Setter Property="Background" Value="#808080" />
-                        <Setter Property="Foreground" Value="LightGray" />
+                        <Setter Property="Background" Value="{StaticResource AccentGradientDisabled}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Foreground" Value="WhiteSmoke" />
@@ -153,7 +155,10 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
-                            <BulletDecorator Name="BulletDecorator" Background="#00000000">
+                            <BulletDecorator
+                                Name="BulletDecorator"
+                                Background="#00000000"
+                                SnapsToDevicePixels="True">
                                 <BulletDecorator.Bullet>
                                     <Border
                                         Width="12"
@@ -161,13 +166,13 @@
                                         Background="#00000000"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="2">
+                                        CornerRadius="3">
                                         <Border
                                             Width="8"
                                             Height="8"
                                             Background="{TemplateBinding Background}"
                                             BorderBrush="#00000000"
-                                            CornerRadius="1">
+                                            CornerRadius="1.5">
                                             <Border.Style>
                                                 <Style TargetType="{x:Type Border}">
                                                     <Style.Triggers>
@@ -471,11 +476,15 @@
                                             SnapsToDevicePixels="True">
                                             <Border
                                                 x:Name="DropDownBorder"
-                                                Background="{StaticResource TabBackgroundBrush}"
+                                                Background="{StaticResource TextBoxBackground}"
                                                 BorderBrush="{StaticResource BorderBrush}"
-                                                BorderThickness="1" />
+                                                BorderThickness="0"
+                                                CornerRadius="10" />
                                             <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                <VirtualizingStackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                <ScrollViewer.OpacityMask>
+                                                    <VisualBrush Visual="{Binding ElementName=DropDownBorder}" />
+                                                </ScrollViewer.OpacityMask>
                                             </ScrollViewer>
                                         </Grid>
                                     </Popup>
@@ -700,23 +709,31 @@
                 Style="{StaticResource TabControlStyle}">
                 <!--  TAB CONTROL APPEARANCE:  -->
                 <TabControl.Resources>
+                    <conv:SquaredCornerRadiusConverter x:Key="TabItemSquaredCornerRadiusConverter" Squared="Bottom" />
                     <!--  Tab Item Appearance  -->
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
-                                    <Border
-                                        Name="Border"
-                                        Margin="1,0"
-                                        BorderThickness="0">
-                                        <ContentPresenter
-                                            x:Name="ContentSite"
-                                            Margin="10,2"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            ContentSource="Header"
-                                            TextBlock.Foreground="{TemplateBinding Foreground}" />
-                                    </Border>
+                                    <Grid>
+                                        <Border
+                                            Name="TabItemCornerRadiusBindingSource"
+                                            BorderThickness="0"
+                                            CornerRadius="{StaticResource RoundedControlCorner}" />
+                                        <Border
+                                            Name="Border"
+                                            Margin="1,0"
+                                            BorderThickness="0"
+                                            CornerRadius="{Binding CornerRadius, ElementName=TabItemCornerRadiusBindingSource, Converter={StaticResource TabItemSquaredCornerRadiusConverter}}">
+                                            <ContentPresenter
+                                                x:Name="ContentSite"
+                                                Margin="10,2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                ContentSource="Header"
+                                                TextBlock.Foreground="{TemplateBinding Foreground}" />
+                                        </Border>
+                                    </Grid>
                                     <ControlTemplate.Triggers>
                                         <!--  SELECTED TAB APPEARANCE:  -->
                                         <Trigger Property="IsSelected" Value="True">
@@ -1005,7 +1022,7 @@
                                     </DataGrid.OpacityMask>
                                     <DataGrid.Columns>
                                         <!--  Active  -->
-                                        <DataGridTemplateColumn Width="Auto" CanUserResize="False">
+                                        <DataGridTemplateColumn Width="Auto">
                                             <DataGridTemplateColumn.Header>
                                                 <CheckBox
                                                     Margin="3,0,0,0"
@@ -1122,7 +1139,7 @@
                             </Grid>
                         </Border>
                         <Button
-                            Margin="1"
+                            Margin="5,0,5,5"
                             VerticalAlignment="Center"
                             Click="Handle_CreateNewHotkeyClick"
                             Content="Create New Hotkey"
@@ -1166,7 +1183,7 @@
                             BasedOn="{StaticResource BorderStyle}"
                             TargetType="{x:Type Border}">
                             <Setter Property="Margin" Value="3" />
-                            <Setter Property="Background" Value="#5111" />
+                            <Setter Property="Background" Value="#E02F2F2F" />
                             <Setter Property="Padding" Value="2" />
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="BorderBrush" Value="{StaticResource AccentForeground}" />

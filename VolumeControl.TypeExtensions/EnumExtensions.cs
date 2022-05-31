@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Extensions
+﻿namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extensions for any <see cref="Enum"/> type.

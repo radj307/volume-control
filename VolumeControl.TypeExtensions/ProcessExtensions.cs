@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace VolumeControl.Core.Extensions
+namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extension methods for the <see cref="Process"/> class.

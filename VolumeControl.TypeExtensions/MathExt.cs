@@ -1,4 +1,4 @@
-﻿namespace VolumeControl.Core.Extensions
+﻿namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Methods for various mathematics operations not covered by <see cref="Math"/>

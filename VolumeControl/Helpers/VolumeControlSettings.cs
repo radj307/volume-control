@@ -11,7 +11,6 @@ using VolumeControl.Attributes;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Extensions;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
@@ -19,6 +18,7 @@ using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
 using VolumeControl.WPF;
 using static VolumeControl.Audio.AudioAPI;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
 {

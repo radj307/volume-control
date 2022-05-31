@@ -1,5 +1,5 @@
 ﻿using Semver;
-using VolumeControl.Core.Extensions;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Core
 {

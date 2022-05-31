@@ -1,6 +1,6 @@
 ﻿using Semver;
 
-namespace VolumeControl.Core.Extensions
+namespace VolumeControl.TypeExtensions
 {
     /// <summary>
     /// Extensions for string types.
