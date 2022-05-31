@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['displaytarget_843',['DisplayTarget',['../namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3',1,'VolumeControl::Core::Enum']]]
+  ['corner_1003',['Corner',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917',1,'VolumeControl::WPF::Converters']]]
 ];

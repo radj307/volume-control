@@ -1,4 +1,4 @@
 <map id="VolumeControl.WPF.Converters.MultiBindingBooleanConverter" name="VolumeControl.WPF.Converters.MultiBindingBooleanConverter">
-<area shape="rect" id="node1" title=" " alt="" coords="5,131,216,237"/>
-<area shape="rect" id="node2" title=" " alt="" coords="41,5,181,83"/>
+<area shape="rect" id="node1" title="IMultiValueConverter for multiple boolean inputs that accepts and returns a list of booleans...." alt="" coords="5,131,233,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="40,5,199,83"/>
 </map>

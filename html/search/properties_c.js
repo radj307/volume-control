@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['onvolumenotification_965',['OnVolumeNotification',['../class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428',1,'VolumeControl::Audio::AudioDevice']]],
-  ['options_966',['Options',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#aeb4865a4449d1cea48c796286a7340cf',1,'VolumeControl::WPF::Collections::BindableEventType']]],
-  ['outgoing_967',['Outgoing',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a3439bff8cbcb7f3a15e78e09c23d74f9',1,'VolumeControl::Audio::Events::TargetChangingEventArgs']]]
+  ['onvolumenotification_1274',['OnVolumeNotification',['../class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428',1,'VolumeControl::Audio::AudioDevice']]],
+  ['options_1275',['Options',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#aeb4865a4449d1cea48c796286a7340cf',1,'VolumeControl::WPF::Collections::BindableEventType']]],
+  ['outgoing_1276',['Outgoing',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a3439bff8cbcb7f3a15e78e09c23d74f9',1,'VolumeControl::Audio::Events::TargetChangingEventArgs']]]
 ];

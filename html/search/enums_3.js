@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hotkeyregistrationstate_848',['HotkeyRegistrationState',['../namespace_hotkey_lib.html#a95b72052394e2d6fbfc067ab6ad469f5',1,'HotkeyLib']]]
+  ['format_5fmessage_1009',['FORMAT_MESSAGE',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98',1,'HotkeyLib::HotkeyAPI']]]
 ];

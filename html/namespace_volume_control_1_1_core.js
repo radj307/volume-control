@@ -1,6 +1,5 @@
 var namespace_volume_control_1_1_core =
 [
-    [ "Extensions", "namespace_volume_control_1_1_core_1_1_extensions.html", "namespace_volume_control_1_1_core_1_1_extensions" ],
     [ "Helpers", "namespace_volume_control_1_1_core_1_1_helpers.html", "namespace_volume_control_1_1_core_1_1_helpers" ],
     [ "BaseAddon", "class_volume_control_1_1_core_1_1_base_addon.html", "class_volume_control_1_1_core_1_1_base_addon" ],
     [ "BaseAddonAttribute", "class_volume_control_1_1_core_1_1_base_addon_attribute.html", "class_volume_control_1_1_core_1_1_base_addon_attribute" ],

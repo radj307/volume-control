@@ -4,6 +4,7 @@ var namespace_volume_control_1_1_w_p_f =
     [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", "namespace_volume_control_1_1_w_p_f_1_1_collections" ],
     [ "Controls", "namespace_volume_control_1_1_w_p_f_1_1_controls.html", "namespace_volume_control_1_1_w_p_f_1_1_controls" ],
     [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", "namespace_volume_control_1_1_w_p_f_1_1_converters" ],
+    [ "Markup", "namespace_volume_control_1_1_w_p_f_1_1_markup.html", "namespace_volume_control_1_1_w_p_f_1_1_markup" ],
     [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
     [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],
     [ "MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_m_i_n_m_a_x_i_n_f_o.html", "struct_volume_control_1_1_w_p_f_1_1_m_i_n_m_a_x_i_n_f_o" ],

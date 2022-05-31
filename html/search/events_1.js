@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyschanged_1000',['KeysChanged',['../class_hotkey_lib_1_1_windows_hotkey.html#a7e61c30ddf3e077b02e95b875074b3a9',1,'HotkeyLib::WindowsHotkey']]]
+  ['devicelistreloaded_1310',['DeviceListReloaded',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ae49867a16c70353136a1061305edfcc4',1,'VolumeControl::Audio::AudioAPI']]]
 ];

@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 268.00 137.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node86 -->
+<!-- Node87 -->
 <g id="node1" class="node">
-<title>Node86</title>
+<title>Node87</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-55 0,-74 66,-74 66,-55 0,-55"/>
 <text text-anchor="middle" x="33" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">EventArgs</text>
@@ -27,15 +27,15 @@
 </a>
 </g>
 </g>
-<!-- Node86&#45;&gt;Node0 -->
+<!-- Node87&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node86&#45;&gt;Node0</title>
+<title>Node87&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M68.51,-77.6C79.2,-81.54 91.05,-85.81 102,-89.5 110.86,-92.49 120.34,-95.53 129.52,-98.4"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="69.67,-74.29 59.07,-74.08 67.23,-80.85 69.67,-74.29"/>
 </g>
-<!-- Node88 -->
+<!-- Node89 -->
 <g id="node3" class="node">
-<title>Node88</title>
+<title>Node89</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html" target="_top" xlink:title="Event arguments for the TargetChangedEventHandler event.">
 <polygon fill="none" stroke="black" points="102,-49.5 102,-79.5 260,-79.5 260,-49.5 102,-49.5"/>
 <text text-anchor="start" x="110" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Events.</text>
@@ -43,15 +43,15 @@
 </a>
 </g>
 </g>
-<!-- Node86&#45;&gt;Node88 -->
+<!-- Node87&#45;&gt;Node89 -->
 <g id="edge2" class="edge">
-<title>Node86&#45;&gt;Node88</title>
+<title>Node87&#45;&gt;Node89</title>
 <path fill="none" stroke="midnightblue" d="M76.31,-64.5C84.42,-64.5 93.15,-64.5 101.98,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="76.04,-61 66.04,-64.5 76.04,-68 76.04,-61"/>
 </g>
-<!-- Node89 -->
+<!-- Node90 -->
 <g id="node4" class="node">
-<title>Node89</title>
+<title>Node90</title>
 <g id="a_node4"><a xlink:href="class_volume_control_1_1_audio_1_1_events_1_1_volume_event_args.html" target="_top" xlink:title="Event arguments for the VolumeEventHandler event handler type.">
 <polygon fill="none" stroke="black" points="102,-0.5 102,-30.5 260,-30.5 260,-0.5 102,-0.5"/>
 <text text-anchor="start" x="110" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Events.</text>
@@ -59,9 +59,9 @@
 </a>
 </g>
 </g>
-<!-- Node86&#45;&gt;Node89 -->
+<!-- Node87&#45;&gt;Node90 -->
 <g id="edge3" class="edge">
-<title>Node86&#45;&gt;Node89</title>
+<title>Node87&#45;&gt;Node90</title>
 <path fill="none" stroke="midnightblue" d="M69.96,-51.59C80.28,-47.94 91.57,-44.01 102,-40.5 111.7,-37.23 122.12,-33.83 132.08,-30.62"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="68.67,-48.33 60.42,-54.97 71.01,-54.93 68.67,-48.33"/>
 </g>

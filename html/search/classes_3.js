@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enumextensions_498',['EnumExtensions',['../class_volume_control_1_1_core_1_1_extensions_1_1_enum_extensions.html',1,'VolumeControl::Core::Extensions']]]
+  ['enumextensions_652',['EnumExtensions',['../class_volume_control_1_1_type_extensions_1_1_enum_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

@@ -15,6 +15,7 @@ var class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type =
     [ "IndexOf", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a29c2075348d0fa82c6023c17ca28182f", null ],
     [ "Insert", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#ae95a05241a9f220db519f198481b1d43", null ],
     [ "Insert", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a68a4e0c9c9952bf733a6cb492da78e2f", null ],
+    [ "NotifyCollectionChanged", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a6385cd88de966cfb56036769aae2a0dd", null ],
     [ "NotifyPropertyChanged", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a99e44a1be42eb3f45f98dcb96eea823a", null ],
     [ "Remove", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a28eba112dd320ae13d7fce36ef14566c", null ],
     [ "Remove", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a8726353fe054515ea4019491d49a443e", null ],
@@ -25,10 +26,10 @@ var class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type =
     [ "IsSynchronized", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#ab008635aacfc590549eff3a840f5e179", null ],
     [ "Name", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a4ab53027b8738c7126bad900e4d2e8b0", null ],
     [ "SyncRoot", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a6f8dc51b5050d0252333aa3647486f37", null ],
-    [ "CollectionChanged", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a234a5fc70abd4d6fc87bd093e1fea4e4", null ],
     [ "Options", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#aeb4865a4449d1cea48c796286a7340cf", null ],
     [ "this[int index]", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a5ffe14275abce96a41ce1d7f58b266a3", null ],
     [ "this[int index]", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a33c7963858fb395a4879c858a56f5942", null ],
     [ "Value", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a75aed0180192ec859e7a75c1df8b20ac", null ],
+    [ "CollectionChanged", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a234a5fc70abd4d6fc87bd093e1fea4e4", null ],
     [ "PropertyChanged", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#af5ff5cbf4a17d379c73eb1924891a173", null ]
 ];

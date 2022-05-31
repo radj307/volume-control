@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['lockselecteddevicechanged_1001',['LockSelectedDeviceChanged',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab5ddd3f052c97cd952451cd8cf4fe58c',1,'VolumeControl::Audio::AudioAPI']]],
-  ['lockselectedsessionchanged_1002',['LockSelectedSessionChanged',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab0c481ba302f60152c00bd4665556cfe',1,'VolumeControl::Audio::AudioAPI']]]
+  ['keyschanged_1311',['KeysChanged',['../class_hotkey_lib_1_1_windows_hotkey.html#a7e61c30ddf3e077b02e95b875074b3a9',1,'HotkeyLib::WindowsHotkey']]]
 ];

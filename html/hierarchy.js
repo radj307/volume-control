@@ -6,6 +6,7 @@ var hierarchy =
       [ "VolumeControl.Hotkeys.HotkeyManagerSettings", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html", null ],
       [ "VolumeControl.Log.Properties.Settings", "class_volume_control_1_1_log_1_1_properties_1_1_settings.html", null ]
     ] ],
+    [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
     [ "Attribute", null, [
       [ "VolumeControl.Core.BaseAddonAttribute", "class_volume_control_1_1_core_1_1_base_addon_attribute.html", [
         [ "VolumeControl.Hotkeys.Attributes.ActionAddonAttribute", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute.html", null ]
@@ -18,7 +19,7 @@ var hierarchy =
     [ "Control", null, [
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
     ] ],
-    [ "VolumeControl.Core.Extensions.EnumExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_enum_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", null ],
     [ "EventArgs", null, [
       [ "VolumeControl.Audio.Events.TargetChangedEventArgs", "class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args.html", null ],
       [ "VolumeControl.Audio.Events.TargetChangingEventArgs", "class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html", null ],
@@ -119,7 +120,7 @@ var hierarchy =
       [ "VolumeControl.Hotkeys.BindableWindowsHotkey", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html", null ],
       [ "VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html", null ]
     ] ],
-    [ "VolumeControl.Core.Extensions.Int32Extensions", "class_volume_control_1_1_core_1_1_extensions_1_1_int32_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", null ],
     [ "IReadOnlyCollection", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
@@ -142,35 +143,36 @@ var hierarchy =
       [ "VolumeControl.WPF.Converters.BoolToThicknessConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html", null ],
       [ "VolumeControl.WPF.Converters.BoolToValueConverter< T >", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html", null ],
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ],
-      [ "VolumeControl.WPF.Converters.NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", null ]
+      [ "VolumeControl.WPF.Converters.NullToBooleanConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html", null ],
+      [ "VolumeControl.WPF.Converters.SquaredCornerRadiusConverter", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html", null ]
     ] ],
     [ "HotkeyLib.KeysBlacklist", "class_hotkey_lib_1_1_keys_blacklist.html", null ],
     [ "List", null, [
       [ "VolumeControl.WPF.Converters.ConverterChain", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html", null ]
     ] ],
-    [ "VolumeControl.Core.Extensions.ListExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_list_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.ListExtensions", "class_volume_control_1_1_type_extensions_1_1_list_extensions.html", null ],
     [ "MarkupExtension", null, [
-      [ "VolumeControl.WPF.Converters.BoolToValueConverter< T >", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html", null ]
+      [ "VolumeControl.WPF.Converters.BoolToValueConverter< T >", "class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html", null ],
+      [ "VolumeControl.WPF.Markup.ConvertExtension", "class_volume_control_1_1_w_p_f_1_1_markup_1_1_convert_extension.html", null ]
     ] ],
-    [ "VolumeControl.Core.Extensions.MathExt", "class_volume_control_1_1_core_1_1_extensions_1_1_math_ext.html", null ],
+    [ "VolumeControl.TypeExtensions.MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", null ],
     [ "VolumeControl.WPF.MINMAXINFO", "struct_volume_control_1_1_w_p_f_1_1_m_i_n_m_a_x_i_n_f_o.html", null ],
     [ "HotkeyLib.ModifierExtensions", "class_hotkey_lib_1_1_modifier_extensions.html", null ],
     [ "VolumeControl.WPF.MONITORINFO", "class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html", null ],
     [ "MultiBinding", null, [
       [ "VolumeControl.WPF.Bindings.MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html", null ]
     ] ],
-    [ "VolumeControl.Core.Extensions.NullableBoolExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_nullable_bool_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", null ],
     [ "ObservableCollection", null, [
       [ "VolumeControl.WPF.Collections.ObservableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html", null ]
     ] ],
-    [ "VolumeControl.WPF.Collections.ObservableListExtensions", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list_extensions.html", null ],
     [ "VolumeControl.WPF.POINT", "struct_volume_control_1_1_w_p_f_1_1_p_o_i_n_t.html", null ],
-    [ "VolumeControl.Core.Extensions.ProcessExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_process_extensions.html", null ],
-    [ "VolumeControl.Core.Extensions.RealNumberExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_real_number_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.RECT", "struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.Core.Win32.RegistryAPI.Scope", "struct_volume_control_1_1_core_1_1_win32_1_1_registry_a_p_i_1_1_scope.html", null ],
-    [ "VolumeControl.Core.Extensions.StringExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_string_extensions.html", null ],
-    [ "VolumeControl.Core.Extensions.TimerExtensions", "class_volume_control_1_1_core_1_1_extensions_1_1_timer_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
+    [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "TypeConverter", null, [
       [ "HotkeyLib.WindowsHotkeyConverter", "class_hotkey_lib_1_1_windows_hotkey_converter.html", null ]
     ] ],

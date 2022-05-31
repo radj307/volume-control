@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['pid_869',['PID',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a2d73559f294204a42bda2e926d094612',1,'VolumeControl::Audio::AudioAPI']]],
-  ['processidentifier_870',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05',1,'VolumeControl::Audio::AudioAPI']]],
-  ['processname_871',['ProcessName',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148',1,'VolumeControl::Audio::AudioAPI']]]
+  ['left_1032',['Left',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917a945d5e233cf7d6240f6b783b36a374ff',1,'VolumeControl::WPF::Converters']]]
 ];

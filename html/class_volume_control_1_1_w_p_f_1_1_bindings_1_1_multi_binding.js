@@ -1,8 +1,7 @@
 var class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding =
 [
     [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6fefb367c204032bff80fe2e6f28534c", null ],
-    [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a3dc601a7d28bec40493b668079b6b0c5", null ],
-    [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#af9371036dbd775073959373b124ee0b1", null ],
+    [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6ea73dae659fee86898cd8751e9eac3a", null ],
     [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad985c4623edd0203267455313f72ffed", null ],
     [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a3eaa4d99cebde18661999df90a1e3615", null ],
     [ "MultiBinding", "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#aa0d8951e50516d003703367a8480dab7", null ],
