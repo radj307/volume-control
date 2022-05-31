@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
@@ -31,6 +32,24 @@ namespace VolumeControl.Audio
             {
                 ProcessName = proc.ProcessName;
             }
+
+            _controller.RegisterEventClient(NotificationClient = new());
+
+            NotificationClient.IconPathChanged += (s, e) => _icons = null;
+            NotificationClient.Disconnected += (s, e) => Disconnected?.Invoke(s, e);
+            NotificationClient.VolumeChanged += (s, e) =>
+            {
+                NotifyPropertyChanged(nameof(NativeVolume));
+                NotifyPropertyChanged(nameof(Volume));
+                NotifyPropertyChanged(nameof(Muted));
+            };
+            NotificationClient.StateChanged += (s, e) =>
+            {
+                StateChanged?.Invoke(s, e);
+                NotifyPropertyChanged(nameof(State));
+            };
+            NotificationClient.DisplayNameChanged += (s, e) => NotifyPropertyChanged(nameof(DisplayName));
+            NotificationClient.GroupingParamChanged += (s, e) => NotifyPropertyChanged(nameof(GroupingParam));
         }
 
         #region Fields
@@ -101,6 +120,29 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
             }
         }
+        /// <summary><see href="https://docs.microsoft.com/en-us/windows/win32/coreaudio/grouping-parameters"/></summary>
+        /// <remarks>This isn't used by volume control.</remarks>
+        public Guid GroupingParam
+        {
+            get => _controller.GetGroupingParam();
+            set
+            {
+                NotifyPropertyChanging();
+                _controller.SetGroupingParam(value, Guid.NewGuid());
+                NotifyPropertyChanged();
+            }
+        }
+        /// <summary>Session display name.</summary>
+        public string DisplayName
+        {
+            get => _controller.DisplayName;
+            set
+            {
+                NotifyPropertyChanging();
+                _controller.DisplayName = value;
+                NotifyPropertyChanged();
+            }
+        }
         /// <inheritdoc/>
         public string ProcessName { get; }
         /// <inheritdoc/>
@@ -133,9 +175,17 @@ namespace VolumeControl.Audio
                 }
             }
         }
+        /// <summary>
+        /// The windows API notification client for this audio session.
+        /// </summary>
+        public SessionNotificationClient NotificationClient { get; }
         #endregion Properties
 
         #region Events
+        /// <summary>Triggered when the audio session's state was changed.</summary>
+        public event EventHandler? StateChanged;
+        /// <summary>Triggered when the audio session is disconnected / about to be disposed of.</summary>
+        public event EventHandler? Disconnected;
         /// <summary>Triggered after one of this instance's properties have been set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>Triggered before one of this instance's properties is being set.</summary>
@@ -174,6 +224,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public void Dispose()
         {
+            _controller.UnRegisterEventClient(NotificationClient);
             _controller.Dispose();
             GC.SuppressFinalize(this);
         }

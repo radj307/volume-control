@@ -6,6 +6,7 @@ using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 using VolumeControl.TypeExtensions;
+using System;
 
 namespace VolumeControl.Audio
 {
@@ -57,6 +58,57 @@ namespace VolumeControl.Audio
                 Enabled = Settings.ReloadOnInterval,
             };
             ReloadTimer.Tick += Handle_ReloadTimerTick!;
+
+            // Add device event handlers
+            DeviceNotificationClient = new();
+            var enumerator = new MMDeviceEnumerator();
+            enumerator.RegisterEndpointNotificationCallback(DeviceNotificationClient);
+            enumerator.Dispose();
+            DeviceNotificationClient.DefaultDeviceChanged += (s, e) =>
+            {
+                if (e.Role.Equals(Role.Multimedia)) //< multimedia devices only
+                {
+                    switch (e.DataFlow)
+                    {
+                    case DataFlow.All:
+                        Log.Warning($"{nameof(DeviceNotificationClient.DefaultDeviceChanged)} event was fired with unexpected arguments! ('{nameof(e.DataFlow)}' is '{e.DataFlow:G}')");
+                        break;
+                    case DataFlow.Render: // Output
+                        _defaultDevice = null;
+                        break;
+                    case DataFlow.Capture: // Input
+                    default: break;
+                    }
+                }
+            };
+            DeviceNotificationClient.DeviceAdded += (s, e) => ReloadDeviceList();
+            DeviceNotificationClient.DeviceRemoved += (s, e) =>
+            {
+                if (FindDeviceWithID(e.DeviceID) is AudioDevice dev)
+                {
+                    dev.ForwardRemoved(s, e);
+                    dev.Dispose();
+                }
+                ReloadDeviceList();
+            };
+            // Forward state change events to the relevant device
+            DeviceNotificationClient.DeviceStateChanged += (s, e) =>
+            {
+                if (FindDeviceWithID(e.DeviceID) is AudioDevice dev)
+                {
+                    dev.ForwardStateChanged(s, e); //< notify the device that its state has changed.
+                    if (!e.State.Equals(DeviceState.Active))
+                        ReloadDeviceList();
+                }
+            };
+            // Forward property change events to the relevant device
+            DeviceNotificationClient.DevicePropertyValueChanged += (s, e) =>
+            {
+                if (FindDeviceWithID(e.DeviceID) is AudioDevice dev)
+                {
+                    dev.NotifyPropertyChanged(nameof(dev.Properties));
+                }
+            };
         }
         private void SaveSettings()
         {
@@ -101,6 +153,9 @@ namespace VolumeControl.Audio
         #region Properties
         private static AudioAPISettings Settings => AudioAPISettings.Default;
         private static LogWriter Log => FLog.Log;
+        /// <summary>The current default audio device.<br/>Do not store references to this object within objects whose lifetime may outlast it.</summary>
+        public AudioDevice DefaultDevice => _defaultDevice ??= GetDefaultDevice();
+        private AudioDevice? _defaultDevice = null;
         /// <summary>
         /// The minimum allowable automatic reload interval, in milliseconds.
         /// </summary>
@@ -161,11 +216,11 @@ namespace VolumeControl.Audio
         /// <remarks><see cref="LockSelectedDevice"/> must be false in order to change this.</remarks>
         public IDevice? SelectedDevice
         {
-            get => CheckAllDevices ? GetDefaultDevice() : _selectedDevice;
+            get => CheckAllDevices ? DefaultDevice : _selectedDevice;
             set
             {
-                if (LockSelectedDevice)
-                    return;
+                if (LockSelectedDevice || (value?.DeviceID.Equals(SelectedDevice?.DeviceID, StringComparison.Ordinal) ?? false))
+                    return; // don't do anything if locked or we aren't actually changing the value
 
                 NotifyPropertyChanging();
 
@@ -293,12 +348,16 @@ namespace VolumeControl.Audio
             get => _volumeStepSize;
             set
             {
+                NotifyPropertyChanging();
                 _volumeStepSize = value;
                 NotifyPropertyChanged();
 
                 Log.Info($"Volume step set to {_volumeStepSize}");
             }
         }
+        /// <inheritdoc cref="DeviceNotificationClient"/>
+        /// <remarks>This forwards events directly from the core audio api.</remarks>
+        public DeviceNotificationClient DeviceNotificationClient { get; } 
         #endregion Properties
 
         #region Events
@@ -449,7 +508,7 @@ namespace VolumeControl.Audio
         }
         /// <summary>Gets a device from <see cref="Devices"/> using the given <paramref name="predicate"/> function.</summary>
         /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> types.</param>
-        /// <returns><see cref="IDevice"/> if successful, or null if no matching devices were found.</returns>
+        /// <returns><see cref="IDevice"/> if successful, or <see langword="null"/> if no matching devices were found.</returns>
         public IDevice? FindDevice(Predicate<AudioDevice> predicate)
         {
             foreach (AudioDevice? device in Devices)
@@ -460,6 +519,11 @@ namespace VolumeControl.Audio
 
             return null;
         }
+        /// <summary>Calls the <see cref="FindDevice(Predicate{AudioDevice})"/> method with a lambda that compares the <see cref="AudioDevice.DeviceID"/> property.</summary>
+        /// <param name="deviceID">The device id string of the target audio device.</param>
+        /// <param name="sCompareType">The string comparison type to use.</param>
+        /// <returns><see cref="IDevice"/> if successful, or <see langword="null"/> if no matching devices were found.</returns>
+        public IDevice? FindDeviceWithID(string deviceID, StringComparison sCompareType = StringComparison.Ordinal) => FindDevice(dev => dev.DeviceID.Equals(deviceID, sCompareType));
         #endregion Device
 
         #region ReloadSessions
@@ -1019,6 +1083,10 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public void Dispose()
         {
+            var enumerator = new MMDeviceEnumerator();
+            enumerator.UnregisterEndpointNotificationCallback(DeviceNotificationClient);
+            enumerator.Dispose();
+
             SaveSettings();
             ReloadTimer.Dispose();
             ReloadOnHotkeyTimer.Dispose();

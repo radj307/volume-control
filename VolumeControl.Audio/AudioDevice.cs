@@ -1,7 +1,9 @@
 ﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.TypeExtensions;
 
@@ -144,6 +146,14 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
+        public event EventHandler? Removed;
+        internal void ForwardRemoved(object? sender, EventArgs e) => Removed?.Invoke(sender, e);
+
+        /// <summary>Triggered when the <see cref="State"/> property is changed.</summary>
+        /// <remarks>This event is routed from the windows API.</remarks>
+        public event DeviceStateChangedEventHandler? StateChanged;
+        internal void ForwardStateChanged(object? sender, DeviceStateChangedEventArgs e) => StateChanged?.Invoke(sender, e);
+
         /// <summary>
         /// Triggered when the endpoint volume changes from any source.
         /// </summary>
@@ -154,7 +164,7 @@ namespace VolumeControl.Audio
         }
         /// <summary>Triggered when a property is set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        internal void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
         #region Methods
