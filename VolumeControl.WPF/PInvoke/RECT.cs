@@ -18,7 +18,7 @@ namespace VolumeControl.WPF
         public int bottom;
 
         /// <summary> Win32 </summary>
-        public static readonly RECT Empty = new RECT();
+        public static readonly RECT Empty = new();
 
         /// <summary> Win32 </summary>
         public int Width => Math.Abs(right - left);
@@ -55,9 +55,9 @@ namespace VolumeControl.WPF
         }
 
         /// <summary> Determine if 2 RECT are equal (deep compare) </summary>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (!(obj is Rect)) return false; return this == (RECT)obj;
+            if (obj is not Rect) return false; return this == (RECT)obj;
         }
 
         /// <summary>Return the HashCode for this struct (not garanteed to be unique)</summary>

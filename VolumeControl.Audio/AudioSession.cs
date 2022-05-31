@@ -35,7 +35,14 @@ namespace VolumeControl.Audio
 
             _controller.RegisterEventClient(NotificationClient = new());
 
-            NotificationClient.IconPathChanged += (s, e) => _icons = null;
+            NotificationClient.IconPathChanged += (s, e) =>
+            {
+                _icons = null;
+                NotifyPropertyChanged(nameof(IconPath));
+                NotifyPropertyChanged(nameof(SmallIcon));
+                NotifyPropertyChanged(nameof(LargeIcon));
+                NotifyPropertyChanged(nameof(Icon));
+            };
             NotificationClient.Disconnected += (s, e) => Disconnected?.Invoke(s, e);
             NotificationClient.VolumeChanged += (s, e) =>
             {
@@ -43,11 +50,7 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged(nameof(Volume));
                 NotifyPropertyChanged(nameof(Muted));
             };
-            NotificationClient.StateChanged += (s, e) =>
-            {
-                StateChanged?.Invoke(s, e);
-                NotifyPropertyChanged(nameof(State));
-            };
+            NotificationClient.StateChanged += (s, e) => NotifyPropertyChanged(nameof(State));
             NotificationClient.DisplayNameChanged += (s, e) => NotifyPropertyChanged(nameof(DisplayName));
             NotificationClient.GroupingParamChanged += (s, e) => NotifyPropertyChanged(nameof(GroupingParam));
         }
@@ -157,21 +160,16 @@ namespace VolumeControl.Audio
         {
             get
             {
-                if (GetProcess() is not Process proc)
-                {
+                if (!State.Equals(AudioSessionState.AudioSessionStateActive) || GetProcess() is not Process proc)
                     return false;
-                }
-                else
+                try
                 {
-                    try
-                    {
-                        return !proc.HasExited();
-                    }
-                    catch (Exception ex)
-                    {
-                        FLog.Log.Error(ex);
-                        return true;
-                    }
+                    return !proc.HasExited();
+                }
+                catch (Exception ex)
+                {
+                    FLog.Log.Error(ex);
+                    return true;
                 }
             }
         }
@@ -182,8 +180,6 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
-        /// <summary>Triggered when the audio session's state was changed.</summary>
-        public event EventHandler? StateChanged;
         /// <summary>Triggered when the audio session is disconnected / about to be disposed of.</summary>
         public event EventHandler? Disconnected;
         /// <summary>Triggered after one of this instance's properties have been set.</summary>

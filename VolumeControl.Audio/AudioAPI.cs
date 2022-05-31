@@ -81,7 +81,11 @@ namespace VolumeControl.Audio
                     }
                 }
             };
-            DeviceNotificationClient.DeviceAdded += (s, e) => ReloadDeviceList();
+            DeviceNotificationClient.DeviceAdded += (s, e) =>
+            {
+                ReloadDeviceList();
+            };
+
             DeviceNotificationClient.DeviceRemoved += (s, e) =>
             {
                 if (FindDeviceWithID(e.DeviceID) is AudioDevice dev)
@@ -95,11 +99,8 @@ namespace VolumeControl.Audio
             DeviceNotificationClient.DeviceStateChanged += (s, e) =>
             {
                 if (FindDeviceWithID(e.DeviceID) is AudioDevice dev)
-                {
                     dev.ForwardStateChanged(s, e); //< notify the device that its state has changed.
-                    if (!e.State.Equals(DeviceState.Active))
-                        ReloadDeviceList();
-                }
+                ReloadDeviceList();
             };
             // Forward property change events to the relevant device
             DeviceNotificationClient.DevicePropertyValueChanged += (s, e) =>
@@ -357,7 +358,7 @@ namespace VolumeControl.Audio
         }
         /// <inheritdoc cref="DeviceNotificationClient"/>
         /// <remarks>This forwards events directly from the core audio api.</remarks>
-        public DeviceNotificationClient DeviceNotificationClient { get; } 
+        internal DeviceNotificationClient DeviceNotificationClient { get; private set; }
         #endregion Properties
 
         #region Events
@@ -557,7 +558,7 @@ namespace VolumeControl.Audio
             for (int i = Sessions.Count - 1; i >= 0; --i)
             {
                 AudioSession session = Sessions[i];
-                if (!session.IsRunning || session.State.HasFlag(NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateExpired) || !sessions.Any(s => s.PID.Equals(session.PID)))
+                if (!session.IsRunning || !sessions.Any(s => s.PID.Equals(session.PID)))
                     Sessions.RemoveAt(i);
             }
 
@@ -1086,6 +1087,7 @@ namespace VolumeControl.Audio
             var enumerator = new MMDeviceEnumerator();
             enumerator.UnregisterEndpointNotificationCallback(DeviceNotificationClient);
             enumerator.Dispose();
+            DeviceNotificationClient = null!;
 
             SaveSettings();
             ReloadTimer.Dispose();

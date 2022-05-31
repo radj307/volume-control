@@ -69,7 +69,6 @@ namespace VolumeControl.Audio.Events
         #region DeviceEvents
         /// <summary>
         /// Triggered when any default device is changed regardless of its <see cref="Role"/> or <see cref="DataFlow"/>.<br/>
-        /// This event is not fired because of the <see cref="DefaultDevice"/> property, but it is used to update it; <b>not to notify clients of it being changed.</b>
         /// </summary>
         /// <remarks>This event is routed from the windows API.</remarks>
         public event DefaultDeviceChangedEventHandler? DefaultDeviceChanged;

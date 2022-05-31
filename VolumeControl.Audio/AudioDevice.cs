@@ -28,6 +28,7 @@ namespace VolumeControl.Audio
         {
             _device = device;
             _deviceID = _device.ID;
+            
         }
         #endregion Constructors
 
@@ -146,6 +147,13 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
+        /// <summary><see cref="AudioSessionManager.OnSessionCreated"/></summary>
+        public event AudioSessionManager.SessionCreatedDelegate SessionCreated
+        {
+            add => _device.AudioSessionManager.OnSessionCreated += value;
+            remove => _device.AudioSessionManager.OnSessionCreated -= value;
+        }
+        /// <summary>Audio device was removed.</summary>
         public event EventHandler? Removed;
         internal void ForwardRemoved(object? sender, EventArgs e) => Removed?.Invoke(sender, e);
 
