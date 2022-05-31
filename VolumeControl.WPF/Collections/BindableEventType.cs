@@ -150,7 +150,7 @@ namespace VolumeControl.WPF.Collections
             foreach (EventType e in (EventType[])Enum.GetValues(typeof(EventType)))
             {
                 int eval = (int)e;
-                if (eval != 0 && eval % 2 == 0)
+                if (eval == 1 || eval != 0 && eval % 2 == 0)
                 {
                     double exponent = Math.Log2(eval);
                     if (exponent.EqualsWithin((int)exponent))
