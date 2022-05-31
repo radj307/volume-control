@@ -72,10 +72,6 @@
             <SolidColorBrush x:Key="GridRowAltBrush">#555</SolidColorBrush>
             <SolidColorBrush x:Key="GridHorizontalLineBrush">#222</SolidColorBrush>
 
-            <!--  Scroll Bar Colors  -->
-            <SolidColorBrush x:Key="ScrollBarBackgroundBrush">#0000</SolidColorBrush>
-            <SolidColorBrush x:Key="ScrollBarForegroundBrush" Color="{Binding Color, Source={StaticResource TextBoxForeground}}" />
-
             <!--
             <LinearGradientBrush x:Key="AccentGradient" StartPoint="0.05,0" EndPoint="0.95,1">
                 <GradientStop Offset="0" Color="#DD00C46A" />
@@ -126,7 +122,6 @@
             <Color x:Key="GrayForegroundColor">#B0B0B0</Color>
             <Color x:Key="GrayForegroundFocusedColor">#909090</Color>
 
-
             <!--  Scrollbars  -->
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Style.Triggers>
@@ -134,8 +129,10 @@
                         <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
                     </DataTrigger>
                 </Style.Triggers>
-                <Setter Property="Background" Value="{StaticResource ScrollBarBackgroundBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource ScrollBarForegroundBrush}" />
+                <Setter Property="LargeChange" Value="4" />
+                <Setter Property="SmallChange" Value="1" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
             <!--  CheckBox  -->
@@ -152,7 +149,7 @@
                     <conv:BoolToThicknessConverter x:Key="ThreeStateConverter" />
                     <conv:BoolToCheckVisibleConverter x:Key="ThreeStateVisibilityConverter" />
                 </Style.Resources>
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -477,16 +474,15 @@
                                             SnapsToDevicePixels="True">
                                             <Border
                                                 x:Name="DropDownBorder"
+                                                Padding="5"
                                                 Background="{StaticResource TextBoxBackground}"
                                                 BorderBrush="{StaticResource BorderBrush}"
                                                 BorderThickness="0"
-                                                CornerRadius="10" />
-                                            <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                                <VirtualizingStackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
-                                                <ScrollViewer.OpacityMask>
-                                                    <VisualBrush Visual="{Binding ElementName=DropDownBorder}" />
-                                                </ScrollViewer.OpacityMask>
-                                            </ScrollViewer>
+                                                CornerRadius="10">
+                                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                    <VirtualizingStackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                                </ScrollViewer>
+                                            </Border>
                                         </Grid>
                                     </Popup>
                                 </Grid>
@@ -710,7 +706,6 @@
                 Style="{StaticResource TabControlStyle}">
                 <!--  TAB CONTROL APPEARANCE:  -->
                 <TabControl.Resources>
-                    <conv:SquaredCornerRadiusConverter x:Key="TabItemSquaredCornerRadiusConverter" Squared="Bottom" />
                     <!--  Tab Item Appearance  -->
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -718,14 +713,10 @@
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid>
                                         <Border
-                                            Name="TabItemCornerRadiusBindingSource"
-                                            BorderThickness="0"
-                                            CornerRadius="{StaticResource RoundedControlCorner}" />
-                                        <Border
                                             Name="Border"
                                             Margin="1,0"
                                             BorderThickness="0"
-                                            CornerRadius="{Binding CornerRadius, ElementName=TabItemCornerRadiusBindingSource, Converter={StaticResource TabItemSquaredCornerRadiusConverter}}">
+                                            CornerRadius="{Binding Source={StaticResource RoundedControlCorner}, Converter={StaticResource SquaredCornerRadiusConverter}, ConverterParameter={x:Static conv:Corner.Bottom}}">
                                             <ContentPresenter
                                                 x:Name="ContentSite"
                                                 Margin="10,2"
@@ -1017,8 +1008,7 @@
                                     CanUserSortColumns="False"
                                     DataContext="{StaticResource Settings}"
                                     ItemsSource="{Binding HotkeyAPI.Hotkeys, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource DataGridStyle}"
-                                    >
+                                    Style="{StaticResource DataGridStyle}">
                                     <DataGrid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
                                     </DataGrid.OpacityMask>
