@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['path_1277',['Path',['../class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a',1,'VolumeControl::Log::Endpoints::FileEndpoint']]],
-  ['pid_1278',['PID',['../class_volume_control_1_1_audio_1_1_audio_session.html#a569d4fb917a60bc03f8861e8f9cb0fc7',1,'VolumeControl.Audio.AudioSession.PID()'],['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a91dbdafc9d79e361e177c684ff1fb6e1',1,'VolumeControl.Audio.Interfaces.IProcess.PID()']]],
-  ['pressed_1279',['Pressed',['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a4c152f785c2294371913e679fd3f5c33',1,'VolumeControl::Hotkeys::BindableWindowsHotkey']]],
-  ['processidentifier_1280',['ProcessIdentifier',['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#afb40cfc9b042c8ad56c089a24ff7acc0',1,'VolumeControl::Audio::Interfaces::IProcess']]],
-  ['processname_1281',['ProcessName',['../class_volume_control_1_1_audio_1_1_audio_session.html#a30cfd4a7b3a77615294787e6c3cb2c35',1,'VolumeControl.Audio.AudioSession.ProcessName()'],['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a0a9dfc7fcf79b174718023d850314825',1,'VolumeControl.Audio.Interfaces.IProcess.ProcessName()']]]
+  ['onvolumenotification_1317',['OnVolumeNotification',['../class_volume_control_1_1_audio_1_1_audio_device.html#aee2e190338606df228eb1e3dd24b1428',1,'VolumeControl::Audio::AudioDevice']]],
+  ['options_1318',['Options',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#aeb4865a4449d1cea48c796286a7340cf',1,'VolumeControl::WPF::Collections::BindableEventType']]],
+  ['outgoing_1319',['Outgoing',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a3439bff8cbcb7f3a15e78e09c23d74f9',1,'VolumeControl::Audio::Events::TargetChangingEventArgs']]]
 ];

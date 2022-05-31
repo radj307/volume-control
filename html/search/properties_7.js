@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['incoming_1248',['Incoming',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a42f035df7d613f82200fde5c46355003',1,'VolumeControl::Audio::Events::TargetChangingEventArgs']]],
-  ['interpolatename_1249',['InterpolateName',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a7f023f84dff110703326734fe836e085',1,'VolumeControl::Hotkeys::Attributes::HotkeyActionAttribute']]],
-  ['isrunning_1250',['IsRunning',['../class_volume_control_1_1_audio_1_1_audio_session.html#a51d7fa029652f8b3bc08a502f5b540e9',1,'VolumeControl::Audio::AudioSession']]],
-  ['isset_1251',['IsSet',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html#abaaa8b3468793d315dcb34e3bc405e75',1,'VolumeControl::WPF::Collections::BindableEventType::BindableEventTypeFlag']]]
+  ['hotkey_1287',['Hotkey',['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a0bf0ea90eeb7f3441448cab8461a04dc',1,'VolumeControl::Hotkeys::BindableWindowsHotkey']]],
+  ['hotkeymanager_1288',['HotkeyManager',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#aa708dfb1824e840a56dcdd596683bacc',1,'VolumeControl::API::VCAPI']]],
+  ['hotkeys_1289',['Hotkeys',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a572ad221030bdfab13d9fc09835b25d2',1,'VolumeControl::Hotkeys::HotkeyManager']]]
 ];

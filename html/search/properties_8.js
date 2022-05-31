@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['key_1252',['Key',['../interface_hotkey_lib_1_1_i_key_combo.html#af5183f57558c2f7cf69d24ed92931655',1,'HotkeyLib.IKeyCombo.Key()'],['../struct_hotkey_lib_1_1_key_combo.html#a87d270ee53e020c6b88fe2face14ab94',1,'HotkeyLib.KeyCombo.Key()'],['../class_hotkey_lib_1_1_windows_hotkey.html#a9c746b7c5be2ef5bdb99c3b9e9b7a8d2',1,'HotkeyLib.WindowsHotkey.Key()'],['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a80300dccd10045e6e548ad722e9fdcbb',1,'VolumeControl.Hotkeys.BindableWindowsHotkey.Key()']]],
-  ['keys_1253',['Keys',['../class_hotkey_lib_1_1_keys_list.html#a12e627e01e28581956e860301350b9f3',1,'HotkeyLib::KeysList']]],
-  ['keyschanged_1254',['KeysChanged',['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#aed3798e3ed9073a98320da11a1d974a0',1,'VolumeControl::Hotkeys::BindableWindowsHotkey']]]
+  ['incoming_1290',['Incoming',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a42f035df7d613f82200fde5c46355003',1,'VolumeControl::Audio::Events::TargetChangingEventArgs']]],
+  ['interpolatename_1291',['InterpolateName',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a7f023f84dff110703326734fe836e085',1,'VolumeControl::Hotkeys::Attributes::HotkeyActionAttribute']]],
+  ['isrunning_1292',['IsRunning',['../class_volume_control_1_1_audio_1_1_audio_session.html#a51d7fa029652f8b3bc08a502f5b540e9',1,'VolumeControl::Audio::AudioSession']]],
+  ['isset_1293',['IsSet',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html#abaaa8b3468793d315dcb34e3bc405e75',1,'VolumeControl::WPF::Collections::BindableEventType::BindableEventTypeFlag']]]
 ];

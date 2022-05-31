@@ -1,0 +1,5 @@
+<map id="VolumeControl.Audio.Events.DeviceStateChangedEventArgs" name="VolumeControl.Audio.Events.DeviceStateChangedEventArgs">
+<area shape="rect" id="node1" title="Event arguments for events related to device state change events." alt="" coords="24,256,248,348"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_events_1_1_device_added_removed_event_args.html" title="Event arguments for events related to the addition or removal of audio devices." alt="" coords="5,131,267,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="92,5,180,83"/>
+</map>

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['targetchangedeventargs_700',['TargetChangedEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args.html',1,'VolumeControl::Audio::Events']]],
-  ['targetchangingeventargs_701',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
-  ['timerextensions_702',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['timestamp_703',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]]
+  ['realnumberextensions_724',['RealNumberExtensions',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['rect_725',['RECT',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html',1,'VolumeControl::WPF']]]
 ];

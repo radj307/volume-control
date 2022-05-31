@@ -3,5 +3,5 @@
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="15,300,247,421"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
 <area shape="rect" id="node3" title=" " alt="" coords="124,5,299,83"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="31,469,231,796"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="31,469,231,840"/>
 </map>

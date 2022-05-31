@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['point_692',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_o_i_n_t.html',1,'VolumeControl::WPF']]],
-  ['processextensions_693',['ProcessExtensions',['../class_volume_control_1_1_type_extensions_1_1_process_extensions.html',1,'VolumeControl::TypeExtensions']]]
+  ['nullableboolextensions_718',['NullableBoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['nulltobooleanconverter_719',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['numericupdown_720',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
 ];
