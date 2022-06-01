@@ -7,9 +7,21 @@ using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
 using VolumeControl.TypeExtensions;
 using System;
+using NAudio.CoreAudioApi.Interfaces;
+using System.Windows;
+using ObservableImmutable;
 
 namespace VolumeControl.Audio
 {
+    public class AudioSessionNotification : IAudioSessionNotification
+    {
+        public event EventHandler<IAudioSessionControl>? SessionCreated;
+        public int OnSessionCreated(IAudioSessionControl newSession)
+        {
+            SessionCreated?.Invoke(this, newSession);
+            return 0;
+        }
+    }
     /// <summary>
     /// Contains methods related to audio devices, sessions, and the underlying selection mechanics responsible for providing context to actions.<br/>
     /// You can use this object to manipulate any audio session on the system.
@@ -206,11 +218,11 @@ namespace VolumeControl.Audio
         /// <summary>
         /// An observable list of all known audio devices.
         /// </summary>
-        public ObservableList<AudioDevice> Devices { get; } = new();
+        public ObservableImmutableList<AudioDevice> Devices { get; } = new();
         /// <summary>
         /// An observable list of all known audio sessions.
         /// </summary>
-        public ObservableList<AudioSession> Sessions { get; } = new();
+        public ObservableImmutableList<AudioSession> Sessions { get; } = new();
         /// <summary>
         /// The currently selected <see cref="AudioDevice"/>, or null if nothing is selected.
         /// </summary>
@@ -489,19 +501,22 @@ namespace VolumeControl.Audio
                 if (dev.DeviceID.Equals(defaultDevID, StringComparison.Ordinal))
                     return dev;
             }
-
-            return new AudioDevice(defaultDev);
+            var dDev = new AudioDevice(defaultDev);
+            dDev.SessionManager.OnSessionCreated += HandleSessionCreated;
+            return dDev;
         }
         /// <summary>Enumerates audio endpoints using the Core Audio API to get a list of all devices with the specified modes.</summary>
         /// <returns>A list of devices that are currently active.</returns>
-        private static List<AudioDevice> GetAllDevices(DataFlow flow = DataFlow.Render, DeviceState state = DeviceState.Active)
+        private List<AudioDevice> GetAllDevices(DataFlow flow = DataFlow.Render, DeviceState state = DeviceState.Active)
         {
             List<AudioDevice> devices = new();
 
             MMDeviceEnumerator enumerator = new();
             foreach (MMDevice endpoint in enumerator.EnumerateAudioEndPoints(flow, state))
             {
-                devices.Add(new AudioDevice(endpoint));
+                var dev = new AudioDevice(endpoint);
+                dev.SessionManager.OnSessionCreated += HandleSessionCreated;
+                devices.Add(dev);
             }
             enumerator.Dispose();
 
@@ -528,6 +543,26 @@ namespace VolumeControl.Audio
         #endregion Device
 
         #region ReloadSessions
+        private void HandleSessionCreated(object? _, IAudioSessionControl _1) => ReloadSessionList();
+        private void HandleSessionStateChanged(object? sender, GenericReadOnlyEventArgs<AudioSessionState> e)
+        {
+            if (sender is AudioSession session)
+            {
+                switch (e.Data)
+                {
+                case AudioSessionState.AudioSessionStateExpired:
+                case AudioSessionState.AudioSessionStateInactive:
+                    if (!session.IsRunning)
+                        Sessions.Remove(session);
+                    break;
+                case AudioSessionState.AudioSessionStateActive:
+                    ReloadSessionList();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
         /// <summary>
         /// Performs a selective update on the <see cref="Sessions"/> list property by removing old/exited entries and adding new/started entries.
         /// </summary>
@@ -562,8 +597,11 @@ namespace VolumeControl.Audio
                     Sessions.RemoveAt(i);
             }
 
-            // add all sessions that aren't already in the current list
-            Sessions.AddRange(sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))));
+            foreach (var s in sessions.Where(s => !Sessions.Any(session => session.PID.Equals(s.PID))))
+            {
+                s.StateChanged += HandleSessionStateChanged;
+                Sessions.Add(s);
+            }
 
             if (!LockSelectedSession && selPID != null)
                 SelectedSession = Sessions.FirstOrDefault(s => s.PID.Equals(selPID));

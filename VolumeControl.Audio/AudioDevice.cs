@@ -6,6 +6,7 @@ using System.Windows.Media;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
 
 namespace VolumeControl.Audio
 {
@@ -19,7 +20,7 @@ namespace VolumeControl.Audio
     /// </list>
     /// Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
     /// </remarks>
-    public sealed class AudioDevice : IDevice, INotifyPropertyChanged, IDisposable
+    public sealed class AudioDevice : IDevice, INotifyPropertyChanged, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>
     {
         #region Constructors
         /// <inheritdoc cref="AudioDevice"/>
@@ -28,7 +29,6 @@ namespace VolumeControl.Audio
         {
             _device = device;
             _deviceID = _device.ID;
-            
         }
         #endregion Constructors
 
@@ -147,12 +147,6 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
-        /// <summary><see cref="AudioSessionManager.OnSessionCreated"/></summary>
-        public event AudioSessionManager.SessionCreatedDelegate SessionCreated
-        {
-            add => _device.AudioSessionManager.OnSessionCreated += value;
-            remove => _device.AudioSessionManager.OnSessionCreated -= value;
-        }
         /// <summary>Audio device was removed.</summary>
         public event EventHandler? Removed;
         internal void ForwardRemoved(object? sender, EventArgs e) => Removed?.Invoke(sender, e);
@@ -195,7 +189,9 @@ namespace VolumeControl.Audio
             List<AudioSession> l = new();
             for (int i = 0; i < sessions.Count; ++i)
             {
-                l.Add(new AudioSession(sessions[i]));
+                var s = new AudioSession(sessions[i]);
+                if (s.IsRunning)
+                    l.Add(s);
             }
             return l;
         }
@@ -206,6 +202,10 @@ namespace VolumeControl.Audio
             _icons = null;
             GC.SuppressFinalize(this);
         }
+        /// <inheritdoc/>
+        public bool Equals(AudioDevice? other) => other is not null && other.DeviceID.Equals(DeviceID, StringComparison.Ordinal);
+        /// <inheritdoc/>
+        public bool Equals(IDevice? other) => other is not null && other.DeviceID.Equals(DeviceID, StringComparison.Ordinal);
         #endregion Methods
     }
 }

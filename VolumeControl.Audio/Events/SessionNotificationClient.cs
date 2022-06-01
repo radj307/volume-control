@@ -24,7 +24,7 @@ namespace VolumeControl.Audio.Events
         public event GenericReadOnlyEventHandler<string>? IconPathChanged;
         public void OnIconPathChanged(string iconPath) => IconPathChanged?.Invoke(this, new(iconPath));
 
-
+        /// <summary>Triggered when ???</summary>
         public event GenericReadOnlyEventHandler<AudioSessionDisconnectReason>? Disconnected;
         public void OnSessionDisconnected(AudioSessionDisconnectReason disconnectReason) => Disconnected?.Invoke(this, new(disconnectReason));
 

@@ -1004,6 +1004,8 @@
                                     x:Name="HotkeyGrid"
                                     AutoGenerateColumns="False"
                                     BorderThickness="0"
+                                    CanUserAddRows="True"
+                                    CanUserDeleteRows="True"
                                     CanUserReorderColumns="False"
                                     CanUserSortColumns="False"
                                     DataContext="{StaticResource Settings}"

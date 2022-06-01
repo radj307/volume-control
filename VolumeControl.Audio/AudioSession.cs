@@ -8,12 +8,13 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
 
 namespace VolumeControl.Audio
 {
     /// <summary>Represents an audio session playing on the system.</summary>
     /// <remarks>Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.</remarks>
-    public sealed class AudioSession : ISession, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable
+    public sealed class AudioSession : ISession, INotifyPropertyChanged, INotifyPropertyChanging, IDisposable, IEquatable<AudioSession>, IEquatable<ISession>
     {
         /// <inheritdoc cref="AudioSession"/>
         /// <param name="controller">The underlying session controller instance to create this audio session object for.<br/>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</param>
@@ -43,16 +44,25 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged(nameof(LargeIcon));
                 NotifyPropertyChanged(nameof(Icon));
             };
-            NotificationClient.Disconnected += (s, e) => Disconnected?.Invoke(s, e);
+            NotificationClient.Disconnected += (s, e) =>
+            {
+                Disconnected?.Invoke(this, new(e.Data));
+            };
             NotificationClient.VolumeChanged += (s, e) =>
             {
                 NotifyPropertyChanged(nameof(NativeVolume));
                 NotifyPropertyChanged(nameof(Volume));
                 NotifyPropertyChanged(nameof(Muted));
             };
-            NotificationClient.StateChanged += (s, e) => NotifyPropertyChanged(nameof(State));
-            NotificationClient.DisplayNameChanged += (s, e) => NotifyPropertyChanged(nameof(DisplayName));
-            NotificationClient.GroupingParamChanged += (s, e) => NotifyPropertyChanged(nameof(GroupingParam));
+            NotificationClient.DisplayNameChanged += (s, e) =>
+            {
+                NotifyPropertyChanged(nameof(DisplayName));
+            };
+            NotificationClient.GroupingParamChanged += (s, e) =>
+            {
+                NotifyPropertyChanged(nameof(GroupingParam));
+            };
+            NotificationClient.StateChanged += NotifyStateChanged;
         }
 
         #region Fields
@@ -151,7 +161,8 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public long PID { get; }
         /// <inheritdoc/>
-        public string ProcessIdentifier => PID != -1L ? $"{PID}:{ProcessName}" : string.Empty;
+        public string ProcessIdentifier => _processIdentifier ??= PID != -1L ? $"{PID}:{ProcessName}" : string.Empty;
+        private string? _processIdentifier = null;
         /// <summary>
         /// Checks if the process that owns this session is still running.
         /// </summary>
@@ -160,7 +171,7 @@ namespace VolumeControl.Audio
         {
             get
             {
-                if (!State.Equals(AudioSessionState.AudioSessionStateActive) || GetProcess() is not Process proc)
+                if (State.Equals(AudioSessionState.AudioSessionStateExpired) || GetProcess() is not Process proc)
                     return false;
                 try
                 {
@@ -177,11 +188,24 @@ namespace VolumeControl.Audio
         /// The windows API notification client for this audio session.
         /// </summary>
         public SessionNotificationClient NotificationClient { get; }
+        /// <summary>
+        /// Checks if the session's state is set to active and the associated process is running.
+        /// </summary>
+        public bool Active => State.Equals(AudioSessionState.AudioSessionStateActive) && IsRunning;
         #endregion Properties
 
         #region Events
-        /// <summary>Triggered when the audio session is disconnected / about to be disposed of.</summary>
-        public event EventHandler? Disconnected;
+        /// <summary>Triggered when the audio session's state changes.</summary>
+        public event GenericReadOnlyEventHandler<AudioSessionState>? StateChanged;
+        private void NotifyStateChanged(object? _, GenericReadOnlyEventArgs<AudioSessionState> e)
+        {
+            NotifyPropertyChanged(nameof(State));
+            StateChanged?.Invoke(this, e);
+            if (State.Equals(AudioSessionState.AudioSessionStateExpired))
+                Disconnected?.Invoke(this, new(AudioSessionDisconnectReason.DisconnectReasonSessionDisconnected));
+        }
+        /// <summary><see cref="SessionNotificationClient.Disconnected"/></summary>
+        public event GenericReadOnlyEventHandler<AudioSessionDisconnectReason>? Disconnected;
         /// <summary>Triggered after one of this instance's properties have been set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>Triggered before one of this instance's properties is being set.</summary>
@@ -256,6 +280,8 @@ namespace VolumeControl.Audio
         }
         /// <inheritdoc/>
         public bool Equals(ISession? other) => other != null && other.PID.Equals(PID);
+        /// <inheritdoc/>
+        public bool Equals(AudioSession? other) => other is not null && other.PID.Equals(PID);
         #endregion Methods
     }
 }
