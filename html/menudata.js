@@ -129,6 +129,7 @@ var menudata={children:[
 {text:"k",url:"functions_evnt.html#index_k"},
 {text:"l",url:"functions_evnt.html#index_l"},
 {text:"p",url:"functions_evnt.html#index_p"},
+{text:"r",url:"functions_evnt.html#index_r"},
 {text:"s",url:"functions_evnt.html#index_s"},
 {text:"t",url:"functions_evnt.html#index_t"},
 {text:"v",url:"functions_evnt.html#index_v"}]}]}]},

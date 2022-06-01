@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,213,39"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_events_1_1_session_notification_client.html" title="Routes windows API audio session events." alt="" coords="261,5,472,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,168,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_events_1_1_device_notification_client.html" title="Core audio event interface." alt="" coords="216,5,427,47"/>
 </map>

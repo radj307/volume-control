@@ -1,3 +1,41 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_volume_control_1_1_core_1_1_compatible_versions.html" title="A range of version numbers that abstracts away the need for direct interaction with the SemVersion ty..." alt="" coords="5,5,236,47"/>
+<area shape="rect" id="node1" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="621,586,813,628"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon." alt="" coords="925,594,1155,620"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="916,645,1164,686"/>
+<area shape="rect" id="node4" title=" " alt="" coords="671,434,762,460"/>
+<area shape="rect" id="node5" href="$class_hotkey_lib_1_1_keys_list.html" title="This is a simple list wrapper that is available as an items source for data bindings." alt="" coords="967,328,1113,355"/>
+<area shape="rect" id="node6" href="$class_observable_immutable_1_1_observable_immutable_list.html" title=" " alt="" coords="917,224,1163,265"/>
+<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html" title="Provides the source for a WPF list component&#39;s ItemsSource property to expose a readable and writable..." alt="" coords="925,380,1155,421"/>
+<area shape="rect" id="node8" title=" " alt="" coords="667,1175,766,1202"/>
+<area shape="rect" id="node9" href="$class_hotkey_lib_1_1_windows_hotkey.html" title="A simple Windows hotkey." alt="" coords="942,843,1138,870"/>
+<area shape="rect" id="node10" href="$class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="929,960,1151,987"/>
+<area shape="rect" id="node11" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint." alt="" coords="940,1308,1140,1349"/>
+<area shape="rect" id="node12" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="940,1222,1140,1264"/>
+<area shape="rect" id="node13" href="$class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html" title="This is a wrapper object around HotkeyLib.WindowsHotkey that is designed for data binding." alt="" coords="922,777,1158,818"/>
+<area shape="rect" id="node14" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html" title="This object is responsible for managing hotkeys at runtime." alt="" coords="927,1050,1153,1092"/>
+<area shape="rect" id="node15" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html" title="A log endpoint that implements IEndpoint and uses a MemoryStream as an endpoint." alt="" coords="931,1486,1149,1528"/>
+<area shape="rect" id="node16" href="$class_volume_control_1_1_log_1_1_log_writer.html" title="Basic log writer object." alt="" coords="934,1394,1146,1420"/>
+<area shape="rect" id="node17" href="$class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html" title="Handles receiving windows event messages." alt="" coords="927,1171,1153,1198"/>
+<area shape="rect" id="node18" href="$interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html" title="Represents an endpoint output target for a log writer, and exposes helper methods for interacting wit..." alt="" coords="608,1626,825,1668"/>
+<area shape="rect" id="node19" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html" title="Allows using the Console as a logging endpoint." alt="" coords="931,1658,1149,1700"/>
+<area shape="rect" id="node20" href="$class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html" title="Log endpoint that allows writing logs directly to a file on disk." alt="" coords="931,1593,1149,1634"/>
+<area shape="rect" id="node21" title=" " alt="" coords="665,231,769,258"/>
+<area shape="rect" id="node22" title=" " alt="" coords="76,1459,167,1486"/>
+<area shape="rect" id="node23" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="285,1393,517,1434"/>
+<area shape="rect" id="node24" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="601,1393,833,1434"/>
+<area shape="rect" id="node25" title=" " alt="" coords="657,63,777,90"/>
+<area shape="rect" id="node26" title=" " alt="" coords="692,282,741,308"/>
+<area shape="rect" id="node27" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="607,1561,826,1602"/>
+<area shape="rect" id="node28" title=" " alt="" coords="308,303,495,330"/>
+<area shape="rect" id="node29" href="$class_observable_immutable_1_1_observable_collection_object.html" title=" " alt="" coords="594,114,839,156"/>
+<area shape="rect" id="node30" title=" " alt="" coords="313,906,490,932"/>
+<area shape="rect" id="node31" href="$interface_hotkey_lib_1_1_i_key_combo.html" title="Represents a combination of one keyboard key and any number of modifier keys." alt="" coords="634,754,799,780"/>
+<area shape="rect" id="node33" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="601,1328,833,1369"/>
+<area shape="rect" id="node34" href="$class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html" title="Responsible for containing the runtime state settings." alt="" coords="935,894,1145,936"/>
+<area shape="rect" id="node35" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type_1_1_bindable_event_type_flag.html" title="This represents a single flag value of the EventType enum." alt="" coords="565,1109,868,1150"/>
+<area shape="rect" id="node32" href="$struct_hotkey_lib_1_1_key_combo.html" title="Represents a combination of one keyboard key and any number of modifier keys." alt="" coords="959,726,1121,752"/>
+<area shape="rect" id="node36" title=" " alt="" coords="626,855,807,882"/>
+<area shape="rect" id="node37" title=" " alt="" coords="639,332,794,359"/>
+<area shape="rect" id="node38" title=" " alt="" coords="661,383,773,410"/>
+<area shape="rect" id="node39" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,1334,237,1376"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="VolumeControl.Audio.Interfaces.ISession" name="VolumeControl.Audio.Interfaces.ISession">
 <area shape="rect" id="node1" title="Represents an audio session." alt="" coords="47,285,279,407"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="63,455,263,825"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system." alt="" coords="63,455,263,899"/>
 <area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="91,131,236,237"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="124,5,299,83"/>

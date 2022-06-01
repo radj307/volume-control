@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#ad7e14233fd303aeae126c771acd1b258" target="_top" xlink:title="Determine if 2 RECT are equal (deep compare)">
+<g id="a_node2"><a xlink:href="struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#ad3ebc84a86ce9ba3aac282fb7ba8b219" target="_top" xlink:title="Determine if 2 RECT are equal (deep compare)">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-19.5 175,-19.5 175,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="87.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.RECT.Equals</text>
 </a>

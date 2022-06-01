@@ -1,10 +1,11 @@
 <map id="VolumeControl.Audio.AudioSession" name="VolumeControl.Audio.AudioSession">
-<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="291,440,491,811"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="140,285,269,392"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="91,131,236,237"/>
+<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="385,440,585,884"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="123,285,252,392"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="36,131,181,237"/>
 <area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
-<area shape="rect" id="node5" title=" " alt="" coords="124,5,299,83"/>
-<area shape="rect" id="node6" title=" " alt="" coords="260,145,437,223"/>
-<area shape="rect" id="node7" title=" " alt="" coords="365,300,546,377"/>
-<area shape="rect" id="node8" title=" " alt="" coords="570,300,669,377"/>
+<area shape="rect" id="node5" title=" " alt="" coords="228,5,403,83"/>
+<area shape="rect" id="node6" title=" " alt="" coords="205,145,383,223"/>
+<area shape="rect" id="node7" title=" " alt="" coords="458,300,639,377"/>
+<area shape="rect" id="node8" title=" " alt="" coords="663,300,762,377"/>
+<area shape="rect" id="node9" title=" " alt="" coords="786,300,994,377"/>
 </map>

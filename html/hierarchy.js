@@ -40,6 +40,9 @@ var hierarchy =
     [ "IAudioSessionEventsHandler", null, [
       [ "VolumeControl.Audio.Events.SessionNotificationClient", "class_volume_control_1_1_audio_1_1_events_1_1_session_notification_client.html", null ]
     ] ],
+    [ "IAudioSessionNotification", null, [
+      [ "VolumeControl.Audio.AudioSessionNotification", "class_volume_control_1_1_audio_1_1_audio_session_notification.html", null ]
+    ] ],
     [ "VolumeControl.Core.IBaseAddon", "interface_volume_control_1_1_core_1_1_i_base_addon.html", [
       [ "VolumeControl.Core.BaseAddon", "class_volume_control_1_1_core_1_1_base_addon.html", null ],
       [ "VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html", null ]
@@ -50,6 +53,8 @@ var hierarchy =
     [ "ICollection", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
@@ -73,19 +78,30 @@ var hierarchy =
     [ "IEnumerable", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
     [ "IEquatable", null, [
+      [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
+      [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
+      [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ],
+      [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ],
       [ "VolumeControl.Audio.Interfaces.IProcess", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html", [
         [ "VolumeControl.Audio.Interfaces.ISession", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html", [
           [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ]
         ] ]
       ] ]
     ] ],
+    [ "IImmutableList", null, [
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ]
+    ] ],
     [ "IList", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
@@ -100,6 +116,10 @@ var hierarchy =
     ] ],
     [ "VolumeControl.API.Internal.Initializer", "class_volume_control_1_1_a_p_i_1_1_internal_1_1_initializer.html", null ],
     [ "INotifyCollectionChanged", null, [
+      [ "ObservableImmutable.ObservableCollectionObject", "class_observable_immutable_1_1_observable_collection_object.html", [
+        [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ]
+      ] ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.Hotkeys.HotkeyManager", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
@@ -110,6 +130,8 @@ var hierarchy =
         [ "VolumeControl.Hotkeys.BindableWindowsHotkey", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html", null ]
       ] ],
       [ "HotkeyLib.WindowsHotkey", "class_hotkey_lib_1_1_windows_hotkey.html", null ],
+      [ "ObservableImmutable.ObservableCollectionObject", "class_observable_immutable_1_1_observable_collection_object.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.Audio.AudioAPI", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html", null ],
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ],
@@ -135,10 +157,12 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", null ],
     [ "IReadOnlyCollection", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
     [ "IReadOnlyList", null, [
       [ "HotkeyLib.KeysList", "class_hotkey_lib_1_1_keys_list.html", null ],
+      [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
     [ "VolumeControl.Audio.Interfaces.ITargetable", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html", [
@@ -183,6 +207,7 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.RECT", "struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.Core.Win32.RegistryAPI.Scope", "struct_volume_control_1_1_core_1_1_win32_1_1_registry_a_p_i_1_1_scope.html", null ],
+    [ "VolumeControl.Audio.SessionListener", "class_volume_control_1_1_audio_1_1_session_listener.html", null ],
     [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "TypeConverter", null, [

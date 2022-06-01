@@ -1,9 +1,11 @@
 <map id="VolumeControl.Audio.AudioAPI" name="VolumeControl.Audio.AudioAPI">
-<area shape="rect" id="node1" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="201,824,422,1253"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,183,83"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint." alt="" coords="139,317,339,761"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="146,132,333,268"/>
-<area shape="rect" id="node3" title=" " alt="" coords="414,501,595,578"/>
-<area shape="rect" id="node4" title=" " alt="" coords="357,161,455,239"/>
-<area shape="rect" id="node7" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="207,5,301,83"/>
+<area shape="rect" id="node1" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib..." alt="" coords="120,883,341,1312"/>
+<area shape="rect" id="node2" title=" " alt="" coords="571,5,748,83"/>
+<area shape="rect" id="node5" href="$class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint." alt="" coords="241,317,441,820"/>
+<area shape="rect" id="node6" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html" title="Represents an audio device." alt="" coords="712,132,898,268"/>
+<area shape="rect" id="node3" title=" " alt="" coords="465,530,646,607"/>
+<area shape="rect" id="node4" title=" " alt="" coords="117,161,216,239"/>
+<area shape="rect" id="node7" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="772,5,867,83"/>
+<area shape="rect" id="node8" title=" " alt="" coords="240,161,442,239"/>
+<area shape="rect" id="node9" title=" " alt="" coords="466,161,637,239"/>
 </map>

@@ -2,7 +2,11 @@ var class_volume_control_1_1_audio_1_1_audio_device =
 [
     [ "AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html#a888c4ca31d7edeb68c6c4624edf6553c", null ],
     [ "Dispose", "class_volume_control_1_1_audio_1_1_audio_device.html#ac833fb1a273429d1aeb6402791ae5575", null ],
+    [ "Equals", "class_volume_control_1_1_audio_1_1_audio_device.html#a4fa5ae79f6cb28e1059f26116eaf8cc7", null ],
+    [ "Equals", "class_volume_control_1_1_audio_1_1_audio_device.html#a32e93fdb374ca7d7e648fc234025b6cb", null ],
+    [ "Equals", "class_volume_control_1_1_audio_1_1_audio_device.html#a96e83abc7a813428e0725b84b4e227a8", null ],
     [ "GetAudioSessions", "class_volume_control_1_1_audio_1_1_audio_device.html#ad7fd6cb6c5130e974b69714e291aaf44", null ],
+    [ "GetHashCode", "class_volume_control_1_1_audio_1_1_audio_device.html#a78805bd3c20a305fd3c72122513ac8bb", null ],
     [ "DeviceFriendlyName", "class_volume_control_1_1_audio_1_1_audio_device.html#a6a9655f50d04f49a7c71e93eb383d1e6", null ],
     [ "DeviceID", "class_volume_control_1_1_audio_1_1_audio_device.html#a84d1002126a6c731549117b683356efd", null ],
     [ "EndpointVolumeObject", "class_volume_control_1_1_audio_1_1_audio_device.html#a775d911a510e8ec451bdd062fb7bbbe5", null ],

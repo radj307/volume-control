@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['friendlyname_981',['FriendlyName',['../class_volume_control_1_1_audio_1_1_audio_device.html#ae9c4febcd7f193d2561f74b7827120dc',1,'VolumeControl::Audio::AudioDevice']]]
+  ['friendlyname_1005',['FriendlyName',['../class_volume_control_1_1_audio_1_1_audio_device.html#ae9c4febcd7f193d2561f74b7827120dc',1,'VolumeControl::Audio::AudioDevice']]]
 ];

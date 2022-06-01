@@ -121,6 +121,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac833fb1a273429d1aeb6402791ae5575"><td class="memItemLeft" align="right" valign="top"><a id="ac833fb1a273429d1aeb6402791ae5575"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ac833fb1a273429d1aeb6402791ae5575">Dispose</a> ()</td></tr>
 <tr class="separator:ac833fb1a273429d1aeb6402791ae5575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa5ae79f6cb28e1059f26116eaf8cc7"><td class="memItemLeft" align="right" valign="top"><a id="a4fa5ae79f6cb28e1059f26116eaf8cc7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a4fa5ae79f6cb28e1059f26116eaf8cc7">Equals</a> (<a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html">AudioDevice</a>? other)</td></tr>
+<tr class="separator:a4fa5ae79f6cb28e1059f26116eaf8cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e93fdb374ca7d7e648fc234025b6cb"><td class="memItemLeft" align="right" valign="top"><a id="a32e93fdb374ca7d7e648fc234025b6cb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a32e93fdb374ca7d7e648fc234025b6cb">Equals</a> (<a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html">IDevice</a>? other)</td></tr>
+<tr class="separator:a32e93fdb374ca7d7e648fc234025b6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96e83abc7a813428e0725b84b4e227a8"><td class="memItemLeft" align="right" valign="top"><a id="a96e83abc7a813428e0725b84b4e227a8"></a>
+override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a96e83abc7a813428e0725b84b4e227a8">Equals</a> (object? obj)</td></tr>
+<tr class="separator:a96e83abc7a813428e0725b84b4e227a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78805bd3c20a305fd3c72122513ac8bb"><td class="memItemLeft" align="right" valign="top"><a id="a78805bd3c20a305fd3c72122513ac8bb"></a>
+override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a78805bd3c20a305fd3c72122513ac8bb">GetHashCode</a> ()</td></tr>
+<tr class="separator:a78805bd3c20a305fd3c72122513ac8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -204,8 +216,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
-<tr class="memitem:aa36602ce793ae40f19027d4eabf3c150"><td class="memItemLeft" align="right" valign="top"><a id="aa36602ce793ae40f19027d4eabf3c150"></a>
-EventHandler?&#160;</td><td class="memItemRight" valign="bottom"><b>Removed</b></td></tr>
+<tr class="memitem:aa36602ce793ae40f19027d4eabf3c150"><td class="memItemLeft" align="right" valign="top">EventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aa36602ce793ae40f19027d4eabf3c150">Removed</a></td></tr>
+<tr class="memdesc:aa36602ce793ae40f19027d4eabf3c150"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> device was removed.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#aa36602ce793ae40f19027d4eabf3c150">More...</a><br /></td></tr>
 <tr class="separator:aa36602ce793ae40f19027d4eabf3c150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac691a4a3fde452073a2a1fcf0107733"><td class="memItemLeft" align="right" valign="top">DeviceStateChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aac691a4a3fde452073a2a1fcf0107733">StateChanged</a></td></tr>
 <tr class="memdesc:aac691a4a3fde452073a2a1fcf0107733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#abdf90179bb0479d6226ac11832a52460" title="Gets the current DeviceState of this endpoint. For more information, see the MSDN page: DEVICE_STATE_...">State</a> property is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#aac691a4a3fde452073a2a1fcf0107733">More...</a><br /></td></tr>
@@ -269,6 +281,16 @@ If you're writing an addon, install the 'NAudio' nuget package if you need to be
 
 <p>Gets the list of audio sessions currently using this device. </p>
 <dl class="section return"><dt>Returns</dt><dd>A list of new <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a> instances.</dd></dl>
+
+<p class="reference">References <a class="el" href="#l00089">VolumeControl.Audio.AudioDevice.SessionManager</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="#l00596">VolumeControl.Audio.AudioAPI.ReloadSessionList()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device_ad7fd6cb6c5130e974b69714e291aaf44_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
@@ -431,6 +453,8 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 <p>This object is from NAudio.<br  />
 If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</p>
 
+<p class="reference">Referenced by <a class="el" href="#l00178">VolumeControl.Audio.AudioDevice.GetAudioSessions()</a>.</p>
+
 </div>
 </div>
 <a id="a3803e74ec9ed9fb239d100cefdc012af"></a>
@@ -532,6 +556,22 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 </div><div class="memdoc">
 
 <p>Triggered when a property is set. </p>
+
+</div>
+</div>
+<a id="aa36602ce793ae40f19027d4eabf3c150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa36602ce793ae40f19027d4eabf3c150">&#9670;&nbsp;</a></span>Removed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler? VolumeControl.Audio.AudioDevice.Removed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> device was removed. </p>
 
 </div>
 </div>
