@@ -1,15 +1,12 @@
 ﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
+using ObservableImmutable;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
-using VolumeControl.WPF.Collections;
 using VolumeControl.TypeExtensions;
-using System;
-using NAudio.CoreAudioApi.Interfaces;
-using System.Windows;
-using ObservableImmutable;
 
 namespace VolumeControl.Audio
 {
@@ -20,6 +17,22 @@ namespace VolumeControl.Audio
         {
             SessionCreated?.Invoke(this, newSession);
             return 0;
+        }
+    }
+    public class SessionListener
+    {
+        public SessionListener()
+        {
+
+        }
+
+        private MMDeviceEnumerator? _enumerator;
+        private MMDeviceEnumerator Enumerator => _enumerator ??= new();
+        private void ResetEnumerator() => _enumerator = null;
+
+        public void Register()
+        {
+
         }
     }
     /// <summary>
@@ -73,9 +86,14 @@ namespace VolumeControl.Audio
 
             // Add device event handlers
             DeviceNotificationClient = new();
-            var enumerator = new MMDeviceEnumerator();
-            enumerator.RegisterEndpointNotificationCallback(DeviceNotificationClient);
-            enumerator.Dispose();
+
+            Task.Run(() =>
+            {
+                var enumerator = new MMDeviceEnumerator();
+                enumerator.RegisterEndpointNotificationCallback(DeviceNotificationClient);
+                enumerator.Dispose();
+            });
+
             DeviceNotificationClient.DefaultDeviceChanged += (s, e) =>
             {
                 if (e.Role.Equals(Role.Multimedia)) //< multimedia devices only
@@ -252,7 +270,7 @@ namespace VolumeControl.Audio
                 NotifyDeviceSwitch();
                 NotifyPropertyChanged();
 
-                Log.Info($"Selected device was changed to '{_selectedDevice?.Name}'");
+                Log.Info($"Device selected: '{_selectedDevice?.Name}'");
             }
         }
         /// <summary>
@@ -277,7 +295,7 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Target));
 
-                Log.Info($"Selected session was changed to '{_selectedSession?.ProcessIdentifier}'");
+                Log.Info($"Session selected: '{_selectedSession?.ProcessIdentifier}'");
             }
         }
         /// <summary>
@@ -295,7 +313,7 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
                 NotifyLockSelectedDeviceChanged();
 
-                Log.Info($"Selected device was {(value ? "" : "un")}locked");
+                Log.Info($"Device selection {(value ? "" : "un")}locked.");
             }
         }
         /// <summary>
@@ -313,7 +331,7 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanged();
                 NotifyLockSelectedSessionChanged();
 
-                Log.Info($"Selected session was {(_lockSelectedSession ? "" : "un")}locked");
+                Log.Info($"Session selection {(_lockSelectedSession ? "" : "un")}locked.");
             }
         }
         /// <summary>
@@ -543,7 +561,14 @@ namespace VolumeControl.Audio
         #endregion Device
 
         #region ReloadSessions
-        private void HandleSessionCreated(object? _, IAudioSessionControl _1) => ReloadSessionList();
+        /// <summary>Handles session creation events. If they would be fired correctly, that is.</summary>
+        private void HandleSessionCreated(object? _, IAudioSessionControl controller)
+        {
+            var s = new AudioSession(new(controller));
+            s.StateChanged += HandleSessionStateChanged;
+            Sessions.Add(s);
+        }
+        /// <summary>Handles session state change events.</summary>
         private void HandleSessionStateChanged(object? sender, GenericReadOnlyEventArgs<AudioSessionState> e)
         {
             if (sender is AudioSession session)
@@ -553,14 +578,15 @@ namespace VolumeControl.Audio
                 case AudioSessionState.AudioSessionStateExpired:
                 case AudioSessionState.AudioSessionStateInactive:
                     if (!session.IsRunning)
+                    {
+                        Log.Debug($"Process {session.ProcessIdentifier} exited.");
                         Sessions.Remove(session);
+                    }
                     break;
                 case AudioSessionState.AudioSessionStateActive:
-                    ReloadSessionList();
-                    break;
-                default:
-                    break;
+                default: break;
                 }
+                Log.Debug($"Session {session.ProcessIdentifier} state changed to {e.Data:G}");
             }
         }
         /// <summary>
@@ -607,7 +633,6 @@ namespace VolumeControl.Audio
                 SelectedSession = Sessions.FirstOrDefault(s => s.PID.Equals(selPID));
 
             NotifyProcessListRefresh(EventArgs.Empty);
-            NotifyPropertyChanged(nameof(Sessions));
 
             Log.Debug("Refreshed the session list.");
 

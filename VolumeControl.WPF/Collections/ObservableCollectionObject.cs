@@ -7,6 +7,8 @@ using System.Windows.Threading;
 
 namespace ObservableImmutable
 {
+#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
     public abstract class ObservableCollectionObject : INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
@@ -106,7 +108,7 @@ namespace ObservableImmutable
         private static object ExitFrame(object frame)
         {
             ((DispatcherFrame)frame).Continue = false;
-            return null;
+            return null!;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -218,4 +220,6 @@ namespace ObservableImmutable
 
         #endregion Nested Types
     }
+#   pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

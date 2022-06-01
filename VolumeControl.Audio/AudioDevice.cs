@@ -1,12 +1,10 @@
 ﻿using NAudio.CoreAudioApi;
-using NAudio.CoreAudioApi.Interfaces;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF;
 
 namespace VolumeControl.Audio
 {
@@ -172,20 +170,15 @@ namespace VolumeControl.Audio
         #region Methods
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
         public (ImageSource?, ImageSource?)? GetIcons() => IconPath.Length > 0 ? IconGetter.GetIcons(IconPath) : null;
-        private void Reload()
-        {
-            using MMDeviceEnumerator enm = new();
-            _device = enm.GetDevice(_deviceID);
-            enm.Dispose();
-        }
+
         /// <summary>
         /// Gets the list of audio sessions currently using this device.
         /// </summary>
         /// <returns>A list of new <see cref="AudioSession"/> instances.</returns>
         public List<AudioSession> GetAudioSessions()
         {
-            Reload();
-            SessionCollection? sessions = _device.AudioSessionManager.Sessions;
+            SessionManager.RefreshSessions();
+            SessionCollection? sessions = SessionManager.Sessions;
             List<AudioSession> l = new();
             for (int i = 0; i < sessions.Count; ++i)
             {
@@ -206,6 +199,10 @@ namespace VolumeControl.Audio
         public bool Equals(AudioDevice? other) => other is not null && other.DeviceID.Equals(DeviceID, StringComparison.Ordinal);
         /// <inheritdoc/>
         public bool Equals(IDevice? other) => other is not null && other.DeviceID.Equals(DeviceID, StringComparison.Ordinal);
+        /// <inheritdoc/>
+        public override bool Equals(object? obj) => Equals(obj as AudioDevice);
+        /// <inheritdoc/>
+        public override int GetHashCode() => DeviceID.GetHashCode();
         #endregion Methods
     }
 }

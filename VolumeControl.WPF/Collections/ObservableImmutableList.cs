@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace ObservableImmutable
 {
+#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
     public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
@@ -302,8 +304,10 @@ namespace ObservableImmutable
 
         #region IEnumerable<T>
 
+        /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion IEnumerable<T>
@@ -314,67 +318,90 @@ namespace ObservableImmutable
 
         #region IList
 
-        public int Add(object value)
+        /// <inheritdoc/>
+        public int Add(object? value)
         {
             var val = (T)value;
             Add(val);
             return IndexOf(val);
         }
 
+        /// <inheritdoc/>
         public bool Contains(object value) => Contains((T)value);
 
+        /// <inheritdoc/>
         public int IndexOf(object value) => IndexOf((T)value);
 
+        /// <inheritdoc/>
         public void Insert(int index, object value) => Insert(index, (T)value);
 
+        /// <inheritdoc/>
         public bool IsFixedSize => false;
 
+        /// <inheritdoc/>
         public void Remove(object value) => Remove((T)value);
 
+        /// <inheritdoc/>
         void IList.RemoveAt(int index) => RemoveAt(index);
 
+        /// <inheritdoc/>
         object IList.this[int index]
         {
             get => this[index];
             set => SetItem(index, (T)value);
         }
 
+        /// <inheritdoc/>
         public void CopyTo(Array array, int index) => _items.ToArray().CopyTo(array, index);
 
+        /// <inheritdoc/>
         public bool IsSynchronized => false;
 
+        /// <inheritdoc/>
         public object SyncRoot => _syncRoot;
 
         #endregion IList
 
         #region IList<T>
 
+        /// <inheritdoc/>
         public int IndexOf(T item) => _items.IndexOf(item);
 
+        /// <inheritdoc/>
         void IList<T>.Insert(int index, T item) => Insert(index, item);
 
+        /// <inheritdoc/>
         void IList<T>.RemoveAt(int index) => RemoveAt(index);
 
+        /// <inheritdoc/>
         public T this[int index]
         {
             get => _items[index];
             set => SetItem(index, value);
         }
 
+        /// <inheritdoc/>
         void ICollection<T>.Add(T item) => Add(item);
 
+        /// <inheritdoc/>
         void IList.Clear() => Clear();
 
+        /// <inheritdoc/>
         void ICollection<T>.Clear() => Clear();
 
+        /// <inheritdoc/>
         public bool Contains(T item) => _items.Contains(item);
 
+        /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex) => _items.CopyTo(array, arrayIndex);
 
+        /// <inheritdoc/>
         public int Count => _items.Count;
 
+        /// <inheritdoc/>
         public bool IsReadOnly => false;
 
+        /// <inheritdoc/>
         public bool Remove(T item)
         {
             if (!_items.Contains(item))
@@ -389,6 +416,7 @@ namespace ObservableImmutable
 
         #region IImmutableList<T>
 
+        /// <inheritdoc/>
         public IImmutableList<T> Add(T value)
         {
             int index = _items.Count;
@@ -397,6 +425,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> AddRange(IEnumerable<T> items)
         {
             _items = _items.AddRange(items);
@@ -404,6 +433,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> Clear()
         {
             _items = _items.Clear();
@@ -411,8 +441,10 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public int IndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer) => _items.IndexOf(item, index, count, equalityComparer);
 
+        /// <inheritdoc/>
         public IImmutableList<T> Insert(int index, T element)
         {
             _items = _items.Insert(index, element);
@@ -420,6 +452,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> InsertRange(int index, IEnumerable<T> items)
         {
             _items = _items.InsertRange(index, items);
@@ -427,8 +460,10 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public int LastIndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer) => _items.LastIndexOf(item, index, count, equalityComparer);
 
+        /// <inheritdoc/>
         public IImmutableList<T> Remove(T value, IEqualityComparer<T> equalityComparer)
         {
             int index = _items.IndexOf(value, equalityComparer);
@@ -436,6 +471,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> RemoveAll(Predicate<T> match)
         {
             _items = _items.RemoveAll(match);
@@ -443,6 +479,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> RemoveAt(int index)
         {
             T? value = _items[index];
@@ -451,6 +488,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> RemoveRange(int index, int count)
         {
             _items = _items.RemoveRange(index, count);
@@ -458,6 +496,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T> equalityComparer)
         {
             _items = _items.RemoveRange(items, equalityComparer);
@@ -465,6 +504,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T> equalityComparer)
         {
             int index = _items.IndexOf(oldValue, equalityComparer);
@@ -472,6 +512,7 @@ namespace ObservableImmutable
             return this;
         }
 
+        /// <inheritdoc/>
         public IImmutableList<T> SetItem(int index, T value)
         {
             T? oldItem = _items[index];
@@ -484,4 +525,6 @@ namespace ObservableImmutable
 
         #endregion Non Thead-Safe Methods
     }
+#   pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

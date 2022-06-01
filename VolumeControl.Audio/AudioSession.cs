@@ -8,7 +8,6 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
-using VolumeControl.WPF;
 
 namespace VolumeControl.Audio
 {
@@ -28,10 +27,12 @@ namespace VolumeControl.Audio
                 FLog.Log.Error($"The constructor of '{typeof(AudioSession).FullName}' encountered an error when getting process with ID '{PID}'!");
                 Dispose();
                 ProcessName = string.Empty;
+                Process = null!;
             }
             else
             {
-                ProcessName = proc.ProcessName;
+                Process = proc;
+                ProcessName = Process.ProcessName;
             }
 
             _controller.RegisterEventClient(NotificationClient = new());
@@ -192,6 +193,8 @@ namespace VolumeControl.Audio
         /// Checks if the session's state is set to active and the associated process is running.
         /// </summary>
         public bool Active => State.Equals(AudioSessionState.AudioSessionStateActive) && IsRunning;
+        /// <summary>This session's parent <see cref="Process"/>.</summary>
+        public Process Process { get; }
         #endregion Properties
 
         #region Events
@@ -282,6 +285,10 @@ namespace VolumeControl.Audio
         public bool Equals(ISession? other) => other != null && other.PID.Equals(PID);
         /// <inheritdoc/>
         public bool Equals(AudioSession? other) => other is not null && other.PID.Equals(PID);
+        /// <inheritdoc/>
+        public override bool Equals(object? obj) => Equals(obj as AudioSession);
+        /// <inheritdoc/>
+        public override int GetHashCode() => ProcessIdentifier.GetHashCode();
         #endregion Methods
     }
 }

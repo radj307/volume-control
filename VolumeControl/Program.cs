@@ -1,12 +1,10 @@
 ﻿using AssemblyAttribute;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using VolumeControl.Helpers.Update;
 using VolumeControl.Log;
 
 namespace VolumeControl
