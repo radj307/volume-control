@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="struct_volume_control_1_1_core_1_1_compatible_versions.html" target="_top" xlink:title="A range of version numbers that abstracts away the need for direct interaction with the SemVersion ty...">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 173,-30.5 173,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Compatible</text>
-<text text-anchor="middle" x="86.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Versions</text>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Addons.</text>
+<text text-anchor="middle" x="86.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ApplicationActions</text>
 </a>
 </g>
 </g>

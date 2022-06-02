@@ -19,6 +19,7 @@ var class_observable_immutable_1_1_observable_immutable_list =
     [ "DoRemove", "class_observable_immutable_1_1_observable_immutable_list.html#a17fb5e82fe1af9543d2e5e0c6159d800", null ],
     [ "DoRemoveAt", "class_observable_immutable_1_1_observable_immutable_list.html#a2f490a3dfa9c909e08408d868e8b08c9", null ],
     [ "DoSetItem", "class_observable_immutable_1_1_observable_immutable_list.html#ab9bbe0076d78e0ca6c83ab3ce9de9824", null ],
+    [ "ForEach", "class_observable_immutable_1_1_observable_immutable_list.html#a65bb6ebe4997b7289df865c7bf5d2cbc", null ],
     [ "GetEnumerator", "class_observable_immutable_1_1_observable_immutable_list.html#a95557d00bb7b3c8075b823f906bc4029", null ],
     [ "IndexOf", "class_observable_immutable_1_1_observable_immutable_list.html#a58ba26f2cc2c86cc81904eb9c83bee8e", null ],
     [ "IndexOf", "class_observable_immutable_1_1_observable_immutable_list.html#a92784ede31ad956276b838f3a01adeb9", null ],

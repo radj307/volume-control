@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectPreviousDevice" name="VolumeControl.Hotkeys.Addons.AudioAPIActions.SelectPreviousDevice">
+<area shape="rect" id="node1" title="Sets SelectedDevice to the device occurring before this one in Devices. &#160;Automatically loops back aro..." alt="" coords="5,5,279,47"/>
+<area shape="rect" id="node2" href="$class_observable_immutable_1_1_observable_immutable_list.html#a58ba26f2cc2c86cc81904eb9c83bee8e" title=" " alt="" coords="327,5,572,47"/>
+</map>

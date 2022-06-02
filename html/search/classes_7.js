@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['hotkeyactionattribute_699',['HotkeyActionAttribute',['../class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html',1,'VolumeControl::Hotkeys::Attributes']]],
-  ['hotkeyapi_700',['HotkeyAPI',['../class_hotkey_lib_1_1_hotkey_a_p_i.html',1,'HotkeyLib']]],
-  ['hotkeymanager_701',['HotkeyManager',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html',1,'VolumeControl::Hotkeys']]],
-  ['hotkeymanagersettings_702',['HotkeyManagerSettings',['../class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html',1,'VolumeControl::Hotkeys']]],
-  ['hwndhook_703',['HWndHook',['../class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html',1,'VolumeControl::WPF']]],
-  ['hwndhookwpfmaximizebugfix_704',['HWndHookWPFMaximizeBugFix',['../class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html',1,'VolumeControl::WPF']]]
+  ['keycombo_687',['KeyCombo',['../struct_hotkey_lib_1_1_key_combo.html',1,'HotkeyLib']]],
+  ['keysblacklist_688',['KeysBlacklist',['../class_hotkey_lib_1_1_keys_blacklist.html',1,'HotkeyLib']]],
+  ['keyslist_689',['KeysList',['../class_hotkey_lib_1_1_keys_list.html',1,'HotkeyLib']]]
 ];

@@ -1,11 +1,12 @@
 <map id="VolumeControl.Audio.AudioSession" name="VolumeControl.Audio.AudioSession">
-<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="385,440,585,884"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="123,285,252,392"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="36,131,181,237"/>
-<area shape="rect" id="node4" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
-<area shape="rect" id="node5" title=" " alt="" coords="228,5,403,83"/>
-<area shape="rect" id="node6" title=" " alt="" coords="205,145,383,223"/>
-<area shape="rect" id="node7" title=" " alt="" coords="458,300,639,377"/>
-<area shape="rect" id="node8" title=" " alt="" coords="663,300,762,377"/>
-<area shape="rect" id="node9" title=" " alt="" coords="786,300,994,377"/>
+<area shape="rect" id="node1" title="Represents an audio session playing on the system." alt="" coords="406,487,606,960"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html" title="Represents read&#45;only information about a process running on the local system." alt="" coords="5,132,151,253"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html" title="Represents an audio session." alt="" coords="135,303,264,424"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="125,5,220,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="300,5,475,83"/>
+<area shape="rect" id="node6" title=" " alt="" coords="227,154,404,231"/>
+<area shape="rect" id="node7" title=" " alt="" coords="479,325,661,402"/>
+<area shape="rect" id="node8" title=" " alt="" coords="685,325,783,402"/>
+<area shape="rect" id="node9" title=" " alt="" coords="807,325,1015,402"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1039,325,1098,402"/>
 </map>

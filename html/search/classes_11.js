@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['targetchangedeventargs_748',['TargetChangedEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changed_event_args.html',1,'VolumeControl::Audio::Events']]],
-  ['targetchangingeventargs_749',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
-  ['timerextensions_750',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['timestamp_751',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]]
+  ['vcapi_720',['VCAPI',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html',1,'VolumeControl::API']]],
+  ['vcsettingscontainer_721',['VCSettingsContainer',['../class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html',1,'VolumeControl::Core::Helpers']]],
+  ['volumeeventargs_722',['VolumeEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_volume_event_args.html',1,'VolumeControl::Audio::Events']]]
 ];

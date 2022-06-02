@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['enumextensions_695',['EnumExtensions',['../class_volume_control_1_1_type_extensions_1_1_enum_extensions.html',1,'VolumeControl::TypeExtensions']]]
+  ['fileendpoint_664',['FileEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
+  ['flog_665',['FLog',['../class_volume_control_1_1_log_1_1_f_log.html',1,'VolumeControl::Log']]]
 ];

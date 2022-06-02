@@ -1,6 +1,5 @@
 var class_volume_control_1_1_audio_1_1_audio_session =
 [
-    [ "AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html#aeb56d8f5f6a97fde371c4795473c1f7a", null ],
     [ "Dispose", "class_volume_control_1_1_audio_1_1_audio_session.html#a13f918b85f4b1281f9e5ecb5fb7d5583", null ],
     [ "Equals", "class_volume_control_1_1_audio_1_1_audio_session.html#a2650acfa51c348cc1aa21a44e5862bdd", null ],
     [ "Equals", "class_volume_control_1_1_audio_1_1_audio_session.html#a02a63ff3ce76759238b2c19740ff65a5", null ],
@@ -8,10 +7,12 @@ var class_volume_control_1_1_audio_1_1_audio_session =
     [ "GetHashCode", "class_volume_control_1_1_audio_1_1_audio_session.html#af1e5db16625db15a2bf9e089ea586db3", null ],
     [ "GetProcess", "class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da", null ],
     [ "Active", "class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b", null ],
+    [ "HashCode", "class_volume_control_1_1_audio_1_1_audio_session.html#a8e0688dc88ceee1603706e6ed0f1b092", null ],
     [ "Icon", "class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328", null ],
     [ "IconPath", "class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504", null ],
     [ "int", "class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295", null ],
     [ "LargeIcon", "class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159", null ],
+    [ "Name", "class_volume_control_1_1_audio_1_1_audio_session.html#a9b6fa2280d6baf93ed22a243cd77abde", null ],
     [ "ProcessIdentifier", "class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea", null ],
     [ "SmallIcon", "class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199", null ],
     [ "State", "class_volume_control_1_1_audio_1_1_audio_session.html#a7d0a0803254aee7bce75cb6df2307c2b", null ],
@@ -26,8 +27,8 @@ var class_volume_control_1_1_audio_1_1_audio_session =
     [ "Process", "class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e", null ],
     [ "ProcessName", "class_volume_control_1_1_audio_1_1_audio_session.html#a30cfd4a7b3a77615294787e6c3cb2c35", null ],
     [ "Volume", "class_volume_control_1_1_audio_1_1_audio_session.html#a961f3e23e0ad0db762c1884a91b4aef5", null ],
-    [ "Disconnected", "class_volume_control_1_1_audio_1_1_audio_session.html#a1ca72a65c851bcc9f4c92065ea700cb5", null ],
+    [ "Exited", "class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c", null ],
     [ "PropertyChanged", "class_volume_control_1_1_audio_1_1_audio_session.html#a634d0a5e08d141e120a1c3990faef6d7", null ],
     [ "PropertyChanging", "class_volume_control_1_1_audio_1_1_audio_session.html#a1c6d4d4ccf66a058b4f89a833c7e33c4", null ],
-    [ "StateChanged", "class_volume_control_1_1_audio_1_1_audio_session.html#a1dbc0ef7c3131588bc72f09d4d4cc440", null ]
+    [ "StateChanged", "class_volume_control_1_1_audio_1_1_audio_session.html#a6ba7d4aad55d332c7236767dbded1474", null ]
 ];

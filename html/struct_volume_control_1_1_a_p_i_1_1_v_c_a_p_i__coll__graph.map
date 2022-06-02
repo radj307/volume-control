@@ -1,6 +1,4 @@
 <map id="VolumeControl.API.VCAPI" name="VolumeControl.API.VCAPI">
-<area shape="rect" id="node1" title="Struct containing various useful object references. Cannot be directly instantiated,..." alt="" coords="66,521,253,657"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html" title="Basic log writer object." alt="" coords="52,147,267,459"/>
-<area shape="rect" id="node3" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="5,5,161,97"/>
-<area shape="rect" id="node4" title=" " alt="" coords="186,13,285,90"/>
+<area shape="rect" id="node1" title="Struct containing various useful object references. Cannot be directly instantiated,..." alt="" coords="5,145,192,281"/>
+<area shape="rect" id="node2" title=" " alt="" coords="69,5,128,83"/>
 </map>

@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['mathext_725',['MathExt',['../class_volume_control_1_1_type_extensions_1_1_math_ext.html',1,'VolumeControl::TypeExtensions']]],
-  ['memoryendpoint_726',['MemoryEndpoint',['../class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html',1,'VolumeControl::Log::Endpoints']]],
-  ['minmaxinfo_727',['MINMAXINFO',['../struct_volume_control_1_1_w_p_f_1_1_m_i_n_m_a_x_i_n_f_o.html',1,'VolumeControl::WPF']]],
-  ['modifierextensions_728',['ModifierExtensions',['../class_hotkey_lib_1_1_modifier_extensions.html',1,'HotkeyLib']]],
-  ['monitorinfo_729',['MONITORINFO',['../class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html',1,'VolumeControl::WPF']]],
-  ['multibinding_730',['MultiBinding',['../class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html',1,'VolumeControl::WPF::Bindings']]],
-  ['multibindingbooleanconverter_731',['MultiBindingBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_multi_binding_boolean_converter.html',1,'VolumeControl::WPF::Converters']]]
+  ['observablecollectionobject_702',['ObservableCollectionObject',['../class_observable_immutable_1_1_observable_collection_object.html',1,'ObservableImmutable']]],
+  ['observableimmutablelist_703',['ObservableImmutableList',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
+  ['observableimmutablelist_3c_20audiodevice_20_3e_704',['ObservableImmutableList&lt; AudioDevice &gt;',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
+  ['observableimmutablelist_3c_20audiosession_20_3e_705',['ObservableImmutableList&lt; AudioSession &gt;',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
+  ['observablelist_706',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]]
 ];
