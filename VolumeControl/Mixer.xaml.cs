@@ -3,14 +3,11 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
-using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
-using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
@@ -78,15 +75,14 @@ namespace VolumeControl
 
         #region EventHandlers
         /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadClick(object sender, RoutedEventArgs e)
+        private void Handle_ReloadDevicesClick(object sender, RoutedEventArgs e)
         {
-            AudioAPI.ReloadSessionList();
+            AudioAPI.ForceReloadAudioDevices();
         }
-
-        /// <summary>Handles the reload device list button's click event.</summary>
-        private void Handle_ReloadDevicesClick(object sender, EventArgs e)
+        /// <summary>Handles the reload session list button's click event.</summary>
+        private void Handle_ReloadSessionsClick(object sender, RoutedEventArgs e)
         {
-            AudioAPI.ReloadDeviceList();
+            AudioAPI.ForceReloadSessionList();
         }
 
         /// <summary>Handles the Select process button's click event.</summary>
@@ -112,16 +108,16 @@ namespace VolumeControl
             }
         }
         /// <summary>Ensures there is enough space to display the hotkeys data grid when advanced mode is enabled.</summary>
-        private void Handle_TabControlChange(object sender, RoutedEventArgs e)
-        {
-            if (sender is TabControl tc && tc.SelectedValue is TabItem ti)
-            {
-                if (ti.Equals(HotkeysTab) && VCSettings.AdvancedHotkeyMode)
-                    MaxWidth = Settings.WindowWidthWide;
-                else if (MaxWidth != Settings.WindowWidthDefault)
-                    MaxWidth = Settings.WindowWidthDefault;
-            }
-        }
+        //private void Handle_TabControlChange(object sender, RoutedEventArgs e)
+        //{
+        //    if (sender is TabControl tc && tc.SelectedValue is TabItem ti)
+        //    {
+        //        if (ti.Equals(HotkeysTab) && VCSettings.AdvancedHotkeyMode)
+        //            MaxWidth = Settings.WindowWidthWide;
+        //        else if (MaxWidth != Settings.WindowWidthDefault)
+        //            MaxWidth = Settings.WindowWidthDefault;
+        //    }
+        //}
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => VCSettings.ResetHotkeySettings();
 
@@ -185,22 +181,14 @@ namespace VolumeControl
 
             AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
             AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
-            AudioAPI.SelectedDeviceSwitched += (s, e) => ListNotification.HandleShow(DisplayTarget.Devices);
-            AudioAPI.LockSelectedDeviceChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Devices);
-            AudioAPI.VolumeChanged += (s, e) =>
-            {
-                if (e.Target is ISession) // session volume changed
-                    ListNotification.HandleShow(DisplayTarget.Sessions, false);
-                else if (e.Target is IDevice) // device volume changed
-                    ListNotification.HandleShow(DisplayTarget.Devices, false);
-            };
+            AudioAPI.SelectedSessionVolumeChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions, false);
 
             Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {AudioAPI} events.");
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            targetNameTextBox.SelectionStart = 0;
-            targetNameTextBox.SelectionLength = targetNameTextBox.Text.Length;
+            targetbox.SelectionStart = 0;
+            targetbox.SelectionLength = targetbox.Text.Length;
         }
         private void Handle_ThreeStateCheckboxClick(object sender, RoutedEventArgs e)
         { // this prevents the user from being able to set the checkbox to indeterminate directly

@@ -7,198 +7,70 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-namespace VolumeControl.Audio
-{
-
-
+namespace VolumeControl.Audio {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    public sealed partial class AudioAPISettings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    public sealed partial class AudioAPISettings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static AudioAPISettings defaultInstance = ((AudioAPISettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new AudioAPISettings())));
-
-        public static AudioAPISettings Default
-        {
-            get
-            {
+        
+        public static AudioAPISettings Default {
+            get {
                 return defaultInstance;
             }
         }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public int AutoReloadInterval
-        {
-            get
-            {
-                return ((int)(this["AutoReloadInterval"]));
-            }
-            set
-            {
-                this["AutoReloadInterval"] = value;
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public int AutoReloadIntervalMin
-        {
-            get
-            {
-                return ((int)(this["AutoReloadIntervalMin"]));
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120000")]
-        public int AutoReloadIntervalMax
-        {
-            get
-            {
-                return ((int)(this["AutoReloadIntervalMax"]));
-            }
-        }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LockSelectedSession
-        {
-            get
-            {
+        public bool LockSelectedSession {
+            get {
                 return ((bool)(this["LockSelectedSession"]));
             }
-            set
-            {
+            set {
                 this["LockSelectedSession"] = value;
             }
         }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LockSelectedDevice
-        {
-            get
-            {
-                return ((bool)(this["LockSelectedDevice"]));
-            }
-            set
-            {
-                this["LockSelectedDevice"] = value;
-            }
-        }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SelectedSession
-        {
-            get
-            {
+        public string SelectedSession {
+            get {
                 return ((string)(this["SelectedSession"]));
             }
-            set
-            {
+            set {
                 this["SelectedSession"] = value;
             }
         }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SelectedDevice
-        {
-            get
-            {
-                return ((string)(this["SelectedDevice"]));
-            }
-            set
-            {
-                this["SelectedDevice"] = value;
-            }
-        }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int VolumeStepSize
-        {
-            get
-            {
+        public int VolumeStepSize {
+            get {
                 return ((int)(this["VolumeStepSize"]));
             }
-            set
-            {
+            set {
                 this["VolumeStepSize"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool CheckAllDevices
-        {
-            get
-            {
-                return ((bool)(this["CheckAllDevices"]));
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsd=\"http://www.w3." +
+            "org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <s" +
+            "tring />\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection EnabledDevices {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["EnabledDevices"]));
             }
-            set
-            {
-                this["CheckAllDevices"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ReloadOnHotkey
-        {
-            get
-            {
-                return ((bool)(this["ReloadOnHotkey"]));
-            }
-            set
-            {
-                this["ReloadOnHotkey"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
-        public int ReloadOnHotkeyMinInterval
-        {
-            get
-            {
-                return ((int)(this["ReloadOnHotkeyMinInterval"]));
-            }
-            set
-            {
-                this["ReloadOnHotkeyMinInterval"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ReloadOnInterval
-        {
-            get
-            {
-                return ((bool)(this["ReloadOnInterval"]));
-            }
-            set
-            {
-                this["ReloadOnInterval"] = value;
+            set {
+                this["EnabledDevices"] = value;
             }
         }
     }
 }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

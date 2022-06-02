@@ -23,5 +23,9 @@ namespace VolumeControl.Audio.Interfaces
         /// Gets or sets whether the session is muted or not.
         /// </summary>
         bool Muted { get; set; }
+        /// <summary>
+        /// Gets the session's name.
+        /// </summary>
+        string Name { get; }
     }
 }

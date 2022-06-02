@@ -521,6 +521,12 @@ namespace ObservableImmutable
             return this;
         }
 
+        public void ForEach(Action<T> action)
+        {
+            for (int i = 0; i < _items.Count; ++i)
+                action(_items[i]);
+        }
+
         #endregion IImmutableList<T>
 
         #endregion Non Thead-Safe Methods

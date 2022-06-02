@@ -18,5 +18,9 @@
         /// </summary>
         /// <remarks>Uses this format:<br/><b>&lt;PID&gt;:&lt;ProcessName&gt;</b></remarks>
         string ProcessIdentifier { get; }
+        /// <summary>
+        /// The process' hashcode, which is used for matching.
+        /// </summary>
+        int HashCode { get; }
     }
 }

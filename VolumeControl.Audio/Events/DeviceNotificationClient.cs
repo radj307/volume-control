@@ -3,100 +3,102 @@ using NAudio.CoreAudioApi.Interfaces;
 
 namespace VolumeControl.Audio.Events
 {
-    #region DeviceEvents
-    /// <summary>Event arguments for events related to the addition or removal of audio devices.</summary>
-    public class DeviceAddedRemovedEventArgs : EventArgs
+    /// <summary>Receives audio device events from the core audio api.<br/>These events relate to <b>all</b> audio devices.</summary>
+    /// <remarks>This is used by the top-tier <see cref="AudioAPI"/> object, and is used for receiving Core Audio API events relating to audio devices, such as state change events, removal events, etc.<br/>For more information, see the <see cref="IMMNotificationClient"/> interface, or its MSDN documentation here: <see href="https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immnotificationclient"/></remarks>
+    internal sealed class DeviceNotificationClient : IMMNotificationClient
     {
-        /// <inheritdoc cref="DeviceAddedRemovedEventArgs"/>
-        /// <param name="deviceID">The <see cref="AudioDevice.DeviceID"/> of the device that was added or removed.</param>
-        public DeviceAddedRemovedEventArgs(string deviceID) => DeviceID = deviceID;
-        /// <inheritdoc cref="AudioDevice.DeviceID"/>
-        public string DeviceID { get; }
-    }
-    /// <summary>Event arguments for events related to device state change events.</summary>
-    public class DeviceStateChangedEventArgs : DeviceAddedRemovedEventArgs
-    {
-        /// <param name="deviceID"><see cref="AudioDevice.DeviceID"/></param>
-        /// <inheritdoc cref="DeviceStateChangedEventArgs"/>
-        /// <param name="state"><see cref="AudioDevice.State"/></param>
-        public DeviceStateChangedEventArgs(string deviceID, DeviceState state) : base(deviceID) => State = state;
-        /// <inheritdoc cref="AudioDevice.State"/>
-        public DeviceState State { get; }
-    }
-    /// <summary>Event arguments for events related to device state change events.</summary>
-    public class DefaultDeviceChangedEventArgs : DeviceAddedRemovedEventArgs
-    {
-        /// <param name="deviceID"><see cref="AudioDevice.DeviceID"/></param>
-        /// <inheritdoc cref="DeviceStateChangedEventArgs"/>
-        public DefaultDeviceChangedEventArgs(string deviceID, DataFlow flow, Role role) : base(deviceID)
-        {
-            DataFlow = flow;
-            Role = role;
-        }
-        /// <summary>
-        /// The device's <see cref="DataFlow"/>.<br/>
-        /// Determines whether the device is an input or output device.
-        /// </summary>
-        public DataFlow DataFlow { get; }
-        /// <summary>
-        /// The device's <see cref="Role"/>.<br/>
-        /// Determines the type of device.
-        /// </summary>
-        public Role Role { get; }
-    }
-    /// <summary>Event arguments for events related to device property change events.</summary>
-    public class DevicePropertyChangedEventArgs : DeviceAddedRemovedEventArgs
-    {
-        /// <param name="deviceID"><see cref="AudioDevice.DeviceID"/></param>
-        /// <inheritdoc cref="DeviceStateChangedEventArgs"/>
-        /// <param name="property">The new property value.</param>
-        public DevicePropertyChangedEventArgs(string deviceID, PropertyKey property) : base(deviceID) => Property = property;
-        /// <summary>
-        /// The device property that was changed.<br/>
-        /// This contains the new value.
-        /// </summary>
-        public PropertyKey Property { get; }
-    }
-    public delegate void DeviceAddedRemovedEventHandler(object? sender, DeviceAddedRemovedEventArgs e);
-    public delegate void DefaultDeviceChangedEventHandler(object? sender, DefaultDeviceChangedEventArgs e);
-    public delegate void DeviceStateChangedEventHandler(object? sender, DeviceStateChangedEventArgs e);
-    public delegate void DevicePropertyValueChangedEventHandler(object? sender, DevicePropertyChangedEventArgs e);
-    #endregion DeviceEvents
+        public DeviceNotificationClient(params AudioDeviceCollection[] deviceCollections) => DeviceCollections = deviceCollections;
 
-    /// <summary>Core audio event interface.</summary>
-    public class DeviceNotificationClient : IMMNotificationClient
-    {
+        private readonly AudioDeviceCollection[] DeviceCollections;
+        private AudioDevice? FindWithDeviceID(string deviceID)
+        {
+            foreach (var collection in DeviceCollections)
+                if (collection.FirstOrDefault(d => d is not null && d.DeviceID.Equals(deviceID, StringComparison.Ordinal), null) is AudioDevice dev)
+                    return dev;
+            return null;
+        }
+
         #region DeviceEvents
-        /// <summary>
-        /// Triggered when any default device is changed regardless of its <see cref="Role"/> or <see cref="DataFlow"/>.<br/>
-        /// </summary>
-        /// <remarks>This event is routed from the windows API.</remarks>
-        public event DefaultDeviceChangedEventHandler? DefaultDeviceChanged;
-        /// <summary>
-        /// Triggered when an audio device is added to the windows API.
-        /// </summary>
-        /// <remarks>This event is routed from the windows API.</remarks>
-        public event DeviceAddedRemovedEventHandler? DeviceAdded;
-        /// <summary>
-        /// Triggered when an audio device is removed from the windows API.
-        /// </summary>
-        /// <remarks>This event is routed from the windows API.</remarks>
-        public event DeviceAddedRemovedEventHandler? DeviceRemoved;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>This event is routed from the windows API.</remarks>
-        public event DeviceStateChangedEventHandler? DeviceStateChanged;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>This event is routed from the windows API.</remarks>
-        public event DevicePropertyValueChangedEventHandler? DevicePropertyValueChanged;
-        public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId) => DefaultDeviceChanged?.Invoke(this, new(defaultDeviceId, flow, role));
-        public void OnDeviceAdded(string pwstrDeviceId) => DeviceAdded?.Invoke(this, new(pwstrDeviceId));
-        public void OnDeviceRemoved(string deviceId) => DeviceRemoved?.Invoke(this, new(deviceId));
-        public void OnDeviceStateChanged(string deviceId, DeviceState newState) => DeviceStateChanged?.Invoke(this, new(deviceId, newState));
-        public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key) => DevicePropertyValueChanged?.Invoke(this, new(pwstrDeviceId, key));
+        public event EventHandler<AudioDevice>? DefaultDeviceChanged;
+        public event EventHandler<AudioDevice>? GlobalDeviceAdded;
+        public event EventHandler<string>? GlobalDeviceRemoved;
+        public event EventHandler<AudioDevice>? GlobalDeviceStateChanged;
+        public event EventHandler<(AudioDevice device, PropertyKey property)>? GlobalDevicePropertyValueChanged;
+
+        public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
+        {
+            if (!role.Equals(Role.Multimedia))
+                return;
+            foreach (var collection in DeviceCollections)
+            {
+                if (collection.DataFlow.HasFlag(flow))
+                {
+                    int index = collection.IndexOf(defaultDeviceId);
+                    if (index != -1)
+                    {
+                        DefaultDeviceChanged?.Invoke(this, collection.Default = collection[index]);
+                        return;
+                    }
+                }
+            }
+        }
+        public void OnDeviceAdded(string pwstrDeviceId)
+        {
+            using var enumerator = new MMDeviceEnumerator();
+            var mmDevice = enumerator.GetDevice(pwstrDeviceId);
+            enumerator.Dispose();
+            var flow = mmDevice.DataFlow;
+            AudioDevice? dev = null;
+            foreach (var collection in DeviceCollections)
+            { // find a collection that accepts devices with this dataflow type:
+                if (collection.DataFlow.HasFlag(flow))
+                {
+                    dev = collection.CreateDeviceFromMMDevice(mmDevice);
+                    break;
+                }
+            }
+            if (dev != null)
+                GlobalDeviceAdded?.Invoke(this, dev);
+        }
+        public void OnDeviceRemoved(string deviceId)
+        {
+            FindWithDeviceID(deviceId)?.ForwardRemoved(this, EventArgs.Empty);
+            GlobalDeviceRemoved?.Invoke(this, deviceId);
+        }
+        public void OnDeviceStateChanged(string deviceId, DeviceState newState)
+        {
+            if (FindWithDeviceID(deviceId) is AudioDevice device)
+            {
+                device.ForwardStateChanged(this, newState);
+                GlobalDeviceStateChanged?.Invoke(this, device);
+            }
+            else // existing but previously ignored device was activated:
+            {
+                using var enumerator = new MMDeviceEnumerator();
+                var mmDevice = enumerator.GetDevice(deviceId);
+                enumerator.Dispose();
+                var flow = mmDevice.DataFlow;
+                AudioDevice? dev = null;
+                foreach (var collection in DeviceCollections)
+                {
+                    if (collection.DataFlow.HasFlag(flow))
+                    {
+                        dev = collection.CreateDeviceFromMMDevice(mmDevice);
+                        break;
+                    }
+                }
+                if (dev != null)
+                    GlobalDeviceAdded?.Invoke(this, dev);
+            }
+        }
+        public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key)
+        {
+            if (FindWithDeviceID(pwstrDeviceId) is AudioDevice device)
+            {
+                device.ForwardPropertyStoreChanged(this, key);
+                GlobalDevicePropertyValueChanged?.Invoke(this, (device, key));
+            }
+        }
         #endregion DeviceEvents
     }
 }

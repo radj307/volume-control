@@ -1,9 +1,14 @@
 ﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
+using ObservableImmutable;
+using System.Collections;
+using System.Collections.Immutable;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Audio
@@ -18,25 +23,45 @@ namespace VolumeControl.Audio
     /// </list>
     /// Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
     /// </remarks>
-    public sealed class AudioDevice : IDevice, INotifyPropertyChanged, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>
+    public sealed class AudioDevice : IDevice, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>, IList, ICollection, IEnumerable, IList<AudioSession>, IImmutableList<AudioSession>, ICollection<AudioSession>, IEnumerable<AudioSession>, IReadOnlyList<AudioSession>, IReadOnlyCollection<AudioSession>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Constructors
         /// <inheritdoc cref="AudioDevice"/>
         /// <param name="device">An enumerated <see cref="MMDevice"/> instance from NAudio.</param>
-        public AudioDevice(MMDevice device)
+        internal AudioDevice(MMDevice device)
         {
             _device = device;
             _deviceID = _device.ID;
+
+            if (SessionManager != null)
+            {
+                SessionManager.OnSessionCreated += HandleSessionCreated;
+                ReloadSessions();
+            }
         }
         #endregion Constructors
 
         #region Fields
         private readonly string _deviceID;
-        private MMDevice _device;
+        private readonly MMDevice _device;
         private (ImageSource?, ImageSource?)? _icons = null;
         #endregion Fields
 
         #region Properties
+        private static LogWriter Log => FLog.Log;
+        internal MMDevice MMDevice => _device;
+        /// <summary>Whether this device is enabled by the user or not.</summary>
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                _enabled = value;
+                NotifyPropertyChanged();
+                NotifyEnabledChanged();
+            }
+        }
+        private bool _enabled = false;
         /// <inheritdoc/>
         public string Name => FriendlyName;
         /// <inheritdoc/>
@@ -86,7 +111,7 @@ namespace VolumeControl.Audio
         /// Gets the <see cref="AudioSessionManager"/> object from the underlying <see cref="MMDevice"/>.
         /// </summary>
         /// <remarks>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</remarks>
-        public AudioSessionManager SessionManager => _device.AudioSessionManager;
+        public AudioSessionManager? SessionManager => _device.State.Equals(DeviceState.Active) ? _device.AudioSessionManager : null;
         /// <summary>
         /// Gets the <see cref="AudioEndpointVolume"/> object from the underlying <see cref="MMDevice"/>.
         /// </summary>
@@ -135,50 +160,141 @@ namespace VolumeControl.Audio
             }
         }
         /// <summary>
-        /// GUID to pass to AudioEndpointVolumeCallback
+        /// The sessions that are playing on this device.
         /// </summary>
-        public Guid NotificationGuid
-        {
-            get => EndpointVolumeObject.NotificationGuid;
-            set => EndpointVolumeObject.NotificationGuid = value;
-        }
+        public ObservableImmutableList<AudioSession> Sessions { get; } = new();
+        #region InterfaceProperties
+        /// <inheritdoc/>
+        public bool IsFixedSize => ((IList)Sessions).IsFixedSize;
+        /// <inheritdoc/>
+        public bool IsReadOnly => ((IList)Sessions).IsReadOnly;
+        /// <inheritdoc/>
+        public int Count => ((ICollection)Sessions).Count;
+        /// <inheritdoc/>
+        public bool IsSynchronized => ((ICollection)Sessions).IsSynchronized;
+        /// <inheritdoc/>
+        public object SyncRoot => ((ICollection)Sessions).SyncRoot;
+        /// <inheritdoc/>
+        AudioSession IReadOnlyList<AudioSession>.this[int index] => ((IReadOnlyList<AudioSession>)Sessions)[index];
+        /// <inheritdoc/>
+        AudioSession IList<AudioSession>.this[int index] { get => ((IList<AudioSession>)Sessions)[index]; set => ((IList<AudioSession>)Sessions)[index] = value; }
+        /// <inheritdoc/>
+        public object? this[int index] { get => ((IList)Sessions)[index]; set => ((IList)Sessions)[index] = value; }
+        #endregion InterfaceProperties
         #endregion Properties
 
         #region Events
+        public event EventHandler<AudioSession>? SessionRemoved;
+        private void NotifySessionRemoved(AudioSession session) => SessionRemoved?.Invoke(this, session);
+
+        public event EventHandler<AudioSession>? SessionCreated;
+        private void NotifySessionCreated(AudioSession session) => SessionCreated?.Invoke(this, session);
+
+        public event EventHandler<bool>? EnabledChanged;
+        private void NotifyEnabledChanged() => EnabledChanged?.Invoke(this, Enabled);
+
+        public event EventHandler<PropertyKey>? PropertyStoreChanged;
+        internal void ForwardPropertyStoreChanged(object? _, PropertyKey propertyKey) => PropertyStoreChanged?.Invoke(this, propertyKey);
+
         /// <summary>Audio device was removed.</summary>
         public event EventHandler? Removed;
-        internal void ForwardRemoved(object? sender, EventArgs e) => Removed?.Invoke(sender, e);
+        internal void ForwardRemoved(object? _, EventArgs e) => Removed?.Invoke(this, e);
 
         /// <summary>Triggered when the <see cref="State"/> property is changed.</summary>
         /// <remarks>This event is routed from the windows API.</remarks>
-        public event DeviceStateChangedEventHandler? StateChanged;
-        internal void ForwardStateChanged(object? sender, DeviceStateChangedEventArgs e) => StateChanged?.Invoke(sender, e);
+        internal event EventHandler<DeviceState>? StateChanged;
+        internal void ForwardStateChanged(object? _, DeviceState e) => StateChanged?.Invoke(this, e);
 
         /// <summary>
         /// Triggered when the endpoint volume changes from any source.
         /// </summary>
-        public event AudioEndpointVolumeNotificationDelegate OnVolumeNotification
+        public event EventHandler<(float, bool)>? VolumeChanged;
+        internal void ForwardVolumeChanged(AudioVolumeNotificationData data) => VolumeChanged?.Invoke(this, (data.MasterVolume, data.Muted));
+        /// <summary>Triggered when the <see cref="Sessions"/> collection is modified.</summary>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged
         {
-            add => EndpointVolumeObject.OnVolumeNotification += value;
-            remove => EndpointVolumeObject.OnVolumeNotification -= value;
+            add => ((INotifyCollectionChanged)Sessions).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)Sessions).CollectionChanged -= value;
         }
         /// <summary>Triggered when a property is set.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
-        internal void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         #endregion Events
 
-        #region Methods
-        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public (ImageSource?, ImageSource?)? GetIcons() => IconPath.Length > 0 ? IconGetter.GetIcons(IconPath) : null;
+        #region SessionEventHandlers
+        /// <summary>Handles <see cref="AudioSessionManager.OnSessionCreated"/> events, and adds them to the device's session list.</summary>
+        private void HandleSessionCreated(object? sender, IAudioSessionControl controller)
+        {
+            var session = new AudioSession(new AudioSessionControl(controller));
+            // Add session to the list
+            Sessions.Add(session);
+            NotifySessionCreated(session);
 
+            // Bind events to handlers:
+            session.StateChanged += HandleSessionStateChanged;
+
+            Log.Debug($"{session.ProcessIdentifier} created an audio session on device '{Name}'");
+        }
+        /// <summary>Handles <see cref="AudioSession.StateChanged"/> events from sessions within the <see cref="Sessions"/> list.</summary>
+        private void HandleSessionStateChanged(object? sender, AudioSessionState state)
+        {
+            if (sender is AudioSession session)
+            {
+                switch (state)
+                {
+                case AudioSessionState.AudioSessionStateExpired: // triggered when a session is closing
+                case AudioSessionState.AudioSessionStateInactive: // triggered when a session is deactivated
+                    if (!session.IsRunning)
+                    {
+                        // unbind events because why not
+                        session.StateChanged -= HandleSessionStateChanged;
+                        session.NotifyExited();
+                        // Remove the session from the list & dispose of it
+                        Sessions.Remove(session);
+                        NotifySessionRemoved(session);
+                        Log.Debug($"{session.ProcessIdentifier} exited.");
+                        session.Dispose();
+                        session = null!;
+                        return;
+                    }
+                    break;
+                case AudioSessionState.AudioSessionStateActive: // triggered when a session is activated
+                default: break;
+                }
+                Log.Debug($"{session.ProcessIdentifier} state changed to {state:G}");
+            }
+            else throw new InvalidOperationException($"{nameof(HandleSessionStateChanged)} was called with illegal type '{sender?.GetType().FullName}' for parameter '{nameof(sender)}'! Expected an object of type {typeof(AudioSession).FullName}");
+        }
+        #endregion SessionEventHandlers
+
+        #region Methods
+        #region Sessions
+        /// <summary>Clears the <see cref="Sessions"/> list, disposing of all items, and reloads all sessions from the <see cref="SessionManager"/>.</summary>
+        /// <remarks>This should only be used when initializing a new device, or if an error occurs.</remarks>
+        internal void ReloadSessions()
+        {
+            Sessions.ForEach(s => s.Dispose());
+            Sessions.Clear();
+
+            SessionManager.RefreshSessions();
+            SessionCollection? sessions = SessionManager.Sessions;
+
+            for (int i = 0; i < sessions.Count; ++i)
+            {
+                var s = new AudioSession(sessions[i]);
+                s.StateChanged += HandleSessionStateChanged;
+                if (s.IsRunning)
+                    Sessions.Add(s);
+            }
+        }
         /// <summary>
         /// Gets the list of audio sessions currently using this device.
         /// </summary>
         /// <returns>A list of new <see cref="AudioSession"/> instances.</returns>
-        public List<AudioSession> GetAudioSessions()
+        internal static List<AudioSession> GetAudioSessions(AudioSessionManager manager)
         {
-            SessionManager.RefreshSessions();
-            SessionCollection? sessions = SessionManager.Sessions;
+            manager.RefreshSessions();
+            SessionCollection? sessions = manager.Sessions;
             List<AudioSession> l = new();
             for (int i = 0; i < sessions.Count; ++i)
             {
@@ -187,6 +303,33 @@ namespace VolumeControl.Audio
                     l.Add(s);
             }
             return l;
+        }
+        /// <summary>Finds all sessions with the given <paramref name="predicate"/>.</summary>
+        /// <param name="predicate">A predicate function that accepts <see cref="AudioSession"/>.</param>
+        /// <returns>An array of matching <see cref="AudioSession"/> instances.</returns>
+        public AudioSession[] FindAll(Predicate<AudioSession> predicate)
+        {
+            List<AudioSession> l = new();
+            foreach (var session in Sessions)
+                if (predicate(session))
+                    l.Add(session);
+            return l.ToArray();
+        }
+        #endregion Sessions
+        #region Other
+        /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
+        public (ImageSource?, ImageSource?)? GetIcons()
+        {
+            try
+            {
+                if (IconPath.Length > 0)
+                    return IconGetter.GetIcons(IconPath);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex);
+            }
+            return null;
         }
         /// <inheritdoc/>
         public void Dispose()
@@ -203,6 +346,69 @@ namespace VolumeControl.Audio
         public override bool Equals(object? obj) => Equals(obj as AudioDevice);
         /// <inheritdoc/>
         public override int GetHashCode() => DeviceID.GetHashCode();
+        #endregion Other
+        #region InterfaceMethods
+        /// <inheritdoc/>
+        public int Add(object? value) => ((IList)Sessions).Add(value);
+        /// <inheritdoc/>
+        public void Clear() => ((IList)Sessions).Clear();
+        /// <inheritdoc/>
+        public bool Contains(object? value) => ((IList)Sessions).Contains(value);
+        /// <inheritdoc/>
+        public int IndexOf(object? value) => ((IList)Sessions).IndexOf(value);
+        /// <inheritdoc/>
+        public void Insert(int index, object? value) => ((IList)Sessions).Insert(index, value);
+        /// <inheritdoc/>
+        public void Remove(object? value) => ((IList)Sessions).Remove(value);
+        /// <inheritdoc/>
+        public void RemoveAt(int index) => ((IList)Sessions).RemoveAt(index);
+        /// <inheritdoc/>
+        public void CopyTo(Array array, int index) => ((ICollection)Sessions).CopyTo(array, index);
+        /// <inheritdoc/>
+        public IEnumerator GetEnumerator() => ((IEnumerable)Sessions).GetEnumerator();
+        /// <inheritdoc/>
+        public int IndexOf(AudioSession item) => ((IList<AudioSession>)Sessions).IndexOf(item);
+        /// <inheritdoc/>
+        public void Insert(int index, AudioSession item) => ((IList<AudioSession>)Sessions).Insert(index, item);
+        /// <inheritdoc/>
+        public void Add(AudioSession item) => ((ICollection<AudioSession>)Sessions).Add(item);
+        /// <inheritdoc/>
+        public bool Contains(AudioSession item) => ((ICollection<AudioSession>)Sessions).Contains(item);
+        /// <inheritdoc/>
+        public void CopyTo(AudioSession[] array, int arrayIndex) => ((ICollection<AudioSession>)Sessions).CopyTo(array, arrayIndex);
+        /// <inheritdoc/>
+        public bool Remove(AudioSession item) => ((ICollection<AudioSession>)Sessions).Remove(item);
+        /// <inheritdoc/>
+        IEnumerator<AudioSession> IEnumerable<AudioSession>.GetEnumerator() => ((IEnumerable<AudioSession>)Sessions).GetEnumerator();
+        /// <inheritdoc/>
+        IImmutableList<AudioSession> IImmutableList<AudioSession>.Add(AudioSession value) => ((IImmutableList<AudioSession>)Sessions).Add(value);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> AddRange(IEnumerable<AudioSession> items) => ((IImmutableList<AudioSession>)Sessions).AddRange(items);
+        /// <inheritdoc/>
+        IImmutableList<AudioSession> IImmutableList<AudioSession>.Clear() => ((IImmutableList<AudioSession>)Sessions).Clear();
+        /// <inheritdoc/>
+        public int IndexOf(AudioSession item, int index, int count, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)Sessions).IndexOf(item, index, count, equalityComparer);
+        /// <inheritdoc/>
+        IImmutableList<AudioSession> IImmutableList<AudioSession>.Insert(int index, AudioSession element) => ((IImmutableList<AudioSession>)Sessions).Insert(index, element);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> InsertRange(int index, IEnumerable<AudioSession> items) => ((IImmutableList<AudioSession>)Sessions).InsertRange(index, items);
+        /// <inheritdoc/>
+        public int LastIndexOf(AudioSession item, int index, int count, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)Sessions).LastIndexOf(item, index, count, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> Remove(AudioSession value, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)Sessions).Remove(value, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> RemoveAll(Predicate<AudioSession> match) => ((IImmutableList<AudioSession>)Sessions).RemoveAll(match);
+        /// <inheritdoc/>
+        IImmutableList<AudioSession> IImmutableList<AudioSession>.RemoveAt(int index) => ((IImmutableList<AudioSession>)Sessions).RemoveAt(index);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> RemoveRange(IEnumerable<AudioSession> items, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)Sessions).RemoveRange(items, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> RemoveRange(int index, int count) => ((IImmutableList<AudioSession>)Sessions).RemoveRange(index, count);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> Replace(AudioSession oldValue, AudioSession newValue, IEqualityComparer<AudioSession>? equalityComparer) => ((IImmutableList<AudioSession>)Sessions).Replace(oldValue, newValue, equalityComparer);
+        /// <inheritdoc/>
+        public IImmutableList<AudioSession> SetItem(int index, AudioSession value) => ((IImmutableList<AudioSession>)Sessions).SetItem(index, value);
+        #endregion InterfaceMethods
         #endregion Methods
     }
 }
