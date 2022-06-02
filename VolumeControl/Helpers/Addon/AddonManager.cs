@@ -47,7 +47,6 @@ namespace VolumeControl.Helpers.Addon
         /// <param name="addons">Any enumerable type containing <see cref="BaseAddon"/>-derived types.</param>
         public void LoadAddons(ref List<IBaseAddon> addons)
         {
-            if (AddonDirectories.Count == 0) return;
             Log.Debug($"Searching for addon assemblies in {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}.");
             int asmCount = 0,
                 totalCount = 0;

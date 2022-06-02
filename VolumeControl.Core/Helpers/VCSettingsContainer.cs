@@ -230,7 +230,7 @@ namespace VolumeControl.Core.Helpers
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new(propertyName));
-            Log.Debug($"{GetType().FullName}::{propertyName} was changed to {GetType().GetProperty(propertyName)?.GetValue(this)}");
+            Log.Debug($"{GetType().FullName}::{propertyName} was changed:", GetType().GetProperty(propertyName)?.GetValue(this));
         }
         /// <summary>Triggers the <see cref="PropertyChanging"/> event.</summary>
         /// <param name="propertyName">The name of the property that is changing; or leave blank to automatically fill this in using the <see cref="CallerMemberNameAttribute"/> attribute.</param>
