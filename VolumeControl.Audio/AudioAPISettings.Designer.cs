@@ -26,24 +26,24 @@ namespace VolumeControl.Audio {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LockSelectedSession {
+        public bool LockTargetSession {
             get {
-                return ((bool)(this["LockSelectedSession"]));
+                return ((bool)(this["LockTargetSession"]));
             }
             set {
-                this["LockSelectedSession"] = value;
+                this["LockTargetSession"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SelectedSession {
+        public string TargetSession {
             get {
-                return ((string)(this["SelectedSession"]));
+                return ((string)(this["TargetSession"]));
             }
             set {
-                this["SelectedSession"] = value;
+                this["TargetSession"] = value;
             }
         }
         

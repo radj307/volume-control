@@ -169,6 +169,18 @@ namespace VolumeControl.UnitTests
             if (expression)
                 Assert.Fail($"{msg}{(msg == null ? "" : "\n")}'{nameof(expression)}' is true!\n[{path}:{ln}]");
         }
+        /// <summary>Asserts that the given nullable boolean expression is true.</summary>
+        public static void True(bool? expression, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (!expression.HasValue || !expression.Value)
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}'{nameof(expression)}' is false!\n[{path}:{ln}]");
+        }
+        /// <summary>Asserts that the given nullable boolean expression is false.</summary>
+        public static void False(bool? expression, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (!expression.HasValue || expression.Value)
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}'{nameof(expression)}' is true!\n[{path}:{ln}]");
+        }
         #endregion Boolean
 
         #region Enumerable
@@ -206,6 +218,33 @@ namespace VolumeControl.UnitTests
             if (!(collection.Count != 0))
                 Assert.Fail($"{msg}{(msg == null ? "" : "\n")}{nameof(collection)} is empty!\n[{path}:{ln}]");
         }
+        /// <summary>Assert that the <paramref name="list"/> contains <paramref name="obj"/>.</summary>
+        public static void Contains(IList list, object? obj, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (!list.Contains(obj))
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}List doesn't contain {obj}!\n[{path}:{ln}]");
+        }
+        /// <summary>Assert that the <paramref name="list"/> contains <paramref name="obj"/>.</summary>
+        public static void NotContains(IList list, object? obj, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (list.Contains(obj))
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}List contains {obj}!\n[{path}:{ln}]");
+        }
+        #endregion Enumerable
+
+        #region String
+        /// <summary>Assert that the regular expression <paramref name="regexp"/> matches some part of <paramref name="s"/>.</summary>
+        public static void RegexMatch(string s, string regexp, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (!Regex.Match(s, regexp, RegexOptions.Compiled).Success)
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}Regular expression '{regexp}' was unsuccessful!\n[{path}:{ln}]");
+        }
+        /// <summary>Assert that the regular expression <paramref name="regexp"/> doesn't match any part of <paramref name="s"/>.</summary>
+        public static void RegexNoMatch(string s, string regexp, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
+        {
+            if (Regex.Match(s, regexp, RegexOptions.Compiled).Success)
+                Assert.Fail($"{msg}{(msg == null ? "" : "\n")}Regular expression '{regexp}' was successful!\n[{path}:{ln}]");
+        }
         /// <summary>Assert that <paramref name="s"/> is empty.</summary>
         public static void Empty(string s, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
         {
@@ -218,7 +257,7 @@ namespace VolumeControl.UnitTests
             if (!(s.Length != 0))
                 Assert.Fail($"{msg}{(msg == null ? "" : "\n")}string is empty!\n[{path}:{ln}]");
         }
-        #endregion Enumerable
+        #endregion String
 
         #region Event
         /// <summary>Causes an assertion failure if triggered by an event.<br/>This can be used as an event handler for any event with a signature similar to <see cref="EventHandler"/>.</summary>
@@ -247,21 +286,18 @@ namespace VolumeControl.UnitTests
             }
             ~EventTrigger() => Armed = false;
 
-            /// <summary>
-            /// Optional message to include with the assertion failure.
-            /// </summary>
+            /// <summary><b>Default: <see langword="null"/></b><br/>Optional message to include with the assertion failure.</summary>
             public string? Message { get; set; }
-            /// <summary>
-            /// When true, assertion failures are first caught to retrieve their stack trace which is parsed to find the name of the method that triggered the event; the built-in message's '[Method]' substring is replaced with the method name.
-            /// </summary>
+            /// <summary><b>Default: <see langword="true"/></b><br/>When true, assertion failures are first caught to retrieve their stack trace which is parsed to find the name of the method that triggered the event; the built-in message's '[Method]' substring is replaced with the method name.</summary>
             public bool ResolveEventNameFromStackTrace { get; set; } = true;
 
             /// <summary>
+            /// <b>Default: <see langword="false"/></b><br/>
             /// Gets or sets whether the event trigger is armed.<br/>
             /// <b>Note that setting this to <see langword="false"/> triggers the assertion check.</b><br/>
-            /// Defaults to false unless set in the constructor.
+            /// Defaults to false unless set in the constructor.<br/><br/>
+            /// Nothing happens if the underlying value doesn't actually change!<br/><i>(Setting this to <see langword="false"/> when it is already <see langword="false"/> cannot trigger assertion failures.)</i>
             /// </summary>
-            /// <remarks>Nothing happens if the underlying value doesn't actually change!<br/><i>(Setting this to <see langword="false"/> when it is already <see langword="false"/> cannot trigger assertion failures.)</i></remarks>
             public bool Armed
             {
                 get => _armed;
@@ -307,8 +343,7 @@ namespace VolumeControl.UnitTests
                 }
             }
             private bool _armed = false;
-            /// <summary>The number of times that the event has been called.</summary>
-            /// <remarks>This does not directly throw assertion failures unless <see cref="AutoAssert"/> is <see langword="true"/>.<br/>When <see cref="Armed"/> is set to <see langword="false"/> and the counter is greater or equal to <see cref="MinCount"/>, an assertion failure occurs.</remarks>
+            /// <summary><b>Default: 0</b><br/>The number of times that the event has been called.<br/>This does not directly throw assertion failures unless <see cref="AutoAssert"/> is <see langword="true"/>.<br/>When <see cref="Armed"/> is set to <see langword="false"/> and the counter is greater or equal to <see cref="MinCount"/>, an assertion failure occurs.</summary>
             public int Count
             {
                 get => _count;
@@ -339,20 +374,20 @@ namespace VolumeControl.UnitTests
                 }
             }
             private int _count = 0;
-            /// <summary>Sets the minimum value that <see cref="Count"/> must reach to prevent an assertion from being thrown when disarmed.<br/>If this is set to -1, an assertion failure occurs when <see cref="Count"/> is any number greater than 0.<br/>Defaults to -1.</summary>
-            /// <remarks>This is checked when <see cref="Armed"/> is set to false.</remarks>
+            /// <summary>Sets the minimum value that <see cref="Count"/> must reach to prevent an assertion from being thrown when disarmed.<br/>If this is set to -1, an assertion failure occurs when <see cref="Count"/> is any number greater than 0.<br/>Defaults to -1.<br/>This is checked when <see cref="Armed"/> is set to false.</summary>
+            /// <remarks><b>Default: -1</b></remarks>
             public int MinCount { get; set; } = -1;
             /// <summary>
+            /// <b>Default: <see langword="false"/></b><br/>
             /// When this is true, an assertion is automatically thrown when the value of <see cref="Count"/> reaches <i>(or exceeds)</i> the value of <see cref="AutoAssertWhenCountIs"/>.<br/>
-            /// This is in contrast to setting the <see cref="Armed"/> property to false, which is the manual way to trigger the assertion check.<br/>
-            /// Defaults to false.
+            /// This is in contrast to setting the <see cref="Armed"/> property to false, which is the manual way to trigger the assertion check.
             /// </summary>
             public bool AutoAssert { get; set; } = false;
             /// <summary>
+            /// <b>Default: 1</b><br/>
             /// Sets the maximum value that <see cref="Count"/> can reach before an assertion is thrown automatically.<br/>
-            /// Defaults to 1.
+            /// Does nothing if <see cref="AutoAssert"/> is set to <see langword="false"/>.
             /// </summary>
-            /// <remarks>Does nothing if <see cref="AutoAssert"/> is set to <see langword="false"/>.</remarks>
             public int AutoAssertWhenCountIs { get; set; } = 1;
 
             /// <summary>

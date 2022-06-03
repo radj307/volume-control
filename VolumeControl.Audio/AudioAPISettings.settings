@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VolumeControl.Audio" GeneratedClassName="AudioAPISettings">
   <Profiles />
   <Settings>
-    <Setting Name="LockSelectedSession" Type="System.Boolean" Scope="User">
+    <Setting Name="LockTargetSession" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SelectedSession" Type="System.String" Scope="User">
+    <Setting Name="TargetSession" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="VolumeStepSize" Type="System.Int32" Scope="User">

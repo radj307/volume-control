@@ -5,623 +5,432 @@ using VolumeControl.Audio;
 
 namespace VolumeControl.UnitTests.Audio
 {
-
     [TestClass()]
     public class AudioAPI_Tests
     {
         private static AudioAPISettings Settings => AudioAPISettings.Default;
 
-        [TestMethod()]
-        public void AudioAPISettings_Test()
-        {
-            Assertx.Greater(Settings.AutoReloadInterval, 0);
-            Assertx.Greater(Settings.AutoReloadIntervalMin, 0);
-            Assertx.Greater(Settings.AutoReloadIntervalMax, 0);
-        }
 
         [TestMethod()]
         public void AudioAPI_Test()
         {
-            AudioAPI aAPI = null!;
-            Assertx.NoThrows(() => { aAPI = new(); });
-            Assertx.Same(Settings.SelectedSession, aAPI.Target);
-            Assertx.Same(Settings.LockSelectedSession, aAPI.LockSelectedSession);
-            Assertx.Same(Settings.LockSelectedDevice, aAPI.LockSelectedDevice);
-            Assertx.Equal(Settings.VolumeStepSize, aAPI.VolumeStepSize);
-            Assertx.Same(Settings.ReloadOnHotkey, aAPI.ReloadOnHotkey);
-            Assertx.Same(Settings.ReloadOnInterval, aAPI.ReloadOnInterval);
-            Assertx.NotEmpty(aAPI.Sessions); //< there should always be a system idle session
+            // Smoke Test:
+            AudioAPI api = new();
+
+            // Settings Test:
+            Assertx.Same(api.LockSelectedSession, Settings.LockTargetSession);
+            Assertx.RegexMatch(api.Target, AudioSession.ParseProcessIdentifier(Settings.TargetSession).Item2, "Target property wasn't set correctly!");
+            Assertx.Same(api.VolumeStepSize, Settings.VolumeStepSize);
         }
 
         [TestMethod()]
-        public void ReloadDeviceList_Test()
+        public void ForceReloadAudioDevices_Test()
         {
-            AudioAPI aAPI = new();
+            AudioAPI api = new();
 
-            var dev = new Assertx.EventTrigger(true)
-            {
-                MinCount = 1,
-                ResolveEventNameFromStackTrace = false,
-            };
-
-            // when CheckAllDevices is false && LockSelectedDevice is true:
-            aAPI.CheckAllDevices = false;
-            aAPI.LockSelectedDevice = true;
-            aAPI.DeviceListReloaded += dev.Handler; //< devices
-            aAPI.SessionListReloaded += Assertx.NoEvent; //< sessions
-            aAPI.SelectedDeviceSwitched += Assertx.NoEvent; //< devices
-            aAPI.SelectedSessionSwitched += Assertx.NoEvent; //< and sessions, since CheckAllDevices is false
-            Assertx.NoThrows(() => aAPI.ReloadDeviceList());
-            dev.Armed = false; //< check count
-            aAPI.DeviceListReloaded -= dev.Handler;
-            aAPI.SessionListReloaded -= Assertx.NoEvent;
-            aAPI.SelectedDeviceSwitched -= Assertx.NoEvent;
-            aAPI.SelectedSessionSwitched -= Assertx.NoEvent;
-
-            dev.Reset();
-
-            // when CheckAllDevices is true && LockSelectedDevice is true:
-            aAPI.CheckAllDevices = true;
-            aAPI.DeviceListReloaded += dev.Handler; //< devices
-            aAPI.SessionListReloaded += Assertx.NoEvent; //< sessions
-            aAPI.SelectedDeviceSwitched += Assertx.NoEvent; //< devices
-            aAPI.SelectedSessionSwitched += Assertx.NoEvent; //< and sessions, since CheckAllDevices is false
-            Assertx.NoThrows(() => aAPI.ReloadDeviceList());
-            dev.Armed = false; //< check count
-            aAPI.DeviceListReloaded -= dev.Handler;
-            aAPI.SessionListReloaded -= Assertx.NoEvent;
-            aAPI.SelectedDeviceSwitched -= Assertx.NoEvent;
-            aAPI.SelectedSessionSwitched -= Assertx.NoEvent;
-        }
-
-        [TestMethod()]
-        public void ReloadSessionList_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.SelectedSessionSwitched += Assertx.NoEvent;
-            Assertx.NoThrows(() => aAPI.ReloadSessionList());
-            aAPI.SelectedSessionSwitched -= Assertx.NoEvent;
-
-
-        }
-
-        [TestMethod()]
-        public void GetDefaultDevice_Test()
-        {
-            AudioAPI aAPI = new();
-
-            var def = aAPI.GetDefaultDevice();
-            Assertx.NotNull(def);
-
-            
+            var devCount = api.Devices.Count;
+            Assertx.Greater(devCount, 0, "Device count is 0; cannot perform this test!");
+            Assertx.EventTrigger ev = new(true) { MinCount = 1 };
+            api.Devices.CollectionChanged += ev.Handler;
+            Assertx.NoThrows(() => api.ForceReloadAudioDevices());
+            Assertx.Equal(api.Devices.Count, devCount);
+            ev.Armed = false;
         }
 
         [TestMethod()]
         public void FindDevice_Test()
         {
-            AudioAPI aAPI = new();
-            var def = aAPI.GetDefaultDevice();
-            Assertx.NotNull(aAPI.FindDevice((dev) => def.DeviceID.Equals(dev.DeviceID, StringComparison.Ordinal)));
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void FindDeviceWithID_Test()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void ForceReloadSessionList_Test()
+        {
+            AudioAPI api = new();
+
+            var sessionCount = api.Sessions.Count;
+            Assertx.Greater(sessionCount, 0, "Session count is 0; cannot perform this test!");
+            Assertx.EventTrigger ev = new(true) { MinCount = 1 };
+            api.Sessions.CollectionChanged += ev.Handler;
+            Assertx.NoThrows(() => api.ForceReloadSessionList());
+            Assertx.Equal(api.Sessions.Count, sessionCount);
+            ev.Armed = false;
         }
 
         [TestMethod()]
         public void FindSession_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void FindSessionWithID_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void FindSessionWithName_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void FindSessionWithIdentifier_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void GetSessionNames_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
-        }
-
-        [TestMethod()]
-        public void IncrementSessionVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-
-            var sel = aAPI.SelectedSession = aAPI.Sessions.First();
-
-            var defVolume = sel.Volume;
-
-            sel!.Volume = 0;
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 20);
-
-            sel!.Volume = 90;
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 100);
-
-            sel!.Volume = 100;
-            Assertx.Equal(sel!.Volume, 100);
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 100);
-
-            aAPI.SetSessionVolume(defVolume);
-        }
-
-        [TestMethod("IncrementSessionVolume_Test (VolumeStepSize)")]
-        public void IncrementSessionVolume_Test1()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-
-            var sel = aAPI.SelectedSession = aAPI.Sessions.First();
-
-            var defVolume = sel.Volume;
-            aAPI.VolumeStepSize = 10;
-
-            sel!.Volume = 0;
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 10);
-
-            sel!.Volume = 90;
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 100);
-
-            sel!.Volume = 100;
-            Assertx.Equal(sel!.Volume, 100);
-            Assertx.NoThrows(() => aAPI.IncrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 100);
-
-            aAPI.SetSessionVolume(defVolume);
-        }
-
-        [TestMethod()]
-        public void DecrementSessionVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-
-            var sel = aAPI.SelectedSession = aAPI.Sessions.First();
-
-            var defVolume = sel.Volume;
-
-            sel!.Volume = 20;
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 0);
-
-            sel!.Volume = 90;
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 70);
-
-            sel!.Volume = 10;
-            Assertx.Equal(sel!.Volume, 10);
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume(20));
-            Assertx.Equal(sel!.Volume, 0);
-
-            aAPI.SetSessionVolume(defVolume);
-        }
-
-        [TestMethod("DecrementSessionVolume_Test (VolumeStepSize)")]
-        public void DecrementSessionVolume_Test1()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-
-            var sel = aAPI.SelectedSession = aAPI.Sessions.First();
-
-            var defVolume = sel.Volume;
-            aAPI.VolumeStepSize = 10;
-
-            sel!.Volume = 10;
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 0);
-
-            sel!.Volume = 90;
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 80);
-
-            sel!.Volume = 5;
-            Assertx.Equal(sel!.Volume, 5);
-            Assertx.NoThrows(() => aAPI.DecrementSessionVolume());
-            Assertx.Equal(sel!.Volume, 0);
-
-            aAPI.SetSessionVolume(defVolume);
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void GetSessionVolume_Test()
         {
-            AudioAPI aAPI = new();
-
-            Assert.Fail("Not Implemented");
+            throw new NotImplementedException();
         }
 
         [TestMethod()]
         public void SetSessionVolume_Test()
         {
-            AudioAPI aAPI = new();
+            throw new NotImplementedException();
+        }
 
-            Assert.Fail("Not Implemented");
+        [TestMethod()]
+        public void IncrementSessionVolume_Test()
+        {
+            AudioAPI api = new();
+
+            api.LockSelectedSession = false;
+
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+            Assertx.NoThrows(() => api.IncrementSessionVolume(100));
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & volume is 0:
+            api.SelectedSession.Volume = 0;
+            Assertx.NoThrows(() => api.IncrementSessionVolume(0));
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.IncrementSessionVolume(1);
+            Assertx.Equal(api.SelectedSession.Volume, 1);
+
+            api.SelectedSession.Volume = 0;
+            api.IncrementSessionVolume(50);
+            Assertx.Equal(api.SelectedSession.Volume, 50);
+
+            api.SelectedSession.Volume = 0;
+            api.IncrementSessionVolume(100);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 0;
+            api.IncrementSessionVolume(200);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            // ... & volume is 100:
+            api.SelectedSession.Volume = 100;
+            Assertx.NoThrows(() => api.IncrementSessionVolume(0));
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.IncrementSessionVolume(1);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.IncrementSessionVolume(50);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.IncrementSessionVolume(100);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.IncrementSessionVolume(200);
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+        }
+
+        [TestMethod()]
+        public void IncrementSessionVolume_Implicit_Test()
+        {
+            AudioAPI api = new();
+
+            api.LockSelectedSession = false;
+
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+            api.VolumeStepSize = 100;
+            Assertx.NoThrows(() => api.IncrementSessionVolume());
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & volume is 0:
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 0;
+            Assertx.NoThrows(() => api.IncrementSessionVolume());
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 1;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 1);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 50;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 50);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 100;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 200;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            // ... & volume is 100:
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 0;
+            Assertx.NoThrows(() => api.IncrementSessionVolume());
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 1;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 50;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 100;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 200;
+            api.IncrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+        }
+
+        [TestMethod()]
+        public void DecrementSessionVolume_Test()
+        {
+            AudioAPI api = new();
+
+            api.LockSelectedSession = false;
+
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+            Assertx.NoThrows(() => api.DecrementSessionVolume(100));
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & volume is 0:
+            api.SelectedSession.Volume = 0;
+            Assertx.NoThrows(() => api.DecrementSessionVolume(0));
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.DecrementSessionVolume(1);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.DecrementSessionVolume(50);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.DecrementSessionVolume(100);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.DecrementSessionVolume(200);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            // ... & volume is 100:
+            api.SelectedSession.Volume = 100;
+            Assertx.NoThrows(() => api.DecrementSessionVolume(0));
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.DecrementSessionVolume(1);
+            Assertx.Equal(api.SelectedSession.Volume, 99);
+
+            api.SelectedSession.Volume = 100;
+            api.DecrementSessionVolume(50);
+            Assertx.Equal(api.SelectedSession.Volume, 50);
+
+            api.SelectedSession.Volume = 100;
+            api.DecrementSessionVolume(100);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 100;
+            api.DecrementSessionVolume(200);
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+        }
+
+        [TestMethod()]
+        public void DecrementSessionVolume_Implicit_Test()
+        {
+            AudioAPI api = new();
+
+            api.LockSelectedSession = false;
+
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+            api.VolumeStepSize = 100;
+            Assertx.NoThrows(() => api.DecrementSessionVolume());
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & volume is 0:
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 0;
+            Assertx.NoThrows(() => api.DecrementSessionVolume());
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 1;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 50;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 100;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 0;
+            api.VolumeStepSize = 200;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            // ... & volume is 100:
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 0;
+            Assertx.NoThrows(() => api.DecrementSessionVolume());
+            Assertx.Equal(api.SelectedSession.Volume, 100);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 1;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 99);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 50;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 50);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 100;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
+
+            api.SelectedSession.Volume = 100;
+            api.VolumeStepSize = 200;
+            api.DecrementSessionVolume();
+            Assertx.Equal(api.SelectedSession.Volume, 0);
         }
 
         [TestMethod()]
         public void GetSessionMute_Test()
         {
-            AudioAPI aAPI = new();
+            AudioAPI api = new();
 
-            Assert.Fail("Not Implemented");
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty; cannot perform this test!");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+
+            Assertx.NoThrows(() => Assertx.False(api.GetSessionMute()));
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & mute is true:
+            api.SelectedSession.Muted = true;
+            Assertx.NoThrows(() => Assertx.True(api.GetSessionMute()));
+
+            // ... & mute is false
+            api.SelectedSession.Muted = false;
+            Assertx.NoThrows(() => Assertx.False(api.GetSessionMute()));
         }
 
         [TestMethod()]
         public void SetSessionMute_Test()
         {
-            AudioAPI aAPI = new();
+            AudioAPI api = new();
 
-            Assert.Fail("Not Implemented");
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty; cannot perform this test!");
+
+            // When selected session is null:
+            api.SelectedSession = null;
+
+            Assertx.NoThrows(() => Assertx.Null(api.SetSessionMute(true)));
+
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
+
+            // ... & mute is true:
+            Assertx.NoThrows(() => Assertx.True(api.SetSessionMute(true)));
+
+            // ... & mute is false
+            Assertx.NoThrows(() => Assertx.False(api.SetSessionMute(false)));
         }
 
         [TestMethod()]
         public void ToggleSessionMute_Test()
         {
-            AudioAPI aAPI = new();
+            AudioAPI api = new();
 
-            Assert.Fail("Not Implemented");
-        }
+            Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty; cannot perform this test!");
 
-        [TestMethod()]
-        public void SelectNextSession_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-            aAPI.SelectedSession = aAPI.Sessions.First();
+            // When selected session is null:
+            api.SelectedSession = null;
 
-            aAPI.LockSelectedSession = false;
+            Assertx.NoThrows(() => Assertx.Null(api.ToggleSessionMute()));
 
-            var sel = aAPI.SelectedSession;
+            // When selected session is not null:
+            api.SelectedSession = api.Sessions.First();
 
-            Assertx.Same(sel, aAPI.SelectedSession);
-            Assertx.NoThrows(() => aAPI.SelectNextSession());
-            Assertx.NotSame(sel, aAPI.SelectedSession);
+            // ... & mute is true:
+            api.SelectedSession.Muted = true;
+            Assertx.NoThrows(() => Assertx.False(api.ToggleSessionMute()));
 
-            sel = aAPI.SelectedSession;
-
-            aAPI.LockSelectedSession = true;
-            Assertx.Same(sel, aAPI.SelectedSession);
-            Assertx.NoThrows(() => aAPI.SelectNextSession());
-            Assertx.Same(sel, aAPI.SelectedSession);
-        }
-
-        [TestMethod()]
-        public void SelectPreviousSession_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-            aAPI.SelectedSession = aAPI.Sessions.First();
-
-            aAPI.LockSelectedSession = false;
-
-            var sel = aAPI.SelectedSession;
-
-            Assertx.Same(sel, aAPI.SelectedSession);
-            Assertx.NoThrows(() => aAPI.SelectPreviousSession());
-            Assertx.NotSame(sel, aAPI.SelectedSession);
-
-            sel = aAPI.SelectedSession;
-
-            aAPI.LockSelectedSession = true;
-            Assertx.Same(sel, aAPI.SelectedSession);
-            Assertx.NoThrows(() => aAPI.SelectPreviousSession());
-            Assertx.Same(sel, aAPI.SelectedSession);
-        }
-
-        [TestMethod()]
-        public void DeselectSession_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NotEmpty(aAPI.Sessions, "Testing environment doesn't have any audio sessions!");
-
-            aAPI.LockSelectedSession = false;
-            aAPI.SelectedSession = aAPI.Sessions.First();
-            Assertx.True(aAPI.DeselectSession());
-
-            aAPI.LockSelectedSession = true;
-            aAPI.SelectedSession = aAPI.Sessions.First();
-            Assertx.False(aAPI.DeselectSession());
-        }
-
-        [TestMethod()]
-        public void IncrementDeviceVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-
-            sel!.EndpointVolume = 0;
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 20);
-
-            sel!.EndpointVolume = 90;
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 100);
-
-            sel!.EndpointVolume = 100;
-            Assertx.Equal(sel!.EndpointVolume, 100);
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 100);
-
-            aAPI.SetDeviceVolume(defVolume);
-        }
-
-        [TestMethod("IncrementDeviceVolume_Test (VolumeStepSize)")]
-        public void IncrementDeviceVolume_Test1()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-            aAPI.VolumeStepSize = 10;
-
-            sel!.EndpointVolume = 0;
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 10);
-
-            sel!.EndpointVolume = 90;
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 100);
-
-            sel!.EndpointVolume = 100;
-            Assertx.Equal(sel!.EndpointVolume, 100);
-            Assertx.NoThrows(() => aAPI.IncrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 100);
-
-            aAPI.SetDeviceVolume(defVolume);
-        }
-
-        [TestMethod()]
-        public void DecrementDeviceVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-
-            sel!.EndpointVolume = 20;
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 0);
-
-            sel!.EndpointVolume = 90;
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 70);
-
-            sel!.EndpointVolume = 10;
-            Assertx.Equal(sel!.EndpointVolume, 10);
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume(20));
-            Assertx.Equal(sel!.EndpointVolume, 0);
-
-            aAPI.SetDeviceVolume(defVolume);
-        }
-
-        [TestMethod("DecrementDeviceVolume_Test (VolumeStepSize)")]
-        public void DecrementDeviceVolume_Test1()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-            aAPI.VolumeStepSize = 10;
-
-            sel!.EndpointVolume = 20;
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 10);
-
-            sel!.EndpointVolume = 90;
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 80);
-
-            sel!.EndpointVolume = 5;
-            Assertx.Equal(sel!.EndpointVolume, 5);
-            Assertx.NoThrows(() => aAPI.DecrementDeviceVolume());
-            Assertx.Equal(sel!.EndpointVolume, 0);
-
-            aAPI.SetDeviceVolume(defVolume);
-        }
-
-        [TestMethod()]
-        public void GetDeviceVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-
-            sel!.EndpointVolume = -10;
-            Assertx.Equal(aAPI.GetDeviceVolume(), 0);
-            sel!.EndpointVolume = 0;
-            Assertx.Equal(aAPI.GetDeviceVolume(), 0);
-
-            sel!.EndpointVolume = 100;
-            Assertx.Equal(aAPI.GetDeviceVolume(), 100);
-            sel!.EndpointVolume = 110;
-            Assertx.Equal(aAPI.GetDeviceVolume(), 100);
-
-            sel!.EndpointVolume = defVolume;
-        }
-
-        [TestMethod()]
-        public void SetDeviceVolume_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            var defVolume = sel!.EndpointVolume;
-
-            Assertx.NoThrows(() => aAPI.SetDeviceVolume(-10));
-            Assertx.Equal(sel!.EndpointVolume, 0);
-            Assertx.NoThrows(() => aAPI.SetDeviceVolume(0));
-            Assertx.Equal(sel!.EndpointVolume, 0);
-
-            Assertx.NoThrows(() => aAPI.SetDeviceVolume(100));
-            Assertx.Equal(sel!.EndpointVolume, 100);
-            Assertx.NoThrows(() => aAPI.SetDeviceVolume(110));
-            Assertx.Equal(sel!.EndpointVolume, 100);
-
-            sel!.EndpointVolume = defVolume;
-        }
-
-        [TestMethod()]
-        public void GetDeviceMute_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            sel!.EndpointMuted = false;
-            Assertx.NoThrows(() => Assertx.False(aAPI.GetDeviceMute()));
-            sel!.EndpointMuted = true;
-            Assertx.NoThrows(() => Assertx.True(aAPI.GetDeviceMute()));
-
-            aAPI.GetDefaultDevice().EndpointMuted = false;
-        }
-
-        [TestMethod()]
-        public void SetDeviceMute_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-
-            var sel = aAPI.SelectedDevice;
-            Assertx.NotNull(sel, "Testing environment doesn't have a default selected device!");
-
-            Assertx.NoThrows(() => aAPI.SetDeviceMute(true));
-            Assertx.True(sel!.EndpointMuted);
-            Assertx.NoThrows(() => aAPI.SetDeviceMute(false));
-            Assertx.False(sel!.EndpointMuted);
-
-            aAPI.GetDefaultDevice().EndpointMuted = false;
-        }
-
-        [TestMethod()]
-        public void ToggleDeviceMute_Test()
-        {
-            AudioAPI aAPI = new();
-
-            // when selected isn't null:
-            aAPI.SelectedDevice = aAPI.GetDefaultDevice();
-            aAPI.SelectedDevice.EndpointMuted = false;
-            Assertx.NoThrows(() => { aAPI.ToggleDeviceMute(); });
-            Assertx.True(aAPI.GetDeviceMute());
-            Assertx.NoThrows(() => { aAPI.ToggleDeviceMute(); }); //< toggle device mute back to previous state
-            Assertx.False(aAPI.GetDeviceMute());
-            // when selected is null:
-            aAPI.SelectedDevice = null;
-            Assertx.NoThrows(() => { aAPI.ToggleDeviceMute(); });
-
-            aAPI.GetDefaultDevice().EndpointMuted = false;
-        }
-
-        [TestMethod()]
-        public void SelectNextDevice_Test()
-        {
-            AudioAPI aAPI = new();
-            // when selected is null:
-            aAPI.SelectedDevice = null;
-            Assertx.NoThrows(() => { aAPI.SelectNextDevice(); });
-            // when devices list is empty:
-            aAPI.Devices.Clear();
-            Assertx.NoThrows(() => { aAPI.SelectNextDevice(); });
-        }
-
-        [TestMethod()]
-        public void SelectPreviousDevice_Test()
-        {
-            AudioAPI aAPI = new();
-            // when devices list is unknown:
-            Assertx.NoThrows(() => { aAPI.SelectPreviousDevice(); });
-            // when devices list is empty:
-            aAPI.Devices.Clear();
-            Assertx.NoThrows(() => { aAPI.SelectPreviousDevice(); });
-            // when devices list isn't empty:
-            aAPI.Devices.Add(aAPI.GetDefaultDevice());
-            Assertx.NoThrows(() => { aAPI.SelectPreviousDevice(); });
-        }
-
-        [TestMethod()]
-        public void DeselectDevice_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-            // when selected is not null:
-            aAPI.SelectedDevice = aAPI.GetDefaultDevice();
-            Assertx.NoThrows(() => { Assertx.True(aAPI.DeselectDevice()); });
-            // when selected is null:
-            aAPI.SelectedDevice = null;
-            Assertx.NoThrows(() => { Assertx.False(aAPI.DeselectDevice()); });
-            // when devices list is empty:
-            aAPI.Devices.Clear();
-            Assertx.NoThrows(() => { aAPI.DeselectDevice(); });
-        }
-
-        [TestMethod()]
-        public void SelectDefaultDevice_Test()
-        {
-            AudioAPI aAPI = new();
-            aAPI.CheckAllDevices = false;
-            // selected is already set to default:
-            aAPI.SelectDefaultDevice();
-            Assertx.False(aAPI.SelectDefaultDevice());
-            // selected is null:
-            aAPI.SelectedDevice = null;
-            Assertx.True(aAPI.SelectDefaultDevice());
-        }
-
-        [TestMethod()]
-        public void Dispose_Test()
-        {
-            AudioAPI aAPI = new();
-            Assertx.NoThrows(() => { aAPI.Dispose(); });
+            // ... & mute is false
+            api.SelectedSession.Muted = false;
+            Assertx.NoThrows(() => Assertx.True(api.ToggleSessionMute()));
         }
     }
 }

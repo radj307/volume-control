@@ -24,47 +24,23 @@ namespace VolumeControl.Audio
 
             Devices = new(DataFlow.Render);
             Sessions = new(Devices);
-            
+
             EnableDevices();
 
-            ISession? targetSession = FindSessionWithIdentifier(Settings.SelectedSession, false);
-            if (targetSession != null)
-                Target = targetSession.ProcessIdentifier;
-            else Target = Settings.SelectedSession;
+            if (FindSessionWithIdentifier(Settings.TargetSession, false) is ISession session)
+                Target = session.ProcessIdentifier;
+            else Target = Settings.TargetSession;
 
-            LockSelectedSession = Settings.LockSelectedSession;
-
+            LockSelectedSession = Settings.LockTargetSession;
             VolumeStepSize = Settings.VolumeStepSize;
-        }
-        private void EnableDevices()
-        {
-            var enabledDevices = Settings.EnabledDevices;
-            foreach (var dev in Devices)
-                if (enabledDevices.Contains(dev.DeviceID))
-                    dev.Enabled = true;
-
-            if (enabledDevices.Contains(string.Empty) && DefaultDevice != null)
-                DefaultDevice.Enabled = true;
-        }
-        private void SaveEnabledDevices()
-        {
-            StringCollection devices = new();
-            if (DefaultDevice?.Enabled ?? false)
-                devices.Add(string.Empty);
-            foreach (var dev in Devices)
-            {
-                if (dev.Enabled)
-                    devices.Add(dev.DeviceID);
-            }
-            Settings.EnabledDevices = devices;
         }
         private void SaveSettings()
         {
             // save settings
             SaveEnabledDevices();
 
-            Settings.SelectedSession = SelectedSession?.ProcessIdentifier ?? Target;
-            Settings.LockSelectedSession = LockSelectedSession;
+            Settings.TargetSession = SelectedSession?.ProcessIdentifier ?? Target;
+            Settings.LockTargetSession = LockSelectedSession;
 
             Settings.VolumeStepSize = VolumeStepSize;
             // save to file
@@ -156,7 +132,7 @@ namespace VolumeControl.Audio
             get => FindSessionWithIdentifier(Target);
             set
             {
-                if (LockSelectedSession)
+                if (LockSelectedSession || Target.Equals(value))
                     return;
 
                 Target = value?.ProcessIdentifier ?? string.Empty;
@@ -197,6 +173,28 @@ namespace VolumeControl.Audio
 
         #region Methods
         #region Device
+        private void EnableDevices()
+        {
+            var enabledDevices = Settings.EnabledDevices;
+            foreach (var dev in Devices)
+                if (enabledDevices.Contains(dev.DeviceID))
+                    dev.Enabled = true;
+
+            if (enabledDevices.Contains(string.Empty) && DefaultDevice != null)
+                DefaultDevice.Enabled = true;
+        }
+        private void SaveEnabledDevices()
+        {
+            StringCollection devices = new();
+            if (DefaultDevice?.Enabled ?? false)
+                devices.Add(string.Empty);
+            foreach (var dev in Devices)
+            {
+                if (dev.Enabled)
+                    devices.Add(dev.DeviceID);
+            }
+            Settings.EnabledDevices = devices;
+        }
         /// <summary>
         /// Clears and reloads all audio devices.
         /// </summary>
@@ -469,26 +467,32 @@ namespace VolumeControl.Audio
         /// Sets the mute state of <see cref="SelectedSession"/>.
         /// </summary>
         /// <param name="state">When true, the session will be muted; when false, the session will be unmuted.</param>
-        public void SetSessionMute(bool state)
+        /// <returns>The mute state of the selected session, or <see langword="null"/> when there is no selected session.</returns>
+        public bool? SetSessionMute(bool state)
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
             {
                 session.Muted = state;
                 NotifyVolumeChanged((session.Volume, session.Muted));
+                return session.Muted;
             }
+            return null;
         }
         /// <summary>
         /// Toggles the mute state of <see cref="SelectedSession"/>.
         /// </summary>
-        public void ToggleSessionMute()
+        /// <returns><see langword="true"/> when the selected session was muted or <see langword="false"/> when the selected session was unmuted.<br/>Returns <see langword="null"/> when there is no selected session.</returns>
+        public bool? ToggleSessionMute()
         {
             ResolveTarget();
             if (SelectedSession is AudioSession session)
             {
                 session.Muted = !session.Muted;
                 NotifyVolumeChanged((session.Volume, session.Muted));
+                return session.Muted;
             }
+            return null;
         }
 
         /// <summary>
