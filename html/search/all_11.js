@@ -17,7 +17,7 @@ var searchData=
   ['toggledevicemute_435',['ToggleDeviceMute',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a2345b35c836a1675b9528e6a2a8edc13',1,'VolumeControl::Hotkeys::Addons::AudioAPIActions']]],
   ['togglenotification_436',['ToggleNotification',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a5df7a41ad20c300d5e52e751bee848d4',1,'VolumeControl::Hotkeys::Addons::ApplicationActions']]],
   ['togglenotificationonvolume_437',['ToggleNotificationOnVolume',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html#a978c365382f2e83d828d593e1bdc21fe',1,'VolumeControl::Hotkeys::Addons::ApplicationActions']]],
-  ['togglesessionmute_438',['ToggleSessionMute',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a931b7d7c1109196d5c61238f75365e34',1,'VolumeControl::Audio::AudioAPI']]],
+  ['togglesessionmute_438',['ToggleSessionMute',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a04d5bfb5d35085ca2f3365713dd61e71',1,'VolumeControl::Audio::AudioAPI']]],
   ['top_439',['top',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#a354fdb2909d5e7ebed9306bb09d97385',1,'VolumeControl.WPF.RECT.top()'],['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'VolumeControl.WPF.Converters.Top()']]],
   ['topleft_440',['TopLeft',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917ab32beb056fbfe36afbabc6c88c81ab36',1,'VolumeControl::WPF::Converters']]],
   ['topright_441',['TopRight',['../namespace_volume_control_1_1_w_p_f_1_1_converters.html#aec18b4fe0c01480d12fbf7075fca3917a1d85a557894c340c318493f33bfa8efb',1,'VolumeControl::WPF::Converters']]],

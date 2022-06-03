@@ -15,7 +15,7 @@ var searchData=
   ['setbit_913',['SetBit',['../class_hotkey_lib_1_1_modifier_extensions.html#a260c8479a61644446c6581d7852f900f',1,'HotkeyLib::ModifierExtensions']]],
   ['setdevicemute_914',['SetDeviceMute',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a8950caa180156c6d7590ac168f6f8e7d',1,'VolumeControl::Hotkeys::Addons::AudioAPIActions']]],
   ['setitem_915',['SetItem',['../class_volume_control_1_1_audio_1_1_audio_device.html#a1f0ce3c3eaa7c4a85e50e30c1f1d26c9',1,'VolumeControl.Audio.AudioDevice.SetItem()'],['../class_observable_immutable_1_1_observable_immutable_list.html#aecaa9db4d52e7f7a2ff82bd7c4721e7d',1,'ObservableImmutable.ObservableImmutableList.SetItem()']]],
-  ['setsessionmute_916',['SetSessionMute',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a1edc8dbe623ac2a79f060ad031c20b02',1,'VolumeControl::Audio::AudioAPI']]],
+  ['setsessionmute_916',['SetSessionMute',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a1efb28eeb1e34d48ac7e0ed83ff4ddba',1,'VolumeControl::Audio::AudioAPI']]],
   ['setsessionvolume_917',['SetSessionVolume',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#afe82bca3a5314c192b79d864652a91c9',1,'VolumeControl::Audio::AudioAPI']]],
   ['setsource_918',['SetSource',['../class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html#a868775e4b7d5ddf507899f279feb7231',1,'VolumeControl::WPF::HWndHook']]],
   ['settings_919',['Settings',['../class_volume_control_1_1_log_1_1_properties_1_1_settings.html#a4bc70981c475588900143c0716dd4721',1,'VolumeControl::Log::Properties::Settings']]],
