@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a5ab892d22a03357cf97e32886d81ba3d":[4,0,2,3,0,2,2],
+"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a77b64ac233b9432a6a5ae9aab97eea53":[4,0,2,3,0,2,3],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ab395ebf2f57f6f3c9d5347c752c68cbb":[4,0,2,3,0,2,4],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ad7ec9c03b4d82524be38583bccd0a79f":[4,0,2,3,0,2,1],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ae1b0d99185180a4bf1f59add3f0a81f1":[4,0,2,3,0,2,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a77b1a677cd94bc51b9b4d775ef67f30d":[4,0,2,5,7,0],
 "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html":[4,0,2,5,8],
 "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a872f5e55ac9484d3754f58a1545de269":[4,0,2,5,8,0],
-"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a8f6d8b8ca6974a86c41c3b64674713bc":[4,0,2,5,8,1],
-"class_volume_control_1_1_type_extensions_1_1_string_extensions.html":[4,0,2,5,9],
-"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ab153a0ba42525c7fa71fae21fb6985":[4,0,2,5,9,0]
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a8f6d8b8ca6974a86c41c3b64674713bc":[4,0,2,5,8,1]
 };
