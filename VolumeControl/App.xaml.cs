@@ -51,7 +51,11 @@ namespace VolumeControl
             MainWindow.Show();
             MainWindow.WindowState = WindowState.Normal;
         }
-        private void ActivateMainWindow() => MainWindow.Activate();
+        private void ActivateMainWindow()
+        {
+            MainWindow.Show();
+            MainWindow.Activate();
+        }
         private void HandleTrayIconClick(object? sender, EventArgs e) => ShowMainWindow();
         #endregion Methods
     }

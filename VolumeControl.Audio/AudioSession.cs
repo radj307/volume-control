@@ -157,6 +157,7 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanging();
                 _controller.DisplayName = value;
                 NotifyPropertyChanged();
+                _name = null; //< set the _name field to null, causing 'Name' to be refreshed.
             }
         }
         /// <inheritdoc/>
@@ -199,7 +200,18 @@ namespace VolumeControl.Audio
         public Process Process { get; }
         /// <inheritdoc/>
         /// <remarks>This is the <see cref="DisplayName"/> if it is set to a non-empty string; otherwise this is the <see cref="ProcessName"/>.</remarks>
-        public string Name => DisplayName.Length > 0 ? DisplayName : ProcessName;
+        public string Name
+        {
+            get => _name ??= PID.Equals(0) ? "System Sounds" : (DisplayName.Length > 0 ? DisplayName : ProcessName);
+            set
+            {
+                DisplayName = value;
+                NotifyPropertyChanging();
+                _name = DisplayName;
+                NotifyPropertyChanged();
+            }
+        }
+        private string? _name;
         #endregion Properties
 
         #region Events

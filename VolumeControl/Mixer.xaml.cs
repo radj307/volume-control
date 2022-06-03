@@ -205,6 +205,10 @@ namespace VolumeControl
             if (VCSettings.Updater.ShowUpdatePrompt())
                 VCSettings.Updater.Update(true);
         }
+        private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            logFilterBox.SelectedItem = null;
+        }
         #endregion EventHandlers
     }
 }
