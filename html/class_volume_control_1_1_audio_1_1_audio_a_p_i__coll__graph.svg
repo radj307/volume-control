@@ -104,7 +104,7 @@ var sectionId = 'dynsection-1';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint.">
+<g id="a_node5"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint. Note that this object cannot be constructed externally....">
 <polygon fill="none" stroke="black" points="677.99,-270.5 677.99,-756.5 861.99,-756.5 861.99,-270.5 677.99,-270.5"/>
 <text text-anchor="start" x="685.99" y="-744.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
 <text text-anchor="middle" x="769.99" y="-733.5" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>

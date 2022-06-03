@@ -31,8 +31,8 @@ var searchData=
   ['audioapiactions_28',['AudioAPIActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
   ['audioapisettings_29',['AudioAPISettings',['../class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html',1,'VolumeControl::Audio']]],
   ['audiodevice_30',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl::Audio']]],
-  ['audiodevicecollection_31',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_audio_device_collection.html',1,'VolumeControl::Audio']]],
+  ['audiodevicecollection_31',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html',1,'VolumeControl::Audio::Collections']]],
   ['audiosession_32',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl::Audio']]],
-  ['audiosessioncollection_33',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_audio_session_collection.html',1,'VolumeControl::Audio']]],
+  ['audiosessioncollection_33',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html',1,'VolumeControl::Audio::Collections']]],
   ['addon_20development_34',['Addon Development',['../md_docs__addon_development.html',1,'']]]
 ];

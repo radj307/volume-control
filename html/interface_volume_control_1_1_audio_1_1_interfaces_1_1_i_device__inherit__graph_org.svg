@@ -29,7 +29,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint.">
+<g id="a_node4"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint. Note that this object cannot be constructed externally....">
 <polygon fill="none" stroke="black" points="3.5,-0.5 3.5,-486.5 187.5,-486.5 187.5,-0.5 3.5,-0.5"/>
 <text text-anchor="start" x="11.5" y="-474.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
 <text text-anchor="middle" x="95.5" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>

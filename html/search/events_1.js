@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['exited_1326',['Exited',['../class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c',1,'VolumeControl::Audio::AudioSession']]]
+  ['deviceenabledchanged_1324',['DeviceEnabledChanged',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a51f1c9f4cf4c7aa0debddd801a0cddb9',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
+  ['devicesessioncreated_1325',['DeviceSessionCreated',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a0fa6cd759842e5fe546eb51a5914166a',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
+  ['devicesessionremoved_1326',['DeviceSessionRemoved',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac9474afbb75bc76bb2860f45cbf85399',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]]
 ];

@@ -92,7 +92,7 @@
 <!-- Node44 -->
 <g id="node7" class="node">
 <title>Node44</title>
-<g id="a_node7"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint.">
+<g id="a_node7"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device.html" target="_top" xlink:title="Represents an audio device endpoint. Note that this object cannot be constructed externally....">
 <polygon fill="none" stroke="black" points="701,-973.5 701,-1003.5 851,-1003.5 851,-973.5 701,-973.5"/>
 <text text-anchor="start" x="709" y="-991.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
 <text text-anchor="middle" x="776" y="-980.5" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>
@@ -166,26 +166,10 @@
 <path fill="none" stroke="midnightblue" d="M580.78,-401.81C618.8,-407.82 672.96,-416.38 714.44,-422.93"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="580.93,-398.29 570.51,-400.19 579.84,-405.21 580.93,-398.29"/>
 </g>
-<!-- Node1 -->
-<g id="node12" class="node">
-<title>Node1</title>
-<g id="a_node12"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_device_collection.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="701,-232.5 701,-262.5 851,-262.5 851,-232.5 701,-232.5"/>
-<text text-anchor="start" x="709" y="-250.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
-<text text-anchor="middle" x="776" y="-239.5" font-family="Helvetica,sans-Serif" font-size="10.00">DeviceCollection</text>
-</a>
-</g>
-</g>
-<!-- Node80&#45;&gt;Node1 -->
-<g id="edge10" class="edge">
-<title>Node80&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M581.01,-396.42C603.21,-394.99 628.83,-389.62 647,-374.5 682.03,-345.35 650.24,-310.17 683,-278.5 689.79,-271.94 698.01,-266.77 706.71,-262.69"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="580.61,-392.94 570.76,-396.83 580.89,-399.93 580.61,-392.94"/>
-</g>
 <!-- Node46 -->
-<g id="node13" class="node">
+<g id="node12" class="node">
 <title>Node46</title>
-<g id="a_node13"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_session.html" target="_top" xlink:title="Represents an audio session playing on the system.">
+<g id="a_node12"><a xlink:href="class_volume_control_1_1_audio_1_1_audio_session.html" target="_top" xlink:title="Represents an audio session playing on the system.">
 <polygon fill="none" stroke="black" points="701,-288.5 701,-318.5 851,-318.5 851,-288.5 701,-288.5"/>
 <text text-anchor="start" x="709" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Audio</text>
 <text text-anchor="middle" x="776" y="-295.5" font-family="Helvetica,sans-Serif" font-size="10.00">Session</text>
@@ -193,10 +177,26 @@
 </g>
 </g>
 <!-- Node80&#45;&gt;Node46 -->
-<g id="edge11" class="edge">
+<g id="edge10" class="edge">
 <title>Node80&#45;&gt;Node46</title>
 <path fill="none" stroke="midnightblue" d="M580.86,-389.77C601.51,-386.77 625.89,-382 647,-374.5 686.51,-360.47 728.26,-335.03 752.96,-318.72"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="580.19,-386.32 570.75,-391.14 581.13,-393.26 580.19,-386.32"/>
+</g>
+<!-- Node1 -->
+<g id="node13" class="node">
+<title>Node1</title>
+<g id="a_node13"><a xlink:href="class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html" target="_top" xlink:title="Management container object for the AudioDevice class.">
+<polygon fill="none" stroke="black" points="686.5,-232.5 686.5,-262.5 865.5,-262.5 865.5,-232.5 686.5,-232.5"/>
+<text text-anchor="start" x="694.5" y="-250.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Audio.Collections.</text>
+<text text-anchor="middle" x="776" y="-239.5" font-family="Helvetica,sans-Serif" font-size="10.00">AudioDeviceCollection</text>
+</a>
+</g>
+</g>
+<!-- Node80&#45;&gt;Node1 -->
+<g id="edge11" class="edge">
+<title>Node80&#45;&gt;Node1</title>
+<path fill="none" stroke="midnightblue" d="M581.01,-396.42C603.21,-394.99 628.83,-389.62 647,-374.5 682.03,-345.35 650.24,-310.17 683,-278.5 689.79,-271.94 698.01,-266.77 706.71,-262.69"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="580.61,-392.94 570.76,-396.83 580.89,-399.93 580.61,-392.94"/>
 </g>
 <!-- Node58 -->
 <g id="node14" class="node">

@@ -1,16 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#ab9c38338f1f978a2e4403c73f9919029":[4,0,2,3,0,1,6],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#ac7f5c804d751c4611bd647db0796c8bd":[4,0,2,3,0,1,21],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#aca15162b70ba99715d4ed7849f59116e":[4,0,2,3,0,1,10],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#acfb7ba47cb92a434bd3bc40db847fbbc":[4,0,2,3,0,1,7],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#aebaf8325996bdadd541ad74822e96b68":[4,0,2,3,0,1,2],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#af49d7d90abdbd75411262156590b2aea":[4,0,2,3,0,1,24],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html":[4,0,2,3,0,2],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a08f4708c183a7a138d69ea20835c2c27":[4,0,2,3,0,2,5],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a1a4c8869f3c7330933aabac74e86b222":[4,0,2,3,0,2,0],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a5ab892d22a03357cf97e32886d81ba3d":[4,0,2,3,0,2,2],
-"class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#a77b64ac233b9432a6a5ae9aab97eea53":[4,0,2,3,0,2,3],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ab395ebf2f57f6f3c9d5347c752c68cbb":[4,0,2,3,0,2,4],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ad7ec9c03b4d82524be38583bccd0a79f":[4,0,2,3,0,2,1],
 "class_volume_control_1_1_hotkeys_1_1_addons_1_1_windows_a_p_i_actions.html#ae1b0d99185180a4bf1f59add3f0a81f1":[4,0,2,3,0,2,6],
@@ -249,5 +238,16 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_type_extensions_1_1_math_ext.html#a6b8ae1fa5f257fd253e0b6cb5c243d1c":[4,0,2,5,5,4],
 "class_volume_control_1_1_type_extensions_1_1_math_ext.html#a769deb82c60e6811668b08ff9652169a":[4,0,2,5,5,1],
 "class_volume_control_1_1_type_extensions_1_1_math_ext.html#acb9b1a1ecd4cdbcc1b46277b1fef0227":[4,0,2,5,5,2],
-"class_volume_control_1_1_type_extensions_1_1_math_ext.html#ada174aa07dcdf967600680d482cafbe1":[4,0,2,5,5,8]
+"class_volume_control_1_1_type_extensions_1_1_math_ext.html#ada174aa07dcdf967600680d482cafbe1":[4,0,2,5,5,8],
+"class_volume_control_1_1_type_extensions_1_1_math_ext.html#afe0998f7b9f09cfbe6ce9c7a84a3a80f":[4,0,2,5,5,6],
+"class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html":[4,0,2,5,6],
+"class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html#a36b104ca3f62875e15c301e15d5623a6":[4,0,2,5,6,0],
+"class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html#abb0d7085f47cc5d5a0254db9fd7a6a7f":[4,0,2,5,6,1],
+"class_volume_control_1_1_type_extensions_1_1_process_extensions.html":[4,0,2,5,7],
+"class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a77b1a677cd94bc51b9b4d775ef67f30d":[4,0,2,5,7,0],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html":[4,0,2,5,8],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a872f5e55ac9484d3754f58a1545de269":[4,0,2,5,8,0],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a8f6d8b8ca6974a86c41c3b64674713bc":[4,0,2,5,8,1],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html":[4,0,2,5,9],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ab153a0ba42525c7fa71fae21fb6985":[4,0,2,5,9,0]
 };

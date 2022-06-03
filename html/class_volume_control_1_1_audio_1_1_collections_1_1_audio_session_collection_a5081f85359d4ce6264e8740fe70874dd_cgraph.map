@@ -1,0 +1,4 @@
+<map id="VolumeControl.Audio.Collections.AudioSessionCollection.Remove" name="VolumeControl.Audio.Collections.AudioSessionCollection.Remove">
+<area shape="rect" id="node1" title="Removes any sessions with the same process ID number as pid ." alt="" coords="5,13,244,54"/>
+<area shape="rect" id="node2" href="$class_observable_immutable_1_1_observable_immutable_list.html#a8be15093cade9de2b243839e57d1e49d" title=" " alt="" coords="292,5,537,61"/>
+</map>

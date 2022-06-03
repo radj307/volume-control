@@ -96,17 +96,21 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an audio device endpoint.  
+<p>Represents an audio device endpoint.<br  />
+Note that this object cannot be constructed externally.<br  />
+You can retrieve already-created audio devices through the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">AudioAPI</a> class.  
  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.AudioDevice:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.AudioDevice:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_device__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -308,17 +312,17 @@ object?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 Events</h2></td></tr>
-<tr class="memitem:a76977035952e86b0ddb749e36264f80e"><td class="memItemLeft" align="right" valign="top"><a id="a76977035952e86b0ddb749e36264f80e"></a>
-EventHandler&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><b>SessionRemoved</b></td></tr>
+<tr class="memitem:a76977035952e86b0ddb749e36264f80e"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a76977035952e86b0ddb749e36264f80e">SessionRemoved</a></td></tr>
+<tr class="memdesc:a76977035952e86b0ddb749e36264f80e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when an audio session is removed from this device.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#a76977035952e86b0ddb749e36264f80e">More...</a><br /></td></tr>
 <tr class="separator:a76977035952e86b0ddb749e36264f80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143cb48021dfbf83e38234cb7b765a50"><td class="memItemLeft" align="right" valign="top"><a id="a143cb48021dfbf83e38234cb7b765a50"></a>
-EventHandler&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><b>SessionCreated</b></td></tr>
+<tr class="memitem:a143cb48021dfbf83e38234cb7b765a50"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a> &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#a143cb48021dfbf83e38234cb7b765a50">SessionCreated</a></td></tr>
+<tr class="memdesc:a143cb48021dfbf83e38234cb7b765a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when an audio session is added to this device.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#a143cb48021dfbf83e38234cb7b765a50">More...</a><br /></td></tr>
 <tr class="separator:a143cb48021dfbf83e38234cb7b765a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7bac1a386a1578a3203cc7d2ef0a989"><td class="memItemLeft" align="right" valign="top"><a id="ab7bac1a386a1578a3203cc7d2ef0a989"></a>
-EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><b>EnabledChanged</b></td></tr>
+<tr class="memitem:ab7bac1a386a1578a3203cc7d2ef0a989"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; bool &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#ab7bac1a386a1578a3203cc7d2ef0a989">EnabledChanged</a></td></tr>
+<tr class="memdesc:ab7bac1a386a1578a3203cc7d2ef0a989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the value of the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aca8e9e4c10758f2bd8c762a60d77b410" title="Whether this device is enabled by the user or not.">Enabled</a> property was changed.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#ab7bac1a386a1578a3203cc7d2ef0a989">More...</a><br /></td></tr>
 <tr class="separator:ab7bac1a386a1578a3203cc7d2ef0a989"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe78b5059ed87dbf4ed3ecfa71063aaf"><td class="memItemLeft" align="right" valign="top"><a id="abe78b5059ed87dbf4ed3ecfa71063aaf"></a>
-EventHandler&lt; PropertyKey &gt;?&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyStoreChanged</b></td></tr>
+<tr class="memitem:abe78b5059ed87dbf4ed3ecfa71063aaf"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; PropertyKey &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#abe78b5059ed87dbf4ed3ecfa71063aaf">PropertyStoreChanged</a></td></tr>
+<tr class="memdesc:abe78b5059ed87dbf4ed3ecfa71063aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when any property in the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f" title="Gets the underlying PropertyStore object for this endpoint.">Properties</a> container was changed.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#abe78b5059ed87dbf4ed3ecfa71063aaf">More...</a><br /></td></tr>
 <tr class="separator:abe78b5059ed87dbf4ed3ecfa71063aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa36602ce793ae40f19027d4eabf3c150"><td class="memItemLeft" align="right" valign="top">EventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aa36602ce793ae40f19027d4eabf3c150">Removed</a></td></tr>
 <tr class="memdesc:aa36602ce793ae40f19027d4eabf3c150"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> device was removed.  <a href="class_volume_control_1_1_audio_1_1_audio_device.html#aa36602ce793ae40f19027d4eabf3c150">More...</a><br /></td></tr>
@@ -331,16 +335,45 @@ EventHandler&lt; PropertyKey &gt;?&#160;</td><td class="memItemRight" valign="bo
 <tr class="separator:a9fc336d0314947c250ac61df798b9d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an audio device endpoint. </p>
-<p>This object uses the MMDevice <a class="el" href="namespace_volume_control_1_1_a_p_i.html">API</a> from NAudio, and implements the following interfaces:</p><ul>
+<div class="textblock"><p>Represents an audio device endpoint.<br  />
+Note that this object cannot be constructed externally.<br  />
+You can retrieve already-created audio devices through the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html" title="Contains methods related to audio devices, sessions, and the underlying selection mechanics responsib...">AudioAPI</a> class. </p>
+<p>This object uses the MMDevice <a class="el" href="namespace_volume_control_1_1_a_p_i.html">API</a> from NAudio, and implements the following interfaces: </p><ul>
 <li>
 IDevice </li>
 <li>
 INotifyPropertyChanged </li>
 <li>
 IDisposable </li>
+<li>
+IEquatable&lt;AudioDevice&gt; </li>
+<li>
+IEquatable&lt;IDevice&gt; </li>
+<li>
+IList </li>
+<li>
+ICollection </li>
+<li>
+IEnumerable </li>
+<li>
+IList&lt;AudioSession&gt; </li>
+<li>
+IImmutableList&lt;AudioSession&gt; </li>
+<li>
+ICollection&lt;AudioSession&gt; </li>
+<li>
+IEnumerable&lt;AudioSession&gt; </li>
+<li>
+IReadOnlyList&lt;AudioSession&gt; </li>
+<li>
+IReadOnlyCollection&lt;AudioSession&gt; </li>
+<li>
+INotifyCollectionChanged </li>
+<li>
+INotifyPropertyChanged </li>
 </ul>
-<p>Some properties in this object require the NAudio library.<br  />
+<p>Note that audio devices implement interfaces so that they may act similarly to lists of audio sessions.<br  />
+Some properties in this object require the NAudio library.<br  />
 If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9c7748e17069e1daffa943e2c6cd41df"></a>
@@ -368,7 +401,7 @@ If you're writing an addon, install the 'NAudio' nuget package if you need to be
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An array of matching <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a> instances.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00165">VolumeControl.Audio.AudioDevice.Sessions</a>.</p>
+<p class="reference">References <a class="el" href="#l00177">VolumeControl.Audio.AudioDevice.Sessions</a>.</p>
 
 </div>
 </div>
@@ -640,11 +673,27 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 <p>The sessions that are playing on this device. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00310">VolumeControl.Audio.AudioDevice.FindAll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00326">VolumeControl.Audio.AudioDevice.FindAll()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Event Documentation</h2>
+<a id="ab7bac1a386a1578a3203cc7d2ef0a989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7bac1a386a1578a3203cc7d2ef0a989">&#9670;&nbsp;</a></span>EnabledChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;bool&gt;? VolumeControl.Audio.AudioDevice.EnabledChanged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggered when the value of the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#aca8e9e4c10758f2bd8c762a60d77b410" title="Whether this device is enabled by the user or not.">Enabled</a> property was changed. </p>
+
+</div>
+</div>
 <a id="a9fc336d0314947c250ac61df798b9d91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fc336d0314947c250ac61df798b9d91">&#9670;&nbsp;</a></span>PropertyChanged</h2>
 
@@ -661,6 +710,22 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 </div>
 </div>
+<a id="abe78b5059ed87dbf4ed3ecfa71063aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe78b5059ed87dbf4ed3ecfa71063aaf">&#9670;&nbsp;</a></span>PropertyStoreChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;PropertyKey&gt;? VolumeControl.Audio.AudioDevice.PropertyStoreChanged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggered when any property in the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f" title="Gets the underlying PropertyStore object for this endpoint.">Properties</a> container was changed. </p>
+
+</div>
+</div>
 <a id="aa36602ce793ae40f19027d4eabf3c150"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa36602ce793ae40f19027d4eabf3c150">&#9670;&nbsp;</a></span>Removed</h2>
 
@@ -674,6 +739,38 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 </div><div class="memdoc">
 
 <p><a class="el" href="namespace_volume_control_1_1_audio.html">Audio</a> device was removed. </p>
+
+</div>
+</div>
+<a id="a143cb48021dfbf83e38234cb7b765a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a143cb48021dfbf83e38234cb7b765a50">&#9670;&nbsp;</a></span>SessionCreated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a>&gt;? VolumeControl.Audio.AudioDevice.SessionCreated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggered when an audio session is added to this device. </p>
+
+</div>
+</div>
+<a id="a76977035952e86b0ddb749e36264f80e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76977035952e86b0ddb749e36264f80e">&#9670;&nbsp;</a></span>SessionRemoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html">AudioSession</a>&gt;? VolumeControl.Audio.AudioDevice.SessionRemoved</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggered when an audio session is removed from this device. </p>
 
 </div>
 </div>

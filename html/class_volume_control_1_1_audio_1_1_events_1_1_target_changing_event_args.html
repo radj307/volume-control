@@ -94,17 +94,19 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_eve
 </div><!--header-->
 <div class="contents">
 
-<p>Event arguments for the <a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a7d745fa8f64d584c7950b88f1fd859c0" title="Event handler triggered after a target has been changed.">TargetChangedEventHandler</a> event.  
+<p>Event arguments for the <a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a2378ad05ca4a7a6d53605bbdc2eb927e" title="Event handler used by AudioAPI when the AudioAPI.Target property is changed.">TargetChangingEventHandler</a> event handler type.  
  <a href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.Events.TargetChangingEventArgs:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__inherit__graph.svg" width="202" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__inherit__graph.svg" width="226" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.Events.TargetChangingEventArgs:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__coll__graph.svg" width="202" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args__coll__graph.svg" width="226" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -125,7 +127,7 @@ Properties</h2></td></tr>
 <tr class="separator:a663580fe72880d813fec0c4753a3a386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Event arguments for the <a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a7d745fa8f64d584c7950b88f1fd859c0" title="Event handler triggered after a target has been changed.">TargetChangedEventHandler</a> event. </p>
+<div class="textblock"><p>Event arguments for the <a class="el" href="namespace_volume_control_1_1_audio_1_1_events.html#a2378ad05ca4a7a6d53605bbdc2eb927e" title="Event handler used by AudioAPI when the AudioAPI.Target property is changed.">TargetChangingEventHandler</a> event handler type. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2ce2e64f0b2214cdfde3fc055c40635f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ce2e64f0b2214cdfde3fc055c40635f">&#9670;&nbsp;</a></span>TargetChangingEventArgs()</h2>
@@ -167,7 +169,7 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00025">VolumeControl.Audio.Events.TargetChangingEventArgs.Cancel</a>, <a class="el" href="#l00023">VolumeControl.Audio.Events.TargetChangingEventArgs.Incoming</a>, and <a class="el" href="#l00020">VolumeControl.Audio.Events.TargetChangingEventArgs.Outgoing</a>.</p>
+<p class="reference">References <a class="el" href="#l00024">VolumeControl.Audio.Events.TargetChangingEventArgs.Cancel</a>, <a class="el" href="#l00022">VolumeControl.Audio.Events.TargetChangingEventArgs.Incoming</a>, and <a class="el" href="#l00019">VolumeControl.Audio.Events.TargetChangingEventArgs.Outgoing</a>.</p>
 
 </div>
 </div>
@@ -194,7 +196,7 @@ Properties</h2></td></tr>
 
 <p>When true, the incoming changes are rejected, and the outgoing changes are used exclusively instead. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00011">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00010">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
 
 </div>
 </div>
@@ -221,7 +223,7 @@ Properties</h2></td></tr>
 <p>This is the incoming target, which will replace the <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a3439bff8cbcb7f3a15e78e09c23d74f9" title="This is the outgoing target, which will be replaced by the Incoming target, unless Cancel is set to t...">Outgoing</a> target, unless <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a663580fe72880d813fec0c4753a3a386" title="When true, the incoming changes are rejected, and the outgoing changes are used exclusively instead.">Cancel</a> is set to true. </p>
 <p>This can be modified in event handlers, which allows you to validate target names.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00011">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00010">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
 
 </div>
 </div>
@@ -248,7 +250,7 @@ Properties</h2></td></tr>
 <p>This is the outgoing target, which will be replaced by the <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a42f035df7d613f82200fde5c46355003" title="This is the incoming target, which will replace the Outgoing target, unless Cancel is set to true.">Incoming</a> target, unless <a class="el" href="class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html#a663580fe72880d813fec0c4753a3a386" title="When true, the incoming changes are rejected, and the outgoing changes are used exclusively instead.">Cancel</a> is set to true. </p>
 <p>This is read-only to event handlers.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00011">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00010">VolumeControl.Audio.Events.TargetChangingEventArgs.TargetChangingEventArgs()</a>.</p>
 
 </div>
 </div>

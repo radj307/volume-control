@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lockselectedsessionchanged_1328',['LockSelectedSessionChanged',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab0c481ba302f60152c00bd4665556cfe',1,'VolumeControl::Audio::AudioAPI']]]
+  ['keyschanged_1329',['KeysChanged',['../class_hotkey_lib_1_1_windows_hotkey.html#a7e61c30ddf3e077b02e95b875074b3a9',1,'HotkeyLib::WindowsHotkey']]]
 ];
