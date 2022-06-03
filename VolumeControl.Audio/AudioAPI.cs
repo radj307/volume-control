@@ -46,9 +46,8 @@ namespace VolumeControl.Audio
             if (enabledDevices.Contains(string.Empty) && DefaultDevice != null)
                 DefaultDevice.Enabled = true;
         }
-        private void SaveSettings()
+        private void SaveEnabledDevices()
         {
-            // save settings
             StringCollection devices = new();
             if (DefaultDevice?.Enabled ?? false)
                 devices.Add(string.Empty);
@@ -57,6 +56,12 @@ namespace VolumeControl.Audio
                 if (dev.Enabled)
                     devices.Add(dev.DeviceID);
             }
+            Settings.EnabledDevices = devices;
+        }
+        private void SaveSettings()
+        {
+            // save settings
+            SaveEnabledDevices();
 
             Settings.SelectedSession = SelectedSession?.ProcessIdentifier ?? Target;
             Settings.LockSelectedSession = LockSelectedSession;

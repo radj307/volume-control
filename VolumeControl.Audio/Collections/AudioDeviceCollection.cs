@@ -40,7 +40,10 @@ namespace VolumeControl.Audio.Collections
         {
             if (sender is AudioDevice device)
             {
-                Settings.EnabledDevices.AddIfUnique(device.DeviceID);
+                if (state)
+                    Settings.EnabledDevices.AddIfUnique(device.DeviceID);
+                else
+                    Settings.EnabledDevices.Remove(device.DeviceID);
                 Settings.Save();
                 Settings.Reload();
             }

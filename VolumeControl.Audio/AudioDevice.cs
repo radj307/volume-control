@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows.Media;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
@@ -44,6 +45,7 @@ namespace VolumeControl.Audio
         {
             _device = device;
             _deviceID = _device.ID;
+            _name = GetDeviceName();
 
             if (SessionManager != null)
             {
@@ -75,7 +77,18 @@ namespace VolumeControl.Audio
         }
         private bool _enabled = false;
         /// <inheritdoc/>
-        public string Name => FriendlyName;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private string _name;
+        /// <summary>The name of the audio interface; for example 'USB Audio Codec'</summary>
+        public string InterfaceName => DeviceFriendlyName;
         /// <inheritdoc/>
         public string DeviceID => _deviceID;
         /// <summary>The instance ID.</summary>
@@ -281,6 +294,9 @@ namespace VolumeControl.Audio
         #endregion SessionEventHandlers
 
         #region Methods
+        /// <summary>Gets the device name without the interface name.</summary>
+        /// <returns><see cref="string"/></returns>
+        public string GetDeviceName() => Regex.Replace(FriendlyName, $"\\(\\s*?{DeviceFriendlyName}\\s*?\\)", "", RegexOptions.Compiled).Trim();
         #region Sessions
         /// <summary>Clears the <see cref="Sessions"/> list, disposing of all items, and reloads all sessions from the <see cref="SessionManager"/>.</summary>
         /// <remarks>This should only be used when initializing a new device, or if an error occurs.<br/>If this method is called when the <see cref="State"/> property isn't set to <see cref="DeviceState.Active"/>, the session list is cleared without reloading.<br/>This is because inactive devices do not have a valid <see cref="SessionManager"/> object.</remarks>
