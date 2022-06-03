@@ -1,7 +1,6 @@
 ﻿namespace VolumeControl.Audio.Events
 {
-    /// <summary>Event arguments for the <see cref="TargetChangedEventHandler"/> event.</summary>
-    /// 
+    /// <summary>Event arguments for the <see cref="TargetChangingEventHandler"/> event handler type.</summary>
     public class TargetChangingEventArgs : EventArgs
     {
         /// <inheritdoc cref="TargetChangingEventArgs"/>
@@ -25,7 +24,8 @@
         public bool Cancel { get; set; }
     }
     /// <summary>Event handler used by <see cref="AudioAPI"/> when the <see cref="AudioAPI.Target"/> property is changed.</summary>
+    /// <remarks>This event allows you to intercept and modify the final value of <see cref="AudioAPI.Target"/> before it is set.</remarks>
     /// <param name="sender">The object who triggered this event. In most cases, this is <see cref="AudioAPI"/>.</param>
-    /// <param name="e">The event arguments associated with this event type.<br/>See the <see cref="TargetChangedEventArgs"/> documentation for more information.</param>
+    /// <param name="e">Event arguments.</param>
     public delegate void TargetChangingEventHandler(object sender, TargetChangingEventArgs e);
 }

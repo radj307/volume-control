@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
+using VolumeControl.Audio.Collections;
 
 namespace VolumeControl.Audio.Events
 {

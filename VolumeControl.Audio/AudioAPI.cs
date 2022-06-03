@@ -3,6 +3,7 @@ using NAudio.CoreAudioApi.Interfaces;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Audio.Collections;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
@@ -165,39 +166,27 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
+        /// <summary>Triggered when the volume or mute state of the <see cref="SelectedSession"/> is changed.</summary>
         public event EventHandler<(int volume, bool muted)>? SelectedSessionVolumeChanged;
         private void NotifyVolumeChanged((int volume, bool muted) pr) => SelectedSessionVolumeChanged?.Invoke(SelectedSession, pr);
-        /// <summary>
-        /// Triggered when the selected session is changed.
-        /// </summary>
+        /// <summary>Triggered when the selected session is changed.</summary>
         public event EventHandler? SelectedSessionSwitched;
-        /// <summary>
-        /// Triggered when the value of the <see cref="LockSelectedSession"/> property is changed.
-        /// </summary>
+        private void NotifySessionSwitch() => SelectedSessionSwitched?.Invoke(this, new());
+        /// <summary>Triggered when the value of the <see cref="LockSelectedSession"/> property is changed.</summary>
         public event EventHandler? LockSelectedSessionChanged;
-        /// <summary>
-        /// Triggered before the <see cref="Target"/> property is changed, allowing for target validation.
-        /// </summary>
+        private void NotifyLockSelectedSessionChanged() => LockSelectedSessionChanged?.Invoke(this, new());
+        /// <summary>Triggered before the <see cref="Target"/> property is changed, allowing for target validation.</summary>
         /// <remarks>Note that this is triggered <b>before</b> the <see cref="PropertyChanging"/> event for <see cref="Target"/>.<br/>If this event cancels the change, the <see cref="PropertyChanging"/> event is not fired.</remarks>
         public event TargetChangingEventHandler? TargetChanging;
-        /// <summary>
-        /// Triggered when the <see cref="Target"/> property is changed.
-        /// </summary>
-        public event EventHandler<string>? TargetChanged;
-        /// <summary>
-        /// Triggered when a member property's value is changed.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-        /// <summary>
-        /// Triggered before a member property's value is changed.
-        /// </summary>
-        public event PropertyChangingEventHandler? PropertyChanging;
-
-        private void NotifySessionSwitch() => SelectedSessionSwitched?.Invoke(this, new());
-        private void NotifyLockSelectedSessionChanged() => LockSelectedSessionChanged?.Invoke(this, new());
         private void NotifyTargetChanging(ref TargetChangingEventArgs e) => TargetChanging?.Invoke(this, e);
+        /// <summary>Triggered when the <see cref="Target"/> property is changed.</summary>
+        public event EventHandler<string>? TargetChanged;
         private void NotifyTargetChanged(string target) => TargetChanged?.Invoke(this, target);
+        /// <summary>Triggered when a member property's value is changed.</summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        /// <summary>Triggered before a member property's value is changed.</summary>
+        public event PropertyChangingEventHandler? PropertyChanging;
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         #endregion Events
 
@@ -221,7 +210,8 @@ namespace VolumeControl.Audio
             foreach (MMDevice endpoint in enumerator.EnumerateAudioEndPoints(flow, state))
             {
                 var dev = new AudioDevice(endpoint);
-                dev.SessionManager.OnSessionCreated += HandleSessionCreated;
+                if (dev.SessionManager is not null)
+                    dev.SessionManager.OnSessionCreated += HandleSessionCreated;
                 devices.Add(dev);
             }
             enumerator.Dispose();
@@ -284,6 +274,8 @@ namespace VolumeControl.Audio
         }
         #endregion SessionEventHandlers
         #region ReloadSessions
+        /// <summary>Forces the sessions list to be reloaded from the audio device list.</summary>
+        /// <remarks><b>Note that this invalidates and disposes of all <see cref="AudioSession"/> objects!<br/>This means any audio session objects you had previously saved a reference to will be deleted.</b></remarks>
         public void ForceReloadSessionList()
         {
             Sessions.RefreshFromDevices();
@@ -305,12 +297,10 @@ namespace VolumeControl.Audio
             return null;
         }
         /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process id <paramref name="pid"/></summary>
-        /// <remarks>It is recommended to use <see cref="FindSessionWithIdentifier(string, StringComparison)"/> when searching the <see cref="Sessions"/> list.</remarks>
         /// <param name="pid"><b><see cref="AudioSession.PID"/></b></param>
         /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found with <paramref name="pid"/>.</returns>
         public ISession? FindSessionWithID(int pid) => FindSession(s => s.PID.Equals(pid));
         /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process name <paramref name="name"/></summary>
-        /// <remarks>It is recommended to use <see cref="FindSessionWithIdentifier(string, StringComparison)"/> when searching the <see cref="Sessions"/> list.</remarks>
         /// <param name="name"><see cref="AudioSession.ProcessName"/></param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names.</param>
         /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found named <paramref name="name"/> using <paramref name="sCompareType"/> string comparison.</returns>
@@ -324,6 +314,7 @@ namespace VolumeControl.Audio
         /// <item><term><b><see cref="AudioSession.ProcessIdentifier"/></b></term><description>Uses <paramref name="sCompareType"/></description></item>
         /// </list>
         /// </param>
+        /// <param name="prioritizePID">When <see langword="true"/> <i>(default)</i>, process IDs are prioritized over process names, which returns more accurate results when multiple sessions have identical names but may take longer.<br/>When <see langword="false"/>, the first process with a matching ID or name is returned.</param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names or full identifiers.</param>
         /// <returns><see cref="ISession"/> if a session was found.<br/>Returns null if nothing was found.</returns>
         public ISession? FindSessionWithIdentifier(string identifier, bool prioritizePID = true, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase)
@@ -341,7 +332,7 @@ namespace VolumeControl.Audio
                 {
                     return session;
                 }
-                else if (session.ProcessName.Equals(name, StringComparison.Ordinal))
+                else if (session.ProcessName.Equals(name, sCompareType))
                 {
                     if (!prioritizePID || pid == -1)
                         return session;
@@ -416,7 +407,6 @@ namespace VolumeControl.Audio
         #endregion Session
 
         #region Selection
-        #region SessionSelection
         /// <summary>Gets the current session volume of <see cref="SelectedSession"/>.</summary>
         /// <returns>An <see cref="Int32"/> in the range ( 0 - 100 ) if <see cref="SelectedSession"/> is not <see langword="null"/>; otherwise ( -1 ).</returns>
         public int GetSessionVolume() => SelectedSession?.Volume ?? -1;
@@ -432,7 +422,7 @@ namespace VolumeControl.Audio
             }
         }
         /// <summary>
-        /// Increments the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Increments the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.
         /// </summary>
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void IncrementSessionVolume(int amount)
@@ -445,11 +435,11 @@ namespace VolumeControl.Audio
             }
         }
         /// <summary>
-        /// Increments the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Increments the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.
         /// </summary>
         public void IncrementSessionVolume() => IncrementSessionVolume(VolumeStepSize);
         /// <summary>
-        /// Decrements the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Decrements the volume of <see cref="SelectedSession"/> by <paramref name="amount"/>.
         /// </summary>
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void DecrementSessionVolume(int amount)
@@ -462,7 +452,7 @@ namespace VolumeControl.Audio
             }
         }
         /// <summary>
-        /// Decrements the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Decrements the volume of <see cref="SelectedSession"/> by <see cref="VolumeStepSize"/>.
         /// </summary>
         public void DecrementSessionVolume() => DecrementSessionVolume(VolumeStepSize);
         /// <summary>
@@ -471,7 +461,7 @@ namespace VolumeControl.Audio
         /// <returns>True if <see cref="SelectedSession"/> is not null and is muted; otherwise false.</returns>
         public bool GetSessionMute() => SelectedSession is AudioSession session && session.Muted;
         /// <summary>
-        /// Sets the mute state of <see cref="SelectedSession"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Sets the mute state of <see cref="SelectedSession"/>.
         /// </summary>
         /// <param name="state">When true, the session will be muted; when false, the session will be unmuted.</param>
         public void SetSessionMute(bool state)
@@ -484,7 +474,7 @@ namespace VolumeControl.Audio
             }
         }
         /// <summary>
-        /// Toggles the mute state of <see cref="SelectedSession"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
+        /// Toggles the mute state of <see cref="SelectedSession"/>.
         /// </summary>
         public void ToggleSessionMute()
         {
@@ -572,7 +562,6 @@ namespace VolumeControl.Audio
             NotifySessionSwitch(); //< SelectedSessionSwitched
             return true;
         }
-        #endregion SessionSelection
         #endregion Selection
 
         #region Other

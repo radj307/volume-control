@@ -1,18 +1,18 @@
 ﻿using NAudio.CoreAudioApi;
 using ObservableImmutable;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Events;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
-using static System.Windows.Forms.AxHost;
 
-namespace VolumeControl.Audio
+namespace VolumeControl.Audio.Collections
 {
+    /// <summary>
+    /// Management container object for the <see cref="AudioDevice"/> class.
+    /// </summary>
     public class AudioDeviceCollection : ObservableImmutableList<AudioDevice>, IDisposable
     {
-        public AudioDeviceCollection(DataFlow flow)
+        #region Constructor
+        internal AudioDeviceCollection(DataFlow flow)
         {
             DataFlow = flow;
             using var enumerator = new MMDeviceEnumerator();
@@ -27,12 +27,14 @@ namespace VolumeControl.Audio
             DeviceNotificationClient.GlobalDeviceAdded += HandleDeviceAdded;
             enumerator.Dispose();
         }
+        #endregion Constructor
 
         #region Fields
         private bool disposedValue;
         #endregion Fields
 
         #region Events
+        /// <summary>Triggered when a managed device's Enabled property was changed.</summary>
         public event EventHandler<bool>? DeviceEnabledChanged;
         private void ForwardDeviceEnabledChanged(object? sender, bool state)
         {
@@ -44,8 +46,10 @@ namespace VolumeControl.Audio
             }
             DeviceEnabledChanged?.Invoke(sender, state);
         }
+        /// <summary>Triggered when a managed device has a session added to it.</summary>
         public event EventHandler<AudioSession>? DeviceSessionCreated;
         private void ForwardSessionCreated(object? sender, AudioSession session) => DeviceSessionCreated?.Invoke(sender, session);
+        /// <summary>Triggered when a managed device has a session removed from it.</summary>
         public event EventHandler<long>? DeviceSessionRemoved;
         private void ForwardSessionRemoved(object? sender, long pid) => DeviceSessionRemoved?.Invoke(sender, pid);
         #endregion Events
@@ -64,9 +68,7 @@ namespace VolumeControl.Audio
         private void HandleDeviceAdded(object? sender, AudioDevice device)
         {
             if (AudioAPISettings.Default.EnabledDevices.Contains(device.DeviceID))
-            {
                 device.Enabled = true;
-            }
         }
         private void HandleDeviceStateChanged(object? sender, DeviceState state)
         {
@@ -100,7 +102,15 @@ namespace VolumeControl.Audio
         #endregion HandleDeviceEvents
 
         #region Methods
+        /// <summary>
+        /// Finds a device using the <paramref name="predicate"/> function.
+        /// </summary>
+        /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> class types.</param>
+        /// <returns>Devices that <paramref name="predicate"/> returned <see langword="true"/> for.</returns>
         public AudioDevice[] FindDevice(Predicate<AudioDevice> predicate) => this.Where(dev => predicate(dev)).ToArray();
+        /// <summary>Finds the <see cref="AudioDevice"/> using the given <paramref name="mmDevice"/> object.</summary>
+        /// <param name="mmDevice">A <see cref="MMDevice"/> object to find.</param>
+        /// <returns>The audio device using <paramref name="mmDevice"/>.</returns>
         internal AudioDevice? FindDeviceWithMMDevice(MMDevice mmDevice) => this.FirstOrDefault(dev => dev != null && dev.DeviceID.Equals(mmDevice.ID, StringComparison.Ordinal), null);
         /// <summary>Creates a new audio device instance and connects its events to this object's handlers.</summary>
         /// <param name="mmDevice">The MMDevice instance to use when creating the device.</param>
@@ -131,18 +141,13 @@ namespace VolumeControl.Audio
             Reload(enumerator);
             enumerator.Dispose();
         }
-        #endregion Methods
-
-
         /// <inheritdoc/>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
-                {
-                    this.ForEach(d => d.Dispose());
-                }
+                    ForEach(d => d.Dispose());
                 disposedValue = true;
             }
         }
@@ -151,86 +156,6 @@ namespace VolumeControl.Audio
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
-        }
-    }
-
-    public class AudioSessionCollection : ObservableImmutableList<AudioSession>
-    {
-        public AudioSessionCollection(AudioDeviceCollection devices)
-        {
-            _devices = devices;
-            _devices.DeviceEnabledChanged += HandleDeviceEnabledChanged;
-            _devices.DeviceSessionCreated += HandleDeviceSessionCreated;
-            _devices.DeviceSessionRemoved += HandleDeviceSessionRemoved;
-        }
-
-        private readonly AudioDeviceCollection _devices;
-        internal void RefreshFromDevices() => RefreshFromDevices(_devices.ToArray());
-        #region EventHandlers
-        private void HandleDeviceSessionCreated(object? sender, AudioSession session)
-        {
-            if (sender is AudioDevice device)
-            {
-                if (device.Enabled)
-                {
-                    this.AddIfUnique(session);
-                }
-            }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceSessionCreated)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        }
-        private void HandleDeviceSessionRemoved(object? sender, long pid)
-        {
-            if (sender is AudioDevice device)
-            {
-                Remove(pid);
-            }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceSessionRemoved)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        }
-        private void HandleDeviceEnabledChanged(object? sender, bool state)
-        {
-            if (sender is AudioDevice device)
-            {
-                if (state)
-                { // DEVICE WAS ENABLED
-                    this.AddRangeIfUnique(device.Sessions);
-
-                }
-                else
-                { // DEVICE WAS DISABLED
-                    RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s));
-                }
-            }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        }
-        #endregion EventHandlers
-
-        #region Methods
-        internal void RefreshFromDevices(params AudioDevice[] devices)
-        {
-            List<AudioSession> l = new();
-            foreach (var device in devices)
-                if (device.Enabled && device.State.Equals(DeviceState.Active))
-                    l.AddRangeIfUnique(device.Sessions);
-
-            RemoveAll(s => !l.Contains(s));
-            this.AddRangeIfUnique(l.AsEnumerable());
-        }
-        /// <summary>
-        /// Removes any sessions with the same process ID number as <paramref name="pid"/>.
-        /// </summary>
-        /// <param name="pid"></param>
-        /// <returns><see langword="true"/> when a session was successfully removed from the list; otherwise <see langword="false"/>.</returns>
-        public bool Remove(long pid)
-        {
-            for (int i = Count - 1; i >= 0; --i)
-            {
-                if (this[i] is AudioSession session && session.PID.Equals(pid))
-                {
-                    RemoveAt(i);
-                    return true;
-                }
-            }
-            return false;
         }
         #endregion Methods
     }

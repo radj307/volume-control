@@ -13,15 +13,27 @@ using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Audio
 {
-    /// <summary>
-    /// Represents an audio device endpoint.
-    /// </summary>
-    /// <remarks>This object uses the MMDevice API from NAudio, and implements the following interfaces:<list type="bullet">
+    /// <summary>Represents an audio device endpoint.<br/>Note that this object cannot be constructed externally.<br/>You can retrieve already-created audio devices through the <see cref="AudioAPI"/> class.</summary>
+    /// <remarks>This object uses the MMDevice API from NAudio, and implements the following interfaces:
+    /// <list type="bullet">
     /// <item><description><see cref="IDevice"/></description></item>
     /// <item><description><see cref="INotifyPropertyChanged"/></description></item>
     /// <item><description><see cref="IDisposable"/></description></item>
+    /// <item><description><see cref="IEquatable{AudioDevice}"/></description></item>
+    /// <item><description><see cref="IEquatable{IDevice}"/></description></item>
+    /// <item><description><see cref="IList"/></description></item>
+    /// <item><description><see cref="ICollection"/></description></item>
+    /// <item><description><see cref="IEnumerable"/></description></item>
+    /// <item><description><see cref="IList{AudioSession}"/></description></item>
+    /// <item><description><see cref="IImmutableList{AudioSession}"/></description></item>
+    /// <item><description><see cref="ICollection{AudioSession}"/></description></item>
+    /// <item><description><see cref="IEnumerable{AudioSession}"/></description></item>
+    /// <item><description><see cref="IReadOnlyList{AudioSession}"/></description></item>
+    /// <item><description><see cref="IReadOnlyCollection{AudioSession}"/></description></item>
+    /// <item><description><see cref="INotifyCollectionChanged"/></description></item>
+    /// <item><description><see cref="INotifyPropertyChanged"/></description></item>
     /// </list>
-    /// Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
+    /// Note that audio devices implement interfaces so that they may act similarly to lists of audio sessions.<br/>Some properties in this object require the NAudio library.<br/>If you're writing an addon, install the 'NAudio' nuget package if you need to be able to use them.
     /// </remarks>
     public sealed class AudioDevice : IDevice, IDisposable, IEquatable<AudioDevice>, IEquatable<IDevice>, IList, ICollection, IEnumerable, IList<AudioSession>, IImmutableList<AudioSession>, ICollection<AudioSession>, IEnumerable<AudioSession>, IReadOnlyList<AudioSession>, IReadOnlyCollection<AudioSession>, INotifyCollectionChanged, INotifyPropertyChanged
     {
@@ -184,15 +196,16 @@ namespace VolumeControl.Audio
         #endregion Properties
 
         #region Events
+        /// <summary>Triggered when an audio session is removed from this device.</summary>
         public event EventHandler<AudioSession>? SessionRemoved;
         private void NotifySessionRemoved(AudioSession session) => SessionRemoved?.Invoke(this, session);
-
+        /// <summary>Triggered when an audio session is added to this device.</summary>
         public event EventHandler<AudioSession>? SessionCreated;
         private void NotifySessionCreated(AudioSession session) => SessionCreated?.Invoke(this, session);
-
+        /// <summary>Triggered when the value of the <see cref="Enabled"/> property was changed.</summary>
         public event EventHandler<bool>? EnabledChanged;
         private void NotifyEnabledChanged() => EnabledChanged?.Invoke(this, Enabled);
-
+        /// <summary>Triggered when any property in the <see cref="Properties"/> container was changed.</summary>
         public event EventHandler<PropertyKey>? PropertyStoreChanged;
         internal void ForwardPropertyStoreChanged(object? _, PropertyKey propertyKey) => PropertyStoreChanged?.Invoke(this, propertyKey);
 
@@ -270,11 +283,14 @@ namespace VolumeControl.Audio
         #region Methods
         #region Sessions
         /// <summary>Clears the <see cref="Sessions"/> list, disposing of all items, and reloads all sessions from the <see cref="SessionManager"/>.</summary>
-        /// <remarks>This should only be used when initializing a new device, or if an error occurs.</remarks>
+        /// <remarks>This should only be used when initializing a new device, or if an error occurs.<br/>If this method is called when the <see cref="State"/> property isn't set to <see cref="DeviceState.Active"/>, the session list is cleared without reloading.<br/>This is because inactive devices do not have a valid <see cref="SessionManager"/> object.</remarks>
         internal void ReloadSessions()
         {
             Sessions.ForEach(s => s.Dispose());
             Sessions.Clear();
+
+            if (SessionManager == null)
+                return;
 
             SessionManager.RefreshSessions();
             SessionCollection? sessions = SessionManager.Sessions;
