@@ -60,16 +60,17 @@ This is necessary because Windows Defender requires a paying *&gt;$300* a year f
 First, enable the **Volume Up** & **Volume Down** hotkeys from the **Hotkeys** tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown. 
 
 **NOTE:** Hotkeys cannot be enabled if their associated key is set to `None`.
-![View of the Hotkeys Tab](https://i.imgur.com/FA06Pt9.png)
+![View of the Hotkeys Tab](https://i.imgur.com/Qvkev52.png)
+
 
 Next, let's set a target application to test the hotkeys with.  
 Start playing some audio from any application, then return to the **Mixer** tab, click **Reload**, then click the **Select** button next to the test application, and try using the volume hotkeys.  
 
-![View of the Mixer Tab](https://i.imgur.com/Pjym4A7.png)
+![View of the Mixer Tab](https://i.imgur.com/r5uaSx0.png)
 
 In the settings tab, you can change how the application behaves such as which audio device is controlled, enable or disable the toast notification, enable advanced hotkeys, set the volume step (how much the volume will increase on decrease when the hotkeys are pressed), tell the application to run on startup, and more!
 
-![View of the Settings Tab](https://i.imgur.com/fUWAlqj.png)
+![View of the Settings Tab](https://i.imgur.com/jx8j1bC.png)
 
 By enabling notifications, you will see a toast notification in the bottom right of your screen when you switch target sessions. This tells you which session is currently selected. Using the **Un/Lock Session** hotkey, you can prevent changing the targeted audio device. The border of the toast notification will be red when the currently targeted session is locked. You can press the hotkey again to unlock the session. 
 
@@ -77,7 +78,7 @@ By enabling notifications, you will see a toast notification in the bottom right
 ![View of the toast notification when an audio session is locked](https://i.imgur.com/KOdYtGi.png)
 
 If you want to add or remove hotkeys, you can press the **Advanced Hotkeys** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
-![View of the advanced hotkeys](https://i.imgur.com/ovpN6DC.png)
+![View of the advanced hotkeys](https://i.imgur.com/JccOVnO.png)
 
 ## Addon Development
 Want to develop an addon for Volume Control?  
