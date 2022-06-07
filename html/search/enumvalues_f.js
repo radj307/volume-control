@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['warn_1234',['WARN',['../namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327a32bd8a1db2275458673903bdb84cb277',1,'VolumeControl::Log::Enum']]],
-  ['win_1235',['WIN',['../namespace_hotkey_lib.html#a0ee197083bcd7c48bc94a25ec4eb78e4a92e56d8195a9dd45a9b90aacf82886b1',1,'HotkeyLib']]]
+  ['p_1116',['P',['../namespace_volume_control_1_1_hotkeys_1_1_enum.html#a1a3e7f83b5b88813ecc9dbed31fedf51a44c29edb103a2872f519ad0c9a0fdaaa',1,'VolumeControl::Hotkeys::Enum']]],
+  ['pid_1117',['PID',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a2d73559f294204a42bda2e926d094612',1,'VolumeControl::Audio::AudioAPI']]],
+  ['processidentifier_1118',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4f95a21d21a5f1950b78306e9344bc05',1,'VolumeControl::Audio::AudioAPI']]],
+  ['processname_1119',['ProcessName',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ac704c2041e69677649b892c1f8fbbb02a4256695f566ce80cf1000035d7589148',1,'VolumeControl::Audio::AudioAPI']]]
 ];

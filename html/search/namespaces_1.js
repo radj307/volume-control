@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['observableimmutable_732',['ObservableImmutable',['../namespace_observable_immutable.html',1,'']]]
+  ['observableimmutable_766',['ObservableImmutable',['../namespace_observable_immutable.html',1,'']]]
 ];
