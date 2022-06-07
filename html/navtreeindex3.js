@@ -1,5 +1,9 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_type_extensions_1_1_process_extensions.html#a77b1a677cd94bc51b9b4d775ef67f30d":[4,0,2,5,7,0],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html":[4,0,2,5,8],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a872f5e55ac9484d3754f58a1545de269":[4,0,2,5,8,0],
+"class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a8f6d8b8ca6974a86c41c3b64674713bc":[4,0,2,5,8,1],
 "class_volume_control_1_1_type_extensions_1_1_string_extensions.html":[4,0,2,5,9],
 "class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ab153a0ba42525c7fa71fae21fb6985":[4,0,2,5,9,0],
 "class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ba39a754ce34d214d6f6e5e05b9cdd7":[4,0,2,5,9,1],
@@ -179,8 +183,8 @@ var NAVTREEINDEX3 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[5,0,8,0],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[5,0,6,0],
 "files.html":[5,0],
-"functions.html":[4,3,0,0],
 "functions.html":[4,3,0],
+"functions.html":[4,3,0,0],
 "functions_b.html":[4,3,0,1],
 "functions_c.html":[4,3,0,2],
 "functions_d.html":[4,3,0,3],
@@ -188,8 +192,8 @@ var NAVTREEINDEX3 =
 "functions_enum.html":[4,3,3],
 "functions_evnt.html":[4,3,5],
 "functions_f.html":[4,3,0,5],
-"functions_func.html":[4,3,1],
 "functions_func.html":[4,3,1,0],
+"functions_func.html":[4,3,1],
 "functions_func_b.html":[4,3,1,1],
 "functions_func_c.html":[4,3,1,2],
 "functions_func_d.html":[4,3,1,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX3 =
 "interface_hotkey_lib_1_1_i_key_combo.html#a26654b3c70c5c37895e9ec5c9dde5df4":[4,0,0,1,5],
 "interface_hotkey_lib_1_1_i_key_combo.html#a5eecb90e5c862cddd24adb19960321de":[4,0,0,1,8],
 "interface_hotkey_lib_1_1_i_key_combo.html#a672e2fef953f9c53626652ffdd1d9cdd":[4,0,0,1,6],
-"interface_hotkey_lib_1_1_i_key_combo.html#a8973de0486c6aff4bea544a29a941bac":[4,0,0,1,1],
-"interface_hotkey_lib_1_1_i_key_combo.html#a8a22366603446db14e80ad6fb9c9417e":[4,0,0,1,2],
-"interface_hotkey_lib_1_1_i_key_combo.html#ab3ce0858678000582b00d99050bd4ff4":[4,0,0,1,7],
-"interface_hotkey_lib_1_1_i_key_combo.html#ad8e6219a7a27aba553e19f73da4af71d":[4,0,0,1,3],
-"interface_hotkey_lib_1_1_i_key_combo.html#af5183f57558c2f7cf69d24ed92931655":[4,0,0,1,4]
+"interface_hotkey_lib_1_1_i_key_combo.html#a8973de0486c6aff4bea544a29a941bac":[4,0,0,1,1]
 };

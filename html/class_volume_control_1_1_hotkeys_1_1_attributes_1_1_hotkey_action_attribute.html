@@ -102,12 +102,14 @@ If you don't specify a name parameter, it is parsed from the name of the method 
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__inherit__graph.svg" width="234" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__inherit__graph.svg" width="258" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__coll__graph.svg" width="234" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute__coll__graph.svg" width="258" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -131,6 +133,9 @@ If this is set to an empty string, the action is always ignored and will never b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a21cbf74c61a25c8d90676ce57a4ec2c6"><td class="memItemLeft" align="right" valign="top">string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a21cbf74c61a25c8d90676ce57a4ec2c6">ActionDescription</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a21cbf74c61a25c8d90676ce57a4ec2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The description tooltip shown in the GUI when the user hovers over this action in the dropdown list.  <a href="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a21cbf74c61a25c8d90676ce57a4ec2c6">More...</a><br /></td></tr>
+<tr class="separator:a21cbf74c61a25c8d90676ce57a4ec2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f023f84dff110703326734fe836e085"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a7f023f84dff110703326734fe836e085">InterpolateName</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7f023f84dff110703326734fe836e085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the action name is interpolated by inserting spaces between each of the uppercase letters to split the name by words.<br  />
  If your action is named using abbreviations or you don't want this behaviour to occur, set this to false.  <a href="class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#a7f023f84dff110703326734fe836e085">More...</a><br /></td></tr>
@@ -158,7 +163,8 @@ If you don't specify a name parameter, it is parsed from the name of the method 
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">actionName</td><td>The name of the action being called.</td></tr>
+    <tr><td class="paramname">actionName</td><td>The name of the action.<br  />
+You can use <code>nameof()</code> with your method's name if you want to specify a description without overriding the name.</td></tr>
   </table>
   </dd>
 </dl>
@@ -224,6 +230,32 @@ If this is set to an empty string, the action is always ignored and will never b
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a21cbf74c61a25c8d90676ce57a4ec2c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21cbf74c61a25c8d90676ce57a4ec2c6">&#9670;&nbsp;</a></span>ActionDescription</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string? VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute.ActionDescription</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The description tooltip shown in the GUI when the user hovers over this action in the dropdown list. </p>
+
+<p class="reference">Referenced by <a class="el" href="#l00016">VolumeControl.Hotkeys.Structs.ActionBinding.ActionBinding()</a>.</p>
+
+</div>
+</div>
 <a id="a7f023f84dff110703326734fe836e085"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f023f84dff110703326734fe836e085">&#9670;&nbsp;</a></span>InterpolateName</h2>
 

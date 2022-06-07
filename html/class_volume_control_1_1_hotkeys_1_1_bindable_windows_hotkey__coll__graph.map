@@ -1,5 +1,5 @@
 <map id="VolumeControl.Hotkeys.BindableWindowsHotkey" name="VolumeControl.Hotkeys.BindableWindowsHotkey">
-<area shape="rect" id="node1" title="This is a wrapper object around HotkeyLib.WindowsHotkey that is designed for data binding." alt="" coords="84,359,320,759"/>
+<area shape="rect" id="node1" title="This is a wrapper object around HotkeyLib.WindowsHotkey that is designed for data binding." alt="" coords="84,359,320,773"/>
 <area shape="rect" id="node2" href="$interface_hotkey_lib_1_1_i_key_combo.html" title="Represents a combination of one keyboard key and any number of modifier keys." alt="" coords="88,131,191,311"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,5,183,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="215,182,314,259"/>

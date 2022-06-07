@@ -13,6 +13,7 @@ var class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions =
     [ "IncreaseSessionVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#aca15162b70ba99715d4ed7849f59116e", null ],
     [ "IncrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a8de38eb9b36505122034e398c59bcbc4", null ],
     [ "IncrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a4496cf148206ff64afbf0f4f1ca3d237", null ],
+    [ "LockSession", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a15d2dd0468e3670a30af6e0ea06324ab", null ],
     [ "MuteDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a7c697a7f39ab08733bcefa96c956ade0", null ],
     [ "MuteSession", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a7ac3bfc68b6af9e25462b2122051ebb9", null ],
     [ "SelectDefaultDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a169ac72f8738f27d4abe98b0ef23baa7", null ],
@@ -29,6 +30,7 @@ var class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions =
     [ "ToggleDeviceMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a2c1a09954e1a169fab009bdef546e0bb", null ],
     [ "ToggleSessionLock", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#aa872bf86c56f8509f37a35aa10c7a2de", null ],
     [ "ToggleSessionMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a4977d5dca989c5b71a8b6214d6210f36", null ],
+    [ "UnlockSession", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a0143694f026f033614972c1aece3ab46", null ],
     [ "UnmuteDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a4250bd7c447d8f1a8249f31673c8ae8b", null ],
     [ "UnmuteSession", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a745c0b164698a45e1afbcd9f551aa94a", null ],
     [ "SelectedDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html#a5932c5cf69bdad247753c7ed01726763", null ]
