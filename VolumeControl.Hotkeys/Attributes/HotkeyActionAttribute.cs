@@ -10,8 +10,11 @@ namespace VolumeControl.Hotkeys.Attributes
     {
         #region Constructor
         /// <inheritdoc cref="HotkeyActionAttribute"/>
-        /// <param name="actionName">The name of the action being called.</param>
-        public HotkeyActionAttribute([CallerMemberName] string actionName = "") => _originalName = actionName;
+        /// <param name="actionName">The name of the action.<br/>You can use <see langword="nameof()"/> with your method's name if you want to specify a description without overriding the name.</param>
+        public HotkeyActionAttribute([CallerMemberName] string actionName = "")
+        {
+            _originalName = actionName;
+        }
         #endregion Constructor
 
         #region Fields
@@ -24,6 +27,8 @@ namespace VolumeControl.Hotkeys.Attributes
         /// <summary>The name shown in the GUI when selecting a hotkey action.<br/>This cannot be changed directly post-construction time, but may be influenced by <see cref="InterpolateName"/> after construction.<br/>If this is set to an empty string, the action is always ignored and will never be selectable.</summary>
         /// <remarks><b>Note that this is also the name used when saving hotkeys to the config file.</b></remarks>
         public string ActionName => _actionName ??= (InterpolateName ? ParseActionName(_originalName) : _originalName);
+        /// <summary>The description tooltip shown in the GUI when the user hovers over this action in the dropdown list.</summary>
+        public string? ActionDescription { get; set; }
         /// <summary>
         /// Gets or sets whether the action name is interpolated by inserting spaces between each of the uppercase letters to split the name by words.<br/>
         /// If your action is named using abbreviations or you don't want this behaviour to occur, set this to false.

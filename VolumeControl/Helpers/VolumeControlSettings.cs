@@ -19,6 +19,7 @@ using VolumeControl.Hotkeys.Addons;
 using VolumeControl.WPF;
 using static VolumeControl.Audio.AudioAPI;
 using VolumeControl.TypeExtensions;
+using VolumeControl.Hotkeys.Interfaces;
 
 namespace VolumeControl.Helpers
 {
@@ -51,10 +52,10 @@ namespace VolumeControl.Helpers
             // Load addons
             AddonManager.LoadAddons(ref addons);
             // Retrieve a list of all loaded action names
-            ActionNames = actionManager
-                .GetActionNames()
-                .Where(s => s.Length > 0)
-                .OrderBy(s => s[0])
+            Actions = actionManager
+                .Bindings
+                .Where(a => a.Name.Length > 0)
+                .OrderBy(a => a.Name[0])
                 .ToList();
             // Create the hotkey manager
             _hotkeyManager = new(actionManager, Hook, true);
@@ -148,17 +149,17 @@ namespace VolumeControl.Helpers
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
         public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(SessionNameFormat.ProcessIdentifier | SessionNameFormat.ProcessName);
-        public IEnumerable<string> ActionNames
+        public IEnumerable<IActionBinding> Actions
         {
-            get => _actionNames;
+            get => _actions;
             internal set
             {
                 NotifyPropertyChanging();
-                _actionNames = value;
+                _actions = value;
                 NotifyPropertyChanged();
             }
         }
-        private IEnumerable<string> _actionNames = null!;
+        private IEnumerable<IActionBinding> _actions = null!;
         public IEnumerable<string> NotificationModes
         {
             get => _notificationModes;

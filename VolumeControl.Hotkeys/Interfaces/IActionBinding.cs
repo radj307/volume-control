@@ -13,6 +13,10 @@ namespace VolumeControl.Hotkeys.Interfaces
         /// </summary>
         string Name { get; }
         /// <summary>
+        /// The description of this action.
+        /// </summary>
+        string? Description { get; }
+        /// <summary>
         /// This is the event handler for this action binding. It calls <see cref="MethodBase.Invoke(object?, object?[])"/> on the bound method.
         /// </summary>
         void HandleKeyEvent(object? sender, HandledEventArgs? e);

@@ -23,7 +23,7 @@ namespace VolumeControl.Helpers
         {
             // initialize the bindings list
             _bindings = null!;//< quiet compiler, use Bindings anyway so the events trigger
-            Bindings = new() { new ActionBinding(IHotkeyActionManager.NullAction.GetMethodInfo(), null, new HotkeyActionAttribute("None")) };
+            Bindings = new() { IHotkeyActionManager.NullAction };
         }
 
         #region Events
@@ -132,14 +132,14 @@ namespace VolumeControl.Helpers
         }
         private List<IActionBinding> _bindings;
         /// <inheritdoc/>
-        public KeyEventHandler this[string actionName]
+        public IActionBinding this[string actionName]
         {
             get
             {
                 for (int i = 0; i < Bindings.Count; ++i)
                 {
                     if (Bindings[i].Name.Equals(actionName, StringComparison.Ordinal))
-                        return Bindings[i].HandleKeyEvent;
+                        return Bindings[i];
                 }
                 return IHotkeyActionManager.NullAction;
             }

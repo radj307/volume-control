@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using VolumeControl.Audio;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
+using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 using VolumeControl.WPF.Collections;
@@ -202,8 +203,9 @@ namespace VolumeControl
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.Update();
         private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (VCSettings.Updater.ShowUpdatePrompt())
-                VCSettings.Updater.Update(true);
+            Updater.OpenBrowser(Settings.UpdateURL);
+            //if (VCSettings.Updater.ShowUpdatePrompt())
+            //    VCSettings.Updater.Update(true);
         }
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

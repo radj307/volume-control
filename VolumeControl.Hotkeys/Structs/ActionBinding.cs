@@ -16,12 +16,15 @@ namespace VolumeControl.Hotkeys.Structs
         public ActionBinding(MethodInfo mInfo, object? handlerObj, HotkeyActionAttribute hAttr)
         {
             Name = hAttr.ActionName ?? mInfo.Name;
+            Description = hAttr.ActionDescription;
             MethodInfo = mInfo;
             HandlerObject = handlerObj;
         }
 
         /// <inheritdoc/>
         public string Name { get; }
+        /// <inheritdoc/>
+        public string? Description { get; }
 
         /// <summary>
         /// Stores reflection information about a method.<br/>
@@ -40,5 +43,7 @@ namespace VolumeControl.Hotkeys.Structs
             if (HandlerObject != null || MethodInfo.IsStatic)
                 MethodInfo.Invoke(HandlerObject, new[] { sender, e });
         }
+        /// <inheritdoc/>
+        public override string ToString() => Name;
     }
 }

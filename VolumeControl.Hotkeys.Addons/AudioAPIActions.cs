@@ -159,24 +159,46 @@ namespace VolumeControl.Hotkeys.Addons
         #endregion DeviceSelection
 
         #region Actions
-        [HotkeyAction] public void IncreaseSessionVolume(object? sender, HandledEventArgs e) => AudioAPI.IncrementSessionVolume();
-        [HotkeyAction] public void DecreaseSessionVolume(object? sender, HandledEventArgs e) => AudioAPI.DecrementSessionVolume();
-        [HotkeyAction] public void MuteSession(object? sender, HandledEventArgs e) => AudioAPI.SetSessionMute(true);
-        [HotkeyAction] public void UnmuteSession(object? sender, HandledEventArgs e) => AudioAPI.SetSessionMute(false);
-        [HotkeyAction] public void ToggleSessionMute(object? sender, HandledEventArgs e) => AudioAPI.ToggleSessionMute();
-        [HotkeyAction] public void SelectNextSession(object? sender, HandledEventArgs e) => AudioAPI.SelectNextSession();
-        [HotkeyAction] public void SelectPreviousSession(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousSession();
-        [HotkeyAction] public void ToggleSessionLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
-        [HotkeyAction] public void DeselectSession(object? sender, HandledEventArgs e) => AudioAPI.DeselectSession();
-        [HotkeyAction] public void SelectNextDevice(object? sender, HandledEventArgs e) => SelectNextDevice();
-        [HotkeyAction] public void SelectPreviousDevice(object? sender, HandledEventArgs e) => SelectPreviousDevice();
-        [HotkeyAction] public void DeselectDevice(object? sender, HandledEventArgs e) => DeselectDevice();
-        [HotkeyAction] public void SelectDefaultDevice(object? sender, HandledEventArgs e) => SelectDefaultDevice();
-        [HotkeyAction] public void IncreaseDeviceVolume(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
-        [HotkeyAction] public void DecreaseDeviceVolume(object? sender, HandledEventArgs e) => DecrementDeviceVolume();
-        [HotkeyAction] public void MuteDevice(object? sender, HandledEventArgs e) => SetDeviceMute(true);
-        [HotkeyAction] public void UnmuteDevice(object? sender, HandledEventArgs e) => SetDeviceMute(false);
-        [HotkeyAction] public void ToggleDeviceMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
+        [HotkeyAction(ActionDescription = "Increases the volume of the selected session by the value of VolumeStep.")]
+        public void IncreaseSessionVolume(object? sender, HandledEventArgs e) => AudioAPI.IncrementSessionVolume();
+        [HotkeyAction(ActionDescription = "Decreases the volume of the selected session by the value of VolumeStep.")]
+        public void DecreaseSessionVolume(object? sender, HandledEventArgs e) => AudioAPI.DecrementSessionVolume();
+        [HotkeyAction(ActionDescription = "Mutes the selected session.")]
+        public void MuteSession(object? sender, HandledEventArgs e) => AudioAPI.SetSessionMute(true);
+        [HotkeyAction(ActionDescription = "Unmutes the selected session.")]
+        public void UnmuteSession(object? sender, HandledEventArgs e) => AudioAPI.SetSessionMute(false);
+        [HotkeyAction(ActionDescription = "Toggles the selected session's mute state.")]
+        public void ToggleSessionMute(object? sender, HandledEventArgs e) => AudioAPI.ToggleSessionMute();
+        [HotkeyAction(ActionDescription = "Selects the next session in the list.")]
+        public void SelectNextSession(object? sender, HandledEventArgs e) => AudioAPI.SelectNextSession();
+        [HotkeyAction(ActionDescription = "Selects the previous session in the list.")]
+        public void SelectPreviousSession(object? sender, HandledEventArgs e) => AudioAPI.SelectPreviousSession();
+        [HotkeyAction(ActionDescription = "Locks the selected session, preventing it from being changed.")]
+        public void LockSession(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = true;
+        [HotkeyAction(ActionDescription = "Unlocks the selected session, allowing it to be changed.")]
+        public void UnlockSession(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = false;
+        [HotkeyAction(ActionDescription = "Toggles whether the selected session can be changed or not.")]
+        public void ToggleSessionLock(object? sender, HandledEventArgs e) => AudioAPI.LockSelectedSession = !AudioAPI.LockSelectedSession;
+        [HotkeyAction(ActionDescription = "Changes the selected session to null.")]
+        public void DeselectSession(object? sender, HandledEventArgs e) => AudioAPI.DeselectSession();
+        [HotkeyAction(ActionDescription = "Selects the next device in the list.")]
+        public void SelectNextDevice(object? sender, HandledEventArgs e) => SelectNextDevice();
+        [HotkeyAction(ActionDescription = "Selects the previous device in the list.")]
+        public void SelectPreviousDevice(object? sender, HandledEventArgs e) => SelectPreviousDevice();
+        [HotkeyAction(ActionDescription = "Deselects the selected device.")]
+        public void DeselectDevice(object? sender, HandledEventArgs e) => DeselectDevice();
+        [HotkeyAction(ActionDescription = "Selects the default output device in the list.")]
+        public void SelectDefaultDevice(object? sender, HandledEventArgs e) => SelectDefaultDevice();
+        [HotkeyAction(ActionDescription = "Increases the device volume of the selected device.")]
+        public void IncreaseDeviceVolume(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
+        [HotkeyAction(ActionDescription = "Decreases the device volume of the selected device.")]
+        public void DecreaseDeviceVolume(object? sender, HandledEventArgs e) => DecrementDeviceVolume();
+        [HotkeyAction(ActionDescription = "Mutes the selected device.")]
+        public void MuteDevice(object? sender, HandledEventArgs e) => SetDeviceMute(true);
+        [HotkeyAction(ActionDescription = "Unmutes the selected device.")]
+        public void UnmuteDevice(object? sender, HandledEventArgs e) => SetDeviceMute(false);
+        [HotkeyAction(ActionDescription = "Toggles the selected device's mute state.")]
+        public void ToggleDeviceMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
         #endregion Actions
     }
 }

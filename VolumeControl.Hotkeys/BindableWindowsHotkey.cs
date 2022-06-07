@@ -1,6 +1,7 @@
 ﻿using HotkeyLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Hotkeys.Interfaces;
 
 namespace VolumeControl.Hotkeys
 {
@@ -18,7 +19,7 @@ namespace VolumeControl.Hotkeys
             _manager = manager;
             _name = name;
             Hotkey = new(_manager.OwnerHandle, keys);
-            Action = action;
+            ActionName = action;
             if (registerNow) //< only trigger when true
                 Registered = registerNow;
             Hotkey.PropertyChanged += ForwardPropertyChanged;
@@ -54,22 +55,38 @@ namespace VolumeControl.Hotkeys
             }
         }
         /// <summary>
-        /// Gets or sets the action associated with this hotkey.
+        /// Gets or sets the name of the action associated with this hotkey.
         /// </summary>
         /// <remarks>This property automatically handles changing the <see cref="Pressed"/> event.</remarks>
-        public string Action
+        public string ActionName
         {
-            get => _actionName;
+            get => Action?.Name ?? string.Empty;
             set
             {
                 NotifyPropertyChanging();
-                if (_actionName.Length > 0)
-                    Pressed -= _manager.Actions[_actionName];
-                Pressed += _manager.Actions[_actionName = value];
+                Action = _manager.Actions[value];
                 NotifyPropertyChanged();
             }
         }
-        private string _actionName = string.Empty;
+        /// <summary>
+        /// Gets or sets the action associated with this hotkey.
+        /// </summary>
+        /// <remarks>This property automatically handles changing the <see cref="Pressed"/> event.</remarks>
+        public IActionBinding? Action
+        {
+            get => _action;
+            set
+            {
+                NotifyPropertyChanged();
+                if (_action != null)
+                    Pressed -= _action.HandleKeyEvent;
+                _action = value;
+                if (_action != null)
+                    Pressed += _action.HandleKeyEvent;
+                NotifyPropertyChanging();
+            }
+        }
+        private IActionBinding? _action;
 
         #region InterfaceImplementation
         /// <inheritdoc/>
@@ -144,10 +161,10 @@ namespace VolumeControl.Hotkeys
         /// This is used when saving the hotkey to the configuration file.
         /// </summary>
         /// <returns>A string containing this hotkey in serialized form.</returns>
-        public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{Action}{Settings.HotkeyNameSeperatorChar}{Registered}";
+        public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{ActionName}{Settings.HotkeyNameSeperatorChar}{Registered}";
         /// <summary>Gets all properties in a pseudo-json format for dumping them to the log.</summary>
         /// <returns>A human-readable, single-line string that includes all of this hotkey's current values.</returns>
-        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{Action}', Registered: '{Registered}' }}";
+        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{ActionName}', Registered: '{Registered}' }}";
         /// <summary>
         /// Parse a serialized hotkey string <i>(<paramref name="hkString"/>)</i> into a usable <see cref="BindableWindowsHotkey"/>.<br/>
         /// This is used when loading hotkeys from the configuration file.

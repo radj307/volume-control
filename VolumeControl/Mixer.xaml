@@ -1395,9 +1395,17 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <ComboBox
-                                                        ItemsSource="{Binding ActionNames, Source={StaticResource Settings}}"
-                                                        SelectedValue="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
-                                                        Style="{StaticResource ComboBoxStyle}" />
+                                                        ItemsSource="{Binding Actions, Source={StaticResource Settings}}"
+                                                        SelectedItem="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{StaticResource ComboBoxStyle}">
+                                                        <ComboBox.ItemContainerStyle>
+                                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Description}" />
+                                                                <Setter Property="ToolTipService.Placement" Value="Left" />
+                                                                <Setter Property="ToolTipService.InitialShowDelay" Value="250"/>
+                                                            </Style>
+                                                        </ComboBox.ItemContainerStyle>
+                                                    </ComboBox>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

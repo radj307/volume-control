@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.WPF", "Volume
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{0FC57F73-5E25-404B-9E86-8EDA0E96F2BC}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		SetVersion.ps1 = SetVersion.ps1
 	EndProjectSection
 EndProject
@@ -36,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Core", "Volum
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.UnitTests", "VolumeControl.UnitTests\VolumeControl.UnitTests.csproj", "{43DBEEA7-0175-4E40-B161-69A435E59CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeControl.TypeExtensions", "VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj", "{ACF596C4-8598-47AA-A182-5F2253AF885B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.TypeExtensions", "VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj", "{ACF596C4-8598-47AA-A182-5F2253AF885B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
