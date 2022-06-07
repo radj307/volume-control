@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Hotkeys.Interfaces;
+using VolumeControl.Log;
 
 namespace VolumeControl.Hotkeys
 {
@@ -58,13 +59,16 @@ namespace VolumeControl.Hotkeys
         /// Gets or sets the name of the action associated with this hotkey.
         /// </summary>
         /// <remarks>This property automatically handles changing the <see cref="Pressed"/> event.</remarks>
-        public string ActionName
+        public string? ActionName
         {
-            get => Action?.Name ?? string.Empty;
+            get => Action?.Name;
             set
             {
                 NotifyPropertyChanging();
-                Action = _manager.Actions[value];
+                if (value == null)
+                    Action = null;
+                else
+                    Action = _manager.Actions[value];
                 NotifyPropertyChanged();
             }
         }
@@ -81,6 +85,7 @@ namespace VolumeControl.Hotkeys
                 if (_action != null)
                     Pressed -= _action.HandleKeyEvent;
                 _action = value;
+                FLog.Log.Debug($"Hotkey '{ID}' action was changed to '{ActionName}'");
                 if (_action != null)
                     Pressed += _action.HandleKeyEvent;
                 NotifyPropertyChanging();
