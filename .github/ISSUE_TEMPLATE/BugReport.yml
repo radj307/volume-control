@@ -60,7 +60,7 @@ body:
       label:        Reproduction Steps
       description:  Explain what steps we can take to reproduce the bug.
       value:  |
-              ' 1. '
+               1. 
       
         
   - type: textarea
