@@ -53,7 +53,7 @@ body:
       placeholder:  |
                     1. While sitting in an office chair, begin spinning clockwise as fast as you can until you've fully rotated a total of 99 times.
                     2. Launch the program within a few seconds.
-                    3. Observe vomit on screen instead of application window.
+                    3. Observe lack of ability to correctly use the program due to [inner ear error].
 
   - type: textarea
     id:   log
