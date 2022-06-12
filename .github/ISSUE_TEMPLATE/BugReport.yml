@@ -9,6 +9,7 @@ body:
     attributes:
       value: |
              Thanks for taking the time to fill out this bug report!
+             Fields marked with an asterisk '*' are required.
         
   - type: input
     id: version
@@ -56,12 +57,12 @@ body:
   - type: textarea
     id:   repro
     attributes:
-      label:        *(Optional)* Reproduction Steps
+      label:        Reproduction Steps
       description:  Explain what steps we can take to reproduce the bug.
         
   - type: textarea
     id:   logs
     attributes:
-      label:        *(Optional)* Log File Contents
+      label:        Log File Contents
       description:  Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render:       shell
