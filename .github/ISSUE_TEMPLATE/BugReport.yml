@@ -56,9 +56,12 @@ body:
       
   - type: textarea
     id:   repro
+    value:  |
+            ' 1. '
     attributes:
       label:        Reproduction Steps
       description:  Explain what steps we can take to reproduce the bug.
+      
         
   - type: textarea
     id:   logs
