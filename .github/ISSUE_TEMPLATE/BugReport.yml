@@ -2,70 +2,55 @@ name: Bug Report
 description: File a bug report
 title: "[BUG] "
 labels: [ "bug", "triage" ]
-assignees:
-  - radj307
 body:
   - type: markdown
     attributes:
       value: |
              Thanks for taking the time to fill out this bug report!
              Fields marked with an asterisk '*' are required.
-        
+             
+             **If you aren't using the latest version, check to make sure the bug hasn't been fixed by testing the latest version first!**
+
   - type: input
     id: version
     attributes:
       label: Version
-      description: |
-                  The version of Volume Control the bug occurred in.
-                  You can find this on the settings tab in the top-right corner.
-                  If you are unable to access the application, R+Click on the executable, click Properties, and find the version number on the details tab.
-      placeholder: Version Number found in the top-right corner of the settings tab.
+      description:  |
+                    The Volume Control version that you observed the bug in.
+                    This can be found in the top-right corner of the window.
+                    If the program won't start, R+Click on the executable and click ***Properties** -> **Details***; copy the `Product version` field.
+      placeholder: x.x.x
     validations:
       required: true
-      
-  - type: checkboxes
-    id: version-is-extended
-    attributes:
-      label:        Status
-      options:
-        - label: Can you launch the program?
-      
+
   - type: textarea
-    id: description
+    id:   actual
     attributes:
-      label:  Bug Description
-      placeholder: Describe the bug; you can include screenshots here.
-    validations:
-      required: false
-      
-  - type: textarea
-    id: expected
-    attributes:
-      label: Expected Behaviour
-      placeholder: What did you expect to happen, and if relevant, why?
+      label:        Actual Behaviour
+      description:  Describe the bug and/or attach a screenshot/video of the problem.
     validations:
       required: true
-      
+
   - type: textarea
-    id: actual
+    id:   expected
     attributes:
-      label: Actual Behaviour
-      placeholder: What actually happened?
-    validations:
-      required: true
-      
+      label:        Expected Behaviour
+      description:  |
+                    Describe what you expected to happen instead of the actual behaviour.
+
   - type: textarea
     id:   repro
     attributes:
       label:        Reproduction Steps
       description:  Explain what steps we can take to reproduce the bug.
-      value:  |
-               1. 
-      
-        
+      placeholder:  |
+                    1. Do This
+                    2. Do That
+                    3. Observe Bug
+
   - type: textarea
     id:   logs
     attributes:
       label:        Log File Contents
-      description:  Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      description:  Please copy and paste any relevant log output whenever possible.
       render:       shell
