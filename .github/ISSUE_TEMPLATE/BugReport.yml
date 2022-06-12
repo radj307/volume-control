@@ -62,5 +62,5 @@ body:
       description:  |
                     This gives us an understanding of exactly what was happening when the problem occurred.
                     
-                    **Discretion is advised when posting raw log contents, especially when the `DEBUG` or `INFO` log filters are enabled, as there may be references to potentially sensitive information like filepaths & audio device/session names.**  
+                    **Discretion is advised when posting raw log contents - especially when the `DEBUG` or `INFO` log filters are enabled - as there may be references to potentially sensitive information like filepaths & audio device/session names.**  
       render:       shell
