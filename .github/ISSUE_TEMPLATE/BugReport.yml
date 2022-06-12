@@ -5,22 +5,18 @@ labels: [ "bug", "triage" ]
 body:
   - type: markdown
     attributes:
-      value: |
-             Fields marked with an asterisk (`*`) are required.
-             
-             
-             
-             Thanks for taking the time to fill out this bug report!
-             
-             **If you aren't using the latest version, check to make sure the bug hasn't been fixed by testing the latest version first!**
-
+      value:  |
+              Thank you for taking the time to fill out a bug report, your feedback helps us to improve your experience with our product!  
+              
+              The more fields you can fill out, the better our understanding of the problem and its underlying causes.  
+              If you feel a section doesn't apply or is already obvious from previous fields, skip them.
+              
   - type: input
     id: version
     attributes:
       label: Version
       description:  |
-                    The Volume Control version that you observed the bug in.
-                    This can be found in the top-right corner of the window.
+                    This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.
                     If the program won't start, R+Click on the executable and click ***Properties** -> **Details***; copy the `Product version` field.
       placeholder: x.x.x
     validations:
@@ -31,8 +27,8 @@ body:
     attributes:
       label:        Actual Behaviour
       description:  |
-                    Describe the bug and/or attach a screenshot/video of the problem.
-                    You can also include any additional information that you feel is relevant here.
+                    This tells us what happened, which helps us build a description of the bug we need to fix.
+                    Please be specific whenever possible.
       placeholder:  The program does *this*
     validations:
       required: true
@@ -42,22 +38,29 @@ body:
     attributes:
       label:        Expected Behaviour
       description:  |
-                    Describe what you expected to happen instead of the actual behaviour.
+                    This gives us an idea of what we should do to fix the problem, and/or provides you with a way to suggest what you want to happen.
       placeholder:  I expected the program to do *that*
 
   - type: textarea
     id:   repro
     attributes:
       label:        Reproduction Steps
-      description:  Explain what steps we can take to reproduce the bug.
+      description:  |
+                    This helps us replicate the conditions that led to the bug you experienced while running in a different environment.
+                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in most cases.
+                    
+                    You can optionally combine this with the log field below and use specific log events as reproduction steps instead of specifying both.
       placeholder:  |
-                    1. 
-                    2. 
-                    3. Observe Bug
+                    1. While sitting in an office chair, begin spinning clockwise as fast as you can until you've fully rotated a total of 99 times.
+                    2. Launch the program within a few seconds.
+                    3. Observe vomit on screen instead of application window.
 
   - type: textarea
-    id:   logs
+    id:   log
     attributes:
-      label:        Log File Contents
-      description:  Please copy and paste any relevant log output whenever possible.
+      label:        Log
+      description:  |
+                    This gives us an understanding of exactly what was happening when the problem occurred.
+                    
+                    **Discretion is advised when posting raw log contents when the `DEBUG` or `INFO` log filters are enabled, as there may be references to potentially sensitive information like filepaths & audio device/session names.**  
       render:       shell
