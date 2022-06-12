@@ -6,8 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
+             Fields marked with an asterisk (*) are required.Fields marked with an asterisk (*) are required.
+             
+             
+             
              Thanks for taking the time to fill out this bug report!
-             Fields marked with an asterisk '*' are required.
              
              **If you aren't using the latest version, check to make sure the bug hasn't been fixed by testing the latest version first!**
 
@@ -27,7 +30,9 @@ body:
     id:   actual
     attributes:
       label:        Actual Behaviour
-      description:  Describe the bug and/or attach a screenshot/video of the problem.
+      description:  |
+                    Describe the bug and/or attach a screenshot/video of the problem.
+                    You can also include any additional information that you feel is relevant here.
       placeholder:  The program does *this*
     validations:
       required: true
@@ -46,8 +51,8 @@ body:
       label:        Reproduction Steps
       description:  Explain what steps we can take to reproduce the bug.
       placeholder:  |
-                    1. Do This
-                    2. Do That
+                    1. 
+                    2. 
                     3. Observe Bug
 
   - type: textarea
