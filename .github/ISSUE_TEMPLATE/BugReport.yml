@@ -28,7 +28,7 @@ body:
     attributes:
       label:        Actual Behaviour
       description:  Describe the bug and/or attach a screenshot/video of the problem.
-      placeholder:  The program does *(this)*.
+      placeholder:  The program does *this*
     validations:
       required: true
 
@@ -38,7 +38,7 @@ body:
       label:        Expected Behaviour
       description:  |
                     Describe what you expected to happen instead of the actual behaviour.
-      placeholder:  I expected the program to do *(that)*.
+      placeholder:  I expected the program to do *that*
 
   - type: textarea
     id:   repro
