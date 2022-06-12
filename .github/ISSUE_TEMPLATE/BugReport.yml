@@ -28,7 +28,6 @@ body:
       label:        Status
       options:
         - label: Can you launch the program?
-          required: false
       
   - type: textarea
     id: description
@@ -36,7 +35,7 @@ body:
       label:  Bug Description
       placeholder: Describe the bug; you can include screenshots here.
     validations:
-      required: true
+      required: false
       
   - type: textarea
     id: expected
@@ -53,10 +52,16 @@ body:
       placeholder: What actually happened?
     validations:
       required: true
+      
+  - type: textarea
+    id:   repro
+    attributes:
+      label:        *(Optional)* Reproduction Steps
+      description:  Explain what steps we can take to reproduce the bug.
         
   - type: textarea
-    id: logs
+    id:   logs
     attributes:
-      label: Log File Contents
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      label:        *(Optional)* Log File Contents
+      description:  Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render:       shell
