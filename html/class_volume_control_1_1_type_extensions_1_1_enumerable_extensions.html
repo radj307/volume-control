@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumerableExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -115,12 +116,21 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>AddIfUnique</b
 <tr class="memitem:af15cf883af58131e182d1f6bdb897460"><td class="memItemLeft" align="right" valign="top"><a id="af15cf883af58131e182d1f6bdb897460"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>AddRangeIfUnique</b> (this IList list, IEnumerable range)</td></tr>
 <tr class="separator:af15cf883af58131e182d1f6bdb897460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9516e17d92eb33bbc1960111f339fd3"><td class="memItemLeft" align="right" valign="top"><a id="ab9516e17d92eb33bbc1960111f339fd3"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>ForEach</b> (this IEnumerable enumerable, Action&lt; object?&gt; action)</td></tr>
+<tr class="separator:ab9516e17d92eb33bbc1960111f339fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bb73a4a2641317c209c402fcd35ffb0"><td class="memItemLeft" align="right" valign="top"><a id="a9bb73a4a2641317c209c402fcd35ffb0"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>ForEach&lt; T &gt;</b> (this IEnumerable&lt; T &gt; enumerable, Action&lt; T &gt; action)</td></tr>
 <tr class="separator:a9bb73a4a2641317c209c402fcd35ffb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1b177ed562cdf5d03d34c26f99f83af"><td class="memItemLeft" align="right" valign="top"><a id="ae1b177ed562cdf5d03d34c26f99f83af"></a>
 static IEnumerable&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ForwardForEach&lt; T &gt;</b> (this IEnumerable&lt; T &gt; enumerable, Action&lt; T &gt; action)</td></tr>
 <tr class="separator:ae1b177ed562cdf5d03d34c26f99f83af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb4bc5513311c77e7319977419ae1e9"><td class="memItemLeft" align="right" valign="top"><a id="acfb4bc5513311c77e7319977419ae1e9"></a>
+static TList&#160;</td><td class="memItemRight" valign="bottom"><b>ConvertEach&lt; TList, TOut, TIn &gt;</b> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TOut &gt; converter)</td></tr>
+<tr class="separator:acfb4bc5513311c77e7319977419ae1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0070c250cb3157bdaaa06ecbc0b3e5c3"><td class="memItemLeft" align="right" valign="top"><a id="a0070c250cb3157bdaaa06ecbc0b3e5c3"></a>
+static List&lt; TOut &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ConvertEach&lt; TOut, TIn &gt;</b> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TOut &gt; converter)</td></tr>
+<tr class="separator:a0070c250cb3157bdaaa06ecbc0b3e5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensions for the IEnumerable interface type. </p>

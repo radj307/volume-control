@@ -100,6 +100,18 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ae2b78fd080d1327ab88d2203eb48e5d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the possible display modes for the notification window.  <a href="namespace_volume_control_1_1_core_1_1_enum.html#ae2b78fd080d1327ab88d2203eb48e5d3">More...</a><br /></td></tr>
 <tr class="separator:ae2b78fd080d1327ab88d2203eb48e5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39fadf5459510c1a3cd9b55fe977b66a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66a">ERelease</a> : byte { <br />
+&#160;&#160;<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aab50339a10e1de285ac99d4c3990b8693">ERelease.NONE</a>, 
+<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aa907953dcbd01ad68db1f19be286936f4">ERelease.TESTING</a>, 
+<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aa2161719489b49327e84b39596ff55b38">ERelease.PRERELEASE</a>, 
+<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aabea4821516973214973a70aea8337c38">ERelease.CANDIDATE</a>, 
+<br />
+&#160;&#160;<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aa1e23852820b9154316c7c06e2b7ba051">ERelease.NORMAL</a>, 
+<a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66aaf4d0a32d402155bb31bb15767688fecf">ERelease.REVISION</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a39fadf5459510c1a3cd9b55fe977b66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release type definitions, for use with version self-identification CI scripts using assembly attributes.  <a href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66a">More...</a><br /></td></tr>
+<tr class="separator:a39fadf5459510c1a3cd9b55fe977b66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ae2b78fd080d1327ab88d2203eb48e5d3"></a>
@@ -129,6 +141,44 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ae2b78fd080d1327ab88d2203eb48e5d3aa9c4b6c9fbd990849d1f128dfc4ed3e7"></a>Sessions&#160;</td><td class="fielddoc"><p>Shows audio sessions in the list panel, and highlights the currently selected one. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ae2b78fd080d1327ab88d2203eb48e5d3ac03ca67dda321195d74c951097f240c6"></a>Devices&#160;</td><td class="fielddoc"><p>Shows audio devices in the list panel, and highlights the currently selected one. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a39fadf5459510c1a3cd9b55fe977b66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39fadf5459510c1a3cd9b55fe977b66a">&#9670;&nbsp;</a></span>ERelease</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_volume_control_1_1_core_1_1_enum.html#a39fadf5459510c1a3cd9b55fe977b66a">VolumeControl.Core.Enum.ERelease</a> : byte</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Release type definitions, for use with version self-identification CI scripts using assembly attributes. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aab50339a10e1de285ac99d4c3990b8693"></a>NONE&#160;</td><td class="fielddoc"><p>Null type / Error Type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aa907953dcbd01ad68db1f19be286936f4"></a>TESTING&#160;</td><td class="fielddoc"><p>Testing build, not meant for release. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aa2161719489b49327e84b39596ff55b38"></a>PRERELEASE&#160;</td><td class="fielddoc"><p>Pre-release (unfinished) version. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aabea4821516973214973a70aea8337c38"></a>CANDIDATE&#160;</td><td class="fielddoc"><p>Release candidate version. These are almost ready to be released, but haven't been extensively tested yet. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aa1e23852820b9154316c7c06e2b7ba051"></a>NORMAL&#160;</td><td class="fielddoc"><p>A normal release. This does not include revisions! </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a39fadf5459510c1a3cd9b55fe977b66aaf4d0a32d402155bb31bb15767688fecf"></a>REVISION&#160;</td><td class="fielddoc"><p>This is a slight modification to an existing release that doesn't qualify as a whole new version. </p>
 </td></tr>
 </table>
 

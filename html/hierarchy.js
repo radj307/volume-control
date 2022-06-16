@@ -2,8 +2,6 @@ var hierarchy =
 [
     [ "VolumeControl.Hotkeys.Addons.ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html", null ],
     [ "ApplicationSettingsBase", null, [
-      [ "VolumeControl.Audio.AudioAPISettings", "class_volume_control_1_1_audio_1_1_audio_a_p_i_settings.html", null ],
-      [ "VolumeControl.Hotkeys.HotkeyManagerSettings", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager_settings.html", null ],
       [ "VolumeControl.Log.Properties.Settings", "class_volume_control_1_1_log_1_1_properties_1_1_settings.html", null ]
     ] ],
     [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
@@ -44,7 +42,9 @@ var hierarchy =
       [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
-      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
+      [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", [
+        [ "VolumeControl.WPF.Collections.LogEventTypeFilter", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html", null ]
+      ] ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ]
     ] ],
     [ "VolumeControl.Audio.IconGetter", "class_volume_control_1_1_audio_1_1_icon_getter.html", null ],
@@ -133,7 +133,7 @@ var hierarchy =
         [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ]
       ] ],
       [ "VolumeControl.Audio.Interfaces.ISession", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html", null ],
-      [ "VolumeControl.Core.Helpers.VCSettingsContainer", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html", null ],
+      [ "VolumeControl.Core.Helpers.IVCSettings", "interface_volume_control_1_1_core_1_1_helpers_1_1_i_v_c_settings.html", null ],
       [ "VolumeControl.Hotkeys.BindableWindowsHotkey", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html", null ],
       [ "VolumeControl.Hotkeys.HotkeyManager", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html", null ],
       [ "VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html", null ],
@@ -144,7 +144,6 @@ var hierarchy =
       [ "HotkeyLib.WindowsHotkey", "class_hotkey_lib_1_1_windows_hotkey.html", null ],
       [ "VolumeControl.Audio.AudioAPI", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html", null ],
       [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ],
-      [ "VolumeControl.Core.Helpers.VCSettingsContainer", "class_volume_control_1_1_core_1_1_helpers_1_1_v_c_settings_container.html", null ],
       [ "VolumeControl.Hotkeys.BindableWindowsHotkey", "class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html", null ],
       [ "VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html", null ]
     ] ],
@@ -208,7 +207,6 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.RECT", "struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html", null ],
-    [ "VolumeControl.Core.Win32.RegistryAPI.Scope", "struct_volume_control_1_1_core_1_1_win32_1_1_registry_a_p_i_1_1_scope.html", null ],
     [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "TypeConverter", null, [
