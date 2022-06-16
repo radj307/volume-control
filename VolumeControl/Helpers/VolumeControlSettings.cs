@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using VolumeControl.Attributes;
 using VolumeControl.Audio;
@@ -14,20 +16,16 @@ using VolumeControl.Core.Enum;
 using VolumeControl.Core.Helpers;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
+using VolumeControl.Helpers.Win32;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
-using VolumeControl.WPF;
-using static VolumeControl.Audio.AudioAPI;
-using VolumeControl.TypeExtensions;
 using VolumeControl.Hotkeys.Interfaces;
-using System.Runtime.CompilerServices;
-using System.Windows.Interop;
-using VolumeControl.Properties;
 using VolumeControl.Log;
 using VolumeControl.Log.Enum;
-using Microsoft.Win32;
-using VolumeControl.Helpers.Win32;
-using System.Diagnostics;
+using VolumeControl.Properties;
+using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
+using static VolumeControl.Audio.AudioAPI;
 
 namespace VolumeControl.Helpers
 {
@@ -313,14 +311,6 @@ namespace VolumeControl.Helpers
             Settings.Save();
             Settings.Reload();
 
-            // VolumeControl.Audio
-            AudioSettings.Save();
-            AudioSettings.Reload();
-
-            // VolumeControl.Hotkeys
-            HotkeySettings.Save();
-            HotkeySettings.Reload();
-
             // VolumeControl.Log
             LogSettings.Save();
             LogSettings.Reload();
@@ -379,10 +369,6 @@ namespace VolumeControl.Helpers
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Settings.Default"/>.</summary>
         private static Properties.Settings Settings => Properties.Settings.Default;
-        /// <summary>Static accessor for <see cref="HotkeyManagerSettings.Default"/>.</summary>
-        private static HotkeyManagerSettings HotkeySettings => HotkeyManagerSettings.Default;
-        /// <summary>Static accessor for <see cref="AudioAPISettings.Default"/>.</summary>
-        private static AudioAPISettings AudioSettings => AudioAPISettings.Default;
         /// <summary>Static accessor for <see cref="Log.Properties.Settings.Default"/>.</summary>
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => FLog.Log;

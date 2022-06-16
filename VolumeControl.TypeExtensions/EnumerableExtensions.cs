@@ -40,6 +40,11 @@ namespace VolumeControl.TypeExtensions
             foreach (var item in range)
                 list.AddIfUnique(item);
         }
+        public static void ForEach(this IEnumerable enumerable, Action<object?> action)
+        {
+            foreach (var item in enumerable)
+                action(item);
+        }
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
             foreach (var item in enumerable)
@@ -52,6 +57,20 @@ namespace VolumeControl.TypeExtensions
             foreach (var item in enumerable)
                 action(item);
             return enumerable;
+        }
+        public static TList ConvertEach<TList, TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter) where TList : IList, IEnumerable, IList<TOut>, IEnumerable<TOut>, ICollection, ICollection<TOut>, new()
+        {
+            TList l = new();
+            foreach (var item in enumerable)
+                l.Add(converter(item));
+            return l;
+        }
+        public static List<TOut> ConvertEach<TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter)
+        {
+            List<TOut> l = new();
+            foreach (var item in enumerable)
+                l.Add(converter(item));
+            return l;
         }
     }
 }

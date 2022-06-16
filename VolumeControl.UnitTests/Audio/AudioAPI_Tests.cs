@@ -8,21 +8,6 @@ namespace VolumeControl.UnitTests.Audio
     [TestClass()]
     public class AudioAPI_Tests
     {
-        private static AudioAPISettings Settings => AudioAPISettings.Default;
-
-
-        [TestMethod()]
-        public void AudioAPI_Test()
-        {
-            // Smoke Test:
-            AudioAPI api = new();
-
-            // Settings Test:
-            Assertx.Same(api.LockSelectedSession, Settings.LockTargetSession);
-            Assertx.RegexMatch(api.Target, AudioSession.ParseProcessIdentifier(Settings.TargetSession).Item2, "Target property wasn't set correctly!");
-            Assertx.Same(api.VolumeStepSize, Settings.VolumeStepSize);
-        }
-
         [TestMethod()]
         public void ForceReloadAudioDevices_Test()
         {

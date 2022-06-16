@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Interop;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.WPF;

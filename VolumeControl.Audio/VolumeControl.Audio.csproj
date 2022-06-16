@@ -26,7 +26,7 @@
 
 	<ItemGroup>
 		<None Update="AudioAPISettings.settings">
-			<Generator>PublicSettingsSingleFileGenerator</Generator>
+			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>AudioAPISettings.Designer.cs</LastGenOutput>
 		</None>
 	</ItemGroup>

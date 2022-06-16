@@ -26,7 +26,7 @@
 	<ItemGroup>
 		<None Update="HotkeyManagerSettings.settings">
 			<LastGenOutput>HotkeyManagerSettings.Designer.cs</LastGenOutput>
-			<Generator>PublicSettingsSingleFileGenerator</Generator>
+			<Generator>SettingsSingleFileGenerator</Generator>
 		</None>
 	</ItemGroup>
 

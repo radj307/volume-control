@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VolumeControl.Log;
 using VolumeControl.Log.Enum;
 using VolumeControl.TypeExtensions;
 
@@ -117,7 +118,6 @@ namespace VolumeControl.WPF.Collections
             {
                 _value = value;
                 NotifyPropertyChanged();
-                NotifyCollectionChanged(new(NotifyCollectionChangedAction.Replace));
             }
         }
         /// <summary>
@@ -191,5 +191,19 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Options).GetEnumerator();
         #endregion Methods
+    }
+
+    public class LogEventTypeFilter : BindableEventType
+    {
+        public LogEventTypeFilter()
+        {
+            Value = Log.EventTypeFilter;
+            PropertyChanged += (s, e) =>
+            {
+                Log.EventTypeFilter = Value;
+            };
+        }
+
+        private LogWriter Log => FLog.Log;
     }
 }
