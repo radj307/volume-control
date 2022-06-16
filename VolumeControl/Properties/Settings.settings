@@ -80,5 +80,14 @@
     <Setting Name="UpdateUriLatest" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://api.github.com/repos/radj307/volume-control/releases/latest</Value>
     </Setting>
+    <Setting Name="RegistryRunAtStartupKeyFriendlyPrefix" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Computer\HKEY_CURRENT_USER\</Value>
+    </Setting>
+    <Setting Name="RegistryRunAtStartupKeyPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Software\Microsoft\Windows\CurrentVersion\Run</Value>
+    </Setting>
+    <Setting Name="RegistryRunAtStartupValueName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">VolumeControl</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

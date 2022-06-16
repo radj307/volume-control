@@ -19,7 +19,7 @@ namespace VolumeControl.Helpers.Addon
         public AddonManager(VolumeControlSettings settings)
         {
             _settings = settings;
-            _currentVersion = _settings.Version;
+            _currentVersion = _settings.CurrentVersion;
             AddonDirectories = GetAddonDirectories().Where(d => Directory.Exists(d)).ToList();
         }
         #endregion Initializers

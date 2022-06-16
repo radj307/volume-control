@@ -39,6 +39,8 @@ namespace VolumeControl.Hotkeys
 
             if (loadNow)
                 LoadHotkeys();
+
+            this.CollectionChanged += HandleCollectionChanged;
         }
         #endregion Initializers
 
@@ -58,6 +60,13 @@ namespace VolumeControl.Hotkeys
         {
             add => ((INotifyCollectionChanged)Hotkeys).CollectionChanged += value;
             remove => ((INotifyCollectionChanged)Hotkeys).CollectionChanged -= value;
+        }
+        private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            SaveHotkeys();
+            Settings.Save();
+            Settings.Reload();
+            Log.Debug($"{nameof(HotkeyManager)}:  Saved & Reloaded Hotkey Configuration.");
         }
 
         /// <summary>Triggered after the value changes when a property's setter is called.</summary>

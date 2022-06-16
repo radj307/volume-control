@@ -298,5 +298,32 @@ namespace VolumeControl.Properties {
                 return ((string)(this["UpdateUriLatest"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Computer\\HKEY_CURRENT_USER\\")]
+        public string RegistryRunAtStartupKeyFriendlyPrefix {
+            get {
+                return ((string)(this["RegistryRunAtStartupKeyFriendlyPrefix"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Software\\Microsoft\\Windows\\CurrentVersion\\Run")]
+        public string RegistryRunAtStartupKeyPath {
+            get {
+                return ((string)(this["RegistryRunAtStartupKeyPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("VolumeControl")]
+        public string RegistryRunAtStartupValueName {
+            get {
+                return ((string)(this["RegistryRunAtStartupValueName"]));
+            }
+        }
     }
 }

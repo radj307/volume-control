@@ -57,7 +57,7 @@ namespace VolumeControl.Helpers.Update
         /// <inheritdoc/>
         public int CompareTo(object? obj) => ((IComparable)Version).CompareTo(obj);
         /// <inheritdoc/>
-        public int CompareTo(Release? other) => Version.CompareTo(other?.Version);
+        public int CompareTo(Release? other) => Version.CompareSortOrderTo(other?.Version);
         /// <inheritdoc/>
         public bool Equals(SemVersion? other) => ((IEquatable<SemVersion>)Version).Equals(other);
         /// <inheritdoc/>
@@ -75,13 +75,13 @@ namespace VolumeControl.Helpers.Update
         /// </summary>
         /// <param name="other">Another release version.</param>
         /// <returns><see langword="true"/> when this release is newer than <paramref name="other"/> or <see langword="false"/> when this release is older than or equal to <paramref name="other"/>.</returns>
-        public bool IsNewerThan(Release other) => Version.CompareByPrecedence(other.Version) > 0;
+        public bool IsNewerThan(Release other) => Version.CompareSortOrderTo(other.Version) > 0;
         /// <summary>
         /// Checks if this release version is newer than version <paramref name="other"/>.
         /// </summary>
         /// <param name="other">Any <see cref="SemVersion"/> type.</param>
         /// <returns><see langword="true"/> when this release is newer than <paramref name="other"/> or <see langword="false"/> when this release is older than or equal to <paramref name="other"/>.</returns>
-        public bool IsNewerThan(SemVersion other) => Version.CompareByPrecedence(other) > 0;
+        public bool IsNewerThan(SemVersion other) => Version.CompareSortOrderTo(other) > 0;
         #region Operators
         public static bool operator ==(Release left, Release right) => left is null ? right is null : left.Equals(right);
         public static bool operator !=(Release left, Release right) => !(left == right);

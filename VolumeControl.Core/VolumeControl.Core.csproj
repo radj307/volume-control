@@ -8,18 +8,10 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
-		<FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
-	</ItemGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Semver" Version="2.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-	  <ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
-	  <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
+		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

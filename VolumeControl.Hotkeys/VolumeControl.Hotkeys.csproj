@@ -1,43 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <Configurations>Debug;Release;SDK</Configurations>
-    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Configurations>Debug;Release;SDK</Configurations>
+		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
-		<FrameworkReference
-			Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
-			TargetingPackVersion="6.0.0" />
+	<ItemGroup>
+		<ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
+		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
-    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="HotkeyManagerSettings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<DependentUpon>HotkeyManagerSettings.settings</DependentUpon>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="HotkeyManagerSettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>HotkeyManagerSettings.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="HotkeyManagerSettings.settings">
+			<LastGenOutput>HotkeyManagerSettings.Designer.cs</LastGenOutput>
+			<Generator>PublicSettingsSingleFileGenerator</Generator>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="HotkeyManagerSettings.settings">
-      <LastGenOutput>HotkeyManagerSettings.Designer.cs</LastGenOutput>
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-    </None>
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+	</Target>
 
 </Project>

@@ -31,8 +31,7 @@ namespace VolumeControl.Audio
                 Target = session.ProcessIdentifier;
             else Target = Settings.TargetSession;
 
-            LockSelectedSession = Settings.LockTargetSession;
-            VolumeStepSize = Settings.VolumeStepSize;
+            this.PropertyChanged += HandlePropertyChanged;
         }
         private void SaveSettings()
         {
@@ -40,9 +39,7 @@ namespace VolumeControl.Audio
             SaveEnabledDevices();
 
             Settings.TargetSession = SelectedSession?.ProcessIdentifier ?? Target;
-            Settings.LockTargetSession = LockSelectedSession;
 
-            Settings.VolumeStepSize = VolumeStepSize;
             // save to file
             Settings.Save();
             Settings.Reload();
@@ -63,20 +60,19 @@ namespace VolumeControl.Audio
         /// </summary>
         public bool LockSelectedSession
         {
-            get => _lockSelectedSession;
+            get => Settings.LockTargetSession;
             set
             {
                 NotifyPropertyChanging();
 
-                _lockSelectedSession = value;
+                Settings.LockTargetSession = value;
 
                 NotifyPropertyChanged();
                 NotifyLockSelectedSessionChanged();
 
-                Log.Info($"Session selection {(_lockSelectedSession ? "" : "un")}locked.");
+                Log.Info($"Session selection {(Settings.LockTargetSession ? "" : "un")}locked.");
             }
         }
-        private bool _lockSelectedSession;
         /// <summary>
         /// Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated string representation of <see cref="SelectedSession"/>'s <see cref="AudioSession.ProcessIdentifier"/> property.
         /// </summary>
@@ -111,17 +107,16 @@ namespace VolumeControl.Audio
         /// </summary>
         public int VolumeStepSize
         {
-            get => _volumeStepSize;
+            get => Settings.VolumeStepSize;
             set
             {
                 NotifyPropertyChanging();
-                _volumeStepSize = value;
+                Settings.VolumeStepSize = value;
                 NotifyPropertyChanged();
 
-                Log.Info($"Volume step set to {_volumeStepSize}");
+                Log.Info($"Volume step set to {Settings.VolumeStepSize}");
             }
         }
-        private int _volumeStepSize;
 
         /// <summary>
         /// The currently selected <see cref="AudioSession"/>, or null if nothing is selected.
@@ -166,6 +161,12 @@ namespace VolumeControl.Audio
         /// <summary>Triggered when a member property's value is changed.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Settings.Save();
+            Settings.Reload();
+            Log.Debug($"{nameof(AudioAPI)}:  Saved & Reloaded Audio Configuration.");
+        }
         /// <summary>Triggered before a member property's value is changed.</summary>
         public event PropertyChangingEventHandler? PropertyChanging;
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));

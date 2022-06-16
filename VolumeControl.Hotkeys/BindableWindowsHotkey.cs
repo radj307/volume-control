@@ -23,8 +23,7 @@ namespace VolumeControl.Hotkeys
             ActionName = action;
             if (registerNow) //< only trigger when true
                 Registered = registerNow;
-            Hotkey.PropertyChanged += ForwardPropertyChanged;
-            Hotkey.PropertyChanging += ForwardPropertyChanging;
+            this.PropertyChanged += HandlePropertyChanged;
         }
 
         private readonly HotkeyManager _manager;
@@ -142,6 +141,13 @@ namespace VolumeControl.Hotkeys
         public event PropertyChangedEventHandler? PropertyChanged;
         /// <summary>Triggered before a property is about to be set.</summary>
         public event PropertyChangingEventHandler? PropertyChanging;
+
+        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Settings.Save();
+            Settings.Reload();
+            FLog.Log.Debug($"{nameof(BindableWindowsHotkey)}:  Saved & Reloaded Hotkey Configuration.");
+        }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         private void ForwardPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);

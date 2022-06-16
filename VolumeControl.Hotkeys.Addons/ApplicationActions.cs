@@ -8,7 +8,7 @@ namespace VolumeControl.Hotkeys.Addons
     [ActionAddon(nameof(ApplicationActions))]
     public class ApplicationActions
     {
-        private static VCSettingsContainer VCSettings => VCAPI.Default.Settings;
+        private static IVCSettings VCSettings => VCAPI.Default.Settings;
 
         /// <summary>Enables notifications.</summary>
         [HotkeyAction(ActionDescription = "Enables notifications.")]

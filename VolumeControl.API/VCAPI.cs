@@ -36,7 +36,7 @@ namespace VolumeControl.API
         /// <summary>
         /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
         /// </summary>
-        public VCSettingsContainer Settings { get; internal set; }
+        public IVCSettings Settings { get; internal set; }
         #endregion Properties
     }
 }

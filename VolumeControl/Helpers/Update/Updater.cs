@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using VolumeControl.Attributes;
+using VolumeControl.Core.Enum;
 using VolumeControl.Log;
 
 namespace VolumeControl.Helpers.Update
@@ -49,7 +49,7 @@ namespace VolumeControl.Helpers.Update
             ERelease.PRERELEASE or ERelease.CANDIDATE or ERelease.TESTING => true,
             _ => false
         };
-        private SemVersion CurrentVersion => VCSettings.Version;
+        private SemVersion CurrentVersion => VCSettings.CurrentVersion;
         /// <summary>
         /// Lazily-initialized & cached copy of the latest release object.
         /// </summary>
