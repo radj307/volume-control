@@ -6,13 +6,25 @@
 		<Nullable>enable</Nullable>
 		<Configurations>Debug;Release;SDK</Configurations>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<!-- SETTINGS UPGRADE -->
+		<AllowUpgradeConfig>true</AllowUpgradeConfig>
+		<!-- SETTINGS UPGRADE -->
 	</PropertyGroup>
+
+	<!-- SETTINGS UPGRADE ATTRIBUTES -->
+	<ItemGroup>
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute">
+			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 
 	<ItemGroup>
 		<PackageReference Include="NAudio" Version="2.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
 		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
 	</ItemGroup>
 

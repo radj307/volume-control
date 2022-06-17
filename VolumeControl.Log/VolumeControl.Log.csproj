@@ -8,7 +8,18 @@
 		<UseWindowsForms>True</UseWindowsForms>
 		<Configurations>Debug;Release;SDK</Configurations>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<!-- SETTINGS UPGRADE -->
+		<AllowUpgradeConfig>true</AllowUpgradeConfig>
+		<!-- SETTINGS UPGRADE -->
 	</PropertyGroup>
+
+	<!-- SETTINGS UPGRADE ATTRIBUTES -->
+	<ItemGroup>
+		<AssemblyAttribute Include="VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute">
+			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 
 	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">

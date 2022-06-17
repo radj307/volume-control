@@ -54,7 +54,7 @@ namespace VolumeControl.Helpers.Addon
             {
                 if (!Directory.Exists(dir))
                 {
-                    Log.Warning($"Addon directory '{dir}' doesn't exist.");
+                    Log.Warning($"Addon directory '{dir}' doesn't exist, skipping...");
                     continue;
                 }
 
@@ -64,6 +64,33 @@ namespace VolumeControl.Helpers.Addon
                 {
                     string prefix = $"  [{++totalCount}] ";
                     var asm = Assembly.LoadFrom(path);
+
+                    if (asm.GetCustomAttribute<Core.Attributes.AllowUpgradeConfigAttribute>() is Core.Attributes.AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
+                    {
+                        Log.Debug($"{prefix}Found {nameof(Core.Attributes.AllowUpgradeConfigAttribute)}, searching for valid exported configurations...");
+
+                        if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(ApplicationSettingsBase)) ?? false) is Type t)
+                        {
+                            Log.Debug($"{prefix}Found valid configuration type '{t.FullName}'");
+                            const string propertyName = "Default";
+                            if (t.GetProperty(propertyName)?.GetValue(null) is ApplicationSettingsBase cfg)
+                            {
+                                try
+                                {
+                                    cfg.Upgrade();
+                                    Log.Debug($"{prefix}Successfully performed configuration upgrade for addon '{asm.FullName}'");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log.Debug($"{prefix}Upgrade Error:  An exception was thrown!", ex);
+                                }
+                                cfg.Save();
+                                cfg.Reload();
+                            }
+                            else Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
+                        }
+                        else Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
+                    }
 
                     int typeCount = LoadAddonTypes(ref addons, asm, _currentVersion);
 

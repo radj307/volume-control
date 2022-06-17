@@ -1,10 +1,14 @@
 ﻿using AssemblyAttribute;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media.Animation;
+using VolumeControl.Core.Attributes;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -38,19 +42,22 @@ namespace VolumeControl
             string path = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
 
             // this means we're starting back up after the update util completed
-            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes)) {
+            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
+            {
                 try
                 {
                     System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"An exception occurred while attempting to clean up ");
+                    Log.Error(ex);
                 }
             }
 
             // attempt to upgrade settings
-           // if (Settings.UpgradeSettings)
+#if !DEBUG
+            if (Settings.UpgradeSettings)
+#endif
             {
                 Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
                 try
@@ -61,7 +68,8 @@ namespace VolumeControl
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex);
+                    Log.Error($"Config migration failed because of an unhandled exception", ex);
+
                     if (MessageBox.Show("Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
                                         "Invalid User Configuration File",
                                         MessageBoxButton.YesNo,
@@ -87,9 +95,7 @@ namespace VolumeControl
             if (!isNewInstance)
             {
                 if (waitForMutex)
-                {
-
-                }
+                    _ = appMutex.WaitOne(); //< wait until the mutex is acquired
                 else
                 {
                     Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
@@ -97,11 +103,8 @@ namespace VolumeControl
                     return;
                 }
             }
-            //if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
-            //{
-            //    return;
-            //}
 
+            // create the application class
             var app = new App();
             try
             {
@@ -112,8 +115,21 @@ namespace VolumeControl
             {
                 Log.Fatal("App exited because of an unhandled exception!", ex);
                 app.TrayIcon.Dispose();
+
+                using var sr = Log.Endpoint.GetReader();
+                if (sr is not null)
+                {
+                    string content = sr.ReadToEnd();
+                    sr.Dispose();
+
+                    WriteCrashDump(content);
+                }
+                else Log.Fatal($"Failed to create crash log dump!");
+
 #               if DEBUG
-                throw; //< rethrow exception
+                appMutex.ReleaseMutex();
+                appMutex.Dispose();
+                throw; //< rethrow in debug configuration
 #               endif
             }
 
@@ -130,18 +146,50 @@ namespace VolumeControl
         /// <remarks>This works for all assemblies, and should only be called once.</remarks>
         private static void UpgradeAllSettings(params Assembly[] assemblies)
         {
-            foreach (Assembly? assembly in assemblies)
+            foreach (var asm in assemblies)
             {
-                foreach (var type in assembly.GetTypes())
+                if (asm.GetCustomAttribute<AllowUpgradeConfigAttribute>() is AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
                 {
-                    if (type.GetProperty("Default")?.GetValue(null, null) is global::System.Configuration.ApplicationSettingsBase cfg)
+                    if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(System.Configuration.ApplicationSettingsBase)) ?? false) is Type t)
                     {
-                        cfg.Upgrade();
-                        cfg.Reload();
-                        cfg.Save();
+                        if (t.GetProperty("Default")?.GetValue(null) is System.Configuration.ApplicationSettingsBase cfg)
+                        {
+                            try
+                            {
+                                cfg.Upgrade();
+                                Log.Info($"Successfully upgraded configuration of assembly '{asm.FullName}'");
+                            } 
+                            catch (Exception ex)
+                            {
+                                Log.Error($"An exception was thrown while attempting to update configuration of assembly '{asm.FullName}'", ex);
+                            }
+                            cfg.Save();
+                            cfg.Reload();
+                        }
                     }
                 }
             }
+        }
+        /// <summary>
+        /// Writes <paramref name="content"/> to an automatically-generated crash dump file.
+        /// </summary>
+        /// <param name="content">The string to write to the dump file.</param>
+        private static void WriteCrashDump(string content)
+        {
+            int count = 0;
+            foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "volumecontrol-crash-*.log"))
+            {
+                var match = Regex.Match(path, "\\d+");
+                if (match.Success && int.TryParse(match.Value, out int number) && number > count)
+                    count = number;
+            }
+            using var sw = new StreamWriter($"volumecontrol-crash-{++count}.log");
+
+            sw.Write(content);
+            sw.Flush();
+            sw.Close();
+
+            sw.Dispose();
         }
         #endregion Methods
     }
