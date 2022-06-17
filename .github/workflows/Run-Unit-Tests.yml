@@ -1,11 +1,10 @@
 name: 'Run Unit Tests'
 
 on:
-  workflow_run:
-    workflows:
-      - 'Generate Release'
-    types:
-      - 'completed'
+### Disabled autorun because actions runners don't have any audio devices or sessions and can't run most tests yet
+#  workflow_run:
+#    workflows:  [ 'Generate Release' ]
+#    types:      [ 'completed' ]
   workflow_dispatch:
   
 defaults:
