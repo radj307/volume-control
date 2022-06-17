@@ -30,21 +30,33 @@ namespace VolumeControl.TypeExtensions
                     l.Add(selected);
             return l.AsEnumerable();
         }
+        /// <summary>
+        /// Adds <paramref name="obj"/> to the <paramref name="list"/> if it isn't a duplicate of any existing elements.
+        /// </summary>
+        /// <param name="list">List</param>
+        /// <param name="obj">Object to add to the list. The object is only added if it isn't a duplicate of an existing element, as determined by <see cref="object.Equals(object?)"/>.</param>
         public static void AddIfUnique(this IList list, object obj)
         {
             if (!list.Contains(obj))
                 list.Add(obj);
         }
+        /// <summary>
+        /// Calls <see cref="AddIfUnique(IList, object)"/> on the given <paramref name="range"/> of objects.
+        /// </summary>
+        /// <param name="list">List</param>
+        /// <param name="range">A range of objects to add to the list. Each object is only added if it isn't a duplicate of an existing element, as determined by <see cref="object.Equals(object?)"/>.</param>
         public static void AddRangeIfUnique(this IList list, IEnumerable range)
         {
             foreach (var item in range)
                 list.AddIfUnique(item);
         }
+        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
         public static void ForEach(this IEnumerable enumerable, Action<object?> action)
         {
             foreach (var item in enumerable)
                 action(item);
         }
+        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
             foreach (var item in enumerable)
@@ -52,12 +64,23 @@ namespace VolumeControl.TypeExtensions
                 action(item);
             }
         }
+        /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
+        /// <returns><paramref name="enumerable"/>, allowing this method to be used in a pipeline.</returns>
         public static IEnumerable<T> ForwardForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
             foreach (var item in enumerable)
                 action(item);
             return enumerable;
         }
+        /// <summary>
+        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new list of type <typeparamref name="TList"/>.
+        /// </summary>
+        /// <typeparam name="TList">The type of list to return.</typeparam>
+        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
+        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
+        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
+        /// <returns>The converted list of items.</returns>
         public static TList ConvertEach<TList, TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter) where TList : IList, IEnumerable, IList<TOut>, IEnumerable<TOut>, ICollection, ICollection<TOut>, new()
         {
             TList l = new();
@@ -65,6 +88,14 @@ namespace VolumeControl.TypeExtensions
                 l.Add(converter(item));
             return l;
         }
+        /// <summary>
+        /// Converts each element in the given <paramref name="enumerable"/> from type <typeparamref name="TIn"/> to type <typeparamref name="TOut"/>, and returns the converted objects as a new <see cref="List{T}"/>.
+        /// </summary>
+        /// <typeparam name="TOut">The type to convert each item to.</typeparam>
+        /// <typeparam name="TIn">The type to convert each item from.</typeparam>
+        /// <param name="enumerable">Any type implementing <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="converter">A converter method that accepts <typeparamref name="TIn"/> and returns <typeparamref name="TOut"/>.</param>
+        /// <returns>The converted list of items.</returns>
         public static List<TOut> ConvertEach<TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter)
         {
             List<TOut> l = new();
