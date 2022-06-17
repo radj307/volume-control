@@ -1,0 +1,30 @@
+name: 'Run Unit Tests'
+
+on:
+### Disabled autorun because actions runners don't have any audio devices or sessions and can't run most tests yet
+#  workflow_run:
+#    workflows:  [ 'Generate Release' ]
+#    types:      [ 'completed' ]
+  workflow_dispatch:
+  
+defaults:
+  run:
+    shell:  |
+            pwsh -noninteractive -command "try {{ $ErrorActionPreference='Stop'; . '{0}' }} catch {{ Write-Error ""FAILED: $_""; throw; }} if ((Test-Path -LiteralPath variable:\LASTEXITCODE)) {{ exit $LASTEXITCODE }}"
+            
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  run-tests:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+  
+      - uses: actions/setup-dotnet@main
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: Run Unit Tests
+        run:  dotnet test
