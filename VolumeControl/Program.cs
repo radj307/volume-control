@@ -148,7 +148,7 @@ namespace VolumeControl
         {
             foreach (var asm in assemblies)
             {
-                if (asm.GetCustomAttribute<AllowUpgradeConfigAttribute>() is AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
+                if ((asm.GetCustomAttribute<AllowUpgradeConfigAttribute>() is AllowUpgradeConfigAttribute attr && attr.AllowUpgrade) || (asm.FullName?.Contains("VolumeControl.Log", StringComparison.Ordinal) ?? false))
                 {
                     if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(System.Configuration.ApplicationSettingsBase)) ?? false) is Type t)
                     {
