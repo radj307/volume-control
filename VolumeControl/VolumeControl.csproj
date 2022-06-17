@@ -1,158 +1,154 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<RootNamespace>VolumeControl</RootNamespace>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<StartupObject>VolumeControl.Program</StartupObject>
-		<!-- VERSIONING INFO -->
-		<Version>5.0.5</Version>
-		<ExtendedVersion>5.0.5</ExtendedVersion>
-		<ReleaseType>NORMAL</ReleaseType>
-		<!-- VERSIONING INFO -->
-		<Authors>radj307</Authors>
-		<NeutralLanguage>en-CA</NeutralLanguage>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-		<Copyright>GPLv3</Copyright>
-		<ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
-		<Company>radj307</Company>
-		<Product>Volume Control</Product>
-		<Description>Adds customizable global hotkeys for controlling the volume of specific applications, rather than the system volume.</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-		<AnalysisLevel>6.0</AnalysisLevel>
-		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-		<Deterministic>true</Deterministic>
-		<Configurations>Debug;Release</Configurations>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<FrameworkReference
-		Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
-		TargetingPackVersion="6.0.0" />
-	</ItemGroup>
-
-	<!-- VERSIONING ATTRIBUTES -->
-	<ItemGroup>
-		<AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
-			<_Parameter1>$(ExtendedVersion)</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="VolumeControl.Attributes.ReleaseType">
-			<_Parameter1>$(ReleaseType)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-	<!-- VERSIONING ATTRIBUTES -->
-	<ItemGroup>
-		<None Remove="Resources\fonts\Inter.ttf" />
-		<None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
-		<None Remove="Resources\icons\icon-16x16-VC.ico" />
-		<None Remove="Resources\icons\icon.ico" />
-		<None Remove="Resources\images\background-img.png" />
-		<None Remove="Resources\images\background.png" />
-		<None Remove="Resources\images\banner.png" />
-		<None Remove="Resources\images\foreground.png" />
-		<None Remove="Resources\images\icon.png" />
-		<None Remove="Resources\images\iconSilvered.png" />
-		<None Remove="Resources\images\reload-white.png" />
-		<None Remove="Resources\images\reload.png" />
-		<None Remove="Resources\LICENSE" />
-		<None Remove="Resources\VCUpdateUtility.exe" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Resources\VCUpdateUtility.exe" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Resources\fonts\Inter.ttf">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\icon.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\icons\iconSilvered.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="AssemblyAttribute" Version="0.0.0" />
-		<PackageReference Include="ControlzEx" Version="5.0.1" />
-		<PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
-			<NoWarn>NU1701</NoWarn>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />
-		<ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
-		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-		<ProjectReference Include="..\VolumeControl.Hotkeys.Addons\VolumeControl.Hotkeys.Addons.csproj" />
-		<ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
-		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Resources\icons\icon-16x16-VC.ico">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\background.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\banner.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\foreground.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\icon.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\iconSilvered.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\reload-white.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\images\reload.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\LICENSE">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="Properties\Settings.settings">
-			<Generator>PublicSettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
-		<FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>VolumeControl</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <StartupObject>VolumeControl.Program</StartupObject>
+    <!-- VERSIONING INFO -->
+    <Version>5.1.0</Version>
+    <ExtendedVersion>5.1.0-rc1</ExtendedVersion>
+    <ReleaseType>CANDIDATE</ReleaseType>
+    <!-- VERSIONING INFO -->
+    <Authors>radj307</Authors>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+    <Copyright>GPLv3</Copyright>
+    <ApplicationIcon>Resources\icons\iconSilvered.ico</ApplicationIcon>
+    <Company>radj307</Company>
+    <Product>Volume Control</Product>
+    <Description>Adds customizable global hotkeys for controlling the volume of specific applications, rather than the system volume.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>6.0</AnalysisLevel>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <Deterministic>true</Deterministic>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
+  </ItemGroup>
+  <!-- VERSIONING ATTRIBUTES -->
+  <ItemGroup>
+    <AssemblyAttribute Include="AssemblyAttribute.ExtendedVersion">
+      <_Parameter1>$(ExtendedVersion)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="VolumeControl.Attributes.ReleaseType">
+      <_Parameter1>$(ReleaseType)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <!-- VERSIONING ATTRIBUTES -->
+  <ItemGroup>
+    <None Remove="Resources\fonts\Inter.ttf" />
+    <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
+    <None Remove="Resources\icons\icon-16x16-VC.ico" />
+    <None Remove="Resources\icons\icon.ico" />
+    <None Remove="Resources\images\background-img.png" />
+    <None Remove="Resources\images\background.png" />
+    <None Remove="Resources\images\banner.png" />
+    <None Remove="Resources\images\foreground.png" />
+    <None Remove="Resources\images\icon.png" />
+    <None Remove="Resources\images\iconSilvered.png" />
+    <None Remove="Resources\images\reload-white.png" />
+    <None Remove="Resources\images\reload.png" />
+    <None Remove="Resources\LICENSE" />
+    <None Remove="Resources\VCUpdateUtility.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\VCUpdateUtility.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fonts\Inter.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\icon-16x16-VC-inverted.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icons\iconSilvered.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AssemblyAttribute" Version="0.0.0" />
+    <PackageReference Include="ControlzEx" Version="5.0.1" />
+    <PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />
+    <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+    <ProjectReference Include="..\VolumeControl.Hotkeys.Addons\VolumeControl.Hotkeys.Addons.csproj" />
+    <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
+    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\icon-16x16-VC.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\background.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\banner.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\foreground.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\iconSilvered.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload-white.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\images\reload.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LICENSE">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
+  </ItemGroup>
 </Project>
