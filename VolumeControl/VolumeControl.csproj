@@ -25,7 +25,7 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<AnalysisLevel>6.0</AnalysisLevel>
-		<!--<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>-->
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 		<Deterministic>true</Deterministic>
 		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
