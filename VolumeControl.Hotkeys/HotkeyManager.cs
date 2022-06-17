@@ -293,13 +293,19 @@ namespace VolumeControl.Hotkeys
         }
         #endregion IDisposable
 
+        #region AllSelected
         private void HotkeyOnPropertyChanged(object? sender, PropertyChangedEventArgs args)
         {
             // Only re-check if the IsChecked property changed
             if (args.PropertyName == nameof(BindableWindowsHotkey.Registered))
                 RecheckAllSelected();
-        }
 
+            // save changes to configuration
+            SaveHotkeys();
+            Settings.Save();
+            Settings.Reload();
+            Log.Debug($"{nameof(HotkeyManager)}:  Saved Hotkey Configuration.");
+        }
         private void AllSelectedChanged()
         {
             // Has this change been caused by some other change?
@@ -327,7 +333,6 @@ namespace VolumeControl.Hotkeys
                 _allSelectedChanging = false;
             }
         }
-
         private void RecheckAllSelected()
         {
             // Has this change been caused by some other change?
@@ -361,6 +366,7 @@ namespace VolumeControl.Hotkeys
                 _allSelectedChanging = false;
             }
         }
+        #endregion AllSelected
         #endregion Methods
     }
 }

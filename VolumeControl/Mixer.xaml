@@ -848,7 +848,7 @@
                     x:Name="versionLabel"
                     Grid.Column="4"
                     HorizontalAlignment="Right"
-                    Content="{Binding VersionNumber, Source={StaticResource Settings}}"
+                    Content="{Binding CurrentVersionString, Source={StaticResource Settings}}"
                     FontFamily="Verdana"
                     FontSize="11"
                     FontWeight="Black"

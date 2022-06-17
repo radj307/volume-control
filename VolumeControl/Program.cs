@@ -32,20 +32,30 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            bool waitForMutex = args.Contains("--wait-for-mutex");
+
             AppDomain? appDomain = AppDomain.CurrentDomain;
             string path = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
 
             // this means we're starting back up after the update util completed
-            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
-                System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
+            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes)) {
+                try
+                {
+                    System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An exception occurred while attempting to clean up ");
+                }
+            }
 
             // attempt to upgrade settings
-            if (Settings.UpgradeSettings)
+           // if (Settings.UpgradeSettings)
             {
                 Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
                 try
                 {
-                    UpgradeAllSettings(AppDomain.CurrentDomain.GetAssemblies().Where(asm => asm.FullName?.Contains("VolumeControl", StringComparison.Ordinal) ?? false).ToArray());
+                    UpgradeAllSettings(appDomain.GetAssemblies().ToArray());
                     Settings.UpgradeSettings = false;
                     Log.Info("User settings were upgraded successfully; or there were no settings to upgrade.");
                 }
@@ -76,9 +86,16 @@ namespace VolumeControl
 
             if (!isNewInstance)
             {
-                Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
-                MessageBox.Show("Another instance of Volume Control is already running!");
-                return;
+                if (waitForMutex)
+                {
+
+                }
+                else
+                {
+                    Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
+                    MessageBox.Show("Another instance of Volume Control is already running!");
+                    return;
+                }
             }
             //if (Settings.CheckForUpdatesOnStartup && UpdateChecker.CheckForUpdates())
             //{
