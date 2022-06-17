@@ -12,6 +12,9 @@ var hierarchy =
       [ "VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html", null ]
     ] ],
     [ "VolumeControl.Hotkeys.Addons.AudioAPIActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html", null ],
+    [ "BaseAssemblyAttribute", null, [
+      [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
+    ] ],
     [ "VolumeControl.Core.CompatibleVersions", "struct_volume_control_1_1_core_1_1_compatible_versions.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
     [ "Control", null, [

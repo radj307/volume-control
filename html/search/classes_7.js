@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['keycombo_735',['KeyCombo',['../struct_hotkey_lib_1_1_key_combo.html',1,'HotkeyLib']]],
-  ['keysblacklist_736',['KeysBlacklist',['../class_hotkey_lib_1_1_keys_blacklist.html',1,'HotkeyLib']]],
-  ['keyslist_737',['KeysList',['../class_hotkey_lib_1_1_keys_list.html',1,'HotkeyLib']]]
+  ['keycombo_738',['KeyCombo',['../struct_hotkey_lib_1_1_key_combo.html',1,'HotkeyLib']]],
+  ['keysblacklist_739',['KeysBlacklist',['../class_hotkey_lib_1_1_keys_blacklist.html',1,'HotkeyLib']]],
+  ['keyslist_740',['KeysList',['../class_hotkey_lib_1_1_keys_list.html',1,'HotkeyLib']]]
 ];
