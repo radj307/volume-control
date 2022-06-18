@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using ControlzEx.Controls;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -54,6 +55,8 @@ namespace VolumeControl
         }
         #endregion Init
 
+        private bool _onHotkeysTab = false;
+
         #region Properties
         private ListNotification ListNotification => (FindResource("Notification") as ListNotification)!;
         private VolumeControlSettings VCSettings => (FindResource("Settings") as VolumeControlSettings)!;
@@ -108,17 +111,6 @@ namespace VolumeControl
                 HotkeyAPI.DelHotkey(id);
             }
         }
-        /// <summary>Ensures there is enough space to display the hotkeys data grid when advanced mode is enabled.</summary>
-        //private void Handle_TabControlChange(object sender, RoutedEventArgs e)
-        //{
-        //    if (sender is TabControl tc && tc.SelectedValue is TabItem ti)
-        //    {
-        //        if (ti.Equals(HotkeysTab) && VCSettings.AdvancedHotkeyMode)
-        //            MaxWidth = Settings.WindowWidthWide;
-        //        else if (MaxWidth != Settings.WindowWidthDefault)
-        //            MaxWidth = Settings.WindowWidthDefault;
-        //    }
-        //}
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => VCSettings.ResetHotkeySettings();
 
@@ -212,5 +204,21 @@ namespace VolumeControl
             logFilterBox.SelectedItem = null;
         }
         #endregion EventHandlers
+
+        private void TabControlEx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is TabControlEx tabControl && tabControl.GetSelectedTabItem() is TabItem ti)
+            {
+                if (ti.Equals(HotkeysTab))
+                {
+                    _onHotkeysTab = true;
+                }
+                else if (_onHotkeysTab)
+                {
+                    _onHotkeysTab = false;
+                    HotkeyAPI.SaveHotkeys();
+                }
+            }
+        }
     }
 }

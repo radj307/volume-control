@@ -188,11 +188,4 @@ namespace HotkeyLib
         }
         #endregion Methods
     }
-
-    /// <summary>
-    /// Handler type for a key press event.
-    /// </summary>
-    /// <param name="sender">The object that sent the event.</param>
-    /// <param name="e">The event arguments.</param>
-    public delegate void KeyEventHandler(object? sender, HandledEventArgs e);
 }

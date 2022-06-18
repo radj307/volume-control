@@ -30,20 +30,23 @@ namespace VolumeControl.Helpers
 
             HotkeyActionManager actionManager = new();
             // Add premade actions
-            actionManager.Types.Add(typeof(AudioAPIActions));
+            actionManager.Types.Add(typeof(AudioDeviceActions));
+            actionManager.Types.Add(typeof(AudioSessionActions));
             actionManager.Types.Add(typeof(WindowsAPIActions));
 
             List<IBaseAddon> addons = new()
             {
                 actionManager
             };
+
             // Load addons
             AddonManager.LoadAddons(ref addons);
             // Retrieve a list of all loaded action names
             Actions = actionManager
                 .Bindings
-                .Where(a => a.Name.Length > 0)
-                .OrderBy(a => a.Name[0])
+                .Where(a => a.Data.ActionName.Length > 0)
+                .OrderBy(a => a.Data.ActionName[0])
+                .OrderBy(a => a.Data.ActionGroup is null ? 'z' + 1 : a.Data.ActionGroup[0])
                 .ToList();
             // Create the hotkey manager
             _hotkeyManager = new(actionManager, HWndHook, true);

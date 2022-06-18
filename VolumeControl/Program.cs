@@ -55,16 +55,14 @@ namespace VolumeControl
             }
 
             // attempt to upgrade settings
-#if !DEBUG
             if (Settings.UpgradeSettings)
-#endif
             {
                 Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
                 try
                 {
                     UpgradeAllSettings(appDomain.GetAssemblies().ToArray());
                     Settings.UpgradeSettings = false;
-                    Log.Info("User settings were upgraded successfully; or there were no settings to upgrade.");
+                    Log.Info("Configuration upgrade completed without error.");
                 }
                 catch (Exception ex)
                 {

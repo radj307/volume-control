@@ -639,7 +639,7 @@
                 <Setter Property="Margin" Value="10,3" />
             </Style>
 
-            <!-- CustomSliderTemplate -->
+            <!--  CustomSliderTemplate  -->
             <ControlTemplate x:Key="CustomSliderTemplate" TargetType="{x:Type Slider}">
                 <ControlTemplate.Resources>
                     <Style TargetType="{x:Type RepeatButton}">
@@ -740,7 +740,7 @@
                     </DataTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-            <!-- SliderCustomStyle -->
+            <!--  SliderCustomStyle  -->
             <Style x:Key="SliderCustomStyle" TargetType="{x:Type Slider}">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
@@ -880,6 +880,8 @@
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
+                MoveFocusToContentWhenSelectionChanges="True"
+                SelectionChanged="TabControlEx_SelectionChanged"
                 Style="{StaticResource TabControlStyle}">
                 <!--  TAB CONTROL APPEARANCE:  -->
                 <TabControl.Resources>
@@ -1275,16 +1277,45 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <ComboBox
+                                                        IsEditable="False"
                                                         ItemsSource="{Binding Actions, Source={StaticResource Settings}}"
                                                         SelectedItem="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}">
                                                         <ComboBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ComboBoxItem}">
-                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Description}" />
+                                                                <Setter Property="ToolTipService.ToolTip" Value="{Binding Data.ActionDescription}" />
                                                                 <Setter Property="ToolTipService.Placement" Value="Left" />
-                                                                <Setter Property="ToolTipService.InitialShowDelay" Value="250"/>
+                                                                <Setter Property="ToolTipService.InitialShowDelay" Value="250" />
                                                             </Style>
                                                         </ComboBox.ItemContainerStyle>
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel DataContext="{Binding Data}" Orientation="Horizontal">
+                                                                    <StackPanel.Resources>
+                                                                        <conv:ConverterChain x:Key="NullToVisibilityConverter">
+                                                                            <conv:NullToBooleanConverter />
+                                                                            <conv:BooleanInverter />
+                                                                            <BooleanToVisibilityConverter />
+                                                                        </conv:ConverterChain>
+                                                                    </StackPanel.Resources>
+                                                                    <TextBlock
+                                                                        Name="GroupNameTextBlock"
+                                                                        FontWeight="SemiBold"
+                                                                        Foreground="{Binding ActionGroupBrush, TargetNullValue={StaticResource TextBoxForeground}}"
+                                                                        Text="{Binding ActionGroup}" />
+                                                                    <TextBlock
+                                                                        FontWeight="{Binding FontWeight, ElementName=GroupNameTextBlock}"
+                                                                        Foreground="{Binding Foreground, ElementName=GroupNameTextBlock}"
+                                                                        Style="{StaticResource TextBlockStyle}"
+                                                                        Text=": "
+                                                                        Visibility="{Binding ActionGroup, Converter={StaticResource NullToVisibilityConverter}}" />
+                                                                    <TextBlock
+                                                                        Margin="2,0"
+                                                                        Style="{StaticResource TextBlockStyle}"
+                                                                        Text="{Binding ActionName}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
                                                     </ComboBox>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>

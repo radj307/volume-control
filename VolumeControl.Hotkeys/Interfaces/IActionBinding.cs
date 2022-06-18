@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using VolumeControl.Hotkeys.Structs;
 
 namespace VolumeControl.Hotkeys.Interfaces
 {
@@ -9,13 +10,13 @@ namespace VolumeControl.Hotkeys.Interfaces
     public interface IActionBinding
     {
         /// <summary>
-        /// The display name of this action.
+        /// <see cref="HotkeyActionData"/> associated with this action.
         /// </summary>
-        string Name { get; }
+        HotkeyActionData Data { get; set; }
         /// <summary>
-        /// The description of this action.
+        /// The string identifier used in the save/load system.
         /// </summary>
-        string? Description { get; }
+        string Identifier { get; }
         /// <summary>
         /// This is the event handler for this action binding. It calls <see cref="MethodBase.Invoke(object?, object?[])"/> on the bound method.
         /// </summary>

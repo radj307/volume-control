@@ -25,17 +25,6 @@ namespace VolumeControl.Hotkeys
 
             OwnerHandle = _hook.Handle;
 
-            CollectionChanged += (s, e) =>
-            {
-                if (e.NewItems == null)
-                    return;
-                foreach (BindableWindowsHotkey item in e.NewItems)
-                {
-                    item.PropertyChanged += HotkeyOnPropertyChanged;
-                    item.PropertyChanged += NotifyPropertyChanged;
-                }
-            };
-
             if (loadNow)
                 LoadHotkeys();
 
@@ -62,10 +51,13 @@ namespace VolumeControl.Hotkeys
         }
         private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            SaveHotkeys();
-            Settings.Save();
-            Settings.Reload();
-            Log.Debug($"{nameof(HotkeyManager)}:  Saved & Reloaded Hotkey Configuration.");
+            if (e.NewItems == null)
+                return;
+            foreach (BindableWindowsHotkey item in e.NewItems)
+            {
+                item.PropertyChanged += HotkeyOnPropertyChanged;
+                item.PropertyChanged += NotifyPropertyChanged;
+            }
         }
 
         /// <summary>Triggered after the value changes when a property's setter is called.</summary>

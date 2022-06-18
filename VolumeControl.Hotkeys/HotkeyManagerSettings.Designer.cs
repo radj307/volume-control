@@ -38,12 +38,12 @@ namespace VolumeControl.Hotkeys {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-  <string>Volume Up;VolumeUp;Increase Session Volume</string>
-  <string>Volume Down;VolumeDown;Decrease Session Volume</string>
-  <string>Toggle Mute;VolumeMute;Toggle Session Mute</string>
-  <string>Next Session;Ctrl+Shift+Alt+E;Select Next Session</string>
-  <string>Previous Session;Ctrl+Shift+Alt+Q;Select Previous Session</string>
-  <string>Un/Lock Session;Ctrl+Shift+Alt+S;Toggle Session Lock</string>
+  <string>Volume Up;VolumeUp;Session:Volume Up</string>
+  <string>Volume Down;VolumeDown;Session:Volume Down</string>
+  <string>Toggle Mute;VolumeMute;Session:Toggle Mute</string>
+  <string>Next Session;Ctrl+Shift+Alt+E;Session:Select Next</string>
+  <string>Previous Session;Ctrl+Shift+Alt+Q;Session:Select Previous</string>
+  <string>Un/Lock Session;Ctrl+Shift+Alt+S;Session:Toggle Lock</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Hotkeys_Default {
             get {

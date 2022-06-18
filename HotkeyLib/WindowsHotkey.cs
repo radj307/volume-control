@@ -5,6 +5,14 @@ using VolumeControl.Log;
 
 namespace HotkeyLib
 {
+    /// <summary>
+    /// Handler type for a key press event.
+    /// </summary>
+    /// <param name="sender">The object that sent the event.</param>
+    /// <param name="e">The event arguments.</param>
+    public delegate void KeyEventHandler(object? sender, HandledEventArgs e);
+
+
     /// <summary>A simple Windows hotkey.</summary>
     [TypeConverter(typeof(WindowsHotkeyConverter))]
     public class WindowsHotkey : IKeyCombo, IDisposable, INotifyPropertyChanged, INotifyPropertyChanging
@@ -168,8 +176,7 @@ namespace HotkeyLib
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
         /// <summary>Triggers the <see cref="Pressed"/> event.</summary>
-        /// <param name="e">The event arguments to send with the event invocation.</param>
-        public void NotifyPressed(HandledEventArgs e) => Pressed?.Invoke(this, e);
+        public void NotifyPressed() => Pressed?.Invoke(this, new(false));
 
         /// <summary>
         /// Registers the hotkey with the Windows API.

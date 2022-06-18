@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
+using VolumeControl.Hotkeys.Structs;
 
 namespace VolumeControl.Hotkeys.Attributes
 {
@@ -9,50 +11,66 @@ namespace VolumeControl.Hotkeys.Attributes
     public sealed class HotkeyActionAttribute : Attribute
     {
         #region Constructor
-        /// <inheritdoc cref="HotkeyActionAttribute"/>
-        /// <param name="actionName">The name of the action.<br/>You can use <see langword="nameof()"/> with your method's name if you want to specify a description without overriding the name.</param>
-        public HotkeyActionAttribute([CallerMemberName] string actionName = "")
-        {
-            _originalName = actionName;
-        }
+        /// <summary>
+        /// Use this attribute to mark the associated method as a hotkey action.
+        /// </summary>
+        /// <param name="name">
+        /// This determines the value of the <see cref="Name"/> property, which is used in conjunction with the <see cref="InsertSpacesInName"/> &amp; <see cref="GroupName"/> properties to determine the action name shown in the GUI.<br/><br/>
+        /// When this parameter is omitted, the action name is automatically set to the method name using reflection.<br/>
+        /// <i>Example:  Consider a method named "SessionVolumeUp", for which the default value of <paramref name="name"/> is either "SessionVolumeUp" when <see cref="InsertSpacesInName"/> is <see langword="false"/> or "Session Volume Up" when <see cref="InsertSpacesInName"/> is <see langword="true"/>.</i>
+        /// </param>
+        public HotkeyActionAttribute([CallerMemberName] string name = "") => Name = name;
         #endregion Constructor
 
-        #region Fields
-        private readonly string _originalName;
-        private string? _actionName = null;
-        private bool _interpolateName = true;
-        #endregion Fields
-
         #region Properties
-        /// <summary>The name shown in the GUI when selecting a hotkey action.<br/>This cannot be changed directly post-construction time, but may be influenced by <see cref="InterpolateName"/> after construction.<br/>If this is set to an empty string, the action is always ignored and will never be selectable.</summary>
-        /// <remarks><b>Note that this is also the name used when saving hotkeys to the config file.</b></remarks>
-        public string ActionName => _actionName ??= (InterpolateName ? ParseActionName(_originalName) : _originalName);
-        /// <summary>The description tooltip shown in the GUI when the user hovers over this action in the dropdown list.</summary>
-        public string? ActionDescription { get; set; }
         /// <summary>
-        /// Gets or sets whether the action name is interpolated by inserting spaces between each of the uppercase letters to split the name by words.<br/>
-        /// If your action is named using abbreviations or you don't want this behaviour to occur, set this to false.
+        /// Mandatory name to use when referencing this action.<br/>
+        /// Note that when loading hotkey addons, the result of the <see cref="GetActionData"/> method is used to determine the final <see cref="HotkeyActionData.ActionName"/> string.
         /// </summary>
-        /// <remarks><b>Note that when this property changes, the <see cref="ActionName"/> property is invalidated causing it to be regenerated the next time it is requested.</b></remarks>
-        public bool InterpolateName
-        {
-            get => _interpolateName;
-            set
-            {
-                if (_interpolateName != value)
-                {
-                    _interpolateName = value;
-                    _actionName = null;
-                }
-            }
-        }
+        public string Name { get; set; }
+        /// <summary>
+        /// An optional paragraph to display as a tooltip next to the hotkey action in the dropdown menu when the user hovers their mouse over it.<br/>
+        /// When this is set to <see langword="null"/>, there will not be a tooltip when the user hovers over your action in the dropdown menu.
+        /// </summary>
+        public string? Description { get; set; } = null;
+        /// <summary>
+        /// An optional name to include as a prefix in the GUI to assist with sorting elements.<br/>
+        /// Note that a seperator string is automatically appended to this, and all leading/trailing whitespace is trimmed.
+        /// </summary>
+        /// <remarks><b>When this is set to <see langword="null"/>, the seperator string is not included</b> in the result of the <see cref="GetActionData"/> method.</remarks>
+        public string? GroupName { get; set; } = null;
+        /// <summary>
+        /// The color to use when painting the text of <see cref="GroupName"/> if it isn't set to <see langword="null"/>.<br/>
+        /// This is converted to a <see cref="SolidColorBrush"/> using the specified color.
+        /// </summary>
+        public string? GroupColor { get; set; }
+        /// <summary>
+        /// Gets or sets a boolean that determines whether the <see cref="Name"/> property is 
+        /// </summary>
+        public bool InsertSpacesInName { get; set; } = true;
         #endregion Properties
 
         #region Methods
-        /// <summary>Parses the given string using regular expressions to insert spaces between words in a method name.</summary>
-        /// <param name="name">Input string.</param>
-        /// <returns><paramref name="name"/> where each camel cased word is separated by a space character.</returns>
-        public static string ParseActionName(string name) => Regex.Replace(name, "\\B([A-Z])", " $1");
+        #region Static
+        /// <summary>
+        /// Returns the result of replacing all occurrences of the regular expression "<see langword="\B([A-Z])"/>" with the replacement expression "<see langword=" $1"/>", effectively inserting a space between all capitalized words in the string.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string InsertSpacesIn(string str) => Regex.Replace(str, "\\B([A-Z])", " $1");
+        #endregion Static
+
+        #region Private
+        private string GetNameString() => InsertSpacesInName ? InsertSpacesIn(Name) : Name;
+        #endregion Private
+
+        #region Public
+        /// <summary>
+        /// Creates a new <see cref="HotkeyActionData"/> instance representing the final, interpolated 
+        /// </summary>
+        /// <returns>A new <see cref="HotkeyActionData"/> instance representing this hotkey action.</returns>
+        public HotkeyActionData GetActionData() => new(GetNameString(), Description, GroupName, GroupColor is null ? null : new SolidColorBrush( (Color)ColorConverter.ConvertFromString(GroupColor) ));
+        #endregion Public
         #endregion Methods
     }
 }

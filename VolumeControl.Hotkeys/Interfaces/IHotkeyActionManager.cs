@@ -13,17 +13,14 @@ namespace VolumeControl.Hotkeys.Interfaces
         /// <summary>The list of known hotkey action bindings.</summary>
         List<IActionBinding> Bindings { get; }
         /// <summary>
-        /// Gets the <see cref="KeyEventHandler"/> associated with <paramref name="actionName"/>.
+        /// Gets the <see cref="KeyEventHandler"/> associated with <paramref name="identifier"/>.
         /// </summary>
-        /// <param name="actionName">The name of the target action.</param>
+        /// <param name="identifier">The identifier of the target action.</param>
         /// <returns>The <see cref="KeyEventHandler"/> associated with the specified name, or <see cref="NullAction"/> if no actions by that name were found.</returns>
-        IActionBinding this[string actionName] { get; }
-        /// <summary>Gets a list of all of the <see cref="IActionBinding.Name"/> properties currently contained within the <see cref="Bindings"/> list.</summary>
-        /// <returns>List of <see cref="IActionBinding.Name"/> properties.</returns>
-        List<string> GetActionNames();
+        IActionBinding this[string identifier] { get; }
         /// <summary>This is the default action handler, which does nothing.</summary>
         public static readonly KeyEventHandler NullActionHandler = delegate { };
         /// <summary>This is the default action, which does nothing.</summary>
-        public static readonly IActionBinding NullAction = new ActionBinding(NullActionHandler.Method, null, new("None"));
+        public static readonly IActionBinding NullAction = new ActionBinding(NullActionHandler.Method, null, new("None", null, null));
     }
 }

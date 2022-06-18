@@ -11,6 +11,8 @@ namespace ObservableImmutable
 {
 #   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#   pragma warning disable CS8604 // Possible null reference argument.
+#   pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
     public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
@@ -22,7 +24,7 @@ namespace ObservableImmutable
 
         #region Constructors
 
-        public ObservableImmutableList() : this(new T[0], LockTypeEnum.SpinWait)
+        public ObservableImmutableList() : this(Array.Empty<T>(), LockTypeEnum.SpinWait)
         {
         }
 
@@ -30,7 +32,7 @@ namespace ObservableImmutable
         {
         }
 
-        public ObservableImmutableList(LockTypeEnum lockType) : this(new T[0], lockType)
+        public ObservableImmutableList(LockTypeEnum lockType) : this(Array.Empty<T>(), lockType)
         {
         }
 
@@ -347,8 +349,12 @@ namespace ObservableImmutable
         /// <inheritdoc/>
         object IList.this[int index]
         {
+#           pragma warning disable CS8603 // Possible null reference return.
             get => this[index];
+#           pragma warning restore CS8603 // Possible null reference return.
+#           pragma warning disable CS8769 // Nullability of reference types in type of parameter doesn't match implemented member (possibly because of nullability attributes).
             set => SetItem(index, (T)value);
+#           pragma warning restore CS8769 // Nullability of reference types in type of parameter doesn't match implemented member (possibly because of nullability attributes).
         }
 
         /// <inheritdoc/>
@@ -531,6 +537,8 @@ namespace ObservableImmutable
 
         #endregion Non Thead-Safe Methods
     }
+#   pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+#   pragma warning restore CS8604 // Possible null reference argument.
 #   pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 #   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

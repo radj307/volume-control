@@ -89,5 +89,8 @@
     <Setting Name="RegistryRunAtStartupValueName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">VolumeControl</Value>
     </Setting>
+    <Setting Name="CustomAddonDirectories" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

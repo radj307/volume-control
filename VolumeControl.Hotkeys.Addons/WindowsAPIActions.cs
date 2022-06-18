@@ -15,19 +15,22 @@ namespace VolumeControl.Hotkeys.Addons
     public class WindowsAPIActions
     {
         #region Actions
-        [HotkeyAction(ActionDescription = "Switches to the next media track for supported applications.")]
+        private const string GroupColor = "#FF99FF";
+        private const string GroupName = "Application";
+
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Switches to the next media track for supported applications.")]
         public void NextTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_NEXT_TRACK);
-        [HotkeyAction(ActionDescription = "Switches to the previous media track for supported applications.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Switches to the previous media track for supported applications.")]
         public void PreviousTrack(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PREV_TRACK);
-        [HotkeyAction(ActionDescription = "Toggles media playback for supported applications.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Toggles media playback for supported applications.")]
         public void TogglePlayback(object? sender, HandledEventArgs e) => SendKeyboardEvent(EVirtualKeyCode.VK_MEDIA_PLAY_PAUSE);
-        [HotkeyAction(ActionDescription = "Moves the VolumeControl window in front of all other windows.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Moves the VolumeControl window in front of all other windows.")]
         public void BringToForeground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_TOP, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
-        [HotkeyAction(ActionDescription = "Moves the VolumeControl window behind all other windows.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Moves the VolumeControl window behind all other windows.")]
         public void SendToBackground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_BOTTOM, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
-        [HotkeyAction(ActionDescription = "Hides the VolumeControl window.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Hides the VolumeControl window.")]
         public void Minimize(object? sender, HandledEventArgs e) => User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_MINIMIZE);
-        [HotkeyAction(ActionDescription = "Restores the VolumeControl window after minimizing it.")]
+        [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Restores the VolumeControl window after minimizing it.")]
         public void Unminimize(object? sender, HandledEventArgs e)
         {
             if (HwndSource.FromHwnd(MainHWnd).RootVisual is Window w)

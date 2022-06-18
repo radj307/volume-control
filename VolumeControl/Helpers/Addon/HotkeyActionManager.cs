@@ -74,7 +74,7 @@ namespace VolumeControl.Helpers
             foreach (MethodInfo m in type.GetMethods())
             {
                 if (m.GetCustomAttribute(typeof(HotkeyActionAttribute)) is HotkeyActionAttribute hAttr)
-                    bindings.Add(new ActionBinding(m, handlerObject, hAttr));
+                    bindings.Add(new ActionBinding(m, handlerObject, hAttr.GetActionData()));
             }
 
             return bindings;
@@ -101,16 +101,19 @@ namespace VolumeControl.Helpers
         {
             foreach (IActionBinding? action in list)
             {
-                if (Bindings.Any(b => b.Name.Equals(action.Name, StringComparison.OrdinalIgnoreCase)))
+                foreach (var bound in Bindings)
                 {
-                    switch (resolutionType)
+                    if ((bound.Data.ActionGroup?.Equals(action.Data.ActionGroup, StringComparison.Ordinal) ?? false) && bound.Data.ActionName.Equals(action.Data.ActionName, StringComparison.Ordinal))
                     {
-                    case NameConflictResolution.Throw:
-                        throw new Exception($"An action binding with the name '{action.Name}' already exists!");
-                    case NameConflictResolution.Ignore:
-                        continue; //< continue to next element
-                    case NameConflictResolution.Overwrite:
-                        break; //< break to add action
+                        switch (resolutionType)
+                        {
+                        case NameConflictResolution.Throw:
+                            throw new Exception($"Action Name Collision Detected in Group '{action.Data.ActionGroup ?? "null"}': '{action.Data.ActionName}'!");
+                        case NameConflictResolution.Overwrite:
+                            break;
+                        case NameConflictResolution.Ignore:
+                            continue;
+                        }
                     }
                 }
                 NotifyPropertyChanging(nameof(Bindings));
@@ -132,20 +135,18 @@ namespace VolumeControl.Helpers
         }
         private List<IActionBinding> _bindings;
         /// <inheritdoc/>
-        public IActionBinding this[string actionName]
+        public IActionBinding this[string identifier]
         {
             get
             {
                 for (int i = 0; i < Bindings.Count; ++i)
                 {
-                    if (Bindings[i].Name.Equals(actionName, StringComparison.Ordinal))
+                    if (Bindings[i].Identifier.Equals(identifier, StringComparison.Ordinal))
                         return Bindings[i];
                 }
                 return IHotkeyActionManager.NullAction;
             }
         }
-        /// <inheritdoc/>
-        public List<string> GetActionNames() => Bindings.Select(i => i.Name).ToList();
         /// <inheritdoc/>
         public override void LoadFromTypes() => GetActionMethods();
     }

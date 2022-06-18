@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using VolumeControl.Core;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Addon
 {
@@ -31,7 +32,14 @@ namespace VolumeControl.Helpers.Addon
 
         #region Properties
         private static LogWriter Log => FLog.Log;
+        /// <summary>
+        /// List of directories to search for valid addon assemblies.
+        /// </summary>
         public List<string> AddonDirectories { get; set; }
+        /// <summary>
+        /// This is used by all addon manager instances when enumerating through the files in an addon directory.<br/>
+        /// <b>Note that sub-directory recursion is enabled.</b>
+        /// </summary>
         public static EnumerationOptions DirectoryEnumerationOptions { get; set; } = new()
         {
             MatchCasing = MatchCasing.CaseInsensitive,
@@ -47,66 +55,80 @@ namespace VolumeControl.Helpers.Addon
         /// <param name="addons">Any enumerable type containing <see cref="BaseAddon"/>-derived types.</param>
         public void LoadAddons(ref List<IBaseAddon> addons)
         {
-            Log.Debug($"Searching for addon assemblies in {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}.");
-            int asmCount = 0,
-                totalCount = 0;
-            foreach (string dir in AddonDirectories)
+            if (AddonDirectories.Count > 0)
             {
-                if (!Directory.Exists(dir))
+                Log.Debug($"Searching for addon assemblies in {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}.");
+                int asmCount = 0,
+                    totalCount = 0;
+                foreach (string dir in AddonDirectories)
                 {
-                    Log.Warning($"Addon directory '{dir}' doesn't exist, skipping...");
-                    continue;
-                }
-
-                Log.Debug($"Searching for Addon Assemblies in '{dir}'");
-
-                foreach (string path in Directory.EnumerateFiles(dir, "*.dll", DirectoryEnumerationOptions))
-                {
-                    string prefix = $"  [{++totalCount}] ";
-                    var asm = Assembly.LoadFrom(path);
-
-                    if (asm.GetCustomAttribute<Core.Attributes.AllowUpgradeConfigAttribute>() is Core.Attributes.AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
+                    if (!Directory.Exists(dir))
                     {
-                        Log.Debug($"{prefix}Found {nameof(Core.Attributes.AllowUpgradeConfigAttribute)}, searching for valid exported configurations...");
-
-                        if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(ApplicationSettingsBase)) ?? false) is Type t)
-                        {
-                            Log.Debug($"{prefix}Found valid configuration type '{t.FullName}'");
-                            const string propertyName = "Default";
-                            if (t.GetProperty(propertyName)?.GetValue(null) is ApplicationSettingsBase cfg)
-                            {
-                                try
-                                {
-                                    cfg.Upgrade();
-                                    Log.Debug($"{prefix}Successfully performed configuration upgrade for addon '{asm.FullName}'");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Log.Debug($"{prefix}Upgrade Error:  An exception was thrown!", ex);
-                                }
-                                cfg.Save();
-                                cfg.Reload();
-                            }
-                            else Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
-                        }
-                        else Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
-                    }
-
-                    int typeCount = LoadAddonTypes(ref addons, asm, _currentVersion);
-
-                    if (typeCount == 0)
-                    {
-                        Log.Debug($"{prefix}No classes found in assembly '{asm.FullName}'");
+                        Log.Warning($"Addon directory '{dir}' doesn't exist, skipping...");
                         continue;
                     }
-                    Log.Debug($"{prefix}Loaded {typeCount} classes from assembly '{asm.FullName}'.");
-                    prefix = new(' ', prefix.Length);
 
-                    ++asmCount;
-                    Log.Debug($"{prefix}Cached addon '{asm.FullName}'");
+                    Log.Debug($"Searching for Addon Assemblies in '{dir}'");
+
+                    foreach (string path in Directory.EnumerateFiles(dir, "*.dll", DirectoryEnumerationOptions))
+                    {
+                        string prefix = $"  [{++totalCount}] ";
+                        try
+                        {
+                            // load the addon assembly
+                            var asm = Assembly.LoadFrom(path);
+
+                            // attempt configuration upgrade if that attribute was specified
+                            if (asm.GetCustomAttribute<Core.Attributes.AllowUpgradeConfigAttribute>() is Core.Attributes.AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
+                            {
+                                Log.Debug($"{prefix}Found {nameof(Core.Attributes.AllowUpgradeConfigAttribute)}, searching for valid exported configurations...");
+
+                                if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(ApplicationSettingsBase)) ?? false) is Type t)
+                                {
+                                    Log.Debug($"{prefix}Found valid configuration type '{t.FullName}'");
+                                    const string propertyName = "Default";
+                                    if (t.GetProperty(propertyName)?.GetValue(null) is ApplicationSettingsBase cfg)
+                                    {
+                                        try
+                                        {
+                                            cfg.Upgrade();
+                                            Log.Debug($"{prefix}Successfully performed configuration upgrade for addon '{asm.FullName}'");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Log.Debug($"{prefix}Upgrade Error:  An exception was thrown!", ex);
+                                        }
+                                        cfg.Save();
+                                        cfg.Reload();
+                                    }
+                                    else Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
+                                }
+                                else Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
+                            }
+
+                            int typeCount = LoadAddonTypes(ref addons, asm, _currentVersion);
+
+                            if (typeCount == 0)
+                            {
+                                Log.Debug($"{prefix}No classes found in assembly '{asm.FullName}'");
+                                continue;
+                            }
+                            Log.Debug($"{prefix}Loaded {typeCount} classes from assembly '{asm.FullName}'.");
+                            prefix = new(' ', prefix.Length);
+
+                            ++asmCount;
+                            Log.Debug($"{prefix}Cached addon '{asm.FullName}'");
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error($"{prefix}An exception occurred while loading assembly from file '{path}'", ex);
+                        }
+                    }
                 }
+
+                Log.Debug($"Loaded {asmCount}/{totalCount} assemblies from {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}");
             }
-            Log.Debug($"Loaded {asmCount} out of {totalCount} assemblies from {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}");
+            else Log.Debug($"Skipped loading addons because no search directories were located.");
             // initialize addons
             foreach (var addon in addons)
             {
@@ -115,17 +137,20 @@ namespace VolumeControl.Helpers.Addon
             }
         }
         /// <summary>
-        /// Searches an assembly for addon classes.
+        /// Searches an assembly for addon classes and uses them to populate <paramref name="addons"/>.
         /// </summary>
-        /// <returns>The number of types loaded into all addons.</returns>
+        /// <returns>The total number of types loaded from <paramref name="asm"/>.</returns>
         private static int LoadAddonTypes(ref List<IBaseAddon> addons, Assembly asm, SemVersion currentVersion)
         {
             int counter = 0;
-            Log.Debug($"Enumerating Classes from Assembly: {{ Name: '{asm.FullName}', Path: '{asm.Location}' }}");
+            Log.Debug($"Loading types from assembly '{asm.FullName}' into {addons.Count} loaded modules.");
+            // iterate through the types in the assembly
             foreach (Type type in asm.GetTypes())
             {
+                // iterate through addons in the list for each type
                 foreach (var addon in addons)
                 {
+                    // check for valid addon attributes
                     if (type.GetCustomAttribute(addon.Attribute) is IBaseAddonAttribute bAttr)
                     {
                         Log.Debug($"Loading Class: {{",
@@ -135,11 +160,12 @@ namespace VolumeControl.Helpers.Addon
                                   );
 
                         Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{addon.Attribute.Name}' }}");
+                        // check if the version number is marked as compatible
                         if (bAttr.CompatibleVersions.Contains(currentVersion))
                         {
-                            Log.Debug($"Successfully loaded addon class {type.FullName}");
                             addon.Types.Add(type);
                             ++counter;
+                            Log.Debug($"Successfully loaded addon class '{type.FullName}'");
                         }
                         else
                         {
@@ -153,21 +179,42 @@ namespace VolumeControl.Helpers.Addon
             return counter;
         }
         /// <summary>
-        /// Gets the root addon directory path.
+        /// Gets the list of addon directory paths to search.
         /// </summary>
-        /// <returns>The absolute path to the Addons root directory.</returns>
+        /// <returns>The list of extant directories to search for addons within.</returns>
         private static List<string> GetAddonDirectories()
         {
-            // TODO: Add other directories here somehow?
             List<string> l = new();
+            // Check default appdata directory:
             if (Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath) is string dir)
             {
                 const string searchString = "radj307";
-                int pos = dir.IndexOf(searchString);
-                if (pos == -1) return l;
 
-                l.Add(Path.Combine(dir[..(pos + searchString.Length)], "Addons"));
+                int pos = dir.IndexOf(searchString);
+                if (pos != -1)
+                {
+                    string path = Path.Combine(dir[..(pos + searchString.Length)], "Addons");
+                    if (Directory.Exists(path))
+                        l.AddIfUnique(path);
+                }
             }
+            // check custom directories:
+            if (Properties.Settings.Default.CustomAddonDirectories is not null)
+            {
+                foreach (string? path in Properties.Settings.Default.CustomAddonDirectories)
+                {
+                    if (path is null) continue;
+                    if (Directory.Exists(path))
+                    {
+                        l.AddIfUnique(path);
+                        Log.Debug($"Successfully added custom addon search directory '{path}'");
+                    }
+                    else
+                        Log.Debug($"'{nameof(Properties.Settings.Default.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
+                }
+            }
+            else Log.Debug($"{nameof(Properties.Settings.Default.CustomAddonDirectories)} is null.");
+
             return l;
         }
         #endregion Methods

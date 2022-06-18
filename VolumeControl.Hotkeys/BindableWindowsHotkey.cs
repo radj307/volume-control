@@ -20,7 +20,7 @@ namespace VolumeControl.Hotkeys
             _manager = manager;
             _name = name;
             Hotkey = new(_manager.OwnerHandle, keys);
-            ActionName = action;
+            ActionIdentifier = action;
             if (registerNow) //< only trigger when true
                 Registered = registerNow;
         }
@@ -57,9 +57,9 @@ namespace VolumeControl.Hotkeys
         /// Gets or sets the name of the action associated with this hotkey.
         /// </summary>
         /// <remarks>This property automatically handles changing the <see cref="Pressed"/> event.</remarks>
-        public string? ActionName
+        public string? ActionIdentifier
         {
-            get => Action?.Name;
+            get => Action?.Identifier;
             set
             {
                 NotifyPropertyChanging();
@@ -83,7 +83,7 @@ namespace VolumeControl.Hotkeys
                 if (_action != null)
                     Pressed -= _action.HandleKeyEvent;
                 _action = value;
-                FLog.Log.Debug($"Hotkey '{ID}' action was changed to '{ActionName}'");
+                FLog.Log.Debug($"Hotkey '{ID}' action was changed to '{ActionIdentifier}'");
                 if (_action != null)
                     Pressed += _action.HandleKeyEvent;
                 NotifyPropertyChanging();
@@ -150,12 +150,7 @@ namespace VolumeControl.Hotkeys
         /// <summary>
         /// Triggers a <see cref="Pressed"/> event.
         /// </summary>
-        /// <param name="e"><see cref="HandledEventArgs"/> to pass to the event.</param>
-        public void NotifyPressed(HandledEventArgs e) => Hotkey.NotifyPressed(e);
-        /// <summary>
-        /// Triggers a <see cref="Pressed"/> event with the default arguments.
-        /// </summary>
-        public void NotifyPressed() => NotifyPressed(new());
+        public void NotifyPressed() => Hotkey.NotifyPressed();
 
         /// <inheritdoc/>
         public override string ToString() => Serialize();
@@ -164,10 +159,10 @@ namespace VolumeControl.Hotkeys
         /// This is used when saving the hotkey to the configuration file.
         /// </summary>
         /// <returns>A string containing this hotkey in serialized form.</returns>
-        public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{ActionName}{Settings.HotkeyNameSeperatorChar}{Registered}";
+        public string Serialize() => $"{Name}{Settings.HotkeyNameSeperatorChar}{Hotkey.ToString()}{Settings.HotkeyNameSeperatorChar}{ActionIdentifier}{Settings.HotkeyNameSeperatorChar}{Registered}";
         /// <summary>Gets all properties in a pseudo-json format for dumping them to the log.</summary>
         /// <returns>A human-readable, single-line string that includes all of this hotkey's current values.</returns>
-        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', Action: '{ActionName}', Registered: '{Registered}' }}";
+        public string GetFullIdentifier() => $"{{ Name: '{Name}', Keys: '{Hotkey.Serialize()}', ActionName: '{Action?.Data.ActionName}', {(Action?.Data.ActionGroup is null ? "" : $"ActionGroup: '{Action.Data.ActionGroup}', ")}Registered: '{Registered}' }}";
         /// <summary>
         /// Parse a serialized hotkey string <i>(<paramref name="hkString"/>)</i> into a usable <see cref="BindableWindowsHotkey"/>.<br/>
         /// This is used when loading hotkeys from the configuration file.

@@ -3,6 +3,7 @@ using NAudio.CoreAudioApi.Interfaces;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Animation;
 using VolumeControl.Audio.Collections;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
@@ -20,7 +21,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc cref="AudioAPI"/>
         public AudioAPI()
         {
-            _target = "";
+            _target = string.Empty;
 
             Devices = new(DataFlow.Render);
             Sessions = new(Devices);
@@ -28,8 +29,11 @@ namespace VolumeControl.Audio
             EnableDevices();
 
             if (FindSessionWithIdentifier(Settings.TargetSession, false) is ISession session)
-                Target = session.ProcessIdentifier;
-            else Target = Settings.TargetSession;
+                _target = session.ProcessIdentifier;
+            else _target = Settings.TargetSession;
+
+            if (!_target.Equals(string.Empty))
+                NotifyPropertyChanged(nameof(Target));
 
             this.PropertyChanged += HandlePropertyChanged;
         }

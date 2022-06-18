@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Hotkeys.Interfaces;
 
 namespace VolumeControl.Hotkeys.Structs
@@ -12,19 +11,18 @@ namespace VolumeControl.Hotkeys.Structs
     {
         /// <param name="mInfo">A MethodInfo object representing the target method.</param>
         /// <param name="handlerObj">The class instance that contains the method.</param>
-        /// <param name="hAttr">The <see cref="HotkeyActionAttribute"/> belonging to the target method.</param>
-        public ActionBinding(MethodInfo mInfo, object? handlerObj, HotkeyActionAttribute hAttr)
+        /// <param name="actionData">The <see cref="HotkeyActionData"/> belonging to the target method.</param>
+        public ActionBinding(MethodInfo mInfo, object? handlerObj, HotkeyActionData actionData)
         {
-            Name = hAttr.ActionName ?? mInfo.Name;
-            Description = hAttr.ActionDescription;
+            Data = actionData;
             MethodInfo = mInfo;
             HandlerObject = handlerObj;
         }
 
         /// <inheritdoc/>
-        public string Name { get; }
+        public HotkeyActionData Data { get; set; }
         /// <inheritdoc/>
-        public string? Description { get; }
+        public string Identifier => $"{(Data.ActionGroup is null ? "" : $"{Data.ActionGroup}:")}{Data.ActionName}";
 
         /// <summary>
         /// Stores reflection information about a method.<br/>
@@ -43,7 +41,5 @@ namespace VolumeControl.Hotkeys.Structs
             if (HandlerObject != null || MethodInfo.IsStatic)
                 MethodInfo.Invoke(HandlerObject, new[] { sender, e });
         }
-        /// <inheritdoc/>
-        public override string ToString() => Name;
     }
 }

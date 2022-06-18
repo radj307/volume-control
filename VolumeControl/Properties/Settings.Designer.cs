@@ -325,5 +325,16 @@ namespace VolumeControl.Properties {
                 return ((string)(this["RegistryRunAtStartupValueName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection CustomAddonDirectories {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["CustomAddonDirectories"]));
+            }
+            set {
+                this["CustomAddonDirectories"] = value;
+            }
+        }
     }
 }
