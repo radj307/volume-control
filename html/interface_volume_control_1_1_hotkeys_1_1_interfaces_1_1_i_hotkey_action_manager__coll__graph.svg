@@ -64,9 +64,9 @@ var sectionId = 'dynsection-1';
 <polyline fill="none" stroke="black" points="178.5,-60.5 364.5,-60.5 "/>
 <text text-anchor="start" x="186.5" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NullActionHandler</text>
 <text text-anchor="start" x="186.5" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Bindings</text>
-<text text-anchor="start" x="186.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[string actionName]</text>
+<text text-anchor="start" x="186.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[string identifier]</text>
 <polyline fill="none" stroke="black" points="178.5,-19.5 364.5,-19.5 "/>
-<text text-anchor="start" x="186.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetActionNames()</text>
+<text text-anchor="middle" x="271.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
@@ -136,8 +136,8 @@ var sectionId = 'dynsection-1';
 <text text-anchor="start" x="442.5" y="-205.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Interfaces.</text>
 <text text-anchor="middle" x="527.5" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00">IActionBinding</text>
 <polyline fill="none" stroke="black" points="434.5,-187.5 620.5,-187.5 "/>
-<text text-anchor="start" x="442.5" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="442.5" y="-164.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Description</text>
+<text text-anchor="start" x="442.5" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Data</text>
+<text text-anchor="start" x="442.5" y="-164.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Identifier</text>
 <polyline fill="none" stroke="black" points="434.5,-157.5 620.5,-157.5 "/>
 <text text-anchor="start" x="442.5" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HandleKeyEvent()</text>
 </a>

@@ -11,7 +11,8 @@ var hierarchy =
       ] ],
       [ "VolumeControl.Hotkeys.Attributes.HotkeyActionAttribute", "class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html", null ]
     ] ],
-    [ "VolumeControl.Hotkeys.Addons.AudioAPIActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_a_p_i_actions.html", null ],
+    [ "VolumeControl.Hotkeys.Addons.AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html", null ],
+    [ "VolumeControl.Hotkeys.Addons.AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html", null ],
     [ "BaseAssemblyAttribute", null, [
       [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
     ] ],
@@ -26,6 +27,7 @@ var hierarchy =
       [ "VolumeControl.Audio.Events.TargetChangingEventArgs", "class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html", null ]
     ] ],
     [ "VolumeControl.Log.FLog", "class_volume_control_1_1_log_1_1_f_log.html", null ],
+    [ "VolumeControl.Hotkeys.Structs.HotkeyActionData", "struct_volume_control_1_1_hotkeys_1_1_structs_1_1_hotkey_action_data.html", null ],
     [ "HotkeyLib.HotkeyAPI", "class_hotkey_lib_1_1_hotkey_a_p_i.html", null ],
     [ "VolumeControl.WPF.HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", null ],
     [ "VolumeControl.Hotkeys.Interfaces.IActionBinding", "interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html", [

@@ -16,8 +16,8 @@
 <text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Interfaces.</text>
 <text text-anchor="middle" x="93" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">IActionBinding</text>
 <polyline fill="none" stroke="black" points="0,-49.5 186,-49.5 "/>
-<text text-anchor="start" x="8" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="8" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Description</text>
+<text text-anchor="start" x="8" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Data</text>
+<text text-anchor="start" x="8" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Identifier</text>
 <polyline fill="none" stroke="black" points="0,-19.5 186,-19.5 "/>
 <text text-anchor="start" x="8" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HandleKeyEvent()</text>
 </a>

@@ -79,10 +79,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_observable_immutable_1_1_observable_immutable_list.html#ae7f520aeddec5e12d96cb2249ab84fac",
-"class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#a1f05bde8818dccf09693f1cc4adb0d7d",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a28eba112dd320ae13d7fce36ef14566c",
-"interface_volume_control_1_1_core_1_1_helpers_1_1_i_v_c_settings.html#a1b3c221b95675c686482a25ff9e729c2"
+"class_observable_immutable_1_1_observable_immutable_list.html#ade98073668862287c01a026288124c00",
+"class_volume_control_1_1_hotkeys_1_1_attributes_1_1_hotkey_action_attribute.html#ad99c9c1e737bbc22dc11e3b2f388fdf7",
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad3bbdb8195bebc52d200e330a8ecc141",
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#aa442f6d99d21fa63c98d5eb6908bdb6f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

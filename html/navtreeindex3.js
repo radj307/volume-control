@@ -1,5 +1,10 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad3bbdb8195bebc52d200e330a8ecc141":[4,0,2,6,0,0,7],
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad985c4623edd0203267455313f72ffed":[4,0,2,6,0,0,2],
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ada3cdd3ac7954aad7629162ff4282df7":[4,0,2,6,0,0,5],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html":[4,0,2,6,1,0],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a234a5fc70abd4d6fc87bd093e1fea4e4":[4,0,2,6,1,0,30],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a28eba112dd320ae13d7fce36ef14566c":[4,0,2,6,1,0,17],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a29c2075348d0fa82c6023c17ca28182f":[4,0,2,6,1,0,12],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a2c22b4da7283387caf416e3ae7615229":[4,0,2,6,1,0,5],
@@ -160,8 +165,8 @@ var NAVTREEINDEX3 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[5,0,8,0],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[5,0,6,0],
 "files.html":[5,0],
-"functions.html":[4,3,0],
 "functions.html":[4,3,0,0],
+"functions.html":[4,3,0],
 "functions_b.html":[4,3,0,1],
 "functions_c.html":[4,3,0,2],
 "functions_d.html":[4,3,0,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX3 =
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#afb40cfc9b042c8ad56c089a24ff7acc0":[4,0,2,1,2,1,2],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html":[4,0,2,1,2,2],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a56b3d1c103abe2f65a586f763b146b89":[4,0,2,1,2,2,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622":[4,0,2,1,2,2,1],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#aa442f6d99d21fa63c98d5eb6908bdb6f":[4,0,2,1,2,2,3],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#ac049c7c862ed83061b35a4112f9f390a":[4,0,2,1,2,2,0],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html":[4,0,2,1,2,3],
-"interface_volume_control_1_1_core_1_1_helpers_1_1_i_v_c_settings.html":[4,0,2,2,1,0],
-"interface_volume_control_1_1_core_1_1_helpers_1_1_i_v_c_settings.html#a1a520c3aab9e6530c5769e7b1a0b043f":[4,0,2,2,1,0,2]
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622":[4,0,2,1,2,2,1]
 };

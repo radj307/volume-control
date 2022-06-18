@@ -1,0 +1,26 @@
+var class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions =
+[
+    [ "DecrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ae91819348a4f16e541c0be6e94fdb86e", null ],
+    [ "DecrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a11ff358461359334485a5d200eb2099a", null ],
+    [ "Deselect", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7ee1c6307150918de6d3d7330ee446df", null ],
+    [ "DeselectDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a9d1803fa013e53756d4023ae4820a9b4", null ],
+    [ "GetDeviceMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ac800e9678db97ce75b04e590d836203c", null ],
+    [ "GetDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ac7ee3209814b89c05eaf31c500e9b668", null ],
+    [ "IncrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ac05ee20f4285e5743706e1c0ae6d8a75", null ],
+    [ "IncrementDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a52c3a257977e18bbb6f2ed16909ddcc5", null ],
+    [ "Mute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ad4554230c86c92ef001c8a173b84bd01", null ],
+    [ "SelectDefault", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7e3744a1d3165f9ee70e6329a430cbe2", null ],
+    [ "SelectDefaultDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ae76016f6dbfe6c81ff5a6e48b863d1c2", null ],
+    [ "SelectNext", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a19e39400b3662faac6b2f6a1cb507012", null ],
+    [ "SelectNextDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a48b99f8a7d449a10d6ce45777c72b992", null ],
+    [ "SelectPrevious", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a34941139be902627c44e742b45c386ac", null ],
+    [ "SelectPreviousDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a4a1e1bfeb1b7ac3d67502250b70e577a", null ],
+    [ "SetDeviceMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ade2bbed0d330ec0f172174eb0bb761c2", null ],
+    [ "SetDeviceVolume", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#ae35032c736f5c132ec41e5411b0186c7", null ],
+    [ "ToggleDeviceMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a36aef5cece79da06b643745f40962423", null ],
+    [ "ToggleMute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a3b3e4c02ae275b0930046cbf963f2306", null ],
+    [ "Unmute", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a7b86bb55a7ae107db174cc934eebb518", null ],
+    [ "VolumeDown", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a858fe91599cac18a9fd998c11686ac82", null ],
+    [ "VolumeUp", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#acfe8139783947d3827735b7ceb8d580d", null ],
+    [ "SelectedDevice", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html#a6cee7c02d5beae7c0a813b313bae823e", null ]
+];

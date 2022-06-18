@@ -4,7 +4,7 @@ var class_hotkey_lib_1_1_windows_hotkey =
     [ "Dispose", "class_hotkey_lib_1_1_windows_hotkey.html#ab8decca754446822af2d885dfba78ee1", null ],
     [ "Dispose", "class_hotkey_lib_1_1_windows_hotkey.html#aae35aa0a6c81245ce29e2bf762e10b21", null ],
     [ "GetFullIdentifier", "class_hotkey_lib_1_1_windows_hotkey.html#a693ede1d9f32bc3effc4d3496adfcc63", null ],
-    [ "NotifyPressed", "class_hotkey_lib_1_1_windows_hotkey.html#a65c702c11a26297fa9e9ad62cb654f73", null ],
+    [ "NotifyPressed", "class_hotkey_lib_1_1_windows_hotkey.html#aae14e51270534edf9b3bb621a7f47ee6", null ],
     [ "Serialize", "class_hotkey_lib_1_1_windows_hotkey.html#acb2f8fe30c9c61abb3d140569907a40d", null ],
     [ "ToString", "class_hotkey_lib_1_1_windows_hotkey.html#a108498ac1272bf598bfb56af65e1e9d2", null ],
     [ "ID", "class_hotkey_lib_1_1_windows_hotkey.html#a3d40134e5f4806b8d07bff50db27dc80", null ],

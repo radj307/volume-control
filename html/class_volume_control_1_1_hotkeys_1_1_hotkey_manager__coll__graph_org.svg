@@ -86,9 +86,9 @@
 <polyline fill="none" stroke="black" points="196,-352.5 382,-352.5 "/>
 <text text-anchor="start" x="204" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ NullActionHandler</text>
 <text text-anchor="start" x="204" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Bindings</text>
-<text text-anchor="start" x="204" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[string actionName]</text>
+<text text-anchor="start" x="204" y="-318.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[string identifier]</text>
 <polyline fill="none" stroke="black" points="196,-311.5 382,-311.5 "/>
-<text text-anchor="start" x="204" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GetActionNames()</text>
+<text text-anchor="middle" x="289" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
@@ -171,8 +171,8 @@
 <text text-anchor="start" x="525" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Interfaces.</text>
 <text text-anchor="middle" x="610" y="-486.5" font-family="Helvetica,sans-Serif" font-size="10.00">IActionBinding</text>
 <polyline fill="none" stroke="black" points="517,-479.5 703,-479.5 "/>
-<text text-anchor="start" x="525" y="-467.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="525" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Description</text>
+<text text-anchor="start" x="525" y="-467.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Data</text>
+<text text-anchor="start" x="525" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Identifier</text>
 <polyline fill="none" stroke="black" points="517,-449.5 703,-449.5 "/>
 <text text-anchor="start" x="525" y="-437.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HandleKeyEvent()</text>
 </a>
