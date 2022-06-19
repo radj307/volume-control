@@ -78,6 +78,6 @@ namespace VolumeControl.Core
         /// <param name="version">The version number to compare.</param>
         /// <returns>True if <paramref name="version"/> is within this range, otherwise false.</returns>
         public bool Contains(SemVersion version)
-            => (Minimum == null || version >= Minimum) && (Maximum == null || version <= Maximum) || (Additional?.Contains(version) ?? false);
+            => (Minimum == null || version.CompareSortOrderTo(Minimum) >= 0) && (Maximum == null || version.CompareSortOrderTo(Maximum) <= 0) || (Additional?.Contains(version) ?? false);
     }
 }
