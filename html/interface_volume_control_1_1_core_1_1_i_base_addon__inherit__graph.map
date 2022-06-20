@@ -1,5 +1,5 @@
 <map id="VolumeControl.Core.IBaseAddon" name="VolumeControl.Core.IBaseAddon">
-<area shape="rect" id="node1" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="155,5,347,112"/>
+<area shape="rect" id="node1" title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ..." alt="" coords="155,5,347,112"/>
 <area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon." alt="" coords="5,175,235,281"/>
 <area shape="rect" id="node3" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="259,160,507,296"/>
 </map>

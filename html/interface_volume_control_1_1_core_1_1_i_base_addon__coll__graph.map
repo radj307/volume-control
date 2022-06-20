@@ -1,3 +1,3 @@
 <map id="VolumeControl.Core.IBaseAddon" name="VolumeControl.Core.IBaseAddon">
-<area shape="rect" id="node1" title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c..." alt="" coords="5,5,180,112"/>
+<area shape="rect" id="node1" title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ..." alt="" coords="5,5,197,112"/>
 </map>

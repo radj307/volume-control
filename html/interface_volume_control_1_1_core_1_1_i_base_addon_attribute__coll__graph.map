@@ -1,3 +1,3 @@
 <map id="VolumeControl.Core.IBaseAddonAttribute" name="VolumeControl.Core.IBaseAddonAttribute">
-<area shape="rect" id="node1" title="Represents an addon attribute of any type." alt="" coords="5,5,180,112"/>
+<area shape="rect" id="node1" title="Represents the attribute(s) associated with a IBaseAddon. &#160;All valid addon attributes implement this ..." alt="" coords="5,5,197,112"/>
 </map>

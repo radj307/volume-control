@@ -94,9 +94,8 @@ $(document).ready(function(){initNavTree('interface_volume_control_1_1_core_1_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an addon object.<br  />
-<br  />
-You can't directly implement this interface; inherit from the <code>abstract</code> <code>class</code> <a class="el" href="class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon.">BaseAddon</a> instead.  
+<p>Represents any type of Volume Control addon definition object.<br  />
+ This interface is implemented by the <a class="el" href="class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon.">BaseAddon</a> <code>abstract</code> class.  
  <a href="interface_volume_control_1_1_core_1_1_i_base_addon.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Core.IBaseAddon:</div>
@@ -107,7 +106,8 @@ Inheritance diagram for VolumeControl.Core.IBaseAddon:</div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.IBaseAddon:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_base_addon__coll__graph.svg" width="186" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_core_1_1_i_base_addon__coll__graph.svg" width="203" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -126,9 +126,9 @@ Properties</h2></td></tr>
 <tr class="separator:a5db3801a97f2c6bc6f4b46719deac6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an addon object.<br  />
-<br  />
-You can't directly implement this interface; inherit from the <code>abstract</code> <code>class</code> <a class="el" href="class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon.">BaseAddon</a> instead. </p>
+<div class="textblock"><p>Represents any type of Volume Control addon definition object.<br  />
+ This interface is implemented by the <a class="el" href="class_volume_control_1_1_core_1_1_base_addon.html" title="abstract base class for an object that manages an addon.">BaseAddon</a> <code>abstract</code> class. </p>
+<p><b>Note that this is used by Volume Control internally, and should not be used directly from within addons.</b></p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a48e595ea1bdea7bfded23e1bbcbe09c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48e595ea1bdea7bfded23e1bbcbe09c1">&#9670;&nbsp;</a></span>LoadFromTypes()</h2>

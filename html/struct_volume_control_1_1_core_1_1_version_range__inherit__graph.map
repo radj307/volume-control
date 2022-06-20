@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.VersionRange" name="VolumeControl.Core.VersionRange">
+<area shape="rect" id="node1" title="Represents a range of program versions, which allows checking whether or not a specific SemVersion is..." alt="" coords="5,131,209,267"/>
+<area shape="rect" id="node2" title=" " alt="" coords="8,5,207,83"/>
+</map>

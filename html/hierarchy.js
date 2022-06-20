@@ -16,7 +16,6 @@ var hierarchy =
     [ "BaseAssemblyAttribute", null, [
       [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
     ] ],
-    [ "VolumeControl.Core.CompatibleVersions", "struct_volume_control_1_1_core_1_1_compatible_versions.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
     [ "Control", null, [
       [ "VolumeControl.WPF.Controls.NumericUpDown", "class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html", null ]
@@ -90,7 +89,8 @@ var hierarchy =
         [ "VolumeControl.Audio.Interfaces.ISession", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html", [
           [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "VolumeControl.Core.VersionRange", "struct_volume_control_1_1_core_1_1_version_range.html", null ]
     ] ],
     [ "IImmutableList", null, [
       [ "ObservableImmutable.ObservableImmutableList< T >", "class_observable_immutable_1_1_observable_immutable_list.html", null ],

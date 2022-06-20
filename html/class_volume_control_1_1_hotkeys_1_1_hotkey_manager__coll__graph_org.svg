@@ -127,7 +127,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="interface_volume_control_1_1_core_1_1_i_base_addon.html" target="_top" xlink:title="Represents an addon object. &#160;You can&#39;t directly implement this interface; inherit from the abstract c...">
+<g id="a_node6"><a xlink:href="interface_volume_control_1_1_core_1_1_i_base_addon.html" target="_top" xlink:title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ...">
 <polygon fill="none" stroke="black" points="233.5,-436 233.5,-504 344.5,-504 344.5,-436 233.5,-436"/>
 <text text-anchor="middle" x="289" y="-492" font-family="Helvetica,sans-Serif" font-size="10.00">IBaseAddon</text>
 <polyline fill="none" stroke="black" points="233.5,-485 344.5,-485 "/>

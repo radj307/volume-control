@@ -1,5 +1,5 @@
 <map id="VolumeControl.Core.IBaseAddonAttribute" name="VolumeControl.Core.IBaseAddonAttribute">
-<area shape="rect" id="node1" title="Represents an addon attribute of any type." alt="" coords="29,5,204,112"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_base_addon_attribute.html" title="Abstract base class that all other addon attributes inherit from. Unless you&#39;re implementing a new ad..." alt="" coords="12,160,221,281"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute.html" title="Marks the attached class type as a Hotkey Actions addon type." alt="" coords="5,329,228,436"/>
+<area shape="rect" id="node1" title="Represents the attribute(s) associated with a IBaseAddon. &#160;All valid addon attributes implement this ..." alt="" coords="33,5,225,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_base_addon_attribute.html" title="Abstract base class that all other addon attributes inherit from. Unless you&#39;re implementing a new ad..." alt="" coords="14,160,243,281"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_attributes_1_1_action_addon_attribute.html" title="Marks the attached class type as a Hotkey Actions addon type." alt="" coords="5,329,252,436"/>
 </map>
