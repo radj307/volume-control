@@ -7,8 +7,8 @@
     {
         /// <inheritdoc cref="BaseAddonAttribute"/>
         /// <param name="addonName">The string to set the <see cref="AddonName"/> property to.</param>
-        /// <param name="compatibleVersions">A <see cref="CompatibleVersions"/> object that specifies which versions of Volume Control this addon supports.</param>
-        protected BaseAddonAttribute(string addonName, CompatibleVersions compatibleVersions)
+        /// <param name="compatibleVersions">A <see cref="VersionRange"/> object that specifies which versions of Volume Control this addon supports.</param>
+        protected BaseAddonAttribute(string addonName, VersionRange compatibleVersions)
         {
             AddonName = addonName;
             CompatibleVersions = compatibleVersions;
@@ -18,11 +18,15 @@
         protected BaseAddonAttribute(string addonName)
         {
             AddonName = addonName;
-            CompatibleVersions = new();
+            CompatibleVersions = new()
+            {
+                Min = null,
+                Max = null
+            };
         }
         /// <inheritdoc/>
         public string AddonName { get; }
         /// <inheritdoc/> 
-        public CompatibleVersions CompatibleVersions { get; }
+        public VersionRange CompatibleVersions { get; }
     }
 }

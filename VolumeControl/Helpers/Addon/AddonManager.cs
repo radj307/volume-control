@@ -14,6 +14,7 @@ namespace VolumeControl.Helpers.Addon
     /// <summary>
     /// Manager object for runtime DLL addons.
     /// </summary>
+    /// <remarks>This is responsible for handling all addon types.</remarks>
     public class AddonManager
     {
         #region Initializers
@@ -161,7 +162,7 @@ namespace VolumeControl.Helpers.Addon
 
                         Log.Debug($"Found Addon Class: {{ Assembly: '{asm.FullName}', Name: '{type.FullName}', Type: '{addon.Attribute.Name}' }}");
                         // check if the version number is marked as compatible
-                        if (bAttr.CompatibleVersions.Contains(currentVersion))
+                        if (bAttr.CompatibleVersions.WithinRange(currentVersion))
                         {
                             addon.Types.Add(type);
                             ++counter;
@@ -170,7 +171,7 @@ namespace VolumeControl.Helpers.Addon
                         else
                         {
 #                           pragma warning disable CS0618 // Type or member is obsolete
-                            Log.Debug($"Ignoring incompatible addon '{type.FullName}': ( {bAttr.CompatibleVersions.Minimum ?? "*"} <= {currentVersion} <= {bAttr.CompatibleVersions.Maximum ?? "*"} )");
+                            Log.Debug($"Ignoring incompatible addon '{type.FullName}': ( {bAttr.CompatibleVersions.Min ?? "*"} <= {currentVersion} <= {bAttr.CompatibleVersions.Max ?? "*"} )");
 #                           pragma warning restore CS0618 // Type or member is obsolete
                         }
                     }

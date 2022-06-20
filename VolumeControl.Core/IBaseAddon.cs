@@ -1,6 +1,10 @@
 ﻿namespace VolumeControl.Core
 {
-    /// <summary>Represents an addon object.<br/><br/>You can't directly implement this interface; inherit from the <see langword="abstract"/> <see langword="class"/> <see cref="BaseAddon"/> instead.</summary>
+    /// <summary>
+    /// Represents any type of Volume Control addon definition object.<br/>
+    /// This interface is implemented by the <see cref="BaseAddon"/> <see langword="abstract"/> class.
+    /// </summary>
+    /// <remarks><b>Note that this is used by Volume Control internally, and should not be used directly from within addons.</b></remarks>
     public interface IBaseAddon
     {
         /// <summary>The attribute type used by this addon.</summary>
