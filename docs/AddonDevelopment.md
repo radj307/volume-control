@@ -2,6 +2,8 @@
 Addons are written in C# with .NET Core 6 - you don't need any previous experience with C# in order to create addons, but this is not a tutorial for learning C#.  
 You are legally allowed to create and redistribute addons so long as you comply with the terms of the [GPLv3](https://github.com/radj307/volume-control/blob/main/LICENSE) license - You must make the full source code available along with any redistributed binaries (`.dll`s in this case) without any terms or conditions.  
 
+![](https://i.imgur.com/DUI7k84.png)
+
 ## Pre-Requisites
 
 - [Volume Control SDK](https://github.com/radj307/volume-control/releases)  
