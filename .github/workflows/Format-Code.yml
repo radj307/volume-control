@@ -1,8 +1,10 @@
 name: Format Code
 
 on:
-  push:
-    branches: [ "main" ]
+## Waiting until a prettier plugin for C# is available.
+## https://github.com/warrenseine/prettier-plugin-csharp
+#  push:
+#    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -20,6 +22,7 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           prettier_options: --write **/*.cs
+          #prettier_plugins: 
           same_commit:  true
           only_changed: true
       
