@@ -3,7 +3,6 @@ using NAudio.CoreAudioApi.Interfaces;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Animation;
 using VolumeControl.Audio.Collections;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
@@ -21,19 +20,18 @@ namespace VolumeControl.Audio
         /// <inheritdoc cref="AudioAPI"/>
         public AudioAPI()
         {
-            _target = string.Empty;
-
             Devices = new(DataFlow.Render);
             Sessions = new(Devices);
 
             EnableDevices();
 
-            if (FindSessionWithIdentifier(Settings.TargetSession, false) is ISession session)
-                _target = session.ProcessIdentifier;
-            else _target = Settings.TargetSession;
-
-            if (!_target.Equals(string.Empty))
-                NotifyPropertyChanged(nameof(Target));
+            if (FindSessionWithIdentifier(Settings.Target) is ISession session)
+            { // resolve previous target
+                bool lockState = LockSelectedSession;
+                if (lockState) LockSelectedSession = false;
+                SelectedSession = session;
+                if (lockState) LockSelectedSession = true;
+            }
 
             this.PropertyChanged += HandlePropertyChanged;
         }
@@ -41,8 +39,6 @@ namespace VolumeControl.Audio
         {
             // save settings
             SaveEnabledDevices();
-
-            Settings.TargetSession = SelectedSession?.ProcessIdentifier ?? Target;
 
             // save to file
             Settings.Save();
@@ -83,29 +79,27 @@ namespace VolumeControl.Audio
         /// <remarks>This is automatically updated by, and automatically updates, <see cref="SelectedSession"/>.</remarks>
         public string Target
         {
-            get => _target;
+            get => Settings.Target;
             set
             {
-                if (LockSelectedSession)
-                    return;
+                if (LockSelectedSession) return;
 
-                var eventArgs = new TargetChangingEventArgs(_target, value);
+                var eventArgs = new TargetChangingEventArgs(Settings.Target, value);
                 NotifyTargetChanging(ref eventArgs); //< trigger the target changing event first
 
-                if (eventArgs.Cancel)
-                    return; // handle change cancelled
-
+                if (eventArgs.Cancel) return;
 
                 NotifyPropertyChanging();
                 NotifyPropertyChanging(nameof(SelectedSession));
-                _target = eventArgs.Incoming; // update value to validated one
+                Settings.Target = eventArgs.Incoming;
+                Settings.Save();
+                Settings.Reload();
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedSession));
 
-                NotifyTargetChanged(_target);
+                NotifyTargetChanged(Settings.Target);
             }
         }
-        private string _target;
         /// <summary>
         /// The amount to increment or decrement volume when no direct value is provided, such as when triggering methods with hotkeys.
         /// </summary>

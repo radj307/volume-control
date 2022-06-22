@@ -37,18 +37,6 @@ namespace VolumeControl.Audio {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TargetSession {
-            get {
-                return ((string)(this["TargetSession"]));
-            }
-            set {
-                this["TargetSession"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int VolumeStepSize {
             get {
@@ -70,6 +58,18 @@ namespace VolumeControl.Audio {
             }
             set {
                 this["EnabledDevices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Target {
+            get {
+                return ((string)(this["Target"]));
+            }
+            set {
+                this["Target"] = value;
             }
         }
     }
