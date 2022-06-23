@@ -15,7 +15,7 @@ using VolumeControl.Hotkeys.Addons;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.Properties;
-using static VolumeControl.Audio.AudioAPI;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
 {
@@ -28,39 +28,45 @@ namespace VolumeControl.Helpers
 
             AddonManager = new(this);
 
+            // Hotkey Action Addons:
             HotkeyActionManager actionManager = new();
-            // Add premade actions
+            // Add built-in action container types
             actionManager.Types.Add(typeof(AudioDeviceActions));
             actionManager.Types.Add(typeof(AudioSessionActions));
             actionManager.Types.Add(typeof(WindowsAPIActions));
 
+            // Create the hotkey manager
+            _hotkeyManager = new(actionManager, HWndHook);
+
+            // Initialize the addon API
+            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, this);
+
+            // Create a list of all addon manager types
             List<IBaseAddon> addons = new()
             {
                 actionManager
             };
 
-            // Load addons
+            // Load addon types into the addon list
             AddonManager.LoadAddons(ref addons);
+
             // Retrieve a list of all loaded action names
+            const char sort_last = (char)('z' + 1);
             Actions = actionManager
                 .Bindings
-                .Where(a => a.Data.ActionName.Length > 0)
-                .OrderBy(a => a.Data.ActionName[0])
-                .OrderBy(a => a.Data.ActionGroup is null ? 'z' + 1 : a.Data.ActionGroup[0])
+                .OrderBy(a => a.Data.ActionName.AtIndexOrDefault(0, sort_last))                                           //< sort entries alphabetically
+                .OrderBy(a => a.Data.ActionGroup is null ? sort_last : a.Data.ActionGroup.AtIndexOrDefault(0, sort_last)) //< sort entries by group; null groups are always last.
                 .ToList();
-            // Create the hotkey manager
-            _hotkeyManager = new(actionManager, HWndHook, true);
 
-            // Initialize the addon API
-            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, this);
+            // load saved hotkeys
+            _hotkeyManager.LoadHotkeys();
 
             Log.Info($"Volume Control v{CurrentVersionString}");
-
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
 
+            // create the updater & check for updates if enabled
             Updater = new(this);
-            if (Settings.CheckForUpdatesOnStartup)
-                Updater.Update();
+            if (Settings.CheckForUpdatesOnStartup) Updater.Update();
         }
         private void SaveSettings()
         {
@@ -95,7 +101,7 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(SessionNameFormat.ProcessIdentifier | SessionNameFormat.ProcessName);
+        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
         public IEnumerable<IActionBinding> Actions
         {
             get => _actions;

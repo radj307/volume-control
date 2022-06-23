@@ -37,5 +37,20 @@ namespace VolumeControl.TypeExtensions
         /// <returns>String with all preceeding/trailing characters from trimChars removed.</returns>
         public static string Trim(this string s, string trimChars)
             => s.Trim(trimChars.ToCharArray());
+
+        /// <summary>
+        /// Gets the <see langword="char"/> at <paramref name="index"/>, or <paramref name="defaultChar"/> if the index is out of range.
+        /// </summary>
+        /// <param name="s">The string that this extension method was called on.</param>
+        /// <param name="index">The target index within the string to access.</param>
+        /// <param name="defaultChar">A character to return when the index is out-of-range.</param>
+        /// <returns>The character at <paramref name="index"/> in <paramref name="s"/> if the index is within range; otherwise <paramref name="defaultChar"/>.</returns>
+        public static char AtIndexOrDefault(this string s, int index, char defaultChar) => index < s.Length ? s[index] : defaultChar;
+        /// <summary>
+        /// Gets the <see langword="char"/> at <paramref name="index"/>, or the result of the <see langword="default"/> keyword if the index is out of range.
+        /// </summary>
+        /// <returns>The character at <paramref name="index"/> in <paramref name="s"/> if the index is within range; otherwise <see langword="default"/>.</returns>
+        /// <inheritdoc cref="AtIndexOrDefault(string, int, char)"/>
+        public static char AtIndexOrDefault(this string s, int index) => AtIndexOrDefault(s, index, default);
     }
 }
