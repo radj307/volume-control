@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#aae6833487eee10aef8c375c300f87b36":[4,0,2,6,0,0,8],
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#acf615fb01e01431603bf9f765d953587":[4,0,2,6,0,0,6],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad3bbdb8195bebc52d200e330a8ecc141":[4,0,2,6,0,0,7],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ad985c4623edd0203267455313f72ffed":[4,0,2,6,0,0,2],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#ada3cdd3ac7954aad7629162ff4282df7":[4,0,2,6,0,0,5],
@@ -165,8 +167,8 @@ var NAVTREEINDEX3 =
 "dir_f3fceef7ef2392cf921a36ff96ee570d.html":[5,0,8,0],
 "dir_f9538c984ad656b042c5452ce79bc4bb.html":[5,0,6,0],
 "files.html":[5,0],
-"functions.html":[4,3,0],
 "functions.html":[4,3,0,0],
+"functions.html":[4,3,0],
 "functions_b.html":[4,3,0,1],
 "functions_c.html":[4,3,0,2],
 "functions_d.html":[4,3,0,3],
@@ -174,8 +176,8 @@ var NAVTREEINDEX3 =
 "functions_enum.html":[4,3,3],
 "functions_evnt.html":[4,3,5],
 "functions_f.html":[4,3,0,5],
-"functions_func.html":[4,3,1],
 "functions_func.html":[4,3,1,0],
+"functions_func.html":[4,3,1],
 "functions_func_b.html":[4,3,1,1],
 "functions_func_c.html":[4,3,1,2],
 "functions_func_d.html":[4,3,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a5a7c0aced604730be3ff5156a59e6472":[4,0,2,1,2,1,0],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a91dbdafc9d79e361e177c684ff1fb6e1":[4,0,2,1,2,1,1],
 "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#afb40cfc9b042c8ad56c089a24ff7acc0":[4,0,2,1,2,1,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html":[4,0,2,1,2,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a56b3d1c103abe2f65a586f763b146b89":[4,0,2,1,2,2,2],
-"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622":[4,0,2,1,2,2,1]
+"interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html":[4,0,2,1,2,2]
 };

@@ -35,13 +35,14 @@ var searchData=
   ['applybit_32',['ApplyBit',['../class_hotkey_lib_1_1_modifier_extensions.html#a3b4f90a7282d9b54f8d56d928535e245',1,'HotkeyLib::ModifierExtensions']]],
   ['argument_5farray_33',['ARGUMENT_ARRAY',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#af499b1a683719b830c149c2d7c783c98ae5ff9b27908fba93955bcb7464f10360',1,'HotkeyLib::HotkeyAPI']]],
   ['arrayextensions_34',['ArrayExtensions',['../class_volume_control_1_1_type_extensions_1_1_array_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['attribute_35',['Attribute',['../class_volume_control_1_1_core_1_1_base_addon.html#a0b101bef48d0788c5096d1f64b8f7156',1,'VolumeControl.Core.BaseAddon.Attribute()'],['../interface_volume_control_1_1_core_1_1_i_base_addon.html#a8cfea345870058ef126f4c663f87ab27',1,'VolumeControl.Core.IBaseAddon.Attribute()']]],
-  ['audioapi_36',['AudioAPI',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html',1,'VolumeControl.Audio.AudioAPI'],['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#a2cf7a2357f50515b05796fc45f5fa511',1,'VolumeControl.API.VCAPI.AudioAPI()'],['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4',1,'VolumeControl.Audio.AudioAPI.AudioAPI()']]],
-  ['audiodevice_37',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl::Audio']]],
-  ['audiodeviceactions_38',['AudioDeviceActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
-  ['audiodevicecollection_39',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html',1,'VolumeControl::Audio::Collections']]],
-  ['audiosession_40',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl::Audio']]],
-  ['audiosessionactions_41',['AudioSessionActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
-  ['audiosessioncollection_42',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html',1,'VolumeControl::Audio::Collections']]],
-  ['addon_20development_43',['Addon Development',['../md_docs__addon_development.html',1,'']]]
+  ['atindexordefault_35',['AtIndexOrDefault',['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a695dca7b69f471ed5d02227e45700122',1,'VolumeControl.TypeExtensions.StringExtensions.AtIndexOrDefault(this string s, int index, char defaultChar)'],['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a4135f6281ba6c3ade3e37261705a3be9',1,'VolumeControl.TypeExtensions.StringExtensions.AtIndexOrDefault(this string s, int index)']]],
+  ['attribute_36',['Attribute',['../class_volume_control_1_1_core_1_1_base_addon.html#a0b101bef48d0788c5096d1f64b8f7156',1,'VolumeControl.Core.BaseAddon.Attribute()'],['../interface_volume_control_1_1_core_1_1_i_base_addon.html#a8cfea345870058ef126f4c663f87ab27',1,'VolumeControl.Core.IBaseAddon.Attribute()']]],
+  ['audioapi_37',['AudioAPI',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html',1,'VolumeControl.Audio.AudioAPI'],['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#a2cf7a2357f50515b05796fc45f5fa511',1,'VolumeControl.API.VCAPI.AudioAPI()'],['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4',1,'VolumeControl.Audio.AudioAPI.AudioAPI()']]],
+  ['audiodevice_38',['AudioDevice',['../class_volume_control_1_1_audio_1_1_audio_device.html',1,'VolumeControl::Audio']]],
+  ['audiodeviceactions_39',['AudioDeviceActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
+  ['audiodevicecollection_40',['AudioDeviceCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html',1,'VolumeControl::Audio::Collections']]],
+  ['audiosession_41',['AudioSession',['../class_volume_control_1_1_audio_1_1_audio_session.html',1,'VolumeControl::Audio']]],
+  ['audiosessionactions_42',['AudioSessionActions',['../class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html',1,'VolumeControl::Hotkeys::Addons']]],
+  ['audiosessioncollection_43',['AudioSessionCollection',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_session_collection.html',1,'VolumeControl::Audio::Collections']]],
+  ['addon_20development_44',['Addon Development',['../md_docs__addon_development.html',1,'']]]
 ];

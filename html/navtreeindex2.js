@@ -235,9 +235,11 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a872f5e55ac9484d3754f58a1545de269":[4,0,2,5,8,0],
 "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html#a8f6d8b8ca6974a86c41c3b64674713bc":[4,0,2,5,8,1],
 "class_volume_control_1_1_type_extensions_1_1_string_extensions.html":[4,0,2,5,9],
-"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ab153a0ba42525c7fa71fae21fb6985":[4,0,2,5,9,0],
-"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ba39a754ce34d214d6f6e5e05b9cdd7":[4,0,2,5,9,1],
-"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a8b4e311056fa4d819c9ea29540c08501":[4,0,2,5,9,2],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ab153a0ba42525c7fa71fae21fb6985":[4,0,2,5,9,2],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a0ba39a754ce34d214d6f6e5e05b9cdd7":[4,0,2,5,9,3],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a4135f6281ba6c3ade3e37261705a3be9":[4,0,2,5,9,0],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a695dca7b69f471ed5d02227e45700122":[4,0,2,5,9,1],
+"class_volume_control_1_1_type_extensions_1_1_string_extensions.html#a8b4e311056fa4d819c9ea29540c08501":[4,0,2,5,9,4],
 "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html":[4,0,2,5,10],
 "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html#a9bcb6478008ff5007cc5bc50343cd953":[4,0,2,5,10,1],
 "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html#afd88dc1da8c31e49fbab4a447ba22e56":[4,0,2,5,10,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6ea73dae659fee86898cd8751e9eac3a":[4,0,2,6,0,0,1],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a6fefb367c204032bff80fe2e6f28534c":[4,0,2,6,0,0,0],
 "class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#a8261da50b10098a0b4e47c9d5798df93":[4,0,2,6,0,0,9],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#aa0d8951e50516d003703367a8480dab7":[4,0,2,6,0,0,4],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#aae6833487eee10aef8c375c300f87b36":[4,0,2,6,0,0,8],
-"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#acf615fb01e01431603bf9f765d953587":[4,0,2,6,0,0,6]
+"class_volume_control_1_1_w_p_f_1_1_bindings_1_1_multi_binding.html#aa0d8951e50516d003703367a8480dab7":[4,0,2,6,0,0,4]
 };
