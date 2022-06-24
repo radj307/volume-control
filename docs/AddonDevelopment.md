@@ -1,6 +1,5 @@
 # Addon Development
 Addons are written in C# with .NET Core 6 - you don't need any previous experience with C# in order to create addons, but this is not a tutorial for learning C#.  
-You are legally allowed to create and redistribute addons so long as you comply with the terms of the [GPLv3](https://github.com/radj307/volume-control/blob/main/LICENSE) license - You must make the full source code available along with any redistributed binaries (`.dll`s in this case) without any terms or conditions.  
 
 ![](https://i.imgur.com/DUI7k84.png)
 
@@ -142,7 +141,7 @@ The main program has these integrated inside of the `.exe` to facilitate a singl
 Once you've got your shiny new addon, you may want to distribute it to share your work.  
 To encourage this, I've created an official repository for third-party addons [here](https://github.com/radj307/volume-control.Addons).  
 
-**Note: When uploading your addon to github *(or elsewhere)*, be sure to use the GPLv3 license, or a legally compatible alternative.**  
-This GPL license is owned by you, no one else.
-
-
+> ### Legal
+> Because Volume Control is licensed under the [GPLv3](https://github.com/radj307/volume-control/blob/main/LICENSE), any code that uses the Volume Control SDK **must be licensed under the GPLv3 as well**; however **you are the sole owner** of the code that isn't from the SDK; assuming it isn't already licensed.  
+> #### Summary:
+> - Make sure you use the [GNU General Public License 3 (GPLv3)](https://github.com/radj307/volume-control/blob/main/LICENSE) license for your addon when uploading it to github or elsewhere.
