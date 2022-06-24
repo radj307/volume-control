@@ -64,7 +64,7 @@ namespace VolumeControl.TestAddon
 
 
         [HotkeyAction]
-        public void CustomAction(object? sender, HandledEventArgs e)
+        public void PrintSelected(object? sender, HandledEventArgs e)
         {
             Log.Debug($"Successfully triggered addon method {nameof(CustomAction)}!",
                       $"Currently selected session name: '{API.AudioAPI.SelectedSession?.ProcessName}'");
@@ -72,6 +72,8 @@ namespace VolumeControl.TestAddon
 
         [HotkeyAction("My Action Name")]
         public void CustomAction2(object? sender, Handled)
+        
+        
     }
 }
 ```
