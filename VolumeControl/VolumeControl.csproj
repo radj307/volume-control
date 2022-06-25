@@ -7,8 +7,8 @@
 		<UseWPF>true</UseWPF>
 		<StartupObject>VolumeControl.Program</StartupObject>
 		<!-- VERSIONING INFO -->
-		<Version>5.1.1</Version>
-		<ExtendedVersion>5.1.1</ExtendedVersion>
+		<Version>5.1.2</Version>
+		<ExtendedVersion>5.1.2</ExtendedVersion>
 		<ReleaseType>NORMAL</ReleaseType>
 		<!-- VERSIONING INFO -->
 		<Authors>radj307</Authors>
@@ -96,7 +96,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\ApplicationSettings\ApplicationSettings.csproj" />
 		<ProjectReference Include="..\VolumeControl.API\VolumeControl.API.csproj" />
 		<ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
 		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
