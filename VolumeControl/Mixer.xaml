@@ -1165,11 +1165,21 @@
                                     BorderThickness="0"
                                     CanUserReorderColumns="False"
                                     CanUserSortColumns="False"
+                                    DataContext="{Binding HotkeyAPI.Hotkeys, Source={StaticResource Settings}}"
                                     ItemsSource="{Binding HotkeyAPI.Hotkeys, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource DataGridStyle}">
                                     <DataGrid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
                                     </DataGrid.OpacityMask>
+                                    <DataGrid.RowStyle>
+                                        <Style BasedOn="{StaticResource}" TargetType="{x:Type DataGridRow}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasAction}" Value="false">
+                                                    <Setter Property="Background" Value="#3F3030" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
                                     <DataGrid.Columns>
                                         <!--  Active  -->
                                         <DataGridTemplateColumn Width="Auto" CanUserResize="False">
@@ -1278,14 +1288,16 @@
                                                 <DataTemplate>
                                                     <ComboBox
                                                         IsEditable="False"
-                                                        ItemsSource="{Binding Actions, Source={StaticResource Settings}}"
-                                                        SelectedItem="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
+                                                        ItemsSource="{Binding HotkeyAPI.Actions.Bindings, Source={StaticResource Settings}}"
+                                                        SelectedItem="{Binding ActionIdentifier, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}">
                                                         <ComboBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ComboBoxItem}">
+                                                                <Setter Property="ToolTipService.ShowsToolTipOnKeyboardFocus" Value="True" />
                                                                 <Setter Property="ToolTipService.ToolTip" Value="{Binding Data.ActionDescription}" />
                                                                 <Setter Property="ToolTipService.Placement" Value="Left" />
-                                                                <Setter Property="ToolTipService.InitialShowDelay" Value="250" />
+                                                                <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+                                                                <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
                                                             </Style>
                                                         </ComboBox.ItemContainerStyle>
                                                         <ComboBox.ItemTemplate>
@@ -1498,6 +1510,7 @@
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>
+
                                         <StackPanel
                                             Margin="5,3"
                                             HorizontalAlignment="Center"
@@ -1514,7 +1527,6 @@
                                                 Content="  Reload Sessions  "
                                                 ToolTip="Forcibly reload all sessions." />
                                         </StackPanel>
-
                                     </StackPanel>
                                 </Grid>
                             </Border>

@@ -44,9 +44,8 @@ namespace VolumeControl
             // Apply Window Settings:
             Settings.ShowInTaskbar = ShowInTaskbar;
             Settings.AlwaysOnTop = Topmost;
-            // Save Window Settings:
-            Settings.Save();
-            Settings.Reload();
+            // Save Settings:
+            VCSettings.Save();
             // Save Log Settings
             LogSettings.Save();
             LogSettings.Reload();
@@ -63,7 +62,7 @@ namespace VolumeControl
         private AudioAPI AudioAPI => VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
-        private static Properties.Settings Settings => Properties.Settings.Default;
+        private static Core.JsonSettings Settings => VolumeControlSettings.SettingsManager.Settings;
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         public static bool LogEnabled
         {
@@ -141,7 +140,7 @@ namespace VolumeControl
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Settings.UpdateURL)
+                Process.Start(new ProcessStartInfo(Core.VCSettings.UpdateURL)
                 {
                     UseShellExecute = true,
                     Verb = "open"
@@ -149,7 +148,7 @@ namespace VolumeControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Couldn't open '{Settings.UpdateURL}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                MessageBox.Show($"Couldn't open '{Core.VCSettings.UpdateURL}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
         }
         private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
@@ -195,7 +194,7 @@ namespace VolumeControl
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.Update();
         private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Updater.OpenBrowser(Settings.UpdateURL);
+            Updater.OpenBrowser(Core.VCSettings.UpdateURL);
             //if (VCSettings.Updater.ShowUpdatePrompt())
             //    VCSettings.Updater.Update(true);
         }
