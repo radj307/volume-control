@@ -5,12 +5,6 @@
     <Setting Name="AdvancedHotkeys" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="WindowWidthDefault" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">500</Value>
-    </Setting>
-    <Setting Name="WindowWidthWide" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">700</Value>
-    </Setting>
     <Setting Name="UpgradeSettings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

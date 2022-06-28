@@ -9,10 +9,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AssemblyAttribute" Version="0.0.0" />
+		<PackageReference Include="AssemblyAttribute" Version="0.0.0" />
+		<PackageReference Include="Fody" Version="6.6.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AppConfig\AppConfig.csproj" />
 		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
 		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
 		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />

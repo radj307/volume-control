@@ -36,6 +36,18 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            // vvvvvvvvvvvvvvvvvvvvvv DEBUG vvvvvvvvvvvvvvvvvvvvvv
+
+            Core.Config cfg = new();
+            cfg.Save();
+
+            cfg.Load();
+
+            var def = Core.Config.Default;
+
+            return;
+            // ^^^^^^^^^^^^^^^^^^^^^^ DEBUG ^^^^^^^^^^^^^^^^^^^^^^
+
             bool waitForMutex = args.Contains("--wait-for-mutex");
 
             AppDomain? appDomain = AppDomain.CurrentDomain;
