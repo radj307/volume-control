@@ -228,5 +228,7 @@ namespace VolumeControl.Hotkeys
         /// <param name="extraInfo"></param>
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
         public static extern void KeyboardEvent(EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+
+        public static void KeyboardEvent(EVirtualKeyCode virtualKey) => KeyboardEvent(virtualKey, 0x0, 0, IntPtr.Zero);
     }
 }

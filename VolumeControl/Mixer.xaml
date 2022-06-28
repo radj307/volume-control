@@ -976,7 +976,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                            Name="targetbox"
+                                            x:Name="targetbox"
                                             Margin="0"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch"
@@ -1172,7 +1172,7 @@
                                         <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
                                     </DataGrid.OpacityMask>
                                     <DataGrid.RowStyle>
-                                        <Style BasedOn="{StaticResource}" TargetType="{x:Type DataGridRow}">
+                                        <Style TargetType="{x:Type DataGridRow}">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding HasAction}" Value="false">
                                                     <Setter Property="Background" Value="#3F3030" />

@@ -33,7 +33,8 @@ namespace VolumeControl.Helpers
             // Add built-in action container types
             actionManager.Types.Add(typeof(AudioDeviceActions));
             actionManager.Types.Add(typeof(AudioSessionActions));
-            actionManager.Types.Add(typeof(WindowsAPIActions));
+            actionManager.Types.Add(typeof(ApplicationActions));
+            actionManager.Types.Add(typeof(MediaActions));
 
             // Create the hotkey manager
             _hotkeyManager = new(actionManager, HWndHook);
