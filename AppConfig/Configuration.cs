@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace AppConfig
@@ -6,9 +7,10 @@ namespace AppConfig
     /// <summary>
     /// The most basic <see langword="abstract"/> class in the AppConfig project.
     /// </summary>
+    /// <remarks>This implements <see cref="INotifyPropertyChanged"/> using Fody.</remarks>
     [JsonObject]
     [Serializable]
-    public abstract class Configuration
+    public abstract class Configuration : INotifyPropertyChanged
     {
         #region Constructors
         /// <summary>
@@ -29,6 +31,10 @@ namespace AppConfig
         [JsonIgnore]
         public static Configuration Default { get; set; } = null!;
         #endregion Properties
+
+        #region Events
+        public event PropertyChangedEventHandler? PropertyChanged;
+        #endregion Events
 
         #region Methods
         /// <summary>
