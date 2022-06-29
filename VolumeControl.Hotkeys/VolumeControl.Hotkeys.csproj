@@ -18,27 +18,20 @@
 			<_Parameter1>$(AllowUpgradeConfig)</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Fody" Version="6.6.3">
+	    <PrivateAssets>All</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+	    <PrivateAssets>All</PrivateAssets>
+	  </PackageReference>
+	</ItemGroup>
 	<!-- SETTINGS UPGRADE ATTRIBUTES -->
 
 	<ItemGroup>
-		<ProjectReference Include="..\HotkeyLib\HotkeyLib.csproj" />
 		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
 		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="HotkeyManagerSettings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<DependentUpon>HotkeyManagerSettings.settings</DependentUpon>
-			<AutoGen>True</AutoGen>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="HotkeyManagerSettings.settings">
-			<LastGenOutput>HotkeyManagerSettings.Designer.cs</LastGenOutput>
-			<Generator>SettingsSingleFileGenerator</Generator>
-		</None>
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

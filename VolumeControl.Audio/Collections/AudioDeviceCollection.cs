@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using ObservableImmutable;
 using VolumeControl.Audio.Events;
+using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
@@ -45,7 +46,6 @@ namespace VolumeControl.Audio.Collections
                 else
                     Settings.EnabledDevices.Remove(device.DeviceID);
                 Settings.Save();
-                Settings.Reload();
             }
             DeviceEnabledChanged?.Invoke(sender, state);
         }
@@ -59,7 +59,7 @@ namespace VolumeControl.Audio.Collections
 
         #region Properties
         private static LogWriter Log => FLog.Log;
-        private static AudioAPISettings Settings => AudioAPISettings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         private DeviceNotificationClient DeviceNotificationClient { get; }
         /// <summary>Whether the devices in this list are input or output devices. (or both)</summary>
         public DataFlow DataFlow { get; }
@@ -70,7 +70,7 @@ namespace VolumeControl.Audio.Collections
         #region HandleDeviceEvents
         private void HandleDeviceAdded(object? sender, AudioDevice device)
         {
-            if (AudioAPISettings.Default.EnabledDevices.Contains(device.DeviceID))
+            if (Settings.EnabledDevices.Contains(device.DeviceID))
                 device.Enabled = true;
         }
         private void HandleDeviceStateChanged(object? sender, DeviceState state)

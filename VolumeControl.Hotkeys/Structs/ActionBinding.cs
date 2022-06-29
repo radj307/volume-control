@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using VolumeControl.Hotkeys.Interfaces;
+using VolumeControl.Core.Keyboard.Actions;
 
 namespace VolumeControl.Hotkeys.Structs
 {

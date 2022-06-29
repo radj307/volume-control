@@ -8,6 +8,7 @@ using System.Windows;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
+using VolumeControl.Core.Keyboard.Actions;
 using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
@@ -24,6 +25,10 @@ namespace VolumeControl.Helpers
     {
         public VolumeControlSettings() : base()
         {
+            // create the updater & check for updates if enabled
+            Updater = new(this);
+            if (Settings.CheckForUpdates) Updater.Update();
+
             _audioAPI = new();
 
             AddonManager = new(this);
@@ -37,7 +42,7 @@ namespace VolumeControl.Helpers
             actionManager.Types.Add(typeof(MediaActions));
 
             // Create the hotkey manager
-            _hotkeyManager = new(actionManager, HWndHook);
+            _hotkeyManager = new(actionManager);
 
             // Initialize the addon API
             API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, this);
@@ -60,14 +65,11 @@ namespace VolumeControl.Helpers
                 .ToList();
 
             // load saved hotkeys
+            //  We need to have accessed the Settings property at least once by the time we reach this point
             _hotkeyManager.LoadHotkeys();
 
             Log.Info($"Volume Control v{CurrentVersionString}");
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
-
-            // create the updater & check for updates if enabled
-            Updater = new(this);
-            if (Settings.CheckForUpdatesOnStartup) Updater.Update();
         }
         private void SaveSettings()
         {
@@ -128,7 +130,7 @@ namespace VolumeControl.Helpers
         #region Statics
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Settings.Default"/>.</summary>
-        private static Properties.Settings Settings => Properties.Settings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         /// <summary>Static accessor for <see cref="Log.Properties.Settings.Default"/>.</summary>
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => FLog.Log;
@@ -191,8 +193,8 @@ namespace VolumeControl.Helpers
                 {
                     SaveSettings();
                     // Dispose of objects
-                    AudioAPI.Dispose();
-                    HotkeyAPI.Dispose();
+                    AudioAPI?.Dispose();
+                    HotkeyAPI?.Dispose();
                 }
 
                 disposedValue = true;

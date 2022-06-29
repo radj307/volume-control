@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Collections;
 using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
+using VolumeControl.Core;
 using VolumeControl.Log;
 
 namespace VolumeControl.Audio
@@ -42,12 +43,11 @@ namespace VolumeControl.Audio
 
             // save to file
             Settings.Save();
-            Settings.Reload();
         }
         #endregion Initializers
 
         #region Properties
-        private static AudioAPISettings Settings => AudioAPISettings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         /// <summary>
         /// An observable list of all known audio devices.
@@ -93,7 +93,6 @@ namespace VolumeControl.Audio
                 NotifyPropertyChanging(nameof(SelectedSession));
                 Settings.Target = eventArgs.Incoming;
                 Settings.Save();
-                Settings.Reload();
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(SelectedSession));
 
@@ -162,7 +161,6 @@ namespace VolumeControl.Audio
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Settings.Save();
-            Settings.Reload();
             Log.Debug($"{nameof(AudioAPI)}:  Saved & Reloaded Audio Configuration.");
         }
         /// <summary>Triggered before a member property's value is changed.</summary>
@@ -174,25 +172,25 @@ namespace VolumeControl.Audio
         #region Device
         private void EnableDevices()
         {
-            var enabledDevices = Settings.EnabledDevices;
             foreach (var dev in Devices)
-                if (enabledDevices.Contains(dev.DeviceID))
+                if (Settings.EnabledDevices.Contains(dev.DeviceID))
                     dev.Enabled = true;
 
-            if (enabledDevices.Contains(string.Empty) && DefaultDevice != null)
+            if (Settings.EnabledDevices.Contains(string.Empty) && DefaultDevice != null)
                 DefaultDevice.Enabled = true;
         }
         private void SaveEnabledDevices()
         {
-            StringCollection devices = new();
+            Settings.EnabledDevices = new();
             if (DefaultDevice?.Enabled ?? false)
-                devices.Add(string.Empty);
+                Settings.EnabledDevices.Add(string.Empty);
             foreach (var dev in Devices)
             {
                 if (dev.Enabled)
-                    devices.Add(dev.DeviceID);
+                {
+                    Settings.EnabledDevices.Add(dev.DeviceID);
+                }
             }
-            Settings.EnabledDevices = devices;
         }
         /// <summary>
         /// Clears and reloads all audio devices.

@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using VolumeControl.Hotkeys.Structs;
 
-namespace VolumeControl.Hotkeys.Interfaces
+namespace VolumeControl.Core.Keyboard.Actions
 {
     /// <summary>
     /// Represents an action binding object, which is a container for reflective method information used to call the actual target.

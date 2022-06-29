@@ -1,4 +1,5 @@
 ﻿using AssemblyAttribute;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media.Animation;
+using VolumeControl.Core;
 using VolumeControl.Core.Attributes;
 using VolumeControl.Log;
 
@@ -20,13 +22,14 @@ namespace VolumeControl
         private static extern void AllocConsole();
         [DllImport("Kernel32")]
         private static extern void FreeConsole();
-        private static Properties.Settings Settings => Properties.Settings.Default;
+    //    private static Properties.Settings Settings => Properties.Settings.Default;
         private static LogWriter Log => FLog.Log;
         #endregion Statics
 
         #region Fields
         private const string appMutexIdentifier = "VolumeControlSingleInstance";
         private static Mutex appMutex = null!;
+        private static Config Settings = null!;
         #endregion Fields
 
         #region Methods
@@ -36,6 +39,9 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            Settings = new();
+            Settings.Load();
+
             bool waitForMutex = args.Contains("--wait-for-mutex");
 
             AppDomain? appDomain = AppDomain.CurrentDomain;
@@ -55,36 +61,36 @@ namespace VolumeControl
             }
 
             // attempt to upgrade settings
-            if (Settings.UpgradeSettings)
-            {
-                Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
-                try
-                {
-                    UpgradeAllSettings(appDomain.GetAssemblies().ToArray());
-                    Settings.UpgradeSettings = false;
-                    Log.Info("Configuration upgrade completed without error.");
-                }
-                catch (Exception ex)
-                {
-                    Log.Error($"Config migration failed because of an unhandled exception", ex);
+            //if (Settings.UpgradeSettings)
+            //{
+            //    Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
+            //    try
+            //    {
+            //        UpgradeAllSettings(appDomain.GetAssemblies().ToArray());
+            //        Settings.UpgradeSettings = false;
+            //        Log.Info("Configuration upgrade completed without error.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Log.Error($"Config migration failed because of an unhandled exception", ex);
 
-                    if (MessageBox.Show("Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
-                                        "Invalid User Configuration File",
-                                        MessageBoxButton.YesNo,
-                                        MessageBoxImage.Error,
-                                        MessageBoxResult.No,
-                                        MessageBoxOptions.None) == MessageBoxResult.Yes)
-                    {
-                        Settings.Reload();
-                        Settings.Save();
-                    }
-                    else
-                    {
-                        Settings.UpgradeSettings = true; //< ensure this is triggered again next time, or settings will be overwritten.
-                        return;
-                    }
-                }
-            }
+            //        if (MessageBox.Show("Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
+            //                            "Invalid User Configuration File",
+            //                            MessageBoxButton.YesNo,
+            //                            MessageBoxImage.Error,
+            //                            MessageBoxResult.No,
+            //                            MessageBoxOptions.None) == MessageBoxResult.Yes)
+            //        {
+            //            Settings.Reload();
+            //            Settings.Save();
+            //        }
+            //        else
+            //        {
+            //            Settings.UpgradeSettings = true; //< ensure this is triggered again next time, or settings will be overwritten.
+            //            return;
+            //        }
+            //    }
+            //}
 
             // Multi instance gate
             bool isNewInstance = false;
@@ -156,7 +162,7 @@ namespace VolumeControl
                             {
                                 cfg.Upgrade();
                                 Log.Info($"Successfully upgraded configuration of assembly '{asm.FullName}'");
-                            } 
+                            }
                             catch (Exception ex)
                             {
                                 Log.Error($"An exception was thrown while attempting to update configuration of assembly '{asm.FullName}'", ex);

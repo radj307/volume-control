@@ -4,6 +4,8 @@ using System.Windows;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
 using VolumeControl.Helpers.Controls;
+using VolumeControl.Core;
+using VolumeControl.WPF;
 
 namespace VolumeControl
 {

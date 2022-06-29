@@ -7,7 +7,9 @@ namespace AppConfig
     /// <summary>
     /// The most basic <see langword="abstract"/> class in the AppConfig project.
     /// </summary>
-    /// <remarks>This implements <see cref="INotifyPropertyChanged"/> using Fody.</remarks>
+    /// <remarks>
+    /// Note that this class implements the <see cref="INotifyPropertyChanged"/> interface using Fody, as a result, all derived classes will automatically have event triggers injected into their property setters.
+    /// </remarks>
     [JsonObject]
     [Serializable]
     public abstract class Configuration : INotifyPropertyChanged
@@ -30,10 +32,19 @@ namespace AppConfig
         /// </summary>
         [JsonIgnore]
         public static Configuration Default { get; set; } = null!;
+
+        public object? this[string name]
+        {
+            get => GetType().GetProperty(name)?.GetValue(this);
+            set => GetType().GetProperty(name)?.SetValue(this, value);
+        }
         #endregion Properties
 
         #region Events
+#       pragma warning disable CS0067
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
+#       pragma warning restore CS0067
         #endregion Events
 
         #region Methods
@@ -49,13 +60,22 @@ namespace AppConfig
             Type otherType = other.GetType();
             foreach (var member in myType.GetMembers())
             {
-                if (member is FieldInfo fInfo && otherType.GetField(fInfo.Name) is FieldInfo otherFInfo)
-                {
+                if (member.Name.Equals("Item"))
+                    continue;
+                if (member is FieldInfo fInfo && !fInfo.IsStatic && fInfo.IsPublic && otherType.GetField(fInfo.Name) is FieldInfo otherFInfo && fInfo.Equals(otherFInfo))
+                { // member:
                     fInfo.SetValue(this, otherFInfo.GetValue(other));
                 }
-                else if (member is PropertyInfo pInfo && pInfo.CanWrite && otherType.GetProperty(pInfo.Name) is PropertyInfo otherPInfo)
-                {
-                    pInfo.SetValue(this, otherPInfo.GetValue(other));
+                else if (member is PropertyInfo pInfo
+                    && !pInfo.SetMethod!.IsStatic
+                    && (pInfo.SetMethod?.IsPublic ?? false)
+                    && !pInfo.GetMethod!.IsStatic
+                    && (pInfo.GetMethod?.IsPublic ?? false))
+                { // property:
+                    if (otherType.GetProperty(pInfo.Name) is PropertyInfo otherPInfo)
+                    {
+                        pInfo.SetValue(this, otherPInfo.GetValue(other));
+                    }
                 }
             }
         }

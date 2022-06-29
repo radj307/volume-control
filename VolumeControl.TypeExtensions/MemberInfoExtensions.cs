@@ -41,4 +41,16 @@ namespace VolumeControl.TypeExtensions
             }
         }
     }
+    /// <summary>
+    /// Extension methods for the <see cref="PropertyInfo"/> class.
+    /// </summary>
+    public static class PropertyInfoExtensions
+    {
+        /// <summary>
+        /// Checks if both the getter and setter of a property are public.
+        /// </summary>
+        /// <param name="pInfo"><see cref="PropertyInfo"/></param>
+        /// <returns><see langword="true"/> when the getter and setter methods are public; otherwise <see langword="false"/>.</returns>
+        public static bool IsPublic(this PropertyInfo pInfo) => (pInfo.SetMethod?.IsPublic ?? false) && (pInfo.GetMethod?.IsPublic ?? false);
+    }
 }

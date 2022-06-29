@@ -9,7 +9,7 @@
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hklib="clr-namespace:HotkeyLib;assembly=HotkeyLib"
+    xmlns:helpers="clr-namespace:VolumeControl.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
@@ -1150,7 +1150,7 @@
                             Style="{StaticResource BorderStyle}">
                             <Grid>
                                 <Grid.Resources>
-                                    <hklib:KeysList x:Key="KeyOptions" />
+                                    <helpers:KeyOptions x:Key="KeyOptions" />
                                 </Grid.Resources>
                                 <Border
                                     Name="HotkeyGridMask"
@@ -1166,20 +1166,12 @@
                                     CanUserReorderColumns="False"
                                     CanUserSortColumns="False"
                                     DataContext="{Binding HotkeyAPI.Hotkeys, Source={StaticResource Settings}}"
-                                    ItemsSource="{Binding HotkeyAPI.Hotkeys, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource DataGridStyle}">
                                     <DataGrid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=HotkeyGridMask}" />
                                     </DataGrid.OpacityMask>
-                                    <DataGrid.RowStyle>
-                                        <Style TargetType="{x:Type DataGridRow}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding HasAction}" Value="false">
-                                                    <Setter Property="Background" Value="#3F3030" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </DataGrid.RowStyle>
+
                                     <DataGrid.Columns>
                                         <!--  Active  -->
                                         <DataGridTemplateColumn Width="Auto" CanUserResize="False">
@@ -1289,7 +1281,7 @@
                                                     <ComboBox
                                                         IsEditable="False"
                                                         ItemsSource="{Binding HotkeyAPI.Actions.Bindings, Source={StaticResource Settings}}"
-                                                        SelectedItem="{Binding ActionIdentifier, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItem="{Binding Action, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}">
                                                         <ComboBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ComboBoxItem}">

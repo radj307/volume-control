@@ -1,16 +1,17 @@
 ﻿using System.Windows.Media;
-using VolumeControl.Hotkeys.Attributes;
 
-namespace VolumeControl.Hotkeys.Structs
+namespace VolumeControl.Core.Keyboard.Actions
 {
     /// <summary>
     /// Runtime container for hotkey action metadata.<br/>
-    /// Instances of this struct cannot be constructed externally; they must be retrieved through the <see cref="HotkeyActionAttribute.GetActionData"/> method.
     /// </summary>
     public struct HotkeyActionData
     {
         #region Constructor
-        internal HotkeyActionData(string actionName, string? actionDescription, string? actionGroup, Brush? actionGroupBrush = null)
+        /// <summary>
+        /// Creates a new <see cref="HotkeyActionData"/> instance.
+        /// </summary>
+        public HotkeyActionData(string actionName, string? actionDescription, string? actionGroup, Brush? actionGroupBrush = null)
         {
             ActionName = actionName;
             ActionDescription = actionDescription;

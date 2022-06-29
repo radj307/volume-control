@@ -1,6 +1,6 @@
-﻿using HotkeyLib;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using VolumeControl.Core;
+using VolumeControl.Core.Keyboard.Actions;
 using VolumeControl.Hotkeys.Structs;
 
 namespace VolumeControl.Hotkeys.Interfaces
@@ -13,13 +13,13 @@ namespace VolumeControl.Hotkeys.Interfaces
         /// <summary>The list of known hotkey action bindings.</summary>
         List<IActionBinding> Bindings { get; }
         /// <summary>
-        /// Gets the <see cref="KeyEventHandler"/> associated with <paramref name="identifier"/>.
+        /// Gets the <see cref="IActionBinding"/> associated with <paramref name="identifier"/>.
         /// </summary>
         /// <param name="identifier">The identifier of the target action.</param>
-        /// <returns>The <see cref="KeyEventHandler"/> associated with the specified name, or <see cref="NullAction"/> if no actions by that name were found.</returns>
+        /// <returns>The <see cref="IActionBinding"/> with the specified <paramref name="identifier"/>.</returns>
         IActionBinding this[string identifier] { get; }
         /// <summary>This is the default action handler, which does nothing.</summary>
-        public static readonly KeyEventHandler NullActionHandler = delegate { };
+        public static readonly HandledEventHandler NullActionHandler = delegate { };
         /// <summary>This is the default action, which does nothing.</summary>
         public static readonly IActionBinding NullAction = new ActionBinding(NullActionHandler.Method, null, new("None", null, null));
     }

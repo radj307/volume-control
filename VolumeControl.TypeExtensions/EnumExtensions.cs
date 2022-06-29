@@ -12,7 +12,7 @@
         /// <param name="e">The enum instance.</param>
         /// <param name="other">Any enumerable of type <typeparamref name="T"/>.</param>
         /// <returns>True when <paramref name="e"/> is equal to at least one value from <paramref name="other"/></returns>
-        public static bool EqualsAny<T>(this T e, IEnumerable<T> other) where T : System.Enum
+        public static bool EqualsAny<T>(this T e, IEnumerable<T> other) where T : Enum
         {
             foreach (var o in other)
                 if (e.Equals(o))
@@ -22,7 +22,7 @@
         /// <param name="e">The enum instance.</param>
         /// <param name="other">Any number of other enums of type <typeparamref name="T"/>.</param>
         /// <inheritdoc cref="EqualsAny{T}(T, IEnumerable{T})"/>
-        public static bool EqualsAny<T>(this T e, params T[] other) where T : System.Enum => e.EqualsAny(other.AsEnumerable());
+        public static bool EqualsAny<T>(this T e, params T[] other) where T : Enum => e.EqualsAny(other.AsEnumerable());
         /// <summary>
         /// Returns true if <paramref name="e"/> contains any <see langword="enum"/> value present in <paramref name="other"/>.
         /// </summary>
@@ -30,7 +30,7 @@
         /// <param name="e">The enum instance.</param>
         /// <param name="other">Any enumerable of type <typeparamref name="T"/>.</param>
         /// <returns>True when <paramref name="e"/> is equal to at least one value from <paramref name="other"/></returns>
-        public static bool HasAnyFlag<T>(this T e, IEnumerable<T> other) where T : System.Enum
+        public static bool HasAnyFlag<T>(this T e, IEnumerable<T> other) where T : Enum
         {
             foreach (var o in other)
                 if (e.HasFlag(o))
@@ -40,6 +40,6 @@
         /// <param name="e">The enum instance.</param>
         /// <param name="other">Any number of other enums of type <typeparamref name="T"/>.</param>
         /// <inheritdoc cref="EqualsAny{T}(T, IEnumerable{T})"/>
-        public static bool HasAnyFlag<T>(this T e, params T[] other) where T : System.Enum => e.HasAnyFlag(other.AsEnumerable());
+        public static bool HasAnyFlag<T>(this T e, params T[] other) where T : Enum => e.HasAnyFlag(other.AsEnumerable());
     }
 }

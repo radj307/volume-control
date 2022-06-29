@@ -1,11 +1,10 @@
-﻿using HotkeyLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using VolumeControl.Core;
+using VolumeControl.Core.Keyboard.Actions;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Hotkeys.Interfaces;

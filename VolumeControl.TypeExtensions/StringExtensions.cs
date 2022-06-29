@@ -52,5 +52,18 @@ namespace VolumeControl.TypeExtensions
         /// <returns>The character at <paramref name="index"/> in <paramref name="s"/> if the index is within range; otherwise <see langword="default"/>.</returns>
         /// <inheritdoc cref="AtIndexOrDefault(string, int, char)"/>
         public static char AtIndexOrDefault(this string s, int index) => AtIndexOrDefault(s, index, default);
+        /// <summary>
+        /// Check if <paramref name="s"/> equals any of the given <paramref name="compare"/> strings using <paramref name="sCompareType"/> comparison.
+        /// </summary>
+        /// <param name="s">A string.</param>
+        /// <param name="sCompareType">The <see cref="StringComparison"/> to use.</param>
+        /// <param name="compare">Any number of strings to compare to <paramref name="s"/>.</param>
+        /// <returns><see langword="true"/> when <paramref name="s"/> equals at least one of the <paramref name="compare"/> strings; otherwise <see langword="false"/></returns>
+        public static bool EqualsAny(this string s, StringComparison sCompareType, params string[] compare) => compare.Any(c => s.Equals(c, sCompareType));
+        /// <summary>
+        /// Check if <paramref name="s"/> equals any of the given <paramref name="compare"/> strings using <see cref="StringComparison.Ordinal"/> comparison.
+        /// </summary>
+        /// <inheritdoc cref="EqualsAny(string, StringComparison, string[])"/>
+        public static bool EqualsAny(this string s, params string[] compare) => EqualsAny(s, StringComparison.Ordinal, compare);
     }
 }
