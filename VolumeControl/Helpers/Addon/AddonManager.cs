@@ -32,6 +32,7 @@ namespace VolumeControl.Helpers.Addon
         #endregion Fields
 
         #region Properties
+        private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         /// <summary>
         /// List of directories to search for valid addon assemblies.
@@ -200,9 +201,9 @@ namespace VolumeControl.Helpers.Addon
                 }
             }
             // check custom directories:
-            if (Properties.Settings.Default.CustomAddonDirectories is not null)
+            if (Settings.CustomAddonDirectories is not null)
             {
-                foreach (string? path in Properties.Settings.Default.CustomAddonDirectories)
+                foreach (string? path in Settings.CustomAddonDirectories)
                 {
                     if (path is null) continue;
                     if (Directory.Exists(path))
@@ -211,10 +212,10 @@ namespace VolumeControl.Helpers.Addon
                         Log.Debug($"Successfully added custom addon search directory '{path}'");
                     }
                     else
-                        Log.Debug($"'{nameof(Properties.Settings.Default.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
+                        Log.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
                 }
             }
-            else Log.Debug($"{nameof(Properties.Settings.Default.CustomAddonDirectories)} is null.");
+            else Log.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
 
             return l;
         }

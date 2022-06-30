@@ -1,5 +1,5 @@
 ﻿using VolumeControl.Audio;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core;
 using VolumeControl.Hotkeys;
 using VolumeControl.Log;
 
@@ -36,7 +36,7 @@ namespace VolumeControl.API
         /// <summary>
         /// This is the object that contains many of the runtime application settings.<br/>These are saved to the user configuration when the application shuts down.
         /// </summary>
-        public IVCSettings Settings { get; internal set; }
+        public Config Settings { get; internal set; }
         #endregion Properties
     }
 }

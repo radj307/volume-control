@@ -881,7 +881,6 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 MoveFocusToContentWhenSelectionChanges="True"
-                SelectionChanged="TabControlEx_SelectionChanged"
                 Style="{StaticResource TabControlStyle}">
                 <!--  TAB CONTROL APPEARANCE:  -->
                 <TabControl.Resources>
@@ -1820,12 +1819,6 @@
                                             ToolTip="Check for new versions of Volume Control on startup." />
                                         <CheckBox
                                             Margin="5,0"
-                                            Content="Pre-Releases"
-                                            IsChecked="{Binding AllowUpdateToPreRelease, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            IsThreeState="True"
-                                            Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="When this is checked (filled) pre-release versions are always included in the results; When this is partially checked (dot) pre-release versions are only included when you're already using a pre-release version." />
-                                        <CheckBox
                                             Content="Show Prompt"
                                             IsChecked="{Binding ShowUpdateMessageBox, Source={StaticResource Settings}}"
                                             Style="{StaticResource CheckBoxStyle}"

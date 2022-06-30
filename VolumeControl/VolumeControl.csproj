@@ -63,10 +63,7 @@
 		<None Remove="Resources\images\reload-white.png" />
 		<None Remove="Resources\images\reload.png" />
 		<None Remove="Resources\LICENSE" />
-		<None Remove="Resources\VCUpdateUtility.exe" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Resources\VCUpdateUtility.exe" />
+		<!--<None Remove="Resources\VCUpdateUtility.exe" />-->
 	</ItemGroup>
 	<ItemGroup>
 		<Resource Include="Resources\fonts\Inter.ttf">
@@ -91,6 +88,13 @@
 	<ItemGroup>
 		<PackageReference Include="AssemblyAttribute" Version="0.0.0" />
 		<PackageReference Include="ControlzEx" Version="5.0.1" />
+		<PackageReference Include="Fody" Version="6.6.3">
+		  <PrivateAssets>All</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+		  <PrivateAssets>All</PrivateAssets>
+		</PackageReference>
 		<PackageReference Include="WPFTextBoxAutoComplete" Version="1.0.5">
 			<NoWarn>NU1701</NoWarn>
 		</PackageReference>
@@ -139,22 +143,11 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="Properties\Settings.settings">
-			<Generator>PublicSettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
 	</ItemGroup>
 </Project>

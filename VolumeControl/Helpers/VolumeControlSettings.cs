@@ -27,7 +27,7 @@ namespace VolumeControl.Helpers
         {
             // create the updater & check for updates if enabled
             Updater = new(this);
-            if (Settings.CheckForUpdates) Updater.Update();
+            if (Settings.CheckForUpdates) Updater.CheckNow();
 
             _audioAPI = new();
 
@@ -45,7 +45,7 @@ namespace VolumeControl.Helpers
             _hotkeyManager = new(actionManager);
 
             // Initialize the addon API
-            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, this);
+            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, (Config.Default as Config)!);
 
             // Create a list of all addon manager types
             List<IBaseAddon> addons = new()
@@ -73,8 +73,6 @@ namespace VolumeControl.Helpers
         }
         private void SaveSettings()
         {
-            this.Save();
-
             // VolumeControl.Log
             LogSettings.Save();
             LogSettings.Reload();

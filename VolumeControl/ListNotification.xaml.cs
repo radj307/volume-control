@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
 using VolumeControl.TypeExtensions;
@@ -18,7 +19,7 @@ namespace VolumeControl
             InitializeComponent();
 
             // Apply settings
-            TimeoutTimer.Interval = Settings.NotificationTimeoutInterval;
+            TimeoutTimer.Interval = Settings.NotificationTimeoutMs;
             VCSettings.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == null)
@@ -51,10 +52,9 @@ namespace VolumeControl
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
             // Apply settings
-            Settings.NotificationTimeoutInterval = TimeoutTimer.Interval;
+            Settings.NotificationTimeoutMs = TimeoutTimer.Interval;
             // Save settings
             Settings.Save();
-            Settings.Reload();
         }
         #endregion Finalizers
 
@@ -64,7 +64,7 @@ namespace VolumeControl
         #endregion Fields
 
         #region Properties
-        private static Properties.Settings Settings => Properties.Settings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         private VolumeControlSettings VCSettings => _vcSettings ??= (FindResource("Settings") as VolumeControlSettings)!;
         private VolumeControlSettings? _vcSettings = null;
         /// <summary>Controls the amount of time <i>(in milliseconds)</i> that the list notification is visible for before disappearing.</summary>

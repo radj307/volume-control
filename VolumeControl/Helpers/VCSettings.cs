@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using VolumeControl.Attributes;
+using VolumeControl.Core;
 using VolumeControl.Core.Enum;
-using VolumeControl.Core.Helpers;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
 using VolumeControl.Log.Enum;
@@ -16,7 +16,7 @@ using VolumeControl.WPF;
 
 namespace VolumeControl.Helpers
 {
-    public abstract class VCSettings : IVCSettings
+    public abstract class VCSettings : INotifyPropertyChanged
     {
         #region Constructors
         public VCSettings()
@@ -61,7 +61,7 @@ namespace VolumeControl.Helpers
 
         #region Properties
         #region Statics
-        private static Settings Settings => Settings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         private static LogWriter Log => FLog.Log;
         #endregion Statics
         #region ReadOnlyProperties
@@ -82,101 +82,49 @@ namespace VolumeControl.Helpers
         public bool ShowIcons
         {
             get => Settings.ShowIcons;
-            set
-            {
-                Settings.ShowIcons = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            set => Settings.ShowIcons = value;
         }
         /// <inheritdoc/>
         public bool AdvancedHotkeyMode
         {
             get => Settings.AdvancedHotkeys;
-            set
-            {
-                Settings.AdvancedHotkeys = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            set => Settings.AdvancedHotkeys = value;
         }
         /// <inheritdoc/>
         public bool RunAtStartup
         {
             get => Settings.RunAtStartup;
-            set
-            {
-                Settings.RunAtStartup = value;
-                Save();
-                NotifyPropertyChanged();
-                NotifyRunAtStartupChanged();
-            }
+            set => Settings.RunAtStartup = value;
         }
         /// <inheritdoc/>
         public bool StartMinimized
         {
             get => Settings.StartMinimized;
-            set
-            {
-                Settings.StartMinimized = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            set => Settings.StartMinimized = value;
         }
         /// <inheritdoc/>
         public bool CheckForUpdates
         {
-            get => Settings.CheckForUpdatesOnStartup;
-            set
-            {
-                Settings.CheckForUpdatesOnStartup = value;
-                Save();
-                NotifyPropertyChanged();
-            }
-        }
-        /// <inheritdoc/>
-        public bool? AllowUpdateToPreRelease
-        {
-            get => Settings.AllowUpdateToPreRelease.ToBoolean();
-            set
-            {
-                Settings.AllowUpdateToPreRelease = value.ToThreeStateNumber();
-                Save();
-                NotifyPropertyChanged();
-            }
+            get => Settings.CheckForUpdates;
+            set => Settings.CheckForUpdates = value;
         }
         /// <inheritdoc/>
         public bool ShowUpdateMessageBox
         {
-            get => Settings.ShowUpdateMessageBox;
-            set
-            {
-                Settings.ShowUpdateMessageBox = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            get => Settings.ShowUpdatePrompt;
+            set => Settings.ShowUpdatePrompt = value;
         }
         /// <inheritdoc/>
         public bool NotificationEnabled
         {
-            get => Settings.NotificationEnabled;
-            set
-            {
-                Settings.NotificationEnabled = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            get => Settings.NotificationsEnabled;
+            set => Settings.NotificationsEnabled = value;
         }
         /// <inheritdoc/>
         public int NotificationTimeout
         {
-            get => Settings.NotificationTimeoutInterval;
-            set
-            {
-                Settings.NotificationTimeoutInterval = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            get => Settings.NotificationTimeoutMs;
+            set => Settings.NotificationTimeoutMs = value;
         }
         /// <inheritdoc/>
         public DisplayTarget NotificationMode
@@ -187,13 +135,8 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public bool NotificationShowsVolumeChange
         {
-            get => Settings.NotificationShowsVolumeChange;
-            set
-            {
-                Settings.NotificationShowsVolumeChange = value;
-                Save();
-                NotifyPropertyChanged();
-            }
+            get => Settings.NotificationsOnVolumeChange;
+            set => Settings.NotificationsOnVolumeChange = value;
         }
         #endregion Properties
 
@@ -231,14 +174,6 @@ namespace VolumeControl.Helpers
         #endregion Events
 
         #region Methods
-        /// <inheritdoc/>
-        public void Load() => Settings.Reload();
-        /// <inheritdoc/>
-        public void Save()
-        {
-            Settings.Save();
-            Load();
-        }
         private static string GetExecutablePath()
         {
             if (Process.GetCurrentProcess().MainModule?.FileName is string path)

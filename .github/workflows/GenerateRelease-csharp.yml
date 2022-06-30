@@ -38,13 +38,13 @@ jobs:
     - name:   Change Directory
       run:    cd "${{github.workspace}}"
 
-    - name:   Stage Update Utility
-      run:    |
-              echo ${{secrets.PAT}} | gh auth login --with-token
-              cd '${{github.workspace}}/VolumeControl/Resources'
-              gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe"
-              ls
-              cd '${{github.workspace}}'
+#    - name:   Stage Update Utility
+#      run:    |
+#              echo ${{secrets.PAT}} | gh auth login --with-token
+#              cd '${{github.workspace}}/VolumeControl/Resources'
+#              gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe"
+#              ls
+#              cd '${{github.workspace}}'
 
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"

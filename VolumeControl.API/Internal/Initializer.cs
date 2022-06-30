@@ -1,5 +1,5 @@
 ﻿using VolumeControl.Audio;
-using VolumeControl.Core.Helpers;
+using VolumeControl.Core;
 using VolumeControl.Hotkeys;
 
 namespace VolumeControl.API.Internal
@@ -15,7 +15,7 @@ namespace VolumeControl.API.Internal
         /// <param name="mainWindowHWnd">The mixer window's handle</param>
         /// <param name="settings">The program settings container object.</param>
         /// <exception cref="InvalidOperationException">Initialize was already called previously.</exception>
-        public static void Initialize(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd, IVCSettings settings)
+        public static void Initialize(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
         {
             if (_initialized)
                 throw new InvalidOperationException("Cannot re-initialize VolumeControl.API!");

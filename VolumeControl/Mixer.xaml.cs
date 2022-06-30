@@ -1,5 +1,4 @@
-﻿using ControlzEx.Controls;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using VolumeControl.Audio;
+using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers;
 using VolumeControl.Helpers.Update;
@@ -44,8 +44,6 @@ namespace VolumeControl
             // Apply Window Settings:
             Settings.ShowInTaskbar = ShowInTaskbar;
             Settings.AlwaysOnTop = Topmost;
-            // Save Settings:
-            VCSettings.Save();
             // Save Log Settings
             LogSettings.Save();
             LogSettings.Reload();
@@ -54,15 +52,13 @@ namespace VolumeControl
         }
         #endregion Init
 
-        private bool _onHotkeysTab = false;
-
         #region Properties
         private ListNotification ListNotification => (FindResource("Notification") as ListNotification)!;
         private VolumeControlSettings VCSettings => (FindResource("Settings") as VolumeControlSettings)!;
         private AudioAPI AudioAPI => VCSettings.AudioAPI;
         private HotkeyManager HotkeyAPI => VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
-        private static Properties.Settings Settings => Properties.Settings.Default;
+        private static Config Settings => (Config.Default as Config)!;
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         public static bool LogEnabled
         {
@@ -136,21 +132,6 @@ namespace VolumeControl
                 logPath.Text = path;
             }
         }
-        private void Handle_OpenGithubClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo(Settings.UpdateURL)
-                {
-                    UseShellExecute = true,
-                    Verb = "open"
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Couldn't open '{Settings.UpdateURL}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            }
-        }
         private void Handle_LogFilterChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
@@ -191,33 +172,9 @@ namespace VolumeControl
         private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => Hide();
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => WindowState = WindowState.Maximized;
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => Close();
-        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.Update();
-        private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Updater.OpenBrowser(Settings.UpdateURL);
-            //if (VCSettings.Updater.ShowUpdatePrompt())
-            //    VCSettings.Updater.Update(true);
-        }
-        private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            logFilterBox.SelectedItem = null;
-        }
+        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.CheckNow();
+        private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => Updater.OpenBrowser(Updater._htmlURLLatest);
+        private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         #endregion EventHandlers
-
-        private void TabControlEx_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is TabControlEx tabControl && tabControl.GetSelectedTabItem() is TabItem ti)
-            {
-                if (ti.Equals(HotkeysTab))
-                {
-                    _onHotkeysTab = true;
-                }
-                else if (_onHotkeysTab)
-                {
-                    _onHotkeysTab = false;
-                    HotkeyAPI.SaveHotkeys();
-                }
-            }
-        }
     }
 }

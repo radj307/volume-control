@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 using VolumeControl.TypeExtensions;
 
@@ -54,8 +53,10 @@ namespace VolumeControl.Core.Keyboard
         }
         private bool _registered;
 
+#       pragma warning disable CS0067
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
+#       pragma warning restore CS0067
         /// <summary>
         /// Triggered when the hotkey is pressed.
         /// </summary>
