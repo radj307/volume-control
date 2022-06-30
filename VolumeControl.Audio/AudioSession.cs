@@ -239,9 +239,17 @@ namespace VolumeControl.Audio
         {
             if (IconPath.Length > 0)
                 return IconGetter.GetIcons(IconPath);
-            string? path = GetProcess()?.MainModule?.FileName;
-            if (path != null)
-                return IconGetter.GetIcons(path);
+            var proc = GetProcess();
+            try
+            {
+                string? path = proc?.MainModule?.FileName;
+                if (path != null)
+                    return IconGetter.GetIcons(path);
+            }
+            catch(Exception ex)
+            {
+                FLog.Log.Error($"Failed to query information for process {proc?.Id}", ex);
+            }
             return null;
         }
         /// <summary>
