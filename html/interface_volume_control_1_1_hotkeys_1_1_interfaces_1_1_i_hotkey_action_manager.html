@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('interface_volume_control_1_1_hotkeys_1
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a hotkey action manager object, which contains the list of <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html" title="Represents an action binding object, which is a container for reflective method information used to c...">IActionBinding</a>s used in the hotkey system.  
+<p>Represents a hotkey action manager object, which contains the list of IActionBindings used in the hotkey system.  
  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager:</div>
@@ -104,25 +104,26 @@ Inheritance diagram for VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager:</
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager__coll__graph.svg" width="100%" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager__coll__graph.svg" width="100%" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae21a2697efa93a1aa1ebd01843770ce3"><td class="memItemLeft" align="right" valign="top">static readonly KeyEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#ae21a2697efa93a1aa1ebd01843770ce3">NullActionHandler</a> = delegate { }</td></tr>
-<tr class="memdesc:ae21a2697efa93a1aa1ebd01843770ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the default action handler, which does nothing.  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#ae21a2697efa93a1aa1ebd01843770ce3">More...</a><br /></td></tr>
-<tr class="separator:ae21a2697efa93a1aa1ebd01843770ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77e4a5c039f7c0596df85928e4d47883"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883">NullAction</a> = new <a class="el" href="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html">ActionBinding</a>(NullActionHandler.Method, null, new(&quot;None&quot;, null, null))</td></tr>
+<tr class="memitem:a25067ef954b42453ad60ab708bd46b50"><td class="memItemLeft" align="right" valign="top">static readonly HandledEventHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50">NullActionHandler</a> = delegate { }</td></tr>
+<tr class="memdesc:a25067ef954b42453ad60ab708bd46b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the default action handler, which does nothing.  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50">More...</a><br /></td></tr>
+<tr class="separator:a25067ef954b42453ad60ab708bd46b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77e4a5c039f7c0596df85928e4d47883"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883">NullAction</a> = new <a class="el" href="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html">ActionBinding</a>(NullActionHandler.Method, null, new(&quot;None&quot;, null, null))</td></tr>
 <tr class="memdesc:a77e4a5c039f7c0596df85928e4d47883"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the default action, which does nothing.  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883">More...</a><br /></td></tr>
 <tr class="separator:a77e4a5c039f7c0596df85928e4d47883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a03c5f4b40ed4b81f4ec77122e2c7a973"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a03c5f4b40ed4b81f4ec77122e2c7a973">Bindings</a><code> [get]</code></td></tr>
+<tr class="memitem:a03c5f4b40ed4b81f4ec77122e2c7a973"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a03c5f4b40ed4b81f4ec77122e2c7a973">Bindings</a><code> [get]</code></td></tr>
 <tr class="memdesc:a03c5f4b40ed4b81f4ec77122e2c7a973"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of known hotkey action bindings.  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a03c5f4b40ed4b81f4ec77122e2c7a973">More...</a><br /></td></tr>
 <tr class="separator:a03c5f4b40ed4b81f4ec77122e2c7a973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d19b1a2426084a7750d06885d54da00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a4d19b1a2426084a7750d06885d54da00">this[string identifier]</a><code> [get]</code></td></tr>
-<tr class="memdesc:a4d19b1a2426084a7750d06885d54da00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the KeyEventHandler associated with <em>identifier</em> .  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a4d19b1a2426084a7750d06885d54da00">More...</a><br /></td></tr>
+<tr class="memitem:a4d19b1a2426084a7750d06885d54da00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a4d19b1a2426084a7750d06885d54da00">this[string identifier]</a><code> [get]</code></td></tr>
+<tr class="memdesc:a4d19b1a2426084a7750d06885d54da00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the IActionBinding associated with <em>identifier</em> .  <a href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a4d19b1a2426084a7750d06885d54da00">More...</a><br /></td></tr>
 <tr class="separator:a4d19b1a2426084a7750d06885d54da00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_volume_control_1_1_core_1_1_i_base_addon"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_core_1_1_i_base_addon')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_core_1_1_i_base_addon.html">VolumeControl.Core.IBaseAddon</a></td></tr>
 <tr class="memitem:a8cfea345870058ef126f4c663f87ab27 inherit properties_interface_volume_control_1_1_core_1_1_i_base_addon"><td class="memItemLeft" align="right" valign="top">Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_core_1_1_i_base_addon.html#a8cfea345870058ef126f4c663f87ab27">Attribute</a><code> [get, set]</code></td></tr>
@@ -140,7 +141,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a48e595ea1bdea7bfded23e1bbcbe09c1 inherit pub_methods_interface_volume_control_1_1_core_1_1_i_base_addon"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a hotkey action manager object, which contains the list of <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html" title="Represents an action binding object, which is a container for reflective method information used to c...">IActionBinding</a>s used in the hotkey system. </p>
+<div class="textblock"><p>Represents a hotkey action manager object, which contains the list of IActionBindings used in the hotkey system. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a77e4a5c039f7c0596df85928e4d47883"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77e4a5c039f7c0596df85928e4d47883">&#9670;&nbsp;</a></span>NullAction</h2>
@@ -152,7 +153,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a> VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.NullAction = new <a class="el" href="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html">ActionBinding</a>(NullActionHandler.Method, null, new(&quot;None&quot;, null, null))</td>
+          <td class="memname">readonly <a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a> VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.NullAction = new <a class="el" href="struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html">ActionBinding</a>(NullActionHandler.Method, null, new(&quot;None&quot;, null, null))</td>
         </tr>
       </table>
   </td>
@@ -166,8 +167,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae21a2697efa93a1aa1ebd01843770ce3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae21a2697efa93a1aa1ebd01843770ce3">&#9670;&nbsp;</a></span>NullActionHandler</h2>
+<a id="a25067ef954b42453ad60ab708bd46b50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25067ef954b42453ad60ab708bd46b50">&#9670;&nbsp;</a></span>NullActionHandler</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +177,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly KeyEventHandler VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.NullActionHandler = delegate { }</td>
+          <td class="memname">readonly HandledEventHandler VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.NullActionHandler = delegate { }</td>
         </tr>
       </table>
   </td>
@@ -201,7 +202,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;<a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a>&gt; VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.Bindings</td>
+          <td class="memname">List&lt;<a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a>&gt; VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.Bindings</td>
         </tr>
       </table>
   </td>
@@ -225,7 +226,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html">IActionBinding</a> VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.this[string identifier]</td>
+          <td class="memname"><a class="el" href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html">IActionBinding</a> VolumeControl.Hotkeys.Interfaces.IHotkeyActionManager.this[string identifier]</td>
         </tr>
       </table>
   </td>
@@ -235,14 +236,14 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the KeyEventHandler associated with <em>identifier</em> . </p>
+<p>Gets the IActionBinding associated with <em>identifier</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">identifier</td><td>The identifier of the target action.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The KeyEventHandler associated with the specified name, or <a class="el" href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883" title="This is the default action, which does nothing.">NullAction</a> if no actions by that name were found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The IActionBinding with the specified <em>identifier</em> .</dd></dl>
 
 </div>
 </div>

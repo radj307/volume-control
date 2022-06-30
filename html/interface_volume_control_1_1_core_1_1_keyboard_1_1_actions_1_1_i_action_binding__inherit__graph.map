@@ -1,0 +1,4 @@
+<map id="VolumeControl.Core.Keyboard.Actions.IActionBinding" name="VolumeControl.Core.Keyboard.Actions.IActionBinding">
+<area shape="rect" id="node1" title="Represents an action binding object, which is a container for reflective method information used to c..." alt="" coords="9,5,230,112"/>
+<area shape="rect" id="node2" href="$struct_volume_control_1_1_hotkeys_1_1_structs_1_1_action_binding.html" title="Binding endpoint object that uses the MethodInfo object to invoke a method using reflection." alt="" coords="5,160,233,281"/>
+</map>

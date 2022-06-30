@@ -96,6 +96,9 @@ $(document).ready(function(){initNavTree('namespace_hotkey_lib.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey.html">Hotkey</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base hotkey class.  <a href="class_hotkey_lib_1_1_hotkey.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_hotkey_a_p_i.html">HotkeyAPI</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all of the raw windows API calls and types, and exposes convenience methods for usage.  <a href="class_hotkey_lib_1_1_hotkey_a_p_i.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,12 +117,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_modifier_extensions.html">ModifierExtensions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides extension methods for the Modifier enumerator type.  <a href="class_hotkey_lib_1_1_modifier_extensions.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_windows_hotkey.html">WindowsHotkey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple Windows hotkey.  <a href="class_hotkey_lib_1_1_windows_hotkey.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hotkey_lib_1_1_windows_hotkey_converter.html">WindowsHotkeyConverter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">TypeConverter for <a class="el" href="class_hotkey_lib_1_1_windows_hotkey.html" title="A simple Windows hotkey.">WindowsHotkey</a> classes.  <a href="class_hotkey_lib_1_1_windows_hotkey_converter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -172,9 +169,9 @@ Functions</h2></td></tr>
 
 <p>Enum containing the various states that a hotkey registration may be in. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a95b72052394e2d6fbfc067ab6ad469f5ac65b6b5a311f669f99365e0b45ca6907"></a>UNREGISTERED&#160;</td><td class="fielddoc"><p>Hotkey is not registered. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a95b72052394e2d6fbfc067ab6ad469f5ac65b6b5a311f669f99365e0b45ca6907"></a>UNREGISTERED&#160;</td><td class="fielddoc"><p><a class="el" href="class_hotkey_lib_1_1_hotkey.html" title="Abstract base hotkey class.">Hotkey</a> is not registered. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a95b72052394e2d6fbfc067ab6ad469f5ac1a4d3eaa5e512053eb2894e21c4a2bf"></a>REGISTERED&#160;</td><td class="fielddoc"><p>Hotkey is registered. </p>
+<tr><td class="fieldname"><a id="a95b72052394e2d6fbfc067ab6ad469f5ac1a4d3eaa5e512053eb2894e21c4a2bf"></a>REGISTERED&#160;</td><td class="fielddoc"><p><a class="el" href="class_hotkey_lib_1_1_hotkey.html" title="Abstract base hotkey class.">Hotkey</a> is registered. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a95b72052394e2d6fbfc067ab6ad469f5ab9e14d9b2886bcff408b85aefa780419"></a>FAILED&#160;</td><td class="fielddoc"><p>The previous attempt to register the hotkey failed, and it is now in a failed state.<br  />
  This can usually be cleared by simply re-registering it. </p>

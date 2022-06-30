@@ -1,0 +1,5 @@
+<map id="AppConfig.ConfigurationFile.Save" name="AppConfig.ConfigurationFile.Save">
+<area shape="rect" id="node1" title="Saves config values to the JSON file specified by Location" alt="" coords="279,46,517,73"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb" title="Resets the current hotkey list by replacing it with HotkeyManagerSettings.Hotkeys_Default." alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#ad179564abe8e8dcf492a365cffdcad6c" title="Saves all hotkeys to the settings file." alt="" coords="5,71,231,112"/>
+</map>

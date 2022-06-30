@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['targetchangingeventargs_785',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
-  ['timerextensions_786',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['timestamp_787',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]]
+  ['targetchangingeventargs_807',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
+  ['timerextensions_808',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['timestamp_809',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]],
+  ['typeextensions_810',['TypeExtensions',['../class_volume_control_1_1_type_extensions_1_1_type_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

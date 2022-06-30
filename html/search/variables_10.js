@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['valid_1091',['Valid',['../struct_hotkey_lib_1_1_key_combo.html#a319dfd310aa2d8f51cb2fe7fd53e1fe4',1,'HotkeyLib.KeyCombo.Valid()'],['../class_hotkey_lib_1_1_windows_hotkey.html#a2a3efa66034174f9ccd1d86c260042ef',1,'HotkeyLib.WindowsHotkey.Valid()'],['../class_volume_control_1_1_hotkeys_1_1_bindable_windows_hotkey.html#ad97f085ff7721ad0f928af1b6ac82d3a',1,'VolumeControl.Hotkeys.BindableWindowsHotkey.Valid()']]],
-  ['volumecontroller_1092',['VolumeController',['../class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2',1,'VolumeControl::Audio::AudioSession']]]
+  ['width_1123',['Width',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#a626deb987442d5d66ebb1fccb0b01297',1,'VolumeControl::WPF::RECT']]],
+  ['wm_5fhotkey_1124',['WM_HOTKEY',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#ad797706962b1c5d2f01a74151add983a',1,'HotkeyLib::HotkeyAPI']]]
 ];

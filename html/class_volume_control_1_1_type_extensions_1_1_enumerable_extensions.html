@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_type_extensio
 <div class="dynheader">
 Collaboration diagram for VolumeControl.TypeExtensions.EnumerableExtensions:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions__coll__graph.svg" width="238" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -130,6 +131,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a0070c250cb3157bdaaa06ecbc0b3e5c3"><td class="memItemLeft" align="right" valign="top">static List&lt; TOut &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0070c250cb3157bdaaa06ecbc0b3e5c3">ConvertEach&lt; TOut, TIn &gt;</a> (this IEnumerable&lt; TIn &gt; enumerable, Func&lt; TIn, TOut &gt; converter)</td></tr>
 <tr class="memdesc:a0070c250cb3157bdaaa06ecbc0b3e5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts each element in the given <em>enumerable</em>  from type <em>TIn</em>  to type <em>TOut</em> , and returns the converted objects as a new List&lt;T&gt;.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0070c250cb3157bdaaa06ecbc0b3e5c3">More...</a><br /></td></tr>
 <tr class="separator:a0070c250cb3157bdaaa06ecbc0b3e5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bcd5184906c3477289a1d188e370cb4"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; TVar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0bcd5184906c3477289a1d188e370cb4">SelectIf&lt; T, TVar &gt;</a> (this IEnumerable&lt; T &gt; enumerable, Func&lt; T, TVar &gt; keySelector, Predicate&lt; T &gt; predicate)</td></tr>
+<tr class="memdesc:a0bcd5184906c3477289a1d188e370cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the same thing as the standard Linq Select() method, except this one uses a <em>predicate</em>  and applies the <em>keySelector</em>  only when the predicate returns <code>true</code>.  <a href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a0bcd5184906c3477289a1d188e370cb4">More...</a><br /></td></tr>
+<tr class="separator:a0bcd5184906c3477289a1d188e370cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensions for the IEnumerable interface type. </p>
@@ -473,6 +477,73 @@ Static Public Member Functions</h2></td></tr>
 </dd>
 </dl>
 </div>
+
+</div>
+</div>
+<a id="a0bcd5184906c3477289a1d188e370cb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bcd5184906c3477289a1d188e370cb4">&#9670;&nbsp;</a></span>SelectIf&lt; T, TVar &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerable&lt;TVar&gt; VolumeControl.TypeExtensions.EnumerableExtensions.SelectIf&lt; T, TVar &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this IEnumerable&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>enumerable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Func&lt; T, TVar &gt;&#160;</td>
+          <td class="paramname"><em>keySelector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Predicate&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>predicate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does the same thing as the standard Linq Select() method, except this one uses a <em>predicate</em>  and applies the <em>keySelector</em>  only when the predicate returns <code>true</code>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td></td></tr>
+    <tr><td class="paramname">TVar</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enumerable</td><td></td></tr>
+    <tr><td class="paramname">keySelector</td><td></td></tr>
+    <tr><td class="paramname">predicate</td><td>A predicate to apply to each item in <em>enumerable</em> .<br  />
+ Return values are handled as follows: <table class="doxtable">
+<tr>
+<td><code>true</code></td><td>Applies <em>keySelector</em>  to the item, adding it to the returned enumerable. </td></tr>
+<tr>
+<td><code>false</code></td><td>Skips the item, and does not apply the <em>keySelector</em> . </td></tr>
+</table>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enumerable with values selected in the items of <em>enumerable</em>  by the <em>keySelector</em> , excluding those filtered out by <em>predicate</em> .</dd></dl>
 
 </div>
 </div>

@@ -6,9 +6,12 @@ var namespace_volume_control_1_1_type_extensions =
     [ "Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", "class_volume_control_1_1_type_extensions_1_1_int32_extensions" ],
     [ "ListExtensions", "class_volume_control_1_1_type_extensions_1_1_list_extensions.html", "class_volume_control_1_1_type_extensions_1_1_list_extensions" ],
     [ "MathExt", "class_volume_control_1_1_type_extensions_1_1_math_ext.html", "class_volume_control_1_1_type_extensions_1_1_math_ext" ],
+    [ "MemberInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_member_info_extensions" ],
     [ "NullableBoolExtensions", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html", "class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions" ],
     [ "ProcessExtensions", "class_volume_control_1_1_type_extensions_1_1_process_extensions.html", "class_volume_control_1_1_type_extensions_1_1_process_extensions" ],
+    [ "PropertyInfoExtensions", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html", "class_volume_control_1_1_type_extensions_1_1_property_info_extensions" ],
     [ "RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions" ],
     [ "StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", "class_volume_control_1_1_type_extensions_1_1_string_extensions" ],
-    [ "TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", "class_volume_control_1_1_type_extensions_1_1_timer_extensions" ]
+    [ "TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", "class_volume_control_1_1_type_extensions_1_1_timer_extensions" ],
+    [ "TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", "class_volume_control_1_1_type_extensions_1_1_type_extensions" ]
 ];

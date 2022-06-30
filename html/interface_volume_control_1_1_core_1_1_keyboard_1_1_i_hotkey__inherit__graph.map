@@ -1,0 +1,8 @@
+<map id="VolumeControl.Core.Keyboard.IHotkey" name="VolumeControl.Core.Keyboard.IHotkey">
+<area shape="rect" id="node1" title="Represents a hotkey instance." alt="" coords="128,131,349,267"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_keyboard_1_1_hotkey.html" title="A Hotkey that may be registered with the windows API." alt="" coords="5,315,227,495"/>
+<area shape="rect" id="node5" href="$interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html" title="Represents a BindableHotkey." alt="" coords="251,351,472,458"/>
+<area shape="rect" id="node2" title=" " alt="" coords="69,5,246,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="271,5,369,83"/>
+<area shape="rect" id="node6" href="$class_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey.html" title="A hotkey view model instance." alt="" coords="251,543,472,840"/>
+</map>

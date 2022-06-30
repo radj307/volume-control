@@ -1,0 +1,4 @@
+<map id="AppConfig.Configuration.Load" name="AppConfig.Configuration.Load">
+<area shape="rect" id="node1" title="Loads config values from the JSON file specified by path" alt="" coords="5,13,220,39"/>
+<area shape="rect" id="node2" href="$class_app_config_1_1_configuration.html#ae15227b2fbcda5463deb9f355229bde6" title="Sets the values of all properties and fields in this instance to the values from another instance spe..." alt="" coords="268,5,451,47"/>
+</map>

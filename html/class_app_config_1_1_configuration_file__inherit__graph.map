@@ -1,0 +1,6 @@
+<map id="AppConfig.ConfigurationFile" name="AppConfig.ConfigurationFile">
+<area shape="rect" id="node1" title="Extends the Configuration class with a built&#45;in file Location, and adds methods that use this filepat..." alt="" coords="21,315,224,421"/>
+<area shape="rect" id="node4" href="$class_volume_control_1_1_core_1_1_config.html" title="Contains the application configuration and logic to read from and write to JSON files." alt="" coords="5,469,240,708"/>
+<area shape="rect" id="node2" href="$class_app_config_1_1_configuration.html" title="The most basic abstract class in the AppConfig project." alt="" coords="48,131,197,267"/>
+<area shape="rect" id="node3" title=" " alt="" coords="34,5,211,83"/>
+</map>

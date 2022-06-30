@@ -1,0 +1,5 @@
+<map id="AppConfig.ConfigurationFile" name="AppConfig.ConfigurationFile">
+<area shape="rect" id="node1" title="Extends the Configuration class with a built&#45;in file Location, and adds methods that use this filepat..." alt="" coords="5,315,208,421"/>
+<area shape="rect" id="node2" href="$class_app_config_1_1_configuration.html" title="The most basic abstract class in the AppConfig project." alt="" coords="32,131,181,267"/>
+<area shape="rect" id="node3" title=" " alt="" coords="18,5,195,83"/>
+</map>

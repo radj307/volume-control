@@ -1,7 +1,5 @@
 var interface_hotkey_lib_1_1_i_key_combo =
 [
-    [ "Serialize", "interface_hotkey_lib_1_1_i_key_combo.html#af550de1abed16c86508cec73769ae3a5", null ],
-    [ "ToString", "interface_hotkey_lib_1_1_i_key_combo.html#a8973de0486c6aff4bea544a29a941bac", null ],
     [ "Alt", "interface_hotkey_lib_1_1_i_key_combo.html#a8a22366603446db14e80ad6fb9c9417e", null ],
     [ "Ctrl", "interface_hotkey_lib_1_1_i_key_combo.html#ad8e6219a7a27aba553e19f73da4af71d", null ],
     [ "Key", "interface_hotkey_lib_1_1_i_key_combo.html#af5183f57558c2f7cf69d24ed92931655", null ],

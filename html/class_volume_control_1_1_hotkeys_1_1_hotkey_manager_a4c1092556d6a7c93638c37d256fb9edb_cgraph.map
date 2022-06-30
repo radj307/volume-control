@@ -1,5 +1,6 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager.ResetHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.ResetHotkeys">
-<area shape="rect" id="node1" title="Resets the current hotkey list by replacing it with HotkeyManagerSettings.Hotkeys_Default." alt="" coords="5,39,231,80"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#aeaec8f00f4219e2e72b1d7438b413f76" title="Deletes all hotkeys in the list by first disposing them, then removing them from the list." alt="" coords="279,5,504,47"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a2109e5e62f1d469c63acc9c6fd832f61" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="279,71,504,112"/>
+<area shape="rect" id="node1" title="Resets the current hotkey list by replacing it with HotkeyManagerSettings.Hotkeys_Default." alt="" coords="5,71,231,112"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#aeaec8f00f4219e2e72b1d7438b413f76" title="Deletes all hotkeys in the list by first disposing them, then removing them from the list." alt="" coords="285,5,511,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a2109e5e62f1d469c63acc9c6fd832f61" title="Loads hotkeys from the settings file and binds them to the associated actions." alt="" coords="285,71,511,112"/>
+<area shape="rect" id="node4" href="$class_app_config_1_1_configuration_file.html#a03827c867e4ea67c3fef5515e390c9ed" title="Saves config values to the JSON file specified by Location" alt="" coords="279,137,517,163"/>
 </map>

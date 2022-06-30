@@ -27,7 +27,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_action_binding.html" target="_top" xlink:title="Represents an action binding object, which is a container for reflective method information used to c...">
+<g id="a_node2"><a xlink:href="interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html" target="_top" xlink:title="Represents an action binding object, which is a container for reflective method information used to c...">
 <polygon fill="none" stroke="black" points="27.5,-127.5 27.5,-195.5 143.5,-195.5 143.5,-127.5 27.5,-127.5"/>
 <text text-anchor="middle" x="85.5" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00">IActionBinding</text>
 <polyline fill="none" stroke="black" points="27.5,-176.5 143.5,-176.5 "/>

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_volume_control_1_1_audio_1_1_icon_getter.html" title="This is a helper class used to retrieve icons using multiple different context&#45;sensitive methods from..." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,180,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html" title="This attribute can be attached to assemblies to indicate that any contained configuration files shoul..." alt="" coords="228,5,452,47"/>
 </map>
