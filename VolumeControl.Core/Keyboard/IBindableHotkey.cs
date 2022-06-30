@@ -6,7 +6,6 @@ namespace VolumeControl.Core.Keyboard
     /// <summary>
     /// Represents a <see cref="BindableHotkey"/>.
     /// </summary>
-    [JsonObject]
     public interface IBindableHotkey : IHotkey
     {
         /// <summary>
@@ -19,5 +18,25 @@ namespace VolumeControl.Core.Keyboard
         /// </summary>
         [JsonIgnore]
         IActionBinding? Action { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="Modifier.Alt"/> bit in the <see cref="Modifier"/> property.
+        /// </summary>
+        [JsonIgnore]
+        bool Alt { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="Modifier.Ctrl"/> bit in the <see cref="Modifier"/> property.
+        /// </summary>
+        [JsonIgnore]
+        bool Ctrl { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="Modifier.Shift"/> bit in the <see cref="Modifier"/> property.
+        /// </summary>
+        [JsonIgnore]
+        bool Shift { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="Modifier.Super"/> bit in the <see cref="Modifier"/> property.
+        /// </summary>
+        [JsonIgnore]
+        bool Win { get; set; }
     }
 }

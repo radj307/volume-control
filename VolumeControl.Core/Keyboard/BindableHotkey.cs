@@ -48,33 +48,25 @@ namespace VolumeControl.Core.Keyboard
             set => Hotkey.Registered = value;
         }
 
-        /// <summary>
-        /// Gets or sets the <see cref="Modifier.Alt"/> bit in the <see cref="Modifier"/> property.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Alt
         {
             get => Modifier.HasFlag(Modifier.Alt);
             set => Modifier = Modifier.Set(Modifier.Alt, value);
         }
-        /// <summary>
-        /// Gets or sets the <see cref="Modifier.Ctrl"/> bit in the <see cref="Modifier"/> property.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Ctrl
         {
             get => Modifier.HasFlag(Modifier.Ctrl);
             set => Modifier = Modifier.Set(Modifier.Ctrl, value);
         }
-        /// <summary>
-        /// Gets or sets the <see cref="Modifier.Shift"/> bit in the <see cref="Modifier"/> property.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Shift
         {
             get => Modifier.HasFlag(Modifier.Shift);
             set => Modifier = Modifier.Set(Modifier.Shift, value);
         }
-        /// <summary>
-        /// Gets or sets the <see cref="Modifier.Super"/> bit in the <see cref="Modifier"/> property.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Win
         {
             get => Modifier.HasFlag(Modifier.Super);

@@ -218,11 +218,11 @@ namespace VolumeControl.Hotkeys
             Settings.Hotkeys = l.ToArray();
             Settings.Save();
         }
-        /// <summary>Resets the current hotkey list by replacing it with <see cref="HotkeyManagerSettings.Hotkeys_Default"/>.</summary>
+        /// <summary>Resets the current hotkey list by replacing it with <see cref="Config.Hotkeys_Default"/>.</summary>
         public void ResetHotkeys()
         {
             DelAllHotkeys();
-            Settings.Hotkeys = null;
+            Settings.Hotkeys = null!;
             Settings.Save();
             LoadHotkeys();
         }

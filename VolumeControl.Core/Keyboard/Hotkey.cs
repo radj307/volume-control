@@ -25,16 +25,32 @@ namespace VolumeControl.Core.Keyboard
             Key = key;
             Modifier = modifiers;
             Registered = registered;
-
-            PropertyChanged += HandlePropertyChanged;
         }
 
         /// <inheritdoc/>
         public int ID { get; }
         /// <inheritdoc/>
-        public Key Key { get; set; }
+        public Key Key
+        {
+            get => _key;
+            set
+            {
+                _key = value;
+                WindowsHotkeyAPI.Reregister(this);
+            }
+        }
+        private Key _key;
         /// <inheritdoc/>
-        public Modifier Modifier { get; set; }
+        public Modifier Modifier
+        {
+            get => _modifier;
+            set
+            {
+                _modifier = value;
+                WindowsHotkeyAPI.Reregister(this);
+            }
+        }
+        private Modifier _modifier;
         /// <inheritdoc/>
         public bool Registered
         {
@@ -80,12 +96,6 @@ namespace VolumeControl.Core.Keyboard
             return IntPtr.Zero;
         }
 #       pragma warning restore IDE0060 // Remove unused parameter
-
-        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName is string name && name.EqualsAny(nameof(Key), nameof(Modifier)))
-                WindowsHotkeyAPI.Reregister(this);
-        }
 
         /// <summary>
         /// Finalizer

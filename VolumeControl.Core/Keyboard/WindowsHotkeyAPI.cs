@@ -181,8 +181,7 @@ namespace VolumeControl.Core.Keyboard
         /// <returns><see langword="true"/> when registration was successful; otherwise <see langword="false"/></returns>
         public static bool Reregister(Hotkey hk)
         {
-            if (hk.Registered)
-                Unregister(hk);
+            Unregister(hk);
             return Register(hk);
         }
         #endregion WindowsAPI
