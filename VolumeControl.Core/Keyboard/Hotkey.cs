@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Core.Keyboard
 {
