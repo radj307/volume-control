@@ -55,21 +55,25 @@
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html" target="_top" xlink:title="Represents a BindableHotkey.">
-<polygon fill="none" stroke="black" points="184,-287 184,-366 350,-366 350,-287 184,-287"/>
-<text text-anchor="start" x="192" y="-354" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Keyboard.</text>
-<text text-anchor="middle" x="267" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">IBindableHotkey</text>
-<polyline fill="none" stroke="black" points="184,-336 350,-336 "/>
-<text text-anchor="start" x="192" y="-324" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
-<text text-anchor="start" x="192" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">+ Action</text>
-<polyline fill="none" stroke="black" points="184,-306 350,-306 "/>
-<text text-anchor="middle" x="267" y="-294" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="184,-265 184,-388 350,-388 350,-265 184,-265"/>
+<text text-anchor="start" x="192" y="-376" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Keyboard.</text>
+<text text-anchor="middle" x="267" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00">IBindableHotkey</text>
+<polyline fill="none" stroke="black" points="184,-358 350,-358 "/>
+<text text-anchor="start" x="192" y="-346" font-family="Helvetica,sans-Serif" font-size="10.00">+ Name</text>
+<text text-anchor="start" x="192" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">+ Action</text>
+<text text-anchor="start" x="192" y="-324" font-family="Helvetica,sans-Serif" font-size="10.00">+ Alt</text>
+<text text-anchor="start" x="192" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">+ Ctrl</text>
+<text text-anchor="start" x="192" y="-302" font-family="Helvetica,sans-Serif" font-size="10.00">+ Shift</text>
+<text text-anchor="start" x="192" y="-291" font-family="Helvetica,sans-Serif" font-size="10.00">+ Win</text>
+<polyline fill="none" stroke="black" points="184,-284 350,-284 "/>
+<text text-anchor="middle" x="267" y="-272" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M210.13,-421.77C221.36,-403.15 233.51,-383.01 243.69,-366.14"/>
+<path fill="none" stroke="midnightblue" d="M210.11,-421.81C216.74,-410.81 223.69,-399.29 230.37,-388.22"/>
 <polygon fill="none" stroke="midnightblue" points="207.04,-420.12 204.87,-430.49 213.03,-423.73 207.04,-420.12"/>
 </g>
 <!-- Node2 -->
@@ -141,8 +145,8 @@
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M267,-276.69C267,-260.51 267,-241.79 267,-222.91"/>
-<polygon fill="none" stroke="midnightblue" points="263.5,-276.93 267,-286.93 270.5,-276.93 263.5,-276.93"/>
+<path fill="none" stroke="midnightblue" d="M267,-254.68C267,-244.43 267,-233.68 267,-222.88"/>
+<polygon fill="none" stroke="midnightblue" points="263.5,-254.75 267,-264.75 270.5,-254.75 263.5,-254.75"/>
 </g>
 </g>
 </svg>

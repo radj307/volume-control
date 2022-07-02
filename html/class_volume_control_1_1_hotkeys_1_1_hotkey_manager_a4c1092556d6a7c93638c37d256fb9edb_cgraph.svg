@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Resets the current hotkey list by replacing it with HotkeyManagerSettings.Hotkeys_Default.">
+<g id="a_node1"><a xlink:title="Resets the current hotkey list by replacing it with Config.Hotkeys_Default.">
 <polygon fill="#bfbfbf" stroke="black" points="0,-39 0,-69 169,-69 169,-39 0,-39"/>
 <text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Hotkeys.Hotkey</text>
 <text text-anchor="middle" x="84.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">Manager.ResetHotkeys</text>

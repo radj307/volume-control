@@ -1,4 +1,4 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager.DelAllHotkeys" name="VolumeControl.Hotkeys.HotkeyManager.DelAllHotkeys">
 <area shape="rect" id="node1" title="Deletes all hotkeys in the list by first disposing them, then removing them from the list." alt="" coords="279,5,504,47"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb" title="Resets the current hotkey list by replacing it with HotkeyManagerSettings.Hotkeys_Default." alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html#a4c1092556d6a7c93638c37d256fb9edb" title="Resets the current hotkey list by replacing it with Config.Hotkeys_Default." alt="" coords="5,5,231,47"/>
 </map>

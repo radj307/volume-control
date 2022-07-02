@@ -93,7 +93,7 @@ var NAVTREEINDEX =
 "class_volume_control_1_1_core_1_1_keyboard_1_1_hotkey.html#ab1932c8391f16ecac142035f7c459a25",
 "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html#a7186745ed4979c3a936a2e40ab47eafd",
 "functions_func_r.html",
-"struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#a354fdb2909d5e7ebed9306bb09d97385"
+"struct_volume_control_1_1_w_p_f_1_1_p_o_i_n_t.html#a8955ca029926482ecbfd8430dbc01ef0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
