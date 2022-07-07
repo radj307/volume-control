@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VolumeControl.WPF.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace VolumeControl.UnitTests.WPF.Converters
 {
@@ -20,8 +19,8 @@ namespace VolumeControl.UnitTests.WPF.Converters
             Assertx.True((bool)conv.Convert("false", null!, null!, null!));
             Assertx.False((bool)conv.Convert("true", null!, null!, null!));
 
-            Assertx.Throws(() => { conv.Convert("hello", null!, null!, null!); });
-            Assertx.Throws(() => { conv.Convert(new TestingType(), null!, null!, null!); });
+            Assertx.Throws(() => { _ = conv.Convert("hello", null!, null!, null!); });
+            Assertx.Throws(() => { _ = conv.Convert(new TestingType(), null!, null!, null!); });
         }
 
         [TestMethod()]
@@ -33,8 +32,8 @@ namespace VolumeControl.UnitTests.WPF.Converters
             Assertx.True((bool)conv.ConvertBack("false", null!, null!, null!));
             Assertx.False((bool)conv.ConvertBack("true", null!, null!, null!));
 
-            Assertx.Throws(() => { conv.ConvertBack("hello", null!, null!, null!); });
-            Assertx.Throws(() => { conv.ConvertBack(new TestingType(), null!, null!, null!); });
+            Assertx.Throws(() => { _ = conv.ConvertBack("hello", null!, null!, null!); });
+            Assertx.Throws(() => { _ = conv.ConvertBack(new TestingType(), null!, null!, null!); });
         }
     }
 }

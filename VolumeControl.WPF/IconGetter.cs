@@ -25,14 +25,12 @@ namespace VolumeControl.WPF
             if (isDirectory)
                 attributes |= FILE_ATTRIBUTE_DIRECTORY;
 
-            if (0 != SHGetFileInfo(path, attributes, out SHFILEINFO shfi, (uint)Marshal.SizeOf(typeof(SHFILEINFO)), flags))
-            {
-                return Imaging.CreateBitmapSourceFromHIcon(
+            return 0 != SHGetFileInfo(path, attributes, out SHFILEINFO shfi, (uint)Marshal.SizeOf(typeof(SHFILEINFO)), flags)
+                ? Imaging.CreateBitmapSourceFromHIcon(
                             shfi.hIcon,
                             Int32Rect.Empty,
-                            BitmapSizeOptions.FromEmptyOptions());
-            }
-            return null;
+                            BitmapSizeOptions.FromEmptyOptions())
+                : (ImageSource?)null;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -125,12 +123,7 @@ namespace VolumeControl.WPF
         }
         /// <inheritdoc cref="GetIcons(string, int)"/>
         /// <param name="iconPath">Specifies the location and index number of the target icon.</param>
-        public static (ImageSource?, ImageSource?)? GetIcons(string iconPath)
-        {
-            if (ParseIconPath(iconPath) is (string path, int index))
-                return GetIcons(path, index);
-            return null;
-        }
+        public static (ImageSource?, ImageSource?)? GetIcons(string iconPath) => ParseIconPath(iconPath) is (string path, int index) ? GetIcons(path, index) : null;
         /// <summary>
         /// Parses the given icon path into a usable path string with an optional index number indicating which icon to retrieve from a package..
         /// </summary>
@@ -140,9 +133,9 @@ namespace VolumeControl.WPF
         {
             iconPath = iconPath.Trim('"', ' ', '\r', '\n', '\t');
             int pos = iconPath.LastIndexOf(',');
-            if (pos != -1 && int.TryParse(iconPath[(pos + 1)..], out int iconNumber))
-                return (iconPath[..pos], iconNumber);
-            else return (iconPath, PARSER_NULL_INDEX);
+            return pos != -1 && int.TryParse(iconPath[(pos + 1)..], out int iconNumber)
+                ? ((string, int)?)(iconPath[..pos], iconNumber)
+                : ((string, int)?)(iconPath, PARSER_NULL_INDEX);
         }
 
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]

@@ -9,9 +9,9 @@
         /// <param name="defaultCancel">Determines the default value of the <see cref="Cancel"/> property.</param>
         public TargetChangingEventArgs(string outgoing, string incoming, bool defaultCancel = false)
         {
-            Outgoing = outgoing;
-            Incoming = incoming;
-            Cancel = defaultCancel;
+            this.Outgoing = outgoing;
+            this.Incoming = incoming;
+            this.Cancel = defaultCancel;
         }
 
         /// <summary>This is the outgoing target, which will be replaced by the <see cref="Incoming"/> target, unless <see cref="Cancel"/> is set to true.</summary>

@@ -19,7 +19,7 @@ namespace VolumeControl.Hotkeys.Attributes
         /// When this parameter is omitted, the action name is automatically set to the method name using reflection.<br/>
         /// <i>Example:  Consider a method named "SessionVolumeUp", for which the default value of <paramref name="name"/> is either "SessionVolumeUp" when <see cref="InsertSpacesInName"/> is <see langword="false"/> or "Session Volume Up" when <see cref="InsertSpacesInName"/> is <see langword="true"/>.</i>
         /// </param>
-        public HotkeyActionAttribute([CallerMemberName] string name = "") => Name = name;
+        public HotkeyActionAttribute([CallerMemberName] string name = "") => this.Name = name;
         #endregion Constructor
 
         #region Properties
@@ -61,7 +61,7 @@ namespace VolumeControl.Hotkeys.Attributes
         #endregion Static
 
         #region Private
-        private string GetNameString() => InsertSpacesInName ? InsertSpacesIn(Name) : Name;
+        private string GetNameString() => this.InsertSpacesInName ? InsertSpacesIn(this.Name) : this.Name;
         #endregion Private
 
         #region Public
@@ -69,7 +69,7 @@ namespace VolumeControl.Hotkeys.Attributes
         /// Creates a new <see cref="HotkeyActionData"/> instance representing the final, interpolated 
         /// </summary>
         /// <returns>A new <see cref="HotkeyActionData"/> instance representing this hotkey action.</returns>
-        public HotkeyActionData GetActionData() => new(GetNameString(), Description, GroupName, GroupColor is null ? null : new SolidColorBrush( (Color)ColorConverter.ConvertFromString(GroupColor) ));
+        public HotkeyActionData GetActionData() => new(this.GetNameString(), this.Description, this.GroupName, this.GroupColor is null ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(this.GroupColor)));
         #endregion Public
         #endregion Methods
     }

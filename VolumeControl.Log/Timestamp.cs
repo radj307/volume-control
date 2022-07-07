@@ -15,8 +15,8 @@ namespace VolumeControl.Log
         /// <param name="eventType">The event type that this timestamp represents.</param>
         public Timestamp(DateTime dateTime, EventType eventType)
         {
-            TimePoint = dateTime;
-            EventType = eventType;
+            this.TimePoint = dateTime;
+            this.EventType = eventType;
         }
 
         #region Properties

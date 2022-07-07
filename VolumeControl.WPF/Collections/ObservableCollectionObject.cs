@@ -7,8 +7,7 @@ using System.Windows.Threading;
 
 namespace VolumeControl.WPF.Collections
 {
-#   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public abstract class ObservableCollectionObject : INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
@@ -21,8 +20,7 @@ namespace VolumeControl.WPF.Collections
 
         #region Public Properties
 
-        private readonly LockTypeEnum _lockType;
-        public LockTypeEnum LockType => _lockType;
+        public LockTypeEnum LockType { get; }
 
         #endregion Public Properties
 
@@ -30,7 +28,7 @@ namespace VolumeControl.WPF.Collections
 
         protected ObservableCollectionObject(LockTypeEnum lockType)
         {
-            _lockType = lockType;
+            this.LockType = lockType;
             _lockObj = new object();
         }
 
@@ -46,11 +44,11 @@ namespace VolumeControl.WPF.Collections
 
         protected void WaitForCondition(Func<bool> condition)
         {
-            Dispatcher? dispatcher = GetDispatcher();
+            Dispatcher? dispatcher = this.GetDispatcher();
 
             if (dispatcher == null)
             {
-                switch (LockType)
+                switch (this.LockType)
                 {
                 case LockTypeEnum.SpinWait:
                     SpinWait.SpinUntil(condition); // spin baby... 
@@ -65,7 +63,7 @@ namespace VolumeControl.WPF.Collections
             }
 
             _lockObjWasTaken = true;
-            PumpWait_PumpUntil(dispatcher, condition);
+            this.PumpWait_PumpUntil(dispatcher, condition);
         }
 
         protected void PumpWait_PumpUntil(Dispatcher dispatcher, Func<bool> condition)
@@ -93,12 +91,12 @@ namespace VolumeControl.WPF.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DoEvents()
         {
-            Dispatcher? dispatcher = GetDispatcher();
+            Dispatcher? dispatcher = this.GetDispatcher();
             if (dispatcher == null)
                 return;
 
             var frame = new DispatcherFrame();
-            dispatcher.BeginInvoke(DispatcherPriority.DataBind, new DispatcherOperationCallback(ExitFrame), frame);
+            _ = dispatcher.BeginInvoke(DispatcherPriority.DataBind, new DispatcherOperationCallback(ExitFrame), frame);
             Dispatcher.PushFrame(frame);
         }
 
@@ -110,29 +108,23 @@ namespace VolumeControl.WPF.Collections
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool TryLock()
+        protected bool TryLock() => this.LockType switch
         {
-            switch (LockType)
-            {
-            case LockTypeEnum.SpinWait:
-                return Interlocked.CompareExchange(ref _lock, 1, 0) == 0;
-            case LockTypeEnum.Lock:
-                return Monitor.TryEnter(_lockObj);
-            }
-
-            return false;
-        }
+            LockTypeEnum.SpinWait => Interlocked.CompareExchange(ref _lock, 1, 0) == 0,
+            LockTypeEnum.Lock => Monitor.TryEnter(_lockObj),
+            _ => false,
+        };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void Lock()
         {
-            switch (LockType)
+            switch (this.LockType)
             {
             case LockTypeEnum.SpinWait:
-                WaitForCondition(() => Interlocked.CompareExchange(ref _lock, 1, 0) == 0);
+                this.WaitForCondition(() => Interlocked.CompareExchange(ref _lock, 1, 0) == 0);
                 break;
             case LockTypeEnum.Lock:
-                WaitForCondition(() => Monitor.TryEnter(_lockObj));
+                this.WaitForCondition(() => Monitor.TryEnter(_lockObj));
                 break;
             }
         }
@@ -140,7 +132,7 @@ namespace VolumeControl.WPF.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void Unlock()
         {
-            switch (LockType)
+            switch (this.LockType)
             {
             case LockTypeEnum.SpinWait:
                 _lock = 0;
@@ -168,10 +160,10 @@ namespace VolumeControl.WPF.Collections
 
             foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
             {
-                var dispatcherObject = handler.Target as DispatcherObject;
-
-                if (dispatcherObject != null && !dispatcherObject.CheckAccess())
-                    dispatcherObject.Dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
+                if (handler.Target is DispatcherObject dispatcherObject && !dispatcherObject.CheckAccess())
+                {
+                    _ = dispatcherObject.Dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
+                }
                 else
                 {
                     handler(this, args);
@@ -179,13 +171,13 @@ namespace VolumeControl.WPF.Collections
             }
         }
 
-        protected virtual void RaiseNotifyCollectionChanged() => RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        protected virtual void RaiseNotifyCollectionChanged() => this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
         protected virtual void RaiseNotifyCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
-            RaisePropertyChanged("Count");
-            RaisePropertyChanged("Item[]");
-            OnCollectionChanged(args);
+            this.RaisePropertyChanged("Count");
+            this.RaisePropertyChanged("Item[]");
+            this.OnCollectionChanged(args);
         }
 
         #endregion INotifyCollectionChanged
@@ -194,13 +186,7 @@ namespace VolumeControl.WPF.Collections
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler? propertyChangedEventHandler = PropertyChanged;
-
-            if (propertyChangedEventHandler != null)
-                propertyChangedEventHandler(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public void RaisePropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion INotifyPropertyChanged
 
@@ -214,6 +200,5 @@ namespace VolumeControl.WPF.Collections
 
         #endregion Nested Types
     }
-#   pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-#   pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

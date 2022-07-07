@@ -21,49 +21,49 @@ namespace VolumeControl.Audio
         internal AudioSession(AudioSessionControl controller)
         {
             _controller = controller;
-            PID = Convert.ToInt64(_controller.GetProcessID);
+            this.PID = Convert.ToInt64(_controller.GetProcessID);
 
-            if (GetProcess() is not Process proc)
+            if (this.GetProcess() is not Process proc)
             {
-                FLog.Log.Error($"The constructor of '{typeof(AudioSession).FullName}' encountered an error when getting process with ID '{PID}'!");
-                Dispose();
-                ProcessName = string.Empty;
-                Process = null!;
+                FLog.Log.Error($"The constructor of '{typeof(AudioSession).FullName}' encountered an error when getting process with ID '{this.PID}'!");
+                this.Dispose();
+                this.ProcessName = string.Empty;
+                this.Process = null!;
             }
             else
             {
-                Process = proc;
+                this.Process = proc;
 
-                var hashcode = Process.GetHashCode();
+                int hashcode = this.Process.GetHashCode();
 
-                ProcessName = Process.ProcessName;
+                this.ProcessName = this.Process.ProcessName;
             }
 
-            _controller.RegisterEventClient(NotificationClient = new());
+            _controller.RegisterEventClient(this.NotificationClient = new());
 
-            NotificationClient.IconPathChanged += (s, e) =>
+            this.NotificationClient.IconPathChanged += (s, e) =>
             {
                 _icons = null;
-                NotifyPropertyChanged(nameof(IconPath));
-                NotifyPropertyChanged(nameof(SmallIcon));
-                NotifyPropertyChanged(nameof(LargeIcon));
-                NotifyPropertyChanged(nameof(Icon));
+                this.NotifyPropertyChanged(nameof(this.IconPath));
+                this.NotifyPropertyChanged(nameof(this.SmallIcon));
+                this.NotifyPropertyChanged(nameof(this.LargeIcon));
+                this.NotifyPropertyChanged(nameof(this.Icon));
             };
-            NotificationClient.VolumeChanged += (s, e) =>
+            this.NotificationClient.VolumeChanged += (s, e) =>
             {
-                NotifyPropertyChanged(nameof(NativeVolume));
-                NotifyPropertyChanged(nameof(Volume));
-                NotifyPropertyChanged(nameof(Muted));
+                this.NotifyPropertyChanged(nameof(this.NativeVolume));
+                this.NotifyPropertyChanged(nameof(this.Volume));
+                this.NotifyPropertyChanged(nameof(this.Muted));
             };
-            NotificationClient.DisplayNameChanged += (s, e) =>
+            this.NotificationClient.DisplayNameChanged += (s, e) =>
             {
-                NotifyPropertyChanged(nameof(DisplayName));
+                this.NotifyPropertyChanged(nameof(this.DisplayName));
             };
-            NotificationClient.GroupingParamChanged += (s, e) =>
+            this.NotificationClient.GroupingParamChanged += (s, e) =>
             {
-                NotifyPropertyChanged(nameof(GroupingParam));
+                this.NotifyPropertyChanged(nameof(this.GroupingParam));
             };
-            NotificationClient.StateChanged += NotifyStateChanged;
+            this.NotificationClient.StateChanged += this.NotifyStateChanged;
         }
 
         #region Fields
@@ -73,7 +73,7 @@ namespace VolumeControl.Audio
 
         #region Properties
         /// <inheritdoc/>
-        public int HashCode => _hashCode ??= Process.GetHashCode();
+        public int HashCode => _hashCode ??= this.Process.GetHashCode();
         private int? _hashCode;
         /// <summary>
         /// Gets the <see cref="SimpleAudioVolume"/> object from the underlying <see cref="AudioSessionControl"/> type.
@@ -103,38 +103,38 @@ namespace VolumeControl.Audio
         /// Gets the large or small icon, depending on whether they are null or not.
         /// </summary>
         /// <remarks>Checks and returns <see cref="LargeIcon"/> first, if that is null then it checks and returns <see cref="SmallIcon"/>.<br/>If both are null, returns null.</remarks>
-        public ImageSource? Icon => SmallIcon ?? LargeIcon;
+        public ImageSource? Icon => this.SmallIcon ?? this.LargeIcon;
         /// <inheritdoc/>
         public int Volume
         {
-            get => Convert.ToInt32(NativeVolume * 100f);
+            get => Convert.ToInt32(this.NativeVolume * 100f);
             set
             {
-                NotifyPropertyChanging();
-                NativeVolume = (float)MathExt.Clamp(Convert.ToDouble(value) / 100f, 0.0, 1.0);
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanging();
+                this.NativeVolume = (float)MathExt.Clamp(Convert.ToDouble(value) / 100f, 0.0, 1.0);
+                this.NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
         public float NativeVolume
         {
-            get => VolumeController.Volume;
+            get => this.VolumeController.Volume;
             set
             {
-                NotifyPropertyChanging();
-                VolumeController.Volume = MathExt.Clamp(value, 0f, 1f);
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanging();
+                this.VolumeController.Volume = MathExt.Clamp(value, 0f, 1f);
+                this.NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
         public bool Muted
         {
-            get => VolumeController.Mute;
+            get => this.VolumeController.Mute;
             set
             {
-                NotifyPropertyChanging();
-                VolumeController.Mute = value;
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanging();
+                this.VolumeController.Mute = value;
+                this.NotifyPropertyChanged();
             }
         }
         /// <summary><see href="https://docs.microsoft.com/en-us/windows/win32/coreaudio/grouping-parameters"/></summary>
@@ -144,9 +144,9 @@ namespace VolumeControl.Audio
             get => _controller.GetGroupingParam();
             set
             {
-                NotifyPropertyChanging();
+                this.NotifyPropertyChanging();
                 _controller.SetGroupingParam(value, Guid.NewGuid());
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanged();
             }
         }
         /// <summary>Session display name.</summary>
@@ -155,9 +155,9 @@ namespace VolumeControl.Audio
             get => _controller.DisplayName;
             set
             {
-                NotifyPropertyChanging();
+                this.NotifyPropertyChanging();
                 _controller.DisplayName = value;
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanged();
                 _name = null; //< set the _name field to null, causing 'Name' to be refreshed.
             }
         }
@@ -166,7 +166,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public long PID { get; }
         /// <inheritdoc/>
-        public string ProcessIdentifier => _processIdentifier ??= PID != -1L ? $"{PID}:{ProcessName}" : string.Empty;
+        public string ProcessIdentifier => _processIdentifier ??= this.PID != -1L ? $"{this.PID}:{this.ProcessName}" : string.Empty;
         private string? _processIdentifier = null;
         /// <summary>
         /// Checks if the process that owns this session is still running.
@@ -176,7 +176,7 @@ namespace VolumeControl.Audio
         {
             get
             {
-                if (State.Equals(AudioSessionState.AudioSessionStateExpired) || GetProcess() is not Process proc)
+                if (this.State.Equals(AudioSessionState.AudioSessionStateExpired) || this.GetProcess() is not Process proc)
                     return false;
                 try
                 {
@@ -196,20 +196,20 @@ namespace VolumeControl.Audio
         /// <summary>
         /// Checks if the session's state is set to active and the associated process is running.
         /// </summary>
-        public bool Active => State.Equals(AudioSessionState.AudioSessionStateActive) && IsRunning;
+        public bool Active => this.State.Equals(AudioSessionState.AudioSessionStateActive) && this.IsRunning;
         /// <summary>This session's parent <see cref="Process"/>.</summary>
         public Process Process { get; }
         /// <inheritdoc/>
         /// <remarks>This is the <see cref="DisplayName"/> if it is set to a non-empty string; otherwise this is the <see cref="ProcessName"/>.</remarks>
         public string Name
         {
-            get => _name ??= PID.Equals(0) ? "System Sounds" : (DisplayName.Length > 0 ? DisplayName : ProcessName);
+            get => _name ??= this.PID.Equals(0) ? "System Sounds" : (this.DisplayName.Length > 0 ? this.DisplayName : this.ProcessName);
             set
             {
-                DisplayName = value;
-                NotifyPropertyChanging();
-                _name = DisplayName;
-                NotifyPropertyChanged();
+                this.DisplayName = value;
+                this.NotifyPropertyChanging();
+                _name = this.DisplayName;
+                this.NotifyPropertyChanged();
             }
         }
         private string? _name;
@@ -223,7 +223,7 @@ namespace VolumeControl.Audio
         public event EventHandler<AudioSessionState>? StateChanged;
         private void NotifyStateChanged(object? _, AudioSessionState e)
         {
-            NotifyPropertyChanged(nameof(State));
+            this.NotifyPropertyChanged(nameof(this.State));
             StateChanged?.Invoke(this, e);
         }
         /// <summary>Triggered after one of this instance's properties have been set.</summary>
@@ -238,16 +238,16 @@ namespace VolumeControl.Audio
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
         public (ImageSource?, ImageSource?)? GetIcons()
         {
-            if (IconPath.Length > 0)
-                return IconGetter.GetIcons(IconPath);
-            var proc = GetProcess();
+            if (this.IconPath.Length > 0)
+                return IconGetter.GetIcons(this.IconPath);
+            Process? proc = this.GetProcess();
             try
             {
                 string? path = proc?.MainModule?.FileName;
                 if (path != null)
                     return IconGetter.GetIcons(path);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FLog.Log.Error($"Failed to query information for process {proc?.Id}", ex);
             }
@@ -261,7 +261,7 @@ namespace VolumeControl.Audio
         {
             try
             {
-                return Process.GetProcessById((int)PID);
+                return Process.GetProcessById((int)this.PID);
             }
             catch (Exception ex)
             {
@@ -272,7 +272,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public void Dispose()
         {
-            _controller.UnRegisterEventClient(NotificationClient);
+            _controller.UnRegisterEventClient(this.NotificationClient);
             _controller.Dispose();
             GC.SuppressFinalize(this);
         }
@@ -301,19 +301,19 @@ namespace VolumeControl.Audio
             }
             else // both
             {
-                if (!int.TryParse(identifier[..delim], out int result))
-                    throw new FormatException($"Invalid process identifier string '{identifier}'");
-                return (result, identifier[(delim + 1)..]);
+                return !int.TryParse(identifier[..delim], out int result)
+                    ? throw new FormatException($"Invalid process identifier string '{identifier}'")
+                    : ((int, string))(result, identifier[(delim + 1)..]);
             }
         }
         /// <inheritdoc/>
-        public bool Equals(ISession? other) => PID.Equals(other?.PID);
+        public bool Equals(ISession? other) => this.PID.Equals(other?.PID);
         /// <inheritdoc/>
-        public bool Equals(AudioSession? other) => PID.Equals(other?.PID);
+        public bool Equals(AudioSession? other) => this.PID.Equals(other?.PID);
         /// <inheritdoc/>
-        public override bool Equals(object? obj) => Equals(obj as AudioSession);
+        public override bool Equals(object? obj) => this.Equals(obj as AudioSession);
         /// <inheritdoc/>
-        public override int GetHashCode() => ProcessIdentifier.GetHashCode();
+        public override int GetHashCode() => this.ProcessIdentifier.GetHashCode();
         #endregion Methods
     }
 }

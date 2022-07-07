@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using VolumeControl.WPF.Converters;
 
 namespace VolumeControl.WPF.Controls
 {
@@ -25,8 +24,8 @@ namespace VolumeControl.WPF.Controls
 
         public decimal Value
         {
-            get => Convert.ToDecimal(GetValue(ValueProperty));
-            set => SetValue(ValueProperty, value);
+            get => Convert.ToDecimal(this.GetValue(ValueProperty));
+            set => this.SetValue(ValueProperty, value);
         }
 
         private static void OnValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -95,8 +94,8 @@ namespace VolumeControl.WPF.Controls
 
         public decimal MaxValue
         {
-            get => Convert.ToDecimal(GetValue(MaxValueProperty));
-            set => SetValue(MaxValueProperty, value);
+            get => Convert.ToDecimal(this.GetValue(MaxValueProperty));
+            set => this.SetValue(MaxValueProperty, value);
         }
 
         private static void OnMaxValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -117,10 +116,7 @@ namespace VolumeControl.WPF.Controls
         {
             decimal maxValue = (decimal)baseValue;
 
-            if (maxValue == decimal.MaxValue)
-                return DependencyProperty.UnsetValue;
-
-            return maxValue;
+            return maxValue == decimal.MaxValue ? DependencyProperty.UnsetValue : maxValue;
         }
 
         #endregion
@@ -134,8 +130,8 @@ namespace VolumeControl.WPF.Controls
 
         public decimal MinValue
         {
-            get => Convert.ToDecimal(GetValue(MinValueProperty));
-            set => SetValue(MinValueProperty, value);
+            get => Convert.ToDecimal(this.GetValue(MinValueProperty));
+            set => this.SetValue(MinValueProperty, value);
         }
 
         private static void OnMinValueChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -157,10 +153,7 @@ namespace VolumeControl.WPF.Controls
         {
             decimal minValue = (decimal)baseValue;
 
-            if (minValue == decimal.MinValue)
-                return DependencyProperty.UnsetValue;
-
-            return minValue;
+            return minValue == decimal.MinValue ? DependencyProperty.UnsetValue : minValue;
         }
 
         #endregion
@@ -171,8 +164,8 @@ namespace VolumeControl.WPF.Controls
 
         public int DecimalPlaces
         {
-            get => Convert.ToInt32(GetValue(DecimalPlacesProperty));
-            set => SetValue(DecimalPlacesProperty, value);
+            get => Convert.ToInt32(this.GetValue(DecimalPlacesProperty));
+            set => this.SetValue(DecimalPlacesProperty, value);
         }
 
         private static void OnDecimalPlacesChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -222,8 +215,8 @@ namespace VolumeControl.WPF.Controls
 
         public int MaxDecimalPlaces
         {
-            get => Convert.ToInt32(GetValue(MaxDecimalPlacesProperty));
-            set => SetValue(MaxDecimalPlacesProperty, value);
+            get => Convert.ToInt32(this.GetValue(MaxDecimalPlacesProperty));
+            set => this.SetValue(MaxDecimalPlacesProperty, value);
         }
 
         private static void OnMaxDecimalPlacesChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -261,8 +254,8 @@ namespace VolumeControl.WPF.Controls
 
         public int MinDecimalPlaces
         {
-            get => Convert.ToInt32(GetValue(MinDecimalPlacesProperty));
-            set => SetValue(MinDecimalPlacesProperty, value);
+            get => Convert.ToInt32(this.GetValue(MinDecimalPlacesProperty));
+            set => this.SetValue(MinDecimalPlacesProperty, value);
         }
 
         private static void OnMinDecimalPlacesChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -300,8 +293,8 @@ namespace VolumeControl.WPF.Controls
 
         public bool IsDecimalPointDynamic
         {
-            get => (bool)GetValue(IsDecimalPointDynamicProperty);
-            set => SetValue(IsDecimalPointDynamicProperty, value);
+            get => (bool)this.GetValue(IsDecimalPointDynamicProperty);
+            set => this.SetValue(IsDecimalPointDynamicProperty, value);
         }
 
         #endregion
@@ -312,8 +305,8 @@ namespace VolumeControl.WPF.Controls
 
         public decimal MinorDelta
         {
-            get => (decimal)GetValue(MinorDeltaProperty);
-            set => SetValue(MinorDeltaProperty, value);
+            get => (decimal)this.GetValue(MinorDeltaProperty);
+            set => this.SetValue(MinorDeltaProperty, value);
         }
 
         private static void OnMinorDeltaChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -342,8 +335,8 @@ namespace VolumeControl.WPF.Controls
 
         public decimal MajorDelta
         {
-            get => (decimal)GetValue(MajorDeltaProperty);
-            set => SetValue(MajorDeltaProperty, value);
+            get => (decimal)this.GetValue(MajorDeltaProperty);
+            set => this.SetValue(MajorDeltaProperty, value);
         }
 
         private static void OnMajorDeltaChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -372,8 +365,8 @@ namespace VolumeControl.WPF.Controls
 
         public bool IsThousandSeparatorVisible
         {
-            get => (bool)GetValue(IsThousandSeparatorVisibleProperty);
-            set => SetValue(IsThousandSeparatorVisibleProperty, value);
+            get => (bool)this.GetValue(IsThousandSeparatorVisibleProperty);
+            set => this.SetValue(IsThousandSeparatorVisibleProperty, value);
         }
 
         private static void OnIsThousandSeparatorVisibleChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
@@ -390,8 +383,8 @@ namespace VolumeControl.WPF.Controls
 
         public bool IsAutoSelectionActive
         {
-            get => (bool)GetValue(IsAutoSelectionActiveProperty);
-            set => SetValue(IsAutoSelectionActiveProperty, value);
+            get => (bool)this.GetValue(IsAutoSelectionActiveProperty);
+            set => this.SetValue(IsAutoSelectionActiveProperty, value);
         }
 
         #endregion
@@ -402,8 +395,8 @@ namespace VolumeControl.WPF.Controls
 
         public bool IsValueWrapAllowed
         {
-            get => (bool)GetValue(IsValueWrapAllowedProperty);
-            set => SetValue(IsValueWrapAllowedProperty, value);
+            get => (bool)this.GetValue(IsValueWrapAllowedProperty);
+            set => this.SetValue(IsValueWrapAllowedProperty, value);
         }
 
         #endregion
@@ -414,8 +407,8 @@ namespace VolumeControl.WPF.Controls
 
         public CornerRadius CornerRadius
         {
-            get => (CornerRadius)GetValue(CornerRadiusProperty);
-            set => SetValue(CornerRadiusProperty, value);
+            get => (CornerRadius)this.GetValue(CornerRadiusProperty);
+            set => this.SetValue(CornerRadiusProperty, value);
         }
 
         #endregion CornerRadius
@@ -452,9 +445,9 @@ namespace VolumeControl.WPF.Controls
         {
             Culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
 
-            Culture.NumberFormat.NumberDecimalDigits = DecimalPlaces;
+            Culture.NumberFormat.NumberDecimalDigits = this.DecimalPlaces;
 
-            Loaded += OnLoaded;
+            Loaded += this.OnLoaded;
         }
 
         #endregion
@@ -465,21 +458,21 @@ namespace VolumeControl.WPF.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            AttachToVisualTree();
-            AttachCommands();
+            this.AttachToVisualTree();
+            this.AttachCommands();
         }
 
-        private void TextBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs) => UpdateValue();
+        private void TextBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs) => this.UpdateValue();
 
         private void TextBoxOnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (IsAutoSelectionActive)
+            if (this.IsAutoSelectionActive)
                 TextBox.SelectAll();
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs) => InvalidateProperty(ValueProperty);
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs) => this.InvalidateProperty(ValueProperty);
 
-        private void ButtonOnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs) => Value = 0;
+        private void ButtonOnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs) => this.Value = 0;
 
         #endregion
 
@@ -489,19 +482,19 @@ namespace VolumeControl.WPF.Controls
 
         private void AttachToVisualTree()
         {
-            AttachTextBox();
-            AttachIncreaseButton();
-            AttachDecreaseButton();
+            this.AttachTextBox();
+            this.AttachIncreaseButton();
+            this.AttachDecreaseButton();
         }
 
         private void AttachTextBox()
         {
             // A null check is advised
-            if (GetTemplateChild("PART_TextBox") is TextBox textBox)
+            if (this.GetTemplateChild("PART_TextBox") is TextBox textBox)
             {
                 TextBox = textBox;
-                TextBox.LostFocus += TextBoxOnLostFocus;
-                TextBox.PreviewMouseLeftButtonUp += TextBoxOnPreviewMouseLeftButtonUp;
+                TextBox.LostFocus += this.TextBoxOnLostFocus;
+                TextBox.PreviewMouseLeftButtonUp += this.TextBoxOnPreviewMouseLeftButtonUp;
 
                 TextBox.UndoLimit = 1;
                 TextBox.IsUndoEnabled = true;
@@ -510,44 +503,44 @@ namespace VolumeControl.WPF.Controls
 
         private void AttachIncreaseButton()
         {
-            if (GetTemplateChild("PART_IncreaseButton") is RepeatButton increaseButton)
+            if (this.GetTemplateChild("PART_IncreaseButton") is RepeatButton increaseButton)
             {
                 IncreaseButton = increaseButton;
                 IncreaseButton.Focusable = false;
                 IncreaseButton.Command = _minorIncreaseValueCommand;
-                IncreaseButton.PreviewMouseLeftButtonDown += (sender, args) => RemoveFocus();
-                IncreaseButton.PreviewMouseRightButtonDown += ButtonOnPreviewMouseRightButtonDown;
+                IncreaseButton.PreviewMouseLeftButtonDown += (sender, args) => this.RemoveFocus();
+                IncreaseButton.PreviewMouseRightButtonDown += this.ButtonOnPreviewMouseRightButtonDown;
             }
         }
 
         private void AttachDecreaseButton()
         {
-            if (GetTemplateChild("PART_DecreaseButton") is RepeatButton decreaseButton)
+            if (this.GetTemplateChild("PART_DecreaseButton") is RepeatButton decreaseButton)
             {
                 DecreaseButton = decreaseButton;
                 DecreaseButton.Focusable = false;
                 DecreaseButton.Command = _minorDecreaseValueCommand;
-                DecreaseButton.PreviewMouseLeftButtonDown += (sender, args) => RemoveFocus();
-                DecreaseButton.PreviewMouseRightButtonDown += ButtonOnPreviewMouseRightButtonDown;
+                DecreaseButton.PreviewMouseLeftButtonDown += (sender, args) => this.RemoveFocus();
+                DecreaseButton.PreviewMouseRightButtonDown += this.ButtonOnPreviewMouseRightButtonDown;
             }
         }
 
         private void AttachCommands()
         {
-            _ = CommandBindings.Add(new CommandBinding(_minorIncreaseValueCommand, (a, b) => IncreaseValue(true)));
-            _ = CommandBindings.Add(new CommandBinding(_minorDecreaseValueCommand, (a, b) => DecreaseValue(true)));
-            _ = CommandBindings.Add(new CommandBinding(_majorIncreaseValueCommand, (a, b) => IncreaseValue(false)));
-            _ = CommandBindings.Add(new CommandBinding(_majorDecreaseValueCommand, (a, b) => DecreaseValue(false)));
-            _ = CommandBindings.Add(new CommandBinding(_updateValueStringCommand, (a, b) => UpdateValue()));
-            _ = CommandBindings.Add(new CommandBinding(_cancelChangesCommand, (a, b) => CancelChanges()));
+            _ = this.CommandBindings.Add(new CommandBinding(_minorIncreaseValueCommand, (a, b) => this.IncreaseValue(true)));
+            _ = this.CommandBindings.Add(new CommandBinding(_minorDecreaseValueCommand, (a, b) => this.DecreaseValue(true)));
+            _ = this.CommandBindings.Add(new CommandBinding(_majorIncreaseValueCommand, (a, b) => this.IncreaseValue(false)));
+            _ = this.CommandBindings.Add(new CommandBinding(_majorDecreaseValueCommand, (a, b) => this.DecreaseValue(false)));
+            _ = this.CommandBindings.Add(new CommandBinding(_updateValueStringCommand, (a, b) => this.UpdateValue()));
+            _ = this.CommandBindings.Add(new CommandBinding(_cancelChangesCommand, (a, b) => this.CancelChanges()));
 
 
-            TextBox.InputBindings.Add(new KeyBinding(_minorIncreaseValueCommand, new KeyGesture(Key.Up)));
-            TextBox.InputBindings.Add(new KeyBinding(_minorDecreaseValueCommand, new KeyGesture(Key.Down)));
-            TextBox.InputBindings.Add(new KeyBinding(_majorIncreaseValueCommand, new KeyGesture(Key.PageUp)));
-            TextBox.InputBindings.Add(new KeyBinding(_majorDecreaseValueCommand, new KeyGesture(Key.PageDown)));
-            TextBox.InputBindings.Add(new KeyBinding(_updateValueStringCommand, new KeyGesture(Key.Enter)));
-            TextBox.InputBindings.Add(new KeyBinding(_cancelChangesCommand, new KeyGesture(Key.Escape)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_minorIncreaseValueCommand, new KeyGesture(Key.Up)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_minorDecreaseValueCommand, new KeyGesture(Key.Down)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_majorIncreaseValueCommand, new KeyGesture(Key.PageUp)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_majorDecreaseValueCommand, new KeyGesture(Key.PageDown)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_updateValueStringCommand, new KeyGesture(Key.Enter)));
+            _ = TextBox.InputBindings.Add(new KeyBinding(_cancelChangesCommand, new KeyGesture(Key.Escape)));
         }
 
         #endregion
@@ -565,7 +558,7 @@ namespace VolumeControl.WPF.Controls
 
         private decimal TruncateValue(string valueString, int decimalPlaces)
         {
-            int endPoint = valueString.Length - (decimalPlaces - DecimalPlaces);
+            int endPoint = valueString.Length - (decimalPlaces - this.DecimalPlaces);
             endPoint++;
 
             string? tempValueString = valueString[..endPoint];
@@ -579,13 +572,13 @@ namespace VolumeControl.WPF.Controls
 
         private void CoerceValueToBounds(ref decimal value)
         {
-            if (value < MinValue)
+            if (value < this.MinValue)
             {
-                value = MinValue;
+                value = this.MinValue;
             }
-            else if (value > MaxValue)
+            else if (value > this.MaxValue)
             {
-                value = MaxValue;
+                value = this.MaxValue;
             }
         }
 
@@ -595,16 +588,16 @@ namespace VolumeControl.WPF.Controls
 
         #region Methods
 
-        private void UpdateValue() => Value = ParseStringToDecimal(TextBox.Text);
+        private void UpdateValue() => this.Value = ParseStringToDecimal(TextBox.Text);
 
         private void CancelChanges() => _ = TextBox.Undo();
 
         private void RemoveFocus()
         {
             // Passes focus here and then just deletes it
-            Focusable = true;
-            _ = Focus();
-            Focusable = false;
+            this.Focusable = true;
+            _ = this.Focus();
+            this.Focusable = false;
         }
 
         private void IncreaseValue(bool minor)
@@ -613,36 +606,36 @@ namespace VolumeControl.WPF.Controls
             decimal value = ParseStringToDecimal(TextBox.Text);
 
             // Coerce the value to min/max
-            CoerceValueToBounds(ref value);
+            this.CoerceValueToBounds(ref value);
 
             // Only change the value if it has any meaning
-            if (value >= MinValue)
+            if (value >= this.MinValue)
             {
                 if (minor)
                 {
-                    if (IsValueWrapAllowed && value + MinorDelta > MaxValue)
+                    if (this.IsValueWrapAllowed && value + this.MinorDelta > this.MaxValue)
                     {
-                        value = MinValue;
+                        value = this.MinValue;
                     }
                     else
                     {
-                        value += MinorDelta;
+                        value += this.MinorDelta;
                     }
                 }
                 else
                 {
-                    if (IsValueWrapAllowed && value + MajorDelta > MaxValue)
+                    if (this.IsValueWrapAllowed && value + this.MajorDelta > this.MaxValue)
                     {
-                        value = MinValue;
+                        value = this.MinValue;
                     }
                     else
                     {
-                        value += MajorDelta;
+                        value += this.MajorDelta;
                     }
                 }
             }
 
-            Value = value;
+            this.Value = value;
         }
 
         private void DecreaseValue(bool minor)
@@ -651,36 +644,36 @@ namespace VolumeControl.WPF.Controls
             decimal value = ParseStringToDecimal(TextBox.Text);
 
             // Coerce the value to min/max
-            CoerceValueToBounds(ref value);
+            this.CoerceValueToBounds(ref value);
 
             // Only change the value if it has any meaning
-            if (value <= MaxValue)
+            if (value <= this.MaxValue)
             {
                 if (minor)
                 {
-                    if (IsValueWrapAllowed && value - MinorDelta < MinValue)
+                    if (this.IsValueWrapAllowed && value - this.MinorDelta < this.MinValue)
                     {
-                        value = MaxValue;
+                        value = this.MaxValue;
                     }
                     else
                     {
-                        value -= MinorDelta;
+                        value -= this.MinorDelta;
                     }
                 }
                 else
                 {
-                    if (IsValueWrapAllowed && value - MajorDelta < MinValue)
+                    if (this.IsValueWrapAllowed && value - this.MajorDelta < this.MinValue)
                     {
-                        value = MaxValue;
+                        value = this.MaxValue;
                     }
                     else
                     {
-                        value -= MajorDelta;
+                        value -= this.MajorDelta;
                     }
                 }
             }
 
-            Value = value;
+            this.Value = value;
         }
 
         #endregion

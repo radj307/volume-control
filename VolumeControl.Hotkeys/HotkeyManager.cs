@@ -18,10 +18,10 @@ namespace VolumeControl.Hotkeys
         /// <param name="actionManager">The action manager to use.</param>
         public HotkeyManager(IHotkeyActionManager actionManager)
         {
-            Actions = actionManager;
+            this.Actions = actionManager;
 
-            this.CollectionChanged += HandleCollectionChanged;
-            RecheckAllSelected();
+            CollectionChanged += this.HandleCollectionChanged;
+            this.RecheckAllSelected();
         }
         #endregion Initializers
 
@@ -35,8 +35,8 @@ namespace VolumeControl.Hotkeys
         /// <summary>Forwards all collection changed events from <see cref="Hotkeys"/>.</summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {
-            add => ((INotifyCollectionChanged)Hotkeys).CollectionChanged += value;
-            remove => ((INotifyCollectionChanged)Hotkeys).CollectionChanged -= value;
+            add => ((INotifyCollectionChanged)this.Hotkeys).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)this.Hotkeys).CollectionChanged -= value;
         }
         private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -44,11 +44,11 @@ namespace VolumeControl.Hotkeys
             {
             case NotifyCollectionChangedAction.Add:
             case NotifyCollectionChangedAction.Replace:
-                e.NewItems?.ForEach(i =>
+                _ = (e.NewItems?.ForEach(i =>
                 {
                     if (i is IBindableHotkey bhk)
-                        bhk.PropertyChanged += HotkeyOnPropertyChanged;
-                });
+                        bhk.PropertyChanged += this.HotkeyOnPropertyChanged;
+                }));
                 break;
             default: break;
             }
@@ -83,7 +83,7 @@ namespace VolumeControl.Hotkeys
                 _allSelected = value;
 
                 // Set all other CheckBoxes
-                AllSelectedChanged();
+                this.AllSelectedChanged();
             }
         }
         #endregion Properties
@@ -95,9 +95,9 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         public void AddHotkey(IBindableHotkey hk)
         {
-            Hotkeys.Add(hk);
+            this.Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", JsonConvert.SerializeObject(hk));
-            RecheckAllSelected();
+            this.RecheckAllSelected();
         }
         /// <summary>
         /// Create a new blank hotkey and add it to <see cref="Hotkeys"/>.
@@ -105,7 +105,7 @@ namespace VolumeControl.Hotkeys
         /// <remarks>
         /// <see cref="BindableHotkey.Name"/> = <see cref="string.Empty"/>
         /// </remarks>
-        public void AddHotkey() => AddHotkey(new BindableHotkey());
+        public void AddHotkey() => this.AddHotkey(new BindableHotkey());
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
         /// </summary>
@@ -114,9 +114,9 @@ namespace VolumeControl.Hotkeys
         {
             if (hk == null)
                 return;
-            Hotkeys.Remove(hk);
+            _ = this.Hotkeys.Remove(hk);
             Log.Info($"Deleted hotkey {hk.ID} '{hk.Name}'");
-            RecheckAllSelected();
+            this.RecheckAllSelected();
         }
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
@@ -124,26 +124,26 @@ namespace VolumeControl.Hotkeys
         /// <param name="id">The Windows API ID number of the hotkey to delete.</param>
         public void DelHotkey(int id)
         {
-            for (int i = Hotkeys.Count - 1; i >= 0; --i)
+            for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
-                if (Hotkeys[i].ID.Equals(id))
+                if (this.Hotkeys[i].ID.Equals(id))
                 {
-                    Hotkeys.RemoveAt(i);
+                    this.Hotkeys.RemoveAt(i);
                 }
             }
-            RecheckAllSelected();
+            this.RecheckAllSelected();
         }
         /// <summary>
         /// Deletes all hotkeys in the list by first disposing them, then removing them from the list.
         /// </summary>
         public void DelAllHotkeys()
         {
-            for (int i = Hotkeys.Count - 1; i >= 0; --i)
+            for (int i = this.Hotkeys.Count - 1; i >= 0; --i)
             {
-                Hotkeys[i].Dispose();
-                Hotkeys.RemoveAt(i);
+                this.Hotkeys[i].Dispose();
+                this.Hotkeys.RemoveAt(i);
             }
-            RecheckAllSelected();
+            this.RecheckAllSelected();
         }
         #endregion HotkeysListManipulators
 
@@ -153,7 +153,7 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         /// <param name="id">The ID number of the target hotkey.<br/><i>(This is compared to the <see cref="Hotkey.ID"/> property.)</i></param>
         /// <returns>The target <see cref="Hotkey"/> instance if successful; otherwise <see langword="null"/>.</returns>
-        public IBindableHotkey? GetHotkey(int id) => Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
+        public IBindableHotkey? GetHotkey(int id) => this.Hotkeys.FirstOrDefault(hk => hk is not null && hk.ID.Equals(id), null);
         #endregion HotkeysListGetters
 
         #region HotkeysListSaveLoad
@@ -163,24 +163,24 @@ namespace VolumeControl.Hotkeys
         /// <remarks><b>Make sure that the <see cref="Actions"/> property is set and initialized before calling this!</b></remarks>
         public void LoadHotkeys()
         {
-            Hotkeys.AddRangeIfUnique((Settings.Hotkeys ??= Config.Hotkeys_Default).ConvertEach(hkjw => hkjw.ToBindableHotkey(Actions)));
-            RecheckAllSelected();
+            this.Hotkeys.AddRangeIfUnique((Settings.Hotkeys ??= Config.Hotkeys_Default).ConvertEach(hkjw => hkjw.ToBindableHotkey(this.Actions)));
+            this.RecheckAllSelected();
         }
         /// <summary>
         /// Saves all hotkeys to the settings file.
         /// </summary>
         public void SaveHotkeys()
         {
-            Settings.Hotkeys = Hotkeys.ConvertEach(hk => hk.ToBindableHotkeyJsonWrapper()).ToArray();
+            Settings.Hotkeys = this.Hotkeys.ConvertEach(hk => hk.ToBindableHotkeyJsonWrapper()).ToArray();
             Settings.Save();
         }
         /// <summary>Resets the current hotkey list by replacing it with <see cref="Config.Hotkeys_Default"/>.</summary>
         public void ResetHotkeys()
         {
-            DelAllHotkeys();
+            this.DelAllHotkeys();
             Settings.Hotkeys = null!;
             Settings.Save();
-            LoadHotkeys();
+            this.LoadHotkeys();
         }
         #endregion HotkeysListSaveLoad
 
@@ -191,19 +191,19 @@ namespace VolumeControl.Hotkeys
             {
                 if (disposing)
                 {
-                    SaveHotkeys(); //< this saves hotkeys to the settings file
-                    DelAllHotkeys(); //< this cleans up Windows API hotkey registrations
+                    this.SaveHotkeys(); //< this saves hotkeys to the settings file
+                    this.DelAllHotkeys(); //< this cleans up Windows API hotkey registrations
                 }
 
                 disposedValue = true;
             }
         }
         /// <summary>Finalizer</summary>
-        ~HotkeyManager() { Dispose(disposing: false); }
+        ~HotkeyManager() { this.Dispose(disposing: false); }
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable
@@ -213,10 +213,10 @@ namespace VolumeControl.Hotkeys
         {
             // Only re-check if the IsChecked property changed
             if (args.PropertyName == nameof(Hotkey.Registered))
-                RecheckAllSelected();
+                this.RecheckAllSelected();
 
             // save changes to configuration
-            SaveHotkeys();
+            this.SaveHotkeys();
             Log.Debug($"{nameof(HotkeyManager)}:  Saved Hotkey Configuration.");
         }
         private void AllSelectedChanged()
@@ -230,14 +230,14 @@ namespace VolumeControl.Hotkeys
                 _allSelectedChanging = true;
 
                 // this can of course be simplified
-                if (AllSelected == true)
+                if (this.AllSelected == true)
                 {
-                    foreach (IBindableHotkey hk in Hotkeys)
+                    foreach (IBindableHotkey hk in this.Hotkeys)
                         hk.Registered = true;
                 }
-                else if (AllSelected == false)
+                else if (this.AllSelected == false)
                 {
-                    foreach (IBindableHotkey hk in Hotkeys)
+                    foreach (IBindableHotkey hk in this.Hotkeys)
                         hk.Registered = false;
                 }
             }
@@ -256,23 +256,26 @@ namespace VolumeControl.Hotkeys
             {
                 _allSelectedChanging = true;
 
-                if (Hotkeys.Count > 0)
+                if (this.Hotkeys.Count > 0)
                 {
-                    bool prev = Hotkeys.First().Registered;
+                    bool prev = this.Hotkeys.First().Registered;
                     bool fullLoop = true;
-                    for (int i = 1; i < Hotkeys.Count; ++i)
+                    for (int i = 1; i < this.Hotkeys.Count; ++i)
                     {
-                        if (Hotkeys[i].Registered != prev)
+                        if (this.Hotkeys[i].Registered != prev)
                         {
                             fullLoop = false;
-                            AllSelected = null;
+                            this.AllSelected = null;
                             break;
                         }
                     }
                     if (fullLoop)
-                        AllSelected = prev;
+                        this.AllSelected = prev;
                 }
-                else AllSelected = false;
+                else
+                {
+                    this.AllSelected = false;
+                }
             }
             finally
             {

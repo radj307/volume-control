@@ -17,7 +17,6 @@ namespace VolumeControl.WPF.Collections
     {
         #region Private
 
-        private readonly object _syncRoot;
         private ImmutableList<T> _items;
 
         #endregion Private
@@ -38,7 +37,7 @@ namespace VolumeControl.WPF.Collections
 
         public ObservableImmutableList(IEnumerable<T> items, LockTypeEnum lockType) : base(lockType)
         {
-            _syncRoot = new object();
+            this.SyncRoot = new object();
             _items = ImmutableList<T>.Empty.AddRange(items);
         }
 
@@ -49,10 +48,10 @@ namespace VolumeControl.WPF.Collections
         #region General
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryOperation(Func<ImmutableList<T>, ImmutableList<T>> operation) => TryOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        public bool TryOperation(Func<ImmutableList<T>, ImmutableList<T>> operation) => this.TryOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool DoOperation(Func<ImmutableList<T>, ImmutableList<T>> operation) => DoOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        public bool DoOperation(Func<ImmutableList<T>, ImmutableList<T>> operation) => this.DoOperation(operation, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
         #region Helpers
 
@@ -61,7 +60,7 @@ namespace VolumeControl.WPF.Collections
         {
             try
             {
-                if (TryLock())
+                if (this.TryLock())
                 {
                     ImmutableList<T>? oldList = _items;
                     ImmutableList<T>? newItems = operation(oldList);
@@ -73,13 +72,13 @@ namespace VolumeControl.WPF.Collections
                     _items = newItems;
 
                     if (args != null)
-                        RaiseNotifyCollectionChanged(args);
+                        this.RaiseNotifyCollectionChanged(args);
                     return true;
                 }
             }
             finally
             {
-                Unlock();
+                this.Unlock();
             }
 
             return false;
@@ -90,7 +89,7 @@ namespace VolumeControl.WPF.Collections
         {
             try
             {
-                if (TryLock())
+                if (this.TryLock())
                 {
                     ImmutableList<T>? oldList = _items;
                     KeyValuePair<ImmutableList<T>, NotifyCollectionChangedEventArgs> kvp = operation(oldList);
@@ -104,13 +103,13 @@ namespace VolumeControl.WPF.Collections
                     _items = newItems;
 
                     if (args != null)
-                        RaiseNotifyCollectionChanged(args);
+                        this.RaiseNotifyCollectionChanged(args);
                     return true;
                 }
             }
             finally
             {
-                Unlock();
+                this.Unlock();
             }
 
             return false;
@@ -123,7 +122,7 @@ namespace VolumeControl.WPF.Collections
 
             try
             {
-                Lock();
+                this.Lock();
                 ImmutableList<T>? oldItems = _items;
                 ImmutableList<T>? newItems = operation(_items);
 
@@ -134,11 +133,11 @@ namespace VolumeControl.WPF.Collections
                 result = (_items = newItems) != oldItems;
 
                 if (args != null)
-                    RaiseNotifyCollectionChanged(args);
+                    this.RaiseNotifyCollectionChanged(args);
             }
             finally
             {
-                Unlock();
+                this.Unlock();
             }
 
             return result;
@@ -151,7 +150,7 @@ namespace VolumeControl.WPF.Collections
 
             try
             {
-                Lock();
+                this.Lock();
                 ImmutableList<T>? oldItems = _items;
                 KeyValuePair<ImmutableList<T>, NotifyCollectionChangedEventArgs> kvp = operation(_items);
                 ImmutableList<T>? newItems = kvp.Key;
@@ -164,11 +163,11 @@ namespace VolumeControl.WPF.Collections
                 result = (_items = newItems) != oldItems;
 
                 if (args != null)
-                    RaiseNotifyCollectionChanged(args);
+                    this.RaiseNotifyCollectionChanged(args);
             }
             finally
             {
-                Unlock();
+                this.Unlock();
             }
 
             return result;
@@ -180,7 +179,7 @@ namespace VolumeControl.WPF.Collections
 
         #region Specific
 
-        public bool DoInsert(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => DoOperation
+        public bool DoInsert(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => this.DoOperation
                 (
                 currentItems =>
                     {
@@ -190,7 +189,7 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool DoAdd(Func<ImmutableList<T>, T> valueProvider) => DoOperation
+        public bool DoAdd(Func<ImmutableList<T>, T> valueProvider) => this.DoOperation
                 (
                 currentItems =>
                     {
@@ -200,19 +199,19 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool DoAddRange(Func<ImmutableList<T>, IEnumerable<T>> valueProvider) => DoOperation
+        public bool DoAddRange(Func<ImmutableList<T>, IEnumerable<T>> valueProvider) => this.DoOperation
                 (
                 currentItems =>
                     currentItems.AddRange(valueProvider(currentItems))
                 );
 
-        public bool DoRemove(Func<ImmutableList<T>, T> valueProvider) => DoRemoveAt
+        public bool DoRemove(Func<ImmutableList<T>, T> valueProvider) => this.DoRemoveAt
                 (
                 currentItems =>
                     currentItems.IndexOf(valueProvider(currentItems))
                 );
 
-        public bool DoRemoveAt(Func<ImmutableList<T>, int> valueProvider) => DoOperation
+        public bool DoRemoveAt(Func<ImmutableList<T>, int> valueProvider) => this.DoOperation
                 (
                 currentItems =>
                     {
@@ -223,7 +222,7 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool DoSetItem(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => DoOperation
+        public bool DoSetItem(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => this.DoOperation
                 (
                 currentItems =>
                     {
@@ -236,7 +235,7 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool TryInsert(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => TryOperation
+        public bool TryInsert(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => this.TryOperation
                 (
                 currentItems =>
                     {
@@ -246,7 +245,7 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool TryAdd(Func<ImmutableList<T>, T> valueProvider) => TryOperation
+        public bool TryAdd(Func<ImmutableList<T>, T> valueProvider) => this.TryOperation
                 (
                 currentItems =>
                     {
@@ -256,19 +255,19 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool TryAddRange(Func<ImmutableList<T>, IEnumerable<T>> valueProvider) => TryOperation
+        public bool TryAddRange(Func<ImmutableList<T>, IEnumerable<T>> valueProvider) => this.TryOperation
                 (
                 currentItems =>
                     currentItems.AddRange(valueProvider(currentItems))
                 );
 
-        public bool TryRemove(Func<ImmutableList<T>, T> valueProvider) => TryRemoveAt
+        public bool TryRemove(Func<ImmutableList<T>, T> valueProvider) => this.TryRemoveAt
                 (
                 currentItems =>
                     currentItems.IndexOf(valueProvider(currentItems))
                 );
 
-        public bool TryRemoveAt(Func<ImmutableList<T>, int> valueProvider) => TryOperation
+        public bool TryRemoveAt(Func<ImmutableList<T>, int> valueProvider) => this.TryOperation
                 (
                 currentItems =>
                     {
@@ -279,7 +278,7 @@ namespace VolumeControl.WPF.Collections
                     }
                 );
 
-        public bool TrySetItem(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => TryOperation
+        public bool TrySetItem(Func<ImmutableList<T>, KeyValuePair<int, T>> valueProvider) => this.TryOperation
                 (
                 currentItems =>
                     {
@@ -302,7 +301,7 @@ namespace VolumeControl.WPF.Collections
         public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
 
         /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion IEnumerable<T>
 
@@ -316,27 +315,27 @@ namespace VolumeControl.WPF.Collections
         public int Add(object? value)
         {
             var val = (T)value;
-            Add(val);
-            return IndexOf(val);
+            _ = this.Add(val);
+            return this.IndexOf(val);
         }
 
         /// <inheritdoc/>
-        public bool Contains(object value) => Contains((T)value);
+        public bool Contains(object value) => this.Contains((T)value);
 
         /// <inheritdoc/>
-        public int IndexOf(object value) => IndexOf((T)value);
+        public int IndexOf(object value) => this.IndexOf((T)value);
 
         /// <inheritdoc/>
-        public void Insert(int index, object value) => Insert(index, (T)value);
+        public void Insert(int index, object value) => this.Insert(index, (T)value);
 
         /// <inheritdoc/>
         public bool IsFixedSize => false;
 
         /// <inheritdoc/>
-        public void Remove(object value) => Remove((T)value);
+        public void Remove(object value) => this.Remove((T)value);
 
         /// <inheritdoc/>
-        void IList.RemoveAt(int index) => RemoveAt(index);
+        void IList.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
         object IList.this[int index]
@@ -345,7 +344,7 @@ namespace VolumeControl.WPF.Collections
             get => this[index];
 #           pragma warning restore CS8603 // Possible null reference return.
 #           pragma warning disable CS8769 // Nullability of reference types in type of parameter doesn't match implemented member (possibly because of nullability attributes).
-            set => SetItem(index, (T)value);
+            set => this.SetItem(index, (T)value);
 #           pragma warning restore CS8769 // Nullability of reference types in type of parameter doesn't match implemented member (possibly because of nullability attributes).
         }
 
@@ -356,7 +355,7 @@ namespace VolumeControl.WPF.Collections
         public bool IsSynchronized => false;
 
         /// <inheritdoc/>
-        public object SyncRoot => _syncRoot;
+        public object SyncRoot { get; }
 
         #endregion IList
 
@@ -366,26 +365,26 @@ namespace VolumeControl.WPF.Collections
         public int IndexOf(T item) => _items.IndexOf(item);
 
         /// <inheritdoc/>
-        void IList<T>.Insert(int index, T item) => Insert(index, item);
+        void IList<T>.Insert(int index, T item) => this.Insert(index, item);
 
         /// <inheritdoc/>
-        void IList<T>.RemoveAt(int index) => RemoveAt(index);
+        void IList<T>.RemoveAt(int index) => this.RemoveAt(index);
 
         /// <inheritdoc/>
         public T this[int index]
         {
             get => _items[index];
-            set => SetItem(index, value);
+            set => this.SetItem(index, value);
         }
 
         /// <inheritdoc/>
-        void ICollection<T>.Add(T item) => Add(item);
+        void ICollection<T>.Add(T item) => this.Add(item);
 
         /// <inheritdoc/>
-        void IList.Clear() => Clear();
+        void IList.Clear() => this.Clear();
 
         /// <inheritdoc/>
-        void ICollection<T>.Clear() => Clear();
+        void ICollection<T>.Clear() => this.Clear();
 
         /// <inheritdoc/>
         public bool Contains(T item) => _items.Contains(item);
@@ -406,7 +405,7 @@ namespace VolumeControl.WPF.Collections
                 return false;
 
             _items = _items.Remove(item);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return true;
         }
 
@@ -419,7 +418,7 @@ namespace VolumeControl.WPF.Collections
         {
             int index = _items.Count;
             _items = _items.Add(value);
-            RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
+            this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
             return this;
         }
 
@@ -427,7 +426,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> AddRange(IEnumerable<T> items)
         {
             _items = _items.AddRange(items);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -435,7 +434,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> Clear()
         {
             _items = _items.Clear();
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -446,7 +445,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> Insert(int index, T element)
         {
             _items = _items.Insert(index, element);
-            RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element, index));
+            this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element, index));
             return this;
         }
 
@@ -454,7 +453,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> InsertRange(int index, IEnumerable<T> items)
         {
             _items = _items.InsertRange(index, items);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -465,7 +464,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> Remove(T value, IEqualityComparer<T> equalityComparer)
         {
             int index = _items.IndexOf(value, equalityComparer);
-            RemoveAt(index);
+            _ = this.RemoveAt(index);
             return this;
         }
 
@@ -473,7 +472,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> RemoveAll(Predicate<T> match)
         {
             _items = _items.RemoveAll(match);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -482,7 +481,7 @@ namespace VolumeControl.WPF.Collections
         {
             T? value = _items[index];
             _items = _items.RemoveAt(index);
-            RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+            this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
             return this;
         }
 
@@ -490,7 +489,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> RemoveRange(int index, int count)
         {
             _items = _items.RemoveRange(index, count);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -498,7 +497,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T> equalityComparer)
         {
             _items = _items.RemoveRange(items, equalityComparer);
-            RaiseNotifyCollectionChanged();
+            this.RaiseNotifyCollectionChanged();
             return this;
         }
 
@@ -506,7 +505,7 @@ namespace VolumeControl.WPF.Collections
         public IImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T> equalityComparer)
         {
             int index = _items.IndexOf(oldValue, equalityComparer);
-            SetItem(index, newValue);
+            _ = this.SetItem(index, newValue);
             return this;
         }
 
@@ -515,7 +514,7 @@ namespace VolumeControl.WPF.Collections
         {
             T? oldItem = _items[index];
             _items = _items.SetItem(index, value);
-            RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, value, index));
+            this.RaiseNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem, value, index));
             return this;
         }
 

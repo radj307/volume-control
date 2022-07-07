@@ -13,9 +13,9 @@ namespace VolumeControl.Audio.Collections
         internal AudioSessionCollection(AudioDeviceCollection devices)
         {
             _devices = devices;
-            _devices.DeviceEnabledChanged += HandleDeviceEnabledChanged;
-            _devices.DeviceSessionCreated += HandleDeviceSessionCreated;
-            _devices.DeviceSessionRemoved += HandleDeviceSessionRemoved;
+            _devices.DeviceEnabledChanged += this.HandleDeviceEnabledChanged;
+            _devices.DeviceSessionCreated += this.HandleDeviceSessionCreated;
+            _devices.DeviceSessionRemoved += this.HandleDeviceSessionRemoved;
         }
         #endregion Constructor
 
@@ -31,26 +31,31 @@ namespace VolumeControl.Audio.Collections
                 if (device.Enabled)
                     this.AddIfUnique(session);
             }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceSessionCreated)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+            else
+            {
+                throw new InvalidOperationException($"{nameof(HandleDeviceSessionCreated)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+            }
         }
-        private void HandleDeviceSessionRemoved(object? sender, long pid)
-        {
-            if (sender is AudioDevice device)
-                Remove(pid);
-            else throw new InvalidOperationException($"{nameof(HandleDeviceSessionRemoved)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
-        }
+        private void HandleDeviceSessionRemoved(object? sender, long pid) => _ = sender is AudioDevice device
+                ? this.Remove(pid)
+                : throw new InvalidOperationException($"{nameof(HandleDeviceSessionRemoved)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
         private void HandleDeviceEnabledChanged(object? sender, bool state)
         {
             if (sender is AudioDevice device)
             {
                 if (state)
+                {
                     this.AddRangeIfUnique(device.Sessions);
+                }
                 else
                 { // DEVICE WAS DISABLED
-                    RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s));
+                    _ = this.RemoveAll(s => !s.PID.Equals(0) && device.Sessions.Contains(s));
                 }
             }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+            else
+            {
+                throw new InvalidOperationException($"{nameof(HandleDeviceEnabledChanged)} received a sender of type '{sender?.GetType().FullName}'; expected '{typeof(AudioDevice).FullName}'");
+            }
         }
         #endregion EventHandlers
 
@@ -60,16 +65,18 @@ namespace VolumeControl.Audio.Collections
         internal void RefreshFromDevices(params AudioDevice[] devices)
         {
             List<AudioSession> l = new();
-            foreach (var device in devices)
+            foreach (AudioDevice? device in devices)
+            {
                 if (device.Enabled && device.State.Equals(DeviceState.Active))
                     l.AddRangeIfUnique(device.Sessions);
+            }
 
-            RemoveAll(s => !l.Contains(s));
+            _ = this.RemoveAll(s => !l.Contains(s));
             this.AddRangeIfUnique(l.AsEnumerable());
         }
         /// <inheritdoc cref="RefreshFromDevices(AudioDevice[])"/>
         /// <remarks>This method uses the internal reference to <see cref="AudioDeviceCollection"/> instead of given devices.</remarks>
-        internal void RefreshFromDevices() => RefreshFromDevices(_devices.ToArray());
+        internal void RefreshFromDevices() => this.RefreshFromDevices(_devices.ToArray());
         /// <summary>
         /// Removes any sessions with the same process ID number as <paramref name="pid"/>.
         /// </summary>
@@ -77,11 +84,11 @@ namespace VolumeControl.Audio.Collections
         /// <returns><see langword="true"/> when a session was successfully removed from the list; otherwise <see langword="false"/>.</returns>
         public bool Remove(long pid)
         {
-            for (int i = Count - 1; i >= 0; --i)
+            for (int i = this.Count - 1; i >= 0; --i)
             {
                 if (this[i] is AudioSession session && session.PID.Equals(pid))
                 {
-                    RemoveAt(i);
+                    _ = this.RemoveAt(i);
                     return true;
                 }
             }

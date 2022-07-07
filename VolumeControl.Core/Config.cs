@@ -15,7 +15,7 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath) => this.PropertyChanged += (s, e) => this.Save();
+        public Config() : base(_filePath) => PropertyChanged += (s, e) => this.Save();
 
         // Default filepath used for the config file:
         private const string _filePath = "VolumeControl.json";

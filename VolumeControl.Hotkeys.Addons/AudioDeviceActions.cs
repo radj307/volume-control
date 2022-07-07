@@ -22,24 +22,24 @@ namespace VolumeControl.Hotkeys.Addons
         #endregion Properties
 
         #region DeviceSelection
-        public int GetDeviceVolume() => SelectedDevice?.EndpointVolume ?? -1;
+        public int GetDeviceVolume() => this.SelectedDevice?.EndpointVolume ?? -1;
         public void SetDeviceVolume(int volume)
         {
-            if (SelectedDevice is AudioDevice dev)
+            if (this.SelectedDevice is AudioDevice dev)
             {
                 dev.EndpointVolume = volume;
             }
         }
         public void IncrementDeviceVolume(int amount)
         {
-            if (SelectedDevice is AudioDevice dev)
+            if (this.SelectedDevice is AudioDevice dev)
             {
                 dev.EndpointVolume += amount;
             }
         }
         /// <remarks>This calls <see cref="IncrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
         /// <inheritdoc cref="IncrementDeviceVolume(int)"/>
-        public void IncrementDeviceVolume() => IncrementDeviceVolume(AudioAPI.VolumeStepSize);
+        public void IncrementDeviceVolume() => this.IncrementDeviceVolume(this.AudioAPI.VolumeStepSize);
         /// <summary>
         /// Decrements the endpoint volume of the currently selected device.<br/>
         /// This affects the maximum volume of all sessions using this endpoint.
@@ -47,19 +47,19 @@ namespace VolumeControl.Hotkeys.Addons
         /// <param name="amount">The amount to decrease the volume by.</param>
         public void DecrementDeviceVolume(int amount)
         {
-            if (SelectedDevice is AudioDevice dev)
+            if (this.SelectedDevice is AudioDevice dev)
             {
                 dev.EndpointVolume -= amount;
             }
         }
         /// <remarks>This calls <see cref="DecrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
         /// <inheritdoc cref="DecrementDeviceVolume(int)"/>
-        public void DecrementDeviceVolume() => DecrementDeviceVolume(AudioAPI.VolumeStepSize);
+        public void DecrementDeviceVolume() => this.DecrementDeviceVolume(this.AudioAPI.VolumeStepSize);
         /// <summary>
         /// Gets whether the <see cref="SelectedDevice"/> is currently muted.
         /// </summary>
         /// <returns>True if <see cref="SelectedDevice"/> is not null and is muted; otherwise false.</returns>
-        public bool GetDeviceMute() => SelectedDevice?.EndpointMuted ?? false;
+        public bool GetDeviceMute() => this.SelectedDevice?.EndpointMuted ?? false;
         /// <summary>
         /// Sets the mute state of <see cref="SelectedDevice"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
         /// </summary>
@@ -67,7 +67,7 @@ namespace VolumeControl.Hotkeys.Addons
         /// <param name="state">When true, the device will be muted; when false, the device will be unmuted.</param>
         public void SetDeviceMute(bool state)
         {
-            if (SelectedDevice is AudioDevice dev)
+            if (this.SelectedDevice is AudioDevice dev)
             {
                 dev.EndpointMuted = state;
             }
@@ -78,7 +78,7 @@ namespace VolumeControl.Hotkeys.Addons
         /// <remarks>Note that this affects all sessions using this device.</remarks>
         public void ToggleDeviceMute()
         {
-            if (SelectedDevice is AudioDevice dev)
+            if (this.SelectedDevice is AudioDevice dev)
             {
                 dev.EndpointMuted = !dev.EndpointMuted;
             }
@@ -91,19 +91,22 @@ namespace VolumeControl.Hotkeys.Addons
         /// <remarks>If <see cref="SelectedDevice"/> is set to null, the first element in <see cref="Devices"/> is selected.</remarks>
         public void SelectNextDevice()
         {
-            if (AudioAPI.Devices.Count == 0)
+            if (this.AudioAPI.Devices.Count == 0)
             {
-                if (SelectedDevice == null) return;
-                SelectedDevice = null;
+                if (this.SelectedDevice == null) return;
+                this.SelectedDevice = null;
             }
-            else if (SelectedDevice is AudioDevice device)
+            else if (this.SelectedDevice is AudioDevice device)
             {
-                int index = AudioAPI.Devices.IndexOf(device);
-                if (index == -1 || (index += 1) >= AudioAPI.Devices.Count)
+                int index = this.AudioAPI.Devices.IndexOf(device);
+                if (index == -1 || (index += 1) >= this.AudioAPI.Devices.Count)
                     index = 0;
-                SelectedDevice = AudioAPI.Devices[index];
+                this.SelectedDevice = this.AudioAPI.Devices[index];
             }
-            else SelectedDevice = AudioAPI.Devices[0];
+            else
+            {
+                this.SelectedDevice = this.AudioAPI.Devices[0];
+            }
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to the device occurring before this one in <see cref="Devices"/>.
@@ -113,19 +116,22 @@ namespace VolumeControl.Hotkeys.Addons
         /// <remarks>If <see cref="SelectedDevice"/> is set to null, the last element in <see cref="Devices"/> is selected.</remarks>
         public void SelectPreviousDevice()
         {
-            if (AudioAPI.Devices.Count == 0)
+            if (this.AudioAPI.Devices.Count == 0)
             {
-                if (SelectedDevice == null) return;
-                SelectedDevice = null;
+                if (this.SelectedDevice == null) return;
+                this.SelectedDevice = null;
             }
-            else if (SelectedDevice is AudioDevice device)
+            else if (this.SelectedDevice is AudioDevice device)
             {
-                int index = AudioAPI.Devices.IndexOf(device);
+                int index = this.AudioAPI.Devices.IndexOf(device);
                 if (index == -1 || (index -= 1) < 0)
-                    index = AudioAPI.Devices.Count - 1;
-                SelectedDevice = AudioAPI.Devices[index];
+                    index = this.AudioAPI.Devices.Count - 1;
+                this.SelectedDevice = this.AudioAPI.Devices[index];
             }
-            else SelectedDevice = AudioAPI.Devices[^1];
+            else
+            {
+                this.SelectedDevice = this.AudioAPI.Devices[^1];
+            }
         }
         /// <summary>
         /// Sets <see cref="SelectedDevice"/> to <see langword="null"/>.<br/>
@@ -135,10 +141,10 @@ namespace VolumeControl.Hotkeys.Addons
         /// <returns><see langword="true"/> when the selected device was set to null &amp; the <see cref="SelectedDeviceSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
         public bool DeselectDevice()
         {
-            if (SelectedDevice == null)
+            if (this.SelectedDevice == null)
                 return false;
 
-            SelectedDevice = null;
+            this.SelectedDevice = null;
             return true;
         }
         /// <summary>
@@ -148,9 +154,9 @@ namespace VolumeControl.Hotkeys.Addons
         /// <returns><see langword="true"/> when <see cref="SelectedDevice"/> was changed &amp; the <see cref="SelectedDeviceSwitched"/> event was fired; otherwise <see langword="false"/>.</returns>
         public bool SelectDefaultDevice()
         {
-            if (AudioAPI.DefaultDevice is AudioDevice device && SelectedDevice != device)
+            if (this.AudioAPI.DefaultDevice is AudioDevice device && this.SelectedDevice != device)
             {
-                SelectedDevice = device;
+                this.SelectedDevice = device;
                 return true;
             }
             return false;
@@ -162,23 +168,23 @@ namespace VolumeControl.Hotkeys.Addons
         private const string GroupName = "Device";
 
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the next device in the list.")]
-        public void SelectNext(object? sender, HandledEventArgs e) => SelectNextDevice();
+        public void SelectNext(object? sender, HandledEventArgs e) => this.SelectNextDevice();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the previous device in the list.")]
-        public void SelectPrevious(object? sender, HandledEventArgs e) => SelectPreviousDevice();
+        public void SelectPrevious(object? sender, HandledEventArgs e) => this.SelectPreviousDevice();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Deselects the selected device.")]
-        public void Deselect(object? sender, HandledEventArgs e) => DeselectDevice();
+        public void Deselect(object? sender, HandledEventArgs e) => this.DeselectDevice();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Selects the default output device in the list.")]
-        public void SelectDefault(object? sender, HandledEventArgs e) => SelectDefaultDevice();
+        public void SelectDefault(object? sender, HandledEventArgs e) => this.SelectDefaultDevice();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Increases the device volume of the selected device.")]
-        public void VolumeUp(object? sender, HandledEventArgs e) => IncrementDeviceVolume();
+        public void VolumeUp(object? sender, HandledEventArgs e) => this.IncrementDeviceVolume();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Decreases the device volume of the selected device.")]
-        public void VolumeDown(object? sender, HandledEventArgs e) => DecrementDeviceVolume();
+        public void VolumeDown(object? sender, HandledEventArgs e) => this.DecrementDeviceVolume();
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Mutes the selected device.")]
-        public void Mute(object? sender, HandledEventArgs e) => SetDeviceMute(true);
+        public void Mute(object? sender, HandledEventArgs e) => this.SetDeviceMute(true);
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Unmutes the selected device.")]
-        public void Unmute(object? sender, HandledEventArgs e) => SetDeviceMute(false);
+        public void Unmute(object? sender, HandledEventArgs e) => this.SetDeviceMute(false);
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Toggles the selected device's mute state.")]
-        public void ToggleMute(object? sender, HandledEventArgs e) => ToggleDeviceMute();
+        public void ToggleMute(object? sender, HandledEventArgs e) => this.ToggleDeviceMute();
         #endregion Actions
     }
 }

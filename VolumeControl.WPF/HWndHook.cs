@@ -13,7 +13,7 @@ namespace VolumeControl.WPF
     {
         /// <inheritdoc cref="HWndHook"/>
         /// <param name="hWndSource">The main window's <see cref="HwndSource"/> object.</param>
-        public HWndHook(HwndSource hWndSource) => SetSource(hWndSource);
+        public HWndHook(HwndSource hWndSource) => this.SetSource(hWndSource);
         /// <inheritdoc cref="HWndHook"/>
         public HWndHook() { }
 
@@ -36,12 +36,16 @@ namespace VolumeControl.WPF
         {
             if (_source != null)
             {
-                DetachAll();
+                this.DetachAll();
                 Log.Debug($"{caller} is replacing the hook source '{_source.Handle}' with '{src.Handle}'");
             }
-            else Log.Debug($"{caller} is setting the hook source to '{src.Handle}' (Was null)");
+            else
+            {
+                Log.Debug($"{caller} is setting the hook source to '{src.Handle}' (Was null)");
+            }
+
             _source = src;
-            AttachAll();
+            this.AttachAll();
         }
 
         /// <summary>
@@ -51,8 +55,8 @@ namespace VolumeControl.WPF
         /// <param name="caller">Used for logging purposes.</param>
         public void AddHook(HwndSourceHook hook, [CallerMemberName] string caller = "")
         {
-            Hooks.Add(hook);
-            Attach(hook);
+            this.Hooks.Add(hook);
+            this.Attach(hook);
             Log.Debug($"Attached a message hook from '{caller}'.");
         }
         /// <summary>
@@ -62,15 +66,18 @@ namespace VolumeControl.WPF
         /// <param name="caller">Used for logging purposes.</param>
         public void RemoveHook(HwndSourceHook hook, [CallerMemberName] string caller = "")
         {
-            int i = Hooks.IndexOf(hook);
+            int i = this.Hooks.IndexOf(hook);
             if (i != -1)
             {
-                var inst = Hooks[i];
-                Detach(inst);
-                Hooks.RemoveAt(i);
+                HwndSourceHook? inst = this.Hooks[i];
+                this.Detach(inst);
+                this.Hooks.RemoveAt(i);
                 Log.Debug($"{caller} removed a message hook.");
             }
-            else Log.Warning($"{caller} attempted to remove a message hook that doesn't exist!");
+            else
+            {
+                Log.Warning($"{caller} attempted to remove a message hook that doesn't exist!");
+            }
         }
 
         private void Attach(HwndSourceHook hook)
@@ -79,7 +86,10 @@ namespace VolumeControl.WPF
             {
                 Log.Error($"Cannot attach {hook.Method} to a null source!");
             }
-            else _source.AddHook(hook);
+            else
+            {
+                _source.AddHook(hook);
+            }
         }
         private void Detach(HwndSourceHook hook)
         {
@@ -87,16 +97,19 @@ namespace VolumeControl.WPF
             {
                 Log.Error($"Cannot detach {hook.Method} from a null source!");
             }
-            else _source.RemoveHook(hook);
+            else
+            {
+                _source.RemoveHook(hook);
+            }
         }
 
-        private void AttachAll() => Hooks.ForEach(hook => Attach(hook));
-        private void DetachAll() => Hooks.ForEach(hook => Detach(hook));
+        private void AttachAll() => this.Hooks.ForEach(hook => this.Attach(hook));
+        private void DetachAll() => this.Hooks.ForEach(hook => this.Detach(hook));
 
         /// <inheritdoc/>
         public void Dispose()
         {
-            DetachAll();
+            this.DetachAll();
             _source?.Dispose();
             GC.SuppressFinalize(this);
         }

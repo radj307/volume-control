@@ -22,7 +22,7 @@ namespace VolumeControl.Helpers.Addon
         {
             _settings = settings;
             _currentVersion = _settings.CurrentVersion;
-            AddonDirectories = GetAddonDirectories().Where(d => Directory.Exists(d)).ToList();
+            this.AddonDirectories = GetAddonDirectories().Where(d => Directory.Exists(d)).ToList();
         }
         #endregion Initializers
 
@@ -57,12 +57,12 @@ namespace VolumeControl.Helpers.Addon
         /// <param name="addons">Any enumerable type containing <see cref="BaseAddon"/>-derived types.</param>
         public void LoadAddons(ref List<IBaseAddon> addons)
         {
-            if (AddonDirectories.Count > 0)
+            if (this.AddonDirectories.Count > 0)
             {
-                Log.Debug($"Searching for addon assemblies in {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}.");
+                Log.Debug($"Searching for addon assemblies in {this.AddonDirectories.Count} director{(this.AddonDirectories.Count == 1 ? "y" : "ies")}.");
                 int asmCount = 0,
                     totalCount = 0;
-                foreach (string dir in AddonDirectories)
+                foreach (string dir in this.AddonDirectories)
                 {
                     if (!Directory.Exists(dir))
                     {
@@ -103,9 +103,15 @@ namespace VolumeControl.Helpers.Addon
                                         cfg.Save();
                                         cfg.Reload();
                                     }
-                                    else Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
+                                    else
+                                    {
+                                        Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
+                                    }
                                 }
-                                else Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
+                                else
+                                {
+                                    Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
+                                }
                             }
 
                             int typeCount = LoadAddonTypes(ref addons, asm, _currentVersion);
@@ -128,11 +134,14 @@ namespace VolumeControl.Helpers.Addon
                     }
                 }
 
-                Log.Debug($"Loaded {asmCount}/{totalCount} assemblies from {AddonDirectories.Count} director{(AddonDirectories.Count == 1 ? "y" : "ies")}");
+                Log.Debug($"Loaded {asmCount}/{totalCount} assemblies from {this.AddonDirectories.Count} director{(this.AddonDirectories.Count == 1 ? "y" : "ies")}");
             }
-            else Log.Debug($"Skipped loading addons because no search directories were located.");
+            else
+            {
+                Log.Debug($"Skipped loading addons because no search directories were located.");
+            }
             // initialize addons
-            foreach (var addon in addons)
+            foreach (IBaseAddon? addon in addons)
             {
                 addon.LoadFromTypes();
                 Log.Debug($"Initialized {addon.Attribute.Name}");
@@ -150,7 +159,7 @@ namespace VolumeControl.Helpers.Addon
             foreach (Type type in asm.GetTypes())
             {
                 // iterate through addons in the list for each type
-                foreach (var addon in addons)
+                foreach (IBaseAddon? addon in addons)
                 {
                     // check for valid addon attributes
                     if (type.GetCustomAttribute(addon.Attribute) is IBaseAddonAttribute bAttr)
@@ -212,10 +221,15 @@ namespace VolumeControl.Helpers.Addon
                         Log.Debug($"Successfully added custom addon search directory '{path}'");
                     }
                     else
+                    {
                         Log.Debug($"'{nameof(Settings.CustomAddonDirectories)}' contains an item that wasn't found: '{path}'!");
+                    }
                 }
             }
-            else Log.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
+            else
+            {
+                Log.Debug($"{nameof(Settings.CustomAddonDirectories)} is null.");
+            }
 
             return l;
         }

@@ -24,12 +24,12 @@ namespace VolumeControl.Helpers.Controls
 
             DynamicButton = new System.Windows.Forms.ToolStripButton("Temp", Resources.reload)
             {
-                
+
             };//< this is a placeholder that is dynamically swapped out later
-            _contextMenu.Items.Add(DynamicButton);
-            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Bring to Front", Resources.bringtofront, ForwardBringToFrontClicked));
-            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-            _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Close", Resources.X, ForwardCloseButtonClicked));
+            _ = _contextMenu.Items.Add(DynamicButton);
+            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Bring to Front", Resources.bringtofront, this.ForwardBringToFrontClicked));
+            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
+            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Close", Resources.X, this.ForwardCloseButtonClicked));
 
             _notifyIcon = new()
             {
@@ -39,14 +39,14 @@ namespace VolumeControl.Helpers.Controls
                 ContextMenuStrip = _contextMenu,
             };
 
-            _notifyIcon.MouseUp += ForwardClicked;
+            _notifyIcon.MouseUp += this.ForwardClicked;
 
-            _contextMenu.VisibleChanged += HandleContextMenuVisibleChanged;
+            _contextMenu.VisibleChanged += this.HandleContextMenuVisibleChanged;
         }
         #endregion Constructors
 
         #region Finalizer
-        ~NotifyIcon() { Dispose(); }
+        ~NotifyIcon() { this.Dispose(); }
         #endregion Finalizer
 
         #region Delegates
@@ -105,8 +105,8 @@ namespace VolumeControl.Helpers.Controls
                 _contextMenu.SuspendLayout();
                 DynamicButton.Text = "Hide";
                 DynamicButton.Image = Resources.background;
-                DynamicButton.Click -= ForwardShowClicked;
-                DynamicButton.Click += ForwardHideClicked;
+                DynamicButton.Click -= this.ForwardShowClicked;
+                DynamicButton.Click += this.ForwardHideClicked;
                 _contextMenu.Refresh();
                 _contextMenu.ResumeLayout();
             }
@@ -115,8 +115,8 @@ namespace VolumeControl.Helpers.Controls
                 _contextMenu.SuspendLayout();
                 DynamicButton.Text = "Show";
                 DynamicButton.Image = Resources.foreground;
-                DynamicButton.Click -= ForwardHideClicked;
-                DynamicButton.Click += ForwardShowClicked;
+                DynamicButton.Click -= this.ForwardHideClicked;
+                DynamicButton.Click += this.ForwardShowClicked;
                 _contextMenu.Refresh();
                 _contextMenu.ResumeLayout();
             }

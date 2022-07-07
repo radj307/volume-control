@@ -37,7 +37,7 @@
         /// <param name="outRangeMax">The minimum boundary of the output range.</param>
         /// <returns>Equivalent value of <paramref name="input"/> were it to be within the range ( <paramref name="outRangeMin"/> - <paramref name="outRangeMax"/> )</returns>
         public static int Scale(int input, int inRangeMin, int inRangeMax, int outRangeMin, int outRangeMax)
-            => outRangeMin + (input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin);
+            => outRangeMin + ((input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin));
         /// <summary>
         /// Accepts <paramref name="input"/>, a number in the range ( <paramref name="inRange"/>.Item1 - <paramref name="inRange"/>.Item2 ), and translates it to be within the range ( <paramref name="outRange"/>.Item1 - <paramref name="outRange"/>.Item2 ).
         /// </summary>
@@ -57,7 +57,7 @@
         /// <param name="outRangeMax">The minimum boundary of the output range.</param>
         /// <returns>Equivalent value of <paramref name="input"/> were it to be within the range ( <paramref name="outRangeMin"/> - <paramref name="outRangeMax"/> )</returns>
         public static long Scale(long input, long inRangeMin, long inRangeMax, long outRangeMin, long outRangeMax)
-            => outRangeMin + (input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin);
+            => outRangeMin + ((input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin));
         /// <summary>
         /// Accepts <paramref name="input"/>, a number in the range ( <paramref name="inRange"/>.Item1 - <paramref name="inRange"/>.Item2 ), and translates it to be within the range ( <paramref name="outRange"/>.Item1 - <paramref name="outRange"/>.Item2 ).
         /// </summary>
@@ -79,7 +79,7 @@
         /// <param name="outRangeMax">The minimum boundary of the output range.</param>
         /// <returns>Equivalent value of <paramref name="input"/> were it to be within the range ( <paramref name="outRangeMin"/> - <paramref name="outRangeMax"/> )</returns>
         public static float Scale(float input, float inRangeMin, float inRangeMax, float outRangeMin, float outRangeMax)
-            => outRangeMin + (input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin);
+            => outRangeMin + ((input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin));
         /// <summary>
         /// Accepts <paramref name="input"/>, a number in the range ( <paramref name="inRange"/>.Item1 - <paramref name="inRange"/>.Item2 ), and translates it to be within the range ( <paramref name="outRange"/>.Item1 - <paramref name="outRange"/>.Item2 ).
         /// </summary>
@@ -99,7 +99,7 @@
         /// <param name="outRangeMax">The minimum boundary of the output range.</param>
         /// <returns>Equivalent value of <paramref name="input"/> were it to be within the range ( <paramref name="outRangeMin"/> - <paramref name="outRangeMax"/> )</returns>
         public static double Scale(double input, double inRangeMin, double inRangeMax, double outRangeMin, double outRangeMax)
-            => outRangeMin + (input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin);
+            => outRangeMin + ((input - inRangeMin) * (outRangeMax - outRangeMin) / (inRangeMax - inRangeMin));
         /// <summary>
         /// Accepts <paramref name="input"/>, a number in the range ( <paramref name="inRange"/>.Item1 - <paramref name="inRange"/>.Item2 ), and translates it to be within the range ( <paramref name="outRange"/>.Item1 - <paramref name="outRange"/>.Item2 ).
         /// </summary>

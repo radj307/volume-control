@@ -1,11 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
@@ -25,22 +23,22 @@ namespace VolumeControl
         #region Init
         public Mixer()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            ShowInTaskbar = Settings.ShowInTaskbar;
-            Topmost = Settings.AlwaysOnTop;
+            this.ShowInTaskbar = Settings.ShowInTaskbar;
+            this.Topmost = Settings.AlwaysOnTop;
         }
 
         private void Window_Initialized(object sender, EventArgs e)
         {
             if (Settings.StartMinimized)
             {
-                WindowState = WindowState.Minimized;
+                this.WindowState = WindowState.Minimized;
             }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            HotkeyAPI.Dispose();
+            this.HotkeyAPI.Dispose();
             // Save Log Settings
             LogSettings.Save();
             LogSettings.Reload();
@@ -50,10 +48,10 @@ namespace VolumeControl
         #endregion Init
 
         #region Properties
-        private ListNotification ListNotification => (FindResource("Notification") as ListNotification)!;
-        private VolumeControlSettings VCSettings => (FindResource("Settings") as VolumeControlSettings)!;
-        private AudioAPI AudioAPI => VCSettings.AudioAPI;
-        private HotkeyManager HotkeyAPI => VCSettings.HotkeyAPI;
+        private ListNotification ListNotification => (this.FindResource("Notification") as ListNotification)!;
+        private VolumeControlSettings VCSettings => (this.FindResource("Settings") as VolumeControlSettings)!;
+        private AudioAPI AudioAPI => this.VCSettings.AudioAPI;
+        private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
         private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
@@ -71,44 +69,35 @@ namespace VolumeControl
 
         #region EventHandlers
         /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadDevicesClick(object sender, RoutedEventArgs e)
-        {
-            AudioAPI.ForceReloadAudioDevices();
-        }
+        private void Handle_ReloadDevicesClick(object sender, RoutedEventArgs e) => this.AudioAPI.ForceReloadAudioDevices();
         /// <summary>Handles the reload session list button's click event.</summary>
-        private void Handle_ReloadSessionsClick(object sender, RoutedEventArgs e)
-        {
-            AudioAPI.ForceReloadSessionList();
-        }
+        private void Handle_ReloadSessionsClick(object sender, RoutedEventArgs e) => this.AudioAPI.ForceReloadSessionList();
 
         /// <summary>Handles the Select process button's click event.</summary>
         private void Handle_ProcessSelectClick(object sender, RoutedEventArgs e)
         {
             if (MixerGrid.CurrentCell.Item is AudioSession session)
             {
-                AudioAPI.SelectedSession = session;
+                this.AudioAPI.SelectedSession = session;
             }
         }
         /// <summary>Handles the create new hotkey button's click event.</summary>
-        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e)
-        {
-            HotkeyAPI.AddHotkey();
-        }
+        private void Handle_CreateNewHotkeyClick(object sender, RoutedEventArgs e) => this.HotkeyAPI.AddHotkey();
 
         /// <summary>Handles the remove hotkey button's click event.</summary>
         private void Handle_HotkeyGridRemoveClick(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.CommandParameter is int id)
             {
-                HotkeyAPI.DelHotkey(id);
+                this.HotkeyAPI.DelHotkey(id);
             }
         }
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
-        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => VCSettings.ResetHotkeySettings();
+        private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
 
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
-            string myDir = Path.GetDirectoryName(VCSettings.ExecutablePath) ?? string.Empty;
+            string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;
             if (Path.GetDirectoryName(LogFilePath) is not string initial || initial.Length == 0)
             {
                 initial = myDir;
@@ -122,7 +111,7 @@ namespace VolumeControl
                 Title = "Choose a location to save the log file.",
                 FileName = LogFilePath
             };
-            sfd.ShowDialog(this);
+            _ = sfd.ShowDialog(this);
             string path = Path.GetRelativePath(myDir, sfd.FileName);
             if (!path.Equals(logPath.Text, StringComparison.Ordinal))
             {
@@ -133,19 +122,19 @@ namespace VolumeControl
         {
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
             {
-                LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
+                LogSettings.LogAllowedEventTypeFlag = (uint)(this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
             }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ListNotification? lnotif = ListNotification;
+            ListNotification? lnotif = this.ListNotification;
             lnotif.Owner = this;
 
-            AudioAPI.SelectedSessionSwitched += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
-            AudioAPI.LockSelectedSessionChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions);
-            AudioAPI.SelectedSessionVolumeChanged += (s, e) => ListNotification.HandleShow(DisplayTarget.Sessions, false);
+            this.AudioAPI.SelectedSessionSwitched += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
+            this.AudioAPI.LockSelectedSessionChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions);
+            this.AudioAPI.SelectedSessionVolumeChanged += (s, e) => this.ListNotification.HandleShow(DisplayTarget.Sessions, false);
 
-            Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {AudioAPI} events.");
+            Log.Debug($"Finished binding event handler method '{nameof(ListNotification.HandleShow)}' to {this.AudioAPI} events.");
         }
         private void Handle_TargetNameBoxDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -155,13 +144,15 @@ namespace VolumeControl
         private void Handle_ThreeStateCheckboxClick(object sender, RoutedEventArgs e)
         { // this prevents the user from being able to set the checkbox to indeterminate directly
             if (e.Source is CheckBox cb)
+            {
                 if (!cb.IsChecked.HasValue)
                     cb.IsChecked = false;
+            }
         }
-        private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => Hide();
-        private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => WindowState = WindowState.Maximized;
-        private void Handle_CloseClick(object sender, RoutedEventArgs e) => Close();
-        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.CheckNow();
+        private void Handle_MinimizeClick(object sender, RoutedEventArgs e) => this.Hide();
+        private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
+        private void Handle_CloseClick(object sender, RoutedEventArgs e) => this.Close();
+        private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckNow();
         private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => Updater.OpenBrowser(Updater._htmlURLLatest);
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -173,9 +164,9 @@ namespace VolumeControl
                 if (i.Equals(-1))
                     return;
 
-                var item = cmb.Items[i];
+                object? item = cmb.Items[i];
 
-                if (TryFindResource("KeyOptions") is KeyOptions keys && keys.Contains(item))
+                if (this.TryFindResource("KeyOptions") is KeyOptions keys && keys.Contains(item))
                 {
                     cmb.SelectedItem = e.Key;
                     e.Handled = true;

@@ -21,28 +21,28 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VCSettings)} initializing...");
 
             // Initialize the HWndHook
-            HWndHook = new(WindowHandleGetter.GetHwndSource(MainWindowHandle = WindowHandleGetter.GetWindowHandle()));
-            HWndHook.AddMaximizeBugFixHandler();
+            this.HWndHook = new(WindowHandleGetter.GetHwndSource(this.MainWindowHandle = WindowHandleGetter.GetWindowHandle()));
+            this.HWndHook.AddMaximizeBugFixHandler();
 
             // Get the executing assembly
             var asm = Assembly.GetExecutingAssembly();
 
             // Get the executable path
 
-            ExecutablePath = GetExecutablePath();
-            Log.Debug($"{nameof(VCSettings)}.{nameof(ExecutablePath)} = '{ExecutablePath}'");
+            this.ExecutablePath = GetExecutablePath();
+            Log.Debug($"{nameof(VCSettings)}.{nameof(this.ExecutablePath)} = '{this.ExecutablePath}'");
 
             // Get the current version number & release type
-            CurrentVersionString = asm.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
-            CurrentVersion = CurrentVersionString.GetSemVer() ?? new(0, 0, 0);
-            ReleaseType = asm.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
-            Log.Debug($"{nameof(VCSettings)}.{nameof(CurrentVersion)} = '{CurrentVersionString}'");
-            Log.Debug($"{nameof(VCSettings)}.{nameof(ReleaseType)} = '{ReleaseType}'");
+            this.CurrentVersionString = asm.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
+            this.CurrentVersion = this.CurrentVersionString.GetSemVer() ?? new(0, 0, 0);
+            this.ReleaseType = asm.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
+            Log.Debug($"{nameof(VCSettings)}.{nameof(this.CurrentVersion)} = '{this.CurrentVersionString}'");
+            Log.Debug($"{nameof(VCSettings)}.{nameof(this.ReleaseType)} = '{this.ReleaseType}'");
 
-            RunAtStartup = RunAtStartupHelper.ValueEquals(ExecutablePath);
+            this.RunAtStartup = RunAtStartupHelper.ValueEquals(this.ExecutablePath);
 
             // Set the notification mode
-            NotificationMode = DisplayTarget.Sessions;
+            this.NotificationMode = DisplayTarget.Sessions;
 
             Log.Debug($"{nameof(VCSettings)} initialization completed.");
         }
@@ -88,14 +88,11 @@ namespace VolumeControl.Helpers
         /// <inheritdoc cref="Config.RunAtStartup"/>
         public bool RunAtStartup
         {
-            get => Settings.RunAtStartup && RunAtStartupHelper.ValueEquals(ExecutablePath);
+            get => Settings.RunAtStartup && RunAtStartupHelper.ValueEquals(this.ExecutablePath);
             set
             {
                 bool state = Settings.RunAtStartup = value;
-                if (state)
-                    RunAtStartupHelper.Value = ExecutablePath;
-                else // remove the registry value:
-                    RunAtStartupHelper.Value = null;
+                RunAtStartupHelper.Value = state ? this.ExecutablePath : null;
             }
         }
         /// <inheritdoc/>
@@ -131,8 +128,8 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public DisplayTarget NotificationMode
         {
-            get;
-            set;
+            get => Settings.NotificationMode;
+            set => Settings.NotificationMode = value;
         }
         /// <inheritdoc/>
         public bool NotificationShowsVolumeChange
@@ -150,12 +147,9 @@ namespace VolumeControl.Helpers
         #endregion Events
 
         #region Methods
-        private static string GetExecutablePath()
-        {
-            if (Process.GetCurrentProcess().MainModule?.FileName is string path)
-                return path;
-            else throw new Exception($"{nameof(VCSettings)} Error:  Retrieving the current executable path failed!");
-        }
+        private static string GetExecutablePath() => Process.GetCurrentProcess().MainModule?.FileName is string path
+                ? path
+                : throw new Exception($"{nameof(VCSettings)} Error:  Retrieving the current executable path failed!");
         #endregion Methods
     }
 }

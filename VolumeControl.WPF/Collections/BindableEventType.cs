@@ -29,7 +29,7 @@ namespace VolumeControl.WPF.Collections
             {
                 _parent = parent;
                 _ev = ev;
-                Name = Enum.GetName(typeof(EventType), _ev) ?? string.Empty;
+                this.Name = Enum.GetName(typeof(EventType), _ev) ?? string.Empty;
             }
             #endregion Constructor
 
@@ -58,7 +58,7 @@ namespace VolumeControl.WPF.Collections
                         _parent.Value |= _ev;
                     else
                         _parent.Value &= ~_ev;
-                    NotifyPropertyChanged();
+                    this.NotifyPropertyChanged();
                 }
             }
             #endregion Properties
@@ -70,15 +70,15 @@ namespace VolumeControl.WPF.Collections
         public BindableEventType()
         {
             _value = EventType.NONE;
-            InitializeOptions();
-            Options.CollectionChanged += ForwardCollectionChanged;
+            this.InitializeOptions();
+            this.Options.CollectionChanged += this.ForwardCollectionChanged;
         }
         /// <inheritdoc cref="BindableEventType"/>
         public BindableEventType(EventType ev)
         {
             _value = ev;
-            InitializeOptions();
-            Options.CollectionChanged += ForwardCollectionChanged;
+            this.InitializeOptions();
+            this.Options.CollectionChanged += this.ForwardCollectionChanged;
         }
         #endregion Constructors
 
@@ -96,9 +96,9 @@ namespace VolumeControl.WPF.Collections
 
         #region Indexers
         /// <inheritdoc/>
-        public BindableEventTypeFlag this[int index] { get => ((IList<BindableEventTypeFlag>)Options)[index]; set => ((IList<BindableEventTypeFlag>)Options)[index] = value; }
+        public BindableEventTypeFlag this[int index] { get => ((IList<BindableEventTypeFlag>)this.Options)[index]; set => ((IList<BindableEventTypeFlag>)this.Options)[index] = value; }
         /// <inheritdoc/>
-        object? IList.this[int index] { get => ((IList)Options)[index]; set => ((IList)Options)[index] = value; }
+        object? IList.this[int index] { get => ((IList)this.Options)[index]; set => ((IList)this.Options)[index] = value; }
         #endregion Indexers
 
         #region Fields
@@ -108,7 +108,7 @@ namespace VolumeControl.WPF.Collections
         #region Properties
         /// <summary>Gets the formatted name of the current bitfield combination.</summary>
         /// <remarks>This may include <see cref="EventType.NONE"/>, <see cref="EventType.ALL_EXCEPT_DEBUG"/>, <see cref="EventType.ALL"/>, or a combination of other values.</remarks>
-        public string Name => $"{Value:G}";
+        public string Name => $"{this.Value:G}";
         /// <summary>Gets or sets the bitfield flag value.</summary>
         public EventType Value
         {
@@ -116,7 +116,7 @@ namespace VolumeControl.WPF.Collections
             set
             {
                 _value = value;
-                NotifyPropertyChanged();
+                this.NotifyPropertyChanged();
             }
         }
         /// <summary>
@@ -125,19 +125,19 @@ namespace VolumeControl.WPF.Collections
         public ObservableList<BindableEventTypeFlag> Options { get; } = new();
 
         /// <inheritdoc/>
-        public int Count => ((ICollection<BindableEventTypeFlag>)Options).Count;
+        public int Count => ((ICollection<BindableEventTypeFlag>)this.Options).Count;
 
         /// <inheritdoc/>
-        public bool IsReadOnly => ((ICollection<BindableEventTypeFlag>)Options).IsReadOnly;
+        public bool IsReadOnly => ((ICollection<BindableEventTypeFlag>)this.Options).IsReadOnly;
 
         /// <inheritdoc/>
-        public bool IsSynchronized => ((ICollection)Options).IsSynchronized;
+        public bool IsSynchronized => ((ICollection)this.Options).IsSynchronized;
 
         /// <inheritdoc/>
-        public object SyncRoot => ((ICollection)Options).SyncRoot;
+        public object SyncRoot => ((ICollection)this.Options).SyncRoot;
 
         /// <inheritdoc/>
-        public bool IsFixedSize => ((IList)Options).IsFixedSize;
+        public bool IsFixedSize => ((IList)this.Options).IsFixedSize;
         #endregion Properties
 
         #region Methods
@@ -149,46 +149,46 @@ namespace VolumeControl.WPF.Collections
             foreach (EventType e in (EventType[])Enum.GetValues(typeof(EventType)))
             {
                 int eval = (int)e;
-                if (eval == 1 || eval != 0 && eval % 2 == 0)
+                if (eval == 1 || (eval != 0 && eval % 2 == 0))
                 {
                     double exponent = Math.Log2(eval);
                     if (exponent.EqualsWithin((int)exponent))
-                        Options.Add(new(this, e));
+                        this.Options.Add(new(this, e));
                 }
             }
         }
         /// <inheritdoc/>
-        public void Add(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)Options).Add(item);
+        public void Add(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)this.Options).Add(item);
         /// <inheritdoc/>
-        public int Add(object? value) => ((IList)Options).Add(value);
+        public int Add(object? value) => ((IList)this.Options).Add(value);
         /// <inheritdoc/>
-        public void Clear() => ((ICollection<BindableEventTypeFlag>)Options).Clear();
+        public void Clear() => ((ICollection<BindableEventTypeFlag>)this.Options).Clear();
         /// <inheritdoc/>
-        public bool Contains(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)Options).Contains(item);
+        public bool Contains(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)this.Options).Contains(item);
         /// <inheritdoc/>
-        public bool Contains(object? value) => ((IList)Options).Contains(value);
+        public bool Contains(object? value) => ((IList)this.Options).Contains(value);
         /// <inheritdoc/>
-        public void CopyTo(BindableEventTypeFlag[] array, int arrayIndex) => ((ICollection<BindableEventTypeFlag>)Options).CopyTo(array, arrayIndex);
+        public void CopyTo(BindableEventTypeFlag[] array, int arrayIndex) => ((ICollection<BindableEventTypeFlag>)this.Options).CopyTo(array, arrayIndex);
         /// <inheritdoc/>
-        public void CopyTo(Array array, int index) => ((ICollection)Options).CopyTo(array, index);
+        public void CopyTo(Array array, int index) => ((ICollection)this.Options).CopyTo(array, index);
         /// <inheritdoc/>
-        public IEnumerator<BindableEventTypeFlag> GetEnumerator() => ((IEnumerable<BindableEventTypeFlag>)Options).GetEnumerator();
+        public IEnumerator<BindableEventTypeFlag> GetEnumerator() => ((IEnumerable<BindableEventTypeFlag>)this.Options).GetEnumerator();
         /// <inheritdoc/>
-        public int IndexOf(BindableEventTypeFlag item) => ((IList<BindableEventTypeFlag>)Options).IndexOf(item);
+        public int IndexOf(BindableEventTypeFlag item) => ((IList<BindableEventTypeFlag>)this.Options).IndexOf(item);
         /// <inheritdoc/>
-        public int IndexOf(object? value) => ((IList)Options).IndexOf(value);
+        public int IndexOf(object? value) => ((IList)this.Options).IndexOf(value);
         /// <inheritdoc/>
-        public void Insert(int index, BindableEventTypeFlag item) => ((IList<BindableEventTypeFlag>)Options).Insert(index, item);
+        public void Insert(int index, BindableEventTypeFlag item) => ((IList<BindableEventTypeFlag>)this.Options).Insert(index, item);
         /// <inheritdoc/>
-        public void Insert(int index, object? value) => ((IList)Options).Insert(index, value);
+        public void Insert(int index, object? value) => ((IList)this.Options).Insert(index, value);
         /// <inheritdoc/>
-        public bool Remove(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)Options).Remove(item);
+        public bool Remove(BindableEventTypeFlag item) => ((ICollection<BindableEventTypeFlag>)this.Options).Remove(item);
         /// <inheritdoc/>
-        public void Remove(object? value) => ((IList)Options).Remove(value);
+        public void Remove(object? value) => ((IList)this.Options).Remove(value);
         /// <inheritdoc/>
-        public void RemoveAt(int index) => ((IList<BindableEventTypeFlag>)Options).RemoveAt(index);
+        public void RemoveAt(int index) => ((IList<BindableEventTypeFlag>)this.Options).RemoveAt(index);
         /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Options).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Options).GetEnumerator();
         #endregion Methods
     }
 }

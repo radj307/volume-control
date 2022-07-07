@@ -1,6 +1,4 @@
-﻿using VolumeControl.Log;
-
-namespace VolumeControl.Core.Keyboard
+﻿namespace VolumeControl.Core.Keyboard
 {
     /// <summary>
     /// Represents modifier keys that must be held down when pressing a hotkey's primary key for the hotkey press to be registered.

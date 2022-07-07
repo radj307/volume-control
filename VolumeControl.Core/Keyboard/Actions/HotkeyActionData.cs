@@ -13,10 +13,10 @@ namespace VolumeControl.Core.Keyboard.Actions
         /// </summary>
         public HotkeyActionData(string actionName, string? actionDescription, string? actionGroup, Brush? actionGroupBrush = null)
         {
-            ActionName = actionName;
-            ActionDescription = actionDescription;
-            ActionGroup = actionGroup;
-            ActionGroupBrush = actionGroupBrush;
+            this.ActionName = actionName;
+            this.ActionDescription = actionDescription;
+            this.ActionGroup = actionGroup;
+            this.ActionGroupBrush = actionGroupBrush;
         }
         #endregion Constructor
 

@@ -11,7 +11,7 @@ namespace VolumeControl.Core.Keyboard
         /// <summary>
         /// Creates a new <see cref="Hotkey"/> instance.
         /// </summary>
-        public Hotkey() => ID = WindowsHotkeyAPI.NextID;
+        public Hotkey() => this.ID = WindowsHotkeyAPI.NextID;
         /// <summary>
         /// Creates a new <see cref="Hotkey"/> instance with the specified parameters.
         /// </summary>
@@ -20,10 +20,10 @@ namespace VolumeControl.Core.Keyboard
         /// <param name="registered">Whether this hotkey should be registered during construction.</param>
         public Hotkey(Key key, Modifier modifiers, bool registered = false)
         {
-            ID = WindowsHotkeyAPI.NextID;
-            Key = key;
-            Modifier = modifiers;
-            Registered = registered;
+            this.ID = WindowsHotkeyAPI.NextID;
+            this.Key = key;
+            this.Modifier = modifiers;
+            this.Registered = registered;
         }
 
         /// <inheritdoc/>
@@ -35,7 +35,7 @@ namespace VolumeControl.Core.Keyboard
             set
             {
                 _key = value;
-                WindowsHotkeyAPI.Reregister(this);
+                _ = WindowsHotkeyAPI.Reregister(this);
             }
         }
         private Key _key;
@@ -46,7 +46,7 @@ namespace VolumeControl.Core.Keyboard
             set
             {
                 _modifier = value;
-                WindowsHotkeyAPI.Reregister(this);
+                _ = WindowsHotkeyAPI.Reregister(this);
             }
         }
         private Modifier _modifier;
@@ -54,17 +54,7 @@ namespace VolumeControl.Core.Keyboard
         public bool Registered
         {
             get => _registered;
-            set
-            {
-                if (_registered = value)
-                { // true // register:
-                    WindowsHotkeyAPI.Register(this);
-                }
-                else
-                { // false // unregister:
-                    WindowsHotkeyAPI.Unregister(this);
-                }
-            }
+            set => _ = (_registered = value) ? WindowsHotkeyAPI.Register(this) : WindowsHotkeyAPI.Unregister(this);
         }
         private bool _registered;
 
@@ -83,7 +73,7 @@ namespace VolumeControl.Core.Keyboard
             switch (msg)
             {
             case WindowsHotkeyAPI.WM_HOTKEY:
-                if (wParam.ToInt32().Equals(ID))
+                if (wParam.ToInt32().Equals(this.ID))
                 {
                     Pressed?.Invoke(this, new());
                     handled = true;
@@ -99,11 +89,11 @@ namespace VolumeControl.Core.Keyboard
         /// <summary>
         /// Finalizer
         /// </summary>
-        ~Hotkey() => Dispose();
+        ~Hotkey() => this.Dispose();
         /// <inheritdoc/>
         public void Dispose()
         {
-            WindowsHotkeyAPI.Unregister(this);
+            _ = WindowsHotkeyAPI.Unregister(this);
             GC.SuppressFinalize(this);
         }
     }

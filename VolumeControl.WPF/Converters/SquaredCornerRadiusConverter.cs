@@ -19,7 +19,7 @@ namespace VolumeControl.WPF.Converters
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Corner corners = Squared;
+            Corner corners = this.Squared;
             if (parameter is Corner c)
                 corners = c;
 

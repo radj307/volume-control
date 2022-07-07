@@ -23,7 +23,7 @@ namespace VolumeControl.Core.Keyboard
             {
                 int id = Interlocked.Increment(ref _id);
                 if (id >= MaxID) // if we exceed the max ID, loop back to the min id
-                    Interlocked.Exchange(ref _id, MinID);
+                    _ = Interlocked.Exchange(ref _id, MinID);
                 return id;
             }
         }
@@ -61,7 +61,7 @@ namespace VolumeControl.Core.Keyboard
 
         #region GetLastError
         /// <summary>Gets the last error to have occurred from within the unmanaged C++ Windows API.</summary>
-        /// <returns>An <see cref="Int32"/> representing the HResult of the last error.</returns>
+        /// <returns>An <see cref="int"/> representing the HResult of the last error.</returns>
         public static int GetLastError()
             => Marshal.GetLastWin32Error();
         /// <summary>
@@ -111,7 +111,7 @@ namespace VolumeControl.Core.Keyboard
         private class MessageOnlyWindow : IDisposable
         {
             internal MessageOnlyWindow() => hWndSource = new(0, 0, 0, 0, 0, 0, 0, null, HWND_MESSAGE);
-            ~MessageOnlyWindow() => Dispose();
+            ~MessageOnlyWindow() => this.Dispose();
 
             /// <summary>The <see cref="HwndSource"/> class associated with the message-only window used for hotkeys.</summary>
             private readonly HwndSource hWndSource;
@@ -181,7 +181,7 @@ namespace VolumeControl.Core.Keyboard
         /// <returns><see langword="true"/> when registration was successful; otherwise <see langword="false"/></returns>
         public static bool Reregister(Hotkey hk)
         {
-            Unregister(hk);
+            _ = Unregister(hk);
             return Register(hk);
         }
         #endregion WindowsAPI

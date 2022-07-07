@@ -15,17 +15,17 @@ namespace VolumeControl.Audio.Collections
         #region Constructor
         internal AudioDeviceCollection(DataFlow flow)
         {
-            DataFlow = flow;
+            this.DataFlow = flow;
             using var enumerator = new MMDeviceEnumerator();
 
-            Reload(enumerator);
-            if (enumerator.HasDefaultAudioEndpoint(DataFlow, Role.Multimedia))
-                Default = CreateDeviceFromMMDevice(enumerator.GetDefaultAudioEndpoint(DataFlow, Role.Multimedia));
+            this.Reload(enumerator);
+            if (enumerator.HasDefaultAudioEndpoint(this.DataFlow, Role.Multimedia))
+                this.Default = this.CreateDeviceFromMMDevice(enumerator.GetDefaultAudioEndpoint(this.DataFlow, Role.Multimedia));
 
             // set up notification client; this includes default device handling
-            DeviceNotificationClient = new(this);
-            enumerator.RegisterEndpointNotificationCallback(DeviceNotificationClient);
-            DeviceNotificationClient.GlobalDeviceAdded += HandleDeviceAdded;
+            this.DeviceNotificationClient = new(this);
+            _ = enumerator.RegisterEndpointNotificationCallback(this.DeviceNotificationClient);
+            this.DeviceNotificationClient.GlobalDeviceAdded += this.HandleDeviceAdded;
             enumerator.Dispose();
         }
         #endregion Constructor
@@ -44,7 +44,7 @@ namespace VolumeControl.Audio.Collections
                 if (state)
                     Settings.EnabledDevices.AddIfUnique(device.DeviceID);
                 else
-                    Settings.EnabledDevices.Remove(device.DeviceID);
+                    _ = Settings.EnabledDevices.Remove(device.DeviceID);
             }
             DeviceEnabledChanged?.Invoke(sender, state);
         }
@@ -83,23 +83,29 @@ namespace VolumeControl.Audio.Collections
                     this.AddIfUnique(device);
                     break;
                 default:
-                    Remove(device);
+                    _ = this.Remove(device);
                     device.Dispose();
                     device = null!;
                     break;
                 }
             }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+            else
+            {
+                throw new InvalidOperationException($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+            }
         }
         private void HandleDeviceRemoved(object? sender, EventArgs e)
         {
             if (sender is AudioDevice device)
             {
-                Remove(device);
+                _ = this.Remove(device);
                 device.Dispose();
                 device = null!;
             }
-            else throw new InvalidOperationException($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+            else
+            {
+                throw new InvalidOperationException($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+            }
         }
         #endregion HandleDeviceEvents
 
@@ -118,29 +124,29 @@ namespace VolumeControl.Audio.Collections
         /// <param name="mmDevice">The MMDevice instance to use when creating the device.</param>
         internal AudioDevice CreateDeviceFromMMDevice(MMDevice mmDevice)
         {
-            if (FindDeviceWithMMDevice(mmDevice) is AudioDevice existing)
+            if (this.FindDeviceWithMMDevice(mmDevice) is AudioDevice existing)
                 return existing;
             AudioDevice dev = new(mmDevice);
-            dev.StateChanged += HandleDeviceStateChanged;
-            dev.Removed += HandleDeviceRemoved;
-            dev.EnabledChanged += ForwardDeviceEnabledChanged;
-            dev.SessionCreated += ForwardSessionCreated;
-            dev.SessionRemoved += (s, e) => ForwardSessionRemoved(s, e.PID);
-            Add(dev);
+            dev.StateChanged += this.HandleDeviceStateChanged;
+            dev.Removed += this.HandleDeviceRemoved;
+            dev.EnabledChanged += this.ForwardDeviceEnabledChanged;
+            dev.SessionCreated += this.ForwardSessionCreated;
+            dev.SessionRemoved += (s, e) => this.ForwardSessionRemoved(s, e.PID);
+            _ = this.Add(dev);
             return dev;
         }
         /// <summary>Clears the list of devices &amp; reloads them from the Windows API.</summary>
         internal void Reload(MMDeviceEnumerator enumerator)
         {
-            Clear();
-            foreach (MMDevice mmDevice in enumerator.EnumerateAudioEndPoints(DataFlow, DeviceState.Active))
-                CreateDeviceFromMMDevice(mmDevice);
+            _ = this.Clear();
+            foreach (MMDevice mmDevice in enumerator.EnumerateAudioEndPoints(this.DataFlow, DeviceState.Active))
+                _ = this.CreateDeviceFromMMDevice(mmDevice);
         }
         /// <summary>Clears the list of devices &amp; reloads them from the Windows API.</summary>
         internal void Reload()
         {
             using var enumerator = new MMDeviceEnumerator();
-            Reload(enumerator);
+            this.Reload(enumerator);
             enumerator.Dispose();
         }
         /// <inheritdoc/>
@@ -149,14 +155,14 @@ namespace VolumeControl.Audio.Collections
             if (!disposedValue)
             {
                 if (disposing)
-                    ForEach(d => d.Dispose());
+                    this.ForEach(d => d.Dispose());
                 disposedValue = true;
             }
         }
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
         #endregion Methods

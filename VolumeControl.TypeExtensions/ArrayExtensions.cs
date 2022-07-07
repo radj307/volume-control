@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace VolumeControl.TypeExtensions
+﻿namespace VolumeControl.TypeExtensions
 {
     /// <summary>Extensions for generic array types.</summary>
     public static class ArrayExtensions
@@ -10,7 +7,7 @@ namespace VolumeControl.TypeExtensions
         /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
         public static T[] ForEach<T>(this T[] array, Action<T> action)
         {
-            foreach (var item in array)
+            foreach (T? item in array)
                 action(item);
             return array;
         }

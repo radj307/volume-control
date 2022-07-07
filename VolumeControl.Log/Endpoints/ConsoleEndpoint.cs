@@ -6,7 +6,7 @@
     public class ConsoleEndpoint : IEndpoint
     {
         /// <inheritdoc cref="ConsoleEndpoint"/>
-        public ConsoleEndpoint() => Enabled = true;
+        public ConsoleEndpoint() => this.Enabled = true;
 
         /// <inheritdoc/>
         public bool Enabled { get; set; }

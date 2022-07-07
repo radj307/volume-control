@@ -6,7 +6,7 @@
     public abstract class BaseAddon : IBaseAddon
     {
         /// <param name="attrType">The attribute type used by this addon.</param>
-        protected BaseAddon(Type attrType) => Attribute = attrType;
+        protected BaseAddon(Type attrType) => this.Attribute = attrType;
         /// <inheritdoc/>
         public Type Attribute { get; set; }
         /// <inheritdoc/>

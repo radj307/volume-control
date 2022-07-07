@@ -16,13 +16,13 @@ namespace VolumeControl.UnitTests
         /// <summary>Asserts that <paramref name="obj"/> is the same type as <typeparamref name="T"/>.</summary>
         public static void Is<T>(object obj, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
         {
-            var type = typeof(T);
+            Type? type = typeof(T);
             if (!obj.GetType().Equals(type)) Assert.Fail($"{msg}{(msg == null ? "" : "\n")}'{obj.GetType().FullName}' is not the same type as '{type.FullName}'!\n[{path}:{ln}]");
         }
         /// <summary>Asserts that <paramref name="obj"/> is not the same type as <typeparamref name="T"/>.</summary>
         public static void IsNot<T>(object obj, string? msg = null, [CallerLineNumber] int ln = 0, [CallerFilePath] string path = "")
         {
-            var type = typeof(T);
+            Type? type = typeof(T);
             if (obj.GetType().Equals(type)) Assert.Fail($"{msg}{(msg == null ? "" : "\n")}'{obj.GetType().FullName}' is the same type as '{type.FullName}'!\n[{path}:{ln}]");
         }
         /// <summary>Asserts that <paramref name="obj"/> is the same type as <typeparamref name="T"/>.</summary>
@@ -282,9 +282,9 @@ namespace VolumeControl.UnitTests
             public EventTrigger(bool arm = true, string? message = null)
             {
                 _armed = arm;
-                Message = message;
+                this.Message = message;
             }
-            ~EventTrigger() => Armed = false;
+            ~EventTrigger() => this.Armed = false;
 
             /// <summary><b>Default: <see langword="null"/></b><br/>Optional message to include with the assertion failure.</summary>
             public string? Message { get; set; }
@@ -315,23 +315,25 @@ namespace VolumeControl.UnitTests
 
                         try
                         {
-                            if (MinCount == -1)
+                            if (this.MinCount == -1)
                             {
-                                if (Count > 0)
-                                    Assert.Fail($"{Message}{(Message == null ? "" : "\n")}The event triggered by [Method] was triggered {Count} times!");
+                                if (this.Count > 0)
+                                    Assert.Fail($"{this.Message}{(this.Message == null ? "" : "\n")}The event triggered by [Method] was triggered {this.Count} times!");
                             }
-                            else if (Count < MinCount)
-                                Assert.Fail($"{Message}{(Message == null ? "" : "\n")}The event triggered by [Method] was triggered {Count} times, but was expected to have been triggered at least {MinCount} times!");
+                            else if (this.Count < this.MinCount)
+                            {
+                                Assert.Fail($"{this.Message}{(this.Message == null ? "" : "\n")}The event triggered by [Method] was triggered {this.Count} times, but was expected to have been triggered at least {this.MinCount} times!");
+                            }
                         }
                         catch (AssertFailedException ex)
                         {
-                            if (!ResolveEventNameFromStackTrace)
+                            if (!this.ResolveEventNameFromStackTrace)
                                 throw;
 
                             string[] stackTrace = ex.StackTrace!.Split('\n');
                             foreach (string callsite in stackTrace)
                             {
-                                var match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
+                                Match? match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
                                 if (!match.Success)
                                     continue;
                                 string method = match.Groups[0].Value;
@@ -352,18 +354,18 @@ namespace VolumeControl.UnitTests
                     _count = value;
                     try
                     {
-                        if (AutoAssert && Count >= AutoAssertWhenCountIs)
-                            Assert.Fail($"{Message}{(Message == null ? "" : "\n")}[{nameof(AutoAssert)}]:  The event triggered by [Method] was triggered {Count}/{AutoAssertWhenCountIs} times!");
+                        if (this.AutoAssert && this.Count >= this.AutoAssertWhenCountIs)
+                            Assert.Fail($"{this.Message}{(this.Message == null ? "" : "\n")}[{nameof(this.AutoAssert)}]:  The event triggered by [Method] was triggered {this.Count}/{this.AutoAssertWhenCountIs} times!");
                     }
                     catch (AssertFailedException ex)
                     {
-                        if (!ResolveEventNameFromStackTrace)
+                        if (!this.ResolveEventNameFromStackTrace)
                             throw;
 
                         string[] stackTrace = ex.StackTrace!.Split('\n');
                         foreach (string callsite in stackTrace)
                         {
-                            var match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
+                            Match? match = Regex.Match(callsite, "\\.(\\b[\\w ]+?\\b)\\(.*\\)", RegexOptions.Compiled);
                             if (!match.Success)
                                 continue;
                             string method = match.Groups[0].Value;
@@ -395,24 +397,18 @@ namespace VolumeControl.UnitTests
             /// </summary>
             public void Trigger()
             {
-                if (Armed) ++Count;
+                if (this.Armed) ++this.Count;
             }
             /// <summary>Calls the <see cref="Trigger()"/> method.</summary>
             /// <param name="_"></param>
             /// <param name="_1"></param>
-            public void Handler(object? _, object? _1) => Trigger();
+            public void Handler(object? _, object? _1) => this.Trigger();
 
             /// <summary>Disarms the trigger without any assertion checks.</summary>
-            public void Defuse()
-            {
-                _armed = false;
-            }
+            public void Defuse() => _armed = false;
             /// <summary>Resets <see cref="Count"/> to 0.</summary>
             /// <remarks>Does not trigger any assertion checks.</remarks>
-            public void Reset()
-            {
-                _count = 0;
-            }
+            public void Reset() => _count = 0;
         }
 
         /// <summary>

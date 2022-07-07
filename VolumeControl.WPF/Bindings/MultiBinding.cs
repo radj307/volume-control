@@ -12,7 +12,7 @@ namespace VolumeControl.WPF.Bindings
         public MultiBinding() : base() { }
         /// <inheritdoc cref="System.Windows.Data.MultiBinding.MultiBinding"/>
         /// <param name="bindings">Any number of binding objects.</param>
-        public MultiBinding(params BindingBase[] bindings) : base() => bindings.ForEach(b => Bindings.Add(b));
+        public MultiBinding(params BindingBase[] bindings) : base() => bindings.ForEach(b => this.Bindings.Add(b));
 
 #       pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         // This is required because JESUS CHRIST MICROSOFT FIX YOUR FUCKING SHIT AND STOP MAKING EVERYTHING SO GODDAMN DIFFICULT FOR NO REASON:

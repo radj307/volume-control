@@ -13,7 +13,7 @@ namespace VolumeControl.UnitTests.Audio
         {
             AudioAPI api = new();
 
-            var devCount = api.Devices.Count;
+            int devCount = api.Devices.Count;
             Assertx.Greater(devCount, 0, "Device count is 0; cannot perform this test!");
             Assertx.EventTrigger ev = new(true) { MinCount = 1 };
             api.Devices.CollectionChanged += ev.Handler;
@@ -23,23 +23,17 @@ namespace VolumeControl.UnitTests.Audio
         }
 
         [TestMethod()]
-        public void FindDevice_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindDevice_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void FindDeviceWithID_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindDeviceWithID_Test() => throw new NotImplementedException();
 
         [TestMethod()]
         public void ForceReloadSessionList_Test()
         {
             AudioAPI api = new();
 
-            var sessionCount = api.Sessions.Count;
+            int sessionCount = api.Sessions.Count;
             Assertx.Greater(sessionCount, 0, "Session count is 0; cannot perform this test!");
             Assertx.EventTrigger ev = new(true) { MinCount = 1 };
             api.Sessions.CollectionChanged += ev.Handler;
@@ -49,53 +43,33 @@ namespace VolumeControl.UnitTests.Audio
         }
 
         [TestMethod()]
-        public void FindSession_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindSession_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void FindSessionWithID_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindSessionWithID_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void FindSessionWithName_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindSessionWithName_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void FindSessionWithIdentifier_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void FindSessionWithIdentifier_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void GetSessionNames_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void GetSessionNames_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void GetSessionVolume_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void GetSessionVolume_Test() => throw new NotImplementedException();
 
         [TestMethod()]
-        public void SetSessionVolume_Test()
-        {
-            throw new NotImplementedException();
-        }
+        public void SetSessionVolume_Test() => throw new NotImplementedException();
 
         [TestMethod()]
         public void IncrementSessionVolume_Test()
         {
-            AudioAPI api = new();
-
-            api.LockSelectedSession = false;
+            AudioAPI api = new()
+            {
+                LockSelectedSession = false
+            };
 
             Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
 
@@ -152,9 +126,10 @@ namespace VolumeControl.UnitTests.Audio
         [TestMethod()]
         public void IncrementSessionVolume_Implicit_Test()
         {
-            AudioAPI api = new();
-
-            api.LockSelectedSession = false;
+            AudioAPI api = new()
+            {
+                LockSelectedSession = false
+            };
 
             Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
 
@@ -222,9 +197,10 @@ namespace VolumeControl.UnitTests.Audio
         [TestMethod()]
         public void DecrementSessionVolume_Test()
         {
-            AudioAPI api = new();
-
-            api.LockSelectedSession = false;
+            AudioAPI api = new()
+            {
+                LockSelectedSession = false
+            };
 
             Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
 
@@ -281,9 +257,10 @@ namespace VolumeControl.UnitTests.Audio
         [TestMethod()]
         public void DecrementSessionVolume_Implicit_Test()
         {
-            AudioAPI api = new();
-
-            api.LockSelectedSession = false;
+            AudioAPI api = new()
+            {
+                LockSelectedSession = false
+            };
 
             Assertx.NotEmpty(api.Sessions, $"{nameof(api.Sessions)} is empty! Cannot perform this test.");
 

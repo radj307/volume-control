@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -12,12 +11,7 @@ namespace VolumeControl.WPF.Converters
     public class BoolToThicknessConverter : IValueConverter
     {
         /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return new Thickness(2);
-            return new Thickness(0);
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value == null ? new Thickness(2) : (object)new Thickness(0);
         /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
@@ -27,12 +21,7 @@ namespace VolumeControl.WPF.Converters
     public class BoolToCheckVisibleConverter : IValueConverter
     {
         /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || (value is bool b && b))
-                return Visibility.Visible;
-            return Visibility.Hidden;
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value == null || (value is bool b && b) ? Visibility.Visible : (object)Visibility.Hidden;
         /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }

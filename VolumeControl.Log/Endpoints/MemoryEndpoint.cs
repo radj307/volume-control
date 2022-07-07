@@ -12,7 +12,7 @@
         public MemoryEndpoint(bool enabled = true, int kilobytes = 10)
         {
             _stream = new(new byte[1024 * kilobytes], true);
-            Enabled = enabled;
+            this.Enabled = enabled;
         }
         #endregion Constructor
 
@@ -27,15 +27,15 @@
 
         #region Methods
         /// <inheritdoc/>
-        public TextReader? GetReader() => Enabled ? new StreamReader(_stream) : null;
+        public TextReader? GetReader() => this.Enabled ? new StreamReader(_stream) : null;
         /// <inheritdoc/>
-        public TextWriter? GetWriter() => Enabled ? new StreamWriter(_stream) : null;
+        public TextWriter? GetWriter() => this.Enabled ? new StreamWriter(_stream) : null;
         /// <inheritdoc/>
         public int? ReadRaw()
         {
-            if (!Enabled)
+            if (!this.Enabled)
                 return null;
-            using TextReader? r = GetReader();
+            using TextReader? r = this.GetReader();
             int? ch = r?.Read();
             r?.Dispose();
             return ch;
@@ -43,9 +43,9 @@
         /// <inheritdoc/>
         public string? ReadRawLine()
         {
-            if (!Enabled)
+            if (!this.Enabled)
                 return null;
-            using TextReader? r = GetReader();
+            using TextReader? r = this.GetReader();
             string? line = r?.ReadLine();
             r?.Dispose();
             return line;
@@ -55,16 +55,16 @@
         /// <inheritdoc/>
         public void WriteRaw(string? str)
         {
-            if (!Enabled || str == null)
+            if (!this.Enabled || str == null)
                 return;
             _stream.Write(new Span<byte>(str.ToCharArray().Cast<byte>().ToArray()));
         }
         /// <inheritdoc/>
         public void WriteRawLine(string? str = null)
         {
-            if (!Enabled)
+            if (!this.Enabled)
                 return;
-            WriteRaw(str == null ? "\n" : $"{str}\n");
+            this.WriteRaw(str == null ? "\n" : $"{str}\n");
         }
 
         /// <inheritdoc/>

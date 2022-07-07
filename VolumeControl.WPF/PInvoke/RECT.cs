@@ -49,16 +49,12 @@ namespace VolumeControl.WPF.PInvoke
                 // BUGBUG : On Bidi OS (hebrew arabic) left > right
                 left >= right || top >= bottom;
         /// <summary> Return a user friendly representation of this struct </summary>
-        public override string ToString()
-        {
-            if (this == Empty) return "RECT {Empty}"; return "RECT { left : " + left + " / top : " + top + " / right : " + right + " / bottom : " + bottom + " }";
-        }
+        public override string ToString() => this == Empty
+                ? "RECT {Empty}"
+                : "RECT { left : " + left + " / top : " + top + " / right : " + right + " / bottom : " + bottom + " }";
 
         /// <summary> Determine if 2 RECT are equal (deep compare) </summary>
-        public override bool Equals(object? obj)
-        {
-            if (obj is not Rect) return false; return this == (RECT)obj;
-        }
+        public override bool Equals(object? obj) => obj is Rect && this == (RECT)obj;
 
         /// <summary>Return the HashCode for this struct (not garanteed to be unique)</summary>
         public override int GetHashCode() => left.GetHashCode() + top.GetHashCode() + right.GetHashCode() + bottom.GetHashCode();

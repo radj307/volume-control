@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -32,11 +33,11 @@ namespace AppConfig
         /// </summary>
         [JsonIgnore]
         public static Configuration Default { get; set; } = null!;
-
+        [SuppressPropertyChangedWarnings]
         public object? this[string name]
         {
-            get => GetType().GetProperty(name)?.GetValue(this);
-            set => GetType().GetProperty(name)?.SetValue(this, value);
+            get => this.GetType().GetProperty(name)?.GetValue(this);
+            set => this.GetType().GetProperty(name)?.SetValue(this, value);
         }
         #endregion Properties
 
@@ -56,9 +57,9 @@ namespace AppConfig
         /// <param name="other">Another <see cref="Configuration"/>-derived instance.</param>
         public virtual void SetTo(Configuration other)
         {
-            Type myType = GetType();
+            Type myType = this.GetType();
             Type otherType = other.GetType();
-            foreach (var member in myType.GetMembers())
+            foreach (MemberInfo? member in myType.GetMembers())
             {
                 if (member.Name.Equals("Item"))
                     continue;
@@ -89,7 +90,7 @@ namespace AppConfig
         {
             if (path.Length == 0)
                 return false;
-            if (JsonFile.Load(path, GetType()) is Configuration cfg)
+            if (JsonFile.Load(path, this.GetType()) is Configuration cfg)
             {
                 this.SetTo(cfg);
                 return true;

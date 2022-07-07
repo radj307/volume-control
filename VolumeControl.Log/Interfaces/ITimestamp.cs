@@ -34,12 +34,12 @@ namespace VolumeControl.Log.Interfaces
 
         private string GetTimePoint(string? format)
         {
-            string time = TimePoint.ToString(format);
-            return $"{time}{new string(' ', TimePointSegmentLength - time.Length)}";
+            string time = this.TimePoint.ToString(format);
+            return $"{time}{new string(' ', this.TimePointSegmentLength - time.Length)}";
         }
         private string GetEventType()
         {
-            string head = EventType switch
+            string head = this.EventType switch
             {
                 EventType.DEBUG => "[DEBUG]",
                 EventType.INFO => "[INFO]",
@@ -48,9 +48,9 @@ namespace VolumeControl.Log.Interfaces
                 EventType.FATAL => "[FATAL]",
                 _ => "[????]",
             };
-            return $"{head}{new string(' ', EventTypeSegmentLength - head.Length)}";
+            return $"{head}{new string(' ', this.EventTypeSegmentLength - head.Length)}";
         }
-        private string GetMargin() => $"{(MarginSegmentLength > 0 ? new string(' ', MarginSegmentLength) : "")}";
+        private string GetMargin() => $"{(this.MarginSegmentLength > 0 ? new string(' ', this.MarginSegmentLength) : "")}";
 
         /// <summary>
         /// Creates a log message header from a <see cref="ITimestamp"/> source interface.

@@ -16,8 +16,8 @@ namespace VolumeControl.WPF.Converters
         /// <inheritdoc cref="BoolToValueConverter{T}"/>
         protected BoolToValueConverter(T whenTrue = default!, T whenFalse = default!)
         {
-            TrueValue = whenTrue;
-            FalseValue = whenFalse;
+            this.TrueValue = whenTrue;
+            this.FalseValue = whenFalse;
         }
 
         #endregion
@@ -38,12 +38,12 @@ namespace VolumeControl.WPF.Converters
 
         /// <inheritdoc/>
         public object Convert(object value, Type targetType,
-                              object parameter, CultureInfo culture) => (System.Convert.ToBoolean(value) ? TrueValue : FalseValue)!;
+                              object parameter, CultureInfo culture) => (System.Convert.ToBoolean(value) ? this.TrueValue : this.FalseValue)!;
 
         // Override if necessary
         /// <inheritdoc/>
         public virtual object ConvertBack(object value, Type targetType,
-                                          object parameter, CultureInfo culture) => value.Equals(TrueValue);
+                                          object parameter, CultureInfo culture) => value.Equals(this.TrueValue);
 
         /// <inheritdoc/>
         public override object ProvideValue(IServiceProvider serviceProvider) => this;

@@ -39,7 +39,7 @@ namespace VolumeControl.Helpers.Update
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
                 client.DefaultRequestHeaders.Add("User-Agent", "curl/7.64.1");
 
-                var getRequestTask = client.GetFromJsonAsync<GithubReleaseHttpResponse>(Updater._apiUriLatest);
+                System.Threading.Tasks.Task<GithubReleaseHttpResponse>? getRequestTask = client.GetFromJsonAsync<GithubReleaseHttpResponse>(Updater._apiUriLatest);
                 getRequestTask.Wait();
 
                 return new ReleaseInfo(getRequestTask.Result);

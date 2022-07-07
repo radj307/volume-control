@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Linq;
-using VolumeControl.Properties;
 using VolumeControl.Log;
-using Microsoft.Win32;
-using VolumeControl.Core;
 
 namespace VolumeControl.Helpers.Win32
 {
@@ -41,14 +39,17 @@ namespace VolumeControl.Helpers.Win32
                     {
                         if (runkey.GetValueNames().Contains(RegistryRunAtStartupValueName))
                         {
-                            var valueKind = runkey.GetValueKind(RegistryRunAtStartupValueName);
+                            RegistryValueKind valueKind = runkey.GetValueKind(RegistryRunAtStartupValueName);
                             if (valueKind.Equals(RegistryValueKind.String))
                                 return runkey.GetValue(RegistryRunAtStartupValueName)?.ToString();
                             else Log.Warning($"{nameof(RunAtStartupHelper)}:  Unexpected type '{valueKind:G}' for value '{RunKeyFullPath}\\{RegistryRunAtStartupValueName}'; expected type '{RegistryValueKind.String:G}'");
                         }
                         // else; value doesn't exist so return null.
                     }
-                    else Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for reading!");
+                    else
+                    {
+                        Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for reading!");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -68,9 +69,15 @@ namespace VolumeControl.Helpers.Win32
                                 runkey.DeleteValue(RegistryRunAtStartupValueName);
                             // else; value doesn't exist so don't try to delete it.
                         }
-                        else runkey.SetValue(RegistryRunAtStartupValueName, value);
+                        else
+                        {
+                            runkey.SetValue(RegistryRunAtStartupValueName, value);
+                        }
                     }
-                    else Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for writing!");
+                    else
+                    {
+                        Log.Error($"{nameof(RunAtStartupHelper)}:  Failed to open registry key '{RunKeyFullPath}' for writing!");
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -27,14 +27,14 @@ namespace VolumeControl.Helpers.Update
         #region Methods
         public void CheckNow()
         {
-            var latest = ReleaseInfo.Latest;
+            ReleaseInfo latest = ReleaseInfo.Latest;
 
-            if (latest.CompareTo(CurrentVersion) > 0)
+            if (latest.CompareTo(this.CurrentVersion) > 0)
             {
                 Log.Debug($"Latest version ({latest.Version}) is newer than the current version.");
                 if (Settings.ShowUpdatePrompt)
                 {
-                    ShowUpdatePrompt(latest);
+                    this.ShowUpdatePrompt(latest);
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace VolumeControl.Helpers.Update
         #region UpdatePrompt
         private string GetPromptMessage(ReleaseInfo releaseInfo) =>
                  "A new version of Volume Control is available!\nDo you want to go to the releases page?" +
-                $"Current Version:  {CurrentVersion}\n" +
+                $"Current Version:  {this.CurrentVersion}\n" +
                 $"Latest Version:   {releaseInfo.Version}\n" +
                 '\n' +
                 "Click 'Yes' to go to the releases page.\n" +
@@ -55,7 +55,7 @@ namespace VolumeControl.Helpers.Update
         private void ShowUpdatePrompt(ReleaseInfo releaseInfo)
         {
             Log.Info($"Showing update prompt for new version: {releaseInfo.Version}");
-            switch (MessageBox.Show(GetPromptMessage(releaseInfo), "Update Available", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes))
+            switch (MessageBox.Show(this.GetPromptMessage(releaseInfo), "Update Available", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes))
             {
             case MessageBoxResult.Yes: // open browser
                 Log.Info($"User indicated they want to update to version {releaseInfo.Version}.");
@@ -67,7 +67,7 @@ namespace VolumeControl.Helpers.Update
                 Settings.ShowUpdatePrompt = false;
                 Log.Info("Disabled automatic updates");
                 Settings.Save();
-                MessageBox.Show("Update prompts will not be shown in the future.");
+                _ = MessageBox.Show("Update prompts will not be shown in the future.");
                 break;
             }
         }
@@ -89,7 +89,7 @@ namespace VolumeControl.Helpers.Update
             catch (Exception ex)
             {
                 Log.Error($"Couldn't open '{url}' because of an exception!", ex);
-                MessageBox.Show($"Couldn't open '{url}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                _ = MessageBox.Show($"Couldn't open '{url}' because of an exception:\n'{ex.Message}'", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
         }
         #endregion OpenBrowser

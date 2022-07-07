@@ -11,10 +11,7 @@ namespace VolumeControl.Hotkeys.Addons
     public class ApplicationActions
     {
         #region Constructor
-        public ApplicationActions()
-        {
-            MainHWnd = VCAPI.Default.MainWindowHWnd;
-        }
+        public ApplicationActions() => this.MainHWnd = VCAPI.Default.MainWindowHWnd;
         #endregion Constructor
 
         #region Properties
@@ -50,17 +47,17 @@ namespace VolumeControl.Hotkeys.Addons
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Toggles notifications for volume/mute change events.")]
         public void ToggleNotificationOnVolume(object? sender, HandledEventArgs e) => Settings.NotificationsOnVolumeChange = !Settings.NotificationsOnVolumeChange;
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Moves the VolumeControl window in front of all other windows.")]
-        public void BringToForeground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_TOP, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
+        public void BringToForeground(object? sender, HandledEventArgs e) => User32.SetWindowPos(this.MainHWnd, User32.HWND_TOP, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Moves the VolumeControl window behind all other windows.")]
-        public void SendToBackground(object? sender, HandledEventArgs e) => User32.SetWindowPos(MainHWnd, User32.HWND_BOTTOM, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
+        public void SendToBackground(object? sender, HandledEventArgs e) => User32.SetWindowPos(this.MainHWnd, User32.HWND_BOTTOM, 0, 0, 0, 0, User32.EUFlags.SWP_NOSIZE | User32.EUFlags.SWP_NOMOVE);
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Hides the VolumeControl window.")]
-        public void Minimize(object? sender, HandledEventArgs e) => User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_MINIMIZE);
+        public void Minimize(object? sender, HandledEventArgs e) => User32.ShowWindow(this.MainHWnd, User32.ECmdShow.SW_MINIMIZE);
         [HotkeyAction(GroupName = GroupName, GroupColor = GroupColor, Description = "Restores the VolumeControl window after minimizing it.")]
         public void Unminimize(object? sender, HandledEventArgs e)
         {
-            if (HwndSource.FromHwnd(MainHWnd).RootVisual is Window w)
+            if (HwndSource.FromHwnd(this.MainHWnd).RootVisual is Window w)
             {
-                User32.ShowWindow(MainHWnd, User32.ECmdShow.SW_RESTORE);
+                _ = User32.ShowWindow(this.MainHWnd, User32.ECmdShow.SW_RESTORE);
                 w.Visibility = Visibility.Visible;
             }
         }

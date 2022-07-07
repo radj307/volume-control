@@ -16,7 +16,7 @@ namespace VolumeControl.Core.Attributes
         /// <summary>
         /// When <see langword="true"/>, the assembly that this attribute is attached to allows upgrading configurations between assembly versions.
         /// </summary>
-        public bool AllowUpgrade => _allowUpgrade ??= Value.Equals("true", StringComparison.OrdinalIgnoreCase) || Value.Equals("1", StringComparison.OrdinalIgnoreCase);
+        public bool AllowUpgrade => _allowUpgrade ??= this.Value.Equals("true", StringComparison.OrdinalIgnoreCase) || this.Value.Equals("1", StringComparison.OrdinalIgnoreCase);
         private bool? _allowUpgrade = null;
     }
 }

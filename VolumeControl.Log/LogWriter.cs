@@ -21,9 +21,9 @@ namespace VolumeControl.Log
         /// <param name="eventTypeFilter">An event type filter to use. This may be a combination of bitfield flags.</param>
         public LogWriter(IEndpoint endpoint, EventType eventTypeFilter)
         {
-            Endpoint = endpoint;
-            EventTypeFilter = eventTypeFilter;
-            LastEventType = EventType.NONE;
+            this.Endpoint = endpoint;
+            this.EventTypeFilter = eventTypeFilter;
+            this.LastEventType = EventType.NONE;
         }
         #endregion Constructors
 
@@ -45,7 +45,7 @@ namespace VolumeControl.Log
         /// </summary>
         public EventType LastEventType { get; private set; }
         /// <inheritdoc/>
-        public bool FilterEventType(EventType eventType) => EventTypeFilter.HasFlag(eventType);
+        public bool FilterEventType(EventType eventType) => this.EventTypeFilter.HasFlag(eventType);
         /// <inheritdoc/>
         public ITimestamp MakeTimestamp(EventType eventType) => Timestamp.Now(eventType);
         /// <summary>Gets a blank timestamp to use as indentation.</summary>
@@ -59,12 +59,12 @@ namespace VolumeControl.Log
         /// <remarks>Using this method is very inefficient as it re-creates a <see cref="StreamWriter"/> each time; see the obsoletion warning.</remarks>
         /// <param name="text">Object to write.</param>
         [Obsolete($"Use the {nameof(Debug)}, {nameof(Info)}, {nameof(Warning)}, {nameof(Error)}, and {nameof(Fatal)} methods instead.")]
-        public void Write(object text) => Endpoint.WriteRaw(text.ToString());
+        public void Write(object text) => this.Endpoint.WriteRaw(text.ToString());
         /// <summary>Writes a line to the log file.</summary>
         /// <remarks>Using this method is very inefficient as it re-creates a <see cref="StreamWriter"/> each time; see the obsoletion warning.</remarks>
         /// <param name="line">Object to write.</param>
         [Obsolete($"Use the {nameof(Debug)}, {nameof(Info)}, {nameof(Warning)}, {nameof(Error)}, and {nameof(Fatal)} methods instead.")]
-        public void WriteLine(object? line = null) => Endpoint.WriteRawLine(line?.ToString());
+        public void WriteLine(object? line = null) => this.Endpoint.WriteRawLine(line?.ToString());
         #endregion WriteRaw
 
         private static List<DictionaryEntry>? UnpackExceptionData(IDictionary data)
@@ -116,7 +116,7 @@ namespace VolumeControl.Log
             if (UnpackExceptionData(ex.Data) is List<DictionaryEntry> data)
             { // exception has data entries, include them
                 m += $"{tabPrefix}'Data':{{{lineSuffix}";
-                foreach (var (key, val) in data)
+                foreach ((object key, object? val) in data)
                     m += $"{tabPrefix}{tabString}'{key}': '{val}'{lineSuffix}";
                 m += $"{tabPrefix}}}{lineSuffix}";
             }
@@ -146,9 +146,9 @@ namespace VolumeControl.Log
         /// <param name="lines">Any number of lines of any object type.</param>
         public void WriteWithTimestamp(string ts, params object?[] lines)
         {
-            if (!Endpoint.Enabled || lines.Length == 0)
+            if (!this.Endpoint.Enabled || lines.Length == 0)
                 return;
-            using TextWriter w = Endpoint.GetWriter()!;
+            using TextWriter w = this.Endpoint.GetWriter()!;
             w.Write(ts);
             string tsBlank = MakeBlankTimestamp();
             for (int i = 0, end = lines.Length; i < end; ++i)
@@ -156,9 +156,13 @@ namespace VolumeControl.Log
                 object? line = lines[i];
 
                 if (line is null)
+                {
                     continue;
+                }
                 else if (line is Exception ex)
+                {
                     w.WriteLine($"{(i == 0 ? "" : tsBlank)}: {FormatExceptionMessage(ex, tsBlank)}");
+                }
                 else if (line is string s)
                 {
                     if (s.Length > 0)
@@ -167,10 +171,15 @@ namespace VolumeControl.Log
                 else if (line is IEnumerable enumerable)
                 {
                     foreach (object? item in enumerable)
+                    {
                         if (item != null)
                             w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
+                    }
                 }
-                else w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+                else
+                {
+                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+                }
             }
             w.Flush();
             w.Close();
@@ -178,7 +187,7 @@ namespace VolumeControl.Log
         /// <param name="ts">The timestamp object.</param>
         /// <param name="lines">Any number of lines of any object type.</param>
         /// <inheritdoc cref="WriteWithTimestamp(string, object?[])"/>
-        public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => WriteWithTimestamp(ts.ToString(), lines);
+        public void WriteWithTimestamp(ITimestamp ts, params object?[] lines) => this.WriteWithTimestamp(ts.ToString(), lines);
 
         /// <summary>Creates a trace message for the calling method using the <see cref="CallerMemberNameAttribute"/>, <see cref="CallerFilePathAttribute"/>, &amp; <see cref="CallerLineNumberAttribute"/> attributes.</summary>
         /// <remarks>Don't provide parameters or the attributes won't work.</remarks>
@@ -193,16 +202,16 @@ namespace VolumeControl.Log
             /// <param name="message">Any number of objects to use as the message contents.</param>
             public ConditionalMessage(EventType type, params object?[] message)
             {
-                EventType = type;
-                Message = message;
+                this.EventType = type;
+                this.Message = message;
             }
             /// <inheritdoc cref="ConditionalMessage"/>
             /// <param name="type">The event type of this message.</param>
             /// <param name="enumerable">Any enumerable type to use as the message contents.</param>
             public ConditionalMessage(EventType type, IEnumerable enumerable)
             {
-                EventType = type;
-                Message = enumerable;
+                this.EventType = type;
+                this.Message = enumerable;
             }
             /// <summary>
             /// The event type of this message.
@@ -219,8 +228,8 @@ namespace VolumeControl.Log
             /// <param name="enumerable">The message.</param>
             public void Deconstruct(out EventType type, out IEnumerable enumerable)
             {
-                type = EventType;
-                enumerable = Message;
+                type = this.EventType;
+                enumerable = this.Message;
             }
         }
 
@@ -231,9 +240,9 @@ namespace VolumeControl.Log
             for (int i = 0; i < messages.Length; ++i)
             {
                 (EventType type, IEnumerable message) = messages[i];
-                if (FilterEventType(type))
+                if (this.FilterEventType(type))
                 {
-                    WriteEvent(type, message);
+                    this.WriteEvent(type, message);
                     return;
                 }
             }
@@ -245,47 +254,47 @@ namespace VolumeControl.Log
         /// <param name="lines">Any enumerable type.</param>
         public void WriteEvent(EventType eventType, IEnumerable lines)
         {
-            if (!Endpoint.Enabled || !FilterEventType(eventType))
+            if (!this.Endpoint.Enabled || !this.FilterEventType(eventType))
                 return;
-            WriteWithTimestamp(MakeTimestamp(LastEventType = eventType), lines);
+            this.WriteWithTimestamp(this.MakeTimestamp(this.LastEventType = eventType), lines);
         }
         /// <summary>Writes a log message with a timestamp and log level header.</summary>
         /// <param name="pair">An event type, and any enumerable type.</param>
-        public void WriteEvent((EventType, IEnumerable) pair) => WriteEvent(pair.Item1, pair.Item2);
+        public void WriteEvent((EventType, IEnumerable) pair) => this.WriteEvent(pair.Item1, pair.Item2);
         /// <summary>Writes a log message with a timestamp and log level header.</summary>
         /// <param name="eventType">An event type. Do not provide combinations of event type flags!</param>
         /// <param name="lines">Any enumerable type.</param>
         public void WriteEvent(EventType eventType, object?[] lines)
         {
-            if (!Endpoint.Enabled || lines.Length == 0 || !FilterEventType(eventType))
+            if (!this.Endpoint.Enabled || lines.Length == 0 || !this.FilterEventType(eventType))
                 return;
-            WriteWithTimestamp(MakeTimestamp(LastEventType = eventType), lines);
+            this.WriteWithTimestamp(this.MakeTimestamp(this.LastEventType = eventType), lines);
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> message to the log endpoint.
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
-        public void Debug(params object?[] lines) => WriteEvent(EventType.DEBUG, lines);
+        public void Debug(params object?[] lines) => this.WriteEvent(EventType.DEBUG, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.INFO"/> message to the log endpoint.
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
-        public void Info(params object?[] lines) => WriteEvent(EventType.INFO, lines);
+        public void Info(params object?[] lines) => this.WriteEvent(EventType.INFO, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.WARN"/> message to the log endpoint.
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
-        public void Warning(params object?[] lines) => WriteEvent(EventType.WARN, lines);
+        public void Warning(params object?[] lines) => this.WriteEvent(EventType.WARN, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.ERROR"/> message to the log endpoint.
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
-        public void Error(params object?[] lines) => WriteEvent(EventType.ERROR, lines);
+        public void Error(params object?[] lines) => this.WriteEvent(EventType.ERROR, lines);
         /// <summary>
         /// Write a formatted <see cref="EventType.FATAL"/> message to the log endpoint.
         /// </summary>
         /// <param name="lines">Any number of objects, each written on a new line.</param>
-        public void Fatal(params object?[] lines) => WriteEvent(EventType.FATAL, lines);
+        public void Fatal(params object?[] lines) => this.WriteEvent(EventType.FATAL, lines);
         #endregion WriteEvent
 
         #region WriteException
@@ -293,43 +302,43 @@ namespace VolumeControl.Log
         [Obsolete($"Use {nameof(WriteEvent)} instead, it supports exceptions.")]
         public void WriteException(EventType ev, Exception exception, object? message = null)
         {
-            if (!Endpoint.Enabled)
+            if (!this.Endpoint.Enabled)
                 return;
             if (message == null)
-                WriteEvent(ev, new[] { exception });
+                this.WriteEvent(ev, new[] { exception });
             else
-                WriteEvent(ev, new[] { message, exception });
+                this.WriteEvent(ev, new[] { message, exception });
         }
         /// <summary>
         /// Write a formatted <see cref="EventType.DEBUG"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Debug)} instead.")] public void DebugException(Exception exception, object? message = null) => WriteException(EventType.DEBUG, exception, message);
+        [Obsolete($"Use {nameof(Debug)} instead.")] public void DebugException(Exception exception, object? message = null) => this.WriteException(EventType.DEBUG, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.INFO"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Info)} instead.")] public void InfoException(Exception exception, object? message = null) => WriteException(EventType.INFO, exception, message);
+        [Obsolete($"Use {nameof(Info)} instead.")] public void InfoException(Exception exception, object? message = null) => this.WriteException(EventType.INFO, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.WARN"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Warning)} instead.")] public void WarningException(Exception exception, object? message = null) => WriteException(EventType.WARN, exception, message);
+        [Obsolete($"Use {nameof(Warning)} instead.")] public void WarningException(Exception exception, object? message = null) => this.WriteException(EventType.WARN, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.ERROR"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Error)} instead.")] public void ErrorException(Exception exception, object? message = null) => WriteException(EventType.ERROR, exception, message);
+        [Obsolete($"Use {nameof(Error)} instead.")] public void ErrorException(Exception exception, object? message = null) => this.WriteException(EventType.ERROR, exception, message);
         /// <summary>
         /// Write a formatted <see cref="EventType.FATAL"/> exception message to the log endpoint.
         /// </summary>
         /// <param name="exception">The exception that was thrown.</param>
         /// <param name="message">An optional header message to use instead of the exception's message. <i>(The exception message is still shown.)</i></param>
-        [Obsolete($"Use {nameof(Fatal)} instead.")] public void FatalException(Exception exception, object? message = null) => WriteException(EventType.FATAL, exception, message);
+        [Obsolete($"Use {nameof(Fatal)} instead.")] public void FatalException(Exception exception, object? message = null) => this.WriteException(EventType.FATAL, exception, message);
         #endregion WriteException
 
         /// <summary>
@@ -339,16 +348,16 @@ namespace VolumeControl.Log
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
         public void Append(params object?[] lines)
         {
-            if (!Endpoint.Enabled)
+            if (!this.Endpoint.Enabled)
                 return;
-            WriteWithTimestamp(MakeBlankTimestamp(), lines);
+            this.WriteWithTimestamp(MakeBlankTimestamp(), lines);
         }
         /// <summary>
         /// Write a formatted followup message without a timestamp or event type to the log endpoint.
         /// </summary>
         /// <remarks>This is intended for writing quick follow-up messages that appear as if they were part of a previously written message.<br/>This function is unpredictable in multi-threaded environments.</remarks>
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
-        public void Followup(params object?[] lines) => Append(lines);
+        public void Followup(params object?[] lines) => this.Append(lines);
         /// <summary>
         /// Write a formatted followup message without a timestamp or event type to the log endpoint.
         /// </summary>
@@ -357,8 +366,8 @@ namespace VolumeControl.Log
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
         public void FollowupIf(EventType eventType, params object?[] lines)
         {
-            if (eventType.Equals(LastEventType))
-                Append(lines);
+            if (eventType.Equals(this.LastEventType))
+                this.Append(lines);
         }
         /// <summary>
         /// Write a formatted followup message without a timestamp or event type to the log endpoint.
@@ -368,8 +377,8 @@ namespace VolumeControl.Log
         /// <param name="lines">Any number of writable objects. Each element appears on a separate line.</param>
         public void FollowupIf(Predicate<EventType> predicate, params object?[] lines)
         {
-            if (predicate(LastEventType))
-                Append(lines);
+            if (predicate(this.LastEventType))
+                this.Append(lines);
         }
 
         /// <inheritdoc cref="Dispose()"/>
@@ -379,7 +388,7 @@ namespace VolumeControl.Log
             {
                 if (disposing)
                 {
-                    if (Endpoint is IDisposable disp)
+                    if (this.Endpoint is IDisposable disp)
                         disp.Dispose();
                 }
                 disposedValue = true;
@@ -389,7 +398,7 @@ namespace VolumeControl.Log
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
         #endregion Methods

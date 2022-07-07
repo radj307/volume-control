@@ -14,17 +14,17 @@ namespace VolumeControl.WPF.Collections
         /// </summary>
         public LogEventTypeFilter()
         {
-            Value = FLog.EventFilter;
-            PropertyChanged += HandlePropertyChanged;
+            this.Value = FLog.EventFilter;
+            PropertyChanged += this.HandlePropertyChanged;
         }
         #endregion Initializers
 
         #region Methods
         private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (nameof(Value).Equals(e.PropertyName))
+            if (nameof(this.Value).Equals(e.PropertyName))
             {
-                FLog.Log.EventTypeFilter = Value;
+                FLog.Log.EventTypeFilter = this.Value;
             }
         }
         #endregion Methods

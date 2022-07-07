@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace VolumeControl.TypeExtensions
 {
@@ -20,19 +18,23 @@ namespace VolumeControl.TypeExtensions
             // remove entries that AREN'T present in the incoming list,
             //  and ARE present in the current list
             for (int i = l.Count - 1; i >= 0; --i)
+            {
                 if (!other.Any(incomingItem => incomingItem != null && incomingItem.Equals(l[i])))
                     l.RemoveAt(i);
+            }
             // add entries that ARE present in the incoming list,
             //  and AREN'T present in the current list
             foreach (T incomingItem in other)
+            {
                 if (!l.Any(i => i != null && i.Equals(incomingItem)))
                     l.Add(incomingItem);
+            }
         }
         /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
         /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
         public static IList<T> ForEach<T>(this IList<T> list, Action<T> action)
         {
-            foreach (var item in list)
+            foreach (T? item in list)
                 action(item);
             return list;
         }
@@ -40,7 +42,7 @@ namespace VolumeControl.TypeExtensions
         /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
         public static IList ForEach(this IList list, Action<object?> action)
         {
-            foreach (var item in list)
+            foreach (object? item in list)
                 action(item);
             return list;
         }

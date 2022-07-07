@@ -41,8 +41,8 @@ namespace VolumeControl.WPF
             if (monitor != System.IntPtr.Zero)
             {
 
-                MONITORINFO monitorInfo = new MONITORINFO();
-                GetMonitorInfo(monitor, monitorInfo);
+                var monitorInfo = new MONITORINFO();
+                _ = GetMonitorInfo(monitor, monitorInfo);
                 RECT rcWorkArea = monitorInfo.rcWork;
                 RECT rcMonitorArea = monitorInfo.rcMonitor;
                 mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);

@@ -1,16 +1,10 @@
-﻿using AssemblyAttribute;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media.Animation;
 using VolumeControl.Core;
-using VolumeControl.Core.Attributes;
 using VolumeControl.Log;
 
 namespace VolumeControl
@@ -49,7 +43,9 @@ namespace VolumeControl
             if (!isNewInstance)
             {
                 if (waitForMutex)
+                {
                     _ = appMutex.WaitOne(); //< wait until the mutex is acquired
+                }
                 else
                 {
                     Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
@@ -70,7 +66,7 @@ namespace VolumeControl
                 Log.Fatal("App exited because of an unhandled exception!", ex);
                 app.TrayIcon.Dispose();
 
-                using var sr = Log.Endpoint.GetReader();
+                using TextReader? sr = Log.Endpoint.GetReader();
                 if (sr is not null)
                 {
                     string content = sr.ReadToEnd();
@@ -78,9 +74,12 @@ namespace VolumeControl
 
                     WriteCrashDump(content);
                 }
-                else Log.Fatal($"Failed to create crash log dump!");
+                else
+                {
+                    Log.Fatal($"Failed to create crash log dump!");
+                }
 
-#               if DEBUG
+#if DEBUG
                 appMutex.ReleaseMutex();
                 appMutex.Dispose();
                 throw; //< rethrow in debug configuration
@@ -103,7 +102,7 @@ namespace VolumeControl
             int count = 0;
             foreach (string path in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "volumecontrol-crash-*.log"))
             {
-                var match = Regex.Match(path, "\\d+");
+                Match? match = Regex.Match(path, "\\d+");
                 if (match.Success && int.TryParse(match.Value, out int number) && number > count)
                     count = number;
             }

@@ -14,11 +14,11 @@ namespace VolumeControl.Core.Keyboard
         /// Creates a new <see cref="BindableHotkey"/> instance using <paramref name="hk"/>.
         /// </summary>
         /// <param name="hk">A <see cref="Hotkey"/> instance to use.</param>
-        public BindableHotkey(Hotkey hk) => Hotkey = hk;
+        public BindableHotkey(Hotkey hk) => this.Hotkey = hk;
         /// <summary>
         /// Creates a new <see cref="BindableHotkey"/> instance.
         /// </summary>
-        public BindableHotkey() => Hotkey = new();
+        public BindableHotkey() => this.Hotkey = new();
         #endregion Constructors
 
         #region Properties
@@ -28,54 +28,54 @@ namespace VolumeControl.Core.Keyboard
         public Hotkey Hotkey { get; set; }
 
         /// <inheritdoc/>
-        public int ID => Hotkey.ID;
+        public int ID => this.Hotkey.ID;
         /// <inheritdoc/>
         public Key Key
         {
-            get => Hotkey.Key;
-            set => Hotkey.Key = value;
+            get => this.Hotkey.Key;
+            set => this.Hotkey.Key = value;
         }
         /// <inheritdoc/>
         public Modifier Modifier
         {
-            get => Hotkey.Modifier;
-            set => Hotkey.Modifier = value;
+            get => this.Hotkey.Modifier;
+            set => this.Hotkey.Modifier = value;
         }
         /// <inheritdoc/>
         public bool Registered
         {
-            get => Hotkey.Registered;
-            set => Hotkey.Registered = value;
+            get => this.Hotkey.Registered;
+            set => this.Hotkey.Registered = value;
         }
 
         /// <inheritdoc/>
         public bool Alt
         {
-            get => Modifier.HasFlag(Modifier.Alt);
-            set => Modifier = Modifier.Set(Modifier.Alt, value);
+            get => this.Modifier.HasFlag(Modifier.Alt);
+            set => this.Modifier = this.Modifier.Set(Modifier.Alt, value);
         }
         /// <inheritdoc/>
         public bool Ctrl
         {
-            get => Modifier.HasFlag(Modifier.Ctrl);
-            set => Modifier = Modifier.Set(Modifier.Ctrl, value);
+            get => this.Modifier.HasFlag(Modifier.Ctrl);
+            set => this.Modifier = this.Modifier.Set(Modifier.Ctrl, value);
         }
         /// <inheritdoc/>
         public bool Shift
         {
-            get => Modifier.HasFlag(Modifier.Shift);
-            set => Modifier = Modifier.Set(Modifier.Shift, value);
+            get => this.Modifier.HasFlag(Modifier.Shift);
+            set => this.Modifier = this.Modifier.Set(Modifier.Shift, value);
         }
         /// <inheritdoc/>
         public bool Win
         {
-            get => Modifier.HasFlag(Modifier.Super);
-            set => Modifier = Modifier.Set(Modifier.Super, value);
+            get => this.Modifier.HasFlag(Modifier.Super);
+            set => this.Modifier = this.Modifier.Set(Modifier.Super, value);
         }
         /// <summary>
         /// Gets whether <see cref="Key"/> is set to <see cref="Key.None"/> or not.
         /// </summary>
-        public bool Valid => !Key.Equals(Key.None);
+        public bool Valid => !this.Key.Equals(Key.None);
         /// <summary>
         /// Gets or sets the <see cref="IActionBinding"/> associated with this hotkey instance.
         /// </summary>
@@ -101,8 +101,8 @@ namespace VolumeControl.Core.Keyboard
         /// <inheritdoc/>
         public event HandledEventHandler? Pressed
         {
-            add => Hotkey.Pressed += value;
-            remove => Hotkey.Pressed -= value;
+            add => this.Hotkey.Pressed += value;
+            remove => this.Hotkey.Pressed -= value;
         }
 
 #       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
@@ -113,7 +113,7 @@ namespace VolumeControl.Core.Keyboard
         /// <inheritdoc/>
         public void Dispose()
         {
-            Hotkey.Dispose();
+            this.Hotkey.Dispose();
             GC.SuppressFinalize(this);
         }
         #endregion Events

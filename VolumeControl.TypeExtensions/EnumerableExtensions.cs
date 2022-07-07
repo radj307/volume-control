@@ -12,7 +12,7 @@ namespace VolumeControl.TypeExtensions
         public static IEnumerable<T> WithType<T>(this IEnumerable enumerable)
         {
             List<T> l = new();
-            foreach (var item in enumerable)
+            foreach (object? item in enumerable)
                 if (item is T match) l.Add(match);
             return l.AsEnumerable();
         }
@@ -26,8 +26,11 @@ namespace VolumeControl.TypeExtensions
         {
             List<TResult> l = new();
             foreach (TIn item in enumerable)
+            {
                 if (selector(item) is TResult selected && !l.Contains(selected))
                     l.Add(selected);
+            }
+
             return l.AsEnumerable();
         }
         /// <summary>
@@ -38,7 +41,7 @@ namespace VolumeControl.TypeExtensions
         public static void AddIfUnique(this IList list, object obj)
         {
             if (!list.Contains(obj))
-                list.Add(obj);
+                _ = list.Add(obj);
         }
         /// <summary>
         /// Calls <see cref="AddIfUnique(IList, object)"/> on the given <paramref name="range"/> of objects.
@@ -47,19 +50,19 @@ namespace VolumeControl.TypeExtensions
         /// <param name="range">A range of objects to add to the list. Each object is only added if it isn't a duplicate of an existing element, as determined by <see cref="object.Equals(object?)"/>.</param>
         public static void AddRangeIfUnique(this IList list, IEnumerable range)
         {
-            foreach (var item in range)
+            foreach (object? item in range)
                 list.AddIfUnique(item);
         }
         /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
         public static void ForEach(this IEnumerable enumerable, Action<object?> action)
         {
-            foreach (var item in enumerable)
+            foreach (object? item in enumerable)
                 action(item);
         }
         /// <summary>Performs the specified <paramref name="action"/> on each <paramref name="enumerable"/> element.</summary>
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
-            foreach (var item in enumerable)
+            foreach (T? item in enumerable)
             {
                 action(item);
             }
@@ -68,7 +71,7 @@ namespace VolumeControl.TypeExtensions
         /// <returns><paramref name="enumerable"/>, allowing this method to be used in a pipeline.</returns>
         public static IEnumerable<T> ForwardForEach<T>(this IEnumerable<T> enumerable, Action<T> action) where T : class
         {
-            foreach (var item in enumerable)
+            foreach (T? item in enumerable)
                 action(item);
             return enumerable;
         }
@@ -84,7 +87,7 @@ namespace VolumeControl.TypeExtensions
         public static TList ConvertEach<TList, TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter) where TList : IList, IEnumerable, IList<TOut>, IEnumerable<TOut>, ICollection, ICollection<TOut>, new()
         {
             TList l = new();
-            foreach (var item in enumerable)
+            foreach (TIn? item in enumerable)
                 l.Add(converter(item));
             return l;
         }
@@ -99,7 +102,7 @@ namespace VolumeControl.TypeExtensions
         public static List<TOut> ConvertEach<TOut, TIn>(this IEnumerable<TIn> enumerable, Func<TIn, TOut> converter)
         {
             List<TOut> l = new();
-            foreach (var item in enumerable)
+            foreach (TIn? item in enumerable)
                 l.Add(converter(item));
             return l;
         }
@@ -122,8 +125,11 @@ namespace VolumeControl.TypeExtensions
         {
             List<TVar> l = new();
             foreach (T item in enumerable)
+            {
                 if (predicate(item))
                     l.Add(keySelector(item));
+            }
+
             return l.AsEnumerable();
         }
     }

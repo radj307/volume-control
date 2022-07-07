@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using VolumeControl.Log.Endpoints;
+﻿using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Properties;
 
@@ -9,7 +8,6 @@ namespace VolumeControl.Log
     public static class FLog
     {
         #region Members
-        private static bool _initialized = false;
         private static LogWriter _log = null!;
         #endregion Members
 
@@ -22,7 +20,7 @@ namespace VolumeControl.Log
         {
             get
             {
-                if (!_initialized)
+                if (!Initialized)
                     Initialize();
                 return _log;
             }
@@ -36,13 +34,13 @@ namespace VolumeControl.Log
         {
             get
             {
-                if (!_initialized)
+                if (!Initialized)
                     Initialize();
                 return _log.Endpoint.Enabled;
             }
             internal set
             {
-                if (!_initialized)
+                if (!Initialized)
                     Initialize();
                 _log.Endpoint.Enabled = value;
             }
@@ -59,15 +57,15 @@ namespace VolumeControl.Log
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
         /// </summary>
-        public static bool Initialized => _initialized;
+        public static bool Initialized { get; private set; } = false;
         #endregion Properties
 
         #region Methods
         private static void Initialize()
         {
-            if (_initialized)
+            if (Initialized)
                 throw new Exception("Cannot call FLog.Initialize() or FLog.CustomInitialize() multiple times!");
-            _initialized = true;
+            Initialized = true;
 
             // Add properties to the settings file
             Settings.Default.Save();

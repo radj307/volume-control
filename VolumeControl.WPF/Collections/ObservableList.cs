@@ -10,7 +10,7 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc/>
         protected override void InsertItem(int index, T item)
         {
-            CheckReentrancy();
+            this.CheckReentrancy();
             base.InsertItem(index, item);
             base.OnPropertyChanged(new("Count"));
             base.OnPropertyChanged(new("Items[]"));
@@ -18,7 +18,7 @@ namespace VolumeControl.WPF.Collections
         /// <inheritdoc cref="List{T}.AddRange(IEnumerable{T})"/>
         public void AddRange(IEnumerable<T> range)
         {
-            foreach (T item in range) Add(item);
+            foreach (T item in range) this.Add(item);
         }
         /// <inheritdoc cref="List{T}.RemoveAll(Predicate{T})"/>
         public void RemoveAll(Predicate<T> predicate)

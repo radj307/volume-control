@@ -14,7 +14,7 @@ namespace VolumeControl.Hotkeys.Structs
         /// <param name="actionData">The <see cref="HotkeyActionData"/> belonging to the target method.</param>
         public ActionBinding(MethodInfo mInfo, object? handlerObj, HotkeyActionData actionData)
         {
-            Data = actionData;
+            this.Data = actionData;
             MethodInfo = mInfo;
             HandlerObject = handlerObj;
         }
@@ -22,7 +22,7 @@ namespace VolumeControl.Hotkeys.Structs
         /// <inheritdoc/>
         public HotkeyActionData Data { get; set; }
         /// <inheritdoc/>
-        public string Identifier => $"{(Data.ActionGroup is null ? "" : $"{Data.ActionGroup}:")}{Data.ActionName}";
+        public string Identifier => $"{(this.Data.ActionGroup is null ? "" : $"{this.Data.ActionGroup}:")}{this.Data.ActionName}";
 
         /// <summary>
         /// Stores reflection information about a method.<br/>
@@ -39,7 +39,7 @@ namespace VolumeControl.Hotkeys.Structs
         public void HandleKeyEvent(object? sender, HandledEventArgs? e)
         {
             if (HandlerObject != null || MethodInfo.IsStatic)
-                MethodInfo.Invoke(HandlerObject, new[] { sender, e });
+                _ = MethodInfo.Invoke(HandlerObject, new[] { sender, e });
         }
     }
 }

@@ -13,9 +13,12 @@ namespace VolumeControl.Audio.Events
         private readonly AudioDeviceCollection[] DeviceCollections;
         private AudioDevice? FindWithDeviceID(string deviceID)
         {
-            foreach (var collection in DeviceCollections)
+            foreach (AudioDeviceCollection? collection in DeviceCollections)
+            {
                 if (collection.FirstOrDefault(d => d is not null && d.DeviceID.Equals(deviceID, StringComparison.Ordinal), null) is AudioDevice dev)
                     return dev;
+            }
+
             return null;
         }
 
@@ -30,7 +33,7 @@ namespace VolumeControl.Audio.Events
         {
             if (!role.Equals(Role.Multimedia))
                 return;
-            foreach (var collection in DeviceCollections)
+            foreach (AudioDeviceCollection? collection in DeviceCollections)
             {
                 if (collection.DataFlow.HasFlag(flow))
                 {
@@ -46,11 +49,11 @@ namespace VolumeControl.Audio.Events
         public void OnDeviceAdded(string pwstrDeviceId)
         {
             using var enumerator = new MMDeviceEnumerator();
-            var mmDevice = enumerator.GetDevice(pwstrDeviceId);
+            MMDevice? mmDevice = enumerator.GetDevice(pwstrDeviceId);
             enumerator.Dispose();
-            var flow = mmDevice.DataFlow;
+            DataFlow flow = mmDevice.DataFlow;
             AudioDevice? dev = null;
-            foreach (var collection in DeviceCollections)
+            foreach (AudioDeviceCollection? collection in DeviceCollections)
             { // find a collection that accepts devices with this dataflow type:
                 if (collection.DataFlow.HasFlag(flow))
                 {
@@ -63,12 +66,12 @@ namespace VolumeControl.Audio.Events
         }
         public void OnDeviceRemoved(string deviceId)
         {
-            FindWithDeviceID(deviceId)?.ForwardRemoved(this, EventArgs.Empty);
+            this.FindWithDeviceID(deviceId)?.ForwardRemoved(this, EventArgs.Empty);
             GlobalDeviceRemoved?.Invoke(this, deviceId);
         }
         public void OnDeviceStateChanged(string deviceId, DeviceState newState)
         {
-            if (FindWithDeviceID(deviceId) is AudioDevice device)
+            if (this.FindWithDeviceID(deviceId) is AudioDevice device)
             {
                 device.ForwardStateChanged(this, newState);
                 GlobalDeviceStateChanged?.Invoke(this, device);
@@ -76,11 +79,11 @@ namespace VolumeControl.Audio.Events
             else // existing but previously ignored device was activated:
             {
                 using var enumerator = new MMDeviceEnumerator();
-                var mmDevice = enumerator.GetDevice(deviceId);
+                MMDevice? mmDevice = enumerator.GetDevice(deviceId);
                 enumerator.Dispose();
-                var flow = mmDevice.DataFlow;
+                DataFlow flow = mmDevice.DataFlow;
                 AudioDevice? dev = null;
-                foreach (var collection in DeviceCollections)
+                foreach (AudioDeviceCollection? collection in DeviceCollections)
                 {
                     if (collection.DataFlow.HasFlag(flow))
                     {
@@ -94,7 +97,7 @@ namespace VolumeControl.Audio.Events
         }
         public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key)
         {
-            if (FindWithDeviceID(pwstrDeviceId) is AudioDevice device)
+            if (this.FindWithDeviceID(pwstrDeviceId) is AudioDevice device)
             {
                 device.ForwardPropertyStoreChanged(this, key);
                 GlobalDevicePropertyValueChanged?.Invoke(this, (device, key));

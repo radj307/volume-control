@@ -26,7 +26,7 @@ namespace VolumeControl.Core
         /// Gets whether this <see cref="VersionRange"/> instance allows <i>any</i> version number to be considered within range or not.
         /// </summary>
         /// <returns><see langword="true"/> when both the <see cref="Min"/> &amp; <see cref="Max"/> properties are set to <see langword="null"/>; otherwise <see langword="false"/>.</returns>
-        public bool AllowsAny => Min is null && Max is null;
+        public bool AllowsAny => this.Min is null && this.Max is null;
         #endregion Properties
 
         #region Methods
@@ -35,9 +35,9 @@ namespace VolumeControl.Core
         /// </summary>
         /// <param name="other">Version number to check.</param>
         /// <returns><see langword="true"/> when <paramref name="other"/> is within this range; otherwise <see langword="false"/></returns>
-        public bool WithinRange(SemVersion other) => AllowsAny || ((Min is null || Min.CompareSortOrderTo(other) >= 0) && (Max is null || Max.CompareSortOrderTo(other) <= 0));
+        public bool WithinRange(SemVersion other) => this.AllowsAny || ((this.Min is null || this.Min.CompareSortOrderTo(other) >= 0) && (this.Max is null || this.Max.CompareSortOrderTo(other) <= 0));
         /// <inheritdoc cref="WithinRange(SemVersion)"/>
-        public bool Equals(SemVersion? other) => other is not null && WithinRange(other);
+        public bool Equals(SemVersion? other) => other is not null && this.WithinRange(other);
         #endregion Methods
     }
 }

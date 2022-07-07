@@ -27,7 +27,7 @@ namespace VolumeControl.Helpers
             Updater = new(this);
             if (Settings.CheckForUpdates) Updater.CheckNow();
 
-            _audioAPI = new();
+            this.AudioAPI = new();
 
             AddonManager = new(this);
 
@@ -40,10 +40,10 @@ namespace VolumeControl.Helpers
             actionManager.Types.Add(typeof(MediaActions));
 
             // Create the hotkey manager
-            _hotkeyManager = new(actionManager);
+            this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            API.Internal.Initializer.Initialize(_audioAPI, _hotkeyManager, MainWindowHandle, (Config.Default as Config)!);
+            API.Internal.Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
 
             // Create a list of all addon manager types
             List<IBaseAddon> addons = new()
@@ -56,7 +56,7 @@ namespace VolumeControl.Helpers
 
             // Retrieve a list of all loaded action names
             const char sort_last = (char)('z' + 1);
-            Actions = actionManager
+            this.Actions = actionManager
                 .Bindings
                 .OrderBy(a => a.Data.ActionName.AtIndexOrDefault(0, sort_last))                                           //< sort entries alphabetically
                 .OrderBy(a => a.Data.ActionGroup is null ? sort_last : a.Data.ActionGroup.AtIndexOrDefault(0, sort_last)) //< sort entries by group; null groups are always last.
@@ -64,9 +64,9 @@ namespace VolumeControl.Helpers
 
             // load saved hotkeys
             //  We need to have accessed the Settings property at least once by the time we reach this point
-            _hotkeyManager.LoadHotkeys();
+            this.HotkeyAPI.LoadHotkeys();
 
-            Log.Info($"Volume Control v{CurrentVersionString}");
+            Log.Info($"Volume Control v{this.CurrentVersionString}");
             Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
         }
         private void SaveSettings()
@@ -79,16 +79,14 @@ namespace VolumeControl.Helpers
         #region Events
         public event NotifyCollectionChangedEventHandler? CollectionChanged
         {
-            add => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged += value;
-            remove => ((INotifyCollectionChanged)_hotkeyManager).CollectionChanged -= value;
+            add => ((INotifyCollectionChanged)this.HotkeyAPI).CollectionChanged += value;
+            remove => ((INotifyCollectionChanged)this.HotkeyAPI).CollectionChanged -= value;
         }
         #endregion Events
 
         #region Fields
         #region PrivateFields
         private bool disposedValue;
-        private readonly AudioAPI _audioAPI;
-        private readonly HotkeyManager _hotkeyManager;
         private IEnumerable<string>? _targetAutoCompleteSource;
         #endregion PrivateFields
         public readonly AddonManager AddonManager;
@@ -100,7 +98,7 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
-        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
+        public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= this.AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
         public IEnumerable<IActionBinding> Actions { get; internal set; } = null!;
         public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
         #endregion Other
@@ -124,8 +122,8 @@ namespace VolumeControl.Helpers
         #endregion Statics
 
         #region ParentObjects
-        public AudioAPI AudioAPI => _audioAPI;
-        public HotkeyManager HotkeyAPI => _hotkeyManager;
+        public AudioAPI AudioAPI { get; }
+        public HotkeyManager HotkeyAPI { get; }
         #endregion ParentObjects
         #endregion Properties
 
@@ -140,7 +138,7 @@ namespace VolumeControl.Helpers
         {
             if (MessageBox.Show("Are you sure you want to reset your hotkeys to their default values?\n\nThis cannot be undone!", "Reset Hotkeys?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
             {
-                HotkeyAPI.ResetHotkeys();
+                this.HotkeyAPI.ResetHotkeys();
 
                 Log.Info("Hotkey definitions were reset to default.");
             }
@@ -151,10 +149,10 @@ namespace VolumeControl.Helpers
             {
                 if (disposing)
                 {
-                    SaveSettings();
+                    this.SaveSettings();
                     // Dispose of objects
-                    AudioAPI?.Dispose();
-                    HotkeyAPI?.Dispose();
+                    this.AudioAPI?.Dispose();
+                    this.HotkeyAPI?.Dispose();
                 }
 
                 disposedValue = true;
@@ -163,12 +161,12 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
         ~VolumeControlSettings()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
         }
         #endregion Methods
     }

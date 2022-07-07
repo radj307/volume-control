@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using VolumeControl.Core;
 using VolumeControl.Core.Keyboard.Actions;
 using VolumeControl.Hotkeys;
@@ -24,7 +23,7 @@ namespace VolumeControl.Helpers.Addon
     {
         #region Constructor
         /// <inheritdoc cref="HotkeyActionManager">
-        public HotkeyActionManager() : base(typeof(ActionAddonAttribute)) => Bindings = new() { IHotkeyActionManager.NullAction };
+        public HotkeyActionManager() : base(typeof(ActionAddonAttribute)) => this.Bindings = new() { IHotkeyActionManager.NullAction };
         #endregion Constructor
 
         #region Events
@@ -43,17 +42,17 @@ namespace VolumeControl.Helpers.Addon
         /// </summary>
         private void GetActionMethods()
         {
-            foreach (Type t in Types)
+            foreach (Type t in this.Types)
             {
                 try
                 {
-                    var obj = Activator.CreateInstance(t);
+                    object? obj = Activator.CreateInstance(t);
                     if (obj == null)
                     {
                         FLog.Log.Error($"Type instantiation failed: {t.FullName}");
                         continue;
                     }
-                    MergeActionBindingsList(ParseActionMethods(obj));
+                    this.MergeActionBindingsList(ParseActionMethods(obj));
                 }
                 catch (Exception ex)
                 {
@@ -99,7 +98,7 @@ namespace VolumeControl.Helpers.Addon
         {
             foreach (IActionBinding? action in list)
             {
-                foreach (var bound in Bindings)
+                foreach (IActionBinding? bound in this.Bindings)
                 {
                     if ((bound.Data.ActionGroup?.Equals(action.Data.ActionGroup, StringComparison.Ordinal) ?? false) && bound.Data.ActionName.Equals(action.Data.ActionName, StringComparison.Ordinal))
                     { // action is a duplicate:
@@ -115,7 +114,7 @@ namespace VolumeControl.Helpers.Addon
                     }
                 }
                 // Insert new action
-                Bindings.Add(action);
+                this.Bindings.Add(action);
             }
         }
         /// <inheritdoc/>
@@ -126,21 +125,21 @@ namespace VolumeControl.Helpers.Addon
         {
             get
             {
-                for (int i = 0; i < Bindings.Count; ++i)
+                for (int i = 0; i < this.Bindings.Count; ++i)
                 {
-                    if (Bindings[i].Identifier.Equals(identifier, StringComparison.Ordinal))
-                        return Bindings[i];
+                    if (this.Bindings[i].Identifier.Equals(identifier, StringComparison.Ordinal))
+                        return this.Bindings[i];
                 }
                 return IHotkeyActionManager.NullAction;
             }
             set
             {
-                if (Bindings.FirstOrDefault(b => b is not null && b.Identifier.Equals(identifier, StringComparison.Ordinal), null) is IActionBinding actionBinding)
+                if (this.Bindings.FirstOrDefault(b => b is not null && b.Identifier.Equals(identifier, StringComparison.Ordinal), null) is IActionBinding actionBinding)
                     actionBinding = value;
             }
         }
         /// <inheritdoc/>
-        public override void LoadFromTypes() => GetActionMethods();
+        public override void LoadFromTypes() => this.GetActionMethods();
         #endregion Methods
     }
 }
