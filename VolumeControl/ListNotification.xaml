@@ -11,7 +11,6 @@
     xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
     x:Name="lnotifWindow"
     Title="ListNotification"
-    d:DataContext="{d:DesignInstance Type=helpers:VolumeControlSettings}"
     AllowsTransparency="True"
     Closing="Window_Closing"
     DataContext="{RelativeSource Self}"
