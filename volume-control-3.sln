@@ -19,7 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActions", "{FFC976AB-3F90-4DCD-B389-78DC9A459464}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\Format-Code.yml = .github\workflows\Format-Code.yml
 		.github\workflows\GenerateRelease-csharp.yml = .github\workflows\GenerateRelease-csharp.yml
+		.github\workflows\Run-Unit-Tests.yml = .github\workflows\Run-Unit-Tests.yml
+		.github\workflows\update-documentation.yml = .github\workflows\update-documentation.yml
 		.github\workflows\UpdateVersion.yml = .github\workflows\UpdateVersion.yml
 	EndProjectSection
 EndProject
