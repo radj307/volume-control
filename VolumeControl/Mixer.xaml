@@ -1492,6 +1492,7 @@
                                                 CanUserSortColumns="False"
                                                 DataContext="{StaticResource Settings}"
                                                 ItemsSource="{Binding AudioAPI.Devices, UpdateSourceTrigger=PropertyChanged}"
+                                                MinRowHeight="22"
                                                 Style="{StaticResource DataGridStyle}"
                                                 ToolTip="You can include or exclude specific devices from here.">
                                                 <DataGrid.OpacityMask>
@@ -1518,23 +1519,26 @@
                                                     <DataGridTemplateColumn Width="Auto" Header="Device Name">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
-                                                                <Grid Margin="0,0,0,5">
+
+                                                                <Grid>
                                                                     <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="26" />
-                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition Width="20" />
+                                                                        <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <Image
-                                                                        Margin="1"
-                                                                        HorizontalAlignment="Center"
+                                                                        Margin="2"
+                                                                        HorizontalAlignment="Stretch"
+                                                                        VerticalAlignment="Stretch"
                                                                         Source="{Binding Icon, Mode=OneTime}"
                                                                         Style="{StaticResource IconImageStyle}"
                                                                         Visibility="{Binding ShowIcons, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                                                     <TextBlock
                                                                         Grid.Column="1"
-                                                                        Margin="1"
                                                                         HorizontalAlignment="Stretch"
+                                                                        VerticalAlignment="Center"
+                                                                        Background="#0000"
                                                                         Style="{StaticResource TextBlockStyle}"
-                                                                        Text="{Binding Name, Mode=OneWay}" />
+                                                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
