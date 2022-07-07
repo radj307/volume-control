@@ -31,8 +31,8 @@ var class_volume_control_1_1_hotkeys_1_1_user32 =
       [ "SWP_NOZORDER", "class_volume_control_1_1_hotkeys_1_1_user32.html#a8b40099f64ceeae9bf21c6ea7bd24c4ca2d21b69c0ef5501dcdf12e5931a5f146", null ],
       [ "SWP_SHOWWINDOW", "class_volume_control_1_1_hotkeys_1_1_user32.html#a8b40099f64ceeae9bf21c6ea7bd24c4cad0bb93cdeef2be929d2d95322e40e4c7", null ]
     ] ],
+    [ "keybd_event", "class_volume_control_1_1_hotkeys_1_1_user32.html#aa59a3028f9e359f32f17d50bed3bdaf2", null ],
     [ "KeyboardEvent", "class_volume_control_1_1_hotkeys_1_1_user32.html#a02c975eec786f541d51a806b090bc8ff", null ],
-    [ "KeyboardEvent", "class_volume_control_1_1_hotkeys_1_1_user32.html#ab82e4b7c8794d49273d816edc89d5807", null ],
     [ "SetActiveWindow", "class_volume_control_1_1_hotkeys_1_1_user32.html#aa2e3e801484035a0248f9ddca1c78e26", null ],
     [ "SetWindowPos", "class_volume_control_1_1_hotkeys_1_1_user32.html#a78678fec50f3ab5d0cf11cf14b4125ad", null ],
     [ "SetWindowPos", "class_volume_control_1_1_hotkeys_1_1_user32.html#a46a55b7e5880fbe2efeafd11acf573a8", null ],

@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.Addons.AudioDeviceActions.SelectPreviousDevice" name="VolumeControl.Hotkeys.Addons.AudioDeviceActions.SelectPreviousDevice">
+<area shape="rect" id="node1" title="Sets SelectedDevice to the device occurring before this one in Devices. &#160;Automatically loops back aro..." alt="" coords="5,5,257,61"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_audio_device.html#a06383ce41f612d03937238779f79240a" title=" " alt="" coords="305,13,505,54"/>
+</map>

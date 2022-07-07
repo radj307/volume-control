@@ -134,7 +134,7 @@ override <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.ht
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8e0688dc88ceee1603706e6ed0f1b092"><td class="memItemLeft" align="right" valign="top"><a id="a8e0688dc88ceee1603706e6ed0f1b092"></a>
-<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a8e0688dc88ceee1603706e6ed0f1b092">HashCode</a> =&gt; _hashCode # Process.GetHashCode()</td></tr>
+<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a8e0688dc88ceee1603706e6ed0f1b092">HashCode</a> =&gt; _hashCode # this.Process.GetHashCode()</td></tr>
 <tr class="separator:a8e0688dc88ceee1603706e6ed0f1b092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47b4dac491e85bfa34b16d876b9774d2"><td class="memItemLeft" align="right" valign="top">SimpleAudioVolume&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2">VolumeController</a> =&gt; _controller.SimpleAudioVolume</td></tr>
 <tr class="memdesc:a47b4dac491e85bfa34b16d876b9774d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the SimpleAudioVolume object from the underlying AudioSessionControl type.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2">More...</a><br /></td></tr>
@@ -153,13 +153,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">LargeIcon</a> =&gt; (_icons # this.GetIcons())?.Item2</td></tr>
 <tr class="memdesc:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="mdescLeft">&#160;</td><td class="mdescRight">The large icon located at the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504" title="This is the location of this sessions icon on the system and may or may not actually be set....">IconPath</a>, or null if no icon was found.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">More...</a><br /></td></tr>
 <tr class="separator:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cdcccdbeab9a8364824211253903328"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">Icon</a> =&gt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199">SmallIcon</a> ?? <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">LargeIcon</a></td></tr>
+<tr class="memitem:a1cdcccdbeab9a8364824211253903328"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">Icon</a> =&gt; this.SmallIcon ?? this.LargeIcon</td></tr>
 <tr class="memdesc:a1cdcccdbeab9a8364824211253903328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the large or small icon, depending on whether they are null or not.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">More...</a><br /></td></tr>
 <tr class="separator:a1cdcccdbeab9a8364824211253903328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a356c261a4c345fc0c739c5e66e4e66ea"><td class="memItemLeft" align="right" valign="top"><a id="a356c261a4c345fc0c739c5e66e4e66ea"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">ProcessIdentifier</a> =&gt; _processIdentifier # <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a569d4fb917a60bc03f8861e8f9cb0fc7">PID</a> != -1L ? $&quot;{PID}:{<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a30cfd4a7b3a77615294787e6c3cb2c35">ProcessName</a>}&quot; : string.Empty</td></tr>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">ProcessIdentifier</a> =&gt; _processIdentifier # this.PID != -1L ? $&quot;{this.PID}:{this.ProcessName}&quot; : string.Empty</td></tr>
 <tr class="separator:a356c261a4c345fc0c739c5e66e4e66ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae433e7646bace03ae4c63de18e4f026b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b">Active</a> =&gt; State.Equals(AudioSessionState.AudioSessionStateActive) &amp;&amp; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a51d7fa029652f8b3bc08a502f5b540e9">IsRunning</a></td></tr>
+<tr class="memitem:ae433e7646bace03ae4c63de18e4f026b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b">Active</a> =&gt; this.State.Equals(AudioSessionState.AudioSessionStateActive) &amp;&amp; this.IsRunning</td></tr>
 <tr class="memdesc:ae433e7646bace03ae4c63de18e4f026b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the session's state is set to active and the associated process is running.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b">More...</a><br /></td></tr>
 <tr class="separator:ae433e7646bace03ae4c63de18e4f026b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -264,7 +264,7 @@ If you're writing an addon, install the 'NAudio' nuget package if you need to be
 <p>Gets the process associated with this audio session instance. </p>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e" title="This session&#39;s parent Process.">Process</a> instance that owns the audio session represented by this instance.</dd></dl>
 
-<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00021">VolumeControl.Log.FLog.Log</a>, <a class="el" href="#l00166">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00200">VolumeControl.Audio.AudioSession.Process</a>.</p>
+<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00020">VolumeControl.Log.FLog.Log</a>, <a class="el" href="#l00167">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00201">VolumeControl.Audio.AudioSession.Process</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -281,7 +281,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool VolumeControl.Audio.AudioSession.Active =&gt; State.Equals(AudioSessionState.AudioSessionStateActive) &amp;&amp; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a51d7fa029652f8b3bc08a502f5b540e9">IsRunning</a></td>
+          <td class="memname">bool VolumeControl.Audio.AudioSession.Active =&gt; this.State.Equals(AudioSessionState.AudioSessionStateActive) &amp;&amp; this.IsRunning</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -297,7 +297,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.Icon =&gt; <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199">SmallIcon</a> ?? <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">LargeIcon</a></td>
+          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.Icon =&gt; this.SmallIcon ?? this.LargeIcon</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -556,7 +556,7 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 <p>This session's parent <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e" title="This session&#39;s parent Process.">Process</a>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00259">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00260">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
 
 </div>
 </div>

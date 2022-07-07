@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['observablecollectionobject_794',['ObservableCollectionObject',['../class_observable_immutable_1_1_observable_collection_object.html',1,'ObservableImmutable']]],
-  ['observableimmutablelist_795',['ObservableImmutableList',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
-  ['observableimmutablelist_3c_20audiodevice_20_3e_796',['ObservableImmutableList&lt; AudioDevice &gt;',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
-  ['observableimmutablelist_3c_20audiosession_20_3e_797',['ObservableImmutableList&lt; AudioSession &gt;',['../class_observable_immutable_1_1_observable_immutable_list.html',1,'ObservableImmutable']]],
-  ['observablelist_798',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]]
+  ['point_755',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html',1,'VolumeControl::WPF::PInvoke']]],
+  ['processextensions_756',['ProcessExtensions',['../class_volume_control_1_1_type_extensions_1_1_process_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['propertyinfoextensions_757',['PropertyInfoExtensions',['../class_volume_control_1_1_type_extensions_1_1_property_info_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

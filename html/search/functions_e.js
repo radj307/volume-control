@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['parse_982',['Parse',['../struct_hotkey_lib_1_1_key_combo.html#a1b9e4caa671533619b3b058358f36df7',1,'HotkeyLib::KeyCombo']]],
-  ['point_983',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_o_i_n_t.html#a8955ca029926482ecbfd8430dbc01ef0',1,'VolumeControl::WPF::POINT']]],
-  ['providevalue_984',['ProvideValue',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html#a831e54a717cb3a9445833b32a8bc35a9',1,'VolumeControl.WPF.Converters.BoolToValueConverter.ProvideValue()'],['../class_volume_control_1_1_w_p_f_1_1_markup_1_1_convert_extension.html#a7fc15d75fac3a43d2c58bdf1d838fa2a',1,'VolumeControl.WPF.Markup.ConvertExtension.ProvideValue()']]]
+  ['point_927',['POINT',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html#acc83465fc7f49c77eec77c10edc9831e',1,'VolumeControl::WPF::PInvoke::POINT']]],
+  ['providevalue_928',['ProvideValue',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html#a831e54a717cb3a9445833b32a8bc35a9',1,'VolumeControl.WPF.Converters.BoolToValueConverter.ProvideValue()'],['../class_volume_control_1_1_w_p_f_1_1_markup_1_1_convert_extension.html#a7fc15d75fac3a43d2c58bdf1d838fa2a',1,'VolumeControl.WPF.Markup.ConvertExtension.ProvideValue()']]]
 ];

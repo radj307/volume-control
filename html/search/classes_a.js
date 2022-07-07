@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['nullableboolextensions_791',['NullableBoolExtensions',['../class_volume_control_1_1_type_extensions_1_1_nullable_bool_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['nulltobooleanconverter_792',['NullToBooleanConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['numericupdown_793',['NumericUpDown',['../class_volume_control_1_1_w_p_f_1_1_controls_1_1_numeric_up_down.html',1,'VolumeControl::WPF::Controls']]]
+  ['observablecollectionobject_750',['ObservableCollectionObject',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html',1,'VolumeControl::WPF::Collections']]],
+  ['observableimmutablelist_751',['ObservableImmutableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html',1,'VolumeControl::WPF::Collections']]],
+  ['observableimmutablelist_3c_20audiodevice_20_3e_752',['ObservableImmutableList&lt; AudioDevice &gt;',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html',1,'VolumeControl::WPF::Collections']]],
+  ['observableimmutablelist_3c_20audiosession_20_3e_753',['ObservableImmutableList&lt; AudioSession &gt;',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html',1,'VolumeControl::WPF::Collections']]],
+  ['observablelist_754',['ObservableList',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html',1,'VolumeControl::WPF::Collections']]]
 ];

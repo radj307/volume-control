@@ -1,0 +1,4 @@
+<map id="VolumeControl.Hotkeys.HotkeyManager.DelHotkey" name="VolumeControl.Hotkeys.HotkeyManager.DelHotkey">
+<area shape="rect" id="node1" title="Remove the specified hotkey from Hotkeys." alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#adf2532f0598cac3dfe9a3660f4fb7362" title="Write a formatted EventType.INFO message to the log endpoint." alt="" coords="279,13,519,39"/>
+</map>

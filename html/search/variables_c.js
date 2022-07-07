@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['rcmonitor_1111',['rcMonitor',['../class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html#a683a5290cbc0ad9ba7234d8dda28a02b',1,'VolumeControl::WPF::MONITORINFO']]],
-  ['rcwork_1112',['rcWork',['../class_volume_control_1_1_w_p_f_1_1_m_o_n_i_t_o_r_i_n_f_o.html#afe405caf3dd0a55097a671b61f32a410',1,'VolumeControl::WPF::MONITORINFO']]],
-  ['right_1113',['right',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html#accead54f84fd2a6b947c938e827ed760',1,'VolumeControl::WPF::RECT']]]
+  ['processidentifier_1036',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea',1,'VolumeControl::Audio::AudioSession']]],
+  ['properties_1037',['Properties',['../class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f',1,'VolumeControl::Audio::AudioDevice']]]
 ];

@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_log_w
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
+<a href="#events">Events</a> &#124;
 <a href="class_volume_control_1_1_log_1_1_log_writer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">VolumeControl.Log.LogWriter Class Reference</div>  </div>
@@ -102,12 +103,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_log_1_1_log_w
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Log.LogWriter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__inherit__graph.svg" width="291" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__inherit__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Log.LogWriter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__coll__graph.svg" width="291" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer__coll__graph.svg" width="492" height="463"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -233,6 +236,12 @@ Properties</h2></td></tr>
 <tr class="memitem:accbd1aa41b70c24192c9566be3863fee inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html">IEndpoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#accbd1aa41b70c24192c9566be3863fee">Endpoint</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:accbd1aa41b70c24192c9566be3863fee inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the endpoint for data written to the log.  <a href="interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#accbd1aa41b70c24192c9566be3863fee">More...</a><br /></td></tr>
 <tr class="separator:accbd1aa41b70c24192c9566be3863fee inherit properties_interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Events</h2></td></tr>
+<tr class="memitem:a01c96f3e232e4467b082c001f2b5c6e7"><td class="memItemLeft" align="right" valign="top"><a id="a01c96f3e232e4467b082c001f2b5c6e7"></a>
+PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a01c96f3e232e4467b082c001f2b5c6e7">PropertyChanged</a></td></tr>
+<tr class="separator:a01c96f3e232e4467b082c001f2b5c6e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basic log writer object. </p>
@@ -300,9 +309,9 @@ This function is unpredictable in multi-threaded environments.</p>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00033">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>, and <a class="el" href="#l00142">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00038">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>, and <a class="el" href="#l00147">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00353">VolumeControl.Log.LogWriter.FollowupIf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00367">VolumeControl.Log.LogWriter.FollowupIf()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -341,7 +350,7 @@ If none of the given event types are allowed, nothing happens.</td></tr>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d">VolumeControl.Log.LogWriter.FilterEventType()</a>, and <a class="el" href="#l00241">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
+<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d">VolumeControl.Log.LogWriter.FilterEventType()</a>, and <a class="el" href="#l00255">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -374,7 +383,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00052">VolumeControl.WPF.HWndHook.AddHook()</a>, <a class="el" href="#l00063">VolumeControl.WPF.HWndHook.RemoveHook()</a>, and <a class="el" href="#l00035">VolumeControl.WPF.HWndHook.SetSource()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00056">VolumeControl.WPF.HWndHook.AddHook()</a>, <a class="el" href="#l00067">VolumeControl.WPF.HWndHook.RemoveHook()</a>, and <a class="el" href="#l00035">VolumeControl.WPF.HWndHook.SetSource()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -444,7 +453,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00259">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00260">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -618,7 +627,7 @@ This function is unpredictable in multi-threaded environments.</p>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00335">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00041">VolumeControl.Log.LogWriter.LastEventType</a>.</p>
+<p class="reference">References <a class="el" href="#l00349">VolumeControl.Log.LogWriter.Append()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -664,7 +673,7 @@ This function is unpredictable in multi-threaded environments.</p>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00335">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00041">VolumeControl.Log.LogWriter.LastEventType</a>.</p>
+<p class="reference">References <a class="el" href="#l00349">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00046">VolumeControl.Log.LogWriter.LastEventType</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -803,11 +812,12 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00135">VolumeControl.Hotkeys.HotkeyManager.DelHotkey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00113">VolumeControl.Hotkeys.HotkeyManager.DelHotkey()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_adf2532f0598cac3dfe9a3660f4fb7362_icgraph.svg" width="524" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_adf2532f0598cac3dfe9a3660f4fb7362_icgraph.svg" width="524" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 
 </div>
@@ -875,7 +885,7 @@ Here is the caller graph for this function:</div>
 <p>Gets a blank timestamp to use as indentation. </p>
 <dl class="section return"><dt>Returns</dt><dd>A string of the same length as a timestamp, filled entirely with space characters.</dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00335">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00142">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00349">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00147">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -908,7 +918,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00063">VolumeControl.WPF.HWndHook.RemoveHook()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00067">VolumeControl.WPF.HWndHook.RemoveHook()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1042,7 +1052,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="#l00224">VolumeControl.Log.LogWriter.Conditional()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00238">VolumeControl.Log.LogWriter.Conditional()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1086,11 +1096,12 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00033">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a927e2b5b79ae2c3a0b243246bb2e5a3d">VolumeControl.Log.LogWriter.FilterEventType()</a>, <a class="el" href="#l00041">VolumeControl.Log.LogWriter.LastEventType</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31">VolumeControl.Log.LogWriter.MakeTimestamp()</a>, and <a class="el" href="#l00142">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00038">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="#l00046">VolumeControl.Log.LogWriter.LastEventType</a>, <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31">VolumeControl.Log.LogWriter.MakeTimestamp()</a>, and <a class="el" href="#l00147">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a10efb093dfb522f97b14188ee6a3fa5f_cgraph.svg" width="100%" height="461"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_log_1_1_log_writer_a10efb093dfb522f97b14188ee6a3fa5f_cgraph.svg" width="100%" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 
 </div>
@@ -1192,9 +1203,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00033">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#aff4d1758c814322b5474fa95c9863ce8">VolumeControl.Log.Endpoints.IEndpoint.GetWriter()</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>.</p>
+<p class="reference">References <a class="el" href="#l00011">VolumeControl.Log.Endpoints.IEndpoint.Enabled</a>, <a class="el" href="#l00038">VolumeControl.Log.LogWriter.Endpoint</a>, <a class="el" href="interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#aff4d1758c814322b5474fa95c9863ce8">VolumeControl.Log.Endpoints.IEndpoint.GetWriter()</a>, and <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e">VolumeControl.Log.LogWriter.MakeBlankTimestamp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00335">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00253">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00349">VolumeControl.Log.LogWriter.Append()</a>, and <a class="el" href="#l00267">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1231,7 +1242,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets or sets the log endpoint object used for output. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00335">VolumeControl.Log.LogWriter.Append()</a>, <a class="el" href="#l00371">VolumeControl.Log.LogWriter.Dispose()</a>, <a class="el" href="#l00253">VolumeControl.Log.LogWriter.WriteEvent()</a>, and <a class="el" href="#l00142">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00349">VolumeControl.Log.LogWriter.Append()</a>, <a class="el" href="#l00385">VolumeControl.Log.LogWriter.Dispose()</a>, <a class="el" href="#l00267">VolumeControl.Log.LogWriter.WriteEvent()</a>, and <a class="el" href="#l00147">VolumeControl.Log.LogWriter.WriteWithTimestamp()</a>.</p>
 
 </div>
 </div>
@@ -1281,7 +1292,7 @@ Here is the caller graph for this function:</div>
 
 <p>Gets the last type of event to be printed to the log. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00353">VolumeControl.Log.LogWriter.FollowupIf()</a>, and <a class="el" href="#l00253">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00378">VolumeControl.Log.LogWriter.FollowupIf()</a>, and <a class="el" href="#l00267">VolumeControl.Log.LogWriter.WriteEvent()</a>.</p>
 
 </div>
 </div>

@@ -1,12 +1,14 @@
 var class_volume_control_1_1_core_1_1_config =
 [
-    [ "Config", "class_volume_control_1_1_core_1_1_config.html#aa8f840871d71833a4e209a04e7d28345", null ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
+    [ "KeyBlacklist", "class_volume_control_1_1_core_1_1_config.html#ad499121c4db6f525d7144e00bfc8df29", null ],
     [ "AdvancedHotkeys", "class_volume_control_1_1_core_1_1_config.html#a412a5f1efc488666a81b89967bfca53a", null ],
+    [ "AllowTransparency", "class_volume_control_1_1_core_1_1_config.html#ac1eb1eb7d6c5775b7bcbaafaf7c0087f", null ],
     [ "AlwaysOnTop", "class_volume_control_1_1_core_1_1_config.html#accfab3b3f36626270ba9c50b681f421d", null ],
     [ "CheckForUpdates", "class_volume_control_1_1_core_1_1_config.html#a33dbbd1a39b7f6aa6650ee3d7c0f1025", null ],
     [ "CustomAddonDirectories", "class_volume_control_1_1_core_1_1_config.html#af2982a61d9f534bbaf8f093fe515ab77", null ],
     [ "EnabledDevices", "class_volume_control_1_1_core_1_1_config.html#af80205f7845402712fd252ef59183cfc", null ],
+    [ "EnableDefaultDevice", "class_volume_control_1_1_core_1_1_config.html#aea9fec6c4a43aae2c964dc6842dc5b4a", null ],
     [ "Hotkeys", "class_volume_control_1_1_core_1_1_config.html#a075d5081c56f2dec4a285691f41cad3d", null ],
     [ "LockTargetSession", "class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261", null ],
     [ "NotificationMode", "class_volume_control_1_1_core_1_1_config.html#a3a9622ced5dc4b709cfd0472c5ed0732", null ],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['valid_1121',['Valid',['../class_hotkey_lib_1_1_hotkey.html#a510f500093685ed2393de798df0ddfe1',1,'HotkeyLib.Hotkey.Valid()'],['../struct_hotkey_lib_1_1_key_combo.html#a319dfd310aa2d8f51cb2fe7fd53e1fe4',1,'HotkeyLib.KeyCombo.Valid()'],['../class_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey.html#a3ac439e765b3c2603346c3508a85b476',1,'VolumeControl.Core.Keyboard.BindableHotkey.Valid()']]],
-  ['volumecontroller_1122',['VolumeController',['../class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2',1,'VolumeControl::Audio::AudioSession']]]
+  ['timepointsegmentlength_1046',['TimePointSegmentLength',['../class_volume_control_1_1_log_1_1_timestamp.html#a69c3508e1c1ebecec72da8ed052663b3',1,'VolumeControl::Log::Timestamp']]],
+  ['top_1047',['top',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#ade3aa5b888dca3e9752fdf0a9f8b5bc7',1,'VolumeControl::WPF::PInvoke::RECT']]]
 ];

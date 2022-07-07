@@ -34,5 +34,6 @@ var class_volume_control_1_1_log_1_1_log_writer =
     [ "WriteWithTimestamp", "class_volume_control_1_1_log_1_1_log_writer.html#a2358be752465f43b8ac7b0d7c2aa55bf", null ],
     [ "Endpoint", "class_volume_control_1_1_log_1_1_log_writer.html#a5ef26b1bf948c848e951921e8c2a5363", null ],
     [ "EventTypeFilter", "class_volume_control_1_1_log_1_1_log_writer.html#a9ccdde45c27eeb86a0be3d706c97a050", null ],
-    [ "LastEventType", "class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6", null ]
+    [ "LastEventType", "class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6", null ],
+    [ "PropertyChanged", "class_volume_control_1_1_log_1_1_log_writer.html#a01c96f3e232e4467b082c001f2b5c6e7", null ]
 ];

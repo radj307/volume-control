@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['realnumberextensions_802',['RealNumberExtensions',['../class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html',1,'VolumeControl::TypeExtensions']]],
-  ['rect_803',['RECT',['../struct_volume_control_1_1_w_p_f_1_1_r_e_c_t.html',1,'VolumeControl::WPF']]]
+  ['settings_760',['Settings',['../class_volume_control_1_1_log_1_1_properties_1_1_settings.html',1,'VolumeControl::Log::Properties']]],
+  ['squaredcornerradiusconverter_761',['SquaredCornerRadiusConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html',1,'VolumeControl::WPF::Converters']]],
+  ['stringextensions_762',['StringExtensions',['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

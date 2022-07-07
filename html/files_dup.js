@@ -1,7 +1,6 @@
 var files_dup =
 [
     [ "AppConfig", "dir_5c802121822b9487483564a303f5d564.html", "dir_5c802121822b9487483564a303f5d564" ],
-    [ "HotkeyLib", "dir_70773213e3e6474de61bd09597ed1e31.html", "dir_70773213e3e6474de61bd09597ed1e31" ],
     [ "VolumeControl.API", "dir_7fe4aeeb0abc4c2a4adaff7a8caa36db.html", "dir_7fe4aeeb0abc4c2a4adaff7a8caa36db" ],
     [ "VolumeControl.Audio", "dir_6669490ab7341c9adf099ef9202f5515.html", "dir_6669490ab7341c9adf099ef9202f5515" ],
     [ "VolumeControl.Core", "dir_269c642ea8ba511592b8a0a4f9f45a95.html", "dir_269c642ea8ba511592b8a0a4f9f45a95" ],

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['processidentifier_1109',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea',1,'VolumeControl::Audio::AudioSession']]],
-  ['properties_1110',['Properties',['../class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f',1,'VolumeControl::Audio::AudioDevice']]]
+  ['name_1033',['Name',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html#a4ab53027b8738c7126bad900e4d2e8b0',1,'VolumeControl::WPF::Collections::BindableEventType']]],
+  ['nullaction_1034',['NullAction',['../interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883',1,'VolumeControl::Hotkeys::Interfaces::IHotkeyActionManager']]],
+  ['nullactionhandler_1035',['NullActionHandler',['../interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50',1,'VolumeControl::Hotkeys::Interfaces::IHotkeyActionManager']]]
 ];

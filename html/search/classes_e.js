@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['settings_804',['Settings',['../class_volume_control_1_1_log_1_1_properties_1_1_settings.html',1,'VolumeControl::Log::Properties']]],
-  ['squaredcornerradiusconverter_805',['SquaredCornerRadiusConverter',['../class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html',1,'VolumeControl::WPF::Converters']]],
-  ['stringextensions_806',['StringExtensions',['../class_volume_control_1_1_type_extensions_1_1_string_extensions.html',1,'VolumeControl::TypeExtensions']]]
+  ['targetchangingeventargs_763',['TargetChangingEventArgs',['../class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html',1,'VolumeControl::Audio::Events']]],
+  ['timerextensions_764',['TimerExtensions',['../class_volume_control_1_1_type_extensions_1_1_timer_extensions.html',1,'VolumeControl::TypeExtensions']]],
+  ['timestamp_765',['Timestamp',['../class_volume_control_1_1_log_1_1_timestamp.html',1,'VolumeControl::Log']]],
+  ['typeextensions_766',['TypeExtensions',['../class_volume_control_1_1_type_extensions_1_1_type_extensions.html',1,'VolumeControl::TypeExtensions']]]
 ];

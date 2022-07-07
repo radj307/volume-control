@@ -1,5 +1,6 @@
 <map id="VolumeControl.Log.LogWriter" name="VolumeControl.Log.LogWriter">
-<area shape="rect" id="node1" title="Basic log writer object." alt="" coords="52,145,267,457"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="5,5,161,97"/>
-<area shape="rect" id="node3" title=" " alt="" coords="186,13,285,90"/>
+<area shape="rect" id="node1" title="Basic log writer object." alt="" coords="177,145,392,457"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,13,183,90"/>
+<area shape="rect" id="node3" href="$interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html" title="Represents a log writer object, which is responsible for exposing logging methods,..." alt="" coords="207,5,363,97"/>
+<area shape="rect" id="node4" title=" " alt="" coords="387,13,486,90"/>
 </map>

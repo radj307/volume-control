@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['marginsegmentlength_1099',['MarginSegmentLength',['../class_volume_control_1_1_log_1_1_timestamp.html#aab5170b33b0f54a3dc3fc426485fdd38',1,'VolumeControl::Log::Timestamp']]],
-  ['maxid_1100',['MaxID',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a85783c956fcca7fa1819641b485b5374',1,'HotkeyLib::HotkeyAPI']]],
-  ['minid_1101',['MinID',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a5da83e2f187d900eff144084c2d9a430',1,'HotkeyLib::HotkeyAPI']]],
-  ['mod_5falt_1102',['MOD_ALT',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#ae76dbc3381b40afedac47069bb44047b',1,'HotkeyLib::HotkeyAPI']]],
-  ['mod_5fcontrol_1103',['MOD_CONTROL',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a3d0880bb67b403f8b7f68aad9b3b3507',1,'HotkeyLib::HotkeyAPI']]],
-  ['mod_5fshift_1104',['MOD_SHIFT',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a8a1cddd026a1997254404d456a4f0dfc',1,'HotkeyLib::HotkeyAPI']]],
-  ['mod_5fwin_1105',['MOD_WIN',['../class_hotkey_lib_1_1_hotkey_a_p_i.html#a66db0c2a2eca62113e8eb71944a47138',1,'HotkeyLib::HotkeyAPI']]]
+  ['largeicon_1024',['LargeIcon',['../class_volume_control_1_1_audio_1_1_audio_device.html#a38ac6102accbc2d6802d009d025bde1d',1,'VolumeControl.Audio.AudioDevice.LargeIcon()'],['../class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159',1,'VolumeControl.Audio.AudioSession.LargeIcon()']]],
+  ['left_1025',['left',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#a5c79a9dab09be8ce5b19137bca25d49e',1,'VolumeControl::WPF::PInvoke::RECT']]],
+  ['lineheaderlength_1026',['LineHeaderLength',['../class_volume_control_1_1_log_1_1_timestamp.html#adf9294c3c811d75f9c23dd0a60b95357',1,'VolumeControl::Log::Timestamp']]],
+  ['lineheadertotallength_1027',['LineHeaderTotalLength',['../class_volume_control_1_1_log_1_1_timestamp.html#a41902f5cb92439766a3d8a74c1ad9f3d',1,'VolumeControl::Log::Timestamp']]],
+  ['linesegmentlengthdatetime_1028',['LineSegmentLengthDateTime',['../class_volume_control_1_1_log_1_1_timestamp.html#a827874db10b1036fa2fd95b4b83fd3a4',1,'VolumeControl::Log::Timestamp']]],
+  ['linesegmentlengtheventtype_1029',['LineSegmentLengthEventType',['../class_volume_control_1_1_log_1_1_timestamp.html#ad98a622acfedc0a6af97ebd4aea1faf4',1,'VolumeControl::Log::Timestamp']]],
+  ['linesegmentlengthmargin_1030',['LineSegmentLengthMargin',['../class_volume_control_1_1_log_1_1_timestamp.html#a0e8adacebb4dbb02458454f50c2e47e2',1,'VolumeControl::Log::Timestamp']]],
+  ['log_1031',['Log',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#ab1e04b77b8ff4f7614c37b0e8ad6770f',1,'VolumeControl::API::VCAPI']]]
 ];

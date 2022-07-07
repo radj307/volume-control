@@ -1,10 +1,6 @@
 <map id="VolumeControl.Hotkeys.HotkeyManager" name="VolumeControl.Hotkeys.HotkeyManager">
-<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="167,359,393,656"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,197,192,274"/>
-<area shape="rect" id="node3" title=" " alt="" coords="115,20,293,97"/>
-<area shape="rect" id="node5" href="$interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html" title="Represents a hotkey action manager object, which contains the list of IActionBindings used in the hot..." alt="" coords="267,175,515,296"/>
-<area shape="rect" id="node4" title=" " alt="" coords="539,197,637,274"/>
-<area shape="rect" id="node6" href="$interface_volume_control_1_1_core_1_1_i_base_addon.html" title="Represents any type of Volume Control addon definition object. &#160;This interface is implemented by the ..." alt="" coords="317,13,465,105"/>
-<area shape="rect" id="node7" title=" " alt="" coords="489,20,671,97"/>
-<area shape="rect" id="node8" href="$interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html" title="Represents an action binding object, which is a container for reflective method information used to c..." alt="" coords="695,5,916,112"/>
+<area shape="rect" id="node1" title="This object is responsible for managing hotkeys at runtime." alt="" coords="193,131,418,413"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,192,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="217,5,394,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="419,5,517,83"/>
 </map>
