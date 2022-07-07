@@ -1,10 +1,12 @@
 name: Update Referrers List
 
 on:
-  push:
-    schedule: '0 0 * * 6'
+  schedule: 
+    - cron: '0 0 * * 0'
   workflow_dispatch:
   
+permissions: write-all
+
 jobs:
   update-referrers:
     runs-on: ubuntu-latest
