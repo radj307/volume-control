@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <StartupObject>VolumeControl.Program</StartupObject>
     <!-- VERSIONING INFO -->
-    <Version>5.1.3</Version>
-    <ExtendedVersion>5.1.3-rc1</ExtendedVersion>
+    <Version>5.2.0</Version>
+    <ExtendedVersion>5.2.0-rc1</ExtendedVersion>
     <ReleaseType>CANDIDATE</ReleaseType>
     <!-- VERSIONING INFO -->
     <Authors>radj307</Authors>
