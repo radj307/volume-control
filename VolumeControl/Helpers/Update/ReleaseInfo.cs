@@ -57,7 +57,9 @@ namespace VolumeControl.Helpers.Update
         #endregion Properties
 
         #region Methods
+        /// <inheritdoc/>
         public int CompareTo(ReleaseInfo other) => this.Version.CompareSortOrderTo(other.Version);
+        /// <inheritdoc/>
         public bool Equals(ReleaseInfo other) => this.Version.Equals(other.Version);
 
         public static bool operator <(ReleaseInfo left, ReleaseInfo right) => left.CompareTo(right) < 0;
@@ -65,9 +67,13 @@ namespace VolumeControl.Helpers.Update
         public static bool operator >(ReleaseInfo left, ReleaseInfo right) => left.CompareTo(right) > 0;
         public static bool operator >=(ReleaseInfo left, ReleaseInfo right) => left.CompareTo(right) >= 0;
 
+        /// <inheritdoc/>
         public override bool Equals(object? obj) => obj is ReleaseInfo other && this.Equals(other);
+        /// <inheritdoc/>
         public override int GetHashCode() => this.Version.GetHashCode();
+        /// <inheritdoc/>
         public int CompareTo(SemVersion? other) => this.Version.CompareSortOrderTo(other);
+        /// <inheritdoc/>
         public bool Equals(SemVersion? other) => this.Version.Equals(other);
 
         public static bool operator ==(ReleaseInfo left, ReleaseInfo right) => left.Equals(right);

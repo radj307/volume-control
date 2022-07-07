@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using VolumeControl.WPF.PInvoke;
 
 namespace VolumeControl.WPF
 {

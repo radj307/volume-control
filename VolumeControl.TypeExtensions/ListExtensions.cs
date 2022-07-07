@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace VolumeControl.TypeExtensions
@@ -26,6 +27,22 @@ namespace VolumeControl.TypeExtensions
             foreach (T incomingItem in other)
                 if (!l.Any(i => i != null && i.Equals(incomingItem)))
                     l.Add(incomingItem);
+        }
+        /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
+        /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
+        public static IList<T> ForEach<T>(this IList<T> list, Action<T> action)
+        {
+            foreach (var item in list)
+                action(item);
+            return list;
+        }
+        /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
+        /// <returns>The resulting <paramref name="list"/>; this can safely be ignored when using this method outside of a pipeline.</returns>
+        public static IList ForEach(this IList list, Action<object?> action)
+        {
+            foreach (var item in list)
+                action(item);
+            return list;
         }
     }
 }

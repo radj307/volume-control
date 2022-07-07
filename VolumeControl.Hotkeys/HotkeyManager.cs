@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using VolumeControl.Core;
 using VolumeControl.Core.Keyboard;
 using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
-using VolumeControl.WPF;
+using VolumeControl.TypeExtensions;
 using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Hotkeys
@@ -18,20 +16,16 @@ namespace VolumeControl.Hotkeys
         #region Initializers
         /// <inheritdoc cref="HotkeyManager"/>
         /// <param name="actionManager">The action manager to use.</param>
-        /// <param name="loadNow">When true, the <see cref="LoadHotkeys"/> method is called from the constructor. Set this to false if you want to do it yourself.</param>
-        public HotkeyManager(IHotkeyActionManager actionManager, bool loadNow = false)
+        public HotkeyManager(IHotkeyActionManager actionManager)
         {
-            _hotkeyActions = actionManager;
-
-            if (loadNow)
-                LoadHotkeys();
+            Actions = actionManager;
 
             this.CollectionChanged += HandleCollectionChanged;
+            RecheckAllSelected();
         }
         #endregion Initializers
 
         #region Fields
-        private readonly IHotkeyActionManager _hotkeyActions = null!;
         private bool disposedValue;
         private bool _allSelectedChanging;
         private bool? _allSelected;
@@ -46,21 +40,24 @@ namespace VolumeControl.Hotkeys
         }
         private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.NewItems == null)
-                return;
-            foreach (IBindableHotkey item in e.NewItems)
+            switch (e.Action)
             {
-                item.PropertyChanged += HotkeyOnPropertyChanged;
-                item.PropertyChanged += NotifyPropertyChanged;
+            case NotifyCollectionChangedAction.Add:
+            case NotifyCollectionChangedAction.Replace:
+                e.NewItems?.ForEach(i =>
+                {
+                    if (i is IBindableHotkey bhk)
+                        bhk.PropertyChanged += HotkeyOnPropertyChanged;
+                });
+                break;
+            default: break;
             }
         }
 
+#       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <summary>Triggered after the value changes when a property's setter is called.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void NotifyPropertyChanged(object? sender, PropertyChangedEventArgs e) => PropertyChanged?.Invoke(sender, e);
-        /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
-        /// <param name="propertyName">This is automatically retrieved using reflection; it is the name of the property that was changed.</param>
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
+#       pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         #endregion Events
 
         #region Properties
@@ -69,7 +66,7 @@ namespace VolumeControl.Hotkeys
         /// <summary>
         /// Action manager object
         /// </summary>
-        public IHotkeyActionManager Actions => _hotkeyActions;
+        public IHotkeyActionManager Actions { get; }
         /// <summary>
         /// List of hotkeys.
         /// </summary>
@@ -87,7 +84,6 @@ namespace VolumeControl.Hotkeys
 
                 // Set all other CheckBoxes
                 AllSelectedChanged();
-                NotifyPropertyChanged();
             }
         }
         #endregion Properties
@@ -99,28 +95,10 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         public void AddHotkey(IBindableHotkey hk)
         {
-            hk.PropertyChanged += NotifyPropertyChanged;
             Hotkeys.Add(hk);
             Log.Info($"Created a new hotkey entry:", JsonConvert.SerializeObject(hk));
             RecheckAllSelected();
         }
-        /// <summary>
-        /// Create a new hotkey and add it to <see cref="Hotkeys"/>.
-        /// </summary>
-        /// <param name="name">The name of the new hotkey.</param>
-        /// <param name="key">The primary key of the hotkey.</param>
-        /// <param name="modifier">The modifier keys of the hotkey.</param>
-        /// <param name="actionName">The associated action of the new hotkey.</param>
-        /// <param name="registerNow">When true, the new hotkey is registered immediately after construction.</param>
-        public void AddHotkey(string name, Key key, Modifier modifier, string? actionName, bool registerNow = false) =>
-            AddHotkey(new BindableHotkey()
-            {
-                Name = name,
-                Key = key,
-                Modifier = modifier,
-                Action = actionName is null ? null : Actions[actionName],
-                Registered = registerNow
-            });
         /// <summary>
         /// Create a new blank hotkey and add it to <see cref="Hotkeys"/>.
         /// </summary>
@@ -132,7 +110,7 @@ namespace VolumeControl.Hotkeys
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
         /// </summary>
         /// <param name="hk">The <see cref="Hotkey"/> object to remove.<br/>If this is null, nothing happens.</param>
-        public void DelHotkey(BindableHotkey? hk)
+        public void DelHotkey(IBindableHotkey? hk)
         {
             if (hk == null)
                 return;
@@ -143,7 +121,7 @@ namespace VolumeControl.Hotkeys
         /// <summary>
         /// Remove the specified hotkey from <see cref="Hotkeys"/>.
         /// </summary>
-        /// <param name="id">The ID number of the hotkey to delete.</param>
+        /// <param name="id">The Windows API ID number of the hotkey to delete.</param>
         public void DelHotkey(int id)
         {
             for (int i = Hotkeys.Count - 1; i >= 0; --i)
@@ -185,17 +163,7 @@ namespace VolumeControl.Hotkeys
         /// <remarks><b>Make sure that the <see cref="Actions"/> property is set and initialized before calling this!</b></remarks>
         public void LoadHotkeys()
         {
-            foreach (var hkjw in Settings.Hotkeys ??= Config.Hotkeys_Default)
-            {
-                AddHotkey(new BindableHotkey()
-                {
-                    Name = hkjw.Name,
-                    Key = hkjw.Key,
-                    Modifier = hkjw.Modifier,
-                    Action = hkjw.ActionIdentifier is null ? null : Actions[hkjw.ActionIdentifier],
-                    Registered = hkjw.Registered
-                });
-            }
+            Hotkeys.AddRangeIfUnique((Settings.Hotkeys ??= Config.Hotkeys_Default).ConvertEach(hkjw => hkjw.ToBindableHotkey(Actions)));
             RecheckAllSelected();
         }
         /// <summary>
@@ -203,19 +171,7 @@ namespace VolumeControl.Hotkeys
         /// </summary>
         public void SaveHotkeys()
         {
-            List<BindableHotkeyJsonWrapper> l = new();
-            foreach (var hk in Hotkeys)
-            {
-                l.Add(new BindableHotkeyJsonWrapper()
-                {
-                    Key = hk.Key,
-                    Modifier = hk.Modifier,
-                    Registered = hk.Registered,
-                    Name = hk.Name,
-                    ActionIdentifier = hk.Action?.Identifier
-                });
-            }
-            Settings.Hotkeys = l.ToArray();
+            Settings.Hotkeys = Hotkeys.ConvertEach(hk => hk.ToBindableHotkeyJsonWrapper()).ToArray();
             Settings.Save();
         }
         /// <summary>Resets the current hotkey list by replacing it with <see cref="Config.Hotkeys_Default"/>.</summary>

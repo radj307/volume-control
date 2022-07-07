@@ -13,9 +13,7 @@ using VolumeControl.Helpers.Addon;
 using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
-using VolumeControl.Hotkeys.Interfaces;
 using VolumeControl.Log;
-using VolumeControl.Properties;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
@@ -103,26 +101,8 @@ namespace VolumeControl.Helpers
         /// This is used by the target box's autocomplete feature, and is automatically invalidated & refreshed each time the sessions list changes.
         /// </summary>
         public IEnumerable<string> TargetAutoCompleteSource => _targetAutoCompleteSource ??= AudioAPI.GetSessionNames(AudioAPI.SessionNameFormat.ProcessIdentifier | AudioAPI.SessionNameFormat.ProcessName);
-        public IEnumerable<IActionBinding> Actions
-        {
-            get => _actions;
-            internal set
-            {
-                _actions = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private IEnumerable<IActionBinding> _actions = null!;
-        public IEnumerable<string> NotificationModes
-        {
-            get => _notificationModes;
-            set
-            {
-                _notificationModes = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private IEnumerable<string> _notificationModes = Enum.GetNames(typeof(DisplayTarget));
+        public IEnumerable<IActionBinding> Actions { get; internal set; } = null!;
+        public IEnumerable<string> NotificationModes { get; set; } = Enum.GetNames(typeof(DisplayTarget));
         #endregion Other
 
         #region Statics
@@ -136,29 +116,11 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// True when there is a newer version of volume control available.
         /// </summary>
-        public bool UpdateAvailable
-        {
-            get => _updateAvailable;
-            internal set
-            {
-                _updateAvailable = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _updateAvailable = false;
+        public bool UpdateAvailable { get; internal set; } = false;
         /// <summary>
         /// The version number of the new version, as a string.
         /// </summary>
-        public string UpdateVersion
-        {
-            get => _updateVersion;
-            internal set
-            {
-                _updateVersion = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private string _updateVersion = string.Empty;
+        public string UpdateVersion { get; internal set; } = string.Empty;
         #endregion Statics
 
         #region ParentObjects

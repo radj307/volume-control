@@ -1,6 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Collections;
@@ -8,6 +7,7 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Audio
 {
@@ -173,24 +173,19 @@ namespace VolumeControl.Audio
         private void EnableDevices()
         {
             foreach (var dev in Devices)
-                if (Settings.EnabledDevices.Contains(dev.DeviceID))
-                    dev.Enabled = true;
-
-            if (Settings.EnabledDevices.Contains(string.Empty) && DefaultDevice != null)
-                DefaultDevice.Enabled = true;
+            {
+                if (dev.Equals(DefaultDevice))
+                    dev.Enabled = Settings.EnableDefaultDevice;
+                else
+                    dev.Enabled = Settings.EnabledDevices.Contains(dev.DeviceID);
+            }
         }
         private void SaveEnabledDevices()
         {
-            Settings.EnabledDevices = new();
-            if (DefaultDevice?.Enabled ?? false)
-                Settings.EnabledDevices.Add(string.Empty);
-            foreach (var dev in Devices)
-            {
-                if (dev.Enabled)
-                {
-                    Settings.EnabledDevices.Add(dev.DeviceID);
-                }
-            }
+            Settings.EnabledDevices.Clear();
+            Devices.ForEach(dev => Settings.EnabledDevices.AddIfUnique(dev.DeviceID));
+            if (DefaultDevice is not null)
+                Settings.EnableDefaultDevice = DefaultDevice.Enabled;
         }
         /// <summary>
         /// Clears and reloads all audio devices.

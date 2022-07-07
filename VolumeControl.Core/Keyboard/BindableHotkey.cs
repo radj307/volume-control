@@ -104,8 +104,11 @@ namespace VolumeControl.Core.Keyboard
             add => Hotkey.Pressed += value;
             remove => Hotkey.Pressed -= value;
         }
+
+#       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
+#       pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
 
         /// <inheritdoc/>
         public void Dispose()

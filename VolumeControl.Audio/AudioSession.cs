@@ -8,6 +8,7 @@ using VolumeControl.Audio.Events;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
 
 namespace VolumeControl.Audio
 {

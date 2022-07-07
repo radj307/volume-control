@@ -3,14 +3,11 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using VolumeControl.Attributes;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
 using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
-using VolumeControl.Log.Enum;
-using VolumeControl.Properties;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
 
@@ -42,15 +39,7 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VCSettings)}.{nameof(CurrentVersion)} = '{CurrentVersionString}'");
             Log.Debug($"{nameof(VCSettings)}.{nameof(ReleaseType)} = '{ReleaseType}'");
 
-            // Validate the run at startup registry value
-            if (RunAtStartup)
-                RunAtStartupHelper.Value = ExecutablePath;
-            else // remove the registry value:
-                RunAtStartupHelper.Value = null;
-            // Update the RunAtStartup value without setting it twice
-            ProcessRunAtStartupChangedEvents = false;
             RunAtStartup = RunAtStartupHelper.ValueEquals(ExecutablePath);
-            ProcessRunAtStartupChangedEvents = true;
 
             // Set the notification mode
             NotificationMode = DisplayTarget.Sessions;
@@ -78,23 +67,36 @@ namespace VolumeControl.Helpers
         /// <inheritdoc/>
         public ERelease ReleaseType { get; }
         #endregion ReadOnlyProperties
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.EnableDefaultDevice"/>
+        public bool EnableDefaultDevice
+        {
+            get => Settings.EnableDefaultDevice;
+            set => Settings.EnableDefaultDevice = value;
+        }
+        /// <inheritdoc cref="Config.ShowIcons"/>
         public bool ShowIcons
         {
             get => Settings.ShowIcons;
             set => Settings.ShowIcons = value;
         }
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.AdvancedHotkeys"/>
         public bool AdvancedHotkeyMode
         {
             get => Settings.AdvancedHotkeys;
             set => Settings.AdvancedHotkeys = value;
         }
-        /// <inheritdoc/>
+        /// <inheritdoc cref="Config.RunAtStartup"/>
         public bool RunAtStartup
         {
-            get => Settings.RunAtStartup;
-            set => Settings.RunAtStartup = value;
+            get => Settings.RunAtStartup && RunAtStartupHelper.ValueEquals(ExecutablePath);
+            set
+            {
+                bool state = Settings.RunAtStartup = value;
+                if (state)
+                    RunAtStartupHelper.Value = ExecutablePath;
+                else // remove the registry value:
+                    RunAtStartupHelper.Value = null;
+            }
         }
         /// <inheritdoc/>
         public bool StartMinimized
@@ -141,36 +143,10 @@ namespace VolumeControl.Helpers
         #endregion Properties
 
         #region Events
+#       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-        /// <summary>Triggers the <see cref="PropertyChanged"/> event.</summary>
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new(propertyName));
-            if (Log.FilterEventType(EventType.DEBUG)) // only perform reflection step when log message will actually be printed
-                Log.Debug($"VCSettings.{propertyName} = '{typeof(VCSettings).GetProperty(propertyName)?.GetValue(this)}'");
-        }
-        public event EventHandler<bool>? RunAtStartupChanged;
-        /// <summary>
-        /// This can be used to disable internal processing of the <see cref="RunAtStartupChanged"/> event.<br/>Default is <see langword="true"/>.
-        /// </summary>
-        /// <remarks>Note that setting this to <see langword="false"/> will disable <b>all registry accesses</b> resulting from internal handling of the <see cref="RunAtStartupChanged"/> event, and <b><i>will</i></b> cause the <see cref="RunAtStartup"/> property to behave unexpectedly!</remarks>
-        public bool ProcessRunAtStartupChangedEvents = true;
-        private void NotifyRunAtStartupChanged()
-        {
-            if (!ProcessRunAtStartupChangedEvents)
-                return;
-
-            if (RunAtStartup)
-                RunAtStartupHelper.Value = ExecutablePath;
-            else // remove the registry value:
-                RunAtStartupHelper.Value = null;
-
-            NotifyPropertyChanged(nameof(RunAtStartup));
-
-            // don't save the value of run at startup to a variable or the UI won't update properly if an error occurs
-            RunAtStartupChanged?.Invoke(this, RunAtStartup);
-        }
+#       pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         #endregion Events
 
         #region Methods

@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VolumeControl.Log;
 
-namespace VolumeControl.Audio
+namespace VolumeControl.WPF
 {
     /// <summary>This is a helper class used to retrieve icons using multiple different context-sensitive methods from the Windows API.</summary>
     public static class IconGetter

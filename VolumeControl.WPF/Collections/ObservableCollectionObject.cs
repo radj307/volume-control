@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Threading;
 
-namespace ObservableImmutable
+namespace VolumeControl.WPF.Collections
 {
 #   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -95,9 +95,7 @@ namespace ObservableImmutable
         {
             Dispatcher? dispatcher = GetDispatcher();
             if (dispatcher == null)
-            {
                 return;
-            }
 
             var frame = new DispatcherFrame();
             dispatcher.BeginInvoke(DispatcherPriority.DataBind, new DispatcherOperationCallback(ExitFrame), frame);
@@ -173,9 +171,7 @@ namespace ObservableImmutable
                 var dispatcherObject = handler.Target as DispatcherObject;
 
                 if (dispatcherObject != null && !dispatcherObject.CheckAccess())
-                {
                     dispatcherObject.Dispatcher.Invoke(DispatcherPriority.DataBind, handler, this, args);
-                }
                 else
                 {
                     handler(this, args);
@@ -203,9 +199,7 @@ namespace ObservableImmutable
             PropertyChangedEventHandler? propertyChangedEventHandler = PropertyChanged;
 
             if (propertyChangedEventHandler != null)
-            {
                 propertyChangedEventHandler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         #endregion INotifyPropertyChanged

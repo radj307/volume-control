@@ -11,6 +11,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Fody" Version="6.6.3">
+	    <PrivateAssets>All</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+	    <PrivateAssets>All</PrivateAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
 			<AutoGen>True</AutoGen>

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using VolumeControl.Log.Endpoints;
@@ -11,7 +12,7 @@ namespace VolumeControl.Log
     /// Basic log writer object.
     /// </summary>
     /// <remarks>This does all of the heavy-lifting (string manipulation) for the <see cref="Log"/> namespace.</remarks>
-    public class LogWriter : ILogWriter, IDisposable
+    public class LogWriter : INotifyPropertyChanged, ILogWriter, IDisposable
     {
         private bool disposedValue;
         #region Constructors
@@ -27,6 +28,10 @@ namespace VolumeControl.Log
         #endregion Constructors
 
         #region InterfaceImplementation
+#       pragma warning disable CS0067
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
+#       pragma warning restore CS0067
         /// <summary>
         /// Gets or sets the log endpoint object used for output.
         /// </summary>

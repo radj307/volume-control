@@ -8,7 +8,7 @@ namespace VolumeControl.Hotkeys.Interfaces
     /// <summary>
     /// Represents a hotkey action manager object, which contains the list of <see cref="IActionBinding"/>s used in the hotkey system.
     /// </summary>
-    public interface IHotkeyActionManager : IBaseAddon, INotifyPropertyChanged, INotifyPropertyChanging
+    public interface IHotkeyActionManager : IBaseAddon, INotifyPropertyChanged
     {
         /// <summary>The list of known hotkey action bindings.</summary>
         List<IActionBinding> Bindings { get; }

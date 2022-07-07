@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace ObservableImmutable
+namespace VolumeControl.WPF.Collections
 {
 #   pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -67,10 +67,8 @@ namespace ObservableImmutable
                     ImmutableList<T>? newItems = operation(oldList);
 
                     if (newItems == null)
-                    {
                         // user returned null which means he cancelled operation
                         return false;
-                    }
 
                     _items = newItems;
 
@@ -100,10 +98,8 @@ namespace ObservableImmutable
                     NotifyCollectionChangedEventArgs? args = kvp.Value;
 
                     if (newItems == null)
-                    {
                         // user returned null which means he cancelled operation
                         return false;
-                    }
 
                     _items = newItems;
 
@@ -132,10 +128,8 @@ namespace ObservableImmutable
                 ImmutableList<T>? newItems = operation(_items);
 
                 if (newItems == null)
-                {
                     // user returned null which means he cancelled operation
                     return false;
-                }
 
                 result = (_items = newItems) != oldItems;
 
@@ -164,10 +158,8 @@ namespace ObservableImmutable
                 NotifyCollectionChangedEventArgs? args = kvp.Value;
 
                 if (newItems == null)
-                {
                     // user returned null which means he cancelled operation
                     return false;
-                }
 
                 result = (_items = newItems) != oldItems;
 

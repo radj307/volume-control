@@ -1,6 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
-using ObservableImmutable;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Audio.Collections
 {

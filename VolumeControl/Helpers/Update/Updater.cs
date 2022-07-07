@@ -1,18 +1,9 @@
 ﻿using Semver;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using VolumeControl.Core;
-using VolumeControl.Core.Enum;
 using VolumeControl.Log;
-using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Update
 {

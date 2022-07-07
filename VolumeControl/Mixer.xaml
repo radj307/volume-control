@@ -22,7 +22,6 @@
     Icon="/Resources/icons/iconSilvered.ico"
     Initialized="Window_Initialized"
     Loaded="Window_Loaded"
-    StateChanged="Window_StateChanged"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Style>
@@ -115,6 +114,10 @@
             <LinearGradientBrush x:Key="AccentGradientDisabled" StartPoint="0.05,0" EndPoint="0.95,1">
                 <GradientStop Offset="0" Color="#666" />
                 <GradientStop Offset="1" Color="#777" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AccentGradientIsChecked" StartPoint="0.05,0" EndPoint="0.95,1">
+                <GradientStop Offset="0" Color="#EEE" />
+                <GradientStop Offset="1" Color="#FFF" />
             </LinearGradientBrush>
 
             <SolidColorBrush x:Key="AccentForeground" Color="#222" />
@@ -296,6 +299,46 @@
                 <Setter Property="Foreground" Value="{StaticResource AccentForeground}" />
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <!--  ToggleButton  -->
+            <Style x:Key="{x:Type ToggleButton}" TargetType="{x:Type ToggleButton}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                        <Setter Property="Foreground" Value="{StaticResource AccentGradientMouseOver}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true">
+                        <Setter Property="Foreground" Value="{StaticResource AccentGradientIsPressed}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="true">
+                        <Setter Property="Foreground" Value="{StaticResource AccentGradientIsPressed}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                        <Setter Property="Foreground" Value="{StaticResource AccentGradientDisabled}" />
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{StaticResource RoundedControlCorner}">
+                                <ContentPresenter
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="#0000" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="#0000" />
+                <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
+                <Setter Property="FontWeight" Value="Bold" />
             </Style>
             <!--  TextBox  -->
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
@@ -753,6 +796,9 @@
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
 
+            <!--  KeyOptions  -->
+            <helpers:KeyOptions x:Key="KeyOptions" />
+
         </ResourceDictionary>
     </Window.Resources>
     <!--  ( Window Background )  -->
@@ -929,7 +975,10 @@
 
 
                 <!--  ▼ Mixer Tab ▼  -->
-                <TabItem Name="MixerTab" Header="Mixer">
+                <TabItem
+                    Name="MixerTab"
+                    Padding="3"
+                    Header="Mixer">
                     <TabItem.Resources>
                         <Style
                             x:Key="SectionStyle"
@@ -963,7 +1012,7 @@
 
                                 <Border
                                     x:Name="targetboxBorder"
-                                    Padding="3"
+                                    Padding="4"
                                     Background="{StaticResource TextBoxBackground}"
                                     BorderBrush="{StaticResource BorderBrush}"
                                     BorderThickness="1"
@@ -976,17 +1025,14 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBox
                                             x:Name="targetbox"
-                                            Margin="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
                                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TargetAutoCompleteSource, Source={StaticResource Settings}}"
                                             behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="OrdinalIgnoreCase"
-                                            d:Text="Target"
+                                            d:Text="[ target name ]"
                                             AutoWordSelection="True"
                                             Background="#0000"
                                             BorderThickness="0"
                                             Foreground="{StaticResource TextBoxForeground}"
-                                            HorizontalScrollBarVisibility="Auto"
+                                            HorizontalScrollBarVisibility="Hidden"
                                             IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}"
                                             IsInactiveSelectionHighlightEnabled="False"
                                             MouseDoubleClick="Handle_TargetNameBoxDoubleClick"
@@ -1000,7 +1046,7 @@
                                         <CheckBox
                                             x:Name="cbLockTargetSelection"
                                             Grid.Column="2"
-                                            Margin="3,0"
+                                            Margin="3"
                                             Content="Lock"
                                             DataContext="{StaticResource Settings}"
                                             IsChecked="{Binding AudioAPI.LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
@@ -1139,24 +1185,73 @@
 
 
                 <!--  ▼ Hotkeys Tab ▼  -->
-                <TabItem Name="HotkeysTab" Header="Hotkeys">
+                <TabItem
+                    Name="HotkeysTab"
+                    Padding="3"
+                    Header="Hotkeys">
                     <!--  HotkeyGrid  -->
                     <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
+
+                        <Grid Margin="5,5,5,0" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--<ToggleButton
+                                x:Name="toggleButtonHelp"
+                                Margin="5,0"
+                                Content="  ?  " />
+                            <Popup IsOpen="{Binding IsChecked, ElementName=toggleButtonHelp}" Placement="Bottom" />-->
+
+                            <CheckBox
+                                Grid.Column="1"
+                                Margin="4,0"
+                                Content="Advanced Mode"
+                                IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}}"
+                                Style="{StaticResource CheckBoxStyle}"
+                                ToolTip="Advanced mode allows you to view the actions that hotkeys are bound to, as well as create, delete, or rename hotkey bindings." />
+                            <StackPanel
+                                Grid.Column="3"
+                                Margin="3,0"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalAlignment="Center"
+                                    Content="Volume Step"
+                                    Style="{StaticResource LabelStyle}"
+                                    ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
+                                <Controls:NumericUpDown
+                                    Name="nudVolumeStepSize"
+                                    MinWidth="55"
+                                    HorizontalAlignment="Center"
+                                    DataContext="{StaticResource Settings}"
+                                    MaxValue="100"
+                                    MinValue="0"
+                                    ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+                                    Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <Button
+                                Grid.Column="4"
+                                Height="{Binding Height, ElementName=nudVolumeStepSize}"
+                                Click="Handle_ResetHotkeysClick"
+                                Content="  Reset To Default  "
+                                ToolTip="Resets all hotkeys to the default preset." />
+                        </Grid>
+
                         <Border
                             Padding="0"
                             BorderBrush="LightGray"
                             BorderThickness="0"
                             Style="{StaticResource BorderStyle}">
                             <Grid>
-                                <Grid.Resources>
-                                    <helpers:KeyOptions x:Key="KeyOptions" />
-                                </Grid.Resources>
                                 <Border
                                     Name="HotkeyGridMask"
                                     Padding="3"
                                     Style="{StaticResource RoundBorderMaskStyle}" />
 
-                                <!--  BorderThickness="1,0,1,1"  -->
                                 <DataGrid
                                     x:Name="HotkeyGrid"
                                     d:ItemsSource="{x:Null}"
@@ -1220,6 +1315,7 @@
                                                 <DataTemplate>
                                                     <ComboBox
                                                         ItemsSource="{StaticResource KeyOptions}"
+                                                        KeyDown="Handle_KeySelectorKeyDown"
                                                         SelectedValue="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource ComboBoxStyle}" />
                                                 </DataTemplate>
@@ -1343,11 +1439,12 @@
                                 </DataGrid>
                             </Grid>
                         </Border>
+
                         <Button
+                            Grid.Column="1"
                             Margin="5,0,5,5"
-                            VerticalAlignment="Center"
                             Click="Handle_CreateNewHotkeyClick"
-                            Content="Create New Hotkey"
+                            Content="  Create New Hotkey  "
                             Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </VirtualizingStackPanel>
                 </TabItem>
@@ -1355,7 +1452,10 @@
 
 
                 <!--  ▼ Settings Tab ▼  -->
-                <TabItem Name="SettingsTab" Header="Settings">
+                <TabItem
+                    Name="SettingsTab"
+                    Padding="3"
+                    Header="Settings">
                     <!--  Settings Tab Layout  -->
                     <Border BorderBrush="{StaticResource TabBackgroundBrush}" BorderThickness="2">
                         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
@@ -1507,13 +1607,19 @@
                                             HorizontalAlignment="Center"
                                             FlowDirection="LeftToRight"
                                             Orientation="Horizontal">
+                                            <CheckBox
+                                                Margin="6,3"
+                                                Content="Enable Default"
+                                                IsChecked="{Binding EnableDefaultDevice, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource CheckBoxStyle}"
+                                                ToolTip="When checked, the default audio device is always enabled during the application loading phase." />
                                             <Button
-                                                Margin="10,3"
+                                                Margin="6,3"
                                                 Click="Handle_ReloadDevicesClick"
                                                 Content="  Reload Devices  "
                                                 ToolTip="Forcibly reload all devices." />
                                             <Button
-                                                Margin="10,3"
+                                                Margin="6,3"
                                                 Click="Handle_ReloadSessionsClick"
                                                 Content="  Reload Sessions  "
                                                 ToolTip="Forcibly reload all sessions." />
@@ -1530,25 +1636,26 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
+
                                     <Label Content="Notifications" Style="{StaticResource HeaderLabelStyle}" />
                                     <Grid Grid.Row="1" Style="{StaticResource SectionSubGridStyle}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="6" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="3" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <!--  Enable Notifications Checkbox Control  -->
                                         <CheckBox
                                             x:Name="cbEnableNotifications"
+                                            Margin="3,0"
                                             Content="Enable"
                                             IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="The notification appears when switching target sessions using hotkeys." />
                                         <CheckBox
                                             Grid.Column="2"
+                                            Margin="3,0"
                                             Content="On Volume Change"
                                             IsChecked="{Binding NotificationShowsVolumeChange, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
@@ -1556,6 +1663,7 @@
                                             ToolTip="When this is checked, notifications appear when the volume level is changed using hotkeys." />
                                         <ComboBox
                                             Grid.Column="4"
+                                            Margin="3,0"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             ItemsSource="{Binding NotificationModes, Source={StaticResource Settings}}"
                                             SelectedItem="{Binding NotificationMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
@@ -1584,48 +1692,6 @@
                             </Border>
                             <!--  ▲ Notifications ▲  -->
 
-                            <!--  ▼ Hotkeys ▼  -->
-                            <Border Style="{StaticResource SectionStyle}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Label Content="Hotkeys" Style="{StaticResource HeaderLabelStyle}" />
-
-                                    <VirtualizingStackPanel
-                                        Grid.Row="1"
-                                        Margin="5,3"
-                                        FlowDirection="LeftToRight"
-                                        Orientation="Horizontal">
-                                        <CheckBox
-                                            Margin="0,0,2,0"
-                                            Content="Advanced Hotkeys"
-                                            IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="When enabled, you can add/remove/rename hotkeys and change their action bindings." />
-                                        <Button
-                                            Click="Handle_ResetHotkeysClick"
-                                            Content="  Reset Hotkeys  "
-                                            ToolTip="Resets all hotkeys to their default values. ( Requires confirmation! )" />
-                                        <Label
-                                            HorizontalAlignment="Center"
-                                            Content="Volume Step"
-                                            Style="{StaticResource LabelStyle}"
-                                            ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
-                                        <Controls:NumericUpDown
-                                            MinWidth="55"
-                                            HorizontalAlignment="Center"
-                                            DataContext="{StaticResource Settings}"
-                                            MaxValue="100"
-                                            MinValue="0"
-                                            ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
-                                            Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}" />
-                                    </VirtualizingStackPanel>
-                                </Grid>
-                            </Border>
-                            <!--  ▲ Hotkeys ▲  -->
-
                             <!--  ▼ Log Settings ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
                                 <Grid>
@@ -1645,6 +1711,7 @@
                                         <!--  Enable Log  -->
                                         <CheckBox
                                             x:Name="cbEnableLog"
+                                            Margin="3,0"
                                             VerticalAlignment="Center"
                                             d:IsEnabled="True"
                                             Content="Enable"
@@ -1683,7 +1750,10 @@
                                             </ComboBox>
                                         </Grid>
                                         <!--  Log Path Textbox  -->
-                                        <Grid Grid.Column="2" IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}">
+                                        <Grid
+                                            Grid.Column="2"
+                                            Margin="3,0"
+                                            IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}">
                                             <Grid.Resources>
                                                 <Style
                                                     x:Key="TextBoxValidIndicatorStyle"
@@ -1696,29 +1766,40 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Grid.Resources>
-                                            <TextBox
-                                                x:Name="logPath"
-                                                BorderThickness="0"
-                                                HorizontalScrollBarVisibility="Auto"
-                                                Style="{StaticResource TextBoxValidIndicatorStyle}"
-                                                Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
-                                                ToolTip="Specifies the location and name of the log file. Relative paths are relative to the location of the executable." />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                Width="{Binding Width, ElementName=logPath}"
-                                                Height="{Binding Height, ElementName=logPath}"
-                                                Margin="5,0"
-                                                d:Visibility="Collapsed"
-                                                Style="{StaticResource WatermarkTextBlockStyle}"
-                                                Text="Path to Log File"
-                                                Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <Border Name="logPathMask" Style="{StaticResource RoundBorderMaskStyle}" />
+
+                                            <Grid Background="{StaticResource TextBoxBackground}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox
+                                                    x:Name="logPath"
+                                                    Background="#0000"
+                                                    BorderThickness="0"
+                                                    HorizontalScrollBarVisibility="Auto"
+                                                    Style="{StaticResource TextBoxValidIndicatorStyle}"
+                                                    Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
+                                                    ToolTip="Specifies the location and name of the log file. Relative paths are relative to the location of the executable." />
+                                                <TextBlock
+                                                    Width="{Binding Width, ElementName=logPath}"
+                                                    Height="{Binding Height, ElementName=logPath}"
+                                                    Margin="5,0"
+                                                    d:Visibility="Collapsed"
+                                                    Style="{StaticResource WatermarkTextBlockStyle}"
+                                                    Text="Path to Log File"
+                                                    Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                <!--  LogPath Browse Button  -->
+                                                <Button
+                                                    Grid.Column="1"
+                                                    Margin="5,2"
+                                                    VerticalAlignment="Stretch"
+                                                    Click="Handle_BrowseForLogFilePathClick"
+                                                    Content=" ... "
+                                                    IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
+
+                                            </Grid>
                                         </Grid>
-                                        <!--  LogPath Browse Button  -->
-                                        <Button
-                                            Grid.Column="3"
-                                            Click="Handle_BrowseForLogFilePathClick"
-                                            Content=" Browse "
-                                            IsEnabled="{Binding IsChecked, ElementName=cbEnableLog}" />
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -1731,12 +1812,19 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Configuration" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="Application" Style="{StaticResource HeaderLabelStyle}" />
+
                                     <Grid
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
                                         Style="{StaticResource SectionSubGridStyle}">
+                                        <Grid.Resources>
+                                            <conv:ConverterChain x:Key="AllowsTransparencyEnabledConverter">
+                                                <conv:BooleanInverter />
+                                                <BooleanToVisibilityConverter />
+                                            </conv:ConverterChain>
+                                        </Grid.Resources>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="30" />
@@ -1804,6 +1892,7 @@
                                     <VirtualizingStackPanel
                                         Grid.Row="1"
                                         Margin="5,3"
+                                        HorizontalAlignment="Center"
                                         FlowDirection="LeftToRight"
                                         Orientation="Horizontal">
                                         <Button

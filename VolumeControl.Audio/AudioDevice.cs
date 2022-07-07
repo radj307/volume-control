@@ -1,6 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
-using ObservableImmutable;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
@@ -11,6 +10,8 @@ using System.Windows.Media;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Audio
 {

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Core.Enum;
@@ -40,10 +41,6 @@ namespace VolumeControl
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             HotkeyAPI.Dispose();
-
-            // Apply Window Settings:
-            Settings.ShowInTaskbar = ShowInTaskbar;
-            Settings.AlwaysOnTop = Topmost;
             // Save Log Settings
             LogSettings.Save();
             LogSettings.Reload();
@@ -139,14 +136,6 @@ namespace VolumeControl
                 LogSettings.LogAllowedEventTypeFlag = (uint)(FindResource("EventTypeOptions") as BindableEventType)!.Value;
             }
         }
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            if (WindowState.Equals(WindowState.Minimized))
-            {
-                Hide();
-                ShowInTaskbar = true;
-            }
-        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ListNotification? lnotif = ListNotification;
@@ -175,6 +164,24 @@ namespace VolumeControl
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => VCSettings.Updater.CheckNow();
         private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => Updater.OpenBrowser(Updater._htmlURLLatest);
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
+        private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (sender is ComboBox cmb)
+            {
+                int i = cmb.Items.IndexOf(e.Key);
+
+                if (i.Equals(-1))
+                    return;
+
+                var item = cmb.Items[i];
+
+                if (TryFindResource("KeyOptions") is KeyOptions keys && keys.Contains(item))
+                {
+                    cmb.SelectedItem = e.Key;
+                    e.Handled = true;
+                }
+            }
+        }
         #endregion EventHandlers
     }
 }

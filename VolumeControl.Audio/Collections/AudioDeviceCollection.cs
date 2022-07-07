@@ -1,9 +1,9 @@
 ﻿using NAudio.CoreAudioApi;
-using ObservableImmutable;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Audio.Collections
 {
@@ -45,7 +45,6 @@ namespace VolumeControl.Audio.Collections
                     Settings.EnabledDevices.AddIfUnique(device.DeviceID);
                 else
                     Settings.EnabledDevices.Remove(device.DeviceID);
-                Settings.Save();
             }
             DeviceEnabledChanged?.Invoke(sender, state);
         }

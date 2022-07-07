@@ -7,8 +7,13 @@ namespace VolumeControl.Core.Keyboard
     /// Acts as a temporary wrapper for the <see cref="BindableHotkey"/> class so that the JSON parser can read and write it without attempting to register hotkeys before the API is initialized.
     /// </summary>
     [JsonObject]
-    public class BindableHotkeyJsonWrapper
+    public struct BindableHotkeyJsonWrapper
     {
+        /// <summary>
+        /// Creates a new <see cref="BindableHotkeyJsonWrapper"/> instance.
+        /// </summary>
+        public BindableHotkeyJsonWrapper() { }
+
         /// <summary>
         /// The hotkey's name
         /// </summary>

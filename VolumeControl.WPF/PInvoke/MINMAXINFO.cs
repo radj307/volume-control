@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.PInvoke
 {
     [StructLayout(LayoutKind.Sequential)]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

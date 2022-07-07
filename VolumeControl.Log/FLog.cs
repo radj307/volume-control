@@ -1,4 +1,5 @@
-﻿using VolumeControl.Log.Endpoints;
+﻿using System.ComponentModel;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
 using VolumeControl.Log.Properties;
 

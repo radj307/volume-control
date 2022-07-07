@@ -18,11 +18,6 @@ namespace VolumeControl
     internal static class Program
     {
         #region Statics
-        [DllImport("Kernel32")]
-        private static extern void AllocConsole();
-        [DllImport("Kernel32")]
-        private static extern void FreeConsole();
-    //    private static Properties.Settings Settings => Properties.Settings.Default;
         private static LogWriter Log => FLog.Log;
         #endregion Statics
 
@@ -42,55 +37,10 @@ namespace VolumeControl
             Settings = new();
             Settings.Load();
 
-            bool waitForMutex = args.Contains("--wait-for-mutex");
+            bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
 
             AppDomain? appDomain = AppDomain.CurrentDomain;
             string path = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
-
-            // this means we're starting back up after the update util completed
-            if (args.Contains("--cleanup") && System.IO.File.Exists(path + "VCUpdateUtility.exe") && MessageBox.Show($"Volume Control was updated to v{Assembly.GetExecutingAssembly().GetCustomAttribute<ExtendedVersion>()?.Version}\n\nDo you want to clean up the update utility left behind during the update process?", "Volume Control Updated", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes).Equals(MessageBoxResult.Yes))
-            {
-                try
-                {
-                    System.IO.File.Delete(path + "VCUpdateUtility.exe"); //< delete the update utility
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex);
-                }
-            }
-
-            // attempt to upgrade settings
-            //if (Settings.UpgradeSettings)
-            //{
-            //    Log.Info(nameof(Settings.UpgradeSettings) + " was true, attempting to migrate existing settings...");
-            //    try
-            //    {
-            //        UpgradeAllSettings(appDomain.GetAssemblies().ToArray());
-            //        Settings.UpgradeSettings = false;
-            //        Log.Info("Configuration upgrade completed without error.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Log.Error($"Config migration failed because of an unhandled exception", ex);
-
-            //        if (MessageBox.Show("Your current `user.config` file is from an incompatible version of Volume Control, and cannot be migrated.\nDo you want to delete your current config?\n\nClick 'Yes' to reset your config to default.\nClick 'No' to attempt repairs manually.\nSee `volumecontrol.log` for more details.",
-            //                            "Invalid User Configuration File",
-            //                            MessageBoxButton.YesNo,
-            //                            MessageBoxImage.Error,
-            //                            MessageBoxResult.No,
-            //                            MessageBoxOptions.None) == MessageBoxResult.Yes)
-            //        {
-            //            Settings.Reload();
-            //            Settings.Save();
-            //        }
-            //        else
-            //        {
-            //            Settings.UpgradeSettings = true; //< ensure this is triggered again next time, or settings will be overwritten.
-            //            return;
-            //        }
-            //    }
-            //}
 
             // Multi instance gate
             bool isNewInstance = false;
@@ -144,36 +94,6 @@ namespace VolumeControl
             appMutex.Dispose();
         }
 
-        /// <summary>
-        /// Attempts to upgrade the settings from previous versions.
-        /// </summary>
-        /// <remarks>This works for all assemblies, and should only be called once.</remarks>
-        private static void UpgradeAllSettings(params Assembly[] assemblies)
-        {
-            foreach (var asm in assemblies)
-            {
-                if ((asm.GetCustomAttribute<AllowUpgradeConfigAttribute>() is AllowUpgradeConfigAttribute attr && attr.AllowUpgrade) || (asm.FullName?.Contains("VolumeControl.Log", StringComparison.Ordinal) ?? false))
-                {
-                    if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(System.Configuration.ApplicationSettingsBase)) ?? false) is Type t)
-                    {
-                        if (t.GetProperty("Default")?.GetValue(null) is System.Configuration.ApplicationSettingsBase cfg)
-                        {
-                            try
-                            {
-                                cfg.Upgrade();
-                                Log.Info($"Successfully upgraded configuration of assembly '{asm.FullName}'");
-                            }
-                            catch (Exception ex)
-                            {
-                                Log.Error($"An exception was thrown while attempting to update configuration of assembly '{asm.FullName}'", ex);
-                            }
-                            cfg.Save();
-                            cfg.Reload();
-                        }
-                    }
-                }
-            }
-        }
         /// <summary>
         /// Writes <paramref name="content"/> to an automatically-generated crash dump file.
         /// </summary>

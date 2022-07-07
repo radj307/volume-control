@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.PInvoke
 {
     /// <summary>
     /// POINT aka POINTAPI

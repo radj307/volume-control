@@ -121,13 +121,6 @@
             <Style x:Key="SliderStyle" TargetType="Slider">
                 <Setter Property="IsSnapToTickEnabled" Value="True" />
             </Style>
-            <!--  Session Control Panel TextBox Style  -->
-            <Style x:Key="ValueboxStyle" TargetType="TextBox">
-                <Setter Property="Background" Value="#00000000" />
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FontFamily" Value="{StaticResource InterFont}" />
-            </Style>
 
             <!--  ListViewItem Style  -->
             <Style TargetType="{x:Type ListViewItem}">
@@ -264,7 +257,6 @@
                 x:Name="sliderGrid"
                 Grid.Row="2"
                 Style="{StaticResource SliderGridStyle}">
-                <!--  Visibility="{Binding SliderVisibility, ElementName=lnotifWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="26" />
                     <ColumnDefinition Width="*" />
@@ -274,10 +266,24 @@
                     x:Name="valueBox"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
+                    BorderThickness="0"
                     GotKeyboardFocus="ControlGotKeyboardFocus"
                     LostKeyboardFocus="ControlLostKeyboardFocus"
-                    Style="{StaticResource ValueboxStyle}"
-                    Text="{Binding AudioAPI.SelectedSession.Volume, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding AudioAPI.SelectedSession.Volume, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AudioAPI.SelectedSession.Muted, Source={StaticResource Settings}}" Value="true">
+                                    <Setter Property="Foreground" Value="Gray" />
+                                    <Setter Property="ToolTip" Value="This session is muted." />
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="Foreground" Value="WhiteSmoke" />
+                            <Setter Property="Background" Value="#0000" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
                 <Slider
                     x:Name="slider"
                     Grid.Column="1"

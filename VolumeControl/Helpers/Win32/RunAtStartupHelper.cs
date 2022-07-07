@@ -9,8 +9,20 @@ namespace VolumeControl.Helpers.Win32
 {
     internal static class RunAtStartupHelper
     {
+        /// <summary>
+        /// The friendly registry path prefix shown to users for use in `regedit.msc`
+        /// </summary>
         private const string RegistryRunAtStartupKeyFriendlyPrefix = @"Computer\HKEY_CURRENT_USER\";
+        /// <summary>
+        /// The path to the Run registry key.<br/>
+        /// This is relative to the <see cref="Registry.CurrentUser"/> key.
+        /// </summary>
         private const string RegistryRunAtStartupKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        /// <summary>
+        /// The name of the registry value for VolumeControl's run-on-startup feature.<br/>
+        /// The actual value of the registry value is the filepath pointing to `VolumeControl.exe`.<br/>
+        /// This name is used by Windows 
+        /// </summary>
         private const string RegistryRunAtStartupValueName = "VolumeControl";
 
         #region Properties

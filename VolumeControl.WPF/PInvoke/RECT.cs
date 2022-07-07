@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace VolumeControl.WPF
+namespace VolumeControl.WPF.PInvoke
 {
     /// <summary> Win32 </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]

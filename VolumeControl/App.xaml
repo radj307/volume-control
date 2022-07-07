@@ -13,7 +13,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="InterFont">pack://application:,,,/Resources/fonts/#Inter</FontFamily>
-            <sys:Double x:Key="GlobalFontSize">13.3</sys:Double>
+            <sys:Double x:Key="GlobalFontSize">13</sys:Double>
 
             <!--  Converters:  -->
             <Controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
