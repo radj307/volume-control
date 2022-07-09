@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using VolumeControl.Log.Endpoints;
@@ -8,6 +9,7 @@ using VolumeControl.Log.Interfaces;
 
 namespace VolumeControl.Log
 {
+
     /// <summary>
     /// Basic log writer object.
     /// </summary>
@@ -79,7 +81,7 @@ namespace VolumeControl.Log
             return null;
         }
 
-        /// <summary>Creates a formatted string representation of the <see cref="Exception"/> <paramref name="ex"/>.</summary>
+        /// <summary>Creates a formatted string representation of <paramref name="ex"/>.</summary>
         /// <param name="ex">An exception object.</param>
         /// <param name="linePrefix">An optional <see langword="string"/> to prepend to each line.</param>
         /// <param name="lineSuffix">An optional <see langword="string"/> to append to each line.</param>
@@ -151,8 +153,15 @@ namespace VolumeControl.Log
             using TextWriter w = this.Endpoint.GetWriter()!;
             w.Write(ts);
             string tsBlank = MakeBlankTimestamp();
+            string prefix = "";
+
             for (int i = 0, end = lines.Length; i < end; ++i)
             {
+                if (i == 1)
+                    prefix = tsBlank;
+
+                w.Write(prefix);
+
                 object? line = lines[i];
 
                 if (line is null)
@@ -161,24 +170,36 @@ namespace VolumeControl.Log
                 }
                 else if (line is Exception ex)
                 {
-                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}: {FormatExceptionMessage(ex, tsBlank)}");
+                    w.WriteLine($"{FormatExceptionMessage(ex, tsBlank)}");
                 }
                 else if (line is string s)
-                {
+                { // Special handling for string types that removes newline characters; use an enumerable type for multiple lines.
                     if (s.Length > 0)
-                        w.WriteLine($"{(i == 0 ? "" : tsBlank)}{Regex.Replace(s, "\\r{0,1}\\n", $"\n{tsBlank}")}");
+                        w.WriteLine($"{Regex.Replace(s, "\\r{0,1}\\n", $"\n{tsBlank}")}");
                 }
                 else if (line is IEnumerable enumerable)
-                {
-                    foreach (object? item in enumerable)
+                { // Special handling for enumerable types that prints each element on a new line.
+                    var e = enumerable.GetEnumerator();
+
+                    do
                     {
-                        if (item != null)
-                            w.WriteLine($"{(i == 0 ? "" : tsBlank)}{item}");
+                        if (e.Current is object current)
+                        { // print the first non-null line from the enumerable on the first line
+                            w.WriteLine(e.Current);
+                            break;
+                        }
+                    } while (e.MoveNext());
+
+                    // Print the remaining lines
+                    while (e.MoveNext())
+                    {
+                        if (e.Current is object current)
+                            w.WriteLine($"{prefix}{current}");
                     }
                 }
                 else
                 {
-                    w.WriteLine($"{(i == 0 ? "" : tsBlank)}{line}");
+                    w.WriteLine(line);
                 }
             }
             w.Flush();
