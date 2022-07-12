@@ -48,9 +48,7 @@ jobs:
 
     - name:   Build VolumeControl Binary
       run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
-      env:
-        VCUpdateUtilityResource: ${{github.workspace}}/VolumeControl/Resources/VCUpdateUtility.exe
-
+      
     - name:   Create Staging Directory
       run:    mkdir "STAGING"
 
