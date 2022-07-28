@@ -85,16 +85,19 @@ Want to develop an addon for Volume Control?
 **See the [github pages site](https://radj307.github.io/volume-control) for instructions and API documentation.**
 
 
-## VolumeControlCLI
-*(This section is for people who want to adjust application volumes from the commandline or with shell scripts.)*
+# VolumeControlCLI
 
-For best results, place `VolumeControlCLI.exe` in a directory on your PATH. If you don't know how to do that, see [here](https://stackoverflow.com/a/44272417/8705305).  
+There is also a utility available that can mute/unmute/change the volume of a process from the commandline or from shell scripts.  
 
+You can download the most recent version **[here](https://github.com/radj307/volume-control/releases/tag/3.3.4.1)**.  
+Place `VolumeControlCLI.exe` in a [directory on your PATH](https://stackoverflow.com/a/44272417/8705305) for the best results.  
+
+> ### Note
+> VolumeControlCLI is significantly different from the main GUI program, and no longer receives content updates.  
+> It does **not** feature hotkeys and is only useful for one-shot commands.  
+
+## Commandline Options
 Use `VolumeControlCLI -h` or `VolumeControlCLI --help` to see more up-to-date usage instructions.  
-_Note: The CLI version accepts PID numbers or Process Names._
-
-### Commandline Options
-_This list was last updated as of `3.3.0-pr4`_
 
 | Option                                  | Description                                            |
 |-----------------------------------------|--------------------------------------------------------|
@@ -102,7 +105,20 @@ _This list was last updated as of `3.3.0-pr4`_
 | `-V`  `--version`                       | Shows the current version number, then exits.          |
 | `-p <Name/PID>`  `--process <Name/PID>` | Selects the target process. This option is required.   |
 | `-v <0-100>`  `--volume <0-100>`        | Specify a volume level to apply to the target process. |
-| `--mute`                                |  Mute the target application.                          |
+| `--mute`                                | Mute the target application.                           |
 | `--unmute`                              | Unmute the target application.                         |
 | `-s`  `--set`                           | Implicit when `-v` or `--volume` is specified.         |
 | `-g`  `--get`                           | Implicit when `-v`/`--volume` isn't specified.         |
+> ^ _This list was last updated as of `3.3.0-pr4`_
+
+
+# Contributing
+
+If you want to improve/add a feature and you are familiar with C#, pull requests are always welcomed!  
+
+## Guidelines
+Please follow these guidelines when submitting pull requests:  
+- Briefly test the code to ensure that it can compile & run.  
+- Format & organize your code.
+- Write/update documentation in **[xmldoc format](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/)** for anything that is accessible via the SDK.  
+  If you're using Visual Studio, you will see compiler warnings for undocumented publicly-accessible objects/methods.  
