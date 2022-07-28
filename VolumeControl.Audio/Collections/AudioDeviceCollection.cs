@@ -66,7 +66,7 @@ namespace VolumeControl.Audio.Collections
         public AudioDevice? Default { get; internal set; }
         #endregion Properties
 
-        #region HandleDeviceEvents
+        #region HandleDeviceEventsga
         private void HandleDeviceAdded(object? sender, AudioDevice device)
         {
             if (Settings.EnabledDevices.Contains(device.DeviceID))
@@ -91,7 +91,8 @@ namespace VolumeControl.Audio.Collections
             }
             else
             {
-                throw new InvalidOperationException($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+                Log.Error($"{nameof(HandleDeviceStateChanged)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+                Reload();
             }
         }
         private void HandleDeviceRemoved(object? sender, EventArgs e)
@@ -104,7 +105,8 @@ namespace VolumeControl.Audio.Collections
             }
             else
             {
-                throw new InvalidOperationException($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+                Log.Error($"{nameof(HandleDeviceRemoved)} received invalid type {sender?.GetType().FullName}; expected {typeof(AudioDevice).FullName}");
+                Reload();
             }
         }
         #endregion HandleDeviceEvents
