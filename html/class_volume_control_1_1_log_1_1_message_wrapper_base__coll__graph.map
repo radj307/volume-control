@@ -1,0 +1,4 @@
+<map id="VolumeControl.Log.MessageWrapperBase" name="VolumeControl.Log.MessageWrapperBase">
+<area shape="rect" id="node1" title="Base abstract class that implements IEnumerable&lt;T&gt; in order to introduce special handling for certain..." alt="" coords="5,131,212,267"/>
+<area shape="rect" id="node2" title=" " alt="" coords="57,5,161,83"/>
+</map>

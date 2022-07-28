@@ -1,0 +1,5 @@
+<map id="VolumeControl.Log.MessageWrapperBase" name="VolumeControl.Log.MessageWrapperBase">
+<area shape="rect" id="node1" title="Base abstract class that implements IEnumerable&lt;T&gt; in order to introduce special handling for certain..." alt="" coords="9,131,215,267"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_exception_message.html" title="Simple wrapper class for pretty&#45;printing Exception messages with LogWriter." alt="" coords="5,315,219,436"/>
+<area shape="rect" id="node2" title=" " alt="" coords="60,5,164,83"/>
+</map>

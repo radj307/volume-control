@@ -30,5 +30,7 @@ var searchData=
   ['eventtypefilter_152',['EventTypeFilter',['../class_volume_control_1_1_log_1_1_log_writer.html#a9ccdde45c27eeb86a0be3d706c97a050',1,'VolumeControl::Log::LogWriter']]],
   ['eventtypesegmentlength_153',['EventTypeSegmentLength',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#ae65441ecc3255c4c8f5ed444e8510cc0',1,'VolumeControl.Log.Interfaces.ITimestamp.EventTypeSegmentLength()'],['../class_volume_control_1_1_log_1_1_timestamp.html#a1e1be0f5b8083747f9fcfef5c2a9481a',1,'VolumeControl.Log.Timestamp.EventTypeSegmentLength()']]],
   ['evirtualkeycode_154',['EVirtualKeyCode',['../namespace_volume_control_1_1_hotkeys_1_1_enum.html#a1a3e7f83b5b88813ecc9dbed31fedf51',1,'VolumeControl::Hotkeys::Enum']]],
-  ['exited_155',['Exited',['../class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c',1,'VolumeControl::Audio::AudioSession']]]
+  ['exception_155',['Exception',['../class_volume_control_1_1_log_1_1_exception_message.html#adbbe07a9931dc472bbe6c48887188023',1,'VolumeControl::Log::ExceptionMessage']]],
+  ['exceptionmessage_156',['ExceptionMessage',['../class_volume_control_1_1_log_1_1_exception_message.html',1,'VolumeControl.Log.ExceptionMessage'],['../class_volume_control_1_1_log_1_1_exception_message.html#aea8227884fd9acfcfb1a443e6bef2fe8',1,'VolumeControl.Log.ExceptionMessage.ExceptionMessage()']]],
+  ['exited_157',['Exited',['../class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c',1,'VolumeControl::Audio::AudioSession']]]
 ];

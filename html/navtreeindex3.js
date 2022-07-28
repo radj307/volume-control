@@ -1,5 +1,17 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8d26abae05e70ba2956bae7e1a0c8019":[4,0,1,6,1,3,50],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8f169437f07d82271da4e983cc0a146f":[4,0,1,6,1,3,22],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aa41d6eb961eb7fe8614da1751f6b1ab2":[4,0,1,6,1,3,43],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aa753fea8c9fbccf0a01e1f3bf42d390e":[4,0,1,6,1,3,9],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aa98f5f9e8e8f5712a09579f9dd3a0297":[4,0,1,6,1,3,3],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aaa6e96d753bd25c0645b3475a6ee72fb":[4,0,1,6,1,3,35],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aae61476ed01f73d56619a2a91e05a3b9":[4,0,1,6,1,3,26],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ab3b47b206ea5f1cfd6935cf0624ca871":[4,0,1,6,1,3,45],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ab5836d4f837a0596192ee159a5249e9d":[4,0,1,6,1,3,38],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ab5b6a325ff4753e7e7a808ea493a007c":[4,0,1,6,1,3,51],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#abf0018c6565b607143d7b5bb5ab36d63":[4,0,1,6,1,3,34],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ac19a7e5855061ac4cae0f15f90f0fbfc":[4,0,1,6,1,3,23],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ac4fb90b23c2df50904148db15545f76f":[4,0,1,6,1,3,13],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#ac5c0e959df537777d97c0db194307801":[4,0,1,6,1,3,25],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#acae589475492ed5d8aa066bd17552e89":[4,0,1,6,1,3,41],
@@ -237,17 +249,5 @@ var NAVTREEINDEX3 =
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html":[4,0,1,2,1,5],
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a028f794c11e021ace7fd3be42eb6ddd0":[4,0,1,2,1,5,3],
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a3e54a8a987d1c0ca9c1aa4c6f92cfe6c":[4,0,1,2,1,5,0],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a3ee9c232a712fa8059e733c001f1ba46":[4,0,1,2,1,5,2],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a46a48fa4bb4a10dd11f0812a5364c9f4":[4,0,1,2,1,5,4],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#ae538836f820dfb0ea022d1a7ad029d74":[4,0,1,2,1,5,1],
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html":[4,0,1,3,2,0],
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a03c5f4b40ed4b81f4ec77122e2c7a973":[4,0,1,3,2,0,2],
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50":[4,0,1,3,2,0,1],
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a4d19b1a2426084a7750d06885d54da00":[4,0,1,3,2,0,3],
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a77e4a5c039f7c0596df85928e4d47883":[4,0,1,3,2,0,0],
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html":[4,0,1,4,0,2],
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a0beeb6721ae6927f40baa9a65f549c0c":[4,0,1,4,0,2,2],
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a3b3c2e8e67ea6c871d38649a3238bb2f":[4,0,1,4,0,2,4],
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a60af0f9d41c722343efedc38320afe57":[4,0,1,4,0,2,0],
-"interface_volume_control_1_1_log_1_1_endpoints_1_1_i_endpoint.html#a6912d3851cf42b2017d164c08d073c8e":[4,0,1,4,0,2,7]
+"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a3ee9c232a712fa8059e733c001f1ba46":[4,0,1,2,1,5,2]
 };

@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c":[4,0,1,1,5,27],
+"class_volume_control_1_1_audio_1_1_audio_session.html#a8e0688dc88ceee1603706e6ed0f1b092":[4,0,1,1,5,7],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a961f3e23e0ad0db762c1884a91b4aef5":[4,0,1,1,5,26],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a9cf56bbb3fb96a826b38c5d5a94168ed":[4,0,1,1,5,21],
 "class_volume_control_1_1_audio_1_1_audio_session.html#acea2b3671358ee8caf2f7801574b52b2":[4,0,1,1,5,22],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a":[4,0,1,4,0,1,13],
 "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html":[4,0,1,4,0,3],
 "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a07f919aa268f8b2d51d1db0752d9ca9d":[4,0,1,4,0,3,4],
-"class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a1ff4a1d555740b1294ba3e0e55655d71":[4,0,1,4,0,3,7],
-"class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a433c594a46c188a6d05c9d1431cce2b0":[4,0,1,4,0,3,9],
-"class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a43b3b7b371f3ccffc7ada5c0d15c1944":[4,0,1,4,0,3,2]
+"class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a1ff4a1d555740b1294ba3e0e55655d71":[4,0,1,4,0,3,7]
 };

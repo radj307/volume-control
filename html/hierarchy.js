@@ -76,6 +76,9 @@ var hierarchy =
     [ "IEnumerable", null, [
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],
+      [ "VolumeControl.Log.MessageWrapperBase", "class_volume_control_1_1_log_1_1_message_wrapper_base.html", [
+        [ "VolumeControl.Log.ExceptionMessage", "class_volume_control_1_1_log_1_1_exception_message.html", null ]
+      ] ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ],
