@@ -121,7 +121,15 @@ namespace VolumeControl.Audio
         /// <remarks><see cref="LockSelectedSession"/> must be false in order to change this.</remarks>
         public ISession? SelectedSession
         {
-            get => this.FindSessionWithIdentifier(this.Target);
+            get
+            {
+                if (this.FindSessionWithIdentifier(this.Target) is ISession session)
+                {
+                    return session;
+                }
+                this.ResolveTarget();
+                return this.FindSessionWithIdentifier(this.Target);
+            }
             set
             {
                 if (this.LockSelectedSession || this.Target.Equals(value))
@@ -379,7 +387,7 @@ namespace VolumeControl.Audio
         /// <remarks>It is recommended to call this function first inside of methods intended to be called using hotkeys.</remarks>
         private void ResolveTarget()
         {
-            if (this.SelectedSession == null && this.Target.Length > 0)
+            if (this.Target.Length > 0)
             {
                 (int pid, string pname) = AudioSession.ParseProcessIdentifier(this.Target);
 
