@@ -121,4 +121,4 @@ Please follow these guidelines when submitting pull requests:
 - Briefly test the code to ensure that it can compile & run.  
 - Format & organize your code.
 - Write/update documentation in **[xmldoc format](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/)** for anything that is accessible via the SDK.  
-  If you're using Visual Studio, you will see compiler warnings for undocumented `public`ly-accessible objects/methods.  
+  If you're using Visual Studio, you will see compiler warnings for undocumented publicly-accessible objects/methods.  
