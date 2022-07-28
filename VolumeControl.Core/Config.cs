@@ -215,14 +215,14 @@ namespace VolumeControl.Core
             new()
             {
                 Name = "Next Session",
-                Key = Key.D,
+                Key = Key.E,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Next",
             },
             new()
             {
                 Name = "Previous Session",
-                Key = Key.A,
+                Key = Key.Q,
                 Modifier = Modifier.Alt | Modifier.Shift | Modifier.Ctrl,
                 ActionIdentifier = "Session:Select Previous",
             },
