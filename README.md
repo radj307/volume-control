@@ -87,29 +87,7 @@ Want to develop an addon for Volume Control?
 
 # VolumeControlCLI
 
-There is also a utility available that can mute/unmute/change the volume of a process from the commandline or from shell scripts.  
-
-You can download the most recent version **[here](https://github.com/radj307/volume-control/releases/tag/3.3.4.1)**.  
-Place `VolumeControlCLI.exe` in a [directory on your PATH](https://stackoverflow.com/a/44272417/8705305) for the best results.  
-
-> ### Note
-> VolumeControlCLI is significantly different from the main GUI program, and no longer receives content updates.  
-> It does **not** feature hotkeys and is only useful for one-shot commands.  
-
-## Commandline Options
-Use `VolumeControlCLI -h` or `VolumeControlCLI --help` to see more up-to-date usage instructions.  
-
-| Option                                  | Description                                            |
-|-----------------------------------------|--------------------------------------------------------|
-| `-h`  `--help`                          | Shows a brief description of each option, then exits.  |
-| `-V`  `--version`                       | Shows the current version number, then exits.          |
-| `-p <Name/PID>`  `--process <Name/PID>` | Selects the target process. This option is required.   |
-| `-v <0-100>`  `--volume <0-100>`        | Specify a volume level to apply to the target process. |
-| `--mute`                                | Mute the target application.                           |
-| `--unmute`                              | Unmute the target application.                         |
-| `-s`  `--set`                           | Implicit when `-v` or `--volume` is specified.         |
-| `-g`  `--get`                           | Implicit when `-v`/`--volume` isn't specified.         |
-> ^ _This list was last updated as of `3.3.0-pr4`_
+Volume Control CLI has moved to [its own repo](https://github.com/radj307/volume-control-cli) after I rewrote it in C++.
 
 
 # Contributing
