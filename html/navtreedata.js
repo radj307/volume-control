@@ -27,17 +27,18 @@ var NAVTREE =
       [ "Installation", "index.html#autotoc_md23", null ],
       [ "Setup", "index.html#autotoc_md24", null ],
       [ "Usage", "index.html#autotoc_md25", null ],
-      [ "Addon Development", "index.html#autotoc_md26", null ],
-      [ "VolumeControlCLI", "index.html#autotoc_md27", [
+      [ "Addon Development", "index.html#autotoc_md26", null ]
+    ] ],
+    [ "VolumeControlCLI", "index.html#autotoc_md27", null ],
+    [ "Contributing", "index.html#autotoc_md28", [
+      [ "Guidelines", "index.html#autotoc_md29", null ]
+    ] ],
+    [ "Addon Development", "md_docs__addon_development.html", [
+      [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
         [ "What it does", "index.html#autotoc_md18", null ],
         [ "Requirements", "index.html#autotoc_md19", [
           [ "Windows Version Compatibility", "index.html#autotoc_md20", null ]
         ] ],
-        [ "Commandline Options", "index.html#autotoc_md28", null ]
-      ] ]
-    ] ],
-    [ "Addon Development", "md_docs__addon_development.html", [
-      [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
         [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md2", null ],
         [ "SDK File Extensions", "md_docs__addon_development.html#autotoc_md3", null ]
       ] ],
@@ -91,8 +92,8 @@ var NAVTREEINDEX =
 ".html",
 "class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c",
 "class_volume_control_1_1_log_1_1_endpoints_1_1_memory_endpoint.html#a433c594a46c188a6d05c9d1431cce2b0",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a8d26abae05e70ba2956bae7e1a0c8019",
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a46a48fa4bb4a10dd11f0812a5364c9f4"
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a87caf34325e7f9ea1fde2b053ccaf8ba",
+"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a028f794c11e021ace7fd3be42eb6ddd0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

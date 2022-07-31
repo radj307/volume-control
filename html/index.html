@@ -174,36 +174,24 @@ Usage</h2>
 Addon Development</h2>
 <p>Want to develop an addon for Volume Control? <br  />
  <b>See the <a href="https://radj307.github.io/volume-control">github pages site</a> for instructions and API documentation.</b></p>
-<h2><a class="anchor" id="autotoc_md27"></a>
-VolumeControlCLI</h2>
-<p>*(This section is for people who want to adjust application volumes from the commandline or with shell scripts.)*</p>
-<p>For best results, place <code>VolumeControlCLI.exe</code> in a directory on your PATH. If you don't know how to do that, see <a href="https://stackoverflow.com/a/44272417/8705305">here</a>. <br  />
+<h1><a class="anchor" id="autotoc_md27"></a>
+VolumeControlCLI</h1>
+<p>Volume Control CLI has moved to <a href="https://github.com/radj307/volume-control-cli">its own repo</a> after I rewrote it in C++.</p>
+<h1><a class="anchor" id="autotoc_md28"></a>
+Contributing</h1>
+<p>If you want to improve/add a feature and you are familiar with C#, pull requests are always welcomed! <br  />
 </p>
-<p>Use <code>VolumeControlCLI -h</code> or <code>VolumeControlCLI --help</code> to see more up-to-date usage instructions. <br  />
- <em>Note: The CLI version accepts PID numbers or Process Names.</em></p>
-<h3><a class="anchor" id="autotoc_md28"></a>
-Commandline Options</h3>
-<p><em>This list was last updated as of <code>3.3.0-pr4</code></em></p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Option </th><th class="markdownTableHeadNone">Description  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>-h</code> <code>--help</code> </td><td class="markdownTableBodyNone">Shows a brief description of each option, then exits.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>-V</code> <code>--version</code> </td><td class="markdownTableBodyNone">Shows the current version number, then exits.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>-p &lt;Name/PID&gt;</code> <code>--process &lt;Name/PID&gt;</code> </td><td class="markdownTableBodyNone">Selects the target process. This option is required.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>-v &lt;0-100&gt;</code> <code>--volume &lt;0-100&gt;</code> </td><td class="markdownTableBodyNone">Specify a volume level to apply to the target process.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>--mute</code> </td><td class="markdownTableBodyNone">Mute the target application.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>--unmute</code> </td><td class="markdownTableBodyNone">Unmute the target application.  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>-s</code> <code>--set</code> </td><td class="markdownTableBodyNone">Implicit when <code>-v</code> or <code>--volume</code> is specified.  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>-g</code> <code>--get</code> </td><td class="markdownTableBodyNone">Implicit when <code>-v</code>/<code>--volume</code> isn't specified.  </td></tr>
-</table>
+<h2><a class="anchor" id="autotoc_md29"></a>
+Guidelines</h2>
+<p>Please follow these guidelines when submitting pull requests: <br  />
+</p><ul>
+<li>Briefly test the code to ensure that it can compile &amp; run. <br  />
+</li>
+<li>Format &amp; organize your code.</li>
+<li>Write/update documentation in <b><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">xmldoc format</a></b> for anything that is accessible via the SDK. <br  />
+ If you're using Visual Studio, you will see compiler warnings for undocumented publicly-accessible objects/methods. <br  />
+ </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
