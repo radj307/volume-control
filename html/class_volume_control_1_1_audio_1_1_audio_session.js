@@ -18,7 +18,7 @@ var class_volume_control_1_1_audio_1_1_audio_session =
     [ "VolumeController", "class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2", null ],
     [ "DisplayName", "class_volume_control_1_1_audio_1_1_audio_session.html#a2275e1b03112ef80ff3d6855b4e759cc", null ],
     [ "GroupingParam", "class_volume_control_1_1_audio_1_1_audio_session.html#a39b8b42211ab899cb724abbb9afbdcd7", null ],
-    [ "IsRunning", "class_volume_control_1_1_audio_1_1_audio_session.html#a51d7fa029652f8b3bc08a502f5b540e9", null ],
+    [ "IsRunning", "class_volume_control_1_1_audio_1_1_audio_session.html#aa5bc26844633d9afb27806c0fb458da1", null ],
     [ "Muted", "class_volume_control_1_1_audio_1_1_audio_session.html#a0352c733c7ac9f3b1631bfeccd7f8ec0", null ],
     [ "Name", "class_volume_control_1_1_audio_1_1_audio_session.html#a4adb63246a13ef5262eb5e192393cca7", null ],
     [ "NativeVolume", "class_volume_control_1_1_audio_1_1_audio_session.html#a9cf56bbb3fb96a826b38c5d5a94168ed", null ],

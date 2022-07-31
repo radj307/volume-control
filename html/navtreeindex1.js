@@ -1,9 +1,9 @@
 var NAVTREEINDEX1 =
 {
-"class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c":[6,0,1,1,5,27],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a8e0688dc88ceee1603706e6ed0f1b092":[6,0,1,1,5,7],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a961f3e23e0ad0db762c1884a91b4aef5":[6,0,1,1,5,26],
 "class_volume_control_1_1_audio_1_1_audio_session.html#a9cf56bbb3fb96a826b38c5d5a94168ed":[6,0,1,1,5,21],
+"class_volume_control_1_1_audio_1_1_audio_session.html#aa5bc26844633d9afb27806c0fb458da1":[6,0,1,1,5,18],
 "class_volume_control_1_1_audio_1_1_audio_session.html#acea2b3671358ee8caf2f7801574b52b2":[6,0,1,1,5,22],
 "class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504":[6,0,1,1,5,9],
 "class_volume_control_1_1_audio_1_1_audio_session.html#ae433e7646bace03ae4c63de18e4f026b":[6,0,1,1,5,6],
