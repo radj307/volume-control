@@ -26,7 +26,9 @@ namespace VolumeControl.Audio
             _controller = controller;
             this.PID = Convert.ToInt64(_controller.GetProcessID);
 
-            if (this.GetProcess() is not Process proc)
+            using Process? proc = this.GetProcess();
+
+            if (proc is null)
             {
                 FLog.Log.Error($"The constructor of '{typeof(AudioSession).FullName}' encountered an error when getting process with ID '{this.PID}'!");
                 this.Dispose();
@@ -179,11 +181,12 @@ namespace VolumeControl.Audio
         {
             get
             {
-                if (this.State.Equals(AudioSessionState.AudioSessionStateExpired) || this.GetProcess() is not Process proc)
+                if (this.State.Equals(AudioSessionState.AudioSessionStateExpired))
                     return false;
                 try
                 {
-                    return !proc.HasExited();
+                    using Process? proc = this.GetProcess();
+                    return (!proc?.HasExited()) ?? false;
                 }
                 catch (Exception ex)
                 {
@@ -242,8 +245,12 @@ namespace VolumeControl.Audio
         public (ImageSource?, ImageSource?)? GetIcons()
         {
             if (this.IconPath.Length > 0)
-                return IconGetter.GetIcons(this.IconPath);
-            Process? proc = this.GetProcess();
+            {
+                var src = IconGetter.GetIcons(this.IconPath);
+                if (src is not null && !(src.Value.Item1 is null && src.Value.Item2 is null))
+                    return src;
+            }
+            using Process? proc = this.GetProcess();
             try
             {
                 if (proc?.GetMainModulePath() is string path)
@@ -274,6 +281,7 @@ namespace VolumeControl.Audio
         /// <inheritdoc/>
         public void Dispose()
         {
+            this.Process.Dispose();
             _controller.UnRegisterEventClient(this.NotificationClient);
             _controller.Dispose();
             GC.SuppressFinalize(this);
