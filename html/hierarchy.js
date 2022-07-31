@@ -164,6 +164,7 @@ var hierarchy =
       [ "VolumeControl.WPF.Collections.BindableEventType", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_bindable_event_type.html", null ],
       [ "VolumeControl.WPF.Collections.ObservableImmutableList< T >", "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html", null ]
     ] ],
+    [ "VolumeControl.Audio.Interfaces.ISessionExtensions", "class_volume_control_1_1_audio_1_1_interfaces_1_1_i_session_extensions.html", null ],
     [ "VolumeControl.Audio.Interfaces.ITargetable", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html", [
       [ "VolumeControl.Audio.Interfaces.IDevice", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_device.html", null ],
       [ "VolumeControl.Audio.Interfaces.IProcess", "interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html", null ],
@@ -214,6 +215,7 @@ var hierarchy =
     [ "VolumeControl.TypeExtensions.RealNumberExtensions", "class_volume_control_1_1_type_extensions_1_1_real_number_extensions.html", null ],
     [ "VolumeControl.WPF.PInvoke.RECT", "struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html", null ],
     [ "VolumeControl.TypeExtensions.StringExtensions", "class_volume_control_1_1_type_extensions_1_1_string_extensions.html", null ],
+    [ "VolumeControl.Core.Config.TargetInfo", "struct_volume_control_1_1_core_1_1_config_1_1_target_info.html", null ],
     [ "VolumeControl.TypeExtensions.TimerExtensions", "class_volume_control_1_1_type_extensions_1_1_timer_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.TypeExtensions", "class_volume_control_1_1_type_extensions_1_1_type_extensions.html", null ],
     [ "VolumeControl.Hotkeys.User32", "class_volume_control_1_1_hotkeys_1_1_user32.html", null ],

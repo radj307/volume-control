@@ -98,12 +98,14 @@ $(document).ready(function(){initNavTree('interface_volume_control_1_1_audio_1_1
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.Interfaces.ISession:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.Interfaces.ISession:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session__coll__graph.svg" width="443" height="442"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session__coll__graph.svg" width="443" height="471"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
@@ -120,6 +122,12 @@ Properties</h2></td></tr>
 <tr class="memitem:a90d00bda69b19d33741475dcf59fb622"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622">Name</a><code> [get]</code></td></tr>
 <tr class="memdesc:a90d00bda69b19d33741475dcf59fb622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the session's name.  <a href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a90d00bda69b19d33741475dcf59fb622">More...</a><br /></td></tr>
 <tr class="separator:a90d00bda69b19d33741475dcf59fb622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c6334a38d6268e652d4bfde4e15271e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a3c6334a38d6268e652d4bfde4e15271e">SessionIdentifier</a><code> [get]</code></td></tr>
+<tr class="memdesc:a3c6334a38d6268e652d4bfde4e15271e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each audio session is identified by an identifier string. This session identifier string is not unique across all instances. If there are two instances of the application playing, both instances will have the same session identifier. The identifier retrieved by GetSessionIdentifier is different from the session instance identifier, which is unique across all sessions. To get the session instance identifier, see <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15" title="Each audio session instance is identified by a unique string. This string represents a particular ins...">SessionInstanceIdentifier</a>  <a href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a3c6334a38d6268e652d4bfde4e15271e">More...</a><br /></td></tr>
+<tr class="separator:a3c6334a38d6268e652d4bfde4e15271e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fcac680a4ca9ec0c2a9e1281249be15"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15">SessionInstanceIdentifier</a><code> [get]</code></td></tr>
+<tr class="memdesc:a0fcac680a4ca9ec0c2a9e1281249be15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each audio session instance is identified by a unique string. This string represents a particular instance of the audio session and, unlike the session identifier, is unique across all instances. If there are two instances of the application playing, they will have different session instance identifiers. The identifier retrieved by GetSessionInstanceIdentifier is different from the session identifier, which is shared by all session instances. To get the session identifier, see <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a3c6334a38d6268e652d4bfde4e15271e" title="Each audio session is identified by an identifier string. This session identifier string is not uniqu...">SessionIdentifier</a>.  <a href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15">More...</a><br /></td></tr>
+<tr class="separator:a0fcac680a4ca9ec0c2a9e1281249be15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html">VolumeControl.Audio.Interfaces.IProcess</a></td></tr>
 <tr class="memitem:a0a9dfc7fcf79b174718023d850314825 inherit properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a0a9dfc7fcf79b174718023d850314825">ProcessName</a><code> [get]</code></td></tr>
 <tr class="memdesc:a0a9dfc7fcf79b174718023d850314825 inherit properties_interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the process name of this process.  <a href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_process.html#a0a9dfc7fcf79b174718023d850314825">More...</a><br /></td></tr>
@@ -213,6 +221,54 @@ Properties</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a3c6334a38d6268e652d4bfde4e15271e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c6334a38d6268e652d4bfde4e15271e">&#9670;&nbsp;</a></span>SessionIdentifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string VolumeControl.Audio.Interfaces.ISession.SessionIdentifier</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Each audio session is identified by an identifier string. This session identifier string is not unique across all instances. If there are two instances of the application playing, both instances will have the same session identifier. The identifier retrieved by GetSessionIdentifier is different from the session instance identifier, which is unique across all sessions. To get the session instance identifier, see <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a0fcac680a4ca9ec0c2a9e1281249be15" title="Each audio session instance is identified by a unique string. This string represents a particular ins...">SessionInstanceIdentifier</a> </p>
+
+</div>
+</div>
+<a id="a0fcac680a4ca9ec0c2a9e1281249be15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fcac680a4ca9ec0c2a9e1281249be15">&#9670;&nbsp;</a></span>SessionInstanceIdentifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string VolumeControl.Audio.Interfaces.ISession.SessionInstanceIdentifier</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Each audio session instance is identified by a unique string. This string represents a particular instance of the audio session and, unlike the session identifier, is unique across all instances. If there are two instances of the application playing, they will have different session instance identifiers. The identifier retrieved by GetSessionInstanceIdentifier is different from the session identifier, which is shared by all session instances. To get the session identifier, see <a class="el" href="interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#a3c6334a38d6268e652d4bfde4e15271e" title="Each audio session is identified by an identifier string. This session identifier string is not uniqu...">SessionIdentifier</a>. </p>
 
 </div>
 </div>

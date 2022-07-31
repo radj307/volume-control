@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['deviceenabledchanged_1420',['DeviceEnabledChanged',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a51f1c9f4cf4c7aa0debddd801a0cddb9',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
-  ['devicesessioncreated_1421',['DeviceSessionCreated',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a0fa6cd759842e5fe546eb51a5914166a',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
-  ['devicesessionremoved_1422',['DeviceSessionRemoved',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac9474afbb75bc76bb2860f45cbf85399',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]]
+  ['deviceenabledchanged_1438',['DeviceEnabledChanged',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a51f1c9f4cf4c7aa0debddd801a0cddb9',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
+  ['devicesessioncreated_1439',['DeviceSessionCreated',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#a0fa6cd759842e5fe546eb51a5914166a',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]],
+  ['devicesessionremoved_1440',['DeviceSessionRemoved',['../class_volume_control_1_1_audio_1_1_collections_1_1_audio_device_collection.html#ac9474afbb75bc76bb2860f45cbf85399',1,'VolumeControl::Audio::Collections::AudioDeviceCollection']]]
 ];

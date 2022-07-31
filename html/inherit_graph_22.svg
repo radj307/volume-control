@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_type_extensions_1_1_int32_extensions.html" target="_top" xlink:title="Extensions for the int integral type.">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html" target="_top" xlink:title="Extensions for the IEnumerable interface type.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 170,-30.5 170,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.TypeExtensions.</text>
-<text text-anchor="middle" x="85" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Int32Extensions</text>
+<text text-anchor="middle" x="85" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">EnumerableExtensions</text>
 </a>
 </g>
 </g>

@@ -1,13 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="9,209,136,235"/>
-<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_boolean_inverter.html" title="Binding converter for boolean types that negates the expression." alt="" coords="188,267,416,308"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_check_visible_converter.html" title="Converts from bool types to thickness types." alt="" coords="188,5,416,47"/>
-<area shape="rect" id="node4" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_thickness_converter.html" title="Converts from bool types to thickness types." alt="" coords="188,71,416,112"/>
-<area shape="rect" id="node5" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_bool_to_value_converter.html" title="Use as the base class for BoolToXXX style converters" alt="" coords="188,397,416,439"/>
-<area shape="rect" id="node6" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_converter_chain.html" title="Any number of IValueConverter objects that are used in assembly&#45;line fashion on a given value." alt="" coords="188,332,416,373"/>
-<area shape="rect" id="node7" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_null_to_boolean_converter.html" title="Converts from any object type to bool depending on whether or not that object is null." alt="" coords="188,136,416,177"/>
-<area shape="rect" id="node8" href="$class_volume_control_1_1_w_p_f_1_1_converters_1_1_squared_corner_radius_converter.html" title="This converter removes specific rounded corners depending on the Squared property...." alt="" coords="188,201,416,243"/>
-<area shape="rect" id="node9" title=" " alt="" coords="50,339,95,366"/>
-<area shape="rect" id="node10" title=" " alt="" coords="5,438,140,465"/>
-<area shape="rect" id="node11" href="$class_volume_control_1_1_w_p_f_1_1_markup_1_1_convert_extension.html" title="XAML Extension that adds the ability to use IValueConverter implementations without binding to an act..." alt="" coords="199,463,405,504"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,167,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_list.html" title=" " alt="" coords="215,5,444,47"/>
 </map>

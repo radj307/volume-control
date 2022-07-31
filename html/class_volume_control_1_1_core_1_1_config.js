@@ -1,5 +1,6 @@
 var class_volume_control_1_1_core_1_1_config =
 [
+    [ "TargetInfo", "struct_volume_control_1_1_core_1_1_config_1_1_target_info.html", "struct_volume_control_1_1_core_1_1_config_1_1_target_info" ],
     [ "Hotkeys_Default", "class_volume_control_1_1_core_1_1_config.html#aabc2f606723e6010d5ee104e3c043186", null ],
     [ "KeyBlacklist", "class_volume_control_1_1_core_1_1_config.html#ad499121c4db6f525d7144e00bfc8df29", null ],
     [ "AdvancedHotkeys", "class_volume_control_1_1_core_1_1_config.html#a412a5f1efc488666a81b89967bfca53a", null ],
@@ -20,6 +21,6 @@ var class_volume_control_1_1_core_1_1_config =
     [ "ShowInTaskbar", "class_volume_control_1_1_core_1_1_config.html#a58e0ad0329c5f05eba72586455cf47bf", null ],
     [ "ShowUpdatePrompt", "class_volume_control_1_1_core_1_1_config.html#a1a2c30437bc65943d89dda67a7e5903d", null ],
     [ "StartMinimized", "class_volume_control_1_1_core_1_1_config.html#ad958fb5ef12aab1044c6447711171da2", null ],
-    [ "Target", "class_volume_control_1_1_core_1_1_config.html#a7158744c6d68913ae772461b8d1a2fe7", null ],
+    [ "Target", "class_volume_control_1_1_core_1_1_config.html#a66f4933cdda46995e4e52df97e42e4d7", null ],
     [ "VolumeStepSize", "class_volume_control_1_1_core_1_1_config.html#a8ded524c4ee4944286c0d4d351205053", null ]
 ];

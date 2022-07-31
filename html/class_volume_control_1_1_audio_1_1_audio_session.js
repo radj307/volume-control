@@ -26,6 +26,8 @@ var class_volume_control_1_1_audio_1_1_audio_session =
     [ "PID", "class_volume_control_1_1_audio_1_1_audio_session.html#a569d4fb917a60bc03f8861e8f9cb0fc7", null ],
     [ "Process", "class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e", null ],
     [ "ProcessName", "class_volume_control_1_1_audio_1_1_audio_session.html#a30cfd4a7b3a77615294787e6c3cb2c35", null ],
+    [ "SessionIdentifier", "class_volume_control_1_1_audio_1_1_audio_session.html#a16f38ffc14983b03de1d8bd3cd88c66a", null ],
+    [ "SessionInstanceIdentifier", "class_volume_control_1_1_audio_1_1_audio_session.html#adcbd35d69f4d126e07598b4a3bed057b", null ],
     [ "Volume", "class_volume_control_1_1_audio_1_1_audio_session.html#a961f3e23e0ad0db762c1884a91b4aef5", null ],
     [ "Exited", "class_volume_control_1_1_audio_1_1_audio_session.html#a897fd1a0a527e0d479debf0e24fdc09c", null ],
     [ "PropertyChanged", "class_volume_control_1_1_audio_1_1_audio_session.html#a634d0a5e08d141e120a1c3990faef6d7", null ],
