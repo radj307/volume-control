@@ -238,9 +238,33 @@ namespace VolumeControl.Core
 
         #region Audio
         /// <summary>
-        /// Gets or sets the last session target name.
+        /// Contains metadata for saving audio sessions to and from the config
         /// </summary>
-        public string Target { get; set; } = string.Empty;
+        [JsonObject]
+        public struct TargetInfo
+        {
+            /// <summary>
+            /// Process identifier in the form "PID:PNAME"
+            /// </summary>
+            public string ProcessIdentifier { get; set; }
+            /// <summary>
+            /// Session instance identifier
+            /// </summary>
+            public string SessionInstanceIdentifier { get; set; }
+            /// <summary>
+            /// Blank <see cref="TargetInfo"/> object.
+            /// </summary>
+            public static readonly TargetInfo Empty = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty };
+            /// <summary>
+            /// Conversion operator from string
+            /// </summary>
+            public static explicit operator TargetInfo(string s) => new() { ProcessIdentifier = s, SessionInstanceIdentifier = string.Empty };
+        }
+
+        /// <summary>
+        /// Gets or sets the last target session.
+        /// </summary>
+        public TargetInfo Target { get; set; } = new() { ProcessIdentifier = string.Empty, SessionInstanceIdentifier = string.Empty };
         /// <summary>
         /// Gets or sets whether the target session is locked.
         /// </summary>

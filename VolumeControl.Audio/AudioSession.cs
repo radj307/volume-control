@@ -26,6 +26,9 @@ namespace VolumeControl.Audio
             _controller = controller;
             this.PID = Convert.ToInt64(_controller.GetProcessID);
 
+            this.SessionIdentifier = _controller.GetSessionIdentifier;
+            this.SessionInstanceIdentifier = _controller.GetSessionInstanceIdentifier;
+
             using Process? proc = this.GetProcess();
 
             if (proc is null)
@@ -77,6 +80,10 @@ namespace VolumeControl.Audio
         #endregion Fields
 
         #region Properties
+        /// <inheritdoc/>
+        public string SessionIdentifier { get; }
+        /// <inheritdoc/>
+        public string SessionInstanceIdentifier { get; }
         /// <inheritdoc/>
         public int HashCode => _hashCode ??= this.Process.GetHashCode();
         private int? _hashCode;

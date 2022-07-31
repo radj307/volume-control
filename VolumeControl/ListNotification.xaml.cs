@@ -53,8 +53,6 @@ namespace VolumeControl
         {
             // Apply settings
             Settings.NotificationTimeoutMs = TimeoutTimer.Interval;
-            // Save settings
-            Settings.Save();
         }
         #endregion Finalizers
 

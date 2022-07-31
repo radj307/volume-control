@@ -26,13 +26,20 @@ namespace VolumeControl.Audio
 
             this.EnableDevices();
 
-            if (this.FindSessionWithIdentifier(Settings.Target) is ISession session)
-            { // resolve previous target
+            // resolve previous target 
+            ISession? targetSession = null;
+            if (this.FindSessionWithSessionInstanceIdentifier(Settings.Target.SessionInstanceIdentifier) is ISession session1)
+                targetSession = session1; //< first check for an identical instance identifier (if the other process hasn't restarted)
+            else if (this.FindSessionWithIdentifier(Settings.Target.ProcessIdentifier) is ISession session2)
+                targetSession = session2; //< then check for a matching process identifier (pid if available; otherwise pname (process name))
+            if (targetSession is not null)
+            {
                 bool lockState = this.LockSelectedSession;
                 if (lockState) this.LockSelectedSession = false;
-                this.SelectedSession = session;
+                this.SelectedSession = targetSession;
                 if (lockState) this.LockSelectedSession = true;
             }
+            else this.SelectedSession = null;
 
             PropertyChanged += this.HandlePropertyChanged;
         }
@@ -79,24 +86,54 @@ namespace VolumeControl.Audio
         /// <remarks>This is automatically updated by, and automatically updates, <see cref="SelectedSession"/>.</remarks>
         public string Target
         {
-            get => Settings.Target;
+            get => Settings.Target.ProcessIdentifier;
             set
             {
                 if (this.LockSelectedSession) return;
 
-                var eventArgs = new TargetChangingEventArgs(Settings.Target, value);
+                var eventArgs = new TargetChangingEventArgs(Settings.Target.ProcessIdentifier, value);
                 this.NotifyTargetChanging(ref eventArgs); //< trigger the target changing event first
 
                 if (eventArgs.Cancel) return;
 
                 this.NotifyPropertyChanging();
                 this.NotifyPropertyChanging(nameof(this.SelectedSession));
-                Settings.Target = eventArgs.Incoming;
-                Settings.Save();
+                this.NotifyPropertyChanging(nameof(this.TargetGuid));
+
+                if (FindSessionWithIdentifier(eventArgs.Incoming) is ISession session)
+                    Settings.Target = session.GetTargetInfo();
+                else Settings.Target = Config.TargetInfo.Empty;
+                
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.SelectedSession));
+                this.NotifyPropertyChanged(nameof(this.TargetGuid));
 
-                this.NotifyTargetChanged(Settings.Target);
+                this.NotifyTargetChanged(Settings.Target.ProcessIdentifier);
+            }
+        }
+        /// <summary>
+        /// The target session's <see cref="ISession.SessionInstanceIdentifier"/> GUID.
+        /// </summary>
+        public string TargetGuid
+        {
+            get => Settings.Target.SessionInstanceIdentifier;
+            set
+            {
+                if (this.LockSelectedSession) return;
+
+                this.NotifyPropertyChanging();
+                this.NotifyPropertyChanging(nameof(this.Target));
+                this.NotifyPropertyChanging(nameof(this.SelectedSession));
+
+                if (!value.Equals(Guid.Empty) && FindSessionWithSessionInstanceIdentifier(value) is ISession session)
+                    Settings.Target = session.GetTargetInfo();
+                else Settings.Target = Config.TargetInfo.Empty;
+
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.Target));
+                this.NotifyPropertyChanged(nameof(this.SelectedSession));
+
+                this.NotifyTargetChanged(Settings.Target.ProcessIdentifier);
             }
         }
         /// <summary>
@@ -123,21 +160,21 @@ namespace VolumeControl.Audio
         {
             get
             {
-                if (this.FindSessionWithIdentifier(this.Target) is ISession session)
+                if (this.FindSessionWithSessionInstanceIdentifier(this.TargetGuid) is ISession session)
                 {
                     return session;
                 }
-                this.ResolveTarget();
-                return this.FindSessionWithIdentifier(this.Target);
+                else this.ResolveTarget();
+                return this.FindSessionWithSessionInstanceIdentifier(this.TargetGuid);
             }
             set
             {
-                if (this.LockSelectedSession || this.Target.Equals(value))
+                if (this.LockSelectedSession || this.TargetGuid.Equals(value?.SessionInstanceIdentifier))
                     return;
 
-                this.Target = value?.ProcessIdentifier ?? string.Empty;
+                this.TargetGuid = value?.SessionInstanceIdentifier ?? string.Empty;
 
-                Log.Info($"Session selected: '{this.SelectedSession?.ProcessIdentifier}'");
+                Log.Info($"Session selected: '{this.SelectedSession?.ProcessIdentifier}' ({this.SelectedSession?.SessionInstanceIdentifier})");
             }
         }
         /// <summary>
@@ -279,7 +316,7 @@ namespace VolumeControl.Audio
         public void ForceReloadSessionList()
         {
             this.Sessions.RefreshFromDevices();
-            this.ResolveTarget();
+            //this.ResolveTarget();
         }
         #endregion ReloadSessions
         #region Session        
@@ -296,14 +333,22 @@ namespace VolumeControl.Audio
 
             return null;
         }
+        /// <summary>Gets a session from <see cref="Sessions"/> with a matching <see cref="ISession.SessionInstanceIdentifier"/> <see cref="Guid"/>.</summary> 
+        /// <param name="sessionInstanceIdentifier"><see cref="ISession.SessionInstanceIdentifier"/></param>
+        /// <returns><see cref="ISession"/> if a session was found, or null if no sessions were found with <paramref name="sessionInstanceIdentifier"/>.</returns>
+        public ISession? FindSessionWithSessionInstanceIdentifier(string sessionInstanceIdentifier) => this.FindSession(s => s.SessionInstanceIdentifier.Equals(sessionInstanceIdentifier));
+        /// <summary>Gets all sessions from <see cref="Sessions"/> with a matching <see cref="ISession.SessionIdentifier"/> <see cref="Guid"/>.</summary>
+        /// <param name="sessionIdentifier"><see cref="ISession.SessionIdentifier"/></param>
+        /// <returns><see cref="ISession"/> array of all matching sessions; or an empty array if none were found.</returns>
+        public ISession[] FindSessionsWithSessionIdentifier(string sessionIdentifier) => this.Sessions.Where(s => s.SessionIdentifier.Equals(sessionIdentifier)).ToArray();
         /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process id <paramref name="pid"/></summary>
         /// <param name="pid"><b><see cref="AudioSession.PID"/></b></param>
-        /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found with <paramref name="pid"/>.</returns>
+        /// <returns><see cref="ISession"/> if a session was found, or null if no sessions were found with <paramref name="pid"/>.</returns>
         public ISession? FindSessionWithID(int pid) => this.FindSession(s => s.PID.Equals(pid));
         /// <summary>Gets a session from <see cref="Sessions"/> by searching for a session with the process name <paramref name="name"/></summary>
         /// <param name="name"><see cref="AudioSession.ProcessName"/></param>
         /// <param name="sCompareType">A <see cref="StringComparison"/> enum value to use when matching process names.</param>
-        /// <returns><see cref="ISession"/> if a session was found, or null if no processes were found named <paramref name="name"/> using <paramref name="sCompareType"/> string comparison.</returns>
+        /// <returns><see cref="ISession"/> if a session was found, or null if no sessions were found named <paramref name="name"/> using <paramref name="sCompareType"/> string comparison.</returns>
         public ISession? FindSessionWithName(string name, StringComparison sCompareType = StringComparison.OrdinalIgnoreCase) => this.FindSession(s => s.ProcessName.Equals(name, sCompareType));
         /// <summary>Gets a session from <see cref="Sessions"/> by parsing <paramref name="identifier"/> to determine whether to pass it to <see cref="FindSessionWithID(int)"/>, <see cref="FindSessionWithName(string, StringComparison)"/>, or directly comparing it to the <see cref="AudioSession.ProcessIdentifier"/> property.</summary>
         /// <param name="identifier">
@@ -414,7 +459,7 @@ namespace VolumeControl.Audio
         /// <param name="volume">The desired session volume level in the range ( 0 - 100 )</param>
         public void SetSessionVolume(int volume)
         {
-            this.ResolveTarget();
+            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume = volume;
@@ -427,7 +472,7 @@ namespace VolumeControl.Audio
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void IncrementSessionVolume(int amount)
         {
-            this.ResolveTarget();
+            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume += amount;
@@ -444,7 +489,7 @@ namespace VolumeControl.Audio
         /// <param name="amount">The amount to change the session's volume by.<br/>Session volume can be any value from 0 to 100, and is <b>automatically</b> clamped if the final value exceeds this range.</param>
         public void DecrementSessionVolume(int amount)
         {
-            this.ResolveTarget();
+            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Volume -= amount;
@@ -467,7 +512,7 @@ namespace VolumeControl.Audio
         /// <returns>The mute state of the selected session, or <see langword="null"/> when there is no selected session.</returns>
         public bool? SetSessionMute(bool state)
         {
-            this.ResolveTarget();
+            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Muted = state;
@@ -482,7 +527,7 @@ namespace VolumeControl.Audio
         /// <returns><see langword="true"/> when the selected session was muted or <see langword="false"/> when the selected session was unmuted.<br/>Returns <see langword="null"/> when there is no selected session.</returns>
         public bool? ToggleSessionMute()
         {
-            this.ResolveTarget();
+            //this.ResolveTarget();
             if (this.SelectedSession is AudioSession session)
             {
                 session.Muted = !session.Muted;
@@ -509,7 +554,7 @@ namespace VolumeControl.Audio
             }
             if (this.SelectedSession is AudioSession session)
             { // a valid audio session is selected
-                this.ResolveTarget();
+                //this.ResolveTarget();
                 int index = this.Sessions.IndexOf(session);
                 if (index == -1 || (index += 1) >= this.Sessions.Count)
                     index = 0;
@@ -540,7 +585,7 @@ namespace VolumeControl.Audio
             }
             if (this.SelectedSession is AudioSession session)
             { // a valid audio session is selected
-                this.ResolveTarget();
+                //this.ResolveTarget();
                 int index = this.Sessions.IndexOf(session);
                 if (index == -1 || (index -= 1) < 0)
                     index = this.Sessions.Count - 1;

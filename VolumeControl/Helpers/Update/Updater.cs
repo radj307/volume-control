@@ -66,7 +66,6 @@ namespace VolumeControl.Helpers.Update
             case MessageBoxResult.Cancel: // disable
                 Settings.ShowUpdatePrompt = false;
                 Log.Info("Disabled automatic updates");
-                Settings.Save();
                 _ = MessageBox.Show("Update prompts will not be shown in the future.");
                 break;
             }
