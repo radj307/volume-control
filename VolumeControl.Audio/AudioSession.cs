@@ -9,6 +9,9 @@ using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
+using System.Management;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace VolumeControl.Audio
 {
@@ -243,8 +246,7 @@ namespace VolumeControl.Audio
             Process? proc = this.GetProcess();
             try
             {
-                string? path = proc?.MainModule?.FileName;
-                if (path != null)
+                if (proc?.GetMainModulePath() is string path)
                     return IconGetter.GetIcons(path);
             }
             catch (Exception ex)

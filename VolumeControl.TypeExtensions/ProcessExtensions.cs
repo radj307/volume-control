@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
+using System.Management;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace VolumeControl.TypeExtensions
 {
@@ -56,8 +59,9 @@ namespace VolumeControl.TypeExtensions
         /// Closes an open object handle.
         /// </summary>
         /// <returns>If the function succeeds, the return value is nonzero.<br/>If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
-        [DllImport("Kernel32.dll")]
-        private static extern int CloseHandle(IntPtr hObject);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool CloseHandle(IntPtr hObject);
 
         /// <summary>
         /// This fixes a bug that microsoft hasn't fixed since at least Windows Vista that occurs when calling <see cref="Process.HasExited"/>.<br/>
@@ -81,6 +85,48 @@ namespace VolumeControl.TypeExtensions
             GetProcessTimes(handle, out DateTime? _, out DateTime? exitTime, out DateTime? _, out DateTime? _);
             _ = CloseHandle(handle);
             return exitTime != null && DateTime.Now < exitTime;
+        }
+
+        [DllImport("psapi.dll", CharSet = CharSet.Unicode)]
+        static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In][MarshalAs(UnmanagedType.U4)] int nSize);
+
+        /// <summary>
+        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="p"/>.
+        /// </summary>
+        /// <param name="p"><see cref="Process"/></param>
+        /// <returns>The filepath of <paramref name="p"/> if successful; otherwise <see langword="null"/>.</returns>
+        public static string? GetMainModulePath(this Process p)
+        {
+            var hProc = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, 0, p.Id);
+
+            if (hProc == IntPtr.Zero)
+                return null;
+
+            const int bufLen = 261;
+
+            var sbuf = new StringBuilder(bufLen);
+
+            string? result = null;
+
+            if (GetModuleFileNameEx(hProc, IntPtr.Zero, sbuf, bufLen) > 0)
+                result = sbuf.ToString();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the full path to the specified <see cref="Process"/>, <paramref name="p"/>.<br/>
+        /// <b>Note that this method uses WMI to make an SQL query, and as such, is very slow!</b>
+        /// </summary>
+        /// <param name="p"><see cref="Process"/></param>
+        /// <returns>The filepath of <paramref name="p"/> if successful; otherwise <see langword="null"/>.</returns>
+        public static string? GetMainModulePathWMI(this Process p)
+        {
+            using var searcher = new ManagementObjectSearcher($"SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId = {p.Id}");
+            using var results = searcher.Get();
+            if (results.Cast<ManagementObject>().FirstOrDefault() is ManagementObject mo)
+                return (string)mo["ExecutablePath"];
+            return null;
         }
     }
 }
