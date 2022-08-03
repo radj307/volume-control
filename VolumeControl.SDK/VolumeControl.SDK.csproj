@@ -1,56 +1,52 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<ErrorReport>none</ErrorReport>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>GNU General Public License v3 </Copyright>
-		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIcon>iconSilvered.png</PackageIcon>
-		<PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
-		<Company></Company>
-		<Authors>radj307</Authors>
-		<NeutralLanguage>en-CA</NeutralLanguage>
-		<Description>Official SDK for Volume Control addon development.</Description>
-		<PackageReleaseNotes>
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ErrorReport>none</ErrorReport>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>GNU General Public License v3 </Copyright>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>iconSilvered.png</PackageIcon>
+    <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
+    <Company>
+    </Company>
+    <Authors>radj307</Authors>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <Description>Official SDK for Volume Control addon development.</Description>
+    <PackageReleaseNotes>
 			Full Changelog:
 			https://github.com/radj307/volume-control/commits/main
 		</PackageReleaseNotes>
-		<Version></Version>
-		<ExtendedVersion></ExtendedVersion>
-		<ReleaseType></ReleaseType>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\VolumeControl\Resources\images\iconSilvered.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
-		<ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
-		<ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
-		<ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
-		<ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
-		<ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
-	</ItemGroup>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
-	</Target>
-
+    <Version>5.2.0</Version>
+    <ExtendedVersion>5.2.0-test</ExtendedVersion>
+    <ReleaseType>REVISION</ReleaseType>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\VolumeControl\Resources\images\iconSilvered.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VolumeControl.Audio\VolumeControl.Audio.csproj" />
+    <ProjectReference Include="..\VolumeControl.Core\VolumeControl.Core.csproj" />
+    <ProjectReference Include="..\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj" />
+    <ProjectReference Include="..\VolumeControl.Log\VolumeControl.Log.csproj" />
+    <ProjectReference Include="..\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj" />
+    <ProjectReference Include="..\VolumeControl.WPF\VolumeControl.WPF.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+  </Target>
 </Project>
