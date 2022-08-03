@@ -50,7 +50,8 @@ This assumes you're using Visual Studio with the **.NET/C#** workload installed.
 Here's an example of an addon that adds a hotkey action named 'Custom Action' that writes a message to the log when triggered.  
 ```csharp
 using System.ComponentModel;
-using VolumeControl.API;
+//using VolumeControl.API; //< until version 5.2.0
+using VolumeControl.SDK;   //< since version 5.2.0
 using VolumeControl.Hotkeys.Attributes;
 using VolumeControl.Log;
 
@@ -80,7 +81,7 @@ namespace VolumeControl.TestAddon
 
 You can find the full code example [here](https://github.com/radj307/volume-control.TestAddon).
 
-**[API Documentation](https://github.com/radj307/volume-control/wiki/API-Documentation)**
+See the **[API Documentation](https://github.com/radj307/volume-control/wiki/API-Documentation)** for more information on what is available through the Volume Control SDK.
 
 ## Building Your Addon
 
