@@ -18,7 +18,7 @@ var searchData=
   ['lockselectedsession_296',['LockSelectedSession',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a',1,'VolumeControl::Audio::AudioAPI']]],
   ['lockselectedsessionchanged_297',['LockSelectedSessionChanged',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab0c481ba302f60152c00bd4665556cfe',1,'VolumeControl::Audio::AudioAPI']]],
   ['locktargetsession_298',['LockTargetSession',['../class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261',1,'VolumeControl::Core::Config']]],
-  ['log_299',['Log',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#ab1e04b77b8ff4f7614c37b0e8ad6770f',1,'VolumeControl.API.VCAPI.Log()'],['../class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f',1,'VolumeControl.Log.FLog.Log()']]],
+  ['log_299',['Log',['../class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f',1,'VolumeControl.Log.FLog.Log()'],['../class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#aed7ef21f7b872c42c4b2e6b4049589f1',1,'VolumeControl.SDK.VCAPI.Log()']]],
   ['logeventtypefilter_300',['LogEventTypeFilter',['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html',1,'VolumeControl.WPF.Collections.LogEventTypeFilter'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_log_event_type_filter.html#afecd9c8f7a6edf273f96f6635522f777',1,'VolumeControl.WPF.Collections.LogEventTypeFilter.LogEventTypeFilter()']]],
   ['logwriter_301',['LogWriter',['../class_volume_control_1_1_log_1_1_log_writer.html',1,'VolumeControl.Log.LogWriter'],['../class_volume_control_1_1_log_1_1_log_writer.html#aecfc7d86fb35f9bb5e0803755f0040c8',1,'VolumeControl.Log.LogWriter.LogWriter()']]]
 ];

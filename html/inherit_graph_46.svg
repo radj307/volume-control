@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_p_o_i_n_t.html" target="_top" xlink:title="POINT aka POINTAPI">
+<g id="a_node1"><a xlink:href="class_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_m_o_n_i_t_o_r_i_n_f_o.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 156,-30.5 156,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.WPF.PInvoke.</text>
-<text text-anchor="middle" x="78" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">POINT</text>
+<text text-anchor="middle" x="78" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MONITORINFO</text>
 </a>
 </g>
 </g>

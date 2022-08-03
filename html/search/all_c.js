@@ -1,7 +1,7 @@
 var searchData=
 [
   ['m_302',['M',['../namespace_volume_control_1_1_hotkeys_1_1_enum.html#a1a3e7f83b5b88813ecc9dbed31fedf51a69691c7bdcc3ce6d5d8a1361f22d04ac',1,'VolumeControl::Hotkeys::Enum']]],
-  ['mainwindowhwnd_303',['MainWindowHWnd',['../struct_volume_control_1_1_a_p_i_1_1_v_c_a_p_i.html#ac96c7aa79a8cddc415f6f700c58c96eb',1,'VolumeControl::API::VCAPI']]],
+  ['mainwindowhwnd_303',['MainWindowHWnd',['../class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2a75d3b383b4e17b66e89ddc53fa2f7d',1,'VolumeControl::SDK::VCAPI']]],
   ['makeblanktimestamp_304',['MakeBlankTimestamp',['../class_volume_control_1_1_log_1_1_log_writer.html#a41f1ff6d9d62eec9077a3c608ca36b5e',1,'VolumeControl::Log::LogWriter']]],
   ['makeheader_305',['MakeHeader',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a00f0833bfb8f8ca3e9bcdf6db4fd669b',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
   ['maketimestamp_306',['MakeTimestamp',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_log_writer.html#a423b396eec8b2c8d57881414daae8f86',1,'VolumeControl.Log.Interfaces.ILogWriter.MakeTimestamp()'],['../class_volume_control_1_1_log_1_1_log_writer.html#ac1a570a8d00bacba3a71dd8e442cfd31',1,'VolumeControl.Log.LogWriter.MakeTimestamp()']]],
