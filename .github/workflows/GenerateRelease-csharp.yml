@@ -92,7 +92,7 @@ jobs:
     - name: Push SDK Nuget Package
       run:  |
             cd "${{ github.workspace }}/sdk"
-            $NUPKG_PATH=$(ls | grep *.nupkg)
+            NUPKG_PATH='$(ls | grep *.nupkg)'
             dotnet push $NUPKG_PATH --api-key ${{ secrets.GITHUB_TOKEN }} --source github
       shell:  bash
 
