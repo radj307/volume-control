@@ -81,14 +81,20 @@ jobs:
       with:
         path: ${{ github.workspace }}
         
-    - name: Authenticate to Nuget.org
-      run:  dotnet nuget add source --username radj307 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/radj307/index.json"
+    - name: List Directory Contents
+      run:  ls -lAghr
+      shell:  bash
+        
+    - name:   Authenticate to Nuget.org
+      run:    dotnet nuget add source --username radj307 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/radj307/index.json"
+      shell:  bash
       
     - name: Push SDK Nuget Package
       run:  |
             cd "${{ github.workspace }}/sdk"
             $NUPKG_PATH=$(ls | grep *.nupkg)
             dotnet push $NUPKG_PATH --api-key ${{ secrets.GITHUB_TOKEN }} --source github
+      shell:  bash
 
   # Create the release using the uploaded artifact on github:
   create-release:
