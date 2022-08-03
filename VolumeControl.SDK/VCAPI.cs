@@ -52,13 +52,4 @@ namespace VolumeControl.SDK
         public Config Settings { get; }
         #endregion Properties
     }
-
-    public class test
-    {
-        public void testfunc()
-        {
-            VCAPI ap;
-
-        }
-    }
 }
