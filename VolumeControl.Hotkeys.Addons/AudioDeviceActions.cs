@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using VolumeControl.API;
+using VolumeControl.SDK;
 using VolumeControl.Audio;
 using VolumeControl.Hotkeys.Attributes;
 

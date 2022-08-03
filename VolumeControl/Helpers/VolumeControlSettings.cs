@@ -14,6 +14,7 @@ using VolumeControl.Helpers.Update;
 using VolumeControl.Hotkeys;
 using VolumeControl.Hotkeys.Addons;
 using VolumeControl.Log;
+using VolumeControl.SDK.Internal;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers
@@ -43,7 +44,7 @@ namespace VolumeControl.Helpers
             this.HotkeyAPI = new(actionManager);
 
             // Initialize the addon API
-            API.Internal.Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
+            Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
 
             // Create a list of all addon manager types
             List<IBaseAddon> addons = new()

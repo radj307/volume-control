@@ -1,8 +1,9 @@
 ﻿using VolumeControl.Audio;
 using VolumeControl.Core;
 using VolumeControl.Hotkeys;
+using VolumeControl.Log;
 
-namespace VolumeControl.API.Internal
+namespace VolumeControl.SDK.Internal
 {
     /// <summary>Initializes <see cref="VCAPI.Default"/>.</summary>
     public static class Initializer
@@ -18,16 +19,13 @@ namespace VolumeControl.API.Internal
         public static void Initialize(AudioAPI audioAPI, HotkeyManager mgr, IntPtr mainWindowHWnd, Config settings)
         {
             if (_initialized)
-                throw new InvalidOperationException("Cannot re-initialize VolumeControl.API!");
+            {
+                FLog.Log.Warning(new Exception($"{typeof(Initializer).FullName} was already initialized!"));
+                return;
+            }
             _initialized = true;
 
-            VCAPI.Default = new()
-            {
-                AudioAPI = audioAPI,
-                HotkeyManager = mgr,
-                MainWindowHWnd = mainWindowHWnd,
-                Settings = settings
-            };
+            VCAPI.Default = new(audioAPI, mgr, mainWindowHWnd, settings);
         }
     }
 }

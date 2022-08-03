@@ -26,48 +26,49 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT:  true
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref:          '${{ github.ref }}'
-        fetch-depth:  0
-    # Setup dependencies
-    - uses: actions/setup-dotnet@main
-      with:
-        dotnet-version: 6.0.x
+      - uses: actions/checkout@v3
+        with:
+          ref:          '${{ github.ref }}'
+          fetch-depth:  0
 
-    - name:   Change Directory
-      run:    cd "${{github.workspace}}"
+      - uses: actions/setup-dotnet@main
+        with:
+          dotnet-version:   6.0.x
 
-#    - name:   Stage Update Utility
-#      run:    |
-#              echo ${{secrets.PAT}} | gh auth login --with-token
-#              cd '${{github.workspace}}/VolumeControl/Resources'
-#              gh release download -R radj307/VolumeControl.UpdateUtility -p "*.exe"
-#              ls
-#              cd '${{github.workspace}}'
+      - name:   Change Directory
+        run:    cd "${{github.workspace}}"
 
-    - name:   Build VolumeControl Binary
-      run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
-      
-    - name:   Create Staging Directory
-      run:    mkdir "STAGING"
+      - name:   Build VolumeControl Binary
+        run:    dotnet publish VolumeControl -c ${{env.BUILD_TYPE}} /p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"
 
-    - name:   Stage Files
-      run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
+      - name:   Create Staging Directory
+        run:    mkdir "STAGING"
 
-    - name:   Upload Executable Artifact
-      uses:   actions/upload-artifact@v3
-      with:
-        name: build-windows
-        path: '${{github.workspace}}/STAGING/*'
-        if-no-files-found: error
+      - name:   Stage Files
+        run:    foreach($file in $((dir "publish" -recurse | where {$_.extension -in ".exe"}).Fullname)){ mv "$file" "STAGING" }
 
-    - name:   Upload SDK Artifact
-      uses:   actions/upload-artifact@v3
-      with:
-        name: sdk
-        path: '${{github.workspace}}/publish/SDK/*'
-        if-no-files-found: error
+      - name:   Upload Executable Artifact
+        uses:   actions/upload-artifact@v3
+        with:
+          name: build-windows
+          path: '${{github.workspace}}/STAGING/*'
+          if-no-files-found: error
+
+      - name:   Upload SDK Artifact
+        uses:   actions/upload-artifact@v3
+        with:
+          name: sdk
+          path: '${{github.workspace}}/publish/SDK/*'
+          if-no-files-found: error
+
+      - name:   Authenticate with NuGet for Github Packages
+        run:    dotnet nuget add source --username radj307 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/radj307/index.json"
+
+      - name:   Pack SDK NuGet Package
+        run:    dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj -c Release -o .
+
+      - name:   Upload SDK NuGet Package
+        uses:   dotnet nuget push $(Get-ChildItem -Filter *.nupkg -Name) -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
 
   # Create the release using the uploaded artifact on github:
   create-release:
@@ -75,25 +76,24 @@ jobs:
     runs-on:  ubuntu-latest
 
     steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v3
-      with:
-        path:  ${{github.workspace}}
-        
-    - name: Stage Artifacts
-      run:  |
-            cd ${{github.workspace}}/sdk
-            zip -T9 ../SDK.zip ./*
-            cd ${{github.workspace}}
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path:  ${{github.workspace}}
 
-    - run:  ls -lAghR
+      - name: Stage Artifacts
+        run:  |
+              cd ${{github.workspace}}/sdk
+              zip -T9 ../SDK.zip ./*
+              cd ${{github.workspace}}
 
-    - name: 'Create Release'
-      uses: softprops/action-gh-release@v1
-      with:
-        draft:                    true
-        fail_on_unmatched_files:  true
-        files:      |
-                    ${{github.workspace}}/build-windows/VolumeControl.exe
-                    ${{github.workspace}}/SDK.zip
-                    
+      - run:  ls -lAghR
+
+      - name: 'Create Release'
+        uses: softprops/action-gh-release@v1
+        with:
+          draft:                    true
+          fail_on_unmatched_files:  true
+          files:      |
+                      ${{github.workspace}}/build-windows/VolumeControl.exe
+                      ${{github.workspace}}/SDK.zip

@@ -15,7 +15,6 @@ namespace VolumeControl.Log
         /// <summary>
         /// The LogWriter instance used by FLog.
         /// </summary>
-        /// <remarks>Using this before calling the <see cref="Initialize"/> function will throw an exception!</remarks>
         public static LogWriter Log
         {
             get
@@ -24,12 +23,11 @@ namespace VolumeControl.Log
                     Initialize();
                 return _log;
             }
-            internal set => _log = value;
+            private set => _log = value;
         }
         /// <summary>
         /// Sets whether or not the log is enabled.
         /// </summary>
-        /// <remarks>Using this before calling the <see cref="Initialize"/> function will throw an exception!</remarks>
         public static bool EnableLog
         {
             get
@@ -38,7 +36,7 @@ namespace VolumeControl.Log
                     Initialize();
                 return _log.Endpoint.Enabled;
             }
-            internal set
+            private set
             {
                 if (!Initialized)
                     Initialize();
@@ -49,11 +47,11 @@ namespace VolumeControl.Log
         /// Gets or sets the event type filter that determines which event types are allowed to be written to the log endpoint.
         /// </summary>
         /// <remarks><b>Messages with an <see cref="EventType"/> that isn't present in this bitflag are discarded!</b></remarks>
-        public static EventType EventFilter { get; internal set; }
+        public static EventType EventFilter { get; private set; }
         /// <summary>
         /// Get or set the log filepath.
         /// </summary>
-        public static string? FilePath { get; internal set; }
+        public static string? FilePath { get; private set; }
         /// <summary>
         /// True when <see cref="Initialize"/> has been called, and the log is ready.
         /// </summary>
