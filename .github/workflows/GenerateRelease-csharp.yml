@@ -67,7 +67,7 @@ jobs:
         run:    dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj -c Release -o .
 
       - name:   Upload SDK NuGet Package
-        uses:   dotnet nuget push $(Get-ChildItem -Filter *.nupkg -Name) -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
+        run:    dotnet nuget push $(Get-ChildItem -Filter *.nupkg -Name) -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate
         
   # Create the release using the uploaded artifact on github:
   create-release:
