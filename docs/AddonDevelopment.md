@@ -134,8 +134,8 @@ All versions of Volume Control will *(recursively)* load addons from `C:\Users\<
 **Do not place Volume Control SDK dlls in addon directories, and do not include them when redistributing your addon.**  
 
 Since [v5.1.0](https://github.com/radj307/volume-control/release/5.1.0), addons may also be located in any directories specified by the `CustomAddonDirectories` setting, which can be found in the configuration file:  
-*(until [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `~/AppData/Local/radj307/VolumeControl_Url_<HASH>/<VERSION>/user.config`
-*(since [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `volumecontrol.json` located in the same directory as `VolumeControl.exe`
+*(until [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `~/AppData/Local/radj307/VolumeControl_Url_<HASH>/<VERSION>/user.config`  
+*(since [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `volumecontrol.json` located in the same directory as `VolumeControl.exe`  
 
 Assuming you enabled `DEBUG` log messages, you will see messages in the log confirming that your addon was loaded when launching Volume Control:  
 ![image](https://user-images.githubusercontent.com/1927798/169681684-f41649d3-49c0-4c33-aaf3-5454de4dfdad.png)
