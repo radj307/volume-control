@@ -25,8 +25,8 @@
 			https://github.com/radj307/volume-control/commits/main
 		</PackageReleaseNotes>
     <Version>5.2.0</Version>
-    <ExtendedVersion>5.2.0-test</ExtendedVersion>
-    <ReleaseType>REVISION</ReleaseType>
+    <ExtendedVersion>5.2.0-pr2</ExtendedVersion>
+    <ReleaseType>PRERELEASE</ReleaseType>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\README.md">
