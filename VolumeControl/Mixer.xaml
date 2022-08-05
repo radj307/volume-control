@@ -3,13 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Collections="clr-namespace:VolumeControl.WPF.Collections;assembly=VolumeControl.WPF"
-    xmlns:Controls="clr-namespace:VolumeControl.WPF.Controls;assembly=VolumeControl.WPF"
     xmlns:b="clr-namespace:VolumeControl.WPF.Bindings;assembly=VolumeControl.WPF"
     xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+    xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
@@ -272,8 +272,7 @@
                 x:Key="{x:Type Button}"
                 BasedOn="{StaticResource ButtonStyle}"
                 TargetType="{x:Type Button}" />
-            <!--  RepeatButton  -->
-            <Style x:Key="{x:Type RepeatButton}" TargetType="{x:Type RepeatButton}">
+            <Style x:Key="NumericUpDownRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Style.Triggers>
                     <!--  Mouse Over  -->
                     <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
@@ -284,6 +283,7 @@
                         <Setter Property="Background" Value="{StaticResource AccentGradientIsPressed}" />
                     </DataTrigger>
                 </Style.Triggers>
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -634,16 +634,6 @@
                 <Setter Property="Foreground" Value="#9A9A9A" />
                 <Setter Property="IsHitTestVisible" Value="False" />
             </Style>
-            <!--  NumericUpDown  -->
-            <Style x:Key="{x:Type Controls:NumericUpDown}" TargetType="{x:Type Controls:NumericUpDown}">
-                <!--  Use an even number for height so that the buttons are the same size  -->
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
-                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Right" />
-                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
-            </Style>
 
             <!--  EventTypeOptions (VolumeControl.Log.BindableEventTypeOptions)  -->
             <Collections:LogEventTypeFilter x:Key="EventTypeOptions" PropertyChanged="Handle_LogFilterChanged" />
@@ -798,6 +788,125 @@
                 <Setter Property="Background" Value="WhiteSmoke" />
                 <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
                 <Setter Property="BorderThickness" Value="0" />
+            </Style>
+            <!--  NumericUpDownStyle  -->
+            <Style TargetType="{x:Type local:NumericUpDown}">
+
+                <!--  Use an even number for height so that the buttons are the same size  -->
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="CornerRadius" Value="{StaticResource RoundedControlCorner}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="BorderBrush" Value="#AAA" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Width" Value="Auto" />
+                <Setter Property="Height" Value="25" />
+
+                <!-- <Setter Property="Height" Value="26" /> -->
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:NumericUpDown}">
+                            <Border
+                                Name="nudBorder"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                MinHeight="{TemplateBinding MinHeight}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
+                                MaxHeight="{TemplateBinding MaxHeight}"
+                                Margin="0"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Focusable="False">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <conv:SquaredCornerRadiusConverter x:Key="nudTextBoxCornerRadiusConverter" Squared="Right" />
+                                        <conv:SquaredCornerRadiusConverter x:Key="nudButtonCornerRadiusConverter" Squared="Left" />
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        Name="nudTextBoxMask"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="0"
+                                        CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource nudTextBoxCornerRadiusConverter}}" />
+                                    <TextBox
+                                        x:Name="PART_TextBox"
+                                        Margin="3,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="0"
+                                        Foreground="{TemplateBinding Foreground}">
+                                        <TextBox.OpacityMask>
+                                            <VisualBrush Visual="{Binding ElementName=nudTextBoxMask}" />
+                                        </TextBox.OpacityMask>
+                                    </TextBox>
+
+
+                                    <Border
+                                        Name="nudButtonMask"
+                                        Grid.Column="1"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="0"
+                                        CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource nudButtonCornerRadiusConverter}}" />
+                                    <Grid Grid.Column="1">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Visual="{Binding ElementName=nudButtonMask}" />
+                                        </Grid.OpacityMask>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <RepeatButton
+                                            x:Name="PART_IncreaseButton"
+                                            Grid.Row="0"
+                                            Margin="0,-1,-1,0"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="1"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            IsEnabled="{TemplateBinding IsEnabled}"
+                                            Style="{StaticResource NumericUpDownRepeatButtonStyle}">
+                                            <Path
+                                                Margin="3.3"
+                                                Data="M 0 20 L 35 -20 L 70 20 Z"
+                                                Fill="#FF202020"
+                                                Stretch="Uniform" />
+                                        </RepeatButton>
+                                        <RepeatButton
+                                            x:Name="PART_DecreaseButton"
+                                            Grid.Row="1"
+                                            Margin="0,0,-1,-1"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="1"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            IsEnabled="{TemplateBinding IsEnabled}"
+                                            Style="{StaticResource NumericUpDownRepeatButtonStyle}">
+                                            <Path
+                                                Margin="3.3"
+                                                Data="M 0 0 L 35 40 L 70 0 Z"
+                                                Fill="#FF202020"
+                                                Stretch="Uniform" />
+                                        </RepeatButton>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <!--  KeyOptions  -->
@@ -1230,8 +1339,8 @@
                                     Content="Volume Step"
                                     Style="{StaticResource LabelStyle}"
                                     ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
-                                <Controls:NumericUpDown
-                                    Name="nudVolumeStepSize"
+                                <local:NumericUpDown
+                                    x:Name="nudVolumeStepSize"
                                     MinWidth="55"
                                     HorizontalAlignment="Center"
                                     DataContext="{StaticResource Settings}"
@@ -1690,7 +1799,7 @@
                                                 Content="Timeout"
                                                 Style="{StaticResource LabelStyle}"
                                                 ToolTip="The time in milliseconds before the notification disappears after being displayed." />
-                                            <Controls:NumericUpDown
+                                            <local:NumericUpDown
                                                 MinWidth="88"
                                                 HorizontalAlignment="Stretch"
                                                 DockPanel.Dock="Right"

@@ -9,9 +9,6 @@ using VolumeControl.Audio.Interfaces;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
-using System.Management;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace VolumeControl.Audio
 {
@@ -53,8 +50,7 @@ namespace VolumeControl.Audio
             {
                 _icons = null;
                 this.NotifyPropertyChanged(nameof(this.IconPath));
-                this.NotifyPropertyChanged(nameof(this.SmallIcon));
-                this.NotifyPropertyChanged(nameof(this.LargeIcon));
+                this.NotifyPropertyChanged(nameof(this.Icons));
                 this.NotifyPropertyChanged(nameof(this.Icon));
             };
             this.NotificationClient.VolumeChanged += (s, e) =>
@@ -75,7 +71,6 @@ namespace VolumeControl.Audio
         }
 
         #region Fields
-        private (ImageSource?, ImageSource?)? _icons = null;
         private readonly AudioSessionControl _controller;
         #endregion Fields
 
@@ -98,24 +93,23 @@ namespace VolumeControl.Audio
         /// </summary>
         /// <remarks>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</remarks>
         public AudioSessionState State => _controller.State;
-        /// <summary>This is the location of this sessions icon on the system and may or may not actually be set.<br/><b>Do not rely on this being available, many third-party programs do not provide it!</b></summary>
-        /// <remarks>This can point to nothing, one icon in a DLL package, an executable, or all sorts of other formats.<br/>Do not use this for retrieving icon images directly, instead use <see cref="SmallIcon"/>/<see cref="LargeIcon"/>.<br/>You can also use <see cref="Icon"/> directly if you don't care about the icon size.</remarks>
+        /// <summary>This is the self-reported location of this sessions icon on the system and may or may not actually be set.</summary>
         public string IconPath => _controller.IconPath;
+        private IconPair? _icons = null;
         /// <summary>
-        /// The small icon located at the <see cref="IconPath"/>, or null if no icon was found.
+        /// Gets or sets the icons associated with this <see cref="AudioSession"/>.
         /// </summary>
-        /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
-        public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public IconPair Icons
+        {
+            get => _icons ??= this.GetIcons();
+            set => _icons = value;
+        }
         /// <summary>
-        /// The large icon located at the <see cref="IconPath"/>, or null if no icon was found.
+        /// Gets the icon associated with this <see cref="AudioSession"/>.<br/>
+        /// See <see cref="Icons"/>
         /// </summary>
-        /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
-        public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
-        /// <summary>
-        /// Gets the large or small icon, depending on whether they are null or not.
-        /// </summary>
-        /// <remarks>Checks and returns <see cref="LargeIcon"/> first, if that is null then it checks and returns <see cref="SmallIcon"/>.<br/>If both are null, returns null.</remarks>
-        public ImageSource? Icon => this.SmallIcon ?? this.LargeIcon;
+        /// <remarks><see cref="IconPair.GetBestFitIcon(bool)"/>. Prioritizes small icons.</remarks>
+        public ImageSource? Icon => Icons.GetBestFitIcon(false);
         /// <inheritdoc/>
         public int Volume
         {
@@ -249,13 +243,14 @@ namespace VolumeControl.Audio
 
         #region Methods
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public (ImageSource?, ImageSource?)? GetIcons()
+        public IconPair GetIcons()
         {
+            IconPair icons = null!;
             if (this.IconPath.Length > 0)
             {
-                var src = IconGetter.GetIcons(this.IconPath);
-                if (src is not null && !(src.Value.Item1 is null && src.Value.Item2 is null))
-                    return src;
+                icons = IconGetter.GetIcons(this.IconPath);
+                if (!icons.IsNull)
+                    return icons;
             }
             using Process? proc = this.GetProcess();
             try
@@ -267,7 +262,7 @@ namespace VolumeControl.Audio
             {
                 FLog.Log.Error($"Failed to query information for process {proc?.Id}", ex);
             }
-            return null;
+            return icons;
         }
         /// <summary>
         /// Gets the process associated with this audio session instance.

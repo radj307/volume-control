@@ -9,6 +9,73 @@ using VolumeControl.Log;
 
 namespace VolumeControl.WPF
 {
+    /// <summary>
+    /// Encapsulates a pair of differently-sized icons.
+    /// </summary>
+    public class IconPair
+    {
+        /// <summary>
+        /// Default <see cref="BitmapSizeOptions"/> object used by the <see cref="CreateImageSourceFromIconHandle(IntPtr)"/> method.
+        /// </summary>
+        public static readonly BitmapSizeOptions DefaultSizeOptions = BitmapSizeOptions.FromEmptyOptions();
+        /// <summary>Calls <see cref="Imaging.CreateBitmapSourceFromHIcon(IntPtr, Int32Rect, BitmapSizeOptions)"/> with <see cref="DefaultSizeOptions"/>.</summary>
+        /// <inheritdoc cref="Imaging.CreateBitmapSourceFromHIcon(IntPtr, Int32Rect, BitmapSizeOptions)"/>
+        public static ImageSource CreateImageSourceFromIconHandle(IntPtr icon) => Imaging.CreateBitmapSourceFromHIcon(icon, Int32Rect.Empty, DefaultSizeOptions);
+        /// <inheritdoc cref="CreateImageSourceFromIconHandle(IntPtr)"/>
+        public static ImageSource CreateImageSourceFromIconHandle(IntPtr icon, BitmapSizeOptions sizeOptions) => Imaging.CreateBitmapSourceFromHIcon(icon, Int32Rect.Empty, sizeOptions);
+
+        /// <summary>
+        /// Creates a new instance of <see cref="IconPair"/> with <see langword="null"/> values.
+        /// </summary>
+        public IconPair() { }
+        /// <summary>
+        /// Creates a new instance of <see cref="IconPair"/> with the given icons.
+        /// </summary>
+        /// <param name="smallIcon">Handle of a smaller-sized icon. See <see cref="SmallIcon"/></param>
+        /// <param name="largeIcon">Handle of a larger-sized icon. See <see cref="LargeIcon"/></param>
+        public IconPair(IntPtr? smallIcon, IntPtr? largeIcon)
+        {
+            if (smallIcon.HasValue) SmallIcon = CreateImageSourceFromIconHandle(smallIcon.Value);
+            if (largeIcon.HasValue) LargeIcon = CreateImageSourceFromIconHandle(largeIcon.Value);
+        }
+        /// <summary>
+        /// Creates a new instance of <see cref="IconPair"/> with the given icon sources.
+        /// </summary>
+        /// <param name="smallIconSource"><see cref="SmallIcon"/></param>
+        /// <param name="largeIconSource"><see cref="LargeIcon"/></param>
+        public IconPair(ImageSource? smallIconSource, ImageSource? largeIconSource)
+        {
+            SmallIcon = smallIconSource;
+            LargeIcon = largeIconSource;
+        }
+
+        /// <summary>
+        /// Smaller-sized icon.
+        /// </summary>
+        public ImageSource? SmallIcon { get; set; }
+        /// <summary>
+        /// Larger-sized icon.
+        /// </summary>
+        public ImageSource? LargeIcon { get; set; }
+        /// <summary>
+        /// Gets the first non-<see langword="null"/> icon, respecting the specified preference.
+        /// </summary>
+        /// <param name="preferLarge"></param>
+        /// <returns><see cref="LargeIcon"/> or <see cref="SmallIcon"/>.<br/>When <paramref name="preferLarge"/> is <see langword="true"/>, <see cref="LargeIcon"/> is preferred over <see cref="SmallIcon"/>; otherwise <see cref="SmallIcon"/> is preferred.</returns>
+        public ImageSource? GetBestFitIcon(bool preferLarge = true) => preferLarge ? (LargeIcon ?? SmallIcon) : (SmallIcon ?? LargeIcon);
+
+        public bool IsNull => SmallIcon is null && LargeIcon is null;
+
+        /// <summary>Deconstructs the <see cref="IconPair"/> into a tuple.</summary>
+        /// <param name="smallIcon"><see cref="SmallIcon"/></param>
+        /// <param name="largeIcon"><see cref="LargeIcon"/></param>
+        public void Deconstruct(out ImageSource? smallIcon, out ImageSource? largeIcon)
+        {
+            smallIcon = SmallIcon;
+            largeIcon = LargeIcon;
+        }
+    }
+
     /// <summary>This is a helper class used to retrieve icons using multiple different context-sensitive methods from the Windows API.</summary>
     public static class IconGetter
     {
@@ -82,18 +149,19 @@ namespace VolumeControl.WPF
 
         private const int PARSER_NULL_INDEX = -1;
 
+
         /// <summary>
         /// Gets the large and small variants of the specified icon from the specified DLL.
         /// </summary>
         /// <param name="path">The location of the target icon DLL.</param>
         /// <param name="index">The icon index number to retrieve.</param>
         /// <returns>A pair of icons where Item1 is the small icon, Item2 is the large icon; or null if the icons couldn't be loaded.</returns>
-        public static (ImageSource?, ImageSource?)? GetIcons(string path, int index)
+        public static IconPair GetIcons(string path, int index)
         {
             string target = Environment.ExpandEnvironmentVariables(path.Trim('@'));
             Log.Debug($"{nameof(GetIcons)} called with path '{path}'{(target.Equals(path, StringComparison.Ordinal) ? "" : $" => '{target}'")}");
             if (!File.Exists(target))
-                return null;
+                return new();
             try
             {
                 if (index.Equals(PARSER_NULL_INDEX))
@@ -101,29 +169,22 @@ namespace VolumeControl.WPF
                     FileAttributes fAttr = File.GetAttributes(target);
                     bool isDir = fAttr.HasFlag(FileAttributes.Directory);
 
-                    ImageSource? small = GetIcon(target, true, isDir);
-                    ImageSource? large = GetIcon(target, false, isDir);
-
-                    if (small == null && large == null)
-                        Log.Warning($"Failed to locate any icons at path '{target}' ; This is likely a permissions issue and is safe to ignore.");
-
-                    return (small, large);
+                    return new(GetIcon(target, true, isDir), GetIcon(target, false, isDir));
                 }
                 else if (target.Contains(".dll", StringComparison.OrdinalIgnoreCase) && ExtractIconEx(target, index, out IntPtr large, out IntPtr small, 1) != -1)
                 {
-                    Log.Followup($"- Retrieving Icon {index} from DLL source.");
-                    return (Imaging.CreateBitmapSourceFromHIcon(small, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()), Imaging.CreateBitmapSourceFromHIcon(large, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
+                    return new(small, large);
                 }
             }
             catch (Exception ex)
             {
                 Log.Warning(ex);
             }
-            return null;
+            return new();
         }
         /// <inheritdoc cref="GetIcons(string, int)"/>
         /// <param name="iconPath">Specifies the location and index number of the target icon.</param>
-        public static (ImageSource?, ImageSource?)? GetIcons(string iconPath) => ParseIconPath(iconPath) is (string path, int index) ? GetIcons(path, index) : null;
+        public static IconPair GetIcons(string iconPath) => ParseIconPath(iconPath) is (string path, int index) ? GetIcons(path, index) : null;
         /// <summary>
         /// Parses the given icon path into a usable path string with an optional index number indicating which icon to retrieve from a package..
         /// </summary>

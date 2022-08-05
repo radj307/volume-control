@@ -56,10 +56,6 @@ namespace VolumeControl.Audio
         }
         #endregion Constructors
 
-        #region Fields
-        private (ImageSource?, ImageSource?)? _icons = null;
-        #endregion Fields
-
         #region Properties
         private static LogWriter Log => FLog.Log;
         internal MMDevice MMDevice { get; }
@@ -92,25 +88,23 @@ namespace VolumeControl.Audio
         public string DeviceID { get; }
         /// <summary>The instance ID.</summary>
         public string InstanceID => this.MMDevice.InstanceId;
-        /// <summary>This is the location of this device's icon on the system and may or may not actually be set.</summary>
-        /// <remarks>This can point to nothing, one icon in a DLL package, an executable, or all sorts of other formats.<br/>Do not use this for retrieving icon images directly, instead use <see cref="SmallIcon"/>/<see cref="LargeIcon"/>.<br/>You can also use <see cref="Icon"/> directly if you don't care about the icon size.</remarks>
+        /// <summary>This is the self-reported location of this device's icon on the system and may or may not actually be set.</summary>
         public string IconPath => this.MMDevice.IconPath;
+        private IconPair? _icons = null;
         /// <summary>
-        /// The small icon located at the <see cref="IconPath"/>, or null if no icon was found.
+        /// Gets or sets the icons associated with this <see cref="AudioDevice"/>.
         /// </summary>
-        /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
-        public ImageSource? SmallIcon => (_icons ??= this.GetIcons())?.Item1;
+        public IconPair Icons
+        {
+            get => _icons ??= this.GetIcons();
+            set => _icons = value;
+        }
         /// <summary>
-        /// The large icon located at the <see cref="IconPath"/>, or null if no icon was found.
+        /// Gets the icon associated with this <see cref="AudioDevice"/>.<br/>
+        /// See <see cref="Icons"/>
         /// </summary>
-        /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
-        public ImageSource? LargeIcon => (_icons ??= this.GetIcons())?.Item2;
-        /// <summary>
-        /// Returns <see cref="SmallIcon"/> or if it is set to null, <see cref="LargeIcon"/> is returned instead.<br/>
-        /// If both icons are set to null, this returns null.
-        /// </summary>
-        /// <remarks>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</remarks>
-        public ImageSource? Icon => this.SmallIcon ?? this.LargeIcon;
+        /// <remarks><see cref="IconPair.GetBestFitIcon(bool)"/>. Prioritizes small icons.</remarks>
+        public ImageSource? Icon => Icons.GetBestFitIcon(false);
         /// <summary>
         /// Gets the friendly name of the endpoint adapter, excluding the name of the device.<br/>Example: "Speakers (XYZ Audio Adapter)"
         /// </summary>
@@ -355,18 +349,17 @@ namespace VolumeControl.Audio
         #endregion Sessions
         #region Other
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
-        public (ImageSource?, ImageSource?)? GetIcons()
+        public IconPair GetIcons()
         {
             try
             {
-                if (this.IconPath.Length > 0)
-                    return IconGetter.GetIcons(this.IconPath);
+                return IconGetter.GetIcons(this.IconPath);
             }
             catch (Exception ex)
             {
-                Log.Warning(ex);
+                Log.Warning($"{nameof(AudioDevice)}.{nameof(GetIcons)} failed due to an exception!", ex);
             }
-            return null;
+            return new();
         }
         /// <inheritdoc/>
         public void Dispose()
