@@ -9,8 +9,10 @@
     xmlns:ctrlz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:VolumeControl.Helpers"
+    xmlns:loc="clr-namespace:CodingSeb.Localization;assembly=CodingSeb.Localization"
     xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:VolumeControl.Properties"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Name="window"
     Title="Volume Control"
@@ -908,6 +910,33 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <!--  Tooltip Style  -->
+            <Style TargetType="{x:Type ToolTip}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToolTip}">
+                            <Border
+                                Padding="5,3"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{StaticResource RoundedControlCorner}">
+                                <ContentPresenter
+                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+                <Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            </Style>
 
             <!--  KeyOptions  -->
             <helpers:KeyOptions x:Key="KeyOptions" />
@@ -1326,10 +1355,10 @@
                             <CheckBox
                                 Grid.Column="1"
                                 Margin="4,0"
-                                Content="Advanced Mode"
+                                Content="Edit Mode"
                                 IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}}"
                                 Style="{StaticResource CheckBoxStyle}"
-                                ToolTip="Advanced mode allows you to view the actions that hotkeys are bound to, as well as create, delete, or rename hotkey bindings." />
+                                ToolTip="Allows you to edit, create, and delete hotkey bindings." />
                             <StackPanel
                                 Grid.Column="3"
                                 Margin="3,0"
@@ -1531,6 +1560,11 @@
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ComboBox.ItemTemplate>
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
                                                     </ComboBox>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -1557,10 +1591,10 @@
                         </Border>
 
                         <Button
-                            Grid.Column="1"
                             Margin="5,0,5,5"
                             Click="Handle_CreateNewHotkeyClick"
                             Content="  Create New Hotkey  "
+                            ToolTip="Creates a new blank hotkey entry."
                             Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </VirtualizingStackPanel>
                 </TabItem>
@@ -1575,6 +1609,25 @@
                     <!--  Settings Tab Layout  -->
                     <Border BorderBrush="{StaticResource TabBackgroundBrush}" BorderThickness="2">
                         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
+                            <!--  ▼ Language ▼  -->
+                            <Border Style="{StaticResource SectionStyle}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Language" Style="{StaticResource HeaderLabelStyle}" />
+
+                                    <ComboBox
+                                        Grid.Row="1"
+                                        Margin="10,6"
+                                        ItemsSource="{Binding AvailableLanguages, Source={x:Static loc:Loc.Instance}}"
+                                        SelectedItem="{Binding CurrentLanguage, Source={x:Static loc:Loc.Instance}}"
+                                        Style="{StaticResource ComboBoxStyle}" />
+                                </Grid>
+                            </Border>
+                            <!--  ▲ Language ▲  -->
+
                             <!--  ▼ Audio ▼  -->
                             <Border Style="{StaticResource SectionStyle}">
                                 <Grid>
