@@ -1,12 +1,17 @@
 # Addon Development
 Addons are written in C# with .NET Core 6 - you don't need any previous experience with C# in order to create addons, but this is not a tutorial for learning C#.  
-
 ![](https://i.imgur.com/DUI7k84.png)
 
-## Pre-Requisites
+## Volume Control SDK
 
-- [Volume Control SDK](https://github.com/radj307/volume-control/releases)  
-  Download `SDK.zip` from the latest release.
+There are 2 methods for accessing the Volume Control SDK:
+- **[Nuget](#using-nuget)**  
+  This is the preferred method, and is available from version [5.2.0](https://github.com/radj307/volume-control/releases/5.2.0) onwards.  
+  See [here](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio) for a guide on how to use Nuget in Visual Studio.  
+- **[Manual](#manual-installation)**  
+  You can also manually download the `SDK.zip` archive from the [releases](https://github.com/radj307/volume-control/releases) page.  
+
+The installation steps for both methods can be found below.  
   
 ### Other Dependencies
 
@@ -16,7 +21,7 @@ In most cases, you won't need any of these; if you do need them, use Nuget to in
 - [NAudio](https://github.com/naudio/NAudio)
 - [Semver](https://github.com/maxhauser/semver)
 
-### SDK File Extensions
+# What's in the SDK
 
 Each dependency from the Volume Control SDK has 3 files with different extensions and purposes.  
 
@@ -29,6 +34,23 @@ Each dependency from the Volume Control SDK has 3 files with different extension
 ## Environment Setup
 This assumes you're using Visual Studio with the **.NET/C#** workload installed.  
 
+### Using NuGet
+*Available since v[5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)*
+
+ 1. Create a new **.NET Core 6 Class Library** type solution, and name it whatever you want.  
+    ![image](https://user-images.githubusercontent.com/1927798/169677073-716d9c3b-5928-4414-8985-3dc22a79c160.png)  
+    ![image](https://user-images.githubusercontent.com/1927798/169677083-622c7461-11bb-4b57-8eeb-664ced0fde6f.png)  
+ 2. R+Click on your `.csproj` file and click **Properties**. In the property pages, change the **Target OS** to **Windows**:  
+    ![image](https://user-images.githubusercontent.com/1927798/169683966-573f9c1c-4971-4304-a8b5-c01c931af5c2.png)  
+    Press *Ctrl+S* to save the project file, then close the tab.
+ 3. In the solution explorer, R+Click on your project and select **Manage NuGet Packages for Project**  
+    ![image](https://i.imgur.com/oLeVqaM.png)  
+ 4. Install the Volume Control SDK package(s).  
+    ![image](https://i.imgur.com/nTRvVlv.png)  
+    *You may not need all of the available packages; you can use the **Remove Unused References** option to remove any packages you aren't using later.*
+
+### Manual Installation
+
  1. Create a new **.NET Core 6 Class Library** type solution, and name it whatever you want.  
     ![image](https://user-images.githubusercontent.com/1927798/169677073-716d9c3b-5928-4414-8985-3dc22a79c160.png)  
     ![image](https://user-images.githubusercontent.com/1927798/169677083-622c7461-11bb-4b57-8eeb-664ced0fde6f.png)  
@@ -37,8 +59,6 @@ This assumes you're using Visual Studio with the **.NET/C#** workload installed.
  3. Click on the **Browse** tab & add the DLLs from the sdk you downloaded earlier using the **Browse** button at the bottom.  
     ![image](https://user-images.githubusercontent.com/1927798/169681046-b9b1d092-8500-42d7-a587-3f75a5f3698c.png)  
     Once you're done, click **OK**.
-    > ### Note
-    > If you have the other SDK files located in the same directory as the `.dll` you just added, Visual Studio will automatically include inline documentation *(`.xml`)* and debug symbols *(`.pdb`)*.
  4. R+Click on your `.csproj` file and click **Properties**. In the property pages, change the **Target OS** to **Windows**:  
     ![image](https://user-images.githubusercontent.com/1927798/169683966-573f9c1c-4971-4304-a8b5-c01c931af5c2.png)  
     Press *Ctrl+S* to save the project file, then close the tab.
@@ -95,14 +115,8 @@ First, you'll need to create a new publish profile.
     ![](https://i.imgur.com/CYMEnam.png)
  3. Choose an output directory; this should be a **relative** path that points somewhere within your solution directory / git repository.  
     ![](https://i.imgur.com/T3nt2Ga.png)  
-    > ### Note
-    > Paths are relative to the *project* directory, **not** the *solution* directory.  
-    > Keep this in mind if you have seperate solution/project directories.
  4. Do any additional configuration you want on your new publish profile.  
     ![](https://i.imgur.com/5Xzbvt1.png)  
-    > ### Note
-    > Make sure your publish profile is set to the **Release** configuration.  
-    > If you build your addon in debug configuration, users will be required to have the related debugger files installed; something that is exceedingly rare.
  5. Click the **Publish** button to build your addon.  
     The output files *(and only the output files)* can be found at the location you set in step 3.   
     ![](https://i.imgur.com/fbxy7VW.png)
