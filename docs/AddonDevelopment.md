@@ -45,9 +45,9 @@ This assumes you're using Visual Studio with the **.NET/C#** workload installed.
     Press *Ctrl+S* to save the project file, then close the tab.
  3. In the solution explorer, R+Click on your project and select **Manage NuGet Packages for Project**  
     ![image](https://i.imgur.com/oLeVqaM.png)  
- 4. Install the Volume Control SDK package(s).  
-    ![image](https://i.imgur.com/nTRvVlv.png)  
-    *You may not need all of the available packages; you can use the **Remove Unused References** option to remove any packages you aren't using later.*
+ 4. Install the Volume Control SDK package.  
+    ![image](https://i.imgur.com/Zfka6S1.png)  
+    
 
 ### Manual Installation
 
