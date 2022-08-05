@@ -196,19 +196,10 @@ namespace VolumeControl.Helpers.Addon
         private static List<string> GetAddonDirectories()
         {
             List<string> l = new();
-            // Check default appdata directory:
-            if (Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath) is string dir)
-            {
-                const string searchString = "radj307";
-
-                int pos = dir.IndexOf(searchString);
-                if (pos != -1)
-                {
-                    string path = Path.Combine(dir[..(pos + searchString.Length)], "Addons");
-                    if (Directory.Exists(path))
-                        l.AddIfUnique(path);
-                }
-            }
+            // check default path:
+            string defaultPath = Path.Combine(PathFinder.LocalAppData, "Addons");
+            if (Directory.Exists(defaultPath))
+                l.AddIfUnique(defaultPath);
             // check custom directories:
             if (Settings.CustomAddonDirectories is not null)
             {

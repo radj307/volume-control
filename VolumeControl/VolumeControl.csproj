@@ -50,6 +50,7 @@
   </ItemGroup>
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
+    <None Remove="Localization\en.loc.json" />
     <None Remove="Resources\fonts\Inter.ttf" />
     <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
     <None Remove="Resources\icons\icon-16x16-VC.ico" />
@@ -64,6 +65,9 @@
     <None Remove="Resources\images\reload.png" />
     <None Remove="Resources\LICENSE" />
     <!--<None Remove="Resources\VCUpdateUtility.exe" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\en.loc.json" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fonts\Inter.ttf">

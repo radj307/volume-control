@@ -1120,7 +1120,8 @@
                 <TabItem
                     Name="MixerTab"
                     Padding="3"
-                    Header="Mixer">
+                    Header="{Tr 'VolumeControl.MainWindow.Mixer.TabHeader',
+                                DefaultText='Mixer'}">
                     <TabItem.Resources>
                         <Style
                             x:Key="SectionStyle"
@@ -1183,13 +1184,15 @@
                                         <TextBlock
                                             Margin="5,0"
                                             Style="{StaticResource WatermarkTextBlockStyle}"
-                                            Text="Target Process ID or Name"
+                                            Text="{Tr 'VolumeControl.MainWindow.Mixer.TargetBox.Watermark',
+                                                      DefaultText='Target ID or Process Name'}"
                                             Visibility="{Binding Text.IsEmpty, ElementName=targetbox, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         <CheckBox
                                             x:Name="cbLockTargetSelection"
                                             Grid.Column="2"
                                             Margin="3"
-                                            Content="Lock"
+                                            Content="{Tr 'VolumeControl.MainWindow.Mixer.TargetBox.LockTarget',
+                                                         DefaultText='Lock'}"
                                             DataContext="{StaticResource Settings}"
                                             IsChecked="{Binding AudioAPI.LockSelectedSession, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                             Style="{StaticResource CheckBoxStyle}" />
@@ -1219,7 +1222,8 @@
                                             <!--  PID  -->
                                             <DataGridTemplateColumn
                                                 Width="Auto"
-                                                Header="PID"
+                                                Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.PID.Header',
+                                                            DefaultText='PID'}"
                                                 IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
@@ -1236,7 +1240,8 @@
                                                 x:Name="dgSessionNameColumn"
                                                 Width="Auto"
                                                 MinWidth="150"
-                                                Header="Name"
+                                                Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Name.Header',
+                                                            DefaultText='Name'}"
                                                 IsReadOnly="False">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
@@ -1263,7 +1268,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             <!--  Mute  -->
-                                            <DataGridTemplateColumn Width="40" Header="Mute">
+                                            <DataGridTemplateColumn Width="40" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Mute.Header', DefaultText='Mute'}">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <CheckBox IsChecked="{Binding Muted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
@@ -1271,7 +1276,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             <!--  Volume  -->
-                                            <DataGridTemplateColumn Width="170" Header="Volume">
+                                            <DataGridTemplateColumn Width="170" Header="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Volume.Header', DefaultText='Volume'}">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Grid Margin="1" VerticalAlignment="Center">
@@ -1314,7 +1319,8 @@
                                                     <DataTemplate>
                                                         <Button
                                                             Click="Handle_ProcessSelectClick"
-                                                            Content="Select"
+                                                            Content="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Select.Button',
+                                                                         DefaultText='Select'}"
                                                             IsEnabled="{Binding IsChecked, ElementName=cbLockTargetSelection, Converter={StaticResource InvertConverter}}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -1333,7 +1339,8 @@
                 <TabItem
                     Name="HotkeysTab"
                     Padding="3"
-                    Header="Hotkeys">
+                    Header="{Tr 'VolumeControl.MainWindow.Hotkeys.TabHeader',
+                                DefaultText='Hotkeys'}">
                     <!--  HotkeyGrid  -->
                     <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
 
@@ -1346,28 +1353,26 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--<ToggleButton
-                                x:Name="toggleButtonHelp"
-                                Margin="5,0"
-                                Content="  ?  " />
-                            <Popup IsOpen="{Binding IsChecked, ElementName=toggleButtonHelp}" Placement="Bottom" />-->
-
                             <CheckBox
                                 Grid.Column="1"
                                 Margin="4,0"
-                                Content="Edit Mode"
+                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.EditMode.Content',
+                                             DefaultText='Edit Mode'}"
                                 IsChecked="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}}"
                                 Style="{StaticResource CheckBoxStyle}"
-                                ToolTip="Allows you to edit, create, and delete hotkey bindings." />
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.EditMode.Tooltip',
+                                             DefaultText='Allows you to edit, create, and delete hotkey bindings.'}" />
                             <StackPanel
                                 Grid.Column="3"
                                 Margin="3,0"
                                 Orientation="Horizontal">
                                 <Label
                                     HorizontalAlignment="Center"
-                                    Content="Volume Step"
+                                    Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Content',
+                                                 DefaultText='Volume Step'}"
                                     Style="{StaticResource LabelStyle}"
-                                    ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys." />
+                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
+                                                 DefaultText='This is the number of volume [apos]ticks[apos] that change each time you press the volume up or down hotkeys.'}" />
                                 <local:NumericUpDown
                                     x:Name="nudVolumeStepSize"
                                     MinWidth="55"
@@ -1375,15 +1380,19 @@
                                     DataContext="{StaticResource Settings}"
                                     MaxValue="100"
                                     MinValue="0"
-                                    ToolTip="This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
+                                                 DefaultText='This is the number of volume [apos]ticks[apos] that change each time you press the volume up or down hotkeys.'}"
                                     Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <Button
                                 Grid.Column="4"
                                 Height="{Binding Height, ElementName=nudVolumeStepSize}"
+                                Padding="6,0"
                                 Click="Handle_ResetHotkeysClick"
-                                Content="  Reset To Default  "
-                                ToolTip="Resets all hotkeys to the default preset." />
+                                Content="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Content',
+                                             DefaultText='Reset To Default'}"
+                                ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.ResetToDefault.Tooltip',
+                                             DefaultText='Resets all hotkeys to the default preset.'}" />
                         </Grid>
 
                         <Border
@@ -1422,7 +1431,8 @@
                                                     IsChecked="{Binding HotkeyAPI.AllSelected, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                     IsThreeState="True"
                                                     Style="{StaticResource CheckBoxStyle}"
-                                                    ToolTip="This (un)registers all hotkeys in the list." />
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Active.Header.Tooltip',
+                                                                 DefaultText='This (un)registers all hotkeys in the list.'}" />
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
@@ -1437,7 +1447,8 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="130"
-                                            Header="Name"
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Name.Header',
+                                                        DefaultText='Name'}"
                                             IsReadOnly="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource InvertConverter}}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
@@ -1455,7 +1466,8 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="180"
-                                            Header="Key">
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Key.Header',
+                                                        DefaultText='Key'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <ComboBox
@@ -1470,7 +1482,8 @@
                                         <DataGridTemplateColumn
                                             Width="30"
                                             CanUserResize="False"
-                                            Header="Alt">
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Alt.Header',
+                                                        DefaultText='Alt'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CheckBox IsChecked="{Binding Alt, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
@@ -1481,7 +1494,8 @@
                                         <DataGridTemplateColumn
                                             Width="30"
                                             CanUserResize="False"
-                                            Header="Ctrl">
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Ctrl.Header',
+                                                        DefaultText='Ctrl'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CheckBox IsChecked="{Binding Ctrl, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
@@ -1492,7 +1506,8 @@
                                         <DataGridTemplateColumn
                                             Width="30"
                                             CanUserResize="False"
-                                            Header="Shift">
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Shift.Header',
+                                                        DefaultText='Shift'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CheckBox IsChecked="{Binding Shift, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
@@ -1503,7 +1518,8 @@
                                         <DataGridTemplateColumn
                                             Width="30"
                                             CanUserResize="False"
-                                            Header="Win">
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Windows.Header',
+                                                        DefaultText='Win'}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CheckBox IsChecked="{Binding Win, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" />
@@ -1514,7 +1530,8 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="24"
-                                            Header="Action"
+                                            Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Action.Header',
+                                                        DefaultText='Action'}"
                                             Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
@@ -1593,8 +1610,10 @@
                         <Button
                             Margin="5,0,5,5"
                             Click="Handle_CreateNewHotkeyClick"
-                            Content="  Create New Hotkey  "
-                            ToolTip="Creates a new blank hotkey entry."
+                            Content="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Content',
+                                         DefaultText='Create New Hotkey'}"
+                            ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.CreateNewHotkeyButton.Tooltip',
+                                         DefaultText='Creates a new blank hotkey entry.'}"
                             Visibility="{Binding AdvancedHotkeyMode, Source={StaticResource Settings}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </VirtualizingStackPanel>
                 </TabItem>
@@ -1605,7 +1624,8 @@
                 <TabItem
                     Name="SettingsTab"
                     Padding="3"
-                    Header="Settings">
+                    Header="{Tr 'VolumeControl.MainWindow.Settings.TabHeader',
+                                DefaultText='Settings'}">
                     <!--  Settings Tab Layout  -->
                     <Border BorderBrush="{StaticResource TabBackgroundBrush}" BorderThickness="2">
                         <VirtualizingStackPanel FlowDirection="LeftToRight" Orientation="Vertical">
@@ -1616,7 +1636,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Language" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Language.Header', DefaultText='Language'}" Style="{StaticResource HeaderLabelStyle}" />
 
                                     <ComboBox
                                         Grid.Row="1"
@@ -1635,7 +1655,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Audio" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.Header', DefaultText='Audio'}" Style="{StaticResource HeaderLabelStyle}" />
 
                                     <StackPanel
                                         Grid.Row="1"
@@ -1663,7 +1683,8 @@
                                                 ItemsSource="{Binding AudioAPI.Devices, UpdateSourceTrigger=PropertyChanged}"
                                                 MinRowHeight="22"
                                                 Style="{StaticResource DataGridStyle}"
-                                                ToolTip="You can include or exclude specific devices from here.">
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Tooltip',
+                                                             DefaultText='You can include or exclude specific devices from here.'}">
                                                 <DataGrid.OpacityMask>
                                                     <VisualBrush Visual="{Binding ElementName=DeviceGridMask}" />
                                                 </DataGrid.OpacityMask>
@@ -1672,7 +1693,8 @@
                                                     <DataGridTemplateColumn
                                                         Width="26"
                                                         CanUserResize="False"
-                                                        Header="✓">
+                                                        Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Enabled.Header',
+                                                                    DefaultText='✓'}">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <CheckBox
@@ -1685,7 +1707,7 @@
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
                                                     <!--  Name  -->
-                                                    <DataGridTemplateColumn Width="Auto" Header="Device Name">
+                                                    <DataGridTemplateColumn Width="Auto" Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Name.Header', DefaultText='Device Name'}">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
 
@@ -1713,7 +1735,7 @@
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
                                                     <!--  Interface Name  -->
-                                                    <DataGridTemplateColumn Width="Auto" Header="Interface Name">
+                                                    <DataGridTemplateColumn Width="Auto" Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Interface.Header', DefaultText='Interface Name'}">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <TextBlock
@@ -1727,7 +1749,8 @@
                                                     <!--  Mute  -->
                                                     <DataGridTemplateColumn
                                                         Width="Auto"
-                                                        Header="Mute"
+                                                        Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Mute.Header',
+                                                                    DefaultText='Mute'}"
                                                         Visibility="Collapsed">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -1738,7 +1761,8 @@
                                                     <!--  Volume  -->
                                                     <DataGridTemplateColumn
                                                         MinWidth="170"
-                                                        Header="Volume"
+                                                        Header="{Tr 'VolumeControl.MainWindow.Settings.Audio.DeviceGrid.Volume.Header',
+                                                                    DefaultText='Volume'}"
                                                         Visibility="Collapsed">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -1782,20 +1806,29 @@
                                             Orientation="Horizontal">
                                             <CheckBox
                                                 Margin="6,3"
-                                                Content="Enable Default"
+                                                Padding="6,0"
+                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.EnableDefault.Content',
+                                                             DefaultText='Enable Default'}"
                                                 IsChecked="{Binding EnableDefaultDevice, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource CheckBoxStyle}"
-                                                ToolTip="When checked, the default audio device is always enabled during the application loading phase." />
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.EnableDefault.Tooltip',
+                                                             DefaultText='When checked, the default audio device is always enabled during the application loading phase.'}" />
                                             <Button
                                                 Margin="6,3"
+                                                Padding="6,0"
                                                 Click="Handle_ReloadDevicesClick"
-                                                Content="  Reload Devices  "
-                                                ToolTip="Forcibly reload all devices." />
+                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadDevices.Content',
+                                                             DefaultText='Reload Devices'}"
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadDevices.Tooltip',
+                                                             DefaultText='Forcibly reload all devices.'}" />
                                             <Button
                                                 Margin="6,3"
+                                                Padding="6,0"
                                                 Click="Handle_ReloadSessionsClick"
-                                                Content="  Reload Sessions  "
-                                                ToolTip="Forcibly reload all sessions." />
+                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadSessions.Content',
+                                                             DefaultText='Reload Sessions'}"
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.ReloadSessions.Tooltip',
+                                                             DefaultText='Forcibly reload all sessions.'}" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -1872,7 +1905,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Event Logging" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Log.Header', DefaultText='Event Logging'}" Style="{StaticResource HeaderLabelStyle}" />
                                     <Grid Grid.Row="1" Style="{StaticResource SectionSubGridStyle}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -1887,7 +1920,8 @@
                                             Margin="3,0"
                                             VerticalAlignment="Center"
                                             d:IsEnabled="True"
-                                            Content="Enable"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Log.Enable.Content',
+                                                         DefaultText='Enable'}"
                                             IsChecked="{Binding LogEnabled, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource InvertConverter}}"
                                             Style="{StaticResource CheckBoxStyle}" />
@@ -1901,7 +1935,8 @@
                                                 Panel.ZIndex="1"
                                                 IsHitTestVisible="False"
                                                 Style="{StaticResource TextBlockStyle}"
-                                                Text="Filter" />
+                                                Text="{Tr 'VolumeControl.MainWindow.Settings.Log.Filter.Text',
+                                                          DefaultText='Filter'}" />
                                             <ComboBox
                                                 x:Name="logFilterBox"
                                                 Panel.ZIndex="0"
@@ -1953,14 +1988,16 @@
                                                     HorizontalScrollBarVisibility="Auto"
                                                     Style="{StaticResource TextBoxValidIndicatorStyle}"
                                                     Text="{Binding LogFilePath, ElementName=window, UpdateSourceTrigger=LostFocus}"
-                                                    ToolTip="Specifies the location and name of the log file. Relative paths are relative to the location of the executable." />
+                                                    ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Log.Path.Tooltip',
+                                                                 DefaultText='Specifies the location and name of the log file. Relative paths are relative to the location of the executable.'}" />
                                                 <TextBlock
                                                     Width="{Binding Width, ElementName=logPath}"
                                                     Height="{Binding Height, ElementName=logPath}"
                                                     Margin="5,0"
                                                     d:Visibility="Collapsed"
                                                     Style="{StaticResource WatermarkTextBlockStyle}"
-                                                    Text="Path to Log File"
+                                                    Text="{Tr 'VolumeControl.MainWindow.Settings.Log.Path.WatermarkText',
+                                                              DefaultText='Path to Log File'}"
                                                     Visibility="{Binding Text.IsEmpty, Mode=OneWay, ElementName=logPath, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                                 <!--  LogPath Browse Button  -->
                                                 <Button
@@ -1985,7 +2022,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Application" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Application.Header', DefaultText='Application'}" Style="{StaticResource HeaderLabelStyle}" />
 
                                     <Grid
                                         Grid.Row="1"
@@ -2015,17 +2052,21 @@
                                         <CheckBox
                                             Grid.Row="1"
                                             Grid.Column="0"
-                                            Content="Run at Startup"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Content',
+                                                         DefaultText='Run at Startup'}"
                                             IsChecked="{Binding RunAtStartup, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="When enabled, Volume Control will start when you log in." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.RunAtStartup.Tooltip',
+                                                         DefaultText='When enabled, Volume Control will start when you log in.'}" />
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="0"
-                                            Content="Start Minimized"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.StartMinimized.Content',
+                                                         DefaultText='Start Minimized'}"
                                             IsChecked="{Binding StartMinimized, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="When enabled, Volume Control will minimize itself when it starts up." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.StartMinimized.Tooltip',
+                                                         DefaultText='When enabled, Volume Control will minimize itself when it starts up.'}" />
 
                                         <!--  [ COLUMN 2 ]  -->
                                         <CheckBox

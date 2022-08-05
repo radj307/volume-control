@@ -3,6 +3,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Update
@@ -33,16 +34,24 @@ namespace VolumeControl.Helpers.Update
         {
             get
             {
-                using HttpClient client = new();
+                try
+                {
+                    using HttpClient client = new();
 
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-                client.DefaultRequestHeaders.Add("User-Agent", "curl/7.64.1");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+                    client.DefaultRequestHeaders.Add("User-Agent", "curl/7.64.1");
 
-                System.Threading.Tasks.Task<GithubReleaseHttpResponse>? getRequestTask = client.GetFromJsonAsync<GithubReleaseHttpResponse>(Updater._apiUriLatest);
-                getRequestTask.Wait();
+                    System.Threading.Tasks.Task<GithubReleaseHttpResponse>? getRequestTask = client.GetFromJsonAsync<GithubReleaseHttpResponse>(Updater._apiUriLatest);
+                    getRequestTask.Wait();
 
-                return new ReleaseInfo(getRequestTask.Result);
+                    return new ReleaseInfo(getRequestTask.Result);
+                }
+                catch (Exception ex)
+                {
+                    FLog.Log.Error(ex);
+                }
+                return new ReleaseInfo();
             }
         }
         /// <summary>

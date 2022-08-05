@@ -22,6 +22,21 @@ namespace VolumeControl.Core
 
         #region Main
         /// <summary>
+        /// Gets or sets the identifier used to select the current localization language.
+        /// </summary>
+        /// <remarks><b>Default: "en"</b></remarks>
+        public string LanguageIdentifier { get; set; } = "English (US/CA)";
+        /// <summary>
+        /// Gets or sets whether the program should create the default translation files if they don't already exist.
+        /// </summary>
+        /// <remarks><b>Default: <see langword="true"/></b></remarks>
+        public bool CreateDefaultTranslationFiles { get; set; } = true;
+        /// <summary>
+        /// Gets or sets a list of additional directories to load localization packages from.
+        /// </summary>
+        /// <remarks><b>Default: {}</b></remarks>
+        public List<string> CustomLocalizationDirectories { get; set; } = new();
+        /// <summary>
         /// Gets or sets whether the application should run when Windows starts.<br/>
         /// Creates/deletes a registry value in <b>HKEY_CURRENT_USER => SOFTWARE\Microsoft\Windows\CurrentVersion\Run</b>
         /// </summary>

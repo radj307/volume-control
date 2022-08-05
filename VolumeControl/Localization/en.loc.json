@@ -1,0 +1,285 @@
+{
+  "LanguageName": {
+    "English (US/CA)": "English",
+    "TestLang": "English"
+  },
+  "VolumeControl": {
+
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "English (US/CA)": "Mixer",
+          "TestLang": "rexiM"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "English (US/CA)": "Target ID or Process Name",
+            "TestLang": "emaN ssecorP ro DI tegraT"
+          },
+          "LockTarget": {
+            "English (US/CA)": "Lock",
+            "TestLang": "kcoL"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "English (US/CA)": "PID",
+              "TestLang": "DIP"
+            }
+          },
+          "Name": {
+            "Header": {
+              "English (US/CA)": "Name",
+              "TestLang": "emaN"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "English (US/CA)": "Mute",
+              "TestLang": "etuM"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "English (US/CA)": "Volume",
+              "TestLang": "emuloV"
+            }
+          },
+          "Select": {
+            "Button": {
+              "English (US/CA)": "Select",
+              "TestLang": "tceleS"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "English (US/CA)": "Hotkeys",
+          "TestLang": "syektoH"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "English (US/CA)": "Edit Mode",
+              "TestLang": "Edit Mode"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Allows you to edit, create, and delete hotkey bindings.",
+              "TestLang": "Allows you to edit, create, and delete hotkey bindings."
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "English (US/CA)": "Volume Step",
+              "TestLang": "Volume Step"
+            },
+            "Tooltip": {
+              "English (US/CA)": "This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys.",
+              "TestLang": "This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "English (US/CA)": "Reset To Default",
+              "TestLang": "Reset To Default"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Resets all hotkeys to the default preset.",
+              "TestLang": "Resets all hotkeys to the default preset."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "English (US/CA)": "This (un)registers all hotkeys in the list.",
+                "TestLang": "This (un)registers all hotkeys in the list."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "English (US/CA)": "Name",
+              "TestLang": "Name"
+            }
+          },
+          "Key": {
+            "Header": {
+              "English (US/CA)": "Key",
+              "TestLang": "Key"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "English (US/CA)": "Alt",
+              "TestLang": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "English (US/CA)": "Ctrl",
+              "TestLang": "Ctrl"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "English (US/CA)": "Shift",
+              "TestLang": "Shift"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "English (US/CA)": "Win",
+              "TestLang": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "English (US/CA)": "Action",
+              "TestLang": "Action"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "English (US/CA)": "Create New Hotkey",
+            "TestLang": "Create New Hotkey"
+          },
+          "Tooltip": {
+            "English (US/CA)": "Creates a new blank hotkey entry.",
+            "TestLang": "Creates a new blank hotkey entry."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "English (US/CA)": "Settings",
+          "TestLang": "sgnitteS"
+        },
+        "Language": {
+          "Header": {
+            "English (US/CA)": "Language"
+          }
+        },
+        "Audio": {
+          "Header": {
+            "English (US/CA)": "Audio"
+          },
+          "DeviceGrid": {
+            "Tooltip": {
+              "English (US/CA)": "You can include or exclude specific devices from here."
+            },
+            "Enabled": {
+              "Header": {
+                "English (US/CA)": "✓"
+              }
+            },
+            "Name": {
+              "Header": {
+                "English (US/CA)": "Device Name"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "English (US/CA)": "Interface Name"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "English (US/CA)": "Mute"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "English (US/CA)": "Volume"
+              }
+            }
+          },
+          "EnableDefault": {
+            "Content": {
+              "English (US/CA)": "Enable Default"
+            },
+            "Tooltip": {
+              "English (US/CA)": "When checked, the default audio device is always enabled during the application loading phase."
+            }
+          },
+          "ReloadDevices": {
+            "Content": {
+              "English (US/CA)": "Reload Devices"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Forcibly reload all devices."
+            }
+          },
+          "ReloadSessions": {
+            "Content": {
+              "English (US/CA)": "Reload Sessions"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Forcibly reload all sessions."
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "English (US/CA)": "Notifications"
+          }
+        },
+        "Log": {
+          "Header": {
+            "English (US/CA)": "Event Logging"
+          },
+          "Enable": {
+            "Content": {
+              "English (US/CA)": "Enable"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "English (US/CA)": "Filter"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "English (US/CA)": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
+            },
+            "WatermarkText": {
+              "English (US/CA)": "Path to Log File"
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "English (US/CA)": "Application"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "English (US/CA)": "Run at Startup"
+            },
+            "Tooltip": {
+              "English (US/CA)": "When enabled, Volume Control will start when you log in."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "English (US/CA)": "Start Minimized"
+            },
+            "Tooltip": {
+              "English (US/CA)": "When enabled, Volume Control will minimize itself when it starts up."
+            }
+          }
+        },
+        "Updates": {
+
+        }
+      }
+    },
+
+    "ListNotification": {
+
+    }
+  }
+}
