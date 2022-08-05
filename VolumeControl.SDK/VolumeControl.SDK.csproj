@@ -5,7 +5,8 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <ErrorReport>none</ErrorReport>
-    <Description>Official SDK for Volume Control addon development.</Description>
+    <Description>Official SDK for Volume Control addon development.
+This package contains the VCAPI class, and is the most basic requirement for all Volume Control addons.</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>GNU General Public License v3 </Copyright>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>

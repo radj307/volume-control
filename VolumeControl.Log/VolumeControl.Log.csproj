@@ -1,66 +1,68 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>Library</OutputType>
-    <UseWindowsForms>True</UseWindowsForms>
-    <Configurations>Debug;Release;SDK</Configurations>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>VolumeControl.SDK.Log</PackageId>
-    <Copyright>GNU General Public License v3 </Copyright>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>iconSilvered.png</PackageIcon>
-    <PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
-    <Authors>radj307</Authors>
-    <NeutralLanguage>en-CA</NeutralLanguage>
-    <PackageReleaseNotes>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Library</OutputType>
+		<UseWindowsForms>True</UseWindowsForms>
+		<Configurations>Debug;Release;SDK</Configurations>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>VolumeControl.SDK.Log</PackageId>
+		<Copyright>GNU General Public License v3 </Copyright>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>iconSilvered.png</PackageIcon>
+		<PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
+		<Authors>radj307</Authors>
+		<NeutralLanguage>en-CA</NeutralLanguage>
+		<PackageReleaseNotes>
 			Full Changelog:
 			https://github.com/radj307/volume-control/commits/main
 		</PackageReleaseNotes>
-    <Version>5.2.0</Version>
-    <ExtendedVersion>5.2.0-pr3</ExtendedVersion>
-    <ReleaseType>PRERELEASE</ReleaseType>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\VolumeControl\Resources\images\iconSilvered.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="6.6.3">
-      <PrivateAssets>All</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
-  </Target>
+		<Version>5.2.0</Version>
+		<ExtendedVersion>5.2.0-pr3</ExtendedVersion>
+		<ReleaseType>PRERELEASE</ReleaseType>
+		<Description>Official SDK for Volume Control addon development.
+This package contains Volume Control's log, and is required for addons that want to write their own log messages.</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\VolumeControl\Resources\images\iconSilvered.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Fody" Version="6.6.3">
+			<PrivateAssets>All</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.1">
+			<PrivateAssets>All</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>PublicSettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).pdb&quot; &quot;..\publish\SDK\&quot;&#xD;&#xA;echo F|xcopy /y &quot;$(TargetDir)$(ProjectName).xml&quot; &quot;..\publish\SDK\&quot;" />
+	</Target>
 </Project>
