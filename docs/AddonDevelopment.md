@@ -35,7 +35,7 @@ Each dependency from the Volume Control SDK has 3 files with different extension
 This assumes you're using Visual Studio with the **.NET/C#** workload installed.  
 
 ### Using NuGet
-*Available since v[5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)*
+*Available since [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)*
 
  1. Create a new **.NET Core 6 Class Library** type solution, and name it whatever you want.  
     ![image](https://user-images.githubusercontent.com/1927798/169677073-716d9c3b-5928-4414-8985-3dc22a79c160.png)  
@@ -123,38 +123,33 @@ First, you'll need to create a new publish profile.
 
 ## Loading Your Addon
 
-### How to Get Log Feedback
-
-In order to see log messages related to the loading of addons, you need to enable the **`DEBUG`** message filter before launching the program.  
+In order to see log messages related to the loading of addons, you need to enable the **`DEBUG`** log filter.  
  1. Launch `VolumeControl.exe`, and navigate to the **Settings** tab.  
- 2. Find the **Filter** dropdown in the log settings area, and check the box next to **`DEBUG`**
+ 2. Find the **Filter** dropdown in the log settings area, and check the box next to **`DEBUG`**  
 
 ### Where to Put Addons
-Addons must be located within this directory, or in a subdirectory of this directory:  
-`C:\Users\<USERNAME>\AppData\Local\radj307\Addons`  
-> ### Note
-> As of Volume Control 5.1.0, you can also place addons at any directory listed in the **CustomAddonDirectories** list, which can be found in the configuration file.   
-> `~/AppData/Local/radj307/VolumeControl_Url_<HASH>/<VERSION>/user.config`
 
-### Loading the Addon
+Volume Control will attempt to load addons from a few locations, depending on the version.  
+All versions of Volume Control will *(recursively)* load addons from `C:\Users\<USERNAME>\AppData\Local\radj307\Addons` first, if it exists.  
+**Do not place Volume Control SDK dlls in addon directories, and do not include them when redistributing your addon.**  
 
-To check if your addon was loaded, launch VolumeControl and 
-Assuming you have logging enabled, you will now be able to see messages related to addons in the log file. *(by default, this is named `volumecontrol.log` and is located next to the executable)*  
+Since [v5.1.0](https://github.com/radj307/volume-control/release/5.1.0), addons may also be located in any directories specified by the `CustomAddonDirectories` setting, which can be found in the configuration file:  
+*(until [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `~/AppData/Local/radj307/VolumeControl_Url_<HASH>/<VERSION>/user.config`
+*(since [v5.2.0](https://github.com/radj307/volume-control/releases/5.2.0)):* `volumecontrol.json` located in the same directory as `VolumeControl.exe`
+
+Assuming you enabled `DEBUG` log messages, you will see messages in the log confirming that your addon was loaded when launching Volume Control:  
 ![image](https://user-images.githubusercontent.com/1927798/169681684-f41649d3-49c0-4c33-aaf3-5454de4dfdad.png)
-
-Note that any users of your redistributed addons must also place this file in the same location, so if you're writing installation instructions be sure to include that.  
 
 ### Using Hotkey Action Addons
 
+Addon actions are assigned in the same way as the built-in addons:  
+
  1. Enable *Advanced Hotkeys* on the **Settings** tab.
  2. On the **Hotkeys** tab, open the dropdown box under the *Action* column of any hotkey.
- 3. You can now select your custom action in the list.
-
-### What about the SDK DLLs?
-
-The main program has these integrated inside of the `.exe` to facilitate a single-file release; all this is to say, once your addon is complete you don't need to include them anywhere, they are simply to allow Visual Studio to 'see' them.
+ 3. Select your custom action in the list.
 
 ## Redistributing Addons
+
 Once you've got your shiny new addon, you may want to distribute it to share your work.  
 To encourage this, I've created an official repository for third-party addons [here](https://github.com/radj307/volume-control.Addons).  
 
