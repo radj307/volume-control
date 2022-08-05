@@ -8,7 +8,7 @@
     <StartupObject>VolumeControl.Program</StartupObject>
     <!-- VERSIONING INFO -->
     <Version>5.2.0</Version>
-    <ExtendedVersion>5.2.0-pr2</ExtendedVersion>
+    <ExtendedVersion>5.2.0-pr3</ExtendedVersion>
     <ReleaseType>PRERELEASE</ReleaseType>
     <!-- VERSIONING INFO -->
     <Authors>radj307</Authors>
