@@ -23,21 +23,21 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md22", [
-      [ "Installation", "index.html#autotoc_md23", null ],
-      [ "Setup", "index.html#autotoc_md24", null ],
-      [ "Usage", "index.html#autotoc_md25", null ],
-      [ "Addon Development", "index.html#autotoc_md26", null ]
+    [ "Getting Started", "index.html#autotoc_md28", [
+      [ "Installation", "index.html#autotoc_md29", null ],
+      [ "Setup", "index.html#autotoc_md30", null ],
+      [ "Usage", "index.html#autotoc_md31", null ],
+      [ "Addon Development", "index.html#autotoc_md32", null ]
     ] ],
-    [ "VolumeControlCLI", "index.html#autotoc_md27", null ],
-    [ "Contributing", "index.html#autotoc_md28", [
-      [ "Guidelines", "index.html#autotoc_md29", null ]
+    [ "VolumeControlCLI", "index.html#autotoc_md33", null ],
+    [ "Contributing", "index.html#autotoc_md34", [
+      [ "Guidelines", "index.html#autotoc_md35", null ]
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
       [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
-        [ "What it does", "index.html#autotoc_md18", null ],
-        [ "Requirements", "index.html#autotoc_md19", [
-          [ "Windows Version Compatibility", "index.html#autotoc_md20", null ]
+        [ "What it does", "index.html#autotoc_md24", null ],
+        [ "Requirements", "index.html#autotoc_md25", [
+          [ "Windows Version Compatibility", "index.html#autotoc_md26", null ]
         ] ],
         [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md2", null ],
         [ "SDK File Extensions", "md_docs__addon_development.html#autotoc_md3", null ]
@@ -59,7 +59,16 @@ var NAVTREE =
         ] ]
       ] ]
     ] ],
-    [ "Building From Source", "md_docs__building_from_source.html", null ],
+    [ "Building From Source", "md_docs__building_from_source.html", [
+      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md18", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md19", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md20", null ]
+      ] ],
+      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md21", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md22", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md23", null ]
+      ] ]
+    ] ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ],
       [ "Package Functions", "namespacemembers.html", [
@@ -91,9 +100,9 @@ var NAVTREEINDEX =
 [
 ".html",
 "class_volume_control_1_1_audio_1_1_audio_session.html#a7d0a0803254aee7bce75cb6df2307c2b",
-"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#ae012105d04a825b2181a4903f87b78bd",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a31aa5bb3fe3fd551da4a3ee9ccaf90e6",
-"interface_volume_control_1_1_core_1_1_i_base_addon.html#a48e595ea1bdea7bfded23e1bbcbe09c1"
+"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a50d7e7d285197e6c7e967cb4b189b9f6",
+"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

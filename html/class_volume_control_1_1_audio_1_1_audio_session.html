@@ -102,16 +102,21 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.AudioSession:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_session__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.AudioSession:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_session__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_session__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac0154b840ada9e66ac201e3660ec714c"><td class="memItemLeft" align="right" valign="top"><a id="ac0154b840ada9e66ac201e3660ec714c"></a>
+<a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_pair.html">IconPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ac0154b840ada9e66ac201e3660ec714c">GetIcons</a> ()</td></tr>
+<tr class="separator:ac0154b840ada9e66ac201e3660ec714c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59a3626b8a1cde96c65a68b65d5182da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e">Process</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da">GetProcess</a> ()</td></tr>
 <tr class="memdesc:a59a3626b8a1cde96c65a68b65d5182da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the process associated with this audio session instance.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a59a3626b8a1cde96c65a68b65d5182da">More...</a><br /></td></tr>
 <tr class="separator:a59a3626b8a1cde96c65a68b65d5182da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,17 +149,11 @@ Public Attributes</h2></td></tr>
  See AudioSessionState.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a7d0a0803254aee7bce75cb6df2307c2b">More...</a><br /></td></tr>
 <tr class="separator:a7d0a0803254aee7bce75cb6df2307c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae18e0e01b019d4047c8bbe12f5244504"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504">IconPath</a> =&gt; _controller.IconPath</td></tr>
-<tr class="memdesc:ae18e0e01b019d4047c8bbe12f5244504"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the location of this sessions icon on the system and may or may not actually be set.<br  />
-<b>Do not rely on this being available, many third-party programs do not provide it!</b>  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504">More...</a><br /></td></tr>
+<tr class="memdesc:ae18e0e01b019d4047c8bbe12f5244504"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the self-reported location of this sessions icon on the system and may or may not actually be set.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504">More...</a><br /></td></tr>
 <tr class="separator:ae18e0e01b019d4047c8bbe12f5244504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae72ec6880a2eb08bd8d6a00824713199"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199">SmallIcon</a> =&gt; (_icons # this.GetIcons())?.Item1</td></tr>
-<tr class="memdesc:ae72ec6880a2eb08bd8d6a00824713199"><td class="mdescLeft">&#160;</td><td class="mdescRight">The small icon located at the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504" title="This is the location of this sessions icon on the system and may or may not actually be set....">IconPath</a>, or null if no icon was found.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199">More...</a><br /></td></tr>
-<tr class="separator:ae72ec6880a2eb08bd8d6a00824713199"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">LargeIcon</a> =&gt; (_icons # this.GetIcons())?.Item2</td></tr>
-<tr class="memdesc:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="mdescLeft">&#160;</td><td class="mdescRight">The large icon located at the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504" title="This is the location of this sessions icon on the system and may or may not actually be set....">IconPath</a>, or null if no icon was found.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159">More...</a><br /></td></tr>
-<tr class="separator:aefdede45b3e8f48fdb89b70dcc2c1159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cdcccdbeab9a8364824211253903328"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">Icon</a> =&gt; this.SmallIcon ?? this.LargeIcon</td></tr>
-<tr class="memdesc:a1cdcccdbeab9a8364824211253903328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the large or small icon, depending on whether they are null or not.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">More...</a><br /></td></tr>
+<tr class="memitem:a1cdcccdbeab9a8364824211253903328"><td class="memItemLeft" align="right" valign="top">ImageSource?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">Icon</a> =&gt; Icons.GetBestFitIcon(false)</td></tr>
+<tr class="memdesc:a1cdcccdbeab9a8364824211253903328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the icon associated with this <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>.<br  />
+ See <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a48636e57c2b78b0762348f1f731002b1" title="Gets or sets the icons associated with this AudioSession.">Icons</a>  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328">More...</a><br /></td></tr>
 <tr class="separator:a1cdcccdbeab9a8364824211253903328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a356c261a4c345fc0c739c5e66e4e66ea"><td class="memItemLeft" align="right" valign="top"><a id="a356c261a4c345fc0c739c5e66e4e66ea"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">ProcessIdentifier</a> =&gt; _processIdentifier # this.PID != -1L ? $&quot;{this.PID}:{this.ProcessName}&quot; : string.Empty</td></tr>
@@ -177,6 +176,9 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memitem:adcbd35d69f4d126e07598b4a3bed057b"><td class="memItemLeft" align="right" valign="top"><a id="adcbd35d69f4d126e07598b4a3bed057b"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#adcbd35d69f4d126e07598b4a3bed057b">SessionInstanceIdentifier</a><code> [get]</code></td></tr>
 <tr class="separator:adcbd35d69f4d126e07598b4a3bed057b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48636e57c2b78b0762348f1f731002b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_pair.html">IconPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a48636e57c2b78b0762348f1f731002b1">Icons</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a48636e57c2b78b0762348f1f731002b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the icons associated with this <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>.  <a href="class_volume_control_1_1_audio_1_1_audio_session.html#a48636e57c2b78b0762348f1f731002b1">More...</a><br /></td></tr>
+<tr class="separator:a48636e57c2b78b0762348f1f731002b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a961f3e23e0ad0db762c1884a91b4aef5"><td class="memItemLeft" align="right" valign="top"><a id="a961f3e23e0ad0db762c1884a91b4aef5"></a>
 <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a6b2e52691965a8840591964da0bb8295">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a961f3e23e0ad0db762c1884a91b4aef5">Volume</a><code> [get, set]</code></td></tr>
 <tr class="separator:a961f3e23e0ad0db762c1884a91b4aef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -276,7 +278,7 @@ If you're writing an addon, install the 'NAudio' nuget package if you need to be
 <p>Gets the process associated with this audio session instance. </p>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e" title="This session&#39;s parent Process.">Process</a> instance that owns the audio session represented by this instance.</dd></dl>
 
-<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00019">VolumeControl.Log.FLog.Log</a>, <a class="el" href="#l00179">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00214">VolumeControl.Audio.AudioSession.Process</a>.</p>
+<p class="reference">References <a class="el" href="class_volume_control_1_1_log_1_1_log_writer.html#ae7780f22869e53ce4a1aad3fc6fa0bf7">VolumeControl.Log.LogWriter.Error()</a>, <a class="el" href="#l00019">VolumeControl.Log.FLog.Log</a>, <a class="el" href="#l00173">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00208">VolumeControl.Audio.AudioSession.Process</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -309,14 +311,14 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.Icon =&gt; this.SmallIcon ?? this.LargeIcon</td>
+          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.Icon =&gt; Icons.GetBestFitIcon(false)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the large or small icon, depending on whether they are null or not. </p>
-<p>Checks and returns <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159" title="The large icon located at the IconPath, or null if no icon was found.">LargeIcon</a> first, if that is null then it checks and returns <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199" title="The small icon located at the IconPath, or null if no icon was found.">SmallIcon</a>.<br  />
-If both are null, returns null.</p>
+<p>Gets the icon associated with this <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>.<br  />
+ See <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a48636e57c2b78b0762348f1f731002b1" title="Gets or sets the icons associated with this AudioSession.">Icons</a> </p>
+<p>IconPair.GetBestFitIcon(bool). Prioritizes small icons.</p>
 
 </div>
 </div>
@@ -332,11 +334,7 @@ If both are null, returns null.</p>
       </table>
 </div><div class="memdoc">
 
-<p>This is the location of this sessions icon on the system and may or may not actually be set.<br  />
-<b>Do not rely on this being available, many third-party programs do not provide it!</b> </p>
-<p>This can point to nothing, one icon in a DLL package, an executable, or all sorts of other formats.<br  />
-Do not use this for retrieving icon images directly, instead use <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae72ec6880a2eb08bd8d6a00824713199" title="The small icon located at the IconPath, or null if no icon was found.">SmallIcon</a>/<a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#aefdede45b3e8f48fdb89b70dcc2c1159" title="The large icon located at the IconPath, or null if no icon was found.">LargeIcon</a>.<br  />
-You can also use <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a1cdcccdbeab9a8364824211253903328" title="Gets the large or small icon, depending on whether they are null or not.">Icon</a> directly if you don't care about the icon size.</p>
+<p>This is the self-reported location of this sessions icon on the system and may or may not actually be set. </p>
 
 </div>
 </div>
@@ -374,40 +372,6 @@ You can also use <a class="el" href="class_volume_control_1_1_audio_1_1_audio_se
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="aefdede45b3e8f48fdb89b70dcc2c1159"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefdede45b3e8f48fdb89b70dcc2c1159">&#9670;&nbsp;</a></span>LargeIcon</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.LargeIcon =&gt; (_icons # this.GetIcons())?.Item2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The large icon located at the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504" title="This is the location of this sessions icon on the system and may or may not actually be set....">IconPath</a>, or null if no icon was found. </p>
-<p>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</p>
-
-</div>
-</div>
-<a id="ae72ec6880a2eb08bd8d6a00824713199"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae72ec6880a2eb08bd8d6a00824713199">&#9670;&nbsp;</a></span>SmallIcon</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ImageSource? VolumeControl.Audio.AudioSession.SmallIcon =&gt; (_icons # this.GetIcons())?.Item1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The small icon located at the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#ae18e0e01b019d4047c8bbe12f5244504" title="This is the location of this sessions icon on the system and may or may not actually be set....">IconPath</a>, or null if no icon was found. </p>
-<p>Note that the icon properties all use internal caching; you don't need to worry about using these properties repeatedly for fear of performance loss, as the only time the icons are actually retrieved is the first time any of the icon properties are called.</p>
 
 </div>
 </div>
@@ -498,6 +462,30 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 </div>
 </div>
+<a id="a48636e57c2b78b0762348f1f731002b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48636e57c2b78b0762348f1f731002b1">&#9670;&nbsp;</a></span>Icons</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_volume_control_1_1_w_p_f_1_1_icon_pair.html">IconPair</a> VolumeControl.Audio.AudioSession.Icons</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the icons associated with this <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>. </p>
+
+</div>
+</div>
 <a id="aa5bc26844633d9afb27806c0fb458da1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5bc26844633d9afb27806c0fb458da1">&#9670;&nbsp;</a></span>IsRunning</h2>
 
@@ -568,7 +556,7 @@ If you're writing an addon, install the 'NAudio' nuget package to be able to use
 
 <p>This session's parent <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a25f3050cb218e87324b288d8b437c64e" title="This session&#39;s parent Process.">Process</a>. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00289">VolumeControl.Audio.AudioSession.Dispose()</a>, and <a class="el" href="#l00276">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00284">VolumeControl.Audio.AudioSession.Dispose()</a>, and <a class="el" href="#l00271">VolumeControl.Audio.AudioSession.GetProcess()</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,5 @@
+<map id="VolumeControl.WPF.IconGetter.GetIcons" name="VolumeControl.WPF.IconGetter.GetIcons">
+<area shape="rect" id="node1" title="Gets the large and small variants of the specified icon from the specified DLL." alt="" coords="5,39,229,80"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_log_1_1_log_writer.html#a09e652d1c8049b4b137d45dd2a6466a4" title="Write a formatted EventType.DEBUG message to the log endpoint." alt="" coords="277,5,492,47"/>
+<area shape="rect" id="node3" href="$class_volume_control_1_1_log_1_1_log_writer.html#a5caf611b6e4d2cf97b6521b9b2e3f9ef" title="Write a formatted EventType.WARN message to the log endpoint." alt="" coords="277,71,492,112"/>
+</map>

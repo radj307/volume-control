@@ -89,12 +89,46 @@ $(document).ready(function(){initNavTree('md_docs__building_from_source.html',''
 <div class="title">Building From Source </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><ol type="1">
-<li>Download the latest version of the update utility <a href="https://github.com/radj307/VolumeControl.UpdateUtility/releases/latest"><code>VCUpdateUtility.exe</code></a> <br  />
- Alternatively, use the github API: <br  />
- <a href="https://api.github.com/repos/radj307/VolumeControl.UpdateUtility/releases/latest">https://api.github.com/repos/radj307/VolumeControl.UpdateUtility/releases/latest</a></li>
-<li>Place the update utility in <code>&lt;SOLUTION_DIR&gt;/VolumeControl/Resources/VCUpdateUtility.exe</code></li>
-<li>Start Visual Studio, open the <code>.sln</code> solution file, and compile it. </li>
+<div class="textblock"><p>There are walkthroughs for using .NET CLI or an IDE like Visual Studio.</p>
+<h1><a class="anchor" id="autotoc_md18"></a>
+From the Commandline</h1>
+<h2><a class="anchor" id="autotoc_md19"></a>
+Requirements</h2>
+<ul>
+<li><a href="https://gitforwindows.org/">Git for Windows</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/core/tools/">.NET CLI</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md20"></a>
+Process</h2>
+<ol type="1">
+<li>Clone the repository, and <code>cd</code> into it: <br  />
+ <code>git clone <a href="https://github.com/radj307/volume-control">https://github.com/radj307/volume-control</a> &amp;&amp; cd volume-control</code></li>
+<li>Build the executable using the provided <a href="https://docs.microsoft.com/en-us/visualstudio/deployment/publish-overview">Publish Profile</a>: <br  />
+ <code>/p:PublishProfile="VolumeControl/Properties/PublishProfiles/FolderProfile.pubxml"</code> <br  />
+</li>
+<li>Retrieve the executable from <code>&lt;REPOSITORY_ROOT&gt;/publish/VolumeControl.exe</code></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md21"></a>
+Using an IDE</h1>
+<h2><a class="anchor" id="autotoc_md22"></a>
+Requirements</h2>
+<ul>
+<li><a href="https://gitforwindows.org/">Git for Windows</a></li>
+<li><a href="https://visualstudio.microsoft.com">Visual Studio</a> *(or a preferred alternative)*</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md23"></a>
+Process</h2>
+<ol type="1">
+<li>Clone the repository &amp; open the solution file: <br  />
+ <code>git clone <a href="https://github.com/radj307/volume-control">https://github.com/radj307/volume-control</a> &amp;&amp; ./volume-control/*.sln</code></li>
+<li>In the solution explorer, R+Click on the <code><a class="el" href="namespace_volume_control.html">VolumeControl</a></code> project and choose <b>Publish...</b>: <br  />
+ <img src="https://i.imgur.com/WDCBPg4.png" alt="choose the publish... option" class="inline"/></li>
+<li>Click the <b>Publish</b> button: <br  />
+ <img src="https://i.imgur.com/BbNnOkX.png" alt="" class="inline"/></li>
+</ol>
+<ol type="1">
+<li>Retrieve the executable from <code>&lt;REPOSITORY_ROOT&gt;/publish/VolumeControl.exe</code>. <br  />
+ <img src="https://i.imgur.com/g1yS0l4.png" alt="" class="inline"/> </li>
 </ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
