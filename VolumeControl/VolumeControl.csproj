@@ -51,6 +51,7 @@
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
     <None Remove="Localization\en.loc.json" />
+    <None Remove="Localization\fr.loc.json" />
     <None Remove="Localization\it.loc.json" />
     <None Remove="Localization\pt.loc.json" />
     <None Remove="Localization\TestLang.loc.json" />
@@ -71,8 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\en.loc.json" />
-    <EmbeddedResource Include="Localization\it.loc.json" />
-    <EmbeddedResource Include="Localization\pt.loc.json" />
     <EmbeddedResource Include="Localization\TestLang.loc.json" />
   </ItemGroup>
   <ItemGroup>
