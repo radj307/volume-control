@@ -21,6 +21,15 @@ namespace VolumeControl.Helpers
             LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
             if (Settings.CreateDefaultTranslationFiles)
                 CreateDefaultFiles();
+
+            Reload();
+
+            Loc.CurrentLanguageChanged += HandleCurrentLanguageChanged;
+        }
+
+        private static void Reload()
+        {
+            Loader.ClearAllTranslations(false);
             LoadTranslationsFromDirectory(DefaultPath);
             // add custom directories
             foreach (string dir in Settings.CustomLocalizationDirectories)
@@ -35,8 +44,6 @@ namespace VolumeControl.Helpers
             {
                 Log.Error($"Cannot find translation package for {nameof(Settings.LanguageIdentifier)}: '{Settings.LanguageIdentifier}'");
             }
-
-            Loc.CurrentLanguageChanged += HandleCurrentLanguageChanged;
         }
 
         private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageIdentifier = e.NewLanguageId;
@@ -71,7 +78,7 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// To add additional default localizations, put the "*.loc.json" file in VolumeControl/Localization, then mark it as an "Embedded resource":<br/><b>Solution Explorer => Properties => Build Action => Embedded resource</b>
         /// </summary>
-        private static void CreateDefaultFiles()
+        public static void CreateDefaultFiles(bool overwrite = false)
         {
             if (!Directory.Exists(DefaultPath))
                 Directory.CreateDirectory(DefaultPath);
@@ -86,7 +93,7 @@ namespace VolumeControl.Helpers
                         filename = embeddedResourceName[(resourcePath.Length + 1)..],
                         filepath = Path.Combine(DefaultPath, filename);
 #if !DEBUG
-                    if (!File.Exists(filepath) && !filename.StartsWith("TestLang"))
+                    if ((overwrite || !File.Exists(filepath)) && !filename.StartsWith("TestLang"))
 #endif
                     {
                         using (var stream = asm.GetManifestResourceStream(embeddedResourceName))
@@ -99,6 +106,8 @@ namespace VolumeControl.Helpers
                     }
                 }
             }
+            if (overwrite)
+                Reload();
         }
     }
 }

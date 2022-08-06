@@ -134,6 +134,14 @@
         "Language": {
           "Header": {
             "English (US/CA)": "Language"
+          },
+          "Regenerate": {
+            "Content": {
+              "English (US/CA)": "Regenerate"
+            },
+            "Tooltip": {
+              "English (US/CA)": "Forcibly (re)create all of the default localization packages."
+            }
           }
         },
         "Audio": {
@@ -319,6 +327,22 @@
         }
       }
     },
-    "ListNotification": {}
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "English (US/CA)": "Another instance of Volume Control is already running!",
+        "TestLang": "!!!"
+      },
+      "UpdatePrompt": {
+        "Prefix": {
+
+        },
+        "CurrentVersion": {
+
+        },
+        "LatestVersion": {
+
+        }
+      }
+    }
   }
 }

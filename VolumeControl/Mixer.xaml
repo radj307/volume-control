@@ -1638,12 +1638,27 @@
                                     </Grid.RowDefinitions>
                                     <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Language.Header', DefaultText='Language'}" Style="{StaticResource HeaderLabelStyle}" />
 
-                                    <ComboBox
-                                        Grid.Row="1"
-                                        Margin="10,6"
-                                        ItemsSource="{Binding AvailableLanguages, Source={x:Static loc:Loc.Instance}}"
-                                        SelectedItem="{Binding CurrentLanguage, Source={x:Static loc:Loc.Instance}}"
-                                        Style="{StaticResource ComboBoxStyle}" />
+                                    <Grid Grid.Row="1" Margin="10,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox
+                                            Grid.Column="0"
+                                            ItemsSource="{Binding AvailableLanguages, Source={x:Static loc:Loc.Instance}}"
+                                            SelectedItem="{Binding CurrentLanguage, Source={x:Static loc:Loc.Instance}}"
+                                            Style="{StaticResource ComboBoxStyle}" />
+                                        <Button
+                                            Grid.Column="2"
+                                            Padding="6,0"
+                                            Click="Handle_RegenerateLocalizationClick"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Language.Regenerate.Content',
+                                                         DefaultText='Regenerate'}"
+                                            Style="{StaticResource ButtonStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Language.Regenerate.Tooltip',
+                                                         DefaultText='Forcibly (re)create all of the default localization packages.'}" />
+                                    </Grid>
                                 </Grid>
                             </Border>
                             <!--  ▲ Language ▲  -->

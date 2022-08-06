@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -53,7 +54,7 @@ namespace VolumeControl
                 else
                 {
                     Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
-                    MessageBox.Show("Another instance of Volume Control is already running!");
+                    MessageBox.Show(Loc.Tr("VolumeControl.Dialogs.AnotherInstanceIsRunning", "Another instance of Volume Control is already running!"));
                     return;
                 }
             }

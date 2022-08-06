@@ -173,6 +173,10 @@ namespace VolumeControl
                 }
             }
         }
+        private void Handle_RegenerateLocalizationClick(object sender, RoutedEventArgs e)
+        {
+            LocalizationHelper.CreateDefaultFiles(true);
+        }
         #endregion EventHandlers
     }
 }
