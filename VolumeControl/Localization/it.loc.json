@@ -342,16 +342,16 @@
     },
     "NotifyIcon": {
       "BringToFront": {
-        "English (US/CA)": "Porta in primo piano"
+        "Italiano (Italian)": "Porta inmn primo piano"
       },
       "Hide": {
-        "English (US/CA)": "Nascondere"
+        "Italiano (Italian)": "Nascondi"
       },
       "Show": {
-        "English (US/CA)": "Visualizza"
+        "Italiano (Italian)": "Visualizza"
       },
       "Close": {
-        "English (US/CA)": "Chiudere"
+        "Italiano (Italian)": "Chiudi"
       }
     }
   }
