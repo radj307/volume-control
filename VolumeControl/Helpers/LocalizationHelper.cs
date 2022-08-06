@@ -19,6 +19,8 @@ namespace VolumeControl.Helpers
         public LocalizationHelper()
         {
             LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
+            LocalizationLoader.Instance.FileLanguageLoaders.Add(new YamlFileLoader());
+
             if (Settings.CreateDefaultTranslationFiles)
                 CreateDefaultFiles();
 

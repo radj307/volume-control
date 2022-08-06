@@ -102,6 +102,7 @@
       </PrivateAssets>
     </PackageReference>
     <PackageReference Include="CodingSeb.Localization.WPF" Version="1.2.0" />
+    <PackageReference Include="CodingSeb.Localization.YamlFileLoader" Version="1.2.0" />
     <PackageReference Include="CodingSebLocalization.Fody" Version="1.2.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
