@@ -129,18 +129,18 @@
       },
       "Settings": {
         "TabHeader": {
-          "Français (French)": "Settings"
+          "Français (French)": "Paramètres"
         },
         "Language": {
           "Header": {
-            "Français (French)": "Language"
+            "Français (French)": "Langue"
           },
           "Reload": {
             "Content": {
-              "Français (French)": "Reload"
+              "Français (French)": "Rechargez"
             },
             "Tooltip": {
-              "Français (French)": "Reload all language config files from disk."
+              "Français (French)": "Rechargez tous les fichiers de configuration de la langue à partir du disque."
             }
           }
         },
@@ -150,7 +150,7 @@
           },
           "DeviceGrid": {
             "Tooltip": {
-              "Français (French)": "You can include or exclude specific devices from here."
+              "Français (French)": "Vous pouvez inclure ou exclure des dispositifs spécifiques à partir d'ici."
             },
             "Enabled": {
               "Header": {
@@ -159,17 +159,17 @@
             },
             "Name": {
               "Header": {
-                "Français (French)": "Device Name"
+                "Français (French)": "Nom du Dispositif"
               }
             },
             "Interface": {
               "Header": {
-                "Français (French)": "Interface Name"
+                "Français (French)": "Nom de L'Interface"
               }
             },
             "Mute": {
               "Header": {
-                "Français (French)": "Mute"
+                "Français (French)": "Couper"
               }
             },
             "Volume": {
@@ -180,26 +180,26 @@
           },
           "EnableDefault": {
             "Content": {
-              "Français (French)": "Enable Default"
+              "Français (French)": "Activation par Défaut"
             },
             "Tooltip": {
-              "Français (French)": "When checked, the default audio device is always enabled during the application loading phase."
+              "Français (French)": "Lorsque cette option est cochée, le périphérique audio par défaut est toujours activé pendant la phase de chargement de l'application."
             }
           },
           "ReloadDevices": {
             "Content": {
-              "Français (French)": "Reload Devices"
+              "Français (French)": "Rechargez les Dispositifs"
             },
             "Tooltip": {
-              "Français (French)": "Forcibly reload all devices."
+              "Français (French)": "Rechargement forcé de tous les appareils."
             }
           },
           "ReloadSessions": {
             "Content": {
-              "Français (French)": "Reload Sessions"
+              "Français (French)": "Rechargez les Sessions"
             },
             "Tooltip": {
-              "Français (French)": "Forcibly reload all sessions."
+              "Français (French)": "Rechargement forcé de toutes les sessions."
             }
           }
         },
@@ -209,49 +209,49 @@
           },
           "Enable": {
             "Content": {
-              "Français (French)": "Enable"
+              "Français (French)": "Activer"
             },
             "Tooltip": {
-              "Français (French)": "Toggle whether or not notifications appear when switching the target session."
+              "Français (French)": "Permet de spécifier si des notifications apparaissent ou non lorsque la session cible est modifiée."
             }
           },
           "OnVolumeChange": {
             "Content": {
-              "Français (French)": "On Volume Change"
+              "Français (French)": "Sur le Changement de Volume"
             },
             "Tooltip": {
-              "Français (French)": "When this is checked, notifications also appear when the volume level of the target is changed."
+              "Français (French)": "Lorsque cette option est cochée, des notifications apparaissent également lorsque le niveau de volume de la cible est modifié."
             }
           },
           "Timeout": {
             "Content": {
-              "Français (French)": "Timeout"
+              "Français (French)": "Période D'Attente"
             },
             "Tooltip": {
-              "Français (French)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
+              "Français (French)": "Le temps en millisecondes pendant lequel les notifications resteront visibles après avoir été déclenchées."
             }
           }
         },
         "Log": {
           "Header": {
-            "Français (French)": "Event Logging"
+            "Français (French)": "Enregistrement des Événements"
           },
           "Enable": {
             "Content": {
-              "Français (French)": "Enable"
+              "Français (French)": "Activer"
             }
           },
           "Filter": {
             "Text": {
-              "Français (French)": "Filter"
+              "Français (French)": "Filtre"
             }
           },
           "Path": {
             "Tooltip": {
-              "Français (French)": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
+              "Français (French)": "Spécifie l'emplacement et le nom du fichier journal. Les chemins relatifs sont relatifs à l'emplacement de l'exécutable."
             },
             "WatermarkText": {
-              "Français (French)": "Path to Log File"
+              "Français (French)": "Chemin d'accès au fichier journal"
             }
           }
         },
@@ -261,67 +261,67 @@
           },
           "RunAtStartup": {
             "Content": {
-              "Français (French)": "Run at Startup"
+              "Français (French)": "Exécution au Démarrage"
             },
             "Tooltip": {
-              "Français (French)": "When enabled, Volume Control will start when you log in."
+              "Français (French)": "Lorsqu'il est activé, Volume Control démarre lorsque vous vous connectez."
             }
           },
           "StartMinimized": {
             "Content": {
-              "Français (French)": "Start Minimized"
+              "Français (French)": "Début Minimisé"
             },
             "Tooltip": {
-              "Français (French)": "When enabled, Volume Control will minimize itself when it starts up."
+              "Français (French)": "Lorsqu'il est activé, Volume Control est minimisé au démarrage."
             }
           },
           "ShowInTaskbar": {
             "Content": {
-              "Français (French)": "Show in Taskbar"
+              "Français (French)": "Affichage dans la Barre des Tâches"
             },
             "Tooltip": {}
           },
           "AlwaysOnTop": {
             "Content": {
-              "Français (French)": "Always on Top"
+              "Français (French)": "Toujours au Top"
             },
             "Tooltip": {}
           },
           "ShowIcons": {
             "Content": {
-              "Français (French)": "Show Icons"
+              "Français (French)": "Montrer les Icônes"
             },
             "Tooltip": {
-              "Français (French)": "When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )"
+              "Français (French)": "Lorsqu'il est activé, le programme essaie d'afficher l'icône associée aux périphériques et aux sessions audio ( certaines icônes peuvent être absentes lorsque le programme est exécuté en tant qu'utilisateur )."
             }
           }
         },
         "Updates": {
           "Header": {
-            "Français (French)": "Updates"
+            "Français (French)": "Mises à Jour"
           },
           "CheckNow": {
             "Content": {
-              "Français (French)": "Check Now"
+              "Français (French)": "Vérifiez Maintenant"
             },
             "Tooltip": {
-              "Français (French)": "Manually check for new versions of Volume Control."
+              "Français (French)": "Vérifiez manuellement l'existence de nouvelles versions de Volume Control."
             }
           },
           "OnStartup": {
             "Content": {
-              "Français (French)": "On Startup"
+              "Français (French)": "Au Démarrage"
             },
             "Tooltip": {
-              "Français (French)": "Check for new versions of Volume Control on startup."
+              "Français (French)": "Vérifiez l'existence de nouvelles versions de Volume Control au démarrage."
             }
           },
           "ShowPrompt": {
             "Content": {
-              "Français (French)": "Show Prompt"
+              "Français (French)": "Afficher L'Invite"
             },
             "Tooltip": {
-              "Français (French)": "When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner."
+              "Français (French)": "Lorsque cette case est cochée, vous serez invité à effectuer la mise à jour sous la forme d'une boîte de message ; sinon, vous verrez une icône dans le coin supérieur droit."
             }
           }
         }
@@ -329,15 +329,29 @@
     },
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "Français (French)": "Another instance of Volume Control is already running!"
+        "Français (French)": "Une autre instance de Volume Control est déjà en cours d'exécution !"
       },
       "UpdatePrompt": {
         "DontShowInFutureMsg": {
-          "Français (French)": "Update prompts will not be shown in the future."
+          "Français (French)": "Les invites de mise à jour ne seront plus affichées à l'avenir."
         },
         "NewVersionAvailableFormatMsg": {
-          "Français (French)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+          "Français (French)": "Une nouvelle version de Volume Control est disponible !\nVoulez-vous aller à la page des communiqués ?\nVersion actuelle:  ${CURRENT_VERSION}\nVersion la plus Récente:   ${LATEST_VERSION}\n\nCliquez sur 'Oui' pour accéder à la page des communiqués.\nCliquez sur 'Non' si vous ne souhaitez pas effectuer la mise à jour maintenant.\nCliquez sur 'Annuler' pour désactiver ces invites."
         }
+      }
+    },
+    "NotifyIcon": {
+      "BringToFront": {
+        "English (US/CA)": "Mettre en Avant"
+      },
+      "Hide": {
+        "English (US/CA)": "Cacher"
+      },
+      "Show": {
+        "English (US/CA)": "Montrer"
+      },
+      "Close": {
+        "English (US/CA)": "Fermez"
       }
     }
   }
