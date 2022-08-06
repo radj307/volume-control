@@ -39,10 +39,6 @@ namespace VolumeControl
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             this.HotkeyAPI.Dispose();
-            // Save Log Settings
-            LogSettings.Save();
-            LogSettings.Reload();
-
             e.Cancel = false;
         }
         #endregion Init
@@ -54,16 +50,15 @@ namespace VolumeControl
         private HotkeyManager HotkeyAPI => this.VCSettings.HotkeyAPI;
         private static LogWriter Log => FLog.Log;
         private static Config Settings => (Config.Default as Config)!;
-        private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         public static bool LogEnabled
         {
-            get => LogSettings.EnableLogging;
-            set => LogSettings.EnableLogging = value;
+            get => Settings.EnableLogging;
+            set => Settings.EnableLogging = value;
         }
         public static string LogFilePath
         {
-            get => LogSettings.LogPath;
-            set => LogSettings.LogPath = value;
+            get => Settings.LogPath;
+            set => Settings.LogPath = value;
         }
         #endregion Properties
 
@@ -122,7 +117,7 @@ namespace VolumeControl
         {
             if (e.PropertyName?.Equals("Value", StringComparison.Ordinal) ?? false)
             {
-                LogSettings.LogAllowedEventTypeFlag = (uint)(this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
+                Settings.LogFilter = (this.FindResource("EventTypeOptions") as BindableEventType)!.Value;
             }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)

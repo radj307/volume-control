@@ -47,13 +47,13 @@ namespace VolumeControl.Helpers
             Initializer.Initialize(this.AudioAPI, this.HotkeyAPI, this.MainWindowHandle, (Config.Default as Config)!);
 
             // Create a list of all addon manager types
-            List<IBaseAddon> addons = new()
+            List<IBaseAddon> addonControllers = new()
             {
                 actionManager
             };
 
             // Load addon types into the addon list
-            AddonManager.LoadAddons(ref addons);
+            AddonManager.LoadAddons(ref addonControllers);
 
             // Retrieve a list of all loaded action names
             const char sort_last = (char)('z' + 1);
@@ -68,13 +68,6 @@ namespace VolumeControl.Helpers
             this.HotkeyAPI.LoadHotkeys();
 
             Log.Info($"Volume Control v{this.CurrentVersionString}");
-            Log.Debug($"{nameof(VolumeControlSettings)} finished initializing settings from all assemblies.");
-        }
-        private void SaveSettings()
-        {
-            // VolumeControl.Log
-            LogSettings.Save();
-            LogSettings.Reload();
         }
 
         #region Events
@@ -108,8 +101,6 @@ namespace VolumeControl.Helpers
         #region PrivateStatics
         /// <summary>Static accessor for <see cref="Settings.Default"/>.</summary>
         private static Config Settings => (Config.Default as Config)!;
-        /// <summary>Static accessor for <see cref="Log.Properties.Settings.Default"/>.</summary>
-        private static Log.Properties.Settings LogSettings => VolumeControl.Log.Properties.Settings.Default;
         private static Log.LogWriter Log => FLog.Log;
         #endregion PrivateStatics
         /// <summary>
@@ -150,7 +141,6 @@ namespace VolumeControl.Helpers
             {
                 if (disposing)
                 {
-                    this.SaveSettings();
                     // Dispose of objects
                     this.AudioAPI?.Dispose();
                     this.HotkeyAPI?.Dispose();

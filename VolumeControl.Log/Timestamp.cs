@@ -38,14 +38,14 @@ namespace VolumeControl.Log
         #endregion Methods
 
         #region Statics
-        private static Properties.Settings Settings => Properties.Settings.Default;
-        private static string FormatString => Settings.TimestampFormat;
+        private static SettingsInterface Settings => SettingsInterface.Default;
+        private static string FormatString => Settings.LogTimestampFormat;
         /// <summary>The length of the time/date segment of the haeder.</summary>
-        public static int LineSegmentLengthDateTime => Settings.LineSegmentLengthDateTime;
+        public static int LineSegmentLengthDateTime => 14;
         /// <summary>The length of the event type segment of the header.</summary>
-        public static int LineSegmentLengthEventType => Settings.LineSegmentLengthEventType;
+        public static int LineSegmentLengthEventType => 8;
         /// <summary>The length of the margin segment of the header.</summary>
-        public static int LineSegmentLengthMargin => Settings.LineSegmentLengthMargin;
+        public static int LineSegmentLengthMargin => 1;
         /// <summary><see cref="LineSegmentLengthDateTime"/> + <see cref="LineSegmentLengthEventType"/></summary>
         public static int LineHeaderLength => LineSegmentLengthDateTime + LineSegmentLengthEventType;
         /// <summary><see cref="LineHeaderLength"/> + <see cref="LineSegmentLengthMargin"/></summary>

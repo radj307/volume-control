@@ -1,15 +1,16 @@
-﻿using VolumeControl.Log.Endpoints;
+﻿using AppConfig;
+using VolumeControl.Log.Endpoints;
 using VolumeControl.Log.Enum;
-using VolumeControl.Log.Properties;
 
 namespace VolumeControl.Log
 {
     /// <summary>Global static log manager object.</summary>
     public static class FLog
     {
-        #region Members
+        #region Fields
         private static LogWriter _log = null!;
-        #endregion Members
+        private static SettingsInterface Settings => SettingsInterface.Default;
+        #endregion Fields
 
         #region Properties
         /// <summary>
@@ -65,18 +66,14 @@ namespace VolumeControl.Log
                 throw new Exception("Cannot call FLog.Initialize() or FLog.CustomInitialize() multiple times!");
             Initialized = true;
 
-            // Add properties to the settings file
-            Settings.Default.Save();
-            Settings.Default.Reload();
-
             // get the full filepath to the log
-            FilePath = Settings.Default.LogPath;
+            FilePath = Settings.LogPath;
             // Set the event type filter
-            EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
+            EventFilter = (EventType)Settings.LogFilter;
 
-            var endpoint = new FileEndpoint(FilePath, Settings.Default.EnableLogging);
+            var endpoint = new FileEndpoint(FilePath, Settings.EnableLogging);
 
-            if (endpoint.Enabled && Settings.Default.ClearLogOnInitialize)
+            if (endpoint.Enabled && Settings.LogClearOnInitialize)
             {
                 endpoint.Reset(); //< clear the log file
             }
@@ -89,18 +86,18 @@ namespace VolumeControl.Log
             CreateLog(endpoint);
             WriteInitMessage("Initialized");
 
-            Settings.Default.PropertyChanged += HandlePropertyChanged!;
+            Settings.PropertyChanged += HandlePropertyChanged!;
         }
-        private static void WriteInitMessage(string log_____) => Log.WriteLine($"{Settings.Default.TimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.Default.TimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)EventFilter} ({EventFilter:G}) }}");
+        private static void WriteInitMessage(string log_____) => Log.WriteLine($"{Settings.LogTimestampFormat}{new string(' ', Timestamp.LineHeaderTotalLength - Settings.LogTimestampFormat.Length)}=== Log {log_____} @ {DateTime.UtcNow:U} ===  {{ Filter: {(byte)EventFilter} ({EventFilter:G}) }}");
         private static void CreateLog(IEndpoint endpoint) => Log = new(endpoint, EventFilter);
         private static void HandlePropertyChanged(object sender, EventArgs e)
         {
             bool enabled = Log.Endpoint.Enabled;
-            if (enabled != Settings.Default.EnableLogging || FilePath != Settings.Default.LogPath || EventFilter != (EventType)Settings.Default.LogAllowedEventTypeFlag)
+            if (enabled != Settings.EnableLogging || FilePath != Settings.LogPath || EventFilter != Settings.LogFilter)
             {
-                EventFilter = (EventType)Settings.Default.LogAllowedEventTypeFlag;
-                FilePath = Settings.Default.LogPath;
-                enabled = Settings.Default.EnableLogging;
+                EventFilter = Settings.LogFilter;
+                FilePath = Settings.LogPath;
+                enabled = Settings.EnableLogging;
 
                 var endpoint = new FileEndpoint(FilePath, enabled);
 
