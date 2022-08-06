@@ -5,17 +5,13 @@ using VolumeControl.Log;
 using CodingSeb.Localization.Loaders;
 using System.Reflection;
 using CodingSeb.Localization;
+using System.Linq;
 
 namespace VolumeControl.Helpers
 {
     internal class LocalizationHelper
     {
-        private static LogWriter Log => FLog.Log;
-        private static Config Settings => (Config.Default as Config)!;
-        private static LocalizationLoader Loader => LocalizationLoader.Instance;
-        private static string DefaultPath { get; } = Path.Combine(Helpers.PathFinder.LocalAppData, "Localization");
-        private static Loc Loc => Loc.Instance;
-
+        #region Constructor
         public LocalizationHelper()
         {
             LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
@@ -28,7 +24,25 @@ namespace VolumeControl.Helpers
 
             Loc.CurrentLanguageChanged += HandleCurrentLanguageChanged;
         }
+        #endregion Constructor
 
+        #region Fields
+        private static readonly char[] _invalidPathChars = Path.GetInvalidPathChars();
+        #endregion Fields
+
+        #region Properties
+        private static LogWriter Log => FLog.Log;
+        private static Config Settings => (Config.Default as Config)!;
+        private static LocalizationLoader Loader => LocalizationLoader.Instance;
+        private static string DefaultPath { get; } = Path.Combine(Helpers.PathFinder.LocalAppData, "Localization");
+        private static Loc Loc => Loc.Instance;
+        #endregion Properties
+
+        #region EventHandlers
+        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageName = e.NewLanguageId;
+        #endregion EventHandlers
+
+        #region Methods
         /// <summary>
         /// Reloads all language config files from the disk, calling <see cref="LocalizationLoader.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
         /// </summary>
@@ -44,7 +58,10 @@ namespace VolumeControl.Helpers
             // check custom directories
             foreach (string dir in Settings.CustomLocalizationDirectories)
             {
-                LoadTranslationsFromDirectory(dir);
+                if (dir.Any(c => _invalidPathChars.Contains(c)))
+                    Log.Error($"{nameof(Settings.CustomLocalizationDirectories)} specifies directory path with illegal characters: '{dir}'");
+                else
+                    LoadTranslationsFromDirectory(dir);
             }
 
             // attempt to re-select the current language
@@ -57,8 +74,6 @@ namespace VolumeControl.Helpers
                 Log.Error($"Cannot find translation package for {nameof(Settings.LanguageName)}: '{Settings.LanguageName}'!");
             }
         }
-
-        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageName = e.NewLanguageId;
 
         private static void LoadTranslationsFromDirectory(string path)
         {
@@ -79,14 +94,6 @@ namespace VolumeControl.Helpers
             }
         }
 
-        private static void CreateFile(string filepath, byte[] data)
-        {
-            using var sw = new StreamWriter(File.Open(filepath, FileMode.Create, FileAccess.Write, FileShare.None));
-            sw.Write(System.Text.Encoding.UTF8.GetString(data));
-            sw.Flush();
-            sw.Close();
-        }
-
         /// <summary>
         /// To add additional default localizations, put the "*.loc.json" file in VolumeControl/Localization, then mark it as an "Embedded resource":<br/><b>Solution Explorer => Properties => Build Action => Embedded resource</b>
         /// </summary>
@@ -96,7 +103,7 @@ namespace VolumeControl.Helpers
                 Directory.CreateDirectory(DefaultPath);
 
             var asm = Assembly.GetExecutingAssembly();
-            string resourcePath = "VolumeControl.Localization"; //< the directory where the localization resources are stored, relative to the solution dir
+            const string resourcePath = "VolumeControl.Localization"; //< the directory where the localization resources are stored, relative to the solution dir
             foreach (string embeddedResourceName in asm.GetManifestResourceNames())
             {
                 if (embeddedResourceName.StartsWith(resourcePath, StringComparison.Ordinal) && embeddedResourceName.EndsWith(".loc.json", StringComparison.Ordinal))
@@ -104,11 +111,14 @@ namespace VolumeControl.Helpers
                     string
                         filename = embeddedResourceName[(resourcePath.Length + 1)..],
                         filepath = Path.Combine(DefaultPath, filename);
-#if !DEBUG
-                    if ((overwrite || !File.Exists(filepath)) && !filename.StartsWith("TestLang"))
-#endif
+
+                    if ((overwrite || !File.Exists(filepath)))
                     {
-                        using (var stream = asm.GetManifestResourceStream(embeddedResourceName))
+                        using var stream = asm.GetManifestResourceStream(embeddedResourceName);
+
+                        if (stream is null)
+                            continue;
+
                         using (var sw = new StreamWriter(File.Open(filepath, FileMode.Create, FileAccess.Write, FileShare.None)))
                         {
                             stream?.CopyTo(sw.BaseStream);
@@ -121,5 +131,6 @@ namespace VolumeControl.Helpers
             if (overwrite)
                 Reload();
         }
+        #endregion Methods
     }
 }

@@ -339,6 +339,20 @@
           "English (US/CA)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
         }
       }
+    },
+    "NotifyIcon": {
+      "BringToFront": {
+        "English (US/CA)": "Bring to Front"
+      },
+      "Hide": {
+        "English (US/CA)": "Hide"
+      },
+      "Show": {
+        "English (US/CA)": "Show"
+      },
+      "Close": {
+        "English (US/CA)": "Close"
+      }
     }
   }
 }
