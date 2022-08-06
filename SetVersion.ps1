@@ -78,12 +78,6 @@ function SetVersion
 $LOCATION = "$(Get-Location)"
 
 SetVersion("$LOCATION\VolumeControl\VolumeControl.csproj")
-SetVersion("$LOCATION\VolumeControl.TypeExtensions\VolumeControl.TypeExtensions.csproj")
-SetVersion("$LOCATION\VolumeControl.Log\VolumeControl.Log.csproj")
-SetVersion("$LOCATION\VolumeControl.Audio\VolumeControl.Audio.csproj")
-SetVersion("$LOCATION\VolumeControl.Core\VolumeControl.Core.csproj")
-SetVersion("$LOCATION\VolumeControl.Hotkeys\VolumeControl.Hotkeys.csproj")
-SetVersion("$LOCATION\VolumeControl.WPF\VolumeControl.WPF.csproj")
 SetVersion("$LOCATION\VolumeControl.SDK\VolumeControl.SDK.csproj")
 
 "SetVersion.ps1 Finished."
