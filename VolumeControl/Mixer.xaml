@@ -1318,6 +1318,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Button
+                                                            Padding="6,0"
                                                             Click="Handle_ProcessSelectClick"
                                                             Content="{Tr 'VolumeControl.MainWindow.Mixer.MixerGrid.Select.Button',
                                                                          DefaultText='Select'}"
@@ -1480,8 +1481,9 @@
                                         </DataGridTemplateColumn>
                                         <!--  Alt  -->
                                         <DataGridTemplateColumn
-                                            Width="30"
-                                            CanUserResize="False"
+                                            Width="Auto"
+                                            MinWidth="30"
+                                            CanUserResize="True"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Alt.Header',
                                                         DefaultText='Alt'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1492,8 +1494,9 @@
                                         </DataGridTemplateColumn>
                                         <!--  Ctrl  -->
                                         <DataGridTemplateColumn
-                                            Width="30"
-                                            CanUserResize="False"
+                                            Width="Auto"
+                                            MinWidth="30"
+                                            CanUserResize="True"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Ctrl.Header',
                                                         DefaultText='Ctrl'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1504,8 +1507,9 @@
                                         </DataGridTemplateColumn>
                                         <!--  Shift  -->
                                         <DataGridTemplateColumn
-                                            Width="30"
-                                            CanUserResize="False"
+                                            Width="Auto"
+                                            MinWidth="30"
+                                            CanUserResize="True"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Shift.Header',
                                                         DefaultText='Shift'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1516,8 +1520,9 @@
                                         </DataGridTemplateColumn>
                                         <!--  Windows  -->
                                         <DataGridTemplateColumn
-                                            Width="30"
-                                            CanUserResize="False"
+                                            Width="Auto"
+                                            MinWidth="30"
+                                            CanUserResize="True"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Windows.Header',
                                                         DefaultText='Win'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1879,12 +1884,12 @@
                                         <CheckBox
                                             Grid.Column="2"
                                             Margin="3,0"
-                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChanged.Content',
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Content',
                                                          DefaultText='On Volume Change'}"
                                             IsChecked="{Binding NotificationShowsVolumeChange, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChanged.Tooltip',
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChange.Tooltip',
                                                          DefaultText='When this is checked, notifications also appear when the volume level of the target is changed.'}" />
                                         <ComboBox
                                             Grid.Column="4"
@@ -2133,13 +2138,19 @@
                                     </Grid.RowDefinitions>
                                     <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.Header', DefaultText='Updates'}" Style="{StaticResource HeaderLabelStyle}" />
 
-                                    <VirtualizingStackPanel
+                                    <Grid
                                         Grid.Row="1"
                                         Margin="5,3"
-                                        HorizontalAlignment="Center"
-                                        FlowDirection="LeftToRight"
-                                        Orientation="Horizontal">
+                                        HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
                                         <Button
+                                            Grid.Column="0"
+                                            Margin="8,0"
                                             Padding="6,0"
                                             Click="Handle_CheckForUpdatesClick"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.CheckNow.Content',
@@ -2148,7 +2159,8 @@
                                                          DefaultText='Manually check for new versions of Volume Control.'}" />
                                         <CheckBox
                                             x:Name="cbCheckForUpdatesOnStartup"
-                                            Margin="5,0"
+                                            Grid.Column="1"
+                                            Margin="8,0"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.OnStartup.Content',
                                                          DefaultText='On Startup'}"
                                             IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
@@ -2156,14 +2168,15 @@
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Updates.OnStartup.Tooltip',
                                                          DefaultText='Check for new versions of Volume Control on startup.'}" />
                                         <CheckBox
-                                            Margin="5,0"
+                                            Grid.Column="2"
+                                            Margin="8,0"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.ShowPrompt.Content',
                                                          DefaultText='Show Prompt'}"
                                             IsChecked="{Binding ShowUpdateMessageBox, Source={StaticResource Settings}}"
                                             Style="{StaticResource CheckBoxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Updates.ShowPrompt.Tooltip',
                                                          DefaultText='When this is checked, you[apos]ll be prompted to update in the form of a message box; otherwise, you[apos]ll see an icon in the top-right corner.'}" />
-                                    </VirtualizingStackPanel>
+                                    </Grid>
                                 </Grid>
                             </Border>
                             <!--  ▲ Updates ▲  -->

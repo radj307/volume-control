@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingSeb.Localization;
+using System;
 using VolumeControl.Properties;
 
 namespace VolumeControl.Helpers.Controls
@@ -22,14 +23,14 @@ namespace VolumeControl.Helpers.Controls
                 DropShadowEnabled = true,
             };
 
-            DynamicButton = new System.Windows.Forms.ToolStripButton("Temp", Resources.reload)
+            DynamicButton = new System.Windows.Forms.ToolStripButton(string.Empty, Resources.reload)
             {
 
             };//< this is a placeholder that is dynamically swapped out later
             _ = _contextMenu.Items.Add(DynamicButton);
-            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Bring to Front", Resources.bringtofront, this.ForwardBringToFrontClicked));
+            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton(Loc.Tr("VolumeControl.NotifyIcon.BringToFront", "Bring to Front"), Resources.bringtofront, this.ForwardBringToFrontClicked));
             _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton("Close", Resources.X, this.ForwardCloseButtonClicked));
+            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton(Loc.Tr("VolumeControl.NotifyIcon.Close", "Close"), Resources.X, this.ForwardCloseButtonClicked));
 
             _notifyIcon = new()
             {
@@ -103,7 +104,7 @@ namespace VolumeControl.Helpers.Controls
             if (_queryMainWindowVisibleHandler(this, EventArgs.Empty))
             { // window is visible
                 _contextMenu.SuspendLayout();
-                DynamicButton.Text = "Hide";
+                DynamicButton.Text = Loc.Tr("VolumeControl.NotifyIcon.Hide", "Hide");
                 DynamicButton.Image = Resources.background;
                 DynamicButton.Click -= this.ForwardShowClicked;
                 DynamicButton.Click += this.ForwardHideClicked;
@@ -113,7 +114,7 @@ namespace VolumeControl.Helpers.Controls
             else
             { // window is hidden
                 _contextMenu.SuspendLayout();
-                DynamicButton.Text = "Show";
+                DynamicButton.Text = Loc.Tr("VolumeControl.NotifyIcon.Show", "Show");
                 DynamicButton.Image = Resources.foreground;
                 DynamicButton.Click -= this.ForwardHideClicked;
                 DynamicButton.Click += this.ForwardShowClicked;

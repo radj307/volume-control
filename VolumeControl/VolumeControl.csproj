@@ -72,9 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\en.loc.json" />
-    <EmbeddedResource Include="Localization\fr.loc.json" />
-    <EmbeddedResource Include="Localization\it.loc.json" />
-    <EmbeddedResource Include="Localization\pt.loc.json" />
     <EmbeddedResource Include="Localization\TestLang.loc.json" />
   </ItemGroup>
   <ItemGroup>
