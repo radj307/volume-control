@@ -1483,7 +1483,7 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="30"
-                                            CanUserResize="True"
+                                            CanUserResize="False"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Alt.Header',
                                                         DefaultText='Alt'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1496,7 +1496,7 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="30"
-                                            CanUserResize="True"
+                                            CanUserResize="False"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Ctrl.Header',
                                                         DefaultText='Ctrl'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1509,7 +1509,7 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="30"
-                                            CanUserResize="True"
+                                            CanUserResize="False"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Shift.Header',
                                                         DefaultText='Shift'}">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -1522,7 +1522,7 @@
                                         <DataGridTemplateColumn
                                             Width="Auto"
                                             MinWidth="30"
-                                            CanUserResize="True"
+                                            CanUserResize="False"
                                             Header="{Tr 'VolumeControl.MainWindow.Hotkeys.HotkeyGrid.Windows.Header',
                                                         DefaultText='Win'}">
                                             <DataGridTemplateColumn.CellTemplate>
