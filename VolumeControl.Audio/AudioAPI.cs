@@ -39,8 +39,6 @@ namespace VolumeControl.Audio
                 this.SelectedSession = targetSession;
                 if (lockState) this.LockSelectedSession = true;
             }
-
-            PropertyChanged += this.HandlePropertyChanged;
         }
         private void SaveSettings()
         {
@@ -202,11 +200,6 @@ namespace VolumeControl.Audio
         /// <summary>Triggered when a member property's value is changed.</summary>
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new(propertyName));
-        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            Settings.Save();
-            Log.Debug($"{nameof(AudioAPI)}:  Saved & Reloaded Audio Configuration.");
-        }
         /// <summary>Triggered before a member property's value is changed.</summary>
         public event PropertyChangingEventHandler? PropertyChanging;
         private void NotifyPropertyChanging([CallerMemberName] string propertyName = "") => PropertyChanging?.Invoke(this, new(propertyName));
@@ -294,11 +287,6 @@ namespace VolumeControl.Audio
                     if (!session.IsRunning)
                     {
                         Log.Debug($"Process {session.ProcessIdentifier} exited.");
-                        if (this.SelectedSession?.Equals(session) ?? false)
-                        {
-                            this.SelectedSession = null;
-                            Log.Debug($"{nameof(this.SelectedSession)} was set to null.");
-                        }
                         _ = this.Sessions.Remove(session);
                     }
                     break;
@@ -312,11 +300,7 @@ namespace VolumeControl.Audio
         #region ReloadSessions
         /// <summary>Forces the sessions list to be reloaded from the audio device list.</summary>
         /// <remarks><b>Note that this invalidates and disposes of all <see cref="AudioSession"/> objects!<br/>This means any audio session objects you had previously saved a reference to will be deleted.</b></remarks>
-        public void ForceReloadSessionList()
-        {
-            this.Sessions.RefreshFromDevices();
-            //this.ResolveTarget();
-        }
+        public void ForceReloadSessionList() => this.Sessions.RefreshFromDevices();
         #endregion ReloadSessions
         #region Session        
         /// <summary>Gets a session from <see cref="Sessions"/> by applying <paramref name="predicate"/> to each element and returning the first occurrence.</summary>
@@ -442,7 +426,10 @@ namespace VolumeControl.Audio
                     AudioSession? s = this.Sessions[i];
                     if (pid.Equals(s.PID) || pname.Equals(s.ProcessName))
                     {
-                        this.Target = s.ProcessIdentifier;
+                        Settings.Target = s.GetTargetInfo();
+                        NotifyPropertyChanged(nameof(Target));
+                        NotifyPropertyChanged(nameof(TargetGuid));
+                        NotifyPropertyChanged(nameof(SelectedSession));
                         return;
                     }
                 }
