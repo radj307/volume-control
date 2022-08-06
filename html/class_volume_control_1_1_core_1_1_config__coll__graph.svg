@@ -73,7 +73,7 @@ var sectionId = 'dynsection-1';
 <text text-anchor="start" x="88" y="-59.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ AdvancedHotkeys</text>
 <text text-anchor="start" x="88" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ShowIcons</text>
 <text text-anchor="start" x="88" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CustomAddonDirectories</text>
-<text text-anchor="start" x="88" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 13 more...</text>
+<text text-anchor="start" x="88" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 20 more...</text>
 <polyline fill="none" stroke="black" points="80,-19.5 257,-19.5 "/>
 <text text-anchor="middle" x="168.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>

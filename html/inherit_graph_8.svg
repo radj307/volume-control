@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_volume_control_1_1_core_1_1_keyboard_1_1_modifier_extensions.html" target="_top" xlink:title="Extension methods for the Modifier enum.">
+<g id="a_node1"><a xlink:href="struct_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey_json_wrapper.html" target="_top" xlink:title="Acts as a temporary wrapper for the BindableHotkey class so that the JSON parser can read and write i...">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 166,-30.5 166,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Keyboard.</text>
-<text text-anchor="middle" x="83" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModifierExtensions</text>
+<text text-anchor="middle" x="83" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">BindableHotkeyJsonWrapper</text>
 </a>
 </g>
 </g>

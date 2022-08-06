@@ -1,9 +1,6 @@
 var hierarchy =
 [
     [ "VolumeControl.Hotkeys.Addons.ApplicationActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_application_actions.html", null ],
-    [ "ApplicationSettingsBase", null, [
-      [ "VolumeControl.Log.Properties.Settings", "class_volume_control_1_1_log_1_1_properties_1_1_settings.html", null ]
-    ] ],
     [ "VolumeControl.TypeExtensions.ArrayExtensions", "class_volume_control_1_1_type_extensions_1_1_array_extensions.html", null ],
     [ "Attribute", null, [
       [ "VolumeControl.Core.BaseAddonAttribute", "class_volume_control_1_1_core_1_1_base_addon_attribute.html", [
@@ -19,6 +16,7 @@ var hierarchy =
     ] ],
     [ "VolumeControl.Hotkeys.BindableHotkeyConverterExtensions", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions.html", null ],
     [ "VolumeControl.Core.Keyboard.BindableHotkeyJsonWrapper", "struct_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey_json_wrapper.html", null ],
+    [ "VolumeControl.Config.Class1", "class_volume_control_1_1_config_1_1_class1.html", null ],
     [ "VolumeControl.Log.LogWriter.ConditionalMessage", "struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html", null ],
     [ "VolumeControl.TypeExtensions.EnumerableExtensions", "class_volume_control_1_1_type_extensions_1_1_enumerable_extensions.html", null ],
     [ "VolumeControl.TypeExtensions.EnumExtensions", "class_volume_control_1_1_type_extensions_1_1_enum_extensions.html", null ],

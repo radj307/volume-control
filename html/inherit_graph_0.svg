@@ -8,9 +8,9 @@
  viewBox="0.00 0.00 343.00 77.50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 73.5)">
 <title>Graphical Class Hierarchy</title>
-<!-- Node108 -->
+<!-- Node109 -->
 <g id="node1" class="node">
-<title>Node108</title>
+<title>Node109</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="none" stroke="#bfbfbf" points="0,-28 0,-47 131,-47 131,-28 0,-28"/>
 <text text-anchor="middle" x="65.5" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">BaseAssemblyAttribute</text>
@@ -26,15 +26,15 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node0 -->
+<!-- Node109&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
-<title>Node108&#45;&gt;Node0</title>
+<title>Node109&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M141.39,-46.48C158.9,-48.58 177.27,-50.78 193.81,-52.76"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="141.54,-42.97 131.2,-45.26 140.71,-49.92 141.54,-42.97"/>
 </g>
-<!-- Node110 -->
+<!-- Node111 -->
 <g id="node3" class="node">
-<title>Node110</title>
+<title>Node111</title>
 <g id="a_node3"><a xlink:href="class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html" target="_top" xlink:title="This attribute can be attached to assemblies to indicate that any contained configuration files shoul...">
 <polygon fill="none" stroke="black" points="167,-0.5 167,-30.5 335,-30.5 335,-0.5 167,-0.5"/>
 <text text-anchor="start" x="175" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Attributes.</text>
@@ -42,9 +42,9 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node110 -->
+<!-- Node109&#45;&gt;Node111 -->
 <g id="edge2" class="edge">
-<title>Node108&#45;&gt;Node110</title>
+<title>Node109&#45;&gt;Node111</title>
 <path fill="none" stroke="midnightblue" d="M141.35,-28.53C149.78,-27.52 158.4,-26.48 166.92,-25.46"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="140.71,-25.08 131.2,-29.74 141.54,-32.03 140.71,-25.08"/>
 </g>

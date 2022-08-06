@@ -100,12 +100,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_core_1_1_conf
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Core.Config:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_core_1_1_config__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -205,6 +207,30 @@ only controls <em>within</em> the window may use transparent background effects.
 <tr class="memitem:aea9fec6c4a43aae2c964dc6842dc5b4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#aea9fec6c4a43aae2c964dc6842dc5b4a">EnableDefaultDevice</a> = true<code> [get, set]</code></td></tr>
 <tr class="memdesc:aea9fec6c4a43aae2c964dc6842dc5b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the default audio device should be enabled or not, regardless of the device IDs in <a class="el" href="class_volume_control_1_1_core_1_1_config.html#af80205f7845402712fd252ef59183cfc" title="List of enabled audio device IDs.">EnabledDevices</a>.  <a href="class_volume_control_1_1_core_1_1_config.html#aea9fec6c4a43aae2c964dc6842dc5b4a">More...</a><br /></td></tr>
 <tr class="separator:aea9fec6c4a43aae2c964dc6842dc5b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a342055f03cf42c0b60a7a635b612917c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c">EnableLogging</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:a342055f03cf42c0b60a7a635b612917c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the log is enabled or not.<br  />
+ See Log.SettingsInterface.EnableLogging  <a href="class_volume_control_1_1_core_1_1_config.html#a342055f03cf42c0b60a7a635b612917c">More...</a><br /></td></tr>
+<tr class="separator:a342055f03cf42c0b60a7a635b612917c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbe505a5515122a1d1201081b6d5db8e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#acbe505a5515122a1d1201081b6d5db8e">LogPath</a> = &quot;VolumeControl.log&quot;<code> [get, set]</code></td></tr>
+<tr class="memdesc:acbe505a5515122a1d1201081b6d5db8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the location of the log file.<br  />
+ See Log.SettingsInterface.LogPath  <a href="class_volume_control_1_1_core_1_1_config.html#acbe505a5515122a1d1201081b6d5db8e">More...</a><br /></td></tr>
+<tr class="separator:acbe505a5515122a1d1201081b6d5db8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6342f566e74c572dbaaba6c1c37f23f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327">Log.Enum.EventType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#aa6342f566e74c572dbaaba6c1c37f23f">LogFilter</a> = <a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a">Log.Enum.EventType.ALL_EXCEPT_DEBUG</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa6342f566e74c572dbaaba6c1c37f23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the <a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327" title="Determines the header used to print formatted log messages.">Log.Enum.EventType</a> filter used for messages.<br  />
+ See Log.SettingsInterface.LogFilter  <a href="class_volume_control_1_1_core_1_1_config.html#aa6342f566e74c572dbaaba6c1c37f23f">More...</a><br /></td></tr>
+<tr class="separator:aa6342f566e74c572dbaaba6c1c37f23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1356c62149dc8fa8a99453c4034628eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a1356c62149dc8fa8a99453c4034628eb">LogClearOnInitialize</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:a1356c62149dc8fa8a99453c4034628eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the log is cleared when the program starts.<br  />
+ See Log.SettingsInterface.LogClearOnInitialize  <a href="class_volume_control_1_1_core_1_1_config.html#a1356c62149dc8fa8a99453c4034628eb">More...</a><br /></td></tr>
+<tr class="separator:a1356c62149dc8fa8a99453c4034628eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c9ee12b79934c2d3aeb21f78fc7abb"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a74c9ee12b79934c2d3aeb21f78fc7abb">LogTimestampFormat</a> = &quot;HH:mm:ss:fff&quot;<code> [get, set]</code></td></tr>
+<tr class="memdesc:a74c9ee12b79934c2d3aeb21f78fc7abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the format string used for timestamps in the log.<br  />
+ See Log.SettingsInterface.LogTimestampFormat  <a href="class_volume_control_1_1_core_1_1_config.html#a74c9ee12b79934c2d3aeb21f78fc7abb">More...</a><br /></td></tr>
+<tr class="separator:a74c9ee12b79934c2d3aeb21f78fc7abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e4e90453a4ceb86150c89f81705c06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a58e4e90453a4ceb86150c89f81705c06">LogEnableStackTrace</a> = true<code> [get, set]</code></td></tr>
+<tr class="separator:a58e4e90453a4ceb86150c89f81705c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180697f9c32ad9a14cd231e7b34d59c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_core_1_1_config.html#a180697f9c32ad9a14cd231e7b34d59c8">LogEnableStackTraceLineCount</a> = true<code> [get, set]</code></td></tr>
+<tr class="separator:a180697f9c32ad9a14cd231e7b34d59c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_class_app_config_1_1_configuration_file"><td colspan="2" onclick="javascript:toggleInherit('properties_class_app_config_1_1_configuration_file')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_app_config_1_1_configuration_file.html">AppConfig.ConfigurationFile</a></td></tr>
 <tr class="memitem:aafaf2a02be5a770b043e3d0c8fb6cfa9 inherit properties_class_app_config_1_1_configuration_file"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_app_config_1_1_configuration_file.html#aafaf2a02be5a770b043e3d0c8fb6cfa9">Location</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:aafaf2a02be5a770b043e3d0c8fb6cfa9 inherit properties_class_app_config_1_1_configuration_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the JSON configuration file in the local filesystem.  <a href="class_app_config_1_1_configuration_file.html#aafaf2a02be5a770b043e3d0c8fb6cfa9">More...</a><br /></td></tr>
@@ -540,6 +566,32 @@ only controls <em>within</em> the window may use transparent background effects.
 
 </div>
 </div>
+<a id="a342055f03cf42c0b60a7a635b612917c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342055f03cf42c0b60a7a635b612917c">&#9670;&nbsp;</a></span>EnableLogging</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.EnableLogging = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets whether the log is enabled or not.<br  />
+ See Log.SettingsInterface.EnableLogging </p>
+<p><b>Default: <code>true</code></b></p>
+
+</div>
+</div>
 <a id="a075d5081c56f2dec4a285691f41cad3d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a075d5081c56f2dec4a285691f41cad3d">&#9670;&nbsp;</a></span>Hotkeys</h2>
 
@@ -612,6 +664,162 @@ only controls <em>within</em> the window may use transparent background effects.
 </div><div class="memdoc">
 
 <p>Gets or sets whether the target session is locked. </p>
+
+</div>
+</div>
+<a id="a1356c62149dc8fa8a99453c4034628eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1356c62149dc8fa8a99453c4034628eb">&#9670;&nbsp;</a></span>LogClearOnInitialize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.LogClearOnInitialize = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets whether the log is cleared when the program starts.<br  />
+ See Log.SettingsInterface.LogClearOnInitialize </p>
+<p><b>Default: <code>true</code></b></p>
+
+</div>
+</div>
+<a id="a58e4e90453a4ceb86150c89f81705c06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58e4e90453a4ceb86150c89f81705c06">&#9670;&nbsp;</a></span>LogEnableStackTrace</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.LogEnableStackTrace = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+<p>See Log.SettingsInterface.LogEnableStackTrace</p>
+<p><b>Default: <code>true</code></b></p>
+
+</div>
+</div>
+<a id="a180697f9c32ad9a14cd231e7b34d59c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180697f9c32ad9a14cd231e7b34d59c8">&#9670;&nbsp;</a></span>LogEnableStackTraceLineCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VolumeControl.Core.Config.LogEnableStackTraceLineCount = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+<p>See Log.SettingsInterface.LogEnableStackTraceLineCount</p>
+<p><b>Default: <code>true</code></b></p>
+
+</div>
+</div>
+<a id="aa6342f566e74c572dbaaba6c1c37f23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6342f566e74c572dbaaba6c1c37f23f">&#9670;&nbsp;</a></span>LogFilter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327">Log.Enum.EventType</a> VolumeControl.Core.Config.LogFilter = <a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a">Log.Enum.EventType.ALL_EXCEPT_DEBUG</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the <a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327" title="Determines the header used to print formatted log messages.">Log.Enum.EventType</a> filter used for messages.<br  />
+ See Log.SettingsInterface.LogFilter </p>
+<p><b>Default: <a class="el" href="namespace_volume_control_1_1_log_1_1_enum.html#a3cd077137af59fc500ebf35ecfdc4327ae1fb627727d36bcbebdd8ad25dd1575a" title="All event types, except for DEBUG. This EventType does not have an associated header,...">Log.Enum.EventType.ALL_EXCEPT_DEBUG</a></b></p>
+
+</div>
+</div>
+<a id="acbe505a5515122a1d1201081b6d5db8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbe505a5515122a1d1201081b6d5db8e">&#9670;&nbsp;</a></span>LogPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string VolumeControl.Core.Config.LogPath = &quot;VolumeControl.log&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the location of the log file.<br  />
+ See Log.SettingsInterface.LogPath </p>
+<p><b>Default: "VolumeControl.log"</b></p>
+
+</div>
+</div>
+<a id="a74c9ee12b79934c2d3aeb21f78fc7abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74c9ee12b79934c2d3aeb21f78fc7abb">&#9670;&nbsp;</a></span>LogTimestampFormat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string VolumeControl.Core.Config.LogTimestampFormat = &quot;HH:mm:ss:fff&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the format string used for timestamps in the log.<br  />
+ See Log.SettingsInterface.LogTimestampFormat </p>
+<p><b>Default: "HH:mm:ss:fff"</b></p>
 
 </div>
 </div>
