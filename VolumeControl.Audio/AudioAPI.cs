@@ -101,7 +101,7 @@ namespace VolumeControl.Audio
 
                 if (FindSessionWithIdentifier(eventArgs.Incoming) is ISession session)
                     Settings.Target = session.GetTargetInfo();
-                else Settings.Target = Config.TargetInfo.Empty;
+                else Settings.Target = new Config.TargetInfo() { ProcessIdentifier = eventArgs.Incoming, SessionInstanceIdentifier = string.Empty };
                 
                 this.NotifyPropertyChanged();
                 this.NotifyPropertyChanged(nameof(this.SelectedSession));
