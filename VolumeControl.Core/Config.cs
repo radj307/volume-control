@@ -22,10 +22,10 @@ namespace VolumeControl.Core
 
         #region Main
         /// <summary>
-        /// Gets or sets the identifier used to select the current localization language.
+        /// Gets or sets the name of the current localization language.
         /// </summary>
         /// <remarks><b>Default: "English (US/CA)"</b></remarks>
-        public string LanguageIdentifier { get; set; } = "English (US/CA)";
+        public string LanguageName { get; set; } = "English (US/CA)";
         /// <summary>
         /// Gets or sets whether the program should create the default translation files if they don't already exist.
         /// </summary>

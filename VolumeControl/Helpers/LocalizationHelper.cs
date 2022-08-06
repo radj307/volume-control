@@ -19,6 +19,8 @@ namespace VolumeControl.Helpers
         public LocalizationHelper()
         {
             LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
+            LocalizationLoader.Instance.FileLanguageLoaders.Add(new YamlFileLoader());
+
             if (Settings.CreateDefaultTranslationFiles)
                 CreateDefaultFiles();
 
@@ -27,26 +29,36 @@ namespace VolumeControl.Helpers
             Loc.CurrentLanguageChanged += HandleCurrentLanguageChanged;
         }
 
-        private static void Reload()
+        /// <summary>
+        /// Reloads all language config files from the disk, calling <see cref="LocalizationLoader.ClearAllTranslations(bool)"/> to clear the cache, then re-enumerating the <see cref="Config.CustomLocalizationDirectories"/> list and reloading each file.
+        /// </summary>
+        /// <remarks>Before this method returns, it will attempt to re-select the current language config using the value of the <see cref="Config.LanguageName"/> setting.</remarks>
+        public static void Reload()
         {
-            Loader.ClearAllTranslations(false);
+            // clear all loaded translations, and available languages
+            Loader.ClearAllTranslations(true);
+
+            // check default directory
             LoadTranslationsFromDirectory(DefaultPath);
-            // add custom directories
+
+            // check custom directories
             foreach (string dir in Settings.CustomLocalizationDirectories)
             {
                 LoadTranslationsFromDirectory(dir);
             }
-            if (Loc.AvailableLanguages.Contains(Settings.LanguageIdentifier))
+
+            // attempt to re-select the current language
+            if (Loc.AvailableLanguages.Contains(Settings.LanguageName))
             {
-                Loc.CurrentLanguage = Settings.LanguageIdentifier;
+                Loc.CurrentLanguage = Settings.LanguageName;
             }
             else
             {
-                Log.Error($"Cannot find translation package for {nameof(Settings.LanguageIdentifier)}: '{Settings.LanguageIdentifier}'");
+                Log.Error($"Cannot find translation package for {nameof(Settings.LanguageName)}: '{Settings.LanguageName}'!");
             }
         }
 
-        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageIdentifier = e.NewLanguageId;
+        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageName = e.NewLanguageId;
 
         private static void LoadTranslationsFromDirectory(string path)
         {
@@ -78,7 +90,7 @@ namespace VolumeControl.Helpers
         /// <summary>
         /// To add additional default localizations, put the "*.loc.json" file in VolumeControl/Localization, then mark it as an "Embedded resource":<br/><b>Solution Explorer => Properties => Build Action => Embedded resource</b>
         /// </summary>
-        public static void CreateDefaultFiles(bool overwrite = false)
+        private static void CreateDefaultFiles(bool overwrite = false)
         {
             if (!Directory.Exists(DefaultPath))
                 Directory.CreateDirectory(DefaultPath);

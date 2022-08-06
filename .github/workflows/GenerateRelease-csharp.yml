@@ -64,15 +64,8 @@ jobs:
         run:    dotnet nuget add source --username radj307 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/radj307/index.json"
 
       - name:   Pack SDK NuGet Packages
-        run:    dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o . --include-symbols --no-build
-
-        #        dotnet pack ./VolumeControl.TypeExtensions/VolumeControl.TypeExtensions.csproj --noLogo -c Release -o . --include-symbols --no-build
-        #        dotnet pack ./VolumeControl.Log/VolumeControl.Log.csproj --noLogo -c Release -o . --include-symbols --no-build
-        #        dotnet pack ./VolumeControl.Audio/VolumeControl.Audio.csproj --noLogo -c Release -o . --include-symbols --no-build
-        #        dotnet pack ./VolumeControl.Core/VolumeControl.Core.csproj --noLogo -c Release -o . --include-symbols --no-build
-        #        dotnet pack ./VolumeControl.Hotkeys/VolumeControl.Hotkeys.csproj --noLogo -c Release -o . --include-symbols --no-build
-        #        dotnet pack ./VolumeControl.WPF/VolumeControl.WPF.csproj --noLogo -c Release -o . --include-symbols --no-build       
-
+        run:    dotnet pack ./VolumeControl.SDK/VolumeControl.SDK.csproj --noLogo -c Release -o . --include-symbols
+        
       - name:   Upload SDK NuGet Packages
         run:    foreach ($pkg in $(Get-ChildItem -Filter *.nupkg)) { dotnet nuget push $pkg.Name -k ${{ github.token }} -s https://nuget.pkg.github.com/radj307/index.json --skip-duplicate ; dotnet nuget push $pkg.Name -k ${{ secrets.NUGET_API_KEY_VOLUMECONTROLSDK }} -s https://api.nuget.org/v3/index.json --skip-duplicate }
         

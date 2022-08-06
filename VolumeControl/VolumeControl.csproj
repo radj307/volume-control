@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <StartupObject>VolumeControl.Program</StartupObject>
     <!-- VERSIONING INFO -->
-    <Version>5.2.0</Version>
-    <ExtendedVersion>5.2.0</ExtendedVersion>
+    <Version>5.2.1</Version>
+    <ExtendedVersion>5.2.1</ExtendedVersion>
     <ReleaseType>NORMAL</ReleaseType>
     <!-- VERSIONING INFO -->
     <Authors>radj307</Authors>
@@ -94,12 +94,15 @@
   <ItemGroup>
     <PackageReference Include="AssemblyAttribute" Version="0.0.0" />
     <PackageReference Include="CodingSeb.Localization" Version="1.2.0">
-      <PrivateAssets></PrivateAssets>
+      <PrivateAssets>
+      </PrivateAssets>
     </PackageReference>
     <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.2.0">
-      <PrivateAssets></PrivateAssets>
+      <PrivateAssets>
+      </PrivateAssets>
     </PackageReference>
     <PackageReference Include="CodingSeb.Localization.WPF" Version="1.2.0" />
+    <PackageReference Include="CodingSeb.Localization.YamlFileLoader" Version="1.2.0" />
     <PackageReference Include="CodingSebLocalization.Fody" Version="1.2.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
