@@ -38,17 +38,17 @@ namespace VolumeControl.Helpers
             {
                 LoadTranslationsFromDirectory(dir);
             }
-            if (Loc.AvailableLanguages.Contains(Settings.LanguageIdentifier))
+            if (Loc.AvailableLanguages.Contains(Settings.LanguageName))
             {
-                Loc.CurrentLanguage = Settings.LanguageIdentifier;
+                Loc.CurrentLanguage = Settings.LanguageName;
             }
             else
             {
-                Log.Error($"Cannot find translation package for {nameof(Settings.LanguageIdentifier)}: '{Settings.LanguageIdentifier}'");
+                Log.Error($"Cannot find translation package for {nameof(Settings.LanguageName)}: '{Settings.LanguageName}'");
             }
         }
 
-        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageIdentifier = e.NewLanguageId;
+        private static void HandleCurrentLanguageChanged(object? sender, CurrentLanguageChangedEventArgs e) => Settings.LanguageName = e.NewLanguageId;
 
         private static void LoadTranslationsFromDirectory(string path)
         {
