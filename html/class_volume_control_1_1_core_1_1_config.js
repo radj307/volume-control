@@ -13,7 +13,7 @@ var class_volume_control_1_1_core_1_1_config =
     [ "EnabledDevices", "class_volume_control_1_1_core_1_1_config.html#af80205f7845402712fd252ef59183cfc", null ],
     [ "EnableDefaultDevice", "class_volume_control_1_1_core_1_1_config.html#aea9fec6c4a43aae2c964dc6842dc5b4a", null ],
     [ "Hotkeys", "class_volume_control_1_1_core_1_1_config.html#a075d5081c56f2dec4a285691f41cad3d", null ],
-    [ "LanguageIdentifier", "class_volume_control_1_1_core_1_1_config.html#a71476798344a724901ae7266bfc9f3a2", null ],
+    [ "LanguageName", "class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66", null ],
     [ "LockTargetSession", "class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261", null ],
     [ "NotificationMode", "class_volume_control_1_1_core_1_1_config.html#a3a9622ced5dc4b709cfd0472c5ed0732", null ],
     [ "NotificationsEnabled", "class_volume_control_1_1_core_1_1_config.html#a8a854febe451eb223b9b066fc679faa9", null ],

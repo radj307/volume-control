@@ -16,7 +16,7 @@
 <text text-anchor="middle" x="168.5" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00">VolumeControl.Core.Config</text>
 <polyline fill="none" stroke="black" points="80,-170.5 257,-170.5 "/>
 <text text-anchor="start" x="88" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ KeyBlacklist</text>
-<text text-anchor="start" x="88" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LanguageIdentifier</text>
+<text text-anchor="start" x="88" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LanguageName</text>
 <text text-anchor="start" x="88" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CreateDefaultTranslation</text>
 <text text-anchor="start" x="88" y="-125.5" font-family="Helvetica,sans-Serif" font-size="10.00">Files</text>
 <text text-anchor="start" x="88" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CustomLocalizationDirectories</text>

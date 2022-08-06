@@ -1,7 +1,7 @@
 var searchData=
 [
   ['l_289',['L',['../namespace_volume_control_1_1_hotkeys_1_1_enum.html#a1a3e7f83b5b88813ecc9dbed31fedf51ad20caec3b48a1eef164cb4ca81ba2587',1,'VolumeControl::Hotkeys::Enum']]],
-  ['languageidentifier_290',['LanguageIdentifier',['../class_volume_control_1_1_core_1_1_config.html#a71476798344a724901ae7266bfc9f3a2',1,'VolumeControl::Core::Config']]],
+  ['languagename_290',['LanguageName',['../class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66',1,'VolumeControl::Core::Config']]],
   ['largeicon_291',['LargeIcon',['../class_volume_control_1_1_w_p_f_1_1_icon_pair.html#a40ecac0c6d86ef79a9a8eb51773aa250',1,'VolumeControl::WPF::IconPair']]],
   ['lasteventtype_292',['LastEventType',['../class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6',1,'VolumeControl::Log::LogWriter']]],
   ['lastindexof_293',['LastIndexOf',['../class_volume_control_1_1_audio_1_1_audio_device.html#a17f8d74a167b6c64d496fb979d33a84a',1,'VolumeControl.Audio.AudioDevice.LastIndexOf()'],['../class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#aee7bf1d02ac784d168b04e3df6a963fd',1,'VolumeControl.WPF.Collections.ObservableImmutableList.LastIndexOf()']]],
