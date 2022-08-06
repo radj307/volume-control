@@ -34,7 +34,7 @@ namespace VolumeControl
             Settings.Load();
 
             // Object that manages localization:
-            LocalizationHelper locale = new();
+            LocalizationHelper locale = new(args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal)));
 
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
 

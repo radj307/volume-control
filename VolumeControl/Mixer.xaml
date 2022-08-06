@@ -1651,13 +1651,13 @@
                                         </Grid.ColumnDefinitions>
                                         <ComboBox
                                             Grid.Column="0"
-                                            ItemsSource="{Binding AvailableLanguages, Source={x:Static loc:Loc.Instance}}"
-                                            SelectedItem="{Binding CurrentLanguage, Source={x:Static loc:Loc.Instance}}"
+                                            ItemsSource="{Binding AvailableLanguages, Mode=OneWay, Source={x:Static loc:Loc.Instance}}"
+                                            SelectedItem="{Binding CurrentLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static loc:Loc.Instance}}"
                                             Style="{StaticResource ComboBoxStyle}" />
                                         <Button
                                             Grid.Column="2"
                                             Padding="6,0"
-                                            Click="Handle_RegenerateLocalizationClick"
+                                            Click="Handle_ReloadLanguageConfigs"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Language.Reload.Content',
                                                          DefaultText='Reload'}"
                                             Style="{StaticResource ButtonStyle}"

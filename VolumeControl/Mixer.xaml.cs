@@ -173,7 +173,7 @@ namespace VolumeControl
                 }
             }
         }
-        private void Handle_RegenerateLocalizationClick(object sender, RoutedEventArgs e) => LocalizationHelper.Reload();
+        private void Handle_ReloadLanguageConfigs(object sender, RoutedEventArgs e) => LocalizationHelper.ReloadLanguageConfigs();
         #endregion EventHandlers
     }
 }

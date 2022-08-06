@@ -54,7 +54,6 @@
     <None Remove="Localization\fr.loc.json" />
     <None Remove="Localization\it.loc.json" />
     <None Remove="Localization\pt.loc.json" />
-    <None Remove="Localization\TestLang.loc.json" />
     <None Remove="Resources\fonts\Inter.ttf" />
     <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
     <None Remove="Resources\icons\icon-16x16-VC.ico" />
@@ -72,7 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\en.loc.json" />
-    <EmbeddedResource Include="Localization\TestLang.loc.json" />
+    <EmbeddedResource Include="Localization\fr.loc.json" />
+    <EmbeddedResource Include="Localization\it.loc.json" />
+    <EmbeddedResource Include="Localization\pt.loc.json" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fonts\Inter.ttf">

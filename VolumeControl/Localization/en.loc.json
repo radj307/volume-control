@@ -140,7 +140,7 @@
               "English (US/CA)": "Reload"
             },
             "Tooltip": {
-              "English (US/CA)": "Reload all language config files from disk."
+              "English (US/CA)": "Reloads all language config files from disk."
             }
           }
         },
@@ -327,6 +327,7 @@
         }
       }
     },
+    
     "Dialogs": {
       "AnotherInstanceIsRunning": {
         "English (US/CA)": "Another instance of Volume Control is already running!"
@@ -340,6 +341,7 @@
         }
       }
     },
+
     "NotifyIcon": {
       "BringToFront": {
         "English (US/CA)": "Bring to Front"
