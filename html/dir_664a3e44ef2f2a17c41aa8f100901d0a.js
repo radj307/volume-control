@@ -9,5 +9,6 @@ var dir_664a3e44ef2f2a17c41aa8f100901d0a =
     [ "HWndHook.cs", null, null ],
     [ "HWndHookWPFMaximizeBugFix.cs", null, null ],
     [ "IconGetter.cs", null, null ],
+    [ "IconPair.cs", null, null ],
     [ "WindowHandleGetter.cs", null, null ]
 ];

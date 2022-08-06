@@ -14,6 +14,7 @@ var hierarchy =
     [ "VolumeControl.Hotkeys.Addons.AudioDeviceActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_device_actions.html", null ],
     [ "VolumeControl.Hotkeys.Addons.AudioSessionActions", "class_volume_control_1_1_hotkeys_1_1_addons_1_1_audio_session_actions.html", null ],
     [ "BaseAssemblyAttribute", null, [
+      [ "ProjectPathAttribute", "class_project_path_attribute.html", null ],
       [ "VolumeControl.Core.Attributes.AllowUpgradeConfigAttribute", "class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html", null ]
     ] ],
     [ "VolumeControl.Hotkeys.BindableHotkeyConverterExtensions", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions.html", null ],

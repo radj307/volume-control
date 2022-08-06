@@ -23,50 +23,50 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Volume Control", "index.html", [
-    [ "Getting Started", "index.html#autotoc_md28", [
-      [ "Installation", "index.html#autotoc_md29", null ],
-      [ "Setup", "index.html#autotoc_md30", null ],
-      [ "Usage", "index.html#autotoc_md31", null ],
-      [ "Addon Development", "index.html#autotoc_md32", null ]
+    [ "Getting Started", "index.html#autotoc_md26", [
+      [ "Installation", "index.html#autotoc_md27", null ],
+      [ "Setup", "index.html#autotoc_md28", null ],
+      [ "Usage", "index.html#autotoc_md29", null ],
+      [ "Addon Development", "index.html#autotoc_md30", null ]
     ] ],
-    [ "VolumeControlCLI", "index.html#autotoc_md33", null ],
-    [ "Contributing", "index.html#autotoc_md34", [
-      [ "Guidelines", "index.html#autotoc_md35", null ]
+    [ "VolumeControlCLI", "index.html#autotoc_md31", null ],
+    [ "Contributing", "index.html#autotoc_md32", [
+      [ "Guidelines", "index.html#autotoc_md33", null ]
     ] ],
     [ "Addon Development", "md_docs__addon_development.html", [
-      [ "Pre-Requisites", "md_docs__addon_development.html#autotoc_md1", [
-        [ "What it does", "index.html#autotoc_md24", null ],
-        [ "Requirements", "index.html#autotoc_md25", [
-          [ "Windows Version Compatibility", "index.html#autotoc_md26", null ]
+      [ "Volume Control SDK", "md_docs__addon_development.html#autotoc_md1", [
+        [ "What it does", "index.html#autotoc_md22", null ],
+        [ "Requirements", "index.html#autotoc_md23", [
+          [ "Windows Version Compatibility", "index.html#autotoc_md24", null ]
         ] ],
-        [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md2", null ],
-        [ "SDK File Extensions", "md_docs__addon_development.html#autotoc_md3", null ]
+        [ "Other Dependencies", "md_docs__addon_development.html#autotoc_md2", null ]
       ] ],
-      [ "Environment Setup", "md_docs__addon_development.html#autotoc_md4", null ],
-      [ "Writing an Addon", "md_docs__addon_development.html#autotoc_md5", null ],
-      [ "Building Your Addon", "md_docs__addon_development.html#autotoc_md6", null ],
-      [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md7", [
-        [ "How to Get Log Feedback", "md_docs__addon_development.html#autotoc_md8", null ],
-        [ "Where to Put Addons", "md_docs__addon_development.html#autotoc_md9", null ],
-        [ "Note", "md_docs__addon_development.html#autotoc_md10", null ],
-        [ "Loading the Addon", "md_docs__addon_development.html#autotoc_md11", null ],
-        [ "Using Hotkey Action Addons", "md_docs__addon_development.html#autotoc_md12", null ],
-        [ "What about the SDK DLLs?", "md_docs__addon_development.html#autotoc_md13", null ]
-      ] ],
-      [ "Redistributing Addons", "md_docs__addon_development.html#autotoc_md14", [
-        [ "Legal", "md_docs__addon_development.html#autotoc_md15", [
-          [ "Summary:", "md_docs__addon_development.html#autotoc_md16", null ]
+      [ "What's in the SDK", "md_docs__addon_development.html#autotoc_md3", [
+        [ "Environment Setup", "md_docs__addon_development.html#autotoc_md4", [
+          [ "Using NuGet", "md_docs__addon_development.html#autotoc_md5", null ],
+          [ "Manual Installation", "md_docs__addon_development.html#autotoc_md6", null ]
+        ] ],
+        [ "Writing an Addon", "md_docs__addon_development.html#autotoc_md7", null ],
+        [ "Building Your Addon", "md_docs__addon_development.html#autotoc_md8", null ],
+        [ "Loading Your Addon", "md_docs__addon_development.html#autotoc_md9", [
+          [ "Where to Put Addons", "md_docs__addon_development.html#autotoc_md10", null ],
+          [ "Using Hotkey Action Addons", "md_docs__addon_development.html#autotoc_md11", null ]
+        ] ],
+        [ "Redistributing Addons", "md_docs__addon_development.html#autotoc_md12", [
+          [ "Legal", "md_docs__addon_development.html#autotoc_md13", [
+            [ "Summary:", "md_docs__addon_development.html#autotoc_md14", null ]
+          ] ]
         ] ]
       ] ]
     ] ],
     [ "Building From Source", "md_docs__building_from_source.html", [
-      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md18", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md19", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md20", null ]
+      [ "From the Commandline", "md_docs__building_from_source.html#autotoc_md16", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md17", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md18", null ]
       ] ],
-      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md21", [
-        [ "Requirements", "md_docs__building_from_source.html#autotoc_md22", null ],
-        [ "Process", "md_docs__building_from_source.html#autotoc_md23", null ]
+      [ "Using an IDE", "md_docs__building_from_source.html#autotoc_md19", [
+        [ "Requirements", "md_docs__building_from_source.html#autotoc_md20", null ],
+        [ "Process", "md_docs__building_from_source.html#autotoc_md21", null ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
@@ -99,10 +99,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_volume_control_1_1_audio_1_1_audio_session.html#a7d0a0803254aee7bce75cb6df2307c2b",
-"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#afbcf4aa07e0e7575eb327a34039a052a",
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a50d7e7d285197e6c7e967cb4b189b9f6",
-"interface_volume_control_1_1_hotkeys_1_1_interfaces_1_1_i_hotkey_action_manager.html#a25067ef954b42453ad60ab708bd46b50"
+"class_volume_control_1_1_audio_1_1_audio_session.html#a4c66068e56a790f95e7a7eec08f2079b",
+"class_volume_control_1_1_log_1_1_endpoints_1_1_file_endpoint.html#a602edf062d23216c025adacaf1d6c804",
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1176cf817a80dec21aeb4a0a5bcebc86",
+"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#aa72de7acf148661c20d80a2341304e1e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
