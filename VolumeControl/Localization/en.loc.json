@@ -10,7 +10,7 @@
         },
         "TargetBox": {
           "Watermark": {
-            "English (US/CA)": "Target ID or Process Name"
+            "English (US/CA)": "Process ID or Name"
           },
           "LockTarget": {
             "English (US/CA)": "Lock"

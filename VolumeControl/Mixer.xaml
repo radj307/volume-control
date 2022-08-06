@@ -1185,7 +1185,7 @@
                                             Margin="5,0"
                                             Style="{StaticResource WatermarkTextBlockStyle}"
                                             Text="{Tr 'VolumeControl.MainWindow.Mixer.TargetBox.Watermark',
-                                                      DefaultText='Target ID or Process Name'}"
+                                                      DefaultText='Process ID or Name'}"
                                             Visibility="{Binding Text.IsEmpty, ElementName=targetbox, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         <CheckBox
                                             x:Name="cbLockTargetSelection"

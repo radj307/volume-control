@@ -1,0 +1,344 @@
+{
+  "LanguageName": {
+    "Portuguese": "Portuguese"
+  },
+  "VolumeControl": {
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "Portuguese": "Mixer"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "Portuguese": "ID ou nome do processo"
+          },
+          "LockTarget": {
+            "Portuguese": "Trava"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "Portuguese": "PID"
+            }
+          },
+          "Name": {
+            "Header": {
+              "Portuguese": "Nome"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "Portuguese": "Silencio"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "Portuguese": "Volume"
+            }
+          },
+          "Select": {
+            "Button": {
+              "Portuguese": "Seleccione"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "Portuguese": "Teclas de Atalho"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "Portuguese": "Modo de Edição"
+            },
+            "Tooltip": {
+              "Portuguese": "Permite-lhe editar, criar, e apagar encadernações de teclas de atalho. "
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "Portuguese": "Etapa do Volume"
+            },
+            "Tooltip": {
+              "Portuguese": "Este é o número de 'ticks' do volume que mudam cada vez que se pressiona as teclas de atalho para cima ou para baixo."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "Portuguese": "Restaurar ao padrão"
+            },
+            "Tooltip": {
+              "Portuguese": "Redefine todas as teclas de atalho para a predefinição padrão."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "Portuguese": "Isso (des)registra todas as teclas de atalho na lista."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "Portuguese": "Nome"
+            }
+          },
+          "Key": {
+            "Header": {
+              "Portuguese": "Tecla"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "Portuguese": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "Portuguese": "Ctrl"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "Portuguese": "Shift"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "Portuguese": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "Portuguese": "Ação"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "Portuguese": "Criar nova tecla de atalho"
+          },
+          "Tooltip": {
+            "Portuguese": "Cria uma nova entrada de tecla de atalho em branco."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "Portuguese": "Configurações"
+        },
+        "Language": {
+          "Header": {
+            "Portuguese": "Línguas"
+          },
+          "Regenerate": {
+            "Content": {
+              "Portuguese": "Recarregue"
+            },
+            "Tooltip": {
+              "Portuguese": "Recarregar todos os ficheiros de configuração de idiomas a partir do disco"
+            }
+          }
+        },
+        "Audio": {
+          "Header": {
+            "Portuguese": "Áudio"
+          },
+          "DeviceGrid": {
+            "Tooltip": {
+              "Portuguese": "Pode incluir ou excluir dispositivos específicos a partir daqui."
+            },
+            "Enabled": {
+              "Header": {
+                "Portuguese": "✓"
+              }
+            },
+            "Name": {
+              "Header": {
+                "Portuguese": "Nome do Dispositivo"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "Portuguese": "Nome do Interface"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "Portuguese": "Silencio"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "Portuguese": "Volume"
+              }
+            }
+          },
+          "EnableDefault": {
+            "Content": {
+              "Portuguese": "Ativar Padrão"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando marcado, o dispositivo de áudio padrão está sempre ativado durante a fase de carregamento do aplicativo."
+            }
+          },
+          "ReloadDevices": {
+            "Content": {
+              "Portuguese": "Recarregar Dispositivos"
+            },
+            "Tooltip": {
+              "Portuguese": "Recarregue à força todos os dispositivos."
+            }
+          },
+          "ReloadSessions": {
+            "Content": {
+              "Portuguese": "Recarregar Sessões"
+            },
+            "Tooltip": {
+              "Portuguese": "Recarregue todas as sessões à força."
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "Portuguese": "Notificações"
+          },
+          "Enable": {
+            "Content": {
+              "Portuguese": "Permitir"
+            },
+            "Tooltip": {
+              "Portuguese": "Alternar se as notificações aparecem ou não ao mudar a sessão alvo."
+            }
+          },
+          "OnVolumeChange": {
+            "Content": {
+              "Portuguese": "Sobre Mudança de Volume"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando esta opção está marcada, as notificações também aparecem quando o nível de volume do alvo é alterado."
+            }
+          },
+          "Timeout": {
+            "Content": {
+              "Portuguese": "Intervalo"
+            },
+            "Tooltip": {
+              "Portuguese": "A quantidade de tempo em milissegundos que as notificações permanecerão visíveis depois de serem accionadas."
+            }
+          }
+        },
+        "Log": {
+          "Header": {
+            "Portuguese": "Registo de Eventos"
+          },
+          "Enable": {
+            "Content": {
+              "Portuguese": "Permitir"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "Portuguese": "Filtro"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "Portuguese": "Especifica a localização e o nome do ficheiro de registo. Os caminhos relativos são relativos à localização do executável."
+            },
+            "WatermarkText": {
+              "Portuguese": "Caminho para o ficheiro de registo"
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "Portuguese": "Aplicação"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "Portuguese": "Executar na Inicialização"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando ativado, Volume Control será iniciado quando você fizer login."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "Portuguese": "Iniciar Minimizado"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando activado, Volume Control irá minimizar-se a si próprio quando arrancar."
+            }
+          },
+          "ShowInTaskbar": {
+            "Content": {
+              "Portuguese": "Mostrar na Barra de Tarefas"
+            },
+            "Tooltip": {}
+          },
+          "AlwaysOnTop": {
+            "Content": {
+              "Portuguese": "Sempre em Cima"
+            },
+            "Tooltip": {}
+          },
+          "ShowIcons": {
+            "Content": {
+              "Portuguese": "Mostrar Ícones"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando ativado, o programa tentará exibir o ícone associado aos dispositivos e sessões de áudio. ( Alguns ícones podem estar faltando ao executar como usuário. )"
+            }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Portuguese": "Actualizações"
+          },
+          "CheckNow": {
+            "Content": {
+              "Portuguese": "Verifique Agora"
+            },
+            "Tooltip": {
+              "Portuguese": "Verifique manualmente se há novas versões do Volume Control."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "Portuguese": "Na Inicialização"
+            },
+            "Tooltip": {
+              "Portuguese": "Verifique se há novas versões do Volume Control na inicialização."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "Portuguese": "Monstra Anúncio"
+            },
+            "Tooltip": {
+              "Portuguese": "Quando estiver marcado, você será solicitado a atualizar na forma de uma caixa de mensagem; caso contrário, você verá um ícone no canto superior direito."
+            }
+          }
+        }
+      }
+    },
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "Portuguese": "Outra instância do Volume Control já está em execução!"
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "Portuguese": "Os avisos de actualização não serão mostrados no futuro."
+        },
+        "NewVersionAvailableFormatMsg": {
+          "Portuguese": "Uma nova versão do Volume Control está disponível!\nQuer ir para a página de lançamentos?\nVersão Atual:  ${CURRENT_VERSION}\nVersão Mais Recente:   ${LATEST_VERSION}\n\nClique em 'Sim' para ir para a página de lançamentos.\nClique em 'Não' se não quiser atualizar agora.\nClique em 'Cancelar' para desactivar estes avisos."
+        }
+      }
+    }
+  }
+}
