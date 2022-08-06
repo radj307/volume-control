@@ -1842,8 +1842,8 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Header', DefaultText='Notifications'}" Style="{StaticResource HeaderLabelStyle}" />
 
-                                    <Label Content="Notifications" Style="{StaticResource HeaderLabelStyle}" />
                                     <Grid Grid.Row="1" Style="{StaticResource SectionSubGridStyle}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -1855,18 +1855,22 @@
                                         <CheckBox
                                             x:Name="cbEnableNotifications"
                                             Margin="3,0"
-                                            Content="Enable"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Content',
+                                                         DefaultText='Enable'}"
                                             IsChecked="{Binding NotificationEnabled, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="The notification appears when switching target sessions using hotkeys." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Enable.Tooltip',
+                                                         DefaultText='Toggle whether or not notifications appear when switching the target session.'}" />
                                         <CheckBox
                                             Grid.Column="2"
                                             Margin="3,0"
-                                            Content="On Volume Change"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChanged.Content',
+                                                         DefaultText='On Volume Change'}"
                                             IsChecked="{Binding NotificationShowsVolumeChange, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="When this is checked, notifications appear when the volume level is changed using hotkeys." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.OnVolumeChanged.Tooltip',
+                                                         DefaultText='When this is checked, notifications also appear when the volume level of the target is changed.'}" />
                                         <ComboBox
                                             Grid.Column="4"
                                             Margin="3,0"
@@ -1882,15 +1886,18 @@
                                             IsEnabled="{Binding IsChecked, ElementName=cbEnableNotifications}"
                                             LastChildFill="True">
                                             <Label
-                                                Content="Timeout"
+                                                Content="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Content',
+                                                             DefaultText='Timeout'}"
                                                 Style="{StaticResource LabelStyle}"
-                                                ToolTip="The time in milliseconds before the notification disappears after being displayed." />
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
+                                                             DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}" />
                                             <local:NumericUpDown
                                                 MinWidth="88"
                                                 HorizontalAlignment="Stretch"
                                                 DockPanel.Dock="Right"
                                                 MinValue="100"
-                                                ToolTip="The time in milliseconds before the notification disappears after being displayed."
+                                                ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
+                                                             DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
                                                 Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                                         </DockPanel>
                                     </Grid>
@@ -2072,22 +2079,30 @@
                                         <CheckBox
                                             Grid.Row="1"
                                             Grid.Column="2"
-                                            Content="Show in Taskbar"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowInTaskbar.Content',
+                                                         DefaultText='Show in Taskbar'}"
                                             IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}" />
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowInTaskbar.Tooltip',
+                                                         DefaultText=''}" />
                                         <CheckBox
                                             Grid.Row="2"
                                             Grid.Column="2"
-                                            Content="Always on Top"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Content',
+                                                         DefaultText='Always on Top'}"
                                             IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
-                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}" />
+                                            Style="{StaticResource ApplicationSettingsCheckboxStyle}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Tooltip',
+                                                         DefaultText=''}" />
                                         <CheckBox
                                             Grid.Row="3"
                                             Grid.Column="2"
-                                            Content="Show Icons"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowIcons.Content',
+                                                         DefaultText='Show Icons'}"
                                             IsChecked="{Binding ShowIcons, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
-                                            ToolTip="When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )" />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowIcons.Tooltip',
+                                                         DefaultText='When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )'}" />
                                     </Grid>
                                 </Grid>
                                 <!--  ▼ Application Settings ▼  -->
@@ -2101,7 +2116,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="Updates" Style="{StaticResource HeaderLabelStyle}" />
+                                    <Label Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.Header', DefaultText='Updates'}" Style="{StaticResource HeaderLabelStyle}" />
 
                                     <VirtualizingStackPanel
                                         Grid.Row="1"
@@ -2110,22 +2125,29 @@
                                         FlowDirection="LeftToRight"
                                         Orientation="Horizontal">
                                         <Button
+                                            Padding="6,0"
                                             Click="Handle_CheckForUpdatesClick"
-                                            Content="  Check Now  "
-                                            ToolTip="Manually check for new versions of Volume Control." />
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.CheckNow.Content',
+                                                         DefaultText='Check Now'}"
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Updates.CheckNow.Tooltip',
+                                                         DefaultText='Manually check for new versions of Volume Control.'}" />
                                         <CheckBox
                                             x:Name="cbCheckForUpdatesOnStartup"
                                             Margin="5,0"
-                                            Content="On Startup"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.OnStartup.Content',
+                                                         DefaultText='On Startup'}"
                                             IsChecked="{Binding CheckForUpdates, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="Check for new versions of Volume Control on startup." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Updates.OnStartup.Tooltip',
+                                                         DefaultText='Check for new versions of Volume Control on startup.'}" />
                                         <CheckBox
                                             Margin="5,0"
-                                            Content="Show Prompt"
+                                            Content="{Tr 'VolumeControl.MainWindow.Settings.Updates.ShowPrompt.Content',
+                                                         DefaultText='Show Prompt'}"
                                             IsChecked="{Binding ShowUpdateMessageBox, Source={StaticResource Settings}}"
                                             Style="{StaticResource CheckBoxStyle}"
-                                            ToolTip="When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner." />
+                                            ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Updates.ShowPrompt.Tooltip',
+                                                         DefaultText='When this is checked, you[apos]ll be prompted to update in the form of a message box; otherwise, you[apos]ll see an icon in the top-right corner.'}" />
                                     </VirtualizingStackPanel>
                                 </Grid>
                             </Border>

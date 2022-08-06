@@ -1,76 +1,76 @@
 {
   "LanguageName": {
-    "English (US/CA)": "English"
+    "TestLang": "hsilgnE"
   },
   "VolumeControl": {
     "MainWindow": {
       "Mixer": {
         "TabHeader": {
-          "English (US/CA)": "Mixer"
+          "TestLang": "rexiM"
         },
         "TargetBox": {
           "Watermark": {
-            "English (US/CA)": "Target ID or Process Name"
+            "TestLang": "emaN ssecorP ro DI tegraT"
           },
           "LockTarget": {
-            "English (US/CA)": "Lock"
+            "TestLang": "kcoL"
           }
         },
         "MixerGrid": {
           "PID": {
             "Header": {
-              "English (US/CA)": "PID"
+              "TestLang": "DIP"
             }
           },
           "Name": {
             "Header": {
-              "English (US/CA)": "Name"
+              "TestLang": "emaN"
             }
           },
           "Mute": {
             "Header": {
-              "English (US/CA)": "Mute"
+              "TestLang": "etuM"
             }
           },
           "Volume": {
             "Header": {
-              "English (US/CA)": "Volume"
+              "TestLang": "emuloV"
             }
           },
           "Select": {
             "Button": {
-              "English (US/CA)": "Select"
+              "TestLang": "tceleS"
             }
           }
         }
       },
       "Hotkeys": {
         "TabHeader": {
-          "English (US/CA)": "Hotkeys"
+          "TestLang": "syektoH"
         },
         "ControlRow": {
           "EditMode": {
             "Content": {
-              "English (US/CA)": "Edit Mode"
+              "TestLang": "edoM tidE"
             },
             "Tooltip": {
-              "English (US/CA)": "Allows you to edit, create, and delete hotkey bindings."
+              "TestLang": ".sgnidnib yektoh eteled dna ,etaerc ,tide ot uoy swollA"
             }
           },
           "VolumeStep": {
             "Content": {
-              "English (US/CA)": "Volume Step"
+              "TestLang": "petS emuloV"
             },
             "Tooltip": {
-              "English (US/CA)": "This is the number of volume 'ticks' that change each time you press the volume up or down hotkeys."
+              "TestLang": ".syektoh nwod ro pu emulov eht sserp uoy emit hcae egnahc taht 'skcit' emulov fo rebmun eht si sihT"
             }
           },
           "ResetToDefault": {
             "Content": {
-              "English (US/CA)": "Reset To Default"
+              "TestLang": "tluafeD oT teseR"
             },
             "Tooltip": {
-              "English (US/CA)": "Resets all hotkeys to the default preset."
+              "TestLang": ".teserp tluafed eht ot syektoh lla steseR"
             }
           }
         },
@@ -78,242 +78,242 @@
           "Active": {
             "Header": {
               "Tooltip": {
-                "English (US/CA)": "This (un)registers all hotkeys in the list."
+                "TestLang": ".tsil eht ni syektoh lla sretsiger)nu( sihT"
               }
             }
           },
           "Name": {
             "Header": {
-              "English (US/CA)": "Name"
+              "TestLang": "emaN"
             }
           },
           "Key": {
             "Header": {
-              "English (US/CA)": "Key"
+              "TestLang": "yeK"
             }
           },
           "Alt": {
             "Header": {
-              "English (US/CA)": "Alt"
+              "TestLang": "tlA"
             }
           },
           "Ctrl": {
             "Header": {
-              "English (US/CA)": "Ctrl"
+              "TestLang": "lrtC"
             }
           },
           "Shift": {
             "Header": {
-              "English (US/CA)": "Shift"
+              "TestLang": "tfihS"
             }
           },
           "Windows": {
             "Header": {
-              "English (US/CA)": "Win"
+              "TestLang": "niW"
             }
           },
           "Action": {
             "Header": {
-              "English (US/CA)": "Action"
+              "TestLang": "noitcA"
             }
           }
         },
         "CreateNewHotkeyButton": {
           "Content": {
-            "English (US/CA)": "Create New Hotkey"
+            "TestLang": "yektoH weN etaerC"
           },
           "Tooltip": {
-            "English (US/CA)": "Creates a new blank hotkey entry."
+            "TestLang": ".yrtne yektoh knalb wen a setaerC"
           }
         }
       },
       "Settings": {
         "TabHeader": {
-          "English (US/CA)": "Settings"
+          "TestLang": "sgnitteS"
         },
         "Language": {
           "Header": {
-            "English (US/CA)": "Language"
+            "TestLang": "egaugnaL"
           }
         },
         "Audio": {
           "Header": {
-            "English (US/CA)": "Audio"
+            "TestLang": "oiduA"
           },
           "DeviceGrid": {
             "Tooltip": {
-              "English (US/CA)": "You can include or exclude specific devices from here."
+              "TestLang": ".ereh morf secived cificeps edulcxe ro edulcni nac uoY"
             },
             "Enabled": {
               "Header": {
-                "English (US/CA)": "✓"
+                "TestLang": "✓"
               }
             },
             "Name": {
               "Header": {
-                "English (US/CA)": "Device Name"
+                "TestLang": "emaN eciveD"
               }
             },
             "Interface": {
               "Header": {
-                "English (US/CA)": "Interface Name"
+                "TestLang": "emaN ecafretnI"
               }
             },
             "Mute": {
               "Header": {
-                "English (US/CA)": "Mute"
+                "TestLang": "etuM"
               }
             },
             "Volume": {
               "Header": {
-                "English (US/CA)": "Volume"
+                "TestLang": "emuloV"
               }
             }
           },
           "EnableDefault": {
             "Content": {
-              "English (US/CA)": "Enable Default"
+              "TestLang": "tluafeD elbanE"
             },
             "Tooltip": {
-              "English (US/CA)": "When checked, the default audio device is always enabled during the application loading phase."
+              "TestLang": ".esahp gnidaol noitacilppa eht gnirud delbane syawla si ecived oidua tluafed eht ,dekcehc nehW"
             }
           },
           "ReloadDevices": {
             "Content": {
-              "English (US/CA)": "Reload Devices"
+              "TestLang": "seciveD daoleR"
             },
             "Tooltip": {
-              "English (US/CA)": "Forcibly reload all devices."
+              "TestLang": ".secived lla daoler ylbicroF"
             }
           },
           "ReloadSessions": {
             "Content": {
-              "English (US/CA)": "Reload Sessions"
+              "TestLang": "snoisseS daoleR"
             },
             "Tooltip": {
-              "English (US/CA)": "Forcibly reload all sessions."
+              "TestLang": ".snoisses lla daoler ylbicroF"
             }
           }
         },
         "Notifications": {
           "Header": {
-            "English (US/CA)": "Notifications"
+            "TestLang": "snoitacifitoN"
           },
           "Enable": {
             "Content": {
-              "English (US/CA)": "Enable"
+              "TestLang": "elbanE"
             },
             "Tooltip": {
-              "English (US/CA)": "Toggle whether or not notifications appear when switching the target session."
+              "TestLang": ".noisses tegrat eht gnihctiws nehw raeppa snoitacifiton ton ro rehtehw elggoT"
             }
           },
           "OnVolumeChange": {
             "Content": {
-              "English (US/CA)": "On Volume Change"
+              "TestLang": "egnahC emuloV nO"
             },
             "Tooltip": {
-              "English (US/CA)": "When this is checked, notifications also appear when the volume level of the target is changed."
+              "TestLang": ".degnahc si tegrat eht fo level emulov eht nehw raeppa osla snoitacifiton ,dekcehc si siht nehW"
             }
           },
           "Timeout": {
             "Content": {
-              "English (US/CA)": "Timeout"
+              "TestLang": "tuoemiT"
             },
             "Tooltip": {
-              "English (US/CA)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
+              "TestLang": ".dereggirt gnieb retfa elbisiv niamer lliw snoitacifiton taht sdnocesillim ni emit fo tnuoma ehT"
             }
           }
         },
         "Log": {
           "Header": {
-            "English (US/CA)": "Event Logging"
+            "TestLang": "gniggoL tnevE"
           },
           "Enable": {
             "Content": {
-              "English (US/CA)": "Enable"
+              "TestLang": "elbanE"
             }
           },
           "Filter": {
             "Text": {
-              "English (US/CA)": "Filter"
+              "TestLang": "retliF"
             }
           },
           "Path": {
             "Tooltip": {
-              "English (US/CA)": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
+              "TestLang": ".elbatucexe eht fo noitacol eht ot evitaler era shtap evitaleR .elif gol eht fo eman dna noitacol eht seificepS"
             },
             "WatermarkText": {
-              "English (US/CA)": "Path to Log File"
+              "TestLang": "eliF goL ot htaP"
             }
           }
         },
         "Application": {
           "Header": {
-            "English (US/CA)": "Application"
+            "TestLang": "noitacilppA"
           },
           "RunAtStartup": {
             "Content": {
-              "English (US/CA)": "Run at Startup"
+              "TestLang": "putratS ta nuR"
             },
             "Tooltip": {
-              "English (US/CA)": "When enabled, Volume Control will start when you log in."
+              "TestLang": ".ni gol uoy nehw trats lliw lortnoC emuloV ,delbane nehW"
             }
           },
           "StartMinimized": {
             "Content": {
-              "English (US/CA)": "Start Minimized"
+              "TestLang": "deziminiM tratS"
             },
             "Tooltip": {
-              "English (US/CA)": "When enabled, Volume Control will minimize itself when it starts up."
+              "TestLang": ".pu strats ti nehw flesti eziminim lliw lortnoC emuloV ,delbane nehW"
             }
           },
           "ShowInTaskbar": {
             "Content": {
-              "English (US/CA)": "Show in Taskbar"
+              "TestLang": "rabksaT ni wohS"
             },
             "Tooltip": {}
           },
           "AlwaysOnTop": {
             "Content": {
-              "English (US/CA)": "Always on Top"
+              "TestLang": "poT no syawlA"
             },
             "Tooltip": {}
           },
           "ShowIcons": {
             "Content": {
-              "English (US/CA)": "Show Icons"
+              "TestLang": "snocI wohS"
             },
             "Tooltip": {
-              "English (US/CA)": "When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )"
+              "TestLang": ") .resu sa gninnur nehw gnissim eb yam snoci emoS ( .snoisses dna secived oidua htiw detaicossa noci eht yalpsid ot tpmetta lliw margorp eht ,delbane nehW"
             }
           }
         },
         "Updates": {
           "Header": {
-            "English (US/CA)": "Updates"
+            "TestLang": "setadpU"
           },
           "CheckNow": {
             "Content": {
-              "English (US/CA)": "Check Now"
+              "TestLang": "woN kcehC"
             },
             "Tooltip": {
-              "English (US/CA)": "Manually check for new versions of Volume Control."
+              "TestLang": ".lortnoC emuloV fo snoisrev wen rof kcehc yllaunaM"
             }
           },
           "OnStartup": {
             "Content": {
-              "English (US/CA)": "On Startup"
+              "TestLang": "putratS nO"
             },
             "Tooltip": {
-              "English (US/CA)": "Check for new versions of Volume Control on startup."
+              "TestLang": ".putrats no lortnoC emuloV fo snoisrev wen rof kcehC"
             }
           },
           "ShowPrompt": {
             "Content": {
-              "English (US/CA)": "Show Prompt"
+              "TestLang": "tpmorP wohS"
             },
             "Tooltip": {
-              "English (US/CA)": "When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner."
+              "TestLang": ".renroc thgir-pot eht ni noci na ees ll'uoy ,esiwrehto ;xob egassem a fo mrof eht ni etadpu ot detpmorp eb ll'uoy ,dekcehc si siht nehW"
             }
           }
         }
