@@ -39,7 +39,6 @@ namespace VolumeControl.Audio
                 this.SelectedSession = targetSession;
                 if (lockState) this.LockSelectedSession = true;
             }
-            else this.SelectedSession = null;
 
             PropertyChanged += this.HandlePropertyChanged;
         }
