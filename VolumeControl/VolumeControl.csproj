@@ -51,6 +51,9 @@
   <!-- VERSIONING ATTRIBUTES -->
   <ItemGroup>
     <None Remove="Localization\en.loc.json" />
+    <None Remove="Localization\fr.loc.json" />
+    <None Remove="Localization\it.loc.json" />
+    <None Remove="Localization\pt.loc.json" />
     <None Remove="Localization\TestLang.loc.json" />
     <None Remove="Resources\fonts\Inter.ttf" />
     <None Remove="Resources\icons\icon-16x16-VC-inverted.ico" />
@@ -69,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\en.loc.json" />
+    <EmbeddedResource Include="Localization\fr.loc.json" />
+    <EmbeddedResource Include="Localization\it.loc.json" />
+    <EmbeddedResource Include="Localization\pt.loc.json" />
     <EmbeddedResource Include="Localization\TestLang.loc.json" />
   </ItemGroup>
   <ItemGroup>

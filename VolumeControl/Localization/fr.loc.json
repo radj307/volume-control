@@ -1,0 +1,344 @@
+{
+  "LanguageName": {
+    "Français (French)": "Français"
+  },
+  "VolumeControl": {
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "Français (French)": "Mixer"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "Français (French)": "ID ou nom du processus"
+          },
+          "LockTarget": {
+            "Français (French)": "Bloquer"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "Français (French)": "PID"
+            }
+          },
+          "Name": {
+            "Header": {
+              "Français (French)": "Nom"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "Français (French)": "Couper"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "Français (French)": "Volume"
+            }
+          },
+          "Select": {
+            "Button": {
+              "Français (French)": "Sélectionnez"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "Français (French)": "Touche de Raccourci"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "Français (French)": "Mode D'Édition"
+            },
+            "Tooltip": {
+              "Français (French)": "Permet de modifier, de créer et de supprimer des liaisons de touches de raccourci."
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "Français (French)": "Étape du Volume"
+            },
+            "Tooltip": {
+              "Français (French)": "Il s'agit du nombre de 'ticks' de volume qui changent chaque fois que vous appuyez sur les touches de raccourci volume haut ou bas."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "Français (French)": "Réinitialisation Par Défaut"
+            },
+            "Tooltip": {
+              "Français (French)": "Réinitialise toutes les touches de raccourci au préréglage par défaut."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "Français (French)": "Ceci (dé)enregistre toutes les touches de raccourci de la liste."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "Français (French)": "Nom"
+            }
+          },
+          "Key": {
+            "Header": {
+              "Français (French)": "Touche"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "Français (French)": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "Français (French)": "Ctrl"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "Français (French)": "Shift"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "Français (French)": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "Français (French)": "Action"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "Français (French)": "Créer une nouvelle touche de raccourci"
+          },
+          "Tooltip": {
+            "Français (French)": "Crée une nouvelle entrée de touche de raccourci vierge."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "Français (French)": "Settings"
+        },
+        "Language": {
+          "Header": {
+            "Français (French)": "Language"
+          },
+          "Reload": {
+            "Content": {
+              "Français (French)": "Reload"
+            },
+            "Tooltip": {
+              "Français (French)": "Reload all language config files from disk."
+            }
+          }
+        },
+        "Audio": {
+          "Header": {
+            "Français (French)": "Audio"
+          },
+          "DeviceGrid": {
+            "Tooltip": {
+              "Français (French)": "You can include or exclude specific devices from here."
+            },
+            "Enabled": {
+              "Header": {
+                "Français (French)": "✓"
+              }
+            },
+            "Name": {
+              "Header": {
+                "Français (French)": "Device Name"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "Français (French)": "Interface Name"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "Français (French)": "Mute"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "Français (French)": "Volume"
+              }
+            }
+          },
+          "EnableDefault": {
+            "Content": {
+              "Français (French)": "Enable Default"
+            },
+            "Tooltip": {
+              "Français (French)": "When checked, the default audio device is always enabled during the application loading phase."
+            }
+          },
+          "ReloadDevices": {
+            "Content": {
+              "Français (French)": "Reload Devices"
+            },
+            "Tooltip": {
+              "Français (French)": "Forcibly reload all devices."
+            }
+          },
+          "ReloadSessions": {
+            "Content": {
+              "Français (French)": "Reload Sessions"
+            },
+            "Tooltip": {
+              "Français (French)": "Forcibly reload all sessions."
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "Français (French)": "Notifications"
+          },
+          "Enable": {
+            "Content": {
+              "Français (French)": "Enable"
+            },
+            "Tooltip": {
+              "Français (French)": "Toggle whether or not notifications appear when switching the target session."
+            }
+          },
+          "OnVolumeChange": {
+            "Content": {
+              "Français (French)": "On Volume Change"
+            },
+            "Tooltip": {
+              "Français (French)": "When this is checked, notifications also appear when the volume level of the target is changed."
+            }
+          },
+          "Timeout": {
+            "Content": {
+              "Français (French)": "Timeout"
+            },
+            "Tooltip": {
+              "Français (French)": "The amount of time in milliseconds that notifications will remain visible after being triggered."
+            }
+          }
+        },
+        "Log": {
+          "Header": {
+            "Français (French)": "Event Logging"
+          },
+          "Enable": {
+            "Content": {
+              "Français (French)": "Enable"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "Français (French)": "Filter"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "Français (French)": "Specifies the location and name of the log file. Relative paths are relative to the location of the executable."
+            },
+            "WatermarkText": {
+              "Français (French)": "Path to Log File"
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "Français (French)": "Application"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "Français (French)": "Run at Startup"
+            },
+            "Tooltip": {
+              "Français (French)": "When enabled, Volume Control will start when you log in."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "Français (French)": "Start Minimized"
+            },
+            "Tooltip": {
+              "Français (French)": "When enabled, Volume Control will minimize itself when it starts up."
+            }
+          },
+          "ShowInTaskbar": {
+            "Content": {
+              "Français (French)": "Show in Taskbar"
+            },
+            "Tooltip": {}
+          },
+          "AlwaysOnTop": {
+            "Content": {
+              "Français (French)": "Always on Top"
+            },
+            "Tooltip": {}
+          },
+          "ShowIcons": {
+            "Content": {
+              "Français (French)": "Show Icons"
+            },
+            "Tooltip": {
+              "Français (French)": "When enabled, the program will attempt to display the icon associated with audio devices and sessions. ( Some icons may be missing when running as user. )"
+            }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Français (French)": "Updates"
+          },
+          "CheckNow": {
+            "Content": {
+              "Français (French)": "Check Now"
+            },
+            "Tooltip": {
+              "Français (French)": "Manually check for new versions of Volume Control."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "Français (French)": "On Startup"
+            },
+            "Tooltip": {
+              "Français (French)": "Check for new versions of Volume Control on startup."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "Français (French)": "Show Prompt"
+            },
+            "Tooltip": {
+              "Français (French)": "When this is checked, you'll be prompted to update in the form of a message box; otherwise, you'll see an icon in the top-right corner."
+            }
+          }
+        }
+      }
+    },
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "Français (French)": "Another instance of Volume Control is already running!"
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "Français (French)": "Update prompts will not be shown in the future."
+        },
+        "NewVersionAvailableFormatMsg": {
+          "Français (French)": "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts."
+        }
+      }
+    }
+  }
+}
