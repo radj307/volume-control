@@ -339,6 +339,20 @@
           "Portuguese (Portugal)": "Uma nova versão do Volume Control está disponível!\nQuer ir para a página de lançamentos?\nVersão Atual:  ${CURRENT_VERSION}\nVersão Mais Recente:   ${LATEST_VERSION}\n\nClique em 'Sim' para ir para a página de lançamentos.\nClique em 'Não' se não quiser atualizar agora.\nClique em 'Cancelar' para desactivar estes avisos."
         }
       }
+    },
+    "NotifyIcon": {
+      "BringToFront": {
+        "English (US/CA)": "Traze Para a Frente"
+      },
+      "Hide": {
+        "English (US/CA)": "Esconde"
+      },
+      "Show": {
+        "English (US/CA)": "Mostre"
+      },
+      "Close": {
+        "English (US/CA)": "Fecha"
+      }
     }
   }
 }

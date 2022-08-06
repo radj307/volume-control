@@ -339,6 +339,20 @@
           "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVuoi andare alla pagina di download?\nVersione attuale:  ${CURRENT_VERSION}\nVersioen aggiornata:   ${LATEST_VERSION}\n\nSeleziona 'Sì' per andare alla pagina di download.\nSeleziona 'No' se non vuoi aggiornare ora.\nSeleziona 'Annulla' per disabilitare questa richeista."
         }
       }
+    },
+    "NotifyIcon": {
+      "BringToFront": {
+        "English (US/CA)": "Porta in primo piano"
+      },
+      "Hide": {
+        "English (US/CA)": "Nascondere"
+      },
+      "Show": {
+        "English (US/CA)": "Visualizza"
+      },
+      "Close": {
+        "English (US/CA)": "Chiudere"
+      }
     }
   }
 }
