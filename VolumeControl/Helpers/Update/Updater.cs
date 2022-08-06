@@ -1,4 +1,5 @@
-﻿using Semver;
+﻿using CodingSeb.Localization;
+using Semver;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -44,14 +45,13 @@ namespace VolumeControl.Helpers.Update
             }
         }
         #region UpdatePrompt
-        private string GetPromptMessage(ReleaseInfo releaseInfo) =>
-                 "A new version of Volume Control is available!\nDo you want to go to the releases page?" +
-                $"Current Version:  {this.CurrentVersion}\n" +
-                $"Latest Version:   {releaseInfo.Version}\n" +
-                '\n' +
-                "Click 'Yes' to go to the releases page.\n" +
-                "Click 'No' if you don't want to update right now.\n" +
-                "Click 'Cancel' to disable these prompts.";
+        private string GetPromptMessage(ReleaseInfo releaseInfo)
+        {
+            string msg = Loc.Tr("VolumeControl.Dialogs.UpdatePrompt.NewVersionAvailableFormatMsg", "A new version of Volume Control is available!\nDo you want to go to the releases page?\nCurrent Version:  ${CURRENT_VERSION}\nLatest Version:   ${LATEST_VERSION}\n\nClick 'Yes' to go to the releases page.\nClick 'No' if you don't want to update right now.\nClick 'Cancel' to disable these prompts.");
+            msg = msg.Replace("${CURRENT_VERSION}", this.CurrentVersion.ToString());
+            msg = msg.Replace("${LATEST_VERSION}", releaseInfo.Version.ToString());
+            return msg;
+        }
         private void ShowUpdatePrompt(ReleaseInfo releaseInfo)
         {
             Log.Info($"Showing update prompt for new version: {releaseInfo.Version}");
@@ -66,7 +66,7 @@ namespace VolumeControl.Helpers.Update
             case MessageBoxResult.Cancel: // disable
                 Settings.ShowUpdatePrompt = false;
                 Log.Info("Disabled automatic updates");
-                _ = MessageBox.Show("Update prompts will not be shown in the future.");
+                _ = MessageBox.Show(Loc.Tr("VolumeControl.Dialogs.UpdatePrompt.DontShowInFutureMsg", "Update prompts will not be shown in the future."));
                 break;
             }
         }

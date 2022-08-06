@@ -134,6 +134,14 @@
         "Language": {
           "Header": {
             "TestLang": "egaugnaL"
+          },
+          "Regenerate": {
+            "Content": {
+              "TestLang": "etarenegeR"
+            },
+            "Tooltip": {
+              "TestLang": ".segakcap noitazilacol tluafed eht fo lla etaerc)er( ylbicroF"
+            }
           }
         },
         "Audio": {
@@ -319,6 +327,18 @@
         }
       }
     },
-    "ListNotification": {}
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "TestLang": "!gninnur ydaerla si lortnoC emuloV fo ecnatsni rehtonA"
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "TestLang": ".erutuf eht ni nwohs eb ton lliw stpmorp etadpU"
+        },
+        "NewVersionAvailableFormatMsg": {
+          "TestLang": ".stpmorp eseht elbasid ot 'lecnaC' kcilC\n.won thgir etadpu ot tnaw t'nod uoy fi 'oN' kcilC\n.egap sesaeler eht ot og ot 'seY' kcilC\n\n}NOISREV_TSETAL{$   :noisreV tsetaL\n}NOISREV_TNERRUC{$  :noisreV tnerruC\n?egap sesaeler eht ot og ot tnaw uoy oD\n!elbaliava si lortnoC emuloV fo noisrev wen A"
+        }
+      }
+    }
   }
 }
