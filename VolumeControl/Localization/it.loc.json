@@ -1,0 +1,344 @@
+{
+  "LanguageName": {
+    "Italiano (Italian)": "Italiano"
+  },
+  "VolumeControl": {
+    "MainWindow": {
+      "Mixer": {
+        "TabHeader": {
+          "Italiano (Italian)": "Mixer"
+        },
+        "TargetBox": {
+          "Watermark": {
+            "Italiano (Italian)": "ID processo o nome"
+          },
+          "LockTarget": {
+            "Italiano (Italian)": "Blocca"
+          }
+        },
+        "MixerGrid": {
+          "PID": {
+            "Header": {
+              "Italiano (Italian)": "PID"
+            }
+          },
+          "Name": {
+            "Header": {
+              "Italiano (Italian)": "Nome"
+            }
+          },
+          "Mute": {
+            "Header": {
+              "Italiano (Italian)": "Audio OFF"
+            }
+          },
+          "Volume": {
+            "Header": {
+              "Italiano (Italian)": "Volume"
+            }
+          },
+          "Select": {
+            "Button": {
+              "Italiano (Italian)": "Seleziona"
+            }
+          }
+        }
+      },
+      "Hotkeys": {
+        "TabHeader": {
+          "Italiano (Italian)": "Tasti rapidi"
+        },
+        "ControlRow": {
+          "EditMode": {
+            "Content": {
+              "Italiano (Italian)": "Mode modifica"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Consente di modificare, creare ed eliminare tasti di scelta rapida."
+            }
+          },
+          "VolumeStep": {
+            "Content": {
+              "Italiano (Italian)": "Step volume"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Questo è il numero di 'step' del volume che cambiano ogni volta che si premono i tasti di scelta rapida del volume su o giù."
+            }
+          },
+          "ResetToDefault": {
+            "Content": {
+              "Italiano (Italian)": "Ripristina predefiniti"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Ripristina tutti i tasti di scelta rapida alla impostazione predefinita."
+            }
+          }
+        },
+        "HotkeyGrid": {
+          "Active": {
+            "Header": {
+              "Tooltip": {
+                "Italiano (Italian)": "Questo (annulla) la registrazione di tutti i tasti di scelta rapida nell'elenco."
+              }
+            }
+          },
+          "Name": {
+            "Header": {
+              "Italiano (Italian)": "Nome"
+            }
+          },
+          "Key": {
+            "Header": {
+              "Italiano (Italian)": "Chiave"
+            }
+          },
+          "Alt": {
+            "Header": {
+              "Italiano (Italian)": "Alt"
+            }
+          },
+          "Ctrl": {
+            "Header": {
+              "Italiano (Italian)": "Ctrl"
+            }
+          },
+          "Shift": {
+            "Header": {
+              "Italiano (Italian)": "Maiusc"
+            }
+          },
+          "Windows": {
+            "Header": {
+              "Italiano (Italian)": "Win"
+            }
+          },
+          "Action": {
+            "Header": {
+              "Italiano (Italian)": "Azione"
+            }
+          }
+        },
+        "CreateNewHotkeyButton": {
+          "Content": {
+            "Italiano (Italian)": "Crea nuovo tasto rapido"
+          },
+          "Tooltip": {
+            "Italiano (Italian)": "Crea un nuovo tasto di scelta rapida vuoto."
+          }
+        }
+      },
+      "Settings": {
+        "TabHeader": {
+          "Italiano (Italian)": "Impostazioni"
+        },
+        "Language": {
+          "Header": {
+            "Italiano (Italian)": "Lingua"
+          },
+          "Reload": {
+            "Content": {
+              "Italiano (Italian)": "Ricarica"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Ricarica tutti i file di configurazione della lingua dal disco."
+            }
+          }
+        },
+        "Audio": {
+          "Header": {
+            "Italiano (Italian)": "Audio"
+          },
+          "DeviceGrid": {
+            "Tooltip": {
+              "Italiano (Italian)": "Qui puoi includere o escludere dispositivi audio specifici."
+            },
+            "Enabled": {
+              "Header": {
+                "Italiano (Italian)": "✓"
+              }
+            },
+            "Name": {
+              "Header": {
+                "Italiano (Italian)": "Nome dispostivo"
+              }
+            },
+            "Interface": {
+              "Header": {
+                "Italiano (Italian)": "Nome interfaccia"
+              }
+            },
+            "Mute": {
+              "Header": {
+                "Italiano (Italian)": "Audio off"
+              }
+            },
+            "Volume": {
+              "Header": {
+                "Italiano (Italian)": "Volume"
+              }
+            }
+          },
+          "EnableDefault": {
+            "Content": {
+              "Italiano (Italian)": "Abilita predefiniti"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Se selezionato, il dispositivo audio predefinito è sempre abilitato durante la fase di caricamento dell'applicazione."
+            }
+          },
+          "ReloadDevices": {
+            "Content": {
+              "Italiano (Italian)": "Ricarica dispositivi"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Ricarica forzatamente tutti i dispositivi."
+            }
+          },
+          "ReloadSessions": {
+            "Content": {
+              "Italiano (Italian)": "Ricarica sessioni"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Ricarica forzatamente tutte le sessioni."
+            }
+          }
+        },
+        "Notifications": {
+          "Header": {
+            "Italiano (Italian)": "Notifiche"
+          },
+          "Enable": {
+            "Content": {
+              "Italiano (Italian)": "Abilita"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Attiva/disattiva la visualizzazione delle notifiche quando si cambia la sessione destinazione."
+            }
+          },
+          "OnVolumeChange": {
+            "Content": {
+              "Italiano (Italian)": "Al cambio di volume"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando questa opzione è selezionata, vengono visualizzate anche le notifiche quando viene modificato il livello del volume destinazione."
+            }
+          },
+          "Timeout": {
+            "Content": {
+              "Italiano (Italian)": "Timeout"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "La quantità di tempo in millisecondi durante la quale le notifiche rimarranno visibili dopo essere state attivate."
+            }
+          }
+        },
+        "Log": {
+          "Header": {
+            "Italiano (Italian)": "Registrazione eventi"
+          },
+          "Enable": {
+            "Content": {
+              "Italiano (Italian)": "Abilita"
+            }
+          },
+          "Filter": {
+            "Text": {
+              "Italiano (Italian)": "Filtro"
+            }
+          },
+          "Path": {
+            "Tooltip": {
+              "Italiano (Italian)": "Specifica il percorso ed il nome del file di registro.\nI percorsi relativi sono relativi al percorso dell'eseguibile."
+            },
+            "WatermarkText": {
+              "Italiano (Italian)": "Percorso file registro"
+            }
+          }
+        },
+        "Application": {
+          "Header": {
+            "Italiano (Italian)": "Applicazione"
+          },
+          "RunAtStartup": {
+            "Content": {
+              "Italiano (Italian)": "Esegui all'avvio del sistema"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando abilitato, il controllo del volume verrà eseguito all'accesso del sistema."
+            }
+          },
+          "StartMinimized": {
+            "Content": {
+              "Italiano (Italian)": "Avvia minimizzato"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando abilitato, il controllo del volume verrà minimizzato dopo l'esecuzione."
+            }
+          },
+          "ShowInTaskbar": {
+            "Content": {
+              "Italiano (Italian)": "Visualizza nella barra sistema"
+            },
+            "Tooltip": {}
+          },
+          "AlwaysOnTop": {
+            "Content": {
+              "Italiano (Italian)": "Sempre in primo piano"
+            },
+            "Tooltip": {}
+          },
+          "ShowIcons": {
+            "Content": {
+              "Italiano (Italian)": "Visualizza icone"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando abilitato, il programma tenterà di visualizzare l'icona associata ai dispositivi audio e alle sessioni (alcune icone potrebbero mancare durante l'esecuzione come utente)."
+            }
+          }
+        },
+        "Updates": {
+          "Header": {
+            "Italiano (Italian)": "Aggiornamenti"
+          },
+          "CheckNow": {
+            "Content": {
+              "Italiano (Italian)": "Controlla ora"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Verifica manualmente la presenza di nuove versioni di Volume Control."
+            }
+          },
+          "OnStartup": {
+            "Content": {
+              "Italiano (Italian)": "All'avvio"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Verifica la presenza di nuove versioni di Volume Control all'avvio dell'applicazione."
+            }
+          },
+          "ShowPrompt": {
+            "Content": {
+              "Italiano (Italian)": "Visualizza prompt"
+            },
+            "Tooltip": {
+              "Italiano (Italian)": "Quando questo è selezionato, ti verrà chiesto di aggiornare sotto forma di messaggio in una finestra; in caso contrario, vedrai un'icona nell'angolo in alto a destra."
+            }
+          }
+        }
+      }
+    },
+    "Dialogs": {
+      "AnotherInstanceIsRunning": {
+        "Italiano (Italian)": "È già in esecuzione un'altra istanza di Volume Control!"
+      },
+      "UpdatePrompt": {
+        "DontShowInFutureMsg": {
+          "Italiano (Italian)": "In futuro non verranno visualizzate le richieste di aggiornamento ."
+        },
+        "NewVersionAvailableFormatMsg": {
+          "Italiano (Italian)": "È disponibile una nuova versione di Volume Control!\nVuoi andare alla pagina di download?\nVersione attuale:  ${CURRENT_VERSION}\nVersioen aggiornata:   ${LATEST_VERSION}\n\nSeleziona 'Sì' per andare alla pagina di download.\nSeleziona 'No' se non vuoi aggiornare ora.\nSeleziona 'Annulla' per disabilitare questa richeista."
+        }
+      }
+    }
+  }
+}
