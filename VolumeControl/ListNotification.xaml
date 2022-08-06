@@ -5,8 +5,6 @@
     xmlns:conv="clr-namespace:VolumeControl.WPF.Converters;assembly=VolumeControl.WPF"
     xmlns:coreEnum="clr-namespace:VolumeControl.Core.Enum;assembly=VolumeControl.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:VolumeControl.Helpers"
-    xmlns:local="clr-namespace:VolumeControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
     x:Name="lnotifWindow"

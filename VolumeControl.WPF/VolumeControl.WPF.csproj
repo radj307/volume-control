@@ -6,39 +6,12 @@
 		<Configurations>Debug;Release;SDK</Configurations>
 		<SignAssembly>False</SignAssembly>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageId>VolumeControl.SDK.WPF</PackageId>
 		<Copyright>GNU General Public License v3 </Copyright>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageTags>volume-control;VolumeControl;volume-control-sdk</PackageTags>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/radj307/volume-control</RepositoryUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIcon>iconSilvered.png</PackageIcon>
-		<PackageProjectUrl>https://radj307.github.io/volume-control/html/index.html</PackageProjectUrl>
-		<Authors>radj307</Authors>
-		<NeutralLanguage>en-CA</NeutralLanguage>
-		<PackageReleaseNotes>
-			Full Changelog:
-			https://github.com/radj307/volume-control/commits/main
-		</PackageReleaseNotes>
-		<Version>5.2.0</Version>
-		<ExtendedVersion>5.2.0-pr3</ExtendedVersion>
-		<ReleaseType>PRERELEASE</ReleaseType>
-		<Description>Official SDK for Volume Control addon development.
-This package contains WPF markup extensions, converters, and collections; as well as Windows API utilities.</Description>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\VolumeControl\Resources\images\iconSilvered.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
+	
 	<ItemGroup>
 		<FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
 	</ItemGroup>
