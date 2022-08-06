@@ -135,12 +135,12 @@
           "Header": {
             "English (US/CA)": "Language"
           },
-          "Regenerate": {
+          "Reload": {
             "Content": {
-              "English (US/CA)": "Regenerate"
+              "English (US/CA)": "Reload"
             },
             "Tooltip": {
-              "English (US/CA)": "Forcibly (re)create all of the default localization packages."
+              "English (US/CA)": "Reload all language config files from disk."
             }
           }
         },
