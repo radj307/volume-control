@@ -219,20 +219,10 @@ namespace VolumeControl.Hotkeys
             /// </summary>
             SWP_SHOWWINDOW = 0x0040,
         }
-        /// <summary>
-        /// Triggers a key press.
-        /// </summary>
-        /// <remarks>MSDN: <see href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-keybd_event"/></remarks>
-        /// <param name="virtualKey">A virtual-key code. The code must be a value in the range 1 to 254. For a complete list, see Virtual Key Codes.</param>
-        /// <param name="scanCode">A hardware scan code for the key.</param>
-        /// <param name="flags">Controls various aspects of function operation. This parameter can be one or more of the following values.<list type="table">
-        /// <item><term>KEYEVENTF_EXTENDEDKEY <i>(0x0001)</i></term><description>If specified, the scan code was preceded by a prefix byte having the value 0xE0 (224).</description></item>
-        /// <item><term>KEYEVENTF_KEYUP <i>(0x0002)</i></term><description>If specified, the key is being released. If not specified, the key is being depressed.</description></item></list>
-        /// </param>
-        /// <param name="extraInfo">An additional value associated with the key stroke.</param>
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern void keybd_event(EVirtualKeyCode virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
-        /// <inheritdoc cref="keybd_event(EVirtualKeyCode, byte, uint, IntPtr)"/>
-        public static void KeyboardEvent(EVirtualKeyCode virtualKey) => keybd_event(virtualKey, 0x0, 0, IntPtr.Zero);
+
+        /// <param name="vk">The <see cref="EVirtualKeyCode"/> of the key to 'press'.</param>
+        /// <inheritdoc cref="InputSimulator.SendKey(InputSimulatorEx.Native.VirtualKeyCode, InputSimulatorEx.Native.VirtualKeyCode[])"/>
+        [Obsolete("Use InputSimulatorEx.KeyboardEvent directly instead.")]
+        public static void KeyboardEvent(EVirtualKeyCode vk) => InputSimulator.SendKey(vk);
     }
 }

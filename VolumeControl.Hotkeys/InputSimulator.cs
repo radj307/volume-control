@@ -1,0 +1,56 @@
+﻿using InputSimulatorEx;
+using InputSimulatorEx.Native;
+using VolumeControl.Hotkeys.Enum;
+
+namespace VolumeControl.Hotkeys
+{
+    /// <summary>
+    /// Provides a convenient way to synthesize keystrokes and other input.<br/>
+    /// See <see cref="InputSimulatorEx.InputSimulator"/>.
+    /// </summary>
+    public static class InputSimulator
+    {
+        #region Fields
+        private static readonly InputSimulatorEx.InputSimulator _simulator = new();
+        #endregion Fields
+
+        #region Properties
+        /// <summary>
+        /// Synthesizes keyboard events.
+        /// </summary>
+        public static IKeyboardSimulator Keyboard => _simulator.Keyboard;
+        /// <summary>
+        /// Synthesizes mouse events.
+        /// </summary>
+        public static IMouseSimulator Mouse => _simulator.Mouse;
+        /// <summary>
+        /// Input device state manager.
+        /// </summary>
+        public static IInputDeviceStateAdaptor InputDeviceState => _simulator.InputDeviceState;
+        #endregion Properties
+
+        #region Methods
+        /// <summary>
+        /// Synthesizes a key press event for the given key.<br/>
+        /// Also accepts any number of modifier keys.
+        /// </summary>
+        /// <param name="vk">The <see cref="VirtualKeyCode"/> of the key to simulate.</param>
+        /// <param name="modifiers">Any number of <see cref="VirtualKeyCode"/> modifier keys.</param>
+        public static void SendKey(VirtualKeyCode vk, params VirtualKeyCode[] modifiers) => Keyboard.ModifiedKeyStroke(modifiers, vk);
+        /// <param name="vk">The <see cref="EVirtualKeyCode"/> of the key to simulate.</param>
+        /// <param name="modifiers">Any number of <see cref="EVirtualKeyCode"/> modifier keys.</param>
+        /// <inheritdoc cref="SendKey(VirtualKeyCode, VirtualKeyCode[])"/>
+        public static void SendKey(EVirtualKeyCode vk, params EVirtualKeyCode[] modifiers) => SendKey((VirtualKeyCode)vk, modifiers.Cast<VirtualKeyCode>().ToArray());
+        /// <summary>
+        /// Synthesizes key presses to 'type' the given <see cref="char"/>.
+        /// </summary>
+        /// <param name="c">A <see cref="char"/> associated with a keyboard key.</param>
+        public static void SendText(char c) => Keyboard.TextEntry(c);
+        /// <summary>
+        /// Synthesizes key presses to 'type' the given <see cref="string"/>.
+        /// </summary>
+        /// <param name="s">A <see cref="string"/> of characters associated with keyboard keys.</param>
+        public static void SendText(string s) => Keyboard.TextEntry(s);
+        #endregion Methods
+    }
+}
