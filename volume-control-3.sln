@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActi
 		.github\workflows\Run-Unit-Tests.yml = .github\workflows\Run-Unit-Tests.yml
 		.github\workflows\update-documentation.yml = .github\workflows\update-documentation.yml
 		.github\workflows\UpdateVersion.yml = .github\workflows\UpdateVersion.yml
-		Upload-SDK-Package.yml = Upload-SDK-Package.yml
+		.github\workflows\Upload-SDK-Package.yml = .github\workflows\Upload-SDK-Package.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolumeControl.Audio", "VolumeControl.Audio\VolumeControl.Audio.csproj", "{A2353F74-54F6-4F28-AEB0-7BD75E299522}"
