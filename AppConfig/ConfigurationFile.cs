@@ -29,9 +29,6 @@ namespace AppConfig
         [JsonIgnore] public string Location { get; set; }
         #endregion Properties
 
-        #region Indexers
-        #endregion Indexers
-
         #region Methods
         /// <summary>
         /// Loads config values from the JSON file specified by <paramref name="Location"/>
