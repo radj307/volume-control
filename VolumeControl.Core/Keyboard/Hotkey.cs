@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
+using VolumeControl.Log;
 
 namespace VolumeControl.Core.Keyboard
 {
@@ -75,8 +76,15 @@ namespace VolumeControl.Core.Keyboard
             case WindowsHotkeyAPI.WM_HOTKEY:
                 if (wParam.ToInt32().Equals(this.ID))
                 {
-                    Pressed?.Invoke(this, new());
                     handled = true;
+                    try
+                    {
+                        Pressed?.Invoke(this, new());
+                    }
+                    catch (Exception ex)
+                    {
+                        FLog.Log.Error($"The action handler for Hotkey {ID} ({Modifier:G}+{Key:G}) threw an exception!", ex);
+                    }
                 }
                 break;
             default:
