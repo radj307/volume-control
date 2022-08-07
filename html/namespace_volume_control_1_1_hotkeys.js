@@ -6,5 +6,6 @@ var namespace_volume_control_1_1_hotkeys =
     [ "Structs", "namespace_volume_control_1_1_hotkeys_1_1_structs.html", "namespace_volume_control_1_1_hotkeys_1_1_structs" ],
     [ "BindableHotkeyConverterExtensions", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions.html", "class_volume_control_1_1_hotkeys_1_1_bindable_hotkey_converter_extensions" ],
     [ "HotkeyManager", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager.html", "class_volume_control_1_1_hotkeys_1_1_hotkey_manager" ],
+    [ "InputSimulator", "class_volume_control_1_1_hotkeys_1_1_input_simulator.html", "class_volume_control_1_1_hotkeys_1_1_input_simulator" ],
     [ "User32", "class_volume_control_1_1_hotkeys_1_1_user32.html", "class_volume_control_1_1_hotkeys_1_1_user32" ]
 ];

@@ -150,6 +150,7 @@ var hierarchy =
       [ "VolumeControl.Audio.AudioAPI", "class_volume_control_1_1_audio_1_1_audio_a_p_i.html", null ],
       [ "VolumeControl.Audio.AudioSession", "class_volume_control_1_1_audio_1_1_audio_session.html", null ]
     ] ],
+    [ "VolumeControl.Hotkeys.InputSimulator", "class_volume_control_1_1_hotkeys_1_1_input_simulator.html", null ],
     [ "VolumeControl.TypeExtensions.Int32Extensions", "class_volume_control_1_1_type_extensions_1_1_int32_extensions.html", null ],
     [ "IReadOnlyCollection", null, [
       [ "VolumeControl.Audio.AudioDevice", "class_volume_control_1_1_audio_1_1_audio_device.html", null ],

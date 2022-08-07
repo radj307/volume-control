@@ -1,5 +1,13 @@
 var NAVTREEINDEX3 =
 {
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0edea4eda280d88954a21cedabba0f97":[6,0,1,7,1,3,21],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0f5846d6859de35ac0fde916e9b60329":[6,0,1,7,1,3,46],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a109d4c4d265a85b2b925ed5c026469fc":[6,0,1,7,1,3,6],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1176cf817a80dec21aeb4a0a5bcebc86":[6,0,1,7,1,3,19],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1484872e73cecd1317883d8941d9cea5":[6,0,1,7,1,3,10],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1a52250c6658d7a2d3c1af52abd3f914":[6,0,1,7,1,3,42],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a213d0ca0f82de6cb5029c7cc237dfa6c":[6,0,1,7,1,3,37],
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e":[6,0,1,7,1,3,17],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a2f0ecb84286f40e40988536e9881fafe":[6,0,1,7,1,3,48],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a31aa5bb3fe3fd551da4a3ee9ccaf90e6":[6,0,1,7,1,3,0],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a4ac212a326da581a5fa3f39a3ebab575":[6,0,1,7,1,3,29],
@@ -157,8 +165,8 @@ var NAVTREEINDEX3 =
 "functions_enum.html":[6,3,3],
 "functions_evnt.html":[6,3,5],
 "functions_f.html":[6,3,0,5],
-"functions_func.html":[6,3,1],
 "functions_func.html":[6,3,1,0],
+"functions_func.html":[6,3,1],
 "functions_func_b.html":[6,3,1,1],
 "functions_func_c.html":[6,3,1,2],
 "functions_func_d.html":[6,3,1,3],
@@ -241,13 +249,5 @@ var NAVTREEINDEX3 =
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html#abb0fe626d1284aee39127b6550fe4ef9":[6,0,1,2,1,0,1,2],
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_actions_1_1_i_action_binding.html#ac94b149025b62202ec718d6440719c75":[6,0,1,2,1,0,1,0],
 "interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html":[6,0,1,2,1,4],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#a1ca142c985952e26c7be86a4868f2b2c":[6,0,1,2,1,4,3],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#a5dfffde86cc027cfd2fa8616f91952f4":[6,0,1,2,1,4,5],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#a7d817141ef151ebbf4b22c7dda3c6c35":[6,0,1,2,1,4,1],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#a9a1e123b1943c3535b1131334c0acec3":[6,0,1,2,1,4,0],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#aa72de7acf148661c20d80a2341304e1e":[6,0,1,2,1,4,4],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#af8c0d38816d3def577756d60d8a3de64":[6,0,1,2,1,4,2],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html":[6,0,1,2,1,5],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a028f794c11e021ace7fd3be42eb6ddd0":[6,0,1,2,1,5,3],
-"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a3e54a8a987d1c0ca9c1aa4c6f92cfe6c":[6,0,1,2,1,5,0]
+"interface_volume_control_1_1_core_1_1_keyboard_1_1_i_bindable_hotkey.html#a1ca142c985952e26c7be86a4868f2b2c":[6,0,1,2,1,4,3]
 };

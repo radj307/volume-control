@@ -1,5 +1,13 @@
 var NAVTREEINDEX2 =
 {
+"class_volume_control_1_1_hotkeys_1_1_user32.html#ac7be2bb7487437bf60fb185329143b60":[6,0,1,3,7,9],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html":[6,0,1,4,0,0],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#a0d795e79e08594224533d490c5cb4713":[6,0,1,4,0,0,8],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#a2658d079ebd23e2ff98d2ab890d10b7b":[6,0,1,4,0,0,4],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#a33d1225f4f380cda674cf292498101a0":[6,0,1,4,0,0,0],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#a3d73af7ec75df29ee6d1e1087764d7d8":[6,0,1,4,0,0,3],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#a65d6356b69032a097acb4083fe305f53":[6,0,1,4,0,0,1],
+"class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#aa95f704e98c3f1895bbb99beaea119b0":[6,0,1,4,0,0,6],
 "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#ad3b2a5e4ba220551b7d13900983a766f":[6,0,1,4,0,0,5],
 "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#aec0792677f28c72382b0ebda7799753a":[6,0,1,4,0,0,2],
 "class_volume_control_1_1_log_1_1_endpoints_1_1_console_endpoint.html#aec8f1802aeff37aa5ea56d32afa186bc":[6,0,1,4,0,0,7],
@@ -241,13 +249,5 @@ var NAVTREEINDEX2 =
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html#ae1a5ac366f9c4b3185371a3031bd0d96":[6,0,1,7,1,2,5],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_collection_object.html#af1932923b26094d551a9374b214dc006":[6,0,1,7,1,2,8],
 "class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html":[6,0,1,7,1,3],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a065e1df810e6dfb858cc7ed52aa17d58":[6,0,1,7,1,3,7],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0edea4eda280d88954a21cedabba0f97":[6,0,1,7,1,3,21],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a0f5846d6859de35ac0fde916e9b60329":[6,0,1,7,1,3,46],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a109d4c4d265a85b2b925ed5c026469fc":[6,0,1,7,1,3,6],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1176cf817a80dec21aeb4a0a5bcebc86":[6,0,1,7,1,3,19],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1484872e73cecd1317883d8941d9cea5":[6,0,1,7,1,3,10],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a1a52250c6658d7a2d3c1af52abd3f914":[6,0,1,7,1,3,42],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a213d0ca0f82de6cb5029c7cc237dfa6c":[6,0,1,7,1,3,37],
-"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a29ade5ba7b0b03d9fa8d605b9e79f57e":[6,0,1,7,1,3,17]
+"class_volume_control_1_1_w_p_f_1_1_collections_1_1_observable_immutable_list.html#a065e1df810e6dfb858cc7ed52aa17d58":[6,0,1,7,1,3,7]
 };

@@ -6,5 +6,6 @@ var dir_ddfc1f683bca628c730f408f75b564d1 =
     [ "Structs", "dir_adf3d559c689340fdbe5f84d0a7611d6.html", "dir_adf3d559c689340fdbe5f84d0a7611d6" ],
     [ "BindableHotkeyConverterExtensions.cs", null, null ],
     [ "HotkeyManager.cs", null, null ],
+    [ "InputSimulator.cs", null, null ],
     [ "User32.cs", null, null ]
 ];
