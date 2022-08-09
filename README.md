@@ -5,45 +5,45 @@
 
 ***
 
-Simple, universal application-specific volume hotkeys & more.  
+A universal, portable, and extensible hotkey framework that lets you control specific applications .  
 Designed for adjusting the volume of your music independently of other programs, such as games and VoIP.  
 
+> ### :new: Volume Control CLI
+> There is also a commandline version of Volume Control without the hotkeys.  
+> It is intended for use in shell scripts, and allows you to control **both input and output** audio devices/sessions.  
+> You can find it here: https://github.com/radj307/volume-control-cli 
 
-### What it does
 
-- Adds completely user-configurable global hotkeys to Windows.
-  - You can add, remove, and rename hotkeys, as well as configure the 'action' that they perform.  
-    This requires enabling *'Advanced Hotkey Mode'*, which is a fancy way of saying *'Check the box labelled '**Advanced Hotkeys**', which is located in the **Settings** tab'*
-  - The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of [user-created plugins](https://radj307.github.io/volume-control).
-- Integrates a functionally superior alternative to the Windows Audio Mixer.  
-  - Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.
-    - Like the Windows Audio Mixer, you can do this with any running process independently at any time.
-  - Allows you to specify the 'target' application using the mixer, in addition to the target switching hotkeys.
+## What It Does
 
-### Requirements
+- Makes your keyboard's volume slider useful by letting you adjust the volume of any specific program.
+- Allows you to have media keys on a keyboard without dedicated media keys.
+- Adds a fully configurable hotkey framework that can be extended via [user-created plugins](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
+- Provides a superior alternative to Windows' Volume Mixer.  
 
-- A keyboard.
 
-#### Windows Version Compatibility
-We've tested Volume Control on **Windows 10**, it should be compatible with any version of Windows since Vista, however this is untested.  
+## How does it work?
 
-##### Unconfirmed
+Volume Control maintains the concept of a "**selected**" audio session - also called a "**target**" - that is used to specify which audio session you want to perform an action on. Some actions only affect the current target; others, such as the media key actions, simulate context-sensitive key presses; and others, such as the next/previous target hotkeys, simply switch to the next or previous target regardless of context.  
 
-If you use one of these operating systems, please fill out a [compatibility report](https://github.com/radj307/volume-control/issues/new?assignees=radj307&labels=os-support&template=Compatibility.yml&title=Windows+Version+Compatibility+Report&version=Windows+Vista) form.  
-*(If everything works it should take less than 30 seconds. If there is an issue, we'll fix it ASAP)*
-- Windows Vista
-- Windows 7
-- Windows 8
-- Windows 8.1
-- Windows 11
+In Volume Control, a ***hotkey*** is just a combination of keys that can be made to execute an ***action***. Any number of hotkeys can trigger the same action.  
+
+A wide range of actions are provided by default, and you can add more via user-created addons.
+
 
 # Getting Started
 
+Getting started is simple; download the [latest release](https://github.com/radj307/volume-control/releases/latest).  
+
+
 ## Installation
-- Download the [latest release](https://github.com/radj307/volume-control/releases)
-- Save `VolumeControl.exe` to a location of your choice.  
-If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that:
+
+Because Volume Control is portable, there is no installation required.  
+Simply move `VolumeControl.exe` to a location of your choice, and run it.  
+
+If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that:  
 `C:\Users\<USERNAME>\VolumeControl\VolumeControl.exe`
+
 
 ## Setup
 Before starting the program for the first time, you have to unblock the executable from the properties menu.  
@@ -77,26 +77,12 @@ By enabling notifications, you will see a toast notification in the bottom right
 ![View of the toast notification](https://i.imgur.com/YWoXPxW.png)
 ![View of the toast notification when an audio session is locked](https://i.imgur.com/KOdYtGi.png)
 
-If you want to add or remove hotkeys, you can press the **Advanced Hotkeys** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
+If you want to add or remove hotkeys, you can press the **Edit Mode** button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the **Reset Hotkeys** button in the Settings tab. Note that this will also remove any additional hotkeys you have created.  
 ![View of the advanced hotkeys](https://i.imgur.com/JccOVnO.png)
 
+
 ## Addon Development
+
 Want to develop an addon for Volume Control?  
-**See the [github pages site](https://radj307.github.io/volume-control) for instructions and API documentation.**
-
-
-# VolumeControlCLI
-
-Volume Control CLI has moved to [its own repo](https://github.com/radj307/volume-control-cli) after I rewrote it in C++.
-
-
-# Contributing
-
-If you want to improve/add a feature and you are familiar with C#, pull requests are always welcomed!  
-
-## Guidelines
-Please follow these guidelines when submitting pull requests:  
-- Briefly test the code to ensure that it can compile & run.  
-- Format & organize your code.
-- Write/update documentation in **[xmldoc format](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/)** for anything that is accessible via the SDK.  
-  If you're using Visual Studio, you will see compiler warnings for undocumented publicly-accessible objects/methods.  
+Get started with the [tutorial](https://radj307.github.io/volume-control/html/md_docs__addon_development.html)!  
+We also have doxygen-generated [API Documentation](https://radj307.github.io/volume-control/html/annotated.html) available online.  
