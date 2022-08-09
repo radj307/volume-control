@@ -18,7 +18,7 @@ Designed for adjusting the volume of your music independently of other programs,
 
 - Makes your keyboard's volume slider useful by letting you adjust the volume of any specific program.
 - Allows you to have media keys on a keyboard without dedicated media keys.
-- Adds a fully configurable hotkey framework that can be extended via [user-created plugins](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
+- Adds a fully configurable hotkey framework that can be extended via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
 - Provides a superior alternative to Windows' Volume Mixer.  
 
 
