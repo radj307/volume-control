@@ -16,10 +16,11 @@ Designed for adjusting the volume of your music independently of other programs,
 
 ## What It Does
 
-- Makes your keyboard's volume slider useful by letting you adjust the volume of any specific program.
-- Allows you to have media keys on a keyboard without dedicated media keys.
-- Adds a fully configurable hotkey framework that can be extended via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html).
-- Provides a superior alternative to Windows' Volume Mixer.  
+- Makes your keyboard's volume slider useful
+- Provides you with an alternative to media keys if you don't have them
+- Adds a fully configurable hotkey framework that can be extended via [user-created addons](https://radj307.github.io/volume-control/html/md_docs__addon_development.html)
+- Provides a superior alternative to Windows' Volume Mixer
+- And more!
 
 
 ## How does it work?
