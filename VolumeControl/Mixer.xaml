@@ -2101,7 +2101,10 @@
                                             Grid.Column="2"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowInTaskbar.Content',
                                                          DefaultText='Show in Taskbar'}"
-                                            IsChecked="{Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{b:MultiBinding {Binding ShowInTaskbar, ElementName=window, UpdateSourceTrigger=PropertyChanged},
+                                                                       {Binding ShowInTaskbar, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged},
+                                                                       Converter={StaticResource MultiBindingBooleanConverter},
+                                                                       UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.ShowInTaskbar.Tooltip',
                                                          DefaultText=''}" />
@@ -2110,7 +2113,10 @@
                                             Grid.Column="2"
                                             Content="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Content',
                                                          DefaultText='Always on Top'}"
-                                            IsChecked="{Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged}"
+                                            IsChecked="{b:MultiBinding {Binding Topmost, ElementName=window, UpdateSourceTrigger=PropertyChanged},
+                                                                       {Binding AlwaysOnTop, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged},
+                                                                       Converter={StaticResource MultiBindingBooleanConverter},
+                                                                       UpdateSourceTrigger=PropertyChanged}"
                                             Style="{StaticResource ApplicationSettingsCheckboxStyle}"
                                             ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Application.AlwaysOnTop.Tooltip',
                                                          DefaultText=''}" />

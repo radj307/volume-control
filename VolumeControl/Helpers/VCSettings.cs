@@ -137,6 +137,16 @@ namespace VolumeControl.Helpers
             get => Settings.NotificationsOnVolumeChange;
             set => Settings.NotificationsOnVolumeChange = value;
         }
+        public bool AlwaysOnTop
+        {
+            get => Settings.AlwaysOnTop;
+            set => Settings.AlwaysOnTop = value;
+        }
+        public bool ShowInTaskbar
+        {
+            get => Settings.ShowInTaskbar;
+            set => Settings.ShowInTaskbar = value;
+        }
         #endregion Properties
 
         #region Events
