@@ -140,13 +140,17 @@ Since [v5.1.0](https://github.com/radj307/volume-control/release/5.1.0), addons 
 Assuming you enabled `DEBUG` log messages, you will see messages in the log confirming that your addon was loaded when launching Volume Control:  
 ![image](https://user-images.githubusercontent.com/1927798/169681684-f41649d3-49c0-4c33-aaf3-5454de4dfdad.png)
 
-### Using Hotkey Action Addons
+## Using Your Addon
 
-Addon actions are assigned in the same way as the built-in addons:  
+In the case of action addons, they are used in the same way as the built-in actions:    
 
- 1. Enable *Advanced Hotkeys* on the **Settings** tab.
+ 1. Enable *Edit Mode* on the **Settings** tab.
  2. On the **Hotkeys** tab, open the dropdown box under the *Action* column of any hotkey.
  3. Select your custom action in the list.
+
+Now, when you press the associated hotkey, your action method will be triggered! How you observe the outcome of that action depends on the action, of course; the action we created earlier for instance, does this:  
+![custom-action-output](https://user-images.githubusercontent.com/1927798/184083946-959e3f2d-4b7b-4523-b597-0965d6145076.png)
+
 
 ## Redistributing Addons
 
