@@ -5,7 +5,8 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <ErrorReport>none</ErrorReport>
-    <Description>Official SDK for Volume Control addon development.</Description>
+    <Description>Official addon development SDK for the Volume Control application.
+https://github.com/radj307/volume-control</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>GNU General Public License v3 </Copyright>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
