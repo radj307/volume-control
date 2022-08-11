@@ -135,6 +135,9 @@
           "Header": {
             "English (US/CA)": "Language"
           },
+          "CustomLocations": {
+            "English (US/CA)": "Custom Locations"
+          },
           "Reload": {
             "Content": {
               "English (US/CA)": "Reload"
@@ -147,6 +150,39 @@
         "Audio": {
           "Header": {
             "English (US/CA)": "Audio"
+          },
+          "AdditionalSettings": {
+            "Header": {
+              "Content": {
+                "English (US/CA)": "Additional Settings"
+              },
+              "Tooltip": {
+              }
+            },
+            "ShowPeakMeters": {
+              "Content": {
+                "English (US/CA)": "Show Peak Meters"
+              },
+              "Tooltip": {
+                "English (US/CA)": "Toggle the audio peaking meters shown in the Mixer."
+              }
+            },
+            "UpdateInterval": {
+              "Content": {
+                "English (US/CA)": "Update Interval"
+              },
+              "Tooltip": {
+                "English (US/CA)": "The amount of time, in milliseconds, between each update of the peak meters in the Mixer."
+              }
+            },
+            "EnableDeviceControl": {
+              "Content": {
+                "English (US/CA)": "Show Device Controls"
+              },
+              "Tooltip": {
+                "English (US/CA)": "Toggle the visibility of volume & mute controls in the Audio Devices section."
+              }
+            }
           },
           "DeviceGrid": {
             "Tooltip": {
@@ -325,12 +361,38 @@
             }
           }
         }
+      },
+      "About": {
+        "TabHeader": {
+          "English (US/CA)": "About"
+        },
+        "ReportABug": {
+          "Content": {
+            "English (US/CA)": "Report a Bug"
+          },
+          "Tooltip": {
+            "English (US/CA)": "Let us know that something isn't working correctly"
+          }
+        },
+        "OpenWebsite": {
+          "Content": {
+            "English (US/CA)": "Official Website"
+          },
+          "Tooltip": {
+            "English (US/CA)": "Open the official Volume Control website in your default browser"
+          }
+        }
       }
     },
-    
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "English (US/CA)": "Another instance of Volume Control is already running!"
+        "MultiInstance": {
+          "English (US/CA)": "Another instance of Volume Control is using the config file located at '${PATH}'!"
+        },
+        "SingleInstance": {
+          "English (US/CA)": "Another instance of Volume Control is already running!"
+        }
       },
       "UpdatePrompt": {
         "DontShowInFutureMsg": {

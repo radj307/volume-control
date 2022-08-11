@@ -1,6 +1,7 @@
 ﻿using InputSimulatorEx;
 using InputSimulatorEx.Native;
 using VolumeControl.Hotkeys.Enum;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Hotkeys
 {
@@ -40,7 +41,7 @@ namespace VolumeControl.Hotkeys
         /// <param name="vk">The <see cref="EVirtualKeyCode"/> of the key to simulate.</param>
         /// <param name="modifiers">Any number of <see cref="EVirtualKeyCode"/> modifier keys.</param>
         /// <inheritdoc cref="SendKey(VirtualKeyCode, VirtualKeyCode[])"/>
-        public static void SendKey(EVirtualKeyCode vk, params EVirtualKeyCode[] modifiers) => SendKey((VirtualKeyCode)vk, modifiers.Cast<VirtualKeyCode>().ToArray());
+        public static void SendKey(EVirtualKeyCode vk, params EVirtualKeyCode[] modifiers) => SendKey(vk.GetVirtualKeyCodeEx(), modifiers.ConvertEach(evk => evk.GetVirtualKeyCodeEx()).ToArray());
         /// <summary>
         /// Synthesizes key presses to 'type' the given <see cref="char"/>.
         /// </summary>

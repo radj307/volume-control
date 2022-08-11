@@ -21,17 +21,21 @@ namespace VolumeControl
             DispatcherUnhandledException += (s, e) => Log.Error($"An unhandled exception occurred!", $"  Sender: '{s}' ({s.GetType()})", e.Exception);
 
             // Tray icon
-            TrayIcon = new($"Volume Control {version}", (s, e) => this.MainWindow.Visibility == Visibility.Visible);
+            TrayIcon = new(() => this.MainWindow.Visibility == Visibility.Visible)
+            {
+                Tooltip = $"Volume Control {version}"
+            };
             TrayIcon.Clicked += this.HandleTrayIconClick;
             TrayIcon.ShowClicked += this.HandleTrayIconClick;
             TrayIcon.HideClicked += (s, e) => this.HideMainWindow();
             TrayIcon.BringToFrontClicked += (s, e) => this.ActivateMainWindow();
             TrayIcon.CloseClicked += (s, e) => this.Shutdown();
+            TrayIcon.Visible = true;
         }
         #endregion Constructors
 
         #region Fields
-        public readonly NotifyIcon TrayIcon;
+        public readonly VolumeControlNotifyIcon TrayIcon;
         #endregion Fields
 
         #region Properties
@@ -56,7 +60,13 @@ namespace VolumeControl
             this.MainWindow.Show();
             _ = this.MainWindow.Activate();
         }
-        private void HandleTrayIconClick(object? sender, EventArgs e) => this.ShowMainWindow();
+        private void HandleTrayIconClick(object? sender, EventArgs e)
+        {
+            if (MainWindow.IsVisible)
+                this.HideMainWindow();
+            else
+                this.ShowMainWindow();
+        }
         #endregion Methods
     }
 }

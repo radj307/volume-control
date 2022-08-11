@@ -31,10 +31,7 @@ namespace VolumeControl
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            if (Settings.StartMinimized)
-            {
-                this.WindowState = WindowState.Minimized;
-            }
+            if (Settings.StartMinimized) this.Hide();
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -90,6 +87,23 @@ namespace VolumeControl
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
 
+        /// <summary>Handles click events on the language datagrid's add button.</summary>
+        private void Handle_LanguageGridAddClick(object sender, RoutedEventArgs e)
+        {
+            Settings.CustomLocalizationDirectories.Add(string.Empty);
+        }
+        /// <summary>Handles click events on the language datagrid's remove buttons.</summary>
+        private void Handle_LanguageGridRemoveClick(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.CommandParameter is string name)
+            {
+                int pos = Settings.CustomLocalizationDirectories.IndexOf(name);
+                if (pos != -1)
+                {
+                    Settings.CustomLocalizationDirectories.RemoveAt(pos);
+                }
+            }
+        }
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
             string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;

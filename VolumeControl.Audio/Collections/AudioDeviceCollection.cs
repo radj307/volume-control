@@ -1,4 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
+using System.ComponentModel;
+using System.Timers;
 using VolumeControl.Audio.Events;
 using VolumeControl.Core;
 using VolumeControl.Log;
@@ -27,14 +29,50 @@ namespace VolumeControl.Audio.Collections
             _ = enumerator.RegisterEndpointNotificationCallback(this.DeviceNotificationClient);
             this.DeviceNotificationClient.GlobalDeviceAdded += this.HandleDeviceAdded;
             enumerator.Dispose();
+
+            _peakMeterUpdateTimer = new(Settings.PeakMeterUpdateIntervalMs)
+            {
+                AutoReset = true,
+                Enabled = Settings.ShowPeakMeters
+            };
+            _peakMeterUpdateTimer.Elapsed += HandlePeakMeterUpdateTimerElapsed;
+            Settings.PropertyChanged += HandleSettingsPropertyChanged;
+
         }
         #endregion Constructor
 
         #region Fields
-        private bool disposedValue;
+        private bool _disposedValue;
+        private readonly System.Timers.Timer _peakMeterUpdateTimer;
         #endregion Fields
 
         #region Events
+        private void HandleSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is string propertyName)
+            {
+                if (propertyName.Equals(nameof(Settings.ShowPeakMeters), StringComparison.Ordinal))
+                { // update state
+                    if (Settings.ShowPeakMeters.Equals(_peakMeterUpdateTimer.Enabled))
+                        return;
+                    if (Settings.ShowPeakMeters)
+                    { // enable
+                        _peakMeterUpdateTimer.Start();
+                    }
+                    else
+                    { // disable
+                        _peakMeterUpdateTimer.Stop();
+                    }
+                }
+                else if (propertyName.Equals(nameof(Settings.PeakMeterUpdateIntervalMs), StringComparison.Ordinal))
+                { // update interval
+                    if (_peakMeterUpdateTimer.Interval.Equals(Settings.PeakMeterUpdateIntervalMs))
+                        return;
+                    _peakMeterUpdateTimer.Interval = Settings.PeakMeterUpdateIntervalMs;
+                }
+            }
+        }
+        private void HandlePeakMeterUpdateTimerElapsed(object? sender, ElapsedEventArgs e) => UpdatePeakMeters();
         /// <summary>Triggered when a managed device's Enabled property was changed.</summary>
         public event EventHandler<bool>? DeviceEnabledChanged;
         private void ForwardDeviceEnabledChanged(object? sender, bool state)
@@ -113,6 +151,14 @@ namespace VolumeControl.Audio.Collections
 
         #region Methods
         /// <summary>
+        /// Triggers an <see cref="INotifyPropertyChanged.PropertyChanged"/> event for all device &amp; session instances of <see cref="VolumeControl.Audio.Interfaces.IAudioControllable"/>
+        /// </summary>
+        private void UpdatePeakMeters()
+        {
+            for (int i = 0; i < this.Count; ++i)
+                this[i].UpdatePeakMeter(true);
+        }
+        /// <summary>
         /// Finds a device using the <paramref name="predicate"/> function.
         /// </summary>
         /// <param name="predicate">A predicate function that accepts <see cref="AudioDevice"/> class types.</param>
@@ -154,11 +200,11 @@ namespace VolumeControl.Audio.Collections
         /// <inheritdoc/>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                     this.ForEach(d => d.Dispose());
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
         /// <inheritdoc/>

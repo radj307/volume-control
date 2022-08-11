@@ -329,7 +329,12 @@
     },
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "Portuguese (Portugal)": "Outra instância do Volume Control já está em execução!"
+        "MultiInstance": {
+          "Portuguese (Portugal)": "Outra instância do Controlo de Volume está a usar o ficheiro config localizado no '${PATH}'!"
+        },
+        "SingleInstance": {
+          "Portuguese (Portugal)": "Outra instância de Volume Control já está em execução!"
+        }
       },
       "UpdatePrompt": {
         "DontShowInFutureMsg": {
@@ -342,16 +347,16 @@
     },
     "NotifyIcon": {
       "BringToFront": {
-        "English (US/CA)": "Traze Para a Frente"
+        "Portuguese (Portugal)": "Traze Para a Frente"
       },
       "Hide": {
-        "English (US/CA)": "Esconde"
+        "Portuguese (Portugal)": "Esconde"
       },
       "Show": {
-        "English (US/CA)": "Mostre"
+        "Portuguese (Portugal)": "Mostre"
       },
       "Close": {
-        "English (US/CA)": "Fecha"
+        "Portuguese (Portugal)": "Fecha"
       }
     }
   }

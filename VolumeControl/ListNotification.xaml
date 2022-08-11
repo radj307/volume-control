@@ -112,7 +112,7 @@
                     </ResourceDictionary>
                 </Style.Resources>
                 <Setter Property="Background" Value="#55000000" />
-                <Setter Property="Visibility" Value="{Binding AudioAPI.SelectedSession, Source={StaticResource Settings}, Converter={StaticResource VolumeAdjusterVisibilityChainConverter}}" />
+                <Setter Property="Visibility" Value="{Binding AudioAPI.SelectedSession, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Source={StaticResource Settings}, Converter={StaticResource VolumeAdjusterVisibilityChainConverter}}" />
             </Style>
             <!--  Session Control Panel Slider Style  -->
             <Style x:Key="SliderStyle" TargetType="Slider">

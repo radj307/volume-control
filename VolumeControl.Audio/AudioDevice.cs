@@ -57,6 +57,10 @@ namespace VolumeControl.Audio
         #endregion Constructors
 
         #region Properties
+        /// <inheritdoc/>
+        public AudioMeterInformation AudioMeterInformation => MMDevice.AudioMeterInformation;
+        /// <inheritdoc/>
+        public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
         private static LogWriter Log => FLog.Log;
         internal MMDevice MMDevice { get; }
         /// <summary>Whether this device is enabled by the user or not.</summary>
@@ -135,40 +139,28 @@ namespace VolumeControl.Audio
         /// </summary>
         /// <remarks>This object is from NAudio.<br/>If you're writing an addon, install the 'NAudio' nuget package to be able to use this.</remarks>
         public AudioEndpointVolume EndpointVolumeObject => this.MMDevice.AudioEndpointVolume;
-        /// <summary>
-        /// Gets the minimum and maximum boundary values of this device's endpoint volume.<br/>
-        /// This is used in conjunction with <see cref="MathExt.Scale(float,float,float,float,float)"/> by the <see cref="NativeEndpointVolume"/> property, &amp; by extension the <see cref="EndpointVolume"/> property as well.
-        /// </summary>
-        internal (float, float) VolumeRange
-        {
-            get
-            {
-                AudioEndpointVolumeVolumeRange? range = this.EndpointVolumeObject.VolumeRange;
-                return (range.MinDecibels, range.MaxDecibels);
-            }
-        }
         /// <inheritdoc/>
-        public float NativeEndpointVolume
+        public float NativeVolume
         {
-            get => MathExt.Scale(this.EndpointVolumeObject.MasterVolumeLevel, this.VolumeRange, (0f, 1f));
+            get => this.EndpointVolumeObject.MasterVolumeLevelScalar;
             set
             {
-                this.EndpointVolumeObject.MasterVolumeLevel = MathExt.Scale(MathExt.Clamp(value, 0f, 1f), (0f, 1f), this.VolumeRange);
+                this.EndpointVolumeObject.MasterVolumeLevelScalar = value;
                 this.NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
-        public int EndpointVolume
+        public int Volume
         {
-            get => Convert.ToInt32(this.NativeEndpointVolume * 100f);
+            get => Convert.ToInt32(this.NativeVolume * 100f);
             set
             {
-                this.NativeEndpointVolume = (float)(Convert.ToDouble(MathExt.Clamp(value, 0, 100)) / 100.0);
+                this.NativeVolume = (float)(Convert.ToDouble(MathExt.Clamp(value, 0, 100)) / 100.0);
                 this.NotifyPropertyChanged();
             }
         }
         /// <inheritdoc/>
-        public bool EndpointMuted
+        public bool Muted
         {
             get => this.EndpointVolumeObject.Mute;
             set
@@ -290,6 +282,15 @@ namespace VolumeControl.Audio
         #endregion SessionEventHandlers
 
         #region Methods
+        /// <summary>
+        /// Triggers the <see cref="PropertyChanged"/> event for the <see cref="PeakMeterValue"/> property, causing WPF to re-check the value &amp; update the meter display.
+        /// </summary>
+        /// <param name="recurse_sessions">When <see langword="true"/>, calls the <see cref="AudioSession.UpdatePeakMeter"/> method on all sessions that are present in this instance's <see cref="Sessions"/> property; when <see langword="false"/>, only this device's peak meter is updated.</param>
+        internal void UpdatePeakMeter(bool recurse_sessions = false)
+        {
+            NotifyPropertyChanged(nameof(PeakMeterValue));
+            if (recurse_sessions) Sessions.ForEach(s => s.UpdatePeakMeter());
+        }
         /// <summary>Gets the device name without the interface name.</summary>
         /// <returns><see cref="string"/></returns>
         public string GetDeviceName() => Regex.Replace(this.FriendlyName, $"\\(\\s*?{this.DeviceFriendlyName}\\s*?\\)", "", RegexOptions.Compiled).Trim();

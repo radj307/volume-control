@@ -22,19 +22,19 @@ namespace VolumeControl.Hotkeys.Addons
         #endregion Properties
 
         #region DeviceSelection
-        public int GetDeviceVolume() => this.SelectedDevice?.EndpointVolume ?? -1;
+        public int GetDeviceVolume() => this.SelectedDevice?.Volume ?? -1;
         public void SetDeviceVolume(int volume)
         {
             if (this.SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointVolume = volume;
+                dev.Volume = volume;
             }
         }
         public void IncrementDeviceVolume(int amount)
         {
             if (this.SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointVolume += amount;
+                dev.Volume += amount;
             }
         }
         /// <remarks>This calls <see cref="IncrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
@@ -49,7 +49,7 @@ namespace VolumeControl.Hotkeys.Addons
         {
             if (this.SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointVolume -= amount;
+                dev.Volume -= amount;
             }
         }
         /// <remarks>This calls <see cref="DecrementDeviceVolume(int)"/> using <see cref="VolumeStepSize"/>.</remarks>
@@ -59,7 +59,7 @@ namespace VolumeControl.Hotkeys.Addons
         /// Gets whether the <see cref="SelectedDevice"/> is currently muted.
         /// </summary>
         /// <returns>True if <see cref="SelectedDevice"/> is not null and is muted; otherwise false.</returns>
-        public bool GetDeviceMute() => this.SelectedDevice?.EndpointMuted ?? false;
+        public bool GetDeviceMute() => this.SelectedDevice?.Muted ?? false;
         /// <summary>
         /// Sets the mute state of <see cref="SelectedDevice"/>.<br/>Does nothing if <see cref="SelectedDevice"/> is null.
         /// </summary>
@@ -69,7 +69,7 @@ namespace VolumeControl.Hotkeys.Addons
         {
             if (this.SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointMuted = state;
+                dev.Muted = state;
             }
         }
         /// <summary>
@@ -80,7 +80,7 @@ namespace VolumeControl.Hotkeys.Addons
         {
             if (this.SelectedDevice is AudioDevice dev)
             {
-                dev.EndpointMuted = !dev.EndpointMuted;
+                dev.Muted = !dev.Muted;
             }
         }
         /// <summary>

@@ -78,11 +78,12 @@ namespace VolumeControl.Helpers.Update
         {
             try
             {
-                var proc = Process.Start(new ProcessStartInfo(url)
+                var psi = new ProcessStartInfo(url)
                 {
-                    UseShellExecute = true,
-                    Verb = "open"
-                });
+                    Verb = "open",
+                    UseShellExecute = true
+                };
+                var proc = Process.Start(psi);
                 Log.Debug($"Successfully opened default browser with process ID {proc?.Id}");
             }
             catch (Exception ex)

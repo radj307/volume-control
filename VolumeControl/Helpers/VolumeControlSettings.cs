@@ -20,7 +20,7 @@ using VolumeControl.TypeExtensions;
 namespace VolumeControl.Helpers
 {
     /// <summary>Inherits from the <see cref="VCSettingsContainer"/> object.</summary>
-    public class VolumeControlSettings : VCSettings, INotifyPropertyChanged, INotifyCollectionChanged, IDisposable
+    public class VolumeControlSettings : VCSettings, IDisposable
     {
         public VolumeControlSettings() : base()
         {
@@ -71,10 +71,20 @@ namespace VolumeControl.Helpers
         }
 
         #region Events
-        public event NotifyCollectionChangedEventHandler? CollectionChanged
+        public override event NotifyCollectionChangedEventHandler? CollectionChanged
         {
-            add => ((INotifyCollectionChanged)this.HotkeyAPI).CollectionChanged += value;
-            remove => ((INotifyCollectionChanged)this.HotkeyAPI).CollectionChanged -= value;
+            add
+            {
+                this.HotkeyAPI.CollectionChanged += value;
+                this.CustomAddonDirectories.CollectionChanged += value;
+                this.CustomLocalizationDirectories.CollectionChanged += value;
+            }
+            remove
+            {
+                this.HotkeyAPI.CollectionChanged -= value;
+                this.CustomAddonDirectories.CollectionChanged += value;
+                this.CustomLocalizationDirectories.CollectionChanged += value;
+            }
         }
         #endregion Events
 

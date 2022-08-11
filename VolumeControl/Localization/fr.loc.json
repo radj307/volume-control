@@ -327,9 +327,15 @@
         }
       }
     },
+
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "Français (French)": "Une autre instance de Volume Control est déjà en cours d'exécution !"
+        "MultiInstance": {
+          "Français (French)": "Une autre instance de Volume Control utilise le fichier de configuration situé à '${PATH}'!"
+        },
+        "SingleInstance": {
+          "Français (French)": "Une autre instance de Volume Control est déjà en cours d'exécution!"
+        }
       },
       "UpdatePrompt": {
         "DontShowInFutureMsg": {
@@ -340,18 +346,19 @@
         }
       }
     },
+
     "NotifyIcon": {
       "BringToFront": {
-        "English (US/CA)": "Mettre en Avant"
+        "Français (French)": "Mettre en Avant"
       },
       "Hide": {
-        "English (US/CA)": "Cacher"
+        "Français (French)": "Cacher"
       },
       "Show": {
-        "English (US/CA)": "Montrer"
+        "Français (French)": "Montrer"
       },
       "Close": {
-        "English (US/CA)": "Fermez"
+        "Français (French)": "Fermez"
       }
     }
   }

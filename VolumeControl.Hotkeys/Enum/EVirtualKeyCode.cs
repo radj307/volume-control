@@ -6,7 +6,7 @@
     /// This includes every labelled virtual key used by windows.<br/>
     /// <see href="https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes"/>
     /// </summary>
-    public enum EVirtualKeyCode : byte
+    public enum EVirtualKeyCode : short
     {
         /// <summary>Null</summary>
         None = 0x00,

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using VolumeControl.Core;
+using VolumeControl.Core.Attributes;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 
@@ -22,7 +23,7 @@ namespace VolumeControl.Helpers.Addon
         {
             _settings = settings;
             _currentVersion = _settings.CurrentVersion;
-            this.AddonDirectories = GetAddonDirectories().Where(d => Directory.Exists(d)).ToList();
+            this.AddonDirectories = GetAddonDirectories().ToList();
         }
         #endregion Initializers
 
@@ -59,58 +60,48 @@ namespace VolumeControl.Helpers.Addon
         {
             if (this.AddonDirectories.Count > 0)
             {
-                Log.Debug($"Searching for addon assemblies in {this.AddonDirectories.Count} director{(this.AddonDirectories.Count == 1 ? "y" : "ies")}.");
+                Log.Debug($"Scanning {this.AddonDirectories.Count} location{(this.AddonDirectories.Count.Equals(1) ? "" : "s")} for addons.");
                 int asmCount = 0,
                     totalCount = 0;
                 foreach (string dir in this.AddonDirectories)
                 {
                     if (!Directory.Exists(dir))
                     {
-                        Log.Warning($"Addon directory '{dir}' doesn't exist, skipping...");
+                        Log.Warning($"Skipped missing directory '{dir}'");
                         continue;
                     }
 
-                    Log.Debug($"Searching for Addon Assemblies in '{dir}'");
-
                     foreach (string path in Directory.EnumerateFiles(dir, "*.dll", DirectoryEnumerationOptions))
                     {
-                        string prefix = $"  [{++totalCount}] ";
                         try
                         {
                             // load the addon assembly
                             var asm = Assembly.LoadFrom(path);
 
-                            // attempt configuration upgrade if that attribute was specified
-                            if (asm.GetCustomAttribute<Core.Attributes.AllowUpgradeConfigAttribute>() is Core.Attributes.AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
+                            // attempt configuration upgrade if the AllowUpgradeConfigAttribute assembly attribute is present
+                            if (asm.GetCustomAttribute<AllowUpgradeConfigAttribute>() is AllowUpgradeConfigAttribute attr && attr.AllowUpgrade)
                             {
-                                Log.Debug($"{prefix}Found {nameof(Core.Attributes.AllowUpgradeConfigAttribute)}, searching for valid exported configurations...");
-
                                 if (asm.GetTypes().First(t => t.BaseType?.Equals(typeof(ApplicationSettingsBase)) ?? false) is Type t)
                                 {
-                                    Log.Debug($"{prefix}Found valid configuration type '{t.FullName}'");
-                                    const string propertyName = "Default";
-                                    if (t.GetProperty(propertyName)?.GetValue(null) is ApplicationSettingsBase cfg)
+                                    const string appSettingsPropertyName = "Default";
+                                    if (t.GetProperty(appSettingsPropertyName)?.GetValue(null) is ApplicationSettingsBase cfg)
                                     {
                                         try
                                         {
                                             cfg.Upgrade();
-                                            Log.Debug($"{prefix}Successfully performed configuration upgrade for addon '{asm.FullName}'");
+                                            Log.Debug($"[ADDON]\tUpgraded app configuration in assembly {asm.FullName}");
                                         }
                                         catch (Exception ex)
                                         {
-                                            Log.Debug($"{prefix}Upgrade Error:  An exception was thrown!", ex);
+                                            Log.Error($"[ADDON]\tFailed to upgrade app configuration in assembly {asm.FullName} due to an exception!", ex);
                                         }
                                         cfg.Save();
                                         cfg.Reload();
                                     }
                                     else
                                     {
-                                        Log.Debug($"{prefix}Upgrade Error:  Failed to locate property '{propertyName}' in type '{t.FullName}'!");
+                                        Log.Error($"[ADDON]\tAssembly {asm.FullName} has attribute {nameof(AllowUpgradeConfigAttribute)}, but does not contain any app configurations!");
                                     }
-                                }
-                                else
-                                {
-                                    Log.Debug($"{prefix}Upgrade Error:  Assembly '{asm.FullName}' doesn't contain any valid configuration types derived from type '{typeof(ApplicationSettingsBase).FullName}'!");
                                 }
                             }
 
@@ -118,18 +109,16 @@ namespace VolumeControl.Helpers.Addon
 
                             if (typeCount == 0)
                             {
-                                Log.Debug($"{prefix}No classes found in assembly '{asm.FullName}'");
+                                Log.Debug($"[ADDON]\tSkipped assembly {asm.FullName}; no valid types were found.");
                                 continue;
                             }
-                            Log.Debug($"{prefix}Loaded {typeCount} classes from assembly '{asm.FullName}'.");
-                            prefix = new(' ', prefix.Length);
-
+                            
                             ++asmCount;
-                            Log.Debug($"{prefix}Cached addon '{asm.FullName}'");
+                            Log.Debug($"[ADDON]\tLoaded assembly {asm.FullName}");
                         }
                         catch (Exception ex)
                         {
-                            Log.Error($"{prefix}An exception occurred while loading assembly from file '{path}'", ex);
+                            Log.Error($"Failed to load assembly from '{path}' due to an exception!", ex);
                         }
                     }
                 }

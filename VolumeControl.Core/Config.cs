@@ -1,7 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Semver;
+using System.ComponentModel;
 using System.Windows.Input;
 using VolumeControl.Core.Enum;
 using VolumeControl.Core.Keyboard;
+using VolumeControl.Log;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Core
 {
@@ -15,8 +19,16 @@ namespace VolumeControl.Core
         /// Creates a new <see cref="Config"/> instance.
         /// </summary>
         /// <remarks>The first time this is called, the <see cref="AppConfig.Configuration.Default"/> property is set to that instance; all subsequent calls do not update this property.</remarks>
-        public Config() : base(_filePath) => PropertyChanged += (s, e) => this.Save();
+        public Config() : base(_filePath)
+            => this.PropertyChanged += HandlePropertyChanged;
 
+        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Log.Debug($"Property '{e.PropertyName}' was modified, saving {nameof(Config)}...");
+            this.Save();
+        }
+
+        private static LogWriter Log => FLog.Log;
         // Default filepath used for the config file:
         private const string _filePath = "VolumeControl.json";
 
@@ -35,7 +47,15 @@ namespace VolumeControl.Core
         /// Gets or sets a list of additional directories to load localization packages from.
         /// </summary>
         /// <remarks><b>Default: {}</b></remarks>
-        public List<string> CustomLocalizationDirectories { get; set; } = new();
+        public ObservableImmutableList<string> CustomLocalizationDirectories { get; set; } = new();
+        /// <summary>
+        /// Gets or sets whether multiple distinct instances of Volume Control are allowed to run concurrently.<br/>
+        /// In this case, <i>distinct</i> means that each instance is using a different config file.<br/><br/>
+        /// This works by creating a MD5 hash of <see cref="AppConfig.ConfigurationFile.Location"/>, and appending it to the instance's mutex ID, seperated with a colon (:).<br/>
+        /// The initialization process of acquiring a mutex lock is still performed, which will always prevent Volume Control from running alongside other instances using the same config as itself, regardless of this setting.
+        /// </summary>
+        /// <remarks><b>Default: <see langword="false"/></b></remarks>
+        public bool AllowMultipleDistinctInstances { get; set; } = false;
         /// <summary>
         /// Gets or sets whether the application should run when Windows starts.<br/>
         /// Creates/deletes a registry value in <b>HKEY_CURRENT_USER => SOFTWARE\Microsoft\Windows\CurrentVersion\Run</b>
@@ -78,7 +98,7 @@ namespace VolumeControl.Core
         /// List of directories that should be checked for addons in addition to the default one.
         /// </summary>
         /// <remarks><b>Default: {}</b></remarks>
-        public List<string> CustomAddonDirectories { get; set; } = new();
+        public ObservableImmutableList<string> CustomAddonDirectories { get; set; } = new();
         /// <summary>
         /// Gets or sets whether the main window allows transparency effects.<br/>
         /// <list type="bullet">
@@ -291,11 +311,36 @@ namespace VolumeControl.Core
         /// <summary>
         /// List of enabled audio device IDs.
         /// </summary>
-        public List<string> EnabledDevices { get; set; } = new() { string.Empty };
+        public ObservableImmutableList<string> EnabledDevices { get; set; } = new() { };
         /// <summary>
         /// Whether the default audio device should be enabled or not, regardless of the device IDs in <see cref="EnabledDevices"/>.
         /// </summary>
         public bool EnableDefaultDevice { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the interval (in milliseconds) between updating the audio peak meters.
+        /// </summary>
+        /// <remarks><b>Default: 500ms</b></remarks>
+        public int PeakMeterUpdateIntervalMs { get; set; } = 100;
+        /// <summary>
+        /// Gets or sets whether or not peak meters are shown in the mixer.
+        /// </summary>
+        /// <remarks><b>Default: <see langword="true"/></b></remarks>
+        public bool ShowPeakMeters { get; set; } = true;
+        /// <summary>
+        /// The minimum boundary shown on peak meters.
+        /// </summary>
+        /// <remarks><b>0.0</b></remarks>
+        public const double PeakMeterMinValue = 0.0;
+        /// <summary>
+        /// The maximum boundary shown on peak meters.
+        /// </summary>
+        /// <remarks><b>1.0</b></remarks>
+        public const double PeakMeterMaxValue = 1.0;
+        /// <summary>
+        /// Gets or sets whether volume &amp; mute controls are visible in the Audio Devices list.
+        /// </summary>
+        /// <remarks><b>Default: <see langword="false"/></b></remarks>
+        public bool EnableDeviceControl { get; set; } = false;
         #endregion Audio
 
         #region Log
@@ -316,7 +361,7 @@ namespace VolumeControl.Core
         /// See <see cref="Log.SettingsInterface.LogFilter"/>
         /// </summary>
         /// <remarks><b>Default: <see cref="Log.Enum.EventType.ALL_EXCEPT_DEBUG"/></b></remarks>
-        public Log.Enum.EventType LogFilter { get; set; } = Log.Enum.EventType.ALL_EXCEPT_DEBUG;
+        public VolumeControl.Log.Enum.EventType LogFilter { get; set; } = VolumeControl.Log.Enum.EventType.ALL_EXCEPT_DEBUG;
         /// <summary>
         /// Gets or sets whether the log is cleared when the program starts.<br/>
         /// See <see cref="Log.SettingsInterface.LogClearOnInitialize"/>
@@ -342,5 +387,13 @@ namespace VolumeControl.Core
         /// <remarks><b>Default: <see langword="true"/></b></remarks>
         public bool LogEnableStackTraceLineCount { get; set; } = true;
         #endregion Log
+
+        #region Misc
+        /// <summary>
+        /// Gets or sets the version number identifier of the last Volume Control instance to access this config file.
+        /// </summary>
+        /// <remarks><b>Default: 0.0.0</b></remarks>
+        public SemVersion __VERSION__ { get; set; } = new(0);
+        #endregion Misc
     }
 }

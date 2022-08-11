@@ -329,7 +329,12 @@
     },
     "Dialogs": {
       "AnotherInstanceIsRunning": {
-        "Italiano (Italian)": "È già in esecuzione un'altra istanza di Volume Control!"
+        "MultiInstance": {
+          "Italiano (Italian)": "Un'altra istanza di Volume Control utilizza il file di configurazione che si trova a '${PATH}'!"
+        },
+        "SingleInstance": {
+          "Italiano (Italian)": "È già in esecuzione un'altra istanza di Volume Control!"
+        }
       },
       "UpdatePrompt": {
         "DontShowInFutureMsg": {

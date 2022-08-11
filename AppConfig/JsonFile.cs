@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text;
 
 namespace AppConfig
 {
@@ -18,11 +19,18 @@ namespace AppConfig
         {
             if (!File.Exists(path))
                 return null;
-            using StreamReader sr = new(path, true);
+            using StreamReader sr = new(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None), true);
             string content = sr.ReadToEnd();
             sr.Close();
             sr.Dispose();
-            return JsonConvert.DeserializeObject(content, type);
+            try
+            {
+                return JsonConvert.DeserializeObject(content, type);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         /// <summary>
         /// Load the file specified by <paramref name="path"/> into a new type specified by type <typeparamref name="T"/>.
@@ -34,11 +42,18 @@ namespace AppConfig
         {
             if (!File.Exists(path))
                 return null;
-            using StreamReader sr = new(path, true);
+            using StreamReader sr = new(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None), true);
             string content = sr.ReadToEnd();
             sr.Close();
             sr.Dispose();
-            return JsonConvert.DeserializeObject<T>(content);
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(content);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         #endregion Load
 
@@ -52,10 +67,22 @@ namespace AppConfig
         public static void Save(string path, Configuration instance, Formatting formatting = Formatting.None)
         {
             string serialized = JsonConvert.SerializeObject(instance, formatting);
-            using StreamWriter sw = new(path, false, System.Text.Encoding.UTF8);
-            sw.WriteLine(serialized);
-            sw.Flush();
-            sw.Dispose();
+            string tempFile = Path.GetTempFileName();
+            using (StreamWriter sw = new(File.Open(tempFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None), System.Text.Encoding.UTF8))
+            {
+                sw.Write(serialized);
+                sw.Flush();
+            };
+            try
+            {
+                File.Move(tempFile, path, true);
+            }
+            catch (Exception)
+            {
+#if DEBUG
+                throw;
+#endif
+            }
         }
         #endregion Save
     }

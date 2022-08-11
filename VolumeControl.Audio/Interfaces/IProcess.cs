@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents read-only information about a process running on the local system.
     /// </summary>
-    public interface IProcess : ITargetable, IEquatable<ISession>
+    public interface IProcess : IAudioControllable, IEquatable<ISession>
     {
         /// <summary>
         /// Gets the process name of this process.

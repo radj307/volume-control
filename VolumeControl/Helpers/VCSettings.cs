@@ -1,5 +1,8 @@
 ﻿using Semver;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -10,10 +13,11 @@ using VolumeControl.Helpers.Win32;
 using VolumeControl.Log;
 using VolumeControl.TypeExtensions;
 using VolumeControl.WPF;
+using VolumeControl.WPF.Collections;
 
 namespace VolumeControl.Helpers
 {
-    public abstract class VCSettings : INotifyPropertyChanged
+    public abstract class VCSettings : INotifyPropertyChanged, INotifyCollectionChanged
     {
         #region Constructors
         public VCSettings()
@@ -33,8 +37,8 @@ namespace VolumeControl.Helpers
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.ExecutablePath)} = '{this.ExecutablePath}'");
 
             // Get the current version number & release type
-            this.CurrentVersionString = asm.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
-            this.CurrentVersion = this.CurrentVersionString.GetSemVer() ?? new(0, 0, 0);
+            this.CurrentVersion = Settings.__VERSION__;
+            this.CurrentVersionString = this.CurrentVersion.ToString();
             this.ReleaseType = asm.GetCustomAttribute<ReleaseType>()?.Type ?? ERelease.NONE;
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.CurrentVersion)} = '{this.CurrentVersionString}'");
             Log.Debug($"{nameof(VCSettings)}.{nameof(this.ReleaseType)} = '{this.ReleaseType}'");
@@ -86,13 +90,19 @@ namespace VolumeControl.Helpers
             set => Settings.AdvancedHotkeys = value;
         }
         /// <inheritdoc cref="Config.RunAtStartup"/>
-        public bool RunAtStartup
+        public bool? RunAtStartup
         {
-            get => Settings.RunAtStartup && RunAtStartupHelper.ValueEquals(this.ExecutablePath);
+            get
+            {
+                if (!RunAtStartupHelper.ValueEquals(this.ExecutablePath) && !RunAtStartupHelper.ValueEqualsNull())
+                {
+                    return null;
+                }
+                return Settings.RunAtStartup;
+            }
             set
             {
-                bool state = Settings.RunAtStartup = value;
-                RunAtStartupHelper.Value = state ? this.ExecutablePath : null;
+                RunAtStartupHelper.Value = (Settings.RunAtStartup = value ?? false) ? this.ExecutablePath : null;
             }
         }
         /// <inheritdoc/>
@@ -137,6 +147,31 @@ namespace VolumeControl.Helpers
             get => Settings.NotificationsOnVolumeChange;
             set => Settings.NotificationsOnVolumeChange = value;
         }
+        public ObservableImmutableList<string> CustomLocalizationDirectories
+        {
+            get => Settings.CustomLocalizationDirectories;
+            set => Settings.CustomLocalizationDirectories = value;
+        }
+        public ObservableImmutableList<string> CustomAddonDirectories
+        {
+            get => Settings.CustomAddonDirectories;
+            set => Settings.CustomAddonDirectories = value;
+        }
+        public int PeakMeterUpdateIntervalMs
+        {
+            get => Settings.PeakMeterUpdateIntervalMs;
+            set => Settings.PeakMeterUpdateIntervalMs = value;
+        }
+        public bool ShowPeakMeters
+        {
+            get => Settings.ShowPeakMeters;
+            set => Settings.ShowPeakMeters = value;
+        }
+        public bool EnableDeviceControl
+        {
+            get => Settings.EnableDeviceControl;
+            set => Settings.EnableDeviceControl = value;
+        }
         public bool AlwaysOnTop
         {
             get => Settings.AlwaysOnTop;
@@ -150,10 +185,11 @@ namespace VolumeControl.Helpers
         #endregion Properties
 
         #region Events
-#       pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
+#pragma warning disable CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-#       pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
+        public abstract event NotifyCollectionChangedEventHandler? CollectionChanged;
+#pragma warning restore CS0067 // The event 'BindableHotkey.PropertyChanged' is never used ; This is automatically used by Fody.
         #endregion Events
 
         #region Methods

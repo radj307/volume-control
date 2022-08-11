@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using VolumeControl.Audio.Collections;
 using VolumeControl.Audio.Events;
+using VolumeControl.Audio.Extensions;
 using VolumeControl.Audio.Interfaces;
 using VolumeControl.Core;
 using VolumeControl.Log;
@@ -426,10 +427,12 @@ namespace VolumeControl.Audio
                     AudioSession? s = this.Sessions[i];
                     if (pid.Equals(s.PID) || pname.Equals(s.ProcessName))
                     {
+
                         Settings.Target = s.GetTargetInfo();
                         NotifyPropertyChanged(nameof(Target));
                         NotifyPropertyChanged(nameof(TargetGuid));
                         NotifyPropertyChanged(nameof(SelectedSession));
+                        Log.Info($"Resolved target '{pid}:{pname}' to '{this.Target}'");
                         return;
                     }
                 }

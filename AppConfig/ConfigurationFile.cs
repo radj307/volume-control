@@ -19,6 +19,7 @@ namespace AppConfig
         /// Creates a new <see cref="ConfigurationFile"/> instance without a filepath.<br/>
         /// Note that the filepath must be provided before calling methods that use it implicitly.
         /// </summary>
+        [JsonConstructor]
         public ConfigurationFile() : this(string.Empty) { }
         #endregion Constructors
 
@@ -35,13 +36,13 @@ namespace AppConfig
         /// </summary>
         /// <remarks>This method may be overloaded in derived classes.</remarks>
         /// <returns><see langword="true"/> when the file specified by <paramref name="Location"/> exists and was successfully loaded; otherwise <see langword="false"/>.</returns>
-        public virtual bool Load() => base.Load(this.Location);
+        public virtual bool Load() => Load(this.Location);
         /// <summary>
         /// Saves config values to the JSON file specified by <paramref name="Location"/>
         /// </summary>
         /// <remarks>This method may be overloaded in derived classes.</remarks>
         /// <param name="formatting">Formatting type to use when serializing this class instance.</param>
-        public virtual void Save(Formatting formatting = Formatting.Indented) => base.Save(this.Location, formatting);
+        public virtual void Save(Formatting formatting = Formatting.Indented) => Save(this.Location, formatting);
         #endregion Methods
     }
 }

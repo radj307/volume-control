@@ -75,6 +75,11 @@ namespace VolumeControl.Audio
         #endregion Fields
 
         #region Properties
+        private static Core.Config Settings => (AppConfig.Configuration.Default as Core.Config)!;
+        /// <inheritdoc/>
+        public AudioMeterInformation AudioMeterInformation => _controller.AudioMeterInformation;
+        /// <inheritdoc/>
+        public float PeakMeterValue => AudioMeterInformation.MasterPeakValue;
         /// <inheritdoc/>
         public string SessionIdentifier { get; }
         /// <inheritdoc/>
@@ -242,6 +247,10 @@ namespace VolumeControl.Audio
         #endregion Events
 
         #region Methods
+        /// <summary>
+        /// Triggers the <see cref="PropertyChanged"/> event for the <see cref="PeakMeterValue"/> property, causing WPF to re-check the value &amp; update the meter display.
+        /// </summary>
+        internal void UpdatePeakMeter() => NotifyPropertyChanged(nameof(PeakMeterValue));
         /// <inheritdoc cref="IconGetter.GetIcons(string)"/>
         public IconPair GetIcons()
         {

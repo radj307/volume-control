@@ -94,7 +94,12 @@ namespace VolumeControl.Helpers.Win32
         /// </summary>
         /// <param name="other">A string to compare to the <see cref="Value"/> property.</param>
         /// <returns><see langword="true"/> when (<see cref="Value"/> == <paramref name="other"/>); otherwise <see langword="false"/></returns>
-        public static bool ValueEquals(string other) => other.Equals(Value);
+        public static bool ValueEquals(string other) => other.Equals(Value, StringComparison.Ordinal);
+        /// <summary>
+        /// Checks if <see cref="Value"/> is set to <see langword="null"/>.
+        /// </summary>
+        /// <returns><see langword="true"/> when <see cref="Value"/> is <see langword="null"/>; otherwise <see langword="false"/>.</returns>
+        public static bool ValueEqualsNull() => Value == null;
         #endregion Methods
     }
 }

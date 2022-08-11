@@ -1,13 +1,18 @@
 ﻿using CodingSeb.Localization;
+using Semver;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using VolumeControl.Core;
 using VolumeControl.Helpers;
 using VolumeControl.Log;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl
 {
@@ -30,22 +35,45 @@ namespace VolumeControl
         [STAThread]
         public static void Main(string[] args)
         {
+            // Load VolumeControl.json:
             Settings = new();
             Settings.Load();
 
-            // Object that manages localization:
-            LocalizationHelper locale = new(args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal)));
+            // Get program information:
+            string path = GetProgramLocation();
+            SemVersion version = GetProgramVersion();
+            int versionCompare = version.CompareSortOrderTo(Settings.__VERSION__);
+            bool doUpdate = !versionCompare.Equals(0);
 
+            if (doUpdate)
+            {
+                Log.Info($"The version number in the settings file was {Settings.__VERSION__}, settings will be {(versionCompare.Equals(1) ? "upgraded" : "downgraded")} to {version}.");
+            }
+
+#if DEBUG // In debug configuration, always overwrite previous language files
+            doUpdate = true;
+#endif
+
+            // Update the Settings' version number
+            Settings.__VERSION__ = version;
+
+            // Check commandline arguments:  
+            bool overwriteLanguageConfigs = args.Any(arg => arg.Equals("--overwrite-language-configs", StringComparison.Ordinal));
             bool waitForMutex = args.Any(arg => arg.Equals("--wait-for-mutex", StringComparison.Ordinal));
 
-            AppDomain? appDomain = AppDomain.CurrentDomain;
-            string path = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+            LocalizationHelper locale = new(doUpdate || overwriteLanguageConfigs);
 
             // Multi instance gate
-            bool isNewInstance = false;
-            appMutex = new(true, appMutexIdentifier, out isNewInstance);
+            string mutexId = appMutexIdentifier;
 
-            if (!isNewInstance)
+            if (Settings.AllowMultipleDistinctInstances) // append the hash of the config's path to the mutex ID:
+                mutexId += ':' + HashFilePath(Settings.Location);
+
+            // Acquire mutex lock
+            bool isNewInstance = false;
+            appMutex = new Mutex(true, mutexId, out isNewInstance);
+
+            if (!isNewInstance) // Check if we acquired the mutex lock
             {
                 if (waitForMutex)
                 {
@@ -53,8 +81,8 @@ namespace VolumeControl
                 }
                 else
                 {
-                    Log.Fatal($"Failed to acquire mutex '{appMutexIdentifier}'; another instance of Volume Control (or the update utility) is currently running!");
-                    MessageBox.Show(Loc.Tr("VolumeControl.Dialogs.AnotherInstanceIsRunning", "Another instance of Volume Control is already running!"));
+                    Log.Fatal($"Failed to acquire a mutex lock using identifier '{mutexId}'; ", (Settings.AllowMultipleDistinctInstances ? $"another instance of Volume Control is using the config located at '{Settings.Location}'" : "another instance of Volume Control is already running!"));
+                    MessageBox.Show(Loc.Tr($"VolumeControl.Dialogs.AnotherInstanceIsRunning.{(Settings.AllowMultipleDistinctInstances ? "MultiInstance" : "SingleInstance")}", "Another instance of Volume Control is already running!").Replace("${PATH}", Settings.Location));
                     return;
                 }
             }
@@ -85,6 +113,7 @@ namespace VolumeControl
                 }
 
 #if DEBUG
+                Log.Dispose();
                 appMutex.ReleaseMutex();
                 appMutex.Dispose();
                 throw; //< rethrow in debug configuration
@@ -96,6 +125,30 @@ namespace VolumeControl
             Log.Dispose();
             appMutex.ReleaseMutex();
             appMutex.Dispose();
+        }
+
+        private static string HashFilePath(string path)
+        {
+            MD5 md5 = MD5.Create();
+
+            byte[] pathBytes = Encoding.UTF8.GetBytes(path.ToLower());
+            md5.TransformFinalBlock(Encoding.UTF8.GetBytes(path.ToLower()), 0, pathBytes.Length);
+
+            if (md5.Hash is not null)
+                return BitConverter.ToString(md5.Hash);
+            else return path;
+        }
+        private static string GetProgramLocation()
+        {
+            // Get the app domain & program location:  
+            AppDomain? appDomain = AppDomain.CurrentDomain;
+            return appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+        }
+        private static SemVersion GetProgramVersion()
+        {
+            var asm = Assembly.GetExecutingAssembly();
+            string myVersion = asm.GetCustomAttribute<AssemblyAttribute.ExtendedVersion>()?.Version ?? string.Empty;
+            return myVersion.GetSemVer() ?? new(0);
         }
 
         /// <summary>
@@ -113,7 +166,19 @@ namespace VolumeControl
             }
             using var sw = new StreamWriter($"volumecontrol-crash-{++count}.log");
 
+            string headerText = $"/// VOLUME CONTROL CRASH REPORT /// {Timestamp.Now(VolumeControl.Log.Enum.EventType.FATAL)} ///";
+            const int LEN = 120;
+
+            sw.WriteLine(new string('/', LEN));
+            sw.WriteLine();
+            sw.Write(new string(' ', (LEN / 2) - (headerText.Length / 2)));
+            sw.WriteLine(headerText);
+            sw.WriteLine();
+            sw.WriteLine(new string('/', LEN));
+            sw.WriteLine();
+
             sw.Write(content);
+
             sw.Flush();
             sw.Close();
 

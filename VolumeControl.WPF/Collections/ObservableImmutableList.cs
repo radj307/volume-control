@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -13,16 +14,17 @@ namespace VolumeControl.WPF.Collections
 #   pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #   pragma warning disable CS8604 // Possible null reference argument.
 #   pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+    [JsonArray]
     public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Private
-
+        [JsonExtensionData]
         private ImmutableList<T> _items;
 
         #endregion Private
 
         #region Constructors
-
+        [JsonConstructor]
         public ObservableImmutableList() : this(Array.Empty<T>(), LockTypeEnum.SpinWait)
         {
         }

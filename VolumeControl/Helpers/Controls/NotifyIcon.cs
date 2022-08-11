@@ -1,17 +1,16 @@
-﻿using CodingSeb.Localization;
+﻿using AppConfig;
 using System;
-using VolumeControl.Properties;
+using System.Collections.Generic;
+using System.Linq;
+using VolumeControl.TypeExtensions;
 
 namespace VolumeControl.Helpers.Controls
 {
     public class NotifyIcon : IDisposable
     {
-        #region Constructors
-        public NotifyIcon(string text, QueryMainWindowVisibleEventHandler queryVisibility)
+        public NotifyIcon()
         {
-            _queryMainWindowVisibleHandler = queryVisibility;
-
-            _contextMenu = new()
+            _contextMenuStrip = new()
             {
                 AutoClose = true,
                 AllowTransparency = true,
@@ -23,105 +22,85 @@ namespace VolumeControl.Helpers.Controls
                 DropShadowEnabled = true,
             };
 
-            DynamicButton = new System.Windows.Forms.ToolStripButton(string.Empty, Resources.reload)
-            {
-
-            };//< this is a placeholder that is dynamically swapped out later
-            _ = _contextMenu.Items.Add(DynamicButton);
-            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton(Loc.Tr("VolumeControl.NotifyIcon.BringToFront", "Bring to Front"), Resources.bringtofront, this.ForwardBringToFrontClicked));
-            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-            _ = _contextMenu.Items.Add(new System.Windows.Forms.ToolStripButton(Loc.Tr("VolumeControl.NotifyIcon.Close", "Close"), Resources.X, this.ForwardCloseButtonClicked));
-
             _notifyIcon = new()
             {
-                Visible = true,
-                Icon = Resources.iconSilvered,
-                Text = text,
-                ContextMenuStrip = _contextMenu,
+                ContextMenuStrip = _contextMenuStrip,
             };
 
-            _notifyIcon.MouseUp += this.ForwardClicked;
-
-            _contextMenu.VisibleChanged += this.HandleContextMenuVisibleChanged;
+            _notifyIcon.MouseUp += HandleNotifyIconClicked;
         }
-        #endregion Constructors
+        ~NotifyIcon() => this.Dispose();
 
-        #region Finalizer
-        ~NotifyIcon() { this.Dispose(); }
-        #endregion Finalizer
-
-        #region Delegates
-        public delegate bool QueryMainWindowVisibleEventHandler(object? sender, EventArgs e);
-        #endregion Delegates
+        public delegate bool Query();
 
         #region Fields
-        private readonly QueryMainWindowVisibleEventHandler _queryMainWindowVisibleHandler;
-
-        private System.Windows.Forms.NotifyIcon _notifyIcon;
-        private System.Windows.Forms.ContextMenuStrip _contextMenu;
+        protected System.Windows.Forms.NotifyIcon _notifyIcon;
+        protected System.Windows.Forms.ContextMenuStrip _contextMenuStrip;
         #endregion Fields
 
         #region Events
         public event EventHandler? Clicked;
-        private void ForwardClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
+        private void HandleNotifyIconClicked(object? sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (e.Button.HasFlag(System.Windows.Forms.MouseButtons.Left))
-                Clicked?.Invoke(sender, e);
+            if (e.Button.HasAnyFlag(MouseButtonsFireClickedEvent))
+                Clicked?.Invoke(this, EventArgs.Empty);
         }
-        /// <summary>Triggered when the close button is clicked.</summary>
-        public event EventHandler? CloseClicked;
-        private void ForwardCloseButtonClicked(object? sender, EventArgs e) => CloseClicked?.Invoke(sender, e);
-        /// <summary>Triggered when the show button is clicked.</summary>
-        public event EventHandler? ShowClicked;
-        private void ForwardShowClicked(object? sender, EventArgs e) => ShowClicked?.Invoke(sender, e);
-        /// <summary>Triggered when the hide button is clicked.</summary>
-        public event EventHandler? HideClicked;
-        private void ForwardHideClicked(object? sender, EventArgs e) => HideClicked?.Invoke(sender, e);
-        /// <summary>Triggered when the bring to front button is clicked.</summary>
-        public event EventHandler? BringToFrontClicked;
-        private void ForwardBringToFrontClicked(object? sender, EventArgs e) => BringToFrontClicked?.Invoke(sender, e);
         #endregion Events
 
         #region Properties
-        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.Text"/>
-        public string Text
+        public List<System.Windows.Forms.MouseButtons> MouseButtonsFireClickedEvent { get; set; } = new()
+        {
+            System.Windows.Forms.MouseButtons.Left
+        };
+        public System.Windows.Forms.ToolStripItemCollection Items => _contextMenuStrip.Items;
+        public bool Visible
+        {
+            get => _notifyIcon.Visible;
+            set => _notifyIcon.Visible = value;
+        }
+        public string Tooltip
         {
             get => _notifyIcon.Text;
             set => _notifyIcon.Text = value;
         }
-        /// <inheritdoc cref="System.Windows.Forms.NotifyIcon.Icon"/>
+        public bool ShowCheckMargin
+        {
+            get => _contextMenuStrip.ShowCheckMargin;
+            set => _contextMenuStrip.ShowCheckMargin = value;
+        }
+        public bool ShowImageMargin
+        {
+            get => _contextMenuStrip.ShowImageMargin;
+            set => _contextMenuStrip.ShowImageMargin = value;
+        }
+        public bool ShowItemToolTips
+        {
+            get => _contextMenuStrip.ShowItemToolTips;
+            set => _contextMenuStrip.ShowItemToolTips = value;
+        }
+        public System.Drawing.Color BackColor
+        {
+            get => _contextMenuStrip.BackColor;
+            set => _contextMenuStrip.BackColor = value;
+        }
+        public System.Drawing.Color ForeColor
+        {
+            get => _contextMenuStrip.ForeColor;
+            set => _contextMenuStrip.ForeColor = value;
+        }
+        public bool DropShadowEnabled
+        {
+            get => _contextMenuStrip.DropShadowEnabled;
+            set => _contextMenuStrip.DropShadowEnabled = value;
+        }
         public System.Drawing.Icon Icon
         {
             get => _notifyIcon.Icon;
             set => _notifyIcon.Icon = value;
         }
-        private readonly System.Windows.Forms.ToolStripItem DynamicButton;
         #endregion Properties
 
         #region Methods
-        private void HandleContextMenuVisibleChanged(object? sender, EventArgs e)
-        {
-            if (_queryMainWindowVisibleHandler(this, EventArgs.Empty))
-            { // window is visible
-                _contextMenu.SuspendLayout();
-                DynamicButton.Text = Loc.Tr("VolumeControl.NotifyIcon.Hide", "Hide");
-                DynamicButton.Image = Resources.background;
-                DynamicButton.Click -= this.ForwardShowClicked;
-                DynamicButton.Click += this.ForwardHideClicked;
-                _contextMenu.Refresh();
-                _contextMenu.ResumeLayout();
-            }
-            else
-            { // window is hidden
-                _contextMenu.SuspendLayout();
-                DynamicButton.Text = Loc.Tr("VolumeControl.NotifyIcon.Show", "Show");
-                DynamicButton.Image = Resources.foreground;
-                DynamicButton.Click -= this.ForwardHideClicked;
-                DynamicButton.Click += this.ForwardShowClicked;
-                _contextMenu.Refresh();
-                _contextMenu.ResumeLayout();
-            }
-        }
         /// <inheritdoc/>
         public void Dispose()
         {
@@ -132,12 +111,12 @@ namespace VolumeControl.Helpers.Controls
                 _notifyIcon.Dispose();
                 _notifyIcon = null!;
             }
-            if (_contextMenu != null)
+            if (_contextMenuStrip != null)
             {
-                _contextMenu.Visible = false;
-                _contextMenu.Items.Clear();
-                _contextMenu.Dispose();
-                _contextMenu = null!;
+                _contextMenuStrip.Visible = false;
+                _contextMenuStrip.Items.Clear();
+                _contextMenuStrip.Dispose();
+                _contextMenuStrip = null!;
             }
             GC.SuppressFinalize(this);
         }

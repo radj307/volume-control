@@ -30,6 +30,7 @@
     <Configurations>Debug;Release</Configurations>
     <!-- SETTINGS UPGRADE -->
     <AllowUpgradeConfig>true</AllowUpgradeConfig>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <!-- SETTINGS UPGRADE -->
   </PropertyGroup>
   <!-- SETTINGS UPGRADE ATTRIBUTES -->

@@ -20,19 +20,23 @@ namespace AppConfig
         /// Default Constructor.<br/>
         /// When <see cref="Default"/> is <see langword="null"/>, it is set to the newly-created instance.
         /// </summary>
-        public Configuration()
-        {
-            if (Default == null)
-                Default = this;
-        }
+        [JsonConstructor]
+        public Configuration() => Default ??= this;
         #endregion Constructors
 
         #region Properties
         /// <summary>
-        /// The default <see cref="Configuration"/>-derived instance.
+        /// The default <see cref="Configuration"/>-derived <see cref="object"/> instance.
         /// </summary>
         [JsonIgnore]
         public static Configuration Default { get; set; } = null!;
+        /// <summary>
+        /// Gets or sets the value of the property with the specified <paramref name="name"/>.<br/>
+        /// Note that this method does <b>not</b> have exception handling; any exceptions caused by passing invalid types must be caught by the caller.
+        /// </summary>
+        /// <param name="name">The name of a member property.<br/>
+        /// Valid entries are the names of properties from the <see cref="Configuration"/>-derived <see langword="object"/> type that is pointed to by the <see langword="static"/> <see cref="Configuration.Default"/> property.</param>
+        /// <returns>Value of the property specified by <paramref name="name"/> as an <see cref="object"/> type; otherwise <see langword="null"/> if the property wasn't found, or when the property was set to <see langword="null"/> itself.</returns>
         [SuppressPropertyChangedWarnings]
         public object? this[string name]
         {
@@ -46,6 +50,16 @@ namespace AppConfig
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
 #       pragma warning restore CS0067
+        /// <summary>
+        /// Triggered when the configuration is successfully loaded from the filesystem.
+        /// </summary>
+        public event EventHandler? Loaded;
+        private void NotifyLoaded() => Loaded?.Invoke(this, EventArgs.Empty);
+        /// <summary>
+        /// Triggered when the configuration is successfully saved to the filesystem.
+        /// </summary>
+        public event EventHandler? Saved;
+        private void NotifySaved() => Saved?.Invoke(this, EventArgs.Empty);
         #endregion Events
 
         #region Methods
@@ -55,7 +69,7 @@ namespace AppConfig
         /// </summary>
         /// <remarks>This method may be overloaded in derived classes.</remarks>
         /// <param name="other">Another <see cref="Configuration"/>-derived instance.</param>
-        public virtual void SetTo(Configuration other)
+        public void SetTo(Configuration other)
         {
             Type myType = this.GetType();
             Type otherType = other.GetType();
@@ -86,13 +100,14 @@ namespace AppConfig
         /// <remarks>This method may be overloaded in derived classes.</remarks>
         /// <param name="path">The location of the JSON file to read.<br/><b>This cannot be empty.</b></param>
         /// <returns><see langword="true"/> when the file specified by <paramref name="path"/> exists and was successfully loaded; otherwise <see langword="false"/>.</returns>
-        public virtual bool Load(string path)
+        protected bool Load(string path)
         {
-            if (path.Length == 0)
+            if (path.Length.Equals(0))
                 return false;
             if (JsonFile.Load(path, this.GetType()) is Configuration cfg)
             {
                 this.SetTo(cfg);
+                NotifyLoaded();
                 return true;
             }
             return false;
@@ -103,11 +118,12 @@ namespace AppConfig
         /// <remarks>This method may be overloaded in derived classes.</remarks>
         /// <param name="path">The location of the JSON file to write.<br/><b>This cannot be empty.</b></param>
         /// <param name="formatting">Formatting type to use when serializing this class instance.</param>
-        public virtual void Save(string path, Formatting formatting = Formatting.Indented)
+        protected void Save(string path, Formatting formatting = Formatting.Indented)
         {
             if (path.Length == 0)
                 return;
             JsonFile.Save(path, this, formatting);
+            NotifySaved();
         }
         #endregion Methods
     }
