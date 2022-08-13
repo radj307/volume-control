@@ -1189,7 +1189,6 @@
                 <TextBlock
                     Grid.Column="3"
                     FlowDirection="RightToLeft"
-                    MouseDown="Handle_CaptionUpdateClick"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}"
                     Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">

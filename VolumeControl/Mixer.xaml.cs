@@ -89,20 +89,6 @@ namespace VolumeControl
         /// <inheritdoc cref="VolumeControlSettings.ResetHotkeySettings"/>
         private void Handle_ResetHotkeysClick(object sender, RoutedEventArgs e) => this.VCSettings.ResetHotkeySettings();
 
-        /// <summary>Handles click events on the language datagrid's add button.</summary>
-        private void Handle_LanguageGridAddClick(object sender, RoutedEventArgs e) => Settings.CustomLocalizationDirectories.Add(string.Empty);
-        /// <summary>Handles click events on the language datagrid's remove buttons.</summary>
-        private void Handle_LanguageGridRemoveClick(object sender, RoutedEventArgs e)
-        {
-            if ((sender as Button)?.CommandParameter is string name)
-            {
-                int pos = Settings.CustomLocalizationDirectories.IndexOf(name);
-                if (pos != -1)
-                {
-                    _ = Settings.CustomLocalizationDirectories.RemoveAt(pos);
-                }
-            }
-        }
         private void Handle_BrowseForLogFilePathClick(object sender, RoutedEventArgs e)
         {
             string myDir = Path.GetDirectoryName(this.VCSettings.ExecutablePath) ?? string.Empty;
@@ -161,7 +147,6 @@ namespace VolumeControl
         private void Handle_MaximizeClick(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Maximized;
         private void Handle_CloseClick(object sender, RoutedEventArgs e) => this.Close();
         private void Handle_CheckForUpdatesClick(object sender, RoutedEventArgs e) => this.VCSettings.Updater.CheckNow();
-        private void Handle_CaptionUpdateClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => Updater.OpenBrowser(Updater._htmlURLLatest);
         private void Handle_LogFilterBoxSelectionChanged(object sender, SelectionChangedEventArgs e) => logFilterBox.SelectedItem = null;
         private void Handle_KeySelectorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
