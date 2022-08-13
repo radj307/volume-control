@@ -1,8 +1,8 @@
 name: Bug Report
 description: File a bug report
-title: "[BUG] "
+title: "[BUG] ..."
 labels: [ bug, triage ]
-assignees: [ radj307 ]
+assignees: []
 body:
   - type: markdown
     attributes:
@@ -10,7 +10,7 @@ body:
               Thank you for taking the time to fill out a bug report, your feedback helps us to improve your experience with our product!  
               
               The more fields you can fill out, the better our understanding of the problem and its underlying causes.  
-              If you feel a section doesn't apply or is already obvious from previous fields, skip them.
+              If you feel a section doesn't apply, is already obvious from previous fields, skip them.  
               
   - type: input
     id: version
@@ -40,7 +40,8 @@ body:
       label:        Expected Behaviour
       description:  |
                     [Optional]
-                    This gives us an idea of what we should do to fix the problem, and/or provides you with a way to suggest what you want to happen.
+                    This gives us an idea of what we should do to fix the problem, and/or provides you with a way to suggest what you want to happen.  
+                    *(That doesn't mean we **will** (or can) fix it in the exact way that you want, but it does shape the way that we approach the problem.)*
       placeholder:  I expected the program to do *that*
 
   - type: textarea
@@ -49,10 +50,8 @@ body:
       label:        Reproduction Steps
       description:  |
                     [Optional]
-                    This helps us replicate the conditions that led to the bug you experienced while running in a different environment.
-                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in most cases.
-                    
-                    You can optionally combine this with the log field below and use specific log events as reproduction steps instead of specifying both.
+                    This helps us replicate the conditions that led to the bug you experienced, so that we can observe the cause in a debugging environment.  
+                    While this is optional, it is highly encouraged since it cuts the amount of time needed to fix the problem by half in cases where the cause isn't obvious.
       placeholder:  |
                     1. While sitting in an office chair, begin spinning clockwise as fast as you can until you've fully rotated a total of 99 times.
                     2. Launch the program within a few seconds.
@@ -64,7 +63,7 @@ body:
       label:        Log
       description:  |
                     [Optional]
-                    This gives us an understanding of exactly what was happening when the problem occurred.
+                    This gives us an understanding of exactly what was happening when the problem occurred.  
                     
-                    **Discretion is advised when posting raw log contents - especially when the `DEBUG` or `INFO` log filters are enabled - as there may be references to potentially sensitive information like filepaths & audio device/session names.**  
+                    :warning: **Logs may contain personally-identifying information, especially when the `DEBUG`/`INFO` levels are enabled; use discretion when including them!**
       render:       shell
