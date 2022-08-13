@@ -18,7 +18,7 @@ body:
       label: Version
       description:  |
                     This tells us what version of the program we need to fix, and can be found to the left of the minimize & close buttons on the top bar.
-                    If the program won't start, R+Click on the executable and click ***Properties** -> **Details***; copy the `Product version` field.
+                    If the program won't start, R+Click on the executable and select **Properties**, then navigate to the **Details** tab. Enter the version number shown next to the `Product version` field here.
       placeholder: x.x.x
     validations:
       required: true
