@@ -991,6 +991,7 @@
                     </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
+                    <!--  Visual studio complains about this but it works so don't touch it:  -->
                     <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter TargetName="ExpanderSymbol" Property="Data" Value="M 4,4 H 10 Z" />
                     </DataTrigger>
@@ -1081,8 +1082,10 @@
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
                         <Setter Property="Foreground" Value="{StaticResource SelectionBorderBrush}" />
+                        <Setter Property="TextDecorations" Value="Underline" />
                     </DataTrigger>
                 </Style.Triggers>
+                <Setter Property="TextDecorations" Value="None" />
                 <Setter Property="BaselineAlignment" Value="Center" />
                 <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
             </Style>
@@ -1092,6 +1095,8 @@
 
             <!--  URIs  -->
             <sys:Uri x:Key="VolumeControlRepository">https://github.com/radj307/volume-control</sys:Uri>
+            <sys:Uri x:Key="VolumeControlReleases">https://github.com/radj307/volume-control/releases</sys:Uri>
+            <sys:Uri x:Key="VolumeControlLatestRelease">https://github.com/radj307/volume-control/releases/latest</sys:Uri>
             <sys:Uri x:Key="VolumeControlBugReport">https://github.com/radj307/volume-control/issues/new?assignees=radj307&amp;labels=bug%2Ctriage&amp;template=BugReport.yml&amp;title=%5BBUG%5D+</sys:Uri>
 
             <ImageSource x:Key="VolumeControlIcon">pack://application:,,,/Resources/images/icon.png</ImageSource>
@@ -1171,6 +1176,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <!--  LAYOUT  -->
                 <TextBlock
@@ -1182,40 +1188,68 @@
                     Text="{Binding Title, ElementName=window, Mode=OneWay}" />
                 <TextBlock
                     Grid.Column="3"
-                    HorizontalAlignment="Right"
-                    FontSize="10"
-                    FontWeight="Regular"
-                    Foreground="{StaticResource UpdateIconBrush}"
+                    FlowDirection="RightToLeft"
                     MouseDown="Handle_CaptionUpdateClick"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="▲"
                     ToolTip="{Binding UpdateVersion, Source={StaticResource Settings}, Mode=OneWay}"
-                    Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding UpdateAvailable, Source={StaticResource Settings}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Hyperlink
+                        extensions:HyperlinkExtensions.OpensInBrowser="True"
+                        NavigateUri="{StaticResource VolumeControlLatestRelease}"
+                        TextDecorations="None">
+                        <TextBlock
+                            FontSize="10"
+                            FontWeight="Regular"
+                            Foreground="{StaticResource UpdateIconBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="▲" />
+                    </Hyperlink>
+                </TextBlock>
                 <Label
                     x:Name="versionLabel"
                     Grid.Column="4"
                     HorizontalAlignment="Right"
-                    Content="{Binding CurrentVersionString, Source={StaticResource Settings}}"
+                    VerticalAlignment="Center"
                     FontFamily="Verdana"
-                    FontSize="11"
+                    FontSize="10.6"
                     FontWeight="Black"
                     Foreground="LightGray"
-                    Style="{StaticResource LabelStyle}" />
+                    Style="{StaticResource LabelStyle}">
+                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlRepository}">
+                        <TextBlock
+                            Foreground="LightGray"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{Binding CurrentVersionString, Source={StaticResource Settings}}" />
+                    </Hyperlink>
+                </Label>
                 <Button
                     Grid.Column="5"
-                    Click="Handle_MinimizeClick"
-                    Content="―"
-                    Style="{StaticResource CaptionButtonStyle}" />
+                    Cursor="Hand"
+                    FontSize="10"
+                    FontWeight="Thin"
+                    Style="{StaticResource CaptionButtonStyle}">
+                    <Hyperlink extensions:HyperlinkExtensions.OpensInBrowser="True" NavigateUri="{StaticResource VolumeControlBugReport}">
+                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="🐞" />
+                    </Hyperlink>
+                </Button>
                 <Button
                     Grid.Column="6"
+                    Click="Handle_MinimizeClick"
+                    Content="―"
+                    Cursor="Hand"
+                    Style="{StaticResource CaptionButtonStyle}" />
+                <Button
+                    Grid.Column="7"
                     Click="Handle_MaximizeClick"
                     Content="□"
+                    Cursor="Hand"
                     Style="{StaticResource CaptionButtonStyle}"
                     Visibility="Collapsed" />
                 <Button
-                    Grid.Column="7"
+                    Grid.Column="8"
                     Click="Handle_CloseClick"
                     Content="❌"
+                    Cursor="Hand"
                     Style="{StaticResource CaptionButtonStyle}" />
             </Grid>
             <!--  ^ Caption Bar ^  -->
@@ -1493,7 +1527,7 @@
                                                  DefaultText='Volume Step'}"
                                     Style="{StaticResource LabelStyle}"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
-                                                 DefaultText='This is the number of volume [apos]ticks[apos] that change each time you press the volume up or down hotkeys.'}" />
+                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}" />
                                 <controls:NumericUpDown
                                     x:Name="nudVolumeStepSize"
                                     MinWidth="55"
@@ -1502,8 +1536,8 @@
                                     MaxValue="100"
                                     MinValue="0"
                                     ToolTip="{Tr 'VolumeControl.MainWindow.Hotkeys.ControlRow.VolumeStep.Tooltip',
-                                                 DefaultText='This is the number of volume [apos]ticks[apos] that change each time you press the volume up or down hotkeys.'}"
-                                    Value="{Binding AudioAPI.VolumeStepSize, UpdateSourceTrigger=PropertyChanged}" />
+                                                 DefaultText='This is the number of volume ticks that change each time you press the volume up or down hotkeys.'}"
+                                    Value="{Binding AudioAPI.VolumeStepSize, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <Button
                                 Grid.Column="4"
@@ -1858,7 +1892,7 @@
                                                         MinValue="50"
                                                         ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Audio.AdditionalSettings.UpdateInterval.Tooltip',
                                                                      DefaultText='The amount of time, in milliseconds, between each update of the peak meters in the Mixer.'}"
-                                                        Value="{Binding PeakMeterUpdateIntervalMs, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Value="{Binding PeakMeterUpdateIntervalMs, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                                                 </DockPanel>
 
                                                 <DockPanel Margin="5,0,5,3" LastChildFill="True">
@@ -2135,7 +2169,7 @@
                                                 MinValue="100"
                                                 ToolTip="{Tr 'VolumeControl.MainWindow.Settings.Notifications.Timeout.Tooltip',
                                                              DefaultText='The amount of time in milliseconds that notifications will remain visible after being triggered.'}"
-                                                Value="{Binding NotificationTimeout, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
+                                                Value="{Binding NotificationTimeout, Mode=TwoWay, Source={StaticResource Settings}, UpdateSourceTrigger=PropertyChanged}" />
                                         </DockPanel>
                                     </Grid>
                                 </Grid>
