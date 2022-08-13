@@ -7,5 +7,6 @@ var dir_c8faa01943b2df236b00d6a9a62f8daf =
     [ "Corner.cs", null, null ],
     [ "MultiBindingBooleanConverter.cs", null, null ],
     [ "NullToBooleanConverter.cs", null, null ],
-    [ "SquaredCornerRadiusConverter.cs", null, null ]
+    [ "SquaredCornerRadiusConverter.cs", null, null ],
+    [ "TagDoubleConverter.cs", null, null ]
 ];

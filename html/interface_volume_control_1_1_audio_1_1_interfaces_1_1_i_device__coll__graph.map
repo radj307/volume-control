@@ -1,5 +1,5 @@
 <map id="VolumeControl.Audio.Interfaces.IDevice" name="VolumeControl.Audio.Interfaces.IDevice">
-<area shape="rect" id="node1" title="Represents an audio device." alt="" coords="17,131,249,281"/>
-<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_targetable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,100,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="124,5,301,83"/>
+<area shape="rect" id="node1" title="Represents an audio device." alt="" coords="86,189,318,296"/>
+<area shape="rect" id="node2" href="$interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_audio_controllable.html" title="Base interface type for IDevice and IProcess/ISession." alt="" coords="5,5,193,141"/>
+<area shape="rect" id="node3" title=" " alt="" coords="217,35,395,112"/>
 </map>

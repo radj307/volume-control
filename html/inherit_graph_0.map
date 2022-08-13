@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,180,61"/>
-<area shape="rect" id="node2" href="$class_project_path_attribute.html" title=" " alt="" coords="264,5,416,32"/>
-<area shape="rect" id="node3" href="$class_volume_control_1_1_core_1_1_attributes_1_1_allow_upgrade_config_attribute.html" title="This attribute can be attached to assemblies to indicate that any contained configuration files shoul..." alt="" coords="228,57,452,98"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,93,39"/>
+<area shape="rect" id="node2" href="$class_volume_control_1_1_audio_1_1_events_1_1_target_changing_event_args.html" title="Event arguments for the TargetChangingEventHandler event handler type." alt="" coords="141,5,352,47"/>
 </map>

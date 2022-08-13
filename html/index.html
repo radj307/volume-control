@@ -93,56 +93,45 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p><a href="https://radj307.github.io/volume-control"><img src="https://i.imgur.com/rMbNIhU.png" alt="[Volume Control Banner]" class="inline"/></a><br  />
  <a href="https://github.com/radj307/volume-control/releases/latest"><img src="https://img.shields.io/github/v/tag/radj307/volume-control?color=e8e8e7&amp;label=Latest%20Release&amp;logo=github&amp;logoColor=e8e8e7&amp;sort=semver&amp;style=flat-square" alt="GitHub tag (latest SemVer)" class="inline"/></a>&#160;&#160;&#160;<a href="https://github.com/radj307/volume-control/releases"><img src="https://img.shields.io/github/downloads/radj307/volume-control/total?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;style=flat-square" alt="Downloads" class="inline"/></a>&#160;&#160;&#160;<a href="https://github.com/radj307/volume-control-cli"><img src="https://img.shields.io/github/v/tag/radj307/volume-control-cli?color=e8e8e7&amp;logo=github&amp;logoColor=e8e8e7&amp;label=Latest%20VCCLI%20Version&amp;style=flat-square" alt="Volume Control CLI Latest Version" class="inline"/></a> </p>
 <hr  />
-<p>Simple, universal application-specific volume hotkeys &amp; more. <br  />
+<p>A universal, portable, and extensible hotkey framework that lets you control specific applications . <br  />
  Designed for adjusting the volume of your music independently of other programs, such as games and VoIP. <br  />
 </p>
-<h3><a class="anchor" id="autotoc_md22"></a>
-What it does</h3>
-<ul>
-<li>Adds completely user-configurable global hotkeys to Windows.<ul>
-<li>You can add, remove, and rename hotkeys, as well as configure the 'action' that they perform. <br  />
- This requires enabling *'Advanced Hotkey Mode'*, which is a fancy way of saying *'Check the box labelled '<b>Advanced Hotkeys</b>', which is located in the <b>Settings</b> tab'*</li>
-<li>The hotkey actions mentioned earlier are fairly diverse, and can be expanded in the form of <a href="https://radj307.github.io/volume-control">user-created plugins</a>.</li>
-</ul>
-</li>
-<li>Integrates a functionally superior alternative to the Windows Audio Mixer. <br  />
-<ul>
-<li>Includes volume slider trackbars and textboxes so you can specify a volume level with the keyboard.<ul>
-<li>Like the Windows Audio Mixer, you can do this with any running process independently at any time.</li>
-</ul>
-</li>
-<li>Allows you to specify the 'target' application using the mixer, in addition to the target switching hotkeys.</li>
-</ul>
-</li>
-</ul>
-<h3><a class="anchor" id="autotoc_md23"></a>
-Requirements</h3>
-<ul>
-<li>A keyboard.</li>
-</ul>
-<h4><a class="anchor" id="autotoc_md24"></a>
-Windows Version Compatibility</h4>
-<p>We've tested Volume Control on <b>Windows 10</b>, it should be compatible with any version of Windows since Vista, however this is untested. <br  />
-</p>
-<p><a class="anchor" id="autotoc_md25"></a></p><h5>Unconfirmed</h5>
-<p>If you use one of these operating systems, please fill out a <a href="https://github.com/radj307/volume-control/issues/new?assignees=radj307&amp;labels=os-support&amp;template=Compatibility.yml&amp;title=Windows+Version+Compatibility+Report&amp;version=Windows+Vista">compatibility report</a> form. <br  />
- *(If everything works it should take less than 30 seconds. If there is an issue, we'll fix it ASAP)*</p><ul>
-<li>Windows Vista</li>
-<li>Windows 7</li>
-<li>Windows 8</li>
-<li>Windows 8.1</li>
-<li>Windows 11</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
-Getting Started</h1>
-<h2><a class="anchor" id="autotoc_md27"></a>
-Installation</h2>
-<ul>
-<li>Download the <a href="https://github.com/radj307/volume-control/releases">latest release</a></li>
-<li>Save <code>VolumeControl.exe</code> to a location of your choice. <br  />
- If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that: <code>C:\Users\&lt;USERNAME&gt;\<a class="el" href="namespace_volume_control.html">VolumeControl</a>\VolumeControl.exe</code></li>
-</ul>
+<blockquote class="doxtable">
+<p></p>
+</blockquote>
+<h3><a class="anchor" id="autotoc_md27"></a>
+:new: Volume Control CLI</h3>
+<p>There is also a commandline version of Volume Control without the hotkeys. <br  />
+ It is intended for use in shell scripts, and allows you to control <b>both input and output</b> audio devices/sessions. <br  />
+ You can find it here: <a href="https://github.com/radj307/volume-control-cli">https://github.com/radj307/volume-control-cli</a> </p>
 <h2><a class="anchor" id="autotoc_md28"></a>
+What It Does</h2>
+<ul>
+<li>Makes your keyboard's volume slider useful</li>
+<li>Provides you with an alternative to media keys if you don't have them</li>
+<li>Adds a fully configurable hotkey framework that can be extended via <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">user-created addons</a></li>
+<li>Provides a superior alternative to Windows' Volume Mixer</li>
+<li>And more!</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md29"></a>
+How does it work?</h2>
+<p>Volume Control maintains the concept of a "**selected**" audio session - also called a "**target**" - that is used to specify which audio session you want to perform an action on. Some actions only affect the current target; others, such as the media key actions, simulate context-sensitive key presses; and others, such as the next/previous target hotkeys, simply switch to the next or previous target regardless of context. <br  />
+</p>
+<p>In Volume Control, a <em><b>hotkey</b></em> is just a combination of keys that can be made to execute an <em><b>action</b></em>. Any number of hotkeys can trigger the same action. <br  />
+</p>
+<p>A wide range of actions are provided by default, and you can add more via user-created addons.</p>
+<h1><a class="anchor" id="autotoc_md30"></a>
+Getting Started</h1>
+<p>Getting started is simple; download the <a href="https://github.com/radj307/volume-control/releases/latest">latest release</a>. <br  />
+</p>
+<h2><a class="anchor" id="autotoc_md31"></a>
+Installation</h2>
+<p>Because Volume Control is portable, there is no installation required. <br  />
+ Simply move <code>VolumeControl.exe</code> to a location of your choice, and run it. <br  />
+</p>
+<p>If you're unsure about where to choose as a location, create a directory in your user folder and place it inside of that: <br  />
+ <code>C:\Users\&lt;USERNAME&gt;\<a class="el" href="namespace_volume_control.html">VolumeControl</a>\VolumeControl.exe</code></p>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Setup</h2>
 <p>Before starting the program for the first time, you have to unblock the executable from the properties menu. <br  />
  This is necessary because Windows Defender requires a paying <em>&gt;$300</em> a year for a <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/get-a-code-signing-certificate">Microsoft-approved publishing certificate</a> in order to prevent Windows Defender from blocking it. <br  />
@@ -156,7 +145,7 @@ Setup</h2>
 <li>Click <b>Ok</b> to save the changes. <br  />
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Usage</h2>
 <p>First, enable the <b>Volume Up</b> &amp; <b>Volume Down</b> hotkeys from the <b>Hotkeys</b> tab by checking the box to the left of the hotkey name. If you don't have a volume slider, change the key from the dropdown. You can also set a modifier key with the checkboxes to the right of the dropdown.</p>
 <p><b>NOTE:</b> Hotkeys cannot be enabled if their associated key is set to <code>None</code>. <img src="https://i.imgur.com/Qvkev52.png" alt="View of the Hotkeys Tab" class="inline"/></p>
@@ -168,30 +157,14 @@ Usage</h2>
 <p><img src="https://i.imgur.com/jx8j1bC.png" alt="View of the Settings Tab" class="inline"/></p>
 <p>By enabling notifications, you will see a toast notification in the bottom right of your screen when you switch target sessions. This tells you which session is currently selected. Using the <b>Un/Lock Session</b> hotkey, you can prevent changing the targeted audio device. The border of the toast notification will be red when the currently targeted session is locked. You can press the hotkey again to unlock the session.</p>
 <p><img src="https://i.imgur.com/YWoXPxW.png" alt="View of the toast notification" class="inline"/> <img src="https://i.imgur.com/KOdYtGi.png" alt="View of the toast notification when an audio session is locked" class="inline"/></p>
-<p>If you want to add or remove hotkeys, you can press the <b>Advanced Hotkeys</b> button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the <b>Reset Hotkeys</b> button in the Settings tab. Note that this will also remove any additional hotkeys you have created. <br  />
+<p>If you want to add or remove hotkeys, you can press the <b>Edit Mode</b> button in the Settings tab to enable the advanced features. Now the Hotkeys tab will have additional customisability so you can create new hotkeys, and change the action of each hotkey when it is pressed. You can reset all hotkeys to their default value by pressing the <b>Reset Hotkeys</b> button in the Settings tab. Note that this will also remove any additional hotkeys you have created. <br  />
  <img src="https://i.imgur.com/JccOVnO.png" alt="View of the advanced hotkeys" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Addon Development</h2>
 <p>Want to develop an addon for Volume Control? <br  />
- <b>See the <a href="https://radj307.github.io/volume-control">github pages site</a> for instructions and API documentation.</b></p>
-<h1><a class="anchor" id="autotoc_md31"></a>
-VolumeControlCLI</h1>
-<p>Volume Control CLI has moved to <a href="https://github.com/radj307/volume-control-cli">its own repo</a> after I rewrote it in C++.</p>
-<h1><a class="anchor" id="autotoc_md32"></a>
-Contributing</h1>
-<p>If you want to improve/add a feature and you are familiar with C#, pull requests are always welcomed! <br  />
-</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
-Guidelines</h2>
-<p>Please follow these guidelines when submitting pull requests: <br  />
-</p><ul>
-<li>Briefly test the code to ensure that it can compile &amp; run. <br  />
-</li>
-<li>Format &amp; organize your code.</li>
-<li>Write/update documentation in <b><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">xmldoc format</a></b> for anything that is accessible via the SDK. <br  />
- If you're using Visual Studio, you will see compiler warnings for undocumented publicly-accessible objects/methods. <br  />
- </li>
-</ul>
+ Get started with the <a href="https://radj307.github.io/volume-control/html/md_docs__addon_development.html">tutorial</a>! <br  />
+ We also have doxygen-generated <a href="https://radj307.github.io/volume-control/html/annotated.html">API Documentation</a> available online. <br  />
+ </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

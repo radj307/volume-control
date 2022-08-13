@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['width_1105',['Width',['../struct_volume_control_1_1_w_p_f_1_1_p_invoke_1_1_r_e_c_t.html#ab455cf773c1712bf528f63a31a791fdc',1,'VolumeControl::WPF::PInvoke::RECT']]]
+  ['valid_1129',['Valid',['../class_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey.html#a3ac439e765b3c2603346c3508a85b476',1,'VolumeControl::Core::Keyboard::BindableHotkey']]],
+  ['volumecontroller_1130',['VolumeController',['../class_volume_control_1_1_audio_1_1_audio_session.html#a47b4dac491e85bfa34b16d876b9774d2',1,'VolumeControl::Audio::AudioSession']]]
 ];

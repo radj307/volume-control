@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['processidentifier_1092',['ProcessIdentifier',['../class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea',1,'VolumeControl::Audio::AudioSession']]],
-  ['properties_1093',['Properties',['../class_volume_control_1_1_audio_1_1_audio_device.html#acad01f956760d0a9cf7dfbf14bb20f7f',1,'VolumeControl::Audio::AudioDevice']]]
+  ['opensinbrowserproperty_1114',['OpensInBrowserProperty',['../class_volume_control_1_1_w_p_f_1_1_extensions_1_1_hyperlink_extensions.html#a27224cdd4d5b75778de5446dbf80bc22',1,'VolumeControl::WPF::Extensions::HyperlinkExtensions']]]
 ];

@@ -3,7 +3,7 @@ var namespace_volume_control_1_1_w_p_f =
     [ "Bindings", "namespace_volume_control_1_1_w_p_f_1_1_bindings.html", "namespace_volume_control_1_1_w_p_f_1_1_bindings" ],
     [ "Collections", "namespace_volume_control_1_1_w_p_f_1_1_collections.html", "namespace_volume_control_1_1_w_p_f_1_1_collections" ],
     [ "Converters", "namespace_volume_control_1_1_w_p_f_1_1_converters.html", "namespace_volume_control_1_1_w_p_f_1_1_converters" ],
-    [ "Markup", "namespace_volume_control_1_1_w_p_f_1_1_markup.html", "namespace_volume_control_1_1_w_p_f_1_1_markup" ],
+    [ "Extensions", "namespace_volume_control_1_1_w_p_f_1_1_extensions.html", "namespace_volume_control_1_1_w_p_f_1_1_extensions" ],
     [ "PInvoke", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke.html", "namespace_volume_control_1_1_w_p_f_1_1_p_invoke" ],
     [ "HWndHook", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook" ],
     [ "HWndHookWPFMaximizeBugFix", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix.html", "class_volume_control_1_1_w_p_f_1_1_h_wnd_hook_w_p_f_maximize_bug_fix" ],

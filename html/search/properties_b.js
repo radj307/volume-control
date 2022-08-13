@@ -1,10 +1,16 @@
 var searchData=
 [
-  ['mainwindowhwnd_1425',['MainWindowHWnd',['../class_volume_control_1_1_s_d_k_1_1_v_c_a_p_i.html#a2a75d3b383b4e17b66e89ddc53fa2f7d',1,'VolumeControl::SDK::VCAPI']]],
-  ['marginsegmentlength_1426',['MarginSegmentLength',['../interface_volume_control_1_1_log_1_1_interfaces_1_1_i_timestamp.html#a7d3fa12d669316ab36afe6b631f17e16',1,'VolumeControl::Log::Interfaces::ITimestamp']]],
-  ['max_1427',['Max',['../struct_volume_control_1_1_core_1_1_version_range.html#a008d3df3966a077730cae1444d5364ed',1,'VolumeControl::Core::VersionRange']]],
-  ['message_1428',['Message',['../class_volume_control_1_1_log_1_1_exception_message.html#a3b75d8a3f05999a8c112a0e1c49d910c',1,'VolumeControl.Log.ExceptionMessage.Message()'],['../struct_volume_control_1_1_log_1_1_log_writer_1_1_conditional_message.html#a0486bbd44655cd5baef35f7f4c21b024',1,'VolumeControl.Log.LogWriter.ConditionalMessage.Message()']]],
-  ['min_1429',['Min',['../struct_volume_control_1_1_core_1_1_version_range.html#a4d77dfc9820750ff5df9381a4d111abc',1,'VolumeControl::Core::VersionRange']]],
-  ['modifier_1430',['Modifier',['../class_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey.html#aea187fd78baeacaab30c9235076c5f92',1,'VolumeControl.Core.Keyboard.BindableHotkey.Modifier()'],['../struct_volume_control_1_1_core_1_1_keyboard_1_1_bindable_hotkey_json_wrapper.html#a83d335c7980a968bd5892b1d7ac93e10',1,'VolumeControl.Core.Keyboard.BindableHotkeyJsonWrapper.Modifier()'],['../class_volume_control_1_1_core_1_1_keyboard_1_1_hotkey.html#a377c8681d8003000085eadab40b93a06',1,'VolumeControl.Core.Keyboard.Hotkey.Modifier()'],['../interface_volume_control_1_1_core_1_1_keyboard_1_1_i_hotkey.html#a3ee9c232a712fa8059e733c001f1ba46',1,'VolumeControl.Core.Keyboard.IHotkey.Modifier()']]],
-  ['muted_1431',['Muted',['../class_volume_control_1_1_audio_1_1_audio_session.html#a0352c733c7ac9f3b1631bfeccd7f8ec0',1,'VolumeControl.Audio.AudioSession.Muted()'],['../interface_volume_control_1_1_audio_1_1_interfaces_1_1_i_session.html#ac049c7c862ed83061b35a4112f9f390a',1,'VolumeControl.Audio.Interfaces.ISession.Muted()']]]
+  ['languagename_1441',['LanguageName',['../class_volume_control_1_1_core_1_1_config.html#a3264ec7458bee9443d2f05192ced3e66',1,'VolumeControl::Core::Config']]],
+  ['largeicon_1442',['LargeIcon',['../class_volume_control_1_1_w_p_f_1_1_icon_pair.html#a40ecac0c6d86ef79a9a8eb51773aa250',1,'VolumeControl::WPF::IconPair']]],
+  ['lasteventtype_1443',['LastEventType',['../class_volume_control_1_1_log_1_1_log_writer.html#a7a8311bdb049a796df8c60540a979ae6',1,'VolumeControl::Log::LogWriter']]],
+  ['location_1444',['Location',['../class_app_config_1_1_configuration_file.html#aafaf2a02be5a770b043e3d0c8fb6cfa9',1,'AppConfig::ConfigurationFile']]],
+  ['lockselectedsession_1445',['LockSelectedSession',['../class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a',1,'VolumeControl::Audio::AudioAPI']]],
+  ['locktargetsession_1446',['LockTargetSession',['../class_volume_control_1_1_core_1_1_config.html#acc145bdcd9e96bb185cd648973619261',1,'VolumeControl::Core::Config']]],
+  ['log_1447',['Log',['../class_volume_control_1_1_log_1_1_f_log.html#affa9bfcea4468b27f8de4637eeb5a65f',1,'VolumeControl::Log::FLog']]],
+  ['logclearoninitialize_1448',['LogClearOnInitialize',['../class_volume_control_1_1_core_1_1_config.html#a1356c62149dc8fa8a99453c4034628eb',1,'VolumeControl::Core::Config']]],
+  ['logenablestacktrace_1449',['LogEnableStackTrace',['../class_volume_control_1_1_core_1_1_config.html#a58e4e90453a4ceb86150c89f81705c06',1,'VolumeControl::Core::Config']]],
+  ['logenablestacktracelinecount_1450',['LogEnableStackTraceLineCount',['../class_volume_control_1_1_core_1_1_config.html#a180697f9c32ad9a14cd231e7b34d59c8',1,'VolumeControl::Core::Config']]],
+  ['logfilter_1451',['LogFilter',['../class_volume_control_1_1_core_1_1_config.html#ac78c5ef8389147129e24142e0f0c0c12',1,'VolumeControl::Core::Config']]],
+  ['logpath_1452',['LogPath',['../class_volume_control_1_1_core_1_1_config.html#acbe505a5515122a1d1201081b6d5db8e',1,'VolumeControl::Core::Config']]],
+  ['logtimestampformat_1453',['LogTimestampFormat',['../class_volume_control_1_1_core_1_1_config.html#a74c9ee12b79934c2d3aeb21f78fc7abb',1,'VolumeControl::Core::Config']]]
 ];

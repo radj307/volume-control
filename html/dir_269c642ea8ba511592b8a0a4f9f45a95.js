@@ -6,6 +6,7 @@ var dir_269c642ea8ba511592b8a0a4f9f45a95 =
     [ "BaseAddon.cs", null, null ],
     [ "BaseAddonAttribute.cs", null, null ],
     [ "Config.cs", null, null ],
+    [ "GlobalSuppressions.cs", null, null ],
     [ "IBaseAddon.cs", null, null ],
     [ "IBaseAddonAttribute.cs", null, null ],
     [ "VersionRange.cs", null, null ]

@@ -103,12 +103,14 @@ $(document).ready(function(){initNavTree('class_volume_control_1_1_audio_1_1_aud
 <div class="dynheader">
 Inheritance diagram for VolumeControl.Audio.AudioAPI:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__inherit__graph.svg" width="518" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__inherit__graph.svg" width="518" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for VolumeControl.Audio.AudioAPI:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_volume_control_1_1_audio_1_1_audio_a_p_i__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -126,6 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a853939c68f8d75d087dd7a14819604c4"><td class="memItemLeft" align="right" valign="top"><a id="a853939c68f8d75d087dd7a14819604c4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a853939c68f8d75d087dd7a14819604c4">AudioAPI</a> ()</td></tr>
 <tr class="separator:a853939c68f8d75d087dd7a14819604c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4273f58196bc9ee32e81903fdff5ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#afc4273f58196bc9ee32e81903fdff5ed">SaveEnabledDevices</a> ()</td></tr>
+<tr class="memdesc:afc4273f58196bc9ee32e81903fdff5ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the Config.EnabledDevices property with the device IDs of all currently-enabled <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally....">AudioDevice</a> instances.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#afc4273f58196bc9ee32e81903fdff5ed">More...</a><br /></td></tr>
+<tr class="separator:afc4273f58196bc9ee32e81903fdff5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacaf1126bb40b289448d4172a6aae268"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aacaf1126bb40b289448d4172a6aae268">ForceReloadAudioDevices</a> ()</td></tr>
 <tr class="memdesc:aacaf1126bb40b289448d4172a6aae268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears and reloads all audio devices.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#aacaf1126bb40b289448d4172a6aae268">More...</a><br /></td></tr>
 <tr class="separator:aacaf1126bb40b289448d4172a6aae268"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,12 +222,12 @@ Properties</h2></td></tr>
 <tr class="memitem:a80a6b6c040d2fb453aa62b128a00265a"><td class="memItemLeft" align="right" valign="top">bool?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a">LockSelectedSession</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a80a6b6c040d2fb453aa62b128a00265a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevents <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a60c57eb078421ef96cd60193f9374b0c" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> from being modified.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a">More...</a><br /></td></tr>
 <tr class="separator:a80a6b6c040d2fb453aa62b128a00265a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d4d30f49330cfb39e24200dbcdfb82e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e">Target</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6d4d30f49330cfb39e24200dbcdfb82e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated string representation of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a60c57eb078421ef96cd60193f9374b0c" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a>'s <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">AudioSession.ProcessIdentifier</a> property.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e">More...</a><br /></td></tr>
-<tr class="separator:a6d4d30f49330cfb39e24200dbcdfb82e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a929962b6e37cf78a0dc4018bf2cbfb36"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a929962b6e37cf78a0dc4018bf2cbfb36">TargetGuid</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a929962b6e37cf78a0dc4018bf2cbfb36"><td class="mdescLeft">&#160;</td><td class="mdescRight">The target session's ISession.SessionInstanceIdentifier GUID.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a929962b6e37cf78a0dc4018bf2cbfb36">More...</a><br /></td></tr>
-<tr class="separator:a929962b6e37cf78a0dc4018bf2cbfb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21ed306abfeeb7604246406081af76da"><td class="memItemLeft" align="right" valign="top">string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da">Target</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a21ed306abfeeb7604246406081af76da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated string representation of <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a60c57eb078421ef96cd60193f9374b0c" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a>'s <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html#a356c261a4c345fc0c739c5e66e4e66ea">AudioSession.ProcessIdentifier</a> property.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da">More...</a><br /></td></tr>
+<tr class="separator:a21ed306abfeeb7604246406081af76da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5386fab231b69b43cb1713c8943fb84d"><td class="memItemLeft" align="right" valign="top">string?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5386fab231b69b43cb1713c8943fb84d">TargetGuid</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a5386fab231b69b43cb1713c8943fb84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The target session's ISession.SessionInstanceIdentifier GUID.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5386fab231b69b43cb1713c8943fb84d">More...</a><br /></td></tr>
+<tr class="separator:a5386fab231b69b43cb1713c8943fb84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b716d48a1745c28a9d5ae88009200b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5b716d48a1745c28a9d5ae88009200b2">VolumeStepSize</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a5b716d48a1745c28a9d5ae88009200b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The amount to increment or decrement volume when no direct value is provided, such as when triggering methods with hotkeys.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a5b716d48a1745c28a9d5ae88009200b2">More...</a><br /></td></tr>
 <tr class="separator:a5b716d48a1745c28a9d5ae88009200b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,10 +250,10 @@ Events</h2></td></tr>
 <tr class="memdesc:ab0c481ba302f60152c00bd4665556cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the value of the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a" title="Prevents SelectedSession from being modified.">LockSelectedSession</a> property is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab0c481ba302f60152c00bd4665556cfe">More...</a><br /></td></tr>
 <tr class="separator:ab0c481ba302f60152c00bd4665556cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17dc69fa9029c87f4d825c3041f7bbc3"><td class="memItemLeft" align="right" valign="top">TargetChangingEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3">TargetChanging</a></td></tr>
-<tr class="memdesc:a17dc69fa9029c87f4d825c3041f7bbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered before the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed, allowing for target validation.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3">More...</a><br /></td></tr>
+<tr class="memdesc:a17dc69fa9029c87f4d825c3041f7bbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered before the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed, allowing for target validation.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a17dc69fa9029c87f4d825c3041f7bbc3">More...</a><br /></td></tr>
 <tr class="separator:a17dc69fa9029c87f4d825c3041f7bbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a629bf396f71edf39c98b7b6d389b0af4"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; string &gt;?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a629bf396f71edf39c98b7b6d389b0af4">TargetChanged</a></td></tr>
-<tr class="memdesc:a629bf396f71edf39c98b7b6d389b0af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a629bf396f71edf39c98b7b6d389b0af4">More...</a><br /></td></tr>
+<tr class="memdesc:a629bf396f71edf39c98b7b6d389b0af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a629bf396f71edf39c98b7b6d389b0af4">More...</a><br /></td></tr>
 <tr class="separator:a629bf396f71edf39c98b7b6d389b0af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab74d94d0bcbcbb04c911ca90b07a4c65"><td class="memItemLeft" align="right" valign="top">PropertyChangedEventHandler?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab74d94d0bcbcbb04c911ca90b07a4c65">PropertyChanged</a></td></tr>
 <tr class="memdesc:ab74d94d0bcbcbb04c911ca90b07a4c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered when a member property's value is changed.  <a href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#ab74d94d0bcbcbb04c911ca90b07a4c65">More...</a><br /></td></tr>
@@ -569,7 +574,7 @@ When <code>false</code>, the first process with a matching ID or name is returne
 <dl class="section return"><dt>Returns</dt><dd>ISession if a session was found.<br  />
 Returns null if nothing was found.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00173">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00171">VolumeControl.Audio.AudioSession.ProcessName</a>.</p>
+<p class="reference">References <a class="el" href="#l00178">VolumeControl.Audio.AudioSession.PID</a>, and <a class="el" href="#l00176">VolumeControl.Audio.AudioSession.ProcessName</a>.</p>
 
 </div>
 </div>
@@ -726,7 +731,7 @@ This means any audio session objects you had previously saved a reference to wil
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of string types containing the requested properties from each session.</dd></dl>
 
-<p class="reference">References <a class="el" href="#l00173">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00175">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, and <a class="el" href="#l00171">VolumeControl.Audio.AudioSession.ProcessName</a>.</p>
+<p class="reference">References <a class="el" href="#l00178">VolumeControl.Audio.AudioSession.PID</a>, <a class="el" href="#l00180">VolumeControl.Audio.AudioSession.ProcessIdentifier</a>, and <a class="el" href="#l00176">VolumeControl.Audio.AudioSession.ProcessName</a>.</p>
 
 </div>
 </div>
@@ -795,6 +800,27 @@ Session volume can be any value from 0 to 100, and is <b>automatically</b> clamp
 </dl>
 
 <p class="reference">References <a class="el" href="#l00157">VolumeControl.Audio.AudioAPI.SelectedSession</a>.</p>
+
+</div>
+</div>
+<a id="afc4273f58196bc9ee32e81903fdff5ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4273f58196bc9ee32e81903fdff5ed">&#9670;&nbsp;</a></span>SaveEnabledDevices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeControl.Audio.AudioAPI.SaveEnabledDevices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the Config.EnabledDevices property with the device IDs of all currently-enabled <a class="el" href="class_volume_control_1_1_audio_1_1_audio_device.html" title="Represents an audio device endpoint. Note that this object cannot be constructed externally....">AudioDevice</a> instances. </p>
+
+<p class="reference">References <a class="el" href="#l00092">VolumeControl.Audio.AudioDevice.DeviceID</a>, <a class="el" href="#l00059">VolumeControl.Audio.AudioAPI.Devices</a>, <a class="el" href="#l00068">VolumeControl.Audio.AudioDevice.Enabled</a>, and <a class="el" href="#l00319">VolumeControl.Core.Config.EnabledDevices</a>.</p>
 
 </div>
 </div>
@@ -947,7 +973,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 <p>An observable list of all known audio devices. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00253">VolumeControl.Audio.AudioAPI.FindDevice()</a>, and <a class="el" href="#l00227">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00250">VolumeControl.Audio.AudioAPI.FindDevice()</a>, <a class="el" href="#l00242">VolumeControl.Audio.AudioAPI.ForceReloadAudioDevices()</a>, and <a class="el" href="#l00225">VolumeControl.Audio.AudioAPI.SaveEnabledDevices()</a>.</p>
 
 </div>
 </div>
@@ -973,7 +999,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 <p>Prevents <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a60c57eb078421ef96cd60193f9374b0c" title="The currently selected AudioSession, or null if nothing is selected.">SelectedSession</a> from being modified. </p>
 
-<p class="reference">Referenced by <a class="el" href="#l00593">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00531">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00562">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00562">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00500">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, and <a class="el" href="#l00531">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1026,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 <p>The currently selected <a class="el" href="class_volume_control_1_1_audio_1_1_audio_session.html" title="Represents an audio session playing on the system.">AudioSession</a>, or null if nothing is selected. </p>
 <p><a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a80a6b6c040d2fb453aa62b128a00265a" title="Prevents SelectedSession from being modified.">LockSelectedSession</a> must be false in order to change this.</p>
 
-<p class="reference">Referenced by <a class="el" href="#l00476">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00593">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00459">VolumeControl.Audio.AudioAPI.IncrementSessionVolume()</a>, <a class="el" href="#l00531">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00562">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00499">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, <a class="el" href="#l00446">VolumeControl.Audio.AudioAPI.SetSessionVolume()</a>, and <a class="el" href="#l00514">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#l00445">VolumeControl.Audio.AudioAPI.DecrementSessionVolume()</a>, <a class="el" href="#l00562">VolumeControl.Audio.AudioAPI.DeselectSession()</a>, <a class="el" href="#l00428">VolumeControl.Audio.AudioAPI.IncrementSessionVolume()</a>, <a class="el" href="#l00500">VolumeControl.Audio.AudioAPI.SelectNextSession()</a>, <a class="el" href="#l00531">VolumeControl.Audio.AudioAPI.SelectPreviousSession()</a>, <a class="el" href="#l00468">VolumeControl.Audio.AudioAPI.SetSessionMute()</a>, <a class="el" href="#l00415">VolumeControl.Audio.AudioAPI.SetSessionVolume()</a>, and <a class="el" href="#l00483">VolumeControl.Audio.AudioAPI.ToggleSessionMute()</a>.</p>
 
 </div>
 </div>
@@ -1028,8 +1054,8 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 </div>
 </div>
-<a id="a6d4d30f49330cfb39e24200dbcdfb82e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d4d30f49330cfb39e24200dbcdfb82e">&#9670;&nbsp;</a></span>Target</h2>
+<a id="a21ed306abfeeb7604246406081af76da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21ed306abfeeb7604246406081af76da">&#9670;&nbsp;</a></span>Target</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,7 +1064,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string VolumeControl.Audio.AudioAPI.Target</td>
+          <td class="memname">string? VolumeControl.Audio.AudioAPI.Target</td>
         </tr>
       </table>
   </td>
@@ -1053,8 +1079,8 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
 
 </div>
 </div>
-<a id="a929962b6e37cf78a0dc4018bf2cbfb36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a929962b6e37cf78a0dc4018bf2cbfb36">&#9670;&nbsp;</a></span>TargetGuid</h2>
+<a id="a5386fab231b69b43cb1713c8943fb84d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5386fab231b69b43cb1713c8943fb84d">&#9670;&nbsp;</a></span>TargetGuid</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1063,7 +1089,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string VolumeControl.Audio.AudioAPI.TargetGuid</td>
+          <td class="memname">string? VolumeControl.Audio.AudioAPI.TargetGuid</td>
         </tr>
       </table>
   </td>
@@ -1194,7 +1220,7 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed. </p>
+<p>Triggered when the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed. </p>
 
 </div>
 </div>
@@ -1210,8 +1236,8 @@ Returns <code>null</code> when there is no selected session.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered before the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed, allowing for target validation. </p>
-<p>Note that this is triggered <b>before</b> the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621" title="Triggered before a member property&#39;s value is changed.">PropertyChanging</a> event for <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a6d4d30f49330cfb39e24200dbcdfb82e" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a>.<br  />
+<p>Triggered before the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a> property is changed, allowing for target validation. </p>
+<p>Note that this is triggered <b>before</b> the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621" title="Triggered before a member property&#39;s value is changed.">PropertyChanging</a> event for <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a21ed306abfeeb7604246406081af76da" title="Refers to the text in the target text box on the mixer tab - that is, it is a potentially-unvalidated...">Target</a>.<br  />
 If this event cancels the change, the <a class="el" href="class_volume_control_1_1_audio_1_1_audio_a_p_i.html#a8bd47020f22e6cab1bb34a51ca1d4621" title="Triggered before a member property&#39;s value is changed.">PropertyChanging</a> event is not fired.</p>
 
 </div>
